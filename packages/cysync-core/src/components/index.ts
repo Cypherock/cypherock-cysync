@@ -19,4 +19,3 @@ export * from './DeviceAuthenticating';
 export * from './BetaNotificationBar';
 export * from './LangDropdown';
 export * from './DeleteAccount';
-export * from './InheritancePageLayout';

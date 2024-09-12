@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import React from 'react';
+
 import {
   ClockIcon,
   EmailIconSmall,
@@ -35,6 +36,16 @@ export const Default: Story = {
     headerLeading: goldWalletIcon,
     headerText: 'MyFunnyWallet',
     headerTrailing: editButton,
+    $backgroundType: 'gold',
+  },
+};
+
+export const HeaderOnly: Story = {
+  args: {
+    headerLeading: goldWalletIcon,
+    headerText: 'MyFunnyWallet',
+    headerTrailing: editButton,
+    headerOnly: true,
     $backgroundType: 'gold',
   },
 };

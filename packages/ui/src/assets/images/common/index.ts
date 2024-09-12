@@ -19,6 +19,7 @@ import confirmIcon from './confirm.svg';
 import goldCopyIcon from './copy-gold.svg';
 import copyIcon from './copy.png';
 import createWalletGraphics from './create-wallet-graphics.png';
+import cypherockCoverIcon from './cypherock-cover-icon.svg';
 import cypherockRedIcon from './cypherock-red.svg';
 import cysyncLockedLogo from './cysync-locked.svg';
 import dashWalletDefaultBgIcon from './dash-wallet-default-bg-icon.svg';
@@ -35,6 +36,7 @@ import expireHoverWalletIcon from './expire-hover-wallet-icon.svg';
 import { FailIcon } from './FailIcon';
 import goldHoverWalletIcon from './gold-hover-wallet-icon.svg';
 import goldSendIcon from './gold-send.svg';
+import goldTick from './gold-tick.svg';
 import goldFail from './gold_fail.svg';
 import greenTick from './green-tick.svg';
 import halfLoaderGold from './half-loader-gold.svg';
@@ -59,6 +61,7 @@ import openExternalLink from './open-external-link.svg';
 import qrImage from './qr.png';
 import qrcodeIcon from './qrcode.svg';
 import questionMarkGoldIcon from './question-gold.svg';
+import questionMarkEllipseIcon from './question-mark-ellipse-icon.svg';
 import questionMarkIcon from './question-mark.svg';
 import recoverWalletFromSeedphraseGraphics from './recover-wallet-from-seedphrase-graphics.png';
 import recoverWalletIcon from './recover-wallet.png';
@@ -68,10 +71,12 @@ import { ServerErrorIcon } from './ServerErrorIcon';
 import settingsIcon from './settings.svg';
 import { SettingsWrongIcon } from './SettingsWrongIcon';
 import shieldAlert from './shield-alert.svg';
+import silverTickIcon from './silver-tick-icon.png';
 import sliderThumbIcon from './slider-thumb.svg';
 import solanaIcon from './solana.svg';
 import spinnerGoldIcon from './spinner-gold.svg';
 import successIcon from './success.svg';
+import syncIcon from './sync-icon.svg';
 import tetherIcon from './tether.svg';
 import triangleInverseIcon from './triangle-inverse-icon.svg';
 import triangleGreyIcon from './triangleGrey.svg';
@@ -85,6 +90,7 @@ import WalletHoverExpiredIcon from './wallet-hover-expired-icon.svg';
 import WalletHoverSilverBgIcon from './wallet-silver-hover-bg.svg';
 import walletIcon from './wallet.svg';
 import warningIcon from './warning.svg';
+import confirmOnDevice from './confirm-on-device.png';
 import clearDeviceData from './clear-device-data.png';
 import confirmDeviceSettings from './confirm-device-settings.png';
 import verifyPinOnDevice from './verify-pin-on-device.png';
@@ -177,6 +183,12 @@ export {
   oneInMany2Default,
   manyInManyBgImage,
   manyInManyHoverBgImage,
+  questionMarkEllipseIcon,
+  syncIcon,
+  cypherockCoverIcon,
+  goldTick,
+  confirmOnDevice,
+  silverTickIcon,
   clearDeviceData,
   confirmDeviceSettings,
   verifyPinOnDevice,

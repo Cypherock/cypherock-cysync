@@ -16,6 +16,7 @@ export interface NomineeMessageProps extends WidthProps {
   variant?: NomineeMessageVariant;
   withBackground?: boolean;
   isHeader?: boolean;
+  centerText?: boolean;
 }
 
 const StyledNomineeMessage = styled.div<{ $withBackground: boolean }>`
@@ -41,9 +42,14 @@ export const NomineeMessage: FC<NomineeMessageProps> = ({
   variant,
   withBackground,
   isHeader: withHeaderFont,
+  centerText,
 }) => (
   <StyledNomineeMessage $withBackground={withBackground ?? false}>
-    <Flex gap={16} align="center">
+    <Flex
+      gap={16}
+      align="center"
+      {...(centerText ? { $flex: 1, width: '100%', justify: 'center' } : {})}
+    >
       {leading}
       <Typography
         color={(variant && variantColorMap[variant]) ?? 'muted'}
@@ -54,12 +60,14 @@ export const NomineeMessage: FC<NomineeMessageProps> = ({
         {label}
       </Typography>
     </Flex>
-    <Flex gap={16} align="center">
-      <Typography color={(variant && variantColorMap[variant]) ?? 'white'}>
-        {value}
-      </Typography>
-      {trailing}
-    </Flex>
+    {!centerText && (
+      <Flex gap={16} align="center">
+        <Typography color={(variant && variantColorMap[variant]) ?? 'white'}>
+          {value}
+        </Typography>
+        {trailing}
+      </Flex>
+    )}
   </StyledNomineeMessage>
 );
 
@@ -70,4 +78,5 @@ NomineeMessage.defaultProps = {
   variant: undefined,
   withBackground: undefined,
   isHeader: undefined,
+  centerText: false,
 };

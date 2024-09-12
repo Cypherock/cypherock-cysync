@@ -7,7 +7,7 @@ import {
   DialogBoxHeader,
 } from './DialogBox';
 
-import { successIcon } from '../../../assets/images';
+import { goldTick, successIcon } from '../../../assets/images';
 import {
   Typography,
   LangDisplay,
@@ -19,12 +19,14 @@ import {
 } from '../../atoms';
 import { SpacingProps } from '../../utils';
 import { AlertBox } from '../AlertBox';
+import { ConfettiBlast } from '../ConfettiBlast';
 
 export interface SuccessDialogProps {
   title: string;
   subtext?: string;
   headerText?: string;
   buttonText?: string;
+  variant?: keyof typeof TickIconVariantMap;
   secondaryButtonText?: string;
   alertText?: string;
   handleClick?: () => void;
@@ -35,7 +37,14 @@ export interface SuccessDialogProps {
   headerType?: TypographyProps['variant'];
   bodyBottomPadding?: SpacingProps['pb'];
   showCloseBtn?: boolean;
+  icon?: React.ReactNode;
+  withConfetti?: boolean;
 }
+
+const TickIconVariantMap = {
+  default: successIcon,
+  gold: goldTick,
+};
 
 export const SuccessDialog: React.FC<SuccessDialogProps> = ({
   title,
@@ -52,12 +61,16 @@ export const SuccessDialog: React.FC<SuccessDialogProps> = ({
   headerType,
   bodyBottomPadding,
   showCloseBtn,
+  icon,
+  withConfetti,
+  variant = 'default',
 }) => (
   <DialogBox
     width={width}
     onClose={onClose}
     dontCloseOnEscape={dontCloseOnEscape}
   >
+    {withConfetti && <ConfettiBlast />}
     {(headerText || showCloseBtn) && (
       <DialogBoxHeader
         height={56}
@@ -76,7 +89,7 @@ export const SuccessDialog: React.FC<SuccessDialogProps> = ({
       </DialogBoxHeader>
     )}
     <DialogBoxBody pb={bodyBottomPadding}>
-      <Image src={successIcon} alt="Success Icon" />
+      {icon ?? <Image src={TickIconVariantMap[variant]} alt="Success Icon" />}
       <Container display="flex" direction="column" gap={4}>
         <Typography variant={headerType} $textAlign="center">
           <LangDisplay text={title} />
@@ -119,4 +132,7 @@ SuccessDialog.defaultProps = {
   headerType: 'h4',
   bodyBottomPadding: undefined,
   showCloseBtn: false,
+  icon: undefined,
+  withConfetti: false,
+  variant: 'default',
 };
