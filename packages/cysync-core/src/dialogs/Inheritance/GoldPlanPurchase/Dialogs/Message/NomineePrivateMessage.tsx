@@ -11,6 +11,7 @@ import {
   Typography,
 } from '@cypherock/cysync-ui';
 import React from 'react';
+import { tabIndicies } from '~/dialogs/Inheritance/GoldPlanPurchase/context/useDialogHandler';
 
 import { selectLanguage, useAppSelector } from '~/store';
 
@@ -22,16 +23,31 @@ export const NomineePrivateMessageInput = () => {
 
   const strings = lang.strings.inheritanceGoldPlanPurchase.message;
 
-  const { goTo } = useInheritanceGoldPlanPurchaseDialog();
+  const {
+    onPrevious,
+    onNext,
+    cardLocation,
+    setCardLocation,
+    personalMessage,
+    setPersonalMessage,
+    haveExecutor,
+    goTo,
+  } = useInheritanceGoldPlanPurchaseDialog();
 
   return (
     <Layout
       footerComponent={
         <>
-          <Button onClick={() => goTo(6, 0)} variant="secondary">
+          <Button onClick={() => onPrevious()} variant="secondary">
             <LangDisplay text={lang.strings.buttons.back} />
           </Button>
-          <Button onClick={() => goTo(6, 2)} variant="primary">
+          <Button
+            onClick={() => {
+              if (haveExecutor) onNext();
+              else goTo(tabIndicies.reminder.tabNumber, 0);
+            }}
+            variant="primary"
+          >
             <LangDisplay text={lang.strings.buttons.continue} />
           </Button>
         </>
@@ -68,6 +84,8 @@ export const NomineePrivateMessageInput = () => {
         <TextAreaInput
           placeholder={strings.nominee.form.locationField.placeholder}
           height={120}
+          value={cardLocation}
+          onChange={setCardLocation}
         />
         <Flex direction="column" $flex={1} width="100%">
           <Flex>
@@ -83,6 +101,8 @@ export const NomineePrivateMessageInput = () => {
           </Flex>
           <TextAreaInput
             placeholder={strings.nominee.form.personalMessage.placeholder}
+            value={personalMessage}
+            onChange={setPersonalMessage}
             height={120}
           />
         </Flex>

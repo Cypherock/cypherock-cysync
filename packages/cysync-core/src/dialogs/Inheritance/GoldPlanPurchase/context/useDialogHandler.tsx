@@ -71,11 +71,13 @@ export const tabIndicies = {
     dialogs: {
       nomineeCountSelect: 0,
       firstNomineeDetails: 1,
-      firstNomineeVerifyOtp: 2,
-      secondNomineeDetails: 3,
-      secondNomineeVerifyOtp: 4,
-      executorSelect: 5,
-      executorDetails: 6,
+      firstNomineeConfirmOtp: 2,
+      firstNomineeVerifyOtp: 3,
+      secondNomineeDetails: 4,
+      secondNomineeConfirmOtp: 5,
+      secondNomineeVerifyOtp: 6,
+      executorSelect: 7,
+      executorDetails: 8,
     },
   },
   message: {
@@ -83,7 +85,7 @@ export const tabIndicies = {
     dialogs: {
       video: 0,
       personalMessageInput: 1,
-      executorMessageInput: 1,
+      executorMessageInput: 2,
     },
   },
   reminder: {
@@ -132,11 +134,11 @@ export const useGoldPlanDialogHanlders = () => {
     () => [
       {
         name: lang.strings.inheritance.termsOfService.title,
-        dialogs: [<Terms key="Terms" />, <Ensure key="Ensure" />],
+        dialogs: [<Terms key="Terms" />],
       },
       {
         name: lang.strings.inheritanceGoldPlanPurchase.instructions.heading,
-        dialogs: [<Instructions key="Instructions" />],
+        dialogs: [<Ensure key="Ensure" />, <Instructions key="Instructions" />],
       },
       {
         name: lang.strings.inheritanceGoldPlanPurchase.wallet.heading,
@@ -159,9 +161,12 @@ export const useGoldPlanDialogHanlders = () => {
           .heading,
         dialogs: [
           <Nominee key="Nominee" />,
-          <NomineeDetails key="Nominee Details" />,
-          <ConfirmNomineeVerification key="Confirm Nominee Verification" />,
-          <VerifyNomineeOtp key="Verify Nominee Otp" />,
+          <NomineeDetails key="Nominee Details First" index={0} />,
+          <ConfirmNomineeVerification key="Confirm Nominee Verification First" />,
+          <VerifyNomineeOtp key="Verify Nominee Otp First" />,
+          <NomineeDetails key="Nominee Details Second" index={1} />,
+          <ConfirmNomineeVerification key="Confirm Nominee Verification Second" />,
+          <VerifyNomineeOtp key="Verify Nominee Otp Second" />,
           <SelectExecutor key="Confirm Executor" />,
           <ExecutorDetails key="Executor Details" />,
         ],

@@ -1,6 +1,6 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
 import PropTypes from 'prop-types';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { styled } from 'styled-components';
 
 import {
@@ -15,10 +15,14 @@ import { WidthProps, width } from '../utils';
 
 export type OneInManyStyleType = '1' | '2';
 
-export interface OneInManyProps extends WidthProps {
+interface OneInManyStyledContainerProps extends WidthProps {
+  $styleType: OneInManyStyleType;
+}
+export interface OneInManyProps extends OneInManyStyledContainerProps {
   title: string;
   description: string;
-  $styleType: OneInManyStyleType;
+  onClick?: () => void;
+  isSelected?: boolean;
 }
 
 interface BgStyleProps {
@@ -168,7 +172,7 @@ const getBgStyleMap: Record<
 };
 
 const StyledContainer = styled.div<
-  Omit<OneInManyProps, 'title' | 'description'> & { $isSelected: boolean }
+  OneInManyStyledContainerProps & { $isSelected: boolean }
 >`
   position: relative;
   border: 1px solid
@@ -233,16 +237,25 @@ export const OneInMany: React.FC<OneInManyProps> = ({
   title,
   description,
   $styleType,
+  onClick,
+  isSelected: isSelectedOverride,
   ...restProps
 }) => {
-  const [isSelected, setIsSelected] = useState(false);
+  const [isSelected, setIsSelected] = useState(isSelectedOverride ?? false);
+
+  useEffect(() => {
+    if (isSelectedOverride !== undefined) setIsSelected(isSelectedOverride);
+  }, [isSelectedOverride]);
 
   return (
     <StyledContainer
-      $isSelected={isSelected}
+      $isSelected={isSelectedOverride ?? isSelected}
       $styleType={$styleType}
-      onClick={() => setIsSelected(!isSelected)}
-      {...restProps}
+      onClick={() => {
+        onClick?.();
+        setIsSelected(!isSelected);
+      }}
+      {...(restProps as Partial<OneInManyStyledContainerProps>)}
     >
       <Flex align="center" direction="row" height="100%" mx="32px">
         <StyledTitle>{title}</StyledTitle>
@@ -256,4 +269,9 @@ OneInMany.propTypes = {
   title: PropTypes.string.isRequired,
   description: PropTypes.string.isRequired,
   $styleType: PropTypes.oneOf<OneInManyStyleType>(['1', '2']).isRequired,
+};
+
+OneInMany.defaultProps = {
+  onClick: undefined,
+  isSelected: undefined,
 };

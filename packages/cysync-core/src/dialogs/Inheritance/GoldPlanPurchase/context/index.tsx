@@ -10,6 +10,7 @@ import React, {
   useContext,
   useMemo,
   useState,
+  useEffect,
 } from 'react';
 import { routes } from '~/constants';
 
@@ -76,21 +77,17 @@ export const InheritanceGoldPlanPurchaseDialogProvider: FC<
     ];
   }, [wallets, deletedWallets]);
 
-  const [userDetails, setUserDetails] = useState<IUserDetails | undefined>();
-  const [nomineeDetails, setNomineeDetails] = useState<
-    IUserDetails | undefined
-  >();
   const [executorDetails, setExecutorDetails] = useState<
     IUserDetails | undefined
   >();
+  const [haveExecutor, setHaveExecutor] = useState(false);
   const [selectedWallet, setSelectedWallet] = useState<IWallet | undefined>();
-  const [isSubmittingUserDetails, setIsSubmittingUserDetails] = useState(false);
   const [isSubmittingExecutorDetails, setIsSubmittingExecutorDetails] =
     useState(false);
   const [isSubmittingNomineeDetails, setIsSubmittingNomineeDetails] =
     useState(false);
   const [unhandledError, setUnhandledError] = useState<any>();
-  const [nomineeCount, setNomineeCount] = useState(1);
+  const [nomineeCount, setNomineeCount, nomineeCountRef] = useStateWithRef(1);
 
   const navigateTo = useNavigateTo();
 
@@ -101,22 +98,36 @@ export const InheritanceGoldPlanPurchaseDialogProvider: FC<
     { heading: string; subtext: string } | undefined
   >();
   const [couponDuration, setCouponDuration] = useState(0);
+  const [nomineeDetails, setNomineeDetails] = useState<
+    Record<number, IUserDetails>
+  >({});
 
-  const onUserDetailsSubmit = useCallback(async (params: IUserDetails) => {
-    setIsSubmittingUserDetails(true);
-    setUserDetails(params);
-    await sleep(2000);
-    setIsSubmittingUserDetails(false);
-    goTo(4, 1);
-  }, []);
+  useEffect(() => {
+    console.log({ nomineeRecord: nomineeDetails });
+  }, [nomineeDetails]);
 
-  const onNomineeDetailsSubmit = useCallback(async (params: IUserDetails) => {
+  const onNomineeDetailsSubmit = async (
+    params: IUserDetails,
+    index: number,
+  ) => {
     setIsSubmittingNomineeDetails(true);
-    setNomineeDetails(params);
-    await sleep(2000);
+    setNomineeDetails(nominees => {
+      nominees[index] = params;
+      return nominees;
+    });
     setIsSubmittingNomineeDetails(false);
-    goTo(5, 2);
-  }, []);
+
+    // TODO: use the opt confirmation and verification screens when implemented on server
+    let nextDialog = tabIndicies.nominieeAndExecutor.dialogs.executorSelect;
+    if (nomineeCountRef.current === 2 && index === 0)
+      nextDialog = tabIndicies.nominieeAndExecutor.dialogs.secondNomineeDetails;
+
+    goTo(tabIndicies.nominieeAndExecutor.tabNumber, nextDialog);
+  };
+  const onExecutorSelected = useCallback(() => {
+    if (haveExecutor) onNext();
+    else goTo(tabIndicies.message.tabNumber, tabIndicies.message.dialogs.video);
+  }, [haveExecutor]);
 
   const onExecutorDetailsSubmit = useCallback(async (params: IUserDetails) => {
     setIsSubmittingExecutorDetails(true);
@@ -180,8 +191,7 @@ export const InheritanceGoldPlanPurchaseDialogProvider: FC<
       return;
     }
 
-    // TODO: Remove hard coded message when empty encryption is implemented on device
-    encryptMessageService.start(selectedWallet.__id, ['Delete me!']);
+    encryptMessageService.start(selectedWallet.__id, []);
   }, [selectedWallet, encryptMessageService.start]);
 
   const setupPlanHandler = useCallback(async () => {
@@ -306,6 +316,7 @@ export const InheritanceGoldPlanPurchaseDialogProvider: FC<
       const isSuccess = await walletAuthService.registerUser(params);
 
       if (isSuccess) {
+        setUserDetails(params);
         goTo(tabIndicies.owner.tabNumber, tabIndicies.owner.dialogs.verifyOtp);
       }
     },
@@ -408,6 +419,11 @@ export const InheritanceGoldPlanPurchaseDialogProvider: FC<
     onClose();
   }, [isSetupPlanCompleted, isCouponActivated, onClose]);
 
+  const [personalMessage, setPersonalMessage] = useState('');
+  const [cardLocation, setCardLocation] = useState('');
+  const [executorMessage, setExecutorMessage] = useState('');
+  const [userDetails, setUserDetails] = useState<IUserDetails>();
+
   const ctx = useMemoReturn({
     onNext: onNextCallback,
     onPrevious: onPreviousCallback,
@@ -457,17 +473,24 @@ export const InheritanceGoldPlanPurchaseDialogProvider: FC<
     removeCoupon,
     applyingCouponError,
     couponDuration,
-    onUserDetailsSubmit,
-    isSubmittingUserDetails,
-    userDetails,
     onNomineeDetailsSubmit,
     isSubmittingNomineeDetails,
     onExecutorDetailsSubmit,
     isSubmittingExecutorDetails,
     executorDetails,
-    nomineeDetails,
     nomineeCount,
     setNomineeCount,
+    haveExecutor,
+    setHaveExecutor,
+    onExecutorSelected,
+    personalMessage,
+    setPersonalMessage,
+    cardLocation,
+    setCardLocation,
+    executorMessage,
+    setExecutorMessage,
+    nomineeDetails,
+    userDetails,
   });
 
   return (

@@ -5,9 +5,10 @@ import { selectLanguage, useAppSelector } from '~/store';
 
 import { UserDetailsForm } from '../../components';
 import { useInheritanceGoldPlanPurchaseDialog } from '../../context';
+import { tabIndicies } from '../../context/useDialogHandler';
 import { Layout } from '../../Layout';
 
-export const NomineeDetails = () => {
+export const NomineeDetails: React.FC<{ index: number }> = ({ index }) => {
   const lang = useAppSelector(selectLanguage);
 
   const [name, setName] = useState('');
@@ -16,21 +17,30 @@ export const NomineeDetails = () => {
 
   const { form } = lang.strings.inheritanceGoldPlanPurchase.email.userDetails;
   const strings =
-    lang.strings.inheritanceGoldPlanPurchase.nomineeAndExecutor.nomineeDetails;
+    lang.strings.inheritanceGoldPlanPurchase.nomineeAndExecutor.nomineeDetails[
+      index === 0 ? 'first' : 'second'
+    ];
 
-  const { onNomineeDetailsSubmit, onPrevious, isSubmittingNomineeDetails } =
-    useInheritanceGoldPlanPurchaseDialog();
+  const {
+    onNomineeDetailsSubmit,
+    goTo,
+    onPrevious,
+    isSubmittingNomineeDetails,
+  } = useInheritanceGoldPlanPurchaseDialog();
 
   const formId = 'inheritance-gold-plan-user-details';
 
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (isSubmittingNomineeDetails) return;
-    onNomineeDetailsSubmit({
-      name,
-      email,
-      alternateEmail,
-    });
+    onNomineeDetailsSubmit(
+      {
+        name,
+        email,
+        alternateEmail,
+      },
+      index,
+    );
   };
 
   return (
@@ -38,7 +48,14 @@ export const NomineeDetails = () => {
       footerComponent={
         <>
           <Button
-            onClick={() => onPrevious()}
+            onClick={() =>
+              index === 0
+                ? onPrevious()
+                : goTo(
+                    tabIndicies.nominieeAndExecutor.tabNumber,
+                    tabIndicies.nominieeAndExecutor.dialogs.firstNomineeDetails,
+                  )
+            }
             variant="secondary"
             disabled={isSubmittingNomineeDetails}
           >
@@ -60,11 +77,11 @@ export const NomineeDetails = () => {
         onSubmit={onSubmit}
         formId={formId}
         strings={{
-          title: strings.first.title,
+          title: strings.title,
           form: {
             ...form,
             emailField: {
-              tooltip: strings.first.tooltip,
+              tooltip: (strings as any)?.tooltip ?? '',
               label: form.emailField.label,
             },
           },
@@ -76,6 +93,7 @@ export const NomineeDetails = () => {
         setEmail={setEmail}
         alternateEmail={alternateEmail}
         setAlternateEmail={setAlternateEmail}
+        isAlternateEmailRequired={false}
       />
     </Layout>
   );

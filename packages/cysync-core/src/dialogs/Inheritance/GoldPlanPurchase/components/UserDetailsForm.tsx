@@ -30,6 +30,7 @@ interface UserDetailsFormProps {
   setEmail: (email: string) => void;
   alternateEmail: string;
   setAlternateEmail: (altEmail: string) => void;
+  isAlternateEmailRequired?: boolean;
 }
 
 export const UserDetailsForm: FC<UserDetailsFormProps> = ({
@@ -43,6 +44,7 @@ export const UserDetailsForm: FC<UserDetailsFormProps> = ({
   setEmail,
   alternateEmail,
   setAlternateEmail,
+  isAlternateEmailRequired,
 }) => {
   const lang = useAppSelector(selectLanguage);
 
@@ -58,11 +60,6 @@ export const UserDetailsForm: FC<UserDetailsFormProps> = ({
         >
           <LangDisplay text={strings.title} />
         </Typography>
-        {strings.subTitle && (
-          <Typography color="muted" $textAlign="center" $fontSize={16}>
-            <LangDisplay text={strings.subTitle} />
-          </Typography>
-        )}
       </Container>
       <Container direction="column" $width="full" mb={3}>
         <Input
@@ -105,11 +102,15 @@ export const UserDetailsForm: FC<UserDetailsFormProps> = ({
           name="alternateEmail"
           type="email"
           label={strings.form.alternateEmail}
-          rightLabel={lang.strings.labels.required}
+          rightLabel={
+            isAlternateEmailRequired === false
+              ? undefined
+              : lang.strings.labels.required
+          }
           value={alternateEmail}
-          required
+          required={isAlternateEmailRequired ?? true}
           onChange={setAlternateEmail}
-          showRequiredStar
+          showRequiredStar={isAlternateEmailRequired ?? true}
           inputLabelProps={{
             $fontSize: 12,
             $letterSpacing: 'unset',
@@ -119,4 +120,8 @@ export const UserDetailsForm: FC<UserDetailsFormProps> = ({
       </Container>
     </form>
   );
+};
+
+UserDetailsForm.defaultProps = {
+  isAlternateEmailRequired: undefined,
 };

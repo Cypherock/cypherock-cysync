@@ -10,17 +10,26 @@ import React from 'react';
 import { selectLanguage, useAppSelector } from '~/store';
 
 import { useInheritanceGoldPlanPurchaseDialog } from '../../context';
+import { tabIndicies } from '../../context/useDialogHandler';
 import { Layout } from '../../Layout';
 
 export const ConfirmNomineeVerification = () => {
   const lang = useAppSelector(selectLanguage);
   const strings = lang.strings.inheritanceGoldPlanPurchase.nomineeAndExecutor;
-  const { onNext, onPrevious } = useInheritanceGoldPlanPurchaseDialog();
+  const { onNext, goTo } = useInheritanceGoldPlanPurchaseDialog();
   return (
     <Layout
       footerComponent={
         <>
-          <Button onClick={() => onPrevious()} variant="secondary">
+          <Button
+            onClick={() => {
+              goTo(
+                tabIndicies.nominieeAndExecutor.tabNumber,
+                tabIndicies.nominieeAndExecutor.dialogs.secondNomineeDetails,
+              );
+            }}
+            variant="secondary"
+          >
             <LangDisplay text={lang.strings.buttons.no} />
           </Button>
           <Button onClick={() => onNext()} variant="primary">

@@ -17,16 +17,16 @@ import { useInheritanceGoldPlanPurchaseDialog } from '../../context';
 import { Layout } from '../../Layout';
 
 export const ExecutorMessage = () => {
-  const { goTo, onNext } = useInheritanceGoldPlanPurchaseDialog();
+  const { onNext, onPrevious } = useInheritanceGoldPlanPurchaseDialog();
   const lang = useSelector(selectLanguage);
   const strings = lang.strings.inheritanceGoldPlanPurchase.message;
   const { form } = strings.executor;
-  const [message, setMessage] = useState('');
+  const [executorMessage, setExecutorMessage] = useState('');
   return (
     <Layout
       footerComponent={
         <>
-          <Button onClick={() => goTo(6, 1)} variant="secondary">
+          <Button onClick={() => onPrevious()} variant="secondary">
             <LangDisplay text={lang.strings.buttons.back} />
           </Button>
           <Button onClick={() => onNext()} variant="primary">
@@ -61,8 +61,8 @@ export const ExecutorMessage = () => {
         </InputLabel>
         <TextAreaInput
           placeholder={form.messageField.placeholder}
-          value={message}
-          onChange={setMessage}
+          value={executorMessage}
+          onChange={setExecutorMessage}
           height={120}
         />
       </Flex>

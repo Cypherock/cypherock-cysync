@@ -12,23 +12,17 @@ export const VerifyNomineeOtp: React.FC = () => {
   const lang = useAppSelector(selectLanguage);
   const strings = lang.strings.inheritanceGoldPlanPurchase.email;
 
-  const { onClose, onPrevious, nomineeDetails, goTo } =
+  const { onClose, onPrevious, onNext } =
     useInheritanceGoldPlanPurchaseDialog();
 
-  const [email, setEmail] = useState(nomineeDetails?.email ?? '');
-  const [title, setTitle] = useState(strings.primaryEmailOTP.title);
+  const [email] = useState('');
+  const [title] = useState(strings.primaryEmailOTP.title);
 
   const otpRef = useRef<OTPInputDialogRef | null>(null);
 
   const onVerify = () => {
     // DUMMY FUNCTION
-    if (email === nomineeDetails?.alternateEmail) {
-      goTo(5, 4);
-      return;
-    }
-
-    setEmail(nomineeDetails?.alternateEmail ?? '');
-    setTitle(strings.alternateEmailOTP.title);
+    onNext();
     otpRef.current?.reset();
   };
 

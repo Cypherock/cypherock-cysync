@@ -23,7 +23,9 @@ export const Summary = () => {
   const lang = useAppSelector(selectLanguage);
   const strings = lang.strings.inheritanceGoldPlanPurchase.summary;
 
-  const { onNext } = useInheritanceGoldPlanPurchaseDialog();
+  const { onNext, personalMessage, cardLocation, nomineeDetails, userDetails } =
+    useInheritanceGoldPlanPurchaseDialog();
+
   return (
     <Layout
       footerComponent={
@@ -55,109 +57,64 @@ export const Summary = () => {
         />
         <DetailsCard
           headerText={strings.ownerDetails.title}
-          headerTrailing={
-            <EditButton text="Edit" onClick={() => alert('Edit Clicked')} />
-          }
+          headerTrailing={<EditButton text="Edit" />}
           fields={[
             {
               label: strings.ownerDetails.form.userNameField.label,
               icon: UserIcon,
-              value: 'Alfred Bellows',
+              value: userDetails?.name,
             },
             {
               label: strings.ownerDetails.form.primaryEmailField.label,
               icon: EmailIconSmall,
-              value: 'doc.bellows@yahoo.com',
+              value: userDetails?.email,
             },
             {
               label: strings.ownerDetails.form.secondaryEmailField.label,
               icon: EmailIconSmall,
-              value: 'alfred@psych.com',
+              value: userDetails?.alternateEmail,
             },
             {
               label: strings.ownerDetails.form.reminderPeriodField.label,
               icon: ClockIcon,
               value: strings.ownerDetails.form.reminderPeriodField.input,
-              trailing: (
-                <EditButton
-                  text="Edit"
-                  onClick={() => {
-                    alert('Edit Clicked');
-                  }}
-                />
-              ),
+              trailing: <EditButton text="Edit" />,
             },
           ]}
         />
-        <DetailsCard
-          headerText={strings.nomineeDetails.title}
-          headerTrailing={
-            <EditButton text="Edit" onClick={() => alert('Edit Clicked')} />
-          }
-          fields={[
-            {
-              label: strings.nomineeDetails.form.nomineeNameField.label,
-              icon: UserIcon,
-              value: 'Alfred Bellows',
-            },
-            {
-              label: strings.nomineeDetails.form.primaryEmailField.label,
-              icon: EmailIconSmall,
-              value: 'doc.bellows@yahoo.com',
-            },
-            {
-              label: strings.nomineeDetails.form.secondaryEmailField.label,
-              icon: EmailIconSmall,
-              value: 'alfred@psych.com',
-            },
-          ]}
-        />
-        <DetailsCard
-          headerText={strings.nomineeDetails.title}
-          headerTrailing={
-            <EditButton text="Edit" onClick={() => alert('Edit Clicked')} />
-          }
-          fields={[
-            {
-              label: strings.nomineeDetails.form.nomineeNameField.label,
-              icon: UserIcon,
-              value: 'Alfred Bellows',
-            },
-            {
-              label: strings.nomineeDetails.form.primaryEmailField.label,
-              icon: EmailIconSmall,
-              value: 'doc.bellows@yahoo.com',
-            },
-            {
-              label: strings.nomineeDetails.form.secondaryEmailField.label,
-              icon: EmailIconSmall,
-              value: 'alfred@psych.com',
-            },
-          ]}
-        />
+        {Object.values(nomineeDetails)?.map((details, index) => (
+          <DetailsCard
+            key={JSON.stringify(details)}
+            headerText={strings.nomineeDetails.title + (index + 1).toString()}
+            headerTrailing={<EditButton text="Edit" />}
+            fields={[
+              {
+                label: strings.nomineeDetails.form.nomineeNameField.label,
+                icon: UserIcon,
+                value: details.name,
+              },
+              {
+                label: strings.nomineeDetails.form.primaryEmailField.label,
+                icon: EmailIconSmall,
+                value: details.email,
+              },
+              {
+                label: strings.nomineeDetails.form.secondaryEmailField.label,
+                icon: EmailIconSmall,
+                value: details.alternateEmail,
+              },
+            ]}
+          />
+        ))}
         <DetailsCard
           headerText={strings.cardLocation.title}
-          headerTrailing={
-            <EditButton
-              text="Edit"
-              onClick={() => {
-                alert('Edit Clicked');
-              }}
-            />
-          }
-          text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam eget  dapibus est. Mauris varius sapien a diam elementum posuere. Maecenas  aliquam nec justo a dictum. Aliquam eu condimentum mi, eu vulputate  ipsum. Proin vel semper nisl. Donec ultricies consectetur dapibus. Donec  suscipit, mi sed tristique feugiat, urna ipsum viverra risus, vitae  commodo tortor est interdum ligula. Fusce tellus mi, malesuada tristique  mauris a, pulvinar varius metus. Pellentesque habitant morbi tristique  senectus et netus et malesuada fames ac turpis egestas. Donec in nulla  sit amet ex cursus dictum. Nam felis odio, egestas sed porttitor eu,  consequat eget dolor. Phasellus luctus, arcu non auctor euismod, lectus  quam tempus lacus, in sollicitudin elit risus ut ex."
+          headerTrailing={<EditButton text="Edit" />}
+          text={cardLocation}
         />
         <DetailsCard
           headerText={strings.personalMessage.title}
-          headerTrailing={
-            <EditButton
-              text="Edit"
-              onClick={() => {
-                alert('Edit Clicked');
-              }}
-            />
-          }
-          text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam eget  dapibus est. Mauris varius sapien a diam elementum posuere. Maecenas  aliquam nec justo a dictum. Aliquam eu condimentum mi, eu vulputate  ipsum. Proin vel semper nisl. Donec ultricies consectetur dapibus. Donec  suscipit, mi sed tristique feugiat, urna ipsum viverra risus, vitae  commodo tortor est interdum ligula. Fusce tellus mi, malesuada tristique  mauris a, pulvinar varius metus. Pellentesque habitant morbi tristique  senectus et netus et malesuada fames ac turpis egestas. Donec in nulla  sit amet ex cursus dictum. Nam felis odio, egestas sed porttitor eu,  consequat eget dolor. Phasellus luctus, arcu non auctor euismod, lectus  quam tempus lacus, in sollicitudin elit risus ut ex."
+          headerTrailing={<EditButton text="Edit" />}
+          text={personalMessage}
         />
       </ScrollableContainer>
     </Layout>

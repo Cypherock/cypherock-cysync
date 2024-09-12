@@ -61,14 +61,21 @@ export interface InheritanceGoldPlanPurchaseDialogContextInterface {
   applyingCouponError?: { heading: string; subtext: string };
   couponDuration: number;
   //----------------------------
-  onUserDetailsSubmit: (params: IUserDetails) => void;
-  isSubmittingUserDetails: boolean;
-  userDetails?: IUserDetails;
-  onNomineeDetailsSubmit: (params: IUserDetails) => void;
+  onNomineeDetailsSubmit: (params: IUserDetails, index: number) => void;
   isSubmittingNomineeDetails: boolean;
-  nomineeDetails?: IUserDetails;
   nomineeCount: number;
   setNomineeCount: (nomineeCount: number) => void;
+  haveExecutor: boolean;
+  setHaveExecutor: (val: boolean) => void;
+  onExecutorSelected: () => void;
   isSubmittingExecutorDetails: boolean;
   onExecutorDetailsSubmit: (params: IUserDetails) => void;
+  personalMessage: string;
+  setPersonalMessage: (val: string) => void;
+  cardLocation: string;
+  setCardLocation: (val: string) => void;
+  executorMessage: string;
+  setExecutorMessage: (val: string) => void;
+  nomineeDetails: Record<number, IUserDetails>;
+  userDetails?: IUserDetails;
 }
