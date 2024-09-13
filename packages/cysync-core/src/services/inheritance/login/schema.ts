@@ -60,6 +60,13 @@ export const refreshAccessTokenResultSchema = z.object({
   authToken: z.string(),
 });
 
+const genericSuccessResult = z.object({
+  success: z.boolean(),
+});
+
+export const updateNomineesResultSchema = genericSuccessResult;
+export const updateExecutorResultSchema = genericSuccessResult;
+
 export type InheritanceLoginInitResponse = z.infer<typeof initResultSchema>;
 export type InheritanceLoginResendResponse = z.infer<typeof resendResultSchema>;
 export type InheritanceLoginVerifyResponse = z.infer<typeof verifyResultSchema>;

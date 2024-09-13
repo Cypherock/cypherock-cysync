@@ -25,28 +25,31 @@ export const ExecutorDetails = () => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [alternateEmail, setAlternateEmail] = useState('');
-  const [selectedNominee, setSelectedNominee] = useState<number | undefined>();
+  const [selectedNominee, setSelectedNominee] = useState(0);
 
   const {
     onExecutorDetailsSubmit,
     onPrevious,
     onNext,
     isSubmittingExecutorDetails,
+    nomineeCount,
   } = useInheritanceGoldPlanPurchaseDialog();
 
   const formId = 'inheritance-gold-plan-user-details';
 
-  const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     if (isSubmittingExecutorDetails) return;
 
-    onExecutorDetailsSubmit({
-      name,
-      email,
-      alternateEmail,
-    });
-    onNext();
+    onExecutorDetailsSubmit(
+      {
+        name,
+        email,
+        alternateEmail,
+      },
+      selectedNominee,
+    );
   };
 
   return (
@@ -114,28 +117,21 @@ export const ExecutorDetails = () => {
             </Tooltip>
           </Flex>
           <Flex gap={40}>
-            <Flex gap={8} align="center">
-              <RadioButton
-                checked={selectedNominee === 1}
-                onChange={() => {
-                  setSelectedNominee(1);
-                }}
-              />
-              <Typography $fontSize={14} color="muted">
-                {strings.executor.executorDetails.radio.options.labelOne}
-              </Typography>
-            </Flex>
-            <Flex gap={8} align="center">
-              <RadioButton
-                checked={selectedNominee === 2}
-                onChange={() => {
-                  setSelectedNominee(2);
-                }}
-              />
-              <Typography $fontSize={14} color="muted">
-                {strings.executor.executorDetails.radio.options.labelTwo}
-              </Typography>
-            </Flex>
+            {Array(nomineeCount)
+              .fill(0)
+              .map((_, index) => (
+                <Flex gap={8} align="center" key={`Nominee ${index + 1}`}>
+                  <RadioButton
+                    checked={selectedNominee === index}
+                    onChange={() => {
+                      setSelectedNominee(index);
+                    }}
+                  />
+                  <Typography $fontSize={14} color="muted">
+                    {`Nominee ${index + 1}`}
+                  </Typography>
+                </Flex>
+              ))}
           </Flex>
         </Container>
       </Container>

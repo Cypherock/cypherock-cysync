@@ -69,7 +69,7 @@ export interface InheritanceGoldPlanPurchaseDialogContextInterface {
   setHaveExecutor: (val: boolean) => void;
   onExecutorSelected: () => void;
   isSubmittingExecutorDetails: boolean;
-  onExecutorDetailsSubmit: (params: IUserDetails) => void;
+  onExecutorDetailsSubmit: (params: IUserDetails, index: number) => void;
   personalMessage: string;
   setPersonalMessage: (val: string) => void;
   cardLocation: string;

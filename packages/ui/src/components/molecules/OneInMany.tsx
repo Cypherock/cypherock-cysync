@@ -23,6 +23,7 @@ export interface OneInManyProps extends OneInManyStyledContainerProps {
   description: string;
   onClick?: () => void;
   isSelected?: boolean;
+  $styleType: OneInManyStyleType;
 }
 
 interface BgStyleProps {

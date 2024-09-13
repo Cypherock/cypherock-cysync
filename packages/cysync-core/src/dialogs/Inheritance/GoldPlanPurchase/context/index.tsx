@@ -20,7 +20,7 @@ import {
   useNavigateTo,
   useStateWithRef,
 } from '~/hooks';
-import { inheritancePlanService } from '~/services';
+import { inheritancePlanService, inheritanceLoginService } from '~/services';
 import { useAppSelector } from '~/store';
 import { getDB } from '~/utils';
 import {
@@ -98,7 +98,7 @@ export const InheritanceGoldPlanPurchaseDialogProvider: FC<
     { heading: string; subtext: string } | undefined
   >();
   const [couponDuration, setCouponDuration] = useState(0);
-  const [nomineeDetails, setNomineeDetails] = useState<
+  const [nomineeDetails, setNomineeDetails, nominees] = useStateWithRef<
     Record<number, IUserDetails>
   >({});
 
@@ -106,35 +106,79 @@ export const InheritanceGoldPlanPurchaseDialogProvider: FC<
     console.log({ nomineeRecord: nomineeDetails });
   }, [nomineeDetails]);
 
+  const updateNominees = async () => {
+    try {
+      if (!walletAuthService.authTokens)
+        throw "Wallet auth doesn't have a valid token";
+
+      const result = await inheritanceLoginService.updateNominees({
+        nominees: Object.values(nominees.current),
+        accessToken: walletAuthService.authTokens?.accessToken,
+      });
+
+      if (!result?.result?.success) {
+        throw result?.error;
+      }
+    } catch (error: any) {
+      onError(error);
+    }
+  };
+
   const onNomineeDetailsSubmit = async (
     params: IUserDetails,
     index: number,
   ) => {
     setIsSubmittingNomineeDetails(true);
-    setNomineeDetails(nominees => {
-      nominees[index] = params;
-      return nominees;
-    });
-    setIsSubmittingNomineeDetails(false);
+    nominees.current[index] = params;
+    setNomineeDetails(nominees.current);
 
     // TODO: use the opt confirmation and verification screens when implemented on server
     let nextDialog = tabIndicies.nominieeAndExecutor.dialogs.executorSelect;
     if (nomineeCountRef.current === 2 && index === 0)
       nextDialog = tabIndicies.nominieeAndExecutor.dialogs.secondNomineeDetails;
+    else await updateNominees();
 
+    setIsSubmittingNomineeDetails(false);
     goTo(tabIndicies.nominieeAndExecutor.tabNumber, nextDialog);
   };
+
   const onExecutorSelected = useCallback(() => {
     if (haveExecutor) onNext();
     else goTo(tabIndicies.message.tabNumber, tabIndicies.message.dialogs.video);
   }, [haveExecutor]);
 
-  const onExecutorDetailsSubmit = useCallback(async (params: IUserDetails) => {
+  const updateExecutor = async (nomineeIndex: number) => {
+    try {
+      if (!executorDetails) throw 'Invalid executor details';
+      if (!walletAuthService.authTokens)
+        throw "Wallet auth doesn't have a valid token";
+
+      const result = await inheritanceLoginService.updateExecutor({
+        name: executorDetails.name,
+        email: executorDetails.email,
+        alternateEmail: executorDetails.alternateEmail,
+        nomineeEmail: nominees.current[nomineeIndex]?.email,
+        accessToken: walletAuthService.authTokens?.accessToken,
+      });
+
+      if (!result?.result?.success) {
+        throw result?.error;
+      }
+    } catch (error: any) {
+      onError(error);
+    }
+  };
+
+  const onExecutorDetailsSubmit = async (
+    params: IUserDetails,
+    nomineeIndex: number,
+  ) => {
     setIsSubmittingExecutorDetails(true);
     setExecutorDetails(params);
-    await sleep(2000);
+    await updateExecutor(nomineeIndex);
+    onNext();
     setIsSubmittingExecutorDetails(false);
-  }, []);
+  };
 
   const onError = useCallback((e?: any) => {
     setUnhandledError(e);
@@ -191,7 +235,10 @@ export const InheritanceGoldPlanPurchaseDialogProvider: FC<
       return;
     }
 
-    encryptMessageService.start(selectedWallet.__id, []);
+    encryptMessageService.start(selectedWallet.__id, [
+      personalMessage,
+      cardLocation,
+    ]);
   }, [selectedWallet, encryptMessageService.start]);
 
   const setupPlanHandler = useCallback(async () => {
