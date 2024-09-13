@@ -976,17 +976,19 @@ interface LangOTP {
 
 interface LangInheritance {
   title: string;
+  plans: {
+    silver: {
+      title: string;
+      description: string;
+    };
+    gold: {
+      title: string;
+      description: string;
+    };
+  };
   choosePlan: {
     title: string;
     plans: {
-      silver: {
-        heading: string;
-        description: string;
-      };
-      gold: {
-        heading: string;
-        description: string;
-      };
       buttonText: string;
       popularTagText: string;
       features: string[];
@@ -1015,6 +1017,44 @@ interface LangInheritance {
       learnMore: {
         title: string;
         subTitle: string;
+      };
+    };
+  };
+  planDetails: {
+    walletDetails: {
+      createdOn: string;
+      expiringOn: string;
+      reminderPeriodField: {
+        label: string;
+        input: string;
+        inputPlural: string;
+      };
+    };
+    ownerDetails: {
+      title: string;
+      form: {
+        userNameField: { label: string };
+        primaryEmailField: { label: string };
+        secondaryEmailField: { label: string };
+      };
+    };
+    nomineeDetails: {
+      title: string;
+      form: {
+        nomineeNameField: { label: string };
+        primaryEmailField: { label: string };
+        secondaryEmailField: { label: string };
+        encryptedMessage: { label: string };
+      };
+    };
+    executorDetails: {
+      title: string;
+      form: {
+        nomineeNameField: { label: string };
+        primaryEmailField: { label: string };
+        secondaryEmailField: { label: string };
+        executorMessage: { label: string };
+        assignTo: { label: string };
       };
     };
   };
@@ -1306,7 +1346,11 @@ interface LangInheritanceGoldPlanPurchase {
         userNameField: { label: string };
         primaryEmailField: { label: string };
         secondaryEmailField: { label: string };
-        reminderPeriodField: { label: string; input: string };
+        reminderPeriodField: {
+          label: string;
+          input: string;
+          inputPlural: string;
+        };
       };
     };
     nomineeDetails: {
