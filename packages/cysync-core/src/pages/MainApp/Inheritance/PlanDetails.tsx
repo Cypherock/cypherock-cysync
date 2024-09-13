@@ -14,8 +14,10 @@ import {
   WalletIcon,
 } from '@cypherock/cysync-ui';
 import React, { FC } from 'react';
-import { InheritancePageLayout } from './Layout';
+
 import { selectLanguage, useAppSelector } from '~/store';
+
+import { InheritancePageLayout } from './Layout';
 
 export const InheritancePlanDetails: FC = () => {
   const lang = useAppSelector(selectLanguage);

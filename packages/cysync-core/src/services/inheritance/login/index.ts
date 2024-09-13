@@ -1,5 +1,3 @@
-import { config } from '~/config';
-
 import {
   resendResultSchema,
   registerVerifyResultSchema,
@@ -12,6 +10,7 @@ import {
 } from './schema';
 
 import { makePostRequest, runAndHandleServerErrors } from '../../utils';
+import { inheritanceBaseUrl } from '../common';
 
 export {
   type InheritanceLoginInitResponse,
@@ -27,7 +26,7 @@ export {
   InheritanceLoginConcernMap,
 } from './schema';
 
-const baseUrl = `${config.API_CYPHEROCK}/wallet-account`;
+const baseUrl = `${inheritanceBaseUrl}/wallet-account`;
 
 const init = async (params: { walletId: string }) =>
   runAndHandleServerErrors(() =>
