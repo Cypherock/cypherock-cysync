@@ -41,7 +41,7 @@ export const Default: Story = {
     name: 'My Default Wallet',
     lang,
     startDate: new Date('2024-01-21').getTime(),
-    expiryDate: new Date('2024-09-21').getTime(),
+    expiryDate: new Date('2025-09-21').getTime(),
   },
 };
 

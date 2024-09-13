@@ -1,13 +1,14 @@
 import {
   WalletHoverExpiredIcon,
   WalletHoverSilverBgIcon,
-  expireHoverWalletIcon,
   goldHoverWalletIcon,
   WalletDefaultExpiredIcon,
   WalletDefaultPendingIcon,
   dashWalletDefaultBgIcon,
+  WalletHoverPendingIcon,
 } from '../../../assets';
 import { ThemeType } from '../../../themes';
+import { svgGradients } from '../../GlobalStyles';
 
 export const getBackgroundImage = (
   isHover: boolean,
@@ -17,9 +18,9 @@ export const getBackgroundImage = (
   paymentPending: boolean,
 ) => {
   if (isHover) {
-    if (isExpired) return WalletHoverExpiredIcon;
+    if (isExpired || isExpiring) return WalletHoverExpiredIcon;
     if (type === 'silver') return WalletHoverSilverBgIcon;
-    if (isExpiring) return expireHoverWalletIcon;
+    if (paymentPending) return WalletHoverPendingIcon;
     return goldHoverWalletIcon;
   }
   if (paymentPending) return WalletDefaultPendingIcon;
@@ -56,9 +57,9 @@ export const getPathColor = (
     return theme.palette.warn.main;
   }
   if (type === 'silver' && !paymentPending) {
-    return theme.palette.background.silver;
+    return `url(#${svgGradients.silver})`;
   }
-  return theme.palette.background.golden;
+  return `url(#${svgGradients.gold})`;
 };
 
 export const getTimerHeadText = (

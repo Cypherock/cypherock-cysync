@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import {
   AlertIcon,
   ClockIcon,
+  HourglassIcon,
   PlusIcon,
   dashWalletDefaultBgIcon,
   dashWalletHoverBgIcon,
@@ -70,6 +71,14 @@ export const Container = styled.div<
   position: relative;
   overflow: hidden;
   ${width}
+`;
+
+export const StyledExpiringPlanIcon = styled(HourglassIcon)`
+  position: absolute;
+  top: 24px;
+  right: 10px;
+  height: 14px;
+  width: 14px;
 `;
 
 export const StyledExpiredPlanIcon = styled(AlertIcon)`

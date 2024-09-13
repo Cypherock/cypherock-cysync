@@ -86,7 +86,8 @@ import verifyCoinIcon from './verify-coin.svg';
 import WalletDefaultExpiredIcon from './wallet-default-expired.svg';
 import WalletDefaultPendingIcon from './wallet-default-pending.svg';
 import walletErrorIcon from './wallet-error.svg';
-import WalletHoverExpiredIcon from './wallet-hover-expired-icon.svg';
+import WalletHoverExpiredIcon from './wallet-hover-expired.svg';
+import WalletHoverPendingIcon from './wallet-hover-pending.svg';
 import WalletHoverSilverBgIcon from './wallet-silver-hover-bg.svg';
 import walletIcon from './wallet.svg';
 import warningIcon from './warning.svg';
@@ -96,6 +97,7 @@ export {
   WalletDefaultExpiredIcon,
   WalletDefaultPendingIcon,
   WalletHoverExpiredIcon,
+  WalletHoverPendingIcon,
   addWalletIcon,
   walletIcon,
   tetherIcon,

@@ -24,6 +24,7 @@ import {
   TransitionTextSubtitle,
   SetupCoverContainer,
   SetupCoverText,
+  StyledExpiringPlanIcon,
 } from './DashbboardWallet.styled';
 import {
   calculateHoverText,
@@ -227,6 +228,7 @@ export const DashboardWallet: FC<DashboardWalletProps> = ({
               </TransitionTextWrapper>
             </TimerText>
           </TimerContainer>
+          {isExpiring && <StyledExpiringPlanIcon />}
           {isExpired && <StyledExpiredPlanIcon />}
           {isPaymentPending && (
             <StyledExpiredClockIcon fill={theme.palette.info.main} />
