@@ -14,6 +14,7 @@ const inheritanceAppPath = path.join(
 const sdkPath = path.join(__dirname, '..', 'submodules', 'sdk');
 
 const run = async () => {
+  const args = process.argv.slice(2);
   const packageJson = JSON.parse(
     await fs.readFile(path.join(inheritanceAppPath, 'package.json'), 'utf8'),
   );
@@ -26,8 +27,11 @@ const run = async () => {
     JSON.stringify(packageJson, null, 2),
   );
 
-  console.log('Running pnpm install on app...');
-  execSync('pnpm install', { cwd: rootPath, stdio: 'inherit' });
+  console.log(`Running "pnpm install ${args.join(' ')}" on app...`);
+  execSync(`pnpm install ${args.join(' ')}`, {
+    cwd: rootPath,
+    stdio: 'inherit',
+  });
 
   await fs.writeFile(
     path.join(inheritanceAppPath, 'package.json'),
