@@ -95,6 +95,8 @@ interface LangButtons {
   yes: string;
   no: string;
   saveAndContinue: string;
+  exitWithoutSaving: string;
+  saveChanges: string;
 }
 
 interface LangDashboard {
@@ -904,6 +906,80 @@ interface LangDialogs {
     };
     success: {
       name: string;
+      title: string;
+    };
+  };
+  inheritanceEditEncryptedMessage: {
+    confirmation: {
+      title: string;
+      subTitle: string;
+    };
+    syncing: {
+      title: string;
+      subTitle: string;
+    };
+    decryption: {
+      wallet: {
+        title: string;
+        actions: {
+          confirm: string;
+          tapCard: string;
+        };
+        messageBox: {
+          warning: string;
+        };
+        decryption: {
+          title: string;
+          subTitle: string;
+        };
+      };
+    };
+    editMessage: {
+      title: string;
+      subTitle: string;
+      form: {
+        cardLocationField: {
+          label: string;
+          placeholder: string;
+          tooltip: string;
+        };
+        personalMessageField: {
+          label: string;
+          placeholder: string;
+          tooltip: string;
+        };
+      };
+      messageBox: {
+        warning: string;
+      };
+    };
+    confirmMessage: {
+      title: string;
+      subTitle: string;
+      actions: {
+        confirmOnDevice: string;
+        verifyLocation: string;
+      };
+      messageBox: {
+        danger: string;
+      };
+    };
+    encryption: {
+      title: string;
+      subTitle: string;
+      tooltip: string;
+      actions: {
+        enterPinAndTap: string;
+      };
+      messageBox: {
+        warning: string;
+      };
+      syncing: {
+        title: string;
+        subTitle: string;
+      };
+    };
+    success: {
       title: string;
     };
   };

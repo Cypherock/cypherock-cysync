@@ -53,7 +53,9 @@
     "checkout": "Checkout",
     "yes": "Yes",
     "no": "No",
-    "saveAndContinue": "Save and continue"
+    "saveAndContinue": "Save and continue",
+    "exitWithoutSaving": "Exit without saving",
+    "saveChanges": "Save changes"
   },
   "dashboard": {
     "wallet": {
@@ -1684,6 +1686,80 @@
       "success": {
         "name": "Confirmation",
         "title": "Congratulations, Pin recovery is complete"
+      }
+    },
+    "inheritanceEditEncryptedMessage": {
+      "confirmation": {
+        "title": "Are you sure you want to edit the encrypted nominee message?",
+        "subTitle": "You will need the device and at least one card to encrypt the message again after editing"
+      },
+      "syncing": {
+        "title": "Please wait while we fetch the data",
+        "subTitle": "Do not disconnect or close the app"
+      },
+      "decryption": {
+        "wallet": {
+          "title": "Follow instructions on the X1 Vault",
+          "actions": {
+            "confirm": "Confirm decryption on device",
+            "tapCard": "Tap any card"
+          },
+          "messageBox": {
+            "warning": "The message will be decrypted by the X1 card"
+          },
+          "decryption": {
+            "title": "Please wait while we decrypt the data",
+            "subTitle": "Do not disconnect or close the app"
+          }
+        }
+      },
+      "editMessage": {
+        "title": "Nominee message",
+        "subTitle": "The nominee messages will be end-to-end encrypted",
+        "form": {
+          "cardLocationField": {
+            "label": "Card location & Passphrase",
+            "placeholder": "Enter your card's location",
+            "tooltip": "Write down the location of another card for the nominee to fetch. Nominee will only be able to recover crypto assets after getting another card. Remember this card should be different than the card(s) you may have given to your nominee(s).\nYou can also include the passphrase in this message"
+          },
+          "personalMessageField": {
+            "label": "Personal message",
+            "placeholder": "Enter your personal message here",
+            "tooltip": "This can include your will/message for the nominee and other important pieces of information that you may want your nominee to know such as your crypto exchange account details, coins you have amongst others."
+          }
+        },
+        "messageBox": {
+          "warning": "Make sure you describe the card's location clearly for the nominee"
+        }
+      },
+      "confirmMessage": {
+        "title": "Follow instructions on the X1 Vault to verify the nominee message",
+        "subTitle": "You can encrypt the message in the next step",
+        "actions": {
+          "confirmOnDevice": "Confirm on device",
+          "verifyLocation": "Verify Card location in your device"
+        },
+        "messageBox": {
+          "danger": "Read through the whole text and verify that the message shown in the device is same as you entered in cySync"
+        }
+      },
+      "encryption": {
+        "title": "Follow instructions on the X1 Vault to encrypt the nominee message",
+        "subTitle": "Lift your card after 2 beep sounds",
+        "tooltip": "",
+        "actions": {
+          "enterPinAndTap": "Enter PIN and tap any one card"
+        },
+        "messageBox": {
+          "warning": "The nominee message will be encrypted by the Card"
+        },
+        "syncing": {
+          "title": "Please wait while we save the encrypted data on the server",
+          "subTitle": "Do not disconnect or close the app"
+        }
+      },
+      "success": {
+        "title": "Nominee message successfully updated"
       }
     }
   },
