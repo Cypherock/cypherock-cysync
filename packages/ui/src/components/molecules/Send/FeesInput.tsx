@@ -2,7 +2,8 @@ import React, { useCallback, useEffect, useState } from 'react';
 
 import { CustomInputSend } from './RecipientAddress';
 
-import { Input, Typography } from '../../atoms';
+import { Typography } from '../../atoms';
+import { Input } from '../Input';
 
 interface FeesInputProps {
   value: string;

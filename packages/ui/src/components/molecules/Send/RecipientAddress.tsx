@@ -2,7 +2,8 @@ import React from 'react';
 import styled from 'styled-components';
 
 import { PasteIcon } from '../../..';
-import { Button, Flex, Input, Throbber, Typography } from '../../atoms';
+import { Button, Flex, Throbber, Typography } from '../../atoms';
+import { Input } from '../Input';
 
 interface RecipientAddressProps {
   text?: string;
