@@ -11,13 +11,13 @@ import {
   fiatCurrencyList,
 } from '@cypherock/coins';
 
-import {
-  ITradingPairs,
-  ISupportedCryptoCurrency,
-  ISupportedFiatCurrency,
-} from './types';
+import { ITradingPairs } from './types';
 
 import { binanceService } from '../../services';
+import {
+  ISupportedCryptoCurrency,
+  ISupportedFiatCurrency,
+} from '../commonTypes';
 
 export * from './types';
 
@@ -40,8 +40,11 @@ const networkMapping: Record<string, ICoinInfo | undefined> = {
 };
 
 export const getTradingPairs = async (): Promise<ITradingPairs> => {
-  const pairs = await binanceService.getTradingPairs();
-  const cryptoCurrencies = await binanceService.getCryptoNetworks();
+  const [pairs, cryptoCurrencies] = await Promise.all([
+    binanceService.getTradingPairs(),
+    binanceService.getCryptoNetworks(),
+  ]);
+
   const { fiatCurrencies } = pairs;
 
   const supportedCryptoCurrencies: ISupportedCryptoCurrency[] = [];

@@ -1,19 +1,7 @@
-import { ICoinInfo, IFiatCurrency } from '@cypherock/coins';
-
-export interface ISupportedCryptoCurrency {
-  coin: ICoinInfo;
-  cryptoCurrency: string;
-  network: string;
-  withdrawFee?: string;
-  withdrawMinAmount?: string;
-  withdrawMaxAmount?: string;
-  contractAddress?: string;
-}
-
-export interface ISupportedFiatCurrency {
-  currency: IFiatCurrency;
-  code: string;
-}
+import {
+  ISupportedFiatCurrency,
+  ISupportedCryptoCurrency,
+} from '../commonTypes';
 
 export interface ITradingPairs {
   fiatCurrencies: ISupportedFiatCurrency[];

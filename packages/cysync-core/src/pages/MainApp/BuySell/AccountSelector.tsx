@@ -8,15 +8,19 @@ import {
   Dropdown,
   DialogBoxFooter,
   Button,
+  Throbber,
 } from '@cypherock/cysync-ui';
 import React, { useCallback } from 'react';
 
+import { openAddAccountDialog } from '~/actions';
 import { useBuySell } from '~/context';
-import { useAppSelector, selectLanguage } from '~/store';
+import { useAppSelector, selectLanguage, useAppDispatch } from '~/store';
 import logger from '~/utils/logger';
 
 export const BuySellAccountSelector = () => {
   const lang = useAppSelector(selectLanguage);
+  const dispatch = useAppDispatch();
+
   const {
     selectedWallet,
     handleWalletChange,
@@ -25,6 +29,15 @@ export const BuySellAccountSelector = () => {
     selectedAccount,
     setSelectedAccount,
     accountList,
+    selectedPaymentMethod,
+    paymentMethodDropdownList,
+    handlePaymentMethodChange,
+    isLoadingPaymentMethodList,
+    fiatAmount,
+    selectedFiatCurrency,
+    selectedCryptoCurrency,
+    cryptoAmount,
+    onNextState,
   } = useBuySell();
 
   const handleWalletChangeProxy: typeof handleWalletChange = useCallback(
@@ -55,13 +68,17 @@ export const BuySellAccountSelector = () => {
     [accountList],
   );
 
-  const onSubmit = () => {
-    logger.info('Button Click: Buy', {
-      source: 'Buy',
-      walletId: selectedWallet?.__id,
-      accountId: selectedAccount?.__id,
-    });
-  };
+  const handlePaymentMethodChangeProxy: typeof handlePaymentMethodChange =
+    useCallback(
+      (id?: string) => {
+        logger.info('Dropdown Change: Payment Method Change', {
+          source: 'Buy',
+          id,
+        });
+        handlePaymentMethodChange(id);
+      },
+      [handlePaymentMethodChange],
+    );
 
   return (
     <DialogBox width={500}>
@@ -98,6 +115,10 @@ export const BuySellAccountSelector = () => {
           gap={24}
           width="full"
         >
+          <Typography $textAlign="center" width="full">
+            {fiatAmount} {selectedFiatCurrency?.currency.code} ~= {cryptoAmount}{' '}
+            {selectedCryptoCurrency?.coin.coin.abbr}
+          </Typography>
           <Dropdown
             items={walletDropdownList}
             selectedItem={selectedWallet?.__id}
@@ -114,14 +135,50 @@ export const BuySellAccountSelector = () => {
             placeholderText="Select account"
             onChange={handleAccountChange}
           />
+          {isLoadingPaymentMethodList && <Throbber size={24} strokeWidth={3} />}
+          {!isLoadingPaymentMethodList && (
+            <Dropdown
+              items={paymentMethodDropdownList}
+              selectedItem={
+                selectedPaymentMethod
+                  ? `${selectedPaymentMethod.payMethodCode}-${
+                      selectedPaymentMethod.payMethodSubCode ?? ''
+                    }`
+                  : undefined
+              }
+              searchText="Search payment method"
+              placeholderText="Select payment method"
+              onChange={handlePaymentMethodChangeProxy}
+            />
+          )}
+          {selectedWallet && accountDropdownList.length === 0 && (
+            <Typography $textAlign="center" color="muted">
+              <LangDisplay text="No accounts found for selected crypto currency" />
+              <Button
+                variant="text"
+                onClick={() =>
+                  dispatch(
+                    openAddAccountDialog({
+                      coinId: selectedCryptoCurrency?.coin.coin.id,
+                      walletId: selectedWallet.__id,
+                    }),
+                  )
+                }
+              >
+                <Typography color="gold">Add Account</Typography>
+              </Button>
+            </Typography>
+          )}
         </Container>
       </DialogBoxBody>
 
       <DialogBoxFooter>
         <Button
           variant="primary"
-          disabled={!selectedWallet || !selectedAccount}
-          onClick={onSubmit}
+          disabled={
+            !selectedWallet || !selectedAccount || !selectedPaymentMethod
+          }
+          onClick={onNextState}
         >
           <LangDisplay text={lang.strings.buttons.continue} />
         </Button>

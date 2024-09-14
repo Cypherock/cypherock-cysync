@@ -7,23 +7,23 @@ import { selectLanguage, useAppSelector } from '~/store';
 
 import { BuySellAccountSelector } from './AccountSelector';
 import { BuySellCurrencySelector } from './CurrencySelector';
+import { BuySellOrder } from './Order';
 
 import { MainAppLayout } from '../Layout';
 
 export const BuySell = () => {
   const lang = useAppSelector(selectLanguage);
-  const { init, isInitialized, isInitializing, unhandledError, reset, state } =
-    useBuySell();
+  const { init, isInitializing, unhandledError, reset, state } = useBuySell();
 
   useEffect(() => {
-    if (!isInitialized) {
-      init();
-    }
-  }, [isInitialized]);
+    reset();
+    init();
+  }, []);
 
   const stateToComponent: Record<BuySellState, React.FC> = {
     [BuySellState.CURRENCY_SELECT]: BuySellCurrencySelector,
     [BuySellState.ACCOUNT_SELECT]: BuySellAccountSelector,
+    [BuySellState.ORDER]: BuySellOrder,
   };
 
   const getMainContent = () => {
@@ -44,6 +44,7 @@ export const BuySell = () => {
           error={unhandledError}
           onClose={reset}
           onRetry={reset}
+          noDelay
         >
           {getMainContent()}
         </ErrorHandlerDialog>

@@ -9,4 +9,20 @@ export class BuySellSupport {
   public getTradingPairs() {
     return operations.getTradingPairs();
   }
+
+  public getEstimatedQuote(params: operations.IGetEstimatedQuoteParams) {
+    return operations.getEstimatedQuote(params);
+  }
+
+  public getPaymentMethods(params: operations.IGetPaymentMethodsParams) {
+    return operations.getPaymentMethods(params);
+  }
+
+  public preorder(params: operations.IPreorderParams) {
+    return operations.preorder(params);
+  }
+
+  public getOrderDetails(params: operations.IGetOrderDetailsParams) {
+    return operations.getOrderDetails(params);
+  }
 }
