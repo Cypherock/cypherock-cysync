@@ -165,6 +165,12 @@ const SideBarComponent: FC<{ collapseWallets?: boolean }> = () => {
               dispatch(openWalletConnectDialog());
             }}
           />
+          <SideBarItem
+            text={strings.buysell}
+            Icon={WalletConnectWhiteIcon}
+            state={wallets.length === 0 ? State.disabled : undefined}
+            onClick={() => navigate('buysell')}
+          />
         </Flex>
         <Flex direction="column" gap={0}>
           <SideBarItem

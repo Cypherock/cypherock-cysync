@@ -29,6 +29,10 @@ const rootRoutes = {
     name: 'settings',
     path: '/settings',
   },
+  buysell: {
+    name: 'buy-sell',
+    path: '/buy-sell',
+  },
 } as const;
 
 export const routes = {
