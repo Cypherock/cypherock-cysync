@@ -66,7 +66,7 @@ jobs:
             ${{ runner.os }}-pnpm-store-
 
       - name: pnpm install
-        run: pnpm install
+        run: pnpm inheritance-install
 
       - name: Setup turbo cache
         env:
@@ -130,7 +130,7 @@ jobs:
         run: sudo apt-get install fakeroot dpkg rpm -y
 
       - name: pnpm install
-        run: pnpm install
+        run: pnpm inheritance-install
 
       - name: Setup turbo cache
         env:
@@ -209,7 +209,7 @@ jobs:
         run: pnpm fix:hashbang
 
       - name: pnpm install
-        run: pnpm install
+        run: pnpm inheritance-install
 
       - name: Setup turbo cache
         env:
@@ -281,7 +281,7 @@ jobs:
             ${{ runner.os }}-pnpm-store-
 
       - name: pnpm install
-        run: pnpm install
+        run: pnpm inheritance-install
 
       - name: Setup turbo cache
         env:
