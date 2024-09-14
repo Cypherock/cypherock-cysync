@@ -48,7 +48,7 @@ jobs:
             ${{ runner.os }}-pnpm-store-
 
       - name: pnpm install
-        run: pnpm install
+        run: pnpm inheritance-install
 
       - name: Setup turbo cache
         env:
