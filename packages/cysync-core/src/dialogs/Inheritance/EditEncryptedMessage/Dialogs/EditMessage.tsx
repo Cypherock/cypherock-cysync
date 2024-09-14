@@ -25,7 +25,7 @@ export const EditMessage = () => {
     <Layout
       footerComponent={
         <>
-          <Button onClick={() => onClose()}>
+          <Button variant="secondary" onClick={() => onClose()}>
             <LangDisplay text={lang.strings.buttons.exitWithoutSaving} />
           </Button>
           <Button onClick={() => onNext()}>
