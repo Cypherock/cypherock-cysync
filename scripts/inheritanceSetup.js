@@ -38,6 +38,7 @@ const run = async () => {
   execSync('pnpm install', { cwd: sdkPath, stdio: 'inherit' });
 
   console.log('Building SDK...');
+  execSync('pnpm build', { cwd: sdkPath, stdio: 'inherit' });
   execSync('pnpm build:submodules', { cwd: rootPath, stdio: 'inherit' });
 };
 
