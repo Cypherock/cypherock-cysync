@@ -3,14 +3,16 @@ import styled from 'styled-components';
 
 import { InputLabel, InputLabelProps } from './InputLabel';
 
+import {
+  Button,
+  Flex,
+  Container,
+  LangDisplay,
+  Typography,
+  Tooltip,
+} from '../../atoms';
 import { UtilsProps } from '../../utils';
-import { Button } from '../Button';
-import { Container } from '../Container';
-import { Flex } from '../Flex';
-import { LangDisplay } from '../LangDisplay';
-import { Typography } from '../Typography';
-import { QuestionMarkButton } from '../../molecules';
-import { Tooltip } from '../Tooltip';
+import { QuestionMarkButton } from '../Prefabs';
 
 export interface InputProps {
   type: string;
