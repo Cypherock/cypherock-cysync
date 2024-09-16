@@ -58,6 +58,9 @@ export const openAuthenticateX1VaultDialog = () =>
 export const openReleaseNotesDialog = () =>
   openDialog({ name: 'releaseNotes', data: undefined });
 
+export const openFirmwareReleaseNotesDialog = () =>
+  openDialog({ name: 'firmwareReleaseNotes', data: undefined });
+
 export const openHistoryDialog = (props?: IHistoryDialogProps) =>
   openDialog({ name: 'historyDialog', data: props });
 

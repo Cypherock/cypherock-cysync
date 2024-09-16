@@ -30,6 +30,7 @@ import { SignMessageDialog } from './SignMessage';
 import { WalletActionsDialogBox } from './WalletActions';
 import { WalletConnectDialog } from './WalletConnect';
 import { WalletSyncError } from './WalletSyncError';
+import { FirmwareReleaseNotesDialog } from './CySync/FirmWareReleaseNotes';
 
 export const dialogs: Record<DialogName, ReactComponentLike> = {
   walletSyncError: WalletSyncError,
@@ -49,6 +50,7 @@ export const dialogs: Record<DialogName, ReactComponentLike> = {
   authenticateX1Vault: AuthenticateX1VaultDialog,
   authenticateX1Card: AuthenticateX1CardDialog,
   releaseNotes: ReleaseNotesDialog,
+  firmwareReleaseNotes: FirmwareReleaseNotesDialog,
   signMessage: SignMessageDialog,
   deviceUpdateDialog: DeviceUpdateDialog,
   deviceAuthenticationDialog: DeviceAuthenticationDialog,
