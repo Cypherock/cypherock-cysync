@@ -82,6 +82,7 @@ export const colors = {
     filterItem: `#1F1C19`,
     calendar: '#342F2C',
     calendarHeader: '#211C18',
+    checkBoxInner: '#1e1e1e',
   },
   border: {
     popup: '#2C2520',
@@ -108,6 +109,7 @@ export const colors = {
     subMenuLeft: '#534B44',
     topbar: '#342C26',
     card: '#534A44',
+    checkBoxHover: '#aaa',
   },
   shadow: {
     dropdown: '#0f0d0b',
