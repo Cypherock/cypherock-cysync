@@ -28,6 +28,7 @@ export * from './Milestone';
 export * from './Notification';
 export * from './Prefabs';
 export * from './ProgressBar';
+export * from './ProgressLine';
 export * from './Send';
 export * from './SideBar';
 export * from './SkeletonLoader';
