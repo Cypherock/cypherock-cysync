@@ -14,6 +14,10 @@ import { ITabs, useTabsAndDialogs } from '~/hooks';
 import { closeDialog, useAppDispatch } from '~/store';
 
 import { EditDetails, Success, VerifyOTP } from '../Dialogs';
+import {
+  EditUserDetialsUserType,
+  InheritanceEditUserDetailsDialogProps,
+} from '..';
 
 export interface IUserDetails {
   name: string;
@@ -34,6 +38,7 @@ export interface InheritanceEditUserDetailsDialogContextInterface {
   userDetails?: IUserDetails;
   onUserDetailsSubmit: (params: IUserDetails) => void;
   isSubmittingUserDetails: boolean;
+  userType: EditUserDetialsUserType;
 }
 
 export const InheritanceEditUserDetailsDialogContext: Context<InheritanceEditUserDetailsDialogContextInterface> =
@@ -41,13 +46,14 @@ export const InheritanceEditUserDetailsDialogContext: Context<InheritanceEditUse
     {} as InheritanceEditUserDetailsDialogContextInterface,
   );
 
-export interface InheritanceEditUserDetailsDialogContextProviderProps {
+export interface InheritanceEditUserDetailsDialogContextProviderProps
+  extends InheritanceEditUserDetailsDialogProps {
   children: ReactNode;
 }
 
 export const InheritanceEditUserDetailsDialogProvider: FC<
   InheritanceEditUserDetailsDialogContextProviderProps
-> = ({ children }) => {
+> = ({ children, userType }) => {
   const dispatch = useAppDispatch();
 
   const [isSubmittingUserDetails, setIsSubmittingUserDetails] = useState(false);
@@ -101,6 +107,7 @@ export const InheritanceEditUserDetailsDialogProvider: FC<
       userDetails,
       onUserDetailsSubmit,
       isSubmittingUserDetails,
+      userType,
     }),
     [
       onNext,
@@ -114,6 +121,7 @@ export const InheritanceEditUserDetailsDialogProvider: FC<
       userDetails,
       onUserDetailsSubmit,
       isSubmittingUserDetails,
+      userType,
     ],
   );
 

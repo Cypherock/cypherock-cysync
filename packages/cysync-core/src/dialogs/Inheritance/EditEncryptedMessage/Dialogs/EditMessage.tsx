@@ -17,11 +17,8 @@ export const EditMessage = () => {
   const lang = useAppSelector(selectLanguage);
   const strings =
     lang.strings.dialogs.inheritanceEditEncryptedMessage.editMessage;
-  const { onClose, onNext } = useInheritanceEditEncryptedMessageDialog();
-  const [form, setForm] = useState({
-    cardLocation: '',
-    message: '',
-  });
+  const { onNext, onClose, encryptedMessage, setEncryptedMessage } =
+    useInheritanceEditEncryptedMessageDialog();
 
   return (
     <Layout
@@ -55,10 +52,12 @@ export const EditMessage = () => {
           tooltip={strings.form.cardLocationField.tooltip}
           placeholder={strings.form.cardLocationField.placeholder}
           height={120}
+          value={encryptedMessage?.cardLocation}
+          onChange={text =>
+            setEncryptedMessage({ ...encryptedMessage, cardLocation: text })
+          }
           maxChars={800}
-          currentChars={form.cardLocation.length || 0}
-          value={form.cardLocation}
-          onChange={val => setForm(p => ({ ...p, cardLocation: val }))}
+          currentChars={encryptedMessage.cardLocation.length || 0}
           autoFocus
         />
         <TextAreaInput
@@ -67,9 +66,14 @@ export const EditMessage = () => {
           placeholder={strings.form.personalMessageField.placeholder}
           height={120}
           maxChars={800}
-          currentChars={form.message.length || 0}
-          value={form.message}
-          onChange={val => setForm(p => ({ ...p, message: val }))}
+          currentChars={encryptedMessage?.personalMessage.length || 0}
+          value={encryptedMessage?.personalMessage}
+          onChange={text =>
+            setEncryptedMessage({
+              ...encryptedMessage,
+              personalMessage: text,
+            })
+          }
         />
       </Container>
       <MessageBox type="warning" text={strings.messageBox.warning} />

@@ -5,6 +5,7 @@ import React, {
   createContext,
   useContext,
   useMemo,
+  useState,
 } from 'react';
 
 import { ITabs, useTabsAndDialogs } from '~/hooks';
@@ -22,6 +23,9 @@ export interface InheritanceEditExecutorMessageDialogContextInterface {
   currentDialog: number;
   isDeviceRequired: boolean;
   unhandledError?: any;
+  fetchData: () => void;
+  updateData: (m: string) => void;
+  executorMessage?: string;
 }
 
 export const InheritanceEditExecutorMessageDialogContext: Context<InheritanceEditExecutorMessageDialogContextInterface> =
@@ -54,6 +58,28 @@ export const InheritanceEditExecutorMessageDialogProvider: FC<
     },
   ];
 
+  const [executorMessage, setExecutorMessage] = useState<string>();
+
+  const fetchData = () => {
+    'Implement this function';
+
+    const dummy =
+      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque id  ullamcorper dui, sed vestibulum libero. Lorem ipsum dolor sit amet,  consectetur adipiscing elit. Sed placerat nibh sed justo sagittis  venenatis. Nullam dictum ipsum ac nunc aliquet, ut condimentum nibh  pharetra. Pellentesque interdum dignissim blandit. Nullam ac tincidunt  lacus. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices  posuere cubilia curae; Vivamus magna velit, pulvinar euismod nisi non,  venenatis vehicula justo. Morbi ligula purus, condimentum vitae eleifend  ut, mattis at diam. Sed non pulvinar ex.';
+    setExecutorMessage(dummy);
+    setTimeout(() => {
+      onNext();
+    }, 2000);
+  };
+
+  const updateData = (message: string) => {
+    'Implement this function';
+
+    setExecutorMessage(message);
+    setTimeout(() => {
+      onNext();
+    }, 2000);
+  };
+
   const {
     onNext,
     onPrevious,
@@ -81,6 +107,9 @@ export const InheritanceEditExecutorMessageDialogProvider: FC<
       currentTab,
       currentDialog,
       isDeviceRequired,
+      fetchData,
+      updateData,
+      executorMessage,
     }),
     [
       onNext,
@@ -91,6 +120,9 @@ export const InheritanceEditExecutorMessageDialogProvider: FC<
       currentTab,
       currentDialog,
       isDeviceRequired,
+      fetchData,
+      updateData,
+      executorMessage,
     ],
   );
 
