@@ -13,19 +13,28 @@ import {
   UserIcon,
   WalletIcon,
 } from '@cypherock/cysync-ui';
-import React, { FC } from 'react';
+import React, { FC, useCallback } from 'react';
 
 import { selectLanguage, useAppSelector } from '~/store';
 
 import { InheritancePageLayout } from './Layout';
+import { useDispatch } from 'react-redux';
+import {
+  openInheritanceEditEncryptedMessageDialog,
+  openInheritanceEditExecutorMessageDialog,
+  openInheritanceEditReminderTimeDialog,
+  openInheritanceEditUserDetailsDialog,
+} from '~/actions';
+import { useNavigate } from 'react-router-dom';
+import { InheritanceEditUserDetailsDialogProps } from '~/dialogs/Inheritance';
 
 export const InheritancePlanDetails: FC = () => {
   const lang = useAppSelector(selectLanguage);
   const strings = lang.strings.inheritance;
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   const goldWalletIcon = <WalletIcon fill={`url(#${svgGradients.gold})`} />;
-  const editButton = (
-    <EditButton text="Edit" onClick={() => alert('Edit Clicked')} />
-  );
 
   const getReminderPeriodInputText = (reminderPeriod: number) => {
     const reminderPeriodInput =
@@ -38,16 +47,37 @@ export const InheritancePlanDetails: FC = () => {
     );
   };
 
+  const onBack = useCallback(() => {
+    navigate(-1);
+  }, [navigate]);
+
+  const openInheritanceEditUserDetails = useCallback(
+    (params: InheritanceEditUserDetailsDialogProps) => {
+      dispatch(openInheritanceEditUserDetailsDialog(params));
+    },
+    [dispatch],
+  );
+
+  const openInheritanceEditReminderTime = useCallback(() => {
+    dispatch(openInheritanceEditReminderTimeDialog());
+  }, [dispatch]);
+
+  const openInheritanceEditEncryptedMessage = useCallback(() => {
+    dispatch(openInheritanceEditEncryptedMessageDialog());
+  }, [dispatch]);
+
+  const openInheritanceEditExecutorMessage = useCallback(() => {
+    dispatch(openInheritanceEditExecutorMessageDialog());
+  }, [dispatch]);
+
   return (
     <InheritancePageLayout>
       <Container direction="column" gap={32} justify="flex-start">
-        <Container width="100%" justify="flex-start" pt={4}>
+        <Container width="100%" justify="space-between" pt={4}>
           <Button
             variant="icon"
             icon={<ArrowBackGoldenIcon />}
-            onClick={() => {
-              'implement this function';
-            }}
+            onClick={onBack}
           />
         </Container>
         <Container
@@ -86,14 +116,26 @@ export const InheritancePlanDetails: FC = () => {
                   strings.planDetails.walletDetails.reminderPeriodField.label,
                 icon: ClockIcon,
                 value: getReminderPeriodInputText(1),
-                trailing: editButton,
+                trailing: (
+                  <EditButton
+                    text={lang.strings.buttons.edit}
+                    onClick={openInheritanceEditReminderTime}
+                  />
+                ),
               },
             ]}
           />
           <DetailsCard
             $flex={1}
             headerText={strings.planDetails.ownerDetails.title}
-            headerTrailing={editButton}
+            headerTrailing={
+              <EditButton
+                text={lang.strings.buttons.edit}
+                onClick={() =>
+                  openInheritanceEditUserDetails({ userType: 'owner' })
+                }
+              />
+            }
             fields={[
               {
                 label:
@@ -122,7 +164,14 @@ export const InheritancePlanDetails: FC = () => {
               strings.planDetails.nomineeDetails.title,
               { number: 1 },
             )}
-            headerTrailing={editButton}
+            headerTrailing={
+              <EditButton
+                text={lang.strings.buttons.edit}
+                onClick={() =>
+                  openInheritanceEditUserDetails({ userType: 'nominee' })
+                }
+              />
+            }
             fields={[
               {
                 label:
@@ -150,7 +199,12 @@ export const InheritancePlanDetails: FC = () => {
               label:
                 strings.planDetails.nomineeDetails.form.encryptedMessage.label,
               icon: EncryptedMessageIcon,
-              trailing: editButton,
+              trailing: (
+                <EditButton
+                  text={lang.strings.buttons.edit}
+                  onClick={openInheritanceEditEncryptedMessage}
+                />
+              ),
             }}
           />
           <DetailsCard
@@ -159,7 +213,14 @@ export const InheritancePlanDetails: FC = () => {
               strings.planDetails.nomineeDetails.title,
               { number: 2 },
             )}
-            headerTrailing={editButton}
+            headerTrailing={
+              <EditButton
+                text={lang.strings.buttons.edit}
+                onClick={() =>
+                  openInheritanceEditUserDetails({ userType: 'nominee' })
+                }
+              />
+            }
             fields={[
               {
                 label:
@@ -187,13 +248,25 @@ export const InheritancePlanDetails: FC = () => {
               label:
                 strings.planDetails.nomineeDetails.form.encryptedMessage.label,
               icon: EncryptedMessageIcon,
-              trailing: editButton,
+              trailing: (
+                <EditButton
+                  text={lang.strings.buttons.edit}
+                  onClick={openInheritanceEditEncryptedMessage}
+                />
+              ),
             }}
           />
           <DetailsCard
             $flex={1}
             headerText={strings.planDetails.executorDetails.title}
-            headerTrailing={editButton}
+            headerTrailing={
+              <EditButton
+                text={lang.strings.buttons.edit}
+                onClick={() =>
+                  openInheritanceEditUserDetails({ userType: 'executor' })
+                }
+              />
+            }
             fields={[
               {
                 label:
@@ -221,7 +294,12 @@ export const InheritancePlanDetails: FC = () => {
               label:
                 strings.planDetails.executorDetails.form.executorMessage.label,
               icon: EncryptedMessageIcon,
-              trailing: editButton,
+              trailing: (
+                <EditButton
+                  text={lang.strings.buttons.edit}
+                  onClick={openInheritanceEditExecutorMessage}
+                />
+              ),
             }}
           />
         </Container>

@@ -19,7 +19,8 @@ export const EditMessage = () => {
   const lang = useAppSelector(selectLanguage);
   const strings =
     lang.strings.dialogs.inheritanceEditEncryptedMessage.editMessage;
-  const { onClose, onNext } = useInheritanceEditEncryptedMessageDialog();
+  const { onNext, onClose, encryptedMessage, setEncryptedMessage } =
+    useInheritanceEditEncryptedMessageDialog();
 
   return (
     <Layout
@@ -60,6 +61,10 @@ export const EditMessage = () => {
           <TextAreaInput
             placeholder={strings.form.cardLocationField.placeholder}
             height={120}
+            value={encryptedMessage?.cardLocation}
+            onChange={text =>
+              setEncryptedMessage({ ...encryptedMessage, cardLocation: text })
+            }
           />
         </Container>
         <Container direction="column" width="100%" $flex={1}>
@@ -74,6 +79,13 @@ export const EditMessage = () => {
           <TextAreaInput
             placeholder={strings.form.personalMessageField.placeholder}
             height={120}
+            value={encryptedMessage?.personalMessage}
+            onChange={text =>
+              setEncryptedMessage({
+                ...encryptedMessage,
+                personalMessage: text,
+              })
+            }
           />
         </Container>
       </Container>

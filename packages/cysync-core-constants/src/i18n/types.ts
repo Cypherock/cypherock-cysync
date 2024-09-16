@@ -97,6 +97,7 @@ interface LangButtons {
   saveAndContinue: string;
   exitWithoutSaving: string;
   saveChanges: string;
+  edit: string;
 }
 
 interface LangDashboard {
@@ -848,6 +849,11 @@ interface LangDialogs {
   inheritanceEditUserDetails: {
     editDetails: {
       title: string;
+      userTypes: {
+        owner: string;
+        nominee: string;
+        executor: string;
+      };
       buttons: {
         verifyEmail: string;
       };

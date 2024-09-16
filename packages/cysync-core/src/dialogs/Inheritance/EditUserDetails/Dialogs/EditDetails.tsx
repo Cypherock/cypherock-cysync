@@ -20,7 +20,7 @@ import { useInheritanceEditUserDetailsDialog } from '../context';
 
 export const EditDetails = () => {
   const lang = useAppSelector(selectLanguage);
-  const { onClose, onUserDetailsSubmit, isSubmittingUserDetails } =
+  const { onClose, onUserDetailsSubmit, isSubmittingUserDetails, userType } =
     useInheritanceEditUserDetailsDialog();
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
@@ -59,7 +59,7 @@ export const EditDetails = () => {
                 $fontSize={20}
                 mb="4px"
               >
-                <LangDisplay text={strings.title} />
+                <LangDisplay text={strings.title} variables={{ userType }} />
               </Typography>
             </Container>
             <Container direction="column" $width="full" mb={3}>

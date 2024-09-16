@@ -12,7 +12,7 @@ import {
   TextAreaInput,
   Typography,
 } from '@cypherock/cysync-ui';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { LoaderDialog } from '~/components';
 import { selectLanguage, useAppSelector } from '~/store';
@@ -23,7 +23,7 @@ export const EditMessage = () => {
   const lang = useAppSelector(selectLanguage);
   const [isLoading, setIsLoading] = useState(false);
   const [message, setMessage] = useState('');
-  const { onClose } = useInheritanceEditExecutorMessageDialog();
+  const { onClose, updateData } = useInheritanceEditExecutorMessageDialog();
   const strings =
     lang.strings.dialogs.inheritanceEditExecutorMessage.editMessage;
   const { form } = strings;
@@ -36,6 +36,11 @@ export const EditMessage = () => {
       />
     );
   }
+
+  useEffect(() => {
+    if (!isLoading) return;
+    updateData(message);
+  }, [isLoading]);
 
   return (
     <DialogBox width={800} onClose={onClose} $maxHeight="90vh">

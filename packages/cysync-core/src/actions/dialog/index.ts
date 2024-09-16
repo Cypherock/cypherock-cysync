@@ -6,6 +6,7 @@ import { DeviceAuthenticationDialogProps } from '~/dialogs/DeviceAuthenticationD
 import { EditAccountDialogProps } from '~/dialogs/EditAccountDialog';
 import { ErrorDialogProps } from '~/dialogs/ErrorDialog';
 import { IHistoryDialogProps } from '~/dialogs/HistoryDialog';
+import { InheritanceEditUserDetailsDialogProps } from '~/dialogs/Inheritance';
 import { ReceiveDialogProps } from '~/dialogs/Receive';
 import { SendDialogProps } from '~/dialogs/Send/';
 import { GuidedFlowType, openDialog } from '~/store';
@@ -104,8 +105,9 @@ export const openInheritanceEditExecutorMessageDialog = () =>
 export const openInheritanceEditReminderTimeDialog = () =>
   openDialog({ name: 'inheritanceEditReminderTime', data: undefined });
 
-export const openInheritanceEditUserDetailsDialog = () =>
-  openDialog({ name: 'inheritanceEditUserDetails', data: undefined });
+export const openInheritanceEditUserDetailsDialog = (
+  props?: InheritanceEditUserDetailsDialogProps,
+) => openDialog({ name: 'inheritanceEditUserDetails', data: props });
 
 export const openInheritancePinRecoveryDialog = () =>
   openDialog({ name: 'inheritancePinRecovery', data: undefined });
