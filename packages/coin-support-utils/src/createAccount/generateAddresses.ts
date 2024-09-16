@@ -30,7 +30,7 @@ export interface IGenerateAddressesPerSchemeParams<T>
 export async function generateAddressesPerScheme<T>(
   params: IGenerateAddressesPerSchemeParams<T>,
 ) {
-  const { derivationPathsPerScheme } = params;
+  const { derivationPathsPerScheme, getAddressesFromDevice } = params;
   const allDerivationPaths = Object.values(derivationPathsPerScheme).reduce(
     (a, b) => [...a, ...b],
     [],
@@ -40,7 +40,7 @@ export async function generateAddressesPerScheme<T>(
     index: startIndex,
   }));
 
-  const addresses = await params.getAddressesFromDevice({
+  const addresses = await getAddressesFromDevice({
     ...params,
     derivationPaths: mappedDerivationPaths,
   });
