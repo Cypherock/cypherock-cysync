@@ -77,16 +77,15 @@ export function makeCreateAccountsObservable<
           assetId: params.coinId,
         });
 
-        const derivationPathsPerScheme = await generateDerivationPathsPerScheme(
-          {
-            ...params,
-            limit: params.derivationPathLimit,
-            existingAccounts,
-          },
-        );
-        if (finished) return;
+        const derivationPathsPerScheme = generateDerivationPathsPerScheme({
+          ...params,
+          limit: params.derivationPathLimit,
+          existingAccounts,
+        });
 
         app = await params.createApp(params.connection);
+        if (finished) return;
+
         const addressesPerScheme = await generateAddressesPerScheme({
           ...params,
           app,
