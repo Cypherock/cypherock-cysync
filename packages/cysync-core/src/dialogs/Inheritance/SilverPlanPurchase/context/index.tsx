@@ -9,6 +9,7 @@ import React, {
   useCallback,
   useContext,
   useMemo,
+  useRef,
   useState,
 } from 'react';
 
@@ -19,7 +20,7 @@ import {
   useNavigateTo,
   useStateWithRef,
 } from '~/hooks';
-import { inheritancePlanService } from '~/services';
+import { InheritanceLoginTypeMap, inheritancePlanService } from '~/services';
 import { useAppSelector } from '~/store';
 import { getDB } from '~/utils';
 
@@ -32,6 +33,7 @@ import { tabIndicies, useSilverPlanDialogHanlders } from './useDialogHandler';
 import {
   IUserDetails,
   useEncryptMessage,
+  useSession,
   useWalletAuth,
   WalletAuthLoginStep,
 } from '../../hooks';
@@ -96,23 +98,44 @@ export const InheritanceSilverPlanPurchaseDialogProvider: FC<
 
   const walletAuthService = useWalletAuth(onError);
   const encryptMessageService = useEncryptMessage(onError);
+  const sessionService = useSession(onError);
+  const sessionIdRef = useRef<string | undefined>();
 
   const walletAuthFetchRequestId = useCallback(() => {
     if (!selectedWallet?.__id) {
       return;
     }
 
-    walletAuthService.fetchRequestId(selectedWallet.__id);
+    walletAuthService.fetchRequestId(
+      selectedWallet.__id,
+      InheritanceLoginTypeMap.owner,
+      'seed-based',
+    );
   }, [selectedWallet, walletAuthService.fetchRequestId]);
 
-  const encryptPinStart = useCallback(() => {
+  const encryptPinStart = useCallback(async () => {
     if (!selectedWallet?.__id) {
       return;
     }
 
-    // TODO: Remove hard coded message when empty encryption is implemented on device
-    encryptMessageService.start(selectedWallet.__id, ['Delete me!']);
-  }, [selectedWallet, encryptMessageService.start]);
+    let sessionId = await sessionService.getIsActive();
+
+    if (!sessionId) {
+      sessionId = await sessionService.start();
+    }
+
+    sessionIdRef.current = sessionId;
+
+    if (sessionId) {
+      encryptMessageService.start(selectedWallet.__id);
+    }
+  }, [
+    selectedWallet,
+    encryptMessageService.start,
+    sessionService.start,
+    sessionService.getIsActive,
+    sessionService.sessionId,
+  ]);
 
   const onRetryFuncMap = useMemo<
     Record<number, Record<number, (() => boolean) | undefined> | undefined>
@@ -135,12 +158,14 @@ export const InheritanceSilverPlanPurchaseDialogProvider: FC<
     if (
       !encryptMessageService.encryptedMessages ||
       !walletAuthService.authTokens ||
-      !selectedWallet
+      !selectedWallet ||
+      !sessionIdRef.current
     )
       return false;
 
     const result = await inheritancePlanService.create({
       encryptedData: encryptMessageService.encryptedMessages,
+      sessionId: sessionIdRef.current,
       accessToken: walletAuthService.authTokens.accessToken,
     });
 
@@ -244,9 +269,16 @@ export const InheritanceSilverPlanPurchaseDialogProvider: FC<
     setCouponDuration(0);
     setSelectedWallet(undefined);
     setRetryIndex(v => v + 1);
+    setUnhandledError(undefined);
     walletAuthService.reset();
     encryptMessageService.reset();
-  }, [walletAuthService.reset, encryptMessageService.reset, resetSetupPlan]);
+    sessionService.reset();
+  }, [
+    walletAuthService.reset,
+    encryptMessageService.reset,
+    resetSetupPlan,
+    sessionService.reset,
+  ]);
 
   const onRetry = useCallback(() => {
     const retryLogic = onRetryFuncMap[currentTab]?.[currentDialog];
@@ -312,8 +344,14 @@ export const InheritanceSilverPlanPurchaseDialogProvider: FC<
     setRetryIndex(v => v + 1);
     walletAuthService.reset();
     encryptMessageService.reset();
+    sessionService.reset();
     goTo(tabIndicies.wallet.tabNumber, tabIndicies.wallet.dialogs.selectWallet);
-  }, [walletAuthService.reset, encryptMessageService.reset, resetSetupPlan]);
+  }, [
+    walletAuthService.reset,
+    encryptMessageService.reset,
+    resetSetupPlan,
+    sessionService.reset,
+  ]);
 
   const onNextCallback = useCallback(() => {
     const action = onNextActionMapPerDialog[currentTab]?.[currentDialog];
@@ -418,6 +456,7 @@ export const InheritanceSilverPlanPurchaseDialogProvider: FC<
     removeCoupon,
     applyingCouponError,
     couponDuration,
+    isEstablishingSession: sessionService.isStartingSession,
   });
 
   return (

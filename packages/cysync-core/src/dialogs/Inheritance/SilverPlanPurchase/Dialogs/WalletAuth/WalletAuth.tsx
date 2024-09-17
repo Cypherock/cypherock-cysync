@@ -56,7 +56,7 @@ export const WalletAuth = () => {
         leftImage: rightArrowIcon,
         rightImage: getDeviceEventIcon(
           InheritanceWalletAuthDeviceEvent.INIT,
-          InheritanceWalletAuthDeviceEvent.CARD_TAPPED,
+          InheritanceWalletAuthDeviceEvent.WALLET_BASED_CARD_TAPPED,
         ),
       },
     ];

@@ -17,9 +17,12 @@ import {
 import { selectLanguage, useAppSelector } from '~/store';
 
 import {
+  InheritancePinRecoveryDialogProps,
   InheritancePinRecoveryDialogProvider,
   useInheritancePinRecoveryDialog,
 } from './context';
+
+export type { InheritancePinRecoveryDialogProps } from './context';
 
 const DeviceConnectionWrapper: React.FC<{
   isDeviceRequired: boolean;
@@ -100,8 +103,10 @@ const InheritancePinRecovery: FC = () => {
   );
 };
 
-export const InheritancePinRecoveryDialog = () => (
-  <InheritancePinRecoveryDialogProvider>
+export const InheritancePinRecoveryDialog: React.FC<
+  InheritancePinRecoveryDialogProps
+> = props => (
+  <InheritancePinRecoveryDialogProvider {...props}>
     <InheritancePinRecovery />
   </InheritancePinRecoveryDialogProvider>
 );

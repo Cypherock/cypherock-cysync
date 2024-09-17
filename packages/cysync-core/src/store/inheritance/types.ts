@@ -7,6 +7,7 @@ export interface IWalletAuthTokens {
 
 export interface IInheritanceState {
   walletAuthTokens: Record<string, IWalletAuthTokens | undefined>;
+  seedAuthTokens: Record<string, IWalletAuthTokens | undefined>;
   inheritancePlans: IInheritancePlan[];
   isLoaded: boolean;
 }

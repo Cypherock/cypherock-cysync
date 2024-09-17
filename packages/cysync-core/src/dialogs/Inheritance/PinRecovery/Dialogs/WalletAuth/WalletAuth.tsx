@@ -1,4 +1,4 @@
-import { SignTransactionDeviceEvent } from '@cypherock/coin-support-interfaces';
+import { InheritanceWalletAuthDeviceEvent } from '@cypherock/app-support-inheritance';
 import {
   ArrowRightIcon,
   Check,
@@ -12,12 +12,13 @@ import {
   Typography,
   Video,
 } from '@cypherock/cysync-ui';
-import React, { useEffect } from 'react';
+import React, { useEffect, useMemo } from 'react';
 
 import { selectLanguage, useAppSelector } from '~/store';
 
-import { useInheritancePinRecoveryDialog } from '../context';
-import { Layout } from '../Layout';
+import { WalletAuthLoginStep } from '../../../hooks';
+import { useInheritancePinRecoveryDialog } from '../../context';
+import { Layout } from '../../Layout';
 
 const checkIconComponent = <Check width={15} height={12} />;
 const throbberComponent = <Throbber size={15} strokeWidth={2} />;
@@ -28,47 +29,65 @@ export const WalletAuth = () => {
 
   const strings = lang.strings.dialogs.inheritancePinRecovery.sync;
 
-  const { onNext, selectedWallet } = useInheritancePinRecoveryDialog();
-
-  const deviceEvents: Record<number, boolean | undefined> = {
-    0: true,
-  };
+  const {
+    onNext,
+    selectedWallet,
+    walletAuthDeviceEvents,
+    walletAuthStep,
+    walletAuthStart,
+    walletAuthAbort,
+    retryIndex,
+    clearErrors,
+  } = useInheritancePinRecoveryDialog();
 
   const getDeviceEventIcon = (
-    loadingEvent: SignTransactionDeviceEvent,
-    completedEvent: SignTransactionDeviceEvent,
+    loadingEvent: InheritanceWalletAuthDeviceEvent,
+    completedEvent: InheritanceWalletAuthDeviceEvent,
   ) => {
-    if (deviceEvents[completedEvent]) return checkIconComponent;
-    if (deviceEvents[loadingEvent]) return throbberComponent;
+    if (walletAuthDeviceEvents[completedEvent]) return checkIconComponent;
+    if (walletAuthDeviceEvents[loadingEvent]) return throbberComponent;
 
     return undefined;
   };
 
-  const actionsList = React.useMemo<LeanBoxProps[]>(() => {
+  const actionsList = useMemo<LeanBoxProps[]>(() => {
     const actions: LeanBoxProps[] = [
       {
         id: '1',
         text: strings.walletAuth.actions.confirmAuth,
         leftImage: rightArrowIcon,
-        rightImage: getDeviceEventIcon(0, 1),
+        rightImage: getDeviceEventIcon(
+          InheritanceWalletAuthDeviceEvent.INIT,
+          InheritanceWalletAuthDeviceEvent.CONFIRMED,
+        ),
       },
       {
         id: '2',
         text: strings.walletAuth.actions.enterPinAndTapCard,
-        rightImage: getDeviceEventIcon(0, 1),
+        rightImage: getDeviceEventIcon(
+          InheritanceWalletAuthDeviceEvent.CONFIRMED,
+          InheritanceWalletAuthDeviceEvent.WALLET_BASED_CARD_TAPPED,
+        ),
       },
     ];
 
     return actions;
-  }, []);
+  }, [strings, walletAuthDeviceEvents]);
 
   useEffect(() => {
-    const timeout = setTimeout(() => {
-      onNext();
-    }, 2000);
+    clearErrors();
+    walletAuthStart();
 
-    return () => clearTimeout(timeout);
-  }, []);
+    return () => {
+      walletAuthAbort();
+    };
+  }, [retryIndex, clearErrors]);
+
+  useEffect(() => {
+    if (walletAuthStep > WalletAuthLoginStep.walletAuth) {
+      onNext();
+    }
+  }, [walletAuthStep]);
 
   return (
     <Layout>
