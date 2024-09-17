@@ -1857,7 +1857,8 @@
       "syncFromEmail": "Sync from Email",
       "recoverPin": "Recover PIN",
       "renewPlan": "Renew Plan",
-      "unlock": "Unlock"
+      "unlock": "Unlock",
+      "upgradePlan": "Upgrade Plan"
     },
     "termsOfService": {
       "title": "Terms of Service",

@@ -1019,6 +1019,7 @@ interface LangInheritance {
     recoverPin: string;
     renewPlan: string;
     unlock: string;
+    upgradePlan: string;
   };
   termsOfService: {
     title: string;

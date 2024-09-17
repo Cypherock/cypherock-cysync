@@ -20,7 +20,7 @@ export const InheritanceUnlockPlan: FC = () => {
   const strings = lang.strings.inheritance;
   const navigate = useNavigate();
 
-  const currentPlan = 'gold';
+  const currentPlan = 'silver';
 
   const onBack = useCallback(() => {
     navigate(-1);
@@ -50,6 +50,14 @@ export const InheritanceUnlockPlan: FC = () => {
                 'impliment this function';
               }}
             >
+              {strings.buttons.upgradePlan}
+            </Button>
+            <Button
+              variant="primary"
+              onClick={() => {
+                'impliment this function';
+              }}
+            >
               {strings.buttons.renewPlan}
             </Button>
           </Flex>
@@ -74,7 +82,7 @@ export const InheritanceUnlockPlan: FC = () => {
             <Container
               height={145}
               width={145}
-              $bgColor="primary"
+              $bgColor="separator"
               display="flex"
               justify="center"
               align="center"
@@ -82,8 +90,8 @@ export const InheritanceUnlockPlan: FC = () => {
             >
               <Lock
                 fill={`url(#${svgGradients.gold})`}
-                width={45}
-                height={59}
+                width={68}
+                height={68}
               />
             </Container>
             <Button
