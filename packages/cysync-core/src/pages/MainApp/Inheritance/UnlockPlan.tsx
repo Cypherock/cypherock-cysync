@@ -71,7 +71,7 @@ export const InheritanceUnlockPlan: FC = () => {
           $zIndex={10}
         >
           <Image
-            src={currentPlan === 'gold' ? unlockGoldPlan : unlockSilverPlan}
+            src={currentPlan === 'silver' ? unlockGoldPlan : unlockSilverPlan}
             alt="unlock gold plan"
             $zIndex={-10}
             position="absolute"
