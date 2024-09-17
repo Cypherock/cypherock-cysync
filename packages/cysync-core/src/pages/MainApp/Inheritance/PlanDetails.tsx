@@ -7,6 +7,7 @@ import {
   EditButton,
   EmailIconSmall,
   EncryptedMessageIcon,
+  Flex,
   parseLangTemplate,
   svgGradients,
   Typography,
@@ -41,7 +42,7 @@ export const InheritancePlanDetails: FC = () => {
   return (
     <InheritancePageLayout>
       <Container direction="column" gap={32} justify="flex-start">
-        <Container width="100%" justify="flex-start" pt={4}>
+        <Container width="100%" justify="space-between" pt={4}>
           <Button
             variant="icon"
             icon={<ArrowBackGoldenIcon />}
@@ -49,6 +50,32 @@ export const InheritancePlanDetails: FC = () => {
               'implement this function';
             }}
           />
+          <Flex justify="center" gap={16}>
+            <Button
+              variant="secondary"
+              onClick={() => {
+                'impliment this function';
+              }}
+            >
+              {strings.buttons.recoverPin}
+            </Button>
+            <Button
+              variant="secondary"
+              onClick={() => {
+                'impliment this function';
+              }}
+            >
+              {strings.buttons.upgradePlan}
+            </Button>
+            <Button
+              variant="primary"
+              onClick={() => {
+                'impliment this function';
+              }}
+            >
+              {strings.buttons.renewPlan}
+            </Button>
+          </Flex>
         </Container>
         <Container
           direction="row"
