@@ -95,6 +95,9 @@ const initialState: IDialogState = {
   inheritanceSilverPlanPurchase: {
     isOpen: false,
   },
+  inheritanceGoldPlanPurchase: {
+    isOpen: false,
+  },
   inheritanceEditExecutorMessage: {
     isOpen: false,
   },
@@ -105,6 +108,9 @@ const initialState: IDialogState = {
     isOpen: false,
   },
   inheritancePinRecovery: {
+    isOpen: false,
+  },
+  inheritanceEditEncryptedMessage: {
     isOpen: false,
   },
 };

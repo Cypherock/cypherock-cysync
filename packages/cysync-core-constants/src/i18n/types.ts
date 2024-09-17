@@ -40,6 +40,7 @@ export interface LanguageStrings {
   otp: LangOTP;
   inheritance: LangInheritance;
   inheritanceSilverPlanPurchase: LangInheritanceSilverPlanPurchase;
+  inheritanceGoldPlanPurchase: LangInheritanceGoldPlanPurchase;
 }
 
 interface LangLabels {
@@ -91,6 +92,11 @@ interface LangButtons {
   sync: string;
   learnMore: string;
   checkout: string;
+  yes: string;
+  no: string;
+  saveAndContinue: string;
+  exitWithoutSaving: string;
+  saveChanges: string;
 }
 
 interface LangDashboard {
@@ -903,6 +909,80 @@ interface LangDialogs {
       title: string;
     };
   };
+  inheritanceEditEncryptedMessage: {
+    confirmation: {
+      title: string;
+      subTitle: string;
+    };
+    syncing: {
+      title: string;
+      subTitle: string;
+    };
+    decryption: {
+      wallet: {
+        title: string;
+        actions: {
+          confirm: string;
+          tapCard: string;
+        };
+        messageBox: {
+          warning: string;
+        };
+        decryption: {
+          title: string;
+          subTitle: string;
+        };
+      };
+    };
+    editMessage: {
+      title: string;
+      subTitle: string;
+      form: {
+        cardLocationField: {
+          label: string;
+          placeholder: string;
+          tooltip: string;
+        };
+        personalMessageField: {
+          label: string;
+          placeholder: string;
+          tooltip: string;
+        };
+      };
+      messageBox: {
+        warning: string;
+      };
+    };
+    confirmMessage: {
+      title: string;
+      subTitle: string;
+      actions: {
+        confirmOnDevice: string;
+        verifyLocation: string;
+      };
+      messageBox: {
+        danger: string;
+      };
+    };
+    encryption: {
+      title: string;
+      subTitle: string;
+      tooltip: string;
+      actions: {
+        enterPinAndTap: string;
+      };
+      messageBox: {
+        warning: string;
+      };
+      syncing: {
+        title: string;
+        subTitle: string;
+      };
+    };
+    success: {
+      title: string;
+    };
+  };
 }
 
 interface LangToggle {
@@ -972,17 +1052,19 @@ interface LangOTP {
 
 interface LangInheritance {
   title: string;
+  plans: {
+    silver: {
+      title: string;
+      description: string;
+    };
+    gold: {
+      title: string;
+      description: string;
+    };
+  };
   choosePlan: {
     title: string;
     plans: {
-      silver: {
-        heading: string;
-        description: string;
-      };
-      gold: {
-        heading: string;
-        description: string;
-      };
       buttonText: string;
       popularTagText: string;
       features: string[];
@@ -1011,6 +1093,44 @@ interface LangInheritance {
       learnMore: {
         title: string;
         subTitle: string;
+      };
+    };
+  };
+  planDetails: {
+    walletDetails: {
+      createdOn: string;
+      expiringOn: string;
+      reminderPeriodField: {
+        label: string;
+        input: string;
+        inputPlural: string;
+      };
+    };
+    ownerDetails: {
+      title: string;
+      form: {
+        userNameField: { label: string };
+        primaryEmailField: { label: string };
+        secondaryEmailField: { label: string };
+      };
+    };
+    nomineeDetails: {
+      title: string;
+      form: {
+        nomineeNameField: { label: string };
+        primaryEmailField: { label: string };
+        secondaryEmailField: { label: string };
+        encryptedMessage: { label: string };
+      };
+    };
+    executorDetails: {
+      title: string;
+      form: {
+        nomineeNameField: { label: string };
+        primaryEmailField: { label: string };
+        secondaryEmailField: { label: string };
+        executorMessage: { label: string };
+        assignTo: { label: string };
       };
     };
   };
@@ -1130,6 +1250,256 @@ interface LangInheritanceSilverPlanPurchase {
       subtext: string;
     };
     success: {
+      title: string;
+      subtext: string;
+    };
+  };
+}
+
+interface LangInheritanceGoldPlanPurchase {
+  title: string;
+  instructions: {
+    heading: string;
+    ensure: {
+      title: string;
+      instructions: string[];
+    };
+    video: {
+      title: string;
+    };
+  };
+  wallet: {
+    heading: string;
+    selectWallet: {
+      title: string;
+      subTitle: string;
+    };
+    walletAuth: {
+      heading: string;
+      title: string;
+      subTitle: string;
+      actions: {
+        confirmOnDevice: string;
+        tapCard: string;
+      };
+      messageBox: {
+        warning: string;
+      };
+      error: {
+        title: string;
+        subtext: string;
+        messageBox: {
+          warning: string;
+        };
+      };
+    };
+  };
+  email: {
+    heading: string;
+    userDetails: {
+      title: string;
+      form: {
+        name: string;
+        emailField: {
+          label: string;
+          tooltip: string;
+        };
+        alternateEmail: string;
+      };
+      buttons: {
+        sendOTP: string;
+      };
+    };
+    primaryEmailOTP: {
+      title: string;
+    };
+    alternateEmailOTP: {
+      title: string;
+    };
+  };
+  nomineeAndExecutor: {
+    heading: string;
+    select: {
+      title: string;
+      subtitle: string;
+      tooltip: string;
+      options: {
+        descOne: string;
+        descTwo: string;
+      };
+    };
+    nomineeDetails: {
+      first: {
+        title: string;
+        warning: string;
+        tooltip: string;
+      };
+      second: {
+        title: string;
+        warning: string;
+      };
+      confirm: {
+        title: string;
+        subtext: string;
+        warning: string;
+      };
+    };
+    executor: {
+      select: {
+        title: string;
+        subtext: string;
+        tooltip: string;
+        options: {
+          one: {
+            yes: string;
+            desc: string;
+          };
+          two: {
+            no: string;
+            desc: string;
+          };
+        };
+      };
+      executorDetails: {
+        title: string;
+        tooltip: string;
+        radio: {
+          label: string;
+          tooltip: string;
+          options: {
+            labelOne: string;
+            labelTwo: string;
+          };
+        };
+      };
+    };
+  };
+  message: {
+    heading: string;
+    tutorial: {
+      title: string;
+      subtext: string;
+    };
+    nominee: {
+      title: string;
+      subtitle: string;
+      tooltip: string;
+      form: {
+        locationField: {
+          label: string;
+          placeholder: string;
+          tooltip: string;
+        };
+        personalMessage: {
+          label: string;
+          placeholder: string;
+          tooltip: string;
+        };
+      };
+      messageBox: {
+        warning: string;
+      };
+    };
+    executor: {
+      title: string;
+      subtitle: string;
+      tooltip: string;
+      form: {
+        messageField: {
+          label: string;
+          placeholder: string;
+        };
+      };
+    };
+  };
+  reminder: {
+    heading: string;
+    title: string;
+  };
+  summary: {
+    heading: string;
+    title: string;
+    subtitle: string;
+    ownerDetails: {
+      title: string;
+      form: {
+        userNameField: { label: string };
+        primaryEmailField: { label: string };
+        secondaryEmailField: { label: string };
+        reminderPeriodField: {
+          label: string;
+          input: string;
+          inputPlural: string;
+        };
+      };
+    };
+    nomineeDetails: {
+      title: string;
+      form: {
+        nomineeNameField: { label: string };
+        primaryEmailField: { label: string };
+        secondaryEmailField: { label: string };
+      };
+    };
+    cardLocation: {
+      title: string;
+    };
+    personalMessage: {
+      title: string;
+    };
+    executorDetails: {
+      title: string;
+      form: {
+        nomineeNameField: { label: string };
+        primaryEmailField: { label: string };
+        secondaryEmailField: { label: string };
+      };
+    };
+    executorMessage: {
+      title: string;
+    };
+  };
+  encryption: {
+    heading: string;
+    confirm: {
+      title: string;
+      subtext: string;
+      actions: {
+        confirmOnDevice: string;
+        verifyLocation: string;
+      };
+      messageBox: {
+        danger: string;
+      };
+    };
+    device: {
+      title: string;
+      subtext: string;
+      tooltip: string;
+      actions: {
+        confirmOnDevice: string;
+        tapCard: string;
+      };
+      messageBox: {
+        warning: string;
+      };
+    };
+    loading: {
+      title: string;
+      subTitle: string;
+    };
+    success: {
+      title: string;
+      subtext: string;
+    };
+  };
+  checkout: {
+    heading: string;
+    payment: {
+      title: string;
+      subtext: string;
+    };
+    greeting: {
       title: string;
       subtext: string;
     };

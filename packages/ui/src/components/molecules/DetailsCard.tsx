@@ -19,6 +19,7 @@ export interface DetailsCardProps extends UtilsProps {
   headerText: string;
   headerLeading?: ReactNode;
   headerTrailing?: ReactNode;
+  headerOnly?: boolean;
   fields?: DetailField[];
   footer?: DetailField;
   text?: string;
@@ -67,6 +68,7 @@ const FieldDisplay: FC<FieldDisplayProps> = ({
       variant={isDanger ? 'danger' : undefined}
       trailing={trailing}
       withBackground={$withBackground}
+      $width="100%"
     />
   );
 };
@@ -82,6 +84,7 @@ export const DetailsCard: FC<DetailsCardProps> = ({
   headerLeading,
   headerText,
   headerTrailing,
+  headerOnly,
   fields,
   footer,
   text,
@@ -96,6 +99,7 @@ export const DetailsCard: FC<DetailsCardProps> = ({
         label={headerText}
         isHeader
         trailing={headerTrailing}
+        centerText={headerOnly}
       />
       {(fields || footer || text) && (
         <Flex direction="column" mb={2}>
@@ -117,7 +121,7 @@ export const DetailsCard: FC<DetailsCardProps> = ({
             </Flex>
           )}
           {text && (
-            <Typography $maxWidth="640px" color="muted" px={2} pt={4} pb={1}>
+            <Typography color="muted" px={2} pt={4} pb={1}>
               {text}
             </Typography>
           )}
@@ -130,6 +134,7 @@ export const DetailsCard: FC<DetailsCardProps> = ({
 DetailsCard.defaultProps = {
   headerLeading: undefined,
   headerTrailing: undefined,
+  headerOnly: false,
   fields: undefined,
   footer: undefined,
   text: undefined,

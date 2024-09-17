@@ -1,5 +1,3 @@
-import { config } from '~/config';
-
 import {
   activateResultSchema,
   applyCouponResultSchema,
@@ -8,6 +6,7 @@ import {
 import { inheritanceSyncPlansService } from './sync';
 
 import { makePostRequest, runAndHandleServerErrors } from '../../utils';
+import { inheritanceBaseUrl } from '../common';
 
 export {
   type InheritancePlanCreateResponse,
@@ -17,8 +16,8 @@ export {
 
 export * from './sync';
 
-const baseUrl = `${config.API_CYPHEROCK}/wallet-account`;
-const couponBaseUrl = `${config.API_CYPHEROCK}/wallet-recovery`;
+const baseUrl = `${inheritanceBaseUrl}/wallet-account`;
+const couponBaseUrl = `${inheritanceBaseUrl}/wallet-recovery`;
 
 const create = async (params: { encryptedData: string; accessToken: string }) =>
   runAndHandleServerErrors(() =>

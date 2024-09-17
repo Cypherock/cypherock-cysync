@@ -148,6 +148,11 @@ export interface IDialogState {
     data?: undefined;
   };
 
+  inheritanceGoldPlanPurchase: {
+    isOpen: boolean;
+    data?: undefined;
+  };
+
   inheritanceEditExecutorMessage: {
     isOpen: boolean;
     data?: undefined;
@@ -164,6 +169,11 @@ export interface IDialogState {
   };
 
   inheritancePinRecovery: {
+    isOpen: boolean;
+    data?: undefined;
+  };
+
+  inheritanceEditEncryptedMessage: {
     isOpen: boolean;
     data?: undefined;
   };
