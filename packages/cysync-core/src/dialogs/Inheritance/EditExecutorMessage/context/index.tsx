@@ -1,17 +1,19 @@
 import React, {
   Context,
+  Dispatch,
   FC,
   ReactNode,
   createContext,
+  useCallback,
   useContext,
-  useMemo,
   useState,
 } from 'react';
 
-import { ITabs, useTabsAndDialogs } from '~/hooks';
+import { ITabs, useAsync, useMemoReturn, useTabsAndDialogs } from '~/hooks';
 import { closeDialog, useAppDispatch } from '~/store';
 
 import { FetchData, EditMessage, Success } from '../Dialogs';
+import { inheritanceEditPlansService } from '~/services';
 
 export interface InheritanceEditExecutorMessageDialogContextInterface {
   tabs: ITabs;
@@ -22,10 +24,19 @@ export interface InheritanceEditExecutorMessageDialogContextInterface {
   currentTab: number;
   currentDialog: number;
   isDeviceRequired: boolean;
+  onRetry: () => void;
+  retryIndex: number;
   unhandledError?: any;
-  fetchData: () => void;
-  updateData: (m: string) => void;
+  fetchExecutorMessage: () => void;
+  updateExecutorMessage: () => void;
   executorMessage?: string;
+  setExecutorMessage: Dispatch<React.SetStateAction<string | undefined>>;
+  isFetchingExecutorMessage: boolean;
+  isFetchExecutorMessageCompleted: boolean;
+  resetFetchExecutorMessage: () => void;
+  isUpdatingExecutorMessage: boolean;
+  isUpdateExecutorMessageCompleted: boolean;
+  resetUpdateExecutorMessage: () => void;
 }
 
 export const InheritanceEditExecutorMessageDialogContext: Context<InheritanceEditExecutorMessageDialogContextInterface> =
@@ -59,26 +70,47 @@ export const InheritanceEditExecutorMessageDialogProvider: FC<
   ];
 
   const [executorMessage, setExecutorMessage] = useState<string>();
+  const [unhandledError, setUnhandledError] = useState<any>();
+  const [retryIndex, setRetryIndex] = useState(0);
 
-  const fetchData = () => {
-    'Implement this function';
+  const onError = useCallback((e?: any) => {
+    setUnhandledError(e);
+  }, []);
 
-    const dummy =
-      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque id  ullamcorper dui, sed vestibulum libero. Lorem ipsum dolor sit amet,  consectetur adipiscing elit. Sed placerat nibh sed justo sagittis  venenatis. Nullam dictum ipsum ac nunc aliquet, ut condimentum nibh  pharetra. Pellentesque interdum dignissim blandit. Nullam ac tincidunt  lacus. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices  posuere cubilia curae; Vivamus magna velit, pulvinar euismod nisi non,  venenatis vehicula justo. Morbi ligula purus, condimentum vitae eleifend  ut, mattis at diam. Sed non pulvinar ex.';
-    setExecutorMessage(dummy);
-    setTimeout(() => {
-      onNext();
-    }, 2000);
-  };
+  const fetchData = useCallback(async () => {
+    const response = await inheritanceEditPlansService.fetchExecutorMessage({
+      executor: true,
+      message: false,
+      nominee: false,
+      wallet: false,
+    });
+    if (response.error) throw response.error;
+    setExecutorMessage(response?.result);
+    return true;
+  }, [setExecutorMessage]);
 
-  const updateData = (message: string) => {
-    'Implement this function';
+  const [
+    fetchExecutorMessage,
+    isFetchingExecutorMessage,
+    isFetchExecutorMessageCompleted,
+    resetFetchExecutorMessage,
+  ] = useAsync(fetchData, onError);
 
-    setExecutorMessage(message);
-    setTimeout(() => {
-      onNext();
-    }, 2000);
-  };
+  const updateData = useCallback(async () => {
+    if (!executorMessage) return false;
+    const response = await inheritanceEditPlansService.updateExecutorMessage({
+      executorMessage,
+    });
+    if (response.error) throw response.error;
+    return true;
+  }, [executorMessage]);
+
+  const [
+    updateExecutorMessage,
+    isUpdatingExecutorMessage,
+    isUpdateExecutorMessageCompleted,
+    resetUpdateExecutorMessage,
+  ] = useAsync(updateData, onError);
 
   const {
     onNext,
@@ -97,34 +129,40 @@ export const InheritanceEditExecutorMessageDialogProvider: FC<
     dispatch(closeDialog('inheritanceEditExecutorMessage'));
   };
 
-  const ctx = useMemo(
-    () => ({
-      onNext,
-      onPrevious,
-      tabs,
-      onClose,
-      goTo,
-      currentTab,
-      currentDialog,
-      isDeviceRequired,
-      fetchData,
-      updateData,
-      executorMessage,
-    }),
-    [
-      onNext,
-      onPrevious,
-      tabs,
-      onClose,
-      goTo,
-      currentTab,
-      currentDialog,
-      isDeviceRequired,
-      fetchData,
-      updateData,
-      executorMessage,
-    ],
-  );
+  const resetAll = useCallback(() => {
+    setExecutorMessage(undefined);
+    setRetryIndex(v => v + 1);
+  }, []);
+
+  const onRetry = useCallback(() => {
+    resetAll();
+    goTo(0, 0);
+    setUnhandledError(undefined);
+  }, [currentTab, currentDialog]);
+
+  const ctx = useMemoReturn({
+    onNext,
+    onPrevious,
+    tabs,
+    onClose,
+    goTo,
+    currentTab,
+    currentDialog,
+    isDeviceRequired,
+    unhandledError,
+    onRetry,
+    retryIndex,
+    fetchExecutorMessage,
+    updateExecutorMessage,
+    executorMessage,
+    setExecutorMessage,
+    isFetchingExecutorMessage,
+    isFetchExecutorMessageCompleted,
+    resetFetchExecutorMessage,
+    isUpdatingExecutorMessage,
+    isUpdateExecutorMessageCompleted,
+    resetUpdateExecutorMessage,
+  });
 
   return (
     <InheritanceEditExecutorMessageDialogContext.Provider value={ctx}>

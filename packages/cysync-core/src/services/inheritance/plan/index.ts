@@ -15,6 +15,7 @@ import {
   runAndHandleServerErrors,
 } from '../../utils';
 import { inheritanceBaseUrl } from '../common';
+import { inheritanceEditPlansService } from './edit';
 
 export {
   type InheritancePlanCreateResponse,
@@ -23,6 +24,7 @@ export {
 } from './schema';
 
 export * from './sync';
+export * from './edit';
 
 const baseUrl = `${inheritanceBaseUrl}/wallet-account`;
 const couponBaseUrl = `${inheritanceBaseUrl}/wallet-recovery`;
@@ -106,4 +108,5 @@ export const inheritancePlanService = {
   sync: inheritanceSyncPlansService,
   recover: inheritanceRecoverPlansService,
   getPlan,
+  edit: inheritanceEditPlansService,
 };
