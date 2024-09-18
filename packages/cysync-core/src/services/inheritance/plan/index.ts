@@ -7,6 +7,7 @@ import { inheritanceSyncPlansService } from './sync';
 
 import { makePostRequest, runAndHandleServerErrors } from '../../utils';
 import { inheritanceBaseUrl } from '../common';
+import { inheritanceEditPlansService } from './edit';
 
 export {
   type InheritancePlanCreateResponse,
@@ -15,6 +16,7 @@ export {
 } from './schema';
 
 export * from './sync';
+export * from './edit';
 
 const baseUrl = `${inheritanceBaseUrl}/wallet-account`;
 const couponBaseUrl = `${inheritanceBaseUrl}/wallet-recovery`;
@@ -60,4 +62,5 @@ export const inheritancePlanService = {
   applyCoupon,
   activate,
   sync: inheritanceSyncPlansService,
+  edit: inheritanceEditPlansService,
 };

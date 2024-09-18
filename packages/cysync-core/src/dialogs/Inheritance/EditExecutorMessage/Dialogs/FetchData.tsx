@@ -7,9 +7,22 @@ import { useInheritanceEditExecutorMessageDialog } from '../context';
 export const FetchData = () => {
   const lang = useAppSelector(selectLanguage);
   const strings = lang.strings.dialogs.inheritanceEditExecutorMessage.fetchData;
-  const { fetchData } = useInheritanceEditExecutorMessageDialog();
+  const {
+    fetchExecutorMessage,
+    retryIndex,
+    isFetchExecutorMessageCompleted,
+    onNext,
+  } = useInheritanceEditExecutorMessageDialog();
 
-  useEffect(() => fetchData(), []);
+  useEffect(() => {
+    fetchExecutorMessage();
+  }, [retryIndex]);
+
+  useEffect(() => {
+    if (isFetchExecutorMessageCompleted) {
+      onNext();
+    }
+  }, [isFetchExecutorMessageCompleted]);
 
   return <LoaderDialog title={strings.title} subtext={strings.subTitle} />;
 };
