@@ -1,11 +1,12 @@
 import React, { FC, ReactElement, useCallback, useRef, useState } from 'react';
 import styled, { css } from 'styled-components';
 
+import { InputLabel } from './Input';
+
 import {
   CheckBox,
   LangDisplay,
   RadioButton,
-  InputLabel,
   Tag,
   Typography,
   TypographyColor,

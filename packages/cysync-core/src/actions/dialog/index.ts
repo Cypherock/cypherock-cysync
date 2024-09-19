@@ -104,11 +104,14 @@ export const openInheritanceEditExecutorMessageDialog = () =>
 export const openInheritanceEditReminderTimeDialog = () =>
   openDialog({ name: 'inheritanceEditReminderTime', data: undefined });
 
-export const openEditUserDetailsDialog = () =>
+export const openInheritanceEditUserDetailsDialog = () =>
   openDialog({ name: 'inheritanceEditUserDetails', data: undefined });
 
 export const openInheritancePinRecoveryDialog = () =>
   openDialog({ name: 'inheritancePinRecovery', data: undefined });
+
+export const openInheritanceEditEncryptedMessageDialog = () =>
+  openDialog({ name: 'inheritanceEditEncryptedMessage', data: undefined });
 
 export const openEstateRecoveryDialog = () =>
   openDialog({ name: 'inheritanceEstateRecovery', data: undefined });

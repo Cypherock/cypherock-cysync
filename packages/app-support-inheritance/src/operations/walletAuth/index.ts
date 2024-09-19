@@ -17,7 +17,7 @@ const walletAuthToDeviceEventMap: Partial<
   Record<AuthWalletEvent, InheritanceWalletAuthDeviceEvent | undefined>
 > = {
   [AuthWalletEvent.INIT]: InheritanceWalletAuthDeviceEvent.INIT,
-  [AuthWalletEvent.CARD_TAP]: InheritanceWalletAuthDeviceEvent.CARD_TAPPED,
+  [AuthWalletEvent.WALLET_BASED]: InheritanceWalletAuthDeviceEvent.CARD_TAPPED,
 };
 
 export const walletAuth = (
@@ -53,10 +53,11 @@ export const walletAuth = (
 
         app = await InheritanceApp.create(connection);
 
-        const { publicKey, signature } = await app.authWallet({
+        const authResult = await app.authWallet({
           walletId: hexToUint8Array(walletId),
           challenge: hexToUint8Array(challenge),
-          isPublicKey,
+          withPublicKey: isPublicKey,
+          type: 'wallet-based',
           onEvent: event => {
             const deviceEvent = walletAuthToDeviceEventMap[event];
             if (deviceEvent !== undefined) {
@@ -70,11 +71,15 @@ export const walletAuth = (
           },
         });
 
+        if (!authResult.walletBased) throw 'Invaild result';
+
+        const { signature, publicKey } = authResult.walletBased;
+
         observer.next({ type: 'Device', device: { isDone: true, events } });
         observer.next({
           type: 'Result',
           signature: uint8ArrayToHex(signature),
-          publicKey: uint8ArrayToHex(publicKey),
+          publicKey: uint8ArrayToHex(publicKey ?? new Uint8Array([])),
         });
 
         finished = true;

@@ -68,6 +68,7 @@ const FieldDisplay: FC<FieldDisplayProps> = ({
       variant={isDanger ? 'danger' : undefined}
       trailing={trailing}
       withBackground={$withBackground}
+      $width="100%"
     />
   );
 };
@@ -120,7 +121,7 @@ export const DetailsCard: FC<DetailsCardProps> = ({
             </Flex>
           )}
           {text && (
-            <Typography $maxWidth="640px" color="muted" px={2} pt={4} pb={1}>
+            <Typography color="muted" px={2} pt={4} pb={1}>
               {text}
             </Typography>
           )}

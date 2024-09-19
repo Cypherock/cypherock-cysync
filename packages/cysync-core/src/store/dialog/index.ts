@@ -110,6 +110,9 @@ const initialState: IDialogState = {
   inheritancePinRecovery: {
     isOpen: false,
   },
+  inheritanceEditEncryptedMessage: {
+    isOpen: false,
+  },
   inheritanceEstateRecovery: {
     isOpen: true,
   },

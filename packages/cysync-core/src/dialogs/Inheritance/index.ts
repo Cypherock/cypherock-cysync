@@ -5,3 +5,4 @@ export * from './EditExecutorMessage';
 export * from './EditReminderTime';
 export * from './EditUserDetails';
 export * from './GoldPlanPurchase';
+export * from './EditEncryptedMessage';
