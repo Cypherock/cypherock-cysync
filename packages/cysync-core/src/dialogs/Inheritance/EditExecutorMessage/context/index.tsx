@@ -14,6 +14,7 @@ import { closeDialog, useAppDispatch } from '~/store';
 
 import { FetchData, EditMessage, Success } from '../Dialogs';
 import { inheritanceEditPlansService } from '~/services';
+import { useWalletAuth } from '../../hooks';
 
 export interface InheritanceEditExecutorMessageDialogContextInterface {
   tabs: ITabs;
@@ -77,15 +78,21 @@ export const InheritanceEditExecutorMessageDialogProvider: FC<
     setUnhandledError(e);
   }, []);
 
+  const { authTokens } = useWalletAuth(onError);
+
   const fetchData = useCallback(async () => {
-    const response = await inheritanceEditPlansService.fetchExecutorMessage({
-      executor: true,
-      message: false,
-      nominee: false,
-      wallet: false,
-    });
+    if (!authTokens?.accessToken) return false;
+    const response = await inheritanceEditPlansService.fetchMessages(
+      {
+        executor: true,
+        message: false,
+        nominee: false,
+        wallet: false,
+      },
+      authTokens?.accessToken,
+    );
     if (response.error) throw response.error;
-    setExecutorMessage(response?.result);
+    setExecutorMessage(response?.result?.unencryptedData.data[0].message);
     return true;
   }, [setExecutorMessage]);
 
@@ -97,10 +104,13 @@ export const InheritanceEditExecutorMessageDialogProvider: FC<
   ] = useAsync(fetchData, onError);
 
   const updateData = useCallback(async () => {
-    if (!executorMessage) return false;
-    const response = await inheritanceEditPlansService.updateExecutorMessage({
-      executorMessage,
-    });
+    if (!executorMessage || !authTokens?.accessToken) return false;
+    const response = await inheritanceEditPlansService.updateExecutorMessage(
+      {
+        executorMessage,
+      },
+      authTokens?.accessToken,
+    );
     if (response.error) throw response.error;
     return true;
   }, [executorMessage]);

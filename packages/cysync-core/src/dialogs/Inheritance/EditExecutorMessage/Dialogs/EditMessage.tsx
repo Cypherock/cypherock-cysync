@@ -34,6 +34,14 @@ export const EditMessage = () => {
     lang.strings.dialogs.inheritanceEditExecutorMessage.editMessage;
   const { form } = strings;
 
+  const handleUpdate = () => {
+    updateExecutorMessage();
+  };
+
+  useEffect(() => {
+    if (isUpdateExecutorMessageCompleted) onNext();
+  }, [isUpdateExecutorMessageCompleted]);
+
   if (isUpdatingExecutorMessage) {
     return (
       <LoaderDialog
@@ -42,14 +50,6 @@ export const EditMessage = () => {
       />
     );
   }
-
-  const handleUpdate = () => {
-    updateExecutorMessage();
-  };
-
-  useEffect(() => {
-    if (isUpdateExecutorMessageCompleted) onNext();
-  }, [isUpdateExecutorMessageCompleted]);
 
   return (
     <DialogBox width={800} onClose={onClose} $maxHeight="90vh">

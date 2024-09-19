@@ -1,7 +1,26 @@
 import { z } from 'zod';
 
-export const executorMessageSchema = z.string();
+export const fetchMessagesResponse = z.object({
+  unencryptedData: z.object({
+    data: z.array(
+      z.object({
+        tag: z.string(),
+        message: z.string(),
+      }),
+    ),
+    sessionKey: z.string().optional(),
+    sessionId: z.string().optional(),
+  }),
+  encryptedMessage: z.string(),
+});
 
-export type InheritanceExecutorMessageResponse = z.infer<
-  typeof executorMessageSchema
+export const editExecutorMessageResponseSchema = z.object({
+  success: z.boolean(),
+});
+
+export type InheritanceFetchMessagesResponse = z.infer<
+  typeof fetchMessagesResponse
+>;
+export type InheritanceEditExecutorMessageResponse = z.infer<
+  typeof editExecutorMessageResponseSchema
 >;
