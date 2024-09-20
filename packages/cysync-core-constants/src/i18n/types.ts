@@ -1084,13 +1084,18 @@ interface LangInheritanceSilverPlanPurchase {
     selectWallet: {
       title: string;
       subTitle: string;
+      tooltip: string;
     };
     walletAuth: {
       title: string;
+      subTitle: string;
       actions: {
+        confirm: string;
         tapCard: string;
       };
-      footer: string;
+      messageBox: {
+        warning: string;
+      };
     };
   };
   email: {
@@ -1107,6 +1112,8 @@ interface LangInheritanceSilverPlanPurchase {
     heading: string;
     device: {
       title: string;
+      subTitle: string;
+      tooltip: string;
       actions: {
         confirm: string;
         tapCard: string;
@@ -1153,6 +1160,7 @@ interface LangInheritanceGoldPlanPurchase {
     selectWallet: {
       title: string;
       subTitle: string;
+      tooltip: string;
     };
     walletAuth: {
       heading: string;
