@@ -3,9 +3,6 @@ import {
   Flex,
   Button,
   ArrowBackGoldenIcon,
-  Image,
-  unlockGoldPlan,
-  unlockSilverPlan,
   Lock,
   svgGradients,
 } from '@cypherock/cysync-ui';
@@ -14,6 +11,7 @@ import { useNavigate } from 'react-router-dom';
 
 import { selectLanguage, useAppSelector } from '~/store';
 import { InheritancePageLayout } from './Layout';
+import { DummyPlanDetails } from './components';
 
 export const InheritanceUnlockPlan: FC = () => {
   const lang = useAppSelector(selectLanguage);
@@ -66,43 +64,42 @@ export const InheritanceUnlockPlan: FC = () => {
           $flex={1}
           width="100%"
           position="relative"
-          justify="center"
-          align="center"
-          $zIndex={10}
+          align="flex-start"
         >
-          <Image
-            src={currentPlan === 'silver' ? unlockGoldPlan : unlockSilverPlan}
-            alt="unlock gold plan"
-            $zIndex={-10}
-            position="absolute"
-            $height="100%"
-            $width="100%"
-          />
-          <Container direction="column" gap={16}>
-            <Container
-              height={145}
-              width={145}
-              $bgColor="separator"
-              display="flex"
-              justify="center"
-              align="center"
-              $borderRadius={200}
-            >
-              <Lock
-                fill={`url(#${svgGradients.gold})`}
-                width={68}
-                height={68}
-              />
+          <DummyPlanDetails plan={currentPlan} />
+          <div
+            style={{
+              position: 'absolute',
+              top: '50%',
+              transform: 'translateY(-50%)',
+            }}
+          >
+            <Container direction="column" gap={16}>
+              <Container
+                height={145}
+                width={145}
+                $bgColor="separator"
+                display="flex"
+                justify="center"
+                align="center"
+                $borderRadius={200}
+              >
+                <Lock
+                  fill={`url(#${svgGradients.gold})`}
+                  width={68}
+                  height={68}
+                />
+              </Container>
+              <Button
+                variant="primary"
+                onClick={() => {
+                  'impliment this function';
+                }}
+              >
+                {strings.buttons.unlock}
+              </Button>
             </Container>
-            <Button
-              variant="primary"
-              onClick={() => {
-                'impliment this function';
-              }}
-            >
-              {strings.buttons.unlock}
-            </Button>
-          </Container>
+          </div>
         </Container>
       </Container>
     </InheritancePageLayout>

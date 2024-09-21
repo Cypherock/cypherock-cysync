@@ -1,29 +1,31 @@
 import {
-  ArrowBackGoldenIcon,
-  Button,
-  ClockIcon,
-  Container,
   DetailsCard,
-  EditButton,
-  EmailIconSmall,
-  EncryptedMessageIcon,
-  Flex,
-  parseLangTemplate,
-  svgGradients,
   Typography,
+  ClockIcon,
   UserIcon,
+  EmailIconSmall,
+  parseLangTemplate,
+  EncryptedMessageIcon,
+  EditButton,
   WalletIcon,
+  svgGradients,
 } from '@cypherock/cysync-ui';
 import React, { FC } from 'react';
-
 import { selectLanguage, useAppSelector } from '~/store';
 
-import { InheritancePageLayout } from './Layout';
+interface DummyPlanDetailsProps {
+  plan: 'silver' | 'gold';
+}
 
-export const InheritancePlanDetails: FC = () => {
+export const DummyPlanDetails: FC<DummyPlanDetailsProps> = ({ plan }) => {
   const lang = useAppSelector(selectLanguage);
   const strings = lang.strings.inheritance;
-  const goldWalletIcon = <WalletIcon fill={`url(#${svgGradients.gold})`} />;
+
+  const planIconMap = {
+    gold: <WalletIcon fill={`url(#${svgGradients.gold})`} />,
+    silver: <WalletIcon fill={`url(#${svgGradients.silver})`} />,
+  };
+
   const editButton = (
     <EditButton text="Edit" onClick={() => alert('Edit Clicked')} />
   );
@@ -40,108 +42,71 @@ export const InheritancePlanDetails: FC = () => {
   };
 
   return (
-    <InheritancePageLayout>
-      <Container direction="column" $flex={1} gap={32} justify="flex-start">
-        <Container width="100%" justify="space-between" pt={4}>
-          <Button
-            variant="icon"
-            icon={<ArrowBackGoldenIcon />}
-            onClick={() => {
-              'implement this function';
-            }}
-          />
-          <Flex justify="center" gap={16}>
-            <Button
-              variant="secondary"
-              onClick={() => {
-                'impliment this function';
-              }}
-            >
-              {strings.buttons.recoverPin}
-            </Button>
-            <Button
-              variant="secondary"
-              onClick={() => {
-                'impliment this function';
-              }}
-            >
-              {strings.buttons.upgradePlan}
-            </Button>
-            <Button
-              variant="primary"
-              onClick={() => {
-                'impliment this function';
-              }}
-            >
-              {strings.buttons.renewPlan}
-            </Button>
-          </Flex>
-        </Container>
-        <div
-          style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fill, minmax(460px, 1fr))',
-            gridTemplateRows: 'auto',
-            gridAutoRows: 'auto',
-            gridGap: '16px',
-            width: '100%',
-          }}
-        >
-          <DetailsCard
-            headerLeading={goldWalletIcon}
-            headerText="MyFunnyWallet"
-            headerTrailing={
-              <Typography color="gold" $fontSize={16} $fontWeight="semibold">
-                {strings.plans.gold.title.toLocaleUpperCase()}
-              </Typography>
-            }
-            $backgroundType="gold"
-            fields={[
-              {
-                label: strings.planDetails.walletDetails.createdOn,
-                icon: ClockIcon,
-                value: '01 July 2024',
-              },
-              {
-                label: strings.planDetails.walletDetails.expiringOn,
-                icon: ClockIcon,
-                value: '30 June 2024',
-                isDanger: true,
-              },
-              {
-                label:
-                  strings.planDetails.walletDetails.reminderPeriodField.label,
-                icon: ClockIcon,
-                value: getReminderPeriodInputText(1),
-                trailing: editButton,
-              },
-            ]}
-          />
-          <DetailsCard
-            headerText={strings.planDetails.ownerDetails.title}
-            headerTrailing={editButton}
-            fields={[
-              {
-                label:
-                  strings.planDetails.ownerDetails.form.userNameField.label,
-                icon: UserIcon,
-                value: 'Alfred Bellows',
-              },
-              {
-                label:
-                  strings.planDetails.ownerDetails.form.primaryEmailField.label,
-                icon: EmailIconSmall,
-                value: 'doc.bellows@yahoo.com',
-              },
-              {
-                label:
-                  strings.planDetails.ownerDetails.form.secondaryEmailField
-                    .label,
-                icon: EmailIconSmall,
-                value: 'alfred@psych.com',
-              },
-            ]}
-          />
+    <div
+      style={{
+        display: 'grid',
+        gridTemplateColumns: 'repeat(auto-fill, minmax(460px, 1fr))',
+        gridTemplateRows: 'auto',
+        gridAutoRows: 'auto',
+        gridGap: '16px',
+        width: '100%',
+        filter: 'blur(4px)',
+      }}
+    >
+      <DetailsCard
+        headerLeading={planIconMap[plan]}
+        headerText="MyFunnyWallet"
+        headerTrailing={
+          <Typography color={plan} $fontSize={16} $fontWeight="semibold">
+            {strings.plans.gold.title.toLocaleUpperCase()}
+          </Typography>
+        }
+        $backgroundType={plan}
+        fields={[
+          {
+            label: strings.planDetails.walletDetails.createdOn,
+            icon: ClockIcon,
+            value: '01 July 2024',
+          },
+          {
+            label: strings.planDetails.walletDetails.expiringOn,
+            icon: ClockIcon,
+            value: '30 June 2024',
+            isDanger: true,
+          },
+          {
+            label: strings.planDetails.walletDetails.reminderPeriodField.label,
+            icon: ClockIcon,
+            value: getReminderPeriodInputText(1),
+            trailing: editButton,
+          },
+        ]}
+      />
+      <DetailsCard
+        headerText={strings.planDetails.ownerDetails.title}
+        headerTrailing={editButton}
+        fields={[
+          {
+            label: strings.planDetails.ownerDetails.form.userNameField.label,
+            icon: UserIcon,
+            value: 'Alfred Bellows',
+          },
+          {
+            label:
+              strings.planDetails.ownerDetails.form.primaryEmailField.label,
+            icon: EmailIconSmall,
+            value: 'doc.bellows@yahoo.com',
+          },
+          {
+            label:
+              strings.planDetails.ownerDetails.form.secondaryEmailField.label,
+            icon: EmailIconSmall,
+            value: 'alfred@psych.com',
+          },
+        ]}
+      />
+      {plan === 'gold' && (
+        <>
           <DetailsCard
             headerText={parseLangTemplate(
               strings.planDetails.nomineeDetails.title,
@@ -247,8 +212,8 @@ export const InheritancePlanDetails: FC = () => {
               trailing: editButton,
             }}
           />
-        </div>
-      </Container>
-    </InheritancePageLayout>
+        </>
+      )}
+    </div>
   );
 };
