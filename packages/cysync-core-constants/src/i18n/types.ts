@@ -871,6 +871,9 @@ interface LangDialogs {
           confirmAuth: string;
           enterPinAndTapCard: string;
         };
+        messageBox: {
+          warning: string;
+        };
       };
       verifyOtp: {
         title: string;

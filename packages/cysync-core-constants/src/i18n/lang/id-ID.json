@@ -1654,6 +1654,9 @@
           "actions": {
             "confirmAuth": "Confirm wallet authentication on device",
             "enterPinAndTapCard": "Enter Pin and tap any one card"
+          },
+          "messageBox": {
+            "warning": "Lift your card after 2 beep sounds"
           }
         },
         "verifyOtp": {
