@@ -26,7 +26,7 @@ export const Success = () => {
   return (
     <Layout
       footerComponent={
-        <Button onClick={() => onClose()} variant="secondary">
+        <Button onClick={() => onClose()}>
           <LangDisplay text={lang.strings.buttons.done} />
         </Button>
       }

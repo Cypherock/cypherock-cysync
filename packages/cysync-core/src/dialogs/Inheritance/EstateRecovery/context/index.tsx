@@ -10,7 +10,7 @@ import React, {
   useState,
 } from 'react';
 
-import { ITabs, useTabsAndDialogs } from '~/hooks';
+import { ITabs, useMemoReturn, useTabsAndDialogs } from '~/hooks';
 import {
   closeDialog,
   selectLanguage,
@@ -162,40 +162,22 @@ export const InheritanceEstateRecoveryDialogProvider: FC<
     goTo(0, 0);
   }, []);
 
-  const ctx = useMemo(
-    () => ({
-      onNext,
-      onPrevious,
-      tabs,
-      onClose,
-      goTo,
-      currentTab,
-      currentDialog,
-      isDeviceRequired,
-      allWallets,
-      selectedWallet,
-      setSelectedWallet,
-      userDetails,
-      unhandledError,
-      onRetry,
-    }),
-    [
-      onNext,
-      onPrevious,
-      tabs,
-      onClose,
-      goTo,
-      currentTab,
-      currentDialog,
-      isDeviceRequired,
-      allWallets,
-      selectedWallet,
-      setSelectedWallet,
-      userDetails,
-      unhandledError,
-      onRetry,
-    ],
-  );
+  const ctx = useMemoReturn({
+    onNext,
+    onPrevious,
+    tabs,
+    onClose,
+    goTo,
+    currentTab,
+    currentDialog,
+    isDeviceRequired,
+    allWallets,
+    selectedWallet,
+    setSelectedWallet,
+    userDetails,
+    unhandledError,
+    onRetry,
+  });
 
   return (
     <InheritanceEstateRecoveryDialogContext.Provider value={ctx}>

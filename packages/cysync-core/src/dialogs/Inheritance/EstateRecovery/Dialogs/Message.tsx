@@ -1,5 +1,6 @@
 import {
   Button,
+  CheckBox,
   Clipboard,
   Container,
   Flex,
@@ -8,7 +9,7 @@ import {
   TextAreaInput,
   Typography,
 } from '@cypherock/cysync-ui';
-import React from 'react';
+import React, { useState } from 'react';
 
 import { selectLanguage, useAppSelector } from '~/store';
 
@@ -18,6 +19,7 @@ import { Layout } from '../Layout';
 export const Message = () => {
   const lang = useAppSelector(selectLanguage);
   const { onNext } = useInheritanceEstateRecoveryDialog();
+  const [isChecked, setIsChecked] = useState(false);
   const strings = lang.strings.dialogs.inheritanceEstateRecovery.viewMessage;
   const cardLocation = 'Some location';
   const personalMessage = 'Some Message';
@@ -54,9 +56,16 @@ export const Message = () => {
             height={120}
             value={cardLocation}
             placeholder={strings.form.personalMessageField.placeholder}
+            mb={0}
           />
         </Container>
       </Container>
+      <CheckBox
+        checked={isChecked}
+        id="message_confirmed"
+        onChange={() => setIsChecked(!isChecked)}
+        label={strings.form.checkBox.label}
+      />
     </Layout>
   );
 };

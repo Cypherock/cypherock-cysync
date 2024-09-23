@@ -114,7 +114,7 @@ const initialState: IDialogState = {
     isOpen: false,
   },
   inheritanceEstateRecovery: {
-    isOpen: true,
+    isOpen: false,
   },
 };
 

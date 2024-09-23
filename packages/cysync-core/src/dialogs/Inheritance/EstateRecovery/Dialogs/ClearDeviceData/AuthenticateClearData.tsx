@@ -28,6 +28,7 @@ export const AuthenticateClearData = () => {
         onNext={() => onNext()}
         onPrevious={() => onPrevious()}
         title={strings.tapCards.title}
+        subtitle={strings.tapCards.subTitle}
         messageBoxList={strings.tapCards.messageBoxList}
       />
     </DialogBox>

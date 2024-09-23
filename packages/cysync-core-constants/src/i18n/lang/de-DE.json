@@ -45,7 +45,7 @@
     "editAccount": "Konto bearbeiten",
     "submit": "Absenden",
     "showMore": "Mehr anzeigen",
-    "resendOTP": "Resend OTP",
+    "resendOTP": "Resend OTP in ${timeout}s",
     "next": "Next",
     "setup": "Setup",
     "sync": "Sync",
@@ -1977,7 +1977,7 @@
     "title": "Enter OTP",
     "wrongOtpTitle": "Wrong OTP",
     "successRedirectTitle": "Please wait while we redirect you...",
-    "triesRemaining": "${retries} tries remaining ${timeout}..",
+    "triesRemaining": "${retries} tries remaining",
     "infoTexts": [
       "An email has been sent to **${email}**",
       "Please enter the code received on the email"
