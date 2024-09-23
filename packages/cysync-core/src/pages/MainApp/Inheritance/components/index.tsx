@@ -1,1 +1,2 @@
-export * from './DummyPlanDetails';
+export * from './PlanDetailsGrid';
+export * from './PlanDetailsLayout';
