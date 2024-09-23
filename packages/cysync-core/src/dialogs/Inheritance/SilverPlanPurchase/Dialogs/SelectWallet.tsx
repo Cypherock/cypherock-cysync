@@ -4,6 +4,7 @@ import {
   LangDisplay,
   ManyInMany,
   ScrollableContainer,
+  Tooltip,
   Typography,
 } from '@cypherock/cysync-ui';
 import React from 'react';
@@ -53,17 +54,37 @@ export const SelectWallet = () => {
       </Container>
       <ScrollableContainer $maxHeight={264}>
         <Container direction="row" gap={8} $flexWrap="wrap">
-          {allWallets.map(wallet => (
-            <ManyInMany
-              key={wallet.__id ?? ''}
-              title={wallet.name}
-              disabled={Boolean(wallet.isDeleted) || !wallet.hasPin}
-              isSelected={selectedWallet?.__id === wallet.__id}
-              onClick={() => setSelectedWallet(wallet)}
-              $width={340}
-              $height={128}
-            />
-          ))}
+          {allWallets.map(wallet => {
+            if (Boolean(wallet.isDeleted) || !wallet.hasPin) {
+              return (
+                <Tooltip
+                  key={wallet.__id ?? ''}
+                  text={strings.wallet.selectWallet.tooltip}
+                  tooltipPlacement="bottom"
+                >
+                  <ManyInMany
+                    title={wallet.name}
+                    disabled={Boolean(wallet.isDeleted) || !wallet.hasPin}
+                    isSelected={selectedWallet?.__id === wallet.__id}
+                    onClick={() => setSelectedWallet(wallet)}
+                    $width={340}
+                    $height={128}
+                  />
+                </Tooltip>
+              );
+            }
+            return (
+              <ManyInMany
+                key={wallet.__id ?? ''}
+                title={wallet.name}
+                disabled={Boolean(wallet.isDeleted) || !wallet.hasPin}
+                isSelected={selectedWallet?.__id === wallet.__id}
+                onClick={() => setSelectedWallet(wallet)}
+                $width={340}
+                $height={128}
+              />
+            );
+          })}
         </Container>
       </ScrollableContainer>
     </Layout>

@@ -1,18 +1,20 @@
 import { SignTransactionDeviceEvent } from '@cypherock/coin-support-interfaces';
 import {
   ArrowRightIcon,
+  CardTapList,
   Check,
   Container,
   LangDisplay,
   LeanBox,
   LeanBoxContainer,
   LeanBoxProps,
+  MessageBox,
   tapAnyCardDeviceAnimation2DVideo,
   Throbber,
   Typography,
   Video,
 } from '@cypherock/cysync-ui';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { selectLanguage, useAppSelector } from '~/store';
 
@@ -29,6 +31,8 @@ export const WalletAuth = () => {
   const strings = lang.strings.dialogs.inheritancePinRecovery.sync;
 
   const { onNext, selectedWallet } = useInheritancePinRecoveryDialog();
+
+  const [cardTapState, setCardTapState] = useState(0);
 
   const deviceEvents: Record<number, boolean | undefined> = {
     0: true,
@@ -52,17 +56,14 @@ export const WalletAuth = () => {
         leftImage: rightArrowIcon,
         rightImage: getDeviceEventIcon(0, 1),
       },
-      {
-        id: '2',
-        text: strings.walletAuth.actions.enterPinAndTapCard,
-        rightImage: getDeviceEventIcon(0, 1),
-      },
     ];
 
     return actions;
   }, []);
 
   useEffect(() => {
+    setCardTapState(0);
+
     const timeout = setTimeout(() => {
       onNext();
     }, 2000);
@@ -101,7 +102,21 @@ export const WalletAuth = () => {
               id={data.id}
             />
           ))}
+          <CardTapList
+            items={[
+              {
+                text: strings.walletAuth.actions.enterPinAndTapCard,
+                currentState: cardTapState,
+                totalState: 2,
+              },
+            ]}
+            variant="muted"
+          />
         </LeanBoxContainer>
+        <MessageBox
+          type="warning"
+          text={strings.walletAuth.messageBox.warning}
+        />
       </Container>
     </Layout>
   );

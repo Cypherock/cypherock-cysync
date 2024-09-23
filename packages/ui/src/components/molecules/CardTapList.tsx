@@ -3,25 +3,37 @@ import { styled } from 'styled-components';
 
 import { Flex, Indicator, LangDisplay, Typography } from '../atoms';
 
+type VariantType = 'default' | 'muted';
+
 interface CardTapItemProps {
   text: string;
   currentState: number;
   totalState: number;
   currentFailed?: boolean;
+  variant?: VariantType;
 }
 
 interface CardTapListProps {
   items: CardTapItemProps[];
+  variant?: VariantType;
 }
 
-const getBgColor = (currentState: number, totalState: number) => {
-  if (currentState < 0) return 'inputSecondary';
+const getBgColor = (
+  currentState: number,
+  totalState: number,
+  variant: VariantType,
+) => {
+  if (currentState < 0 || variant === 'muted') return 'inputSecondary';
   if (currentState < totalState) return 'gold';
   return 'successSecondary';
 };
 
-const getTextColor = (currentState: number, totalState: number) => {
-  if (currentState < 0) return 'muted';
+const getTextColor = (
+  currentState: number,
+  totalState: number,
+  variant: VariantType,
+) => {
+  if (currentState < 0 || variant === 'muted') return 'muted';
   if (currentState < totalState) return 'gold';
   return 'success';
 };
@@ -64,6 +76,7 @@ const CardTapListItem: React.FC<CardTapItemProps> = ({
   currentState,
   totalState,
   currentFailed,
+  variant = 'default',
 }) => {
   const indicators = Array(totalState)
     .fill(0)
@@ -76,17 +89,16 @@ const CardTapListItem: React.FC<CardTapItemProps> = ({
     ));
 
   return (
-    <BackgroundStyle $bgColor={getBgColor(currentState, totalState)}>
+    <BackgroundStyle $bgColor={getBgColor(currentState, totalState, variant)}>
       <MaskStyle>
         <Typography
           variant="h6"
-          color={getTextColor(currentState, totalState)}
-          $fontWeight="medium"
+          color={getTextColor(currentState, totalState, variant)}
+          $fontWeight={variant === 'muted' ? 'normal' : 'medium'}
           grow={1}
         >
           <LangDisplay text={text} />
         </Typography>
-
         {indicators}
       </MaskStyle>
     </BackgroundStyle>
@@ -95,8 +107,13 @@ const CardTapListItem: React.FC<CardTapItemProps> = ({
 
 CardTapListItem.defaultProps = {
   currentFailed: false,
+  variant: 'default',
 };
-export const CardTapList: React.FC<CardTapListProps> = ({ items }) => (
+
+export const CardTapList: React.FC<CardTapListProps> = ({
+  items,
+  variant = 'default',
+}) => (
   <Flex direction="column" gap={8} width="full">
     {items.map(({ text, currentState, totalState, currentFailed }, i) => (
       <CardTapListItem
@@ -105,7 +122,12 @@ export const CardTapList: React.FC<CardTapListProps> = ({ items }) => (
         currentState={currentState}
         totalState={totalState}
         currentFailed={currentFailed}
+        variant={variant}
       />
     ))}
   </Flex>
 );
+
+CardTapList.defaultProps = {
+  variant: 'default',
+};
