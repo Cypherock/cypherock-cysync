@@ -52,6 +52,7 @@ const InheritancePinRecovery: FC = () => {
     unhandledError,
     onClose,
     isDeviceRequired,
+    onRetry,
   } = useInheritancePinRecoveryDialog();
 
   return (
@@ -84,8 +85,8 @@ const InheritancePinRecovery: FC = () => {
                 <ErrorHandlerDialog
                   onClose={onClose}
                   error={unhandledError}
-                  showCloseButton
-                  noDelay
+                  onRetry={onRetry}
+                  noDelay={!isDeviceRequired}
                 >
                   {tabs[currentTab]?.dialogs[currentDialog]}
                 </ErrorHandlerDialog>

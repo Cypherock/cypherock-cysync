@@ -77,6 +77,7 @@ export interface InheritancePinRecoveryDialogContextInterface {
   decryptPinAbort: () => void;
   decryptPinDeviceEvents: Record<number, boolean | undefined>;
   decryptPinIsCompleted: boolean;
+  onRetry: () => void;
 }
 
 export const InheritancePinRecoveryDialogContext: Context<InheritancePinRecoveryDialogContextInterface> =
@@ -131,6 +132,7 @@ export const InheritancePinRecoveryDialogProvider: FC<
     {
       name: lang.strings.dialogs.inheritancePinRecovery.success.name,
       dialogs: [<SuccessPinRecovery key="Success" />],
+      dontShowOnMilestone: true,
     },
   ];
 
@@ -223,7 +225,12 @@ export const InheritancePinRecoveryDialogProvider: FC<
     sessionService.reset();
     decryptMessageService.reset();
     resetFetchEncryptedData();
-  }, [walletAuthService.reset]);
+  }, [
+    walletAuthService.reset,
+    decryptMessageService.reset,
+    sessionService.reset,
+    resetFetchEncryptedData,
+  ]);
 
   const onRetryFuncMap = useMemo<
     Record<number, Record<number, (() => boolean) | undefined> | undefined>
@@ -232,6 +239,7 @@ export const InheritancePinRecoveryDialogProvider: FC<
   const onRetry = useCallback(() => {
     const retryLogic = onRetryFuncMap[currentTab]?.[currentDialog];
 
+    console.log(retryLogic);
     if (retryLogic) {
       setRetryIndex(v => v + 1);
       retryLogic();
@@ -241,7 +249,13 @@ export const InheritancePinRecoveryDialogProvider: FC<
     }
 
     setUnhandledError(undefined);
-  }, [currentTab, currentDialog, onRetryFuncMap, walletAuthService.reset]);
+  }, [
+    currentTab,
+    currentDialog,
+    onRetryFuncMap,
+    walletAuthService.reset,
+    resetAll,
+  ]);
 
   const ctx = useMemoReturn({
     onNext,
