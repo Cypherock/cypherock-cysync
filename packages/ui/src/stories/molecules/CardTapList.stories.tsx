@@ -46,6 +46,6 @@ export const Variant: Story = {
         currentFailed: true,
       },
     ],
-    variant: 'other',
+    variant: 'muted',
   },
 };

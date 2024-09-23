@@ -126,7 +126,7 @@ export const WalletAuth = () => {
                 totalState: 3,
               },
             ]}
-            variant="other"
+            variant="muted"
           />
         </LeanBoxContainer>
         <MessageBox

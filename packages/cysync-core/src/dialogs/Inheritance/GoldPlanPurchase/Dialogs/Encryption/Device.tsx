@@ -68,7 +68,7 @@ export const DeviceEncryption = () => {
                 totalState: 2,
               },
             ]}
-            variant="other"
+            variant="muted"
           />
         </LeanBoxContainer>
         <MessageBox text={strings.messageBox.warning} type="warning" showIcon />

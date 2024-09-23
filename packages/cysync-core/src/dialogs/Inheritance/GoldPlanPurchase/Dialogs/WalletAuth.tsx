@@ -9,6 +9,7 @@ import {
   LeanBox,
   LeanBoxContainer,
   LeanBoxProps,
+  MessageBox,
   tapAnyCardDeviceAnimation2DVideo,
   Throbber,
   Typography,
@@ -129,9 +130,13 @@ export const WalletAuth = () => {
                 totalState: 3,
               },
             ]}
-            variant="other"
+            variant="muted"
           />
         </LeanBoxContainer>
+        <MessageBox
+          type="warning"
+          text={strings.walletAuth.messageBox.warning}
+        />
       </Container>
     </Layout>
   );

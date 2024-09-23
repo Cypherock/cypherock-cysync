@@ -120,7 +120,7 @@ export const DecryptPin = () => {
                 totalState: 2,
               },
             ]}
-            variant="other"
+            variant="muted"
           />
         </LeanBoxContainer>
         <MessageBox

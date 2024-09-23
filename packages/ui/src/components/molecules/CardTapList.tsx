@@ -3,7 +3,7 @@ import { styled } from 'styled-components';
 
 import { Flex, Indicator, LangDisplay, Typography } from '../atoms';
 
-type VariantType = 'onboarding' | 'other';
+type VariantType = 'default' | 'muted';
 
 interface CardTapItemProps {
   text: string;
@@ -18,14 +18,22 @@ interface CardTapListProps {
   variant?: VariantType;
 }
 
-const getBgColor = (currentState: number, totalState: number) => {
-  if (currentState < 0) return 'inputSecondary';
+const getBgColor = (
+  currentState: number,
+  totalState: number,
+  variant: VariantType,
+) => {
+  if (currentState < 0 || variant === 'muted') return 'inputSecondary';
   if (currentState < totalState) return 'gold';
   return 'successSecondary';
 };
 
-const getTextColor = (currentState: number, totalState: number) => {
-  if (currentState < 0) return 'muted';
+const getTextColor = (
+  currentState: number,
+  totalState: number,
+  variant: VariantType,
+) => {
+  if (currentState < 0 || variant === 'muted') return 'muted';
   if (currentState < totalState) return 'gold';
   return 'success';
 };
@@ -68,7 +76,7 @@ const CardTapListItem: React.FC<CardTapItemProps> = ({
   currentState,
   totalState,
   currentFailed,
-  variant = 'onboarding',
+  variant = 'default',
 }) => {
   const indicators = Array(totalState)
     .fill(0)
@@ -81,22 +89,12 @@ const CardTapListItem: React.FC<CardTapItemProps> = ({
     ));
 
   return (
-    <BackgroundStyle
-      $bgColor={
-        variant === 'other'
-          ? 'inputSecondary'
-          : getBgColor(currentState, totalState)
-      }
-    >
+    <BackgroundStyle $bgColor={getBgColor(currentState, totalState, variant)}>
       <MaskStyle>
         <Typography
           variant="h6"
-          color={
-            variant === 'other'
-              ? 'muted'
-              : getTextColor(currentState, totalState)
-          }
-          $fontWeight={variant === 'other' ? 'normal' : 'medium'}
+          color={getTextColor(currentState, totalState, variant)}
+          $fontWeight={variant === 'muted' ? 'normal' : 'medium'}
           grow={1}
         >
           <LangDisplay text={text} />
@@ -109,12 +107,12 @@ const CardTapListItem: React.FC<CardTapItemProps> = ({
 
 CardTapListItem.defaultProps = {
   currentFailed: false,
-  variant: 'onboarding',
+  variant: 'default',
 };
 
 export const CardTapList: React.FC<CardTapListProps> = ({
   items,
-  variant = 'onboarding',
+  variant = 'default',
 }) => (
   <Flex direction="column" gap={8} width="full">
     {items.map(({ text, currentState, totalState, currentFailed }, i) => (
@@ -131,5 +129,5 @@ export const CardTapList: React.FC<CardTapListProps> = ({
 );
 
 CardTapList.defaultProps = {
-  variant: 'onboarding',
+  variant: 'default',
 };
