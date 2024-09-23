@@ -30,7 +30,7 @@ export const WalletAuth = () => {
   const lang = useAppSelector(selectLanguage);
 
   const strings = lang.strings.inheritanceSilverPlanPurchase;
-  const [cardTapState, setCardTapState] = useState(0);
+  const [cardTapState, setCardTapState] = useState(-1);
 
   const {
     onNext,
@@ -41,6 +41,7 @@ export const WalletAuth = () => {
     walletAuthAbort,
     retryIndex,
     clearErrors,
+    isRegisterationRequired,
   } = useInheritanceSilverPlanPurchaseDialog();
 
   const getDeviceEventIcon = (
@@ -57,22 +58,54 @@ export const WalletAuth = () => {
     const actions: LeanBoxProps[] = [
       {
         id: '1',
-        text: strings.wallet.walletAuth.actions.tapCard,
+        text: strings.wallet.walletAuth.actions.confirm,
         leftImage: rightArrowIcon,
         rightImage: getDeviceEventIcon(
           InheritanceWalletAuthDeviceEvent.INIT,
-          InheritanceWalletAuthDeviceEvent.WALLET_BASED_CARD_TAPPED,
+          InheritanceWalletAuthDeviceEvent.CONFIRMED,
         ),
       },
     ];
 
+    if (!isRegisterationRequired) {
+      actions.push({
+        id: '2',
+        text: strings.wallet.walletAuth.actions.tapCard,
+        leftImage: rightArrowIcon,
+        rightImage: getDeviceEventIcon(
+          InheritanceWalletAuthDeviceEvent.CONFIRMED,
+          InheritanceWalletAuthDeviceEvent.WALLET_BASED_CARD_TAPPED,
+        ),
+      });
+    }
+
     return actions;
-  }, [strings, walletAuthDeviceEvents]);
+  }, [strings, walletAuthDeviceEvents, isRegisterationRequired]);
+
+  useEffect(() => {
+    const eventToState: Record<number, number | undefined> = {
+      [InheritanceWalletAuthDeviceEvent.CONFIRMED]: 0,
+      [InheritanceWalletAuthDeviceEvent.SEED_BASED_CARD_TAPPED]: 1,
+      [InheritanceWalletAuthDeviceEvent.CARD_PAIRING_CARD_TAPPED]: 2,
+      [InheritanceWalletAuthDeviceEvent.WALLET_BASED_CARD_TAPPED]: 3,
+    };
+
+    let state: number | undefined;
+    for (const event in eventToState) {
+      if (walletAuthDeviceEvents[event] && eventToState[event] !== undefined) {
+        state = eventToState[event]!;
+      }
+    }
+
+    if (state !== undefined) {
+      setCardTapState(state);
+    }
+  }, [walletAuthDeviceEvents]);
 
   useEffect(() => {
     clearErrors();
     walletAuthStart();
-    setCardTapState(0);
+    setCardTapState(-1);
 
     return () => {
       walletAuthAbort();
@@ -118,21 +151,25 @@ export const WalletAuth = () => {
               id={data.id}
             />
           ))}
-          <CardTapList
-            items={[
-              {
-                text: strings.wallet.walletAuth.actions.tapCard,
-                currentState: cardTapState,
-                totalState: 3,
-              },
-            ]}
-            variant="muted"
-          />
+          {isRegisterationRequired && (
+            <CardTapList
+              items={[
+                {
+                  text: strings.wallet.walletAuth.actions.tapCard,
+                  currentState: cardTapState,
+                  totalState: 3,
+                },
+              ]}
+              variant="muted"
+            />
+          )}
         </LeanBoxContainer>
-        <MessageBox
-          type="warning"
-          text={strings.wallet.walletAuth.messageBox.warning}
-        />
+        {isRegisterationRequired && (
+          <MessageBox
+            type="warning"
+            text={strings.wallet.walletAuth.messageBox.warning}
+          />
+        )}
       </Container>
     </Layout>
   );

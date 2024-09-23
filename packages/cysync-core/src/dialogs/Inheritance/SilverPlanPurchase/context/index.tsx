@@ -457,6 +457,7 @@ export const InheritanceSilverPlanPurchaseDialogProvider: FC<
     applyingCouponError,
     couponDuration,
     isEstablishingSession: sessionService.isStartingSession,
+    isRegisterationRequired: walletAuthService.isRegisterationRequired,
   });
 
   return (
