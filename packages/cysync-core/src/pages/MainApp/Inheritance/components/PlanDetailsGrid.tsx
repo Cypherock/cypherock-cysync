@@ -12,6 +12,20 @@ import {
 } from '@cypherock/cysync-ui';
 import { InheritancePlanType } from '@cypherock/db-interfaces';
 import React from 'react';
+import { ILangState } from '~/store';
+
+interface Wallet {
+  walletName: string;
+  createdOn: string;
+  expiringOn: string;
+  reminderPeriod: number;
+}
+
+interface Owner {
+  name: string;
+  primaryEmail: string;
+  secondaryEmail: string;
+}
 
 interface Nominee {
   name: string;
@@ -25,30 +39,21 @@ interface Executor {
   secondaryEmail: string;
 }
 
-interface PlanDetailsGridProps {
-  walletName: string;
-  createdOn: string;
-  expiringOn: string;
-  reminderPeriod: number;
-  ownerName: string;
-  ownerPrimaryEmail: string;
-  ownerSecondaryEmail: string;
+interface InheritancePlanData {
+  wallet: Wallet;
+  owner: Owner;
   nominees?: Nominee[];
   executor?: Executor;
-  strings: any;
+}
+
+interface PlanDetailsGridProps {
+  data: InheritancePlanData;
+  strings: ILangState['strings']['inheritance'];
   plan: InheritancePlanType;
 }
 
 export const InheritancePlanDetailsGrid: React.FC<PlanDetailsGridProps> = ({
-  walletName,
-  createdOn,
-  expiringOn,
-  reminderPeriod,
-  ownerName,
-  ownerPrimaryEmail,
-  ownerSecondaryEmail,
-  nominees = [],
-  executor,
+  data,
   strings,
   plan,
 }) => {
@@ -81,29 +86,29 @@ export const InheritancePlanDetailsGrid: React.FC<PlanDetailsGridProps> = ({
     >
       <DetailsCard
         headerLeading={goldWalletIcon}
-        headerText={walletName}
+        headerText={data.wallet.walletName}
         headerTrailing={
           <Typography color="gold" $fontSize={16} $fontWeight="semibold">
             {strings.plans[plan].title.toLocaleUpperCase()}
           </Typography>
         }
-        $backgroundType={plan === 'gold' ? 'gold' : 'silver'} // Adjust background type based on plan
+        $backgroundType={plan === 'gold' ? 'gold' : 'silver'}
         fields={[
           {
             label: strings.planDetails.walletDetails.createdOn,
             icon: ClockIcon,
-            value: createdOn,
+            value: data.wallet.createdOn,
           },
           {
             label: strings.planDetails.walletDetails.expiringOn,
             icon: ClockIcon,
-            value: expiringOn,
+            value: data.wallet.expiringOn,
             isDanger: true,
           },
           {
             label: strings.planDetails.walletDetails.reminderPeriodField.label,
             icon: ClockIcon,
-            value: getReminderPeriodInputText(reminderPeriod),
+            value: getReminderPeriodInputText(data.wallet.reminderPeriod),
             trailing: editButton,
           },
         ]}
@@ -115,24 +120,24 @@ export const InheritancePlanDetailsGrid: React.FC<PlanDetailsGridProps> = ({
           {
             label: strings.planDetails.ownerDetails.form.userNameField.label,
             icon: UserIcon,
-            value: ownerName,
+            value: data.owner.name,
           },
           {
             label:
               strings.planDetails.ownerDetails.form.primaryEmailField.label,
             icon: EmailIconSmall,
-            value: ownerPrimaryEmail,
+            value: data.owner.primaryEmail,
           },
           {
             label:
               strings.planDetails.ownerDetails.form.secondaryEmailField.label,
             icon: EmailIconSmall,
-            value: ownerSecondaryEmail,
+            value: data.owner.secondaryEmail,
           },
         ]}
       />
       {plan === 'gold' &&
-        nominees.map((nominee, index) => (
+        data.nominees?.map((nominee, index) => (
           <DetailsCard
             key={nominee.primaryEmail}
             headerText={parseLangTemplate(
@@ -171,7 +176,7 @@ export const InheritancePlanDetailsGrid: React.FC<PlanDetailsGridProps> = ({
             }}
           />
         ))}
-      {plan === 'gold' && executor && (
+      {plan === 'gold' && data.executor && (
         <DetailsCard
           headerText={strings.planDetails.executorDetails.title}
           headerTrailing={editButton}
@@ -180,21 +185,21 @@ export const InheritancePlanDetailsGrid: React.FC<PlanDetailsGridProps> = ({
               label:
                 strings.planDetails.executorDetails.form.nomineeNameField.label,
               icon: UserIcon,
-              value: executor.name,
+              value: data.executor.name,
             },
             {
               label:
                 strings.planDetails.executorDetails.form.primaryEmailField
                   .label,
               icon: EmailIconSmall,
-              value: executor.primaryEmail,
+              value: data.executor.primaryEmail,
             },
             {
               label:
                 strings.planDetails.executorDetails.form.secondaryEmailField
                   .label,
               icon: EmailIconSmall,
-              value: executor.secondaryEmail,
+              value: data.executor.secondaryEmail,
             },
           ]}
           footer={{
@@ -207,9 +212,4 @@ export const InheritancePlanDetailsGrid: React.FC<PlanDetailsGridProps> = ({
       )}
     </div>
   );
-};
-
-InheritancePlanDetailsGrid.defaultProps = {
-  nominees: undefined,
-  executor: undefined,
 };

@@ -34,10 +34,12 @@ export const InheritancePlanDetails: FC = () => {
   };
 
   const data = {
-    walletName: 'MyFunnyWallet',
-    createdOn: '01 July 2024',
-    expiringOn: '30 June 2024',
-    reminderPeriod: 1,
+    wallet: {
+      walletName: 'MyFunnyWallet',
+      createdOn: '01 July 2024',
+      expiringOn: '30 June 2024',
+      reminderPeriod: 1,
+    },
     owner: {
       name: 'Alfred Bellows',
       primaryEmail: 'doc.bellows@yahoo.com',
@@ -70,19 +72,7 @@ export const InheritancePlanDetails: FC = () => {
       onRenewPlan={onRenewPlan}
       onUpgradePlan={onUpgradePlan}
     >
-      <InheritancePlanDetailsGrid
-        walletName={data.walletName}
-        createdOn={data.createdOn}
-        expiringOn={data.expiringOn}
-        reminderPeriod={data.reminderPeriod}
-        ownerName={data.owner.name}
-        ownerPrimaryEmail={data.owner.primaryEmail}
-        ownerSecondaryEmail={data.owner.secondaryEmail}
-        nominees={data.nominees}
-        executor={data.executor}
-        strings={strings}
-        plan={plan}
-      />
+      <InheritancePlanDetailsGrid data={data} strings={strings} plan={plan} />
     </InheritancePlanDetailsLayout>
   );
 };
