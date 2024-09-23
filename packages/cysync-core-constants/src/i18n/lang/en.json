@@ -1656,6 +1656,9 @@
           "actions": {
             "confirmAuth": "Confirm wallet authentication on device",
             "enterPinAndTapCard": "Enter Pin and tap any one card"
+          },
+          "messageBox": {
+            "warning": "Lift your card after 2 beep sounds"
           }
         },
         "verifyOtp": {
@@ -2044,14 +2047,19 @@
       "heading": "Wallet",
       "selectWallet": {
         "title": "Select the wallet you want to cover in this plan",
-        "subTitle": "For setting up additional wallets individual plans can be created later"
+        "subTitle": "For setting up additional wallets individual plans can be created later",
+        "tooltip": "This wallet is not having a PIN setup, create a new wallet or select a different wallet having PIN setup"
       },
       "walletAuth": {
         "title": "Follow instructions on the X1 Vault to authenticate the selected wallet",
+        "subTitle": "Authenticating the wallet, ",
         "actions": {
-          "tapCard": "Tap any one card"
+          "confirm": "Confirm wallet authentication on device",
+          "tapCard": "Enter PIN and tap any one card"
         },
-        "footer": "Authenticating the wallet, "
+        "messageBox": {
+          "warning": "Lift your card after 3 beep sounds"
+        }
       }
     },
     "email": {
@@ -2068,6 +2076,8 @@
       "heading": "Encryption",
       "device": {
         "title": "Follow instructions on the X1 Vault to encrypt the wallet PIN",
+        "subTitle": "Lift your card after 2 beep sounds",
+        "tooltip": "Tap any one X1 card below the X1 device to encrypt the message and do not remove the card until you hear 2 beep sounds",
         "actions": {
           "confirm": "Confirm encryption on device",
           "tapCard": "Enter PIN and tap any one card"
@@ -2117,7 +2127,8 @@
       "heading": "Wallet",
       "selectWallet": {
         "title": "Select the wallet you want to cover in this plan",
-        "subTitle": "For setting up additional wallets, individual plans can be created later"
+        "subTitle": "For setting up additional wallets, individual plans can be created later",
+        "tooltip": "This wallet is not having a PIN setup, create a new wallet or select a different wallet having PIN setup"
       },
       "walletAuth": {
         "heading": "Wallet Authentication",
@@ -2321,7 +2332,7 @@
       "device": {
         "title": "Follow instructions on the X1 Vault to encrypt the wallet PIN",
         "subtext": "Lift your card after 2 beep sounds ",
-        "tooltip": "",
+        "tooltip": "Tap any one X1 card below the X1 device to encrypt the message and do not remove the card until you hear 2 beep sounds",
         "actions": {
           "confirmOnDevice": "Confirm encryption on device",
           "tapCard": "Enter PIN and tap any one card"

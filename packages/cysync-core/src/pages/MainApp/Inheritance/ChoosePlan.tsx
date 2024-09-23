@@ -10,7 +10,10 @@ import React, { FC, useCallback } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
-import { openInheritanceSilverPlanPurchaseDialog } from '~/actions';
+import {
+  openInheritanceGoldPlanPurchaseDialog,
+  openInheritanceSilverPlanPurchaseDialog,
+} from '~/actions';
 import { selectLanguage, useAppSelector } from '~/store';
 
 import { InheritancePageLayout } from './Layout';
@@ -37,6 +40,10 @@ export const InheritanceChoosePlan: FC = () => {
 
   const openSilverPlanSetup = useCallback(() => {
     dispatch(openInheritanceSilverPlanPurchaseDialog());
+  }, [dispatch]);
+
+  const openGoldPlanSetup = useCallback(() => {
+    dispatch(openInheritanceGoldPlanPurchaseDialog());
   }, [dispatch]);
 
   return (
@@ -71,9 +78,7 @@ export const InheritanceChoosePlan: FC = () => {
               buttonText={strings.plans.buttonText}
               features={GoldPlanFeatures}
               popularTagText={strings.plans.popularTagText}
-              onClick={() => {
-                'implement this function';
-              }}
+              onClick={openGoldPlanSetup}
             />
           </Flex>
         </Container>
