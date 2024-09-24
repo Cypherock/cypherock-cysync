@@ -1109,7 +1109,8 @@
         "subtext": "Reconnect the device and try again and if the problem persists, contact Cypherock support for assistance"
       }
     },
-    "default": "发生了一些内部错误"
+    "default": "发生了一些内部错误",
+    "videoPlaybackError": "No Internet connection. Please check your connection and try again"
   },
   "validation": {
     "generic": {

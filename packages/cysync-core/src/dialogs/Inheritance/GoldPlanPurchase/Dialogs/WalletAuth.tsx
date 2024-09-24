@@ -110,7 +110,7 @@ export const WalletAuth = () => {
             </Typography>
           </Typography>
         </Container>
-        <LeanBoxContainer>
+        <LeanBoxContainer mb={4}>
           {actionsList.map(data => (
             <LeanBox
               key={data.id}

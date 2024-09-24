@@ -1114,7 +1114,8 @@
         "subtext": "Reconnect the device and try again and if the problem persists, contact Cypherock support for assistance"
       }
     },
-    "default": "Ein interner Fehler ist aufgetreten"
+    "default": "Ein interner Fehler ist aufgetreten",
+    "videoPlaybackError": "No Internet connection. Please check your connection and try again"
   },
   "validation": {
     "generic": {

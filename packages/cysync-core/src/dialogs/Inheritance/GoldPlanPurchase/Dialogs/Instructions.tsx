@@ -6,16 +6,15 @@ import {
   Typography,
 } from '@cypherock/cysync-ui';
 import React from 'react';
-import ReactPlayer from 'react-player/youtube';
 
 import { selectLanguage, useAppSelector } from '~/store';
 
 import { useInheritanceGoldPlanPurchaseDialog } from '../context';
 import { Layout } from '../Layout';
+import { CustomReactPlayer } from '~/components/CustomReactPlayer';
 
 export const Instructions = () => {
   const lang = useAppSelector(selectLanguage);
-
   const strings = lang.strings.inheritanceGoldPlanPurchase;
 
   const { onNext, onPrevious } = useInheritanceGoldPlanPurchaseDialog();
@@ -43,10 +42,8 @@ export const Instructions = () => {
           <LangDisplay text={strings.instructions.video.title} />
         </Typography>
       </Container>
-      <ReactPlayer
+      <CustomReactPlayer
         url={constants.inheritance.silverPlanPurchaseTutorialLink}
-        width="720px"
-        height="405px"
       />
     </Layout>
   );

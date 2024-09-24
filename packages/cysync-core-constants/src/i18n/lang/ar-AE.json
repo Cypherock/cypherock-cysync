@@ -1109,7 +1109,8 @@
         "subtext": "Reconnect the device and try again and if the problem persists, contact Cypherock support for assistance"
       }
     },
-    "default": "حدث خطأ داخلي"
+    "default": "حدث خطأ داخلي",
+    "videoPlaybackError": "No Internet connection. Please check your connection and try again"
   },
   "validation": {
     "generic": {

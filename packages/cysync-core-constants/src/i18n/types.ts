@@ -620,6 +620,7 @@ interface LangErrors {
   databaseError: IErrorMsg;
   serverErrors: Record<ServerErrorType, IErrorMsg>;
   default: string;
+  videoPlaybackError: string;
 }
 
 interface LangValidation {
