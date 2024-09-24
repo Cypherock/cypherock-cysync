@@ -19,31 +19,22 @@ interface Wallet {
   createdOn: string;
   expiringOn: string;
   reminderPeriod: number;
+  onEdit: () => void;
 }
 
-interface Owner {
+interface UserDetails {
   name: string;
   primaryEmail: string;
-  secondaryEmail: string;
-}
-
-interface Nominee {
-  name: string;
-  primaryEmail: string;
-  secondaryEmail: string;
-}
-
-interface Executor {
-  name: string;
-  primaryEmail: string;
-  secondaryEmail: string;
+  secondaryEmail?: string;
+  onEdit: () => void;
+  onSecondaryEdit?: () => void;
 }
 
 interface InheritancePlanData {
   wallet: Wallet;
-  owner: Owner;
-  nominees?: Nominee[];
-  executor?: Executor;
+  owner: UserDetails;
+  nominees?: UserDetails[];
+  executor?: UserDetails;
 }
 
 interface PlanDetailsGridProps {
@@ -58,9 +49,6 @@ export const InheritancePlanDetailsGrid: React.FC<PlanDetailsGridProps> = ({
   plan,
 }) => {
   const goldWalletIcon = <WalletIcon fill={`url(#${svgGradients.gold})`} />;
-  const editButton = (
-    <EditButton text="Edit" onClick={() => alert('Edit Clicked')} />
-  );
 
   const getReminderPeriodInputText = (newPeriod: number) => {
     const reminderPeriodInput =
@@ -109,13 +97,13 @@ export const InheritancePlanDetailsGrid: React.FC<PlanDetailsGridProps> = ({
             label: strings.planDetails.walletDetails.reminderPeriodField.label,
             icon: ClockIcon,
             value: getReminderPeriodInputText(data.wallet.reminderPeriod),
-            trailing: editButton,
+            trailing: <EditButton text="Edit" onClick={data.wallet.onEdit} />,
           },
         ]}
       />
       <DetailsCard
         headerText={strings.planDetails.ownerDetails.title}
-        headerTrailing={editButton}
+        headerTrailing={<EditButton text="Edit" onClick={data.owner.onEdit} />}
         fields={[
           {
             label: strings.planDetails.ownerDetails.form.userNameField.label,
@@ -144,7 +132,7 @@ export const InheritancePlanDetailsGrid: React.FC<PlanDetailsGridProps> = ({
               strings.planDetails.nomineeDetails.title,
               { number: index + 1 },
             )}
-            headerTrailing={editButton}
+            headerTrailing={<EditButton text="Edit" onClick={nominee.onEdit} />}
             fields={[
               {
                 label:
@@ -160,26 +148,34 @@ export const InheritancePlanDetailsGrid: React.FC<PlanDetailsGridProps> = ({
                 icon: EmailIconSmall,
                 value: nominee.primaryEmail,
               },
-              {
-                label:
-                  strings.planDetails.nomineeDetails.form.secondaryEmailField
-                    .label,
-                icon: EmailIconSmall,
-                value: nominee.secondaryEmail,
-              },
+              ...(nominee.secondaryEmail
+                ? [
+                    {
+                      label:
+                        strings.planDetails.nomineeDetails.form
+                          .secondaryEmailField.label,
+                      icon: EmailIconSmall,
+                      value: nominee.secondaryEmail,
+                    },
+                  ]
+                : []),
             ]}
             footer={{
               label:
                 strings.planDetails.nomineeDetails.form.encryptedMessage.label,
               icon: EncryptedMessageIcon,
-              trailing: editButton,
+              trailing: (
+                <EditButton text="Edit" onClick={nominee.onSecondaryEdit} />
+              ),
             }}
           />
         ))}
       {plan === 'gold' && data.executor && (
         <DetailsCard
           headerText={strings.planDetails.executorDetails.title}
-          headerTrailing={editButton}
+          headerTrailing={
+            <EditButton text="Edit" onClick={data.executor.onEdit} />
+          }
           fields={[
             {
               label:
@@ -194,19 +190,25 @@ export const InheritancePlanDetailsGrid: React.FC<PlanDetailsGridProps> = ({
               icon: EmailIconSmall,
               value: data.executor.primaryEmail,
             },
-            {
-              label:
-                strings.planDetails.executorDetails.form.secondaryEmailField
-                  .label,
-              icon: EmailIconSmall,
-              value: data.executor.secondaryEmail,
-            },
+            ...(data.executor.secondaryEmail
+              ? [
+                  {
+                    label:
+                      strings.planDetails.executorDetails.form
+                        .secondaryEmailField.label,
+                    icon: EmailIconSmall,
+                    value: data.executor.secondaryEmail,
+                  },
+                ]
+              : []),
           ]}
           footer={{
             label:
               strings.planDetails.executorDetails.form.executorMessage.label,
             icon: EncryptedMessageIcon,
-            trailing: editButton,
+            trailing: (
+              <EditButton text="Edit" onClick={data.executor.onSecondaryEdit} />
+            ),
           }}
         />
       )}

@@ -15,21 +15,31 @@ interface InheritancePageLayoutProps {
   children: React.ReactNode;
   onBack: () => void;
   plan: InheritancePlanType;
-  onRecoverPin?: () => void;
-  onUpgradePlan?: () => void;
-  onRenewPlan?: () => void;
 }
 
 export const InheritancePlanDetailsLayout: FC<InheritancePageLayoutProps> = ({
   children,
   plan,
   onBack,
-  onRecoverPin,
-  onRenewPlan,
-  onUpgradePlan,
 }) => {
   const lang = useAppSelector(selectLanguage);
   const strings = lang.strings.inheritance;
+
+  const onRenewPlan = () => {
+    // TODO: Implement renewal logic here
+    alert('Renewal Clicked');
+  };
+
+  const onRecoverPin = () => {
+    // TODO: Implement pin recovery logic here
+    alert('Pin Recovery Clicked');
+  };
+
+  const onUpgradePlan = () => {
+    // TODO: Implement plan upgrade logic here
+    alert('Upgrade Plan Clicked');
+  };
+
   return (
     <InheritancePageLayout>
       <Container direction="column" $flex={1} gap={32} justify="flex-start">
@@ -40,46 +50,21 @@ export const InheritancePlanDetailsLayout: FC<InheritancePageLayoutProps> = ({
             onClick={onBack}
           />
           <Flex justify="center" gap={16}>
-            {onRecoverPin && (
-              <Button
-                variant="secondary"
-                onClick={() => {
-                  'impliment this function';
-                }}
-              >
-                {strings.buttons.recoverPin}
-              </Button>
-            )}
-            {onUpgradePlan && plan === 'silver' && (
-              <Button
-                variant="secondary"
-                onClick={() => {
-                  'impliment this function';
-                }}
-              >
+            <Button variant="secondary" onClick={onRecoverPin}>
+              {strings.buttons.recoverPin}
+            </Button>
+            {plan === 'silver' && (
+              <Button variant="secondary" onClick={onUpgradePlan}>
                 {strings.buttons.upgradePlan}
               </Button>
             )}
-            {onRenewPlan && (
-              <Button
-                variant="primary"
-                onClick={() => {
-                  'impliment this function';
-                }}
-              >
-                {strings.buttons.renewPlan}
-              </Button>
-            )}
+            <Button variant="primary" onClick={onRenewPlan}>
+              {strings.buttons.renewPlan}
+            </Button>
           </Flex>
         </Container>
         {children}
       </Container>
     </InheritancePageLayout>
   );
-};
-
-InheritancePlanDetailsLayout.defaultProps = {
-  onRecoverPin: undefined,
-  onRenewPlan: undefined,
-  onUpgradePlan: undefined,
 };

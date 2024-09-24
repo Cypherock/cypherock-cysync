@@ -19,60 +19,63 @@ export const InheritanceUnlockPlan: FC = () => {
     navigate(-1);
   }, [navigate]);
 
-  const onRenewPlan = () => {
-    // TODO: Implement renewal logic here
-    alert('Renewal Clicked');
-  };
-
-  const onRecoverPin = () => {
-    // TODO: Implement pin recovery logic here
-    alert('Pin Recovery Clicked');
-  };
-
-  const onUpgradePlan = () => {
-    // TODO: Implement plan upgrade logic here
-    alert('Upgrade Plan Clicked');
-  };
-
   const data = {
     wallet: {
       walletName: 'MyFunnyWallet',
       createdOn: '01 July 2024',
       expiringOn: '30 June 2024',
       reminderPeriod: 1,
+      onEdit: () => {
+        alert('Edit reminder period clicked!!');
+      },
     },
     owner: {
       name: 'Alfred Bellows',
       primaryEmail: 'doc.bellows@yahoo.com',
       secondaryEmail: 'alfred@psych.com',
+      onEdit: () => {
+        alert('Edit owner details clicked!!');
+      },
     },
     nominees: [
       {
         name: 'Alfred Bellows',
         primaryEmail: 'doc.bellows@yahoo.com',
         secondaryEmail: 'alfred@psych.com',
+        onEdit: () => {
+          alert('Edit nominee details clicked!!');
+        },
+        onSecondaryEdit: () => {
+          alert('Edit encrypted message clicked!!');
+        },
       },
       {
         name: 'Jane Doe',
         primaryEmail: 'jane.doe@example.com',
         secondaryEmail: 'jane@another.com',
+        onEdit: () => {
+          alert('Edit nominee details clicked!!');
+        },
+        onSecondaryEdit: () => {
+          alert('Edit encrypted message clicked!!');
+        },
       },
     ],
     executor: {
       name: 'John Smith',
       primaryEmail: 'john.smith@example.com',
       secondaryEmail: 'john@other.com',
+      onEdit: () => {
+        alert('Edit executor details clicked!!');
+      },
+      onSecondaryEdit: () => {
+        alert('Edit executor message clicked!!');
+      },
     },
   };
 
   return (
-    <InheritancePlanDetailsLayout
-      onBack={onBack}
-      plan={plan}
-      onRecoverPin={onRecoverPin}
-      onUpgradePlan={onUpgradePlan}
-      onRenewPlan={onRenewPlan}
-    >
+    <InheritancePlanDetailsLayout onBack={onBack} plan={plan}>
       <Container $flex={1} width="100%" position="relative" align="flex-start">
         <div
           style={{
