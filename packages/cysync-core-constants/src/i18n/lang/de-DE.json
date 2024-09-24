@@ -1976,7 +1976,11 @@
       }
     },
     "buttons": {
-      "syncFromEmail": "Sync from Email"
+      "syncFromEmail": "Sync from Email",
+      "recoverPin": "Recover PIN",
+      "renewPlan": "Renew Plan",
+      "unlock": "Unlock",
+      "upgradePlan": "Upgrade Plan"
     },
     "termsOfService": {
       "title": "Terms of Use",

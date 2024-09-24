@@ -3,12 +3,13 @@ import {
   ArrowRightIcon,
   Check,
   Container,
+  Image,
   LeanBox,
   LeanBoxContainer,
   LeanBoxProps,
   Throbber,
   Typography,
-  VerifyPinDeviceGraphics,
+  verifyPinOnDevice,
 } from '@cypherock/cysync-ui';
 import React, { useEffect } from 'react';
 
@@ -62,7 +63,7 @@ export const ViewPin = () => {
 
   return (
     <Layout>
-      <VerifyPinDeviceGraphics />
+      <Image src={verifyPinOnDevice} alt="verify pin on device" />
       <Container direction="column" width="100%" $flex={1} gap={16}>
         <Typography $fontSize={20} $textAlign="center" color="white" mb={4}>
           {strings.title}
