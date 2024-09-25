@@ -1622,7 +1622,7 @@
       }
     },
     "inheritancePinRecovery": {
-      "title": "Pin Recovery",
+      "title": "PIN Recovery",
       "sync": {
         "name": "Syncing",
         "walletAuth": {
@@ -1656,12 +1656,13 @@
         },
         "error": {
           "title": "PIN Decryption Failed",
-          "subTitle": "PIN decryption was unsuccessful. Wallet ABC was not found in the card"
+          "subTitle": "PIN decryption was unsuccessful. Wallet ${wallet} was not found in the card"
         }
       },
       "viewPin": {
-        "name": "View pin",
+        "name": "View PIN",
         "title": "Follow instructions on the X1 Vault",
+        "subTitle": "PIN for wallet ",
         "actions": {
           "viewDevice": "View the PIN on your device and confirm"
         }

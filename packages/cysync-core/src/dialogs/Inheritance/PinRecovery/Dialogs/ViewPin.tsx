@@ -4,6 +4,7 @@ import {
   Check,
   Container,
   Image,
+  LangDisplay,
   LeanBox,
   LeanBoxContainer,
   LeanBoxProps,
@@ -26,8 +27,12 @@ export const ViewPin = () => {
   const lang = useAppSelector(selectLanguage);
   const strings = lang.strings.dialogs.inheritancePinRecovery.viewPin;
 
-  const { onNext, decryptPinIsCompleted, decryptPinDeviceEvents } =
-    useInheritancePinRecoveryDialog();
+  const {
+    onNext,
+    decryptPinIsCompleted,
+    decryptPinDeviceEvents,
+    selectedWallet,
+  } = useInheritancePinRecoveryDialog();
 
   const getDeviceEventIcon = (
     loadingEvent: InheritanceDecryptMessageDeviceEvent,
@@ -65,9 +70,17 @@ export const ViewPin = () => {
     <Layout>
       <Image src={verifyPinOnDevice} alt="verify pin on device" />
       <Container direction="column" width="100%" $flex={1} gap={16}>
-        <Typography $fontSize={20} $textAlign="center" color="white" mb={4}>
-          {strings.title}
-        </Typography>
+        <Container direction="column" gap={4} mb={4}>
+          <Typography $fontSize={20} $textAlign="center" color="white">
+            {strings.title}
+          </Typography>
+          <Typography $fontSize={16} $textAlign="center" color="muted">
+            <LangDisplay text={strings.subTitle} />
+            <Typography variant="span" $fontWeight="bold" $fontSize={16}>
+              {selectedWallet?.name}
+            </Typography>
+          </Typography>
+        </Container>
         <LeanBoxContainer>
           {actionsList.map(data => (
             <LeanBox

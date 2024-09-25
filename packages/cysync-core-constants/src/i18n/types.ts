@@ -903,6 +903,7 @@ interface LangDialogs {
     viewPin: {
       name: string;
       title: string;
+      subTitle: string;
       actions: {
         viewDevice: string;
       };
