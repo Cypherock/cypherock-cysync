@@ -2043,8 +2043,7 @@
         ]
       },
       "video": {
-        "title": "Watch the whole video before you proceed",
-        "subTitle": "The video will help you take the right decisions"
+        "title": "Watch the tutorial video before you proceed further"
       }
     },
     "wallet": {
@@ -2056,7 +2055,7 @@
       },
       "walletAuth": {
         "title": "Follow instructions on the X1 Vault to authenticate the selected wallet",
-        "subTitle": "Authenticating the wallet, ",
+        "subTitle": "Authenticating the wallet ",
         "actions": {
           "confirm": "Confirm wallet authentication on device",
           "tapCard": "Enter PIN and tap any one card"
@@ -2067,9 +2066,9 @@
       }
     },
     "email": {
-      "heading": "Email",
+      "heading": "Owner",
       "userDetails": {
-        "title": "User Details",
+        "title": "Your Details",
         "subTitle": "All the fields are mandatory",
         "buttons": {
           "sendOTP": "Send OTP"
@@ -2079,7 +2078,7 @@
     "encryption": {
       "heading": "Encryption",
       "device": {
-        "title": "Follow instructions on the X1 Vault to encrypt the wallet PIN",
+        "title": "Follow instructions on the X1 Vault to encrypt the PIN",
         "subTitle": "Lift your card after 2 beep sounds",
         "tooltip": "Tap any one X1 card below the X1 device to encrypt the message and do not remove the card until you hear 2 beep sounds",
         "actions": {
@@ -2091,11 +2090,12 @@
         }
       },
       "loading": {
-        "title": "Please wait while we encrypt the data",
+        "title": "Please wait while we save the encrypted data on the server",
         "subTitle": "Do not disconnect or close the app"
       },
       "success": {
-        "title": "PIN recovery message successfully encrypted"
+        "title": "PIN is successfully encrypted and saved",
+        "subTitle": "To complete your silver plan setup, you can now proceed with the plan purchase"
       }
     },
     "checkout": {
@@ -2106,7 +2106,7 @@
       },
       "success": {
         "title": "Thank you!",
-        "subtext": "Your Gold Plan is now activated"
+        "subtext": "Your Silver Plan is now activated"
       }
     }
   },

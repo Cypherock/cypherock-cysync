@@ -1199,7 +1199,6 @@ interface LangInheritanceSilverPlanPurchase {
     };
     video: {
       title: string;
-      subTitle: string;
     };
   };
   wallet: {
@@ -1251,6 +1250,7 @@ interface LangInheritanceSilverPlanPurchase {
     };
     success: {
       title: string;
+      subTitle: string;
     };
   };
   checkout: {

@@ -1,10 +1,5 @@
 import { constants } from '@cypherock/cysync-core-constants';
-import {
-  Button,
-  Container,
-  LangDisplay,
-  Typography,
-} from '@cypherock/cysync-ui';
+import { Button, LangDisplay, Typography } from '@cypherock/cysync-ui';
 import React from 'react';
 import ReactPlayer from 'react-player/youtube';
 
@@ -33,16 +28,15 @@ export const Instructions = () => {
         </>
       }
     >
-      <Container direction="column" gap={4}>
-        <Typography
-          variant="h5"
-          color="heading"
-          $textAlign="center"
-          $fontSize={20}
-        >
-          <LangDisplay text={strings.instructions.video.title} />
-        </Typography>
-      </Container>
+      <Typography
+        variant="h5"
+        color="heading"
+        $textAlign="center"
+        $fontSize={20}
+        mb={2}
+      >
+        <LangDisplay text={strings.instructions.video.title} />
+      </Typography>
       <ReactPlayer
         url={constants.inheritance.silverPlanPurchaseTutorialLink}
         width="720px"

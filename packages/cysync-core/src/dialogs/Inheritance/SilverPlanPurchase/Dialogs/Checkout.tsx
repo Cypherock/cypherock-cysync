@@ -57,7 +57,7 @@ export const Checkout = () => {
           disabled={!isCouponApplied || isActivatingCoupon}
           isLoading={isActivatingCoupon}
         >
-          {lang.strings.buttons.checkout}
+          {lang.strings.buttons.confirm}
         </Button>
       }
     >
