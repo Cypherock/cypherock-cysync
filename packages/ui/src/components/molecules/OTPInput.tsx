@@ -120,6 +120,7 @@ export const OTPInput: React.FC<OTPInputProps> = ({
               value={value}
               onChange={onChange}
               numInputs={otpLength}
+              shouldAutoFocus
               renderSeparator={<Container $width={16} />}
               renderInput={props => (
                 <OTPSingleInputContainer

@@ -1867,11 +1867,11 @@
     "plans": {
       "silver": {
         "title": "Silver",
-        "description": "Secure your wallet PIN with us and easily recover it if forgotten, ensuring continuous access to your crypto assets."
+        "description": "Secure your wallet PIN with us and easily recover it if forgotten, ensuring continuous access to your crypto assets"
       },
       "gold": {
         "title": "Gold",
-        "description": "Ensure your crypto assets are inherited by loved ones effortlessly, bypassing complex legal restrictions for smooth transfers."
+        "description": "Ensure your crypto assets are inherited by loved ones effortlessly, bypassing complex legal restrictions for smooth transfers"
       }
     },
     "choosePlan": {
@@ -1883,7 +1883,8 @@
           "No KYC required",
           "Multi-Chain",
           "PIN Recovery",
-          "Estate Recovery"
+          "Estate Recovery",
+          "Passphrase Recovery"
         ]
       }
     },
@@ -1891,25 +1892,25 @@
       "headers": {
         "owner": {
           "title": "Owner",
-          "subtitle": "You have setup Cypherock cover for these wallets"
+          "subtitle": "Setup recovery for your wallets"
         },
         "nominee": {
           "title": "Nominee",
-          "subtitle": "Somebody made you a nominee of their assets"
+          "subtitle": "You are a nominee of the following wallets"
         }
       },
       "setup": {
         "setupCover": {
           "title": "Setup Cypherock Cover",
-          "subTitle": "Protect your crypto assets and ensure smooth transfer to your beneficiaries in unforeseen circumstances."
+          "subTitle": "Protect your crypto assets and ensure smooth transfer to your beneficiaries in unforeseen circumstances"
         },
         "syncFromMail": {
           "title": "Sync from Email",
-          "subTitle": "If you're already part of a Cypherock Cover plan, either as the plan owner or a beneficiary."
+          "subTitle": "If you're already part of a Cypherock Cover plan, either as the plan owner or a beneficiary"
         },
         "learnMore": {
           "title": "What is Cypherock Cover?",
-          "subTitle": "Learn how Cypherock Cover secures your crypto assets and ensures their seamless transfer to your loved ones."
+          "subTitle": "Learn how Cypherock Cover secures your crypto assets and ensures their seamless transfer to your loved ones"
         }
       }
     },

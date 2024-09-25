@@ -1,6 +1,7 @@
 import {
   Button,
   Container,
+  cypherockCoverIcon,
   DialogBox,
   DialogBoxBody,
   DialogBoxFooter,
@@ -56,7 +57,7 @@ export const InheritanceSetup: FC = () => {
           <Flex gap={24}>
             <DialogBox width={500} height={351}>
               <DialogBoxBody justify="flex-start" $flex={1}>
-                <Image src={syncIcon} alt="Cysync Logo" />
+                <Image src={cypherockCoverIcon} alt="cypherock covery icon" />
                 <Container direction="column">
                   <Typography $fontSize={20} color="white">
                     {lang.strings.inheritance.homePage.setup.setupCover.title}
