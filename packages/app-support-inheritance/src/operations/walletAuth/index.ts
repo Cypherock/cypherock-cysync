@@ -1,6 +1,7 @@
 import {
   InheritanceApp,
   AuthWalletEvent,
+  IAuthWalletSignatureAndKey,
 } from '@cypherock/sdk-app-inheritance';
 import { hexToUint8Array, uint8ArrayToHex } from '@cypherock/sdk-utils';
 import { Observable } from 'rxjs';
@@ -17,7 +18,24 @@ const walletAuthToDeviceEventMap: Partial<
   Record<AuthWalletEvent, InheritanceWalletAuthDeviceEvent | undefined>
 > = {
   [AuthWalletEvent.INIT]: InheritanceWalletAuthDeviceEvent.INIT,
-  [AuthWalletEvent.CARD_TAP]: InheritanceWalletAuthDeviceEvent.CARD_TAPPED,
+  [AuthWalletEvent.CONFIRMED]: InheritanceWalletAuthDeviceEvent.CONFIRMED,
+  [AuthWalletEvent.SEED_BASED_CARD_TAP]:
+    InheritanceWalletAuthDeviceEvent.SEED_BASED_CARD_TAPPED,
+  [AuthWalletEvent.CARD_PAIRING_CARD_TAP]:
+    InheritanceWalletAuthDeviceEvent.CARD_PAIRING_CARD_TAPPED,
+  [AuthWalletEvent.WALLET_BASED_CARD_TAP]:
+    InheritanceWalletAuthDeviceEvent.WALLET_BASED_CARD_TAPPED,
+};
+
+const parseSignatureAndKey = (params?: IAuthWalletSignatureAndKey) => {
+  if (!params) {
+    return undefined;
+  }
+
+  return {
+    signature: uint8ArrayToHex(params.signature),
+    publicKey: params.publicKey ? uint8ArrayToHex(params.publicKey) : undefined,
+  };
 };
 
 export const walletAuth = (
@@ -47,16 +65,17 @@ export const walletAuth = (
 
     const main = async () => {
       try {
-        const { walletId, connection, isPublicKey, challenge } = params;
+        const { walletId, connection, isPublicKey, challenge, type } = params;
 
         const events: Record<number, boolean | undefined> = {} as any;
 
         app = await InheritanceApp.create(connection);
 
-        const { publicKey, signature } = await app.authWallet({
+        const { walletBased, seedBased } = await app.authWallet({
           walletId: hexToUint8Array(walletId),
           challenge: hexToUint8Array(challenge),
-          isPublicKey,
+          type,
+          withPublicKey: isPublicKey,
           onEvent: event => {
             const deviceEvent = walletAuthToDeviceEventMap[event];
             if (deviceEvent !== undefined) {
@@ -73,8 +92,8 @@ export const walletAuth = (
         observer.next({ type: 'Device', device: { isDone: true, events } });
         observer.next({
           type: 'Result',
-          signature: uint8ArrayToHex(signature),
-          publicKey: uint8ArrayToHex(publicKey),
+          walletBased: parseSignatureAndKey(walletBased),
+          seedBased: parseSignatureAndKey(seedBased),
         });
 
         finished = true;

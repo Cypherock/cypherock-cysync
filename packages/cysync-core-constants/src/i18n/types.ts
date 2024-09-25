@@ -95,6 +95,8 @@ interface LangButtons {
   yes: string;
   no: string;
   saveAndContinue: string;
+  exitWithoutSaving: string;
+  saveChanges: string;
 }
 
 interface LangDashboard {
@@ -871,6 +873,9 @@ interface LangDialogs {
           confirmAuth: string;
           enterPinAndTapCard: string;
         };
+        messageBox: {
+          warning: string;
+        };
       };
       verifyOtp: {
         title: string;
@@ -904,6 +909,80 @@ interface LangDialogs {
     };
     success: {
       name: string;
+      title: string;
+    };
+  };
+  inheritanceEditEncryptedMessage: {
+    confirmation: {
+      title: string;
+      subTitle: string;
+    };
+    syncing: {
+      title: string;
+      subTitle: string;
+    };
+    decryption: {
+      wallet: {
+        title: string;
+        actions: {
+          confirm: string;
+          tapCard: string;
+        };
+        messageBox: {
+          warning: string;
+        };
+        decryption: {
+          title: string;
+          subTitle: string;
+        };
+      };
+    };
+    editMessage: {
+      title: string;
+      subTitle: string;
+      form: {
+        cardLocationField: {
+          label: string;
+          placeholder: string;
+          tooltip: string;
+        };
+        personalMessageField: {
+          label: string;
+          placeholder: string;
+          tooltip: string;
+        };
+      };
+      messageBox: {
+        warning: string;
+      };
+    };
+    confirmMessage: {
+      title: string;
+      subTitle: string;
+      actions: {
+        confirmOnDevice: string;
+        verifyLocation: string;
+      };
+      messageBox: {
+        danger: string;
+      };
+    };
+    encryption: {
+      title: string;
+      subTitle: string;
+      tooltip: string;
+      actions: {
+        enterPinAndTap: string;
+      };
+      messageBox: {
+        warning: string;
+      };
+      syncing: {
+        title: string;
+        subTitle: string;
+      };
+    };
+    success: {
       title: string;
     };
   };
@@ -976,17 +1055,19 @@ interface LangOTP {
 
 interface LangInheritance {
   title: string;
+  plans: {
+    silver: {
+      title: string;
+      description: string;
+    };
+    gold: {
+      title: string;
+      description: string;
+    };
+  };
   choosePlan: {
     title: string;
     plans: {
-      silver: {
-        heading: string;
-        description: string;
-      };
-      gold: {
-        heading: string;
-        description: string;
-      };
       buttonText: string;
       popularTagText: string;
       features: string[];
@@ -1018,8 +1099,50 @@ interface LangInheritance {
       };
     };
   };
+  planDetails: {
+    walletDetails: {
+      createdOn: string;
+      expiringOn: string;
+      reminderPeriodField: {
+        label: string;
+        input: string;
+        inputPlural: string;
+      };
+    };
+    ownerDetails: {
+      title: string;
+      form: {
+        userNameField: { label: string };
+        primaryEmailField: { label: string };
+        secondaryEmailField: { label: string };
+      };
+    };
+    nomineeDetails: {
+      title: string;
+      form: {
+        nomineeNameField: { label: string };
+        primaryEmailField: { label: string };
+        secondaryEmailField: { label: string };
+        encryptedMessage: { label: string };
+      };
+    };
+    executorDetails: {
+      title: string;
+      form: {
+        nomineeNameField: { label: string };
+        primaryEmailField: { label: string };
+        secondaryEmailField: { label: string };
+        executorMessage: { label: string };
+        assignTo: { label: string };
+      };
+    };
+  };
   buttons: {
     syncFromEmail: string;
+    recoverPin: string;
+    renewPlan: string;
+    unlock: string;
+    upgradePlan: string;
   };
   termsOfService: {
     title: string;
@@ -1084,13 +1207,18 @@ interface LangInheritanceSilverPlanPurchase {
     selectWallet: {
       title: string;
       subTitle: string;
+      tooltip: string;
     };
     walletAuth: {
       title: string;
+      subTitle: string;
       actions: {
+        confirm: string;
         tapCard: string;
       };
-      footer: string;
+      messageBox: {
+        warning: string;
+      };
     };
   };
   email: {
@@ -1107,6 +1235,8 @@ interface LangInheritanceSilverPlanPurchase {
     heading: string;
     device: {
       title: string;
+      subTitle: string;
+      tooltip: string;
       actions: {
         confirm: string;
         tapCard: string;
@@ -1153,6 +1283,7 @@ interface LangInheritanceGoldPlanPurchase {
     selectWallet: {
       title: string;
       subTitle: string;
+      tooltip: string;
     };
     walletAuth: {
       heading: string;
@@ -1306,7 +1437,11 @@ interface LangInheritanceGoldPlanPurchase {
         userNameField: { label: string };
         primaryEmailField: { label: string };
         secondaryEmailField: { label: string };
-        reminderPeriodField: { label: string; input: string };
+        reminderPeriodField: {
+          label: string;
+          input: string;
+          inputPlural: string;
+        };
       };
     };
     nomineeDetails: {

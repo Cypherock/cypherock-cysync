@@ -235,10 +235,10 @@ export const InheritanceGoldPlanPurchaseDialogProvider: FC<
       return;
     }
 
-    encryptMessageService.start(selectedWallet.__id, [
-      personalMessage,
-      cardLocation,
-    ]);
+    encryptMessageService.start(selectedWallet.__id, {
+      nomineeMessage: personalMessage,
+      walletMessage: cardLocation,
+    });
   }, [selectedWallet, encryptMessageService.start]);
 
   const setupPlanHandler = useCallback(async () => {
@@ -251,6 +251,7 @@ export const InheritanceGoldPlanPurchaseDialogProvider: FC<
 
     const result = await inheritancePlanService.create({
       encryptedData: encryptMessageService.encryptedMessages,
+      sessionId: '',
       accessToken: walletAuthService.authTokens.accessToken,
     });
 

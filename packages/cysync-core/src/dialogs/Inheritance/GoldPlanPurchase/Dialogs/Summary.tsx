@@ -1,5 +1,3 @@
-import React from 'react';
-import { Layout } from '../Layout';
 import {
   Button,
   ClockIcon,
@@ -14,8 +12,12 @@ import {
   UserIcon,
   WalletIcon,
 } from '@cypherock/cysync-ui';
+import React from 'react';
+
 import { selectLanguage, useAppSelector } from '~/store';
+
 import { useInheritanceGoldPlanPurchaseDialog } from '../context';
+import { Layout } from '../Layout';
 
 const goldWalletIcon = <WalletIcon fill={`url(#${svgGradients.gold})`} />;
 
@@ -77,8 +79,6 @@ export const Summary = () => {
             {
               label: strings.ownerDetails.form.reminderPeriodField.label,
               icon: ClockIcon,
-              value: strings.ownerDetails.form.reminderPeriodField.input,
-              trailing: <EditButton text="Edit" />,
             },
           ]}
         />

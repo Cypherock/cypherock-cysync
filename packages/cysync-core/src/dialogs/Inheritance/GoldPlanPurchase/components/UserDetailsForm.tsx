@@ -87,7 +87,7 @@ export const UserDetailsForm: FC<UserDetailsFormProps> = ({
           label={strings.form.emailField.label}
           rightLabel={lang.strings.labels.required}
           value={email}
-          tooltip={strings.form.emailField?.tooltip}
+          tooltip={strings.form.emailField.tooltip}
           required
           onChange={setEmail}
           showRequiredStar

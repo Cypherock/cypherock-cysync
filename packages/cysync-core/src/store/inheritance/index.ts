@@ -13,6 +13,7 @@ export * from './types';
 const initialState: IInheritanceState = {
   isLoaded: false,
   walletAuthTokens: {},
+  seedAuthTokens: {},
   inheritancePlans: [],
 } as IInheritanceState;
 
@@ -31,6 +32,16 @@ export const inheritanceSlice = createSlice({
         action.payload.authTokens;
       return state;
     },
+    updateSeedAuthTokens: (
+      state,
+      action: PayloadAction<{
+        walletId: string;
+        authTokens: IWalletAuthTokens;
+      }>,
+    ) => {
+      state.seedAuthTokens[action.payload.walletId] = action.payload.authTokens;
+      return state;
+    },
     setInheritancePlans: (
       state,
       payload: PayloadAction<IInheritancePlan[]>,
@@ -41,11 +52,16 @@ export const inheritanceSlice = createSlice({
   },
 });
 
-export const { updateWalletAuthTokens, setInheritancePlans } =
-  inheritanceSlice.actions;
+export const {
+  updateWalletAuthTokens,
+  updateSeedAuthTokens,
+  setInheritancePlans,
+} = inheritanceSlice.actions;
 
-export const selectInheritanceAuthTokens = (state: RootState) =>
+export const selectInheritanceWalletAuthTokens = (state: RootState) =>
   state.inheritance.walletAuthTokens;
+export const selectInheritanceSeedAuthTokens = (state: RootState) =>
+  state.inheritance.seedAuthTokens;
 
 export const selectInheritancePlans = (state: RootState) =>
   state.inheritance.inheritancePlans;

@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import { Flex } from './Flex';
 import { Typography, TypographyColor } from './Typography';
 
-import { WidthProps } from '../utils';
+import { width, WidthProps } from '../utils';
 
 export type NomineeMessageVariant = 'danger';
 
@@ -19,15 +19,18 @@ export interface NomineeMessageProps extends WidthProps {
   centerText?: boolean;
 }
 
-const StyledNomineeMessage = styled.div<{ $withBackground: boolean }>`
+const StyledNomineeMessage = styled.div<
+  { $withBackground: boolean } & WidthProps
+>`
   display: flex;
-  min-width: 624px;
+  min-width: 460px;
   padding: 8px 16px;
   justify-content: space-between;
   align-items: center;
   background: ${({ $withBackground, theme }) =>
     $withBackground ? theme.palette.background.slate : 'none'};
   border-radius: 8px;
+  ${width}
 `;
 
 const variantColorMap: Record<NomineeMessageVariant, TypographyColor> = {
@@ -43,8 +46,9 @@ export const NomineeMessage: FC<NomineeMessageProps> = ({
   withBackground,
   isHeader: withHeaderFont,
   centerText,
+  ...props
 }) => (
-  <StyledNomineeMessage $withBackground={withBackground ?? false}>
+  <StyledNomineeMessage $withBackground={withBackground ?? false} {...props}>
     <Flex
       gap={16}
       align="center"

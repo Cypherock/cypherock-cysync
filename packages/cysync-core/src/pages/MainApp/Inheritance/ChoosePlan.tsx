@@ -65,16 +65,16 @@ export const InheritanceChoosePlan: FC = () => {
           <Flex gap={24}>
             <PlanCard
               type="silver"
-              heading={strings.plans.silver.heading}
-              description={strings.plans.silver.description}
+              heading={lang.strings.inheritance.plans.silver.title}
+              description={lang.strings.inheritance.plans.silver.description}
               buttonText={strings.plans.buttonText}
               features={SilverPlanFeatures}
               onClick={openSilverPlanSetup}
             />
             <PlanCard
               type="gold"
-              heading={strings.plans.gold.heading}
-              description={strings.plans.gold.description}
+              heading={lang.strings.inheritance.plans.gold.title}
+              description={lang.strings.inheritance.plans.gold.description}
               buttonText={strings.plans.buttonText}
               features={GoldPlanFeatures}
               popularTagText={strings.plans.popularTagText}
