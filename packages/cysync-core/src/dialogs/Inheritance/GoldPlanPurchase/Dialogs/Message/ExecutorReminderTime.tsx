@@ -8,7 +8,7 @@ import {
   Reminder,
   Accordion,
 } from '@cypherock/cysync-ui';
-import React, { useState } from 'react';
+import React from 'react';
 import { useSelector } from 'react-redux';
 
 import { selectLanguage } from '~/store';
@@ -17,9 +17,14 @@ import { useInheritanceGoldPlanPurchaseDialog } from '../../context';
 import { Layout } from '../../Layout';
 
 export const ExecutorReminderSetup = () => {
-  const { onNext, onPrevious } = useInheritanceGoldPlanPurchaseDialog();
+  const {
+    onPrevious,
+    reminderPeriod,
+    setReminderPeriod,
+    isSubmittingReminderDetails,
+    onReminderDetailsSubmit,
+  } = useInheritanceGoldPlanPurchaseDialog();
   const lang = useSelector(selectLanguage);
-  const [newReminder, setNewReminder] = useState(1);
   const strings =
     lang.strings.dialogs.inheritanceEditReminderTime.reminderSetup;
   const { form } = strings;
@@ -31,7 +36,11 @@ export const ExecutorReminderSetup = () => {
           <Button onClick={() => onPrevious()} variant="secondary">
             <LangDisplay text={lang.strings.buttons.back} />
           </Button>
-          <Button onClick={() => onNext()} variant="primary">
+          <Button
+            onClick={onReminderDetailsSubmit}
+            variant="primary"
+            isLoading={isSubmittingReminderDetails}
+          >
             <LangDisplay text={lang.strings.buttons.continue} />
           </Button>
         </>
@@ -55,22 +64,22 @@ export const ExecutorReminderSetup = () => {
               date={`${1} ${form.reminderField.month}`}
               disabled={false}
               width="100%"
-              isSelected={newReminder === 1}
-              onClick={() => setNewReminder(1)}
+              isSelected={reminderPeriod === 'monthly'}
+              onClick={() => setReminderPeriod('monthly')}
             />
             <Reminder
               date={`${3} ${form.reminderField.months}`}
               disabled={false}
               width="100%"
-              isSelected={newReminder === 3}
-              onClick={() => setNewReminder(3)}
+              isSelected={reminderPeriod === 'quarterly'}
+              onClick={() => setReminderPeriod('quarterly')}
             />
             <Reminder
               date={`${6} ${form.reminderField.months}`}
               disabled={false}
               width="100%"
-              isSelected={newReminder === 6}
-              onClick={() => setNewReminder(6)}
+              isSelected={reminderPeriod === 'half-yearly'}
+              onClick={() => setReminderPeriod('half-yearly')}
             />
           </Flex>
         </Flex>

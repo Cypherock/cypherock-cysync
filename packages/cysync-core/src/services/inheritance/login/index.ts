@@ -9,6 +9,8 @@ import {
   refreshAccessTokenResultSchema,
   updateNomineesResultSchema,
   updateExecutorResultSchema,
+  ReminderPeriod,
+  updateReminderResultSchema,
 } from './schema';
 
 import { makePostRequest, runAndHandleServerErrors } from '../../utils';
@@ -137,13 +139,26 @@ const updateExecutor = async (params: {
   runAndHandleServerErrors(() =>
     makePostRequest(
       updateExecutorResultSchema,
-      `${baseUrl}/info/nominee`,
+      `${baseUrl}/info/executor`,
       {
         name: params.name,
         email: params.email,
         alternateEmail: params.alternateEmail,
         nominee: [params.nomineeEmail],
       },
+      params.accessToken,
+    ),
+  );
+
+const updateReminder = async (params: {
+  frequency: ReminderPeriod;
+  accessToken: string;
+}) =>
+  runAndHandleServerErrors(() =>
+    makePostRequest(
+      updateReminderResultSchema,
+      `${baseUrl}/info/reminder`,
+      { frequency: params.frequency },
       params.accessToken,
     ),
   );
@@ -158,4 +173,5 @@ export const inheritanceLoginService = {
   refreshAccessToken,
   updateNominees,
   updateExecutor,
+  updateReminder,
 };

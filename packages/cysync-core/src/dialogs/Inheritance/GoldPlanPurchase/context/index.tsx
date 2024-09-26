@@ -10,7 +10,6 @@ import React, {
   useContext,
   useMemo,
   useState,
-  useEffect,
   useRef,
 } from 'react';
 import { routes } from '~/constants';
@@ -26,6 +25,7 @@ import {
   inheritanceLoginService,
   InheritanceLoginTypeMap,
 } from '~/services';
+import { ReminderPeriod } from '~/services/inheritance/login/schema';
 import { useAppSelector } from '~/store';
 import { getDB } from '~/utils';
 import {
@@ -83,14 +83,15 @@ export const InheritanceGoldPlanPurchaseDialogProvider: FC<
     ];
   }, [wallets, deletedWallets]);
 
-  const [executorDetails, setExecutorDetails] = useState<
-    IUserDetails | undefined
-  >();
+  const [executorDetails, setExecutorDetails, executorDetailsRef] =
+    useStateWithRef<IUserDetails | undefined>(undefined);
   const [haveExecutor, setHaveExecutor] = useState(false);
   const [selectedWallet, setSelectedWallet] = useState<IWallet | undefined>();
   const [isSubmittingExecutorDetails, setIsSubmittingExecutorDetails] =
     useState(false);
   const [isSubmittingNomineeDetails, setIsSubmittingNomineeDetails] =
+    useState(false);
+  const [isSubmittingReminderDetails, setIsSubmittingReminderDetails] =
     useState(false);
   const [unhandledError, setUnhandledError] = useState<any>();
   const [nomineeCount, setNomineeCount, nomineeCountRef] = useStateWithRef(1);
@@ -107,10 +108,8 @@ export const InheritanceGoldPlanPurchaseDialogProvider: FC<
   const [nomineeDetails, setNomineeDetails, nominees] = useStateWithRef<
     Record<number, IUserDetails>
   >({});
-
-  useEffect(() => {
-    console.log({ nomineeRecord: nomineeDetails });
-  }, [nomineeDetails]);
+  const [reminderPeriod, setReminderPeriod] =
+    useState<ReminderPeriod>('monthly');
 
   const updateNominees = async () => {
     try {
@@ -155,14 +154,14 @@ export const InheritanceGoldPlanPurchaseDialogProvider: FC<
 
   const updateExecutor = async (nomineeIndex: number) => {
     try {
-      if (!executorDetails) throw 'Invalid executor details';
+      if (!executorDetailsRef.current) throw 'Invalid executor details';
       if (!walletAuthService.authTokens)
         throw "Wallet auth doesn't have a valid token";
 
       const result = await inheritanceLoginService.updateExecutor({
-        name: executorDetails.name,
-        email: executorDetails.email,
-        alternateEmail: executorDetails.alternateEmail,
+        name: executorDetailsRef.current.name,
+        email: executorDetailsRef.current.email,
+        alternateEmail: executorDetailsRef.current.alternateEmail,
         nomineeEmail: nominees.current[nomineeIndex]?.email,
         accessToken: walletAuthService.authTokens?.accessToken,
       });
@@ -170,6 +169,7 @@ export const InheritanceGoldPlanPurchaseDialogProvider: FC<
       if (!result?.result?.success) {
         throw result?.error;
       }
+      onNext();
     } catch (error: any) {
       onError(error);
     }
@@ -182,8 +182,28 @@ export const InheritanceGoldPlanPurchaseDialogProvider: FC<
     setIsSubmittingExecutorDetails(true);
     setExecutorDetails(params);
     await updateExecutor(nomineeIndex);
-    onNext();
     setIsSubmittingExecutorDetails(false);
+  };
+
+  const onReminderDetailsSubmit = async () => {
+    setIsSubmittingReminderDetails(true);
+    try {
+      if (!walletAuthService.authTokens)
+        throw "Wallet auth doesn't have a valid token";
+
+      const result = await inheritanceLoginService.updateReminder({
+        frequency: reminderPeriod,
+        accessToken: walletAuthService.authTokens?.accessToken,
+      });
+
+      if (result?.result?.success === false) {
+        throw result?.error ?? 'ReminderPeriod update failed';
+      }
+      onNext();
+    } catch (error: any) {
+      onError(error);
+    }
+    setIsSubmittingReminderDetails(false);
   };
 
   const onError = useCallback((e?: any) => {
@@ -571,6 +591,10 @@ export const InheritanceGoldPlanPurchaseDialogProvider: FC<
     userDetails,
     isEstablishingSession: sessionService.isStartingSession,
     isRegisterationRequired: walletAuthService.isRegisterationRequired,
+    reminderPeriod,
+    setReminderPeriod,
+    isSubmittingReminderDetails,
+    onReminderDetailsSubmit,
   });
 
   return (

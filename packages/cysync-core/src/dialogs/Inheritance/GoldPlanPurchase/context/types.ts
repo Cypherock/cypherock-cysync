@@ -1,6 +1,7 @@
 import { IWallet } from '@cypherock/db-interfaces';
 
 import { ITabs } from '~/hooks';
+import { ReminderPeriod } from '~/services/inheritance/login/schema';
 
 import {
   IUserDetails,
@@ -80,4 +81,8 @@ export interface InheritanceGoldPlanPurchaseDialogContextInterface {
   userDetails?: IUserDetails;
   isEstablishingSession: boolean;
   isRegisterationRequired: boolean;
+  reminderPeriod: ReminderPeriod;
+  setReminderPeriod: (val: ReminderPeriod) => void;
+  isSubmittingReminderDetails: boolean;
+  onReminderDetailsSubmit: () => Promise<void>;
 }

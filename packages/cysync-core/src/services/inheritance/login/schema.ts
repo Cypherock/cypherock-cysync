@@ -64,8 +64,11 @@ const genericSuccessResult = z.object({
   success: z.boolean().optional(),
 });
 
+export type ReminderPeriod = 'monthly' | 'quarterly' | 'half-yearly' | 'yearly';
+
 export const updateNomineesResultSchema = genericSuccessResult;
 export const updateExecutorResultSchema = genericSuccessResult;
+export const updateReminderResultSchema = genericSuccessResult;
 
 export type InheritanceLoginInitResponse = z.infer<typeof initResultSchema>;
 export type InheritanceLoginResendResponse = z.infer<typeof resendResultSchema>;

@@ -12,7 +12,8 @@ import {
   UserIcon,
   WalletIcon,
 } from '@cypherock/cysync-ui';
-import React from 'react';
+import React, { useMemo } from 'react';
+import { ReminderPeriod } from '~/services/inheritance/login/schema';
 
 import { selectLanguage, useAppSelector } from '~/store';
 
@@ -21,12 +22,31 @@ import { Layout } from '../Layout';
 
 const goldWalletIcon = <WalletIcon fill={`url(#${svgGradients.gold})`} />;
 
+const reminderValueMap: Record<ReminderPeriod, number> = {
+  monthly: 1,
+  quarterly: 3,
+  'half-yearly': 6,
+  yearly: 12,
+};
+
 export const Summary = () => {
   const lang = useAppSelector(selectLanguage);
   const strings = lang.strings.inheritanceGoldPlanPurchase.summary;
 
-  const { onNext, personalMessage, cardLocation, nomineeDetails, userDetails } =
-    useInheritanceGoldPlanPurchaseDialog();
+  const {
+    onNext,
+    personalMessage,
+    cardLocation,
+    nomineeDetails,
+    userDetails,
+    selectedWallet,
+    reminderPeriod,
+  } = useInheritanceGoldPlanPurchaseDialog();
+
+  const reminderValue = useMemo(
+    () => reminderValueMap[reminderPeriod],
+    [reminderPeriod],
+  );
 
   return (
     <Layout
@@ -53,7 +73,7 @@ export const Summary = () => {
       >
         <DetailsCard
           headerLeading={goldWalletIcon}
-          headerText="somewallet"
+          headerText={selectedWallet?.name ?? ''}
           headerOnly
           $backgroundType="gold"
         />
@@ -79,6 +99,10 @@ export const Summary = () => {
             {
               label: strings.ownerDetails.form.reminderPeriodField.label,
               icon: ClockIcon,
+              value: `Every ${reminderValue} month${
+                reminderValue !== 1 ? 's' : ''
+              }`,
+              trailing: <EditButton text="Edit" />,
             },
           ]}
         />
