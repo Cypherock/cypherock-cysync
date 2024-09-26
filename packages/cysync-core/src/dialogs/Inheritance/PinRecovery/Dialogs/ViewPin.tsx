@@ -1,5 +1,7 @@
+import { InheritanceDecryptMessageDeviceEvent } from '@cypherock/app-support-inheritance';
 import {
   ArrowRightIcon,
+  Check,
   Container,
   Image,
   LeanBox,
@@ -16,15 +18,26 @@ import { selectLanguage, useAppSelector } from '~/store';
 import { useInheritancePinRecoveryDialog } from '../context';
 import { Layout } from '../Layout';
 
+const checkIconComponent = <Check width={15} height={12} />;
 const throbberComponent = <Throbber size={15} strokeWidth={2} />;
 const rightArrowIcon = <ArrowRightIcon />;
 
 export const ViewPin = () => {
   const lang = useAppSelector(selectLanguage);
-
-  const { onNext } = useInheritancePinRecoveryDialog();
-
   const strings = lang.strings.dialogs.inheritancePinRecovery.viewPin;
+
+  const { onNext, decryptPinIsCompleted, decryptPinDeviceEvents } =
+    useInheritancePinRecoveryDialog();
+
+  const getDeviceEventIcon = (
+    loadingEvent: InheritanceDecryptMessageDeviceEvent,
+    completedEvent: InheritanceDecryptMessageDeviceEvent,
+  ) => {
+    if (decryptPinDeviceEvents[completedEvent]) return checkIconComponent;
+    if (decryptPinDeviceEvents[loadingEvent]) return throbberComponent;
+
+    return undefined;
+  };
 
   const actionsList = React.useMemo<LeanBoxProps[]>(() => {
     const actions: LeanBoxProps[] = [
@@ -32,20 +45,21 @@ export const ViewPin = () => {
         id: '1',
         text: strings.actions.viewDevice,
         leftImage: rightArrowIcon,
-        rightImage: throbberComponent,
+        rightImage: getDeviceEventIcon(
+          InheritanceDecryptMessageDeviceEvent.CARD_TAPPED,
+          InheritanceDecryptMessageDeviceEvent.PIN_VERIFIED,
+        ),
       },
     ];
 
     return actions;
-  }, []);
+  }, [decryptPinDeviceEvents]);
 
   useEffect(() => {
-    const timeout = setTimeout(() => {
+    if (decryptPinIsCompleted) {
       onNext();
-    }, 2000);
-
-    return () => clearTimeout(timeout);
-  }, []);
+    }
+  }, [decryptPinIsCompleted]);
 
   return (
     <Layout>

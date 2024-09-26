@@ -1,4 +1,4 @@
-import { IInheritanceEncryptMessageEvent } from '@cypherock/app-support-inheritance';
+import { IInheritanceDecryptMessageEvent } from '@cypherock/app-support-inheritance';
 import lodash from 'lodash';
 import { useState, useRef, useCallback } from 'react';
 import { Subscription, Observer } from 'rxjs';
@@ -7,7 +7,7 @@ import { deviceLock, useDevice } from '~/context';
 import { inheritanceSupport } from '~/utils';
 import logger from '~/utils/logger';
 
-export const useEncryptMessage = (onErrorCallback: (e?: any) => void) => {
+export const useDecryptMessage = (onErrorCallback: (e?: any) => void) => {
   const { connection } = useDevice();
 
   const [deviceEvents, setDeviceEvents] = useState<
@@ -15,10 +15,10 @@ export const useEncryptMessage = (onErrorCallback: (e?: any) => void) => {
   >({});
   const flowSubscription = useRef<Subscription | undefined>();
   const walletIdRef = useRef<string | undefined>();
-  const [encryptedMessages, setEncryptedMessages] = useState<
-    string | undefined
+  const [decryptedMessages, setDecryptedMessages] = useState<
+    Record<number, string | undefined> | undefined
   >();
-  const [isEncrypted, setIsEncrypted] = useState(false);
+  const [isDecrypted, setIsDecrypted] = useState(false);
 
   const cleanUp = useCallback(() => {
     if (flowSubscription.current) {
@@ -30,7 +30,7 @@ export const useEncryptMessage = (onErrorCallback: (e?: any) => void) => {
   const onError = useCallback(
     (e?: any) => {
       console.log(e);
-      logger.error('Error on inheritance encrypt message flow');
+      logger.error('Error on inheritance decrypt message flow');
       logger.error(e);
       cleanUp();
       onErrorCallback(e);
@@ -39,12 +39,12 @@ export const useEncryptMessage = (onErrorCallback: (e?: any) => void) => {
   );
 
   const getFlowObserver = useCallback(
-    (onEnd: () => void): Observer<IInheritanceEncryptMessageEvent> => ({
+    (onEnd: () => void): Observer<IInheritanceDecryptMessageEvent> => ({
       next: payload => {
         if (payload.device) setDeviceEvents({ ...payload.device.events });
-        if (payload.encryptedMessages) {
-          setEncryptedMessages(payload.encryptedMessages);
-          setIsEncrypted(true);
+        if (payload.decryptedMessages) {
+          setDecryptedMessages(payload.decryptedMessages);
+          setIsDecrypted(true);
         }
       },
       error: err => {
@@ -60,17 +60,13 @@ export const useEncryptMessage = (onErrorCallback: (e?: any) => void) => {
   );
 
   const start = useCallback(
-    async (
-      walletId: string,
-      messages?: { personalMessage?: string; cardLocation?: string },
-    ) => {
-      logger.info('Starting inheritance encrypt message');
+    async (walletId: string, message: string) => {
+      logger.info('Starting inheritance decrypt message');
 
       if (!connection?.connection) {
         return;
       }
 
-      let onEnd: (() => void) | undefined;
       try {
         cleanUp();
         walletIdRef.current = walletId;
@@ -79,24 +75,20 @@ export const useEncryptMessage = (onErrorCallback: (e?: any) => void) => {
 
         await deviceLock.acquire(connection.device, taskId);
 
-        onEnd = () => {
+        const onEnd = () => {
           deviceLock.release(connection.device, taskId);
         };
 
         const deviceConnection = connection.connection;
 
         flowSubscription.current = inheritanceSupport
-          .encryptMessageWithPin({
+          .decryptMessageWithPin({
             connection: deviceConnection,
             walletId: walletIdRef.current,
-            personalMessage: messages?.personalMessage,
-            cardLocation: messages?.cardLocation,
+            message,
           })
           .subscribe(getFlowObserver(onEnd));
       } catch (e) {
-        if (onEnd) {
-          onEnd();
-        }
         onError(e);
       }
     },
@@ -105,8 +97,8 @@ export const useEncryptMessage = (onErrorCallback: (e?: any) => void) => {
 
   const reset = useCallback(() => {
     walletIdRef.current = undefined;
-    setIsEncrypted(false);
-    setEncryptedMessages(undefined);
+    setIsDecrypted(false);
+    setDecryptedMessages(undefined);
     setDeviceEvents({});
     cleanUp();
   }, [cleanUp]);
@@ -116,7 +108,7 @@ export const useEncryptMessage = (onErrorCallback: (e?: any) => void) => {
     reset,
     abort: cleanUp,
     start,
-    encryptedMessages,
-    isEncrypted,
+    decryptedMessages,
+    isDecrypted,
   };
 };

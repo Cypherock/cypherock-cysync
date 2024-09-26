@@ -12,6 +12,7 @@ export const verifyResultSchema = z.object({
     .array(
       z.object({
         _id: z.string(),
+        wallet: z.string(),
         fullName: z.string().optional(),
         owner: z
           .object({
@@ -25,13 +26,19 @@ export const verifyResultSchema = z.object({
             }),
           )
           .optional(),
-        order: z
-          .object({
-            _id: z.string(),
-            planType: z.string().optional(),
-            activationDate: z.string().optional(),
-            expiryDate: z.string().optional(),
-          })
+        subscription: z
+          .array(
+            z.object({
+              order: z
+                .object({
+                  _id: z.string(),
+                  planType: z.string().optional(),
+                  activationDate: z.string().optional(),
+                  expiryDate: z.string().optional(),
+                })
+                .optional(),
+            }),
+          )
           .optional(),
       }),
     )

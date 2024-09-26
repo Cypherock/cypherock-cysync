@@ -1,19 +1,24 @@
 import { ServerErrorType } from '@cypherock/cysync-core-constants';
-import { useState, useRef, useCallback, useMemo } from 'react';
+import { useState, useRef, useCallback } from 'react';
 
-import { useAsync, useStateWithRef } from '~/hooks';
+import { useAsync, useMemoReturn, useStateWithRef } from '~/hooks';
 import {
+  InheritanceLoginAuthTypeMap,
   InheritanceLoginConcernMap,
   InheritanceLoginEmailTypeMap,
   InheritanceLoginInitResponse,
   InheritanceLoginRegisterResponse,
   inheritanceLoginService,
+  InheritanceLoginType,
+  InheritanceLoginTypeMap,
   InheritanceLoginVerifyResponse,
 } from '~/services';
 import { ServerResponseWithError } from '~/services/utils';
 import {
   IWalletAuthTokens,
-  selectInheritanceAuthTokens,
+  selectInheritanceSeedAuthTokens,
+  selectInheritanceWalletAuthTokens,
+  updateSeedAuthTokens,
   updateWalletAuthTokens,
   useAppDispatch,
   useAppSelector,
@@ -30,16 +35,25 @@ import { useWalletAuthDevice } from './useWalletAuthDevice';
 
 export * from './types';
 
+type AuthType = 'seed-based' | 'wallet-based';
+
 export const useWalletAuth = (onErrorCallback: (e?: any) => void) => {
   const dispatch = useAppDispatch();
 
-  const authTokensPerWallet = useAppSelector(selectInheritanceAuthTokens);
+  const walletAuthTokensPerWallet = useAppSelector(
+    selectInheritanceWalletAuthTokens,
+  );
+  const seedAuthTokensPerWallet = useAppSelector(
+    selectInheritanceSeedAuthTokens,
+  );
 
   const [currentStep, setCurrentStep] = useState<WalletAuthLoginStep>(
     WalletAuthLoginStep.fetchRequestId,
   );
 
   const walletIdRef = useRef<string | undefined>();
+  const loginTypeRef = useRef<InheritanceLoginType | undefined>();
+  const authTypeRef = useRef<AuthType | undefined>();
   const initResponse = useRef<InheritanceLoginInitResponse | undefined>();
   const registerResponse = useRef<
     InheritanceLoginRegisterResponse | undefined
@@ -78,12 +92,23 @@ export const useWalletAuth = (onErrorCallback: (e?: any) => void) => {
     (accessToken: string, refreshToken: string) => {
       if (!walletIdRef.current) return;
 
-      dispatch(
-        updateWalletAuthTokens({
-          walletId: walletIdRef.current,
-          authTokens: { accessToken, refreshToken },
-        }),
-      );
+      if (loginTypeRef.current === InheritanceLoginTypeMap.owner) {
+        if (authTypeRef.current === 'seed-based') {
+          dispatch(
+            updateSeedAuthTokens({
+              walletId: walletIdRef.current,
+              authTokens: { accessToken, refreshToken },
+            }),
+          );
+        } else {
+          dispatch(
+            updateWalletAuthTokens({
+              walletId: walletIdRef.current,
+              authTokens: { accessToken, refreshToken },
+            }),
+          );
+        }
+      }
       setAuthTokens({ accessToken, refreshToken });
       setCurrentStep(WalletAuthLoginStep.completed);
     },
@@ -91,7 +116,7 @@ export const useWalletAuth = (onErrorCallback: (e?: any) => void) => {
   );
 
   const startWalletAuth = useCallback(() => {
-    if (!walletIdRef.current || !initResponse.current) {
+    if (!walletIdRef.current || !initResponse.current || !authTypeRef.current) {
       return false;
     }
 
@@ -100,18 +125,32 @@ export const useWalletAuth = (onErrorCallback: (e?: any) => void) => {
       challenge: initResponse.current.challenge,
       isPublicKey:
         initResponse.current.concern === InheritanceLoginConcernMap.REGISTER,
+      type:
+        initResponse.current.concern === InheritanceLoginConcernMap.REGISTER
+          ? 'seed-and-wallet-based'
+          : authTypeRef.current,
     });
 
     return true;
   }, [deviceWalletAuth.startWalletAuth]);
 
   const fetchRequestIdCallback = useCallback(
-    async (walletId: string) => {
+    async (
+      walletId: string,
+      loginType: InheritanceLoginType = InheritanceLoginTypeMap.owner,
+      authType: 'seed-based' | 'wallet-based' = 'seed-based',
+    ) => {
       try {
         walletIdRef.current = walletId;
+        authTypeRef.current = authType;
+        loginTypeRef.current = loginType;
 
-        const existingTokens = authTokensPerWallet[walletId];
-        if (existingTokens) {
+        const existingTokens =
+          authType === 'seed-based'
+            ? seedAuthTokensPerWallet[walletId]
+            : walletAuthTokensPerWallet[walletId];
+
+        if (existingTokens && loginType === InheritanceLoginTypeMap.owner) {
           const result = await inheritanceLoginService.refreshAccessToken({
             refreshToken: existingTokens.refreshToken,
           });
@@ -129,7 +168,14 @@ export const useWalletAuth = (onErrorCallback: (e?: any) => void) => {
           }
         }
 
-        const result = await inheritanceLoginService.init({ walletId });
+        const result = await inheritanceLoginService.init({
+          walletId,
+          loginType,
+          authType:
+            authType === 'seed-based'
+              ? InheritanceLoginAuthTypeMap.seed
+              : InheritanceLoginAuthTypeMap.wallet,
+        });
 
         if (result.error) {
           throw result.error;
@@ -148,7 +194,7 @@ export const useWalletAuth = (onErrorCallback: (e?: any) => void) => {
         return false;
       }
     },
-    [authTokensPerWallet, onLogin],
+    [walletAuthTokensPerWallet, seedAuthTokensPerWallet, onLogin],
   );
 
   const [fetchRequestId, isFetchingRequestId] = useAsync(
@@ -167,8 +213,14 @@ export const useWalletAuth = (onErrorCallback: (e?: any) => void) => {
 
       const result = await inheritanceLoginService.validate({
         requestId: initResponse.current.requestId,
-        publicKey: deviceWalletAuth.deviceResponse.current.publicKey,
-        signature: deviceWalletAuth.deviceResponse.current.signature,
+        walletPublicKey:
+          deviceWalletAuth.deviceResponse.current.walletBased?.publicKey,
+        walletSignature:
+          deviceWalletAuth.deviceResponse.current.walletBased?.signature,
+        seedPublicKey:
+          deviceWalletAuth.deviceResponse.current.seedBased?.publicKey,
+        seedSignature:
+          deviceWalletAuth.deviceResponse.current.seedBased?.signature,
       });
 
       if (result.error) {
@@ -337,42 +389,22 @@ export const useWalletAuth = (onErrorCallback: (e?: any) => void) => {
     setCurrentStep(WalletAuthLoginStep.fetchRequestId);
   }, [deviceWalletAuth.reset]);
 
-  return useMemo(
-    () => ({
-      fetchRequestId,
-      isFetchingRequestId,
-      startWalletAuth,
-      deviceEvents: deviceWalletAuth.deviceEvents,
-      validateSignature,
-      isValidatingSignature,
-      reset,
-      currentStep,
-      registerUser,
-      isRegisteringUser,
-      abortWalletAuth: deviceWalletAuth.cleanUp,
-      otpVerificationDetails,
-      authTokens,
-      verifyOtp,
-      isVerifyingOtp,
-      isRegisterationRequired,
-    }),
-    [
-      fetchRequestId,
-      isFetchingRequestId,
-      startWalletAuth,
-      deviceWalletAuth.deviceEvents,
-      validateSignature,
-      isValidatingSignature,
-      reset,
-      currentStep,
-      registerUser,
-      isRegisteringUser,
-      deviceWalletAuth.cleanUp,
-      otpVerificationDetails,
-      authTokens,
-      verifyOtp,
-      isVerifyingOtp,
-      isRegisterationRequired,
-    ],
-  );
+  return useMemoReturn({
+    fetchRequestId,
+    isFetchingRequestId,
+    startWalletAuth,
+    deviceEvents: deviceWalletAuth.deviceEvents,
+    validateSignature,
+    isValidatingSignature,
+    reset,
+    currentStep,
+    registerUser,
+    isRegisteringUser,
+    abortWalletAuth: deviceWalletAuth.cleanUp,
+    otpVerificationDetails,
+    authTokens,
+    verifyOtp,
+    isVerifyingOtp,
+    isRegisterationRequired,
+  });
 };
