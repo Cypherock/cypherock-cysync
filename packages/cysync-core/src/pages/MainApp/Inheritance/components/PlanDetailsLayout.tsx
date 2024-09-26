@@ -4,12 +4,12 @@ import {
   Container,
   Flex,
 } from '@cypherock/cysync-ui';
+import { InheritancePlanType } from '@cypherock/db-interfaces';
 import React, { FC } from 'react';
 
 import { selectLanguage, useAppSelector } from '~/store';
 
 import { InheritancePageLayout } from '../Layout';
-import { InheritancePlanType } from '@cypherock/db-interfaces';
 
 interface InheritancePageLayoutProps {
   children: React.ReactNode;

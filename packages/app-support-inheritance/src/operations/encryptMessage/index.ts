@@ -7,13 +7,13 @@ import { hexToUint8Array, uint8ArrayToHex } from '@cypherock/sdk-utils';
 import { Observable } from 'rxjs';
 
 import {
-  ENCRYPTED_DATA_SERIALIZATION_TAGS,
   IInheritanceEncryptMessageEvent,
   IInheritanceEncryptMessageParams,
   InheritanceEncryptMessageDeviceEvent,
 } from './types';
 
 import logger from '../../utils/logger';
+import { ENCRYPTED_DATA_SERIALIZATION_TAGS } from '../common';
 
 const encryptMessageToDeviceEventMap: Partial<
   Record<
@@ -59,22 +59,22 @@ export const encryptMessage = (
 
     const main = async () => {
       try {
-        const { walletId, connection, nomineeMessage, walletMessage } = params;
+        const { walletId, connection, cardLocation, personalMessage } = params;
 
         const events: Record<number, boolean | undefined> = {} as any;
 
         const messages: Record<number, InheritanceMessage> = {};
 
-        if (nomineeMessage) {
+        if (personalMessage) {
           messages[ENCRYPTED_DATA_SERIALIZATION_TAGS.NOMINEE_MESSAGE] = {
-            value: nomineeMessage,
+            value: personalMessage,
             verifyOnDevice: true,
           };
         }
 
-        if (walletMessage) {
+        if (cardLocation) {
           messages[ENCRYPTED_DATA_SERIALIZATION_TAGS.WALLET_MESSAGE] = {
-            value: walletMessage,
+            value: cardLocation,
             verifyOnDevice: true,
           };
         }

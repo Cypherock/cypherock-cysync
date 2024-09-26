@@ -49,11 +49,6 @@ export const InheritancePlanList: FC = () => {
 
   const toPlanDetails = (plan: IInheritancePlan) => {
     dispatch(openInheritancePinRecoveryDialog({ walletId: plan.walletId }));
-    /*
-    navigateTo(
-      `${routes.inheritance.planDetails.path}?walletId=${plan.walletId}`,
-    );
-     */
   };
 
   const getPlanCardComponent = (plan: IInheritancePlan) => {
