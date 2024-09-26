@@ -21,19 +21,14 @@ export const NomineeDetails: React.FC<{ index: number }> = ({ index }) => {
       index === 0 ? 'first' : 'second'
     ];
 
-  const {
-    onNomineeDetailsSubmit,
-    goTo,
-    onPrevious,
-    isSubmittingNomineeDetails,
-  } = useInheritanceGoldPlanPurchaseDialog();
+  const { onNext, updateNomineeDetails, goTo, onPrevious } =
+    useInheritanceGoldPlanPurchaseDialog();
 
   const formId = 'inheritance-gold-plan-user-details';
 
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (isSubmittingNomineeDetails) return;
-    onNomineeDetailsSubmit(
+    updateNomineeDetails(
       {
         name,
         email,
@@ -41,6 +36,7 @@ export const NomineeDetails: React.FC<{ index: number }> = ({ index }) => {
       },
       index,
     );
+    onNext();
   };
 
   return (
@@ -57,17 +53,10 @@ export const NomineeDetails: React.FC<{ index: number }> = ({ index }) => {
                   )
             }
             variant="secondary"
-            disabled={isSubmittingNomineeDetails}
           >
             <LangDisplay text={lang.strings.buttons.back} />
           </Button>
-          <Button
-            variant="primary"
-            type="submit"
-            form={formId}
-            disabled={isSubmittingNomineeDetails}
-            isLoading={isSubmittingNomineeDetails}
-          >
+          <Button variant="primary" type="submit" form={formId}>
             <LangDisplay text={lang.strings.buttons.next} />
           </Button>
         </>
@@ -88,7 +77,7 @@ export const NomineeDetails: React.FC<{ index: number }> = ({ index }) => {
         }}
         name={name}
         setName={setName}
-        isSubmittingUserDetails={isSubmittingNomineeDetails}
+        isSubmittingUserDetails={false}
         email={email}
         setEmail={setEmail}
         alternateEmail={alternateEmail}

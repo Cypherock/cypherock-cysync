@@ -162,10 +162,16 @@ export const useGoldPlanDialogHanlders = () => {
         dialogs: [
           <Nominee key="Nominee" />,
           <NomineeDetails key="Nominee Details First" index={0} />,
-          <ConfirmNomineeVerification key="Confirm Nominee Verification First" />,
+          <ConfirmNomineeVerification
+            key="Confirm Nominee Verification First"
+            index={0}
+          />,
           <VerifyNomineeOtp key="Verify Nominee Otp First" />,
           <NomineeDetails key="Nominee Details Second" index={1} />,
-          <ConfirmNomineeVerification key="Confirm Nominee Verification Second" />,
+          <ConfirmNomineeVerification
+            key="Confirm Nominee Verification Second"
+            index={1}
+          />,
           <VerifyNomineeOtp key="Verify Nominee Otp Second" />,
           <SelectExecutor key="Confirm Executor" />,
           <ExecutorDetails key="Executor Details" />,

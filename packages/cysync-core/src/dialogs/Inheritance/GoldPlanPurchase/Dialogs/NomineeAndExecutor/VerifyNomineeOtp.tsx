@@ -1,4 +1,4 @@
-import React, { useMemo, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useRef } from 'react';
 
 import {
   OTPInputDialog,
@@ -10,32 +10,55 @@ import { useInheritanceGoldPlanPurchaseDialog } from '../../context';
 
 export const VerifyNomineeOtp: React.FC = () => {
   const lang = useAppSelector(selectLanguage);
-  const strings = lang.strings.inheritanceGoldPlanPurchase.email;
+  const strings = lang.strings.inheritance.dialog.verifyOTP;
 
-  const { onClose, onPrevious, onNext } =
-    useInheritanceGoldPlanPurchaseDialog();
+  const {
+    onClose,
+    onPrevious,
+    onNext,
+    nomineeOtpSubmit,
+    nomineeOtpVerificationDetails,
+    isSubmittingNomineeDetails,
+  } = useInheritanceGoldPlanPurchaseDialog();
 
-  const [email] = useState('');
-  const [title] = useState(strings.primaryEmailOTP.title);
-
+  const { title } = strings.primaryEmailOTP;
   const otpRef = useRef<OTPInputDialogRef | null>(null);
 
-  const onVerify = () => {
-    // DUMMY FUNCTION
-    onNext();
-    otpRef.current?.reset();
-  };
+  const onVerify = useCallback(
+    async (otp: string) => {
+      const result = await nomineeOtpSubmit(otp);
+      if (result) onNext();
+    },
+    [nomineeOtpSubmit],
+  );
 
   const onResend = () => {
     // DUMMY FUNCTION
   };
 
   const otpExpireTime = useMemo(
-    () => new Date(Date.now() + 60 * 1000).toISOString(),
-    [email],
+    () => nomineeOtpVerificationDetails?.otpExpiry ?? '',
+    [nomineeOtpVerificationDetails?.otpExpiry],
   );
+
   const otpLength = 6;
-  const retriesRemaining = 3;
+
+  const retriesRemaining = nomineeOtpVerificationDetails?.retriesRemaining ?? 3;
+  const email = nomineeOtpVerificationDetails?.email ?? '';
+
+  useEffect(() => {
+    if (otpRef.current) {
+      otpRef.current.reset();
+    }
+  }, [nomineeOtpVerificationDetails?.id]);
+
+  useEffect(() => {
+    if (!nomineeOtpVerificationDetails) onNext();
+  }, [nomineeOtpVerificationDetails]);
+
+  if (!nomineeOtpVerificationDetails) {
+    return null;
+  }
 
   return (
     <OTPInputDialog
@@ -48,8 +71,9 @@ export const VerifyNomineeOtp: React.FC = () => {
       otpLength={otpLength}
       retriesRemaining={retriesRemaining}
       otpExpireTime={otpExpireTime}
-      isVerifyingEmail={false}
+      isVerifyingEmail={isSubmittingNomineeDetails}
       isResendingOtp={false}
+      wrongOtpError={nomineeOtpVerificationDetails.showIncorrectError}
       ref={otpRef}
     />
   );

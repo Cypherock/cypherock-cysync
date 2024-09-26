@@ -115,7 +115,10 @@ const refreshAccessToken = async (params: { refreshToken: string }) =>
   );
 
 const updateNominees = async (params: {
-  nominees: { name: string; email: string }[];
+  nominee?: { name: string; email: string; alternateEmail?: string };
+  requestId?: string;
+  secret?: string;
+  verify?: boolean;
   accessToken: string;
 }) =>
   runAndHandleServerErrors(() =>
@@ -123,7 +126,10 @@ const updateNominees = async (params: {
       updateNomineesResultSchema,
       `${baseUrl}/info/nominee`,
       {
-        nominee: params.nominees,
+        nominee: params.nominee,
+        secret: params.secret,
+        verify: params.verify,
+        requestId: params.requestId,
       },
       params.accessToken,
     ),

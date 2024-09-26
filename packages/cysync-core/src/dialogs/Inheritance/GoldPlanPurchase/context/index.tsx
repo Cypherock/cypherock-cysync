@@ -34,6 +34,7 @@ import {
   useWalletAuth,
   WalletAuthLoginStep,
 } from '../../hooks';
+import { IOtpVerificationDetails } from '../../SyncPlans/context';
 import { InheritanceGoldPlanPurchaseDialogContextInterface } from './types';
 import { tabIndicies, useGoldPlanDialogHanlders } from './useDialogHandler';
 
@@ -110,41 +111,101 @@ export const InheritanceGoldPlanPurchaseDialogProvider: FC<
   >({});
   const [reminderPeriod, setReminderPeriod] =
     useState<ReminderPeriod>('monthly');
+  const [nomineeOtpVerificationDetails, setNomineeOtpVerificationDetails] =
+    useState<IOtpVerificationDetails | undefined>();
 
-  const updateNominees = async () => {
+  const updateNominees = async (index: number, verify?: boolean) => {
     try {
       if (!walletAuthService.authTokens)
         throw "Wallet auth doesn't have a valid token";
 
       const result = await inheritanceLoginService.updateNominees({
-        nominees: Object.values(nominees.current),
+        nominee: nominees.current[index],
+        verify,
         accessToken: walletAuthService.authTokens?.accessToken,
       });
 
       if (result?.result?.success === false) {
         throw result?.error ?? 'Nominee update failed';
       }
+
+      if (verify) {
+        const otpDetails = result.result?.otpDetails;
+        if (!otpDetails || !result.result?.requestId)
+          throw 'Invalid data received from server';
+
+        setNomineeOtpVerificationDetails({
+          id: result.result.requestId,
+          otpExpiry: otpDetails.otpExpiry,
+          email: otpDetails.maskedEmail,
+          retriesRemaining: otpDetails.retriesRemaining,
+        });
+      }
     } catch (error: any) {
       onError(error);
     }
   };
 
-  const onNomineeDetailsSubmit = async (
-    params: IUserDetails,
-    index: number,
-  ) => {
+  const nomineeOtpSubmit = async (secret: string) => {
     setIsSubmittingNomineeDetails(true);
+    try {
+      if (!walletAuthService.authTokens || !nomineeOtpVerificationDetails)
+        throw 'Invalid auth or data';
+
+      const result = await inheritanceLoginService.updateNominees({
+        secret,
+        requestId: nomineeOtpVerificationDetails?.id,
+        accessToken: walletAuthService.authTokens?.accessToken,
+      });
+
+      if (result?.result?.success === true) {
+        setNomineeOtpVerificationDetails(undefined);
+        setIsSubmittingNomineeDetails(false);
+        return true;
+      }
+
+      const otpDetails = result.error?.details?.responseBody;
+      if (!otpDetails) throw 'Invalid data received from server';
+      setNomineeOtpVerificationDetails(old => ({
+        ...old!,
+        retriesRemaining: otpDetails.retriesRemaining,
+        otpExpiry: otpDetails.otpExpiry,
+        showIncorrectError: true,
+      }));
+    } catch (error: any) {
+      onError(error);
+    }
+    setIsSubmittingNomineeDetails(false);
+    return false;
+  };
+
+  const updateNomineeDetails = (params: IUserDetails, index: number) => {
     nominees.current[index] = params;
     setNomineeDetails(nominees.current);
+  };
 
-    // TODO: use the opt confirmation and verification screens when implemented on server
+  const clearNomineeDetails = () => {
+    setNomineeDetails({});
+    setNomineeOtpVerificationDetails(undefined);
+    setIsSubmittingNomineeDetails(false);
+  };
+
+  const onNomineeDetailsSubmit = async (verify: boolean, index: number) => {
+    setIsSubmittingNomineeDetails(true);
+
+    await updateNominees(index, verify);
+
     let nextDialog = tabIndicies.nominieeAndExecutor.dialogs.executorSelect;
     if (nomineeCountRef.current === 2 && index === 0)
       nextDialog = tabIndicies.nominieeAndExecutor.dialogs.secondNomineeDetails;
-    else await updateNominees();
+
+    if (verify) {
+      onNext();
+    } else {
+      goTo(tabIndicies.nominieeAndExecutor.tabNumber, nextDialog);
+    }
 
     setIsSubmittingNomineeDetails(false);
-    goTo(tabIndicies.nominieeAndExecutor.tabNumber, nextDialog);
   };
 
   const onExecutorSelected = useCallback(() => {
@@ -595,6 +656,10 @@ export const InheritanceGoldPlanPurchaseDialogProvider: FC<
     setReminderPeriod,
     isSubmittingReminderDetails,
     onReminderDetailsSubmit,
+    updateNomineeDetails,
+    nomineeOtpSubmit,
+    clearNomineeDetails,
+    nomineeOtpVerificationDetails,
   });
 
   return (
