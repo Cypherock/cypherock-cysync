@@ -1,8 +1,8 @@
 import React, { FC, useCallback } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import { selectLanguage, useAppSelector } from '~/store';
 
-import { useNavigate } from 'react-router-dom';
 import {
   InheritancePlanDetailsGrid,
   InheritancePlanDetailsLayout,
