@@ -4,7 +4,11 @@ import 'immer';
 import { IInheritancePlan } from '@cypherock/db-interfaces';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-import { IInheritanceState, IWalletAuthTokens } from './types';
+import {
+  IInheritancePlanDetails,
+  IInheritanceState,
+  IWalletAuthTokens,
+} from './types';
 
 import type { RootState } from '../store';
 
@@ -15,6 +19,7 @@ const initialState: IInheritanceState = {
   walletAuthTokens: {},
   seedAuthTokens: {},
   inheritancePlans: [],
+  inheritancePlanDetails: {},
 } as IInheritanceState;
 
 export const inheritanceSlice = createSlice({
@@ -49,6 +54,21 @@ export const inheritanceSlice = createSlice({
       state.inheritancePlans = payload.payload;
       state.isLoaded = true;
     },
+    updateInheritancePlanDetails: (
+      state,
+      payload: PayloadAction<{
+        walletId: string;
+        planDetails: IInheritancePlanDetails;
+      }>,
+    ) => {
+      state.inheritancePlanDetails[payload.payload.walletId] =
+        payload.payload.planDetails;
+      return state;
+    },
+    clearInheritancePlanDetails: state => {
+      state.inheritancePlanDetails = {};
+      return state;
+    },
   },
 });
 
@@ -56,6 +76,8 @@ export const {
   updateWalletAuthTokens,
   updateSeedAuthTokens,
   setInheritancePlans,
+  updateInheritancePlanDetails,
+  clearInheritancePlanDetails,
 } = inheritanceSlice.actions;
 
 export const selectInheritanceWalletAuthTokens = (state: RootState) =>

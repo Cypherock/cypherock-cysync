@@ -1559,7 +1559,8 @@
       "walletAuth": {
         "title": "Follow instructions on the X1 Vault",
         "actions": {
-          "tapCard": "Tap a valid card"
+          "confirm": "Confirm wallet authentication on device",
+          "tapCard": "Enter PIN and tap any one card"
         },
         "messageBox": {
           "warning": "Authenticating"
@@ -1568,6 +1569,9 @@
       "fetchData": {
         "title": "Please wait while we fetch the plan data",
         "subTitle": "Do not disconnect or close the app"
+      },
+      "verifyEmail": {
+        "title": "OTP Verification"
       }
     },
     "inheritanceEditExecutorMessage": {

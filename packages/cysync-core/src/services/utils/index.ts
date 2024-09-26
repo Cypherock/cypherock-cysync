@@ -94,3 +94,26 @@ export async function makePostRequest<T>(
   const result = schema.parse(response.data);
   return result;
 }
+
+export async function makeGetRequest<T>(
+  schema: Zod.Schema<T>,
+  url: string,
+  authToken?: string,
+  _config?: AxiosRequestConfig,
+) {
+  let config = _config;
+
+  if (authToken) {
+    config = {
+      ...(config ?? {}),
+      headers: {
+        ...config?.headers,
+        Authorization: `Bearer ${authToken}`,
+      },
+    };
+  }
+
+  const response = await axios.get(url, config);
+  const result = schema.parse(response.data);
+  return result;
+}
