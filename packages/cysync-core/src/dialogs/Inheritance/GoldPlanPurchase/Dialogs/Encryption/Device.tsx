@@ -18,6 +18,7 @@ import {
 } from '@cypherock/cysync-ui';
 import React, { useEffect, useState } from 'react';
 
+import { LoaderDialog } from '~/components';
 import { selectLanguage, useAppSelector } from '~/store';
 
 import { useInheritanceGoldPlanPurchaseDialog } from '../../context';
@@ -41,6 +42,7 @@ export const DeviceEncryption = () => {
     clearErrors,
     retryIndex,
     encryptPinIsCompleted,
+    isEstablishingSession,
   } = useInheritanceGoldPlanPurchaseDialog();
 
   const getDeviceEventIcon = (
@@ -103,6 +105,10 @@ export const DeviceEncryption = () => {
       onNext();
     }
   }, [encryptPinIsCompleted]);
+
+  if (isEstablishingSession) {
+    return <LoaderDialog />;
+  }
 
   return (
     <Layout>

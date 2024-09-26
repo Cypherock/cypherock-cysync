@@ -78,4 +78,6 @@ export interface InheritanceGoldPlanPurchaseDialogContextInterface {
   setExecutorMessage: (val: string) => void;
   nomineeDetails: Record<number, IUserDetails>;
   userDetails?: IUserDetails;
+  isEstablishingSession: boolean;
+  isRegisterationRequired: boolean;
 }

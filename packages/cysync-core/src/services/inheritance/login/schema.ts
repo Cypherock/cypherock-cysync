@@ -61,7 +61,7 @@ export const refreshAccessTokenResultSchema = z.object({
 });
 
 const genericSuccessResult = z.object({
-  success: z.boolean(),
+  success: z.boolean().optional(),
 });
 
 export const updateNomineesResultSchema = genericSuccessResult;

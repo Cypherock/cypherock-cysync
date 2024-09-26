@@ -11,6 +11,7 @@ import React, {
   useMemo,
   useState,
   useEffect,
+  useRef,
 } from 'react';
 import { routes } from '~/constants';
 
@@ -20,11 +21,16 @@ import {
   useNavigateTo,
   useStateWithRef,
 } from '~/hooks';
-import { inheritancePlanService, inheritanceLoginService } from '~/services';
+import {
+  inheritancePlanService,
+  inheritanceLoginService,
+  InheritanceLoginTypeMap,
+} from '~/services';
 import { useAppSelector } from '~/store';
 import { getDB } from '~/utils';
 import {
   useEncryptMessage,
+  useSession,
   useWalletAuth,
   WalletAuthLoginStep,
 } from '../../hooks';
@@ -116,8 +122,8 @@ export const InheritanceGoldPlanPurchaseDialogProvider: FC<
         accessToken: walletAuthService.authTokens?.accessToken,
       });
 
-      if (!result?.result?.success) {
-        throw result?.error;
+      if (result?.result?.success === false) {
+        throw result?.error ?? 'Nominee update failed';
       }
     } catch (error: any) {
       onError(error);
@@ -190,6 +196,8 @@ export const InheritanceGoldPlanPurchaseDialogProvider: FC<
 
   const walletAuthService = useWalletAuth(onError);
   const encryptMessageService = useEncryptMessage(onError);
+  const sessionService = useSession(onError);
+  const sessionIdRef = useRef<string | undefined>();
 
   const onRetryFuncMap = useMemo<
     Record<number, Record<number, (() => boolean) | undefined> | undefined>
@@ -227,31 +235,52 @@ export const InheritanceGoldPlanPurchaseDialogProvider: FC<
       return;
     }
 
-    walletAuthService.fetchRequestId(selectedWallet.__id);
+    walletAuthService.fetchRequestId(
+      selectedWallet.__id,
+      InheritanceLoginTypeMap.owner,
+      'seed-based',
+    );
   }, [selectedWallet, walletAuthService.fetchRequestId]);
 
-  const encryptPinStart = useCallback(() => {
+  const encryptPinStart = useCallback(async () => {
     if (!selectedWallet?.__id) {
       return;
     }
 
-    encryptMessageService.start(selectedWallet.__id, {
-      nomineeMessage: personalMessage,
-      walletMessage: cardLocation,
-    });
-  }, [selectedWallet, encryptMessageService.start]);
+    let sessionId = await sessionService.getIsActive();
+
+    if (!sessionId) {
+      sessionId = await sessionService.start();
+    }
+
+    sessionIdRef.current = sessionId;
+
+    if (sessionId) {
+      encryptMessageService.start(selectedWallet.__id, {
+        nomineeMessage: personalMessage,
+        walletMessage: cardLocation,
+      });
+    }
+  }, [
+    selectedWallet,
+    encryptMessageService.start,
+    sessionService.start,
+    sessionService.getIsActive,
+    sessionService.sessionId,
+  ]);
 
   const setupPlanHandler = useCallback(async () => {
     if (
       !encryptMessageService.encryptedMessages ||
       !walletAuthService.authTokens ||
-      !selectedWallet
+      !selectedWallet ||
+      !sessionIdRef.current
     )
       return false;
 
     const result = await inheritancePlanService.create({
       encryptedData: encryptMessageService.encryptedMessages,
-      sessionId: '',
+      sessionId: sessionIdRef.current,
       accessToken: walletAuthService.authTokens.accessToken,
     });
 
@@ -357,6 +386,7 @@ export const InheritanceGoldPlanPurchaseDialogProvider: FC<
     setRetryIndex(v => v + 1);
     walletAuthService.reset();
     encryptMessageService.reset();
+    sessionService.reset();
   }, [walletAuthService.reset, encryptMessageService.reset, resetSetupPlan]);
 
   const registerUser = useCallback(
@@ -539,6 +569,8 @@ export const InheritanceGoldPlanPurchaseDialogProvider: FC<
     setExecutorMessage,
     nomineeDetails,
     userDetails,
+    isEstablishingSession: sessionService.isStartingSession,
+    isRegisterationRequired: walletAuthService.isRegisterationRequired,
   });
 
   return (
