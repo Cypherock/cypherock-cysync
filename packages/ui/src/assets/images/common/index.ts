@@ -93,6 +93,8 @@ import WalletHoverExpiredIcon from './wallet-hover-expired-icon.svg';
 import WalletHoverSilverBgIcon from './wallet-silver-hover-bg.svg';
 import walletIcon from './wallet.svg';
 import warningIcon from './warning.svg';
+import clearDeviceData from './clear-device-data.png';
+import confirmDeviceSettings from './confirm-device-settings.png';
 
 export {
   WalletDefaultExpiredIcon,
@@ -189,5 +191,7 @@ export {
   confirmOnDevice,
   silverTickIcon,
   verifyOnDevice,
+  clearDeviceData,
+  confirmDeviceSettings,
   verifyPinOnDevice,
 };

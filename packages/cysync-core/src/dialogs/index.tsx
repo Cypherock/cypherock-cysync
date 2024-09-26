@@ -30,6 +30,7 @@ import {
   InheritanceEditEncryptedMessageDialog,
 } from './Inheritance';
 import { InheritancePinRecoveryDialog } from './Inheritance/PinRecovery';
+import { InheritanceEstateRecoveryDialog } from './Inheritance/EstateRecovery';
 import {
   ChangePasswordDialog,
   RemovePasswordDialog,
@@ -77,4 +78,5 @@ export const dialogs: Record<DialogName, ReactComponentLike> = {
   inheritancePinRecovery: InheritancePinRecoveryDialog,
   inheritanceGoldPlanPurchase: InheritanceGoldPlanPurchaseDialog,
   inheritanceEditEncryptedMessage: InheritanceEditEncryptedMessageDialog,
+  inheritanceEstateRecovery: InheritanceEstateRecoveryDialog,
 };
