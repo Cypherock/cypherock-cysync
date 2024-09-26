@@ -215,7 +215,8 @@ export const InheritanceSyncPlansDialogProvider: FC<
             continue;
           }
 
-          let serverPlanType = wallet.order?.planType;
+          const order = wallet.subscription?.[0]?.order;
+          let serverPlanType = order?.planType;
           if (!serverPlanType) {
             logger.warn("SyncPlans: Wallet doesn't have plan type");
             continue;
@@ -232,14 +233,14 @@ export const InheritanceSyncPlansDialogProvider: FC<
           }
 
           const plan: IInheritancePlan = {
-            walletId: wallet._id,
+            walletId: wallet.wallet,
             walletName: wallet.fullName ?? '',
             isNominee,
-            purchasedAt: wallet.order?.activationDate
-              ? new Date(wallet.order.activationDate).getTime()
+            purchasedAt: order?.activationDate
+              ? new Date(order.activationDate).getTime()
               : undefined,
-            expireAt: wallet.order?.expiryDate
-              ? new Date(wallet.order.expiryDate).getTime()
+            expireAt: order?.expiryDate
+              ? new Date(order.expiryDate).getTime()
               : undefined,
             type: serverPlanType as InheritancePlanType,
           };
