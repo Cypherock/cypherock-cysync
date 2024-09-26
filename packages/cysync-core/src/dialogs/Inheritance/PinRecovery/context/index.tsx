@@ -1,5 +1,4 @@
 import { assert } from '@cypherock/cysync-utils';
-import { IWallet } from '@cypherock/db-interfaces';
 import React, {
   Context,
   FC,
@@ -22,12 +21,11 @@ import {
 } from '~/store';
 
 import {
-  IOtpVerificationDetails,
-  useDecryptMessage,
-  useSession,
-  useWalletAuth,
-  WalletAuthLoginStep,
-} from '../../hooks';
+  InheritancePinRecoveryDialogContextInterface,
+  tabIndicies,
+} from './types';
+
+import { useDecryptMessage, useSession, useWalletAuth } from '../../hooks';
 import {
   ViewPin,
   FetchData,
@@ -39,46 +37,7 @@ import {
   VerifyOTP,
 } from '../Dialogs';
 
-export interface IUserDetails {
-  name: string;
-  email: string;
-  alternateEmail: string;
-}
-
-export interface InheritancePinRecoveryDialogContextInterface {
-  tabs: ITabs;
-  onNext: (tab?: number, dialog?: number) => void;
-  goTo: (tab: number, dialog?: number) => void;
-  onPrevious: () => void;
-  onClose: () => void;
-  currentTab: number;
-  currentDialog: number;
-  isDeviceRequired: boolean;
-  unhandledError?: any;
-  retryIndex: number;
-  selectedWallet?: IWallet;
-  userDetails?: IUserDetails;
-  walletAuthDeviceEvents: Record<number, boolean | undefined>;
-  walletAuthFetchRequestId: () => void;
-  walletAuthIsFetchingRequestId: boolean;
-  walletAuthStart: () => void;
-  walletAuthAbort: () => void;
-  walletAuthIsValidatingSignature: boolean;
-  walletAuthValidateSignature: () => Promise<boolean>;
-  walletAuthStep: WalletAuthLoginStep;
-  otpVerificationDetails?: IOtpVerificationDetails;
-  verifyOtp: (otp: string) => Promise<boolean>;
-  isVerifyingOtp: boolean;
-  clearErrors: () => void;
-  fetchEncryptedData: () => Promise<boolean>;
-  isFetchingEncryptedData: boolean;
-  isEncryptedDataFetched: boolean;
-  decryptPinStart: () => void;
-  decryptPinAbort: () => void;
-  decryptPinDeviceEvents: Record<number, boolean | undefined>;
-  decryptPinIsCompleted: boolean;
-  onRetry: () => void;
-}
+export * from './types';
 
 export const InheritancePinRecoveryDialogContext: Context<InheritancePinRecoveryDialogContextInterface> =
   createContext<InheritancePinRecoveryDialogContextInterface>(
@@ -105,7 +64,10 @@ export const InheritancePinRecoveryDialogProvider: FC<
   const deviceRequiredDialogsMap: Record<number, number[] | undefined> =
     useMemo(
       () => ({
-        0: [1, 4],
+        [tabIndicies.sync.tabNumber]: [
+          tabIndicies.sync.dialogs.walletAuth,
+          tabIndicies.sync.dialogs.fetchData,
+        ],
       }),
       [],
     );
@@ -239,7 +201,6 @@ export const InheritancePinRecoveryDialogProvider: FC<
   const onRetry = useCallback(() => {
     const retryLogic = onRetryFuncMap[currentTab]?.[currentDialog];
 
-    console.log(retryLogic);
     if (retryLogic) {
       setRetryIndex(v => v + 1);
       retryLogic();

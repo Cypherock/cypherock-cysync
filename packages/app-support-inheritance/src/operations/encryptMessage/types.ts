@@ -1,15 +1,10 @@
 import { IDeviceConnection } from '@cypherock/sdk-interfaces';
 
-export const ENCRYPTED_DATA_SERIALIZATION_TAGS = {
-  WALLET_MESSAGE: 2,
-  NOMINEE_MESSAGE: 3,
-};
-
 export interface IInheritanceEncryptMessageParams {
   connection: IDeviceConnection;
   walletId: string;
-  walletMessage?: string;
-  nomineeMessage?: string;
+  cardLocation?: string;
+  personalMessage?: string;
 }
 
 export type IInheritanceEncryptMessageEventType = 'Result' | 'Device';
