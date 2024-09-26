@@ -120,6 +120,13 @@ export const OTPInputDialog: React.FC<
       return lang.strings.otp.title;
     };
 
+    const getActionText = () => {
+      if (expireSeconds > 0) {
+        return lang.strings.buttons.resendOTP;
+      }
+      return lang.strings.otp.buttons.resendWithTimeout;
+    };
+
     useEffect(() => {
       if (!isVerifyingEmail) {
         setOtp('');
@@ -138,6 +145,7 @@ export const OTPInputDialog: React.FC<
 
     const otpTitle = getTitle();
     const status = getStatus();
+    const actionText = getActionText();
 
     return (
       <DialogBox width={800} onClose={onClose}>
@@ -167,7 +175,7 @@ export const OTPInputDialog: React.FC<
                 onAction={onResend}
                 otpLength={otpLength}
                 subText={lang.strings.otp.triesRemaining}
-                actionText={lang.strings.buttons.resendOTP}
+                actionText={actionText}
                 textVariables={textVariables}
                 infoText={lang.strings.otp.infoTexts}
                 errorSubText={lang.strings.otp.noRetries.subTitle}
