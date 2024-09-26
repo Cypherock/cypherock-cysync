@@ -45,7 +45,7 @@
     "editAccount": "Edit Account",
     "submit": "Submit",
     "showMore": "Show more",
-    "resendOTP": "Resend OTP in ${timeout}s",
+    "resendOTP": "Resend OTP",
     "next": "Next",
     "setup": "Setup",
     "sync": "Sync",
@@ -1985,6 +1985,9 @@
     "noRetries": {
       "title": "You have 0 retries remaining",
       "subTitle": "Please exit the flow and restart"
+    },
+    "buttons": {
+      "resendWithTimeout": "Resend OTP in ${timeout}s"
     }
   },
   "inheritance": {

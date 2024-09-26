@@ -52,7 +52,6 @@ export interface InheritanceEstateRecoveryDialogContextInterface {
   currentDialog: number;
   isDeviceRequired: boolean;
   onClose: () => void;
-  allWallets: IWalletWithDeleted[];
   selectedWallet?: IWalletWithDeleted;
   setSelectedWallet: (wallet: IWalletWithDeleted) => void;
   userDetails?: IUserDetails;
@@ -137,20 +136,6 @@ export const InheritanceEstateRecoveryDialogProvider: FC<
     dispatch(closeDialog('inheritanceEstateRecovery'));
   };
 
-  const wallets = useAppSelector(state => state.wallet.wallets);
-  const deletedWallets = useAppSelector(state => state.wallet.deletedWallets);
-
-  const allWallets = useMemo<IWalletWithDeleted[]>(() => {
-    const deletedWalletIds = deletedWallets.map(e => e.__id);
-
-    return [
-      ...wallets.map(e => ({
-        ...e,
-        isDeleted: deletedWalletIds.includes(e.__id),
-      })),
-    ];
-  }, [wallets, deletedWallets]);
-
   const [userDetails, setUserDetails] = useState<IUserDetails | undefined>();
   const [selectedWallet, setSelectedWallet] = useState<IWallet | undefined>();
   const [unhandledError, setUnhandledError] = useState<any>();
@@ -171,7 +156,6 @@ export const InheritanceEstateRecoveryDialogProvider: FC<
     currentTab,
     currentDialog,
     isDeviceRequired,
-    allWallets,
     selectedWallet,
     setSelectedWallet,
     userDetails,

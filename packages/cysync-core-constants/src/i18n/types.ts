@@ -1139,6 +1139,9 @@ interface LangOTP {
     title: string;
     subTitle: string;
   };
+  buttons: {
+    resendWithTimeout: string;
+  };
 }
 
 interface LangInheritance {
