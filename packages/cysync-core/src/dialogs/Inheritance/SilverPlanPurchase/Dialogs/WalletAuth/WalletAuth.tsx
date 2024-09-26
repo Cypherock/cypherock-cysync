@@ -1,16 +1,20 @@
 import { InheritanceWalletAuthDeviceEvent } from '@cypherock/app-support-inheritance';
 import {
   ArrowRightIcon,
+  CardTapList,
   Check,
   Container,
   LangDisplay,
   LeanBox,
   LeanBoxContainer,
   LeanBoxProps,
+  MessageBox,
+  tapAnyCardDeviceAnimation2DVideo,
   Throbber,
   Typography,
+  Video,
 } from '@cypherock/cysync-ui';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { selectLanguage, useAppSelector } from '~/store';
 
@@ -26,6 +30,7 @@ export const WalletAuth = () => {
   const lang = useAppSelector(selectLanguage);
 
   const strings = lang.strings.inheritanceSilverPlanPurchase;
+  const [cardTapState, setCardTapState] = useState(0);
 
   const {
     onNext,
@@ -67,6 +72,7 @@ export const WalletAuth = () => {
   useEffect(() => {
     clearErrors();
     walletAuthStart();
+    setCardTapState(0);
 
     return () => {
       walletAuthAbort();
@@ -82,10 +88,25 @@ export const WalletAuth = () => {
   return (
     <Layout>
       <Container direction="column">
-        <Typography $fontSize={20} $textAlign="center" color="white" mb={4}>
-          {strings.wallet.walletAuth.title}
-        </Typography>
-        <LeanBoxContainer mb={4}>
+        <Video
+          src={tapAnyCardDeviceAnimation2DVideo}
+          autoPlay
+          loop
+          $width={506}
+          $height={285}
+        />
+        <Container direction="column" gap={4} mb={4}>
+          <Typography $fontSize={20} $textAlign="center" color="white">
+            {strings.wallet.walletAuth.title}
+          </Typography>
+          <Typography $fontSize={16} $textAlign="center" color="muted">
+            <LangDisplay text={strings.wallet.walletAuth.subTitle} />
+            <Typography variant="span" $fontSize={16}>
+              {selectedWallet?.name}
+            </Typography>
+          </Typography>
+        </Container>
+        <LeanBoxContainer mb={6}>
           {actionsList.map(data => (
             <LeanBox
               key={data.id}
@@ -97,13 +118,21 @@ export const WalletAuth = () => {
               id={data.id}
             />
           ))}
+          <CardTapList
+            items={[
+              {
+                text: strings.wallet.walletAuth.actions.tapCard,
+                currentState: cardTapState,
+                totalState: 3,
+              },
+            ]}
+            variant="muted"
+          />
         </LeanBoxContainer>
-        <Typography $fontSize={16} $textAlign="center" color="muted" mt={2}>
-          <LangDisplay text={strings.wallet.walletAuth.footer} />
-          <Typography variant="span" $fontWeight="bold" $fontSize={16}>
-            {selectedWallet?.name}
-          </Typography>
-        </Typography>
+        <MessageBox
+          type="warning"
+          text={strings.wallet.walletAuth.messageBox.warning}
+        />
       </Container>
     </Layout>
   );
