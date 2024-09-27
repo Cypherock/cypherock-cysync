@@ -97,6 +97,7 @@ interface LangButtons {
   saveAndContinue: string;
   exitWithoutSaving: string;
   saveChanges: string;
+  edit: string;
 }
 
 interface LangDashboard {

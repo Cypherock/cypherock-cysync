@@ -55,7 +55,8 @@
     "no": "No",
     "saveAndContinue": "Save and continue",
     "exitWithoutSaving": "Exit without saving",
-    "saveChanges": "Save changes"
+    "saveChanges": "Save changes",
+    "edit": "Edit"
   },
   "dashboard": {
     "wallet": {

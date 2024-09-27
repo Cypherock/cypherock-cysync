@@ -32,6 +32,7 @@ export const NomineePrivateMessageInput = () => {
     setPersonalMessage,
     haveExecutor,
     goTo,
+    isOnSummaryPage,
   } = useInheritanceGoldPlanPurchaseDialog();
 
   return (
@@ -43,7 +44,8 @@ export const NomineePrivateMessageInput = () => {
           </Button>
           <Button
             onClick={() => {
-              if (haveExecutor) onNext();
+              if (isOnSummaryPage) goTo(tabIndicies.summary.tabNumber);
+              else if (haveExecutor) onNext();
               else goTo(tabIndicies.reminder.tabNumber, 0);
             }}
             variant="primary"
