@@ -6,21 +6,25 @@ import {
 } from '~/dialogs/Inheritance/components';
 import { selectLanguage, useAppSelector } from '~/store';
 
-import { useInheritancePinRecoveryDialog } from '../context';
+import { useInheritanceEstateRecoveryDialog } from '../context';
 
 export const VerifyOTP: React.FC = () => {
   const lang = useAppSelector(selectLanguage);
-  const { title } = lang.strings.dialogs.inheritancePinRecovery.sync.verifyOtp;
-  const { onClose, onPrevious, userDetails, onNext } =
-    useInheritancePinRecoveryDialog();
+  const strings =
+    lang.strings.dialogs.inheritanceEstateRecovery.wallet.verification;
+
+  const { onClose, onPrevious, onNext, userDetails } =
+    useInheritanceEstateRecoveryDialog();
 
   const email = userDetails?.email ?? '';
+  const alternateEmail = userDetails?.alternateEmail ?? '';
+
   const otpRef = useRef<OTPInputDialogRef | null>(null);
 
   const onVerify = () => {
     // DUMMY FUNCTION
+
     onNext();
-    otpRef.current?.reset();
   };
 
   const onResend = () => {
@@ -36,9 +40,9 @@ export const VerifyOTP: React.FC = () => {
 
   return (
     <OTPInputDialog
-      title={title}
+      title={strings.title}
       onClose={onClose}
-      emails={email}
+      emails={[email, alternateEmail]}
       onBack={onPrevious}
       onResendOtp={onResend}
       onVerify={onVerify}

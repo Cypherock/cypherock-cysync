@@ -60,4 +60,6 @@ export interface InheritanceSilverPlanPurchaseDialogContextInterface {
   removeCoupon: () => void;
   applyingCouponError?: { heading: string; subtext: string };
   couponDuration: number;
+  isEstablishingSession: boolean;
+  isRegisterationRequired: boolean;
 }

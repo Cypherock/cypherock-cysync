@@ -1,11 +1,17 @@
+import { inheritanceRecoverPlansService } from './recover';
 import {
   activateResultSchema,
   applyCouponResultSchema,
   createResultSchema,
+  getPlanResultSchema,
 } from './schema';
 import { inheritanceSyncPlansService } from './sync';
 
-import { makePostRequest, runAndHandleServerErrors } from '../../utils';
+import {
+  makeGetRequest,
+  makePostRequest,
+  runAndHandleServerErrors,
+} from '../../utils';
 import { inheritanceBaseUrl } from '../common';
 
 export {
@@ -19,13 +25,18 @@ export * from './sync';
 const baseUrl = `${inheritanceBaseUrl}/wallet-account`;
 const couponBaseUrl = `${inheritanceBaseUrl}/wallet-recovery`;
 
-const create = async (params: { encryptedData: string; accessToken: string }) =>
+const create = async (params: {
+  encryptedData: string;
+  sessionId: string;
+  accessToken: string;
+}) =>
   runAndHandleServerErrors(() =>
     makePostRequest(
       createResultSchema,
       `${baseUrl}/info/message`,
       {
         encryptedData: params.encryptedData,
+        sessionId: params.sessionId,
       },
       params.accessToken,
     ),
@@ -55,9 +66,16 @@ const activate = async (params: { coupon: string; accessToken: string }) =>
     ),
   );
 
+const getPlan = async (params: { accessToken: string }) =>
+  runAndHandleServerErrors(() =>
+    makeGetRequest(getPlanResultSchema, `${baseUrl}/list`, params.accessToken),
+  );
+
 export const inheritancePlanService = {
   create,
   applyCoupon,
   activate,
   sync: inheritanceSyncPlansService,
+  recover: inheritanceRecoverPlansService,
+  getPlan,
 };

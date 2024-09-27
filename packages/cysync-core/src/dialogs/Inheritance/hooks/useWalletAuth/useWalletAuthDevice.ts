@@ -20,7 +20,11 @@ export const useWalletAuthDevice = (
     Record<number, boolean | undefined>
   >({});
   const deviceResponse = useRef<
-    { publicKey?: string; signature: string } | undefined
+    | {
+        walletBased?: { publicKey?: string; signature: string };
+        seedBased?: { publicKey?: string; signature: string };
+      }
+    | undefined
   >();
   const flowSubscription = useRef<Subscription | undefined>();
 
@@ -45,10 +49,16 @@ export const useWalletAuthDevice = (
     (onEnd: () => void): Observer<IInheritanceWalletAuthEvent> => ({
       next: payload => {
         if (payload.device) setDeviceEvents({ ...payload.device.events });
-        if (payload.signature) {
+        if (payload.walletBased) {
           deviceResponse.current = {
-            publicKey: payload.publicKey,
-            signature: payload.signature,
+            ...(deviceResponse.current ?? {}),
+            walletBased: payload.walletBased,
+          };
+        }
+        if (payload.seedBased) {
+          deviceResponse.current = {
+            ...(deviceResponse.current ?? {}),
+            seedBased: payload.seedBased,
           };
         }
       },

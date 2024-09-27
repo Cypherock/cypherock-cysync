@@ -1,8 +1,8 @@
 import React, { FC } from 'react';
 import styled from 'styled-components';
 
-import { UtilsProps, utils } from '../../utils';
 import { Flex, Typography } from '../../atoms';
+import { UtilsProps, utils } from '../../utils';
 
 interface TextAreaInputProps extends UtilsProps {
   value?: string;

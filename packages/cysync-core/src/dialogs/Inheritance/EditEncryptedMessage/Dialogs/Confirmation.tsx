@@ -1,13 +1,15 @@
-import React from 'react';
-import { selectLanguage, useAppSelector } from '~/store';
-import { Layout } from '../Layout';
 import {
   Button,
   Container,
   LangDisplay,
   Typography,
 } from '@cypherock/cysync-ui';
+import React from 'react';
+
+import { selectLanguage, useAppSelector } from '~/store';
+
 import { useInheritanceEditEncryptedMessageDialog } from '../context';
+import { Layout } from '../Layout';
 
 export const Confirmation = () => {
   const lang = useAppSelector(selectLanguage);

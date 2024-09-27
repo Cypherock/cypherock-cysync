@@ -3,10 +3,11 @@ import {
   ArrowRightIcon,
   Check,
   Container,
-  LangDisplay,
+  ErrorDialog,
   LeanBox,
   LeanBoxContainer,
   LeanBoxProps,
+  MessageBox,
   tapAnyCardDeviceAnimation2DVideo,
   Throbber,
   Typography,
@@ -16,19 +17,20 @@ import React, { useEffect } from 'react';
 
 import { selectLanguage, useAppSelector } from '~/store';
 
-import { useInheritancePinRecoveryDialog } from '../context';
+import { useInheritanceEstateRecoveryDialog } from '../context';
 import { Layout } from '../Layout';
 
 const checkIconComponent = <Check width={15} height={12} />;
 const throbberComponent = <Throbber size={15} strokeWidth={2} />;
 const rightArrowIcon = <ArrowRightIcon />;
 
-export const WalletAuth = () => {
+export const DecryptMessage = () => {
   const lang = useAppSelector(selectLanguage);
 
-  const strings = lang.strings.dialogs.inheritancePinRecovery.sync;
+  const strings = lang.strings.dialogs.inheritanceEstateRecovery.decryption;
 
-  const { onNext, selectedWallet } = useInheritancePinRecoveryDialog();
+  const { onNext } = useInheritanceEstateRecoveryDialog();
+  const error = false;
 
   const deviceEvents: Record<number, boolean | undefined> = {
     0: true,
@@ -48,13 +50,14 @@ export const WalletAuth = () => {
     const actions: LeanBoxProps[] = [
       {
         id: '1',
-        text: strings.walletAuth.actions.confirmAuth,
+        text: strings.device.actions.confirm,
         leftImage: rightArrowIcon,
         rightImage: getDeviceEventIcon(0, 1),
       },
       {
         id: '2',
-        text: strings.walletAuth.actions.enterPinAndTapCard,
+        text: strings.device.actions.tapCard,
+        leftImage: rightArrowIcon,
         rightImage: getDeviceEventIcon(0, 1),
       },
     ];
@@ -70,39 +73,54 @@ export const WalletAuth = () => {
     return () => clearTimeout(timeout);
   }, []);
 
+  if (error) {
+    return (
+      <ErrorDialog
+        title={strings.error.title}
+        advanceText={strings.error.message}
+        primaryActionText={lang.strings.buttons.retry}
+        onPrimaryClick={() => {
+          // TODO: implement this function
+        }}
+        secondaryActionText={lang.strings.buttons.exit}
+        onSecondaryClick={() => {
+          // TODO: implement this function
+        }}
+      />
+    );
+  }
+
   return (
     <Layout>
       <Video
         src={tapAnyCardDeviceAnimation2DVideo}
+        $width={506}
+        $height={285}
         loop
         autoPlay
-        $width={420}
-        $height={236}
       />
       <Container direction="column">
         <Typography $fontSize={20} $textAlign="center" color="white">
-          {strings.walletAuth.title}
+          {strings.device.title}
         </Typography>
-        <Typography $fontSize={16} $textAlign="center" color="muted" mb={6}>
-          <LangDisplay text={strings.walletAuth.subTitle} />
-          <Typography variant="span" $fontWeight="bold" $fontSize={16}>
-            {selectedWallet?.name}
-          </Typography>
+        <Typography $fontSize={16} $textAlign="center" color="muted" mb={2}>
+          {strings.device.subTitle}
         </Typography>
-        <LeanBoxContainer mb={4}>
-          {actionsList.map(data => (
-            <LeanBox
-              key={data.id}
-              leftImage={data.leftImage}
-              rightImage={data.rightImage}
-              text={data.text}
-              image={data.image}
-              altText={data.altText}
-              id={data.id}
-            />
-          ))}
-        </LeanBoxContainer>
       </Container>
+      <LeanBoxContainer mb={2}>
+        {actionsList.map(data => (
+          <LeanBox
+            key={data.id}
+            leftImage={data.leftImage}
+            rightImage={data.rightImage}
+            text={data.text}
+            image={data.image}
+            altText={data.altText}
+            id={data.id}
+          />
+        ))}
+      </LeanBoxContainer>
+      <MessageBox type="warning" text={strings.device.messageBox.warning} />
     </Layout>
   );
 };

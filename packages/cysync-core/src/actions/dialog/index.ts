@@ -6,6 +6,10 @@ import { DeviceAuthenticationDialogProps } from '~/dialogs/DeviceAuthenticationD
 import { EditAccountDialogProps } from '~/dialogs/EditAccountDialog';
 import { ErrorDialogProps } from '~/dialogs/ErrorDialog';
 import { IHistoryDialogProps } from '~/dialogs/HistoryDialog';
+import {
+  InheritancePinRecoveryDialogProps,
+  InheritancePlanLoginDialogProps,
+} from '~/dialogs/Inheritance';
 import { ReceiveDialogProps } from '~/dialogs/Receive';
 import { SendDialogProps } from '~/dialogs/Send/';
 import { GuidedFlowType, openDialog } from '~/store';
@@ -89,8 +93,9 @@ export const openEditAccountDialog = (props?: EditAccountDialogProps) =>
 export const openInheritanceSyncPlansDialog = () =>
   openDialog({ name: 'inheritanceSyncPlans', data: undefined });
 
-export const openInheritancePlanLoginDialog = () =>
-  openDialog({ name: 'inheritancePlanLogin', data: undefined });
+export const openInheritancePlanLoginDialog = (
+  props: InheritancePlanLoginDialogProps,
+) => openDialog({ name: 'inheritancePlanLogin', data: props });
 
 export const openInheritanceSilverPlanPurchaseDialog = () =>
   openDialog({ name: 'inheritanceSilverPlanPurchase', data: undefined });
@@ -107,8 +112,12 @@ export const openInheritanceEditReminderTimeDialog = () =>
 export const openInheritanceEditUserDetailsDialog = () =>
   openDialog({ name: 'inheritanceEditUserDetails', data: undefined });
 
-export const openInheritancePinRecoveryDialog = () =>
-  openDialog({ name: 'inheritancePinRecovery', data: undefined });
+export const openInheritancePinRecoveryDialog = (
+  props: InheritancePinRecoveryDialogProps,
+) => openDialog({ name: 'inheritancePinRecovery', data: props });
 
 export const openInheritanceEditEncryptedMessageDialog = () =>
   openDialog({ name: 'inheritanceEditEncryptedMessage', data: undefined });
+
+export const openInheritanceEstateRecoveryDialog = () =>
+  openDialog({ name: 'inheritanceEstateRecovery', data: undefined });
