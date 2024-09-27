@@ -207,11 +207,9 @@ export const InheritanceGoldPlanPurchaseDialogProvider: FC<
     if (nomineeCountRef.current === 2 && index === 0)
       nextDialog = tabIndicies.nominieeAndExecutor.dialogs.secondNomineeDetails;
 
-    if (verify) {
-      onNext();
-    } else {
-      goTo(tabIndicies.nominieeAndExecutor.tabNumber, nextDialog);
-    }
+    if (verify) onNext();
+    else if (isOnSummaryPage) goTo(tabIndicies.summary.tabNumber);
+    else goTo(tabIndicies.nominieeAndExecutor.tabNumber, nextDialog);
 
     setIsSubmittingNomineeDetails(false);
   };
@@ -241,7 +239,8 @@ export const InheritanceGoldPlanPurchaseDialogProvider: FC<
       if (!result?.result?.success) {
         throw result?.error;
       }
-      onNext();
+      if (isOnSummaryPage) goTo(tabIndicies.summary.tabNumber);
+      else onNext();
     } catch (error: any) {
       onError(error);
     }
@@ -322,7 +321,7 @@ export const InheritanceGoldPlanPurchaseDialogProvider: FC<
       retryLogic();
     } else {
       resetAll();
-      goTo(0, 0);
+      goTo(0);
     }
 
     setUnhandledError(undefined);
@@ -599,6 +598,12 @@ export const InheritanceGoldPlanPurchaseDialogProvider: FC<
   const [cardLocation, setCardLocation] = useState('');
   const [executorMessage, setExecutorMessage] = useState('');
   const [userDetails, setUserDetails] = useState<IUserDetails>();
+  const [isOnSummaryPage, setIsOnSummaryPage] = useState(false);
+
+  const overriddenCurrentMilestone = useMemo(
+    () => (isOnSummaryPage ? tabIndicies.summary.tabNumber : undefined),
+    [isOnSummaryPage],
+  );
 
   const ctx = useMemoReturn({
     onNext: onNextCallback,
@@ -678,6 +683,10 @@ export const InheritanceGoldPlanPurchaseDialogProvider: FC<
     clearNomineeDetails,
     nomineeOtpVerificationDetails,
     onExecutorMessageSubmit,
+    overriddenCurrentMilestone,
+    isOnSummaryPage,
+    setIsOnSummaryPage,
+    executorNomineeIndex,
   });
 
   return (

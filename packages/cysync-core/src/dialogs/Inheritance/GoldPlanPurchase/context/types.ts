@@ -90,4 +90,9 @@ export interface InheritanceGoldPlanPurchaseDialogContextInterface {
   updateNomineeDetails: (params: IUserDetails, index: number) => void;
   nomineeOtpVerificationDetails?: IOtpVerificationDetails;
   onExecutorMessageSubmit: () => Promise<void>;
+  executorDetails?: IUserDetails;
+  overriddenCurrentMilestone?: number;
+  isOnSummaryPage: boolean;
+  setIsOnSummaryPage: (val: boolean) => void;
+  executorNomineeIndex?: number;
 }

@@ -6,18 +6,20 @@ import {
   EditButton,
   EmailIconSmall,
   LangDisplay,
+  parseLangTemplate,
   ScrollableContainer,
   svgGradients,
   Typography,
   UserIcon,
   WalletIcon,
 } from '@cypherock/cysync-ui';
-import React, { useMemo } from 'react';
+import React, { useCallback, useEffect, useMemo } from 'react';
 import { ReminderPeriod } from '~/services/inheritance/login/schema';
 
 import { selectLanguage, useAppSelector } from '~/store';
 
 import { useInheritanceGoldPlanPurchaseDialog } from '../context';
+import { tabIndicies } from '../context/useDialogHandler';
 import { Layout } from '../Layout';
 
 const goldWalletIcon = <WalletIcon fill={`url(#${svgGradients.gold})`} />;
@@ -41,6 +43,11 @@ export const Summary = () => {
     userDetails,
     selectedWallet,
     reminderPeriod,
+    executorMessage,
+    executorDetails,
+    setIsOnSummaryPage,
+    goTo,
+    executorNomineeIndex,
   } = useInheritanceGoldPlanPurchaseDialog();
 
   const reminderValue = useMemo(
@@ -48,10 +55,29 @@ export const Summary = () => {
     [reminderPeriod],
   );
 
+  useEffect(() => {
+    setIsOnSummaryPage(true);
+  }, []);
+
+  const editButtonGoto = useCallback(
+    (tab: number, dialog?: number) => (
+      <EditButton
+        text={lang.strings.buttons.edit}
+        onClick={() => goTo(tab, dialog)}
+      />
+    ),
+    [lang, goTo],
+  );
+
   return (
     <Layout
       footerComponent={
-        <Button onClick={() => onNext()}>
+        <Button
+          onClick={() => {
+            setIsOnSummaryPage(false);
+            onNext();
+          }}
+        >
           <LangDisplay text={lang.strings.buttons.continue} />
         </Button>
       }
@@ -79,7 +105,7 @@ export const Summary = () => {
         />
         <DetailsCard
           headerText={strings.ownerDetails.title}
-          headerTrailing={<EditButton text="Edit" />}
+          headerTrailing={editButtonGoto(tabIndicies.wallet.tabNumber)}
           fields={[
             {
               label: strings.ownerDetails.form.userNameField.label,
@@ -99,10 +125,13 @@ export const Summary = () => {
             {
               label: strings.ownerDetails.form.reminderPeriodField.label,
               icon: ClockIcon,
-              value: `Every ${reminderValue} month${
-                reminderValue !== 1 ? 's' : ''
-              }`,
-              trailing: <EditButton text="Edit" />,
+              value: parseLangTemplate(
+                strings.ownerDetails.form.reminderPeriodField[
+                  reminderValue === 1 ? 'input' : 'inputPlural'
+                ],
+                reminderValue,
+              ),
+              trailing: editButtonGoto(tabIndicies.reminder.tabNumber),
             },
           ]}
         />
@@ -110,7 +139,13 @@ export const Summary = () => {
           <DetailsCard
             key={JSON.stringify(details)}
             headerText={strings.nomineeDetails.title + (index + 1).toString()}
-            headerTrailing={<EditButton text="Edit" />}
+            headerTrailing={editButtonGoto(
+              tabIndicies.nominieeAndExecutor.tabNumber,
+              tabIndicies.nominieeAndExecutor.dialogs.firstNomineeDetails +
+                (tabIndicies.nominieeAndExecutor.dialogs.secondNomineeDetails -
+                  tabIndicies.nominieeAndExecutor.dialogs.firstNomineeDetails) *
+                  index,
+            )}
             fields={[
               {
                 label: strings.nomineeDetails.form.nomineeNameField.label,
@@ -122,24 +157,79 @@ export const Summary = () => {
                 icon: EmailIconSmall,
                 value: details.email,
               },
-              {
-                label: strings.nomineeDetails.form.secondaryEmailField.label,
-                icon: EmailIconSmall,
-                value: details.alternateEmail,
-              },
+              ...(details.alternateEmail
+                ? [
+                    {
+                      label:
+                        strings.nomineeDetails.form.secondaryEmailField.label,
+                      icon: EmailIconSmall,
+                      value: details.alternateEmail,
+                    },
+                  ]
+                : []),
             ]}
           />
         ))}
         <DetailsCard
           headerText={strings.cardLocation.title}
-          headerTrailing={<EditButton text="Edit" />}
+          headerTrailing={editButtonGoto(
+            tabIndicies.message.tabNumber,
+            tabIndicies.message.dialogs.personalMessageInput,
+          )}
           text={cardLocation}
         />
         <DetailsCard
           headerText={strings.personalMessage.title}
-          headerTrailing={<EditButton text="Edit" />}
+          headerTrailing={editButtonGoto(
+            tabIndicies.message.tabNumber,
+            tabIndicies.message.dialogs.personalMessageInput,
+          )}
           text={personalMessage}
         />
+        {executorDetails && (
+          <DetailsCard
+            headerText={strings.executorDetails.title}
+            headerTrailing={editButtonGoto(
+              tabIndicies.nominieeAndExecutor.tabNumber,
+              tabIndicies.nominieeAndExecutor.dialogs.executorDetails,
+            )}
+            fields={[
+              {
+                label: strings.executorDetails.form.nomineeNameField.label,
+                icon: UserIcon,
+                value: executorDetails.name,
+              },
+              {
+                label: strings.executorDetails.form.primaryEmailField.label,
+                icon: EmailIconSmall,
+                value: executorDetails.email,
+              },
+              {
+                label: strings.executorDetails.form.secondaryEmailField.label,
+                icon: EmailIconSmall,
+                value: executorDetails.alternateEmail,
+              },
+              {
+                label: strings.executorDetails.form.assignTo.label,
+                icon: UserIcon,
+                value:
+                  strings.nomineeDetails.title +
+                  ((executorNomineeIndex ?? 0) + 1).toString(),
+              },
+            ]}
+          />
+        )}
+
+        {executorMessage && (
+          <DetailsCard
+            headerText={strings.executorMessage.title}
+            headerTrailing={editButtonGoto(
+              tabIndicies.message.tabNumber,
+              tabIndicies.message.dialogs.executorMessageInput,
+            )}
+            text={executorMessage}
+          />
+        )}
       </ScrollableContainer>
     </Layout>
   );

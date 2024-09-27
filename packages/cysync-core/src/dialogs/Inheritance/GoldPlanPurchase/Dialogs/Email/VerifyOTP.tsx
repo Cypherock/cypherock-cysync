@@ -8,6 +8,7 @@ import { OtpVerificationConcern } from '~/dialogs/Inheritance/hooks';
 import { selectLanguage, useAppSelector } from '~/store';
 
 import { useInheritanceGoldPlanPurchaseDialog } from '../../context';
+import { tabIndicies } from '../../context/useDialogHandler';
 
 export const VerifyOTP: React.FC = () => {
   const lang = useAppSelector(selectLanguage);
@@ -20,6 +21,8 @@ export const VerifyOTP: React.FC = () => {
     otpVerificationDetails,
     verifyOtp,
     isVerifyingOtp,
+    isOnSummaryPage,
+    goTo,
   } = useInheritanceGoldPlanPurchaseDialog();
 
   const title = useMemo(() => {
@@ -64,7 +67,10 @@ export const VerifyOTP: React.FC = () => {
   }, [otpVerificationDetails?.id]);
 
   useEffect(() => {
-    if (!otpVerificationDetails) onNext();
+    if (!otpVerificationDetails) {
+      if (isOnSummaryPage) goTo(tabIndicies.summary.tabNumber);
+      else onNext();
+    }
   }, [otpVerificationDetails]);
 
   if (!otpVerificationDetails) {

@@ -23,6 +23,7 @@ export const ExecutorReminderSetup = () => {
     setReminderPeriod,
     isSubmittingReminderDetails,
     onReminderDetailsSubmit,
+    isOnSummaryPage,
   } = useInheritanceGoldPlanPurchaseDialog();
   const lang = useSelector(selectLanguage);
   const strings =
@@ -33,7 +34,11 @@ export const ExecutorReminderSetup = () => {
     <Layout
       footerComponent={
         <>
-          <Button onClick={() => onPrevious()} variant="secondary">
+          <Button
+            onClick={() => onPrevious()}
+            variant="secondary"
+            disabled={isSubmittingReminderDetails || isOnSummaryPage}
+          >
             <LangDisplay text={lang.strings.buttons.back} />
           </Button>
           <Button

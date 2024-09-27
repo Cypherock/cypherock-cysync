@@ -97,6 +97,7 @@ interface LangButtons {
   saveAndContinue: string;
   exitWithoutSaving: string;
   saveChanges: string;
+  edit: string;
 }
 
 interface LangDashboard {
@@ -1558,6 +1559,7 @@ interface LangInheritanceGoldPlanPurchase {
         nomineeNameField: { label: string };
         primaryEmailField: { label: string };
         secondaryEmailField: { label: string };
+        assignTo: { label: string };
       };
     };
     executorMessage: {
