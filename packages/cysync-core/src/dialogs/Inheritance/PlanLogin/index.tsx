@@ -11,6 +11,9 @@ import {
   InheritancePlanLoginDialogProvider,
   useInheritancePlanLoginDialog,
 } from './context';
+import { InheritancePlanLoginDialogProps } from './context/types';
+
+export * from './context/types';
 
 const DeviceConnectionWrapper: React.FC<{
   isDeviceRequired: boolean;
@@ -64,8 +67,10 @@ const InheritancePlanLogin: FC = () => {
   );
 };
 
-export const InheritancePlanLoginDialog = () => (
-  <InheritancePlanLoginDialogProvider>
+export const InheritancePlanLoginDialog: React.FC<
+  InheritancePlanLoginDialogProps
+> = props => (
+  <InheritancePlanLoginDialogProvider {...props}>
     <InheritancePlanLogin />
   </InheritancePlanLoginDialogProvider>
 );

@@ -787,6 +787,7 @@ interface LangDialogs {
     walletAuth: {
       title: string;
       actions: {
+        confirm: string;
         tapCard: string;
       };
       messageBox: {
@@ -796,6 +797,9 @@ interface LangDialogs {
     fetchData: {
       title: string;
       subTitle: string;
+    };
+    verifyEmail: {
+      title: string;
     };
   };
   inheritanceEditExecutorMessage: {

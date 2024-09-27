@@ -108,49 +108,46 @@ export const WalletAuth = () => {
     <Layout>
       <Video
         src={tapAnyCardDeviceAnimation2DVideo}
+        $width={506}
+        $height={285}
         loop
         autoPlay
-        $width={420}
-        $height={236}
       />
-      <Container direction="column">
+      <Container direction="column" mb={2}>
         <Typography $fontSize={20} $textAlign="center" color="white">
           {strings.walletAuth.title}
         </Typography>
-        <Typography $fontSize={16} $textAlign="center" color="muted" mb={6}>
+        <Typography $fontSize={16} $textAlign="center" color="muted">
           <LangDisplay text={strings.walletAuth.subTitle} />
           <Typography variant="span" $fontWeight="bold" $fontSize={16}>
             {selectedWallet?.name}
           </Typography>
         </Typography>
-        <LeanBoxContainer mb={4}>
-          {actionsList.map(data => (
-            <LeanBox
-              key={data.id}
-              leftImage={data.leftImage}
-              rightImage={data.rightImage}
-              text={data.text}
-              image={data.image}
-              altText={data.altText}
-              id={data.id}
-            />
-          ))}
-          <CardTapList
-            items={[
-              {
-                text: strings.walletAuth.actions.enterPinAndTapCard,
-                currentState: cardTapState,
-                totalState: 2,
-              },
-            ]}
-            variant="muted"
-          />
-        </LeanBoxContainer>
-        <MessageBox
-          type="warning"
-          text={strings.walletAuth.messageBox.warning}
-        />
       </Container>
+      <LeanBoxContainer mb={2}>
+        {actionsList.map(data => (
+          <LeanBox
+            key={data.id}
+            leftImage={data.leftImage}
+            rightImage={data.rightImage}
+            text={data.text}
+            image={data.image}
+            altText={data.altText}
+            id={data.id}
+          />
+        ))}
+        <CardTapList
+          items={[
+            {
+              text: strings.walletAuth.actions.enterPinAndTapCard,
+              currentState: cardTapState,
+              totalState: 2,
+            },
+          ]}
+          variant="muted"
+        />
+      </LeanBoxContainer>
+      <MessageBox type="warning" text={strings.walletAuth.messageBox.warning} />
     </Layout>
   );
 };
