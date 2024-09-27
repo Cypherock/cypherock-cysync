@@ -1769,6 +1769,110 @@
       "success": {
         "title": "Nominee message successfully updated"
       }
+    },
+    "inheritanceEstateRecovery": {
+      "title": "Estate recovery",
+      "instructions": {
+        "name": "Clear Device Data",
+        "dialogs": {
+          "settings": {
+            "title": "From the Main Menu of your X1 Vault, click \"Settings\""
+          },
+          "clearData": {
+            "title": "Click \"Clear Device Data\" on your X1 Vault"
+          },
+          "confirmClearData": {
+            "title": "Confirm \"Clear device data\" on the X1 Vault"
+          },
+          "tapCards": {
+            "title": "Tap any 2 old X1 Cards below the X1 Vault",
+            "subTitle": "Do not lift until you hear a beep sound",
+            "messageBoxList": [
+              {
+                "warning": "Tap the cards you used during the initial Cypherock setup process, not the cards given by the wallet owner"
+              },
+              {
+                "warning": "Your X1 device will restart after this process"
+              }
+            ]
+          }
+        }
+      },
+      "wallet": {
+        "name": "Wallet",
+        "title": "Follow instructions on the X1 Vault to authenticate the selected wallet",
+        "subTitle": "Authenticating the wallet ",
+        "actions": {
+          "confirm": "Confirm wallet authentication on device",
+          "tapCard": "Tap the card you received as a nominee"
+        },
+        "messageBox": {
+          "warning": "Do not lift until you hear 2 beep sound"
+        },
+        "verification": {
+          "title": "OTP verification"
+        },
+        "syncing": {
+          "title": "Please wait while we fetch the data",
+          "subTitle": "Do not disconnect or close the app"
+        }
+      },
+      "decryption": {
+        "name": "Decryption",
+        "device": {
+          "title": "Follow instructions on the X1 Vault",
+          "subTitle": "Do not remove the card till you hear a beep",
+          "actions": {
+            "confirm": "Confirm decryption on device",
+            "tapCard": "Tap the card you received as a nominee"
+          },
+          "messageBox": {
+            "warning": "The message will be decrypted by the X1 Card you received as a nominee"
+          }
+        },
+        "error": {
+          "title": "Decrypted message",
+          "message": "Update was unsuccessful. Wallet ABC was not found in the card"
+        }
+      },
+      "viewPin": {
+        "name": "View PIN",
+        "title": "Follow instructions on the X1 Vault",
+        "subTitle": "PIN for wallet",
+        "actions": {
+          "view": "View & copy the PIN on your device and then confirm"
+        },
+        "messageBox": {
+          "warning": "You will need this PIN to access crypto assets on this wallet. Make sure you do not forget it."
+        }
+      },
+      "viewMessage": {
+        "name": "View Message",
+        "title": "Message from ${name}",
+        "tooltip": "Something goes here",
+        "form": {
+          "cardLocationField": {
+            "label": "Card location",
+            "placeholder": "Please enter card location",
+            "tooltip": "The location of your cards"
+          },
+          "personalMessageField": {
+            "label": "Personal message",
+            "placeholder": "Please enter your message",
+            "tooltip": "This is the message for you"
+          },
+          "checkBox": {
+            "label": "I have read and copied the above messages"
+          }
+        }
+      },
+      "confirmation": {
+        "name": "Confirmation",
+        "success": {
+          "title": "Congratulations, you just decrypted the message from ",
+          "subTitle": "Watch the video to understand the next steps"
+        }
+      }
     }
   },
   "toggle": {
@@ -1876,7 +1980,7 @@
     "title": "Enter OTP",
     "wrongOtpTitle": "Wrong OTP",
     "successRedirectTitle": "Please wait while we redirect you...",
-    "triesRemaining": "${retries} tries remaining ${timeout}..",
+    "triesRemaining": "${retries} tries remaining",
     "infoTexts": [
       "An email has been sent to **${email}**",
       "Please enter the code received on the email"
@@ -1884,6 +1988,9 @@
     "noRetries": {
       "title": "You have 0 retries remaining",
       "subTitle": "Please exit the flow and restart"
+    },
+    "buttons": {
+      "resendWithTimeout": "Resend OTP in ${timeout}s"
     }
   },
   "inheritance": {

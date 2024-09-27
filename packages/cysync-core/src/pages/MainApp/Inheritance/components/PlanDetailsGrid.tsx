@@ -12,6 +12,7 @@ import {
 } from '@cypherock/cysync-ui';
 import { InheritancePlanType } from '@cypherock/db-interfaces';
 import React from 'react';
+
 import { ILangState } from '~/store';
 
 interface Wallet {

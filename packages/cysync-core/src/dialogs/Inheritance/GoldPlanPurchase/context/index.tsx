@@ -355,8 +355,8 @@ export const InheritanceGoldPlanPurchaseDialogProvider: FC<
 
     if (sessionId) {
       encryptMessageService.start(selectedWallet.__id, {
-        nomineeMessage: personalMessage,
-        walletMessage: cardLocation,
+        personalMessage,
+        cardLocation,
       });
     }
   }, [
