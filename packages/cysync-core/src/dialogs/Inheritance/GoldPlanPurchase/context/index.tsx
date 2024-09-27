@@ -321,7 +321,7 @@ export const InheritanceGoldPlanPurchaseDialogProvider: FC<
       retryLogic();
     } else {
       resetAll();
-      goTo(0, 0);
+      goTo(0);
     }
 
     setUnhandledError(undefined);
@@ -686,6 +686,7 @@ export const InheritanceGoldPlanPurchaseDialogProvider: FC<
     overriddenCurrentMilestone,
     isOnSummaryPage,
     setIsOnSummaryPage,
+    executorNomineeIndex,
   });
 
   return (

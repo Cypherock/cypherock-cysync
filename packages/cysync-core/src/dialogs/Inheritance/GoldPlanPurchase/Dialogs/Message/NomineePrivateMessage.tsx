@@ -39,7 +39,11 @@ export const NomineePrivateMessageInput = () => {
     <Layout
       footerComponent={
         <>
-          <Button onClick={() => onPrevious()} variant="secondary">
+          <Button
+            onClick={() => onPrevious()}
+            variant="secondary"
+            disabled={isOnSummaryPage}
+          >
             <LangDisplay text={lang.strings.buttons.back} />
           </Button>
           <Button

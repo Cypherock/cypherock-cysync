@@ -6,6 +6,7 @@ import {
   EditButton,
   EmailIconSmall,
   LangDisplay,
+  parseLangTemplate,
   ScrollableContainer,
   svgGradients,
   Typography,
@@ -46,6 +47,7 @@ export const Summary = () => {
     executorDetails,
     setIsOnSummaryPage,
     goTo,
+    executorNomineeIndex,
   } = useInheritanceGoldPlanPurchaseDialog();
 
   const reminderValue = useMemo(
@@ -123,9 +125,12 @@ export const Summary = () => {
             {
               label: strings.ownerDetails.form.reminderPeriodField.label,
               icon: ClockIcon,
-              value: `Every ${reminderValue} month${
-                reminderValue !== 1 ? 's' : ''
-              }`,
+              value: parseLangTemplate(
+                strings.ownerDetails.form.reminderPeriodField[
+                  reminderValue === 1 ? 'input' : 'inputPlural'
+                ],
+                reminderValue,
+              ),
               trailing: editButtonGoto(tabIndicies.reminder.tabNumber),
             },
           ]}
@@ -152,11 +157,16 @@ export const Summary = () => {
                 icon: EmailIconSmall,
                 value: details.email,
               },
-              {
-                label: strings.nomineeDetails.form.secondaryEmailField.label,
-                icon: EmailIconSmall,
-                value: details.alternateEmail,
-              },
+              ...(details.alternateEmail
+                ? [
+                    {
+                      label:
+                        strings.nomineeDetails.form.secondaryEmailField.label,
+                      icon: EmailIconSmall,
+                      value: details.alternateEmail,
+                    },
+                  ]
+                : []),
             ]}
           />
         ))}
@@ -200,9 +210,11 @@ export const Summary = () => {
                 value: executorDetails.alternateEmail,
               },
               {
-                label: 'Assigned to',
+                label: strings.executorDetails.form.assignTo.label,
                 icon: UserIcon,
-                value: executorDetails.alternateEmail,
+                value:
+                  strings.nomineeDetails.title +
+                  ((executorNomineeIndex ?? 0) + 1).toString(),
               },
             ]}
           />

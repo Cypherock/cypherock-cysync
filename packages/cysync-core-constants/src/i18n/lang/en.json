@@ -2102,7 +2102,7 @@
             "label": "Executor Message"
           },
           "assignTo": {
-            "label": "Assign to"
+            "label": "Assigned to"
           }
         }
       }
@@ -2464,7 +2464,7 @@
             "label": "Secondary Email"
           },
           "assignTo": {
-            "label": "Assign to"
+            "label": "Assigned to"
           }
         }
       },

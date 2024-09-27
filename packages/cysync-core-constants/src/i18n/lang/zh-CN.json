@@ -2054,7 +2054,7 @@
           "primaryEmailField": { "label": "Primary Email" },
           "secondaryEmailField": { "label": "Secondary Email" },
           "executorMessage": { "label": "Executor Message" },
-          "assignTo": { "label": "Assign to" }
+          "assignTo": { "label": "Assigned to" }
         }
       }
     },
@@ -2396,7 +2396,7 @@
           "nomineeNameField": { "label": "Nominee Name" },
           "primaryEmailField": { "label": "Primary Email" },
           "secondaryEmailField": { "label": "Secondary Email" },
-          "assignTo": { "label": "Assign to" }
+          "assignTo": { "label": "Assigned to" }
         }
       },
       "executorMessage": {

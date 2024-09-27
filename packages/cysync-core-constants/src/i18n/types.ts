@@ -1559,6 +1559,7 @@ interface LangInheritanceGoldPlanPurchase {
         nomineeNameField: { label: string };
         primaryEmailField: { label: string };
         secondaryEmailField: { label: string };
+        assignTo: { label: string };
       };
     };
     executorMessage: {

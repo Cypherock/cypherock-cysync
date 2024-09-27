@@ -21,7 +21,7 @@ export const NomineeDetails: React.FC<{ index: number }> = ({ index }) => {
       index === 0 ? 'first' : 'second'
     ];
 
-  const { onNext, updateNomineeDetails, goTo, onPrevious } =
+  const { onNext, updateNomineeDetails, goTo, onPrevious, isOnSummaryPage } =
     useInheritanceGoldPlanPurchaseDialog();
 
   const formId = 'inheritance-gold-plan-user-details';
@@ -52,6 +52,7 @@ export const NomineeDetails: React.FC<{ index: number }> = ({ index }) => {
                     tabIndicies.nominieeAndExecutor.dialogs.firstNomineeDetails,
                   )
             }
+            disabled={isOnSummaryPage}
             variant="secondary"
           >
             <LangDisplay text={lang.strings.buttons.back} />

@@ -94,4 +94,5 @@ export interface InheritanceGoldPlanPurchaseDialogContextInterface {
   overriddenCurrentMilestone?: number;
   isOnSummaryPage: boolean;
   setIsOnSummaryPage: (val: boolean) => void;
+  executorNomineeIndex?: number;
 }

@@ -23,6 +23,7 @@ export const ExecutorMessage = () => {
     setExecutorMessage,
     onExecutorMessageSubmit,
     isSubmittingExecutorDetails,
+    isOnSummaryPage,
   } = useInheritanceGoldPlanPurchaseDialog();
   const lang = useSelector(selectLanguage);
   const strings = lang.strings.inheritanceGoldPlanPurchase.message;
@@ -34,7 +35,7 @@ export const ExecutorMessage = () => {
           <Button
             onClick={() => onPrevious()}
             variant="secondary"
-            disabled={isSubmittingExecutorDetails}
+            disabled={isSubmittingExecutorDetails || isOnSummaryPage}
           >
             <LangDisplay text={lang.strings.buttons.back} />
           </Button>

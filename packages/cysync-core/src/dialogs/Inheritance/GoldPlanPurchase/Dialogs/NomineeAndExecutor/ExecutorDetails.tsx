@@ -32,6 +32,7 @@ export const ExecutorDetails = () => {
     onPrevious,
     isSubmittingExecutorDetails,
     nomineeCount,
+    isOnSummaryPage,
   } = useInheritanceGoldPlanPurchaseDialog();
 
   const formId = 'inheritance-gold-plan-user-details';
@@ -58,7 +59,7 @@ export const ExecutorDetails = () => {
           <Button
             onClick={() => onPrevious()}
             variant="secondary"
-            disabled={isSubmittingExecutorDetails}
+            disabled={isSubmittingExecutorDetails || isOnSummaryPage}
           >
             <LangDisplay text={lang.strings.buttons.back} />
           </Button>
