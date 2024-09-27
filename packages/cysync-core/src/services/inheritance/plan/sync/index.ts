@@ -1,15 +1,14 @@
-import { config } from '~/config';
-
 import { initResultSchema, verifyResultSchema } from './schema';
 
 import { makePostRequest, runAndHandleServerErrors } from '../../../utils';
+import { inheritanceBaseUrl } from '../../common';
 
 export {
   type InheritanceSyncPlansVerifyResponse,
   type InheritanceSyncPlansInitResponse,
 } from './schema';
 
-const baseUrl = `${config.API_CYPHEROCK}/wallet-account/sync`;
+const baseUrl = `${inheritanceBaseUrl}/wallet-account/sync`;
 
 const init = async (params: { email: string }) =>
   runAndHandleServerErrors(() =>

@@ -110,6 +110,12 @@ const initialState: IDialogState = {
   inheritancePinRecovery: {
     isOpen: false,
   },
+  inheritanceEditEncryptedMessage: {
+    isOpen: false,
+  },
+  inheritanceEstateRecovery: {
+    isOpen: false,
+  },
 };
 
 export const dialogSlice = createSlice({

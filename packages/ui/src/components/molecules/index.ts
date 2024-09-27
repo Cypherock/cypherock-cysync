@@ -51,3 +51,4 @@ export * from './CouponInput';
 export * from './PlanCard';
 export * from './DetailsCard';
 export * from './Payment';
+export * from './Input';

@@ -10,7 +10,10 @@ import React, { FC, useCallback } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
-import { openInheritanceSilverPlanPurchaseDialog } from '~/actions';
+import {
+  openInheritanceGoldPlanPurchaseDialog,
+  openInheritanceSilverPlanPurchaseDialog,
+} from '~/actions';
 import { selectLanguage, useAppSelector } from '~/store';
 
 import { InheritancePageLayout } from './Layout';
@@ -39,6 +42,10 @@ export const InheritanceChoosePlan: FC = () => {
     dispatch(openInheritanceSilverPlanPurchaseDialog());
   }, [dispatch]);
 
+  const openGoldPlanSetup = useCallback(() => {
+    dispatch(openInheritanceGoldPlanPurchaseDialog());
+  }, [dispatch]);
+
   return (
     <InheritancePageLayout>
       <Container direction="column" gap={24} $flex={1}>
@@ -58,22 +65,20 @@ export const InheritanceChoosePlan: FC = () => {
           <Flex gap={24}>
             <PlanCard
               type="silver"
-              heading={strings.plans.silver.heading}
-              description={strings.plans.silver.description}
+              heading={lang.strings.inheritance.plans.silver.title}
+              description={lang.strings.inheritance.plans.silver.description}
               buttonText={strings.plans.buttonText}
               features={SilverPlanFeatures}
               onClick={openSilverPlanSetup}
             />
             <PlanCard
               type="gold"
-              heading={strings.plans.gold.heading}
-              description={strings.plans.gold.description}
+              heading={lang.strings.inheritance.plans.gold.title}
+              description={lang.strings.inheritance.plans.gold.description}
               buttonText={strings.plans.buttonText}
               features={GoldPlanFeatures}
               popularTagText={strings.plans.popularTagText}
-              onClick={() => {
-                'implement this function';
-              }}
+              onClick={openGoldPlanSetup}
             />
           </Flex>
         </Container>

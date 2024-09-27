@@ -1,5 +1,3 @@
-import React from 'react';
-import { Layout } from '../Layout';
 import {
   Button,
   ClockIcon,
@@ -8,14 +6,19 @@ import {
   EditButton,
   EmailIconSmall,
   LangDisplay,
+  parseLangTemplate,
   ScrollableContainer,
   svgGradients,
   Typography,
   UserIcon,
   WalletIcon,
 } from '@cypherock/cysync-ui';
+import React from 'react';
+
 import { selectLanguage, useAppSelector } from '~/store';
+
 import { useInheritanceGoldPlanPurchaseDialog } from '../context';
+import { Layout } from '../Layout';
 
 const goldWalletIcon = <WalletIcon fill={`url(#${svgGradients.gold})`} />;
 
@@ -24,6 +27,17 @@ export const Summary = () => {
   const strings = lang.strings.inheritanceGoldPlanPurchase.summary;
 
   const { onNext } = useInheritanceGoldPlanPurchaseDialog();
+
+  const getReminderPeriodInputText = (reminderPeriod: number) => {
+    const reminderPeriodInput = strings.ownerDetails.form.reminderPeriodField;
+    return parseLangTemplate(
+      reminderPeriod === 1
+        ? reminderPeriodInput.input
+        : reminderPeriodInput.inputPlural,
+      { month: reminderPeriod },
+    );
+  };
+
   return (
     <Layout
       footerComponent={
@@ -77,7 +91,7 @@ export const Summary = () => {
             {
               label: strings.ownerDetails.form.reminderPeriodField.label,
               icon: ClockIcon,
-              value: strings.ownerDetails.form.reminderPeriodField.input,
+              value: getReminderPeriodInputText(1),
               trailing: (
                 <EditButton
                   text="Edit"

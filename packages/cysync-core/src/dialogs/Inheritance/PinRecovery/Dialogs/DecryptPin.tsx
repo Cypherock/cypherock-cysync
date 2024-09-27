@@ -1,9 +1,8 @@
-import { SignTransactionDeviceEvent } from '@cypherock/coin-support-interfaces';
+import { InheritanceDecryptMessageDeviceEvent } from '@cypherock/app-support-inheritance';
 import {
   ArrowRightIcon,
   Check,
   Container,
-  ErrorDialog,
   LeanBox,
   LeanBoxContainer,
   LeanBoxProps,
@@ -29,19 +28,20 @@ export const DecryptPin = () => {
 
   const strings = lang.strings.dialogs.inheritancePinRecovery;
 
-  const { onNext } = useInheritancePinRecoveryDialog();
-  const error = false;
-
-  const deviceEvents: Record<number, boolean | undefined> = {
-    0: true,
-  };
+  const {
+    onNext,
+    retryIndex,
+    clearErrors,
+    decryptPinStart,
+    decryptPinDeviceEvents,
+  } = useInheritancePinRecoveryDialog();
 
   const getDeviceEventIcon = (
-    loadingEvent: SignTransactionDeviceEvent,
-    completedEvent: SignTransactionDeviceEvent,
+    loadingEvent: InheritanceDecryptMessageDeviceEvent,
+    completedEvent: InheritanceDecryptMessageDeviceEvent,
   ) => {
-    if (deviceEvents[completedEvent]) return checkIconComponent;
-    if (deviceEvents[loadingEvent]) return throbberComponent;
+    if (decryptPinDeviceEvents[completedEvent]) return checkIconComponent;
+    if (decryptPinDeviceEvents[loadingEvent]) return throbberComponent;
 
     return undefined;
   };
@@ -52,42 +52,37 @@ export const DecryptPin = () => {
         id: '1',
         text: strings.decryptPin.actions.confirmOnDevice,
         leftImage: rightArrowIcon,
-        rightImage: getDeviceEventIcon(0, 1),
+        rightImage: getDeviceEventIcon(
+          InheritanceDecryptMessageDeviceEvent.INIT,
+          InheritanceDecryptMessageDeviceEvent.CONFIRMED,
+        ),
       },
       {
         id: '2',
         text: strings.decryptPin.actions.tapCard,
         leftImage: rightArrowIcon,
-        rightImage: getDeviceEventIcon(0, 1),
+        rightImage: getDeviceEventIcon(
+          InheritanceDecryptMessageDeviceEvent.CONFIRMED,
+          InheritanceDecryptMessageDeviceEvent.CARD_TAPPED,
+        ),
       },
     ];
 
     return actions;
-  }, []);
+  }, [decryptPinDeviceEvents]);
 
   useEffect(() => {
-    const timeout = setTimeout(() => {
-      onNext();
-    }, 2000);
-    return () => clearTimeout(timeout);
-  }, []);
+    clearErrors();
+    decryptPinStart();
+  }, [retryIndex, clearErrors]);
 
-  if (error) {
-    return (
-      <ErrorDialog
-        title={strings.decryptPin.error.title}
-        advanceText={strings.decryptPin.error.subTitle}
-        primaryActionText={lang.strings.buttons.retry}
-        secondaryActionText={lang.strings.buttons.exit}
-        onPrimaryClick={() => {
-          onNext();
-        }}
-        onSecondaryClick={() => {
-          // TODO: implement this function
-        }}
-      />
-    );
-  }
+  useEffect(() => {
+    if (
+      decryptPinDeviceEvents[InheritanceDecryptMessageDeviceEvent.CARD_TAPPED]
+    ) {
+      setTimeout(() => onNext(), 2000);
+    }
+  }, [decryptPinDeviceEvents]);
 
   return (
     <Layout>
