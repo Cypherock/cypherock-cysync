@@ -5,7 +5,9 @@ import {
   Video,
 } from '@cypherock/cysync-ui';
 import React from 'react';
+
 import { selectLanguage, useAppSelector } from '~/store';
+
 import { useInheritanceEstateRecoveryDialog } from '../../context';
 
 export const AuthenticateClearData = () => {

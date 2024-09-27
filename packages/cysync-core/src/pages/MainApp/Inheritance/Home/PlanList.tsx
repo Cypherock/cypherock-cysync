@@ -9,7 +9,7 @@ import React, { FC, useCallback, useMemo } from 'react';
 import { useDispatch } from 'react-redux';
 
 import {
-  openInheritancePinRecoveryDialog,
+  openEstateRecoveryDialog,
   openInheritanceSyncPlansDialog,
 } from '~/actions';
 import { routes } from '~/constants';
@@ -48,7 +48,7 @@ export const InheritancePlanList: FC = () => {
   const hasNomineePlans = nomineePlans.length > 0;
 
   const toPlanDetails = (plan: IInheritancePlan) => {
-    dispatch(openInheritancePinRecoveryDialog({ walletId: plan.walletId }));
+    dispatch(openEstateRecoveryDialog({ walletId: plan.walletId }));
   };
 
   const getPlanCardComponent = (plan: IInheritancePlan) => {

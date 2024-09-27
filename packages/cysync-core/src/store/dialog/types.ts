@@ -3,7 +3,10 @@ import { AddTokenDialogProps } from '~/dialogs/AddToken';
 import { DeleteAccountDialogProps } from '~/dialogs/DeleteAccountDialog';
 import { ErrorDialogProps } from '~/dialogs/ErrorDialog';
 import { IHistoryDialogProps } from '~/dialogs/HistoryDialog';
-import { InheritancePinRecoveryDialogProps } from '~/dialogs/Inheritance';
+import {
+  InheritanceEstateRecoveryDialogProps,
+  InheritancePinRecoveryDialogProps,
+} from '~/dialogs/Inheritance';
 import { SendDialogProps } from '~/dialogs/Send';
 
 export interface IDialogState {
@@ -181,7 +184,7 @@ export interface IDialogState {
 
   inheritanceEstateRecovery: {
     isOpen: boolean;
-    data?: undefined;
+    data?: InheritanceEstateRecoveryDialogProps;
   };
 }
 

@@ -17,9 +17,12 @@ import {
 import { useAppSelector, selectLanguage } from '~/store';
 
 import {
+  InheritanceEstateRecoveryDialogProps,
   InheritanceEstateRecoveryDialogProvider,
   useInheritanceEstateRecoveryDialog,
 } from './context';
+
+export { type InheritanceEstateRecoveryDialogProps } from './context';
 
 const DeviceConnectionWrapper: React.FC<{
   isDeviceRequired: boolean;
@@ -96,8 +99,10 @@ const InheritanceEstateRecovery: FC = () => {
   );
 };
 
-export const InheritanceEstateRecoveryDialog = () => (
-  <InheritanceEstateRecoveryDialogProvider>
+export const InheritanceEstateRecoveryDialog: React.FC<
+  InheritanceEstateRecoveryDialogProps
+> = props => (
+  <InheritanceEstateRecoveryDialogProvider {...props}>
     <InheritanceEstateRecovery />
   </InheritanceEstateRecoveryDialogProvider>
 );

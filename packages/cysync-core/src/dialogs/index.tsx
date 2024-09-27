@@ -29,8 +29,8 @@ import {
   InheritanceGoldPlanPurchaseDialog,
   InheritanceEditEncryptedMessageDialog,
 } from './Inheritance';
-import { InheritancePinRecoveryDialog } from './Inheritance/PinRecovery';
 import { InheritanceEstateRecoveryDialog } from './Inheritance/EstateRecovery';
+import { InheritancePinRecoveryDialog } from './Inheritance/PinRecovery';
 import {
   ChangePasswordDialog,
   RemovePasswordDialog,

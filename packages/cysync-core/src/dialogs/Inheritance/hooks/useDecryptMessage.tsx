@@ -1,4 +1,7 @@
-import { IInheritanceDecryptMessageEvent } from '@cypherock/app-support-inheritance';
+import {
+  ENCRYPTED_DATA_SERIALIZATION_TAGS,
+  IInheritanceDecryptMessageEvent,
+} from '@cypherock/app-support-inheritance';
 import lodash from 'lodash';
 import { useState, useRef, useCallback } from 'react';
 import { Subscription, Observer } from 'rxjs';
@@ -15,9 +18,8 @@ export const useDecryptMessage = (onErrorCallback: (e?: any) => void) => {
   >({});
   const flowSubscription = useRef<Subscription | undefined>();
   const walletIdRef = useRef<string | undefined>();
-  const [decryptedMessages, setDecryptedMessages] = useState<
-    Record<number, string | undefined> | undefined
-  >();
+  const [personalMessage, setPersonalMessage] = useState<string | undefined>();
+  const [cardLocation, setCardLocation] = useState<string | undefined>();
   const [isDecrypted, setIsDecrypted] = useState(false);
 
   const cleanUp = useCallback(() => {
@@ -43,7 +45,16 @@ export const useDecryptMessage = (onErrorCallback: (e?: any) => void) => {
       next: payload => {
         if (payload.device) setDeviceEvents({ ...payload.device.events });
         if (payload.decryptedMessages) {
-          setDecryptedMessages(payload.decryptedMessages);
+          setPersonalMessage(
+            payload.decryptedMessages[
+              ENCRYPTED_DATA_SERIALIZATION_TAGS.NOMINEE_MESSAGE
+            ],
+          );
+          setCardLocation(
+            payload.decryptedMessages[
+              ENCRYPTED_DATA_SERIALIZATION_TAGS.NOMINEE_MESSAGE
+            ],
+          );
           setIsDecrypted(true);
         }
       },
@@ -98,7 +109,8 @@ export const useDecryptMessage = (onErrorCallback: (e?: any) => void) => {
   const reset = useCallback(() => {
     walletIdRef.current = undefined;
     setIsDecrypted(false);
-    setDecryptedMessages(undefined);
+    setPersonalMessage(undefined);
+    setCardLocation(undefined);
     setDeviceEvents({});
     cleanUp();
   }, [cleanUp]);
@@ -108,7 +120,8 @@ export const useDecryptMessage = (onErrorCallback: (e?: any) => void) => {
     reset,
     abort: cleanUp,
     start,
-    decryptedMessages,
+    personalMessage,
+    cardLocation,
     isDecrypted,
   };
 };
