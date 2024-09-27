@@ -154,7 +154,7 @@ export const OTPInput: React.FC<OTPInputProps> = ({
                 onClick={onAction}
                 variant="text"
               >
-                {actionText}
+                <LangDisplay text={actionText} variables={textVariables} />
               </ActionButton>
             )}
           </Flex>

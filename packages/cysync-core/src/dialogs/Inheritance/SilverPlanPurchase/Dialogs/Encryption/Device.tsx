@@ -1,6 +1,7 @@
 import { InheritanceEncryptMessageDeviceEvent } from '@cypherock/app-support-inheritance';
 import {
   ArrowRightIcon,
+  CardTapList,
   Check,
   Container,
   LangDisplay,
@@ -15,7 +16,7 @@ import {
   Typography,
   Video,
 } from '@cypherock/cysync-ui';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { LoaderDialog } from '~/components';
 import { selectLanguage, useAppSelector } from '~/store';
@@ -31,6 +32,7 @@ export const DeviceEncryption = () => {
   const lang = useAppSelector(selectLanguage);
 
   const strings = lang.strings.inheritanceSilverPlanPurchase.encryption.device;
+  const [cardTapState, setCardTapState] = useState(-1);
 
   const {
     onNext,
@@ -64,23 +66,34 @@ export const DeviceEncryption = () => {
           InheritanceEncryptMessageDeviceEvent.CONFIRMED,
         ),
       },
-      {
-        id: '2',
-        text: strings.actions.tapCard,
-        leftImage: rightArrowIcon,
-        rightImage: getDeviceEventIcon(
-          InheritanceEncryptMessageDeviceEvent.CONFIRMED,
-          InheritanceEncryptMessageDeviceEvent.MESSAGE_CARD_TAPPED,
-        ),
-      },
     ];
 
     return actions;
   }, [encryptPinDeviceEvents]);
 
   useEffect(() => {
+    const eventToState: Record<number, number | undefined> = {
+      [InheritanceEncryptMessageDeviceEvent.CONFIRMED]: 0,
+      [InheritanceEncryptMessageDeviceEvent.PIN_CARD_TAPPED]: 1,
+      [InheritanceEncryptMessageDeviceEvent.MESSAGE_CARD_TAPPED]: 2,
+    };
+
+    let state: number | undefined;
+    for (const event in eventToState) {
+      if (encryptPinDeviceEvents[event] && eventToState[event] !== undefined) {
+        state = eventToState[event]!;
+      }
+    }
+
+    if (state !== undefined) {
+      setCardTapState(state);
+    }
+  }, [encryptPinDeviceEvents]);
+
+  useEffect(() => {
     clearErrors();
     encryptPinStart();
+    setCardTapState(-1);
 
     return () => {
       encryptPinAbort();
@@ -132,6 +145,16 @@ export const DeviceEncryption = () => {
               id={data.id}
             />
           ))}
+          <CardTapList
+            items={[
+              {
+                text: strings.actions.tapCard,
+                currentState: cardTapState,
+                totalState: 2,
+              },
+            ]}
+            variant="muted"
+          />
         </LeanBoxContainer>
         <MessageBox text={strings.messageBox.warning} type="warning" showIcon />
       </Container>

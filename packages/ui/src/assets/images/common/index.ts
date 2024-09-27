@@ -14,7 +14,9 @@ import bnbChainIcon from './bnb-chain.svg';
 import cardTapAsideImage from './CardTapAsideImage.png';
 import checkIcon from './check.svg';
 import circledCheckIcon from './circled-check-icon.svg';
+import clearDeviceData from './clear-device-data.png';
 import closeIcon from './close.svg';
+import confirmDeviceSettings from './confirm-device-settings.png';
 import confirmOnDevice from './confirm-on-device.png';
 import confirmIcon from './confirm.svg';
 import goldCopyIcon from './copy-gold.svg';
@@ -85,19 +87,21 @@ import UniSwapLogo from './UniSwapLogo.svg';
 import usbIcon from './usb.svg';
 import verifyCoinIcon from './verify-coin.svg';
 import verifyOnDevice from './verify-on-device.svg';
+import verifyPinOnDevice from './verify-pin-on-device.png';
 import WalletDefaultExpiredIcon from './wallet-default-expired.svg';
 import WalletDefaultPendingIcon from './wallet-default-pending.svg';
 import walletErrorIcon from './wallet-error.svg';
-import WalletHoverExpiredIcon from './wallet-hover-expired-icon.svg';
+import WalletHoverExpiredIcon from './wallet-hover-expired.svg';
+import WalletHoverPendingIcon from './wallet-hover-pending.svg';
 import WalletHoverSilverBgIcon from './wallet-silver-hover-bg.svg';
 import walletIcon from './wallet.svg';
 import warningIcon from './warning.svg';
-import verifyPinOnDevice from './verify-pin-on-device.png';
 
 export {
   WalletDefaultExpiredIcon,
   WalletDefaultPendingIcon,
   WalletHoverExpiredIcon,
+  WalletHoverPendingIcon,
   addWalletIcon,
   walletIcon,
   tetherIcon,
@@ -190,4 +194,6 @@ export {
   silverTickIcon,
   verifyOnDevice,
   verifyPinOnDevice,
+  clearDeviceData,
+  confirmDeviceSettings,
 };

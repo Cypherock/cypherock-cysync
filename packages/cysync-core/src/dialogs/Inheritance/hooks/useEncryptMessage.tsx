@@ -62,7 +62,7 @@ export const useEncryptMessage = (onErrorCallback: (e?: any) => void) => {
   const start = useCallback(
     async (
       walletId: string,
-      messages?: { nomineeMessage?: string; walletMessage?: string },
+      messages?: { personalMessage?: string; cardLocation?: string },
     ) => {
       logger.info('Starting inheritance encrypt message');
 
@@ -89,8 +89,8 @@ export const useEncryptMessage = (onErrorCallback: (e?: any) => void) => {
           .encryptMessageWithPin({
             connection: deviceConnection,
             walletId: walletIdRef.current,
-            walletMessage: messages?.walletMessage,
-            nomineeMessage: messages?.nomineeMessage,
+            personalMessage: messages?.personalMessage,
+            cardLocation: messages?.cardLocation,
           })
           .subscribe(getFlowObserver(onEnd));
       } catch (e) {

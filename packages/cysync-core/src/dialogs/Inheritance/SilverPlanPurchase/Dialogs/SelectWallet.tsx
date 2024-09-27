@@ -1,4 +1,3 @@
-import React, { useEffect, useRef, useState } from 'react';
 import {
   Button,
   Container,
@@ -9,8 +8,10 @@ import {
   TooltipPlacement,
   Typography,
 } from '@cypherock/cysync-ui';
+import React, { useEffect, useRef, useState } from 'react';
 
 import { selectLanguage, useAppSelector } from '~/store';
+
 import { useInheritanceSilverPlanPurchaseDialog } from '../context';
 import { Layout } from '../Layout';
 
@@ -47,12 +48,12 @@ export const SelectWallet = () => {
     const observedElements = document.querySelectorAll('.wallet-card');
 
     observedElements.forEach(el => {
-      observerRef?.current?.observe(el);
+      observerRef.current?.observe(el);
     });
 
     return () => {
       observedElements.forEach(el => {
-        observerRef?.current?.unobserve(el);
+        observerRef.current?.unobserve(el);
       });
     };
   }, [allWallets]);

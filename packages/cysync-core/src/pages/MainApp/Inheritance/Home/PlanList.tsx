@@ -8,10 +8,7 @@ import { IInheritancePlan } from '@cypherock/db-interfaces';
 import React, { FC, useCallback, useMemo } from 'react';
 import { useDispatch } from 'react-redux';
 
-import {
-  openInheritancePinRecoveryDialog,
-  openInheritanceSyncPlansDialog,
-} from '~/actions';
+import { openInheritanceSyncPlansDialog } from '~/actions';
 import { routes } from '~/constants';
 import { useNavigateTo } from '~/hooks';
 import {
@@ -48,12 +45,9 @@ export const InheritancePlanList: FC = () => {
   const hasNomineePlans = nomineePlans.length > 0;
 
   const toPlanDetails = (plan: IInheritancePlan) => {
-    dispatch(openInheritancePinRecoveryDialog({ walletId: plan.walletId }));
-    /*
     navigateTo(
       `${routes.inheritance.planDetails.path}?walletId=${plan.walletId}`,
     );
-     */
   };
 
   const getPlanCardComponent = (plan: IInheritancePlan) => {

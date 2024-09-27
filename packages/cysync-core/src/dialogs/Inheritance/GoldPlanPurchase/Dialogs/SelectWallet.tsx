@@ -49,12 +49,12 @@ export const SelectWallet = () => {
     const observedElements = document.querySelectorAll('.wallet-card');
 
     observedElements.forEach(el => {
-      observerRef?.current?.observe(el);
+      observerRef.current?.observe(el);
     });
 
     return () => {
       observedElements.forEach(el => {
-        observerRef?.current?.unobserve(el);
+        observerRef.current?.unobserve(el);
       });
     };
   }, [allWallets]);
