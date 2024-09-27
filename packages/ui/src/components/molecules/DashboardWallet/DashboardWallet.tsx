@@ -59,7 +59,7 @@ export interface DashboardWalletProps extends WidthProps {
         expiry: string;
         expiring: string;
         expired: string;
-        pendingTime: string;
+        pending: string;
         silver: string;
         gold: string;
         hours: string;
@@ -156,8 +156,8 @@ export const DashboardWallet: FC<DashboardWalletProps> = ({
                 styles={buildStyles({
                   pathColor: getPathColor(
                     isHover,
-                    isExpired,
                     isExpiring,
+                    isExpired,
                     isPaymentPending,
                     theme,
                     type,
@@ -228,14 +228,14 @@ export const DashboardWallet: FC<DashboardWalletProps> = ({
               </TransitionTextWrapper>
             </TimerText>
           </TimerContainer>
-          {isExpiring && <StyledExpiringPlanIcon />}
+          {isExpiring && !isExpired && <StyledExpiringPlanIcon />}
           {isExpired && <StyledExpiredPlanIcon />}
           {isPaymentPending && (
             <StyledExpiredClockIcon fill={theme.palette.info.main} />
           )}
           <WalletNameContainer
             $isHover={isHover}
-            $isExpiring={isExpiring}
+            $isExpiring={isExpiring && !isExpired}
             $isExpired={isExpired}
             $isPaymentPending={isPaymentPending}
           >
@@ -249,6 +249,8 @@ export const DashboardWallet: FC<DashboardWalletProps> = ({
             <WalletNameHoverText
               $isHover={isHover}
               $disableAnimation={disableAnimation}
+              type={type}
+              $isExpiring={isExpiring && !isExpired}
             >
               {hoverText}
             </WalletNameHoverText>

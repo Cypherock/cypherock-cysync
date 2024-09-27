@@ -36,7 +36,7 @@ export const getExpiringText = (
   isExpired: boolean,
   lang: any,
 ): string => {
-  if (isExpiring) {
+  if (isExpiring && !isExpired) {
     return lang.dashboard.wallet.expiring;
   }
   if (isExpired) {
@@ -49,14 +49,17 @@ export const getPathColor = (
   isHover: boolean,
   isExpiring: boolean,
   isExpired: boolean,
-  paymentPending: boolean,
+  isPaymentPending: boolean,
   theme: ThemeType,
   type: string,
 ) => {
   if (isHover && (isExpiring || isExpired)) {
     return theme.palette.warn.main;
   }
-  if (type === 'silver' && !paymentPending) {
+  if (isPaymentPending) {
+    return theme.palette.text.warn;
+  }
+  if (type === 'silver' && !isPaymentPending) {
     return `url(#${svgGradients.silver})`;
   }
   return `url(#${svgGradients.gold})`;
@@ -68,8 +71,11 @@ export const getTimerHeadText = (
   paymentPending: boolean,
   lang: any,
 ) => {
-  if (isHover || paymentPending) {
+  if (isHover) {
     return lang.dashboard.wallet.created;
+  }
+  if (paymentPending) {
+    return lang.dashboard.wallet.pending;
   }
   if (isExpired) {
     return lang.dashboard.wallet.expiredOn;
@@ -124,7 +130,7 @@ export const updateProgressAndHover = (params: {
     value = 0;
     rotation = 0;
 
-    hoverValue = 0;
+    hoverValue = 100;
     hoverRotation = 0;
   } else {
     const now = Date.now();

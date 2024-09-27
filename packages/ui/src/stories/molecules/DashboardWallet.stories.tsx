@@ -22,7 +22,7 @@ const lang = {
       expiry: 'Expiry',
       expiring: 'Expiring',
       expired: 'Expired',
-      pendingTime: '05',
+      pending: 'Pending',
       silver: 'Silver',
       gold: 'Gold',
       hours: 'Hours',

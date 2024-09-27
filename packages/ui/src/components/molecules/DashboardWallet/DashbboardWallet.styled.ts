@@ -8,7 +8,7 @@ import {
   dashWalletDefaultBgIcon,
   dashWalletHoverBgIcon,
 } from '../../../assets';
-import { WidthProps, width } from '../../utils';
+import { WidthProps, goldenGradient, silverGradient, width } from '../../utils';
 
 export const SetupCoverContainer = styled.div`
   position: relative;
@@ -193,10 +193,13 @@ export const TimerHead = styled.div<{
   line-height: 16.5px;
   text-align: left;
   color: ${({ $isExpired, $isHover, theme, $isPaymentPending }) => {
-    if ($isExpired) {
+    if ($isExpired && $isHover) {
       return theme.palette.warn.main;
     }
-    if ($isHover || $isPaymentPending) {
+    if ($isPaymentPending) {
+      return theme.palette.text.warn;
+    }
+    if ($isHover) {
       return 'white';
     }
     return theme.palette.muted.main;
@@ -306,11 +309,17 @@ export const WalletNameText = styled.div<{
 export const WalletNameHoverText = styled(WalletNameText)<{
   $isHover: boolean;
   $disableAnimation?: boolean;
+  $isExpiring: boolean;
+  type: string;
 }>`
   transform: ${({ $isHover, $disableAnimation }) =>
     $isHover && !$disableAnimation ? 'translateX(0)' : 'translateX(-15%)'};
   opacity: ${({ $isHover, $disableAnimation }) =>
     $isHover && !$disableAnimation ? 1 : 0};
+  ${({ type, $isExpiring }) =>
+    type === 'silver' && $isExpiring
+      ? silverGradient('color')
+      : goldenGradient('color')};
 `;
 
 export const TransitionTextWrapper = styled.div`
