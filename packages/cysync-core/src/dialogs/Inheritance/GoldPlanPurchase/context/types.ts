@@ -8,7 +8,6 @@ import {
   WalletAuthLoginStep,
   IOtpVerificationDetails,
 } from '../../hooks';
-import { IOtpVerificationDetails as INomineeOtpVerificationDetails } from '../../SyncPlans/context';
 
 export interface IWalletWithDeleted extends IWallet {
   isDeleted?: boolean;
@@ -86,8 +85,9 @@ export interface InheritanceGoldPlanPurchaseDialogContextInterface {
   setReminderPeriod: (val: ReminderPeriod) => void;
   isSubmittingReminderDetails: boolean;
   onReminderDetailsSubmit: () => Promise<void>;
-  nomineeOtpSubmit: (val: string) => Promise<boolean>;
+  nomineeOtpSubmit: (val: string) => Promise<void>;
   clearNomineeDetails: () => void;
   updateNomineeDetails: (params: IUserDetails, index: number) => void;
-  nomineeOtpVerificationDetails?: INomineeOtpVerificationDetails;
+  nomineeOtpVerificationDetails?: IOtpVerificationDetails;
+  onExecutorMessageSubmit: () => Promise<void>;
 }

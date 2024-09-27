@@ -4,6 +4,7 @@ import {
   OTPInputDialog,
   OTPInputDialogRef,
 } from '~/dialogs/Inheritance/components';
+import { OtpVerificationConcern } from '~/dialogs/Inheritance/hooks';
 import { selectLanguage, useAppSelector } from '~/store';
 
 import { useInheritanceGoldPlanPurchaseDialog } from '../../context';
@@ -21,13 +22,23 @@ export const VerifyNomineeOtp: React.FC = () => {
     isSubmittingNomineeDetails,
   } = useInheritanceGoldPlanPurchaseDialog();
 
-  const { title } = strings.primaryEmailOTP;
+  const title = useMemo(() => {
+    const map: Record<OtpVerificationConcern, string> = {
+      [OtpVerificationConcern.primary]: strings.primaryEmailOTP.title,
+      [OtpVerificationConcern.alternate]: strings.alternateEmailOTP.title,
+      [OtpVerificationConcern.login]: lang.strings.otp.title,
+    };
+
+    if (!nomineeOtpVerificationDetails) return '';
+
+    return map[nomineeOtpVerificationDetails.concern];
+  }, [nomineeOtpVerificationDetails?.concern, lang]);
+
   const otpRef = useRef<OTPInputDialogRef | null>(null);
 
   const onVerify = useCallback(
     async (otp: string) => {
-      const result = await nomineeOtpSubmit(otp);
-      if (result) onNext();
+      await nomineeOtpSubmit(otp);
     },
     [nomineeOtpSubmit],
   );

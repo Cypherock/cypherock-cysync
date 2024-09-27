@@ -141,6 +141,7 @@ const updateExecutor = async (params: {
   alternateEmail: string;
   nomineeEmail: string;
   accessToken: string;
+  executorMessage?: string;
 }) =>
   runAndHandleServerErrors(() =>
     makePostRequest(
@@ -151,6 +152,7 @@ const updateExecutor = async (params: {
         email: params.email,
         alternateEmail: params.alternateEmail,
         nominee: [params.nomineeEmail],
+        executorMessage: params.executorMessage,
       },
       params.accessToken,
     ),

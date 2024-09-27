@@ -29,12 +29,13 @@ import { ReminderPeriod } from '~/services/inheritance/login/schema';
 import { useAppSelector } from '~/store';
 import { getDB } from '~/utils';
 import {
+  IOtpVerificationDetails,
+  OtpVerificationConcern,
   useEncryptMessage,
   useSession,
   useWalletAuth,
   WalletAuthLoginStep,
 } from '../../hooks';
-import { IOtpVerificationDetails } from '../../SyncPlans/context';
 import { InheritanceGoldPlanPurchaseDialogContextInterface } from './types';
 import { tabIndicies, useGoldPlanDialogHanlders } from './useDialogHandler';
 
@@ -113,6 +114,10 @@ export const InheritanceGoldPlanPurchaseDialogProvider: FC<
     useState<ReminderPeriod>('monthly');
   const [nomineeOtpVerificationDetails, setNomineeOtpVerificationDetails] =
     useState<IOtpVerificationDetails | undefined>();
+  const nomineeOtpDetailsRef = useRef<IOtpVerificationDetails[]>([]);
+  const [executorNomineeIndex, setExecutorNomineeIndex] = useState<
+    number | undefined
+  >();
 
   const updateNominees = async (index: number, verify?: boolean) => {
     try {
@@ -131,15 +136,21 @@ export const InheritanceGoldPlanPurchaseDialogProvider: FC<
 
       if (verify) {
         const otpDetails = result.result?.otpDetails;
-        if (!otpDetails || !result.result?.requestId)
-          throw 'Invalid data received from server';
-
-        setNomineeOtpVerificationDetails({
-          id: result.result.requestId,
-          otpExpiry: otpDetails.otpExpiry,
-          email: otpDetails.maskedEmail,
-          retriesRemaining: otpDetails.retriesRemaining,
+        if (!otpDetails) throw 'Invalid data received from server';
+        nomineeOtpDetailsRef.current = otpDetails.map((details, idx) => {
+          const { requestId, maskedEmail, ...rest } = details;
+          return {
+            id: requestId,
+            email: maskedEmail,
+            concern:
+              idx === 0
+                ? OtpVerificationConcern.primary
+                : OtpVerificationConcern.alternate,
+            ...rest,
+          };
         });
+
+        setNomineeOtpVerificationDetails(nomineeOtpDetailsRef.current.shift());
       }
     } catch (error: any) {
       onError(error);
@@ -159,24 +170,21 @@ export const InheritanceGoldPlanPurchaseDialogProvider: FC<
       });
 
       if (result?.result?.success === true) {
-        setNomineeOtpVerificationDetails(undefined);
-        setIsSubmittingNomineeDetails(false);
-        return true;
+        setNomineeOtpVerificationDetails(nomineeOtpDetailsRef.current.shift());
+      } else {
+        const otpDetails = result.error?.details?.responseBody;
+        if (!otpDetails) throw 'Invalid data received from server';
+        setNomineeOtpVerificationDetails(old => ({
+          ...old!,
+          retriesRemaining: otpDetails.retriesRemaining,
+          otpExpiry: otpDetails.otpExpiry,
+          showIncorrectError: true,
+        }));
       }
-
-      const otpDetails = result.error?.details?.responseBody;
-      if (!otpDetails) throw 'Invalid data received from server';
-      setNomineeOtpVerificationDetails(old => ({
-        ...old!,
-        retriesRemaining: otpDetails.retriesRemaining,
-        otpExpiry: otpDetails.otpExpiry,
-        showIncorrectError: true,
-      }));
     } catch (error: any) {
       onError(error);
     }
     setIsSubmittingNomineeDetails(false);
-    return false;
   };
 
   const updateNomineeDetails = (params: IUserDetails, index: number) => {
@@ -219,12 +227,15 @@ export const InheritanceGoldPlanPurchaseDialogProvider: FC<
       if (!walletAuthService.authTokens)
         throw "Wallet auth doesn't have a valid token";
 
+      setExecutorNomineeIndex(nomineeIndex);
+
       const result = await inheritanceLoginService.updateExecutor({
         name: executorDetailsRef.current.name,
         email: executorDetailsRef.current.email,
         alternateEmail: executorDetailsRef.current.alternateEmail,
         nomineeEmail: nominees.current[nomineeIndex]?.email,
         accessToken: walletAuthService.authTokens?.accessToken,
+        executorMessage,
       });
 
       if (!result?.result?.success) {
@@ -234,6 +245,12 @@ export const InheritanceGoldPlanPurchaseDialogProvider: FC<
     } catch (error: any) {
       onError(error);
     }
+  };
+
+  const onExecutorMessageSubmit = async () => {
+    setIsSubmittingExecutorDetails(true);
+    await updateExecutor(executorNomineeIndex ?? 0);
+    setIsSubmittingExecutorDetails(false);
   };
 
   const onExecutorDetailsSubmit = async (
@@ -660,6 +677,7 @@ export const InheritanceGoldPlanPurchaseDialogProvider: FC<
     nomineeOtpSubmit,
     clearNomineeDetails,
     nomineeOtpVerificationDetails,
+    onExecutorMessageSubmit,
   });
 
   return (

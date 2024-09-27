@@ -68,8 +68,10 @@ export type ReminderPeriod = 'monthly' | 'quarterly' | 'half-yearly' | 'yearly';
 
 export const updateNomineesResultSchema = z.object({
   success: z.boolean().optional(),
-  requestId: z.string().optional(),
-  otpDetails: otpDetailSchema.optional(),
+  otpDetails: otpDetailSchema
+    .extend({ requestId: z.string() })
+    .array()
+    .optional(),
 });
 export const updateExecutorResultSchema = genericSuccessResult;
 export const updateReminderResultSchema = genericSuccessResult;

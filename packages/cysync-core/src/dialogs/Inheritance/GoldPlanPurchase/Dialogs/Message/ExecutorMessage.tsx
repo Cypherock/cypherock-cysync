@@ -8,7 +8,7 @@ import {
   QuestionMarkButton,
   Tooltip,
 } from '@cypherock/cysync-ui';
-import React, { useState } from 'react';
+import React from 'react';
 import { useSelector } from 'react-redux';
 
 import { selectLanguage } from '~/store';
@@ -17,19 +17,32 @@ import { useInheritanceGoldPlanPurchaseDialog } from '../../context';
 import { Layout } from '../../Layout';
 
 export const ExecutorMessage = () => {
-  const { onNext, onPrevious } = useInheritanceGoldPlanPurchaseDialog();
+  const {
+    onPrevious,
+    executorMessage,
+    setExecutorMessage,
+    onExecutorMessageSubmit,
+    isSubmittingExecutorDetails,
+  } = useInheritanceGoldPlanPurchaseDialog();
   const lang = useSelector(selectLanguage);
   const strings = lang.strings.inheritanceGoldPlanPurchase.message;
   const { form } = strings.executor;
-  const [executorMessage, setExecutorMessage] = useState('');
   return (
     <Layout
       footerComponent={
         <>
-          <Button onClick={() => onPrevious()} variant="secondary">
+          <Button
+            onClick={() => onPrevious()}
+            variant="secondary"
+            disabled={isSubmittingExecutorDetails}
+          >
             <LangDisplay text={lang.strings.buttons.back} />
           </Button>
-          <Button onClick={() => onNext()} variant="primary">
+          <Button
+            onClick={onExecutorMessageSubmit}
+            variant="primary"
+            isLoading={isSubmittingExecutorDetails}
+          >
             <LangDisplay text={lang.strings.buttons.saveAndContinue} />
           </Button>
         </>
