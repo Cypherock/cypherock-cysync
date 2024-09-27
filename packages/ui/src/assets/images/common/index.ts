@@ -14,7 +14,9 @@ import bnbChainIcon from './bnb-chain.svg';
 import cardTapAsideImage from './CardTapAsideImage.png';
 import checkIcon from './check.svg';
 import circledCheckIcon from './circled-check-icon.svg';
+import clearDeviceData from './clear-device-data.png';
 import closeIcon from './close.svg';
+import confirmDeviceSettings from './confirm-device-settings.png';
 import confirmOnDevice from './confirm-on-device.png';
 import confirmIcon from './confirm.svg';
 import goldCopyIcon from './copy-gold.svg';
@@ -190,4 +192,6 @@ export {
   silverTickIcon,
   verifyOnDevice,
   verifyPinOnDevice,
+  clearDeviceData,
+  confirmDeviceSettings,
 };

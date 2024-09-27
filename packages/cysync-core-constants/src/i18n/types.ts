@@ -990,6 +990,97 @@ interface LangDialogs {
       title: string;
     };
   };
+  inheritanceEstateRecovery: {
+    title: string;
+    instructions: {
+      name: string;
+      dialogs: {
+        settings: { title: string };
+        clearData: { title: string };
+        confirmClearData: { title: string };
+        tapCards: {
+          title: string;
+          subTitle: string;
+          messageBoxList: { warning: string }[];
+        };
+      };
+    };
+    wallet: {
+      name: string;
+      title: string;
+      subTitle: string;
+      actions: {
+        confirm: string;
+        tapCard: string;
+      };
+      messageBox: {
+        warning: string;
+      };
+      verification: {
+        title: string;
+      };
+      syncing: {
+        title: string;
+        subTitle: string;
+      };
+    };
+    decryption: {
+      name: string;
+      device: {
+        title: string;
+        subTitle: string;
+        actions: {
+          confirm: string;
+          tapCard: string;
+        };
+        messageBox: {
+          warning: string;
+        };
+      };
+      error: {
+        title: string;
+        message: string;
+      };
+    };
+    viewPin: {
+      name: string;
+      title: string;
+      subTitle: string;
+      actions: {
+        view: string;
+      };
+      messageBox: {
+        warning: string;
+      };
+    };
+    viewMessage: {
+      name: string;
+      title: string;
+      tooltip: string;
+      form: {
+        cardLocationField: {
+          label: string;
+          placeholder: string;
+          tooltip: string;
+        };
+        personalMessageField: {
+          label: string;
+          placeholder: string;
+          tooltip: string;
+        };
+        checkBox: {
+          label: string;
+        };
+      };
+    };
+    confirmation: {
+      name: string;
+      success: {
+        title: string;
+        subTitle: string;
+      };
+    };
+  };
 }
 
 interface LangToggle {
@@ -1054,6 +1145,9 @@ interface LangOTP {
   noRetries: {
     title: string;
     subTitle: string;
+  };
+  buttons: {
+    resendWithTimeout: string;
   };
 }
 

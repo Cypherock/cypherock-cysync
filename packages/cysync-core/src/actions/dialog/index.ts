@@ -118,3 +118,6 @@ export const openInheritancePinRecoveryDialog = (
 
 export const openInheritanceEditEncryptedMessageDialog = () =>
   openDialog({ name: 'inheritanceEditEncryptedMessage', data: undefined });
+
+export const openInheritanceEstateRecoveryDialog = () =>
+  openDialog({ name: 'inheritanceEstateRecovery', data: undefined });
