@@ -22,7 +22,7 @@ const lang = {
       expiry: 'Expiry',
       expiring: 'Expiring',
       expired: 'Expired',
-      pendingTime: '05',
+      pending: 'Pending',
       silver: 'Silver',
       gold: 'Gold',
       hours: 'Hours',
@@ -41,7 +41,7 @@ export const Default: Story = {
     name: 'My Default Wallet',
     lang,
     startDate: new Date('2024-01-21').getTime(),
-    expiryDate: new Date('2024-09-21').getTime(),
+    expiryDate: new Date('2025-09-21').getTime(),
   },
 };
 

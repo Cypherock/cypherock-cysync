@@ -109,7 +109,7 @@ interface LangDashboard {
     expiry: string;
     expiring: string;
     expired: string;
-    pendingTime: string;
+    pending: string;
     silver: string;
     gold: string;
     hours: string;
