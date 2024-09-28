@@ -67,7 +67,7 @@
       "expiry": "Expiry",
       "expiring": "Expiring",
       "expired": "Expired",
-      "pendingTime": "05",
+      "pending": "Pending",
       "silver": "Silver",
       "gold": "Gold",
       "hours": "Hours",
@@ -1564,7 +1564,8 @@
       "walletAuth": {
         "title": "Follow instructions on the X1 Vault",
         "actions": {
-          "tapCard": "Tap a valid card"
+          "confirm": "Confirm wallet authentication on device",
+          "tapCard": "Enter PIN and tap any one card"
         },
         "messageBox": {
           "warning": "Authenticating"
@@ -1573,6 +1574,9 @@
       "fetchData": {
         "title": "Please wait while we fetch the plan data",
         "subTitle": "Do not disconnect or close the app"
+      },
+      "verifyEmail": {
+        "title": "OTP Verification"
       }
     },
     "inheritanceEditExecutorMessage": {
@@ -1988,6 +1992,9 @@
     "noRetries": {
       "title": "You have 0 retries remaining",
       "subTitle": "Please exit the flow and restart"
+    },
+    "buttons": {
+      "resendWithTimeout": "Resend OTP in ${timeout}s"
     }
   },
   "inheritance": {

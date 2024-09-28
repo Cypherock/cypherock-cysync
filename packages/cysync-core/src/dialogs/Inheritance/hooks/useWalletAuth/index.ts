@@ -51,6 +51,7 @@ export const useWalletAuth = (onErrorCallback: (e?: any) => void) => {
     WalletAuthLoginStep.fetchRequestId,
   );
 
+  const wallets = useAppSelector(state => state.wallet.wallets);
   const walletIdRef = useRef<string | undefined>();
   const loginTypeRef = useRef<InheritanceLoginType | undefined>();
   const authTypeRef = useRef<AuthType | undefined>();
@@ -250,34 +251,40 @@ export const useWalletAuth = (onErrorCallback: (e?: any) => void) => {
     validateSignatureCallback,
   );
 
-  const registerUserCallback = useCallback(async (params: IUserDetails) => {
-    if (!initResponse.current) {
-      return false;
-    }
+  const registerUserCallback = useCallback(
+    async (params: IUserDetails) => {
+      if (!initResponse.current) {
+        return false;
+      }
 
-    const result = await inheritanceLoginService.register({
-      requestId: initResponse.current.requestId,
-      name: params.name,
-      email: params.email,
-      alternateEmail: params.alternateEmail,
-    });
+      const wallet = wallets.find(w => w.__id === walletIdRef.current);
 
-    if (result.error) {
-      throw result.error;
-    }
+      const result = await inheritanceLoginService.register({
+        requestId: initResponse.current.requestId,
+        name: params.name,
+        email: params.email,
+        alternateEmail: params.alternateEmail,
+        walletName: wallet?.name,
+      });
 
-    userDetails.current = params;
-    registerResponse.current = result.result;
+      if (result.error) {
+        throw result.error;
+      }
 
-    setOtpVerificationDetails({
-      id: 'primaryVerificationOnRegister',
-      concern: OtpVerificationConcern.primary,
-      email: params.email,
-      ...result.result.otpDetails[0],
-    });
-    setCurrentStep(WalletAuthLoginStep.primaryOtpVerify);
-    return true;
-  }, []);
+      userDetails.current = params;
+      registerResponse.current = result.result;
+
+      setOtpVerificationDetails({
+        id: 'primaryVerificationOnRegister',
+        concern: OtpVerificationConcern.primary,
+        email: params.email,
+        ...result.result.otpDetails[0],
+      });
+      setCurrentStep(WalletAuthLoginStep.primaryOtpVerify);
+      return true;
+    },
+    [wallets],
+  );
 
   const [registerUser, isRegisteringUser] = useAsync(
     registerUserCallback,

@@ -70,6 +70,7 @@ export const PlanCard: React.FC<PlanCardProps> = ({
             $fontSize={14}
             color="black"
             $lineHeight={10}
+            $allowOverflow
           >
             {popularTagText}
           </Typography>

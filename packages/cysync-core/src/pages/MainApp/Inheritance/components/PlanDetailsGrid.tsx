@@ -10,7 +10,10 @@ import {
   UserIcon,
   WalletIcon,
 } from '@cypherock/cysync-ui';
-import { InheritancePlanType } from '@cypherock/db-interfaces';
+import {
+  InheritancePlanType,
+  InheritancePlanTypeMap,
+} from '@cypherock/db-interfaces';
 import React from 'react';
 
 import { ILangState } from '~/store';
@@ -19,7 +22,7 @@ interface Wallet {
   walletName: string;
   createdOn: string;
   expiringOn: string;
-  reminderPeriod: number;
+  reminderPeriod?: number;
   onEdit: () => void;
 }
 
@@ -31,26 +34,26 @@ interface UserDetails {
   onSecondaryEdit?: () => void;
 }
 
-interface InheritancePlanData {
+export interface InheritancePlanData {
   wallet: Wallet;
   owner: UserDetails;
   nominees?: UserDetails[];
   executor?: UserDetails;
 }
 
-interface PlanDetailsGridProps {
+export interface PlanDetailsGridProps {
   data: InheritancePlanData;
   strings: ILangState['strings']['inheritance'];
-  plan: InheritancePlanType;
+  planType: InheritancePlanType;
 }
+
+const goldWalletIcon = <WalletIcon fill={`url(#${svgGradients.gold})`} />;
 
 export const InheritancePlanDetailsGrid: React.FC<PlanDetailsGridProps> = ({
   data,
   strings,
-  plan,
+  planType,
 }) => {
-  const goldWalletIcon = <WalletIcon fill={`url(#${svgGradients.gold})`} />;
-
   const getReminderPeriodInputText = (newPeriod: number) => {
     const reminderPeriodInput =
       strings.planDetails.walletDetails.reminderPeriodField;
@@ -77,11 +80,13 @@ export const InheritancePlanDetailsGrid: React.FC<PlanDetailsGridProps> = ({
         headerLeading={goldWalletIcon}
         headerText={data.wallet.walletName}
         headerTrailing={
-          <Typography color="gold" $fontSize={16} $fontWeight="semibold">
-            {strings.plans[plan].title.toLocaleUpperCase()}
+          <Typography color={planType} $fontSize={16} $fontWeight="semibold">
+            {strings.plans[planType].title.toLocaleUpperCase()}
           </Typography>
         }
-        $backgroundType={plan === 'gold' ? 'gold' : 'silver'}
+        $backgroundType={
+          planType === InheritancePlanTypeMap.gold ? 'gold' : 'silver'
+        }
         fields={[
           {
             label: strings.planDetails.walletDetails.createdOn,
@@ -94,12 +99,19 @@ export const InheritancePlanDetailsGrid: React.FC<PlanDetailsGridProps> = ({
             value: data.wallet.expiringOn,
             isDanger: true,
           },
-          {
-            label: strings.planDetails.walletDetails.reminderPeriodField.label,
-            icon: ClockIcon,
-            value: getReminderPeriodInputText(data.wallet.reminderPeriod),
-            trailing: <EditButton text="Edit" onClick={data.wallet.onEdit} />,
-          },
+          ...(data.wallet.reminderPeriod
+            ? [
+                {
+                  label:
+                    strings.planDetails.walletDetails.reminderPeriodField.label,
+                  icon: ClockIcon,
+                  value: getReminderPeriodInputText(data.wallet.reminderPeriod),
+                  trailing: (
+                    <EditButton text="Edit" onClick={data.wallet.onEdit} />
+                  ),
+                },
+              ]
+            : []),
         ]}
       />
       <DetailsCard
@@ -125,7 +137,7 @@ export const InheritancePlanDetailsGrid: React.FC<PlanDetailsGridProps> = ({
           },
         ]}
       />
-      {plan === 'gold' &&
+      {planType === InheritancePlanTypeMap.gold &&
         data.nominees?.map((nominee, index) => (
           <DetailsCard
             key={nominee.primaryEmail}
@@ -171,7 +183,7 @@ export const InheritancePlanDetailsGrid: React.FC<PlanDetailsGridProps> = ({
             }}
           />
         ))}
-      {plan === 'gold' && data.executor && (
+      {planType === InheritancePlanTypeMap.gold && data.executor && (
         <DetailsCard
           headerText={strings.planDetails.executorDetails.title}
           headerTrailing={

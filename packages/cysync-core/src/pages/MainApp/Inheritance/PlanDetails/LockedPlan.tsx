@@ -1,24 +1,22 @@
 import { Container, Button, Lock, svgGradients } from '@cypherock/cysync-ui';
-import React, { FC, useCallback } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { FC } from 'react';
 
 import { selectLanguage, useAppSelector } from '~/store';
+
+import { InheritanceLockedPlanSectionProps } from './types';
 
 import {
   InheritancePlanDetailsGrid,
   InheritancePlanDetailsLayout,
-} from './components';
+} from '../components';
 
-export const InheritanceUnlockPlan: FC = () => {
+export const InheritanceLockedPlan: FC<InheritanceLockedPlanSectionProps> = ({
+  plan,
+  onBack,
+  onUnlock,
+}) => {
   const lang = useAppSelector(selectLanguage);
   const strings = lang.strings.inheritance;
-  const navigate = useNavigate();
-
-  const plan = 'silver';
-
-  const onBack = useCallback(() => {
-    navigate(-1);
-  }, [navigate]);
 
   const data = {
     wallet: {
@@ -88,7 +86,7 @@ export const InheritanceUnlockPlan: FC = () => {
           <InheritancePlanDetailsGrid
             data={data}
             strings={strings}
-            plan={plan}
+            planType={plan.type}
           />
         </div>
         <div
@@ -114,12 +112,7 @@ export const InheritanceUnlockPlan: FC = () => {
                 height={68}
               />
             </Container>
-            <Button
-              variant="primary"
-              onClick={() => {
-                'impliment this function';
-              }}
-            >
+            <Button variant="primary" onClick={onUnlock}>
               {strings.buttons.unlock}
             </Button>
           </Container>

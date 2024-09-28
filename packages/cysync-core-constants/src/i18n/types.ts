@@ -109,7 +109,7 @@ interface LangDashboard {
     expiry: string;
     expiring: string;
     expired: string;
-    pendingTime: string;
+    pending: string;
     silver: string;
     gold: string;
     hours: string;
@@ -787,6 +787,7 @@ interface LangDialogs {
     walletAuth: {
       title: string;
       actions: {
+        confirm: string;
         tapCard: string;
       };
       messageBox: {
@@ -796,6 +797,9 @@ interface LangDialogs {
     fetchData: {
       title: string;
       subTitle: string;
+    };
+    verifyEmail: {
+      title: string;
     };
   };
   inheritanceEditExecutorMessage: {
@@ -1141,6 +1145,9 @@ interface LangOTP {
   noRetries: {
     title: string;
     subTitle: string;
+  };
+  buttons: {
+    resendWithTimeout: string;
   };
 }
 

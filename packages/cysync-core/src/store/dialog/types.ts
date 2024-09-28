@@ -6,6 +6,7 @@ import { IHistoryDialogProps } from '~/dialogs/HistoryDialog';
 import {
   InheritanceEstateRecoveryDialogProps,
   InheritancePinRecoveryDialogProps,
+  InheritancePlanLoginDialogProps,
 } from '~/dialogs/Inheritance';
 import { SendDialogProps } from '~/dialogs/Send';
 
@@ -144,7 +145,7 @@ export interface IDialogState {
 
   inheritancePlanLogin: {
     isOpen: boolean;
-    data?: undefined;
+    data?: InheritancePlanLoginDialogProps;
   };
 
   inheritanceSilverPlanPurchase: {

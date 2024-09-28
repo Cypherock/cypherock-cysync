@@ -45,7 +45,10 @@ export const Terms = () => {
         </Typography>
       </Container>
       <Flex width="full" direction="column" gap={16}>
-        <ExternalLink href={constants.termsOfUseLink} text={strings.title} />
+        <ExternalLink
+          href={constants.termsOfUseLink}
+          text={strings.termsOfService}
+        />
         <ExternalLink
           href={constants.termsOfUseLink}
           text={strings.privacyPolicy}
