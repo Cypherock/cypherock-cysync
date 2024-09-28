@@ -42,6 +42,12 @@ export interface InheritanceEstateRecoveryDialogContextInterface {
   isFetchingEncryptedData: boolean;
   isEncryptedDataFetched: boolean;
   selectedWallet?: IWallet;
+  decryptPinStart: () => void;
+  decryptPinAbort: () => void;
+  decryptPinDeviceEvents: Record<number, boolean | undefined>;
+  decryptPinIsCompleted: boolean;
+  decryptedCardLocation?: string;
+  decryptedPersonalMessage?: string;
 }
 
 export interface InheritanceEstateRecoveryDialogProps {

@@ -1,6 +1,6 @@
 import { z } from 'zod';
 
-export const inheritanceBaseUrl = 'http://localhost:2000';
+export const inheritanceBaseUrl = 'https://api-inheritance-dev.cypherock.com';
 
 export const otpDetailSchema = z.object({
   maskedEmail: z.string(),

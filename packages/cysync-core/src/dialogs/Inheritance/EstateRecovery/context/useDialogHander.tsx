@@ -89,6 +89,7 @@ export const useEstateRecoveryDialogHanlders = () => {
           tabIndicies.wallet.dialogs.fetchData,
         ],
         [tabIndicies.decrypt.tabNumber]: [tabIndicies.decrypt.dialogs.decrypt],
+        [tabIndicies.viewPin.tabNumber]: [tabIndicies.viewPin.dialogs.viewPin],
       }),
       [],
     );
@@ -130,10 +131,10 @@ export const useEstateRecoveryDialogHanlders = () => {
         name: lang.strings.dialogs.inheritanceEstateRecovery.viewMessage.name,
         dialogs: [<Message key="Decrypted message" />],
       },
-
       {
         name: lang.strings.dialogs.inheritanceEstateRecovery.confirmation.name,
         dialogs: [<Success key="Success message" />],
+        dontShowOnMilestone: true,
       },
     ],
     [],

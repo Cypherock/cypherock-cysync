@@ -48,6 +48,12 @@ export const InheritancePlanList: FC = () => {
   const hasNomineePlans = nomineePlans.length > 0;
 
   const toPlanDetails = (plan: IInheritancePlan) => {
+    navigateTo(
+      `${routes.inheritance.planDetails.path}?walletId=${plan.walletId}`,
+    );
+  };
+
+  const toEstateRecovery = (plan: IInheritancePlan) => {
     dispatch(openInheritanceEstateRecoveryDialog({ walletId: plan.walletId }));
   };
 
@@ -78,7 +84,9 @@ export const InheritancePlanList: FC = () => {
         lang={lang.strings}
         startDate={plan.purchasedAt ?? plan.meta?.created ?? currentDate}
         expiryDate={plan.expireAt ?? currentDate}
-        onClick={() => (plan.isNominee ? undefined : toPlanDetails(plan))}
+        onClick={() =>
+          plan.isNominee ? toEstateRecovery(plan) : toPlanDetails(plan)
+        }
       />
     );
   };

@@ -24,7 +24,12 @@ import {
   useEstateRecoveryDialogHanlders,
 } from './useDialogHander';
 
-import { useSession, useWalletAuth, WalletAuthLoginStep } from '../../hooks';
+import {
+  useDecryptMessage,
+  useSession,
+  useWalletAuth,
+  WalletAuthLoginStep,
+} from '../../hooks';
 
 export * from './types';
 
@@ -73,6 +78,7 @@ export const InheritanceEstateRecoveryDialogProvider: FC<
 
   const walletAuthService = useWalletAuth(onError);
   const sessionService = useSession(onError);
+  const decryptMessageService = useDecryptMessage(onError);
 
   const walletAuthFetchRequestId = useCallback(() => {
     walletAuthService.fetchRequestId(
@@ -96,6 +102,8 @@ export const InheritanceEstateRecoveryDialogProvider: FC<
       sessionId,
       accessToken: walletAuthService.authTokens.accessToken,
       message: true,
+      nominee: true,
+      wallet: true,
     });
 
     if (result.error) {
@@ -117,13 +125,24 @@ export const InheritanceEstateRecoveryDialogProvider: FC<
     resetFetchEncryptedData,
   ] = useAsync(fetchEncryptedDataHandler, onError);
 
+  const startDecryption = useCallback(async () => {
+    assert(encryptedMessageRef.current, 'encryptedMessage not found');
+    decryptMessageService.start(walletId, encryptedMessageRef.current);
+  }, [walletId, decryptMessageService.start]);
+
   const resetAll = useCallback(() => {
     setRetryIndex(v => v + 1);
     setUnhandledError(undefined);
     walletAuthService.reset();
     sessionService.reset();
     resetFetchEncryptedData();
-  }, [walletAuthService.reset, sessionService.reset, resetFetchEncryptedData]);
+    decryptMessageService.reset();
+  }, [
+    walletAuthService.reset,
+    sessionService.reset,
+    resetFetchEncryptedData,
+    decryptMessageService.reset,
+  ]);
 
   const onRetryFuncMap = useMemo<
     Record<number, Record<number, (() => boolean) | undefined> | undefined>
@@ -229,6 +248,12 @@ export const InheritanceEstateRecoveryDialogProvider: FC<
     isFetchingEncryptedData,
     isEncryptedDataFetched,
     selectedWallet,
+    decryptPinStart: startDecryption,
+    decryptPinAbort: decryptMessageService.abort,
+    decryptPinDeviceEvents: decryptMessageService.deviceEvents,
+    decryptPinIsCompleted: decryptMessageService.isDecrypted,
+    decryptedCardLocation: decryptMessageService.cardLocation,
+    decryptedPersonalMessage: decryptMessageService.personalMessage,
   });
 
   return (

@@ -52,7 +52,7 @@ export const useDecryptMessage = (onErrorCallback: (e?: any) => void) => {
           );
           setCardLocation(
             payload.decryptedMessages[
-              ENCRYPTED_DATA_SERIALIZATION_TAGS.NOMINEE_MESSAGE
+              ENCRYPTED_DATA_SERIALIZATION_TAGS.WALLET_MESSAGE
             ],
           );
           setIsDecrypted(true);
