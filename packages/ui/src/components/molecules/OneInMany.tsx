@@ -1,6 +1,6 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
 import PropTypes from 'prop-types';
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { styled } from 'styled-components';
 
 import {
@@ -239,32 +239,21 @@ export const OneInMany: React.FC<OneInManyProps> = ({
   description,
   $styleType,
   onClick,
-  isSelected: isSelectedOverride,
+  isSelected,
   ...restProps
-}) => {
-  const [isSelected, setIsSelected] = useState(isSelectedOverride ?? false);
-
-  useEffect(() => {
-    if (isSelectedOverride !== undefined) setIsSelected(isSelectedOverride);
-  }, [isSelectedOverride]);
-
-  return (
-    <StyledContainer
-      $isSelected={isSelectedOverride ?? isSelected}
-      $styleType={$styleType}
-      onClick={() => {
-        onClick?.();
-        setIsSelected(!isSelected);
-      }}
-      {...(restProps as Partial<OneInManyStyledContainerProps>)}
-    >
-      <Flex align="center" direction="row" height="100%" mx="32px">
-        <StyledTitle>{title}</StyledTitle>
-        <StyledDescription>{description}</StyledDescription>
-      </Flex>
-    </StyledContainer>
-  );
-};
+}) => (
+  <StyledContainer
+    $isSelected={isSelected ?? false}
+    $styleType={$styleType}
+    onClick={onClick}
+    {...(restProps as Partial<OneInManyStyledContainerProps>)}
+  >
+    <Flex align="center" direction="row" height="100%" mx="32px">
+      <StyledTitle>{title}</StyledTitle>
+      <StyledDescription>{description}</StyledDescription>
+    </Flex>
+  </StyledContainer>
+);
 
 OneInMany.propTypes = {
   title: PropTypes.string.isRequired,
@@ -274,5 +263,5 @@ OneInMany.propTypes = {
 
 OneInMany.defaultProps = {
   onClick: undefined,
-  isSelected: undefined,
+  isSelected: false,
 };

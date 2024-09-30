@@ -129,7 +129,7 @@ export const Summary = () => {
                 strings.ownerDetails.form.reminderPeriodField[
                   reminderValue === 1 ? 'input' : 'inputPlural'
                 ],
-                reminderValue,
+                { month: reminderValue },
               ),
               trailing: editButtonGoto(tabIndicies.reminder.tabNumber),
             },

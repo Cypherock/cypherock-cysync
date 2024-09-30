@@ -118,13 +118,13 @@ export const ExecutorDetails = () => {
             {Array(nomineeCount)
               .fill(0)
               .map((_, index) => (
-                <Flex gap={8} align="center" key={`Nominee ${index + 1}`}>
-                  <RadioButton
-                    checked={selectedNominee === index}
-                    onChange={() => {
-                      setSelectedNominee(index);
-                    }}
-                  />
+                <Flex
+                  gap={8}
+                  align="center"
+                  key={`Nominee ${index + 1}`}
+                  onClick={() => setSelectedNominee(index)}
+                >
+                  <RadioButton checked={selectedNominee === index} />
                   <Typography $fontSize={14} color="muted">
                     {`Nominee ${index + 1}`}
                   </Typography>

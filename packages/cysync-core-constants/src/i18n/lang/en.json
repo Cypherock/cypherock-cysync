@@ -2425,7 +2425,7 @@
             "label": "Secondary Email"
           },
           "reminderPeriodField": {
-            "label": "Reminder Perioc",
+            "label": "Reminder Period",
             "input": "Every ${month} month",
             "inputPlural": "Every ${month} months"
           }

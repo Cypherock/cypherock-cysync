@@ -2033,28 +2033,52 @@
       "ownerDetails": {
         "title": "Owner Details",
         "form": {
-          "userNameField": { "label": "User Name" },
-          "primaryEmailField": { "label": "Primary Email" },
-          "secondaryEmailField": { "label": "Secondary Email" }
+          "userNameField": {
+            "label": "User Name"
+          },
+          "primaryEmailField": {
+            "label": "Primary Email"
+          },
+          "secondaryEmailField": {
+            "label": "Secondary Email"
+          }
         }
       },
       "nomineeDetails": {
         "title": "Nominee #${number}",
         "form": {
-          "nomineeNameField": { "label": "Nominee Name" },
-          "primaryEmailField": { "label": "Primary Email" },
-          "secondaryEmailField": { "label": "Secondary Email" },
-          "encryptedMessage": { "label": "Encrypted Message" }
+          "nomineeNameField": {
+            "label": "Nominee Name"
+          },
+          "primaryEmailField": {
+            "label": "Primary Email"
+          },
+          "secondaryEmailField": {
+            "label": "Secondary Email"
+          },
+          "encryptedMessage": {
+            "label": "Encrypted Message"
+          }
         }
       },
       "executorDetails": {
         "title": "Executor",
         "form": {
-          "nomineeNameField": { "label": "Nominee Name" },
-          "primaryEmailField": { "label": "Primary Email" },
-          "secondaryEmailField": { "label": "Secondary Email" },
-          "executorMessage": { "label": "Executor Message" },
-          "assignTo": { "label": "Assigned to" }
+          "nomineeNameField": {
+            "label": "Nominee Name"
+          },
+          "primaryEmailField": {
+            "label": "Primary Email"
+          },
+          "secondaryEmailField": {
+            "label": "Secondary Email"
+          },
+          "executorMessage": {
+            "label": "Executor Message"
+          },
+          "assignTo": {
+            "label": "Assigned to"
+          }
         }
       }
     },
@@ -2366,11 +2390,17 @@
       "ownerDetails": {
         "title": "Owner Details",
         "form": {
-          "userNameField": { "label": "User Name" },
-          "primaryEmailField": { "label": "Primary Email" },
-          "secondaryEmailField": { "label": "Secondary Email" },
+          "userNameField": {
+            "label": "User Name"
+          },
+          "primaryEmailField": {
+            "label": "Primary Email"
+          },
+          "secondaryEmailField": {
+            "label": "Secondary Email"
+          },
           "reminderPeriodField": {
-            "label": "Reminder Perioc",
+            "label": "Reminder Period",
             "input": "Every ${month} month",
             "inputPlural": "Every ${month} months"
           }
@@ -2379,9 +2409,15 @@
       "nomineeDetails": {
         "title": "Nominee #",
         "form": {
-          "nomineeNameField": { "label": "Nominee Name" },
-          "primaryEmailField": { "label": "Primary Email" },
-          "secondaryEmailField": { "label": "Secondary Email" }
+          "nomineeNameField": {
+            "label": "Nominee Name"
+          },
+          "primaryEmailField": {
+            "label": "Primary Email"
+          },
+          "secondaryEmailField": {
+            "label": "Secondary Email"
+          }
         }
       },
       "cardLocation": {
@@ -2393,10 +2429,18 @@
       "executorDetails": {
         "title": "Executor",
         "form": {
-          "nomineeNameField": { "label": "Nominee Name" },
-          "primaryEmailField": { "label": "Primary Email" },
-          "secondaryEmailField": { "label": "Secondary Email" },
-          "assignTo": { "label": "Assigned to" }
+          "nomineeNameField": {
+            "label": "Nominee Name"
+          },
+          "primaryEmailField": {
+            "label": "Primary Email"
+          },
+          "secondaryEmailField": {
+            "label": "Secondary Email"
+          },
+          "assignTo": {
+            "label": "Assigned to"
+          }
         }
       },
       "executorMessage": {

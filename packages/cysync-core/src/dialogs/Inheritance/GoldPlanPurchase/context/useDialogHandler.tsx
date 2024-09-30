@@ -203,7 +203,12 @@ export const useGoldPlanDialogHanlders = () => {
       },
       {
         name: lang.strings.inheritanceGoldPlanPurchase.checkout.heading,
-        dialogs: [<Checkout key="Checkout" />, <Greeting key="Greeting" />],
+        dialogs: [<Checkout key="Checkout" />],
+      },
+      {
+        name: '',
+        dialogs: [<Greeting key="Greeting" />],
+        dontShowOnMilestone: true,
       },
     ],
     [],
