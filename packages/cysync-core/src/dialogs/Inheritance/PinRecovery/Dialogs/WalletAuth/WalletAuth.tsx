@@ -106,7 +106,7 @@ export const WalletAuth = () => {
         <Typography $fontSize={16} $textAlign="center" color="muted" mb={6}>
           <LangDisplay text={strings.walletAuth.subTitle} />
           <Typography variant="span" $fontWeight="bold" $fontSize={16}>
-            {selectedWallet?.name}
+            {selectedWallet}
           </Typography>
         </Typography>
         <LeanBoxContainer mb={4}>

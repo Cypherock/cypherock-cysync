@@ -77,7 +77,7 @@ export const ViewPin = () => {
           <Typography $fontSize={16} $textAlign="center" color="muted">
             <LangDisplay text={strings.subTitle} />
             <Typography variant="span" $fontWeight="bold" $fontSize={16}>
-              {selectedWallet?.name}
+              {selectedWallet}
             </Typography>
           </Typography>
         </Container>
