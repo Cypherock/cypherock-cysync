@@ -81,6 +81,7 @@ export interface CouponInputProps extends WidthProps {
   placeholderText: string;
   disabled?: boolean;
   isLoading?: boolean;
+  couponLength?: number;
 }
 
 export const CouponInput: React.FC<CouponInputProps> = ({
@@ -95,6 +96,7 @@ export const CouponInput: React.FC<CouponInputProps> = ({
   applyButtonText,
   disabled,
   isLoading,
+  couponLength,
   ...restProps
 }) => (
   <Container {...restProps}>
@@ -109,12 +111,13 @@ export const CouponInput: React.FC<CouponInputProps> = ({
           disabled={disabled || isLoading}
           onChange={event => onChange(event.target.value)}
           $isInvalid={isInvalid}
+          maxLength={couponLength}
         />
         <ApplyButton
           onClick={onApply}
           $isInvalid={isInvalid}
           // eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing
-          disabled={disabled || isLoading || value.length !== 14}
+          disabled={disabled || isLoading || value.length !== couponLength}
         >
           {isLoading ? <Throbber size={16} strokeWidth={2} /> : applyButtonText}
         </ApplyButton>
@@ -161,4 +164,5 @@ export const CouponInput: React.FC<CouponInputProps> = ({
 CouponInput.defaultProps = {
   disabled: false,
   isLoading: false,
+  couponLength: undefined,
 };

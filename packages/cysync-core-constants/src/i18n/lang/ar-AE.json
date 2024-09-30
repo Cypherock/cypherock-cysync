@@ -2116,7 +2116,7 @@
         }
       },
       "payment": {
-        "heading": "Complete your payment",
+        "heading": "Buy the plan on the Cypherock website",
         "subtext": "You have to purchase the plan on the Cypherock website and then apply the generated coupon code in the 'Coupon Code' section below to complete your purchase",
         "form": {
           "promoField": {

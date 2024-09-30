@@ -22,20 +22,25 @@ export const SelectWallet = () => {
   const { onNext, onPrevious, allWallets, selectedWallet, setSelectedWallet } =
     useInheritanceSilverPlanPurchaseDialog();
 
-  const [tooltipPlacement, setTooltipPlacement] =
-    useState<TooltipPlacement>('bottom');
+  const [tooltipPlacements, setTooltipPlacements] = useState<{
+    [key: string]: TooltipPlacement;
+  }>({});
 
   const observerRef = useRef<IntersectionObserver>();
 
   const handleObserver = (entries: IntersectionObserverEntry[]) => {
     entries.forEach((entry: IntersectionObserverEntry) => {
-      if (entry.isIntersecting) {
-        setTooltipPlacement('bottom');
-      } else if (
-        entry.rootBounds &&
-        entry.boundingClientRect.bottom > entry.rootBounds.bottom
-      ) {
-        setTooltipPlacement('top');
+      const walletId = entry.target.getAttribute('data-wallet-id');
+      if (walletId) {
+        let placement: TooltipPlacement;
+        if (entry.isIntersecting) placement = 'bottom';
+        else if (
+          entry.rootBounds &&
+          entry.boundingClientRect.bottom > entry.rootBounds.bottom
+        )
+          placement = 'top';
+        else placement = 'bottom';
+        setTooltipPlacements(prev => ({ ...prev, [walletId]: placement }));
       }
     });
   };
@@ -92,14 +97,16 @@ export const SelectWallet = () => {
         <Container direction="row" gap={8} $flexWrap="wrap">
           {allWallets.map(wallet => {
             const isDisabled = Boolean(wallet.isDeleted) || !wallet.hasPin;
+            const walletId = wallet.__id ?? '';
+            const tooltipPlacement = tooltipPlacements[walletId] || 'bottom';
             if (isDisabled) {
               return (
                 <Tooltip
-                  key={wallet.__id ?? ''}
+                  key={walletId}
                   text={strings.wallet.selectWallet.tooltip}
                   tooltipPlacement={tooltipPlacement}
                 >
-                  <div className="wallet-card">
+                  <div className="wallet-card" data-wallet-id={walletId}>
                     <ManyInMany
                       title={wallet.name}
                       disabled={isDisabled}
