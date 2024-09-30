@@ -12,7 +12,7 @@ export const VerifyOTP: React.FC = () => {
   const lang = useAppSelector(selectLanguage);
   const strings = lang.strings.inheritanceGoldPlanPurchase.email;
 
-  const { onClose, onPrevious, userDetails, onNext } =
+  const { onPrevious, userDetails, onNext } =
     useInheritanceGoldPlanPurchaseDialog();
 
   const [email, setEmail] = useState(userDetails?.email ?? '');
@@ -46,7 +46,6 @@ export const VerifyOTP: React.FC = () => {
   return (
     <OTPInputDialog
       title={title}
-      onClose={onClose}
       emails={email}
       onBack={onPrevious}
       onResendOtp={onResend}

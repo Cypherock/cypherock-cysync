@@ -12,7 +12,6 @@ export const VerifyOTP: React.FC = () => {
   const lang = useAppSelector(selectLanguage);
   const { title } = lang.strings.dialogs.inheritancePinRecovery.sync.verifyOtp;
   const {
-    onClose,
     onPrevious,
     onNext,
     otpVerificationDetails,
@@ -60,7 +59,6 @@ export const VerifyOTP: React.FC = () => {
   return (
     <OTPInputDialog
       title={title}
-      onClose={onClose}
       emails={email}
       onBack={onPrevious}
       onResendOtp={onResend}

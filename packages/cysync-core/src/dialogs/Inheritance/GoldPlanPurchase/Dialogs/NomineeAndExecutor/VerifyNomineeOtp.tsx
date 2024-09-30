@@ -12,7 +12,7 @@ export const VerifyNomineeOtp: React.FC = () => {
   const lang = useAppSelector(selectLanguage);
   const strings = lang.strings.inheritanceGoldPlanPurchase.email;
 
-  const { onClose, onPrevious, nomineeDetails, goTo } =
+  const { onPrevious, nomineeDetails, goTo } =
     useInheritanceGoldPlanPurchaseDialog();
 
   const [email, setEmail] = useState(nomineeDetails?.email ?? '');
@@ -46,7 +46,6 @@ export const VerifyNomineeOtp: React.FC = () => {
   return (
     <OTPInputDialog
       title={title}
-      onClose={onClose}
       emails={email}
       onBack={onPrevious}
       onResendOtp={onResend}
