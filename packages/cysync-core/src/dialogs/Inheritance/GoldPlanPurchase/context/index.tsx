@@ -127,6 +127,7 @@ export const InheritanceGoldPlanPurchaseDialogProvider: FC<
       const result = await inheritanceLoginService.updateNominees({
         nominee: nominees.current[index],
         verify,
+        nomineeType: index === 0 ? 'PRIMARY' : 'ALTERNATE',
         accessToken: walletAuthService.authTokens?.accessToken,
       });
 
@@ -276,6 +277,23 @@ export const InheritanceGoldPlanPurchaseDialogProvider: FC<
       if (result?.result?.success === false) {
         throw result?.error ?? 'ReminderPeriod update failed';
       }
+
+      if (!userDetails) {
+        const planDetailsResult = await inheritancePlanService.getPlan(
+          walletAuthService.authTokens,
+        );
+
+        if (planDetailsResult.error) {
+          throw result.error ?? "Couldn't fetch plan details";
+        }
+        const fetchedDetails = {
+          name: planDetailsResult.result.fullName,
+          ...planDetailsResult.result.owner,
+        } as IUserDetails;
+
+        setUserDetails(fetchedDetails);
+      }
+
       onNext();
     } catch (error: any) {
       onError(error);

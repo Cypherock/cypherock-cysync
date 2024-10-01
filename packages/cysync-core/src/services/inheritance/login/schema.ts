@@ -66,6 +66,8 @@ const genericSuccessResult = z.object({
 
 export type ReminderPeriod = 'monthly' | 'quarterly' | 'half-yearly' | 'yearly';
 
+export type NomineeType = 'PRIMARY' | 'ALTERNATE';
+
 export const updateNomineesResultSchema = z.object({
   success: z.boolean().optional(),
   otpDetails: otpDetailSchema

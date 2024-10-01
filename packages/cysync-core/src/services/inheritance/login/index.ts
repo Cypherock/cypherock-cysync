@@ -11,6 +11,7 @@ import {
   updateExecutorResultSchema,
   ReminderPeriod,
   updateReminderResultSchema,
+  NomineeType,
 } from './schema';
 
 import { makePostRequest, runAndHandleServerErrors } from '../../utils';
@@ -121,6 +122,7 @@ const updateNominees = async (params: {
   secret?: string;
   verify?: boolean;
   accessToken: string;
+  nomineeType?: NomineeType;
 }) =>
   runAndHandleServerErrors(() =>
     makePostRequest(
@@ -131,6 +133,7 @@ const updateNominees = async (params: {
         secret: params.secret,
         verify: params.verify,
         requestId: params.requestId,
+        nomineeType: params.nomineeType,
       },
       params.accessToken,
     ),
