@@ -215,13 +215,7 @@ export const InheritanceGoldPlanPurchaseDialogProvider: FC<
         cardLocation,
       });
     }
-  }, [
-    selectedWallet,
-    encryptMessageService.start,
-    sessionService.start,
-    sessionService.getIsActive,
-    sessionService.sessionId,
-  ]);
+  }, [selectedWallet, encryptMessageService, sessionService]);
 
   const setupPlanHandler = useCallback(async () => {
     if (

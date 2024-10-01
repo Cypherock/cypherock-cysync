@@ -75,7 +75,7 @@ export const encryptMessage = (
         if (cardLocation) {
           messages[ENCRYPTED_DATA_SERIALIZATION_TAGS.WALLET_MESSAGE] = {
             value: cardLocation,
-            verifyOnDevice: true,
+            verifyOnDevice: false,
           };
         }
 
