@@ -74,6 +74,7 @@ const register = async (params: {
   requestId: string;
   email: string;
   alternateEmail: string;
+  walletName?: string;
 }) =>
   runAndHandleServerErrors(() =>
     makePostRequest(registerResultSchema, `${baseUrl}/register/init`, params),

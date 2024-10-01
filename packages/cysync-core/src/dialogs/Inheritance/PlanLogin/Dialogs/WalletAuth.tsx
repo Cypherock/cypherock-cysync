@@ -1,4 +1,4 @@
-import { SignTransactionDeviceEvent } from '@cypherock/coin-support-interfaces';
+import { InheritanceWalletAuthDeviceEvent } from '@cypherock/app-support-inheritance';
 import {
   ArrowRightIcon,
   Check,
@@ -19,6 +19,7 @@ import React, { useEffect } from 'react';
 
 import { selectLanguage, useAppSelector } from '~/store';
 
+import { WalletAuthLoginStep } from '../../hooks';
 import { useInheritancePlanLoginDialog } from '../context';
 
 const checkIconComponent = <Check width={15} height={12} />;
@@ -27,20 +28,26 @@ const rightArrowIcon = <ArrowRightIcon />;
 
 export const WalletAuth: React.FC = () => {
   const lang = useAppSelector(selectLanguage);
-  const { onClose, startWalletAuth } = useInheritancePlanLoginDialog();
 
   const strings = lang.strings.dialogs.inheritancePlanLogin;
 
-  const deviceEvents: Record<number, boolean | undefined> = {
-    0: true,
-  };
+  const {
+    onClose,
+    onNext,
+    walletAuthDeviceEvents,
+    walletAuthStep,
+    walletAuthStart,
+    walletAuthAbort,
+    retryIndex,
+    clearErrors,
+  } = useInheritancePlanLoginDialog();
 
   const getDeviceEventIcon = (
-    loadingEvent: SignTransactionDeviceEvent,
-    completedEvent: SignTransactionDeviceEvent,
+    loadingEvent: InheritanceWalletAuthDeviceEvent,
+    completedEvent: InheritanceWalletAuthDeviceEvent,
   ) => {
-    if (deviceEvents[completedEvent]) return checkIconComponent;
-    if (deviceEvents[loadingEvent]) return throbberComponent;
+    if (walletAuthDeviceEvents[completedEvent]) return checkIconComponent;
+    if (walletAuthDeviceEvents[loadingEvent]) return throbberComponent;
 
     return undefined;
   };
@@ -49,22 +56,41 @@ export const WalletAuth: React.FC = () => {
     const actions: LeanBoxProps[] = [
       {
         id: '1',
+        text: strings.walletAuth.actions.confirm,
+        leftImage: rightArrowIcon,
+        rightImage: getDeviceEventIcon(
+          InheritanceWalletAuthDeviceEvent.INIT,
+          InheritanceWalletAuthDeviceEvent.CONFIRMED,
+        ),
+      },
+      {
+        id: '2',
         text: strings.walletAuth.actions.tapCard,
         leftImage: rightArrowIcon,
-        rightImage: getDeviceEventIcon(0, 1),
+        rightImage: getDeviceEventIcon(
+          InheritanceWalletAuthDeviceEvent.CONFIRMED,
+          InheritanceWalletAuthDeviceEvent.WALLET_BASED_CARD_TAPPED,
+        ),
       },
     ];
 
     return actions;
-  }, []);
+  }, [strings, walletAuthDeviceEvents]);
 
   useEffect(() => {
-    const timeout = setTimeout(() => {
-      startWalletAuth();
-    }, 2000);
+    clearErrors();
+    walletAuthStart();
 
-    return () => clearTimeout(timeout);
-  }, []);
+    return () => {
+      walletAuthAbort();
+    };
+  }, [retryIndex, clearErrors]);
+
+  useEffect(() => {
+    if (walletAuthStep > WalletAuthLoginStep.walletAuth) {
+      onNext();
+    }
+  }, [walletAuthStep]);
 
   return (
     <DialogBox width={800} onClose={onClose} $maxHeight="90vh">
