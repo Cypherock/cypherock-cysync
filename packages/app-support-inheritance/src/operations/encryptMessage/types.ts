@@ -3,7 +3,8 @@ import { IDeviceConnection } from '@cypherock/sdk-interfaces';
 export interface IInheritanceEncryptMessageParams {
   connection: IDeviceConnection;
   walletId: string;
-  messages: string[];
+  cardLocation?: string;
+  personalMessage?: string;
 }
 
 export type IInheritanceEncryptMessageEventType = 'Result' | 'Device';
@@ -12,7 +13,8 @@ export enum InheritanceEncryptMessageDeviceEvent {
   INIT = 0,
   CONFIRMED = 1,
   VERIFIED = 2,
-  CARD_TAPPED = 3,
+  PIN_CARD_TAPPED = 3,
+  MESSAGE_CARD_TAPPED = 4,
 }
 
 export interface IInheritanceEncryptMessageEvent {

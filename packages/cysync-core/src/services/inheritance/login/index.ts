@@ -28,15 +28,38 @@ export {
 
 const baseUrl = `${inheritanceBaseUrl}/wallet-account`;
 
-const init = async (params: { walletId: string }) =>
+export const InheritanceLoginTypeMap = {
+  owner: 'OWNER',
+  nominee: 'NOMINEE',
+} as const;
+
+export type InheritanceLoginType =
+  (typeof InheritanceLoginTypeMap)[keyof typeof InheritanceLoginTypeMap];
+
+export const InheritanceLoginAuthTypeMap = {
+  full: 'FULL',
+  seed: 'SEED',
+  wallet: 'WALLET',
+} as const;
+
+export type InheritanceLoginAuthType =
+  (typeof InheritanceLoginAuthTypeMap)[keyof typeof InheritanceLoginAuthTypeMap];
+
+const init = async (params: {
+  walletId: string;
+  loginType: InheritanceLoginType;
+  authType: InheritanceLoginAuthType;
+}) =>
   runAndHandleServerErrors(() =>
     makePostRequest(initResultSchema, `${baseUrl}/init`, params),
   );
 
 const validate = async (params: {
   requestId: string;
-  publicKey?: string;
-  signature: string;
+  seedPublicKey?: string;
+  walletPublicKey?: string;
+  seedSignature?: string;
+  walletSignature?: string;
 }) =>
   runAndHandleServerErrors(() =>
     makePostRequest(validateResultSchema, `${baseUrl}/validate`, params),
@@ -47,6 +70,7 @@ const register = async (params: {
   requestId: string;
   email: string;
   alternateEmail: string;
+  walletName?: string;
 }) =>
   runAndHandleServerErrors(() =>
     makePostRequest(registerResultSchema, `${baseUrl}/register/init`, params),

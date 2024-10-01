@@ -45,7 +45,7 @@
     "editAccount": "Konto bearbeiten",
     "submit": "Absenden",
     "showMore": "Mehr anzeigen",
-    "resendOTP": "Resend OTP",
+    "resendOTP": "Resend OTP in ${timeout}s",
     "next": "Next",
     "setup": "Setup",
     "sync": "Sync",
@@ -68,7 +68,7 @@
       "expiry": "Expiry",
       "expiring": "Expiring",
       "expired": "Expired",
-      "pendingTime": "05",
+      "pending": "Pending",
       "silver": "Silver",
       "gold": "Gold",
       "hours": "Hours",
@@ -1565,7 +1565,8 @@
       "walletAuth": {
         "title": "Follow instructions on the X1 Vault",
         "actions": {
-          "tapCard": "Tap a valid card"
+          "confirm": "Confirm wallet authentication on device",
+          "tapCard": "Enter PIN and tap any one card"
         },
         "messageBox": {
           "warning": "Authenticating"
@@ -1574,6 +1575,9 @@
       "fetchData": {
         "title": "Please wait while we fetch the plan data",
         "subTitle": "Do not disconnect or close the app"
+      },
+      "verifyEmail": {
+        "title": "OTP Verification"
       }
     },
     "inheritanceEditExecutorMessage": {
@@ -1662,6 +1666,9 @@
           "actions": {
             "confirmAuth": "Confirm wallet authentication on device",
             "enterPinAndTapCard": "Enter Pin and tap any one card"
+          },
+          "messageBox": {
+            "warning": "Lift your card after 2 beep sounds"
           }
         },
         "verifyOtp": {
@@ -1772,6 +1779,110 @@
       "success": {
         "title": "Nominee message successfully updated"
       }
+    },
+    "inheritanceEstateRecovery": {
+      "title": "Estate recovery",
+      "instructions": {
+        "name": "Clear Device Data",
+        "dialogs": {
+          "settings": {
+            "title": "From the Main Menu of your X1 Vault, click \"Settings\""
+          },
+          "clearData": {
+            "title": "Click \"Clear Device Data\" on your X1 Vault"
+          },
+          "confirmClearData": {
+            "title": "Confirm \"Clear device data\" on the X1 Vault"
+          },
+          "tapCards": {
+            "title": "Tap any 2 old X1 Cards below the X1 Vault",
+            "subTitle": "Do not lift until you hear a beep sound",
+            "messageBoxList": [
+              {
+                "warning": "Tap the cards you used during the initial Cypherock setup process, not the cards given by the wallet owner"
+              },
+              {
+                "warning": "Your X1 device will restart after this process"
+              }
+            ]
+          }
+        }
+      },
+      "wallet": {
+        "name": "Wallet",
+        "title": "Follow instructions on the X1 Vault to authenticate the selected wallet",
+        "subTitle": "Authenticating the wallet ",
+        "actions": {
+          "confirm": "Confirm wallet authentication on device",
+          "tapCard": "Tap the card you received as a nominee"
+        },
+        "messageBox": {
+          "warning": "Do not lift until you hear 2 beep sound"
+        },
+        "verification": {
+          "title": "OTP verification"
+        },
+        "syncing": {
+          "title": "Please wait while we fetch the data",
+          "subTitle": "Do not disconnect or close the app"
+        }
+      },
+      "decryption": {
+        "name": "Decryption",
+        "device": {
+          "title": "Follow instructions on the X1 Vault",
+          "subTitle": "Do not remove the card till you hear a beep",
+          "actions": {
+            "confirm": "Confirm decryption on device",
+            "tapCard": "Tap the card you received as a nominee"
+          },
+          "messageBox": {
+            "warning": "The message will be decrypted by the X1 Card you received as a nominee"
+          }
+        },
+        "error": {
+          "title": "Decrypted message",
+          "message": "Update was unsuccessful. Wallet ABC was not found in the card"
+        }
+      },
+      "viewPin": {
+        "name": "View PIN",
+        "title": "Follow instructions on the X1 Vault",
+        "subTitle": "PIN for wallet",
+        "actions": {
+          "view": "View & copy the PIN on your device and then confirm"
+        },
+        "messageBox": {
+          "warning": "You will need this PIN to access crypto assets on this wallet. Make sure you do not forget it."
+        }
+      },
+      "viewMessage": {
+        "name": "View Message",
+        "title": "Message from ${name}",
+        "tooltip": "Something goes here",
+        "form": {
+          "cardLocationField": {
+            "label": "Card location",
+            "placeholder": "Please enter card location",
+            "tooltip": "The location of your cards"
+          },
+          "personalMessageField": {
+            "label": "Personal message",
+            "placeholder": "Please enter your message",
+            "tooltip": "This is the message for you"
+          },
+          "checkBox": {
+            "label": "I have read and copied the above messages"
+          }
+        }
+      },
+      "confirmation": {
+        "name": "Confirmation",
+        "success": {
+          "title": "Congratulations, you just decrypted the message from ",
+          "subTitle": "Watch the video to understand the next steps"
+        }
+      }
     }
   },
   "toggle": {
@@ -1879,7 +1990,7 @@
     "title": "Enter OTP",
     "wrongOtpTitle": "Wrong OTP",
     "successRedirectTitle": "Please wait while we redirect you...",
-    "triesRemaining": "${retries} tries remaining ${timeout}..",
+    "triesRemaining": "${retries} tries remaining",
     "infoTexts": [
       "An email has been sent to **${email}**",
       "Please enter the code received on the email"
@@ -1887,6 +1998,9 @@
     "noRetries": {
       "title": "You have 0 retries remaining",
       "subTitle": "Please exit the flow and restart"
+    },
+    "buttons": {
+      "resendWithTimeout": "Resend OTP in ${timeout}s"
     }
   },
   "inheritance": {
@@ -1979,7 +2093,11 @@
       }
     },
     "buttons": {
-      "syncFromEmail": "Sync from Email"
+      "syncFromEmail": "Sync from Email",
+      "recoverPin": "Recover PIN",
+      "renewPlan": "Renew Plan",
+      "unlock": "Unlock",
+      "upgradePlan": "Upgrade Plan"
     },
     "termsOfService": {
       "title": "Terms of Use",
@@ -2050,14 +2168,19 @@
       "heading": "Wallet",
       "selectWallet": {
         "title": "Select the wallet you want to cover in this plan",
-        "subTitle": "For setting up additional wallets individual plans can be created later"
+        "subTitle": "For setting up additional wallets individual plans can be created later",
+        "tooltip": "This wallet is not having a PIN setup, create a new wallet or select a different wallet having PIN setup"
       },
       "walletAuth": {
         "title": "Follow instructions on the X1 Vault to authenticate the selected wallet",
+        "subTitle": "Authenticating the wallet, ",
         "actions": {
-          "tapCard": "Tap any one card"
+          "confirm": "Confirm wallet authentication on device",
+          "tapCard": "Enter PIN and tap any one card"
         },
-        "footer": "Authenticating the wallet, "
+        "messageBox": {
+          "warning": "Lift your card after 3 beep sounds"
+        }
       }
     },
     "email": {
@@ -2074,6 +2197,8 @@
       "heading": "Encryption",
       "device": {
         "title": "Follow instructions on the X1 Vault to encrypt the wallet PIN",
+        "subTitle": "Lift your card after 2 beep sounds",
+        "tooltip": "Tap any one X1 card below the X1 device to encrypt the message and do not remove the card until you hear 2 beep sounds",
         "actions": {
           "confirm": "Confirm encryption on device",
           "tapCard": "Enter PIN and tap any one card"
@@ -2123,7 +2248,8 @@
       "heading": "Wallet",
       "selectWallet": {
         "title": "Select the wallet you want to cover in this plan",
-        "subTitle": "For setting up additional wallets, individual plans can be created later"
+        "subTitle": "For setting up additional wallets, individual plans can be created later",
+        "tooltip": "This wallet is not having a PIN setup, create a new wallet or select a different wallet having PIN setup"
       },
       "walletAuth": {
         "heading": "Wallet Authentication",
@@ -2327,7 +2453,7 @@
       "device": {
         "title": "Follow instructions on the X1 Vault to encrypt the wallet PIN",
         "subtext": "Lift your card after 2 beep sounds ",
-        "tooltip": "",
+        "tooltip": "Tap any one X1 card below the X1 device to encrypt the message and do not remove the card until you hear 2 beep sounds",
         "actions": {
           "confirmOnDevice": "Confirm encryption on device",
           "tapCard": "Enter PIN and tap any one card"

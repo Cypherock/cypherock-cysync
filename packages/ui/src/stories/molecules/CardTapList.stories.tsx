@@ -35,3 +35,17 @@ export const Failed: Story = {
     ],
   },
 };
+
+export const Variant: Story = {
+  args: {
+    items: [
+      {
+        text: 'Tap this card',
+        currentState: 2,
+        totalState: 3,
+        currentFailed: true,
+      },
+    ],
+    variant: 'muted',
+  },
+};

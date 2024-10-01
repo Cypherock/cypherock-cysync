@@ -1,16 +1,20 @@
 import { InheritanceWalletAuthDeviceEvent } from '@cypherock/app-support-inheritance';
 import {
   ArrowRightIcon,
+  CardTapList,
   Check,
   Container,
   LangDisplay,
   LeanBox,
   LeanBoxContainer,
   LeanBoxProps,
+  MessageBox,
+  tapAnyCardDeviceAnimation2DVideo,
   Throbber,
   Typography,
+  Video,
 } from '@cypherock/cysync-ui';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { selectLanguage, useAppSelector } from '~/store';
 
@@ -26,6 +30,7 @@ export const WalletAuth = () => {
   const lang = useAppSelector(selectLanguage);
 
   const strings = lang.strings.inheritanceSilverPlanPurchase;
+  const [cardTapState, setCardTapState] = useState(-1);
 
   const {
     onNext,
@@ -36,6 +41,7 @@ export const WalletAuth = () => {
     walletAuthAbort,
     retryIndex,
     clearErrors,
+    isRegisterationRequired,
   } = useInheritanceSilverPlanPurchaseDialog();
 
   const getDeviceEventIcon = (
@@ -52,21 +58,54 @@ export const WalletAuth = () => {
     const actions: LeanBoxProps[] = [
       {
         id: '1',
-        text: strings.wallet.walletAuth.actions.tapCard,
+        text: strings.wallet.walletAuth.actions.confirm,
         leftImage: rightArrowIcon,
         rightImage: getDeviceEventIcon(
           InheritanceWalletAuthDeviceEvent.INIT,
-          InheritanceWalletAuthDeviceEvent.CARD_TAPPED,
+          InheritanceWalletAuthDeviceEvent.CONFIRMED,
         ),
       },
     ];
 
+    if (!isRegisterationRequired) {
+      actions.push({
+        id: '2',
+        text: strings.wallet.walletAuth.actions.tapCard,
+        leftImage: rightArrowIcon,
+        rightImage: getDeviceEventIcon(
+          InheritanceWalletAuthDeviceEvent.CONFIRMED,
+          InheritanceWalletAuthDeviceEvent.WALLET_BASED_CARD_TAPPED,
+        ),
+      });
+    }
+
     return actions;
-  }, [strings, walletAuthDeviceEvents]);
+  }, [strings, walletAuthDeviceEvents, isRegisterationRequired]);
+
+  useEffect(() => {
+    const eventToState: Record<number, number | undefined> = {
+      [InheritanceWalletAuthDeviceEvent.CONFIRMED]: 0,
+      [InheritanceWalletAuthDeviceEvent.SEED_BASED_CARD_TAPPED]: 1,
+      [InheritanceWalletAuthDeviceEvent.CARD_PAIRING_CARD_TAPPED]: 2,
+      [InheritanceWalletAuthDeviceEvent.WALLET_BASED_CARD_TAPPED]: 3,
+    };
+
+    let state: number | undefined;
+    for (const event in eventToState) {
+      if (walletAuthDeviceEvents[event] && eventToState[event] !== undefined) {
+        state = eventToState[event]!;
+      }
+    }
+
+    if (state !== undefined) {
+      setCardTapState(state);
+    }
+  }, [walletAuthDeviceEvents]);
 
   useEffect(() => {
     clearErrors();
     walletAuthStart();
+    setCardTapState(-1);
 
     return () => {
       walletAuthAbort();
@@ -82,10 +121,25 @@ export const WalletAuth = () => {
   return (
     <Layout>
       <Container direction="column">
-        <Typography $fontSize={20} $textAlign="center" color="white" mb={4}>
-          {strings.wallet.walletAuth.title}
-        </Typography>
-        <LeanBoxContainer mb={4}>
+        <Video
+          src={tapAnyCardDeviceAnimation2DVideo}
+          autoPlay
+          loop
+          $width={506}
+          $height={285}
+        />
+        <Container direction="column" gap={4} mb={4}>
+          <Typography $fontSize={20} $textAlign="center" color="white">
+            {strings.wallet.walletAuth.title}
+          </Typography>
+          <Typography $fontSize={16} $textAlign="center" color="muted">
+            <LangDisplay text={strings.wallet.walletAuth.subTitle} />
+            <Typography variant="span" $fontSize={16}>
+              {selectedWallet?.name}
+            </Typography>
+          </Typography>
+        </Container>
+        <LeanBoxContainer mb={6}>
           {actionsList.map(data => (
             <LeanBox
               key={data.id}
@@ -97,13 +151,25 @@ export const WalletAuth = () => {
               id={data.id}
             />
           ))}
+          {isRegisterationRequired && (
+            <CardTapList
+              items={[
+                {
+                  text: strings.wallet.walletAuth.actions.tapCard,
+                  currentState: cardTapState,
+                  totalState: 3,
+                },
+              ]}
+              variant="muted"
+            />
+          )}
         </LeanBoxContainer>
-        <Typography $fontSize={16} $textAlign="center" color="muted" mt={2}>
-          <LangDisplay text={strings.wallet.walletAuth.footer} />
-          <Typography variant="span" $fontWeight="bold" $fontSize={16}>
-            {selectedWallet?.name}
-          </Typography>
-        </Typography>
+        {isRegisterationRequired && (
+          <MessageBox
+            type="warning"
+            text={strings.wallet.walletAuth.messageBox.warning}
+          />
+        )}
       </Container>
     </Layout>
   );
