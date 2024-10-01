@@ -10,7 +10,7 @@ import {
   Tooltip,
   Typography,
 } from '@cypherock/cysync-ui';
-import React from 'react';
+import React, { useState } from 'react';
 
 import { selectLanguage, useAppSelector } from '~/store';
 
@@ -19,7 +19,10 @@ import { Layout } from '../../Layout';
 
 export const NomineePrivateMessageInput = () => {
   const lang = useAppSelector(selectLanguage);
-
+  const [form, setForm] = useState({
+    cardLocation: '',
+    message: '',
+  });
   const strings = lang.strings.inheritanceGoldPlanPurchase.message;
 
   const { goTo } = useInheritanceGoldPlanPurchaseDialog();
@@ -68,6 +71,10 @@ export const NomineePrivateMessageInput = () => {
         <TextAreaInput
           placeholder={strings.nominee.form.locationField.placeholder}
           height={120}
+          maxChars={800}
+          currentChars={form.cardLocation.length || 0}
+          value={form.cardLocation}
+          onChange={val => setForm(p => ({ ...p, cardLocation: val }))}
         />
         <Flex direction="column" $flex={1} width="100%">
           <Flex>
@@ -84,6 +91,10 @@ export const NomineePrivateMessageInput = () => {
           <TextAreaInput
             placeholder={strings.nominee.form.personalMessage.placeholder}
             height={120}
+            maxChars={800}
+            currentChars={form.message.length || 0}
+            value={form.message}
+            onChange={val => setForm(p => ({ ...p, message: val }))}
           />
         </Flex>
         <MessageBox type="warning" text={strings.nominee.messageBox.warning} />
