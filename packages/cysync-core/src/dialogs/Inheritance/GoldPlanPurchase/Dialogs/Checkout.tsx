@@ -43,7 +43,7 @@ export const Checkout = () => {
         <Typography $fontSize={20} color="white">
           <LangDisplay text={strings.payment.title} />
         </Typography>
-        <Typography $fontSize={16} color="muted">
+        <Typography $fontSize={16} color="muted" $textAlign="center">
           <LangDisplay text={strings.payment.subtext} />
         </Typography>
       </Container>
@@ -55,6 +55,7 @@ export const Checkout = () => {
         onChange={setCoupon}
         onApply={onApply}
         onDelete={onDelete}
+        couponLength={14}
       />
     </Layout>
   );
