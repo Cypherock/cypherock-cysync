@@ -29,8 +29,6 @@ import { ReminderPeriod } from '~/services/inheritance/login/schema';
 import { useAppSelector } from '~/store';
 import { getDB } from '~/utils';
 import {
-  IOtpVerificationDetails,
-  OtpVerificationConcern,
   useEncryptMessage,
   useSession,
   useWalletAuth,
@@ -38,6 +36,8 @@ import {
 } from '../../hooks';
 import { InheritanceGoldPlanPurchaseDialogContextInterface } from './types';
 import { tabIndicies, useGoldPlanDialogHanlders } from './useDialogHandler';
+import { useExecutorRegistration } from './useExecutorRegistraion';
+import { useNomineeRegistration } from './useNomineeRegistration';
 
 export interface IWalletWithDeleted extends IWallet {
   isDeleted?: boolean;
@@ -85,18 +85,10 @@ export const InheritanceGoldPlanPurchaseDialogProvider: FC<
     ];
   }, [wallets, deletedWallets]);
 
-  const [executorDetails, setExecutorDetails, executorDetailsRef] =
-    useStateWithRef<IUserDetails | undefined>(undefined);
-  const [haveExecutor, setHaveExecutor] = useState(false);
   const [selectedWallet, setSelectedWallet] = useState<IWallet | undefined>();
-  const [isSubmittingExecutorDetails, setIsSubmittingExecutorDetails] =
-    useState(false);
-  const [isSubmittingNomineeDetails, setIsSubmittingNomineeDetails] =
-    useState(false);
   const [isSubmittingReminderDetails, setIsSubmittingReminderDetails] =
     useState(false);
   const [unhandledError, setUnhandledError] = useState<any>();
-  const [nomineeCount, setNomineeCount, nomineeCountRef] = useStateWithRef(1);
 
   const navigateTo = useNavigateTo();
 
@@ -107,161 +99,8 @@ export const InheritanceGoldPlanPurchaseDialogProvider: FC<
     { heading: string; subtext: string } | undefined
   >();
   const [couponDuration, setCouponDuration] = useState(0);
-  const [nomineeDetails, setNomineeDetails, nominees] = useStateWithRef<
-    Record<number, IUserDetails>
-  >({});
   const [reminderPeriod, setReminderPeriod] =
     useState<ReminderPeriod>('monthly');
-  const [nomineeOtpVerificationDetails, setNomineeOtpVerificationDetails] =
-    useState<IOtpVerificationDetails | undefined>();
-  const nomineeOtpDetailsRef = useRef<IOtpVerificationDetails[]>([]);
-  const [executorNomineeIndex, setExecutorNomineeIndex] = useState<
-    number | undefined
-  >();
-
-  const updateNominees = async (index: number, verify?: boolean) => {
-    try {
-      if (!walletAuthService.authTokens)
-        throw "Wallet auth doesn't have a valid token";
-
-      const result = await inheritanceLoginService.updateNominees({
-        nominee: nominees.current[index],
-        verify,
-        nomineeType: index === 0 ? 'PRIMARY' : 'ALTERNATE',
-        accessToken: walletAuthService.authTokens?.accessToken,
-      });
-
-      if (result?.result?.success === false) {
-        throw result?.error ?? 'Nominee update failed';
-      }
-
-      if (verify) {
-        const otpDetails = result.result?.otpDetails;
-        if (!otpDetails) throw 'Invalid data received from server';
-        nomineeOtpDetailsRef.current = otpDetails.map((details, idx) => {
-          const { requestId, maskedEmail, ...rest } = details;
-          return {
-            id: requestId,
-            email: maskedEmail,
-            concern:
-              idx === 0
-                ? OtpVerificationConcern.primary
-                : OtpVerificationConcern.alternate,
-            ...rest,
-          };
-        });
-
-        setNomineeOtpVerificationDetails(nomineeOtpDetailsRef.current.shift());
-      }
-    } catch (error: any) {
-      onError(error);
-    }
-  };
-
-  const nomineeOtpSubmit = async (secret: string) => {
-    setIsSubmittingNomineeDetails(true);
-    try {
-      if (!walletAuthService.authTokens || !nomineeOtpVerificationDetails)
-        throw 'Invalid auth or data';
-
-      const result = await inheritanceLoginService.updateNominees({
-        secret,
-        requestId: nomineeOtpVerificationDetails?.id,
-        accessToken: walletAuthService.authTokens?.accessToken,
-      });
-
-      if (result?.result?.success === true) {
-        setNomineeOtpVerificationDetails(nomineeOtpDetailsRef.current.shift());
-      } else {
-        const otpDetails = result.error?.details?.responseBody;
-        if (!otpDetails) throw 'Invalid data received from server';
-        setNomineeOtpVerificationDetails(old => ({
-          ...old!,
-          retriesRemaining: otpDetails.retriesRemaining,
-          otpExpiry: otpDetails.otpExpiry,
-          showIncorrectError: true,
-        }));
-      }
-    } catch (error: any) {
-      onError(error);
-    }
-    setIsSubmittingNomineeDetails(false);
-  };
-
-  const updateNomineeDetails = (params: IUserDetails, index: number) => {
-    nominees.current[index] = params;
-    setNomineeDetails(nominees.current);
-  };
-
-  const clearNomineeDetails = () => {
-    setNomineeDetails({});
-    setNomineeOtpVerificationDetails(undefined);
-    setIsSubmittingNomineeDetails(false);
-  };
-
-  const onNomineeDetailsSubmit = async (verify: boolean, index: number) => {
-    setIsSubmittingNomineeDetails(true);
-
-    await updateNominees(index, verify);
-
-    let nextDialog = tabIndicies.nominieeAndExecutor.dialogs.executorSelect;
-    if (nomineeCountRef.current === 2 && index === 0)
-      nextDialog = tabIndicies.nominieeAndExecutor.dialogs.secondNomineeDetails;
-
-    if (verify) onNext();
-    else if (isOnSummaryPage) goTo(tabIndicies.summary.tabNumber);
-    else goTo(tabIndicies.nominieeAndExecutor.tabNumber, nextDialog);
-
-    setIsSubmittingNomineeDetails(false);
-  };
-
-  const onExecutorSelected = useCallback(() => {
-    if (haveExecutor) onNext();
-    else goTo(tabIndicies.message.tabNumber, tabIndicies.message.dialogs.video);
-  }, [haveExecutor]);
-
-  const updateExecutor = async (nomineeIndex: number) => {
-    try {
-      if (!executorDetailsRef.current) throw 'Invalid executor details';
-      if (!walletAuthService.authTokens)
-        throw "Wallet auth doesn't have a valid token";
-
-      setExecutorNomineeIndex(nomineeIndex);
-
-      const result = await inheritanceLoginService.updateExecutor({
-        name: executorDetailsRef.current.name,
-        email: executorDetailsRef.current.email,
-        alternateEmail: executorDetailsRef.current.alternateEmail,
-        nomineeEmail: nominees.current[nomineeIndex]?.email,
-        accessToken: walletAuthService.authTokens?.accessToken,
-        executorMessage,
-      });
-
-      if (!result?.result?.success) {
-        throw result?.error;
-      }
-      if (isOnSummaryPage) goTo(tabIndicies.summary.tabNumber);
-      else onNext();
-    } catch (error: any) {
-      onError(error);
-    }
-  };
-
-  const onExecutorMessageSubmit = async () => {
-    setIsSubmittingExecutorDetails(true);
-    await updateExecutor(executorNomineeIndex ?? 0);
-    setIsSubmittingExecutorDetails(false);
-  };
-
-  const onExecutorDetailsSubmit = async (
-    params: IUserDetails,
-    nomineeIndex: number,
-  ) => {
-    setIsSubmittingExecutorDetails(true);
-    setExecutorDetails(params);
-    await updateExecutor(nomineeIndex);
-    setIsSubmittingExecutorDetails(false);
-  };
 
   const onReminderDetailsSubmit = async () => {
     setIsSubmittingReminderDetails(true);
@@ -614,9 +453,46 @@ export const InheritanceGoldPlanPurchaseDialogProvider: FC<
 
   const [personalMessage, setPersonalMessage] = useState('');
   const [cardLocation, setCardLocation] = useState('');
-  const [executorMessage, setExecutorMessage] = useState('');
   const [userDetails, setUserDetails] = useState<IUserDetails>();
   const [isOnSummaryPage, setIsOnSummaryPage] = useState(false);
+
+  const {
+    onNomineeDetailsSubmit,
+    isSubmittingNomineeDetails,
+    nomineeCount,
+    setNomineeCount,
+    nomineeDetails,
+    updateNomineeDetails,
+    nomineeOtpSubmit,
+    clearNomineeDetails,
+    nomineeOtpVerificationDetails,
+    nominees,
+  } = useNomineeRegistration(
+    onError,
+    onNext,
+    goTo,
+    isOnSummaryPage,
+    walletAuthService.authTokens,
+  );
+  const {
+    haveExecutor,
+    setHaveExecutor,
+    onExecutorSelected,
+    onExecutorDetailsSubmit,
+    isSubmittingExecutorDetails,
+    executorNomineeIndex,
+    executorDetails,
+    executorMessage,
+    setExecutorMessage,
+    onExecutorMessageSubmit,
+  } = useExecutorRegistration(
+    onError,
+    onNext,
+    goTo,
+    isOnSummaryPage,
+    nominees,
+    walletAuthService.authTokens,
+  );
 
   const overriddenCurrentMilestone = useMemo(
     () => (isOnSummaryPage ? tabIndicies.summary.tabNumber : undefined),
@@ -674,20 +550,12 @@ export const InheritanceGoldPlanPurchaseDialogProvider: FC<
     couponDuration,
     onNomineeDetailsSubmit,
     isSubmittingNomineeDetails,
-    onExecutorDetailsSubmit,
-    isSubmittingExecutorDetails,
-    executorDetails,
     nomineeCount,
     setNomineeCount,
-    haveExecutor,
-    setHaveExecutor,
-    onExecutorSelected,
     personalMessage,
     setPersonalMessage,
     cardLocation,
     setCardLocation,
-    executorMessage,
-    setExecutorMessage,
     nomineeDetails,
     userDetails,
     isEstablishingSession: sessionService.isStartingSession,
@@ -700,11 +568,19 @@ export const InheritanceGoldPlanPurchaseDialogProvider: FC<
     nomineeOtpSubmit,
     clearNomineeDetails,
     nomineeOtpVerificationDetails,
-    onExecutorMessageSubmit,
     overriddenCurrentMilestone,
     isOnSummaryPage,
     setIsOnSummaryPage,
+    haveExecutor,
+    setHaveExecutor,
+    onExecutorSelected,
+    onExecutorDetailsSubmit,
+    isSubmittingExecutorDetails,
     executorNomineeIndex,
+    executorDetails,
+    executorMessage,
+    setExecutorMessage,
+    onExecutorMessageSubmit,
   });
 
   return (
