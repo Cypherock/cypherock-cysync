@@ -32,6 +32,7 @@ import {
   AuthenticateClearData,
   Settings,
 } from '../Dialogs';
+import { openContactSupportDialog } from '~/actions';
 
 export interface IWalletWithDeleted extends IWallet {
   isDeleted?: boolean;
@@ -52,6 +53,7 @@ export interface InheritanceEstateRecoveryDialogContextInterface {
   currentDialog: number;
   isDeviceRequired: boolean;
   onClose: () => void;
+  onHelp: () => void;
   selectedWallet?: IWalletWithDeleted;
   setSelectedWallet: (wallet: IWalletWithDeleted) => void;
   userDetails?: IUserDetails;
@@ -136,6 +138,10 @@ export const InheritanceEstateRecoveryDialogProvider: FC<
     dispatch(closeDialog('inheritanceEstateRecovery'));
   };
 
+  const onHelp = () => {
+    dispatch(openContactSupportDialog());
+  };
+
   const [userDetails, setUserDetails] = useState<IUserDetails | undefined>();
   const [selectedWallet, setSelectedWallet] = useState<IWallet | undefined>();
   const [unhandledError, setUnhandledError] = useState<any>();
@@ -152,6 +158,7 @@ export const InheritanceEstateRecoveryDialogProvider: FC<
     onPrevious,
     tabs,
     onClose,
+    onHelp,
     goTo,
     currentTab,
     currentDialog,
