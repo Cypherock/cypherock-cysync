@@ -1,6 +1,7 @@
 import React, { FC } from 'react';
 import styled from 'styled-components';
 
+import { Flex, Typography } from '../../atoms';
 import { UtilsProps, utils } from '../../utils';
 
 interface TextAreaInputProps extends UtilsProps {
@@ -9,6 +10,8 @@ interface TextAreaInputProps extends UtilsProps {
   onBlur?: (val: string) => void;
   disabled?: boolean;
   placeholder: string;
+  maxChars?: number;
+  currentChars?: number;
 }
 
 const TextAreaInputStyle = styled.textarea`
@@ -22,7 +25,6 @@ const TextAreaInputStyle = styled.textarea`
   background-color: ${({ theme }) => theme.palette.background.input};
   border-radius: ${({ theme }) => theme.spacing.one.spacing};
   font-size: ${({ theme }) => theme.spacing.two.spacing};
-  margin-bottom: ${({ theme }) => theme.spacing.two.spacing};
   color: white;
   height: 182px;
   resize: none;
@@ -38,13 +40,26 @@ const TextAreaInputStyle = styled.textarea`
 export const TextAreaInput: FC<TextAreaInputProps> = ({
   onChange,
   onBlur,
+  maxChars,
+  currentChars = 0,
   ...props
 }) => (
-  <TextAreaInputStyle
-    {...props}
-    onChange={e => onChange?.(e.target.value)}
-    onBlur={e => onBlur?.(e.target.value)}
-  />
+  <Flex direction="column" width="100%" gap={8} mb={2}>
+    <TextAreaInputStyle
+      {...props}
+      onChange={e => onChange?.(e.target.value)}
+      onBlur={e => onBlur?.(e.target.value)}
+      maxLength={maxChars}
+    />
+    {maxChars && (
+      <Flex width="100%" $flex={1} justify="flex-end">
+        <Typography
+          color="muted"
+          $fontSize={8}
+        >{`${currentChars}/${maxChars}`}</Typography>
+      </Flex>
+    )}
+  </Flex>
 );
 
 TextAreaInput.defaultProps = {
@@ -52,4 +67,6 @@ TextAreaInput.defaultProps = {
   onChange: undefined,
   onBlur: undefined,
   disabled: false,
+  maxChars: undefined,
+  currentChars: 0,
 };

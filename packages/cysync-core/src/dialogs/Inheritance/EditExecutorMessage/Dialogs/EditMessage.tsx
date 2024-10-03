@@ -80,6 +80,8 @@ export const EditMessage = () => {
               value={executorMessage}
               onChange={setExecutorMessage}
               height={120}
+              maxChars={800}
+              currentChars={message.length || 0}
             />
           </Flex>
         </DialogBoxBody>

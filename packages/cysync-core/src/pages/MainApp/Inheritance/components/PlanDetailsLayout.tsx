@@ -36,7 +36,12 @@ export const InheritancePlanDetailsLayout: FC<InheritancePageLayoutProps> = ({
   };
 
   const onRecoverPin = () => {
-    dispatch(openInheritancePinRecoveryDialog({ walletId: plan.walletId }));
+    dispatch(
+      openInheritancePinRecoveryDialog({
+        walletId: plan.walletId,
+        walletName: plan.walletName,
+      }),
+    );
   };
 
   const onUpgradePlan = () => {

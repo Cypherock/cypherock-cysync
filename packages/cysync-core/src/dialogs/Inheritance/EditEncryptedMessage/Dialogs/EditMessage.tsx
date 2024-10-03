@@ -63,6 +63,8 @@ export const EditMessage = () => {
           <TextAreaInput
             placeholder={strings.form.cardLocationField.placeholder}
             height={120}
+            maxChars={800}
+            currentChars={encryptedMessage?.cardLocation ?? 0}
             value={encryptedMessage?.cardLocation}
             onChange={text =>
               setEncryptedMessage({ ...encryptedMessage, cardLocation: text })
@@ -81,6 +83,8 @@ export const EditMessage = () => {
           <TextAreaInput
             placeholder={strings.form.personalMessageField.placeholder}
             height={120}
+            maxChars={800}
+            currentChars={encryptedMessage?.personalMessage ?? 0}
             value={encryptedMessage?.personalMessage}
             onChange={text =>
               setEncryptedMessage({

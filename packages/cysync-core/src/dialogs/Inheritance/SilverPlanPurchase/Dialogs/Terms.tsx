@@ -1,7 +1,6 @@
 import {
   Button,
   CheckBox,
-  Container,
   Flex,
   LangDisplay,
   Typography,
@@ -39,11 +38,9 @@ export const Terms = () => {
         </Button>
       }
     >
-      <Container display="flex" direction="column" gap={4}>
-        <Typography $textAlign="center" variant="h5" color="heading">
-          <LangDisplay text={strings.title} />
-        </Typography>
-      </Container>
+      <Typography $textAlign="center" variant="h5" color="heading">
+        <LangDisplay text={strings.title} />
+      </Typography>
       <Flex width="full" direction="column" gap={16}>
         <ExternalLink
           href={constants.inheritance.termsOfServiceLink}
