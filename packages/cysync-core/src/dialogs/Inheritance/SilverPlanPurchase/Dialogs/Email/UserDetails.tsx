@@ -53,6 +53,7 @@ export const UserDetails = () => {
   }, []);
 
   const isSameEmail = Boolean(email && email === alternateEmail);
+  const isFormIncomplete = !name || !email || !alternateEmail;
 
   return (
     <Layout
@@ -69,7 +70,7 @@ export const UserDetails = () => {
             variant="primary"
             type="submit"
             form={formId}
-            disabled={isRegisteringUser || isSameEmail}
+            disabled={isRegisteringUser || isSameEmail || isFormIncomplete}
             isLoading={isRegisteringUser}
           >
             <LangDisplay text={silverPlanStrings.buttons.sendOTP} />
@@ -101,6 +102,7 @@ export const UserDetails = () => {
             rightLabel={lang.strings.labels.required}
             value={name}
             required
+            autoFocus
             onChange={setName}
             showRequiredStar
             inputLabelProps={{

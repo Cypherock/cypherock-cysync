@@ -39,6 +39,7 @@ export interface PaymentProps {
   onChange: (coupon: string) => void;
   disabled?: boolean;
   isLoading?: boolean;
+  couponLength?: number;
 }
 
 export const Payment: FC<PaymentProps> = ({
@@ -53,6 +54,7 @@ export const Payment: FC<PaymentProps> = ({
   externalLink,
   disabled,
   isLoading,
+  couponLength,
 }) => {
   const theme = useTheme();
 
@@ -96,6 +98,7 @@ export const Payment: FC<PaymentProps> = ({
             placeholderText={lang.form.promoField.placeholder}
             disabled={disabled}
             isLoading={isLoading}
+            couponLength={couponLength}
           />
         </Flex>
         {applied && (
@@ -141,4 +144,5 @@ Payment.defaultProps = {
   disabled: false,
   isLoading: false,
   error: undefined,
+  couponLength: 14,
 };

@@ -15,6 +15,9 @@ export const EncryptionSuccess: React.FC = () => {
       title={
         lang.strings.inheritanceSilverPlanPurchase.encryption.success.title
       }
+      subtext={
+        lang.strings.inheritanceSilverPlanPurchase.encryption.success.subTitle
+      }
       buttonText={lang.strings.buttons.next}
       handleClick={onNext}
       onClose={onClose}
