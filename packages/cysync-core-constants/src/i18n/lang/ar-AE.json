@@ -55,7 +55,8 @@
     "no": "No",
     "saveAndContinue": "Save and continue",
     "exitWithoutSaving": "Exit without saving",
-    "saveChanges": "Save changes"
+    "saveChanges": "Save changes",
+    "edit": "Edit"
   },
   "dashboard": {
     "wallet": {
@@ -2079,7 +2080,7 @@
           "primaryEmailField": { "label": "Primary Email" },
           "secondaryEmailField": { "label": "Secondary Email" },
           "executorMessage": { "label": "Executor Message" },
-          "assignTo": { "label": "Assign to" }
+          "assignTo": { "label": "Assigned to" }
         }
       }
     },
@@ -2335,8 +2336,7 @@
             "label": "Choose a nominee to link with executor",
             "tooltip": "Select the nominee you want to link with the executor. If you choose Nominee 1 then the executor will receive their email written by you on same time as Nominee 1.\n\nIf you choose Nominee 2 then the executor will receive their email written by you on same time as Nominee 2 i.e, 3 months after Nominee 1.",
             "options": {
-              "labelOne": "Nominee 1",
-              "labelTwo": "Nominee 2"
+              "labelPrefix": "Nominee "
             }
           }
         }
@@ -2395,7 +2395,7 @@
           "primaryEmailField": { "label": "Primary Email" },
           "secondaryEmailField": { "label": "Secondary Email" },
           "reminderPeriodField": {
-            "label": "Reminder Perioc",
+            "label": "Reminder Period",
             "input": "Every ${month} month",
             "inputPlural": "Every ${month} months"
           }
@@ -2421,7 +2421,7 @@
           "nomineeNameField": { "label": "Nominee Name" },
           "primaryEmailField": { "label": "Primary Email" },
           "secondaryEmailField": { "label": "Secondary Email" },
-          "assignTo": { "label": "Assign to" }
+          "assignTo": { "label": "Assigned to" }
         }
       },
       "executorMessage": {

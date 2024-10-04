@@ -18,7 +18,7 @@ import { Layout } from '../../Layout';
 
 export const Nominee = () => {
   const lang = useSelector(selectLanguage);
-  const { onPrevious, goTo, nomineeCount } =
+  const { onPrevious, onNext, nomineeCount, setNomineeCount } =
     useInheritanceGoldPlanPurchaseDialog();
   const strings =
     lang.strings.inheritanceGoldPlanPurchase.nomineeAndExecutor.select;
@@ -31,7 +31,7 @@ export const Nominee = () => {
             <LangDisplay text={lang.strings.buttons.back} />
           </Button>
           <Button
-            onClick={() => goTo(5, 1)}
+            onClick={() => onNext()}
             variant="primary"
             disabled={!nomineeCount}
           >
@@ -64,12 +64,16 @@ export const Nominee = () => {
           description={strings.options.descOne}
           $styleType="1"
           $width={340}
+          isSelected={nomineeCount === 1}
+          onClick={() => setNomineeCount(1)}
         />
         <OneInMany
           title="2"
           description={strings.options.descTwo}
           $styleType="1"
           $width={340}
+          isSelected={nomineeCount === 2}
+          onClick={() => setNomineeCount(2)}
         />
       </Container>
     </Layout>

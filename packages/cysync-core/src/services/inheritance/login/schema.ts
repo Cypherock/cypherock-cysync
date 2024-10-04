@@ -60,6 +60,24 @@ export const refreshAccessTokenResultSchema = z.object({
   authToken: z.string(),
 });
 
+const genericSuccessResult = z.object({
+  success: z.boolean().optional(),
+});
+
+export type ReminderPeriod = 'monthly' | 'quarterly' | 'half-yearly' | 'yearly';
+
+export type NomineeType = 'PRIMARY' | 'ALTERNATE';
+
+export const updateNomineesResultSchema = z.object({
+  success: z.boolean().optional(),
+  otpDetails: otpDetailSchema
+    .extend({ requestId: z.string() })
+    .array()
+    .optional(),
+});
+export const updateExecutorResultSchema = genericSuccessResult;
+export const updateReminderResultSchema = genericSuccessResult;
+
 export type InheritanceLoginInitResponse = z.infer<typeof initResultSchema>;
 export type InheritanceLoginResendResponse = z.infer<typeof resendResultSchema>;
 export type InheritanceLoginVerifyResponse = z.infer<typeof verifyResultSchema>;

@@ -10,31 +10,49 @@ import {
   Tooltip,
   Typography,
 } from '@cypherock/cysync-ui';
-import React, { useState } from 'react';
+import React from 'react';
 
 import { selectLanguage, useAppSelector } from '~/store';
 
 import { useInheritanceGoldPlanPurchaseDialog } from '../../context';
+import { tabIndicies } from '../../context/useDialogHandler';
 import { Layout } from '../../Layout';
 
 export const NomineePrivateMessageInput = () => {
   const lang = useAppSelector(selectLanguage);
-  const [form, setForm] = useState({
-    cardLocation: '',
-    message: '',
-  });
   const strings = lang.strings.inheritanceGoldPlanPurchase.message;
 
-  const { goTo } = useInheritanceGoldPlanPurchaseDialog();
+  const {
+    onPrevious,
+    onNext,
+    cardLocation,
+    setCardLocation,
+    personalMessage,
+    setPersonalMessage,
+    haveExecutor,
+    goTo,
+    isOnSummaryPage,
+  } = useInheritanceGoldPlanPurchaseDialog();
 
   return (
     <Layout
       footerComponent={
         <>
-          <Button onClick={() => goTo(6, 0)} variant="secondary">
+          <Button
+            onClick={() => onPrevious()}
+            variant="secondary"
+            disabled={isOnSummaryPage}
+          >
             <LangDisplay text={lang.strings.buttons.back} />
           </Button>
-          <Button onClick={() => goTo(6, 2)} variant="primary">
+          <Button
+            onClick={() => {
+              if (isOnSummaryPage) goTo(tabIndicies.summary.tabNumber);
+              else if (haveExecutor) onNext();
+              else goTo(tabIndicies.reminder.tabNumber, 0);
+            }}
+            variant="primary"
+          >
             <LangDisplay text={lang.strings.buttons.continue} />
           </Button>
         </>
@@ -71,10 +89,10 @@ export const NomineePrivateMessageInput = () => {
         <TextAreaInput
           placeholder={strings.nominee.form.locationField.placeholder}
           height={120}
+          value={cardLocation}
+          onChange={setCardLocation}
           maxChars={800}
-          currentChars={form.cardLocation.length || 0}
-          value={form.cardLocation}
-          onChange={val => setForm(p => ({ ...p, cardLocation: val }))}
+          currentChars={cardLocation.length || 0}
         />
         <Flex direction="column" $flex={1} width="100%">
           <Flex>
@@ -90,11 +108,11 @@ export const NomineePrivateMessageInput = () => {
           </Flex>
           <TextAreaInput
             placeholder={strings.nominee.form.personalMessage.placeholder}
+            value={personalMessage}
+            onChange={setPersonalMessage}
             height={120}
             maxChars={800}
-            currentChars={form.message.length || 0}
-            value={form.message}
-            onChange={val => setForm(p => ({ ...p, message: val }))}
+            currentChars={personalMessage.length || 0}
           />
         </Flex>
         <MessageBox type="warning" text={strings.nominee.messageBox.warning} />
