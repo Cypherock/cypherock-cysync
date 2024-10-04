@@ -64,7 +64,7 @@ export const EditMessage = () => {
             placeholder={strings.form.cardLocationField.placeholder}
             height={120}
             maxChars={800}
-            currentChars={encryptedMessage?.cardLocation ?? 0}
+            currentChars={encryptedMessage?.cardLocation.length ?? 0}
             value={encryptedMessage?.cardLocation}
             onChange={text =>
               setEncryptedMessage({ ...encryptedMessage, cardLocation: text })
@@ -84,7 +84,7 @@ export const EditMessage = () => {
             placeholder={strings.form.personalMessageField.placeholder}
             height={120}
             maxChars={800}
-            currentChars={encryptedMessage?.personalMessage ?? 0}
+            currentChars={encryptedMessage?.personalMessage.length ?? 0}
             value={encryptedMessage?.personalMessage}
             onChange={text =>
               setEncryptedMessage({
