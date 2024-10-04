@@ -1634,7 +1634,7 @@
           "subTitle": "Authenticating the wallet ",
           "actions": {
             "confirmAuth": "Confirm wallet authentication on device",
-            "enterPinAndTapCard": "Enter Pin and tap any one card"
+            "enterPinAndTapCard": "Tap any one card"
           },
           "messageBox": {
             "warning": "Lift your card after 2 beep sounds"
@@ -1965,7 +1965,7 @@
       "Please enter the code received on the email"
     ],
     "noRetries": {
-      "title": "You have 0 retries remaining",
+      "title": "You have 0 tries remaining",
       "subTitle": "Please exit the flow and restart"
     },
     "buttons": {
