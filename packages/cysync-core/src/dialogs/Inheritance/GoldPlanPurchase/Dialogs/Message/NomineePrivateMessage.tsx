@@ -11,11 +11,11 @@ import {
   Typography,
 } from '@cypherock/cysync-ui';
 import React from 'react';
-import { tabIndicies } from '~/dialogs/Inheritance/GoldPlanPurchase/context/useDialogHandler';
 
 import { selectLanguage, useAppSelector } from '~/store';
 
 import { useInheritanceGoldPlanPurchaseDialog } from '../../context';
+import { tabIndicies } from '../../context/useDialogHandler';
 import { Layout } from '../../Layout';
 
 export const NomineePrivateMessageInput = () => {
