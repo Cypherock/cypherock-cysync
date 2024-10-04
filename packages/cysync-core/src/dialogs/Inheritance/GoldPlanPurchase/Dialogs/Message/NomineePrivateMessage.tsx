@@ -20,7 +20,6 @@ import { Layout } from '../../Layout';
 
 export const NomineePrivateMessageInput = () => {
   const lang = useAppSelector(selectLanguage);
-
   const strings = lang.strings.inheritanceGoldPlanPurchase.message;
 
   const {
@@ -92,6 +91,8 @@ export const NomineePrivateMessageInput = () => {
           height={120}
           value={cardLocation}
           onChange={setCardLocation}
+          maxChars={800}
+          currentChars={cardLocation.length || 0}
         />
         <Flex direction="column" $flex={1} width="100%">
           <Flex>
@@ -110,6 +111,8 @@ export const NomineePrivateMessageInput = () => {
             value={personalMessage}
             onChange={setPersonalMessage}
             height={120}
+            maxChars={800}
+            currentChars={personalMessage.length || 0}
           />
         </Flex>
         <MessageBox type="warning" text={strings.nominee.messageBox.warning} />

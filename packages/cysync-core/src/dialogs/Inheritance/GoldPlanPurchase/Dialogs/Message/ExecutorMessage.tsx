@@ -78,6 +78,8 @@ export const ExecutorMessage = () => {
           value={executorMessage}
           onChange={setExecutorMessage}
           height={120}
+          maxChars={800}
+          currentChars={executorMessage.length || 0}
         />
       </Flex>
     </Layout>

@@ -5,9 +5,10 @@ import {
   ManyInMany,
   ScrollableContainer,
   Tooltip,
+  TooltipPlacement,
   Typography,
 } from '@cypherock/cysync-ui';
-import React from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
 import { selectLanguage, useAppSelector } from '~/store';
 
@@ -21,6 +22,47 @@ export const SelectWallet = () => {
 
   const { onNext, onPrevious, allWallets, selectedWallet, setSelectedWallet } =
     useInheritanceGoldPlanPurchaseDialog();
+
+  const [tooltipPlacements, setTooltipPlacements] = useState<{
+    [key: string]: TooltipPlacement;
+  }>({});
+
+  const observerRef = useRef<IntersectionObserver>();
+
+  const handleObserver = (entries: IntersectionObserverEntry[]) => {
+    entries.forEach((entry: IntersectionObserverEntry) => {
+      const walletId = entry.target.getAttribute('data-wallet-id');
+      if (walletId) {
+        let placement: TooltipPlacement;
+        if (entry.isIntersecting) placement = 'bottom';
+        else if (
+          entry.rootBounds &&
+          entry.boundingClientRect.bottom > entry.rootBounds.bottom
+        )
+          placement = 'top';
+        else placement = 'bottom';
+        setTooltipPlacements(prev => ({ ...prev, [walletId]: placement }));
+      }
+    });
+  };
+
+  useEffect(() => {
+    observerRef.current = new IntersectionObserver(handleObserver, {
+      root: document.querySelector('.scrollable-container'),
+      threshold: 0.95,
+    });
+    const observedElements = document.querySelectorAll('.wallet-card');
+
+    observedElements.forEach(el => {
+      observerRef.current?.observe(el);
+    });
+
+    return () => {
+      observedElements.forEach(el => {
+        observerRef.current?.unobserve(el);
+      });
+    };
+  }, [allWallets]);
 
   return (
     <Layout
@@ -52,24 +94,29 @@ export const SelectWallet = () => {
           <LangDisplay text={strings.wallet.selectWallet.subTitle} />
         </Typography>
       </Container>
-      <ScrollableContainer $maxHeight={264}>
+      <ScrollableContainer $maxHeight={264} className="scrollable-container">
         <Container direction="row" gap={8} $flexWrap="wrap">
           {allWallets.map(wallet => {
-            if (Boolean(wallet.isDeleted) || !wallet.hasPin) {
+            const isDisabled = Boolean(wallet.isDeleted) || !wallet.hasPin;
+            const walletId = wallet.__id ?? '';
+            const tooltipPlacement = tooltipPlacements[walletId] || 'bottom';
+            if (isDisabled) {
               return (
                 <Tooltip
-                  key={wallet.__id ?? ''}
+                  key={walletId}
                   text={strings.wallet.selectWallet.tooltip}
-                  tooltipPlacement="bottom"
+                  tooltipPlacement={tooltipPlacement}
                 >
-                  <ManyInMany
-                    title={wallet.name}
-                    disabled={Boolean(wallet.isDeleted) || !wallet.hasPin}
-                    isSelected={selectedWallet?.__id === wallet.__id}
-                    onClick={() => setSelectedWallet(wallet)}
-                    $width={340}
-                    $height={128}
-                  />
+                  <div className="wallet-card" data-wallet-id={walletId}>
+                    <ManyInMany
+                      title={wallet.name}
+                      disabled={isDisabled}
+                      isSelected={selectedWallet?.__id === wallet.__id}
+                      onClick={() => setSelectedWallet(wallet)}
+                      $width={340}
+                      $height={128}
+                    />
+                  </div>
                 </Tooltip>
               );
             }
@@ -77,7 +124,7 @@ export const SelectWallet = () => {
               <ManyInMany
                 key={wallet.__id ?? ''}
                 title={wallet.name}
-                disabled={Boolean(wallet.isDeleted) || !wallet.hasPin}
+                disabled={isDisabled}
                 isSelected={selectedWallet?.__id === wallet.__id}
                 onClick={() => setSelectedWallet(wallet)}
                 $width={340}

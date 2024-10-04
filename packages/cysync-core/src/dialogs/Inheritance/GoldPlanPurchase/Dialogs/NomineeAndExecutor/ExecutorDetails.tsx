@@ -126,7 +126,8 @@ export const ExecutorDetails = () => {
                 >
                   <RadioButton checked={selectedNominee === index} />
                   <Typography $fontSize={14} color="muted">
-                    {`Nominee ${index + 1}`}
+                    {strings.executor.executorDetails.radio.options
+                      .labelPrefix + (index + 1).toString()}
                   </Typography>
                 </Flex>
               ))}

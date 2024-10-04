@@ -70,6 +70,7 @@ export const UserDetailsForm: FC<UserDetailsFormProps> = ({
           rightLabel={lang.strings.labels.required}
           value={name}
           required
+          autoFocus
           onChange={setName}
           showRequiredStar
           inputLabelProps={{

@@ -1652,7 +1652,7 @@
       }
     },
     "inheritancePinRecovery": {
-      "title": "Pin Recovery",
+      "title": "PIN Recovery",
       "sync": {
         "name": "Syncing",
         "walletAuth": {
@@ -1686,12 +1686,13 @@
         },
         "error": {
           "title": "PIN Decryption Failed",
-          "subTitle": "PIN decryption was unsuccessful. Wallet ABC was not found in the card"
+          "subTitle": "PIN decryption was unsuccessful. Wallet ${wallet} was not found in the card"
         }
       },
       "viewPin": {
         "name": "View PIN",
         "title": "Follow instructions on the X1 Vault",
+        "subTitle": "PIN for wallet ",
         "actions": {
           "viewDevice": "View the PIN on your device and confirm"
         }
@@ -2003,11 +2004,11 @@
     "plans": {
       "silver": {
         "title": "Silver",
-        "description": "Secure your wallet PIN with us and easily recover it if forgotten, ensuring continuous access to your crypto assets."
+        "description": "Secure your wallet PIN with us and easily recover it if forgotten, ensuring continuous access to your crypto assets"
       },
       "gold": {
         "title": "Gold",
-        "description": "Ensure your crypto assets are inherited by loved ones effortlessly, bypassing complex legal restrictions for smooth transfers."
+        "description": "Ensure your crypto assets are inherited by loved ones effortlessly, bypassing complex legal restrictions for smooth transfers"
       }
     },
     "choosePlan": {
@@ -2019,7 +2020,8 @@
           "No KYC required",
           "Multi-Chain",
           "PIN Recovery",
-          "Estate Recovery"
+          "Estate Recovery",
+          "Passphrase Recovery"
         ]
       }
     },
@@ -2027,25 +2029,25 @@
       "headers": {
         "owner": {
           "title": "Owner",
-          "subtitle": "You have setup Cypherock cover for these wallets"
+          "subtitle": "Setup recovery for your wallets"
         },
         "nominee": {
           "title": "Nominee",
-          "subtitle": "Somebody made you a nominee of their assets"
+          "subtitle": "You are a nominee of the following wallets"
         }
       },
       "setup": {
         "setupCover": {
           "title": "Setup Cypherock Cover",
-          "subTitle": "Protect your crypto assets and ensure smooth transfer to your beneficiaries in unforeseen circumstances."
+          "subTitle": "Protect your crypto assets and ensure smooth transfer to your beneficiaries in unforeseen circumstances"
         },
         "syncFromMail": {
           "title": "Sync from Email",
-          "subTitle": "If you're already part of a Cypherock Cover plan, either as the plan owner or a beneficiary."
+          "subTitle": "If you're already part of a Cypherock Cover plan, either as the plan owner or a beneficiary"
         },
         "learnMore": {
           "title": "What is Cypherock Cover?",
-          "subTitle": "Learn how Cypherock Cover secures your crypto assets and ensures their seamless transfer to your loved ones."
+          "subTitle": "Learn how Cypherock Cover secures your crypto assets and ensures their seamless transfer to your loved ones"
         }
       }
     },
@@ -2144,7 +2146,7 @@
         }
       },
       "payment": {
-        "heading": "Complete your payment",
+        "heading": "Buy the plan on the Cypherock website",
         "subtext": "You have to purchase the plan on the Cypherock website and then apply the generated coupon code in the 'Coupon Code' section below to complete your purchase",
         "form": {
           "promoField": {
@@ -2179,8 +2181,7 @@
         ]
       },
       "video": {
-        "title": "Watch the whole video before you proceed",
-        "subTitle": "The video will help you take the right decisions"
+        "title": "Watch the tutorial video before you proceed further"
       }
     },
     "wallet": {
@@ -2192,7 +2193,7 @@
       },
       "walletAuth": {
         "title": "Follow instructions on the X1 Vault to authenticate the selected wallet",
-        "subTitle": "Authenticating the wallet, ",
+        "subTitle": "Authenticating the wallet ",
         "actions": {
           "confirm": "Confirm wallet authentication on device",
           "tapCard": "Enter PIN and tap any one card"
@@ -2205,7 +2206,7 @@
     "email": {
       "heading": "Owner",
       "userDetails": {
-        "title": "User Details",
+        "title": "Your Details",
         "subTitle": "All the fields are mandatory",
         "buttons": {
           "sendOTP": "Send OTP"
@@ -2215,7 +2216,7 @@
     "encryption": {
       "heading": "Encryption",
       "device": {
-        "title": "Follow instructions on the X1 Vault to encrypt the wallet PIN",
+        "title": "Follow instructions on the X1 Vault to encrypt the PIN",
         "subTitle": "Lift your card after 2 beep sounds",
         "tooltip": "Tap any one X1 card below the X1 device to encrypt the message and do not remove the card until you hear 2 beep sounds",
         "actions": {
@@ -2227,11 +2228,12 @@
         }
       },
       "loading": {
-        "title": "Please wait while we encrypt the data",
+        "title": "Please wait while we save the encrypted data on the server",
         "subTitle": "Do not disconnect or close the app"
       },
       "success": {
-        "title": "PIN recovery message successfully encrypted"
+        "title": "PIN is successfully encrypted and saved",
+        "subTitle": "To complete your silver plan setup, you can now proceed with the plan purchase"
       }
     },
     "checkout": {
@@ -2363,8 +2365,7 @@
             "label": "Choose a nominee to link with executor",
             "tooltip": "Select the nominee you want to link with the executor. If you choose Nominee 1 then the executor will receive their email written by you on same time as Nominee 1.\n\nIf you choose Nominee 2 then the executor will receive their email written by you on same time as Nominee 2 i.e, 3 months after Nominee 1.",
             "options": {
-              "labelOne": "Nominee 1",
-              "labelTwo": "Nominee 2"
+              "labelPrefix": "Nominee "
             }
           }
         }
