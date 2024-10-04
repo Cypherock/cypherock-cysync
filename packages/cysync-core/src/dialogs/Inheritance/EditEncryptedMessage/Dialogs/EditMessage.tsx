@@ -57,7 +57,7 @@ export const EditMessage = () => {
             setEncryptedMessage({ ...encryptedMessage, cardLocation: text })
           }
           maxChars={800}
-          currentChars={encryptedMessage.cardLocation.length || 0}
+          currentChars={encryptedMessage?.cardLocation.length ?? 0}
           autoFocus
         />
         <TextAreaInput
