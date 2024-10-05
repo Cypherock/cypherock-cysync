@@ -17,44 +17,51 @@ export const Checkout = () => {
   const [tempCoupon, setCoupon] = useState('');
   const lang = useAppSelector(selectLanguage);
   const strings = lang.strings.inheritanceSilverPlanPurchase.checkout;
+  const [isValidCoupon, setIsValidCoupon] = useState(false);
+  const [isPlanActivated, setIsPlanActivated] = useState(false);
 
   const {
     onNext,
     applyCoupon,
     removeCoupon,
-    isCouponApplied,
     isApplyingCoupon,
-    coupon,
     applyingCouponError,
     couponDuration,
     isActivatingCoupon,
     activateCoupon,
-    isCouponActivated,
   } = useInheritanceSilverPlanPurchaseDialog();
 
-  const onApply = () => {
-    applyCoupon(tempCoupon);
+  const onApply = async () => {
+    const isValid = await applyCoupon(tempCoupon);
+    setIsValidCoupon(isValid);
+  };
+
+  const onActivate = async () => {
+    const isActivated = await activateCoupon();
+    setIsPlanActivated(isActivated);
   };
 
   const onDelete = () => {
     setCoupon('');
     removeCoupon();
+    setIsValidCoupon(false);
+    setIsPlanActivated(false);
   };
 
-  const couponText = isCouponApplied ? coupon : tempCoupon;
+  const couponText = tempCoupon;
 
   useEffect(() => {
-    if (isCouponActivated) {
+    if (isPlanActivated) {
       onNext();
     }
-  }, [isCouponActivated, onNext]);
+  }, [isPlanActivated, onNext]);
 
   return (
     <Layout
       footerComponent={
         <Button
-          onClick={activateCoupon}
-          disabled={!isCouponApplied || isActivatingCoupon}
+          onClick={onActivate}
+          disabled={!isValidCoupon || isActivatingCoupon}
           isLoading={isActivatingCoupon}
         >
           {lang.strings.buttons.confirm}
@@ -73,13 +80,13 @@ export const Checkout = () => {
         lang={lang.strings.inheritance.dialog.payment}
         externalLink={constants.inheritance.silverPlanPurchaseLink}
         isLoading={isApplyingCoupon}
-        applied={isCouponApplied}
+        applied={isValidCoupon}
         error={applyingCouponError}
         coupon={couponText}
         onChange={setCoupon}
         onApply={onApply}
         onDelete={onDelete}
-        year={couponDuration}
+        duration={couponDuration}
         couponLength={14}
       />
     </Layout>
