@@ -17,7 +17,8 @@ export const getServerErrorHandlingDetails = (
     ServerErrorType,
     ErrorHandlingDetails | undefined
   > = {
-    [ServerErrorType.UNKNOWN_ERROR]: generateErrorHandlingDetails.report(),
+    [ServerErrorType.UNKNOWN_ERROR]:
+      generateErrorHandlingDetails.retryWithReport(),
     [ServerErrorType.CONNOT_CONNECT]: generateErrorHandlingDetails.retry(),
 
     [ServerErrorType.OTP_VERIFICATION_FAILED]:

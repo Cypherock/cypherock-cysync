@@ -1053,66 +1053,66 @@
     "serverErrors": {
       "SER_0000": {
         "heading": "Ihre CySync App hat ein Verbindungsproblem",
-        "subtext": "Verbinden Sie das Gerät erneut und versuchen Sie es erneut und wenn das Problem weiterhin besteht, kontaktieren Sie den Cypherock Support für Unterstützung"
+        "subtext": "Try again and if the problem persists, contact Cypherock support for assistance"
       },
       "SER_0001": {
         "heading": "Bitte verbinden Sie sich mit dem Internet, um fortzufahren"
       },
       "SER_1001": {
         "heading": "Your cySync app is facing some connectivity issue",
-        "subtext": "Reconnect the device and try again and if the problem persists, contact Cypherock support for assistance"
+        "subtext": "Try again and if the problem persists, contact Cypherock support for assistance"
       },
       "SER_1003": {
         "heading": "Your cySync app is facing some connectivity issue",
-        "subtext": "Reconnect the device and try again and if the problem persists, contact Cypherock support for assistance"
+        "subtext": "Try again and if the problem persists, contact Cypherock support for assistance"
       },
       "SER_1004": {
         "heading": "Your cySync app is facing some connectivity issue",
-        "subtext": "Reconnect the device and try again and if the problem persists, contact Cypherock support for assistance"
+        "subtext": "Try again and if the problem persists, contact Cypherock support for assistance"
       },
       "SER_1005": {
         "heading": "Your cySync app is facing some connectivity issue",
-        "subtext": "Reconnect the device and try again and if the problem persists, contact Cypherock support for assistance"
+        "subtext": "Try again and if the problem persists, contact Cypherock support for assistance"
       },
       "SER_1006": {
         "heading": "Your cySync app is facing some connectivity issue",
-        "subtext": "Reconnect the device and try again and if the problem persists, contact Cypherock support for assistance"
+        "subtext": "Try again and if the problem persists, contact Cypherock support for assistance"
       },
       "SER_1007": {
         "heading": "Your cySync app is facing some connectivity issue",
-        "subtext": "Reconnect the device and try again and if the problem persists, contact Cypherock support for assistance"
+        "subtext": "Try again and if the problem persists, contact Cypherock support for assistance"
       },
       "SER_1008": {
         "heading": "Your cySync app is facing some connectivity issue",
-        "subtext": "Reconnect the device and try again and if the problem persists, contact Cypherock support for assistance"
+        "subtext": "Try again and if the problem persists, contact Cypherock support for assistance"
       },
       "SER_1009": {
         "heading": "Your cySync app is facing some connectivity issue",
-        "subtext": "Reconnect the device and try again and if the problem persists, contact Cypherock support for assistance"
+        "subtext": "Try again and if the problem persists, contact Cypherock support for assistance"
       },
       "SER_1010": {
         "heading": "Your cySync app is facing some connectivity issue",
-        "subtext": "Reconnect the device and try again and if the problem persists, contact Cypherock support for assistance"
+        "subtext": "Try again and if the problem persists, contact Cypherock support for assistance"
       },
       "SER_1011": {
         "heading": "Your cySync app is facing some connectivity issue",
-        "subtext": "Reconnect the device and try again and if the problem persists, contact Cypherock support for assistance"
+        "subtext": "Try again and if the problem persists, contact Cypherock support for assistance"
       },
       "SER_1012": {
         "heading": "Your cySync app is facing some connectivity issue",
-        "subtext": "Reconnect the device and try again and if the problem persists, contact Cypherock support for assistance"
+        "subtext": "Try again and if the problem persists, contact Cypherock support for assistance"
       },
       "SER_1013": {
         "heading": "Your cySync app is facing some connectivity issue",
-        "subtext": "Reconnect the device and try again and if the problem persists, contact Cypherock support for assistance"
+        "subtext": "Try again and if the problem persists, contact Cypherock support for assistance"
       },
       "SER_1014": {
         "heading": "Your cySync app is facing some connectivity issue",
-        "subtext": "Reconnect the device and try again and if the problem persists, contact Cypherock support for assistance"
+        "subtext": "Try again and if the problem persists, contact Cypherock support for assistance"
       },
       "SER_1015": {
         "heading": "Your cySync app is facing some connectivity issue",
-        "subtext": "Reconnect the device and try again and if the problem persists, contact Cypherock support for assistance"
+        "subtext": "Try again and if the problem persists, contact Cypherock support for assistance"
       }
     },
     "default": "Ein interner Fehler ist aufgetreten"
