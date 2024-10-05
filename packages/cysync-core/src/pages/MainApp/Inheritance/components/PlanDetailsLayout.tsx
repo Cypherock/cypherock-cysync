@@ -4,17 +4,21 @@ import {
   Container,
   Flex,
 } from '@cypherock/cysync-ui';
-import { InheritancePlanType } from '@cypherock/db-interfaces';
+import {
+  IInheritancePlan,
+  InheritancePlanTypeMap,
+} from '@cypherock/db-interfaces';
 import React, { FC } from 'react';
 
-import { selectLanguage, useAppSelector } from '~/store';
+import { openInheritancePinRecoveryDialog } from '~/actions';
+import { selectLanguage, useAppDispatch, useAppSelector } from '~/store';
 
 import { InheritancePageLayout } from '../Layout';
 
 interface InheritancePageLayoutProps {
   children: React.ReactNode;
   onBack: () => void;
-  plan: InheritancePlanType;
+  plan: IInheritancePlan;
 }
 
 export const InheritancePlanDetailsLayout: FC<InheritancePageLayoutProps> = ({
@@ -22,6 +26,7 @@ export const InheritancePlanDetailsLayout: FC<InheritancePageLayoutProps> = ({
   plan,
   onBack,
 }) => {
+  const dispatch = useAppDispatch();
   const lang = useAppSelector(selectLanguage);
   const strings = lang.strings.inheritance;
 
@@ -31,8 +36,12 @@ export const InheritancePlanDetailsLayout: FC<InheritancePageLayoutProps> = ({
   };
 
   const onRecoverPin = () => {
-    // TODO: Implement pin recovery logic here
-    alert('Pin Recovery Clicked');
+    dispatch(
+      openInheritancePinRecoveryDialog({
+        walletId: plan.walletId,
+        walletName: plan.walletName,
+      }),
+    );
   };
 
   const onUpgradePlan = () => {
@@ -53,7 +62,7 @@ export const InheritancePlanDetailsLayout: FC<InheritancePageLayoutProps> = ({
             <Button variant="secondary" onClick={onRecoverPin}>
               {strings.buttons.recoverPin}
             </Button>
-            {plan === 'silver' && (
+            {plan.type === InheritancePlanTypeMap.silver && (
               <Button variant="secondary" onClick={onUpgradePlan}>
                 {strings.buttons.upgradePlan}
               </Button>

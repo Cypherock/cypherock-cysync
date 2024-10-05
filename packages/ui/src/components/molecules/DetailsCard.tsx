@@ -121,7 +121,13 @@ export const DetailsCard: FC<DetailsCardProps> = ({
             </Flex>
           )}
           {text && (
-            <Typography color="muted" px={2} pt={4} pb={1}>
+            <Typography
+              color="muted"
+              px={2}
+              pt={4}
+              pb={1}
+              $whiteSpace="pre-wrap"
+            >
               {text}
             </Typography>
           )}

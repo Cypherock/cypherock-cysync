@@ -49,6 +49,7 @@ const InheritanceGoldPlanPurchase: FC = () => {
     onClose,
     onRetry,
     isDeviceRequired,
+    overriddenCurrentMilestone,
   } = useInheritanceGoldPlanPurchaseDialog();
 
   const lang = useAppSelector(selectLanguage);
@@ -67,7 +68,7 @@ const InheritanceGoldPlanPurchase: FC = () => {
             milestones={tabs
               .filter(t => !t.dontShowOnMilestone)
               .map(t => t.name)}
-            activeTab={currentTab}
+            activeTab={overriddenCurrentMilestone ?? currentTab}
             heading={lang.strings.inheritanceGoldPlanPurchase.title}
           />
           <WalletDialogMainContainer>

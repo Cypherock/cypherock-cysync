@@ -3,10 +3,15 @@ import {
   activateResultSchema,
   applyCouponResultSchema,
   createResultSchema,
+  getPlanResultSchema,
 } from './schema';
 import { inheritanceSyncPlansService } from './sync';
 
-import { makePostRequest, runAndHandleServerErrors } from '../../utils';
+import {
+  makeGetRequest,
+  makePostRequest,
+  runAndHandleServerErrors,
+} from '../../utils';
 import { inheritanceBaseUrl } from '../common';
 
 export {
@@ -61,10 +66,16 @@ const activate = async (params: { coupon: string; accessToken: string }) =>
     ),
   );
 
+const getPlan = async (params: { accessToken: string }) =>
+  runAndHandleServerErrors(() =>
+    makeGetRequest(getPlanResultSchema, `${baseUrl}/list`, params.accessToken),
+  );
+
 export const inheritancePlanService = {
   create,
   applyCoupon,
   activate,
   sync: inheritanceSyncPlansService,
   recover: inheritanceRecoverPlansService,
+  getPlan,
 };

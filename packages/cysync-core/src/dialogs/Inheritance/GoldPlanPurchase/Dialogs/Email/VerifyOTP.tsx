@@ -1,47 +1,80 @@
-import React, { useMemo, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useRef } from 'react';
 
 import {
   OTPInputDialog,
   OTPInputDialogRef,
 } from '~/dialogs/Inheritance/components';
+import { OtpVerificationConcern } from '~/dialogs/Inheritance/hooks';
 import { selectLanguage, useAppSelector } from '~/store';
 
 import { useInheritanceGoldPlanPurchaseDialog } from '../../context';
+import { tabIndicies } from '../../context/useDialogHandler';
 
 export const VerifyOTP: React.FC = () => {
   const lang = useAppSelector(selectLanguage);
-  const strings = lang.strings.inheritanceGoldPlanPurchase.email;
+  const strings = lang.strings.inheritance.dialog.verifyOTP;
 
-  const { onPrevious, userDetails, onNext } =
-    useInheritanceGoldPlanPurchaseDialog();
+  const {
+    onPrevious,
+    onNext,
+    otpVerificationDetails,
+    verifyOtp,
+    isVerifyingOtp,
+    isOnSummaryPage,
+    goTo,
+  } = useInheritanceGoldPlanPurchaseDialog();
 
-  const [email, setEmail] = useState(userDetails?.email ?? '');
-  const [title, setTitle] = useState(strings.primaryEmailOTP.title);
+  const title = useMemo(() => {
+    const map: Record<OtpVerificationConcern, string> = {
+      [OtpVerificationConcern.primary]: strings.primaryEmailOTP.title,
+      [OtpVerificationConcern.alternate]: strings.alternateEmailOTP.title,
+      [OtpVerificationConcern.login]: lang.strings.otp.title,
+    };
+
+    if (!otpVerificationDetails) return '';
+
+    return map[otpVerificationDetails.concern];
+  }, [otpVerificationDetails?.concern, lang]);
 
   const otpRef = useRef<OTPInputDialogRef | null>(null);
 
-  const onVerify = () => {
-    // DUMMY FUNCTION
-    if (email === userDetails?.alternateEmail) {
-      onNext();
-      return;
-    }
-
-    setEmail(userDetails?.alternateEmail ?? '');
-    setTitle(strings.alternateEmailOTP.title);
-    otpRef.current?.reset();
-  };
+  const onVerify = useCallback(
+    async (otp: string) => {
+      await verifyOtp(otp);
+    },
+    [verifyOtp],
+  );
 
   const onResend = () => {
     // DUMMY FUNCTION
   };
 
   const otpExpireTime = useMemo(
-    () => new Date(Date.now() + 60 * 1000).toISOString(),
-    [email],
+    () => otpVerificationDetails?.otpExpiry ?? '',
+    [otpVerificationDetails?.otpExpiry],
   );
+
   const otpLength = 6;
-  const retriesRemaining = 3;
+
+  const retriesRemaining = otpVerificationDetails?.retriesRemaining ?? 3;
+  const email = otpVerificationDetails?.email ?? '';
+
+  useEffect(() => {
+    if (otpRef.current) {
+      otpRef.current.reset();
+    }
+  }, [otpVerificationDetails?.id]);
+
+  useEffect(() => {
+    if (!otpVerificationDetails) {
+      if (isOnSummaryPage) goTo(tabIndicies.summary.tabNumber);
+      else onNext();
+    }
+  }, [otpVerificationDetails]);
+
+  if (!otpVerificationDetails) {
+    return null;
+  }
 
   return (
     <OTPInputDialog
@@ -53,8 +86,9 @@ export const VerifyOTP: React.FC = () => {
       otpLength={otpLength}
       retriesRemaining={retriesRemaining}
       otpExpireTime={otpExpireTime}
-      isVerifyingEmail={false}
+      isVerifyingEmail={isVerifyingOtp}
       isResendingOtp={false}
+      wrongOtpError={otpVerificationDetails.showIncorrectError}
       ref={otpRef}
     />
   );

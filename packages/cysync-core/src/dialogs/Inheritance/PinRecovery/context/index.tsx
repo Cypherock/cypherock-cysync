@@ -47,6 +47,7 @@ export const InheritancePinRecoveryDialogContext: Context<InheritancePinRecovery
 
 export interface InheritancePinRecoveryDialogProps {
   walletId: string;
+  walletName: string;
 }
 
 export interface InheritancePinRecoveryDialogContextProviderProps
@@ -56,10 +57,10 @@ export interface InheritancePinRecoveryDialogContextProviderProps
 
 export const InheritancePinRecoveryDialogProvider: FC<
   InheritancePinRecoveryDialogContextProviderProps
-> = ({ children, walletId }) => {
+> = ({ children, walletId, walletName }) => {
   const lang = useAppSelector(selectLanguage);
   const dispatch = useAppDispatch();
-  const selectedWallet = undefined;
+  const selectedWallet = walletName;
   const userDetails = undefined;
 
   const deviceRequiredDialogsMap: Record<number, number[] | undefined> =
