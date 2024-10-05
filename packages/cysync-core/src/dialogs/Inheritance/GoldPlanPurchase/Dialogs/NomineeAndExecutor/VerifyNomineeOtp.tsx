@@ -15,7 +15,6 @@ export const VerifyNomineeOtp: React.FC = () => {
   const strings = lang.strings.inheritance.dialog.verifyOTP;
 
   const {
-    onClose,
     onPrevious,
     onNext,
     nomineeOtpSubmit,
@@ -80,7 +79,6 @@ export const VerifyNomineeOtp: React.FC = () => {
   return (
     <OTPInputDialog
       title={title}
-      onClose={onClose}
       emails={email}
       onBack={onPrevious}
       onResendOtp={onResend}

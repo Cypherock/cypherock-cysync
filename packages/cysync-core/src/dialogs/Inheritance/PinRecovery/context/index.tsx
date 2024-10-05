@@ -36,6 +36,7 @@ import {
   ValidateSignature,
   VerifyOTP,
 } from '../Dialogs';
+import { openContactSupportDialog } from '~/actions';
 
 export * from './types';
 
@@ -114,6 +115,10 @@ export const InheritancePinRecoveryDialogProvider: FC<
 
   const onClose = () => {
     dispatch(closeDialog('inheritancePinRecovery'));
+  };
+
+  const onHelp = () => {
+    dispatch(openContactSupportDialog());
   };
 
   const [retryIndex, setRetryIndex] = useState(0);
@@ -224,6 +229,7 @@ export const InheritancePinRecoveryDialogProvider: FC<
     onPrevious,
     tabs,
     onClose,
+    onHelp,
     goTo,
     currentTab,
     currentDialog,

@@ -14,6 +14,7 @@ export interface InheritancePinRecoveryDialogContextInterface {
   goTo: (tab: number, dialog?: number) => void;
   onPrevious: () => void;
   onClose: () => void;
+  onHelp: () => void;
   currentTab: number;
   currentDialog: number;
   isDeviceRequired: boolean;

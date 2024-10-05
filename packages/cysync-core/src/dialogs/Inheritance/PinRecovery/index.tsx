@@ -4,6 +4,7 @@ import {
   DialogBox,
   DialogBoxBackgroundBar,
   DialogBoxBody,
+  HelpButton,
   MilestoneAside,
   WalletDialogMainContainer,
 } from '@cypherock/cysync-ui';
@@ -51,28 +52,29 @@ const InheritancePinRecovery: FC = () => {
     currentDialog,
     unhandledError,
     onClose,
+    onHelp,
     isDeviceRequired,
     onRetry,
   } = useInheritancePinRecoveryDialog();
 
   return (
     <BlurOverlay>
-      <WalletDialogMainContainer>
-        <DialogBox
-          direction="row"
-          gap={0}
-          width="full"
-          $maxHeight="90vh"
-          onClose={onClose}
-        >
-          <>
-            <MilestoneAside
-              milestones={tabs
-                .filter(t => !t.dontShowOnMilestone)
-                .map(t => t.name)}
-              activeTab={currentTab}
-              heading={lang.strings.dialogs.inheritancePinRecovery.title}
-            />
+      <DialogBox
+        direction="row"
+        gap={0}
+        width="full"
+        $maxHeight="90vh"
+        onClose={onClose}
+      >
+        <>
+          <MilestoneAside
+            milestones={tabs
+              .filter(t => !t.dontShowOnMilestone)
+              .map(t => t.name)}
+            activeTab={currentTab}
+            heading={lang.strings.dialogs.inheritancePinRecovery.title}
+          />
+          <WalletDialogMainContainer>
             <DialogBoxBody
               p="20"
               grow={2}
@@ -94,12 +96,15 @@ const InheritancePinRecovery: FC = () => {
             </DialogBoxBody>
             <DialogBoxBackgroundBar
               rightComponent={<CloseButton onClick={() => onClose()} />}
+              leftComponent={
+                <HelpButton text={lang.strings.help} onClick={onHelp} />
+              }
               position="top"
               useLightPadding
             />
-          </>
-        </DialogBox>
-      </WalletDialogMainContainer>
+          </WalletDialogMainContainer>
+        </>
+      </DialogBox>
     </BlurOverlay>
   );
 };
