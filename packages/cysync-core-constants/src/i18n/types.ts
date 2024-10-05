@@ -97,6 +97,7 @@ interface LangButtons {
   saveAndContinue: string;
   exitWithoutSaving: string;
   saveChanges: string;
+  edit: string;
 }
 
 interface LangDashboard {
@@ -907,6 +908,7 @@ interface LangDialogs {
     viewPin: {
       name: string;
       title: string;
+      subTitle: string;
       actions: {
         viewDevice: string;
       };
@@ -1297,7 +1299,6 @@ interface LangInheritanceSilverPlanPurchase {
     };
     video: {
       title: string;
-      subTitle: string;
     };
   };
   wallet: {
@@ -1349,6 +1350,7 @@ interface LangInheritanceSilverPlanPurchase {
     };
     success: {
       title: string;
+      subTitle: string;
     };
   };
   checkout: {
@@ -1476,8 +1478,7 @@ interface LangInheritanceGoldPlanPurchase {
           label: string;
           tooltip: string;
           options: {
-            labelOne: string;
-            labelTwo: string;
+            labelPrefix: string;
           };
         };
       };
@@ -1562,6 +1563,7 @@ interface LangInheritanceGoldPlanPurchase {
         nomineeNameField: { label: string };
         primaryEmailField: { label: string };
         secondaryEmailField: { label: string };
+        assignTo: { label: string };
       };
     };
     executorMessage: {

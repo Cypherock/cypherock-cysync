@@ -18,16 +18,16 @@ export const ExecutorMessageTutorial = () => {
 
   const strings = lang.strings.inheritanceGoldPlanPurchase.message;
 
-  const { goTo } = useInheritanceGoldPlanPurchaseDialog();
+  const { onNext, onPrevious } = useInheritanceGoldPlanPurchaseDialog();
 
   return (
     <Layout
       footerComponent={
         <>
-          <Button onClick={() => goTo(5, 5)} variant="secondary">
+          <Button onClick={() => onPrevious()} variant="secondary">
             <LangDisplay text={lang.strings.buttons.back} />
           </Button>
-          <Button onClick={() => goTo(6, 1)} variant="primary">
+          <Button onClick={() => onNext()} variant="primary">
             <LangDisplay text={lang.strings.buttons.next} />
           </Button>
         </>

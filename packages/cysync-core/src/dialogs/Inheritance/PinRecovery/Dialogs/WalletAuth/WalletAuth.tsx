@@ -1,7 +1,6 @@
 import { InheritanceWalletAuthDeviceEvent } from '@cypherock/app-support-inheritance';
 import {
   ArrowRightIcon,
-  CardTapList,
   Check,
   Container,
   LangDisplay,
@@ -14,7 +13,7 @@ import {
   Typography,
   Video,
 } from '@cypherock/cysync-ui';
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useMemo } from 'react';
 
 import { selectLanguage, useAppSelector } from '~/store';
 
@@ -25,12 +24,10 @@ import { Layout } from '../../Layout';
 const checkIconComponent = <Check width={15} height={12} />;
 const throbberComponent = <Throbber size={15} strokeWidth={2} />;
 const rightArrowIcon = <ArrowRightIcon />;
-
 export const WalletAuth = () => {
   const lang = useAppSelector(selectLanguage);
 
   const strings = lang.strings.dialogs.inheritancePinRecovery.sync;
-  const [cardTapState, setCardTapState] = useState(-1);
 
   const {
     onNext,
@@ -64,34 +61,22 @@ export const WalletAuth = () => {
           InheritanceWalletAuthDeviceEvent.CONFIRMED,
         ),
       },
+      {
+        id: '2',
+        text: strings.walletAuth.actions.enterPinAndTapCard,
+        rightImage: getDeviceEventIcon(
+          InheritanceWalletAuthDeviceEvent.CONFIRMED,
+          InheritanceWalletAuthDeviceEvent.WALLET_BASED_CARD_TAPPED,
+        ),
+      },
     ];
 
     return actions;
   }, [strings, walletAuthDeviceEvents]);
 
   useEffect(() => {
-    const eventToState: Record<number, number | undefined> = {
-      [InheritanceWalletAuthDeviceEvent.CONFIRMED]: 0,
-      [InheritanceWalletAuthDeviceEvent.CARD_PAIRING_CARD_TAPPED]: 1,
-      [InheritanceWalletAuthDeviceEvent.WALLET_BASED_CARD_TAPPED]: 2,
-    };
-
-    let state: number | undefined;
-    for (const event in eventToState) {
-      if (walletAuthDeviceEvents[event] && eventToState[event] !== undefined) {
-        state = eventToState[event]!;
-      }
-    }
-
-    if (state !== undefined) {
-      setCardTapState(state);
-    }
-  }, [walletAuthDeviceEvents]);
-
-  useEffect(() => {
     clearErrors();
     walletAuthStart();
-    setCardTapState(-1);
 
     return () => {
       walletAuthAbort();
@@ -108,46 +93,39 @@ export const WalletAuth = () => {
     <Layout>
       <Video
         src={tapAnyCardDeviceAnimation2DVideo}
-        $width={506}
-        $height={285}
         loop
         autoPlay
+        $width={420}
+        $height={236}
       />
-      <Container direction="column" mb={2}>
+      <Container direction="column">
         <Typography $fontSize={20} $textAlign="center" color="white">
           {strings.walletAuth.title}
         </Typography>
-        <Typography $fontSize={16} $textAlign="center" color="muted">
+        <Typography $fontSize={16} $textAlign="center" color="muted" mb={6}>
           <LangDisplay text={strings.walletAuth.subTitle} />
           <Typography variant="span" $fontWeight="bold" $fontSize={16}>
-            {selectedWallet?.name}
+            {selectedWallet}
           </Typography>
         </Typography>
-      </Container>
-      <LeanBoxContainer mb={2}>
-        {actionsList.map(data => (
-          <LeanBox
-            key={data.id}
-            leftImage={data.leftImage}
-            rightImage={data.rightImage}
-            text={data.text}
-            image={data.image}
-            altText={data.altText}
-            id={data.id}
-          />
-        ))}
-        <CardTapList
-          items={[
-            {
-              text: strings.walletAuth.actions.enterPinAndTapCard,
-              currentState: cardTapState,
-              totalState: 2,
-            },
-          ]}
-          variant="muted"
+        <LeanBoxContainer mb={4}>
+          {actionsList.map(data => (
+            <LeanBox
+              key={data.id}
+              leftImage={data.leftImage}
+              rightImage={data.rightImage}
+              text={data.text}
+              image={data.image}
+              altText={data.altText}
+              id={data.id}
+            />
+          ))}
+        </LeanBoxContainer>
+        <MessageBox
+          type="warning"
+          text={strings.walletAuth.messageBox.warning}
         />
-      </LeanBoxContainer>
-      <MessageBox type="warning" text={strings.walletAuth.messageBox.warning} />
+      </Container>
     </Layout>
   );
 };

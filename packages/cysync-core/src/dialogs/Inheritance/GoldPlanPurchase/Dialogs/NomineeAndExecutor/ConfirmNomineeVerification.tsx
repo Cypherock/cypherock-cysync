@@ -12,18 +12,31 @@ import { selectLanguage, useAppSelector } from '~/store';
 import { useInheritanceGoldPlanPurchaseDialog } from '../../context';
 import { Layout } from '../../Layout';
 
-export const ConfirmNomineeVerification = () => {
+export const ConfirmNomineeVerification: React.FC<{ index: number }> = ({
+  index,
+}) => {
   const lang = useAppSelector(selectLanguage);
   const strings = lang.strings.inheritanceGoldPlanPurchase.nomineeAndExecutor;
-  const { onNext, onPrevious } = useInheritanceGoldPlanPurchaseDialog();
+  const { onNomineeDetailsSubmit, isSubmittingNomineeDetails } =
+    useInheritanceGoldPlanPurchaseDialog();
   return (
     <Layout
       footerComponent={
         <>
-          <Button onClick={() => onPrevious()} variant="secondary">
+          <Button
+            onClick={() => {
+              onNomineeDetailsSubmit(false, index);
+            }}
+            isLoading={isSubmittingNomineeDetails}
+            variant="secondary"
+          >
             <LangDisplay text={lang.strings.buttons.no} />
           </Button>
-          <Button onClick={() => onNext()} variant="primary">
+          <Button
+            onClick={() => onNomineeDetailsSubmit(true, index)}
+            isLoading={isSubmittingNomineeDetails}
+            variant="primary"
+          >
             <LangDisplay text={lang.strings.buttons.yes} />
           </Button>
         </>

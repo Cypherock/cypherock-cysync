@@ -18,19 +18,14 @@ export const Ensure = () => {
 
   const strings = lang.strings.inheritanceSilverPlanPurchase;
 
-  const { onNext, onPrevious } = useInheritanceSilverPlanPurchaseDialog();
+  const { onNext } = useInheritanceSilverPlanPurchaseDialog();
 
   return (
     <Layout
       footerComponent={
-        <>
-          <Button onClick={() => onPrevious()} variant="secondary">
-            <LangDisplay text={lang.strings.buttons.back} />
-          </Button>
-          <Button onClick={() => onNext()} variant="primary">
-            <LangDisplay text={lang.strings.buttons.next} />
-          </Button>
-        </>
+        <Button onClick={() => onNext()} variant="primary">
+          <LangDisplay text={lang.strings.buttons.next} />
+        </Button>
       }
     >
       <Typography variant="h5" color="heading" $textAlign="center">

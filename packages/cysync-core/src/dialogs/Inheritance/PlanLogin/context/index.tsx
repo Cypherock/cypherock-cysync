@@ -143,7 +143,7 @@ export const InheritancePlanLoginDialogProvider: FC<
       nominee:
         result.result.nominee?.map(n => ({ email: n.email ?? '' })) ?? [],
       executor: result.result.executor?.nominee?.map(n => ({
-        email: n.email ?? '',
+        email: n ?? '',
       }))[0] ?? { email: '' },
       owner: {
         email: result.result.owner?.email ?? '',

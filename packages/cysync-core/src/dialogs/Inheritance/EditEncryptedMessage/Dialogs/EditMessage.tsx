@@ -10,7 +10,7 @@ import {
   Tooltip,
   Typography,
 } from '@cypherock/cysync-ui';
-import React from 'react';
+import React, { useState } from 'react';
 
 import { selectLanguage, useAppSelector } from '~/store';
 
@@ -22,6 +22,10 @@ export const EditMessage = () => {
   const strings =
     lang.strings.dialogs.inheritanceEditEncryptedMessage.editMessage;
   const { onClose, onNext } = useInheritanceEditEncryptedMessageDialog();
+  const [form, setForm] = useState({
+    cardLocation: '',
+    message: '',
+  });
 
   return (
     <Layout
@@ -62,6 +66,10 @@ export const EditMessage = () => {
           <TextAreaInput
             placeholder={strings.form.cardLocationField.placeholder}
             height={120}
+            maxChars={800}
+            currentChars={form.cardLocation.length || 0}
+            value={form.cardLocation}
+            onChange={val => setForm(p => ({ ...p, cardLocation: val }))}
           />
         </Container>
         <Container direction="column" width="100%" $flex={1}>
@@ -76,6 +84,10 @@ export const EditMessage = () => {
           <TextAreaInput
             placeholder={strings.form.personalMessageField.placeholder}
             height={120}
+            maxChars={800}
+            currentChars={form.message.length || 0}
+            value={form.message}
+            onChange={val => setForm(p => ({ ...p, message: val }))}
           />
         </Container>
       </Container>

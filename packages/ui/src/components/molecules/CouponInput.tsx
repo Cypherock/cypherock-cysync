@@ -3,7 +3,13 @@ import styled, { useTheme } from 'styled-components';
 
 import { DeleteIcon } from '../../assets';
 import { Button, Flex, Throbber, Typography } from '../atoms';
-import { width, WidthProps } from '../utils';
+import { goldenGradient, UtilsProps, width, WidthProps } from '../utils';
+
+interface ApplyButtonProps
+  extends UtilsProps,
+    React.ButtonHTMLAttributes<HTMLButtonElement> {
+  $isInvalid?: boolean;
+}
 
 const Container = styled.div<WidthProps>`
   display: flex;
@@ -45,11 +51,15 @@ const InputField = styled.input<{ $isInvalid: boolean }>`
   border-right: none;
 `;
 
-const ApplyButton = styled.button<{ $isInvalid: boolean }>`
+const ApplyButton = styled.button<ApplyButtonProps>`
   border-radius: 0px 8px 8px 0px;
   height: 45px;
-  color: ${({ theme }) => theme.palette.text.muted};
-  background: ${({ theme }) => theme.palette.background.slateDark};
+  color: ${({ theme, disabled }) =>
+    disabled ? theme.palette.text.disabled : theme.palette.text.black};
+  ${props =>
+    props.disabled
+      ? `background: ${props.theme.palette.background.disabled};`
+      : goldenGradient('background')}
   padding: 12px 16px;
   cursor: pointer;
   border: none;
@@ -71,6 +81,7 @@ export interface CouponInputProps extends WidthProps {
   placeholderText: string;
   disabled?: boolean;
   isLoading?: boolean;
+  couponLength?: number;
 }
 
 export const CouponInput: React.FC<CouponInputProps> = ({
@@ -85,6 +96,7 @@ export const CouponInput: React.FC<CouponInputProps> = ({
   applyButtonText,
   disabled,
   isLoading,
+  couponLength,
   ...restProps
 }) => (
   <Container {...restProps}>
@@ -99,12 +111,13 @@ export const CouponInput: React.FC<CouponInputProps> = ({
           disabled={disabled || isLoading}
           onChange={event => onChange(event.target.value)}
           $isInvalid={isInvalid}
+          maxLength={couponLength}
         />
         <ApplyButton
           onClick={onApply}
           $isInvalid={isInvalid}
           // eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing
-          disabled={disabled || isLoading}
+          disabled={disabled || isLoading || value.length !== couponLength}
         >
           {isLoading ? <Throbber size={16} strokeWidth={2} /> : applyButtonText}
         </ApplyButton>
@@ -151,4 +164,5 @@ export const CouponInput: React.FC<CouponInputProps> = ({
 CouponInput.defaultProps = {
   disabled: false,
   isLoading: false,
+  couponLength: undefined,
 };
