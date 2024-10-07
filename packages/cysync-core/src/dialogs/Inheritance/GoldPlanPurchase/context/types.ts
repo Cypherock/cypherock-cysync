@@ -11,6 +11,7 @@ import {
 
 export interface IWalletWithDeleted extends IWallet {
   isDeleted?: boolean;
+  isActive?: boolean;
 }
 
 export interface InheritanceGoldPlanPurchaseDialogContextInterface {

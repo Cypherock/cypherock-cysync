@@ -26,12 +26,14 @@ const getBoxShadow = (params: {
 
 const getBackground = (params: {
   $isSelected: boolean;
+  $isActive: boolean;
   theme: any;
   disabled: boolean;
   isHovered?: boolean;
 }) => {
   if (params.$isSelected) return params.theme.palette.background.cardSelected;
   if (params.disabled) return params.theme.palette.background.cardDisabled;
+  if (params.$isActive) return params.theme.palette.background.cardActive;
   if (params.isHovered) return params.theme.palette.gradients.cardHover;
   return params.theme.palette.gradients.cardDefault;
 };
@@ -51,7 +53,7 @@ const StyledDateLabel = styled(Typography)<{ $isSelected: boolean }>`
 `;
 
 const StyledContainer = styled.div<
-  { $isSelected: boolean; disabled: boolean } & WidthProps
+  { $isSelected: boolean; disabled: boolean; $isActive: boolean } & WidthProps
 >`
   position: relative;
   overflow: hidden;
@@ -79,8 +81,10 @@ const StyledContainer = styled.div<
     top: 0;
     left: 0;
     z-index: 0;
-    background-image: ${({ $isSelected, disabled }) =>
-      !disabled && !$isSelected ? `url(${manyInManyBgImage})` : 'none'};
+    background-image: ${({ $isSelected, disabled, $isActive }) =>
+      !disabled && !$isSelected && !$isActive
+        ? `url(${manyInManyBgImage})`
+        : 'none'};
     background-position: bottom center;
     background-repeat: no-repeat;
     background-size: contain;
@@ -95,13 +99,21 @@ const StyledContainer = styled.div<
         : 'none'};
     background-position: bottom left;
     background-size: contain;
-    background-image: ${({ $isSelected, disabled }) =>
-      !disabled && !$isSelected ? `url(${manyInManyHoverBgImage})` : 'none'};
+    background-image: ${({ $isSelected, disabled, $isActive }) =>
+      !disabled && !$isSelected && !$isActive
+        ? `url(${manyInManyHoverBgImage})`
+        : 'none'};
   }
 
   &:hover {
-    background: ${({ theme, $isSelected, disabled }) =>
-      getBackground({ $isSelected, theme, disabled, isHovered: true })};
+    background: ${({ theme, $isSelected, disabled, $isActive }) =>
+      getBackground({
+        $isSelected,
+        theme,
+        disabled,
+        $isActive,
+        isHovered: true,
+      })};
   }
 
   ${StyledMimDefaultWalletIcon} {
@@ -113,18 +125,18 @@ const StyledContainer = styled.div<
   }
 
   &:hover ${StyledMimDefaultWalletIcon} {
-    display: ${({ disabled, $isSelected }) =>
-      !disabled && !$isSelected ? 'none' : 'block'};
+    display: ${({ disabled, $isSelected, $isActive }) =>
+      !disabled && !$isSelected && !$isActive ? 'none' : 'block'};
   }
 
   &:hover ${StyledMimHoverWalletIcon} {
-    display: ${({ disabled, $isSelected }) =>
-      !disabled && !$isSelected ? 'block' : 'none'};
+    display: ${({ disabled, $isSelected, $isActive }) =>
+      !disabled && !$isSelected && !$isActive ? 'block' : 'none'};
   }
 
   &:hover ${StyledDateLabel} {
-    font-weight: ${({ $isSelected, disabled }) =>
-      !$isSelected && !disabled ? '500' : '400'};
+    font-weight: ${({ $isSelected, disabled, $isActive }) =>
+      !$isSelected && !disabled && !$isActive ? '500' : '400'};
   }
 `;
 
@@ -154,8 +166,9 @@ export const ManyInMany: FC<ManyInManyProps> = ({
 
   return (
     <StyledContainer
-      onClick={() => !disabled && !isActive && onClick()}
+      onClick={() => !disabled && onClick()}
       $isSelected={Boolean(isSelected)}
+      $isActive={Boolean(isActive)}
       disabled={Boolean(disabled)}
       {...restProps}
     >

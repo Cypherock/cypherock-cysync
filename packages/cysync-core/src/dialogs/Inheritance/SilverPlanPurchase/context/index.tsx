@@ -65,6 +65,7 @@ export const InheritanceSilverPlanPurchaseDialogProvider: FC<
   const wallets = useAppSelector(state => state.wallet.wallets);
   const lang = useAppSelector(selectLanguage);
   const deletedWallets = useAppSelector(state => state.wallet.deletedWallets);
+  const plans = useAppSelector(state => state.inheritance.inheritancePlans);
   const navigateTo = useNavigateTo();
 
   const allWallets = useMemo<IWalletWithDeleted[]>(() => {
@@ -74,6 +75,7 @@ export const InheritanceSilverPlanPurchaseDialogProvider: FC<
       ...wallets.map(e => ({
         ...e,
         isDeleted: deletedWalletIds.includes(e.__id),
+        isActive: Boolean(plans.findIndex(p => p.walletId === e.__id) !== -1),
       })),
     ];
   }, [wallets, deletedWallets]);
