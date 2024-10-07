@@ -1,5 +1,4 @@
 import { insertInheritancePlan } from '@cypherock/cysync-core-services';
-import { sleep } from '@cypherock/cysync-utils';
 import { IWallet } from '@cypherock/db-interfaces';
 import React, {
   Context,
@@ -26,7 +25,7 @@ import {
   InheritanceLoginTypeMap,
 } from '~/services';
 import { ReminderPeriod } from '~/services/inheritance/login/schema';
-import { useAppSelector } from '~/store';
+import { selectLanguage, useAppSelector } from '~/store';
 import { getDB } from '~/utils';
 import {
   useEncryptMessage,
@@ -73,6 +72,7 @@ export const InheritanceGoldPlanPurchaseDialogProvider: FC<
   } = useGoldPlanDialogHanlders();
 
   const wallets = useAppSelector(state => state.wallet.wallets);
+  const lang = useAppSelector(selectLanguage);
   const deletedWallets = useAppSelector(state => state.wallet.deletedWallets);
 
   const allWallets = useMemo<IWalletWithDeleted[]>(() => {
@@ -98,7 +98,7 @@ export const InheritanceGoldPlanPurchaseDialogProvider: FC<
   const [applyingCouponError, setApplyingCouponError] = useState<
     { heading: string; subtext: string } | undefined
   >();
-  const [couponDuration, setCouponDuration] = useState(0);
+  const [couponDuration, setCouponDuration] = useState('');
   const [reminderPeriod, setReminderPeriod] =
     useState<ReminderPeriod>('monthly');
 
@@ -260,21 +260,20 @@ export const InheritanceGoldPlanPurchaseDialogProvider: FC<
 
       if (!walletAuthService.authTokens) return false;
 
-      /*
-       * TODO: Uncomment when implemented on server
-        const result = await inheritancePlanService.applyCoupon({
+      try {
+        const result = await inheritancePlanService.checkCoupon({
           coupon: _coupon,
           accessToken: walletAuthService.authTokens.accessToken,
         });
-
-        if (result.error) {
-          throw result.error;
-        }
-     */
-
-      await sleep(2000);
-      setCoupon(_coupon);
-      setCouponDuration(2);
+        setCouponDuration(result.result?.duration ?? '');
+        setCoupon(_coupon);
+      } catch (error) {
+        setApplyingCouponError({
+          heading: lang.strings.inheritance.dialog.payment.error.errorHeading,
+          subtext: lang.strings.inheritance.dialog.payment.error.subtext,
+        });
+        return false;
+      }
 
       return true;
     },
@@ -304,7 +303,9 @@ export const InheritanceGoldPlanPurchaseDialogProvider: FC<
       type: 'gold',
       walletName: selectedWallet.name,
       purchasedAt: Date.now(),
-      expireAt: Date.now() + 1000 * 60 * 60 * 24 * 365 * couponDuration,
+      expireAt:
+        Date.now() +
+        1000 * 60 * 60 * 24 * 365 * parseInt(couponDuration.split(' ')[0], 10),
     });
 
     return true;
@@ -329,7 +330,7 @@ export const InheritanceGoldPlanPurchaseDialogProvider: FC<
     resetActivateCoupon();
     setApplyingCouponError(undefined);
     setCoupon('');
-    setCouponDuration(0);
+    setCouponDuration('');
     setSelectedWallet(undefined);
     setRetryIndex(v => v + 1);
     walletAuthService.reset();

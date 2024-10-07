@@ -2,6 +2,7 @@ import { z } from 'zod';
 
 export const createResultSchema = z.object({});
 export const applyCouponResultSchema = z.object({});
+export const checkCouponResultSchema = z.object({ duration: z.string() });
 export const activateResultSchema = z.object({});
 export const getPlanResultSchema = z.object({
   owner: z

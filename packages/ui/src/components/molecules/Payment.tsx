@@ -40,6 +40,7 @@ export interface PaymentProps {
   disabled?: boolean;
   isLoading?: boolean;
   couponLength?: number;
+  duration?: string;
 }
 
 export const Payment: FC<PaymentProps> = ({
@@ -55,6 +56,7 @@ export const Payment: FC<PaymentProps> = ({
   disabled,
   isLoading,
   couponLength,
+  duration,
 }) => {
   const theme = useTheme();
 
@@ -102,17 +104,13 @@ export const Payment: FC<PaymentProps> = ({
           />
         </Flex>
         {applied && (
-          <Flex direction="column" gap={8}>
-            <Flex justify="space-between">
-              <Typography $fontSize={12} color="muted">
-                {lang.noOfYear}
-              </Typography>
-              <Typography $fontSize={12}>{`${year} ${lang.year}`}</Typography>
-            </Flex>
-            <Divider
-              variant="horizontal"
-              background={theme.palette.border.separator}
-            />
+          <Flex justify="space-between">
+            <Typography $fontSize={12} color="muted">
+              {lang.noOfYear}
+            </Typography>
+            <Typography $fontSize={12}>
+              {duration ?? `${year} ${lang.year}`}
+            </Typography>
           </Flex>
         )}
         {error && (
@@ -145,4 +143,5 @@ Payment.defaultProps = {
   isLoading: false,
   error: undefined,
   couponLength: 14,
+  duration: undefined,
 };
