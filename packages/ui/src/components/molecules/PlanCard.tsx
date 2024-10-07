@@ -25,7 +25,7 @@ const PlanContainer = styled.div<{ type: PlanCardType } & WidthProps>`
   padding: 40px 24px;
   flex-direction: column;
   align-items: flex-start;
-  gap: 32px;
+  gap: 24px;
   border-radius: 16px;
   background: ${({ type, theme }) =>
     type === 'silver'
@@ -98,7 +98,7 @@ export const PlanCard: React.FC<PlanCardProps> = ({
         {description}
       </Typography>
       <Flex height={1} $bgColor="separator" $alignSelf="stretch" />
-      <Flex direction="column" gap={32} mt={2} mb={4} justify="center">
+      <Flex direction="column" gap={32} mt={2} mb={3} justify="center">
         {features.map((feature, index) => (
           <Flex key={`${feature.text}-${index + 1}`} align="center" gap={24}>
             {feature.available ? (
