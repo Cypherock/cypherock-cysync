@@ -7,6 +7,11 @@ import {
   InheritanceLoginEmailType,
   verifyResultSchema,
   refreshAccessTokenResultSchema,
+  updateNomineesResultSchema,
+  updateExecutorResultSchema,
+  ReminderPeriod,
+  updateReminderResultSchema,
+  NomineeType,
 } from './schema';
 
 import { makePostRequest, runAndHandleServerErrors } from '../../utils';
@@ -111,6 +116,65 @@ const refreshAccessToken = async (params: { refreshToken: string }) =>
     ),
   );
 
+const updateNominees = async (params: {
+  nominee?: { name: string; email: string; alternateEmail?: string };
+  requestId?: string;
+  secret?: string;
+  verify?: boolean;
+  accessToken: string;
+  nomineeType?: NomineeType;
+}) =>
+  runAndHandleServerErrors(() =>
+    makePostRequest(
+      updateNomineesResultSchema,
+      `${baseUrl}/info/nominee`,
+      {
+        nominee: params.nominee,
+        secret: params.secret,
+        verify: params.verify,
+        requestId: params.requestId,
+        nomineeType: params.nomineeType,
+      },
+      params.accessToken,
+    ),
+  );
+
+const updateExecutor = async (params: {
+  name: string;
+  email: string;
+  alternateEmail: string;
+  nomineeEmail: string;
+  accessToken: string;
+  executorMessage?: string;
+}) =>
+  runAndHandleServerErrors(() =>
+    makePostRequest(
+      updateExecutorResultSchema,
+      `${baseUrl}/info/executor`,
+      {
+        name: params.name,
+        email: params.email,
+        alternateEmail: params.alternateEmail,
+        nominee: [params.nomineeEmail],
+        executorMessage: params.executorMessage,
+      },
+      params.accessToken,
+    ),
+  );
+
+const updateReminder = async (params: {
+  frequency: ReminderPeriod;
+  accessToken: string;
+}) =>
+  runAndHandleServerErrors(() =>
+    makePostRequest(
+      updateReminderResultSchema,
+      `${baseUrl}/info/reminder`,
+      { frequency: params.frequency },
+      params.accessToken,
+    ),
+  );
+
 export const inheritanceLoginService = {
   init,
   resendOTP,
@@ -119,4 +183,7 @@ export const inheritanceLoginService = {
   validate,
   register,
   refreshAccessToken,
+  updateNominees,
+  updateExecutor,
+  updateReminder,
 };

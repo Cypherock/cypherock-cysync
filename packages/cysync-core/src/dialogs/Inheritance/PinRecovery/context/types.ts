@@ -1,5 +1,3 @@
-import { IWallet } from '@cypherock/db-interfaces';
-
 import { ITabs } from '~/hooks';
 
 import { WalletAuthLoginStep, IOtpVerificationDetails } from '../../hooks';
@@ -16,12 +14,13 @@ export interface InheritancePinRecoveryDialogContextInterface {
   goTo: (tab: number, dialog?: number) => void;
   onPrevious: () => void;
   onClose: () => void;
+  onHelp: () => void;
   currentTab: number;
   currentDialog: number;
   isDeviceRequired: boolean;
   unhandledError?: any;
   retryIndex: number;
-  selectedWallet?: IWallet;
+  selectedWallet?: string;
   userDetails?: IUserDetails;
   walletAuthDeviceEvents: Record<number, boolean | undefined>;
   walletAuthFetchRequestId: () => void;

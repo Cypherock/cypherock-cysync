@@ -1,6 +1,6 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
 import PropTypes from 'prop-types';
-import React, { useState } from 'react';
+import React from 'react';
 import { styled } from 'styled-components';
 
 import {
@@ -15,9 +15,14 @@ import { WidthProps, width } from '../utils';
 
 export type OneInManyStyleType = '1' | '2';
 
-export interface OneInManyProps extends WidthProps {
+interface OneInManyStyledContainerProps extends WidthProps {
+  $styleType: OneInManyStyleType;
+}
+export interface OneInManyProps extends OneInManyStyledContainerProps {
   title: string;
   description: string;
+  onClick?: () => void;
+  isSelected?: boolean;
   $styleType: OneInManyStyleType;
 }
 
@@ -168,7 +173,7 @@ const getBgStyleMap: Record<
 };
 
 const StyledContainer = styled.div<
-  Omit<OneInManyProps, 'title' | 'description'> & { $isSelected: boolean }
+  OneInManyStyledContainerProps & { $isSelected: boolean }
 >`
   position: relative;
   border: 1px solid
@@ -233,27 +238,30 @@ export const OneInMany: React.FC<OneInManyProps> = ({
   title,
   description,
   $styleType,
+  onClick,
+  isSelected,
   ...restProps
-}) => {
-  const [isSelected, setIsSelected] = useState(false);
-
-  return (
-    <StyledContainer
-      $isSelected={isSelected}
-      $styleType={$styleType}
-      onClick={() => setIsSelected(!isSelected)}
-      {...restProps}
-    >
-      <Flex align="center" direction="row" height="100%" mx="32px">
-        <StyledTitle>{title}</StyledTitle>
-        <StyledDescription>{description}</StyledDescription>
-      </Flex>
-    </StyledContainer>
-  );
-};
+}) => (
+  <StyledContainer
+    $isSelected={isSelected ?? false}
+    $styleType={$styleType}
+    onClick={onClick}
+    {...(restProps as Partial<OneInManyStyledContainerProps>)}
+  >
+    <Flex align="center" direction="row" height="100%" mx="32px">
+      <StyledTitle>{title}</StyledTitle>
+      <StyledDescription>{description}</StyledDescription>
+    </Flex>
+  </StyledContainer>
+);
 
 OneInMany.propTypes = {
   title: PropTypes.string.isRequired,
   description: PropTypes.string.isRequired,
   $styleType: PropTypes.oneOf<OneInManyStyleType>(['1', '2']).isRequired,
+};
+
+OneInMany.defaultProps = {
+  onClick: undefined,
+  isSelected: false,
 };

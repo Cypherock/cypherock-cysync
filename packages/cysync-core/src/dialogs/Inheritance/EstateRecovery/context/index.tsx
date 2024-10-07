@@ -220,6 +220,7 @@ export const InheritanceEstateRecoveryDialogProvider: FC<
     onPrevious: onPreviousCallback,
     tabs,
     onClose,
+    onHelp,
     goTo,
     currentTab,
     currentDialog,

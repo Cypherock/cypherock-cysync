@@ -12,13 +12,7 @@ export const getPlanResultSchema = z.object({
     .optional(),
   executor: z
     .object({
-      nominee: z
-        .array(
-          z.object({
-            email: z.string().optional(),
-          }),
-        )
-        .optional(),
+      nominee: z.array(z.string().optional()).optional(),
     })
     .optional(),
   _id: z.string(),

@@ -44,7 +44,7 @@ export const Instructions = () => {
         </Typography>
       </Container>
       <ReactPlayer
-        url={constants.inheritance.silverPlanPurchaseTutorialLink}
+        url={constants.inheritance.goldPlanPurchaseTutorialLink}
         width="720px"
         height="405px"
       />

@@ -1,52 +1,84 @@
-import React, { useMemo, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useRef } from 'react';
 
 import {
   OTPInputDialog,
   OTPInputDialogRef,
 } from '~/dialogs/Inheritance/components';
+import { OtpVerificationConcern } from '~/dialogs/Inheritance/hooks';
 import { selectLanguage, useAppSelector } from '~/store';
 
 import { useInheritanceGoldPlanPurchaseDialog } from '../../context';
+import { tabIndicies } from '../../context/useDialogHandler';
 
 export const VerifyNomineeOtp: React.FC = () => {
   const lang = useAppSelector(selectLanguage);
-  const strings = lang.strings.inheritanceGoldPlanPurchase.email;
+  const strings = lang.strings.inheritance.dialog.verifyOTP;
 
-  const { onClose, onPrevious, nomineeDetails, goTo } =
-    useInheritanceGoldPlanPurchaseDialog();
+  const {
+    onPrevious,
+    onNext,
+    nomineeOtpSubmit,
+    nomineeOtpVerificationDetails,
+    isSubmittingNomineeDetails,
+    isOnSummaryPage,
+    goTo,
+  } = useInheritanceGoldPlanPurchaseDialog();
 
-  const [email, setEmail] = useState(nomineeDetails?.email ?? '');
-  const [title, setTitle] = useState(strings.primaryEmailOTP.title);
+  const title = useMemo(() => {
+    const map: Record<OtpVerificationConcern, string> = {
+      [OtpVerificationConcern.primary]: strings.primaryEmailOTP.title,
+      [OtpVerificationConcern.alternate]: strings.alternateEmailOTP.title,
+      [OtpVerificationConcern.login]: lang.strings.otp.title,
+    };
+
+    if (!nomineeOtpVerificationDetails) return '';
+
+    return map[nomineeOtpVerificationDetails.concern];
+  }, [nomineeOtpVerificationDetails?.concern, lang]);
 
   const otpRef = useRef<OTPInputDialogRef | null>(null);
 
-  const onVerify = () => {
-    // DUMMY FUNCTION
-    if (email === nomineeDetails?.alternateEmail) {
-      goTo(5, 4);
-      return;
-    }
-
-    setEmail(nomineeDetails?.alternateEmail ?? '');
-    setTitle(strings.alternateEmailOTP.title);
-    otpRef.current?.reset();
-  };
+  const onVerify = useCallback(
+    async (otp: string) => {
+      await nomineeOtpSubmit(otp);
+    },
+    [nomineeOtpSubmit],
+  );
 
   const onResend = () => {
     // DUMMY FUNCTION
   };
 
   const otpExpireTime = useMemo(
-    () => new Date(Date.now() + 60 * 1000).toISOString(),
-    [email],
+    () => nomineeOtpVerificationDetails?.otpExpiry ?? '',
+    [nomineeOtpVerificationDetails?.otpExpiry],
   );
+
   const otpLength = 6;
-  const retriesRemaining = 3;
+
+  const retriesRemaining = nomineeOtpVerificationDetails?.retriesRemaining ?? 3;
+  const email = nomineeOtpVerificationDetails?.email ?? '';
+
+  useEffect(() => {
+    if (otpRef.current) {
+      otpRef.current.reset();
+    }
+  }, [nomineeOtpVerificationDetails?.id]);
+
+  useEffect(() => {
+    if (!nomineeOtpVerificationDetails) {
+      if (isOnSummaryPage) goTo(tabIndicies.summary.tabNumber);
+      else onNext();
+    }
+  }, [nomineeOtpVerificationDetails]);
+
+  if (!nomineeOtpVerificationDetails) {
+    return null;
+  }
 
   return (
     <OTPInputDialog
       title={title}
-      onClose={onClose}
       emails={email}
       onBack={onPrevious}
       onResendOtp={onResend}
@@ -54,8 +86,9 @@ export const VerifyNomineeOtp: React.FC = () => {
       otpLength={otpLength}
       retriesRemaining={retriesRemaining}
       otpExpireTime={otpExpireTime}
-      isVerifyingEmail={false}
+      isVerifyingEmail={isSubmittingNomineeDetails}
       isResendingOtp={false}
+      wrongOtpError={nomineeOtpVerificationDetails.showIncorrectError}
       ref={otpRef}
     />
   );

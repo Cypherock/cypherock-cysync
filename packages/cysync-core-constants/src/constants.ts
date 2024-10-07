@@ -8,10 +8,12 @@ export const constants = {
   tutorialLink:
     'https://youtube.com/playlist?list=PL0db5IfQ4iyo7GxBtFVBxxvanAngjdjLn&feature=shared',
   inheritance: {
-    silverPlanPurchaseTutorialLink: 'https://youtu.be/bRmNxrOf3VM',
     learnMore: 'https://www.cypherock.com',
     termsOfServiceLink: 'https://www.cypherock.com/terms',
     privacyPolicyLink: 'https://www.cypherock.com/terms',
+    silverPlanPurchaseTutorialLink: 'https://youtu.be/bRmNxrOf3VM',
     silverPlanPurchaseLink: 'https://www.cypherock.com',
+    goldPlanPurchaseTutorialLink: 'https://youtu.be/bRmNxrOf3VM',
+    goldPlanPurchaseLink: 'https://www.cypherock.com',
   },
 };

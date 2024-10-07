@@ -1,37 +1,50 @@
 import { Button, LangDisplay } from '@cypherock/cysync-ui';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
+import { WalletAuthLoginStep } from '~/dialogs/Inheritance/hooks';
 import { selectLanguage, useAppSelector } from '~/store';
-
 import { UserDetailsForm } from '../../components';
+
 import { useInheritanceGoldPlanPurchaseDialog } from '../../context';
 import { Layout } from '../../Layout';
 
 export const UserDetails = () => {
   const lang = useAppSelector(selectLanguage);
 
-  const strings = lang.strings.inheritanceGoldPlanPurchase.email.userDetails;
+  const goldPlanStrings =
+    lang.strings.inheritanceGoldPlanPurchase.email.userDetails;
 
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [alternateEmail, setAlternateEmail] = useState('');
 
-  const { onUserDetailsSubmit, onPrevious, isSubmittingUserDetails } =
-    useInheritanceGoldPlanPurchaseDialog();
+  const {
+    registerUser,
+    onPrevious,
+    onNext,
+    isRegisteringUser,
+    walletAuthStep,
+  } = useInheritanceGoldPlanPurchaseDialog();
 
   const formId = 'inheritance-gold-plan-user-details';
 
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    if (isSubmittingUserDetails) return;
+    if (isRegisteringUser) return;
 
-    onUserDetailsSubmit({
+    registerUser({
       name,
       email,
       alternateEmail,
     });
   };
+
+  useEffect(() => {
+    if (walletAuthStep > WalletAuthLoginStep.userDetails) {
+      onNext();
+    }
+  }, []);
 
   return (
     <Layout
@@ -40,7 +53,7 @@ export const UserDetails = () => {
           <Button
             onClick={() => onPrevious()}
             variant="secondary"
-            disabled={isSubmittingUserDetails}
+            disabled={isRegisteringUser}
           >
             <LangDisplay text={lang.strings.buttons.back} />
           </Button>
@@ -48,10 +61,9 @@ export const UserDetails = () => {
             variant="primary"
             type="submit"
             form={formId}
-            disabled={isSubmittingUserDetails}
-            isLoading={isSubmittingUserDetails}
+            isLoading={isRegisteringUser}
           >
-            <LangDisplay text={strings.buttons.sendOTP} />
+            <LangDisplay text={goldPlanStrings.buttons.sendOTP} />
           </Button>
         </>
       }
@@ -59,10 +71,10 @@ export const UserDetails = () => {
       <UserDetailsForm
         onSubmit={onSubmit}
         formId={formId}
-        strings={strings}
+        strings={goldPlanStrings}
         name={name}
         setName={setName}
-        isSubmittingUserDetails={isSubmittingUserDetails}
+        isSubmittingUserDetails={isRegisteringUser}
         email={email}
         setEmail={setEmail}
         alternateEmail={alternateEmail}

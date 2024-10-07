@@ -36,6 +36,7 @@ import {
   ValidateSignature,
   VerifyOTP,
 } from '../Dialogs';
+import { openContactSupportDialog } from '~/actions';
 
 export * from './types';
 
@@ -46,6 +47,7 @@ export const InheritancePinRecoveryDialogContext: Context<InheritancePinRecovery
 
 export interface InheritancePinRecoveryDialogProps {
   walletId: string;
+  walletName: string;
 }
 
 export interface InheritancePinRecoveryDialogContextProviderProps
@@ -55,10 +57,10 @@ export interface InheritancePinRecoveryDialogContextProviderProps
 
 export const InheritancePinRecoveryDialogProvider: FC<
   InheritancePinRecoveryDialogContextProviderProps
-> = ({ children, walletId }) => {
+> = ({ children, walletId, walletName }) => {
   const lang = useAppSelector(selectLanguage);
   const dispatch = useAppDispatch();
-  const selectedWallet = undefined;
+  const selectedWallet = walletName;
   const userDetails = undefined;
 
   const deviceRequiredDialogsMap: Record<number, number[] | undefined> =
@@ -113,6 +115,10 @@ export const InheritancePinRecoveryDialogProvider: FC<
 
   const onClose = () => {
     dispatch(closeDialog('inheritancePinRecovery'));
+  };
+
+  const onHelp = () => {
+    dispatch(openContactSupportDialog());
   };
 
   const [retryIndex, setRetryIndex] = useState(0);
@@ -223,6 +229,7 @@ export const InheritancePinRecoveryDialogProvider: FC<
     onPrevious,
     tabs,
     onClose,
+    onHelp,
     goTo,
     currentTab,
     currentDialog,

@@ -8,7 +8,7 @@ import {
   QuestionMarkButton,
   Tooltip,
 } from '@cypherock/cysync-ui';
-import React, { useState } from 'react';
+import React from 'react';
 import { useSelector } from 'react-redux';
 
 import { selectLanguage } from '~/store';
@@ -17,19 +17,33 @@ import { useInheritanceGoldPlanPurchaseDialog } from '../../context';
 import { Layout } from '../../Layout';
 
 export const ExecutorMessage = () => {
-  const { goTo, onNext } = useInheritanceGoldPlanPurchaseDialog();
+  const {
+    onPrevious,
+    executorMessage,
+    setExecutorMessage,
+    onExecutorMessageSubmit,
+    isSubmittingExecutorDetails,
+    isOnSummaryPage,
+  } = useInheritanceGoldPlanPurchaseDialog();
   const lang = useSelector(selectLanguage);
   const strings = lang.strings.inheritanceGoldPlanPurchase.message;
   const { form } = strings.executor;
-  const [message, setMessage] = useState('');
   return (
     <Layout
       footerComponent={
         <>
-          <Button onClick={() => goTo(6, 1)} variant="secondary">
+          <Button
+            onClick={() => onPrevious()}
+            variant="secondary"
+            disabled={isSubmittingExecutorDetails || isOnSummaryPage}
+          >
             <LangDisplay text={lang.strings.buttons.back} />
           </Button>
-          <Button onClick={() => onNext()} variant="primary">
+          <Button
+            onClick={onExecutorMessageSubmit}
+            variant="primary"
+            isLoading={isSubmittingExecutorDetails}
+          >
             <LangDisplay text={lang.strings.buttons.saveAndContinue} />
           </Button>
         </>
@@ -61,9 +75,11 @@ export const ExecutorMessage = () => {
         </InputLabel>
         <TextAreaInput
           placeholder={form.messageField.placeholder}
-          value={message}
-          onChange={setMessage}
+          value={executorMessage}
+          onChange={setExecutorMessage}
           height={120}
+          maxChars={800}
+          currentChars={executorMessage.length || 0}
         />
       </Flex>
     </Layout>
