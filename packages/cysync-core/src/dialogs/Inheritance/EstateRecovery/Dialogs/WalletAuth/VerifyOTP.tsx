@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useMemo, useRef } from 'react';
+import React, { useMemo, useRef, useCallback, useEffect } from 'react';
 
 import {
   OTPInputDialog,
@@ -10,11 +10,9 @@ import { useInheritanceEstateRecoveryDialog } from '../../context';
 
 export const VerifyOTP: React.FC = () => {
   const lang = useAppSelector(selectLanguage);
-  const strings =
+  const { title } =
     lang.strings.dialogs.inheritanceEstateRecovery.wallet.verification;
-
   const {
-    onClose,
     onPrevious,
     onNext,
     otpVerificationDetails,
@@ -61,8 +59,7 @@ export const VerifyOTP: React.FC = () => {
 
   return (
     <OTPInputDialog
-      title={strings.title}
-      onClose={onClose}
+      title={title}
       emails={email}
       onBack={onPrevious}
       onResendOtp={onResend}

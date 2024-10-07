@@ -19,6 +19,7 @@ export interface InheritanceEstateRecoveryDialogContextInterface {
   currentDialog: number;
   isDeviceRequired: boolean;
   onClose: () => void;
+  onHelp: () => void;
   userDetails?: IUserDetails;
   unhandledError?: any;
   onRetry: () => void;

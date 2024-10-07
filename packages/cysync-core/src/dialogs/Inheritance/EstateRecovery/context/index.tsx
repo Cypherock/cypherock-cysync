@@ -13,7 +13,7 @@ import React, {
 
 import { useAsync, useMemoReturn } from '~/hooks';
 import { InheritanceLoginTypeMap, inheritancePlanService } from '~/services';
-import { useAppSelector } from '~/store';
+import { useAppDispatch, useAppSelector } from '~/store';
 
 import {
   InheritanceEstateRecoveryDialogContextInterface,
@@ -30,6 +30,7 @@ import {
   useWalletAuth,
   WalletAuthLoginStep,
 } from '../../hooks';
+import { openContactSupportDialog } from '~/actions';
 
 export * from './types';
 
@@ -62,6 +63,8 @@ export const InheritanceEstateRecoveryDialogProvider: FC<
     () => wallets.find(w => w.__id === walletId),
     [walletId, wallets],
   );
+
+  const dispatch = useAppDispatch();
 
   const [unhandledError, setUnhandledError] = useState<any>();
   const [retryIndex, setRetryIndex] = useState(0);
@@ -214,6 +217,10 @@ export const InheritanceEstateRecoveryDialogProvider: FC<
       onPrevious();
     }
   }, [onPrevious, currentTab, currentDialog]);
+
+  const onHelp = () => {
+    dispatch(openContactSupportDialog());
+  };
 
   const ctx = useMemoReturn({
     onNext: onNextCallback,
