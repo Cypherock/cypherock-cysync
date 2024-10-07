@@ -45,7 +45,7 @@
     "editAccount": "Edit Account",
     "submit": "Submit",
     "showMore": "Show more",
-    "resendOTP": "Resend OTP",
+    "resendOTP": "Resend OTP in ${timeout}s",
     "next": "Next",
     "setup": "Setup",
     "sync": "Sync",

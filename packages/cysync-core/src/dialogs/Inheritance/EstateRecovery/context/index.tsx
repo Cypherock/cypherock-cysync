@@ -1,4 +1,4 @@
-import { IWallet } from '@cypherock/db-interfaces';
+import { assert } from '@cypherock/cysync-utils';
 import React, {
   Context,
   FC,
@@ -7,155 +7,224 @@ import React, {
   useCallback,
   useContext,
   useMemo,
+  useRef,
   useState,
 } from 'react';
 
-import { ITabs, useMemoReturn, useTabsAndDialogs } from '~/hooks';
-import {
-  closeDialog,
-  selectLanguage,
-  useAppDispatch,
-  useAppSelector,
-} from '~/store';
+import { useAsync, useMemoReturn } from '~/hooks';
+import { InheritanceLoginTypeMap, inheritancePlanService } from '~/services';
+import { useAppDispatch, useAppSelector } from '~/store';
 
 import {
-  DecryptMessage,
-  FetchData,
-  Terms,
-  VerifyOTP,
-  ViewPin,
-  WalletAuth,
-  Message,
-  Success,
-  ClearData,
-  ConfirmClearData,
-  AuthenticateClearData,
-  Settings,
-} from '../Dialogs';
+  InheritanceEstateRecoveryDialogContextInterface,
+  InheritanceEstateRecoveryDialogProps,
+} from './types';
+import {
+  tabIndicies,
+  useEstateRecoveryDialogHanlders,
+} from './useDialogHander';
+
+import {
+  useDecryptMessage,
+  useSession,
+  useWalletAuth,
+  WalletAuthLoginStep,
+} from '../../hooks';
 import { openContactSupportDialog } from '~/actions';
 
-export interface IWalletWithDeleted extends IWallet {
-  isDeleted?: boolean;
-}
-
-export interface IUserDetails {
-  name: string;
-  email: string;
-  alternateEmail: string;
-}
-
-export interface InheritanceEstateRecoveryDialogContextInterface {
-  tabs: ITabs;
-  onNext: (tab?: number, dialog?: number) => void;
-  goTo: (tab: number, dialog?: number) => void;
-  onPrevious: () => void;
-  currentTab: number;
-  currentDialog: number;
-  isDeviceRequired: boolean;
-  onClose: () => void;
-  onHelp: () => void;
-  selectedWallet?: IWalletWithDeleted;
-  setSelectedWallet: (wallet: IWalletWithDeleted) => void;
-  userDetails?: IUserDetails;
-  unhandledError?: any;
-  onRetry: () => void;
-}
+export * from './types';
 
 export const InheritanceEstateRecoveryDialogContext: Context<InheritanceEstateRecoveryDialogContextInterface> =
   createContext<InheritanceEstateRecoveryDialogContextInterface>(
     {} as InheritanceEstateRecoveryDialogContextInterface,
   );
 
-export interface InheritanceEstateRecoveryDialogContextProviderProps {
+export interface InheritanceEstateRecoveryDialogContextProviderProps
+  extends InheritanceEstateRecoveryDialogProps {
   children: ReactNode;
 }
 
 export const InheritanceEstateRecoveryDialogProvider: FC<
   InheritanceEstateRecoveryDialogContextProviderProps
-> = ({ children }) => {
-  const dispatch = useAppDispatch();
-  const lang = useAppSelector(selectLanguage);
-
-  const deviceRequiredDialogsMap: Record<number, number[] | undefined> = {};
-  const tabs: ITabs = useMemo(
-    () => [
-      {
-        name: lang.strings.inheritance.termsOfService.title,
-        dialogs: [<Terms key="Terms of services" />],
-      },
-      {
-        name: lang.strings.dialogs.inheritanceEstateRecovery.instructions.name,
-        dialogs: [
-          <Settings key="Settings" />,
-          <ClearData key="Clear Data" />,
-          <ConfirmClearData key="Confirm Clear Data" />,
-          <AuthenticateClearData key="Autheticate Clear Data" />,
-        ],
-      },
-      {
-        name: lang.strings.dialogs.inheritanceEstateRecovery.wallet.name,
-        dialogs: [
-          <WalletAuth key="Wallet authentication" />,
-          <VerifyOTP key="Verify otp" />,
-          <FetchData key="Syncing" />,
-        ],
-      },
-      {
-        name: lang.strings.dialogs.inheritanceEstateRecovery.decryption.name,
-        dialogs: [<DecryptMessage key="Decrypt message" />],
-      },
-      {
-        name: lang.strings.dialogs.inheritanceEstateRecovery.viewPin.name,
-        dialogs: [<ViewPin key="View pin" />],
-      },
-      {
-        name: lang.strings.dialogs.inheritanceEstateRecovery.viewMessage.name,
-        dialogs: [<Message key="Decrypted message" />],
-      },
-
-      {
-        name: lang.strings.dialogs.inheritanceEstateRecovery.confirmation.name,
-        dialogs: [<Success key="Success message" />],
-      },
-    ],
-    [],
-  );
-
+> = ({ children, walletId }) => {
   const {
+    currentDialog,
+    currentTab,
+    goTo,
+    isDeviceRequired,
+    onClose,
     onNext,
     onPrevious,
-    goTo,
-    currentTab,
-    currentDialog,
-    isDeviceRequired,
-  } = useTabsAndDialogs({
-    deviceRequiredDialogsMap,
     tabs,
-    dialogName: 'inheritanceEstateRecovery',
-  });
+  } = useEstateRecoveryDialogHanlders();
 
-  const onClose = () => {
-    dispatch(closeDialog('inheritanceEstateRecovery'));
-  };
+  const wallets = useAppSelector(state => state.wallet.wallets);
+  const selectedWallet = useMemo(
+    () => wallets.find(w => w.__id === walletId),
+    [walletId, wallets],
+  );
+
+  const dispatch = useAppDispatch();
+
+  const [unhandledError, setUnhandledError] = useState<any>();
+  const [retryIndex, setRetryIndex] = useState(0);
+  const [isTermsAccepted, setIsTermsAccepted] = useState(false);
+  const encryptedMessageRef = useRef<any | undefined>();
+
+  const onError = useCallback((e?: any) => {
+    setUnhandledError(e);
+  }, []);
+
+  const clearErrors = useCallback(() => {
+    setUnhandledError(undefined);
+  }, []);
+
+  const walletAuthService = useWalletAuth(onError);
+  const sessionService = useSession(onError);
+  const decryptMessageService = useDecryptMessage(onError);
+
+  const walletAuthFetchRequestId = useCallback(() => {
+    walletAuthService.fetchRequestId(
+      walletId,
+      InheritanceLoginTypeMap.nominee,
+      'wallet-based',
+    );
+  }, [walletId, walletAuthService.fetchRequestId]);
+
+  const fetchEncryptedDataHandler = useCallback(async () => {
+    let sessionId = await sessionService.getIsActive();
+
+    if (!sessionId) {
+      sessionId = await sessionService.start();
+    }
+
+    assert(sessionId, 'sessionId not found');
+    assert(walletAuthService.authTokens?.accessToken, 'accessToken not found');
+
+    const result = await inheritancePlanService.recover.recover({
+      sessionId,
+      accessToken: walletAuthService.authTokens.accessToken,
+      message: true,
+      nominee: true,
+      wallet: true,
+    });
+
+    if (result.error) {
+      throw result.error;
+    }
+
+    encryptedMessageRef.current = result.result.encryptedMessage;
+    return true;
+  }, [
+    sessionService.start,
+    sessionService.getIsActive,
+    walletAuthService.authTokens,
+  ]);
+
+  const [
+    fetchEncryptedData,
+    isFetchingEncryptedData,
+    isEncryptedDataFetched,
+    resetFetchEncryptedData,
+  ] = useAsync(fetchEncryptedDataHandler, onError);
+
+  const startDecryption = useCallback(async () => {
+    assert(encryptedMessageRef.current, 'encryptedMessage not found');
+    decryptMessageService.start(walletId, encryptedMessageRef.current);
+  }, [walletId, decryptMessageService.start]);
+
+  const resetAll = useCallback(() => {
+    setRetryIndex(v => v + 1);
+    setUnhandledError(undefined);
+    walletAuthService.reset();
+    sessionService.reset();
+    resetFetchEncryptedData();
+    decryptMessageService.reset();
+  }, [
+    walletAuthService.reset,
+    sessionService.reset,
+    resetFetchEncryptedData,
+    decryptMessageService.reset,
+  ]);
+
+  const onRetryFuncMap = useMemo<
+    Record<number, Record<number, (() => boolean) | undefined> | undefined>
+  >(() => ({}), []);
+
+  const onRetry = useCallback(() => {
+    const retryLogic = onRetryFuncMap[currentTab]?.[currentDialog];
+
+    if (retryLogic) {
+      setRetryIndex(v => v + 1);
+      retryLogic();
+    } else {
+      resetAll();
+      goTo(0, 0);
+    }
+
+    setUnhandledError(undefined);
+  }, [currentTab, currentDialog, onRetryFuncMap, walletAuthService.reset]);
+
+  const onNextActionMapPerDialog = useMemo<
+    Record<number, Record<number, (() => boolean) | undefined> | undefined>
+  >(
+    () => ({
+      [tabIndicies.wallet.tabNumber]: {
+        [tabIndicies.wallet.dialogs.fetchRequestId]: () => {
+          if (walletAuthService.currentStep === WalletAuthLoginStep.completed) {
+            goTo(
+              tabIndicies.wallet.tabNumber,
+              tabIndicies.wallet.dialogs.fetchData,
+            );
+            return true;
+          }
+
+          return false;
+        },
+      },
+    }),
+    [walletAuthService.currentStep],
+  );
+
+  const onNextCallback = useCallback(() => {
+    const action = onNextActionMapPerDialog[currentTab]?.[currentDialog];
+
+    let doNext = true;
+
+    if (action) {
+      doNext = !action();
+    }
+
+    if (doNext) {
+      onNext();
+    }
+  }, [onNext, currentTab, currentDialog]);
+
+  const onPreviousActionMapPerDialog = useMemo<
+    Record<number, Record<number, (() => boolean) | undefined> | undefined>
+  >(() => ({}), []);
+
+  const onPreviousCallback = useCallback(() => {
+    const action = onPreviousActionMapPerDialog[currentTab]?.[currentDialog];
+
+    let doPrevious = true;
+
+    if (action) {
+      doPrevious = !action();
+    }
+
+    if (doPrevious) {
+      onPrevious();
+    }
+  }, [onPrevious, currentTab, currentDialog]);
 
   const onHelp = () => {
     dispatch(openContactSupportDialog());
   };
 
-  const [userDetails, setUserDetails] = useState<IUserDetails | undefined>();
-  const [selectedWallet, setSelectedWallet] = useState<IWallet | undefined>();
-  const [unhandledError, setUnhandledError] = useState<any>();
-
-  const onRetry = useCallback(() => {
-    setUserDetails(undefined);
-    setSelectedWallet(undefined);
-    setUnhandledError(undefined);
-    goTo(0, 0);
-  }, []);
-
   const ctx = useMemoReturn({
-    onNext,
-    onPrevious,
+    onNext: onNextCallback,
+    onPrevious: onPreviousCallback,
     tabs,
     onClose,
     onHelp,
@@ -163,11 +232,36 @@ export const InheritanceEstateRecoveryDialogProvider: FC<
     currentTab,
     currentDialog,
     isDeviceRequired,
-    selectedWallet,
-    setSelectedWallet,
-    userDetails,
     unhandledError,
     onRetry,
+    isTermsAccepted,
+    setIsTermsAccepted,
+    clearErrors,
+    retryIndex,
+    walletAuthDeviceEvents: walletAuthService.deviceEvents,
+    walletAuthFetchRequestId,
+    walletAuthIsFetchingRequestId: walletAuthService.isFetchingRequestId,
+    walletAuthStart: walletAuthService.startWalletAuth,
+    walletAuthValidateSignature: walletAuthService.validateSignature,
+    walletAuthIsValidatingSignature: walletAuthService.isValidatingSignature,
+    walletAuthStep: walletAuthService.currentStep,
+    walletAuthAbort: walletAuthService.abortWalletAuth,
+    onRegister: walletAuthService.registerUser,
+    isRegisteringUser: walletAuthService.isRegisteringUser,
+    otpVerificationDetails: walletAuthService.otpVerificationDetails,
+    verifyOtp: walletAuthService.verifyOtp,
+    isVerifyingOtp: walletAuthService.isVerifyingOtp,
+    isRegisterationRequired: walletAuthService.isRegisterationRequired,
+    fetchEncryptedData,
+    isFetchingEncryptedData,
+    isEncryptedDataFetched,
+    selectedWallet,
+    decryptPinStart: startDecryption,
+    decryptPinAbort: decryptMessageService.abort,
+    decryptPinDeviceEvents: decryptMessageService.deviceEvents,
+    decryptPinIsCompleted: decryptMessageService.isDecrypted,
+    decryptedCardLocation: decryptMessageService.cardLocation,
+    decryptedPersonalMessage: decryptMessageService.personalMessage,
   });
 
   return (

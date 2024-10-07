@@ -1,4 +1,4 @@
-import { SignTransactionDeviceEvent } from '@cypherock/coin-support-interfaces';
+import { InheritanceDecryptMessageDeviceEvent } from '@cypherock/app-support-inheritance';
 import {
   ArrowRightIcon,
   Check,
@@ -27,29 +27,28 @@ export const ViewPin = () => {
 
   const strings = lang.strings.dialogs.inheritanceEstateRecovery.viewPin;
 
-  const { onNext } = useInheritanceEstateRecoveryDialog();
-
-  const deviceEvents: Record<number, boolean | undefined> = {
-    0: true,
-  };
+  const { onNext, decryptPinIsCompleted, decryptPinDeviceEvents } =
+    useInheritanceEstateRecoveryDialog();
 
   const getDeviceEventIcon = (
-    loadingEvent: SignTransactionDeviceEvent,
-    completedEvent: SignTransactionDeviceEvent,
+    loadingEvent: InheritanceDecryptMessageDeviceEvent,
+    completedEvent: InheritanceDecryptMessageDeviceEvent,
   ) => {
-    if (deviceEvents[completedEvent]) return checkIconComponent;
-    if (deviceEvents[loadingEvent]) return throbberComponent;
+    if (decryptPinDeviceEvents[completedEvent]) return checkIconComponent;
+    if (decryptPinDeviceEvents[loadingEvent]) return throbberComponent;
 
     return undefined;
   };
-
   const actionsList = React.useMemo<LeanBoxProps[]>(() => {
     const actions: LeanBoxProps[] = [
       {
         id: '1',
         text: strings.actions.view,
         leftImage: rightArrowIcon,
-        rightImage: getDeviceEventIcon(0, 1),
+        rightImage: getDeviceEventIcon(
+          InheritanceDecryptMessageDeviceEvent.CARD_TAPPED,
+          InheritanceDecryptMessageDeviceEvent.PIN_VERIFIED,
+        ),
       },
     ];
 
@@ -57,12 +56,10 @@ export const ViewPin = () => {
   }, []);
 
   useEffect(() => {
-    const timeout = setTimeout(() => {
+    if (decryptPinIsCompleted) {
       onNext();
-    }, 2000);
-
-    return () => clearTimeout(timeout);
-  }, []);
+    }
+  }, [decryptPinIsCompleted]);
 
   return (
     <Layout>
