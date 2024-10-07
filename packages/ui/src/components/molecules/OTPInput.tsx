@@ -93,6 +93,21 @@ export const OTPInput: React.FC<OTPInputProps> = ({
 }) => {
   const isRetryExceeded = status === 'retryExceeded';
 
+  const handlePaste = (e: React.ClipboardEvent<HTMLDivElement>) => {
+    e.preventDefault();
+
+    const pastedData = e.clipboardData
+      .getData('text/plain')
+      .slice(0, otpLength);
+
+    if (pastedData.split('').some(char => Number.isNaN(Number(char)))) {
+      return;
+    }
+
+    const newOtp = (value + pastedData).slice(0, otpLength);
+    onChange(newOtp);
+  };
+
   return (
     <Flex
       $width="600px"
@@ -121,6 +136,8 @@ export const OTPInput: React.FC<OTPInputProps> = ({
               onChange={onChange}
               numInputs={otpLength}
               renderSeparator={<Container $width={16} />}
+              shouldAutoFocus={value.length === 0}
+              onPaste={handlePaste}
               renderInput={props => (
                 <OTPSingleInputContainer
                   {...props}
@@ -153,7 +170,7 @@ export const OTPInput: React.FC<OTPInputProps> = ({
                 onClick={onAction}
                 variant="text"
               >
-                {actionText}
+                <LangDisplay text={actionText} variables={textVariables} />
               </ActionButton>
             )}
           </Flex>

@@ -1,6 +1,7 @@
 import {
   EncryptMessagesWithPinEvent,
   InheritanceApp,
+  InheritanceMessage,
 } from '@cypherock/sdk-app-inheritance';
 import { hexToUint8Array, uint8ArrayToHex } from '@cypherock/sdk-utils';
 import { Observable } from 'rxjs';
@@ -12,6 +13,7 @@ import {
 } from './types';
 
 import logger from '../../utils/logger';
+import { ENCRYPTED_DATA_SERIALIZATION_TAGS } from '../common';
 
 const encryptMessageToDeviceEventMap: Partial<
   Record<
@@ -24,8 +26,10 @@ const encryptMessageToDeviceEventMap: Partial<
     InheritanceEncryptMessageDeviceEvent.CONFIRMED,
   [EncryptMessagesWithPinEvent.MESSAGE_VERIFIED]:
     InheritanceEncryptMessageDeviceEvent.VERIFIED,
-  [EncryptMessagesWithPinEvent.PIN_ENTERED]:
-    InheritanceEncryptMessageDeviceEvent.CARD_TAPPED,
+  [EncryptMessagesWithPinEvent.PIN_ENTERED_CARD_TAP]:
+    InheritanceEncryptMessageDeviceEvent.PIN_CARD_TAPPED,
+  [EncryptMessagesWithPinEvent.MESSAGE_ENCRYPTED_CARD_TAP]:
+    InheritanceEncryptMessageDeviceEvent.MESSAGE_CARD_TAPPED,
 };
 
 export const encryptMessage = (
@@ -55,17 +59,31 @@ export const encryptMessage = (
 
     const main = async () => {
       try {
-        const { walletId, connection, messages } = params;
+        const { walletId, connection, cardLocation, personalMessage } = params;
 
         const events: Record<number, boolean | undefined> = {} as any;
+
+        const messages: Record<number, InheritanceMessage> = {};
+
+        if (personalMessage) {
+          messages[ENCRYPTED_DATA_SERIALIZATION_TAGS.NOMINEE_MESSAGE] = {
+            value: personalMessage,
+            verifyOnDevice: true,
+          };
+        }
+
+        if (cardLocation) {
+          messages[ENCRYPTED_DATA_SERIALIZATION_TAGS.WALLET_MESSAGE] = {
+            value: cardLocation,
+            verifyOnDevice: false,
+          };
+        }
 
         app = await InheritanceApp.create(connection);
 
         const { encryptedPacket } = await app.encryptMessagesWithPin({
           walletId: hexToUint8Array(walletId),
-          messages: messages.map(m => ({
-            value: m,
-          })),
+          messages,
           onEvent: event => {
             const deviceEvent = encryptMessageToDeviceEventMap[event];
             if (deviceEvent !== undefined) {

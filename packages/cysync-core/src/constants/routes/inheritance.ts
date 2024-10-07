@@ -7,6 +7,10 @@ export const inheritance = {
     name: 'inheritance-choose-plan',
     path: '/inheritance/plans',
   },
+  planDetails: {
+    name: 'inheritance-plan-details',
+    path: '/inheritance/plan',
+  },
 } as const;
 
 export type InheritanceRouteName =

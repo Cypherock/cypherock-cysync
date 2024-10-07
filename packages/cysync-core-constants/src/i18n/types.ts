@@ -97,6 +97,7 @@ interface LangButtons {
   saveAndContinue: string;
   exitWithoutSaving: string;
   saveChanges: string;
+  edit: string;
 }
 
 interface LangDashboard {
@@ -109,7 +110,7 @@ interface LangDashboard {
     expiry: string;
     expiring: string;
     expired: string;
-    pendingTime: string;
+    pending: string;
     silver: string;
     gold: string;
     hours: string;
@@ -788,6 +789,7 @@ interface LangDialogs {
     walletAuth: {
       title: string;
       actions: {
+        confirm: string;
         tapCard: string;
       };
       messageBox: {
@@ -797,6 +799,9 @@ interface LangDialogs {
     fetchData: {
       title: string;
       subTitle: string;
+    };
+    verifyEmail: {
+      title: string;
     };
   };
   inheritanceEditExecutorMessage: {
@@ -904,6 +909,7 @@ interface LangDialogs {
     viewPin: {
       name: string;
       title: string;
+      subTitle: string;
       actions: {
         viewDevice: string;
       };
@@ -987,6 +993,97 @@ interface LangDialogs {
       title: string;
     };
   };
+  inheritanceEstateRecovery: {
+    title: string;
+    instructions: {
+      name: string;
+      dialogs: {
+        settings: { title: string };
+        clearData: { title: string };
+        confirmClearData: { title: string };
+        tapCards: {
+          title: string;
+          subTitle: string;
+          messageBoxList: { warning: string }[];
+        };
+      };
+    };
+    wallet: {
+      name: string;
+      title: string;
+      subTitle: string;
+      actions: {
+        confirm: string;
+        tapCard: string;
+      };
+      messageBox: {
+        warning: string;
+      };
+      verification: {
+        title: string;
+      };
+      syncing: {
+        title: string;
+        subTitle: string;
+      };
+    };
+    decryption: {
+      name: string;
+      device: {
+        title: string;
+        subTitle: string;
+        actions: {
+          confirm: string;
+          tapCard: string;
+        };
+        messageBox: {
+          warning: string;
+        };
+      };
+      error: {
+        title: string;
+        message: string;
+      };
+    };
+    viewPin: {
+      name: string;
+      title: string;
+      subTitle: string;
+      actions: {
+        view: string;
+      };
+      messageBox: {
+        warning: string;
+      };
+    };
+    viewMessage: {
+      name: string;
+      title: string;
+      tooltip: string;
+      form: {
+        cardLocationField: {
+          label: string;
+          placeholder: string;
+          tooltip: string;
+        };
+        personalMessageField: {
+          label: string;
+          placeholder: string;
+          tooltip: string;
+        };
+        checkBox: {
+          label: string;
+        };
+      };
+    };
+    confirmation: {
+      name: string;
+      success: {
+        title: string;
+        subTitle: string;
+      };
+    };
+  };
 }
 
 interface LangToggle {
@@ -1051,6 +1148,9 @@ interface LangOTP {
   noRetries: {
     title: string;
     subTitle: string;
+  };
+  buttons: {
+    resendWithTimeout: string;
   };
 }
 
@@ -1140,6 +1240,10 @@ interface LangInheritance {
   };
   buttons: {
     syncFromEmail: string;
+    recoverPin: string;
+    renewPlan: string;
+    unlock: string;
+    upgradePlan: string;
   };
   termsOfService: {
     title: string;
@@ -1196,7 +1300,6 @@ interface LangInheritanceSilverPlanPurchase {
     };
     video: {
       title: string;
-      subTitle: string;
     };
   };
   wallet: {
@@ -1248,6 +1351,7 @@ interface LangInheritanceSilverPlanPurchase {
     };
     success: {
       title: string;
+      subTitle: string;
     };
   };
   checkout: {
@@ -1375,8 +1479,7 @@ interface LangInheritanceGoldPlanPurchase {
           label: string;
           tooltip: string;
           options: {
-            labelOne: string;
-            labelTwo: string;
+            labelPrefix: string;
           };
         };
       };
@@ -1461,6 +1564,7 @@ interface LangInheritanceGoldPlanPurchase {
         nomineeNameField: { label: string };
         primaryEmailField: { label: string };
         secondaryEmailField: { label: string };
+        assignTo: { label: string };
       };
     };
     executorMessage: {

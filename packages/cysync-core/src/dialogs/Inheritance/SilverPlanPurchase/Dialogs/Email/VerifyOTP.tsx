@@ -14,7 +14,6 @@ export const VerifyOTP: React.FC = () => {
   const strings = lang.strings.inheritance.dialog.verifyOTP;
 
   const {
-    onClose,
     onPrevious,
     onNext,
     otpVerificationDetails,
@@ -26,7 +25,8 @@ export const VerifyOTP: React.FC = () => {
     const map: Record<OtpVerificationConcern, string> = {
       [OtpVerificationConcern.primary]: strings.primaryEmailOTP.title,
       [OtpVerificationConcern.alternate]: strings.alternateEmailOTP.title,
-      [OtpVerificationConcern.login]: lang.strings.otp.title,
+      [OtpVerificationConcern.login]:
+        lang.strings.dialogs.inheritancePlanLogin.verifyEmail.title,
     };
 
     if (!otpVerificationDetails) return '';
@@ -74,7 +74,6 @@ export const VerifyOTP: React.FC = () => {
   return (
     <OTPInputDialog
       title={title}
-      onClose={onClose}
       emails={email}
       onBack={onPrevious}
       onResendOtp={onResend}

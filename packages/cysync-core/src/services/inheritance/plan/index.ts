@@ -1,11 +1,18 @@
+import { inheritanceRecoverPlansService } from './recover';
 import {
   activateResultSchema,
   applyCouponResultSchema,
+  checkCouponResultSchema,
   createResultSchema,
+  getPlanResultSchema,
 } from './schema';
 import { inheritanceSyncPlansService } from './sync';
 
-import { makePostRequest, runAndHandleServerErrors } from '../../utils';
+import {
+  makeGetRequest,
+  makePostRequest,
+  runAndHandleServerErrors,
+} from '../../utils';
 import { inheritanceBaseUrl } from '../common';
 
 export {
@@ -19,13 +26,18 @@ export * from './sync';
 const baseUrl = `${inheritanceBaseUrl}/wallet-account`;
 const couponBaseUrl = `${inheritanceBaseUrl}/wallet-recovery`;
 
-const create = async (params: { encryptedData: string; accessToken: string }) =>
+const create = async (params: {
+  encryptedData: string;
+  sessionId: string;
+  accessToken: string;
+}) =>
   runAndHandleServerErrors(() =>
     makePostRequest(
       createResultSchema,
       `${baseUrl}/info/message`,
       {
         encryptedData: params.encryptedData,
+        sessionId: params.sessionId,
       },
       params.accessToken,
     ),
@@ -36,6 +48,18 @@ const applyCoupon = async (params: { coupon: string; accessToken: string }) =>
     makePostRequest(
       applyCouponResultSchema,
       `${couponBaseUrl}/activate`,
+      {
+        coupon: params.coupon,
+      },
+      params.accessToken,
+    ),
+  );
+
+const checkCoupon = async (params: { coupon: string; accessToken: string }) =>
+  runAndHandleServerErrors(() =>
+    makePostRequest(
+      checkCouponResultSchema,
+      `${couponBaseUrl}/check-coupon`,
       {
         coupon: params.coupon,
       },
@@ -55,9 +79,17 @@ const activate = async (params: { coupon: string; accessToken: string }) =>
     ),
   );
 
+const getPlan = async (params: { accessToken: string }) =>
+  runAndHandleServerErrors(() =>
+    makeGetRequest(getPlanResultSchema, `${baseUrl}/list`, params.accessToken),
+  );
+
 export const inheritancePlanService = {
   create,
+  checkCoupon,
   applyCoupon,
   activate,
   sync: inheritanceSyncPlansService,
+  recover: inheritanceRecoverPlansService,
+  getPlan,
 };

@@ -13,22 +13,27 @@ import React from 'react';
 import { selectLanguage, useAppSelector } from '~/store';
 
 import { useInheritanceGoldPlanPurchaseDialog } from '../../context';
+import { tabIndicies } from '../../context/useDialogHandler';
 import { Layout } from '../../Layout';
 
 export const SelectExecutor = () => {
   const lang = useAppSelector(selectLanguage);
   const strings = lang.strings.inheritanceGoldPlanPurchase.nomineeAndExecutor;
-  const { goTo, onNext } = useInheritanceGoldPlanPurchaseDialog();
+  const { goTo, haveExecutor, setHaveExecutor, onExecutorSelected } =
+    useInheritanceGoldPlanPurchaseDialog();
 
   return (
     <Layout
       footerComponent={
         <>
-          <Button onClick={() => goTo(5, 3)} variant="secondary">
-            <LangDisplay text={lang.strings.buttons.no} />
+          <Button
+            onClick={() => goTo(tabIndicies.nominieeAndExecutor.tabNumber, 0)}
+            variant="secondary"
+          >
+            <LangDisplay text={lang.strings.buttons.back} />
           </Button>
-          <Button onClick={() => onNext()} variant="primary">
-            <LangDisplay text={lang.strings.buttons.yes} />
+          <Button onClick={() => onExecutorSelected()} variant="primary">
+            <LangDisplay text={lang.strings.buttons.next} />
           </Button>
         </>
       }
@@ -61,12 +66,16 @@ export const SelectExecutor = () => {
             description={strings.executor.select.options.one.desc}
             $styleType="2"
             $width={340}
+            isSelected={haveExecutor}
+            onClick={() => setHaveExecutor(true)}
           />
           <OneInMany
             title={strings.executor.select.options.two.no}
             description={strings.executor.select.options.two.desc}
             $styleType="2"
             $width={340}
+            isSelected={!haveExecutor}
+            onClick={() => setHaveExecutor(false)}
           />
         </Container>
       </Container>

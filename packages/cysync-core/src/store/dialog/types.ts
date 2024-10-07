@@ -3,6 +3,11 @@ import { AddTokenDialogProps } from '~/dialogs/AddToken';
 import { DeleteAccountDialogProps } from '~/dialogs/DeleteAccountDialog';
 import { ErrorDialogProps } from '~/dialogs/ErrorDialog';
 import { IHistoryDialogProps } from '~/dialogs/HistoryDialog';
+import {
+  InheritanceEstateRecoveryDialogProps,
+  InheritancePinRecoveryDialogProps,
+  InheritancePlanLoginDialogProps,
+} from '~/dialogs/Inheritance';
 import { SendDialogProps } from '~/dialogs/Send';
 
 export interface IDialogState {
@@ -140,7 +145,7 @@ export interface IDialogState {
 
   inheritancePlanLogin: {
     isOpen: boolean;
-    data?: undefined;
+    data?: InheritancePlanLoginDialogProps;
   };
 
   inheritanceSilverPlanPurchase: {
@@ -170,12 +175,17 @@ export interface IDialogState {
 
   inheritancePinRecovery: {
     isOpen: boolean;
-    data?: undefined;
+    data?: InheritancePinRecoveryDialogProps;
   };
 
   inheritanceEditEncryptedMessage: {
     isOpen: boolean;
     data?: undefined;
+  };
+
+  inheritanceEstateRecovery: {
+    isOpen: boolean;
+    data?: InheritanceEstateRecoveryDialogProps;
   };
 }
 

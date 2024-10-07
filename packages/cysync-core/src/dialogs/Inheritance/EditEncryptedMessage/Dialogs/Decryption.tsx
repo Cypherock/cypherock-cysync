@@ -13,11 +13,11 @@ import {
 } from '@cypherock/cysync-ui';
 import React, { useEffect } from 'react';
 
+import { LoaderDialog } from '~/components';
 import { selectLanguage, useAppSelector } from '~/store';
 
 import { useInheritanceEditEncryptedMessageDialog } from '../context';
 import { Layout } from '../Layout';
-import { LoaderDialog } from '~/components';
 
 const checkIconComponent = <Check width={15} height={12} />;
 const throbberComponent = <Throbber size={15} strokeWidth={2} />;
