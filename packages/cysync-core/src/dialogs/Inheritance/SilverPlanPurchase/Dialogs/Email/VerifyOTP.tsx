@@ -14,7 +14,6 @@ export const VerifyOTP: React.FC = () => {
   const strings = lang.strings.inheritance.dialog.verifyOTP;
 
   const {
-    onClose,
     onPrevious,
     onNext,
     otpVerificationDetails,
@@ -75,7 +74,6 @@ export const VerifyOTP: React.FC = () => {
   return (
     <OTPInputDialog
       title={title}
-      onClose={onClose}
       emails={email}
       onBack={onPrevious}
       onResendOtp={onResend}

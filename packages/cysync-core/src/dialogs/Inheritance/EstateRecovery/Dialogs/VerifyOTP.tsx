@@ -13,7 +13,7 @@ export const VerifyOTP: React.FC = () => {
   const strings =
     lang.strings.dialogs.inheritanceEstateRecovery.wallet.verification;
 
-  const { onClose, onPrevious, onNext, userDetails } =
+  const { onPrevious, onNext, userDetails } =
     useInheritanceEstateRecoveryDialog();
 
   const email = userDetails?.email ?? '';
@@ -23,7 +23,6 @@ export const VerifyOTP: React.FC = () => {
 
   const onVerify = () => {
     // DUMMY FUNCTION
-
     onNext();
   };
 
@@ -41,7 +40,6 @@ export const VerifyOTP: React.FC = () => {
   return (
     <OTPInputDialog
       title={strings.title}
-      onClose={onClose}
       emails={[email, alternateEmail]}
       onBack={onPrevious}
       onResendOtp={onResend}
