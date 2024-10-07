@@ -118,6 +118,7 @@ export const theme = {
       cardDisabled: colors.background.cardDisabled,
       cardSelected: colors.background.cardSelected,
       slateDark: colors.background.slateDark,
+      videoError: colors.background.videoError,
       timer: {
         main: colors.background.timer.main,
         default: colors.background.timer.default,

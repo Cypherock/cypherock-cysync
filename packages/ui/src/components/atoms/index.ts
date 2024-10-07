@@ -34,4 +34,3 @@ export * from './Video';
 export * from './AdvanceTextDiaplay';
 export * from './NomineeMessage';
 export * from './ExternalLink';
-export * from './VideoPlaybackError';

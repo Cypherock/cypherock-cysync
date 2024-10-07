@@ -11,7 +11,7 @@ import { selectLanguage, useAppSelector } from '~/store';
 
 import { useInheritanceGoldPlanPurchaseDialog } from '../../context';
 import { Layout } from '../../Layout';
-import { CustomReactPlayer } from '~/components/CustomReactPlayer';
+import { VideoPlayer } from '~/components/VideoPlayer';
 
 export const ExecutorMessageTutorial = () => {
   const lang = useAppSelector(selectLanguage);
@@ -46,8 +46,10 @@ export const ExecutorMessageTutorial = () => {
         </Typography>
       </Container>
 
-      <CustomReactPlayer
+      <VideoPlayer
         url={constants.inheritance.silverPlanPurchaseTutorialLink}
+        width="720px"
+        height="405px"
       />
     </Layout>
   );
