@@ -2,6 +2,7 @@ import React, { FC } from 'react';
 import styled from 'styled-components';
 
 import {
+  CheckMarkCircle,
   InformationIcon,
   manyInManyBgImage,
   manyInManyHoverBgImage,
@@ -46,6 +47,7 @@ const StyledDateLabel = styled(Typography)<{ $isSelected: boolean }>`
   z-index: 1;
   margin-top: 16px;
   transition: font-size 0.5s ease;
+  color: inherit;
 `;
 
 const StyledContainer = styled.div<
@@ -136,6 +138,7 @@ export interface ManyInManyProps extends UtilsProps {
   title: string;
   disabled?: boolean;
   isSelected?: boolean;
+  isActive?: boolean;
   onClick: () => void;
 }
 
@@ -144,13 +147,14 @@ export const ManyInMany: FC<ManyInManyProps> = ({
   disabled,
   isSelected,
   onClick,
+  isActive,
   ...restProps
 }) => {
   const theme = useTheme();
 
   return (
     <StyledContainer
-      onClick={() => !disabled && onClick()}
+      onClick={() => !disabled && !isActive && onClick()}
       $isSelected={Boolean(isSelected)}
       disabled={Boolean(disabled)}
       {...restProps}
@@ -159,6 +163,15 @@ export const ManyInMany: FC<ManyInManyProps> = ({
         <StyledRedInfoImage>
           <InformationIcon
             fill={theme.palette.background.danger}
+            $width={15}
+            $height={15}
+          />
+        </StyledRedInfoImage>
+      )}
+      {isActive && (
+        <StyledRedInfoImage>
+          <CheckMarkCircle
+            stroke={theme.palette.background.success}
             $width={15}
             $height={15}
           />
@@ -187,4 +200,5 @@ export const ManyInMany: FC<ManyInManyProps> = ({
 ManyInMany.defaultProps = {
   isSelected: undefined,
   disabled: undefined,
+  isActive: undefined,
 };
