@@ -25,7 +25,8 @@ export const VerifyOTP: React.FC = () => {
     const map: Record<OtpVerificationConcern, string> = {
       [OtpVerificationConcern.primary]: strings.primaryEmailOTP.title,
       [OtpVerificationConcern.alternate]: strings.alternateEmailOTP.title,
-      [OtpVerificationConcern.login]: lang.strings.otp.title,
+      [OtpVerificationConcern.login]:
+        lang.strings.dialogs.inheritancePlanLogin.verifyEmail.title,
     };
 
     if (!otpVerificationDetails) return '';
