@@ -4,7 +4,7 @@ export default [
     abbr: 'XRP',
     name: 'XRP',
     isTest: false,
-    coinGeckoId: 'xrp',
+    coinGeckoId: 'ripple',
     coinIndex: '80000090',
     feesUnit: 'xrp',
     color: '#eb0029',
