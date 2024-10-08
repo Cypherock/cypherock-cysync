@@ -68,6 +68,7 @@ export const SingleTransaction: React.FC<SingleTransactionProps> = ({
     near: () => '',
     solana: () => '',
     tron: () => '',
+    xrp: () => '',
   };
 
   useEffect(() => {

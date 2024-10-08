@@ -98,6 +98,7 @@ export const FeeSection: React.FC<FeeSectionProps> = ({ showErrors }) => {
     near: () => ({}),
     solana: () => ({}),
     tron: () => ({}),
+    xrp: () => ({}),
   };
 
   const getFeeInputComponent = () => {

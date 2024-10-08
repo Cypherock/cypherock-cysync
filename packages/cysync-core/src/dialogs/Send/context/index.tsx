@@ -584,6 +584,7 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
     near: () => '0',
     solana: getSolanaFeeAmount,
     tron: getTronFeeAmount,
+    xrp: () => '0',
   };
 
   const getComputedFee = (coinFamily: CoinFamily, txn?: IPreparedTransaction) =>
