@@ -93,13 +93,13 @@ const gap = css<FlexProps>`
 
 const grow = css<FlexProps>`
   ${props =>
-    props.grow &&
+    props.grow !== undefined &&
     generateCss(['flex-grow'], (item: number) => `${item}`, props.grow)}
 `;
 
 const shrink = css<FlexProps>`
   ${props =>
-    props.shrink &&
+    props.shrink !== undefined &&
     generateCss(['flex-shrink'], (item: number) => `${item}`, props.shrink)}
 `;
 

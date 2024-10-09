@@ -86,7 +86,7 @@ const baseStyle = css<TypographyProps>`
         ? `${props.$letterSpacing}em`
         : props.$letterSpacing};
     `}
-    
+
   ${props =>
     props.$whiteSpace !== undefined &&
     css`
@@ -119,7 +119,6 @@ const baseStyle = css<TypographyProps>`
   ${position};
   ${flex};
   ${display};
-  ${flex};
 `;
 
 const HeadingOneStyle = styled.h1<HeadingProps>`
