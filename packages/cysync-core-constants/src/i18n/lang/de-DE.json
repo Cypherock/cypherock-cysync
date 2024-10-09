@@ -2315,7 +2315,7 @@
         "confirm": {
           "title": "Do you want to verify nominee emails?",
           "subtext": "An OTP will be sent to the provided emails. If you do not want to inform the nominee about this plan, you can skip verification of emails.",
-          "warning": "Make sure you provide correct emails."
+          "warning": "If you do not verify the nominee email then Cypherock emails may land in spam folder"
         }
       },
       "executor": {
