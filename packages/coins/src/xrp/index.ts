@@ -6,6 +6,7 @@ type XrpFamily = typeof coinFamiliesMap.xrp;
 
 export interface IXrpCoinInfo extends ICoinInfo {
   family: XrpFamily;
+  network: string;
 }
 
 export const XrpIdMap = {
@@ -28,6 +29,7 @@ export const xrpCoinList: Record<string, IXrpCoinInfo> = coinList.reduce<
       coinGeckoId: coin.coinGeckoId,
       coinIndex: coin.coinIndex,
       feesUnit: coin.feesUnit,
+      network: coin.network,
       units: coin.units,
       color: coin.color,
     },

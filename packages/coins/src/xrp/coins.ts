@@ -9,6 +9,7 @@ export default [
     feesUnit: 'xrp',
     color: '#eb0029',
     family: 'xrp',
+    network: 'mainnet',
     isUnderDevelopment: true,
     isZeroPriceCoin: false,
     units: [
@@ -18,8 +19,8 @@ export default [
         magnitude: 6,
       },
       {
-        name: 'drops',
-        abbr: 'DROPS',
+        name: 'drop',
+        abbr: 'drop',
         magnitude: 0,
       },
     ],

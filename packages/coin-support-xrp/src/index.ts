@@ -28,6 +28,8 @@ import { ITransaction } from '@cypherock/db-interfaces';
 import { setXrpLib } from '@cypherock/sdk-app-xrp';
 import { Observable } from 'rxjs';
 
+import * as operations from './operations';
+
 import { setCoinSupportXrpLib } from './utils';
 
 export { updateLogger } from './utils/logger';
@@ -45,7 +47,7 @@ export class XrpSupport implements CoinSupport {
   public createAccounts(
     params: ICreateAccountParams,
   ): Observable<ICreateAccountEvent> {
-    throw new Error(`Method not implemented Params: ${params}`);
+    return operations.createAccounts(params);
   }
 
   public syncAccount(params: ISyncAccountsParams): Observable<void> {
