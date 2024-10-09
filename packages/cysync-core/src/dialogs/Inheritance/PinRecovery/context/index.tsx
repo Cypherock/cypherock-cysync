@@ -12,7 +12,7 @@ import React, {
 } from 'react';
 
 import { ITabs, useAsync, useMemoReturn, useTabsAndDialogs } from '~/hooks';
-import { InheritanceLoginTypeMap, inheritancePlanService } from '~/services';
+import { InheritanceUserTypeMap, inheritancePlanService } from '~/services';
 import {
   closeDialog,
   selectLanguage,
@@ -140,7 +140,7 @@ export const InheritancePinRecoveryDialogProvider: FC<
   const walletAuthFetchRequestId = useCallback(() => {
     walletAuthService.fetchRequestId(
       walletId,
-      InheritanceLoginTypeMap.nominee,
+      InheritanceUserTypeMap.nominee,
       'wallet-based',
     );
   }, [selectedWallet, walletAuthService.fetchRequestId]);

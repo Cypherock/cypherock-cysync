@@ -22,7 +22,7 @@ import {
 import {
   inheritancePlanService,
   inheritanceLoginService,
-  InheritanceLoginTypeMap,
+  InheritanceUserTypeMap,
 } from '~/services';
 import { ReminderPeriod } from '~/services/inheritance/login/schema';
 import { selectLanguage, useAppSelector } from '~/store';
@@ -191,7 +191,7 @@ export const InheritanceGoldPlanPurchaseDialogProvider: FC<
 
     walletAuthService.fetchRequestId(
       selectedWallet.__id,
-      InheritanceLoginTypeMap.owner,
+      InheritanceUserTypeMap.owner,
       'seed-based',
     );
   }, [selectedWallet, walletAuthService.fetchRequestId]);

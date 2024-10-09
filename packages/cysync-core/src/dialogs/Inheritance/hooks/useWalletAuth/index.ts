@@ -9,8 +9,8 @@ import {
   InheritanceLoginInitResponse,
   InheritanceLoginRegisterResponse,
   inheritanceLoginService,
-  InheritanceLoginType,
-  InheritanceLoginTypeMap,
+  InheritanceUserType,
+  InheritanceUserTypeMap,
   InheritanceLoginVerifyResponse,
 } from '~/services';
 import { ServerResponseWithError } from '~/services/utils';
@@ -51,9 +51,8 @@ export const useWalletAuth = (onErrorCallback: (e?: any) => void) => {
     WalletAuthLoginStep.fetchRequestId,
   );
 
-  const wallets = useAppSelector(state => state.wallet.wallets);
   const walletIdRef = useRef<string | undefined>();
-  const loginTypeRef = useRef<InheritanceLoginType | undefined>();
+  const loginTypeRef = useRef<InheritanceUserType | undefined>();
   const authTypeRef = useRef<AuthType | undefined>();
   const initResponse = useRef<InheritanceLoginInitResponse | undefined>();
   const registerResponse = useRef<
@@ -93,7 +92,7 @@ export const useWalletAuth = (onErrorCallback: (e?: any) => void) => {
     (accessToken: string, refreshToken: string) => {
       if (!walletIdRef.current) return;
 
-      if (loginTypeRef.current === InheritanceLoginTypeMap.owner) {
+      if (loginTypeRef.current === InheritanceUserTypeMap.owner) {
         if (authTypeRef.current === 'seed-based') {
           dispatch(
             updateSeedAuthTokens({
@@ -138,7 +137,7 @@ export const useWalletAuth = (onErrorCallback: (e?: any) => void) => {
   const fetchRequestIdCallback = useCallback(
     async (
       walletId: string,
-      loginType: InheritanceLoginType = InheritanceLoginTypeMap.owner,
+      loginType: InheritanceUserType = InheritanceUserTypeMap.owner,
       authType: 'seed-based' | 'wallet-based' = 'seed-based',
     ) => {
       try {
@@ -151,7 +150,7 @@ export const useWalletAuth = (onErrorCallback: (e?: any) => void) => {
             ? seedAuthTokensPerWallet[walletId]
             : walletAuthTokensPerWallet[walletId];
 
-        if (existingTokens && loginType === InheritanceLoginTypeMap.owner) {
+        if (existingTokens && loginType === InheritanceUserTypeMap.owner) {
           const result = await inheritanceLoginService.refreshAccessToken({
             refreshToken: existingTokens.refreshToken,
           });
@@ -251,40 +250,34 @@ export const useWalletAuth = (onErrorCallback: (e?: any) => void) => {
     validateSignatureCallback,
   );
 
-  const registerUserCallback = useCallback(
-    async (params: IUserDetails) => {
-      if (!initResponse.current) {
-        return false;
-      }
+  const registerUserCallback = useCallback(async (params: IUserDetails) => {
+    if (!initResponse.current) {
+      return false;
+    }
 
-      const wallet = wallets.find(w => w.__id === walletIdRef.current);
+    const result = await inheritanceLoginService.register({
+      requestId: initResponse.current.requestId,
+      name: params.name,
+      email: params.email,
+      alternateEmail: params.alternateEmail,
+    });
 
-      const result = await inheritanceLoginService.register({
-        requestId: initResponse.current.requestId,
-        name: params.name,
-        email: params.email,
-        alternateEmail: params.alternateEmail,
-        walletName: wallet?.name,
-      });
+    if (result.error) {
+      throw result.error;
+    }
 
-      if (result.error) {
-        throw result.error;
-      }
+    userDetails.current = params;
+    registerResponse.current = result.result;
 
-      userDetails.current = params;
-      registerResponse.current = result.result;
-
-      setOtpVerificationDetails({
-        id: 'primaryVerificationOnRegister',
-        concern: OtpVerificationConcern.primary,
-        email: params.email,
-        ...result.result.otpDetails[0],
-      });
-      setCurrentStep(WalletAuthLoginStep.primaryOtpVerify);
-      return true;
-    },
-    [wallets],
-  );
+    setOtpVerificationDetails({
+      id: 'primaryVerificationOnRegister',
+      concern: OtpVerificationConcern.primary,
+      email: params.email,
+      ...result.result.otpDetails[0],
+    });
+    setCurrentStep(WalletAuthLoginStep.primaryOtpVerify);
+    return true;
+  }, []);
 
   const [registerUser, isRegisteringUser] = useAsync(
     registerUserCallback,
