@@ -19,7 +19,7 @@ import {
   useNavigateTo,
   useStateWithRef,
 } from '~/hooks';
-import { InheritanceLoginTypeMap, inheritancePlanService } from '~/services';
+import { inheritancePlanService, InheritanceUserTypeMap } from '~/services';
 import { selectLanguage, useAppSelector } from '~/store';
 import { getDB } from '~/utils';
 
@@ -108,7 +108,7 @@ export const InheritanceSilverPlanPurchaseDialogProvider: FC<
 
     walletAuthService.fetchRequestId(
       selectedWallet.__id,
-      InheritanceLoginTypeMap.owner,
+      InheritanceUserTypeMap.owner,
       'seed-based',
     );
   }, [selectedWallet, walletAuthService.fetchRequestId]);
