@@ -31,6 +31,7 @@ interface UserDetailsFormProps {
   alternateEmail: string;
   setAlternateEmail: (altEmail: string) => void;
   isAlternateEmailRequired?: boolean;
+  isSameEmail?: boolean;
 }
 
 export const UserDetailsForm: FC<UserDetailsFormProps> = ({
@@ -45,8 +46,10 @@ export const UserDetailsForm: FC<UserDetailsFormProps> = ({
   alternateEmail,
   setAlternateEmail,
   isAlternateEmailRequired,
+  isSameEmail,
 }) => {
   const lang = useAppSelector(selectLanguage);
+  const userDetailsStrings = lang.strings.inheritance.dialog.userDetails;
 
   return (
     <form style={{ width: '100%' }} onSubmit={onSubmit} id={formId}>
@@ -119,10 +122,16 @@ export const UserDetailsForm: FC<UserDetailsFormProps> = ({
           disabled={isSubmittingUserDetails}
         />
       </Container>
+      {isSameEmail && (
+        <Typography $fontSize={16} pt={2} color="error">
+          {userDetailsStrings.error.sameEmail}
+        </Typography>
+      )}
     </form>
   );
 };
 
 UserDetailsForm.defaultProps = {
   isAlternateEmailRequired: undefined,
+  isSameEmail: undefined,
 };

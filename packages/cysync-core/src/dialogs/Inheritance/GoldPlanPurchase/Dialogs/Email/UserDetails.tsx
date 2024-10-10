@@ -46,6 +46,9 @@ export const UserDetails = () => {
     }
   }, []);
 
+  const isSameEmail = Boolean(email && email === alternateEmail);
+  const isFormIncomplete = !name || !email || !alternateEmail;
+
   return (
     <Layout
       footerComponent={
@@ -61,6 +64,7 @@ export const UserDetails = () => {
             variant="primary"
             type="submit"
             form={formId}
+            disabled={isRegisteringUser || isSameEmail || isFormIncomplete}
             isLoading={isRegisteringUser}
           >
             <LangDisplay text={goldPlanStrings.buttons.sendOTP} />
@@ -79,6 +83,7 @@ export const UserDetails = () => {
         setEmail={setEmail}
         alternateEmail={alternateEmail}
         setAlternateEmail={setAlternateEmail}
+        isSameEmail={isSameEmail}
       />
     </Layout>
   );

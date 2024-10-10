@@ -52,6 +52,9 @@ export const ExecutorDetails = () => {
     );
   };
 
+  const isSameEmail = Boolean(email && email === alternateEmail);
+  const isFormIncomplete = !name || !email;
+
   return (
     <Layout
       footerComponent={
@@ -67,6 +70,9 @@ export const ExecutorDetails = () => {
             variant="primary"
             type="submit"
             form={formId}
+            disabled={
+              isSubmittingExecutorDetails || isSameEmail || isFormIncomplete
+            }
             isLoading={isSubmittingExecutorDetails}
           >
             <LangDisplay text={lang.strings.buttons.next} />
@@ -96,6 +102,7 @@ export const ExecutorDetails = () => {
           alternateEmail={alternateEmail}
           setAlternateEmail={setAlternateEmail}
           isAlternateEmailRequired={false}
+          isSameEmail={isSameEmail}
         />
         <Container
           direction="column"

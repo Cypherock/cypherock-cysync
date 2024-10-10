@@ -39,6 +39,9 @@ export const NomineeDetails: React.FC<{ index: number }> = ({ index }) => {
     onNext();
   };
 
+  const isSameEmail = Boolean(email && email === alternateEmail);
+  const isFormIncomplete = !name || !email;
+
   return (
     <Layout
       footerComponent={
@@ -57,7 +60,12 @@ export const NomineeDetails: React.FC<{ index: number }> = ({ index }) => {
           >
             <LangDisplay text={lang.strings.buttons.back} />
           </Button>
-          <Button variant="primary" type="submit" form={formId}>
+          <Button
+            variant="primary"
+            type="submit"
+            form={formId}
+            disabled={isSameEmail || isFormIncomplete}
+          >
             <LangDisplay text={lang.strings.buttons.next} />
           </Button>
         </>
@@ -84,6 +92,7 @@ export const NomineeDetails: React.FC<{ index: number }> = ({ index }) => {
         alternateEmail={alternateEmail}
         setAlternateEmail={setAlternateEmail}
         isAlternateEmailRequired={false}
+        isSameEmail={isSameEmail}
       />
     </Layout>
   );
