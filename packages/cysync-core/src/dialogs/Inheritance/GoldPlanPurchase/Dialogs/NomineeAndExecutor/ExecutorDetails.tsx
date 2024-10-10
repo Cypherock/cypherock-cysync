@@ -95,6 +95,7 @@ export const ExecutorDetails = () => {
           setEmail={setEmail}
           alternateEmail={alternateEmail}
           setAlternateEmail={setAlternateEmail}
+          isAlternateEmailRequired={false}
         />
         <Container
           direction="column"
