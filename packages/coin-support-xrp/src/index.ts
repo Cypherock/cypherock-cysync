@@ -51,7 +51,7 @@ export class XrpSupport implements CoinSupport {
   }
 
   public syncAccount(params: ISyncAccountsParams): Observable<void> {
-    throw new Error(`Method not implemented Params: ${params}`);
+    return operations.syncAccount(params);
   }
 
   public async initializeTransaction(
@@ -93,7 +93,7 @@ export class XrpSupport implements CoinSupport {
   public getAccountHistory(
     params: IGetAccountHistoryParams,
   ): Promise<IGetAccountHistoryResult> {
-    throw new Error(`Method not implemented Params: ${params}`);
+    return operations.getAccountHistory(params);
   }
 
   public validateAddress(params: IValidateAddressParams): boolean {
@@ -101,13 +101,13 @@ export class XrpSupport implements CoinSupport {
   }
 
   public syncPrices(params: ISyncPricesParams): Observable<void> {
-    throw new Error(`Method not implemented Params: ${params}`);
+    return operations.syncPrices(params);
   }
 
   public syncPriceHistories(
     params: ISyncPriceHistoriesParams,
   ): Observable<void> {
-    throw new Error(`Method not implemented Params: ${params}`);
+    return operations.syncPriceHistories(params);
   }
 
   public getExplorerLink(params: IGetExplorerLink): string {
