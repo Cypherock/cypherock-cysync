@@ -115,6 +115,6 @@ export class XrpSupport implements CoinSupport {
   }
 
   public formatAddress(params: IFormatAddressParams): string {
-    throw new Error(`Method not implemented Params: ${params}`);
+    return params.address;
   }
 }
