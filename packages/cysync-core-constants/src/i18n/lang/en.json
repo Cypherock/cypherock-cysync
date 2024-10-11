@@ -2065,7 +2065,7 @@
         "title": "Owner Details",
         "form": {
           "userNameField": {
-            "label": "User Name"
+            "label": "Name"
           },
           "primaryEmailField": {
             "label": "Primary Email"
@@ -2079,7 +2079,7 @@
         "title": "Nominee #${number}",
         "form": {
           "nomineeNameField": {
-            "label": "Nominee Name"
+            "label": "Name"
           },
           "primaryEmailField": {
             "label": "Primary Email"
@@ -2096,7 +2096,7 @@
         "title": "Executor",
         "form": {
           "nomineeNameField": {
-            "label": "Nominee Name"
+            "label": "Name"
           },
           "primaryEmailField": {
             "label": "Primary Email"
@@ -2421,7 +2421,7 @@
         "title": "Owner Details",
         "form": {
           "userNameField": {
-            "label": "User Name"
+            "label": "Name"
           },
           "primaryEmailField": {
             "label": "Primary Email"
@@ -2440,7 +2440,7 @@
         "title": "Nominee #",
         "form": {
           "nomineeNameField": {
-            "label": "Nominee Name"
+            "label": "Name"
           },
           "primaryEmailField": {
             "label": "Primary Email"
@@ -2460,7 +2460,7 @@
         "title": "Executor",
         "form": {
           "nomineeNameField": {
-            "label": "Nominee Name"
+            "label": "Name"
           },
           "primaryEmailField": {
             "label": "Primary Email"

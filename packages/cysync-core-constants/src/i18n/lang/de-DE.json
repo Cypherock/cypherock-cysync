@@ -2064,7 +2064,7 @@
       "ownerDetails": {
         "title": "Owner Details",
         "form": {
-          "userNameField": { "label": "User Name" },
+          "userNameField": { "label": "Name" },
           "primaryEmailField": { "label": "Primary Email" },
           "secondaryEmailField": { "label": "Secondary Email" }
         }
@@ -2072,7 +2072,7 @@
       "nomineeDetails": {
         "title": "Nominee #${number}",
         "form": {
-          "nomineeNameField": { "label": "Nominee Name" },
+          "nomineeNameField": { "label": "Name" },
           "primaryEmailField": { "label": "Primary Email" },
           "secondaryEmailField": { "label": "Secondary Email" },
           "encryptedMessage": { "label": "Encrypted Message" }
@@ -2081,7 +2081,7 @@
       "executorDetails": {
         "title": "Executor",
         "form": {
-          "nomineeNameField": { "label": "Nominee Name" },
+          "nomineeNameField": { "label": "Name" },
           "primaryEmailField": { "label": "Primary Email" },
           "secondaryEmailField": { "label": "Secondary Email" },
           "executorMessage": { "label": "Executor Message" },
@@ -2396,7 +2396,7 @@
       "ownerDetails": {
         "title": "Owner Details",
         "form": {
-          "userNameField": { "label": "User Name" },
+          "userNameField": { "label": "Name" },
           "primaryEmailField": { "label": "Primary Email" },
           "secondaryEmailField": { "label": "Secondary Email" },
           "reminderPeriodField": {
@@ -2409,7 +2409,7 @@
       "nomineeDetails": {
         "title": "Nominee #",
         "form": {
-          "nomineeNameField": { "label": "Nominee Name" },
+          "nomineeNameField": { "label": "Name" },
           "primaryEmailField": { "label": "Primary Email" },
           "secondaryEmailField": { "label": "Secondary Email" }
         }
@@ -2423,7 +2423,7 @@
       "executorDetails": {
         "title": "Executor",
         "form": {
-          "nomineeNameField": { "label": "Nominee Name" },
+          "nomineeNameField": { "label": "Name" },
           "primaryEmailField": { "label": "Primary Email" },
           "secondaryEmailField": { "label": "Secondary Email" },
           "assignTo": { "label": "Assigned to" }
