@@ -116,7 +116,7 @@ export const ExecutorDetails = () => {
               {strings.executor.executorDetails.radio.label}
             </Typography>
             <Tooltip
-              text={strings.executor.executorDetails.tooltip}
+              text={strings.executor.executorDetails.radio.tooltip}
               tooltipPlacement="bottom"
             >
               <QuestionMarkButton />
