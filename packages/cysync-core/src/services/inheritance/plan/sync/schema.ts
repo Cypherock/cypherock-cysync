@@ -14,18 +14,7 @@ export const verifyResultSchema = z.object({
         _id: z.string(),
         wallet: z.string(),
         fullName: z.string().optional(),
-        owner: z
-          .object({
-            email: z.string().optional(),
-          })
-          .optional(),
-        nominee: z
-          .array(
-            z.object({
-              email: z.string().optional(),
-            }),
-          )
-          .optional(),
+        role: z.string().optional(),
         subscription: z
           .array(
             z.object({

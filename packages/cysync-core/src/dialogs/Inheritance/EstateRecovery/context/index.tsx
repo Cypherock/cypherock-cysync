@@ -12,7 +12,7 @@ import React, {
 } from 'react';
 
 import { useAsync, useMemoReturn } from '~/hooks';
-import { InheritanceLoginTypeMap, inheritancePlanService } from '~/services';
+import { InheritanceUserTypeMap, inheritancePlanService } from '~/services';
 import { useAppDispatch, useAppSelector } from '~/store';
 
 import {
@@ -86,7 +86,7 @@ export const InheritanceEstateRecoveryDialogProvider: FC<
   const walletAuthFetchRequestId = useCallback(() => {
     walletAuthService.fetchRequestId(
       walletId,
-      InheritanceLoginTypeMap.nominee,
+      InheritanceUserTypeMap.nominee,
       'wallet-based',
     );
   }, [walletId, walletAuthService.fetchRequestId]);
