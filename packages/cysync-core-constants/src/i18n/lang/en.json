@@ -2316,7 +2316,7 @@
       }
     },
     "nomineeAndExecutor": {
-      "heading": "Nominee & Executor",
+      "heading": "Nominees & Executor",
       "select": {
         "title": "How many nominees do you want?",
         "subtitle": "You can have up to 2 nominees for this will",
