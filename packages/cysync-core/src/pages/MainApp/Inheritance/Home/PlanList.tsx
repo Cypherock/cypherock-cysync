@@ -8,7 +8,10 @@ import { IInheritancePlan } from '@cypherock/db-interfaces';
 import React, { FC, useCallback, useMemo } from 'react';
 import { useDispatch } from 'react-redux';
 
-import { openInheritanceSyncPlansDialog } from '~/actions';
+import {
+  openInheritanceEstateRecoveryDialog,
+  openInheritanceSyncPlansDialog,
+} from '~/actions';
 import { routes } from '~/constants';
 import { useNavigateTo } from '~/hooks';
 import {
@@ -50,6 +53,10 @@ export const InheritancePlanList: FC = () => {
     );
   };
 
+  const toEstateRecovery = (plan: IInheritancePlan) => {
+    dispatch(openInheritanceEstateRecoveryDialog({ walletId: plan.walletId }));
+  };
+
   const getPlanCardComponent = (plan: IInheritancePlan) => {
     const currentDate = Date.now();
 
@@ -77,7 +84,9 @@ export const InheritancePlanList: FC = () => {
         lang={lang.strings}
         startDate={plan.purchasedAt ?? plan.meta?.created ?? currentDate}
         expiryDate={plan.expireAt ?? currentDate}
-        onClick={() => (plan.isNominee ? undefined : toPlanDetails(plan))}
+        onClick={() =>
+          plan.isNominee ? toEstateRecovery(plan) : toPlanDetails(plan)
+        }
       />
     );
   };

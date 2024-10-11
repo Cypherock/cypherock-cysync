@@ -18,12 +18,15 @@ import { Layout } from '../Layout';
 
 export const Message = () => {
   const lang = useAppSelector(selectLanguage);
-  const { onNext } = useInheritanceEstateRecoveryDialog();
+  const { onNext, decryptedCardLocation, decryptedPersonalMessage } =
+    useInheritanceEstateRecoveryDialog();
   const [isChecked, setIsChecked] = useState(false);
   const strings = lang.strings.dialogs.inheritanceEstateRecovery.viewMessage;
-  const cardLocation = 'Some location';
-  const personalMessage = 'Some Message';
+
   const userName = 'Alfred Ballows';
+  const cardLocation = decryptedCardLocation ?? '';
+  const personalMessage = decryptedPersonalMessage ?? '';
+
   return (
     <Layout
       footerComponent={
@@ -54,7 +57,7 @@ export const Message = () => {
           </Flex>
           <TextAreaInput
             height={120}
-            value={cardLocation}
+            value={personalMessage}
             placeholder={strings.form.personalMessageField.placeholder}
             mb={0}
           />

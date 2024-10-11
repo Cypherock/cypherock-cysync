@@ -1483,8 +1483,7 @@ interface LangInheritanceGoldPlanPurchase {
           label: string;
           tooltip: string;
           options: {
-            labelOne: string;
-            labelTwo: string;
+            labelPrefix: string;
           };
         };
       };
@@ -1569,6 +1568,7 @@ interface LangInheritanceGoldPlanPurchase {
         nomineeNameField: { label: string };
         primaryEmailField: { label: string };
         secondaryEmailField: { label: string };
+        assignTo: { label: string };
       };
     };
     executorMessage: {

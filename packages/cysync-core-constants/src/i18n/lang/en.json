@@ -45,7 +45,7 @@
     "editAccount": "Edit Account",
     "submit": "Submit",
     "showMore": "Show more",
-    "resendOTP": "Resend OTP",
+    "resendOTP": "Resend OTP in ${timeout}s",
     "next": "Next",
     "setup": "Setup",
     "sync": "Sync",
@@ -1053,66 +1053,66 @@
     "serverErrors": {
       "SER_0000": {
         "heading": "Your cySync app is facing some connectivity issue",
-        "subtext": "Reconnect the device and try again and if the problem persists, contact Cypherock support for assistance"
+        "subtext": "Try again and if the problem persists, contact Cypherock support for assistance"
       },
       "SER_0001": {
         "heading": "Please connect to the internet to continue"
       },
       "SER_1001": {
         "heading": "Your cySync app is facing some connectivity issue",
-        "subtext": "Reconnect the device and try again and if the problem persists, contact Cypherock support for assistance"
+        "subtext": "Try again and if the problem persists, contact Cypherock support for assistance"
       },
       "SER_1003": {
         "heading": "Your cySync app is facing some connectivity issue",
-        "subtext": "Reconnect the device and try again and if the problem persists, contact Cypherock support for assistance"
+        "subtext": "Try again and if the problem persists, contact Cypherock support for assistance"
       },
       "SER_1004": {
         "heading": "Your cySync app is facing some connectivity issue",
-        "subtext": "Reconnect the device and try again and if the problem persists, contact Cypherock support for assistance"
+        "subtext": "Try again and if the problem persists, contact Cypherock support for assistance"
       },
       "SER_1005": {
         "heading": "Your cySync app is facing some connectivity issue",
-        "subtext": "Reconnect the device and try again and if the problem persists, contact Cypherock support for assistance"
+        "subtext": "Try again and if the problem persists, contact Cypherock support for assistance"
       },
       "SER_1006": {
         "heading": "Your cySync app is facing some connectivity issue",
-        "subtext": "Reconnect the device and try again and if the problem persists, contact Cypherock support for assistance"
+        "subtext": "Try again and if the problem persists, contact Cypherock support for assistance"
       },
       "SER_1007": {
         "heading": "Your cySync app is facing some connectivity issue",
-        "subtext": "Reconnect the device and try again and if the problem persists, contact Cypherock support for assistance"
+        "subtext": "Try again and if the problem persists, contact Cypherock support for assistance"
       },
       "SER_1008": {
         "heading": "Your cySync app is facing some connectivity issue",
-        "subtext": "Reconnect the device and try again and if the problem persists, contact Cypherock support for assistance"
+        "subtext": "Try again and if the problem persists, contact Cypherock support for assistance"
       },
       "SER_1009": {
         "heading": "Your cySync app is facing some connectivity issue",
-        "subtext": "Reconnect the device and try again and if the problem persists, contact Cypherock support for assistance"
+        "subtext": "Try again and if the problem persists, contact Cypherock support for assistance"
       },
       "SER_1010": {
         "heading": "Your cySync app is facing some connectivity issue",
-        "subtext": "Reconnect the device and try again and if the problem persists, contact Cypherock support for assistance"
+        "subtext": "Try again and if the problem persists, contact Cypherock support for assistance"
       },
       "SER_1011": {
         "heading": "Your cySync app is facing some connectivity issue",
-        "subtext": "Reconnect the device and try again and if the problem persists, contact Cypherock support for assistance"
+        "subtext": "Try again and if the problem persists, contact Cypherock support for assistance"
       },
       "SER_1012": {
         "heading": "Your cySync app is facing some connectivity issue",
-        "subtext": "Reconnect the device and try again and if the problem persists, contact Cypherock support for assistance"
+        "subtext": "Try again and if the problem persists, contact Cypherock support for assistance"
       },
       "SER_1013": {
         "heading": "Your cySync app is facing some connectivity issue",
-        "subtext": "Reconnect the device and try again and if the problem persists, contact Cypherock support for assistance"
+        "subtext": "Try again and if the problem persists, contact Cypherock support for assistance"
       },
       "SER_1014": {
         "heading": "Your cySync app is facing some connectivity issue",
-        "subtext": "Reconnect the device and try again and if the problem persists, contact Cypherock support for assistance"
+        "subtext": "Try again and if the problem persists, contact Cypherock support for assistance"
       },
       "SER_1015": {
         "heading": "Your cySync app is facing some connectivity issue",
-        "subtext": "Reconnect the device and try again and if the problem persists, contact Cypherock support for assistance"
+        "subtext": "Try again and if the problem persists, contact Cypherock support for assistance"
       }
     },
     "default": "Some internal error occurred"
@@ -1665,7 +1665,7 @@
           "subTitle": "Authenticating the wallet ",
           "actions": {
             "confirmAuth": "Confirm wallet authentication on device",
-            "enterPinAndTapCard": "Enter Pin and tap any one card"
+            "enterPinAndTapCard": "Tap any one card"
           },
           "messageBox": {
             "warning": "Lift your card after 2 beep sounds"
@@ -1997,7 +1997,7 @@
       "Please enter the code received on the email"
     ],
     "noRetries": {
-      "title": "You have 0 retries remaining",
+      "title": "You have 0 tries remaining",
       "subTitle": "Please exit the flow and restart"
     },
     "buttons": {
@@ -2069,28 +2069,52 @@
       "ownerDetails": {
         "title": "Owner Details",
         "form": {
-          "userNameField": { "label": "User Name" },
-          "primaryEmailField": { "label": "Primary Email" },
-          "secondaryEmailField": { "label": "Secondary Email" }
+          "userNameField": {
+            "label": "User Name"
+          },
+          "primaryEmailField": {
+            "label": "Primary Email"
+          },
+          "secondaryEmailField": {
+            "label": "Secondary Email"
+          }
         }
       },
       "nomineeDetails": {
         "title": "Nominee #${number}",
         "form": {
-          "nomineeNameField": { "label": "Nominee Name" },
-          "primaryEmailField": { "label": "Primary Email" },
-          "secondaryEmailField": { "label": "Secondary Email" },
-          "encryptedMessage": { "label": "Encrypted Message" }
+          "nomineeNameField": {
+            "label": "Nominee Name"
+          },
+          "primaryEmailField": {
+            "label": "Primary Email"
+          },
+          "secondaryEmailField": {
+            "label": "Secondary Email"
+          },
+          "encryptedMessage": {
+            "label": "Encrypted Message"
+          }
         }
       },
       "executorDetails": {
         "title": "Executor",
         "form": {
-          "nomineeNameField": { "label": "Nominee Name" },
-          "primaryEmailField": { "label": "Primary Email" },
-          "secondaryEmailField": { "label": "Secondary Email" },
-          "executorMessage": { "label": "Executor Message" },
-          "assignTo": { "label": "Assign to" }
+          "nomineeNameField": {
+            "label": "Nominee Name"
+          },
+          "primaryEmailField": {
+            "label": "Primary Email"
+          },
+          "secondaryEmailField": {
+            "label": "Secondary Email"
+          },
+          "executorMessage": {
+            "label": "Executor Message"
+          },
+          "assignTo": {
+            "label": "Assigned to"
+          }
         }
       }
     },
@@ -2346,8 +2370,7 @@
             "label": "Choose a nominee to link with executor",
             "tooltip": "Select the nominee you want to link with the executor. If you choose Nominee 1 then the executor will receive their email written by you on same time as Nominee 1.\n\nIf you choose Nominee 2 then the executor will receive their email written by you on same time as Nominee 2 i.e, 3 months after Nominee 1.",
             "options": {
-              "labelOne": "Nominee 1",
-              "labelTwo": "Nominee 2"
+              "labelPrefix": "Nominee "
             }
           }
         }
@@ -2402,11 +2425,17 @@
       "ownerDetails": {
         "title": "Owner Details",
         "form": {
-          "userNameField": { "label": "User Name" },
-          "primaryEmailField": { "label": "Primary Email" },
-          "secondaryEmailField": { "label": "Secondary Email" },
+          "userNameField": {
+            "label": "User Name"
+          },
+          "primaryEmailField": {
+            "label": "Primary Email"
+          },
+          "secondaryEmailField": {
+            "label": "Secondary Email"
+          },
           "reminderPeriodField": {
-            "label": "Reminder Perioc",
+            "label": "Reminder Period",
             "input": "Every ${month} month",
             "inputPlural": "Every ${month} months"
           }
@@ -2415,9 +2444,15 @@
       "nomineeDetails": {
         "title": "Nominee #",
         "form": {
-          "nomineeNameField": { "label": "Nominee Name" },
-          "primaryEmailField": { "label": "Primary Email" },
-          "secondaryEmailField": { "label": "Secondary Email" }
+          "nomineeNameField": {
+            "label": "Nominee Name"
+          },
+          "primaryEmailField": {
+            "label": "Primary Email"
+          },
+          "secondaryEmailField": {
+            "label": "Secondary Email"
+          }
         }
       },
       "cardLocation": {
@@ -2429,10 +2464,18 @@
       "executorDetails": {
         "title": "Executor",
         "form": {
-          "nomineeNameField": { "label": "Nominee Name" },
-          "primaryEmailField": { "label": "Primary Email" },
-          "secondaryEmailField": { "label": "Secondary Email" },
-          "assignTo": { "label": "Assign to" }
+          "nomineeNameField": {
+            "label": "Nominee Name"
+          },
+          "primaryEmailField": {
+            "label": "Primary Email"
+          },
+          "secondaryEmailField": {
+            "label": "Secondary Email"
+          },
+          "assignTo": {
+            "label": "Assigned to"
+          }
         }
       },
       "executorMessage": {

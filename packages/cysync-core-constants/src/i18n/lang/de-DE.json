@@ -1053,66 +1053,66 @@
     "serverErrors": {
       "SER_0000": {
         "heading": "Ihre CySync App hat ein Verbindungsproblem",
-        "subtext": "Verbinden Sie das Gerät erneut und versuchen Sie es erneut und wenn das Problem weiterhin besteht, kontaktieren Sie den Cypherock Support für Unterstützung"
+        "subtext": "Try again and if the problem persists, contact Cypherock support for assistance"
       },
       "SER_0001": {
         "heading": "Bitte verbinden Sie sich mit dem Internet, um fortzufahren"
       },
       "SER_1001": {
         "heading": "Your cySync app is facing some connectivity issue",
-        "subtext": "Reconnect the device and try again and if the problem persists, contact Cypherock support for assistance"
+        "subtext": "Try again and if the problem persists, contact Cypherock support for assistance"
       },
       "SER_1003": {
         "heading": "Your cySync app is facing some connectivity issue",
-        "subtext": "Reconnect the device and try again and if the problem persists, contact Cypherock support for assistance"
+        "subtext": "Try again and if the problem persists, contact Cypherock support for assistance"
       },
       "SER_1004": {
         "heading": "Your cySync app is facing some connectivity issue",
-        "subtext": "Reconnect the device and try again and if the problem persists, contact Cypherock support for assistance"
+        "subtext": "Try again and if the problem persists, contact Cypherock support for assistance"
       },
       "SER_1005": {
         "heading": "Your cySync app is facing some connectivity issue",
-        "subtext": "Reconnect the device and try again and if the problem persists, contact Cypherock support for assistance"
+        "subtext": "Try again and if the problem persists, contact Cypherock support for assistance"
       },
       "SER_1006": {
         "heading": "Your cySync app is facing some connectivity issue",
-        "subtext": "Reconnect the device and try again and if the problem persists, contact Cypherock support for assistance"
+        "subtext": "Try again and if the problem persists, contact Cypherock support for assistance"
       },
       "SER_1007": {
         "heading": "Your cySync app is facing some connectivity issue",
-        "subtext": "Reconnect the device and try again and if the problem persists, contact Cypherock support for assistance"
+        "subtext": "Try again and if the problem persists, contact Cypherock support for assistance"
       },
       "SER_1008": {
         "heading": "Your cySync app is facing some connectivity issue",
-        "subtext": "Reconnect the device and try again and if the problem persists, contact Cypherock support for assistance"
+        "subtext": "Try again and if the problem persists, contact Cypherock support for assistance"
       },
       "SER_1009": {
         "heading": "Your cySync app is facing some connectivity issue",
-        "subtext": "Reconnect the device and try again and if the problem persists, contact Cypherock support for assistance"
+        "subtext": "Try again and if the problem persists, contact Cypherock support for assistance"
       },
       "SER_1010": {
         "heading": "Your cySync app is facing some connectivity issue",
-        "subtext": "Reconnect the device and try again and if the problem persists, contact Cypherock support for assistance"
+        "subtext": "Try again and if the problem persists, contact Cypherock support for assistance"
       },
       "SER_1011": {
         "heading": "Your cySync app is facing some connectivity issue",
-        "subtext": "Reconnect the device and try again and if the problem persists, contact Cypherock support for assistance"
+        "subtext": "Try again and if the problem persists, contact Cypherock support for assistance"
       },
       "SER_1012": {
         "heading": "Your cySync app is facing some connectivity issue",
-        "subtext": "Reconnect the device and try again and if the problem persists, contact Cypherock support for assistance"
+        "subtext": "Try again and if the problem persists, contact Cypherock support for assistance"
       },
       "SER_1013": {
         "heading": "Your cySync app is facing some connectivity issue",
-        "subtext": "Reconnect the device and try again and if the problem persists, contact Cypherock support for assistance"
+        "subtext": "Try again and if the problem persists, contact Cypherock support for assistance"
       },
       "SER_1014": {
         "heading": "Your cySync app is facing some connectivity issue",
-        "subtext": "Reconnect the device and try again and if the problem persists, contact Cypherock support for assistance"
+        "subtext": "Try again and if the problem persists, contact Cypherock support for assistance"
       },
       "SER_1015": {
         "heading": "Your cySync app is facing some connectivity issue",
-        "subtext": "Reconnect the device and try again and if the problem persists, contact Cypherock support for assistance"
+        "subtext": "Try again and if the problem persists, contact Cypherock support for assistance"
       }
     },
     "default": "Ein interner Fehler ist aufgetreten"
@@ -1665,7 +1665,7 @@
           "subTitle": "Authenticating the wallet ",
           "actions": {
             "confirmAuth": "Confirm wallet authentication on device",
-            "enterPinAndTapCard": "Enter Pin and tap any one card"
+            "enterPinAndTapCard": "Tap any one card"
           },
           "messageBox": {
             "warning": "Lift your card after 2 beep sounds"
@@ -1997,7 +1997,7 @@
       "Please enter the code received on the email"
     ],
     "noRetries": {
-      "title": "You have 0 retries remaining",
+      "title": "You have 0 tries remaining",
       "subTitle": "Please exit the flow and restart"
     },
     "buttons": {
@@ -2090,7 +2090,7 @@
           "primaryEmailField": { "label": "Primary Email" },
           "secondaryEmailField": { "label": "Secondary Email" },
           "executorMessage": { "label": "Executor Message" },
-          "assignTo": { "label": "Assign to" }
+          "assignTo": { "label": "Assigned to" }
         }
       }
     },
@@ -2346,8 +2346,7 @@
             "label": "Choose a nominee to link with executor",
             "tooltip": "Select the nominee you want to link with the executor. If you choose Nominee 1 then the executor will receive their email written by you on same time as Nominee 1.\n\nIf you choose Nominee 2 then the executor will receive their email written by you on same time as Nominee 2 i.e, 3 months after Nominee 1.",
             "options": {
-              "labelOne": "Nominee 1",
-              "labelTwo": "Nominee 2"
+              "labelPrefix": "Nominee "
             }
           }
         }
@@ -2406,7 +2405,7 @@
           "primaryEmailField": { "label": "Primary Email" },
           "secondaryEmailField": { "label": "Secondary Email" },
           "reminderPeriodField": {
-            "label": "Reminder Perioc",
+            "label": "Reminder Period",
             "input": "Every ${month} month",
             "inputPlural": "Every ${month} months"
           }
@@ -2432,7 +2431,7 @@
           "nomineeNameField": { "label": "Nominee Name" },
           "primaryEmailField": { "label": "Primary Email" },
           "secondaryEmailField": { "label": "Secondary Email" },
-          "assignTo": { "label": "Assign to" }
+          "assignTo": { "label": "Assigned to" }
         }
       },
       "executorMessage": {

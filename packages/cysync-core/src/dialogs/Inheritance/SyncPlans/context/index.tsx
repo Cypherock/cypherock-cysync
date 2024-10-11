@@ -26,6 +26,7 @@ import {
   inheritancePlanService,
   inheritanceSyncPlansService,
   InheritanceSyncPlansInitResponse,
+  InheritanceUserTypeMap,
 } from '~/services';
 import { closeDialog, useAppDispatch } from '~/store';
 import { getDB } from '~/utils';
@@ -188,18 +189,8 @@ export const InheritanceSyncPlansDialogProvider: FC<
 
       if (response.result.wallets) {
         for (const wallet of response.result.wallets) {
-          let isNominee = false;
-          let isOwner = false;
-
-          for (const nominee of wallet.nominee ?? []) {
-            if (nominee.email && nominee.email === email) {
-              isNominee = true;
-            }
-          }
-
-          if (wallet.owner && wallet.owner.email === email) {
-            isOwner = true;
-          }
+          const isNominee = wallet.role === InheritanceUserTypeMap.nominee;
+          const isOwner = wallet.role === InheritanceUserTypeMap.owner;
 
           if (!isNominee && !isOwner) {
             logger.warn(

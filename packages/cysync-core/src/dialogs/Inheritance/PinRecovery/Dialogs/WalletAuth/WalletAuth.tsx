@@ -24,7 +24,6 @@ import { Layout } from '../../Layout';
 const checkIconComponent = <Check width={15} height={12} />;
 const throbberComponent = <Throbber size={15} strokeWidth={2} />;
 const rightArrowIcon = <ArrowRightIcon />;
-
 export const WalletAuth = () => {
   const lang = useAppSelector(selectLanguage);
 

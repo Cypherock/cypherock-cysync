@@ -16,23 +16,23 @@ import { useInheritanceEstateRecoveryDialog } from '../context';
 import { Layout } from '../Layout';
 
 export const Terms = () => {
-  const [isChecked, setIsChecked] = React.useState(false);
   const lang = useAppSelector(selectLanguage);
 
   const strings = lang.strings.inheritance.termsOfService;
 
-  const { onNext } = useInheritanceEstateRecoveryDialog();
+  const { onNext, isTermsAccepted, setIsTermsAccepted } =
+    useInheritanceEstateRecoveryDialog();
 
   const toNextPage = async () => {
-    if (isChecked) onNext();
+    if (isTermsAccepted) onNext();
   };
 
   return (
     <Layout
       footerComponent={
         <Button
-          variant={isChecked ? 'primary' : 'secondary'}
-          disabled={!isChecked}
+          variant={isTermsAccepted ? 'primary' : 'secondary'}
+          disabled={!isTermsAccepted}
           onClick={() => toNextPage()}
         >
           <LangDisplay text={lang.strings.buttons.next} />
@@ -55,8 +55,8 @@ export const Terms = () => {
         />
       </Flex>
       <CheckBox
-        checked={isChecked}
-        onChange={() => setIsChecked(!isChecked)}
+        checked={isTermsAccepted}
+        onChange={() => setIsTermsAccepted(!isTermsAccepted)}
         id="privacy_policy_accepted"
         label={strings.checkBoxLabel}
       />

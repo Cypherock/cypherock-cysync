@@ -4,6 +4,7 @@ import {
   DialogBox,
   DialogBoxBackgroundBar,
   DialogBoxBody,
+  HelpButton,
   MilestoneAside,
   WalletDialogMainContainer,
 } from '@cypherock/cysync-ui';
@@ -17,9 +18,12 @@ import {
 import { useAppSelector, selectLanguage } from '~/store';
 
 import {
+  InheritanceEstateRecoveryDialogProps,
   InheritanceEstateRecoveryDialogProvider,
   useInheritanceEstateRecoveryDialog,
 } from './context';
+
+export { type InheritanceEstateRecoveryDialogProps } from './context';
 
 const DeviceConnectionWrapper: React.FC<{
   isDeviceRequired: boolean;
@@ -47,6 +51,7 @@ const InheritanceEstateRecovery: FC = () => {
     currentDialog,
     unhandledError,
     onClose,
+    onHelp,
     isDeviceRequired,
   } = useInheritanceEstateRecoveryDialog();
 
@@ -86,6 +91,9 @@ const InheritanceEstateRecovery: FC = () => {
             </DialogBoxBody>
             <DialogBoxBackgroundBar
               rightComponent={<CloseButton onClick={() => onClose()} />}
+              leftComponent={
+                <HelpButton text={lang.strings.help} onClick={onHelp} />
+              }
               position="top"
               useLightPadding
             />
@@ -96,8 +104,10 @@ const InheritanceEstateRecovery: FC = () => {
   );
 };
 
-export const InheritanceEstateRecoveryDialog = () => (
-  <InheritanceEstateRecoveryDialogProvider>
+export const InheritanceEstateRecoveryDialog: React.FC<
+  InheritanceEstateRecoveryDialogProps
+> = props => (
+  <InheritanceEstateRecoveryDialogProvider {...props}>
     <InheritanceEstateRecovery />
   </InheritanceEstateRecoveryDialogProvider>
 );

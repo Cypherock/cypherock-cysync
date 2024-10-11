@@ -1,4 +1,4 @@
-import { SignTransactionDeviceEvent } from '@cypherock/coin-support-interfaces';
+import { InheritanceWalletAuthDeviceEvent } from '@cypherock/app-support-inheritance';
 import {
   ArrowRightIcon,
   CardTapList,
@@ -16,10 +16,11 @@ import {
 } from '@cypherock/cysync-ui';
 import React, { useEffect, useState } from 'react';
 
+import { WalletAuthLoginStep } from '~/dialogs/Inheritance/hooks';
 import { selectLanguage, useAppSelector } from '~/store';
 
-import { useInheritanceEstateRecoveryDialog } from '../context';
-import { Layout } from '../Layout';
+import { useInheritanceEstateRecoveryDialog } from '../../context';
+import { Layout } from '../../Layout';
 
 const checkIconComponent = <Check width={15} height={12} />;
 const throbberComponent = <Throbber size={15} strokeWidth={2} />;
@@ -30,20 +31,26 @@ export const WalletAuth = () => {
 
   const strings = lang.strings.dialogs.inheritanceEstateRecovery;
 
-  const { onNext, selectedWallet } = useInheritanceEstateRecoveryDialog();
+  const [cardTapState, setCardTapState] = useState(-1);
 
-  const [cardTapState, setCardTapState] = useState(0);
-
-  const deviceEvents: Record<number, boolean | undefined> = {
-    0: true,
-  };
+  const {
+    onNext,
+    selectedWallet,
+    walletAuthDeviceEvents,
+    walletAuthStep,
+    walletAuthStart,
+    walletAuthAbort,
+    retryIndex,
+    clearErrors,
+    isRegisterationRequired,
+  } = useInheritanceEstateRecoveryDialog();
 
   const getDeviceEventIcon = (
-    loadingEvent: SignTransactionDeviceEvent,
-    completedEvent: SignTransactionDeviceEvent,
+    loadingEvent: InheritanceWalletAuthDeviceEvent,
+    completedEvent: InheritanceWalletAuthDeviceEvent,
   ) => {
-    if (deviceEvents[completedEvent]) return checkIconComponent;
-    if (deviceEvents[loadingEvent]) return throbberComponent;
+    if (walletAuthDeviceEvents[completedEvent]) return checkIconComponent;
+    if (walletAuthDeviceEvents[loadingEvent]) return throbberComponent;
 
     return undefined;
   };
@@ -54,21 +61,50 @@ export const WalletAuth = () => {
         id: '1',
         text: strings.wallet.actions.confirm,
         leftImage: rightArrowIcon,
-        rightImage: getDeviceEventIcon(0, 1),
+        rightImage: getDeviceEventIcon(
+          InheritanceWalletAuthDeviceEvent.INIT,
+          InheritanceWalletAuthDeviceEvent.CONFIRMED,
+        ),
       },
     ];
 
     return actions;
-  }, []);
+  }, [strings, walletAuthDeviceEvents, isRegisterationRequired]);
 
   useEffect(() => {
-    setCardTapState(0);
-    const timeout = setTimeout(() => {
-      onNext();
-    }, 2000);
+    const eventToState: Record<number, number | undefined> = {
+      [InheritanceWalletAuthDeviceEvent.CONFIRMED]: 0,
+      [InheritanceWalletAuthDeviceEvent.CARD_PAIRING_CARD_TAPPED]: 1,
+      [InheritanceWalletAuthDeviceEvent.WALLET_BASED_CARD_TAPPED]: 2,
+    };
 
-    return () => clearTimeout(timeout);
-  }, []);
+    let state: number | undefined;
+    for (const event in eventToState) {
+      if (walletAuthDeviceEvents[event] && eventToState[event] !== undefined) {
+        state = eventToState[event]!;
+      }
+    }
+
+    if (state !== undefined) {
+      setCardTapState(state);
+    }
+  }, [walletAuthDeviceEvents]);
+
+  useEffect(() => {
+    clearErrors();
+    walletAuthStart();
+    setCardTapState(-1);
+
+    return () => {
+      walletAuthAbort();
+    };
+  }, [retryIndex, clearErrors]);
+
+  useEffect(() => {
+    if (walletAuthStep > WalletAuthLoginStep.walletAuth) {
+      onNext();
+    }
+  }, [walletAuthStep]);
 
   return (
     <Layout>

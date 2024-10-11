@@ -7,6 +7,7 @@ import { EditAccountDialogProps } from '~/dialogs/EditAccountDialog';
 import { ErrorDialogProps } from '~/dialogs/ErrorDialog';
 import { IHistoryDialogProps } from '~/dialogs/HistoryDialog';
 import {
+  InheritanceEstateRecoveryDialogProps,
   InheritancePinRecoveryDialogProps,
   InheritancePlanLoginDialogProps,
   InheritanceEditUserDetailsDialogProps,
@@ -122,5 +123,6 @@ export const openInheritancePinRecoveryDialog = (
 export const openInheritanceEditEncryptedMessageDialog = () =>
   openDialog({ name: 'inheritanceEditEncryptedMessage', data: undefined });
 
-export const openInheritanceEstateRecoveryDialog = () =>
-  openDialog({ name: 'inheritanceEstateRecovery', data: undefined });
+export const openInheritanceEstateRecoveryDialog = (
+  props: InheritanceEstateRecoveryDialogProps,
+) => openDialog({ name: 'inheritanceEstateRecovery', data: props });

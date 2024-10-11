@@ -7,35 +7,64 @@ import {
 } from '@cypherock/cysync-ui';
 import React, { useEffect, useState } from 'react';
 
+import { constants } from '~/constants';
 import { selectLanguage, useAppSelector } from '~/store';
 
 import { useInheritanceGoldPlanPurchaseDialog } from '../context';
 import { Layout } from '../Layout';
 
 export const Checkout = () => {
-  const [applied, setApplied] = useState(false);
-  const [coupon, setCoupon] = useState('');
+  const [tempCoupon, setCoupon] = useState('');
   const lang = useAppSelector(selectLanguage);
   const strings = lang.strings.inheritanceGoldPlanPurchase.checkout;
-  const { onNext } = useInheritanceGoldPlanPurchaseDialog();
+  const [isValidCoupon, setIsValidCoupon] = useState(false);
+  const [isPlanActivated, setIsPlanActivated] = useState(false);
 
-  useEffect(() => {
-    setApplied(false);
-  }, []);
+  const {
+    onNext,
+    applyCoupon,
+    removeCoupon,
+    isApplyingCoupon,
+    applyingCouponError,
+    couponDuration,
+    isActivatingCoupon,
+    activateCoupon,
+  } = useInheritanceGoldPlanPurchaseDialog();
 
-  const onApply = () => {
-    // TODO: Implement onApply at subscription
+  const onApply = async () => {
+    const isValid = await applyCoupon(tempCoupon);
+    setIsValidCoupon(isValid);
+  };
+
+  const onActivate = async () => {
+    const isActivated = await activateCoupon();
+    setIsPlanActivated(isActivated);
   };
 
   const onDelete = () => {
-    // TODO: Implement onApply at subscription
+    setCoupon('');
+    removeCoupon();
+    setIsValidCoupon(false);
+    setIsPlanActivated(false);
   };
+
+  const couponText = tempCoupon;
+
+  useEffect(() => {
+    if (isPlanActivated) {
+      onNext();
+    }
+  }, [isPlanActivated, onNext]);
 
   return (
     <Layout
       footerComponent={
-        <Button onClick={() => onNext()}>
-          {lang.strings.buttons.checkout}
+        <Button
+          onClick={onActivate}
+          disabled={!isValidCoupon || isActivatingCoupon}
+          isLoading={isActivatingCoupon}
+        >
+          {lang.strings.buttons.confirm}
         </Button>
       }
     >
@@ -49,12 +78,15 @@ export const Checkout = () => {
       </Container>
       <Payment
         lang={lang.strings.inheritance.dialog.payment}
-        externalLink="link to checkout page"
-        applied={applied}
-        coupon={coupon}
+        externalLink={constants.inheritance.goldPlanPurchaseLink}
+        isLoading={isApplyingCoupon}
+        applied={isValidCoupon}
+        error={applyingCouponError}
+        coupon={couponText}
         onChange={setCoupon}
         onApply={onApply}
         onDelete={onDelete}
+        duration={couponDuration}
         couponLength={14}
       />
     </Layout>

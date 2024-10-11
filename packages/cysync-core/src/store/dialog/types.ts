@@ -4,6 +4,7 @@ import { DeleteAccountDialogProps } from '~/dialogs/DeleteAccountDialog';
 import { ErrorDialogProps } from '~/dialogs/ErrorDialog';
 import { IHistoryDialogProps } from '~/dialogs/HistoryDialog';
 import {
+  InheritanceEstateRecoveryDialogProps,
   InheritancePinRecoveryDialogProps,
   InheritancePlanLoginDialogProps,
 } from '~/dialogs/Inheritance';
@@ -184,7 +185,7 @@ export interface IDialogState {
 
   inheritanceEstateRecovery: {
     isOpen: boolean;
-    data?: undefined;
+    data?: InheritanceEstateRecoveryDialogProps;
   };
 }
 

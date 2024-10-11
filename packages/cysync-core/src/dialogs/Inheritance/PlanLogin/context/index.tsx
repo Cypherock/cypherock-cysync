@@ -10,7 +10,7 @@ import React, {
 } from 'react';
 
 import { ITabs, useAsync, useMemoReturn, useTabsAndDialogs } from '~/hooks';
-import { InheritanceLoginTypeMap, inheritancePlanService } from '~/services';
+import { InheritanceUserTypeMap, inheritancePlanService } from '~/services';
 import {
   closeDialog,
   IInheritancePlanDetails,
@@ -117,7 +117,7 @@ export const InheritancePlanLoginDialogProvider: FC<
   const walletAuthFetchRequestId = useCallback(() => {
     walletAuthService.fetchRequestId(
       walletId,
-      InheritanceLoginTypeMap.owner,
+      InheritanceUserTypeMap.owner,
       'seed-based',
     );
   }, [walletId]);
@@ -143,7 +143,7 @@ export const InheritancePlanLoginDialogProvider: FC<
       nominee:
         result.result.nominee?.map(n => ({ email: n.email ?? '' })) ?? [],
       executor: result.result.executor?.nominee?.map(n => ({
-        email: n.email ?? '',
+        email: n ?? '',
       }))[0] ?? { email: '' },
       owner: {
         email: result.result.owner?.email ?? '',

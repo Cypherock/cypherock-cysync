@@ -13,35 +13,71 @@ import {
   UserIcon,
   WalletIcon,
 } from '@cypherock/cysync-ui';
-import React from 'react';
+import React, { useCallback, useEffect, useMemo } from 'react';
+import { ReminderPeriod } from '~/services/inheritance/login/schema';
 
 import { selectLanguage, useAppSelector } from '~/store';
 
 import { useInheritanceGoldPlanPurchaseDialog } from '../context';
+import { tabIndicies } from '../context/useDialogHandler';
 import { Layout } from '../Layout';
 
 const goldWalletIcon = <WalletIcon fill={`url(#${svgGradients.gold})`} />;
+
+const reminderValueMap: Record<ReminderPeriod, number> = {
+  monthly: 1,
+  quarterly: 3,
+  'half-yearly': 6,
+  yearly: 12,
+};
 
 export const Summary = () => {
   const lang = useAppSelector(selectLanguage);
   const strings = lang.strings.inheritanceGoldPlanPurchase.summary;
 
-  const { onNext } = useInheritanceGoldPlanPurchaseDialog();
+  const {
+    onNext,
+    personalMessage,
+    cardLocation,
+    nomineeDetails,
+    userDetails,
+    selectedWallet,
+    reminderPeriod,
+    executorMessage,
+    executorDetails,
+    setIsOnSummaryPage,
+    goTo,
+    executorNomineeIndex,
+  } = useInheritanceGoldPlanPurchaseDialog();
 
-  const getReminderPeriodInputText = (reminderPeriod: number) => {
-    const reminderPeriodInput = strings.ownerDetails.form.reminderPeriodField;
-    return parseLangTemplate(
-      reminderPeriod === 1
-        ? reminderPeriodInput.input
-        : reminderPeriodInput.inputPlural,
-      { month: reminderPeriod },
-    );
-  };
+  const reminderValue = useMemo(
+    () => reminderValueMap[reminderPeriod],
+    [reminderPeriod],
+  );
+
+  useEffect(() => {
+    setIsOnSummaryPage(true);
+  }, []);
+
+  const editButtonGoto = useCallback(
+    (tab: number, dialog?: number) => (
+      <EditButton
+        text={lang.strings.buttons.edit}
+        onClick={() => goTo(tab, dialog)}
+      />
+    ),
+    [lang, goTo],
+  );
 
   return (
     <Layout
       footerComponent={
-        <Button onClick={() => onNext()}>
+        <Button
+          onClick={() => {
+            setIsOnSummaryPage(false);
+            onNext();
+          }}
+        >
           <LangDisplay text={lang.strings.buttons.continue} />
         </Button>
       }
@@ -63,116 +99,137 @@ export const Summary = () => {
       >
         <DetailsCard
           headerLeading={goldWalletIcon}
-          headerText="somewallet"
+          headerText={selectedWallet?.name ?? ''}
           headerOnly
           $backgroundType="gold"
         />
         <DetailsCard
           headerText={strings.ownerDetails.title}
-          headerTrailing={
-            <EditButton text="Edit" onClick={() => alert('Edit Clicked')} />
-          }
+          headerTrailing={editButtonGoto(tabIndicies.wallet.tabNumber)}
           fields={[
             {
               label: strings.ownerDetails.form.userNameField.label,
               icon: UserIcon,
-              value: 'Alfred Bellows',
+              value: userDetails?.name,
             },
             {
               label: strings.ownerDetails.form.primaryEmailField.label,
               icon: EmailIconSmall,
-              value: 'doc.bellows@yahoo.com',
+              value: userDetails?.email,
             },
             {
               label: strings.ownerDetails.form.secondaryEmailField.label,
               icon: EmailIconSmall,
-              value: 'alfred@psych.com',
+              value: userDetails?.alternateEmail,
             },
             {
               label: strings.ownerDetails.form.reminderPeriodField.label,
               icon: ClockIcon,
-              value: getReminderPeriodInputText(1),
-              trailing: (
-                <EditButton
-                  text="Edit"
-                  onClick={() => {
-                    alert('Edit Clicked');
-                  }}
-                />
+              value: parseLangTemplate(
+                strings.ownerDetails.form.reminderPeriodField[
+                  reminderValue === 1 ? 'input' : 'inputPlural'
+                ],
+                { month: reminderValue },
               ),
+              trailing: editButtonGoto(tabIndicies.reminder.tabNumber),
             },
           ]}
         />
-        <DetailsCard
-          headerText={strings.nomineeDetails.title}
-          headerTrailing={
-            <EditButton text="Edit" onClick={() => alert('Edit Clicked')} />
-          }
-          fields={[
-            {
-              label: strings.nomineeDetails.form.nomineeNameField.label,
-              icon: UserIcon,
-              value: 'Alfred Bellows',
-            },
-            {
-              label: strings.nomineeDetails.form.primaryEmailField.label,
-              icon: EmailIconSmall,
-              value: 'doc.bellows@yahoo.com',
-            },
-            {
-              label: strings.nomineeDetails.form.secondaryEmailField.label,
-              icon: EmailIconSmall,
-              value: 'alfred@psych.com',
-            },
-          ]}
-        />
-        <DetailsCard
-          headerText={strings.nomineeDetails.title}
-          headerTrailing={
-            <EditButton text="Edit" onClick={() => alert('Edit Clicked')} />
-          }
-          fields={[
-            {
-              label: strings.nomineeDetails.form.nomineeNameField.label,
-              icon: UserIcon,
-              value: 'Alfred Bellows',
-            },
-            {
-              label: strings.nomineeDetails.form.primaryEmailField.label,
-              icon: EmailIconSmall,
-              value: 'doc.bellows@yahoo.com',
-            },
-            {
-              label: strings.nomineeDetails.form.secondaryEmailField.label,
-              icon: EmailIconSmall,
-              value: 'alfred@psych.com',
-            },
-          ]}
-        />
+        {Object.values(nomineeDetails)?.map((details, index) => (
+          <DetailsCard
+            key={JSON.stringify(details)}
+            headerText={strings.nomineeDetails.title + (index + 1).toString()}
+            headerTrailing={editButtonGoto(
+              tabIndicies.nominieeAndExecutor.tabNumber,
+              tabIndicies.nominieeAndExecutor.dialogs.firstNomineeDetails +
+                (tabIndicies.nominieeAndExecutor.dialogs.secondNomineeDetails -
+                  tabIndicies.nominieeAndExecutor.dialogs.firstNomineeDetails) *
+                  index,
+            )}
+            fields={[
+              {
+                label: strings.nomineeDetails.form.nomineeNameField.label,
+                icon: UserIcon,
+                value: details.name,
+              },
+              {
+                label: strings.nomineeDetails.form.primaryEmailField.label,
+                icon: EmailIconSmall,
+                value: details.email,
+              },
+              ...(details.alternateEmail
+                ? [
+                    {
+                      label:
+                        strings.nomineeDetails.form.secondaryEmailField.label,
+                      icon: EmailIconSmall,
+                      value: details.alternateEmail,
+                    },
+                  ]
+                : []),
+            ]}
+          />
+        ))}
         <DetailsCard
           headerText={strings.cardLocation.title}
-          headerTrailing={
-            <EditButton
-              text="Edit"
-              onClick={() => {
-                alert('Edit Clicked');
-              }}
-            />
-          }
-          text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam eget  dapibus est. Mauris varius sapien a diam elementum posuere. Maecenas  aliquam nec justo a dictum. Aliquam eu condimentum mi, eu vulputate  ipsum. Proin vel semper nisl. Donec ultricies consectetur dapibus. Donec  suscipit, mi sed tristique feugiat, urna ipsum viverra risus, vitae  commodo tortor est interdum ligula. Fusce tellus mi, malesuada tristique  mauris a, pulvinar varius metus. Pellentesque habitant morbi tristique  senectus et netus et malesuada fames ac turpis egestas. Donec in nulla  sit amet ex cursus dictum. Nam felis odio, egestas sed porttitor eu,  consequat eget dolor. Phasellus luctus, arcu non auctor euismod, lectus  quam tempus lacus, in sollicitudin elit risus ut ex."
+          headerTrailing={editButtonGoto(
+            tabIndicies.message.tabNumber,
+            tabIndicies.message.dialogs.personalMessageInput,
+          )}
+          text={cardLocation}
         />
         <DetailsCard
           headerText={strings.personalMessage.title}
-          headerTrailing={
-            <EditButton
-              text="Edit"
-              onClick={() => {
-                alert('Edit Clicked');
-              }}
-            />
-          }
-          text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam eget  dapibus est. Mauris varius sapien a diam elementum posuere. Maecenas  aliquam nec justo a dictum. Aliquam eu condimentum mi, eu vulputate  ipsum. Proin vel semper nisl. Donec ultricies consectetur dapibus. Donec  suscipit, mi sed tristique feugiat, urna ipsum viverra risus, vitae  commodo tortor est interdum ligula. Fusce tellus mi, malesuada tristique  mauris a, pulvinar varius metus. Pellentesque habitant morbi tristique  senectus et netus et malesuada fames ac turpis egestas. Donec in nulla  sit amet ex cursus dictum. Nam felis odio, egestas sed porttitor eu,  consequat eget dolor. Phasellus luctus, arcu non auctor euismod, lectus  quam tempus lacus, in sollicitudin elit risus ut ex."
+          headerTrailing={editButtonGoto(
+            tabIndicies.message.tabNumber,
+            tabIndicies.message.dialogs.personalMessageInput,
+          )}
+          text={personalMessage}
         />
+        {executorDetails && (
+          <DetailsCard
+            headerText={strings.executorDetails.title}
+            headerTrailing={editButtonGoto(
+              tabIndicies.nominieeAndExecutor.tabNumber,
+              tabIndicies.nominieeAndExecutor.dialogs.executorDetails,
+            )}
+            fields={[
+              {
+                label: strings.executorDetails.form.nomineeNameField.label,
+                icon: UserIcon,
+                value: executorDetails.name,
+              },
+              {
+                label: strings.executorDetails.form.primaryEmailField.label,
+                icon: EmailIconSmall,
+                value: executorDetails.email,
+              },
+              {
+                label: strings.executorDetails.form.secondaryEmailField.label,
+                icon: EmailIconSmall,
+                value: executorDetails.alternateEmail,
+              },
+              {
+                label: strings.executorDetails.form.assignTo.label,
+                icon: UserIcon,
+                value:
+                  strings.nomineeDetails.title +
+                  ((executorNomineeIndex ?? 0) + 1).toString(),
+              },
+            ]}
+          />
+        )}
+
+        {executorMessage && (
+          <DetailsCard
+            headerText={strings.executorMessage.title}
+            headerTrailing={editButtonGoto(
+              tabIndicies.message.tabNumber,
+              tabIndicies.message.dialogs.executorMessageInput,
+            )}
+            text={executorMessage}
+          />
+        )}
       </ScrollableContainer>
     </Layout>
   );

@@ -2,6 +2,7 @@ import { inheritanceRecoverPlansService } from './recover';
 import {
   activateResultSchema,
   applyCouponResultSchema,
+  checkCouponResultSchema,
   createResultSchema,
   getPlanResultSchema,
 } from './schema';
@@ -56,6 +57,18 @@ const applyCoupon = async (params: { coupon: string; accessToken: string }) =>
     ),
   );
 
+const checkCoupon = async (params: { coupon: string; accessToken: string }) =>
+  runAndHandleServerErrors(() =>
+    makePostRequest(
+      checkCouponResultSchema,
+      `${couponBaseUrl}/check-coupon`,
+      {
+        coupon: params.coupon,
+      },
+      params.accessToken,
+    ),
+  );
+
 const activate = async (params: { coupon: string; accessToken: string }) =>
   runAndHandleServerErrors(() =>
     makePostRequest(
@@ -75,6 +88,7 @@ const getPlan = async (params: { accessToken: string }) =>
 
 export const inheritancePlanService = {
   create,
+  checkCoupon,
   applyCoupon,
   activate,
   sync: inheritanceSyncPlansService,
