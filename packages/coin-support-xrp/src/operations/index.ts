@@ -6,3 +6,4 @@ export * from './syncAccount';
 export * from './getAccountHistory';
 export * from './getCoinAllocations';
 export * from './validateAddress';
+export * from './getExplorerLink';
