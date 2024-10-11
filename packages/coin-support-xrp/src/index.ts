@@ -87,7 +87,7 @@ export class XrpSupport implements CoinSupport {
   public getCoinAllocations(
     params: IGetCoinAllocationsParams,
   ): Promise<IGetCoinAllocationsResult> {
-    throw new Error(`Method not implemented Params: ${params}`);
+    return operations.getCoinAllocations(params);
   }
 
   public getAccountHistory(
