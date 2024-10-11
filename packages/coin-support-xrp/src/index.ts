@@ -97,7 +97,7 @@ export class XrpSupport implements CoinSupport {
   }
 
   public validateAddress(params: IValidateAddressParams): boolean {
-    throw new Error(`Method not implemented Params: ${params}`);
+    return operations.validateAddress(params);
   }
 
   public syncPrices(params: ISyncPricesParams): Observable<void> {
