@@ -78,7 +78,7 @@ export const InheritanceSilverPlanPurchaseDialogProvider: FC<
         isActive: Boolean(plans.findIndex(p => p.walletId === e.__id) !== -1),
       })),
     ];
-  }, [wallets, deletedWallets]);
+  }, [wallets, deletedWallets, plans]);
 
   const [isTermsAccepted, setIsTermsAccepted] = useState(false);
   const [selectedWallet, setSelectedWallet] = useState<IWallet | undefined>();

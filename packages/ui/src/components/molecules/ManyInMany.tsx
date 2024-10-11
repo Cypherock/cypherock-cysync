@@ -166,7 +166,7 @@ export const ManyInMany: FC<ManyInManyProps> = ({
 
   return (
     <StyledContainer
-      onClick={() => !disabled && onClick()}
+      onClick={() => !disabled && !isActive && onClick()}
       $isSelected={Boolean(isSelected)}
       $isActive={Boolean(isActive)}
       disabled={Boolean(disabled)}

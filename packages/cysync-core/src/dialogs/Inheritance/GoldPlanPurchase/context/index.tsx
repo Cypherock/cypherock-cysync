@@ -86,7 +86,7 @@ export const InheritanceGoldPlanPurchaseDialogProvider: FC<
         isActive: Boolean(plans.findIndex(p => p.walletId === e.__id) !== -1),
       })),
     ];
-  }, [wallets, deletedWallets]);
+  }, [wallets, deletedWallets, plans]);
 
   const [selectedWallet, setSelectedWallet] = useState<IWallet | undefined>();
   const [isSubmittingReminderDetails, setIsSubmittingReminderDetails] =
