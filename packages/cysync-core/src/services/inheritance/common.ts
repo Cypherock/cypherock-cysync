@@ -7,3 +7,11 @@ export const otpDetailSchema = z.object({
   retriesRemaining: z.number(),
   otpExpiry: z.string().datetime(),
 });
+
+export const InheritanceUserTypeMap = {
+  owner: 'OWNER',
+  nominee: 'NOMINEE',
+} as const;
+
+export type InheritanceUserType =
+  (typeof InheritanceUserTypeMap)[keyof typeof InheritanceUserTypeMap];

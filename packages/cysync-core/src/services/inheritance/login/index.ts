@@ -15,7 +15,7 @@ import {
 } from './schema';
 
 import { makePostRequest, runAndHandleServerErrors } from '../../utils';
-import { inheritanceBaseUrl } from '../common';
+import { inheritanceBaseUrl, InheritanceUserType } from '../common';
 
 export {
   type InheritanceLoginInitResponse,
@@ -33,14 +33,6 @@ export {
 
 const baseUrl = `${inheritanceBaseUrl}/wallet-account`;
 
-export const InheritanceLoginTypeMap = {
-  owner: 'OWNER',
-  nominee: 'NOMINEE',
-} as const;
-
-export type InheritanceLoginType =
-  (typeof InheritanceLoginTypeMap)[keyof typeof InheritanceLoginTypeMap];
-
 export const InheritanceLoginAuthTypeMap = {
   full: 'FULL',
   seed: 'SEED',
@@ -52,7 +44,7 @@ export type InheritanceLoginAuthType =
 
 const init = async (params: {
   walletId: string;
-  loginType: InheritanceLoginType;
+  loginType: InheritanceUserType;
   authType: InheritanceLoginAuthType;
 }) =>
   runAndHandleServerErrors(() =>
