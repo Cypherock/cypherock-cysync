@@ -12,7 +12,8 @@ export const Instructions = () => {
   const lang = useAppSelector(selectLanguage);
   const strings = lang.strings.inheritanceSilverPlanPurchase;
 
-  const { onNext, onPrevious } = useInheritanceSilverPlanPurchaseDialog();
+  const { onNext, onPrevious, onRetry } =
+    useInheritanceSilverPlanPurchaseDialog();
 
   return (
     <Layout
@@ -40,6 +41,7 @@ export const Instructions = () => {
         url={constants.inheritance.silverPlanPurchaseTutorialLink}
         width="720px"
         height="405px"
+        onRetry={onRetry}
       />
     </Layout>
   );

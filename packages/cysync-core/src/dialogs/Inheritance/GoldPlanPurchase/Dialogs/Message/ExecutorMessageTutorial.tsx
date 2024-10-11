@@ -17,7 +17,8 @@ export const ExecutorMessageTutorial = () => {
   const lang = useAppSelector(selectLanguage);
   const strings = lang.strings.inheritanceGoldPlanPurchase.message;
 
-  const { onNext, onPrevious } = useInheritanceGoldPlanPurchaseDialog();
+  const { onNext, onPrevious, onRetry } =
+    useInheritanceGoldPlanPurchaseDialog();
 
   return (
     <Layout
@@ -50,6 +51,7 @@ export const ExecutorMessageTutorial = () => {
         url={constants.inheritance.silverPlanPurchaseTutorialLink}
         width="720px"
         height="405px"
+        onRetry={onRetry}
       />
     </Layout>
   );

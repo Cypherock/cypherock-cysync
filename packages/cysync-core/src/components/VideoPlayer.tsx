@@ -1,7 +1,8 @@
-import React, { FC, useState } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import ReactPlayer, { ReactPlayerProps } from 'react-player';
-import { selectLanguage, useAppSelector } from '~/store';
+import { selectLanguage, selectNetwork, useAppSelector } from '~/store';
 import {
+  Button,
   Container,
   Image,
   informationWhiteIcon,
@@ -9,9 +10,20 @@ import {
   Typography,
 } from '@cypherock/cysync-ui';
 
-export const VideoPlayer: FC<ReactPlayerProps> = ({ ...props }) => {
+interface VideoPlayerProps extends ReactPlayerProps {
+  onRetry: () => void;
+}
+
+export const VideoPlayer: FC<VideoPlayerProps> = ({ onRetry, ...props }) => {
   const lang = useAppSelector(selectLanguage);
   const [error, setError] = useState(false);
+  const { active } = useAppSelector(selectNetwork);
+
+  useEffect(() => {
+    if (!active) {
+      setError(true);
+    }
+  }, [active]);
 
   if (error) {
     return (
@@ -30,17 +42,21 @@ export const VideoPlayer: FC<ReactPlayerProps> = ({ ...props }) => {
           />
           <Typography color="white">
             <LangDisplay text={lang.strings.errors.videoPlaybackError} />
+            <Button
+              variant="text"
+              onClick={onRetry}
+              style={{
+                color: 'white',
+                textDecoration: 'underline',
+              }}
+            >
+              {lang.strings.buttons.tryAgain}
+            </Button>
           </Typography>
         </Container>
       </Container>
     );
   }
 
-  return (
-    <ReactPlayer
-      {...props}
-      onError={() => setError(true)}
-      onReady={() => setError(false)}
-    />
-  );
+  return <ReactPlayer {...props} onReady={() => setError(false)} />;
 };

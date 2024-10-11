@@ -56,7 +56,8 @@
     "saveAndContinue": "Save and continue",
     "exitWithoutSaving": "Exit without saving",
     "saveChanges": "Save changes",
-    "edit": "Edit"
+    "edit": "Edit",
+    "tryAgain": "Try Again"
   },
   "dashboard": {
     "wallet": {
@@ -1116,7 +1117,7 @@
       }
     },
     "default": "Terjadi kesalahan internal",
-    "videoPlaybackError": "No Internet connection. Please check your connection and try again"
+    "videoPlaybackError": "No Internet connection. Please check your connection and "
   },
   "validation": {
     "generic": {
