@@ -2261,7 +2261,7 @@
         ]
       },
       "video": {
-        "title": "Watch the whole video before you proceed",
+        "title": "Watch the tutorial video before you proceed",
         "subTitle": "The video will help you take the right decisions"
       }
     },
@@ -2374,7 +2374,7 @@
     "message": {
       "heading": "Message",
       "tutorial": {
-        "title": "Watch the whole video before you proceed further",
+        "title": "Watch the tutorial video before you proceed further",
         "subtext": "How to write the final messages"
       },
       "nominee": {
