@@ -11,6 +11,7 @@ import React, {
   useState,
 } from 'react';
 
+import { openContactSupportDialog } from '~/actions';
 import { useAsync, useMemoReturn } from '~/hooks';
 import { InheritanceUserTypeMap, inheritancePlanService } from '~/services';
 import { useAppDispatch, useAppSelector } from '~/store';
@@ -30,7 +31,6 @@ import {
   useWalletAuth,
   WalletAuthLoginStep,
 } from '../../hooks';
-import { openContactSupportDialog } from '~/actions';
 
 export * from './types';
 

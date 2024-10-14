@@ -5,6 +5,7 @@ import React, {
   createContext,
   useContext,
   useMemo,
+  useState,
 } from 'react';
 
 import { ITabs, useTabsAndDialogs } from '~/hooks';
@@ -23,7 +24,8 @@ export interface InheritanceEditReminderTimeDialogContextInterface {
   isDeviceRequired: boolean;
   unhandledError?: any;
   fetchData: () => void;
-  updateData: () => void;
+  updateData: (n: number) => void;
+  reminder?: number;
 }
 
 export const InheritanceEditReminderTimeDialogContext: Context<InheritanceEditReminderTimeDialogContextInterface> =
@@ -56,6 +58,8 @@ export const InheritanceEditReminderTimeDialogProvider: FC<
     },
   ];
 
+  const [reminder, setReminder] = useState<number>();
+
   const {
     onNext,
     onPrevious,
@@ -74,11 +78,21 @@ export const InheritanceEditReminderTimeDialogProvider: FC<
   };
 
   const fetchData = () => {
-    // TODO: Implement this function
+    'Implement this function';
+
+    setReminder(1);
+    setTimeout(() => {
+      onNext();
+    }, 2000);
   };
 
-  const updateData = () => {
-    // TODO: Implement this function
+  const updateData = (newDuration: number) => {
+    'Implement this function';
+
+    setReminder(newDuration);
+    setTimeout(() => {
+      onNext();
+    }, 2000);
   };
 
   const ctx = useMemo(
@@ -93,6 +107,7 @@ export const InheritanceEditReminderTimeDialogProvider: FC<
       isDeviceRequired,
       fetchData,
       updateData,
+      reminder,
     }),
     [
       onNext,
@@ -105,6 +120,7 @@ export const InheritanceEditReminderTimeDialogProvider: FC<
       isDeviceRequired,
       fetchData,
       updateData,
+      reminder,
     ],
   );
 

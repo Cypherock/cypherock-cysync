@@ -8,7 +8,16 @@ import {
   useInheritanceEditUserDetailsDialog,
 } from './context';
 
-const InheritanceEditUserDetails: FC = () => {
+export type InheritanceEditUserDetailsUserType =
+  | 'owner'
+  | 'nominee'
+  | 'executor';
+
+export interface InheritanceEditUserDetailsDialogProps {
+  userType: InheritanceEditUserDetailsUserType;
+}
+
+const InheritanceEditUserDetails = () => {
   const { tabs, currentTab, currentDialog, unhandledError, onClose } =
     useInheritanceEditUserDetailsDialog();
 
@@ -26,8 +35,10 @@ const InheritanceEditUserDetails: FC = () => {
   );
 };
 
-export const InheritanceEditUserDetailsDialog = () => (
-  <InheritanceEditUserDetailsDialogProvider>
+export const InheritanceEditUserDetailsDialog: FC<
+  InheritanceEditUserDetailsDialogProps
+> = props => (
+  <InheritanceEditUserDetailsDialogProvider {...props}>
     <InheritanceEditUserDetails />
   </InheritanceEditUserDetailsDialogProvider>
 );

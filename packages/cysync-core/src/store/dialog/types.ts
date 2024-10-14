@@ -8,6 +8,7 @@ import {
   InheritancePinRecoveryDialogProps,
   InheritancePlanLoginDialogProps,
 } from '~/dialogs/Inheritance';
+import { InheritanceEditExecutorMessageDialogProps } from '~/dialogs/Inheritance/EditExecutorMessage/context';
 import { SendDialogProps } from '~/dialogs/Send';
 
 export interface IDialogState {
@@ -160,7 +161,7 @@ export interface IDialogState {
 
   inheritanceEditExecutorMessage: {
     isOpen: boolean;
-    data?: undefined;
+    data?: InheritanceEditExecutorMessageDialogProps;
   };
 
   inheritanceEditReminderTime: {

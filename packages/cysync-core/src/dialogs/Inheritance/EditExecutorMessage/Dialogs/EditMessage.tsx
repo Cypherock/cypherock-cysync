@@ -12,7 +12,7 @@ import {
   TextAreaInput,
   Typography,
 } from '@cypherock/cysync-ui';
-import React, { useState } from 'react';
+import React, { useEffect } from 'react';
 
 import { LoaderDialog } from '~/components';
 import { selectLanguage, useAppSelector } from '~/store';
@@ -21,14 +21,29 @@ import { useInheritanceEditExecutorMessageDialog } from '../context';
 
 export const EditMessage = () => {
   const lang = useAppSelector(selectLanguage);
-  const [isLoading, setIsLoading] = useState(false);
-  const [message, setMessage] = useState('');
-  const { onClose } = useInheritanceEditExecutorMessageDialog();
+
+  const {
+    onClose,
+    onNext,
+    updateExecutorMessage,
+    isUpdatingExecutorMessage,
+    isUpdateExecutorMessageCompleted,
+    executorMessage,
+    setExecutorMessage,
+  } = useInheritanceEditExecutorMessageDialog();
   const strings =
     lang.strings.dialogs.inheritanceEditExecutorMessage.editMessage;
   const { form } = strings;
 
-  if (isLoading) {
+  const handleUpdate = () => {
+    updateExecutorMessage();
+  };
+
+  useEffect(() => {
+    if (isUpdateExecutorMessageCompleted) onNext();
+  }, [isUpdateExecutorMessageCompleted]);
+
+  if (isUpdatingExecutorMessage) {
     return (
       <LoaderDialog
         title={strings.loading.title}
@@ -62,11 +77,11 @@ export const EditMessage = () => {
             </InputLabel>
             <TextAreaInput
               placeholder={form.messageField.placeholder}
-              value={message}
-              onChange={setMessage}
+              value={executorMessage}
+              onChange={setExecutorMessage}
               height={120}
               maxChars={800}
-              currentChars={message.length || 0}
+              currentChars={executorMessage?.length ?? 0}
             />
           </Flex>
         </DialogBoxBody>
@@ -76,14 +91,7 @@ export const EditMessage = () => {
         <Button variant="secondary" onClick={onClose} type="button">
           <LangDisplay text={strings.buttons.exit} />
         </Button>
-        <Button
-          variant="primary"
-          onClick={e => {
-            e.preventDefault();
-            setIsLoading(true);
-          }}
-          type="button"
-        >
+        <Button variant="primary" onClick={handleUpdate} type="button">
           <LangDisplay text={strings.buttons.save} />
         </Button>
       </DialogBoxFooter>
