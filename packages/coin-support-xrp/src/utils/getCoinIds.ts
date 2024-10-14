@@ -4,7 +4,7 @@ import lodash from 'lodash';
 
 export const getCoinIds = async (db: IDatabase) => {
   const accounts = await db.account.getAll({
-    familyId: coinFamiliesMap.tron,
+    familyId: coinFamiliesMap.xrp,
   });
   const assetList = accounts.map(account => ({
     assetId: account.assetId,

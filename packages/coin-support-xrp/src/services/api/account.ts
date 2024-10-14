@@ -2,7 +2,6 @@ import { makePostRequest } from '@cypherock/cysync-utils';
 import { xrpCoinList } from '@cypherock/coins';
 
 import { config } from '../../config';
-import { getCoinSupportXrpLib } from '../../utils';
 
 const baseURL = `${config.API_CYPHEROCK}/xrp/wallet`;
 
@@ -23,6 +22,5 @@ export const getBalance = async (
   if (typeof balance !== 'string')
     throw new Error('Invalid xrp balance returned from server');
 
-  const xrpBalance = getCoinSupportXrpLib().dropsToXrp(balance).toString();
-  return xrpBalance;
+  return balance;
 };

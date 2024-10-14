@@ -14,7 +14,6 @@ import { ISyncXrpAccountsParams } from './types';
 
 import * as services from '../../services';
 import { IXrpAccount } from '../types';
-import { getCoinSupportXrpLib } from '../../utils';
 
 const PER_PAGE_TXN_LIMIT = 100;
 
@@ -25,7 +24,7 @@ const parseTransaction = (
   const myAddress = account.xpubOrAddress;
   const fromAddress = txn.tx.Account;
   const toAddress = txn.tx.Destination;
-  const fees = getCoinSupportXrpLib().dropsToXrp(txn.tx.Fee).toString();
+  const fees = txn.tx.Fee;
   const amount = txn.tx.Amount;
 
   const transaction: ITransaction = {
