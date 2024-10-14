@@ -12,6 +12,7 @@ import React, {
   useRef,
 } from 'react';
 
+
 import { routes } from '~/constants';
 import {
   useAsync,
@@ -28,10 +29,7 @@ import { ReminderPeriod } from '~/services/inheritance/login/schema';
 import { selectLanguage, useAppSelector } from '~/store';
 import { getDB } from '~/utils';
 
-import {
-  InheritanceGoldPlanPurchaseDialogContextInterface,
-  IWalletForSelection,
-} from './types';
+import { InheritanceGoldPlanPurchaseDialogContextInterface, IWalletForSelection } from './types';
 import { tabIndicies, useGoldPlanDialogHanlders } from './useDialogHandler';
 import { useExecutorRegistration } from './useExecutorRegistraion';
 import { useNomineeRegistration } from './useNomineeRegistration';
