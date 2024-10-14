@@ -1,7 +1,7 @@
 import { useCallback, useState } from 'react';
 import { useMemoReturn, useStateWithRef } from '~/hooks';
 import { inheritanceLoginService } from '~/services';
-import { IWalletAuthTokens } from '~/store';
+import { AuthTokenConfig } from '~/services/utils';
 import { IUserDetails } from '.';
 import { tabIndicies } from './useDialogHandler';
 
@@ -11,7 +11,7 @@ export const useExecutorRegistration = (
   goTo: (tab: number, dialog?: number) => void,
   isOnSummaryPage: boolean,
   nominees: React.MutableRefObject<Record<number, IUserDetails>>,
-  authTokens?: IWalletAuthTokens,
+  authTokenConfig?: AuthTokenConfig,
 ) => {
   const [executorDetails, setExecutorDetails, executorDetailsRef] =
     useStateWithRef<IUserDetails | undefined>(undefined);
@@ -31,7 +31,7 @@ export const useExecutorRegistration = (
   const updateExecutor = async (nomineeIndex: number) => {
     try {
       if (!executorDetailsRef.current) throw 'Invalid executor details';
-      if (!authTokens) throw "Wallet auth doesn't have a valid token";
+      if (!authTokenConfig) throw "Wallet auth doesn't have a valid token";
 
       setExecutorNomineeIndex(nomineeIndex);
 
@@ -40,8 +40,8 @@ export const useExecutorRegistration = (
         email: executorDetailsRef.current.email,
         alternateEmail: executorDetailsRef.current.alternateEmail,
         nomineeEmail: nominees.current[nomineeIndex]?.email,
-        accessToken: authTokens.accessToken,
         executorMessage,
+        authTokenConfig,
       });
 
       if (!result?.result?.success) {

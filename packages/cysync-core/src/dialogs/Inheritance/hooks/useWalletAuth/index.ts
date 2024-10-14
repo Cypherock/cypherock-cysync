@@ -1,5 +1,5 @@
 import { ServerErrorType } from '@cypherock/cysync-core-constants';
-import { useState, useRef, useCallback } from 'react';
+import { useState, useRef, useCallback, useMemo } from 'react';
 
 import { useAsync, useMemoReturn, useStateWithRef } from '~/hooks';
 import {
@@ -13,7 +13,7 @@ import {
   InheritanceUserTypeMap,
   InheritanceLoginVerifyResponse,
 } from '~/services';
-import { ServerResponseWithError } from '~/services/utils';
+import { AuthTokenConfig, ServerResponseWithError } from '~/services/utils';
 import {
   IWalletAuthTokens,
   selectInheritanceSeedAuthTokens,
@@ -68,6 +68,24 @@ export const useWalletAuth = (onErrorCallback: (e?: any) => void) => {
   const [authTokens, setAuthTokens] = useState<IWalletAuthTokens | undefined>(
     undefined,
   );
+
+  const authTokenConfig = useMemo<AuthTokenConfig | undefined>(() => {
+    if (!authTokens) return undefined;
+
+    const updateAuthToken = (newAccessToken: string) => {
+      setAuthTokens({
+        accessToken: newAccessToken,
+        refreshToken: authTokens.refreshToken,
+      });
+    };
+    return {
+      accessToken: authTokens.accessToken,
+      refreshTokenConfig: {
+        refreshToken: authTokens.refreshToken,
+        updateAuthToken,
+      },
+    };
+  }, [authTokens]);
 
   const onWalletAuthDeviceCallback = useCallback(() => {
     setCurrentStep(WalletAuthLoginStep.validateSignature);
@@ -406,5 +424,6 @@ export const useWalletAuth = (onErrorCallback: (e?: any) => void) => {
     verifyOtp,
     isVerifyingOtp,
     isRegisterationRequired,
+    authTokenConfig,
   });
 };

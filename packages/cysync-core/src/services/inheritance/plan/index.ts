@@ -9,6 +9,7 @@ import {
 import { inheritanceSyncPlansService } from './sync';
 
 import {
+  AuthTokenConfig,
   makeGetRequest,
   makePostRequest,
   runAndHandleServerErrors,
@@ -29,7 +30,7 @@ const couponBaseUrl = `${inheritanceBaseUrl}/wallet-recovery`;
 const create = async (params: {
   encryptedData: string;
   sessionId: string;
-  accessToken: string;
+  authTokenConfig: AuthTokenConfig;
 }) =>
   runAndHandleServerErrors(() =>
     makePostRequest(
@@ -39,11 +40,14 @@ const create = async (params: {
         encryptedData: params.encryptedData,
         sessionId: params.sessionId,
       },
-      params.accessToken,
+      params.authTokenConfig,
     ),
   );
 
-const applyCoupon = async (params: { coupon: string; accessToken: string }) =>
+const applyCoupon = async (params: {
+  coupon: string;
+  authTokenConfig: AuthTokenConfig;
+}) =>
   runAndHandleServerErrors(() =>
     makePostRequest(
       applyCouponResultSchema,
@@ -51,11 +55,14 @@ const applyCoupon = async (params: { coupon: string; accessToken: string }) =>
       {
         coupon: params.coupon,
       },
-      params.accessToken,
+      params.authTokenConfig,
     ),
   );
 
-const checkCoupon = async (params: { coupon: string; accessToken: string }) =>
+const checkCoupon = async (params: {
+  coupon: string;
+  authTokenConfig: AuthTokenConfig;
+}) =>
   runAndHandleServerErrors(() =>
     makePostRequest(
       checkCouponResultSchema,
@@ -63,11 +70,14 @@ const checkCoupon = async (params: { coupon: string; accessToken: string }) =>
       {
         coupon: params.coupon,
       },
-      params.accessToken,
+      params.authTokenConfig,
     ),
   );
 
-const activate = async (params: { coupon: string; accessToken: string }) =>
+const activate = async (params: {
+  coupon: string;
+  authTokenConfig: AuthTokenConfig;
+}) =>
   runAndHandleServerErrors(() =>
     makePostRequest(
       activateResultSchema,
@@ -75,13 +85,17 @@ const activate = async (params: { coupon: string; accessToken: string }) =>
       {
         coupon: params.coupon,
       },
-      params.accessToken,
+      params.authTokenConfig,
     ),
   );
 
-const getPlan = async (params: { accessToken: string }) =>
+const getPlan = async (params: { authTokenConfig: AuthTokenConfig }) =>
   runAndHandleServerErrors(() =>
-    makeGetRequest(getPlanResultSchema, `${baseUrl}/list`, params.accessToken),
+    makeGetRequest(
+      getPlanResultSchema,
+      `${baseUrl}/list`,
+      params.authTokenConfig,
+    ),
   );
 
 export const inheritancePlanService = {

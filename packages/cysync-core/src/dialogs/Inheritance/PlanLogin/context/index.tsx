@@ -113,6 +113,10 @@ export const InheritancePlanLoginDialogProvider: FC<
   }, []);
 
   const walletAuthService = useWalletAuth(onError);
+  const authTokenConfig = useMemo(
+    () => walletAuthService.authTokenConfig,
+    [walletAuthService],
+  );
 
   const walletAuthFetchRequestId = useCallback(() => {
     walletAuthService.fetchRequestId(
@@ -123,10 +127,10 @@ export const InheritancePlanLoginDialogProvider: FC<
   }, [walletId]);
 
   const fetchPlanHanlder = useCallback(async () => {
-    if (!walletAuthService.authTokens) return false;
+    if (!authTokenConfig) return false;
 
     const result = await inheritancePlanService.getPlan({
-      accessToken: walletAuthService.authTokens.accessToken,
+      authTokenConfig,
     });
 
     if (result.error) {
@@ -162,7 +166,7 @@ export const InheritancePlanLoginDialogProvider: FC<
 
     onClose();
     return true;
-  }, [walletAuthService.authTokens, onClose]);
+  }, [authTokenConfig, onClose]);
 
   const [fetchPlan, isFetchingPlan] = useAsync(fetchPlanHanlder, onError);
 
