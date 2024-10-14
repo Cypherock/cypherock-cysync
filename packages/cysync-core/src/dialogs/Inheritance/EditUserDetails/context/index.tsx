@@ -13,11 +13,11 @@ import React, {
 import { ITabs, useTabsAndDialogs } from '~/hooks';
 import { closeDialog, useAppDispatch } from '~/store';
 
-import { EditDetails, Success, VerifyOTP } from '../Dialogs';
 import {
-  EditUserDetialsUserType,
+  InheritanceEditUserDetailsUserType,
   InheritanceEditUserDetailsDialogProps,
 } from '..';
+import { EditDetails, Success, VerifyOTP } from '../Dialogs';
 
 export interface IUserDetails {
   name: string;
@@ -38,7 +38,7 @@ export interface InheritanceEditUserDetailsDialogContextInterface {
   userDetails?: IUserDetails;
   onUserDetailsSubmit: (params: IUserDetails) => void;
   isSubmittingUserDetails: boolean;
-  userType: EditUserDetialsUserType;
+  userType: InheritanceEditUserDetailsUserType;
 }
 
 export const InheritanceEditUserDetailsDialogContext: Context<InheritanceEditUserDetailsDialogContextInterface> =

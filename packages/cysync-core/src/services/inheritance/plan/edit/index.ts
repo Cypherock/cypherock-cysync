@@ -1,50 +1,26 @@
-import {
-  editExecutorMessageResponseSchema,
-  fetchMessagesResponse,
-} from './schema';
+import { editExecutorMessageResponseSchema } from './schema';
 
 import { makePostRequest, runAndHandleServerErrors } from '../../../utils';
 import { inheritanceBaseUrl } from '../../common';
 
-export {
-  type InheritanceEditExecutorMessageResponse,
-  type InheritanceFetchMessagesResponse,
-} from './schema';
+export { type InheritanceEditExecutorMessageResponse } from './schema';
 
 const baseUrl = `${inheritanceBaseUrl}/wallet-account`;
 
-const fetchMessages = async (
-  params: {
-    wallet: boolean;
-    executor: boolean;
-    nominee: boolean;
-    message: boolean;
-  },
-  authToken: string,
-) =>
-  runAndHandleServerErrors(() =>
-    makePostRequest(
-      fetchMessagesResponse,
-      `${baseUrl}/recover`,
-      params,
-      authToken,
-    ),
-  );
-
-const updateExecutorMessage = async (
-  params: { executorMessage: string },
-  authToken: string,
-) =>
+const updateExecutorMessage = async (params: {
+  executorMessage: string;
+  sessionId: string;
+  accessToken: string;
+}) =>
   runAndHandleServerErrors(() =>
     makePostRequest(
       editExecutorMessageResponseSchema,
       `${baseUrl}/edit`,
       params,
-      authToken,
+      params.accessToken,
     ),
   );
 
 export const inheritanceEditPlansService = {
-  fetchMessages,
   updateExecutorMessage,
 };

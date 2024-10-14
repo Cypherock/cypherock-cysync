@@ -8,10 +8,13 @@ import {
   useInheritanceEditUserDetailsDialog,
 } from './context';
 
-export type EditUserDetialsUserType = 'owner' | 'nominee' | 'executor';
+export type InheritanceEditUserDetailsUserType =
+  | 'owner'
+  | 'nominee'
+  | 'executor';
 
 export interface InheritanceEditUserDetailsDialogProps {
-  userType: EditUserDetialsUserType;
+  userType: InheritanceEditUserDetailsUserType;
 }
 
 const InheritanceEditUserDetails = () => {
