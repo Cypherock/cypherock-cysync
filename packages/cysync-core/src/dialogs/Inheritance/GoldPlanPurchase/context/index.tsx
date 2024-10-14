@@ -11,8 +11,8 @@ import React, {
   useState,
   useRef,
 } from 'react';
-import { routes } from '~/constants';
 
+import { routes } from '~/constants';
 import {
   useAsync,
   useMemoReturn,
@@ -27,16 +27,18 @@ import {
 import { ReminderPeriod } from '~/services/inheritance/login/schema';
 import { selectLanguage, useAppSelector } from '~/store';
 import { getDB } from '~/utils';
+
+import { InheritanceGoldPlanPurchaseDialogContextInterface } from './types';
+import { tabIndicies, useGoldPlanDialogHanlders } from './useDialogHandler';
+import { useExecutorRegistration } from './useExecutorRegistraion';
+import { useNomineeRegistration } from './useNomineeRegistration';
+
 import {
   useEncryptMessage,
   useSession,
   useWalletAuth,
   WalletAuthLoginStep,
 } from '../../hooks';
-import { InheritanceGoldPlanPurchaseDialogContextInterface } from './types';
-import { tabIndicies, useGoldPlanDialogHanlders } from './useDialogHandler';
-import { useExecutorRegistration } from './useExecutorRegistraion';
-import { useNomineeRegistration } from './useNomineeRegistration';
 
 export interface IWalletWithDeleted extends IWallet {
   isDeleted?: boolean;
@@ -110,11 +112,11 @@ export const InheritanceGoldPlanPurchaseDialogProvider: FC<
 
       const result = await inheritanceLoginService.updateReminder({
         frequency: reminderPeriod,
-        accessToken: walletAuthService.authTokens?.accessToken,
+        accessToken: walletAuthService.authTokens.accessToken,
       });
 
-      if (result?.result?.success === false) {
-        throw result?.error ?? 'ReminderPeriod update failed';
+      if (result.result?.success === false) {
+        throw result.error ?? 'ReminderPeriod update failed';
       }
 
       if (!userDetails) {

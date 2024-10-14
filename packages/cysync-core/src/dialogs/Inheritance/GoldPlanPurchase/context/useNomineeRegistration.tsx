@@ -1,10 +1,14 @@
 import { useRef, useState } from 'react';
+
 import { useMemoReturn, useStateWithRef } from '~/hooks';
 import { inheritanceLoginService } from '~/services';
 import { IWalletAuthTokens } from '~/store';
-import { IUserDetails } from '.';
-import { IOtpVerificationDetails, OtpVerificationConcern } from '../../hooks';
+
 import { tabIndicies } from './useDialogHandler';
+
+import { IOtpVerificationDetails, OtpVerificationConcern } from '../../hooks';
+
+import { IUserDetails } from '.';
 
 export const useNomineeRegistration = (
   onError: (e?: any) => void,
@@ -34,8 +38,8 @@ export const useNomineeRegistration = (
         accessToken: authTokens.accessToken,
       });
 
-      if (result?.result?.success === false) {
-        throw result?.error ?? 'Nominee update failed';
+      if (result.result?.success === false) {
+        throw result.error ?? 'Nominee update failed';
       }
 
       if (verify) {
@@ -69,11 +73,11 @@ export const useNomineeRegistration = (
 
       const result = await inheritanceLoginService.updateNominees({
         secret,
-        requestId: nomineeOtpVerificationDetails?.id,
+        requestId: nomineeOtpVerificationDetails.id,
         accessToken: authTokens.accessToken,
       });
 
-      if (result?.result?.success === true) {
+      if (result.result?.success === true) {
         setNomineeOtpVerificationDetails(nomineeOtpDetailsRef.current.shift());
       } else {
         const otpDetails = result.error?.details?.responseBody;

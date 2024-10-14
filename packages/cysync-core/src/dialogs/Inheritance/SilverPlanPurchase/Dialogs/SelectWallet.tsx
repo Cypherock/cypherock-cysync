@@ -22,9 +22,9 @@ export const SelectWallet = () => {
   const { onNext, onPrevious, allWallets, selectedWallet, setSelectedWallet } =
     useInheritanceSilverPlanPurchaseDialog();
 
-  const [tooltipPlacements, setTooltipPlacements] = useState<{
-    [key: string]: TooltipPlacement;
-  }>({});
+  const [tooltipPlacements, setTooltipPlacements] = useState<
+    Record<string, TooltipPlacement>
+  >({});
 
   const observerRef = useRef<IntersectionObserver>();
 

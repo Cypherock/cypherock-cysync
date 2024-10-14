@@ -1,3 +1,4 @@
+import { inheritanceEditPlansService } from './edit';
 import { inheritanceRecoverPlansService } from './recover';
 import {
   activateResultSchema,
@@ -14,7 +15,6 @@ import {
   runAndHandleServerErrors,
 } from '../../utils';
 import { inheritanceBaseUrl } from '../common';
-import { inheritanceEditPlansService } from './edit';
 
 export {
   type InheritancePlanCreateResponse,
