@@ -1,60 +1,58 @@
+import { assert } from '@cypherock/cysync-utils';
 import React, {
   Context,
-  Dispatch,
   FC,
-  ReactNode,
   createContext,
   useCallback,
   useContext,
+  useMemo,
   useState,
 } from 'react';
 
 import { ITabs, useAsync, useMemoReturn, useTabsAndDialogs } from '~/hooks';
-import { closeDialog, useAppDispatch } from '~/store';
-
-import { FetchData, EditMessage, Success } from '../Dialogs';
 import { inheritanceEditPlansService } from '~/services';
-import { useWalletAuth } from '../../hooks';
+import { inheritanceRecoverPlansService } from '~/services/inheritance/plan/recover';
+import {
+  closeDialog,
+  selectInheritanceSeedAuthTokens,
+  useAppDispatch,
+  useAppSelector,
+} from '~/store';
 
-export interface InheritanceEditExecutorMessageDialogContextInterface {
-  tabs: ITabs;
-  onNext: (tab?: number, dialog?: number) => void;
-  goTo: (tab: number, dialog?: number) => void;
-  onPrevious: () => void;
-  onClose: () => void;
-  currentTab: number;
-  currentDialog: number;
-  isDeviceRequired: boolean;
-  onRetry: () => void;
-  retryIndex: number;
-  unhandledError?: any;
-  fetchExecutorMessage: () => void;
-  updateExecutorMessage: () => void;
-  executorMessage?: string;
-  setExecutorMessage: Dispatch<React.SetStateAction<string | undefined>>;
-  isFetchingExecutorMessage: boolean;
-  isFetchExecutorMessageCompleted: boolean;
-  resetFetchExecutorMessage: () => void;
-  isUpdatingExecutorMessage: boolean;
-  isUpdateExecutorMessageCompleted: boolean;
-  resetUpdateExecutorMessage: () => void;
-}
+import {
+  InheritanceEditExecutorMessageDialogContextInterface,
+  InheritanceEditExecutorMessageDialogContextProviderProps,
+  tabIndicies,
+} from './types';
+
+import { useSession } from '../../hooks';
+import { FetchData, EditMessage, Success } from '../Dialogs';
+
+export * from './types';
 
 export const InheritanceEditExecutorMessageDialogContext: Context<InheritanceEditExecutorMessageDialogContextInterface> =
   createContext<InheritanceEditExecutorMessageDialogContextInterface>(
     {} as InheritanceEditExecutorMessageDialogContextInterface,
   );
 
-export interface InheritanceEditExecutorMessageDialogContextProviderProps {
-  children: ReactNode;
-}
-
 export const InheritanceEditExecutorMessageDialogProvider: FC<
   InheritanceEditExecutorMessageDialogContextProviderProps
-> = ({ children }) => {
+> = ({ children, walletId }) => {
   const dispatch = useAppDispatch();
 
-  const deviceRequiredDialogsMap: Record<number, number[] | undefined> = {};
+  const deviceRequiredDialogsMap: Record<number, number[] | undefined> =
+    useMemo(
+      () => ({
+        [tabIndicies.fetchdata.tabNumber]: [
+          tabIndicies.fetchdata.dialogs.fetchdata,
+        ],
+        [tabIndicies.editmessage.tabNumber]: [
+          tabIndicies.editmessage.dialogs.editmessage,
+        ],
+      }),
+      [],
+    );
+
   const tabs: ITabs = [
     {
       name: 'Fetch Data',
@@ -78,23 +76,35 @@ export const InheritanceEditExecutorMessageDialogProvider: FC<
     setUnhandledError(e);
   }, []);
 
-  const { authTokens } = useWalletAuth(onError);
+  const walletAuthTokens = useAppSelector(selectInheritanceSeedAuthTokens);
+  const sessionService = useSession(onError);
 
   const fetchData = useCallback(async () => {
-    if (!authTokens?.accessToken) return false;
-    const response = await inheritanceEditPlansService.fetchMessages(
-      {
-        executor: true,
-        message: false,
-        nominee: false,
-        wallet: false,
-      },
-      authTokens?.accessToken,
-    );
+    let sessionId = await sessionService.getIsActive();
+    const accessToken = walletAuthTokens[walletId]?.accessToken;
+
+    if (!sessionId) {
+      sessionId = await sessionService.start();
+    }
+
+    assert(sessionId, 'sessionId not found');
+    assert(accessToken, 'accessToken not found');
+
+    const response = await inheritanceRecoverPlansService.recover({
+      accessToken,
+      sessionId,
+      executor: true,
+    });
+
     if (response.error) throw response.error;
-    setExecutorMessage(response?.result?.unencryptedData.data[0].message);
+
+    setExecutorMessage(response.result.executorMessage ?? '');
     return true;
-  }, [setExecutorMessage]);
+  }, [
+    sessionService.start,
+    sessionService.getIsActive,
+    walletAuthTokens[walletId],
+  ]);
 
   const [
     fetchExecutorMessage,
@@ -104,16 +114,25 @@ export const InheritanceEditExecutorMessageDialogProvider: FC<
   ] = useAsync(fetchData, onError);
 
   const updateData = useCallback(async () => {
-    if (!executorMessage || !authTokens?.accessToken) return false;
-    const response = await inheritanceEditPlansService.updateExecutorMessage(
-      {
-        executorMessage,
-      },
-      authTokens?.accessToken,
-    );
+    if (!executorMessage) return false;
+    let sessionId = await sessionService.getIsActive();
+    const accessToken = walletAuthTokens[walletId]?.accessToken;
+
+    if (!sessionId) {
+      sessionId = await sessionService.start();
+    }
+
+    assert(accessToken, 'accessToken not found');
+    assert(sessionId, 'sessionId not found');
+
+    const response = await inheritanceEditPlansService.updateExecutorMessage({
+      accessToken,
+      sessionId,
+      executorMessage,
+    });
     if (response.error) throw response.error;
     return true;
-  }, [executorMessage]);
+  }, [executorMessage, walletAuthTokens[walletId]]);
 
   const [
     updateExecutorMessage,
@@ -140,6 +159,8 @@ export const InheritanceEditExecutorMessageDialogProvider: FC<
   };
 
   const resetAll = useCallback(() => {
+    resetFetchExecutorMessage();
+    resetUpdateExecutorMessage();
     setExecutorMessage(undefined);
     setRetryIndex(v => v + 1);
   }, []);
@@ -168,10 +189,8 @@ export const InheritanceEditExecutorMessageDialogProvider: FC<
     setExecutorMessage,
     isFetchingExecutorMessage,
     isFetchExecutorMessageCompleted,
-    resetFetchExecutorMessage,
     isUpdatingExecutorMessage,
     isUpdateExecutorMessageCompleted,
-    resetUpdateExecutorMessage,
   });
 
   return (
