@@ -14,7 +14,11 @@ import {
   NomineeType,
 } from './schema';
 
-import { makePostRequest, runAndHandleServerErrors } from '../../utils';
+import {
+  AuthTokenConfig,
+  makePostRequest,
+  runAndHandleServerErrors,
+} from '../../utils';
 import { inheritanceBaseUrl, InheritanceUserType } from '../common';
 
 export {
@@ -113,8 +117,8 @@ const updateNominees = async (params: {
   requestId?: string;
   secret?: string;
   verify?: boolean;
-  accessToken: string;
   nomineeType?: NomineeType;
+  authTokenConfig: AuthTokenConfig;
 }) =>
   runAndHandleServerErrors(() =>
     makePostRequest(
@@ -127,7 +131,7 @@ const updateNominees = async (params: {
         requestId: params.requestId,
         nomineeType: params.nomineeType,
       },
-      params.accessToken,
+      params.authTokenConfig,
     ),
   );
 
@@ -136,8 +140,8 @@ const updateExecutor = async (params: {
   email: string;
   alternateEmail: string;
   nomineeEmail: string;
-  accessToken: string;
   executorMessage?: string;
+  authTokenConfig: AuthTokenConfig;
 }) =>
   runAndHandleServerErrors(() =>
     makePostRequest(
@@ -150,20 +154,20 @@ const updateExecutor = async (params: {
         nominee: [params.nomineeEmail],
         executorMessage: params.executorMessage,
       },
-      params.accessToken,
+      params.authTokenConfig,
     ),
   );
 
 const updateReminder = async (params: {
   frequency: ReminderPeriod;
-  accessToken: string;
+  authTokenConfig: AuthTokenConfig;
 }) =>
   runAndHandleServerErrors(() =>
     makePostRequest(
       updateReminderResultSchema,
       `${baseUrl}/info/reminder`,
       { frequency: params.frequency },
-      params.accessToken,
+      params.authTokenConfig,
     ),
   );
 

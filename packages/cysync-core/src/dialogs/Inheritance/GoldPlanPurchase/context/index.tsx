@@ -105,12 +105,11 @@ export const InheritanceGoldPlanPurchaseDialogProvider: FC<
   const onReminderDetailsSubmit = async () => {
     setIsSubmittingReminderDetails(true);
     try {
-      if (!walletAuthService.authTokens)
-        throw "Wallet auth doesn't have a valid token";
+      if (!authTokenConfig) throw "Wallet auth doesn't have a valid token";
 
       const result = await inheritanceLoginService.updateReminder({
         frequency: reminderPeriod,
-        accessToken: walletAuthService.authTokens?.accessToken,
+        authTokenConfig,
       });
 
       if (result?.result?.success === false) {
@@ -118,9 +117,9 @@ export const InheritanceGoldPlanPurchaseDialogProvider: FC<
       }
 
       if (!userDetails) {
-        const planDetailsResult = await inheritancePlanService.getPlan(
-          walletAuthService.authTokens,
-        );
+        const planDetailsResult = await inheritancePlanService.getPlan({
+          authTokenConfig,
+        });
 
         if (planDetailsResult.error) {
           throw result.error ?? "Couldn't fetch plan details";
@@ -153,6 +152,10 @@ export const InheritanceGoldPlanPurchaseDialogProvider: FC<
   const sessionService = useSession(onError);
   const sessionIdRef = useRef<string | undefined>();
 
+  const authTokenConfig = useMemo(
+    () => walletAuthService.authTokenConfig,
+    [walletAuthService],
+  );
   const onRetryFuncMap = useMemo<
     Record<number, Record<number, (() => boolean) | undefined> | undefined>
   >(
@@ -220,7 +223,7 @@ export const InheritanceGoldPlanPurchaseDialogProvider: FC<
   const setupPlanHandler = useCallback(async () => {
     if (
       !encryptMessageService.encryptedMessages ||
-      !walletAuthService.authTokens ||
+      !authTokenConfig ||
       !selectedWallet ||
       !sessionIdRef.current
     )
@@ -229,7 +232,7 @@ export const InheritanceGoldPlanPurchaseDialogProvider: FC<
     const result = await inheritancePlanService.create({
       encryptedData: encryptMessageService.encryptedMessages,
       sessionId: sessionIdRef.current,
-      accessToken: walletAuthService.authTokens.accessToken,
+      authTokenConfig,
     });
 
     if (result.error) {
@@ -247,7 +250,7 @@ export const InheritanceGoldPlanPurchaseDialogProvider: FC<
     return true;
   }, [
     encryptMessageService.encryptedMessages,
-    walletAuthService.authTokens,
+    authTokenConfig,
     selectedWallet,
   ]);
 
@@ -258,12 +261,12 @@ export const InheritanceGoldPlanPurchaseDialogProvider: FC<
     async (_coupon: string) => {
       setApplyingCouponError(undefined);
 
-      if (!walletAuthService.authTokens) return false;
+      if (!authTokenConfig) return false;
 
       try {
         const result = await inheritancePlanService.checkCoupon({
           coupon: _coupon,
-          accessToken: walletAuthService.authTokens.accessToken,
+          authTokenConfig,
         });
         setCouponDuration(result.result?.duration ?? '');
         setCoupon(_coupon);
@@ -277,19 +280,18 @@ export const InheritanceGoldPlanPurchaseDialogProvider: FC<
 
       return true;
     },
-    [walletAuthService.authTokens, onNext],
+    [authTokenConfig, onNext],
   );
 
   const [applyCoupon, isApplyingCoupon, isCouponApplied, resetApplyCoupon] =
     useAsync(applyCouponHandler, onError);
 
   const activateCouponHandler = useCallback(async () => {
-    if (!walletAuthService.authTokens || !couponRef.current || !selectedWallet)
-      return false;
+    if (!authTokenConfig || !couponRef.current || !selectedWallet) return false;
 
     const result = await inheritancePlanService.activate({
       coupon: couponRef.current,
-      accessToken: walletAuthService.authTokens.accessToken,
+      authTokenConfig,
     });
 
     if (result.error) {
@@ -309,7 +311,7 @@ export const InheritanceGoldPlanPurchaseDialogProvider: FC<
     });
 
     return true;
-  }, [walletAuthService.authTokens, selectedWallet, couponDuration]);
+  }, [authTokenConfig, selectedWallet, couponDuration]);
 
   const [
     activateCoupon,
@@ -467,7 +469,7 @@ export const InheritanceGoldPlanPurchaseDialogProvider: FC<
     onNext,
     goTo,
     isOnSummaryPage,
-    walletAuthService.authTokens,
+    authTokenConfig,
   );
   const {
     haveExecutor,
@@ -486,7 +488,7 @@ export const InheritanceGoldPlanPurchaseDialogProvider: FC<
     goTo,
     isOnSummaryPage,
     nominees,
-    walletAuthService.authTokens,
+    authTokenConfig,
   );
 
   const overriddenCurrentMilestone = useMemo(

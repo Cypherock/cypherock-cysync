@@ -1,6 +1,10 @@
 import { recoverResultSchema } from './schema';
 
-import { makePostRequest, runAndHandleServerErrors } from '../../../utils';
+import {
+  AuthTokenConfig,
+  makePostRequest,
+  runAndHandleServerErrors,
+} from '../../../utils';
 import { inheritanceBaseUrl } from '../../common';
 
 export { type InheritanceRecoverPlanResponse } from './schema';
@@ -9,7 +13,7 @@ const baseUrl = `${inheritanceBaseUrl}/wallet-account`;
 
 const recover = async (params: {
   sessionId: string;
-  accessToken: string;
+  authTokenConfig: AuthTokenConfig;
   wallet?: boolean;
   executor?: boolean;
   nominee?: boolean;
@@ -26,7 +30,7 @@ const recover = async (params: {
         nominee: params.nominee,
         message: params.message,
       },
-      params.accessToken,
+      params.authTokenConfig,
     ),
   );
 
