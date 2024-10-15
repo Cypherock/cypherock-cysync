@@ -64,6 +64,7 @@ export const EditMessage = () => {
               height={120}
               maxChars={800}
               currentChars={message.length || 0}
+              autoFocus
             />
           </Flex>
         </DialogBoxBody>

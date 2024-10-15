@@ -33,6 +33,8 @@ export const NomineePrivateMessageInput = () => {
     isOnSummaryPage,
   } = useInheritanceGoldPlanPurchaseDialog();
 
+  const isNextDisabled = !personalMessage?.trim() || !cardLocation?.trim();
+
   return (
     <Layout
       footerComponent={
@@ -50,6 +52,7 @@ export const NomineePrivateMessageInput = () => {
               else if (haveExecutor) onNext();
               else goTo(tabIndicies.reminder.tabNumber, 0);
             }}
+            disabled={isNextDisabled}
             variant="primary"
           >
             <LangDisplay text={lang.strings.buttons.continue} />
@@ -87,6 +90,7 @@ export const NomineePrivateMessageInput = () => {
           onChange={setCardLocation}
           maxChars={800}
           currentChars={cardLocation.length || 0}
+          autoFocus
         />
         <TextAreaInput
           label={strings.nominee.form.personalMessage.label}

@@ -77,6 +77,7 @@ export const ExecutorMessage = () => {
           height={120}
           maxChars={800}
           currentChars={executorMessage.length || 0}
+          autoFocus
         />
       </Flex>
     </Layout>

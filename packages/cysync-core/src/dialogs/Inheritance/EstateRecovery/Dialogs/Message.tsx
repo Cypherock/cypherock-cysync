@@ -43,6 +43,7 @@ export const Message = () => {
           height={120}
           value={cardLocation}
           placeholder={strings.form.cardLocationField.placeholder}
+          autoFocus
         />
         <TextAreaInput
           label={strings.form.personalMessageField.label}

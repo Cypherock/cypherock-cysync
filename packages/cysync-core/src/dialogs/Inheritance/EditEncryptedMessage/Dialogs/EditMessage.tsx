@@ -59,6 +59,7 @@ export const EditMessage = () => {
           currentChars={form.cardLocation.length || 0}
           value={form.cardLocation}
           onChange={val => setForm(p => ({ ...p, cardLocation: val }))}
+          autoFocus
         />
         <TextAreaInput
           label={strings.form.personalMessageField.label}

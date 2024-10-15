@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, TextareaHTMLAttributes } from 'react';
 import styled from 'styled-components';
 
 import { Container, Flex, LangDisplay, Tooltip, Typography } from '../../atoms';
@@ -6,7 +6,9 @@ import { UtilsProps, utils } from '../../utils';
 import { InputLabel, InputLabelProps } from './InputLabel';
 import { QuestionMarkButton } from '../Prefabs';
 
-interface TextAreaInputProps extends UtilsProps {
+interface TextAreaInputProps
+  extends UtilsProps,
+    Omit<TextareaHTMLAttributes<HTMLTextAreaElement>, 'onChange' | 'onBlur'> {
   value?: string;
   onChange?: (val: string) => void;
   onBlur?: (val: string) => void;
