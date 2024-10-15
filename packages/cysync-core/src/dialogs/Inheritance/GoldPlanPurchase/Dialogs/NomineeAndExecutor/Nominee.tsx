@@ -8,7 +8,7 @@ import {
   Tooltip,
   Typography,
 } from '@cypherock/cysync-ui';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 
 import { selectLanguage } from '~/store';
@@ -18,10 +18,20 @@ import { Layout } from '../../Layout';
 
 export const Nominee = () => {
   const lang = useSelector(selectLanguage);
-  const { onPrevious, onNext, nomineeCount, setNomineeCount } =
-    useInheritanceGoldPlanPurchaseDialog();
+  const {
+    onPrevious,
+    onNext,
+    nomineeCount,
+    setNomineeCount,
+    fetchExistingDetailsFromServer,
+  } = useInheritanceGoldPlanPurchaseDialog();
+
   const strings =
     lang.strings.inheritanceGoldPlanPurchase.nomineeAndExecutor.select;
+
+  useEffect(() => {
+    fetchExistingDetailsFromServer();
+  }, []);
 
   return (
     <Layout

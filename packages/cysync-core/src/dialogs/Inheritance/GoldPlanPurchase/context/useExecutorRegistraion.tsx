@@ -1,4 +1,4 @@
-import { useCallback, useState } from 'react';
+import { useState } from 'react';
 import { useMemoReturn, useStateWithRef } from '~/hooks';
 import { inheritanceLoginService } from '~/services';
 import { AuthTokenConfig } from '~/services/utils';
@@ -23,17 +23,15 @@ export const useExecutorRegistration = (
   >();
   const [executorMessage, setExecutorMessage] = useState('');
 
-  const onExecutorSelected = useCallback(() => {
+  const onExecutorSelected = () => {
     if (haveExecutor) onNext();
     else goTo(tabIndicies.message.tabNumber, tabIndicies.message.dialogs.video);
-  }, [haveExecutor]);
+  };
 
   const updateExecutor = async (nomineeIndex: number) => {
     try {
       if (!executorDetailsRef.current) throw 'Invalid executor details';
       if (!authTokenConfig) throw "Wallet auth doesn't have a valid token";
-
-      setExecutorNomineeIndex(nomineeIndex);
 
       const result = await inheritanceLoginService.updateExecutor({
         name: executorDetailsRef.current.name,
@@ -65,9 +63,14 @@ export const useExecutorRegistration = (
     nomineeIndex: number,
   ) => {
     setIsSubmittingExecutorDetails(true);
-    setExecutorDetails(params);
+    updateExecutorFields(params, nomineeIndex);
     await updateExecutor(nomineeIndex);
     setIsSubmittingExecutorDetails(false);
+  };
+
+  const updateExecutorFields = (params: IUserDetails, nomineeIndex: number) => {
+    setExecutorNomineeIndex(nomineeIndex);
+    setExecutorDetails(params);
   };
 
   return useMemoReturn({
@@ -81,5 +84,6 @@ export const useExecutorRegistration = (
     executorMessage,
     setExecutorMessage,
     onExecutorMessageSubmit,
+    updateExecutorFields,
   });
 };

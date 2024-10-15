@@ -9,11 +9,15 @@ export const getPlanResultSchema = z.object({
     .object({
       email: z.string().optional(),
       alternateEmail: z.string().optional(),
+      name: z.string().optional(),
     })
     .optional(),
   executor: z
     .object({
       nominee: z.array(z.string().optional()).optional(),
+      email: z.string().optional(),
+      alternateEmail: z.string().optional(),
+      name: z.string().optional(),
     })
     .optional(),
   _id: z.string(),
@@ -33,13 +37,22 @@ export const getPlanResultSchema = z.object({
     .array(
       z.object({
         email: z.string().optional(),
+        alternateEmail: z.string().optional(),
+        name: z.string().optional(),
       }),
     )
     .optional(),
   subscription: z
     .array(
       z.object({
-        order: z.string(),
+        order: z
+          .object({
+            _id: z.string(),
+            planType: z.string().optional(),
+            activationDate: z.string().optional(),
+            expiryDate: z.string().optional(),
+          })
+          .optional(),
         walletPlan: z.string(),
         activationDate: z.string(),
         _id: z.string(),

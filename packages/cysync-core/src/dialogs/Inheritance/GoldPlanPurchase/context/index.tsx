@@ -139,6 +139,46 @@ export const InheritanceGoldPlanPurchaseDialogProvider: FC<
     setIsSubmittingReminderDetails(false);
   };
 
+  const [isFetchingDetails, setIsFetchingDetails] = useState(false);
+
+  const fetchExistingDetailsFromServer = async () => {
+    if (isFetchingDetails) return;
+    if (!authTokenConfig) throw "Wallet auth doesn't have a valid token";
+    setIsFetchingDetails(true);
+    const result = await inheritancePlanService.getPlan({
+      authTokenConfig,
+    });
+
+    if (result.error) {
+      setIsFetchingDetails(false);
+      throw result.error ?? "Couldn't fetch plan details";
+    }
+    const fetchedDetails = {
+      ...result.result.owner,
+    } as IUserDetails;
+    setUserDetails(fetchedDetails);
+
+    const fetchedNomineeDetails = result.result.nominee;
+    if (fetchedNomineeDetails) {
+      setNomineeCount(fetchedNomineeDetails.length);
+      fetchedNomineeDetails.forEach((details, index) =>
+        updateNomineeDetails(details as IUserDetails, index),
+      );
+    }
+
+    const fetchedExecutorDetails = result.result.executor;
+    if (fetchedExecutorDetails) {
+      setHaveExecutor(true);
+      updateExecutorFields(
+        { ...fetchedExecutorDetails } as IUserDetails,
+        fetchedNomineeDetails
+          ?.map(details => details?.email)
+          .indexOf(fetchedExecutorDetails.nominee?.[0]) ?? 0,
+      );
+    }
+    setIsFetchingDetails(false);
+  };
+
   const onError = useCallback((e?: any) => {
     setUnhandledError(e);
   }, []);
@@ -359,10 +399,7 @@ export const InheritanceGoldPlanPurchaseDialogProvider: FC<
       [tabIndicies.wallet.tabNumber]: {
         [tabIndicies.wallet.dialogs.fetchRequestId]: () => {
           if (walletAuthService.currentStep === WalletAuthLoginStep.completed) {
-            goTo(
-              tabIndicies.encryption.tabNumber,
-              tabIndicies.encryption.dialogs.deviceEncryption,
-            );
+            goTo(tabIndicies.nominieeAndExecutor.tabNumber);
             return true;
           }
 
@@ -482,6 +519,7 @@ export const InheritanceGoldPlanPurchaseDialogProvider: FC<
     executorMessage,
     setExecutorMessage,
     onExecutorMessageSubmit,
+    updateExecutorFields,
   } = useExecutorRegistration(
     onError,
     onNext,
@@ -578,6 +616,7 @@ export const InheritanceGoldPlanPurchaseDialogProvider: FC<
     executorMessage,
     setExecutorMessage,
     onExecutorMessageSubmit,
+    fetchExistingDetailsFromServer,
   });
 
   return (
