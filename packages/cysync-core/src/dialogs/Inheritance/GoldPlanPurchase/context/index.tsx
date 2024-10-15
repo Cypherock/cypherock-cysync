@@ -392,6 +392,51 @@ export const InheritanceGoldPlanPurchaseDialogProvider: FC<
     [walletAuthService.registerUser],
   );
 
+  const [personalMessage, setPersonalMessage] = useState('');
+  const [cardLocation, setCardLocation] = useState('');
+  const [userDetails, setUserDetails] = useState<IUserDetails>();
+  const [isOnSummaryPage, setIsOnSummaryPage] = useState(false);
+
+  const {
+    onNomineeDetailsSubmit,
+    isSubmittingNomineeDetails,
+    nomineeCount,
+    setNomineeCount,
+    nomineeDetails,
+    updateNomineeDetails,
+    nomineeOtpSubmit,
+    clearNomineeDetails,
+    nomineeOtpVerificationDetails,
+    nominees,
+  } = useNomineeRegistration(
+    onError,
+    onNext,
+    goTo,
+    isOnSummaryPage,
+    authTokenConfig,
+  );
+
+  const {
+    haveExecutor,
+    setHaveExecutor,
+    onExecutorSelected,
+    onExecutorDetailsSubmit,
+    isSubmittingExecutorDetails,
+    executorNomineeIndex,
+    executorDetails,
+    executorMessage,
+    setExecutorMessage,
+    onExecutorMessageSubmit,
+    updateExecutorFields,
+  } = useExecutorRegistration(
+    onError,
+    onNext,
+    goTo,
+    isOnSummaryPage,
+    nominees,
+    authTokenConfig,
+  );
+
   const onNextActionMapPerDialog = useMemo<
     Record<number, Record<number, (() => boolean) | undefined> | undefined>
   >(
@@ -459,8 +504,30 @@ export const InheritanceGoldPlanPurchaseDialogProvider: FC<
           return true;
         },
       },
+      [tabIndicies.message.tabNumber]: {
+        [tabIndicies.message.dialogs.video]: () => {
+          if (!haveExecutor) {
+            goTo(
+              tabIndicies.nominieeAndExecutor.tabNumber,
+              tabIndicies.nominieeAndExecutor.dialogs.executorSelect,
+            );
+            return true;
+          }
+          return false;
+        },
+        [tabIndicies.message.dialogs.personalMessageInput]: () => {
+          if (!haveExecutor) {
+            goTo(
+              tabIndicies.nominieeAndExecutor.tabNumber,
+              tabIndicies.nominieeAndExecutor.dialogs.executorSelect,
+            );
+            return true;
+          }
+          return false;
+        },
+      },
     }),
-    [fallbackToWalletSelect],
+    [fallbackToWalletSelect, haveExecutor],
   );
 
   const onPreviousCallback = useCallback(() => {
@@ -484,50 +551,6 @@ export const InheritanceGoldPlanPurchaseDialogProvider: FC<
 
     onClose();
   }, [isSetupPlanCompleted, isCouponActivated, onClose]);
-
-  const [personalMessage, setPersonalMessage] = useState('');
-  const [cardLocation, setCardLocation] = useState('');
-  const [userDetails, setUserDetails] = useState<IUserDetails>();
-  const [isOnSummaryPage, setIsOnSummaryPage] = useState(false);
-
-  const {
-    onNomineeDetailsSubmit,
-    isSubmittingNomineeDetails,
-    nomineeCount,
-    setNomineeCount,
-    nomineeDetails,
-    updateNomineeDetails,
-    nomineeOtpSubmit,
-    clearNomineeDetails,
-    nomineeOtpVerificationDetails,
-    nominees,
-  } = useNomineeRegistration(
-    onError,
-    onNext,
-    goTo,
-    isOnSummaryPage,
-    authTokenConfig,
-  );
-  const {
-    haveExecutor,
-    setHaveExecutor,
-    onExecutorSelected,
-    onExecutorDetailsSubmit,
-    isSubmittingExecutorDetails,
-    executorNomineeIndex,
-    executorDetails,
-    executorMessage,
-    setExecutorMessage,
-    onExecutorMessageSubmit,
-    updateExecutorFields,
-  } = useExecutorRegistration(
-    onError,
-    onNext,
-    goTo,
-    isOnSummaryPage,
-    nominees,
-    authTokenConfig,
-  );
 
   const overriddenCurrentMilestone = useMemo(
     () => (isOnSummaryPage ? tabIndicies.summary.tabNumber : undefined),
