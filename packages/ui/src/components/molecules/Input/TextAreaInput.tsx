@@ -1,8 +1,10 @@
 import React, { FC } from 'react';
 import styled from 'styled-components';
 
-import { Flex, Typography } from '../../atoms';
+import { Container, Flex, LangDisplay, Tooltip, Typography } from '../../atoms';
 import { UtilsProps, utils } from '../../utils';
+import { InputLabel, InputLabelProps } from './InputLabel';
+import { QuestionMarkButton } from '../Prefabs';
 
 interface TextAreaInputProps extends UtilsProps {
   value?: string;
@@ -12,6 +14,12 @@ interface TextAreaInputProps extends UtilsProps {
   placeholder: string;
   maxChars?: number;
   currentChars?: number;
+  label?: string;
+  inputLabelProps?: InputLabelProps;
+  tooltip?: string;
+  rightLabel?: string;
+  showRequiredStar?: boolean;
+  trailing?: React.ReactNode;
 }
 
 const TextAreaInputStyle = styled.textarea`
@@ -42,9 +50,44 @@ export const TextAreaInput: FC<TextAreaInputProps> = ({
   onBlur,
   maxChars,
   currentChars = 0,
+  label,
+  inputLabelProps,
+  tooltip,
+  rightLabel,
+  showRequiredStar,
+  trailing,
   ...props
 }) => (
-  <Flex direction="column" width="100%" gap={8} mb={2}>
+  <Flex
+    direction="column"
+    width={props.width ?? '100%'}
+    gap={8}
+    mb={props.mb ?? 2}
+  >
+    {label && (
+      <InputLabel p={0} mb={0} {...(inputLabelProps ?? {})}>
+        <Container $variant="span" align="center" justify="space-between">
+          <Flex gap={4} align="center">
+            <LangDisplay text={label} />
+            {tooltip && (
+              <Tooltip text={tooltip} tooltipPlacement="bottom">
+                <QuestionMarkButton />
+              </Tooltip>
+            )}
+          </Flex>
+          <span>
+            {rightLabel && <LangDisplay text={rightLabel} />}
+            {showRequiredStar && (
+              <Typography variant="span" color="error">
+                {' '}
+                *
+              </Typography>
+            )}
+            {trailing}
+          </span>
+        </Container>
+      </InputLabel>
+    )}
     <TextAreaInputStyle
       {...props}
       onChange={e => onChange?.(e.target.value)}
@@ -69,4 +112,10 @@ TextAreaInput.defaultProps = {
   disabled: false,
   maxChars: undefined,
   currentChars: 0,
+  tooltip: undefined,
+  rightLabel: undefined,
+  showRequiredStar: undefined,
+  label: undefined,
+  inputLabelProps: undefined,
+  trailing: undefined,
 };

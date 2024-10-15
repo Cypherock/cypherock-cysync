@@ -2,7 +2,6 @@ import {
   Button,
   Container,
   Flex,
-  InputLabel,
   LangDisplay,
   MessageBox,
   QuestionMarkButton,
@@ -77,44 +76,30 @@ export const NomineePrivateMessageInput = () => {
         </Flex>
       </Container>
       <Flex direction="column" $flex={1} width="100%">
-        <Flex>
-          <InputLabel>{strings.nominee.form.locationField.label}</InputLabel>
-          <Tooltip
-            text={strings.nominee.form.locationField.tooltip}
-            tooltipPlacement="bottom"
-          >
-            <QuestionMarkButton />
-          </Tooltip>
-        </Flex>
         <TextAreaInput
+          label={strings.nominee.form.locationField.label}
+          tooltip={strings.nominee.form.locationField.tooltip}
           placeholder={strings.nominee.form.locationField.placeholder}
+          showRequiredStar
+          rightLabel={lang.strings.labels.required}
           height={120}
           value={cardLocation}
           onChange={setCardLocation}
           maxChars={800}
           currentChars={cardLocation.length || 0}
         />
-        <Flex direction="column" $flex={1} width="100%">
-          <Flex>
-            <InputLabel>
-              {strings.nominee.form.personalMessage.label}
-            </InputLabel>
-            <Tooltip
-              text={strings.nominee.form.personalMessage.tooltip}
-              tooltipPlacement="bottom"
-            >
-              <QuestionMarkButton />
-            </Tooltip>
-          </Flex>
-          <TextAreaInput
-            placeholder={strings.nominee.form.personalMessage.placeholder}
-            value={personalMessage}
-            onChange={setPersonalMessage}
-            height={120}
-            maxChars={800}
-            currentChars={personalMessage.length || 0}
-          />
-        </Flex>
+        <TextAreaInput
+          label={strings.nominee.form.personalMessage.label}
+          tooltip={strings.nominee.form.personalMessage.tooltip}
+          placeholder={strings.nominee.form.personalMessage.placeholder}
+          showRequiredStar
+          rightLabel={lang.strings.labels.required}
+          value={personalMessage}
+          onChange={setPersonalMessage}
+          height={120}
+          maxChars={800}
+          currentChars={personalMessage.length || 0}
+        />
         <MessageBox type="warning" text={strings.nominee.messageBox.warning} />
       </Flex>
     </Layout>

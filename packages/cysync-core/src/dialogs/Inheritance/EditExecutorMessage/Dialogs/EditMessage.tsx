@@ -6,7 +6,6 @@ import {
   DialogBoxFooter,
   DialogBoxHeader,
   Flex,
-  InputLabel,
   LangDisplay,
   ScrollableContainer,
   TextAreaInput,
@@ -57,10 +56,8 @@ export const EditMessage = () => {
             width="100%"
             pt={2}
           >
-            <InputLabel $textAlign="left" px={0}>
-              <LangDisplay text={form.messageField.label} />
-            </InputLabel>
             <TextAreaInput
+              label={form.messageField.label}
               placeholder={form.messageField.placeholder}
               value={message}
               onChange={setMessage}

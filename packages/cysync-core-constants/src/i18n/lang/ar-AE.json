@@ -2354,12 +2354,12 @@
         "tooltip": "End-to-end encryption keeps your messages between you and the nominee you choose. Not even Cypherock can read them",
         "form": {
           "locationField": {
-            "label": "Card Location* & Passphrase",
+            "label": "Card Location & Passphrase",
             "placeholder": "Write your location",
             "tooltip": "Write down the location of another card for the nominee to fetch. Nominee will only be able to recover crypto assets after getting another card. Remember this card should be different than the card(s) you may have given to your nominee(s).\nYou can also include the passphrase in this message."
           },
           "personalMessage": {
-            "label": "Personal Message*",
+            "label": "Personal Message",
             "placeholder": "Write your message",
             "tooltip": "This can include your will/message for the nominee and other important pieces of information that you may want your nominee to know such as your crypto exchange account details, coins you have amongst others."
           }

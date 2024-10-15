@@ -1,13 +1,9 @@
 import {
   Button,
   Container,
-  Flex,
-  InputLabel,
   LangDisplay,
   MessageBox,
-  QuestionMarkButton,
   TextAreaInput,
-  Tooltip,
   Typography,
 } from '@cypherock/cysync-ui';
 import React, { useState } from 'react';
@@ -54,42 +50,26 @@ export const EditMessage = () => {
         </Typography>
       </Container>
       <Container direction="column" width="100%" $flex={1}>
-        <Container direction="column" width="100%" $flex={1}>
-          <InputLabel>
-            <Flex gap={4} align="center">
-              <LangDisplay text={strings.form.cardLocationField.label} />
-              <Tooltip text={strings.form.cardLocationField.tooltip}>
-                <QuestionMarkButton />
-              </Tooltip>
-            </Flex>
-          </InputLabel>
-          <TextAreaInput
-            placeholder={strings.form.cardLocationField.placeholder}
-            height={120}
-            maxChars={800}
-            currentChars={form.cardLocation.length || 0}
-            value={form.cardLocation}
-            onChange={val => setForm(p => ({ ...p, cardLocation: val }))}
-          />
-        </Container>
-        <Container direction="column" width="100%" $flex={1}>
-          <InputLabel>
-            <Flex gap={4} align="center">
-              <LangDisplay text={strings.form.personalMessageField.label} />
-              <Tooltip text={strings.form.personalMessageField.tooltip}>
-                <QuestionMarkButton />
-              </Tooltip>
-            </Flex>
-          </InputLabel>
-          <TextAreaInput
-            placeholder={strings.form.personalMessageField.placeholder}
-            height={120}
-            maxChars={800}
-            currentChars={form.message.length || 0}
-            value={form.message}
-            onChange={val => setForm(p => ({ ...p, message: val }))}
-          />
-        </Container>
+        <TextAreaInput
+          label={strings.form.cardLocationField.label}
+          tooltip={strings.form.cardLocationField.tooltip}
+          placeholder={strings.form.cardLocationField.placeholder}
+          height={120}
+          maxChars={800}
+          currentChars={form.cardLocation.length || 0}
+          value={form.cardLocation}
+          onChange={val => setForm(p => ({ ...p, cardLocation: val }))}
+        />
+        <TextAreaInput
+          label={strings.form.personalMessageField.label}
+          tooltip={strings.form.personalMessageField.tooltip}
+          placeholder={strings.form.personalMessageField.placeholder}
+          height={120}
+          maxChars={800}
+          currentChars={form.message.length || 0}
+          value={form.message}
+          onChange={val => setForm(p => ({ ...p, message: val }))}
+        />
       </Container>
       <MessageBox type="warning" text={strings.messageBox.warning} />
     </Layout>
