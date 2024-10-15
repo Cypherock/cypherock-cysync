@@ -116,6 +116,22 @@ export const InheritanceGoldPlanPurchaseDialogProvider: FC<
         throw result?.error ?? 'ReminderPeriod update failed';
       }
 
+      if (!userDetails) {
+        const planDetailsResult = await inheritancePlanService.getPlan({
+          authTokenConfig,
+        });
+
+        if (planDetailsResult.error) {
+          throw result.error ?? "Couldn't fetch plan details";
+        }
+        const fetchedDetails = {
+          name: planDetailsResult.result.fullName,
+          ...planDetailsResult.result.owner,
+        } as IUserDetails;
+
+        setUserDetails(fetchedDetails);
+      }
+
       onNext();
     } catch (error: any) {
       onError(error);

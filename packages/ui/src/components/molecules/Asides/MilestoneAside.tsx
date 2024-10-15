@@ -42,7 +42,9 @@ export const MilestoneAside: FC<{
 }> = ({ milestones, activeTab, heading, skippedTabs }) => (
   <AsideStyle>
     {heading ? (
-      <Typography $fontSize={18}>{heading}</Typography>
+      <Typography $fontSize={18} shrink={0}>
+        {heading}
+      </Typography>
     ) : (
       <Image $width={32} src={cysyncLogoSmall} alt="logo" $alignSelf="start" />
     )}

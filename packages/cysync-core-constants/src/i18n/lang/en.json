@@ -2065,7 +2065,7 @@
         "title": "Owner Details",
         "form": {
           "userNameField": {
-            "label": "User Name"
+            "label": "Name"
           },
           "primaryEmailField": {
             "label": "Primary Email"
@@ -2079,7 +2079,7 @@
         "title": "Nominee #${number}",
         "form": {
           "nomineeNameField": {
-            "label": "Nominee Name"
+            "label": "Name"
           },
           "primaryEmailField": {
             "label": "Primary Email"
@@ -2096,7 +2096,7 @@
         "title": "Executor",
         "form": {
           "nomineeNameField": {
-            "label": "Nominee Name"
+            "label": "Name"
           },
           "primaryEmailField": {
             "label": "Primary Email"
@@ -2261,7 +2261,7 @@
         ]
       },
       "video": {
-        "title": "Watch the whole video before you proceed",
+        "title": "Watch the tutorial video before you proceed",
         "subTitle": "The video will help you take the right decisions"
       }
     },
@@ -2316,7 +2316,7 @@
       }
     },
     "nomineeAndExecutor": {
-      "heading": "Nominee & Executor",
+      "heading": "Nominees & Executor",
       "select": {
         "title": "How many nominees do you want?",
         "subtitle": "You can have up to 2 nominees for this will",
@@ -2339,7 +2339,7 @@
         "confirm": {
           "title": "Do you want to verify nominee emails?",
           "subtext": "An OTP will be sent to the provided emails. If you do not want to inform the nominee about this plan, you can skip verification of emails.",
-          "warning": "Make sure you provide correct emails."
+          "warning": "If you do not verify the nominee email then Cypherock emails may land in spam folder"
         }
       },
       "executor": {
@@ -2374,7 +2374,7 @@
     "message": {
       "heading": "Message",
       "tutorial": {
-        "title": "Watch the whole video before you proceed further",
+        "title": "Watch the tutorial video before you proceed further",
         "subtext": "How to write the final messages"
       },
       "nominee": {
@@ -2421,7 +2421,7 @@
         "title": "Owner Details",
         "form": {
           "userNameField": {
-            "label": "User Name"
+            "label": "Name"
           },
           "primaryEmailField": {
             "label": "Primary Email"
@@ -2440,7 +2440,7 @@
         "title": "Nominee #",
         "form": {
           "nomineeNameField": {
-            "label": "Nominee Name"
+            "label": "Name"
           },
           "primaryEmailField": {
             "label": "Primary Email"
@@ -2460,7 +2460,7 @@
         "title": "Executor",
         "form": {
           "nomineeNameField": {
-            "label": "Nominee Name"
+            "label": "Name"
           },
           "primaryEmailField": {
             "label": "Primary Email"
