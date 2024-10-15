@@ -1733,12 +1733,12 @@
         "form": {
           "cardLocationField": {
             "label": "Card location & Passphrase",
-            "placeholder": "Enter your card's location",
+            "placeholder": "Write the location of the card",
             "tooltip": "Write down the location of another card for the nominee to fetch. Nominee will only be able to recover crypto assets after getting another card. Remember this card should be different than the card(s) you may have given to your nominee(s).\nYou can also include the passphrase in this message"
           },
           "personalMessageField": {
             "label": "Personal message",
-            "placeholder": "Enter your personal message here",
+            "placeholder": "Write your message",
             "tooltip": "This can include your will/message for the nominee and other important pieces of information that you may want your nominee to know such as your crypto exchange account details, coins you have amongst others."
           }
         },
@@ -1859,12 +1859,12 @@
         "form": {
           "cardLocationField": {
             "label": "Card location",
-            "placeholder": "Please enter card location",
+            "placeholder": "Write the location of the card",
             "tooltip": "The location of your cards"
           },
           "personalMessageField": {
             "label": "Personal message",
-            "placeholder": "Please enter your message",
+            "placeholder": "Write your message",
             "tooltip": "This is the message for you"
           },
           "checkBox": {
@@ -2360,7 +2360,7 @@
         "form": {
           "locationField": {
             "label": "Card Location & Passphrase",
-            "placeholder": "Write your location",
+            "placeholder": "Write the location of the card",
             "tooltip": "Write down the location of another card for the nominee to fetch. Nominee will only be able to recover crypto assets after getting another card. Remember this card should be different than the card(s) you may have given to your nominee(s).\nYou can also include the passphrase in this message."
           },
           "personalMessage": {
