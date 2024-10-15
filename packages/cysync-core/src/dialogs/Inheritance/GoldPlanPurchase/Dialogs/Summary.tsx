@@ -11,7 +11,7 @@ import {
   svgGradients,
   Typography,
   UserIcon,
-  WalletIcon,
+  WalletIconRounded,
 } from '@cypherock/cysync-ui';
 import React, { useCallback, useEffect, useMemo } from 'react';
 import { ReminderPeriod } from '~/services/inheritance/login/schema';
@@ -22,7 +22,9 @@ import { useInheritanceGoldPlanPurchaseDialog } from '../context';
 import { tabIndicies } from '../context/useDialogHandler';
 import { Layout } from '../Layout';
 
-const goldWalletIcon = <WalletIcon fill={`url(#${svgGradients.gold})`} />;
+const goldWalletIcon = (
+  <WalletIconRounded stroke={`url(#${svgGradients.gold})`} />
+);
 
 const reminderValueMap: Record<ReminderPeriod, number> = {
   monthly: 1,
