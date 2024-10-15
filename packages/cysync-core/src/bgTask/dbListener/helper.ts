@@ -99,7 +99,10 @@ const syncInheritancePlanDb = createFuncWithErrorHandler(
   async () => {
     const db = getDB();
 
-    const plans = await db.inheritancePlan.getAll();
+    // TODO: Unhide pending plans in future when handling is complete
+    const plans = (await db.inheritancePlan.getAll()).filter(
+      p => !!(p.expireAt && p.purchasedAt),
+    );
     store.dispatch(setInheritancePlans(plans));
   },
 );
