@@ -1,5 +1,5 @@
 import { Button, LangDisplay } from '@cypherock/cysync-ui';
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
 
 import { selectLanguage, useAppSelector } from '~/store';
 
@@ -11,18 +11,28 @@ import { Layout } from '../../Layout';
 export const NomineeDetails: React.FC<{ index: number }> = ({ index }) => {
   const lang = useAppSelector(selectLanguage);
 
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [alternateEmail, setAlternateEmail] = useState('');
-
   const { form } = lang.strings.inheritanceGoldPlanPurchase.email.userDetails;
   const strings =
     lang.strings.inheritanceGoldPlanPurchase.nomineeAndExecutor.nomineeDetails[
       index === 0 ? 'first' : 'second'
     ];
 
-  const { onNext, updateNomineeDetails, goTo, onPrevious, isOnSummaryPage } =
-    useInheritanceGoldPlanPurchaseDialog();
+  const {
+    onNext,
+    updateNomineeDetails,
+    goTo,
+    onPrevious,
+    isOnSummaryPage,
+    nomineeDetails,
+  } = useInheritanceGoldPlanPurchaseDialog();
+
+  const details = useMemo(() => nomineeDetails[index], [nomineeDetails]);
+
+  const [name, setName] = useState(details?.name ?? '');
+  const [email, setEmail] = useState(details?.email ?? '');
+  const [alternateEmail, setAlternateEmail] = useState(
+    details?.alternateEmail ?? '',
+  );
 
   const formId = 'inheritance-gold-plan-user-details';
 
