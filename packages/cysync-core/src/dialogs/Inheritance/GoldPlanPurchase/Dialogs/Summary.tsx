@@ -204,11 +204,16 @@ export const Summary = () => {
                 icon: EmailIconSmall,
                 value: executorDetails.email,
               },
-              {
-                label: strings.executorDetails.form.secondaryEmailField.label,
-                icon: EmailIconSmall,
-                value: executorDetails.alternateEmail,
-              },
+              ...(executorDetails.alternateEmail
+                ? [
+                    {
+                      label:
+                        strings.executorDetails.form.secondaryEmailField.label,
+                      icon: EmailIconSmall,
+                      value: executorDetails.alternateEmail,
+                    },
+                  ]
+                : []),
               {
                 label: strings.executorDetails.form.assignTo.label,
                 icon: UserIcon,

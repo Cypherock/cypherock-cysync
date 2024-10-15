@@ -5,7 +5,7 @@ import {
   MessageBox,
   Button,
 } from '@cypherock/cysync-ui';
-import React from 'react';
+import React, { useState } from 'react';
 
 import { selectLanguage, useAppSelector } from '~/store';
 
@@ -19,22 +19,32 @@ export const ConfirmNomineeVerification: React.FC<{ index: number }> = ({
   const strings = lang.strings.inheritanceGoldPlanPurchase.nomineeAndExecutor;
   const { onNomineeDetailsSubmit, isSubmittingNomineeDetails } =
     useInheritanceGoldPlanPurchaseDialog();
+
+  const [isYesButtonLoading, setIsYesButtonLoading] = useState(false);
+  const [isNoButtonLoading, setIsNoButtonLoading] = useState(false);
+
   return (
     <Layout
       footerComponent={
         <>
           <Button
             onClick={() => {
+              setIsNoButtonLoading(true);
               onNomineeDetailsSubmit(false, index);
             }}
-            isLoading={isSubmittingNomineeDetails}
+            disabled={isSubmittingNomineeDetails}
+            isLoading={isNoButtonLoading}
             variant="secondary"
           >
             <LangDisplay text={lang.strings.buttons.no} />
           </Button>
           <Button
-            onClick={() => onNomineeDetailsSubmit(true, index)}
+            onClick={() => {
+              setIsYesButtonLoading(true);
+              onNomineeDetailsSubmit(true, index);
+            }}
             isLoading={isSubmittingNomineeDetails}
+            disabled={isYesButtonLoading}
             variant="primary"
           >
             <LangDisplay text={lang.strings.buttons.yes} />
