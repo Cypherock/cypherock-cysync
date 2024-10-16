@@ -515,16 +515,6 @@ export const InheritanceGoldPlanPurchaseDialogProvider: FC<
           }
           return false;
         },
-        [tabIndicies.message.dialogs.personalMessageInput]: () => {
-          if (!haveExecutor) {
-            goTo(
-              tabIndicies.nominieeAndExecutor.tabNumber,
-              tabIndicies.nominieeAndExecutor.dialogs.executorSelect,
-            );
-            return true;
-          }
-          return false;
-        },
       },
     }),
     [fallbackToWalletSelect, haveExecutor],
