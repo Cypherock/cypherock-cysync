@@ -1,9 +1,12 @@
 import { useCallback, useState } from 'react';
+
 import { useMemoReturn, useStateWithRef } from '~/hooks';
 import { inheritanceLoginService } from '~/services';
 import { IWalletAuthTokens } from '~/store';
-import { IUserDetails } from '.';
+
 import { tabIndicies } from './useDialogHandler';
+
+import { IUserDetails } from '.';
 
 export const useExecutorRegistration = (
   onError: (e?: any) => void,
@@ -39,13 +42,13 @@ export const useExecutorRegistration = (
         name: executorDetailsRef.current.name,
         email: executorDetailsRef.current.email,
         alternateEmail: executorDetailsRef.current.alternateEmail,
-        nomineeEmail: nominees.current[nomineeIndex]?.email,
+        nomineeEmail: nominees.current[nomineeIndex].email,
         accessToken: authTokens.accessToken,
         executorMessage,
       });
 
-      if (!result?.result?.success) {
-        throw result?.error;
+      if (!result.result?.success) {
+        throw result.error;
       }
       if (isOnSummaryPage) goTo(tabIndicies.summary.tabNumber);
       else onNext();

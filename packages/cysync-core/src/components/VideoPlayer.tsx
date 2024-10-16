@@ -1,6 +1,3 @@
-import React, { FC, useEffect, useState } from 'react';
-import ReactPlayer, { ReactPlayerProps } from 'react-player';
-import { selectLanguage, selectNetwork, useAppSelector } from '~/store';
 import {
   Button,
   Container,
@@ -9,6 +6,10 @@ import {
   LangDisplay,
   Typography,
 } from '@cypherock/cysync-ui';
+import React, { FC, useEffect, useState } from 'react';
+import ReactPlayer, { ReactPlayerProps } from 'react-player';
+
+import { selectLanguage, selectNetwork, useAppSelector } from '~/store';
 
 interface VideoPlayerProps extends ReactPlayerProps {
   onRetry: () => void;

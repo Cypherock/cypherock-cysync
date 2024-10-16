@@ -2,11 +2,11 @@ import { constants } from '@cypherock/cysync-core-constants';
 import { Button, LangDisplay, Typography } from '@cypherock/cysync-ui';
 import React from 'react';
 
+import { VideoPlayer } from '~/components/VideoPlayer';
 import { selectLanguage, useAppSelector } from '~/store';
 
 import { useInheritanceSilverPlanPurchaseDialog } from '../context';
 import { Layout } from '../Layout';
-import { VideoPlayer } from '~/components/VideoPlayer';
 
 export const Instructions = () => {
   const lang = useAppSelector(selectLanguage);
