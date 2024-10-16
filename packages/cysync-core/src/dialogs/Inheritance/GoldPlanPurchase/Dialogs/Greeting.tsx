@@ -2,6 +2,7 @@ import { SuccessDialog } from '@cypherock/cysync-ui';
 import React from 'react';
 
 import { selectLanguage, useAppSelector } from '~/store';
+
 import { useInheritanceGoldPlanPurchaseDialog } from '../context';
 
 export const Greeting = () => {

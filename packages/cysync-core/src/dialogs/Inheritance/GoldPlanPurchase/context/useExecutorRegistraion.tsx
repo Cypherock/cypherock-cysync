@@ -42,8 +42,8 @@ export const useExecutorRegistration = (
         authTokenConfig,
       });
 
-      if (!result?.result?.success) {
-        throw result?.error;
+      if (!result.result?.success) {
+        throw result.error;
       }
       if (isOnSummaryPage) goTo(tabIndicies.summary.tabNumber);
       else onNext();

@@ -14,8 +14,8 @@ import {
   WalletIconRounded,
 } from '@cypherock/cysync-ui';
 import React, { useCallback, useEffect, useMemo } from 'react';
-import { ReminderPeriod } from '~/services/inheritance/login/schema';
 
+import { ReminderPeriod } from '~/services/inheritance/login/schema';
 import { selectLanguage, useAppSelector } from '~/store';
 
 import { useInheritanceGoldPlanPurchaseDialog } from '../context';
@@ -137,7 +137,7 @@ export const Summary = () => {
             },
           ]}
         />
-        {Object.values(nomineeDetails)?.map((details, index) => (
+        {Object.values(nomineeDetails).map((details, index) => (
           <DetailsCard
             key={JSON.stringify(details)}
             headerText={strings.nomineeDetails.title + (index + 1).toString()}

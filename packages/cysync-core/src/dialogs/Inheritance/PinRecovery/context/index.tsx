@@ -11,6 +11,7 @@ import React, {
   useState,
 } from 'react';
 
+import { openContactSupportDialog } from '~/actions';
 import { ITabs, useAsync, useMemoReturn, useTabsAndDialogs } from '~/hooks';
 import { InheritanceUserTypeMap, inheritancePlanService } from '~/services';
 import {
@@ -36,7 +37,6 @@ import {
   ValidateSignature,
   VerifyOTP,
 } from '../Dialogs';
-import { openContactSupportDialog } from '~/actions';
 
 export * from './types';
 

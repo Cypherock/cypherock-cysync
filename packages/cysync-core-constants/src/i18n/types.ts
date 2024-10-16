@@ -98,6 +98,7 @@ interface LangButtons {
   exitWithoutSaving: string;
   saveChanges: string;
   edit: string;
+  tryAgain: string;
 }
 
 interface LangDashboard {
@@ -621,6 +622,7 @@ interface LangErrors {
   databaseError: IErrorMsg;
   serverErrors: Record<ServerErrorType, IErrorMsg>;
   default: string;
+  videoPlaybackError: string;
 }
 
 interface LangValidation {

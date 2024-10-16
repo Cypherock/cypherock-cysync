@@ -1,4 +1,5 @@
 import { useRef, useState } from 'react';
+
 import { useMemoReturn, useStateWithRef } from '~/hooks';
 import { inheritanceLoginService } from '~/services';
 import { AuthTokenConfig } from '~/services/utils';
@@ -34,8 +35,8 @@ export const useNomineeRegistration = (
         authTokenConfig,
       });
 
-      if (result?.result?.success === false) {
-        throw result?.error ?? 'Nominee update failed';
+      if (result.result?.success === false) {
+        throw result.error ?? 'Nominee update failed';
       }
 
       if (verify) {
@@ -73,7 +74,7 @@ export const useNomineeRegistration = (
         authTokenConfig,
       });
 
-      if (result?.result?.success === true) {
+      if (result.result?.success === true) {
         setNomineeOtpVerificationDetails(nomineeOtpDetailsRef.current.shift());
       } else {
         const otpDetails = result.error?.details?.responseBody;

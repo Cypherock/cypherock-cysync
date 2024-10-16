@@ -146,6 +146,9 @@ export const InheritanceSilverPlanPurchaseDialogProvider: FC<
     Record<number, Record<number, (() => boolean) | undefined> | undefined>
   >(
     () => ({
+      [tabIndicies.instructions.tabNumber]: {
+        [tabIndicies.instructions.dialogs.video]: () => true,
+      },
       [tabIndicies.wallet.tabNumber]: {
         [tabIndicies.wallet.dialogs.fetchRequestId]: () => true,
         [tabIndicies.wallet.dialogs.walletAuth]: () => true,
