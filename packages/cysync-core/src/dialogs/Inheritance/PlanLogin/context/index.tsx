@@ -141,20 +141,31 @@ export const InheritancePlanLoginDialogProvider: FC<
       result.result.subscription?.[0]?.activationDate ??
       new Date().toISOString();
 
+    const expiryDate =
+      result.result.subscription?.[0]?.order?.expiryDate ??
+      Date.now() + 2 * 365 * 24 * 60 * 60 * 1000;
+
     const planDetails: IInheritancePlanDetails = {
       walletId: result.result.wallet,
       name: result.result.fullName ?? '',
       nominee:
-        result.result.nominee?.map(n => ({ email: n.email ?? '' })) ?? [],
-      executor: result.result.executor?.nominee?.map(n => ({
-        email: n ?? '',
-      }))[0] ?? { email: '' },
+        result.result.nominee?.map(n => ({
+          name: n.name ?? '',
+          email: n.email ?? '',
+          alternateEmail: n.alternateEmail ?? '',
+        })) ?? [],
+      executor: {
+        name: result.result.executor?.name ?? '',
+        email: result.result.executor?.email ?? '',
+        alternateEmail: result.result.executor?.alternateEmail ?? '',
+      },
       owner: {
+        name: result.result.owner?.name ?? '',
         email: result.result.owner?.email ?? '',
         alternateEmail: result.result.owner?.alternateEmail ?? '',
       },
       activationDate: new Date(activationDate).getTime(),
-      expiryDate: Date.now() + 2 * 365 * 24 * 60 * 60 * 1000,
+      expiryDate: new Date(expiryDate).getTime(),
     };
 
     dispatch(

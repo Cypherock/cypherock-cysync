@@ -11,14 +11,19 @@ export interface IInheritancePlanDetails {
   activationDate: number;
   expiryDate: number;
   owner: {
+    name: string;
     email: string;
     alternateEmail: string;
   };
   nominee: {
+    name: string;
     email: string;
+    alternateEmail: string;
   }[];
   executor: {
+    name: string;
     email: string;
+    alternateEmail: string;
   };
 }
 
