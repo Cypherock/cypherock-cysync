@@ -62,6 +62,7 @@ const FieldDisplay: FC<FieldDisplayProps> = ({
       label={label}
       leading={createElement(icon, {
         height: 16,
+        width: 24,
         fill: isDanger ? theme?.palette.text.error : undefined,
       })}
       value={value}
