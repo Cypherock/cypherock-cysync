@@ -12,7 +12,7 @@ export const Instructions = () => {
   const lang = useAppSelector(selectLanguage);
   const strings = lang.strings.inheritanceSilverPlanPurchase;
 
-  const { onNext, onPrevious, onRetry } =
+  const { onNext, onPrevious, onRetry, retryIndex } =
     useInheritanceSilverPlanPurchaseDialog();
 
   return (
@@ -38,6 +38,7 @@ export const Instructions = () => {
         <LangDisplay text={strings.instructions.video.title} />
       </Typography>
       <VideoPlayer
+        key={retryIndex}
         url={constants.inheritance.silverPlanPurchaseTutorialLink}
         width="720px"
         height="405px"

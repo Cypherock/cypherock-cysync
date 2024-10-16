@@ -157,6 +157,9 @@ export const InheritanceGoldPlanPurchaseDialogProvider: FC<
     Record<number, Record<number, (() => boolean) | undefined> | undefined>
   >(
     () => ({
+      [tabIndicies.instructions.tabNumber]: {
+        [tabIndicies.instructions.dialogs.video]: () => true,
+      },
       [tabIndicies.wallet.tabNumber]: {
         [tabIndicies.wallet.dialogs.fetchRequestId]: () => true,
         [tabIndicies.wallet.dialogs.walletAuth]: () => true,
@@ -165,6 +168,9 @@ export const InheritanceGoldPlanPurchaseDialogProvider: FC<
       [tabIndicies.encryption.tabNumber]: {
         [tabIndicies.encryption.dialogs.deviceEncryption]: () => true,
         [tabIndicies.encryption.dialogs.encryptionLoader]: () => true,
+      },
+      [tabIndicies.message.tabNumber]: {
+        [tabIndicies.message.dialogs.video]: () => true,
       },
     }),
     [],

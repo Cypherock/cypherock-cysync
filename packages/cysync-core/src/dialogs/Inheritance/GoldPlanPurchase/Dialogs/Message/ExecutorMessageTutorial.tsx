@@ -17,7 +17,7 @@ export const ExecutorMessageTutorial = () => {
   const lang = useAppSelector(selectLanguage);
   const strings = lang.strings.inheritanceGoldPlanPurchase.message;
 
-  const { onNext, onPrevious, onRetry } =
+  const { onNext, onPrevious, onRetry, retryIndex } =
     useInheritanceGoldPlanPurchaseDialog();
 
   return (
@@ -48,7 +48,8 @@ export const ExecutorMessageTutorial = () => {
       </Container>
 
       <VideoPlayer
-        url={constants.inheritance.silverPlanPurchaseTutorialLink}
+        key={retryIndex}
+        url={constants.inheritance.goldPlanPurchaseTutorialLink}
         width="720px"
         height="405px"
         onRetry={onRetry}

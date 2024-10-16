@@ -17,7 +17,7 @@ export const Instructions = () => {
   const lang = useAppSelector(selectLanguage);
   const strings = lang.strings.inheritanceGoldPlanPurchase;
 
-  const { onNext, onPrevious, onRetry } =
+  const { onNext, onPrevious, onRetry, retryIndex } =
     useInheritanceGoldPlanPurchaseDialog();
 
   return (
@@ -44,6 +44,7 @@ export const Instructions = () => {
         </Typography>
       </Container>
       <VideoPlayer
+        key={retryIndex}
         url={constants.inheritance.silverPlanPurchaseTutorialLink}
         width="720px"
         height="405px"
