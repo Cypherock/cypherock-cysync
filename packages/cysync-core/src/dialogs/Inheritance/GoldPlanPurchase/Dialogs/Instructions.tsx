@@ -45,7 +45,7 @@ export const Instructions = () => {
       </Container>
       <VideoPlayer
         key={retryIndex}
-        url={constants.inheritance.silverPlanPurchaseTutorialLink}
+        url={constants.inheritance.goldPlanPurchaseTutorialLink}
         width="720px"
         height="405px"
         onRetry={onRetry}
