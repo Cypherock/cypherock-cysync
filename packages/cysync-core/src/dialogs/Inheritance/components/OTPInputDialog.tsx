@@ -12,6 +12,7 @@ import {
   ScrollableContainer,
   Typography,
 } from '@cypherock/cysync-ui';
+import { formatSecondsToMinutes } from '@cypherock/cysync-utils';
 import React, {
   ForwardedRef,
   forwardRef,
@@ -91,7 +92,7 @@ export const OTPInputDialog: React.FC<
           `\\*`,
         ),
         retries: retriesRemaining.toString(),
-        timeout: expireSeconds.toString(),
+        timeout: formatSecondsToMinutes(expireSeconds),
       }),
       [emails, retriesRemaining, expireSeconds],
     );
