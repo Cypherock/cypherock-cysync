@@ -8,7 +8,7 @@ import {
   IOtpVerificationDetails,
 } from '../../hooks';
 
-export interface IWalletWithDeleted extends IWallet {
+export interface IWalletForSelection extends IWallet {
   isDeleted?: boolean;
   isActive?: boolean;
 }
@@ -22,9 +22,9 @@ export interface InheritanceSilverPlanPurchaseDialogContextInterface {
   currentDialog: number;
   isDeviceRequired: boolean;
   onClose: () => void;
-  allWallets: IWalletWithDeleted[];
-  selectedWallet?: IWalletWithDeleted;
-  setSelectedWallet: (wallet: IWalletWithDeleted) => void;
+  allWallets: IWalletForSelection[];
+  selectedWallet?: IWalletForSelection;
+  setSelectedWallet: (wallet: IWalletForSelection) => void;
   registerUser: (params: IUserDetails) => void;
   isRegisteringUser: boolean;
   unhandledError?: any;
