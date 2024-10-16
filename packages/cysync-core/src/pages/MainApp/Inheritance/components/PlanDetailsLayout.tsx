@@ -4,10 +4,7 @@ import {
   Container,
   Flex,
 } from '@cypherock/cysync-ui';
-import {
-  IInheritancePlan,
-  InheritancePlanTypeMap,
-} from '@cypherock/db-interfaces';
+import { IInheritancePlan } from '@cypherock/db-interfaces';
 import React, { FC } from 'react';
 
 import { openInheritancePinRecoveryDialog } from '~/actions';
@@ -35,6 +32,8 @@ export const InheritancePlanDetailsLayout: FC<InheritancePageLayoutProps> = ({
     alert('Renewal Clicked');
   };
 
+  // TODO: Add upgrade plan logic here
+
   const onRecoverPin = () => {
     dispatch(
       openInheritancePinRecoveryDialog({
@@ -42,11 +41,6 @@ export const InheritancePlanDetailsLayout: FC<InheritancePageLayoutProps> = ({
         walletName: plan.walletName,
       }),
     );
-  };
-
-  const onUpgradePlan = () => {
-    // TODO: Implement plan upgrade logic here
-    alert('Upgrade Plan Clicked');
   };
 
   return (
@@ -62,11 +56,6 @@ export const InheritancePlanDetailsLayout: FC<InheritancePageLayoutProps> = ({
             <Button variant="secondary" onClick={onRecoverPin}>
               {strings.buttons.recoverPin}
             </Button>
-            {plan.type === InheritancePlanTypeMap.silver && (
-              <Button variant="secondary" onClick={onUpgradePlan}>
-                {strings.buttons.upgradePlan}
-              </Button>
-            )}
             <Button variant="primary" onClick={onRenewPlan}>
               {strings.buttons.renewPlan}
             </Button>

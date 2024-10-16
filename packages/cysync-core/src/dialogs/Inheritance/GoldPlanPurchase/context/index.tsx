@@ -107,12 +107,11 @@ export const InheritanceGoldPlanPurchaseDialogProvider: FC<
   const onReminderDetailsSubmit = async () => {
     setIsSubmittingReminderDetails(true);
     try {
-      if (!walletAuthService.authTokens)
-        throw "Wallet auth doesn't have a valid token";
+      if (!authTokenConfig) throw "Wallet auth doesn't have a valid token";
 
       const result = await inheritanceLoginService.updateReminder({
         frequency: reminderPeriod,
-        accessToken: walletAuthService.authTokens.accessToken,
+        authTokenConfig,
       });
 
       if (result.result?.success === false) {
@@ -120,9 +119,9 @@ export const InheritanceGoldPlanPurchaseDialogProvider: FC<
       }
 
       if (!userDetails) {
-        const planDetailsResult = await inheritancePlanService.getPlan(
-          walletAuthService.authTokens,
-        );
+        const planDetailsResult = await inheritancePlanService.getPlan({
+          authTokenConfig,
+        });
 
         if (planDetailsResult.error) {
           throw result.error ?? "Couldn't fetch plan details";
@@ -142,6 +141,46 @@ export const InheritanceGoldPlanPurchaseDialogProvider: FC<
     setIsSubmittingReminderDetails(false);
   };
 
+  const [isFetchingDetails, setIsFetchingDetails] = useState(false);
+
+  const fetchExistingDetailsFromServer = async () => {
+    if (isFetchingDetails) return;
+    if (!authTokenConfig) throw "Wallet auth doesn't have a valid token";
+    setIsFetchingDetails(true);
+    const result = await inheritancePlanService.getPlan({
+      authTokenConfig,
+    });
+
+    if (result.error) {
+      setIsFetchingDetails(false);
+      throw result.error ?? "Couldn't fetch plan details";
+    }
+    const fetchedDetails = {
+      ...result.result.owner,
+    } as IUserDetails;
+    setUserDetails(fetchedDetails);
+
+    const fetchedNomineeDetails = result.result.nominee;
+    if (fetchedNomineeDetails) {
+      setNomineeCount(fetchedNomineeDetails.length);
+      fetchedNomineeDetails.forEach((details, index) =>
+        updateNomineeDetails(details as IUserDetails, index),
+      );
+    }
+
+    const fetchedExecutorDetails = result.result.executor;
+    if (fetchedExecutorDetails) {
+      setHaveExecutor(true);
+      updateExecutorFields(
+        { ...fetchedExecutorDetails } as IUserDetails,
+        fetchedNomineeDetails
+          ?.map(details => details?.email)
+          .indexOf(fetchedExecutorDetails.nominee?.[0]) ?? 0,
+      );
+    }
+    setIsFetchingDetails(false);
+  };
+
   const onError = useCallback((e?: any) => {
     setUnhandledError(e);
   }, []);
@@ -155,6 +194,10 @@ export const InheritanceGoldPlanPurchaseDialogProvider: FC<
   const sessionService = useSession(onError);
   const sessionIdRef = useRef<string | undefined>();
 
+  const authTokenConfig = useMemo(
+    () => walletAuthService.authTokenConfig,
+    [walletAuthService],
+  );
   const onRetryFuncMap = useMemo<
     Record<number, Record<number, (() => boolean) | undefined> | undefined>
   >(
@@ -227,7 +270,7 @@ export const InheritanceGoldPlanPurchaseDialogProvider: FC<
   const setupPlanHandler = useCallback(async () => {
     if (
       !encryptMessageService.encryptedMessages ||
-      !walletAuthService.authTokens ||
+      !authTokenConfig ||
       !selectedWallet ||
       !sessionIdRef.current
     )
@@ -236,7 +279,7 @@ export const InheritanceGoldPlanPurchaseDialogProvider: FC<
     const result = await inheritancePlanService.create({
       encryptedData: encryptMessageService.encryptedMessages,
       sessionId: sessionIdRef.current,
-      accessToken: walletAuthService.authTokens.accessToken,
+      authTokenConfig,
     });
 
     if (result.error) {
@@ -254,7 +297,7 @@ export const InheritanceGoldPlanPurchaseDialogProvider: FC<
     return true;
   }, [
     encryptMessageService.encryptedMessages,
-    walletAuthService.authTokens,
+    authTokenConfig,
     selectedWallet,
   ]);
 
@@ -265,12 +308,12 @@ export const InheritanceGoldPlanPurchaseDialogProvider: FC<
     async (_coupon: string) => {
       setApplyingCouponError(undefined);
 
-      if (!walletAuthService.authTokens) return false;
+      if (!authTokenConfig) return false;
 
       try {
         const result = await inheritancePlanService.checkCoupon({
           coupon: _coupon,
-          accessToken: walletAuthService.authTokens.accessToken,
+          authTokenConfig,
         });
         setCouponDuration(result.result?.duration ?? '');
         setCoupon(_coupon);
@@ -284,19 +327,18 @@ export const InheritanceGoldPlanPurchaseDialogProvider: FC<
 
       return true;
     },
-    [walletAuthService.authTokens, onNext],
+    [authTokenConfig, onNext],
   );
 
   const [applyCoupon, isApplyingCoupon, isCouponApplied, resetApplyCoupon] =
     useAsync(applyCouponHandler, onError);
 
   const activateCouponHandler = useCallback(async () => {
-    if (!walletAuthService.authTokens || !couponRef.current || !selectedWallet)
-      return false;
+    if (!authTokenConfig || !couponRef.current || !selectedWallet) return false;
 
     const result = await inheritancePlanService.activate({
       coupon: couponRef.current,
-      accessToken: walletAuthService.authTokens.accessToken,
+      authTokenConfig,
     });
 
     if (result.error) {
@@ -316,7 +358,7 @@ export const InheritanceGoldPlanPurchaseDialogProvider: FC<
     });
 
     return true;
-  }, [walletAuthService.authTokens, selectedWallet, couponDuration]);
+  }, [authTokenConfig, selectedWallet, couponDuration]);
 
   const [
     activateCoupon,
@@ -357,6 +399,51 @@ export const InheritanceGoldPlanPurchaseDialogProvider: FC<
     [walletAuthService.registerUser],
   );
 
+  const [personalMessage, setPersonalMessage] = useState('');
+  const [cardLocation, setCardLocation] = useState('');
+  const [userDetails, setUserDetails] = useState<IUserDetails>();
+  const [isOnSummaryPage, setIsOnSummaryPage] = useState(false);
+
+  const {
+    onNomineeDetailsSubmit,
+    isSubmittingNomineeDetails,
+    nomineeCount,
+    setNomineeCount,
+    nomineeDetails,
+    updateNomineeDetails,
+    nomineeOtpSubmit,
+    clearNomineeDetails,
+    nomineeOtpVerificationDetails,
+    nominees,
+  } = useNomineeRegistration(
+    onError,
+    onNext,
+    goTo,
+    isOnSummaryPage,
+    authTokenConfig,
+  );
+
+  const {
+    haveExecutor,
+    setHaveExecutor,
+    onExecutorSelected,
+    onExecutorDetailsSubmit,
+    isSubmittingExecutorDetails,
+    executorNomineeIndex,
+    executorDetails,
+    executorMessage,
+    setExecutorMessage,
+    onExecutorMessageSubmit,
+    updateExecutorFields,
+  } = useExecutorRegistration(
+    onError,
+    onNext,
+    goTo,
+    isOnSummaryPage,
+    nominees,
+    authTokenConfig,
+  );
+
   const onNextActionMapPerDialog = useMemo<
     Record<number, Record<number, (() => boolean) | undefined> | undefined>
   >(
@@ -364,10 +451,7 @@ export const InheritanceGoldPlanPurchaseDialogProvider: FC<
       [tabIndicies.wallet.tabNumber]: {
         [tabIndicies.wallet.dialogs.fetchRequestId]: () => {
           if (walletAuthService.currentStep === WalletAuthLoginStep.completed) {
-            goTo(
-              tabIndicies.encryption.tabNumber,
-              tabIndicies.encryption.dialogs.deviceEncryption,
-            );
+            goTo(tabIndicies.nominieeAndExecutor.tabNumber);
             return true;
           }
 
@@ -427,8 +511,20 @@ export const InheritanceGoldPlanPurchaseDialogProvider: FC<
           return true;
         },
       },
+      [tabIndicies.message.tabNumber]: {
+        [tabIndicies.message.dialogs.video]: () => {
+          if (!haveExecutor) {
+            goTo(
+              tabIndicies.nominieeAndExecutor.tabNumber,
+              tabIndicies.nominieeAndExecutor.dialogs.executorSelect,
+            );
+            return true;
+          }
+          return false;
+        },
+      },
     }),
-    [fallbackToWalletSelect],
+    [fallbackToWalletSelect, haveExecutor],
   );
 
   const onPreviousCallback = useCallback(() => {
@@ -452,49 +548,6 @@ export const InheritanceGoldPlanPurchaseDialogProvider: FC<
 
     onClose();
   }, [isSetupPlanCompleted, isCouponActivated, onClose]);
-
-  const [personalMessage, setPersonalMessage] = useState('');
-  const [cardLocation, setCardLocation] = useState('');
-  const [userDetails, setUserDetails] = useState<IUserDetails>();
-  const [isOnSummaryPage, setIsOnSummaryPage] = useState(false);
-
-  const {
-    onNomineeDetailsSubmit,
-    isSubmittingNomineeDetails,
-    nomineeCount,
-    setNomineeCount,
-    nomineeDetails,
-    updateNomineeDetails,
-    nomineeOtpSubmit,
-    clearNomineeDetails,
-    nomineeOtpVerificationDetails,
-    nominees,
-  } = useNomineeRegistration(
-    onError,
-    onNext,
-    goTo,
-    isOnSummaryPage,
-    walletAuthService.authTokens,
-  );
-  const {
-    haveExecutor,
-    setHaveExecutor,
-    onExecutorSelected,
-    onExecutorDetailsSubmit,
-    isSubmittingExecutorDetails,
-    executorNomineeIndex,
-    executorDetails,
-    executorMessage,
-    setExecutorMessage,
-    onExecutorMessageSubmit,
-  } = useExecutorRegistration(
-    onError,
-    onNext,
-    goTo,
-    isOnSummaryPage,
-    nominees,
-    walletAuthService.authTokens,
-  );
 
   const overriddenCurrentMilestone = useMemo(
     () => (isOnSummaryPage ? tabIndicies.summary.tabNumber : undefined),
@@ -583,6 +636,7 @@ export const InheritanceGoldPlanPurchaseDialogProvider: FC<
     executorMessage,
     setExecutorMessage,
     onExecutorMessageSubmit,
+    fetchExistingDetailsFromServer,
   });
 
   return (

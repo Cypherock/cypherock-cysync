@@ -1,7 +1,9 @@
 import { ServerError, ServerErrorType } from '@cypherock/cysync-core-constants';
-import axios, { AxiosError, AxiosRequestConfig } from 'axios';
+import axios, { AxiosError, AxiosRequestConfig, AxiosResponse } from 'axios';
 
 import { createServerErrorFromError } from '~/utils';
+import { inheritanceBaseUrl } from '../inheritance';
+import { refreshAccessTokenResultSchema } from '../inheritance/login/schema';
 
 export const serverErrorCodeMap: Record<number, ServerErrorType | undefined> = {
   1001: ServerErrorType.OTP_VERIFICATION_FAILED,
@@ -71,49 +73,125 @@ export async function runAndHandleServerErrors<T>(
   }
 }
 
+export interface RefreshTokenConfig {
+  refreshToken: string;
+  updateAuthToken: (newAuthToken: string) => void;
+}
+
+export interface AuthTokenConfig {
+  accessToken: string;
+  refreshTokenConfig?: RefreshTokenConfig;
+}
+
 export async function makePostRequest<T>(
   schema: Zod.Schema<T>,
   url: string,
   data: any,
-  authToken?: string,
-  _config?: AxiosRequestConfig,
+  authTokenConfig?: AuthTokenConfig,
+  axiosConfig?: AxiosRequestConfig,
 ) {
-  let config = _config;
+  return autoRefreshTokenRequest(
+    (accessToken: string) =>
+      makeRequest(
+        {
+          schema,
+          accessToken,
+          config: axiosConfig,
+          data,
+        },
+        ({ config, data: postData }) => axios.post(url, postData, config),
+      ),
+    authTokenConfig,
+    axiosConfig,
+  );
+}
 
-  if (authToken) {
-    config = {
-      ...(config ?? {}),
-      headers: {
-        ...config?.headers,
-        Authorization: `Bearer ${authToken}`,
+// TODO: Maybe localise this function for inheritance scope? and make refresh-token API injectable?
+export async function autoRefreshTokenRequest<T>(
+  requestFunction: (accessToken: string) => Promise<T>,
+  authTokenConfig?: AuthTokenConfig,
+  axiosConfig?: AxiosRequestConfig,
+) {
+  let result;
+  try {
+    result = await requestFunction(authTokenConfig?.accessToken ?? '');
+  } catch (error) {
+    const { refreshTokenConfig } = authTokenConfig ?? {};
+    if (!refreshTokenConfig || !(error as any).isAxiosError) throw error;
+
+    const axiosError = error as AxiosError;
+    if (axiosError.response?.status !== 500) throw error;
+
+    let newAuthToken = '';
+    // won't recurse because we are not providing authTokenConfig in this call
+    const refreshTokenResponse = await makePostRequest(
+      refreshAccessTokenResultSchema,
+      `${inheritanceBaseUrl}/wallet-account/refresh-token`,
+      {
+        refreshToken: refreshTokenConfig.refreshToken,
       },
-    };
-  }
+      undefined,
+      axiosConfig,
+    );
 
-  const response = await axios.post(url, data, config);
-  const result = schema.parse(response.data);
+    newAuthToken = refreshTokenResponse.authToken;
+    if (!newAuthToken) throw error;
+
+    refreshTokenConfig.updateAuthToken?.(newAuthToken);
+    result = await requestFunction(newAuthToken ?? '');
+  }
   return result;
 }
 
 export async function makeGetRequest<T>(
   schema: Zod.Schema<T>,
   url: string,
-  authToken?: string,
-  _config?: AxiosRequestConfig,
+  authTokenConfig?: AuthTokenConfig,
+  axiosConfig?: AxiosRequestConfig,
 ) {
-  let config = _config;
+  return autoRefreshTokenRequest(
+    (accessToken: string) =>
+      makeRequest(
+        {
+          schema,
+          accessToken,
+          config: axiosConfig,
+        },
+        ({ config }) => axios.get(url, config),
+      ),
+    authTokenConfig,
+    axiosConfig,
+  );
+}
 
-  if (authToken) {
+export type RequestFunction = (params: {
+  config?: AxiosRequestConfig;
+  data?: any;
+}) => Promise<AxiosResponse<any, any>>;
+
+async function makeRequest<T>(
+  params: {
+    schema: Zod.Schema<T>;
+    accessToken?: string;
+    config?: AxiosRequestConfig;
+    data?: any;
+  },
+  requestFunction: RequestFunction,
+) {
+  const { schema, accessToken, data } = params;
+  let { config } = params;
+
+  if (accessToken) {
     config = {
       ...(config ?? {}),
       headers: {
         ...config?.headers,
-        Authorization: `Bearer ${authToken}`,
+        Authorization: `Bearer ${accessToken}`,
       },
     };
   }
 
-  const response = await axios.get(url, config);
+  const response = await requestFunction({ config, data });
   const result = schema.parse(response.data);
   return result;
 }

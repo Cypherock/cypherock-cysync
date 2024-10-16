@@ -1710,12 +1710,12 @@
         "form": {
           "cardLocationField": {
             "label": "Card location & Passphrase",
-            "placeholder": "Enter your card's location",
+            "placeholder": "Write the location of the card",
             "tooltip": "Write down the location of another card for the nominee to fetch. Nominee will only be able to recover crypto assets after getting another card. Remember this card should be different than the card(s) you may have given to your nominee(s).\nYou can also include the passphrase in this message"
           },
           "personalMessageField": {
             "label": "Personal message",
-            "placeholder": "Enter your personal message here",
+            "placeholder": "Write your message",
             "tooltip": "This can include your will/message for the nominee and other important pieces of information that you may want your nominee to know such as your crypto exchange account details, coins you have amongst others."
           }
         },
@@ -1836,12 +1836,12 @@
         "form": {
           "cardLocationField": {
             "label": "Card location",
-            "placeholder": "Please enter card location",
+            "placeholder": "Write the location of the card",
             "tooltip": "The location of your cards"
           },
           "personalMessageField": {
             "label": "Personal message",
-            "placeholder": "Please enter your message",
+            "placeholder": "Write your message",
             "tooltip": "This is the message for you"
           },
           "checkBox": {
@@ -2042,7 +2042,7 @@
         "title": "Owner Details",
         "form": {
           "userNameField": {
-            "label": "User Name"
+            "label": "Name"
           },
           "primaryEmailField": {
             "label": "Primary Email"
@@ -2072,9 +2072,7 @@
       "executorDetails": {
         "title": "Executor",
         "form": {
-          "nomineeNameField": {
-            "label": "Nominee Name"
-          },
+          "nomineeNameField": { "label": "Name" },
           "primaryEmailField": {
             "label": "Primary Email"
           },
@@ -2238,7 +2236,7 @@
         ]
       },
       "video": {
-        "title": "Watch the whole video before you proceed",
+        "title": "Watch the tutorial video before you proceed",
         "subTitle": "The video will help you take the right decisions"
       }
     },
@@ -2293,7 +2291,7 @@
       }
     },
     "nomineeAndExecutor": {
-      "heading": "Nominee & Executor",
+      "heading": "Nominees & Executor",
       "select": {
         "title": "How many nominees do you want?",
         "subtitle": "You can have up to 2 nominees for this will",
@@ -2316,7 +2314,7 @@
         "confirm": {
           "title": "Do you want to verify nominee emails?",
           "subtext": "An OTP will be sent to the provided emails. If you do not want to inform the nominee about this plan, you can skip verification of emails.",
-          "warning": "Make sure you provide correct emails."
+          "warning": "If you do not verify the nominee email then Cypherock emails may land in spam folder"
         }
       },
       "executor": {
@@ -2351,7 +2349,7 @@
     "message": {
       "heading": "Message",
       "tutorial": {
-        "title": "Watch the whole video before you proceed further",
+        "title": "Watch the tutorial video before you proceed further",
         "subtext": "How to write the final messages"
       },
       "nominee": {
@@ -2360,12 +2358,12 @@
         "tooltip": "End-to-end encryption keeps your messages between you and the nominee you choose. Not even Cypherock can read them",
         "form": {
           "locationField": {
-            "label": "Card Location* & Passphrase",
-            "placeholder": "Write your location",
+            "label": "Card Location & Passphrase",
+            "placeholder": "Write the location of the card",
             "tooltip": "Write down the location of another card for the nominee to fetch. Nominee will only be able to recover crypto assets after getting another card. Remember this card should be different than the card(s) you may have given to your nominee(s).\nYou can also include the passphrase in this message."
           },
           "personalMessage": {
-            "label": "Personal Message*",
+            "label": "Personal Message",
             "placeholder": "Write your message",
             "tooltip": "This can include your will/message for the nominee and other important pieces of information that you may want your nominee to know such as your crypto exchange account details, coins you have amongst others."
           }
@@ -2398,7 +2396,7 @@
         "title": "Owner Details",
         "form": {
           "userNameField": {
-            "label": "User Name"
+            "label": "Name"
           },
           "primaryEmailField": {
             "label": "Primary Email"

@@ -22,18 +22,24 @@ export const ExecutorDetails = () => {
   const strings = lang.strings.inheritanceGoldPlanPurchase.nomineeAndExecutor;
   const { form } = lang.strings.inheritanceGoldPlanPurchase.email.userDetails;
 
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [alternateEmail, setAlternateEmail] = useState('');
-  const [selectedNominee, setSelectedNominee] = useState(0);
-
   const {
     onExecutorDetailsSubmit,
     onPrevious,
     isSubmittingExecutorDetails,
     nomineeCount,
     isOnSummaryPage,
+    executorDetails,
+    executorNomineeIndex,
   } = useInheritanceGoldPlanPurchaseDialog();
+
+  const [name, setName] = useState(executorDetails?.name ?? '');
+  const [email, setEmail] = useState(executorDetails?.email ?? '');
+  const [alternateEmail, setAlternateEmail] = useState(
+    executorDetails?.alternateEmail ?? '',
+  );
+  const [selectedNominee, setSelectedNominee] = useState(
+    executorNomineeIndex ?? 0,
+  );
 
   const formId = 'inheritance-gold-plan-user-details';
 
@@ -52,6 +58,9 @@ export const ExecutorDetails = () => {
     );
   };
 
+  const isSameEmail = Boolean(email && email === alternateEmail);
+  const isFormIncomplete = !name || !email;
+
   return (
     <Layout
       footerComponent={
@@ -67,6 +76,9 @@ export const ExecutorDetails = () => {
             variant="primary"
             type="submit"
             form={formId}
+            disabled={
+              isSubmittingExecutorDetails || isSameEmail || isFormIncomplete
+            }
             isLoading={isSubmittingExecutorDetails}
           >
             <LangDisplay text={lang.strings.buttons.next} />
@@ -95,6 +107,8 @@ export const ExecutorDetails = () => {
           setEmail={setEmail}
           alternateEmail={alternateEmail}
           setAlternateEmail={setAlternateEmail}
+          isAlternateEmailRequired={false}
+          isSameEmail={isSameEmail}
         />
         <Container
           direction="column"
@@ -108,7 +122,7 @@ export const ExecutorDetails = () => {
               {strings.executor.executorDetails.radio.label}
             </Typography>
             <Tooltip
-              text={strings.executor.executorDetails.tooltip}
+              text={strings.executor.executorDetails.radio.tooltip}
               tooltipPlacement="bottom"
             >
               <QuestionMarkButton />

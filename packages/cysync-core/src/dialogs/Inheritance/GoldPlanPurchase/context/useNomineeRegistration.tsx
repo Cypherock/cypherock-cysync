@@ -2,20 +2,17 @@ import { useRef, useState } from 'react';
 
 import { useMemoReturn, useStateWithRef } from '~/hooks';
 import { inheritanceLoginService } from '~/services';
-import { IWalletAuthTokens } from '~/store';
-
-import { tabIndicies } from './useDialogHandler';
-
-import { IOtpVerificationDetails, OtpVerificationConcern } from '../../hooks';
-
+import { AuthTokenConfig } from '~/services/utils';
 import { IUserDetails } from '.';
+import { IOtpVerificationDetails, OtpVerificationConcern } from '../../hooks';
+import { tabIndicies } from './useDialogHandler';
 
 export const useNomineeRegistration = (
   onError: (e?: any) => void,
   onNext: () => [number, number],
   goTo: (tab: number, dialog?: number) => void,
   isOnSummaryPage: boolean,
-  authTokens?: IWalletAuthTokens,
+  authTokenConfig?: AuthTokenConfig,
 ) => {
   const [isSubmittingNomineeDetails, setIsSubmittingNomineeDetails] =
     useState(false);
@@ -29,13 +26,13 @@ export const useNomineeRegistration = (
 
   const updateNominees = async (index: number, verify?: boolean) => {
     try {
-      if (!authTokens) throw "Wallet auth doesn't have a valid token";
+      if (!authTokenConfig) throw "Wallet auth doesn't have a valid token";
 
       const result = await inheritanceLoginService.updateNominees({
         nominee: nominees.current[index],
         verify,
         nomineeType: index === 0 ? 'PRIMARY' : 'ALTERNATE',
-        accessToken: authTokens.accessToken,
+        authTokenConfig,
       });
 
       if (result.result?.success === false) {
@@ -68,13 +65,13 @@ export const useNomineeRegistration = (
   const nomineeOtpSubmit = async (secret: string) => {
     setIsSubmittingNomineeDetails(true);
     try {
-      if (!authTokens || !nomineeOtpVerificationDetails)
+      if (!authTokenConfig || !nomineeOtpVerificationDetails)
         throw 'Invalid auth or data';
 
       const result = await inheritanceLoginService.updateNominees({
         secret,
-        requestId: nomineeOtpVerificationDetails.id,
-        accessToken: authTokens.accessToken,
+        requestId: nomineeOtpVerificationDetails?.id,
+        authTokenConfig,
       });
 
       if (result.result?.success === true) {

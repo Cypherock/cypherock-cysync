@@ -6,7 +6,7 @@ import {
   EmailIconSmall,
   EncryptedMessageIcon,
   UserIcon,
-  WalletIcon,
+  WalletIconRounded,
 } from '../../assets';
 import {
   DetailsCard,
@@ -29,7 +29,9 @@ const editButton = (
   <EditButton text="Edit" onClick={() => alert('Edit Clicked')} />
 );
 
-const goldWalletIcon = <WalletIcon fill={`url(#${svgGradients.gold})`} />;
+const goldWalletIcon = (
+  <WalletIconRounded stroke={`url(#${svgGradients.gold})`} />
+);
 
 export const Default: Story = {
   args: {
@@ -56,7 +58,7 @@ export const OwnerDetails: Story = {
     headerTrailing: editButton,
     fields: [
       {
-        label: 'User Name',
+        label: 'Name',
         icon: UserIcon,
         value: 'Alfred Bellows',
       },
@@ -150,7 +152,7 @@ export const Nominee: Story = {
     headerTrailing: editButton,
     fields: [
       {
-        label: 'Nominee Name',
+        label: 'Name',
         icon: UserIcon,
         value: 'Alfred Bellows',
       },
@@ -174,7 +176,7 @@ export const NomineeWithEncryptedMessage: Story = {
     headerTrailing: editButton,
     fields: [
       {
-        label: 'Nominee Name',
+        label: 'Name',
         icon: UserIcon,
         value: 'Alfred Bellows',
       },

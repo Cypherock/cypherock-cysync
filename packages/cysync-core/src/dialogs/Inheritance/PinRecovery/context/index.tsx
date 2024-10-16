@@ -137,6 +137,11 @@ export const InheritancePinRecoveryDialogProvider: FC<
   const decryptMessageService = useDecryptMessage(onError);
   const sessionService = useSession(onError);
 
+  const authTokenConfig = useMemo(
+    () => walletAuthService.authTokenConfig,
+    [walletAuthService],
+  );
+
   const walletAuthFetchRequestId = useCallback(() => {
     walletAuthService.fetchRequestId(
       walletId,
@@ -153,11 +158,11 @@ export const InheritancePinRecoveryDialogProvider: FC<
     }
 
     assert(sessionId, 'sessionId not found');
-    assert(walletAuthService.authTokens?.accessToken, 'accessToken not found');
+    assert(authTokenConfig, 'accessToken not found');
 
     const result = await inheritancePlanService.recover.recover({
       sessionId,
-      accessToken: walletAuthService.authTokens.accessToken,
+      authTokenConfig,
       message: true,
     });
 
@@ -167,11 +172,7 @@ export const InheritancePinRecoveryDialogProvider: FC<
 
     encryptedMessageRef.current = result.result.encryptedMessage;
     return true;
-  }, [
-    sessionService.start,
-    sessionService.getIsActive,
-    walletAuthService.authTokens,
-  ]);
+  }, [sessionService.start, sessionService.getIsActive, authTokenConfig]);
 
   const [
     fetchEncryptedData,

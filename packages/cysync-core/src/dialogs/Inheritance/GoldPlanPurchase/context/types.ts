@@ -94,4 +94,5 @@ export interface InheritanceGoldPlanPurchaseDialogContextInterface {
   isOnSummaryPage: boolean;
   setIsOnSummaryPage: (val: boolean) => void;
   executorNomineeIndex?: number;
+  fetchExistingDetailsFromServer: () => void;
 }

@@ -2,7 +2,6 @@ import {
   Flex,
   Typography,
   LangDisplay,
-  InputLabel,
   TextAreaInput,
   Button,
   QuestionMarkButton,
@@ -70,16 +69,15 @@ export const ExecutorMessage = () => {
         width="100%"
         pt={2}
       >
-        <InputLabel $textAlign="left" px={0}>
-          <LangDisplay text={form.messageField.label} />
-        </InputLabel>
         <TextAreaInput
+          label={form.messageField.label}
           placeholder={form.messageField.placeholder}
           value={executorMessage}
           onChange={setExecutorMessage}
           height={120}
           maxChars={800}
           currentChars={executorMessage.length || 0}
+          autoFocus
         />
       </Flex>
     </Layout>
