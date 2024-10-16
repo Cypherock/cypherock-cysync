@@ -3,8 +3,6 @@ import {
   CheckBox,
   Clipboard,
   Container,
-  Flex,
-  InputLabel,
   LangDisplay,
   TextAreaInput,
   Typography,
@@ -38,30 +36,23 @@ export const Message = () => {
           <LangDisplay text={strings.title} variables={{ name: userName }} />
         </Typography>
       </Container>
-      <Container direction="column" gap={16} $flex={1} width="100%">
-        <Container direction="column" $flex={1} width="100%">
-          <Flex justify="space-between" align="center" width="100%" $flex={1}>
-            <InputLabel>{strings.form.cardLocationField.label}</InputLabel>
-            <Clipboard variant="gold" content={cardLocation} />
-          </Flex>
-          <TextAreaInput
-            height={120}
-            value={cardLocation}
-            placeholder={strings.form.cardLocationField.placeholder}
-          />
-        </Container>
-        <Container direction="column" $flex={1} width="100%">
-          <Flex justify="space-between" align="center" width="100%" $flex={1}>
-            <InputLabel>{strings.form.personalMessageField.label}</InputLabel>
-            <Clipboard variant="gold" content={personalMessage} />
-          </Flex>
-          <TextAreaInput
-            height={120}
-            value={personalMessage}
-            placeholder={strings.form.personalMessageField.placeholder}
-            mb={0}
-          />
-        </Container>
+      <Container direction="column" $flex={1} width="100%">
+        <TextAreaInput
+          label={strings.form.cardLocationField.label}
+          trailing={<Clipboard variant="gold" content={cardLocation} />}
+          height={120}
+          value={cardLocation}
+          placeholder={strings.form.cardLocationField.placeholder}
+          autoFocus
+        />
+        <TextAreaInput
+          label={strings.form.personalMessageField.label}
+          trailing={<Clipboard variant="gold" content={personalMessage} />}
+          height={120}
+          value={personalMessage}
+          placeholder={strings.form.personalMessageField.placeholder}
+          mb={0}
+        />
       </Container>
       <CheckBox
         checked={isChecked}
