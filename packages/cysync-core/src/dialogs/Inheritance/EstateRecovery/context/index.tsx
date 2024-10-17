@@ -203,7 +203,21 @@ export const InheritanceEstateRecoveryDialogProvider: FC<
 
   const onPreviousActionMapPerDialog = useMemo<
     Record<number, Record<number, (() => boolean) | undefined> | undefined>
-  >(() => ({}), []);
+  >(
+    () => ({
+      [tabIndicies.wallet.tabNumber]: {
+        [tabIndicies.wallet.dialogs.verifyOtp]: () => {
+          walletAuthService.reset();
+          goTo(
+            tabIndicies.instructions.tabNumber,
+            tabIndicies.instructions.dialogs.authClearData,
+          );
+          return true;
+        },
+      },
+    }),
+    [],
+  );
 
   const onPreviousCallback = useCallback(() => {
     const action = onPreviousActionMapPerDialog[currentTab]?.[currentDialog];
