@@ -6,12 +6,13 @@ export default [
     isTest: false,
     coinGeckoId: 'ripple',
     coinIndex: '80000090',
-    feesUnit: 'xrp',
-    color: '#eb0029',
+    feesUnit: 'drops',
+    color: '#FFFFFF',
     family: 'xrp',
     network: 'mainnet',
     isUnderDevelopment: true,
     isZeroPriceCoin: false,
+    reserveXrp: '10000000', // drops
     units: [
       {
         name: 'xrp',

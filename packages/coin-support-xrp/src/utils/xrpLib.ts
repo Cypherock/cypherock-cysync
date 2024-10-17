@@ -11,6 +11,6 @@ export const getCoinSupportXrpLib = () => {
   return xrpLibInstance;
 };
 
-export const setCoinSupportXrpLib = (xrpLib: any) => {
+export const setCoinSupportXrpLib = (xrpLib: XrpLibType) => {
   xrpLibInstance = xrpLib;
 };

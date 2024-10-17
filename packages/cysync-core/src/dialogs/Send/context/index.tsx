@@ -10,6 +10,7 @@ import {
 } from '@cypherock/coin-support-interfaces';
 import { IPreparedSolanaTransaction } from '@cypherock/coin-support-solana';
 import { IPreparedTronTransaction } from '@cypherock/coin-support-tron';
+import { IPreparedXrpTransaction } from '@cypherock/coin-support-xrp';
 import {
   convertToUnit,
   formatDisplayAmount,
@@ -103,6 +104,7 @@ export interface SendDialogContextInterface {
   prepareAmountChanged: (val: string) => Promise<void>;
   prepareTransactionRemarks: (val: string) => Promise<void>;
   prepareSendMax: (state: boolean) => Promise<string>;
+  prepareDestinationTag: (tag: number) => Promise<void>;
   priceConverter: (val: string, inverse?: boolean) => string;
   updateUserInputs: (count: number) => void;
   isAccountSelectionDisabled: boolean | undefined;
@@ -514,6 +516,25 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
     return formatDisplayAmount(convertedAmount.amount).complete;
   };
 
+  const prepareDestinationTag = async (tag: number) => {
+    const txn = transactionRef.current as IPreparedXrpTransaction;
+    if (!txn) return;
+
+    const valueToSet = tag < 0 ? undefined : tag;
+    if (txn.userInputs.outputs.length > 0) {
+      txn.userInputs.outputs[0].destinationTag = valueToSet;
+    } else {
+      txn.userInputs.outputs = [
+        {
+          address: '',
+          amount: '',
+          destinationTag: valueToSet,
+        },
+      ];
+    }
+    await prepare(txn);
+  };
+
   const priceConverter = (val: string, invert?: boolean) => {
     const coinPrice = priceInfos.find(
       p =>
@@ -575,6 +596,12 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
     return computedData.fee || '0';
   };
 
+  const getXrpFeeAmount = (txn: IPreparedTransaction | undefined) => {
+    if (!txn) return '0';
+    const { computedData } = txn as IPreparedXrpTransaction;
+    return computedData.fees || '0';
+  };
+
   const computedFeeMap: Record<
     CoinFamily,
     (txn: IPreparedTransaction | undefined) => string
@@ -584,7 +611,7 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
     near: () => '0',
     solana: getSolanaFeeAmount,
     tron: getTronFeeAmount,
-    xrp: () => '0',
+    xrp: getXrpFeeAmount,
   };
 
   const getComputedFee = (coinFamily: CoinFamily, txn?: IPreparedTransaction) =>
@@ -634,6 +661,17 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
       return lang.strings.send.recipient.amount.error;
     }
 
+    const xrpValdation =
+      transaction?.validation as IPreparedXrpTransaction['validation'];
+
+    if (xrpValdation?.isBalanceBelowXrpReserve) {
+      return lang.strings.send.recipient.amount.balanceBelowXrpReserve;
+    }
+
+    if (xrpValdation?.isAmountBelowXrpReserveAllowed === false) {
+      return lang.strings.send.recipient.amount.amountBelowXrpReserve;
+    }
+
     return '';
   }, [transaction, lang]);
 
@@ -673,6 +711,7 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
       prepareAmountChanged,
       prepareTransactionRemarks,
       prepareSendMax,
+      prepareDestinationTag,
       priceConverter,
       updateUserInputs,
       isAccountSelectionDisabled: disableAccountSelection,
@@ -716,6 +755,7 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
       prepareAmountChanged,
       prepareTransactionRemarks,
       prepareSendMax,
+      prepareDestinationTag,
       priceConverter,
       updateUserInputs,
       disableAccountSelection,

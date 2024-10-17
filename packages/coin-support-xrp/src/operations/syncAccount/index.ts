@@ -6,6 +6,7 @@ import {
 import {
   IAccount,
   ITransaction,
+  TransactionStatus,
   TransactionStatusMap,
   TransactionTypeMap,
 } from '@cypherock/db-interfaces';
@@ -13,19 +14,28 @@ import {
 import { ISyncXrpAccountsParams } from './types';
 
 import * as services from '../../services';
+import { deriveAddress } from '../../utils';
 import { IXrpAccount } from '../types';
 
 const PER_PAGE_TXN_LIMIT = 100;
+const J2000 = 946684800000;
 
 const parseTransaction = (
+  address: string,
   account: IAccount,
   txn: services.IDetailedXrpResponseTransaction,
 ): ITransaction => {
-  const myAddress = account.xpubOrAddress;
+  const myAddress = address;
   const fromAddress = txn.tx.Account;
   const toAddress = txn.tx.Destination;
   const fees = txn.tx.Fee;
   const amount = txn.tx.Amount;
+  let status: TransactionStatus = TransactionStatusMap.failed;
+  if (txn.meta.TransactionResult.startsWith('tes')) {
+    status = TransactionStatusMap.success;
+  } else if (txn.meta.TransactionResult.startsWith('ter')) {
+    status = TransactionStatusMap.pending;
+  }
 
   const transaction: ITransaction = {
     accountId: account.__id ?? '',
@@ -36,14 +46,14 @@ const parseTransaction = (
     hash: txn.tx.hash,
     fees,
     amount,
-    status: txn.meta.TransactionResult.startsWith('tes')
-      ? TransactionStatusMap.success
-      : TransactionStatusMap.failed,
+    status,
     type:
       myAddress === fromAddress
         ? TransactionTypeMap.send
         : TransactionTypeMap.receive,
-    timestamp: txn.tx.date,
+    timestamp: new Date(
+      parseInt(txn.tx.date.toString(), 10) * 1000 + J2000,
+    ).getTime(), // the received date is w.r.t January 1, 2000, hence the conversion to unix
     blockHeight: txn.tx.ledger_index,
     inputs: [
       {
@@ -70,22 +80,22 @@ const parseTransaction = (
 };
 
 const fetchAndParseTransactions = async (params: {
+  address: string;
   account: IAccount;
   limit: number;
   ledgerIndexMin: number;
 }) => {
-  const { account } = params;
+  const { address, account, limit, ledgerIndexMin } = params;
   const response = await services.getTransactions({
-    address: account.xpubOrAddress,
+    address,
     assetId: account.assetId,
-    limit: params.limit,
+    limit,
     forward: true,
-    ledgerIndexMin: params.ledgerIndexMin,
+    ledgerIndexMin,
   });
 
   const transactions: ITransaction[] = [];
-  for (let i = 0; i < response.transactions.length; i += 1) {
-    const rawTransaction = response.transactions[i];
+  for (const rawTransaction of response.transactions) {
     if (
       rawTransaction.tx.TransactionType !== 'Payment' ||
       typeof rawTransaction.tx.Amount !== 'string'
@@ -93,7 +103,7 @@ const fetchAndParseTransactions = async (params: {
       continue;
     }
 
-    const transaction = parseTransaction(account, rawTransaction);
+    const transaction = parseTransaction(address, account, rawTransaction);
 
     transactions.push({ ...transaction });
   }
@@ -113,9 +123,11 @@ const getAddressDetails: IGetAddressDetails<{
   afterBlock?: number;
   updatedBalance?: string;
 }> = async ({ db, account, iterationContext }) => {
+  const address = deriveAddress(account.xpubOrAddress);
+
   const updatedBalance =
     iterationContext?.updatedBalance ??
-    (await services.getBalance(account.xpubOrAddress, account.assetId));
+    (await services.getBalance(address, account.assetId));
 
   const afterBlock =
     iterationContext?.afterBlock ??
@@ -127,6 +139,7 @@ const getAddressDetails: IGetAddressDetails<{
   const perPage = iterationContext?.perPage ?? PER_PAGE_TXN_LIMIT;
 
   const transactionDetails = await fetchAndParseTransactions({
+    address,
     account,
     limit: perPage,
     ledgerIndexMin: afterBlock,

@@ -1,7 +1,6 @@
 /* eslint-disable class-methods-use-this */
 import {
   CoinSupport,
-  IBroadcastTransactionParams,
   ICreateAccountEvent,
   ICreateAccountParams,
   IFormatAddressParams,
@@ -12,12 +11,10 @@ import {
   IGetExplorerLink,
   IInitializeTransactionParams,
   IPreparedTransaction,
-  IPrepareTransactionParams,
   IReceiveEvent,
   IReceiveParams,
   ISignMessageEvent,
   ISignMessageParams,
-  ISignTransactionEvent,
   ISignTransactionParams,
   ISyncAccountsParams,
   ISyncPriceHistoriesParams,
@@ -29,13 +26,18 @@ import { setXrpLib } from '@cypherock/sdk-app-xrp';
 import { Observable } from 'rxjs';
 
 import * as operations from './operations';
+import {
+  IBroadcastXrpTransactionParams,
+  IPrepareXrpTransactionParams,
+  ISignXrpTransactionEvent,
+} from './operations/types';
+import { setCoinSupportXrpLib, XrpLibType } from './utils';
 
-import { setCoinSupportXrpLib } from './utils';
-
+export * from './operations/types';
 export { updateLogger } from './utils/logger';
 
 export class XrpSupport implements CoinSupport {
-  public static setXrpLib(xrplib: any): void {
+  public static setXrpLib(xrplib: XrpLibType): void {
     setXrpLib(xrplib);
     setCoinSupportXrpLib(xrplib);
   }
@@ -57,25 +59,25 @@ export class XrpSupport implements CoinSupport {
   public async initializeTransaction(
     params: IInitializeTransactionParams,
   ): Promise<IPreparedTransaction> {
-    throw new Error(`Method not implemented Params: ${params}`);
+    return operations.initializeTransaction(params);
   }
 
   public async prepareTransaction(
-    params: IPrepareTransactionParams,
+    params: IPrepareXrpTransactionParams,
   ): Promise<IPreparedTransaction> {
-    throw new Error(`Method not implemented Params: ${params}`);
+    return operations.prepareTransaction(params);
   }
 
   public signTransaction(
     params: ISignTransactionParams,
-  ): Observable<ISignTransactionEvent<any>> {
-    throw new Error(`Method not implemented Params: ${params}`);
+  ): Observable<ISignXrpTransactionEvent> {
+    return operations.signTransaction(params);
   }
 
   public broadcastTransaction(
-    params: IBroadcastTransactionParams<any>,
+    params: IBroadcastXrpTransactionParams,
   ): Promise<ITransaction> {
-    throw new Error(`Method not implemented Params: ${params}`);
+    return operations.broadcastTransaction(params);
   }
 
   public signMessage(

@@ -15,17 +15,18 @@ import { Observable } from 'rxjs';
 
 import { IXrpReceiveEvent, IXrpReceiveParams, statusMap } from './types';
 
-import { createApp } from '../../utils';
+import { createApp, deriveAddress } from '../../utils';
 
 const getExternalAddress = async (
   params: IGenerateReceiveAddressParams,
 ): Promise<IReceiveAddressInfo> => {
   const { xpubOrAddress, derivationPath } = params.account;
+  const address = deriveAddress(xpubOrAddress);
 
   return {
-    address: xpubOrAddress,
+    address,
     derivationPath,
-    expectedFromDevice: xpubOrAddress,
+    expectedFromDevice: address,
   };
 };
 

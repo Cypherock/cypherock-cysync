@@ -1,7 +1,7 @@
 import { IDerivationScheme } from '@cypherock/coin-support-interfaces';
 
 export const XrpDerivationSchemeMap = {
-  default: 'default',
+  default: '',
 } as const;
 
 export type XrpDerivationSchemeName =

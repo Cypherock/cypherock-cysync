@@ -258,7 +258,9 @@
         "dollar": "$",
         "error": "أموال غير كافية",
         "zeroAmount": "لا يمكن أن يكون المبلغ صفرًا",
-        "notOverDustThreshold": "المبلغ أقل من الحد الأدنى"
+        "notOverDustThreshold": "المبلغ أقل من الحد الأدنى",
+        "amountBelowXrpReserve": "",
+        "balanceBelowXrpReserve": ""
       },
       "fees": {
         "title": "الرسوم",
@@ -269,8 +271,14 @@
         "placeholder": "أدخل ملاحظاتك الشخصية هنا",
         "error": "تم تجاوز الحد الأقصى للحرف (120 حرفاً)"
       },
+      "destinationTag": {
+        "label": "",
+        "placeholder": "",
+        "error": ""
+      },
       "warning": "قد تلغى المعاملة إذا كانت الرسوم منخفضة جدًا",
       "feeError": "المعاملة ذات الرسوم 0 غير مسموح بها",
+      "feeBelowMinError": "",
       "notEnoughBalance": "أموال غير كافية لإجراء المعاملة",
       "toggleText": {
         "replace": "السماح باستبدال المعاملة (استبدال برسوم)",
@@ -286,7 +294,8 @@
       "amount": "المبلغ",
       "network": "رسوم الشبكة",
       "debit": "المبلغ الإجمالي الذي سيتم خصمه",
-      "remarks": "ملاحظات شخصية"
+      "remarks": "ملاحظات شخصية",
+      "destinationTag": ""
     },
     "finalMessage": {
       "button": "تحقق من المعاملات",
@@ -352,7 +361,8 @@
       "feePrefix": {
         "optimism": "L2 "
       },
-      "remarks": "ملاحظات شخصية"
+      "remarks": "ملاحظات شخصية",
+      "destinationTag": ""
     },
     "noData": {
       "text": "لا توجد تعاملات حتى الآن",

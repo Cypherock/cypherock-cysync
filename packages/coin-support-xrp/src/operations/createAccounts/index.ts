@@ -18,7 +18,7 @@ import {
 } from './types';
 
 import * as services from '../../services';
-import { createApp } from '../../utils';
+import { createApp, deriveAddress } from '../../utils';
 
 const DERIVATION_PATH_LIMIT = 30;
 
@@ -38,7 +38,7 @@ const getAddressesFromDevice: GetAddressesFromDevice<XrpApp> = async params => {
     [GetPublicKeysEvent.PIN_CARD]: CreateAccountDeviceEvent.CARD_TAPPED,
   };
 
-  const { addresses } = await app.getPublicKeys({
+  const { publicKeys } = await app.getPublicKeys({
     walletId: hexToUint8Array(walletId),
     derivationPaths: derivationPaths.map(e => ({ path: e.derivationPath })),
     onEvent: event => {
@@ -53,7 +53,7 @@ const getAddressesFromDevice: GetAddressesFromDevice<XrpApp> = async params => {
 
   observer.next({ type: 'Device', device: { isDone: true, events } });
 
-  return addresses;
+  return publicKeys;
 };
 
 const createAccountFromAddress: IMakeCreateAccountsObservableParams<XrpApp>['createAccountFromAddress'] =
@@ -82,19 +82,22 @@ const createAccountFromAddress: IMakeCreateAccountsObservableParams<XrpApp>['cre
   };
 
 const getBalanceAndTxnCount = async (
-  address: string,
+  publicKey: string,
   params: ICreateXrpAccountParams,
-) => ({
-  balance: await services.getBalance(address, params.coinId),
-  txnCount: (
-    await services.getTransactions({
-      address,
-      assetId: params.coinId,
-      limit: 1,
-      binary: true,
-    })
-  ).transactions.length,
-});
+) => {
+  const address = deriveAddress(publicKey);
+  return {
+    balance: await services.getBalance(address, params.coinId),
+    txnCount: (
+      await services.getTransactions({
+        address,
+        assetId: params.coinId,
+        limit: 1,
+        binary: true,
+      })
+    ).transactions.length,
+  };
+};
 
 export const createAccounts = (
   params: ICreateXrpAccountParams,

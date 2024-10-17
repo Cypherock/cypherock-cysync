@@ -1,5 +1,6 @@
 import { IPreparedBtcTransaction } from '@cypherock/coin-support-btc';
 import { IPreparedEvmTransaction } from '@cypherock/coin-support-evm';
+import { IPreparedXrpTransaction } from '@cypherock/coin-support-xrp';
 import { IPreparedTransaction } from '@cypherock/coin-support-interfaces';
 import { getDefaultUnit, getParsedAmount } from '@cypherock/coin-support-utils';
 import { CoinFamily } from '@cypherock/coins';
@@ -14,6 +15,7 @@ import { AmountInput } from './AmountInput';
 import { NotesInput } from './NotesInput';
 
 import { useSendDialog } from '../../../context';
+import { DestinationTagInput } from './DestinationTagInput';
 
 interface SingleTransactionProps {
   disableInputs?: boolean;
@@ -32,6 +34,7 @@ export const SingleTransaction: React.FC<SingleTransactionProps> = ({
     prepareAmountChanged,
     prepareTransactionRemarks,
     prepareSendMax,
+    prepareDestinationTag,
     priceConverter,
     updateUserInputs,
     prepare,
@@ -69,6 +72,43 @@ export const SingleTransaction: React.FC<SingleTransactionProps> = ({
     solana: () => '',
     tron: () => '',
     xrp: () => '',
+  };
+
+  const getXrpDestinationTagInputProps = () => {
+    const txn = transaction as IPreparedXrpTransaction;
+    return {
+      label: displayText.destinationTag.label,
+      placeholder: displayText.destinationTag.placeholder,
+      initialValue: txn?.userInputs.outputs[0]?.destinationTag,
+      onChange: prepareDestinationTag,
+    };
+  };
+
+  const destinationTagInputPropsMap: Record<
+    CoinFamily,
+    () => Record<string, any>
+  > = {
+    bitcoin: () => ({}),
+    evm: () => ({}),
+    near: () => ({}),
+    solana: () => ({}),
+    tron: () => ({}),
+    xrp: getXrpDestinationTagInputProps,
+  };
+
+  const destinationTagInputMap: Partial<Record<CoinFamily, React.FC<any>>> = {
+    xrp: DestinationTagInput,
+  };
+
+  const getDestinationTagInputComponent = () => {
+    if (!selectedAccount) return null;
+    const coinFamily = selectedAccount.familyId as CoinFamily;
+
+    const Component = destinationTagInputMap[coinFamily];
+    if (!Component) return null;
+
+    const props = destinationTagInputPropsMap[coinFamily]();
+    return <Component {...props} />;
   };
 
   useEffect(() => {
@@ -129,6 +169,9 @@ export const SingleTransaction: React.FC<SingleTransactionProps> = ({
           converter={priceConverter}
           isDisabled={disableInputs}
         />
+
+        {getDestinationTagInputComponent()}
+
         <NotesInput
           label={displayText.remarks.label}
           placeholder={displayText.remarks.placeholder}

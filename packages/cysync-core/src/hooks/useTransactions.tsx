@@ -83,6 +83,7 @@ export interface TransactionRowData {
   groupIcon?: React.FC<{ width: string; height: string }>;
   remarks: string[];
   network: string;
+  destinationTag?: number;
 }
 
 export const transactionComparatorMap: Record<
@@ -254,6 +255,8 @@ export const mapTransactionForDisplay = (params: {
     }
   }
 
+  const destinationTag = transaction.extraData?.destinationTag;
+
   return {
     id: transaction.__id ?? '',
     xpubOrAddress: account?.xpubOrAddress ?? '',
@@ -309,6 +312,7 @@ export const mapTransactionForDisplay = (params: {
     isGroupHeader: false,
     remarks,
     network: networkName,
+    destinationTag,
   };
 };
 
