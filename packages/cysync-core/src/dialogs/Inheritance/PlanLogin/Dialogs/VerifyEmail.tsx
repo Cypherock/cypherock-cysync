@@ -41,7 +41,7 @@ export const VerifyEmail: React.FC = () => {
   const otpLength = 6;
 
   const retriesRemaining = otpVerificationDetails?.retriesRemaining ?? 3;
-  const email = otpVerificationDetails?.email ?? '';
+  const email = otpVerificationDetails?.emails ?? '';
 
   useEffect(() => {
     if (otpRef.current) {

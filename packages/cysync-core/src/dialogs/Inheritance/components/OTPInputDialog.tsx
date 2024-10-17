@@ -87,7 +87,7 @@ export const OTPInputDialog: React.FC<
 
     const textVariables = useMemo(
       () => ({
-        email: (Array.isArray(emails) ? emails.join('&') : emails).replace(
+        email: (Array.isArray(emails) ? emails.join(' & ') : emails).replace(
           /\*/g,
           `\\*`,
         ),
