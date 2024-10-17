@@ -2130,7 +2130,10 @@
       "userDetails": {
         "form": {
           "name": "Name",
-          "email": "Primary Email",
+          "emailField": {
+            "label": "Primary Email",
+            "tooltip": "Enter the email on which you want to receive all reminder emails"
+          },
           "alternateEmail": "Alternate Email"
         },
         "error": {

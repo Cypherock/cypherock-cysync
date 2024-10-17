@@ -3,7 +3,7 @@ import React, { useMemo, useState } from 'react';
 
 import { selectLanguage, useAppSelector } from '~/store';
 
-import { UserDetailsForm } from '../../components';
+import { UserDetailsForm } from '../../../components';
 import { useInheritanceGoldPlanPurchaseDialog } from '../../context';
 import { tabIndicies } from '../../context/useDialogHandler';
 import { Layout } from '../../Layout';
@@ -50,7 +50,12 @@ export const NomineeDetails: React.FC<{ index: number }> = ({ index }) => {
   };
 
   const isSameEmail = Boolean(email && email === alternateEmail);
-  const isFormIncomplete = !name || !email;
+
+  const [hasErrors, setHasErrors] = useState(false);
+  const isFormIncomplete = useMemo(
+    () => !name || !email || hasErrors,
+    [hasErrors],
+  );
 
   return (
     <Layout
@@ -103,6 +108,7 @@ export const NomineeDetails: React.FC<{ index: number }> = ({ index }) => {
         setAlternateEmail={setAlternateEmail}
         isAlternateEmailRequired={false}
         isSameEmail={isSameEmail}
+        setHasErrors={setHasErrors}
       />
     </Layout>
   );

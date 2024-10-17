@@ -4,9 +4,11 @@ import {
   LangDisplay,
   Input,
 } from '@cypherock/cysync-ui';
-import React, { FC } from 'react';
+import React, { FC, useEffect, useMemo, useState } from 'react';
+import { z } from 'zod';
 
 import { selectLanguage, useAppSelector } from '~/store';
+import { getEmailValidationSchema } from '~/utils';
 
 interface UserDetailsFormProps {
   onSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
@@ -32,6 +34,7 @@ interface UserDetailsFormProps {
   setAlternateEmail: (altEmail: string) => void;
   isAlternateEmailRequired?: boolean;
   isSameEmail?: boolean;
+  setHasErrors?: (val: boolean) => void;
 }
 
 export const UserDetailsForm: FC<UserDetailsFormProps> = ({
@@ -47,9 +50,40 @@ export const UserDetailsForm: FC<UserDetailsFormProps> = ({
   setAlternateEmail,
   isAlternateEmailRequired,
   isSameEmail,
+  setHasErrors,
 }) => {
   const lang = useAppSelector(selectLanguage);
   const userDetailsStrings = lang.strings.inheritance.dialog.userDetails;
+  const [emailValidationError, setEmailValidationError] = useState('');
+
+  const schema = z.object({
+    email: getEmailValidationSchema(lang),
+    alternateEmail: getEmailValidationSchema(lang, isAlternateEmailRequired),
+  });
+
+  const [errorKey, setErrorKey] = useState<string>('');
+
+  const errorText = useMemo(() => {
+    if (emailValidationError) return emailValidationError;
+    if (isSameEmail) return userDetailsStrings.error.sameEmail;
+    return '';
+  }, [isSameEmail, emailValidationError]);
+
+  useEffect(() => {
+    setHasErrors?.(false);
+    if (!email && !alternateEmail) return;
+    const validation = schema.safeParse({ email, alternateEmail });
+    setErrorKey('');
+    setEmailValidationError('');
+
+    if (!validation.success) {
+      const key = Object.keys(validation.error.formErrors.fieldErrors)[0];
+      const error = (validation.error.formErrors.fieldErrors as any)[key][0];
+      setErrorKey(key);
+      setEmailValidationError(error);
+      setHasErrors?.(true);
+    }
+  }, [email, alternateEmail]);
 
   return (
     <form style={{ width: '100%' }} onSubmit={onSubmit} id={formId}>
@@ -100,6 +134,7 @@ export const UserDetailsForm: FC<UserDetailsFormProps> = ({
             $letterSpacing: 'unset',
           }}
           disabled={isSubmittingUserDetails}
+          $error={errorKey === 'email'}
         />
         <Input
           pasteAllowed
@@ -120,11 +155,12 @@ export const UserDetailsForm: FC<UserDetailsFormProps> = ({
             $letterSpacing: 'unset',
           }}
           disabled={isSubmittingUserDetails}
+          $error={errorKey === 'alternateEmail'}
         />
       </Container>
-      {isSameEmail && (
+      {errorText && (
         <Typography $fontSize={16} pt={2} color="error">
-          {userDetailsStrings.error.sameEmail}
+          {errorText}
         </Typography>
       )}
     </form>
@@ -134,4 +170,5 @@ export const UserDetailsForm: FC<UserDetailsFormProps> = ({
 UserDetailsForm.defaultProps = {
   isAlternateEmailRequired: undefined,
   isSameEmail: undefined,
+  setHasErrors: undefined,
 };
