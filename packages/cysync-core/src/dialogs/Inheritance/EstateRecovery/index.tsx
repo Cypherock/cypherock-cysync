@@ -53,6 +53,7 @@ const InheritanceEstateRecovery: FC = () => {
     onClose,
     onHelp,
     isDeviceRequired,
+    onRetry,
   } = useInheritanceEstateRecoveryDialog();
 
   const lang = useAppSelector(selectLanguage);
@@ -84,7 +85,11 @@ const InheritanceEstateRecovery: FC = () => {
               height="full"
             >
               <DeviceConnectionWrapper isDeviceRequired={isDeviceRequired}>
-                <ErrorHandlerDialog error={unhandledError} onClose={onClose}>
+                <ErrorHandlerDialog
+                  error={unhandledError}
+                  onClose={onClose}
+                  onRetry={onRetry}
+                >
                   {tabs[currentTab]?.dialogs[currentDialog]}
                 </ErrorHandlerDialog>
               </DeviceConnectionWrapper>
