@@ -2,6 +2,7 @@ import React, { FC } from 'react';
 import styled from 'styled-components';
 
 import {
+  CheckMarkCircle,
   InformationIcon,
   manyInManyBgImage,
   manyInManyHoverBgImage,
@@ -25,12 +26,14 @@ const getBoxShadow = (params: {
 
 const getBackground = (params: {
   $isSelected: boolean;
+  $isActive: boolean;
   theme: any;
   disabled: boolean;
   isHovered?: boolean;
 }) => {
   if (params.$isSelected) return params.theme.palette.background.cardSelected;
   if (params.disabled) return params.theme.palette.background.cardDisabled;
+  if (params.$isActive) return params.theme.palette.background.cardActive;
   if (params.isHovered) return params.theme.palette.gradients.cardHover;
   return params.theme.palette.gradients.cardDefault;
 };
@@ -46,10 +49,11 @@ const StyledDateLabel = styled(Typography)<{ $isSelected: boolean }>`
   z-index: 1;
   margin-top: 16px;
   transition: font-size 0.5s ease;
+  color: inherit;
 `;
 
 const StyledContainer = styled.div<
-  { $isSelected: boolean; disabled: boolean } & WidthProps
+  { $isSelected: boolean; disabled: boolean; $isActive: boolean } & WidthProps
 >`
   position: relative;
   overflow: hidden;
@@ -77,8 +81,10 @@ const StyledContainer = styled.div<
     top: 0;
     left: 0;
     z-index: 0;
-    background-image: ${({ $isSelected, disabled }) =>
-      !disabled && !$isSelected ? `url(${manyInManyBgImage})` : 'none'};
+    background-image: ${({ $isSelected, disabled, $isActive }) =>
+      !disabled && !$isSelected && !$isActive
+        ? `url(${manyInManyBgImage})`
+        : 'none'};
     background-position: bottom center;
     background-repeat: no-repeat;
     background-size: contain;
@@ -93,13 +99,21 @@ const StyledContainer = styled.div<
         : 'none'};
     background-position: bottom left;
     background-size: contain;
-    background-image: ${({ $isSelected, disabled }) =>
-      !disabled && !$isSelected ? `url(${manyInManyHoverBgImage})` : 'none'};
+    background-image: ${({ $isSelected, disabled, $isActive }) =>
+      !disabled && !$isSelected && !$isActive
+        ? `url(${manyInManyHoverBgImage})`
+        : 'none'};
   }
 
   &:hover {
-    background: ${({ theme, $isSelected, disabled }) =>
-      getBackground({ $isSelected, theme, disabled, isHovered: true })};
+    background: ${({ theme, $isSelected, disabled, $isActive }) =>
+      getBackground({
+        $isSelected,
+        theme,
+        disabled,
+        $isActive,
+        isHovered: true,
+      })};
   }
 
   ${StyledMimDefaultWalletIcon} {
@@ -111,18 +125,18 @@ const StyledContainer = styled.div<
   }
 
   &:hover ${StyledMimDefaultWalletIcon} {
-    display: ${({ disabled, $isSelected }) =>
-      !disabled && !$isSelected ? 'none' : 'block'};
+    display: ${({ disabled, $isSelected, $isActive }) =>
+      !disabled && !$isSelected && !$isActive ? 'none' : 'block'};
   }
 
   &:hover ${StyledMimHoverWalletIcon} {
-    display: ${({ disabled, $isSelected }) =>
-      !disabled && !$isSelected ? 'block' : 'none'};
+    display: ${({ disabled, $isSelected, $isActive }) =>
+      !disabled && !$isSelected && !$isActive ? 'block' : 'none'};
   }
 
   &:hover ${StyledDateLabel} {
-    font-weight: ${({ $isSelected, disabled }) =>
-      !$isSelected && !disabled ? '500' : '400'};
+    font-weight: ${({ $isSelected, disabled, $isActive }) =>
+      !$isSelected && !disabled && !$isActive ? '500' : '400'};
   }
 `;
 
@@ -136,6 +150,7 @@ export interface ManyInManyProps extends UtilsProps {
   title: string;
   disabled?: boolean;
   isSelected?: boolean;
+  isActive?: boolean;
   onClick: () => void;
 }
 
@@ -144,14 +159,16 @@ export const ManyInMany: FC<ManyInManyProps> = ({
   disabled,
   isSelected,
   onClick,
+  isActive,
   ...restProps
 }) => {
   const theme = useTheme();
 
   return (
     <StyledContainer
-      onClick={() => !disabled && onClick()}
+      onClick={() => !disabled && !isActive && onClick()}
       $isSelected={Boolean(isSelected)}
+      $isActive={Boolean(isActive)}
       disabled={Boolean(disabled)}
       {...restProps}
     >
@@ -159,6 +176,15 @@ export const ManyInMany: FC<ManyInManyProps> = ({
         <StyledRedInfoImage>
           <InformationIcon
             fill={theme.palette.background.danger}
+            $width={15}
+            $height={15}
+          />
+        </StyledRedInfoImage>
+      )}
+      {isActive && (
+        <StyledRedInfoImage>
+          <CheckMarkCircle
+            stroke={theme.palette.background.success}
             $width={15}
             $height={15}
           />
@@ -187,4 +213,5 @@ export const ManyInMany: FC<ManyInManyProps> = ({
 ManyInMany.defaultProps = {
   isSelected: undefined,
   disabled: undefined,
+  isActive: undefined,
 };

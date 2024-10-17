@@ -1,5 +1,5 @@
 import { insertInheritancePlan } from '@cypherock/cysync-core-services';
-import { IWallet } from '@cypherock/db-interfaces';
+import { IInheritancePlan, IWallet } from '@cypherock/db-interfaces';
 import React, {
   Context,
   FC,
@@ -33,14 +33,13 @@ import {
   useWalletAuth,
   WalletAuthLoginStep,
 } from '../../hooks';
-import { InheritanceGoldPlanPurchaseDialogContextInterface } from './types';
+import {
+  InheritanceGoldPlanPurchaseDialogContextInterface,
+  IWalletForSelection,
+} from './types';
 import { tabIndicies, useGoldPlanDialogHanlders } from './useDialogHandler';
 import { useExecutorRegistration } from './useExecutorRegistraion';
 import { useNomineeRegistration } from './useNomineeRegistration';
-
-export interface IWalletWithDeleted extends IWallet {
-  isDeleted?: boolean;
-}
 
 export interface IUserDetails {
   name: string;
@@ -74,16 +73,29 @@ export const InheritanceGoldPlanPurchaseDialogProvider: FC<
   const wallets = useAppSelector(state => state.wallet.wallets);
   const lang = useAppSelector(selectLanguage);
   const deletedWallets = useAppSelector(state => state.wallet.deletedWallets);
+  const plans = useAppSelector(state => state.inheritance.inheritancePlans);
 
-  const allWallets = useMemo<IWalletWithDeleted[]>(() => {
+  const isPlanActive = (plan: IInheritancePlan, walletId: string) => {
+    const now = Date.now();
+    return (
+      plan.walletId === walletId &&
+      plan.purchasedAt &&
+      plan.purchasedAt <= now &&
+      plan.expireAt &&
+      plan.expireAt >= now
+    );
+  };
+
+  const allWallets = useMemo<IWalletForSelection[]>(() => {
     const deletedWalletIds = deletedWallets.map(e => e.__id);
     return [
       ...wallets.map(e => ({
         ...e,
         isDeleted: deletedWalletIds.includes(e.__id),
+        isActive: plans.some(plan => e.__id && isPlanActive(plan, e.__id)),
       })),
     ];
-  }, [wallets, deletedWallets]);
+  }, [wallets, deletedWallets, plans]);
 
   const [selectedWallet, setSelectedWallet] = useState<IWallet | undefined>();
   const [isSubmittingReminderDetails, setIsSubmittingReminderDetails] =

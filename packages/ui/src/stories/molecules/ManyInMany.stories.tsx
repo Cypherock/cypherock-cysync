@@ -24,3 +24,10 @@ export const Disabled: Story = {
     disabled: true,
   },
 };
+
+export const Active: Story = {
+  args: {
+    title: 'DDDDDDDDDDDD',
+    isActive: true,
+  },
+};

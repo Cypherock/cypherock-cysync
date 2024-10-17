@@ -125,8 +125,11 @@ export const SelectWallet = () => {
                 key={wallet.__id ?? ''}
                 title={wallet.name}
                 disabled={isDisabled}
+                isActive={wallet.isActive}
                 isSelected={selectedWallet?.__id === wallet.__id}
-                onClick={() => setSelectedWallet(wallet)}
+                onClick={() => {
+                  setSelectedWallet(wallet);
+                }}
                 $width={340}
                 $height={128}
               />

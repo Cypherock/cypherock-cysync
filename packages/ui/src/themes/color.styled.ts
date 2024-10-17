@@ -132,6 +132,7 @@ export const colors = {
     slateDark: '#423F3C',
     slateLight: '#302C29',
     headlineLight: '#655F53',
+    cardActive: '#262423',
   },
   border: {
     darkSlate: '#030303',
