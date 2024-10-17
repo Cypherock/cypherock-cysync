@@ -1,9 +1,9 @@
 import { Button, LangDisplay } from '@cypherock/cysync-ui';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
+import { UserDetailsForm } from '~/dialogs/Inheritance/components';
 
 import { WalletAuthLoginStep } from '~/dialogs/Inheritance/hooks';
 import { selectLanguage, useAppSelector } from '~/store';
-import { UserDetailsForm } from '../../components';
 
 import { useInheritanceGoldPlanPurchaseDialog } from '../../context';
 import { Layout } from '../../Layout';
@@ -47,7 +47,12 @@ export const UserDetails = () => {
   }, []);
 
   const isSameEmail = Boolean(email && email === alternateEmail);
-  const isFormIncomplete = !name || !email || !alternateEmail;
+
+  const [hasErrors, setHasErrors] = useState(false);
+  const isFormIncomplete = useMemo(
+    () => !name || !email || !alternateEmail || hasErrors,
+    [hasErrors, name, email, alternateEmail],
+  );
 
   return (
     <Layout
@@ -84,6 +89,7 @@ export const UserDetails = () => {
         alternateEmail={alternateEmail}
         setAlternateEmail={setAlternateEmail}
         isSameEmail={isSameEmail}
+        setHasErrors={setHasErrors}
       />
     </Layout>
   );

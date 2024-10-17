@@ -85,7 +85,7 @@ export const EditDetails = () => {
                 pasteAllowed
                 name="email"
                 type="email"
-                label={form.email}
+                label={form.emailField.label}
                 rightLabel={lang.strings.labels.required}
                 value={email}
                 required
