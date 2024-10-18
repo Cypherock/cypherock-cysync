@@ -157,6 +157,7 @@ export const useWalletAuth = (onErrorCallback: (e?: any) => void) => {
       walletId: string,
       loginType: InheritanceUserType = InheritanceUserTypeMap.owner,
       authType: 'seed-based' | 'wallet-based' = 'seed-based',
+      dontSkipLogin = false,
     ) => {
       try {
         walletIdRef.current = walletId;
@@ -168,7 +169,11 @@ export const useWalletAuth = (onErrorCallback: (e?: any) => void) => {
             ? seedAuthTokensPerWallet[walletId]
             : walletAuthTokensPerWallet[walletId];
 
-        if (existingTokens && loginType === InheritanceUserTypeMap.owner) {
+        if (
+          !dontSkipLogin &&
+          existingTokens &&
+          loginType === InheritanceUserTypeMap.owner
+        ) {
           const result = await inheritanceLoginService.refreshAccessToken({
             refreshToken: existingTokens.refreshToken,
           });
