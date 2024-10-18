@@ -128,6 +128,7 @@ export const InheritanceSilverPlanPurchaseDialogProvider: FC<
       selectedWallet.__id,
       InheritanceUserTypeMap.owner,
       'seed-based',
+      true,
     );
   }, [selectedWallet, walletAuthService.fetchRequestId]);
 
