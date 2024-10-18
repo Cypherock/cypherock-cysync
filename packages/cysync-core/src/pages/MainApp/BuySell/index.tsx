@@ -38,7 +38,7 @@ export const BuySell = () => {
   };
 
   return (
-    <MainAppLayout topbar={{ title: lang.strings.portfolio.title }}>
+    <MainAppLayout topbar={{ title: lang.strings.onramp.title }}>
       <Container m="20" width="full" height="full">
         <ErrorHandlerDialog
           error={unhandledError}

@@ -1,30 +1,31 @@
 import {
   DialogBox,
-  DialogBoxHeader,
   Typography,
   DialogBoxBody,
   Container,
   LangDisplay,
-  Button,
-  DialogBoxFooter,
+  WalletIcon,
+  LeanBox,
+  InfoItalicsIcon,
+  useTheme,
 } from '@cypherock/cysync-ui';
-import React, { useCallback, useEffect } from 'react';
+import React, { useEffect } from 'react';
 
-import { LoaderDialog } from '~/components';
-import { routes } from '~/constants';
+import { CoinIcon, LoaderDialog } from '~/components';
 import { useBuySell } from '~/context';
-import { useNavigateTo } from '~/hooks';
+// import { useNavigateTo } from '~/hooks';
+import { selectLanguage, useAppSelector } from '~/store';
 
 export const BuySellOrder = () => {
-  const navigateTo = useNavigateTo();
+  const lang = useAppSelector(selectLanguage);
+  const strings = lang.strings.onramp.buy.redirectOrder;
+  const theme = useTheme();
+  // const navigateTo = useNavigateTo();
   const {
     fiatAmount,
-    selectedFiatCurrency,
-    selectedCryptoCurrency,
     cryptoAmount,
     isPreordering,
     preorderDetails,
-    reset,
     selectedWallet,
     selectedAccount,
   } = useBuySell();
@@ -35,12 +36,12 @@ export const BuySellOrder = () => {
     }
   }, [preorderDetails?.link]);
 
-  const onComplete = useCallback(() => {
-    reset();
-    navigateTo(
-      `${routes.account.path}?accountId=${selectedAccount?.__id}&fromWalletId=${selectedWallet?.__id}`,
-    );
-  }, [navigateTo, reset, selectedWallet, selectedAccount]);
+  // const onComplete = useCallback(() => {
+  //   reset();
+  //   navigateTo(
+  //     `${routes.account.path}?accountId=${selectedAccount?.__id}&fromWalletId=${selectedWallet?.__id}`,
+  //   );
+  // }, [navigateTo, reset, selectedWallet, selectedAccount]);
 
   if (isPreordering) {
     <LoaderDialog />;
@@ -48,63 +49,81 @@ export const BuySellOrder = () => {
 
   return (
     <DialogBox width={500}>
-      <DialogBoxHeader direction="row" py={2} px={3}>
-        <Typography
-          grow={1}
-          $alignSelf="stretch"
-          color="muted"
-          $textAlign="center"
-        >
-          Buy
-        </Typography>
-      </DialogBoxHeader>
-
-      <DialogBoxBody p={0} gap={0}>
+      <DialogBoxBody px={5} py={4} gap={32}>
         <Container
           display="flex"
           direction="column"
-          gap={32}
-          py={4}
-          px={5}
+          gap={4}
           width="full"
+          mb={2}
         >
           <Typography variant="h5" $textAlign="center">
-            <LangDisplay text="Buy" />
+            <LangDisplay text={strings.title} />
+          </Typography>
+          <Typography variant="h6" $textAlign="center" color="muted">
+            <LangDisplay text={strings.subtitle} />
           </Typography>
         </Container>
         <Container
           display="flex"
           direction="column"
-          px={5}
-          pt={2}
-          pb={4}
           gap={16}
+          mb={2}
           width="full"
         >
-          <Typography $textAlign="center" width="full">
-            {fiatAmount} {selectedFiatCurrency?.currency.code} ~= {cryptoAmount}{' '}
-            {selectedCryptoCurrency?.coin.coin.abbr}
-          </Typography>
-
-          <Typography $textAlign="center" width="full">
-            Complete the order from your browser.
-          </Typography>
-
-          <Typography $textAlign="center" width="full">
-            Browser did not open?{' '}
-            <a href={preorderDetails?.link} target="_blank" rel="noreferrer">
-              Click here
-            </a>{' '}
-            to open it.
-          </Typography>
+          <Container display="flex" justify="space-between" width="full">
+            <Typography variant="p" $fontSize={14} color="muted">
+              <WalletIcon width={15} height={12} />{' '}
+              {strings.info.accountFieldLabel}
+            </Typography>
+            <Typography $fontSize={14} color="muted">
+              {selectedWallet?.name}
+              {' / '}
+              {selectedAccount && (
+                <CoinIcon
+                  parentAssetId={selectedAccount.parentAssetId}
+                  assetId={selectedAccount.assetId}
+                />
+              )}
+              {selectedAccount?.name}
+            </Typography>
+          </Container>
+          <Container display="flex" justify="space-between" width="full">
+            <Typography variant="p" $fontSize={14} color="muted">
+              {strings.info.amountFieldLabel}
+            </Typography>
+            <Typography $fontSize={14} color="muted">
+              {fiatAmount}
+            </Typography>
+          </Container>
+          <Container display="flex" justify="space-between" width="full">
+            <Typography variant="p" $fontSize={14} color="muted">
+              {strings.info.conversionFieldLabel}
+            </Typography>
+            <Typography $fontSize={14} color="muted">
+              {cryptoAmount}
+            </Typography>
+          </Container>
         </Container>
+        <LeanBox
+          leftImage={<InfoItalicsIcon fill={theme.palette.bullet.white} />}
+          text={strings.messageBox.info}
+          rightImage={
+            <a
+              href={preorderDetails?.link}
+              target="_blank"
+              rel="noreferrer"
+              style={{
+                textDecoration: 'none',
+              }}
+            >
+              <Typography variant="span" color="gold">
+                {strings.messageBox.action}
+              </Typography>
+            </a>
+          }
+        />
       </DialogBoxBody>
-
-      <DialogBoxFooter>
-        <Button variant="primary" onClick={onComplete}>
-          <LangDisplay text="Order completed" />
-        </Button>
-      </DialogBoxFooter>
     </DialogBox>
   );
 };
