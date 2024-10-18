@@ -180,12 +180,16 @@ export const InheritanceGoldPlanPurchaseDialogProvider: FC<
 
     const fetchedExecutorDetails = result.result.executor;
     if (fetchedExecutorDetails) {
-      setHaveExecutor(true);
-      updateExecutorFields(
-        { ...fetchedExecutorDetails } as IUserDetails,
+      const nomineeIndex = Math.max(
         fetchedNomineeDetails
           ?.map(details => details?.email)
           .indexOf(fetchedExecutorDetails.nominee?.[0]) ?? 0,
+        0,
+      );
+      setHaveExecutor(true);
+      updateExecutorFields(
+        fetchedExecutorDetails as IUserDetails,
+        nomineeIndex,
       );
     }
     setIsFetchingDetails(false);
