@@ -24,7 +24,7 @@ export const XrpInput: React.FC<XrpInputProps> = ({
       value={value.toString()}
       postfixText={unit}
       onChange={handleChange}
-      valueType="integer"
+      valueType="float"
     />
   );
 };

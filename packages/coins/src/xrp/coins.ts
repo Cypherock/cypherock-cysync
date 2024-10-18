@@ -6,7 +6,7 @@ export default [
     isTest: false,
     coinGeckoId: 'ripple',
     coinIndex: '80000090',
-    feesUnit: 'drops',
+    feesUnit: 'XRP',
     color: '#FFFFFF',
     family: 'xrp',
     network: 'mainnet',

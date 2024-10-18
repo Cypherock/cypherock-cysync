@@ -102,11 +102,24 @@ export const FeeSection: React.FC<FeeSectionProps> = ({ showErrors }) => {
   };
 
   const getXrpProps = () => {
-    const { feesUnit } = coinList[selectedAccount?.assetId ?? ''];
+    let { feesUnit } = coinList[selectedAccount?.assetId ?? ''];
     const txn = transaction as IPreparedXrpTransaction;
+    let { fees } = txn.staticData;
+
+    if (selectedAccount) {
+      const { amount: convertedFees, unit } = convertToUnit({
+        amount: txn.staticData.fees,
+        fromUnitAbbr: getZeroUnit(selectedAccount.parentAssetId).abbr,
+        coinId: selectedAccount.parentAssetId,
+        toUnitAbbr: getDefaultUnit(selectedAccount.parentAssetId).abbr,
+      });
+      fees = convertedFees;
+      feesUnit = unit.abbr;
+    }
+
     return {
       unit: feesUnit,
-      initialValue: txn.staticData.fees,
+      initialValue: fees,
       onChange: debouncedXrpPrepareFeeChanged,
     };
   };
@@ -207,8 +220,19 @@ export const FeeSection: React.FC<FeeSectionProps> = ({ showErrors }) => {
   const XrpPrepareFeeChanged = async (value: number) => {
     setIsFeeLoading(true);
     const txn = transactionRef.current.transaction as IPreparedXrpTransaction;
-    // setIsFeeLow(value < Number(txn.staticData.fees));
-    txn.userInputs.fees = value.toString();
+    let fees = value.toString();
+
+    if (selectedAccount) {
+      const { amount: convertedFees } = convertToUnit({
+        amount: fees,
+        fromUnitAbbr: getDefaultUnit(selectedAccount.parentAssetId).abbr,
+        coinId: selectedAccount.parentAssetId,
+        toUnitAbbr: getZeroUnit(selectedAccount.parentAssetId).abbr,
+      });
+      fees = convertedFees;
+    }
+
+    txn.userInputs.fees = fees;
     await prepare(txn);
     setIsFeeLoading(false);
   };
