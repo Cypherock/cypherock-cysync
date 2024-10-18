@@ -1,6 +1,5 @@
 import {
   DialogBox,
-  DialogBoxHeader,
   Typography,
   DialogBoxBody,
   Container,
@@ -8,6 +7,8 @@ import {
   Dropdown,
   DialogBoxFooter,
   Button,
+  InputLabel,
+  Flex,
 } from '@cypherock/cysync-ui';
 import React, { useCallback } from 'react';
 
@@ -19,6 +20,7 @@ import { AmountInput } from './AmountInput';
 
 export const BuySellCurrencySelector = () => {
   const lang = useAppSelector(selectLanguage);
+  const strings = lang.strings.onramp.buy.selectCurrency;
   const {
     fiatDropdownList,
     cryptoDropdownList,
@@ -60,17 +62,6 @@ export const BuySellCurrencySelector = () => {
 
   return (
     <DialogBox width={500}>
-      <DialogBoxHeader direction="row" py={2} px={3}>
-        <Typography
-          grow={1}
-          $alignSelf="stretch"
-          color="muted"
-          $textAlign="center"
-        >
-          Buy
-        </Typography>
-      </DialogBoxHeader>
-
       <DialogBoxBody p={0} gap={0}>
         <Container
           display="flex"
@@ -78,10 +69,10 @@ export const BuySellCurrencySelector = () => {
           gap={32}
           py={4}
           px={5}
-          width="full"
+          width="100%"
         >
           <Typography variant="h5" $textAlign="center">
-            <LangDisplay text="Buy" />
+            <LangDisplay text={lang.strings.onramp.buy.title} />
           </Typography>
         </Container>
         <Container
@@ -91,33 +82,44 @@ export const BuySellCurrencySelector = () => {
           pt={2}
           pb={4}
           gap={24}
-          width="full"
+          width="100%"
         >
-          <Dropdown
-            items={fiatDropdownList}
-            selectedItem={selectedFiatCurrency?.code}
-            searchText="Search fiat currency"
-            placeholderText="Select fiat currency"
-            onChange={handleFiatChangeProxy}
-          />
-          <Dropdown
-            items={cryptoDropdownList}
-            selectedItem={selectedCryptoCurrency?.id}
-            searchText="Search crypto currency"
-            placeholderText="Select crypto currency"
-            onChange={handleCryptoChangeProxy}
-          />
-          <AmountInput
-            fiatUnit={selectedFiatCurrency?.code ?? ''}
-            cryptoUnit={selectedCryptoCurrency?.coin.coin.abbr ?? ''}
-            error={amountError}
-            placeholder="0.00"
-            fiatAmount={fiatAmount}
-            cryptoAmount={cryptoAmount}
-            onFiatAmountChange={onFiatAmountChange}
-            onCryptoAmountChange={onCryptoAmountChange}
-            isDisabled={isAmountDiabled}
-          />
+          <Container direction="column" width="100%">
+            <InputLabel>{strings.selectFiat.label}</InputLabel>
+            <Dropdown
+              items={fiatDropdownList}
+              selectedItem={selectedFiatCurrency?.code}
+              searchText={strings.selectFiat.searchText}
+              placeholderText={strings.selectFiat.placeholder}
+              onChange={handleFiatChangeProxy}
+            />
+          </Container>
+          <Container direction="column" width="100%">
+            <InputLabel>{strings.selectCrypto.label}</InputLabel>
+            <Dropdown
+              items={cryptoDropdownList}
+              selectedItem={selectedCryptoCurrency?.id}
+              searchText={strings.selectCrypto.searchText}
+              placeholderText={strings.selectCrypto.placeholder}
+              onChange={handleCryptoChangeProxy}
+            />
+          </Container>
+          <Container direction="column">
+            <Flex gap={8} width="100%">
+              <InputLabel>{strings.amount.label}</InputLabel>
+            </Flex>
+            <AmountInput
+              fiatUnit={selectedFiatCurrency?.code ?? ''}
+              cryptoUnit={selectedCryptoCurrency?.coin.coin.abbr ?? ''}
+              error={amountError}
+              placeholder="0.00"
+              fiatAmount={fiatAmount}
+              cryptoAmount={cryptoAmount}
+              onFiatAmountChange={onFiatAmountChange}
+              onCryptoAmountChange={onCryptoAmountChange}
+              isDisabled={isAmountDiabled}
+            />
+          </Container>
         </Container>
       </DialogBoxBody>
 

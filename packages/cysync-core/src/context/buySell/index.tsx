@@ -205,7 +205,7 @@ export const BuySellProvider: FC<BuySellContextProviderProps> = ({
         <Typography $fontSize={24}>{f.currency.countryFlag}</Typography>
       ),
       text: f.currency.name,
-      rightText: f.currency.code.toUpperCase(),
+      shortForm: f.currency.code.toUpperCase(),
     }));
     setFiatDropdownList(fiatDropdown);
 
@@ -220,7 +220,8 @@ export const BuySellProvider: FC<BuySellContextProviderProps> = ({
           />
         ),
         text: c.coin.name,
-        rightText: c.coin.abbr,
+        shortForm: c.coin.abbr,
+        rightText: c.coin.family,
       }),
     );
 

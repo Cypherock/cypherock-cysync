@@ -17,6 +17,7 @@ import {
   TutorialIcon,
   WalletConnectWhiteIcon,
   WalletIcon,
+  DollarIcon,
   WalletInfoIcon,
   parseLangTemplate,
 } from '@cypherock/cysync-ui';
@@ -167,7 +168,7 @@ const SideBarComponent: FC<{ collapseWallets?: boolean }> = () => {
           />
           <SideBarItem
             text={strings.buysell}
-            Icon={WalletConnectWhiteIcon}
+            Icon={DollarIcon}
             state={wallets.length === 0 ? State.disabled : undefined}
             onClick={() => navigate('buysell')}
           />
