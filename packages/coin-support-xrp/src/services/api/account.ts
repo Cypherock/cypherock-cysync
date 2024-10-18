@@ -46,10 +46,10 @@ export const getFlagsAndSequence = async (
   const flags = accountInfo?.Flags;
   const sequence = accountInfo?.Sequence;
 
-  if (flags === undefined)
+  if (flags === undefined && flags === null)
     throw new Error('Invalid xrp flags returned from server');
 
-  if (sequence === undefined)
+  if (sequence === undefined && flags === null)
     throw new Error('Invalid xrp sequence returned from server');
 
   return {
@@ -64,5 +64,5 @@ export const getIsAccountActivated = async (
 ): Promise<boolean> => {
   const accountInfo = await getAccountInfo(address, assetId);
 
-  return accountInfo?.balance !== undefined && accountInfo.balance !== '0';
+  return accountInfo?.Balance && accountInfo.Balance !== '0';
 };
