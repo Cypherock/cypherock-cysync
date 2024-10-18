@@ -85,7 +85,9 @@ export const Recipient: React.FC = () => {
         (transaction.validation as IPreparedXrpTransaction['validation'])
           .isAmountBelowXrpReserveAllowed &&
         !(transaction.validation as IPreparedXrpTransaction['validation'])
-          .isFeeBelowMin,
+          .isFeeBelowMin &&
+        (transaction.validation as IPreparedXrpTransaction['validation'])
+          .isValidDestinationTag,
     );
   }, [transaction]);
 

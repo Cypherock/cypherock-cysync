@@ -40,6 +40,7 @@ export const SingleTransaction: React.FC<SingleTransactionProps> = ({
     prepare,
     getOutputError,
     getAmountError,
+    getDestinationTagError,
   } = useSendDialog();
 
   useEffect(() => {
@@ -81,6 +82,7 @@ export const SingleTransaction: React.FC<SingleTransactionProps> = ({
       placeholder: displayText.destinationTag.placeholder,
       initialValue: txn?.userInputs.outputs[0]?.destinationTag,
       onChange: prepareDestinationTag,
+      error: getDestinationTagError(),
     };
   };
 

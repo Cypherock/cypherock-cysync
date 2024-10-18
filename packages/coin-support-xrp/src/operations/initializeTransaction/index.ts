@@ -24,6 +24,7 @@ export const initializeTransaction = async (
       zeroAmountNotAllowed: false,
       isAmountBelowXrpReserveAllowed: true,
       isBalanceBelowXrpReserve: false,
+      isValidDestinationTag: true,
     },
     userInputs: {
       outputs: [],

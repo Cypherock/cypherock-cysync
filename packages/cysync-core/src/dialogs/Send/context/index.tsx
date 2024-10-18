@@ -117,6 +117,7 @@ export interface SendDialogContextInterface {
   defaultAccountId?: string;
   getOutputError: (index: number) => string;
   getAmountError: () => string;
+  getDestinationTagError: () => string;
 }
 
 export const SendDialogContext: Context<SendDialogContextInterface> =
@@ -675,6 +676,17 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
     return '';
   }, [transaction, lang]);
 
+  const getDestinationTagError = useCallback(() => {
+    if (
+      !(transaction?.validation as IPreparedXrpTransaction['validation'])
+        .isValidDestinationTag
+    ) {
+      return lang.strings.send.recipient.destinationTag.error;
+    }
+
+    return '';
+  }, [transaction, lang]);
+
   const ctx = useMemo(
     () => ({
       defaultWalletId,
@@ -719,6 +731,7 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
       getComputedFee,
       getOutputError,
       getAmountError,
+      getDestinationTagError,
     }),
     [
       defaultWalletId,
@@ -763,6 +776,7 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
       getComputedFee,
       getOutputError,
       getAmountError,
+      getDestinationTagError,
     ],
   );
 

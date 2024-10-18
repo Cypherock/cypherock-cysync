@@ -23,6 +23,7 @@ export interface IPreparedXrpTransaction extends IPreparedTransaction {
     zeroAmountNotAllowed: boolean;
     isAmountBelowXrpReserveAllowed: boolean;
     isBalanceBelowXrpReserve: boolean;
+    isValidDestinationTag: boolean;
   };
   staticData: {
     fees: string;

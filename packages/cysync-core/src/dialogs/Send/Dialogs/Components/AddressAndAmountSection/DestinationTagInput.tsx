@@ -9,10 +9,6 @@ import {
 import lodash from 'lodash';
 import React, { useCallback, useEffect, useState } from 'react';
 
-import { selectLanguage, useAppSelector } from '~/store';
-
-const MAX_UNSIGNED_32BIT_INT = 0xffffffff;
-
 interface NumberInputProps {
   name: string;
   placeholder: string;
@@ -73,6 +69,8 @@ export const NumberInput: React.FC<NumberInputProps> = ({
       const numberValue = parseNumber(val);
 
       if (Number.isNaN(numberValue)) return;
+      if (valueType === 'integer' && numberValue > Number.MAX_SAFE_INTEGER)
+        return;
 
       setValueInternal(val);
       onChangeProxy(numberValue);
@@ -106,6 +104,7 @@ interface DestinationTagInputProps {
   placeholder: string;
   initialValue?: number;
   onChange: (value: number) => Promise<void>;
+  error?: string;
 }
 
 export const DestinationTagInput: React.FC<DestinationTagInputProps> = ({
@@ -113,31 +112,18 @@ export const DestinationTagInput: React.FC<DestinationTagInputProps> = ({
   placeholder,
   initialValue,
   onChange,
+  error,
 }) => {
   const [value, setValue] = useState(initialValue);
-  const [error, setError] = useState('');
-  const lang = useAppSelector(selectLanguage);
-  const displayText = lang.strings.send.recipient;
-
-  const onValueChange = async (val: number) => {
-    if (!error) {
-      await onChange(val);
-    }
-  };
 
   const debouncedOnValueChange = useCallback(
-    lodash.debounce(onValueChange, 300),
-    [error],
+    lodash.debounce(onChange, 300),
+    [],
   );
 
   const handleValueChange = (newValue: number) => {
-    if (newValue < MAX_UNSIGNED_32BIT_INT) {
-      setValue(newValue);
-      setError('');
-      debouncedOnValueChange(newValue);
-    } else {
-      setError(displayText.destinationTag.error);
-    }
+    setValue(newValue);
+    debouncedOnValueChange(newValue);
   };
 
   return (
@@ -169,4 +155,5 @@ export const DestinationTagInput: React.FC<DestinationTagInputProps> = ({
 
 DestinationTagInput.defaultProps = {
   initialValue: undefined,
+  error: '',
 };

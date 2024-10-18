@@ -9,6 +9,8 @@ import { deriveAddress } from '../../utils';
 import { IPreparedXrpTransaction } from '../transaction';
 import { validateAddress } from '../validateAddress';
 
+const MAX_UNSIGNED_32BIT_INT = 0xffffffff;
+
 const validateAddresses = (
   params: IPrepareXrpTransactionParams,
   coin: ICoinInfo,
@@ -123,6 +125,11 @@ export const prepareTransaction = async (
   const isFeeBelowMin =
     isValidFee && new BigNumber(fees).isLessThan(txn.staticData.fees);
 
+  const isValidDestinationTag =
+    output.destinationTag !== undefined
+      ? output.destinationTag < MAX_UNSIGNED_32BIT_INT
+      : true;
+
   return {
     ...txn,
     validation: {
@@ -134,6 +141,7 @@ export const prepareTransaction = async (
       zeroAmountNotAllowed: sendAmount.isZero(),
       isAmountBelowXrpReserveAllowed,
       isBalanceBelowXrpReserve,
+      isValidDestinationTag,
     },
     computedData: {
       fees,
