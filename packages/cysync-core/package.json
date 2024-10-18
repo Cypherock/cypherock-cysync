@@ -60,7 +60,8 @@
     "ts-jest": "^29.1.0",
     "tsc-alias": "^1.8.6",
     "typescript": "^4.9.5",
-    "web3": "^4.1.2"
+    "web3": "^4.1.2",
+    "xrpl": "^4.0.0"
   },
   "dependencies": {
     "@aws-crypto/sha256-browser": "^4.0.0",
@@ -71,6 +72,7 @@
     "@cypherock/coin-support-near": "workspace:^",
     "@cypherock/coin-support-solana": "workspace:^",
     "@cypherock/coin-support-tron": "workspace:^",
+    "@cypherock/coin-support-xrp": "workspace:^",
     "@cypherock/coin-support-utils": "workspace:^",
     "@cypherock/coins": "workspace:^",
     "@cypherock/cysync-core-constants": "workspace:^",

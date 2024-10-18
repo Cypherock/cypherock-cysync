@@ -17,6 +17,7 @@ export const useLabelSuffix = () => {
     near: getDefaultSuffix,
     solana: getDefaultSuffix,
     tron: getDefaultSuffix,
+    xrp: getDefaultSuffix,
   };
   const getFeeLabelSuffix = (selectedAccount?: IAccount) => {
     if (!selectedAccount) return '';
