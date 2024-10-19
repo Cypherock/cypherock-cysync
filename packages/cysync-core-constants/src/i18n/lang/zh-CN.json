@@ -1575,7 +1575,7 @@
           "searchText": "Search Payment Method"
         },
         "messageBox": {
-          "danger": "No accounts found for ${currencyName}, add account or choose a different wallet to continue"
+          "danger": "No accounts found for"
         }
       },
       "redirectOrder": {
@@ -1583,8 +1583,8 @@
         "subtitle": "Complete the order from your browser",
         "info": {
           "accountFieldLabel": "Account",
-          "amountFieldLabel": "Total Pay",
-          "conversionFieldLabel": "Conversion"
+          "amountFieldLabel": "You will pay",
+          "conversionFieldLabel": "You will get"
         },
         "messageBox": {
           "info": "Browser did not open?",
