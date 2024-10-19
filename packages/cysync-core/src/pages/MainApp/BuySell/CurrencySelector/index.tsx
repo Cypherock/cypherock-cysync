@@ -9,6 +9,7 @@ import {
   Button,
   InputLabel,
   Flex,
+  BuyCrypto,
 } from '@cypherock/cysync-ui';
 import React, { useCallback } from 'react';
 
@@ -62,7 +63,8 @@ export const BuySellCurrencySelector = () => {
 
   return (
     <DialogBox width={500}>
-      <DialogBoxBody p={0} gap={0}>
+      <DialogBoxBody p={0} pt={4} gap={0}>
+        <BuyCrypto width={56} height={48} />
         <Container
           display="flex"
           direction="column"

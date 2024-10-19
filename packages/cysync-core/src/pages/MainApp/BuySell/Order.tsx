@@ -1,3 +1,4 @@
+import { IEvmErc20Token } from '@cypherock/coins';
 import {
   DialogBox,
   Typography,
@@ -11,13 +12,11 @@ import React, { useEffect } from 'react';
 
 import { CoinIcon, LoaderDialog } from '~/components';
 import { useBuySell } from '~/context';
-// import { useNavigateTo } from '~/hooks';
 import { selectLanguage, useAppSelector } from '~/store';
 
 export const BuySellOrder = () => {
   const lang = useAppSelector(selectLanguage);
   const strings = lang.strings.onramp.buy.redirectOrder;
-  // const navigateTo = useNavigateTo();
   const {
     fiatAmount,
     cryptoAmount,
@@ -25,6 +24,8 @@ export const BuySellOrder = () => {
     preorderDetails,
     selectedWallet,
     selectedAccount,
+    selectedCryptoCurrency,
+    selectedFiatCurrency,
   } = useBuySell();
 
   useEffect(() => {
@@ -33,13 +34,6 @@ export const BuySellOrder = () => {
     }
   }, [preorderDetails?.link]);
 
-  // const onComplete = useCallback(() => {
-  //   reset();
-  //   navigateTo(
-  //     `${routes.account.path}?accountId=${selectedAccount?.__id}&fromWalletId=${selectedWallet?.__id}`,
-  //   );
-  // }, [navigateTo, reset, selectedWallet, selectedAccount]);
-
   if (isPreordering) {
     <LoaderDialog />;
   }
@@ -47,6 +41,20 @@ export const BuySellOrder = () => {
   return (
     <DialogBox width={500}>
       <DialogBoxBody px={5} py={4} gap={32}>
+        <Container
+          $bgColor="separatorSecondary"
+          $borderRadius={40}
+          width={60}
+          height={60}
+        >
+          <CoinIcon
+            assetId={selectedCryptoCurrency?.coin.coin.id}
+            parentAssetId={
+              (selectedCryptoCurrency?.coin.coin as IEvmErc20Token).parentId ??
+              selectedCryptoCurrency?.coin.coin.id
+            }
+          />
+        </Container>
         <Container
           display="flex"
           direction="column"
@@ -73,32 +81,36 @@ export const BuySellOrder = () => {
               <WalletIcon width={15} height={12} />{' '}
               {strings.info.accountFieldLabel}
             </Typography>
-            <Typography $fontSize={14} color="muted">
-              {selectedWallet?.name}
-              {' / '}
+            <Container direction="row" gap={12}>
+              <Typography $fontSize={14} color="muted">
+                {selectedWallet?.name}
+              </Typography>
+              <Typography $fontSize={16} $fontWeight="medium" color="muted">
+                /
+              </Typography>
               {selectedAccount && (
                 <CoinIcon
                   parentAssetId={selectedAccount.parentAssetId}
                   assetId={selectedAccount.assetId}
                 />
               )}
-              {selectedAccount?.name}
-            </Typography>
+              <Typography $fontSize={14}>{selectedAccount?.name}</Typography>
+            </Container>
           </Container>
           <Container display="flex" justify="space-between" width="full">
             <Typography variant="p" $fontSize={14} color="muted">
               {strings.info.amountFieldLabel}
             </Typography>
-            <Typography $fontSize={14} color="muted">
-              {fiatAmount}
+            <Typography $fontSize={14}>
+              {fiatAmount} {selectedFiatCurrency?.currency.code}
             </Typography>
           </Container>
           <Container display="flex" justify="space-between" width="full">
             <Typography variant="p" $fontSize={14} color="muted">
               {strings.info.conversionFieldLabel}
             </Typography>
-            <Typography $fontSize={14} color="muted">
-              {cryptoAmount}
+            <Typography $fontSize={14}>
+              {cryptoAmount} {selectedCryptoCurrency?.coin.coin.abbr}
             </Typography>
           </Container>
         </Container>

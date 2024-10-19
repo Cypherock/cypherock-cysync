@@ -1,3 +1,4 @@
+import { IEvmErc20Token } from '@cypherock/coins';
 import {
   DialogBox,
   Typography,
@@ -14,6 +15,7 @@ import {
 import React, { useCallback } from 'react';
 
 import { openAddAccountDialog } from '~/actions';
+import { CoinIcon } from '~/components';
 import { useBuySell } from '~/context';
 import { useAppSelector, selectLanguage, useAppDispatch } from '~/store';
 import logger from '~/utils/logger';
@@ -81,7 +83,21 @@ export const BuySellAccountSelector = () => {
 
   return (
     <DialogBox width={500}>
-      <DialogBoxBody p={0} gap={0}>
+      <DialogBoxBody p={0} pt={4} gap={0}>
+        <Container
+          $bgColor="separatorSecondary"
+          $borderRadius={40}
+          width={60}
+          height={60}
+        >
+          <CoinIcon
+            assetId={selectedCryptoCurrency?.coin.coin.id}
+            parentAssetId={
+              (selectedCryptoCurrency?.coin.coin as IEvmErc20Token).parentId ??
+              selectedCryptoCurrency?.coin.coin.id
+            }
+          />
+        </Container>
         <Container
           display="flex"
           direction="column"
