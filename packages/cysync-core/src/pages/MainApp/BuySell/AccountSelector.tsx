@@ -1,6 +1,6 @@
+import { IEvmErc20Token } from '@cypherock/coins';
 import {
   DialogBox,
-  DialogBoxHeader,
   Typography,
   DialogBoxBody,
   Container,
@@ -9,16 +9,20 @@ import {
   DialogBoxFooter,
   Button,
   Throbber,
+  InputLabel,
+  MessageBox,
 } from '@cypherock/cysync-ui';
 import React, { useCallback } from 'react';
 
 import { openAddAccountDialog } from '~/actions';
+import { CoinIcon } from '~/components';
 import { useBuySell } from '~/context';
 import { useAppSelector, selectLanguage, useAppDispatch } from '~/store';
 import logger from '~/utils/logger';
 
 export const BuySellAccountSelector = () => {
   const lang = useAppSelector(selectLanguage);
+  const strings = lang.strings.onramp.buy.selectWallet;
   const dispatch = useAppDispatch();
 
   const {
@@ -33,10 +37,7 @@ export const BuySellAccountSelector = () => {
     paymentMethodDropdownList,
     handlePaymentMethodChange,
     isLoadingPaymentMethodList,
-    fiatAmount,
-    selectedFiatCurrency,
     selectedCryptoCurrency,
-    cryptoAmount,
     onNextState,
   } = useBuySell();
 
@@ -82,28 +83,39 @@ export const BuySellAccountSelector = () => {
 
   return (
     <DialogBox width={500}>
-      <DialogBoxHeader direction="row" py={2} px={3}>
-        <Typography
-          grow={1}
-          $alignSelf="stretch"
-          color="muted"
-          $textAlign="center"
+      <DialogBoxBody p={0} pt={4} gap={0}>
+        <Container
+          $bgColor="separatorSecondary"
+          $borderRadius={40}
+          width={60}
+          height={60}
         >
-          Buy
-        </Typography>
-      </DialogBoxHeader>
-
-      <DialogBoxBody p={0} gap={0}>
+          <CoinIcon
+            assetId={selectedCryptoCurrency?.coin.coin.id}
+            parentAssetId={
+              (selectedCryptoCurrency?.coin.coin as IEvmErc20Token).parentId ??
+              selectedCryptoCurrency?.coin.coin.id
+            }
+          />
+        </Container>
         <Container
           display="flex"
           direction="column"
-          gap={32}
+          gap={4}
           py={4}
           px={5}
-          width="full"
+          width="100%"
         >
           <Typography variant="h5" $textAlign="center">
-            <LangDisplay text="Buy" />
+            <LangDisplay text={lang.strings.onramp.buy.title} />
+          </Typography>
+          <Typography variant="h6" $textAlign="center" color="muted">
+            <LangDisplay
+              text={strings.subtitle}
+              variables={{
+                currencyCode: selectedCryptoCurrency?.coin.coin.abbr,
+              }}
+            />
           </Typography>
         </Container>
         <Container
@@ -113,17 +125,13 @@ export const BuySellAccountSelector = () => {
           pt={2}
           pb={4}
           gap={24}
-          width="full"
+          width="100%"
         >
-          <Typography $textAlign="center" width="full">
-            {fiatAmount} {selectedFiatCurrency?.currency.code} ~= {cryptoAmount}{' '}
-            {selectedCryptoCurrency?.coin.coin.abbr}
-          </Typography>
           <Dropdown
             items={walletDropdownList}
             selectedItem={selectedWallet?.__id}
-            searchText="Search wallet"
-            placeholderText="Select wallet"
+            searchText={strings.selectWallet.searchText}
+            placeholderText={strings.selectWallet.placeholder}
             onChange={handleWalletChangeProxy}
             noLeftImageInList
           />
@@ -131,47 +139,55 @@ export const BuySellAccountSelector = () => {
             items={accountDropdownList}
             selectedItem={selectedAccount?.__id}
             disabled={!selectedWallet}
-            searchText="Search account"
-            placeholderText="Select account"
+            searchText={strings.selectAccount.searchText}
+            placeholderText={strings.selectAccount.placeholder}
             onChange={handleAccountChange}
           />
           {isLoadingPaymentMethodList && <Throbber size={24} strokeWidth={3} />}
           {!isLoadingPaymentMethodList && (
-            <Dropdown
-              items={paymentMethodDropdownList}
-              selectedItem={
-                selectedPaymentMethod
-                  ? `${selectedPaymentMethod.payMethodCode}-${
-                      selectedPaymentMethod.payMethodSubCode ?? ''
-                    }`
-                  : undefined
-              }
-              searchText="Search payment method"
-              placeholderText="Select payment method"
-              onChange={handlePaymentMethodChangeProxy}
-            />
+            <Container direction="column" width="full">
+              <InputLabel>{strings.selectPaymentMethod.label}</InputLabel>
+              <Dropdown
+                items={paymentMethodDropdownList}
+                selectedItem={
+                  selectedPaymentMethod
+                    ? `${selectedPaymentMethod.payMethodCode}-${
+                        selectedPaymentMethod.payMethodSubCode ?? ''
+                      }`
+                    : undefined
+                }
+                searchText={strings.selectPaymentMethod.searchText}
+                placeholderText={strings.selectPaymentMethod.placeholder}
+                onChange={handlePaymentMethodChangeProxy}
+              />
+            </Container>
           )}
           {selectedWallet && accountDropdownList.length === 0 && (
-            <Typography $textAlign="center" color="muted">
-              <LangDisplay text="No accounts found for selected crypto currency" />
-              <Button
-                variant="text"
-                onClick={() =>
-                  dispatch(
-                    openAddAccountDialog({
-                      coinId: selectedCryptoCurrency?.coin.coin.id,
-                      walletId: selectedWallet.__id,
-                    }),
-                  )
-                }
-              >
-                <Typography color="gold">Add Account</Typography>
-              </Button>
-            </Typography>
+            <MessageBox
+              type="danger"
+              text={strings.messageBox.danger}
+              altText={selectedCryptoCurrency?.coin.coin.name}
+              actionButton={
+                <Button
+                  variant="text"
+                  onClick={() =>
+                    dispatch(
+                      openAddAccountDialog({
+                        coinId: selectedCryptoCurrency?.coin.coin.id,
+                        walletId: selectedWallet.__id,
+                      }),
+                    )
+                  }
+                >
+                  <Typography color="gold">
+                    {lang.strings.buttons.addAccount}
+                  </Typography>
+                </Button>
+              }
+            />
           )}
         </Container>
       </DialogBoxBody>
-
       <DialogBoxFooter>
         <Button
           variant="primary"

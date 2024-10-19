@@ -31,6 +31,7 @@ export const MessageBox: FC<{
   variables?: any;
   showIcon?: boolean;
   showQuestionmark?: boolean;
+  actionButton?: React.ReactNode;
 }> = ({
   text,
   altText,
@@ -40,6 +41,7 @@ export const MessageBox: FC<{
   variables,
   showIcon,
   showQuestionmark,
+  actionButton,
 }) => {
   const theme = useTheme();
   const iconFillMap: Record<MessageBoxType, string> = {
@@ -65,14 +67,14 @@ export const MessageBox: FC<{
           <InfoItalicsIcon width={16} fill={iconFillMap[type]} />
         </div>
       )}
-      <Flex direction="column" gap={4}>
+      <Flex direction="column" $flex={1}>
         <Typography variant="fineprint" color={textColor ?? 'muted'}>
           <LangDisplay text={text} variables={variables} />
           {!altText && rightImage && rightImage}
           {showQuestionmark && <GoldQuestionMark ml={1} />}
         </Typography>
         {altText && (
-          <Container align="center" gap={5}>
+          <Container align="center" justify="flex-start" gap={5}>
             <Typography variant="fineprint">
               <LangDisplay text={altText} variables={variables} />
             </Typography>
@@ -80,6 +82,7 @@ export const MessageBox: FC<{
           </Container>
         )}
       </Flex>
+      {actionButton && <Container justify="flex-end">{actionButton}</Container>}
     </Container>
   );
 };
@@ -91,4 +94,5 @@ MessageBox.defaultProps = {
   variables: undefined,
   showIcon: true,
   showQuestionmark: false,
+  actionButton: undefined,
 };
