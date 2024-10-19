@@ -9,6 +9,7 @@ import {
   Button,
   Throbber,
   InputLabel,
+  MessageBox,
 } from '@cypherock/cysync-ui';
 import React, { useCallback } from 'react';
 
@@ -146,29 +147,28 @@ export const BuySellAccountSelector = () => {
             </Container>
           )}
           {selectedWallet && accountDropdownList.length === 0 && (
-            <Typography $textAlign="center" color="error">
-              <LangDisplay
-                text={strings.messageBox.danger}
-                variables={{
-                  currencyName: selectedCryptoCurrency?.coin.coin.name,
-                }}
-              />
-              <Button
-                variant="text"
-                onClick={() =>
-                  dispatch(
-                    openAddAccountDialog({
-                      coinId: selectedCryptoCurrency?.coin.coin.id,
-                      walletId: selectedWallet.__id,
-                    }),
-                  )
-                }
-              >
-                <Typography color="gold">
-                  {lang.strings.buttons.addAccount}
-                </Typography>
-              </Button>
-            </Typography>
+            <MessageBox
+              type="danger"
+              text={strings.messageBox.danger}
+              altText={selectedCryptoCurrency?.coin.coin.name}
+              actionButton={
+                <Button
+                  variant="text"
+                  onClick={() =>
+                    dispatch(
+                      openAddAccountDialog({
+                        coinId: selectedCryptoCurrency?.coin.coin.id,
+                        walletId: selectedWallet.__id,
+                      }),
+                    )
+                  }
+                >
+                  <Typography color="gold">
+                    {lang.strings.buttons.addAccount}
+                  </Typography>
+                </Button>
+              }
+            />
           )}
         </Container>
       </DialogBoxBody>

@@ -5,9 +5,7 @@ import {
   Container,
   LangDisplay,
   WalletIcon,
-  LeanBox,
-  InfoItalicsIcon,
-  useTheme,
+  MessageBox,
 } from '@cypherock/cysync-ui';
 import React, { useEffect } from 'react';
 
@@ -19,7 +17,6 @@ import { selectLanguage, useAppSelector } from '~/store';
 export const BuySellOrder = () => {
   const lang = useAppSelector(selectLanguage);
   const strings = lang.strings.onramp.buy.redirectOrder;
-  const theme = useTheme();
   // const navigateTo = useNavigateTo();
   const {
     fiatAmount,
@@ -105,10 +102,10 @@ export const BuySellOrder = () => {
             </Typography>
           </Container>
         </Container>
-        <LeanBox
-          leftImage={<InfoItalicsIcon fill={theme.palette.bullet.white} />}
+        <MessageBox
+          type="info"
           text={strings.messageBox.info}
-          rightImage={
+          actionButton={
             <a
               href={preorderDetails?.link}
               target="_blank"
