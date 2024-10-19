@@ -1024,6 +1024,11 @@
         "heading": "Harap sambungkan ke internet untuk melanjutkan"
       }
     },
+    "serverCoinErrors": {},
+    "defaultServerCoinErrors": {
+      "heading": "",
+      "subtext": ""
+    },
     "default": "Terjadi kesalahan internal"
   },
   "validation": {

@@ -1019,6 +1019,11 @@
         "heading": "请连接到互联网以继续"
       }
     },
+    "serverCoinErrors": {},
+    "defaultServerCoinErrors": {
+      "heading": "",
+      "subtext": ""
+    },
     "default": "发生了一些内部错误"
   },
   "validation": {

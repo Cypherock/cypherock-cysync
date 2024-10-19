@@ -1019,6 +1019,11 @@
         "heading": "يرجى الاتصال بالإنترنت للمتابعة"
       }
     },
+    "serverCoinErrors": {},
+    "defaultServerCoinErrors": {
+      "heading": "",
+      "subtext": ""
+    },
     "default": "حدث خطأ داخلي"
   },
   "validation": {

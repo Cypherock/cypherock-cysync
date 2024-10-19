@@ -2,6 +2,7 @@ import {
   ServerErrorType,
   DeviceErrorCodes,
   ServerError,
+  ServerCoinError,
 } from '@cypherock/cysync-core-constants';
 
 import {
@@ -9,6 +10,7 @@ import {
   ErrorActionMap,
   getDatabaseErrorHandlingDetails,
   getDeviceErrorHandlingDetails,
+  getServerCoinErrorHandlingDetails,
   getServerErrorHandlingDetails,
 } from '~/constants/errors';
 import { ILangState } from '~/store';
@@ -25,8 +27,25 @@ export * from './types';
 /**
  * Assuming we are using axios for server calls
  */
-const identifyServerErrors = (error: any) => {
+const identifyServerErrors = (error: any, lang: ILangState) => {
   if (error?.isAxiosError) {
+    if (
+      error.response &&
+      error.response.data?.coinError &&
+      error.response.data?.coinErrorCode
+    ) {
+      return new ServerCoinError({
+        coinFamily: error.response.data.coinFamily,
+        code: error.response.data.coinErrorCode,
+        message: error.response.data.coinError,
+        langError: lang.strings.errors,
+        details: {
+          responseBody: error?.response?.data,
+          url: error?.request?.url,
+          status: error?.response?.status,
+        },
+      });
+    }
     if (error.response) {
       return new ServerError(ServerErrorType.UNKNOWN_ERROR, undefined, {
         advanceText: error?.response?.data?.cysyncError,
@@ -50,7 +69,7 @@ export const getParsedError = (params: {
 }): IParsedError => {
   const { error, lang, retries } = params;
 
-  const errorToParse = identifyServerErrors(error) ?? error;
+  const errorToParse = identifyServerErrors(error, lang) ?? error;
 
   let heading = params.defaultMsg ?? lang.strings.errors.default;
   let subtext: string | undefined;
@@ -86,6 +105,10 @@ export const getParsedError = (params: {
 
     advanceText = errorToParse?.details?.advanceText;
     details = getServerErrorHandlingDetails(lang, errorToParse.code) ?? details;
+  } else if (errorToParse?.isServerCoinError) {
+    heading = errorToParse.displayErrorMsg.heading;
+    subtext = errorToParse.displayErrorMsg.subtext;
+    details = getServerCoinErrorHandlingDetails(errorToParse.code) ?? details;
   }
 
   let primaryAction: IErrorActionButtonDetails = {

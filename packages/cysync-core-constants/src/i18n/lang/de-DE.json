@@ -1024,6 +1024,11 @@
         "heading": "Bitte verbinden Sie sich mit dem Internet, um fortzufahren"
       }
     },
+    "serverCoinErrors": {},
+    "defaultServerCoinErrors": {
+      "heading": "",
+      "subtext": ""
+    },
     "default": "Ein interner Fehler ist aufgetreten"
   },
   "validation": {
