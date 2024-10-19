@@ -10,6 +10,8 @@ import {
   InputLabel,
   Flex,
   BuyCrypto,
+  QuestionMarkButton,
+  Tooltip,
 } from '@cypherock/cysync-ui';
 import React, { useCallback } from 'react';
 
@@ -107,9 +109,17 @@ export const BuySellCurrencySelector = () => {
             />
           </Container>
           <Container direction="column">
-            <Flex gap={8} width="100%">
-              <InputLabel>{strings.amount.label}</InputLabel>
-            </Flex>
+            <InputLabel>
+              <Flex gap={4} align="center">
+                <LangDisplay text={strings.amount.label} />
+                <Tooltip
+                  tooltipPlacement="bottom"
+                  text={strings.amount.tooltip}
+                >
+                  <QuestionMarkButton />
+                </Tooltip>
+              </Flex>
+            </InputLabel>
             <AmountInput
               fiatUnit={selectedFiatCurrency?.code ?? ''}
               cryptoUnit={selectedCryptoCurrency?.coin.coin.abbr ?? ''}
