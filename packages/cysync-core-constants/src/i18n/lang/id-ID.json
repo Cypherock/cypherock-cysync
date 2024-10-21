@@ -40,7 +40,8 @@
     "showQRCode": "Tampilkan Kode QR",
     "editAccount": "Sunting Akun",
     "submit": "Kirim",
-    "showMore": "Tampilkan lebih banyak"
+    "showMore": "Tampilkan lebih banyak",
+    "downloadUpdate": "Download Update"
   },
   "tooltips": {
     "downloadCsv": "Ekspor sebagai CSV"
@@ -571,6 +572,10 @@
   "deviceUpdateBar": {
     "message": "Pembaruan Firmware Version ${version} tersedia",
     "button": "Unduh"
+  },
+  "firmwareUpdateBar": {
+    "message": "Device firmware update version ${version} available",
+    "button": "Update firmware"
   },
   "betaNotificationBar": {
     "message": "CySync v2.0.0 sudah tersedia!",
@@ -1341,6 +1346,9 @@
     },
     "releaseNote": {
       "title": "Catatan Rilis"
+    },
+    "firmwareNote": {
+      "title": "X1 Vault firmware version ${version} update"
     },
     "auth": {
       "title": "Ikuti instruksi pada X1 Vault",

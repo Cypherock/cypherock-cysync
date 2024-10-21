@@ -24,6 +24,7 @@ export interface LanguageStrings {
   onboarding: LangOnboarding;
   appUpdateBar: LangAppUpdateBar;
   deviceUpdateBar: LangDeviceUpdateBar;
+  firmwareUpdateBar: LangFirmwareUpdateBar;
   betaNotificationBar: LangBetaNotificationBar;
   topbar: LangTopbar;
   sidebar: LangSidebar;
@@ -81,6 +82,7 @@ interface LangButtons {
   editAccount: string;
   submit: string;
   showMore: string;
+  downloadUpdate: string;
 }
 
 interface LangTooltips {
@@ -448,6 +450,11 @@ interface LangDeviceUpdateBar {
   button: string;
 }
 
+interface LangFirmwareUpdateBar {
+  message: string;
+  button: string;
+}
+
 interface LangBetaNotificationBar {
   message: string;
   button: string;
@@ -658,6 +665,7 @@ interface LangDialogs {
   close: { title: string };
   reset: { confim: { title: string; subTitle: string } };
   releaseNote: { title: string };
+  firmwareNote: { title: string };
   auth: {
     title: string;
     email2fa: { title: string; emailInput: string };

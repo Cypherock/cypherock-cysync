@@ -40,7 +40,8 @@
     "showQRCode": "إظهار رمز الاستجابة السريعة",
     "editAccount": "تحرير الحساب",
     "submit": "إرسال",
-    "showMore": "عرض المزيد"
+    "showMore": "عرض المزيد",
+    "downloadUpdate": "Download Update"
   },
   "tooltips": {
     "downloadCsv": "تصدير كملف CSV"
@@ -569,6 +570,10 @@
   "deviceUpdateBar": {
     "message": "تحديث البرامج الثابتة للإصدار ${version} متاح",
     "button": "تنزيل"
+  },
+  "firmwareUpdateBar": {
+    "message": "Device firmware update version ${version} available",
+    "button": "Update firmware"
   },
   "betaNotificationBar": {
     "message": "CySync v2.0.0 متوفر الآن!",
@@ -1336,6 +1341,9 @@
     },
     "releaseNote": {
       "title": "ملاحظات الإصدار"
+    },
+    "firmwareNote": {
+      "title": "X1 Vault firmware version ${version} update"
     },
     "auth": {
       "title": "اتبع التعليمات على X1 Vault",

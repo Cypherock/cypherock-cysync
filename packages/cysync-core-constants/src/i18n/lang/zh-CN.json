@@ -40,7 +40,8 @@
     "showQRCode": "显示二维码",
     "editAccount": "编辑账户",
     "submit": "提交",
-    "showMore": "显示更多"
+    "showMore": "显示更多",
+    "downloadUpdate": "Download Update"
   },
   "tooltips": {
     "downloadCsv": "导出为CSV"
@@ -569,6 +570,10 @@
   "deviceUpdateBar": {
     "message": "固件更新 version ${version} 可用",
     "button": "下载"
+  },
+  "firmwareUpdateBar": {
+    "message": "Device firmware update version ${version} available",
+    "button": "Update firmware"
   },
   "betaNotificationBar": {
     "message": "CySync v2.0.0 可用！",
@@ -1316,6 +1321,9 @@
     },
     "releaseNote": {
       "title": "发布说明"
+    },
+    "firmwareNote": {
+      "title": "X1 Vault firmware version ${version} update"
     },
     "auth": {
       "title": "按照X1 Vault上的说明操作",
