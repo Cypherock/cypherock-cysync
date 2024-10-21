@@ -5,3 +5,4 @@ export * from './near';
 export * from './solana';
 export * from './tron';
 export * from './types';
+export * from './currencies';

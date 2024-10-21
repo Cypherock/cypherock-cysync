@@ -482,6 +482,7 @@ interface LangSidebar {
   tutorial: string;
   settings: string;
   help: string;
+  buysell: string;
   tooltip: { walletDeleted: string };
 }
 

@@ -11,6 +11,7 @@ import {
   WalletConnectProvider,
   AppUpdateProvider,
   LatestDeviceVersionProvider,
+  BuySellProvider,
   SnackBarManager,
 } from '@cypherock/cysync-core';
 import { GlobalStyles } from '@cypherock/cysync-ui';
@@ -35,11 +36,13 @@ const App = () => (
             <AppUpdateProvider>
               <LatestDeviceVersionProvider>
                 <WalletConnectProvider>
-                  <AppRouter>
-                    <SnackBarManager />
-                    <DialogManager />
-                    <BackgroundTasks />
-                  </AppRouter>
+                  <BuySellProvider>
+                    <AppRouter>
+                      <SnackBarManager />
+                      <DialogManager />
+                      <BackgroundTasks />
+                    </AppRouter>
+                  </BuySellProvider>
                 </WalletConnectProvider>
               </LatestDeviceVersionProvider>
             </AppUpdateProvider>
