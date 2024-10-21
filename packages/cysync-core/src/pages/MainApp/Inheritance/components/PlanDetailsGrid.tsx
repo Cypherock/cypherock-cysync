@@ -26,7 +26,7 @@ interface Wallet {
   onEdit: () => void;
 }
 
-interface UserDetails {
+export interface UserDetails {
   name: string;
   primaryEmail: string;
   secondaryEmail?: string;
