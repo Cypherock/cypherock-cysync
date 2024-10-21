@@ -1029,6 +1029,14 @@
         "heading": "请连接到互联网以继续"
       }
     },
+    "serverCoinErrors": {
+      "default": {
+        "DEF_0000": {
+          "heading": "Something went wrong",
+          "subtext": "Try again and if the problem persists, contact Cypherock support for assistance"
+        }
+      }
+    },
     "default": "发生了一些内部错误"
   },
   "validation": {
