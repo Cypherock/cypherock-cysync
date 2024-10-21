@@ -34,9 +34,9 @@ export class ServerCoinError extends Error {
 
   constructor({ code, message, coinFamily, details }: ServerCoinErrorParams) {
     super(message);
-    this.code = code ?? DefaultCoinErrorType.DEFAULT;
+    this.code = code;
     this.details = details;
-    this.coinFamily = coinFamily ?? coinFamiliesMapWithDefault.default;
+    this.coinFamily = coinFamily;
   }
 
   public toJSON() {
