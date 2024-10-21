@@ -13,7 +13,7 @@ export enum OtpVerificationConcern {
 export interface IOtpVerificationDetails {
   id: string;
   concern: OtpVerificationConcern;
-  email: string;
+  emails: string[];
   retriesRemaining: number;
   otpExpiry: string;
   showIncorrectError?: boolean;

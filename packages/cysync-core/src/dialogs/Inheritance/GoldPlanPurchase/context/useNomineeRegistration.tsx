@@ -45,7 +45,7 @@ export const useNomineeRegistration = (
           const { requestId, maskedEmail, ...rest } = details;
           return {
             id: requestId,
-            email: maskedEmail,
+            emails: [maskedEmail],
             concern:
               idx === 0
                 ? OtpVerificationConcern.primary
