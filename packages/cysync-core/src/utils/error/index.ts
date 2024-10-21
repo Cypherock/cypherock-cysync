@@ -1,8 +1,11 @@
 import {
-  ServerErrorType,
+  coinFamiliesMapWithDefault,
+  CoinFamilyWithDefault,
   DeviceErrorCodes,
-  ServerError,
   ServerCoinError,
+  ServerCoinErrorTypes,
+  ServerError,
+  ServerErrorType,
 } from '@cypherock/cysync-core-constants';
 
 import {
@@ -27,7 +30,7 @@ export * from './types';
 /**
  * Assuming we are using axios for server calls
  */
-const identifyServerErrors = (error: any, lang: ILangState) => {
+const identifyServerErrors = (error: any) => {
   if (error?.isAxiosError) {
     if (
       error.response &&
@@ -38,7 +41,6 @@ const identifyServerErrors = (error: any, lang: ILangState) => {
         coinFamily: error.response.data.coinFamily,
         code: error.response.data.coinErrorCode,
         message: error.response.data.coinError,
-        langError: lang.strings.errors,
         details: {
           responseBody: error?.response?.data,
           url: error?.request?.url,
@@ -69,7 +71,7 @@ export const getParsedError = (params: {
 }): IParsedError => {
   const { error, lang, retries } = params;
 
-  const errorToParse = identifyServerErrors(error, lang) ?? error;
+  const errorToParse = identifyServerErrors(error) ?? error;
 
   let heading = params.defaultMsg ?? lang.strings.errors.default;
   let subtext: string | undefined;
@@ -105,9 +107,21 @@ export const getParsedError = (params: {
 
     advanceText = errorToParse?.details?.advanceText;
     details = getServerErrorHandlingDetails(lang, errorToParse.code) ?? details;
-  } else if (errorToParse?.isServerCoinError) {
-    heading = errorToParse.displayErrorMsg.heading;
-    subtext = errorToParse.displayErrorMsg.subtext;
+  } else if (errorToParse?.isServerCoinError && errorToParse.code) {
+    const serverCoinErrors =
+      lang.strings.errors.serverCoinErrors[
+        errorToParse.coinFamily as CoinFamilyWithDefault
+      ] ??
+      lang.strings.errors.serverCoinErrors[coinFamiliesMapWithDefault.default];
+
+    heading =
+      errorToParse.message ??
+      (serverCoinErrors &&
+        serverCoinErrors[errorToParse.code as ServerCoinErrorTypes].heading);
+    subtext =
+      serverCoinErrors &&
+      serverCoinErrors[errorToParse.code as ServerCoinErrorTypes].subtext;
+
     details = getServerCoinErrorHandlingDetails(errorToParse.code) ?? details;
   }
 

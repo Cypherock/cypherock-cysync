@@ -1,4 +1,7 @@
-import { ServerCoinErrorTypes } from '@cypherock/cysync-core-constants';
+import {
+  DefaultCoinErrorType,
+  ServerCoinErrorTypes,
+} from '@cypherock/cysync-core-constants';
 
 import { createErrorHandlingDetailsGenerator } from './helpers';
 import { ErrorHandlingDetails, ErrorIconNameMap } from './types';
@@ -12,11 +15,11 @@ const serverCoinErrorHandlingDetailsMap: Record<
   ServerCoinErrorTypes,
   ErrorHandlingDetails | undefined
 > = {
-  unknown: generateErrorHandlingDetails.report(),
+  [DefaultCoinErrorType.DEFAULT]: generateErrorHandlingDetails.report(),
 };
 
 export const getServerCoinErrorHandlingDetails = (
   errorCode: ServerCoinErrorTypes,
 ) =>
   serverCoinErrorHandlingDetailsMap[errorCode] ??
-  serverCoinErrorHandlingDetailsMap['unknown'];
+  serverCoinErrorHandlingDetailsMap[DefaultCoinErrorType.DEFAULT];

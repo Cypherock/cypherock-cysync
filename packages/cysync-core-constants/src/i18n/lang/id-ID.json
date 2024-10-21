@@ -1024,10 +1024,13 @@
         "heading": "Harap sambungkan ke internet untuk melanjutkan"
       }
     },
-    "serverCoinErrors": {},
-    "defaultServerCoinErrors": {
-      "heading": "",
-      "subtext": ""
+    "serverCoinErrors": {
+      "default": {
+        "DEF_0000": {
+          "heading": "",
+          "subtext": ""
+        }
+      }
     },
     "default": "Terjadi kesalahan internal"
   },

@@ -1,21 +1,25 @@
-import { CoinFamily } from '@cypherock/coins';
+import { coinFamiliesMap } from '@cypherock/coins';
 
-import { LangErrors } from '../../i18n/types';
-import { IErrorMsg } from '../deviceError';
 import { ServerErrorDetails } from '../serverError';
 
-// fill this variable as u define coin errors: ServerCoinErrorTypes = XrpErrorType | BtcErrorType | EvmErrorType
-export type ServerCoinErrorTypes = 'unknown';
+export const coinFamiliesMapWithDefault = {
+  ...coinFamiliesMap,
+  default: 'default',
+} as const;
 
-export type ServerCoinErrors = Partial<
-  Record<CoinFamily, Record<ServerCoinErrorTypes, IErrorMsg>>
->;
+export type CoinFamilyWithDefault =
+  (typeof coinFamiliesMapWithDefault)[keyof typeof coinFamiliesMapWithDefault];
 
-export interface ServerCoinErrorParams {
+export enum DefaultCoinErrorType {
+  DEFAULT = 'DEF_0000',
+}
+// fill this variable as u define coin errors: ServerCoinErrorTypes = DefaultErrorType | XrpErrorType | BtcErrorType | EvmErrorType
+export type ServerCoinErrorTypes = DefaultCoinErrorType;
+
+interface ServerCoinErrorParams {
   code: string;
   message: string;
-  langError: LangErrors;
-  coinFamily: CoinFamily;
+  coinFamily: CoinFamilyWithDefault;
   details?: ServerErrorDetails;
 }
 
@@ -24,36 +28,22 @@ export class ServerCoinError extends Error {
 
   public code: string;
 
-  public displayErrorMsg: IErrorMsg;
+  public coinFamily: CoinFamilyWithDefault;
 
   public details?: ServerErrorDetails;
 
-  constructor({
-    code,
-    message,
-    langError,
-    coinFamily,
-    details,
-  }: ServerCoinErrorParams) {
+  constructor({ code, message, coinFamily, details }: ServerCoinErrorParams) {
     super(message);
-    this.code = code;
+    this.code = code ?? DefaultCoinErrorType.DEFAULT;
     this.details = details;
-
-    const serverCoinErrors = langError.serverCoinErrors[coinFamily];
-    const heading = serverCoinErrors
-      ? serverCoinErrors[code as ServerCoinErrorTypes].heading
-      : langError.defaultServerCoinErrors.heading;
-    const subtext = serverCoinErrors
-      ? serverCoinErrors[code as ServerCoinErrorTypes].subtext
-      : langError.defaultServerCoinErrors.subtext;
-
-    this.displayErrorMsg = { heading, subtext };
+    this.coinFamily = coinFamily ?? coinFamiliesMapWithDefault.default;
   }
 
   public toJSON() {
     return {
       isServerCoinError: this.isServerCoinError,
       code: this.code,
+      coinFamily: this.coinFamily,
       message: `${this.code}: ${this.message}`,
       ...(this.details ?? {}),
       stack: this.stack,

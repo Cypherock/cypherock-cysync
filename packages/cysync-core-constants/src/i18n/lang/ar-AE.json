@@ -1019,10 +1019,13 @@
         "heading": "يرجى الاتصال بالإنترنت للمتابعة"
       }
     },
-    "serverCoinErrors": {},
-    "defaultServerCoinErrors": {
-      "heading": "",
-      "subtext": ""
+    "serverCoinErrors": {
+      "default": {
+        "DEF_0000": {
+          "heading": "",
+          "subtext": ""
+        }
+      }
     },
     "default": "حدث خطأ داخلي"
   },

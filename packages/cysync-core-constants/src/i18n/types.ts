@@ -1,8 +1,9 @@
 import {
-  ServerCoinErrors,
   DeviceErrorCodes,
   IErrorMsg,
   ServerErrorType,
+  ServerCoinErrorTypes,
+  CoinFamilyWithDefault,
 } from '../types';
 
 export interface LanguageStrings {
@@ -582,8 +583,9 @@ export interface LangErrors {
   deviceErrors: Record<DeviceErrorCodes, IErrorMsg>;
   databaseError: IErrorMsg;
   serverErrors: Record<ServerErrorType, IErrorMsg>;
-  serverCoinErrors: ServerCoinErrors;
-  defaultServerCoinErrors: IErrorMsg;
+  serverCoinErrors: Partial<
+    Record<CoinFamilyWithDefault, Record<ServerCoinErrorTypes, IErrorMsg>>
+  >;
   default: string;
 }
 

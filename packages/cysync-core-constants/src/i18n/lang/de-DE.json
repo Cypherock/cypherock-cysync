@@ -1024,10 +1024,13 @@
         "heading": "Bitte verbinden Sie sich mit dem Internet, um fortzufahren"
       }
     },
-    "serverCoinErrors": {},
-    "defaultServerCoinErrors": {
-      "heading": "",
-      "subtext": ""
+    "serverCoinErrors": {
+      "default": {
+        "DEF_0000": {
+          "heading": "",
+          "subtext": ""
+        }
+      }
     },
     "default": "Ein interner Fehler ist aufgetreten"
   },
