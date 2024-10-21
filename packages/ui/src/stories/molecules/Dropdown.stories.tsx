@@ -13,6 +13,7 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   args: {
+    placeholderText: 'Placeholder',
     items: [
       {
         text: 'This is item 1',

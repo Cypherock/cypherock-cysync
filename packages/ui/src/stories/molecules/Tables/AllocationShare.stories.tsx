@@ -1,9 +1,9 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
-import { SnackBar } from '../../components';
+import { AllocationShare } from '../../../components';
 
-const meta: Meta<typeof SnackBar> = {
-  component: SnackBar,
+const meta: Meta<typeof AllocationShare> = {
+  component: AllocationShare,
   tags: ['autodocs'],
 };
 
@@ -13,8 +13,7 @@ type Story = StoryObj<typeof meta>;
 
 export const Info: Story = {
   args: {
-    icon: 'check',
-    buttonText: 'Placeholder Text',
-    text: 'Sample Text',
+    percentage: 30,
+    color: 'white',
   },
 };

@@ -11,7 +11,7 @@ interface DividerProps extends UtilsProps {
 
 const DividerStyle = styled.div<DividerProps>`
   width: ${({ variant, stroke }) =>
-    variant === 'vertical' ? `${stroke}px` : '100%'};
+    variant === 'vertical' ? `${stroke}px` : '24px'};
   height: ${({ variant, stroke }) =>
     variant === 'vertical' ? '24px' : `${stroke}px`};
   background: ${({ theme, background }) =>

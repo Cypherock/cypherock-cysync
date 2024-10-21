@@ -1,9 +1,9 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
-import { Tag } from '../../components/atoms';
+import { VerticalLine } from '../../components/atoms';
 
-const meta: Meta<typeof Tag> = {
-  component: Tag,
+const meta: Meta<typeof VerticalLine> = {
+  component: VerticalLine,
   tags: ['autodocs'],
 };
 
@@ -13,6 +13,7 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   args: {
-    children: 'tag 1',
+    $borderStyle: 'dotted',
+    height: 40,
   },
 };
