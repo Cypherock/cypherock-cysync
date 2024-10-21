@@ -1,11 +1,6 @@
-import {
-  Button,
-  Container,
-  Input,
-  LangDisplay,
-  Typography,
-} from '@cypherock/cysync-ui';
-import React, { useEffect, useState } from 'react';
+import { Button, LangDisplay } from '@cypherock/cysync-ui';
+import React, { useEffect, useMemo, useState } from 'react';
+import { UserDetailsForm } from '../../../components';
 
 import { WalletAuthLoginStep } from '~/dialogs/Inheritance/hooks';
 import { selectLanguage, useAppSelector } from '~/store';
@@ -53,7 +48,12 @@ export const UserDetails = () => {
   }, []);
 
   const isSameEmail = Boolean(email && email === alternateEmail);
-  const isFormIncomplete = !name || !email || !alternateEmail;
+
+  const [hasErrors, setHasErrors] = useState(false);
+  const isFormIncomplete = useMemo(
+    () => !name || !email || !alternateEmail || hasErrors,
+    [hasErrors],
+  );
 
   return (
     <Layout
@@ -78,80 +78,24 @@ export const UserDetails = () => {
         </>
       }
     >
-      <form style={{ width: '100%' }} onSubmit={onSubmit} id={formId}>
-        <Container direction="column" $width="full" mb={4}>
-          <Typography
-            variant="h5"
-            color="heading"
-            $textAlign="center"
-            $fontSize={20}
-            mb="4px"
-          >
-            <LangDisplay text={silverPlanStrings.title} />
-          </Typography>
-          <Typography color="muted" $textAlign="center" $fontSize={16}>
-            <LangDisplay text={silverPlanStrings.subTitle} />
-          </Typography>
-        </Container>
-        <Container direction="column" $width="full" mb={3}>
-          <Input
-            pasteAllowed
-            name="name"
-            type="text"
-            label={strings.form.name}
-            rightLabel={lang.strings.labels.required}
-            value={name}
-            required
-            autoFocus
-            onChange={setName}
-            showRequiredStar
-            inputLabelProps={{
-              $fontSize: 12,
-              $letterSpacing: 'unset',
-            }}
-            disabled={isRegisteringUser}
-          />
-        </Container>
-        <Container direction="row" $width="full" gap={24}>
-          <Input
-            pasteAllowed
-            name="email"
-            type="email"
-            label={strings.form.email}
-            rightLabel={lang.strings.labels.required}
-            value={email}
-            required
-            onChange={setEmail}
-            showRequiredStar
-            inputLabelProps={{
-              $fontSize: 12,
-              $letterSpacing: 'unset',
-            }}
-            disabled={isRegisteringUser}
-          />
-          <Input
-            pasteAllowed
-            name="alternateEmail"
-            type="email"
-            label={strings.form.alternateEmail}
-            rightLabel={lang.strings.labels.required}
-            value={alternateEmail}
-            required
-            onChange={setAlternateEmail}
-            showRequiredStar
-            inputLabelProps={{
-              $fontSize: 12,
-              $letterSpacing: 'unset',
-            }}
-            disabled={isRegisteringUser}
-          />
-        </Container>
-        {isSameEmail && (
-          <Typography $fontSize={16} pt={2} color="error">
-            {strings.error.sameEmail}
-          </Typography>
-        )}
-      </form>
+      <UserDetailsForm
+        onSubmit={onSubmit}
+        formId={formId}
+        strings={{
+          title: silverPlanStrings.title,
+          subTitle: silverPlanStrings.subTitle,
+          form: strings.form,
+        }}
+        name={name}
+        setName={setName}
+        isSubmittingUserDetails={isRegisteringUser}
+        email={email}
+        setEmail={setEmail}
+        alternateEmail={alternateEmail}
+        setAlternateEmail={setAlternateEmail}
+        isSameEmail={isSameEmail}
+        setHasErrors={setHasErrors}
+      />
     </Layout>
   );
 };
