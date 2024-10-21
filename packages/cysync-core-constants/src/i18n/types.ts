@@ -1,4 +1,10 @@
-import { DeviceErrorCodes, IErrorMsg, ServerErrorType } from '../types';
+import {
+  DeviceErrorCodes,
+  IErrorMsg,
+  ServerErrorType,
+  ServerCoinErrorTypes,
+  CoinFamilyWithDefault,
+} from '../types';
 
 export interface LanguageStrings {
   x1Card: string;
@@ -573,10 +579,13 @@ interface LangDeleteAccount {
   buttons: { yes: string; no: string };
 }
 
-interface LangErrors {
+export interface LangErrors {
   deviceErrors: Record<DeviceErrorCodes, IErrorMsg>;
   databaseError: IErrorMsg;
   serverErrors: Record<ServerErrorType, IErrorMsg>;
+  serverCoinErrors: Partial<
+    Record<CoinFamilyWithDefault, Record<ServerCoinErrorTypes, IErrorMsg>>
+  >;
   default: string;
 }
 
