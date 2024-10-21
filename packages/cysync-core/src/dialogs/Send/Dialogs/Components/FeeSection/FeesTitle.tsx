@@ -14,6 +14,7 @@ export const FeesTitle: React.FC<FeesHeaderProps> = ({
   initialState,
   onChange,
   title,
+  toggleNotAllowed,
 }) => {
   const lang = useAppSelector(selectLanguage);
   const buttons = lang.strings.send.fees.header;
@@ -33,13 +34,15 @@ export const FeesTitle: React.FC<FeesHeaderProps> = ({
           <LangDisplay text={title} />
         </Typography>
       </Flex>
-      <Flex align="center" direction="row" gap={8}>
-        <PillButtonToggle
-          buttons={buttons}
-          type={isToggled ? buttons[1].type : buttons[0].type}
-          onButtonClick={handleChange}
-        />
-      </Flex>
+      {!toggleNotAllowed && (
+        <Flex align="center" direction="row" gap={8}>
+          <PillButtonToggle
+            buttons={buttons}
+            type={isToggled ? buttons[1].type : buttons[0].type}
+            onButtonClick={handleChange}
+          />
+        </Flex>
+      )}
     </Flex>
   );
 };

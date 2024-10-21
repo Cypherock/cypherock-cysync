@@ -1,5 +1,6 @@
 import { IPreparedBtcTransaction } from '@cypherock/coin-support-btc';
 import { IPreparedEvmTransaction } from '@cypherock/coin-support-evm';
+import { IPreparedXrpTransaction } from '@cypherock/coin-support-xrp';
 import {
   convertToUnit,
   getDefaultUnit,
@@ -7,7 +8,12 @@ import {
   getZeroUnit,
   formatDisplayPrice,
 } from '@cypherock/coin-support-utils';
-import { CoinFamily, EvmIdMap, coinList } from '@cypherock/coins';
+import {
+  CoinFamily,
+  EvmIdMap,
+  coinFamiliesMap,
+  coinList,
+} from '@cypherock/coins';
 import { Container, MessageBox } from '@cypherock/cysync-ui';
 import { BigNumber } from '@cypherock/cysync-utils';
 import lodash from 'lodash';
@@ -20,6 +26,7 @@ import { selectLanguage, selectPriceInfos, useAppSelector } from '~/store';
 
 import { BitcoinInput } from './BitcoinInput';
 import { EthereumInput } from './EthereumInput';
+import { XrpInput } from './XrpInput';
 import { FeesDisplay } from './FeesDisplay';
 import { FeesHeader } from './FeesHeader';
 import { OptimismFeesHeader } from './OptimismFeesHeader';
@@ -29,6 +36,7 @@ import { useSendDialog } from '../../../context';
 const feeInputMap: Partial<Record<CoinFamily, React.FC<any>>> = {
   bitcoin: BitcoinInput,
   evm: EthereumInput,
+  xrp: XrpInput,
 };
 const getDefaultHeader = () => FeesHeader;
 const getEvmHeader = (assetId?: string) => {
@@ -41,6 +49,7 @@ const feeHeaderMap: Partial<
 > = {
   bitcoin: getDefaultHeader,
   evm: getEvmHeader,
+  xrp: getDefaultHeader,
 };
 
 export interface FeeSectionProps {
@@ -92,12 +101,36 @@ export const FeeSection: React.FC<FeeSectionProps> = ({ showErrors }) => {
     };
   };
 
+  const getXrpProps = () => {
+    let { feesUnit } = coinList[selectedAccount?.assetId ?? ''];
+    const txn = transaction as IPreparedXrpTransaction;
+    let { fees } = txn.staticData;
+
+    if (selectedAccount) {
+      const { amount: convertedFees, unit } = convertToUnit({
+        amount: txn.staticData.fees,
+        fromUnitAbbr: getZeroUnit(selectedAccount.parentAssetId).abbr,
+        coinId: selectedAccount.parentAssetId,
+        toUnitAbbr: getDefaultUnit(selectedAccount.parentAssetId).abbr,
+      });
+      fees = convertedFees;
+      feesUnit = unit.abbr;
+    }
+
+    return {
+      unit: feesUnit,
+      initialValue: fees,
+      onChange: debouncedXrpPrepareFeeChanged,
+    };
+  };
+
   const feeInputPropsMap: Record<CoinFamily, () => Record<string, any>> = {
     bitcoin: getBitcoinProps,
     evm: getEthereumProps,
     near: () => ({}),
     solana: () => ({}),
     tron: () => ({}),
+    xrp: getXrpProps,
   };
 
   const getFeeInputComponent = () => {
@@ -111,6 +144,9 @@ export const FeeSection: React.FC<FeeSectionProps> = ({ showErrors }) => {
     return <Component {...props} />;
   };
 
+  const isToggleAllowed = (coinFamily: CoinFamily) =>
+    coinFamily !== coinFamiliesMap.xrp;
+
   const getFeeHeaderComponent = () => {
     if (!selectedAccount) return null;
     const coinFamily = selectedAccount.familyId as CoinFamily;
@@ -123,6 +159,7 @@ export const FeeSection: React.FC<FeeSectionProps> = ({ showErrors }) => {
         title={displayText.fees.title}
         initialState={isTextInput}
         onChange={setIsTextInput}
+        toggleNotAllowed={!isToggleAllowed(coinFamily)}
       />
     );
   };
@@ -177,6 +214,31 @@ export const FeeSection: React.FC<FeeSectionProps> = ({ showErrors }) => {
 
   const debouncedEvmPrepareFeeChanged = useCallback(
     lodash.debounce(evmPrepareFee, 300),
+    [],
+  );
+
+  const XrpPrepareFeeChanged = async (value: number) => {
+    setIsFeeLoading(true);
+    const txn = transactionRef.current.transaction as IPreparedXrpTransaction;
+    let fees = value.toString();
+
+    if (selectedAccount) {
+      const { amount: convertedFees } = convertToUnit({
+        amount: fees,
+        fromUnitAbbr: getDefaultUnit(selectedAccount.parentAssetId).abbr,
+        coinId: selectedAccount.parentAssetId,
+        toUnitAbbr: getZeroUnit(selectedAccount.parentAssetId).abbr,
+      });
+      fees = convertedFees;
+    }
+
+    txn.userInputs.fees = fees;
+    await prepare(txn);
+    setIsFeeLoading(false);
+  };
+
+  const debouncedXrpPrepareFeeChanged = useCallback(
+    lodash.debounce(XrpPrepareFeeChanged, 300),
     [],
   );
 
@@ -245,6 +307,10 @@ export const FeeSection: React.FC<FeeSectionProps> = ({ showErrors }) => {
       )}
       {!transaction?.validation.isValidFee && (
         <MessageBox type="danger" text={displayText.feeError} />
+      )}
+      {(transaction?.validation as IPreparedXrpTransaction['validation'])
+        .isFeeBelowMin && (
+        <MessageBox type="danger" text={displayText.feeBelowMinError} />
       )}
       {showErrors && transaction?.validation.hasEnoughBalance === false && (
         <MessageBox type="danger" text={displayText.notEnoughBalance} />

@@ -41,3 +41,4 @@ export * from './UpdateBar';
 export * from './WallectConnect';
 export * from './WalletDialogMainContainer';
 export * from './SimpleJsonView';
+export * from './NumberInput';
