@@ -1,0 +1,340 @@
+import React, { FC, ReactNode } from 'react';
+import { styled } from 'styled-components';
+
+import {
+  ArrowButton,
+  Button,
+  Flex,
+  LangDisplay,
+  Typography,
+  TypographyColor,
+} from '@cypherock/cysync-ui/src/components/atoms';
+import { BulletList } from '@cypherock/cysync-ui/src/components/molecules/BulletList';
+import { GoldenArrowList } from '@cypherock/cysync-ui/src/components/molecules/GoldenArrowList';
+import {
+  MessageBox,
+  MessageBoxType,
+} from '@cypherock/cysync-ui/src/components/molecules/MessageBox';
+
+import {
+  DialogBoxBody,
+  DialogBoxFooter,
+  DialogBoxHeader,
+} from '@cypherock/cysync-ui/src/components/molecules/Dialog';
+
+const InnerContainer = styled.div`
+  max-height: 58vh;
+  overflow-y: auto;
+`;
+
+const DialogContainer = styled.div`
+  flex: 1;
+  &:not(:last-child) {
+    margin-right: 20px;
+  }
+  width: 500px;
+`;
+
+const DialogBoxStyle = styled.section`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-width: 1px;
+  border-style: solid;
+  border-radius: 16px;
+  /* overflow-y: scroll; */
+  background-image: ${({ theme }) => theme.palette.background.primary};
+  box-shadow: ${({ theme }) => theme.shadow.popup};
+  border-color: ${({ theme }) => theme.palette.border.popup};
+  text-align: center;
+`;
+
+export interface WalletTransferFlowDialogBoxProps {
+  title?: string;
+  subtitle?: string;
+  bulletList?: string[];
+  messageBoxList?: Record<string, string>[];
+  heading?: string;
+  image: React.ReactElement;
+  children?: ReactNode;
+  isLoading?: boolean;
+  loadingText?: string;
+  footer?: ReactNode;
+  goldenArrowList?: any[];
+  disablePrev?: boolean;
+  disableNext?: boolean;
+  onNext: React.MouseEventHandler<HTMLButtonElement>;
+  onSelect?: any;
+  changeCondition: any;
+  onPrevious: React.MouseEventHandler<HTMLButtonElement>;
+  lang: any;
+}
+export const WalletTransferFlowDialogBox: FC<
+  WalletTransferFlowDialogBoxProps
+> = ({
+  heading,
+  image,
+  title,
+  children,
+  isLoading,
+  loadingText,
+  subtitle,
+  footer,
+  goldenArrowList,
+  bulletList,
+  messageBoxList,
+  onNext,
+  onSelect,
+  changeCondition,
+  onPrevious,
+  disablePrev,
+  disableNext,
+  lang,
+}) => {
+  const displayTextTitle = lang.strings.guidedFlows.walletTransfer.tabs[0];
+  const displayTextSettingsTitle =
+    lang.strings.settings.tabs.device.item.transferWalletSettings;
+  const shouldRenderDoubleDialog =
+    title !== undefined &&
+    [displayTextTitle.pages[0].title, displayTextTitle.pages[1].title].includes(
+      title,
+    );
+
+  const dialogTexts = {
+    dialog1: displayTextSettingsTitle.lostVault.title,
+    message1: displayTextSettingsTitle.lostVault.message,
+    dialog2: displayTextSettingsTitle.lostCards.title,
+    message2: displayTextSettingsTitle.lostCards.message,
+  };
+
+  return (
+    <>
+      {heading && (
+        <DialogBoxHeader p={2}>
+          <Typography variant="h6" color="muted">
+            <LangDisplay text={heading} />
+          </Typography>
+        </DialogBoxHeader>
+      )}
+      {shouldRenderDoubleDialog ? (
+        <div style={{ display: 'flex', flexDirection: 'row', gap: 32 }}>
+          <InnerContainer>
+            {/* Dialog 1: "I have lost my X1 vault but I still have all of the 4 old X1 cards" */}
+            <DialogBoxStyle>
+              <DialogContainer>
+                <DialogBoxBody p={0} gap={0}>
+                  <Flex
+                    gap={{ def: 12, lg: 32 }}
+                    align="center"
+                    justify="center"
+                    width="inherit"
+                    direction="column"
+                    pb={4}
+                  >
+                    {image}
+                    <Flex
+                      direction="column"
+                      align="center"
+                      gap={4}
+                      pl={4}
+                      pr={4}
+                    >
+                      <Typography $textAlign="center" variant="h5">
+                        <LangDisplay text={dialogTexts.dialog1} />
+                      </Typography>
+                      {isLoading && loadingText && (
+                        <Typography color="muted">
+                          <LangDisplay text={loadingText} />
+                        </Typography>
+                      )}
+                    </Flex>
+                  </Flex>
+                  <Flex
+                    direction="column"
+                    pt={2}
+                    pb={4}
+                    width="full"
+                    pl={4}
+                    pr={4}
+                  >
+                    <MessageBox
+                      key="info-1"
+                      text={dialogTexts.message1}
+                      textColor="muted"
+                      type="info"
+                      $minHeight={85}
+                    />
+                  </Flex>
+                </DialogBoxBody>
+                <DialogBoxFooter py={{ def: 2, lg: 4 }} gap={10}>
+                  {footer}
+                  {!footer && <Button onClick={onSelect}>Select</Button>}
+                </DialogBoxFooter>
+              </DialogContainer>
+            </DialogBoxStyle>
+          </InnerContainer>
+          <InnerContainer>
+            {/* Dialog 2: "I have lost my X1 vault and have less than 4 old X1 cards" */}
+            <DialogBoxStyle>
+              <DialogContainer>
+                <DialogBoxBody p={0} gap={0}>
+                  <Flex
+                    gap={{ def: 12, lg: 32 }}
+                    align="center"
+                    justify="center"
+                    width="inherit"
+                    direction="column"
+                    pb={4}
+                  >
+                    {image}
+                    <Flex
+                      direction="column"
+                      align="center"
+                      gap={4}
+                      pl={4}
+                      pr={4}
+                    >
+                      <Typography $textAlign="center" variant="h5">
+                        <LangDisplay text={dialogTexts.dialog2} />
+                      </Typography>
+                      {isLoading && loadingText && (
+                        <Typography color="muted">
+                          <LangDisplay text={loadingText} />
+                        </Typography>
+                      )}
+                    </Flex>
+                  </Flex>
+                  <Flex
+                    direction="column"
+                    gap={8}
+                    pt={2}
+                    pb={4}
+                    width="full"
+                    pl={4}
+                    pr={4}
+                  >
+                    <MessageBox
+                      key="info-2"
+                      text={dialogTexts.message2}
+                      textColor="muted"
+                      type="info"
+                      $minHeight={85}
+                    />
+                  </Flex>
+                </DialogBoxBody>
+                <DialogBoxFooter py={{ def: 2, lg: 4 }} gap={10}>
+                  {footer}
+                  {!footer && <Button onClick={changeCondition}>Select</Button>}
+                </DialogBoxFooter>
+              </DialogContainer>
+            </DialogBoxStyle>
+          </InnerContainer>
+        </div>
+      ) : (
+        <InnerContainer>
+          <DialogBoxBody gap={0}>
+            <Flex
+              gap={{ def: 12, lg: 32 }}
+              align="center"
+              justify="center"
+              width="inherit"
+              direction="column"
+              pb={2}
+            >
+              {image}
+              <Flex direction="column" align="center" gap={4}>
+                {title && (
+                  <Typography $textAlign="center" variant="h5">
+                    <LangDisplay text={title} />
+                  </Typography>
+                )}
+                {subtitle && (
+                  <Typography $textAlign="center" color="muted">
+                    <LangDisplay text={subtitle} />
+                  </Typography>
+                )}
+                {isLoading && loadingText && (
+                  <Typography color="muted">
+                    <LangDisplay text={loadingText} />
+                  </Typography>
+                )}
+                {children}
+              </Flex>
+            </Flex>
+            {goldenArrowList && (
+              <Flex direction="column" gap={8} pt={2} pb={2} width="full">
+                <GoldenArrowList items={goldenArrowList} />
+              </Flex>
+            )}
+            {bulletList && (
+              <Flex direction="column" gap={8} pt={2} pb={2} width="full">
+                <BulletList items={bulletList} />
+              </Flex>
+            )}
+            {messageBoxList && (
+              <Flex direction="column" gap={8} pt={2} pb={2} width="full">
+                {messageBoxList.map((messageBox, index) => {
+                  const key = Object.keys(messageBox)[0];
+                  const args = key.split('-');
+
+                  const type = args[0] as MessageBoxType;
+                  if (!type) return null;
+
+                  let textColor: TypographyColor | undefined;
+                  if (args.length > 1) textColor = args[1] as TypographyColor;
+
+                  return (
+                    <MessageBox
+                      key={`${type}-${index + 1}`}
+                      text={messageBox[key]}
+                      textColor={textColor}
+                      type={type}
+                    />
+                  );
+                })}
+              </Flex>
+            )}
+          </DialogBoxBody>
+        </InnerContainer>
+      )}
+      {shouldRenderDoubleDialog ? (
+        ''
+      ) : (
+        <DialogBoxFooter py={{ def: 2, lg: 4 }} gap={16}>
+          {footer}
+          {!footer && (
+            <>
+              <ArrowButton
+                direction="left"
+                onClick={onPrevious}
+                variant={disablePrev ? 'disabled' : 'enabled'}
+              />
+              <ArrowButton
+                direction="right"
+                onClick={onNext}
+                variant={disableNext ? 'disabled' : 'enabled'}
+              />
+            </>
+          )}
+        </DialogBoxFooter>
+      )}
+    </>
+  );
+};
+
+WalletTransferFlowDialogBox.defaultProps = {
+  children: undefined,
+  isLoading: false,
+  loadingText: undefined,
+  subtitle: undefined,
+  title: undefined,
+  footer: undefined,
+  heading: undefined,
+  goldenArrowList: undefined,
+  bulletList: undefined,
+  messageBoxList: undefined,
+  disablePrev: false,
+  disableNext: false,
+  onSelect: undefined,
+};

@@ -389,8 +389,10 @@ interface LangOnboarding {
   walletActionsDialogBox: {
     title: string;
     subTitle: string;
-    createWallet: { title: string; list: string[] };
-    importWallet: { title: string; list: string[] };
+    createWallet: { title: string; list: string[]; bulletList: string[] };
+    importWallet: { title: string; list: string[]; bulletList: string[] };
+    transferWallet: { title: string; list: string[] };
+    transfer: { title: string; subtitle: string };
   };
   success: { title: string; subtext: string };
   appUpdate: {
@@ -652,6 +654,87 @@ interface LangGuidedFlows {
     subtitle: string;
     buttons: { secondary: string; primary: string };
   };
+  walletTransfer: {
+    title: string;
+    tabs: {
+      asideTitle: string;
+      pages: {
+        title: string;
+        subtitle?: string;
+        messageBoxList?: {
+          info?: string;
+          warning?: string;
+          danger?: string;
+        }[];
+      }[];
+    }[];
+    closeDialog: {
+      title: string;
+      subtitle: string;
+      messageBoxList?: {
+        info?: string;
+      }[];
+      pathText: string;
+      buttons: {
+        secondary: string;
+        primary: string;
+      };
+    };
+  };
+  walletTransferLostCards: {
+    title: string;
+    tabs: {
+      asideTitle: string;
+      pages: {
+        title: string;
+        subtitle?: string;
+        messageBoxList?: {
+          info?: string;
+          warning?: string;
+          danger?: string;
+        }[];
+      }[];
+    }[];
+    closeDialog: {
+      title: string;
+      subtitle: string;
+      messageBoxList?: {
+        info?: string;
+      }[];
+      pathText: string;
+      buttons: {
+        secondary: string;
+        primary: string;
+      };
+    };
+  };
+  walletTransferLostVault: {
+    title: string;
+    tabs: {
+      asideTitle: string;
+      pages: {
+        title: string;
+        subtitle?: string;
+        messageBoxList?: {
+          info?: string;
+          warning?: string;
+          danger?: string;
+        }[];
+      }[];
+    }[];
+    closeDialog: {
+      title: string;
+      subtitle: string;
+      messageBoxList?: {
+        info?: string;
+      }[];
+      pathText: string;
+      buttons: {
+        secondary: string;
+        primary: string;
+      };
+    };
+  };
 }
 
 interface LangDialogs {
@@ -782,6 +865,22 @@ interface LangSettings {
         x1VaultAuth: { title: string; description: string };
         x1CardAuth: { title: string; description: string };
         transferWallet: { title: string; description: string };
+        transferWalletSettings: {
+          lostVault: {
+            title: string;
+            description: string;
+            message?: string;
+          };
+          lostCards: {
+            title: string;
+            description: string;
+            message?: string;
+          };
+          oldVault: {
+            title: string;
+            description: string;
+          };
+        };
       };
     };
     about: {
