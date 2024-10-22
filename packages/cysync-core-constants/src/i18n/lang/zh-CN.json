@@ -258,7 +258,9 @@
         "dollar": "$",
         "error": "资金不足",
         "zeroAmount": "金额不能为零",
-        "notOverDustThreshold": "金额低于 dust limit"
+        "notOverDustThreshold": "金额低于 dust limit",
+        "amountBelowXrpReserve": "",
+        "balanceBelowXrpReserve": ""
       },
       "fees": {
         "title": "费用",
@@ -269,8 +271,14 @@
         "placeholder": "在此输入您的个人便笺",
         "error": "超过最大字符限制 (120 个字符)"
       },
+      "destinationTag": {
+        "label": "",
+        "placeholder": "",
+        "error": ""
+      },
       "warning": "如果 fee 非常低，交易可能会被取消",
       "feeError": "不允许 0 fee 的交易",
+      "feeBelowMinError": "",
       "notEnoughBalance": "交易资金不足",
       "toggleText": {
         "replace": "允许替换交易（通过 fee 替换）",
@@ -286,7 +294,8 @@
       "amount": "金额",
       "network": "网络费用",
       "debit": "总扣款",
-      "remarks": "个人笔记"
+      "remarks": "个人笔记",
+      "destinationTag": ""
     },
     "finalMessage": {
       "button": "检查交易",
@@ -352,7 +361,8 @@
       "feePrefix": {
         "optimism": "L2 "
       },
-      "remarks": "个人笔记"
+      "remarks": "个人笔记",
+      "destinationTag": ""
     },
     "noData": {
       "text": "暂无交易记录",
@@ -1024,6 +1034,16 @@
         "DEF_0000": {
           "heading": "Something went wrong",
           "subtext": "Try again and if the problem persists, contact Cypherock support for assistance"
+        }
+      },
+      "xrp": {
+        "XRP_0000": {
+          "heading": "Some unknown error occured",
+          "subtext": "Try again and if the problem persists, contact Cypherock support for assistance"
+        },
+        "XRP_0001": {
+          "heading": "Transaction Failed",
+          "subtext": "Your transaction may have failed. Please wait a moment then check the transaction history before trying again and if the problem persists, contact Cypherock support for assistance"
         }
       }
     },

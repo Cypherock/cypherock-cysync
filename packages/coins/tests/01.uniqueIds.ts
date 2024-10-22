@@ -1,12 +1,19 @@
 import { describe, expect, test } from '@jest/globals';
 
-import { btcCoinList, evmCoinList, solanaCoinList, nearCoinList } from '../src';
+import {
+  btcCoinList,
+  evmCoinList,
+  solanaCoinList,
+  nearCoinList,
+  xrpCoinList,
+} from '../src';
 
 describe('01. All ids should be unique', () => {
   const btcIds = Object.keys(btcCoinList);
   const evmIds = Object.keys(evmCoinList);
   const nearIds = Object.keys(nearCoinList);
   const solanaIds = Object.keys(solanaCoinList);
+  const xrpIds = Object.keys(xrpCoinList);
 
   const idSet = new Set<string>();
 
@@ -30,6 +37,11 @@ describe('01. All ids should be unique', () => {
       coin: 'Solana',
       listName: 'solanaCoinList',
       ids: solanaIds,
+    },
+    {
+      coin: 'Xrp',
+      listName: 'xrpCoinList',
+      ids: xrpIds,
     },
   ];
 

@@ -53,6 +53,12 @@ const TronAddressAndAmount: React.FC<AnaProps> = ({ disableInputs }) => (
   </Container>
 );
 
+const XrpAddressAndAmount: React.FC<AnaProps> = ({ disableInputs }) => (
+  <Container px={5} py="12px">
+    <SingleTransaction disableInputs={disableInputs} />
+  </Container>
+);
+
 const defaultAnaProps = {
   disableInputs: undefined,
 };
@@ -61,6 +67,7 @@ BitcoinAddressAndAmount.defaultProps = defaultAnaProps;
 EvmAddressAndAmount.defaultProps = defaultAnaProps;
 SolanaAddressAndAmount.defaultProps = defaultAnaProps;
 TronAddressAndAmount.defaultProps = defaultAnaProps;
+XrpAddressAndAmount.defaultProps = defaultAnaProps;
 
 const anaInputMap: Record<CoinFamily, React.FC<any>> = {
   bitcoin: BitcoinAddressAndAmount,
@@ -68,6 +75,7 @@ const anaInputMap: Record<CoinFamily, React.FC<any>> = {
   solana: SolanaAddressAndAmount,
   near: SolanaAddressAndAmount,
   tron: TronAddressAndAmount,
+  xrp: XrpAddressAndAmount,
 };
 
 const getAnaComponent = (coinFamily: CoinFamily, props: AnaProps) => {

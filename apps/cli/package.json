@@ -34,6 +34,7 @@
     "@cypherock/coin-support-interfaces": "workspace:^",
     "@cypherock/coin-support-near": "workspace:^",
     "@cypherock/coin-support-solana": "workspace:^",
+    "@cypherock/coin-support-xrp": "workspace:^",
     "@cypherock/coin-support-utils": "workspace:^",
     "@cypherock/coins": "workspace:^",
     "@cypherock/cysync-core-services": "workspace:^",
@@ -59,7 +60,8 @@
     "near-api-js": "^2.1.4",
     "ora": "^6.3.1",
     "rxjs": "^7.8.1",
-    "semver": "^7.5.3"
+    "semver": "^7.5.3",
+    "xrpl": "^4.0.0"
   },
   "devDependencies": {
     "@cypherock/eslint-config": "workspace:^",

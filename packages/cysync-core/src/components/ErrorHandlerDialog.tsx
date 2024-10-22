@@ -52,7 +52,7 @@ export const ErrorHandlerDialog: React.FC<ErrorHandlerDialogProps> = ({
       }
       onPrimaryClick={suppressActions ? undefined : onPrimaryClick}
       onSecondaryClick={suppressActions ? undefined : onSecondaryClick}
-      title={`${errorToShow.heading} (${errorToShow.code})`}
+      title={errorToShow.heading}
       subtext={errorToShow.subtext}
       deviceNavigationText={errorToShow.deviceNavigationText}
       advanceText={errorToShow.advanceText}

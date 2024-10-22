@@ -258,7 +258,9 @@
         "dollar": "$",
         "error": "Insufficient funds",
         "zeroAmount": "Amount can't be zero",
-        "notOverDustThreshold": "Amount is lower than dust limit"
+        "notOverDustThreshold": "Amount is lower than dust limit",
+        "amountBelowXrpReserve": "Recipient address is inactive. Send atleast 10 XRP to activate it.",
+        "balanceBelowXrpReserve": "Balance cannot go below 10 XRP"
       },
       "fees": {
         "title": "Fees",
@@ -269,8 +271,14 @@
         "placeholder": "Enter your personal notes here",
         "error": "Maximum character limit exceeded (120 characters)"
       },
+      "destinationTag": {
+        "label": "Destination Tag",
+        "placeholder": "Optional",
+        "error": "Value too high"
+      },
       "warning": "Transaction might cancel if fees is very low",
       "feeError": "Transaction with 0 fee is not allowed",
+      "feeBelowMinError": "Transaction with fee lesser than minimum will fail",
       "notEnoughBalance": "Insufficient funds for transaction",
       "toggleText": {
         "replace": "Allow the transaction to be replaced (Replace by fees)",
@@ -286,7 +294,8 @@
       "amount": "Amount",
       "network": "Network Fee",
       "debit": "Total to debit",
-      "remarks": "Personal Note"
+      "remarks": "Personal Note",
+      "destinationTag": "Destination Tag"
     },
     "finalMessage": {
       "button": "Check transactions",
@@ -352,7 +361,8 @@
       "feePrefix": {
         "optimism": "L2 "
       },
-      "remarks": "Personal Note"
+      "remarks": "Personal Note",
+      "destinationTag": "Destination Tag"
     },
     "noData": {
       "text": "No transactions yet",
@@ -1029,6 +1039,16 @@
         "DEF_0000": {
           "heading": "Something went wrong",
           "subtext": "Try again and if the problem persists, contact Cypherock support for assistance"
+        }
+      },
+      "xrp": {
+        "XRP_0000": {
+          "heading": "Some unknown error occured",
+          "subtext": "Try again and if the problem persists, contact Cypherock support for assistance"
+        },
+        "XRP_0001": {
+          "heading": "Transaction Failed",
+          "subtext": "Your transaction may have failed. Please wait a moment then check the transaction history before trying again and if the problem persists, contact Cypherock support for assistance"
         }
       }
     },

@@ -240,15 +240,19 @@ interface LangSend {
       error: string;
       zeroAmount: string;
       notOverDustThreshold: string;
+      amountBelowXrpReserve: string;
+      balanceBelowXrpReserve: string;
     };
     fees: { title: string; label: string };
     warning: string;
     feeError: string;
+    feeBelowMinError: string;
     notEnoughBalance: string;
     toggleText: { replace: string; unconfirmed: string };
     infoBox: string;
     addButton: string;
     remarks: { label: string; placeholder: string; error: string };
+    destinationTag: { label: string; placeholder: string; error: string };
   };
   summary: {
     title: string;
@@ -258,6 +262,7 @@ interface LangSend {
     network: string;
     debit: string;
     remarks: string;
+    destinationTag: string;
   };
   finalMessage: {
     button: string;
@@ -313,6 +318,7 @@ interface LangHistory {
     description: string;
     feePrefix: { optimism: string };
     remarks: string;
+    destinationTag: string;
   };
   noData: { text: string; subText: string; buttonText: string };
   search: { placeholder: string; notFound: { text: string; subText: string } };
@@ -584,7 +590,10 @@ export interface LangErrors {
   databaseError: IErrorMsg;
   serverErrors: Record<ServerErrorType, IErrorMsg>;
   serverCoinErrors: Partial<
-    Record<CoinFamilyWithDefault, Record<ServerCoinErrorTypes, IErrorMsg>>
+    Record<
+      CoinFamilyWithDefault,
+      Partial<Record<ServerCoinErrorTypes, IErrorMsg>>
+    >
   >;
   default: string;
 }
