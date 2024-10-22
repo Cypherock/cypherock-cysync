@@ -259,8 +259,8 @@
         "error": "أموال غير كافية",
         "zeroAmount": "لا يمكن أن يكون المبلغ صفرًا",
         "notOverDustThreshold": "المبلغ أقل من الحد الأدنى",
-        "amountBelowXrpReserve": "",
-        "balanceBelowXrpReserve": ""
+        "amountBelowXrpReserve": "عنوان المستلم غير نشط. أرسل ما لا يقل عن 10 XRP لتنشيطه.",
+        "balanceBelowXrpReserve": "لا يمكن أن يكون الرصيد أقل من 10 XRP"
       },
       "fees": {
         "title": "الرسوم",
@@ -272,13 +272,13 @@
         "error": "تم تجاوز الحد الأقصى للحرف (120 حرفاً)"
       },
       "destinationTag": {
-        "label": "",
-        "placeholder": "",
-        "error": ""
+        "label": "علامة الوجهة",
+        "placeholder": "اختياري",
+        "error": "القيمة مرتفعة جدًا"
       },
       "warning": "قد تلغى المعاملة إذا كانت الرسوم منخفضة جدًا",
       "feeError": "المعاملة ذات الرسوم 0 غير مسموح بها",
-      "feeBelowMinError": "",
+      "feeBelowMinError": "ستفشل المعاملة مع رسم أقل من الحد الأدنى",
       "notEnoughBalance": "أموال غير كافية لإجراء المعاملة",
       "toggleText": {
         "replace": "السماح باستبدال المعاملة (استبدال برسوم)",
@@ -295,7 +295,7 @@
       "network": "رسوم الشبكة",
       "debit": "المبلغ الإجمالي الذي سيتم خصمه",
       "remarks": "ملاحظات شخصية",
-      "destinationTag": ""
+      "destinationTag": "علامة الوجهة"
     },
     "finalMessage": {
       "button": "تحقق من المعاملات",
@@ -362,7 +362,7 @@
         "optimism": "L2 "
       },
       "remarks": "ملاحظات شخصية",
-      "destinationTag": ""
+      "destinationTag": "علامة الوجهة"
     },
     "noData": {
       "text": "لا توجد تعاملات حتى الآن",
@@ -1032,18 +1032,18 @@
     "serverCoinErrors": {
       "default": {
         "DEF_0000": {
-          "heading": "Something went wrong",
-          "subtext": "Try again and if the problem persists, contact Cypherock support for assistance"
+          "heading": "حدث خطأ ما",
+          "subtext": "حاول مرة أخرى وإذا استمرت المشكلة، اتصل بدعم Cypherock للحصول على المساعدة"
         }
       },
       "xrp": {
         "XRP_0000": {
-          "heading": "Some unknown error occured",
-          "subtext": "Try again and if the problem persists, contact Cypherock support for assistance"
+          "heading": "حدث خطأ غير معروف",
+          "subtext": "حاول مرة أخرى وإذا استمرت المشكلة، اتصل بدعم Cypherock للحصول على المساعدة"
         },
         "XRP_0001": {
-          "heading": "Transaction Failed",
-          "subtext": "Your transaction may have failed. Please wait a moment then check the transaction history before trying again and if the problem persists, contact Cypherock support for assistance"
+          "heading": "فشلت المعاملة",
+          "subtext": "قد تكون معاملتك قد فشلت. يرجى الانتظار لحظة ثم التحقق من سجل المعاملات قبل المحاولة مرة أخرى وإذا استمرت المشكلة، اتصل بدعم Cypherock للحصول على المساعدة"
         }
       }
     },

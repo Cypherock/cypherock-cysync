@@ -259,8 +259,8 @@
         "error": "资金不足",
         "zeroAmount": "金额不能为零",
         "notOverDustThreshold": "金额低于 dust limit",
-        "amountBelowXrpReserve": "",
-        "balanceBelowXrpReserve": ""
+        "amountBelowXrpReserve": "收件人地址未激活。发送至少 10 XRP 以激活。",
+        "balanceBelowXrpReserve": "余额不能低于 10 XRP"
       },
       "fees": {
         "title": "费用",
@@ -272,13 +272,13 @@
         "error": "超过最大字符限制 (120 个字符)"
       },
       "destinationTag": {
-        "label": "",
-        "placeholder": "",
-        "error": ""
+        "label": "目标标签",
+        "placeholder": "可选",
+        "error": "值过高"
       },
       "warning": "如果 fee 非常低，交易可能会被取消",
       "feeError": "不允许 0 fee 的交易",
-      "feeBelowMinError": "",
+      "feeBelowMinError": "低于最低费用的交易将失败",
       "notEnoughBalance": "交易资金不足",
       "toggleText": {
         "replace": "允许替换交易（通过 fee 替换）",
@@ -295,7 +295,7 @@
       "network": "网络费用",
       "debit": "总扣款",
       "remarks": "个人笔记",
-      "destinationTag": ""
+      "destinationTag": "目标标签"
     },
     "finalMessage": {
       "button": "检查交易",
@@ -362,7 +362,7 @@
         "optimism": "L2 "
       },
       "remarks": "个人笔记",
-      "destinationTag": ""
+      "destinationTag": "目标标签"
     },
     "noData": {
       "text": "暂无交易记录",
@@ -1032,18 +1032,18 @@
     "serverCoinErrors": {
       "default": {
         "DEF_0000": {
-          "heading": "Something went wrong",
-          "subtext": "Try again and if the problem persists, contact Cypherock support for assistance"
+          "heading": "出现问题",
+          "subtext": "请重试，如果问题仍然存在，请联系 Cypherock 支持以获取帮助"
         }
       },
       "xrp": {
         "XRP_0000": {
-          "heading": "Some unknown error occured",
-          "subtext": "Try again and if the problem persists, contact Cypherock support for assistance"
+          "heading": "发生未知错误",
+          "subtext": "请重试，如果问题仍然存在，请联系Cypherock支持以获取帮助"
         },
         "XRP_0001": {
-          "heading": "Transaction Failed",
-          "subtext": "Your transaction may have failed. Please wait a moment then check the transaction history before trying again and if the problem persists, contact Cypherock support for assistance"
+          "heading": "交易失败",
+          "subtext": "您的交易可能已失败。请稍等片刻，然后检查交易历史记录，然后再试一次，如果问题仍然存在，请联系Cypherock支持以获取帮助"
         }
       }
     },

@@ -259,8 +259,8 @@
         "error": "Dana tidak mencukupi",
         "zeroAmount": "Jumlah tidak boleh nol",
         "notOverDustThreshold": "Jumlah lebih rendah dari dust limit",
-        "amountBelowXrpReserve": "",
-        "balanceBelowXrpReserve": ""
+        "amountBelowXrpReserve": "Alamat penerima tidak aktif. Kirim setidaknya 10 XRP untuk mengaktifkannya.",
+        "balanceBelowXrpReserve": "Saldo tidak boleh kurang dari 10 XRP"
       },
       "fees": {
         "title": "Biaya",
@@ -272,13 +272,13 @@
         "error": "Batas karakter maksimum terlampaui (120 karakter)"
       },
       "destinationTag": {
-        "label": "",
-        "placeholder": "",
-        "error": ""
+        "label": "Tag Tujuan",
+        "placeholder": "Opsional",
+        "error": "Nilai terlalu tinggi"
       },
       "warning": "Transaksi bisa dibatalkan jika biaya terlalu rendah",
       "feeError": "Transaksi dengan 0 fee tidak diizinkan",
-      "feeBelowMinError": "",
+      "feeBelowMinError": "Transaksi dengan fee yang lebih rendah dari minimum akan gagal",
       "notEnoughBalance": "Dana tidak mencukupi untuk transaksi",
       "toggleText": {
         "replace": "Izinkan transaksi untuk digantikan (Ganti dengan biaya)",
@@ -295,7 +295,7 @@
       "network": "Biaya Jaringan",
       "debit": "Total yang didebet",
       "remarks": "Catatan Pribadi",
-      "destinationTag": ""
+      "destinationTag": "Tag Tujuan"
     },
     "finalMessage": {
       "button": "Periksa transaksi",
@@ -362,7 +362,7 @@
         "optimism": "L2 "
       },
       "remarks": "Catatan Pribadi",
-      "destinationTag": ""
+      "destinationTag": "Tag Tujuan"
     },
     "noData": {
       "text": "Belum ada transaksi",
@@ -1037,18 +1037,18 @@
     "serverCoinErrors": {
       "default": {
         "DEF_0000": {
-          "heading": "Something went wrong",
-          "subtext": "Try again and if the problem persists, contact Cypherock support for assistance"
+          "heading": "Terjadi kesalahan",
+          "subtext": "Coba lagi dan jika masalah berlanjut, hubungi dukungan Cypherock untuk bantuan"
         }
       },
       "xrp": {
         "XRP_0000": {
-          "heading": "Some unknown error occured",
-          "subtext": "Try again and if the problem persists, contact Cypherock support for assistance"
+          "heading": "Terjadi kesalahan yang tidak diketahui",
+          "subtext": "Coba lagi dan jika masalah berlanjut, hubungi dukungan Cypherock untuk bantuan"
         },
         "XRP_0001": {
-          "heading": "Transaction Failed",
-          "subtext": "Your transaction may have failed. Please wait a moment then check the transaction history before trying again and if the problem persists, contact Cypherock support for assistance"
+          "heading": "Transaksi Gagal",
+          "subtext": "Transaksi Anda mungkin gagal. Harap tunggu sebentar kemudian periksa riwayat transaksi sebelum mencoba lagi dan jika masalah berlanjut, hubungi dukungan Cypherock untuk bantuan"
         }
       }
     },

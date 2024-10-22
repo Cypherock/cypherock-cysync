@@ -259,8 +259,8 @@
         "error": "Unzureichende Mittel",
         "zeroAmount": "Betrag kann nicht null sein",
         "notOverDustThreshold": "Betrag ist geringer als dust limit",
-        "amountBelowXrpReserve": "",
-        "balanceBelowXrpReserve": ""
+        "amountBelowXrpReserve": "Empfängeradresse ist inaktiv. Senden Sie mindestens 10 XRP, um sie zu aktivieren.",
+        "balanceBelowXrpReserve": "Das Guthaben kann 10 XRP nicht unterschreiten"
       },
       "fees": {
         "title": "Gebühren",
@@ -272,13 +272,13 @@
         "error": "Maximale Zeichengrenze überschritten (120 Zeichen)"
       },
       "destinationTag": {
-        "label": "",
-        "placeholder": "",
-        "error": ""
+        "label": "Ziel-Tag",
+        "placeholder": "Optional",
+        "error": "Wert zu hoch"
       },
       "warning": "Die Transaktion könnte abgebrochen werden, wenn die Gebühren sehr niedrig sind",
       "feeError": "Transaktionen ohne Gebühr sind nicht erlaubt",
-      "feeBelowMinError": "",
+      "feeBelowMinError": "Transaktion mit einer Gebühr unterhalb des Minimums wird fehlschlagen",
       "notEnoughBalance": "Unzureichende Mittel für die Transaktion",
       "toggleText": {
         "replace": "Erlauben Sie, die Transaktion zu ersetzen (Replace by fees)",
@@ -295,7 +295,7 @@
       "network": "Netzwerkgebühr",
       "debit": "Gesamtbetrag",
       "remarks": "Persönliche Notizen",
-      "destinationTag": ""
+      "destinationTag": "Ziel-Tag"
     },
     "finalMessage": {
       "button": "Transaktionen prüfen",
@@ -362,7 +362,7 @@
         "optimism": "L2 "
       },
       "remarks": "Persönliche Notizen",
-      "destinationTag": ""
+      "destinationTag": "Ziel-Tag"
     },
     "noData": {
       "text": "Noch keine Transaktionen",
@@ -1037,18 +1037,18 @@
     "serverCoinErrors": {
       "default": {
         "DEF_0000": {
-          "heading": "Something went wrong",
-          "subtext": "Try again and if the problem persists, contact Cypherock support for assistance"
+          "heading": "Etwas ist schief gelaufen",
+          "subtext": "Versuchen Sie es erneut, und wenn das Problem weiterhin besteht, kontaktieren Sie den Cypherock-Support für Unterstützung."
         }
       },
       "xrp": {
         "XRP_0000": {
-          "heading": "Some unknown error occured",
-          "subtext": "Try again and if the problem persists, contact Cypherock support for assistance"
+          "heading": "Ein unbekannter Fehler ist aufgetreten",
+          "subtext": "Versuchen Sie es erneut, und wenn das Problem weiterhin besteht, wenden Sie sich an den Cypherock-Support, um Unterstützung zu erhalten"
         },
         "XRP_0001": {
-          "heading": "Transaction Failed",
-          "subtext": "Your transaction may have failed. Please wait a moment then check the transaction history before trying again and if the problem persists, contact Cypherock support for assistance"
+          "heading": "Transaktion fehlgeschlagen",
+          "subtext": "Ihre Transaktion ist möglicherweise fehlgeschlagen. Bitte warten Sie einen Moment, überprüfen Sie dann die Transaktionshistorie, bevor Sie es erneut versuchen. Wenn das Problem weiterhin besteht, wenden Sie sich an den Cypherock-Support, um Unterstützung zu erhalten"
         }
       }
     },
