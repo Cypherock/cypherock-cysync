@@ -210,18 +210,24 @@ export const BuySellProvider: FC<BuySellContextProviderProps> = ({
     setFiatDropdownList(fiatDropdown);
 
     const cryptoDropdown: DropDownItemProps[] = pairs.cryptoCurrencies.map(
-      c => ({
-        id: c.coin.id,
-        checkType: 'radio',
-        leftImage: (
-          <CoinIcon
-            assetId={c.coin.id}
-            parentAssetId={(c.coin as IEvmErc20Token).parentId ?? c.coin.id}
-          />
-        ),
-        text: c.coin.name,
-        shortForm: `(${c.coin.abbr})`,
-      }),
+      c => {
+        const parentId = (c.coin as IEvmErc20Token)?.parentId;
+        return {
+          id: c.coin.id,
+          checkType: 'radio',
+          leftImage: (
+            <CoinIcon
+              assetId={c.coin.id}
+              parentAssetId={(c.coin as IEvmErc20Token).parentId ?? c.coin.id}
+            />
+          ),
+          text: c.coin.name,
+          shortForm: `(${c.coin.abbr})`,
+          rightText: parentId
+            ? parentId[0].toUpperCase() + parentId.slice(1).toLowerCase()
+            : '',
+        };
+      },
     );
 
     setCryptoDropdownList(cryptoDropdown);
