@@ -1537,5 +1537,60 @@
         }
       }
     }
+  },
+  "onramp": {
+    "title": "Buy Crypto",
+    "buy": {
+      "title": "Buy",
+      "selectCurrency": {
+        "selectFiat": {
+          "label": "You will pay",
+          "placeholder": "Select Fiat Currency",
+          "searchText": "Search Fiat Currency"
+        },
+        "selectCrypto": {
+          "label": "You will get",
+          "placeholder": "Select Crypto Currency",
+          "searchText": "Search Crypto Currency"
+        },
+        "amount": {
+          "label": "Amount",
+          "tooltip": "Displayed prices include transaction fees"
+        }
+      },
+      "selectWallet": {
+        "title": "Buy",
+        "subtitle": "Choose a wallet and account to credit ${currencyCode}",
+        "selectWallet": {
+          "placeholder": "Choose a Wallet",
+          "searchText": "Search Wallet"
+        },
+        "selectAccount": {
+          "placeholder": "Select Account",
+          "searchText": "Search Account"
+        },
+        "selectPaymentMethod": {
+          "label": "Choose payment method",
+          "placeholder": "Payment Method",
+          "searchText": "Search Payment Method"
+        },
+        "messageBox": {
+          "danger": "No accounts found for"
+        }
+      },
+      "redirectOrder": {
+        "title": "Order",
+        "subtitle": "Complete the order from your browser",
+        "info": {
+          "accountFieldLabel": "Account",
+          "amountFieldLabel": "You will pay",
+          "conversionFieldLabel": "You will get"
+        },
+        "messageBox": {
+          "info": "Browser did not open?",
+          "action": "Click here"
+        }
+      }
+    }
   }
 }
