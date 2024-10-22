@@ -1,6 +1,7 @@
 import {
   DefaultCoinErrorType,
   ServerCoinErrorTypes,
+  XrpServerErrorType,
 } from '@cypherock/cysync-core-constants';
 
 import { createErrorHandlingDetailsGenerator } from './helpers';
@@ -16,6 +17,9 @@ const serverCoinErrorHandlingDetailsMap: Record<
   ErrorHandlingDetails | undefined
 > = {
   [DefaultCoinErrorType.DEFAULT]: generateErrorHandlingDetails.report(),
+  [XrpServerErrorType.UNKNOWN_ERROR]: generateErrorHandlingDetails.report(),
+  [XrpServerErrorType.BROADCAST_FAILED]:
+    generateErrorHandlingDetails.retryWithReport(),
 };
 
 export const getServerCoinErrorHandlingDetails = (

@@ -590,7 +590,10 @@ export interface LangErrors {
   databaseError: IErrorMsg;
   serverErrors: Record<ServerErrorType, IErrorMsg>;
   serverCoinErrors: Partial<
-    Record<CoinFamilyWithDefault, Record<ServerCoinErrorTypes, IErrorMsg>>
+    Record<
+      CoinFamilyWithDefault,
+      Partial<Record<ServerCoinErrorTypes, IErrorMsg>>
+    >
   >;
   default: string;
 }
