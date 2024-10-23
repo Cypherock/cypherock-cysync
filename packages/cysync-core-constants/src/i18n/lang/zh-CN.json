@@ -1020,6 +1020,44 @@
         "heading": "请连接到互联网以继续"
       }
     },
+    "binanceErrors": {
+      "BIN_0000": {
+        "heading": "System Error",
+        "subtext": "Try again and if the problem persists, contact Cypherock support for assistance"
+      },
+      "BIN_0001": {
+        "heading": "System Busy",
+        "subtext": "Try again and if the problem persists, contact Cypherock support for assistance"
+      },
+      "BIN_0002": {
+        "heading": "Invalid Parameters",
+        "subtext": "Contact Cypherock support for assistance"
+      },
+      "BIN_0003": {
+        "heading": "Missing Client ID",
+        "subtext": "Contact Cypherock support for assistance"
+      },
+      "BIN_0004": {
+        "heading": "Parameter Disabled",
+        "subtext": "Contact Cypherock support for assistance"
+      },
+      "BIN_0005": {
+        "heading": "Order Not Found",
+        "subtext": "Try again and if the problem persists, contact Cypherock support for assistance"
+      },
+      "BIN_0006": {
+        "heading": "Unsupported Order Type",
+        "subtext": "Contact Cypherock support for assistance"
+      },
+      "BIN_0007": {
+        "heading": "Parameter Not Found",
+        "subtext": "Contact Cypherock support for assistance"
+      },
+      "BIN_0008": {
+        "heading": "Payment Method Not Supported",
+        "subtext": "Contact Cypherock support for assistance"
+      }
+    },
     "default": "发生了一些内部错误"
   },
   "validation": {

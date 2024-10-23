@@ -1,4 +1,9 @@
-import { DeviceErrorCodes, IErrorMsg, ServerErrorType } from '../types';
+import {
+  BinanceErrorType,
+  DeviceErrorCodes,
+  IErrorMsg,
+  ServerErrorType,
+} from '../types';
 
 export interface LanguageStrings {
   x1Card: string;
@@ -579,6 +584,7 @@ interface LangErrors {
   deviceErrors: Record<DeviceErrorCodes, IErrorMsg>;
   databaseError: IErrorMsg;
   serverErrors: Record<ServerErrorType, IErrorMsg>;
+  binanceErrors: Record<BinanceErrorType, IErrorMsg>;
   default: string;
 }
 
