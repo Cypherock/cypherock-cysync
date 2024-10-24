@@ -812,6 +812,7 @@ interface LangOnramp {
       amount: {
         label: string;
         tooltip: string;
+        error: string;
       };
     };
     selectWallet: {

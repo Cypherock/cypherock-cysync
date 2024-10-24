@@ -296,7 +296,7 @@ export const BuySellProvider: FC<BuySellContextProviderProps> = ({
 
         if (result?.totalAmount) {
           if (result?.totalAmount === '0') {
-            setAmountError('Input amount is invalid');
+            setAmountError(lang.strings.onramp.buy.selectCurrency.amount.error);
             return false;
           }
           setAmountError(undefined);
