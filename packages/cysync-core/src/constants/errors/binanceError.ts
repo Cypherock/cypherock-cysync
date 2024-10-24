@@ -22,7 +22,7 @@ export const getBinanceErrorHandlingDetails = (
     [BinanceErrorType.SYSTEM_BUSY]:
       generateErrorHandlingDetails.retryWithReport(),
     [BinanceErrorType.ILLEGAL_PARAMETERS]:
-      generateErrorHandlingDetails.report(),
+      generateErrorHandlingDetails.retryWithReport(),
     [BinanceErrorType.MISSING_CLIENT_ID]: generateErrorHandlingDetails.report(),
     [BinanceErrorType.PARTNER_DISABLED]: generateErrorHandlingDetails.report(),
     [BinanceErrorType.ORDER_NOT_FOUND]:
