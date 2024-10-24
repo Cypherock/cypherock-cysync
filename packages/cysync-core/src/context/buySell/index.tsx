@@ -338,6 +338,11 @@ export const BuySellProvider: FC<BuySellContextProviderProps> = ({
     }
   }, [selectedCryptoCurrency, selectedFiatCurrency]);
 
+  useEffect(() => {
+    setFiatAmount('');
+    setCryptoAmount('');
+  }, [selectedCryptoCurrency, selectedFiatCurrency]);
+
   const getPaymentMethodListHandler = useCallback(async () => {
     if (!selectedFiatCurrencyRef.current || !selectedCryptoCurrencyRef.current)
       return false;
