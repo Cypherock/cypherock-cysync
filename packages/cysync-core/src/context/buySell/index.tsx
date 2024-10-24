@@ -136,7 +136,7 @@ export const BuySellProvider: FC<BuySellContextProviderProps> = ({
     useStateWithRef<string>('');
   const [cryptoAmount, setCryptoAmount, cryptoAmountRef] =
     useStateWithRef<string>('');
-  const [amountError] = useState<string | undefined>();
+  const [amountError, setAmountError] = useState<string | undefined>();
   const [isAmountDiabled, setIsAmountDisabled] = useState<boolean>(true);
 
   const paymentMethodsRef = useRef<IPaymentMethod[]>([]);
@@ -286,7 +286,6 @@ export const BuySellProvider: FC<BuySellContextProviderProps> = ({
         return false;
       if (!params.fiatAmount && !params.cryptoAmount) return false;
 
-      // TODO: Handle cases where the input amount is invalid
       try {
         const result = await buySellSupport.getEstimatedQuote({
           cryptoCurrency: selectedCryptoCurrencyRef.current.coin,
@@ -296,6 +295,11 @@ export const BuySellProvider: FC<BuySellContextProviderProps> = ({
         });
 
         if (result?.totalAmount) {
+          if (result?.totalAmount === '0') {
+            setAmountError('Input amount is invalid');
+            return false;
+          }
+          setAmountError(undefined);
           if (params.fiatAmount) {
             setCryptoAmount(result.totalAmount);
             setFiatAmount(params.fiatAmount);
