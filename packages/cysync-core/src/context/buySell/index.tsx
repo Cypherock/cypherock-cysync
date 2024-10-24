@@ -218,7 +218,7 @@ export const BuySellProvider: FC<BuySellContextProviderProps> = ({
 
       const cryptoDropdown: DropDownItemProps[] = pairs.cryptoCurrencies.map(
         c => {
-          const parentId = (c.coin as IEvmErc20Token)?.parentId;
+          const { parentId } = c.coin as IEvmErc20Token;
           return {
             id: c.coin.id,
             checkType: 'radio',
@@ -294,8 +294,8 @@ export const BuySellProvider: FC<BuySellContextProviderProps> = ({
           fiatAmount: params.fiatAmount,
         });
 
-        if (result?.totalAmount) {
-          if (result?.totalAmount === '0') {
+        if (result.totalAmount) {
+          if (result.totalAmount === '0') {
             setAmountError(lang.strings.onramp.buy.selectCurrency.amount.error);
             return false;
           }

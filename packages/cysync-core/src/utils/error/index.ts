@@ -13,6 +13,7 @@ import {
   getDeviceErrorHandlingDetails,
   getServerErrorHandlingDetails,
 } from '~/constants/errors';
+import { getBinanceErrorHandlingDetails } from '~/constants/errors/binanceError';
 import { ILangState } from '~/store';
 
 import {
@@ -21,7 +22,6 @@ import {
   IErrorActionButtonDetails,
   IParsedError,
 } from './types';
-import { getBinanceErrorHandlingDetails } from '~/constants/errors/binanceError';
 
 export * from './types';
 
