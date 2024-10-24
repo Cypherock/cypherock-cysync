@@ -46,6 +46,7 @@ export enum BuySellState {
 export interface BuySellContextInterface {
   init: () => Promise<boolean>;
   reset: () => Promise<void>;
+  onRetry: () => void;
   isInitializing: boolean;
   isInitialized: boolean;
   unhandledError?: any;
@@ -135,7 +136,7 @@ export const BuySellProvider: FC<BuySellContextProviderProps> = ({
     useStateWithRef<string>('');
   const [cryptoAmount, setCryptoAmount, cryptoAmountRef] =
     useStateWithRef<string>('');
-  const [amountError] = useState<string | undefined>();
+  const [amountError, setAmountError] = useState<string | undefined>();
   const [isAmountDiabled, setIsAmountDisabled] = useState<boolean>(true);
 
   const paymentMethodsRef = useRef<IPaymentMethod[]>([]);
@@ -194,44 +195,54 @@ export const BuySellProvider: FC<BuySellContextProviderProps> = ({
     setUnhandledError(e);
   }, []);
 
+  const onRetry = useCallback(() => {
+    setState(BuySellState.CURRENCY_SELECT);
+    resetUserInput();
+  }, []);
+
   const initHandler = useCallback(async () => {
-    const pairs = await buySellSupport.getTradingPairs();
-    tradingPairs.current = pairs;
+    try {
+      const pairs = await buySellSupport.getTradingPairs();
+      tradingPairs.current = pairs;
 
-    const fiatDropdown: DropDownItemProps[] = pairs.fiatCurrencies.map(f => ({
-      id: f.code,
-      checkType: 'radio',
-      leftImage: (
-        <Typography $fontSize={24}>{f.currency.countryFlag}</Typography>
-      ),
-      text: f.currency.name,
-      shortForm: `(${f.currency.code.toUpperCase()})`,
-    }));
-    setFiatDropdownList(fiatDropdown);
+      const fiatDropdown: DropDownItemProps[] = pairs.fiatCurrencies.map(f => ({
+        id: f.code,
+        checkType: 'radio',
+        leftImage: (
+          <Typography $fontSize={24}>{f.currency.countryFlag}</Typography>
+        ),
+        text: f.currency.name,
+        shortForm: `(${f.currency.code.toUpperCase()})`,
+      }));
+      setFiatDropdownList(fiatDropdown);
 
-    const cryptoDropdown: DropDownItemProps[] = pairs.cryptoCurrencies.map(
-      c => {
-        const parentId = (c.coin as IEvmErc20Token)?.parentId;
-        return {
-          id: c.coin.id,
-          checkType: 'radio',
-          leftImage: (
-            <CoinIcon
-              assetId={c.coin.id}
-              parentAssetId={(c.coin as IEvmErc20Token).parentId ?? c.coin.id}
-            />
-          ),
-          text: c.coin.name,
-          shortForm: `(${c.coin.abbr})`,
-          rightText: parentId
-            ? parentId[0].toUpperCase() + parentId.slice(1).toLowerCase()
-            : '',
-        };
-      },
-    );
+      const cryptoDropdown: DropDownItemProps[] = pairs.cryptoCurrencies.map(
+        c => {
+          const { parentId } = c.coin as IEvmErc20Token;
+          return {
+            id: c.coin.id,
+            checkType: 'radio',
+            leftImage: (
+              <CoinIcon
+                assetId={c.coin.id}
+                parentAssetId={(c.coin as IEvmErc20Token).parentId ?? c.coin.id}
+              />
+            ),
+            text: c.coin.name,
+            shortForm: `(${c.coin.abbr})`,
+            rightText: parentId
+              ? parentId[0].toUpperCase() + parentId.slice(1).toLowerCase()
+              : '',
+          };
+        },
+      );
 
-    setCryptoDropdownList(cryptoDropdown);
-    return true;
+      setCryptoDropdownList(cryptoDropdown);
+      return true;
+    } catch (err) {
+      onError(err);
+      return false;
+    }
   }, []);
 
   const handleFiatCurrencyChange = useCallback(
@@ -275,24 +286,33 @@ export const BuySellProvider: FC<BuySellContextProviderProps> = ({
         return false;
       if (!params.fiatAmount && !params.cryptoAmount) return false;
 
-      // TODO: Handle cases where the input amount is invalid
-      const result = await buySellSupport.getEstimatedQuote({
-        cryptoCurrency: selectedCryptoCurrencyRef.current.coin,
-        fiatCurrency: selectedFiatCurrencyRef.current,
-        cryptoAmount: params.cryptoAmount,
-        fiatAmount: params.fiatAmount,
-      });
+      try {
+        const result = await buySellSupport.getEstimatedQuote({
+          cryptoCurrency: selectedCryptoCurrencyRef.current.coin,
+          fiatCurrency: selectedFiatCurrencyRef.current,
+          cryptoAmount: params.cryptoAmount,
+          fiatAmount: params.fiatAmount,
+        });
 
-      if (result.totalAmount) {
-        if (params.fiatAmount) {
-          setCryptoAmount(result.totalAmount);
-          setFiatAmount(params.fiatAmount);
-        } else if (params.cryptoAmount) {
-          setFiatAmount(result.totalAmount);
-          setCryptoAmount(params.cryptoAmount);
+        if (result.totalAmount) {
+          if (result.totalAmount === '0') {
+            setAmountError(lang.strings.onramp.buy.selectCurrency.amount.error);
+            return false;
+          }
+          setAmountError(undefined);
+          if (params.fiatAmount) {
+            setCryptoAmount(result.totalAmount);
+            setFiatAmount(params.fiatAmount);
+          } else if (params.cryptoAmount) {
+            setFiatAmount(result.totalAmount);
+            setCryptoAmount(params.cryptoAmount);
+          }
         }
+        return true;
+      } catch (err: any) {
+        onError(err);
+        return false;
       }
-      return true;
     },
     [],
   );
@@ -318,28 +338,38 @@ export const BuySellProvider: FC<BuySellContextProviderProps> = ({
     }
   }, [selectedCryptoCurrency, selectedFiatCurrency]);
 
+  useEffect(() => {
+    setFiatAmount('');
+    setCryptoAmount('');
+  }, [selectedCryptoCurrency, selectedFiatCurrency]);
+
   const getPaymentMethodListHandler = useCallback(async () => {
     if (!selectedFiatCurrencyRef.current || !selectedCryptoCurrencyRef.current)
       return false;
 
-    const result = await buySellSupport.getPaymentMethods({
-      cryptoCurrency: selectedCryptoCurrencyRef.current.coin,
-      fiatCurrency: selectedFiatCurrencyRef.current,
-      cryptoAmount: cryptoAmountRef.current,
-      fiatAmount: fiatAmountRef.current,
-      language: lang.lang.split('-')[0],
-    });
+    try {
+      const result = await buySellSupport.getPaymentMethods({
+        cryptoCurrency: selectedCryptoCurrencyRef.current.coin,
+        fiatCurrency: selectedFiatCurrencyRef.current,
+        cryptoAmount: cryptoAmountRef.current,
+        fiatAmount: fiatAmountRef.current,
+        language: lang.lang.split('-')[0],
+      });
 
-    paymentMethodsRef.current = result;
+      paymentMethodsRef.current = result;
 
-    const dropdownList: DropDownItemProps[] = result.map(r => ({
-      id: `${r.payMethodCode}-${r.payMethodSubCode ?? ''}`,
-      checkType: 'radio',
-      text: r.paymentMethod,
-    }));
-    setPaymentMethodDropdownList(dropdownList);
+      const dropdownList: DropDownItemProps[] = result.map(r => ({
+        id: `${r.payMethodCode}-${r.payMethodSubCode ?? ''}`,
+        checkType: 'radio',
+        text: r.paymentMethod,
+      }));
+      setPaymentMethodDropdownList(dropdownList);
 
-    return true;
+      return true;
+    } catch (err: any) {
+      onError(err);
+      return false;
+    }
   }, [lang]);
 
   const [
@@ -373,18 +403,21 @@ export const BuySellProvider: FC<BuySellContextProviderProps> = ({
     )
       return false;
 
-    const result = await buySellSupport.preorder({
-      cryptoCurrency: selectedCryptoCurrencyRef.current.coin,
-      fiatCurrency: selectedFiatCurrencyRef.current,
-      fiatAmount: fiatAmountRef.current,
-      payMethodCode: selectedPaymentMethod.payMethodCode ?? '',
-      payMethodSubCode: selectedPaymentMethod.payMethodSubCode ?? '',
-      address: selectedAccount.xpubOrAddress,
-    });
-
-    setPreorderDetails(result);
-
-    return true;
+    try {
+      const result = await buySellSupport.preorder({
+        cryptoCurrency: selectedCryptoCurrencyRef.current.coin,
+        fiatCurrency: selectedFiatCurrencyRef.current,
+        fiatAmount: fiatAmountRef.current,
+        payMethodCode: selectedPaymentMethod.payMethodCode ?? '',
+        payMethodSubCode: selectedPaymentMethod.payMethodSubCode ?? '',
+        address: selectedAccount.xpubOrAddress,
+      });
+      setPreorderDetails(result);
+      return true;
+    } catch (err) {
+      onError(err);
+      return false;
+    }
   }, [selectedAccount, selectedPaymentMethod]);
 
   const [preorder, isPreordering, , resetPreorder] = useAsync(
@@ -444,9 +477,26 @@ export const BuySellProvider: FC<BuySellContextProviderProps> = ({
     resetPreorder,
   ]);
 
+  const resetUserInput = useCallback(() => {
+    setUnhandledError(undefined);
+    setSelectedWallet(undefined);
+    setSelectedAccount(undefined);
+    setSelectedFiatCurrency(undefined);
+    setSelectedCryptoCurrency(undefined);
+    setFiatAmount('');
+    setCryptoAmount('');
+    setPreorderDetails(undefined);
+    setSelectedPaymentMethod(undefined);
+
+    resetEstimation();
+    resetGetPaymentMethodList();
+    resetPreorder();
+  }, [resetEstimation, resetGetPaymentMethodList, resetPreorder]);
+
   const ctx = useMemoReturn<BuySellContextInterface>({
     init,
     reset,
+    onRetry,
     isInitializing,
     isInitialized,
     unhandledError,

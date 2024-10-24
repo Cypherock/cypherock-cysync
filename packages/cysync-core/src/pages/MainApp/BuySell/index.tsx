@@ -13,7 +13,8 @@ import { MainAppLayout } from '../Layout';
 
 export const BuySell = () => {
   const lang = useAppSelector(selectLanguage);
-  const { init, isInitializing, unhandledError, reset, state } = useBuySell();
+  const { init, isInitializing, unhandledError, reset, state, onRetry } =
+    useBuySell();
 
   useEffect(() => {
     reset();
@@ -43,7 +44,7 @@ export const BuySell = () => {
         <ErrorHandlerDialog
           error={unhandledError}
           onClose={reset}
-          onRetry={reset}
+          onRetry={onRetry}
           noDelay
         >
           {getMainContent()}
