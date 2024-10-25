@@ -7,13 +7,13 @@ export interface FeesHeaderProps {
   initialState: boolean;
   onChange: (isToggled: boolean) => void;
   title: string;
-  toggleNotAllowed?: boolean;
+  isToggleButtonHidden?: boolean;
 }
 export const FeesHeader: React.FC<FeesHeaderProps> = ({
   initialState,
   onChange,
   title,
-  toggleNotAllowed,
+  isToggleButtonHidden,
 }) => (
   <>
     <Divider variant="horizontal" />
@@ -22,11 +22,11 @@ export const FeesHeader: React.FC<FeesHeaderProps> = ({
       initialState={initialState}
       onChange={onChange}
       title={title}
-      toggleNotAllowed={toggleNotAllowed}
+      isToggleButtonHidden={isToggleButtonHidden}
     />
   </>
 );
 
 FeesHeader.defaultProps = {
-  toggleNotAllowed: false,
+  isToggleButtonHidden: false,
 };

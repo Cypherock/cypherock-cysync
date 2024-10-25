@@ -159,7 +159,7 @@ export const FeeSection: React.FC<FeeSectionProps> = ({ showErrors }) => {
         title={displayText.fees.title}
         initialState={isTextInput}
         onChange={setIsTextInput}
-        toggleNotAllowed={!isToggleAllowed(coinFamily)}
+        isToggleButtonHidden={!isToggleAllowed(coinFamily)}
       />
     );
   };
