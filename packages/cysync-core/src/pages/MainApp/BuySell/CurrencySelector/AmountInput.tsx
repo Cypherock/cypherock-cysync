@@ -47,6 +47,13 @@ export const AmountInput: React.FC<AmountInputProps> = ({
   const parsedError = () => (internalFiatAmount !== '' ? error : '');
 
   useEffect(() => {
+    if (!fiatAmount && !cryptoAmount) {
+      setInternalFiatAmount('');
+      setInternalCoinCryptoAmount('');
+    }
+  }, [fiatAmount, cryptoAmount]);
+
+  useEffect(() => {
     if (fiatAmount) {
       setInternalFiatAmount(fiatAmount);
     }

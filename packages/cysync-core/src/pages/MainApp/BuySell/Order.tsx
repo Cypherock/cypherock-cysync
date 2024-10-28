@@ -35,7 +35,7 @@ export const BuySellOrder = () => {
   }, [preorderDetails?.link]);
 
   if (isPreordering) {
-    <LoaderDialog />;
+    return <LoaderDialog />;
   }
 
   return (

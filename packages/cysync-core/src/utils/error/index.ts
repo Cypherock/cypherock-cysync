@@ -2,6 +2,8 @@ import {
   ServerErrorType,
   DeviceErrorCodes,
   ServerError,
+  BinanceServerError,
+  BinanceErrorType,
 } from '@cypherock/cysync-core-constants';
 
 import {
@@ -11,6 +13,7 @@ import {
   getDeviceErrorHandlingDetails,
   getServerErrorHandlingDetails,
 } from '~/constants/errors';
+import { getBinanceErrorHandlingDetails } from '~/constants/errors/binanceError';
 import { ILangState } from '~/store';
 
 import {
@@ -27,6 +30,14 @@ export * from './types';
  */
 const identifyServerErrors = (error: any) => {
   if (error?.isAxiosError) {
+    if (error.response?.data?.code) {
+      return new BinanceServerError(error.response.data.code, undefined, {
+        advanceText: error?.response?.data?.cysyncError,
+        responseBody: error?.response?.data,
+        url: error?.request?.url,
+        status: error?.response?.status,
+      });
+    }
     if (error.response) {
       return new ServerError(ServerErrorType.UNKNOWN_ERROR, undefined, {
         advanceText: error?.response?.data?.cysyncError,
@@ -35,10 +46,8 @@ const identifyServerErrors = (error: any) => {
         status: error?.response?.status,
       });
     }
-
     return new ServerError(ServerErrorType.CONNOT_CONNECT);
   }
-
   return undefined;
 };
 
@@ -86,6 +95,17 @@ export const getParsedError = (params: {
 
     advanceText = errorToParse?.details?.advanceText;
     details = getServerErrorHandlingDetails(lang, errorToParse.code) ?? details;
+  } else if (errorToParse?.isBinanceError && errorToParse.code) {
+    heading =
+      lang.strings.errors.binanceErrors[errorToParse.code as BinanceErrorType]
+        .heading ?? heading;
+    subtext =
+      lang.strings.errors.binanceErrors[errorToParse.code as BinanceErrorType]
+        .subtext;
+
+    advanceText = errorToParse?.details?.advanceText;
+    details =
+      getBinanceErrorHandlingDetails(lang, errorToParse.code) ?? details;
   }
 
   let primaryAction: IErrorActionButtonDetails = {

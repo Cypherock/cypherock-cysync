@@ -11,9 +11,9 @@ import {
   fiatCurrencyList,
   TokenTypes,
 } from '@cypherock/coins';
+import lodash from 'lodash';
 
 import { ITradingPairs } from './types';
-import lodash from 'lodash';
 
 import { binanceService } from '../../services';
 import {
@@ -91,7 +91,7 @@ export const getTradingPairs = async (): Promise<ITradingPairs> => {
       }
 
       const token =
-        network?.contractAddress &&
+        network.contractAddress &&
         tokenList[network.contractAddress.toLowerCase()];
 
       if (!token) continue;
