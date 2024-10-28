@@ -12,7 +12,7 @@ import {
   InputLabel,
   MessageBox,
 } from '@cypherock/cysync-ui';
-import React, { useCallback } from 'react';
+import React, { useCallback, useEffect } from 'react';
 
 import { openAddAccountDialog } from '~/actions';
 import { CoinIcon } from '~/components';
@@ -39,6 +39,7 @@ export const BuySellAccountSelector = () => {
     isLoadingPaymentMethodList,
     selectedCryptoCurrency,
     onNextState,
+    retryIndex,
   } = useBuySell();
 
   const handleWalletChangeProxy: typeof handleWalletChange = useCallback(
@@ -80,6 +81,12 @@ export const BuySellAccountSelector = () => {
       },
       [handlePaymentMethodChange],
     );
+
+  useEffect(() => {
+    handleWalletChange(undefined);
+    handlePaymentMethodChange(undefined);
+    setSelectedAccount(undefined);
+  }, [retryIndex]);
 
   return (
     <DialogBox width={500}>

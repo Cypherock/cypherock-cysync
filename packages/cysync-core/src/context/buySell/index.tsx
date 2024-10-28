@@ -80,6 +80,7 @@ export interface BuySellContextInterface {
   handlePaymentMethodChange: (id?: string) => void;
   preorderDetails?: IPreorderResult;
   isPreordering: boolean;
+  retryIndex: number;
 }
 
 export interface BuySellProps {
@@ -102,6 +103,7 @@ export const BuySellProvider: FC<BuySellContextProviderProps> = ({
   const tradingPairs = useRef<ITradingPairs | undefined>();
 
   const [unhandledError, setUnhandledError] = React.useState<any>();
+  const [retryIndex, setRetryIndex] = useState(0);
 
   const {
     selectedWallet,
@@ -195,10 +197,38 @@ export const BuySellProvider: FC<BuySellContextProviderProps> = ({
     setUnhandledError(e);
   }, []);
 
+  const onRetryFuncMap = useMemo<Record<number, (() => boolean) | undefined>>(
+    () => ({
+      [BuySellState.CURRENCY_SELECT]: () => {
+        setFiatAmount('');
+        setCryptoAmount('');
+        resetEstimation();
+        return true;
+      },
+      [BuySellState.ACCOUNT_SELECT]: () => true,
+      [BuySellState.ORDER]: () => {
+        setPreorderDetails(undefined);
+        resetPreorder();
+        setState(BuySellState.ACCOUNT_SELECT);
+        return true;
+      },
+    }),
+    [],
+  );
+
   const onRetry = useCallback(() => {
-    setState(BuySellState.CURRENCY_SELECT);
-    resetUserInput();
-  }, []);
+    const retryLogic = onRetryFuncMap[state];
+
+    if (retryLogic) {
+      setRetryIndex(v => v + 1);
+      retryLogic();
+    } else {
+      setRetryIndex(v => v + 1);
+      reset();
+    }
+
+    setUnhandledError(undefined);
+  }, [state, onRetryFuncMap]);
 
   const initHandler = useCallback(async () => {
     try {
@@ -477,26 +507,11 @@ export const BuySellProvider: FC<BuySellContextProviderProps> = ({
     resetPreorder,
   ]);
 
-  const resetUserInput = useCallback(() => {
-    setUnhandledError(undefined);
-    setSelectedWallet(undefined);
-    setSelectedAccount(undefined);
-    setSelectedFiatCurrency(undefined);
-    setSelectedCryptoCurrency(undefined);
-    setFiatAmount('');
-    setCryptoAmount('');
-    setPreorderDetails(undefined);
-    setSelectedPaymentMethod(undefined);
-
-    resetEstimation();
-    resetGetPaymentMethodList();
-    resetPreorder();
-  }, [resetEstimation, resetGetPaymentMethodList, resetPreorder]);
-
   const ctx = useMemoReturn<BuySellContextInterface>({
     init,
     reset,
     onRetry,
+    retryIndex,
     isInitializing,
     isInitialized,
     unhandledError,

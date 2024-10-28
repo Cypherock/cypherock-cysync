@@ -13,13 +13,24 @@ import { MainAppLayout } from '../Layout';
 
 export const BuySell = () => {
   const lang = useAppSelector(selectLanguage);
-  const { init, isInitializing, unhandledError, reset, state, onRetry } =
-    useBuySell();
+  const {
+    init,
+    isInitializing,
+    unhandledError,
+    reset,
+    state,
+    onRetry,
+    retryIndex,
+  } = useBuySell();
 
   useEffect(() => {
     reset();
     init();
   }, []);
+
+  useEffect(() => {
+    init();
+  }, [retryIndex]);
 
   const stateToComponent: Record<BuySellState, React.FC> = {
     [BuySellState.CURRENCY_SELECT]: BuySellCurrencySelector,

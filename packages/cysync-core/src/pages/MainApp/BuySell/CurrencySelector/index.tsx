@@ -13,7 +13,7 @@ import {
   QuestionMarkButton,
   Tooltip,
 } from '@cypherock/cysync-ui';
-import React, { useCallback } from 'react';
+import React, { useCallback, useEffect } from 'react';
 
 import { useBuySell } from '~/context';
 import { useAppSelector, selectLanguage } from '~/store';
@@ -38,6 +38,7 @@ export const BuySellCurrencySelector = () => {
     isAmountDiabled,
     onFiatAmountChange,
     onCryptoAmountChange,
+    retryIndex,
   } = useBuySell();
 
   const handleFiatChangeProxy: typeof handleFiatCurrencyChange = useCallback(
@@ -62,6 +63,11 @@ export const BuySellCurrencySelector = () => {
       },
       [handleCryptoCurrencyChange],
     );
+
+  useEffect(() => {
+    handleFiatCurrencyChange(undefined);
+    handleCryptoCurrencyChange(undefined);
+  }, [retryIndex]);
 
   return (
     <DialogBox width={500}>
