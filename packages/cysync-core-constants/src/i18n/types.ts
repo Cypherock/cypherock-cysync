@@ -3,6 +3,8 @@ import {
   DeviceErrorCodes,
   IErrorMsg,
   ServerErrorType,
+  ServerCoinErrorTypes,
+  CoinFamilyWithDefault,
 } from '../types';
 
 export interface LanguageStrings {
@@ -580,11 +582,14 @@ interface LangDeleteAccount {
   buttons: { yes: string; no: string };
 }
 
-interface LangErrors {
+export interface LangErrors {
   deviceErrors: Record<DeviceErrorCodes, IErrorMsg>;
   databaseError: IErrorMsg;
   serverErrors: Record<ServerErrorType, IErrorMsg>;
   binanceErrors: Record<BinanceErrorType, IErrorMsg>;
+  serverCoinErrors: Partial<
+    Record<CoinFamilyWithDefault, Record<ServerCoinErrorTypes, IErrorMsg>>
+  >;
   default: string;
 }
 
