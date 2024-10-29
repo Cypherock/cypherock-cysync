@@ -27,6 +27,13 @@ type AlignSelfType =
   | 'initial'
   | 'inherit';
 
+export type FlexWrapType =
+  | 'nowrap'
+  | 'wrap'
+  | 'wrap-reverse'
+  | 'initial'
+  | 'inherit';
+
 const alignSelfObj: Record<string, string> = {
   start: 'flex-start',
   end: 'flex-end',
@@ -36,6 +43,7 @@ export interface FlexProps {
   children?: ReactNode;
   wrapReverse?: MediaQuery<boolean>;
   noWrap?: MediaQuery<boolean>;
+  hideIfEmpty?: MediaQuery<boolean>;
   justify?: MediaQuery<JustifyType>;
   align?: MediaQuery<AlignType>;
   direction?: MediaQuery<DirectionType>;
@@ -44,6 +52,7 @@ export interface FlexProps {
   shrink?: MediaQuery<number>;
   $alignSelf?: MediaQuery<AlignSelfType>;
   $flex?: MediaQuery<number | string>;
+  $flexWrap?: MediaQuery<FlexWrapType>;
 }
 
 const flexProperty = css<FlexProps>`
@@ -85,13 +94,13 @@ const gap = css<FlexProps>`
 
 const grow = css<FlexProps>`
   ${props =>
-    props.grow &&
+    props.grow !== undefined &&
     generateCss(['flex-grow'], (item: number) => `${item}`, props.grow)}
 `;
 
 const shrink = css<FlexProps>`
   ${props =>
-    props.shrink &&
+    props.shrink !== undefined &&
     generateCss(['flex-shrink'], (item: number) => `${item}`, props.shrink)}
 `;
 
@@ -105,6 +114,22 @@ const alignSelf = css<FlexProps>`
     )}
 `;
 
+const flexWrap = css<FlexProps>`
+  ${props =>
+    props.$flexWrap &&
+    generateCss(['flex-wrap'], (item: string) => item, props.$flexWrap)}
+`;
+
+const emptyState = css<FlexProps>`
+  ${props =>
+    props.hideIfEmpty &&
+    `
+      &:empty {
+        display: none;
+      }
+    `}
+`;
+
 export const flex = css<FlexProps>`
   ${justifyContent}
   ${align}
@@ -114,4 +139,6 @@ export const flex = css<FlexProps>`
   ${shrink}
   ${alignSelf}
   ${flexProperty}
+  ${flexWrap}
+  ${emptyState}
 `;

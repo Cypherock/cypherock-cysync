@@ -7,22 +7,44 @@ import {
   DialogBoxHeader,
 } from './DialogBox';
 
-import { successIcon } from '../../../assets/images';
-import { Typography, LangDisplay, Image, Container, Button } from '../../atoms';
+import { goldTick, successIcon } from '../../../assets/images';
+import {
+  Typography,
+  LangDisplay,
+  Image,
+  Container,
+  Button,
+  TypographyProps,
+  CloseButton,
+} from '../../atoms';
+import { SpacingProps } from '../../utils';
 import { AlertBox } from '../AlertBox';
+import { ConfettiBlast } from '../ConfettiBlast';
 
 export interface SuccessDialogProps {
   title: string;
   subtext?: string;
   headerText?: string;
   buttonText?: string;
+  variant?: keyof typeof TickIconVariantMap;
   secondaryButtonText?: string;
   alertText?: string;
   handleClick?: () => void;
   handleSecButtonClick?: () => void;
   onClose?: () => void;
   dontCloseOnEscape?: boolean;
+  width?: number;
+  headerType?: TypographyProps['variant'];
+  bodyBottomPadding?: SpacingProps['pb'];
+  showCloseBtn?: boolean;
+  icon?: React.ReactNode;
+  withConfetti?: boolean;
 }
+
+const TickIconVariantMap = {
+  default: successIcon,
+  gold: goldTick,
+};
 
 export const SuccessDialog: React.FC<SuccessDialogProps> = ({
   title,
@@ -35,23 +57,41 @@ export const SuccessDialog: React.FC<SuccessDialogProps> = ({
   handleSecButtonClick,
   onClose,
   dontCloseOnEscape,
+  width,
+  headerType,
+  bodyBottomPadding,
+  showCloseBtn,
+  icon,
+  withConfetti,
+  variant = 'default',
 }) => (
   <DialogBox
-    width={500}
+    width={width}
     onClose={onClose}
     dontCloseOnEscape={dontCloseOnEscape}
   >
-    {headerText && (
-      <DialogBoxHeader height={56} width={500}>
-        <Typography variant="fineprint" color="muted">
-          <LangDisplay text={headerText} />
-        </Typography>
+    {withConfetti && <ConfettiBlast />}
+    {(headerText || showCloseBtn) && (
+      <DialogBoxHeader
+        height={56}
+        width={width}
+        justify={showCloseBtn ? 'flex-end' : undefined}
+      >
+        {headerText && (
+          <Typography variant="fineprint" color="muted">
+            <LangDisplay text={headerText} />
+          </Typography>
+        )}
+
+        {onClose && showCloseBtn && (
+          <CloseButton width={24} onClick={onClose} />
+        )}
       </DialogBoxHeader>
     )}
-    <DialogBoxBody>
-      <Image src={successIcon} alt="Success Icon" />
+    <DialogBoxBody pb={bodyBottomPadding}>
+      {icon ?? <Image src={TickIconVariantMap[variant]} alt="Success Icon" />}
       <Container display="flex" direction="column" gap={4}>
-        <Typography variant="h4" $textAlign="center">
+        <Typography variant={headerType} $textAlign="center">
           <LangDisplay text={title} />
         </Typography>
         {subtext && (
@@ -88,4 +128,11 @@ SuccessDialog.defaultProps = {
   headerText: undefined,
   onClose: undefined,
   dontCloseOnEscape: undefined,
+  width: 500,
+  headerType: 'h4',
+  bodyBottomPadding: undefined,
+  showCloseBtn: false,
+  icon: undefined,
+  withConfetti: false,
+  variant: 'default',
 };

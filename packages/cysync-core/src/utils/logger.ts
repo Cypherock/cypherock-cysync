@@ -1,3 +1,4 @@
+import { updateLogger as updateLoggerAppSupportInheritance } from '@cypherock/app-support-inheritance';
 import { updateLogger as updateLoggerCoinSupportBtc } from '@cypherock/coin-support-btc';
 import { updateLogger as updateLoggerCoinSupportEvm } from '@cypherock/coin-support-evm';
 import { updateLogger as updateLoggerCoinSupportNear } from '@cypherock/coin-support-near';
@@ -39,6 +40,7 @@ export const updateLogger = (createLogger: LogCreator) => {
   updateLoggerCoinSupportEvm(createLogger);
   updateLoggerCoinSupportSolana(createLogger);
   updateLoggerCoinSupportNear(createLogger);
+  updateLoggerAppSupportInheritance(createLogger);
 };
 
 export default logger;

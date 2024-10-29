@@ -1,5 +1,6 @@
-import { IPreparedBtcTransaction } from '@cypherock/coin-support-btc';
 import { getDefaultUnit, getParsedAmount } from '@cypherock/coin-support-utils';
+import { IPreparedBtcTransaction } from '@cypherock/coin-support-btc';
+import { IPreparedXrpTransaction } from '@cypherock/coin-support-xrp';
 import {
   BlockchainIcon,
   Button,
@@ -42,13 +43,16 @@ export const Recipient: React.FC = () => {
   const getBalanceToDisplay = () => {
     const account = selectedAccount;
     if (!account) return `0`;
+
+    const balance = account.spendableBalance ?? account.balance;
+
     const { amount: _amount, unit } = getParsedAmount({
       coinId: account.parentAssetId,
       assetId: account.assetId,
       unitAbbr:
         account.unit ??
         getDefaultUnit(account.parentAssetId, account.assetId).abbr,
-      amount: account.balance,
+      amount: balance,
     });
     return `${_amount} ${unit.abbr}`;
   };
@@ -70,7 +74,15 @@ export const Recipient: React.FC = () => {
         transaction.validation.ownOutputAddressNotAllowed.every(
           output => !output,
         ) &&
-        !transaction.validation.zeroAmountNotAllowed,
+        !transaction.validation.zeroAmountNotAllowed &&
+        !(transaction.validation as IPreparedXrpTransaction['validation'])
+          .isBalanceBelowXrpReserve &&
+        !(transaction.validation as IPreparedXrpTransaction['validation'])
+          .isAmountBelowXrpReserve &&
+        !(transaction.validation as IPreparedXrpTransaction['validation'])
+          .isFeeBelowMin &&
+        !(transaction.validation as IPreparedXrpTransaction['validation'])
+          .isInvalidDestinationTag,
     );
   }, [transaction]);
 
@@ -110,7 +122,7 @@ export const Recipient: React.FC = () => {
           }
           pt={2}
           text={displayText.infoBox}
-          altText={getBalanceToDisplay()}
+          altText={`~${getBalanceToDisplay()}`}
           textVariant="span"
           fontSize={12}
           disabledInnerFlex

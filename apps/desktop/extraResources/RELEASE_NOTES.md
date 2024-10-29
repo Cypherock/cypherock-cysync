@@ -1,3 +1,32 @@
+# v2.0.13
+
+### 🚀 Features
+
+- Added support for new EVM tokens
+
+### 🐛 Bugfixes
+
+- Fixed syncing issue with unsupported tokens.
+- Added XRP base reserve API implementation
+
+# v2.0.12
+
+### 🚀 Features
+
+- **Cypherock Cover Support**
+  - **PIN Recovery**: Securely back up your PIN so you never have to worry about losing it.
+  - **Estate Recovery**: Seamless, non-custodial, and non-KYC recovery service for your crypto assets.
+
+### 🐛 Bugfixes
+
+- Addressed various minor bugs to enhance app stability and performance.
+
+# v2.0.11
+
+### 🚀 Features
+
+- **XRP Network Support**: Now you can seamlessly manage your XRP assets directly through the app.
+
 # v2.0.10
 
 ### 🚀 Features

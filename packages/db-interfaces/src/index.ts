@@ -11,6 +11,7 @@ import type {
   ITransactionNotificationClickRepository,
   ITransactionNotificationReadRepository,
   IMigrationRepository,
+  IInheritancePlanRepository,
 } from './entities';
 
 export interface IDatabase {
@@ -26,6 +27,7 @@ export interface IDatabase {
   priceHistory: IPriceHistoryRepository;
   priceInfo: IPriceInfoRepository;
   migration: IMigrationRepository;
+  inheritancePlan: IInheritancePlanRepository;
   changeEncryptionKey(encryptionKey?: string): Promise<void>;
   createOrFetchRepository<T extends IEntity>(
     name: string,

@@ -23,7 +23,15 @@ export type BgColor =
   | 'warning'
   | 'calendar'
   | 'container'
-  | 'error';
+  | 'slate'
+  | 'slateDark'
+  | 'headlineLight'
+  | 'error'
+  | 'disabled'
+  | 'message'
+  | 'videoError'
+  | 'featureBanner';
+
 export interface BgColorProps {
   $bgColor?: BgColor;
 }
@@ -65,11 +73,22 @@ export const bgColor = css<BgColorProps>`
     css`
       background: ${({ theme }) => theme.palette.background.separatorSecondary};
     `}
+    ${props =>
+    props.$bgColor === 'headlineLight' &&
+    css`
+      background: ${({ theme }) => theme.palette.background.headlineLight};
+    `}
+    ${props =>
+    props.$bgColor === 'slate' &&
+    css`
+      background: ${({ theme }) => theme.palette.background.slate};
+    `}
   ${props =>
     props.$bgColor === 'muted' &&
     css`
       background: ${({ theme }) => theme.palette.text.muted};
     `}
+   
   ${props =>
     props.$bgColor === 'golden' &&
     css`
@@ -132,9 +151,34 @@ ${props =>
     css`
       background: ${({ theme }) => theme.palette.background.calendar};
     `}
+     ${props =>
+    props.$bgColor === 'slateDark' &&
+    css`
+      background: ${({ theme }) => theme.palette.background.slateDark};
+    `}
     ${props =>
     props.$bgColor === 'error' &&
     css`
       background: ${({ theme }) => theme.palette.background.error};
+    `}
+    ${props =>
+    props.$bgColor === 'disabled' &&
+    css`
+      background: ${({ theme }) => theme.palette.background.disabled};
+    `}
+    ${props =>
+    props.$bgColor === 'message' &&
+    css`
+      background: ${({ theme }) => theme.palette.background.message};
+    `}
+    ${props =>
+    props.$bgColor === 'videoError' &&
+    css`
+      background: ${({ theme }) => theme.palette.background.videoError};
+    `}
+    ${props =>
+    props.$bgColor === 'featureBanner' &&
+    css`
+      background: ${({ theme }) => theme.palette.background.featureBanner};
     `}
 `;

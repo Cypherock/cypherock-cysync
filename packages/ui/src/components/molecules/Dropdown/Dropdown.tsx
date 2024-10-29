@@ -22,7 +22,7 @@ import {
   triangleGreyIcon,
   triangleInverseIcon,
 } from '../../../assets';
-import { Flex, Image, Input, LangDisplay, Typography } from '../../atoms';
+import { Flex, Image, LangDisplay, Typography } from '../../atoms';
 import {
   handleClickOutside,
   handleEscapeKey,
@@ -30,6 +30,7 @@ import {
   searchInItems,
 } from '../../utils';
 import { DropDownItem, DropDownItemProps } from '../DropDownItem';
+import { Input } from '../Input';
 
 interface DropdownProps {
   items: DropDownItemProps[];

@@ -1,5 +1,63 @@
 # @cypherock/coin-support-near
 
+## 0.0.12
+
+### Patch Changes
+
+- Updated dependencies [[`1820213c`](https://github.com/Cypherock/cypherock-cysync/commit/1820213c8c9f6d173b3e245758704d10d62ccf1a), [`b9857909`](https://github.com/Cypherock/cypherock-cysync/commit/b985790932df37f970b2568f9bea9115a44aa742)]:
+  - @cypherock/coins@0.1.0
+  - @cypherock/db-interfaces@0.1.0
+  - @cypherock/coin-support-utils@0.0.12
+  - @cypherock/coin-support-interfaces@0.0.8
+  - @cypherock/cysync-interfaces@0.0.7
+  - @cypherock/cysync-utils@0.0.8
+
+## 0.0.12-pre.0
+
+### Patch Changes
+
+- Updated dependencies [[`1820213c`](https://github.com/Cypherock/cypherock-cysync/commit/1820213c8c9f6d173b3e245758704d10d62ccf1a), [`b9857909`](https://github.com/Cypherock/cypherock-cysync/commit/b985790932df37f970b2568f9bea9115a44aa742)]:
+  - @cypherock/coins@0.1.0-pre.0
+  - @cypherock/db-interfaces@0.1.0-pre.0
+  - @cypherock/coin-support-utils@0.0.12-pre.0
+  - @cypherock/coin-support-interfaces@0.0.8-pre.0
+  - @cypherock/cysync-interfaces@0.0.7-pre.0
+  - @cypherock/cysync-utils@0.0.8-pre.0
+
+## 0.0.11
+
+### Patch Changes
+
+- [#636](https://github.com/Cypherock/cypherock-cysync/pull/636) [`f4ece7ce`](https://github.com/Cypherock/cypherock-cysync/commit/f4ece7ceaf156bf571387576a72f93f28a3a19e3) Thanks [@TejasvOnly](https://github.com/TejasvOnly)! - Added Inheritance feature
+
+- Updated dependencies [[`f4ece7ce`](https://github.com/Cypherock/cypherock-cysync/commit/f4ece7ceaf156bf571387576a72f93f28a3a19e3)]:
+  - @cypherock/coin-support-interfaces@0.0.7
+  - @cypherock/coin-support-utils@0.0.11
+  - @cypherock/db-interfaces@0.0.5
+  - @cypherock/cysync-interfaces@0.0.6
+  - @cypherock/cysync-utils@0.0.7
+
+## 0.0.11-pre.0
+
+### Patch Changes
+
+- [#636](https://github.com/Cypherock/cypherock-cysync/pull/636) [`f4ece7ce`](https://github.com/Cypherock/cypherock-cysync/commit/f4ece7ceaf156bf571387576a72f93f28a3a19e3) Thanks [@TejasvOnly](https://github.com/TejasvOnly)! - Added Inheritance feature
+
+- Updated dependencies [[`f4ece7ce`](https://github.com/Cypherock/cypherock-cysync/commit/f4ece7ceaf156bf571387576a72f93f28a3a19e3)]:
+  - @cypherock/coin-support-interfaces@0.0.7-pre.0
+  - @cypherock/coin-support-utils@0.0.11-pre.0
+  - @cypherock/db-interfaces@0.0.5-pre.0
+  - @cypherock/cysync-interfaces@0.0.6-pre.0
+  - @cypherock/cysync-utils@0.0.7-pre.0
+
+## 0.0.10
+
+### Patch Changes
+
+- Updated dependencies [[`8286aa73`](https://github.com/Cypherock/cypherock-cysync/commit/8286aa7344346bcc04d5cb09125bac9aac1685cc)]:
+  - @cypherock/coins@0.0.9
+  - @cypherock/coin-support-utils@0.0.10
+
 ## 0.0.9
 
 ### Patch Changes

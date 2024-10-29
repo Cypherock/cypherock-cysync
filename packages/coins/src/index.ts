@@ -4,5 +4,6 @@ export * from './evm';
 export * from './near';
 export * from './solana';
 export * from './tron';
+export * from './xrp';
 export * from './types';
 export * from './currencies';

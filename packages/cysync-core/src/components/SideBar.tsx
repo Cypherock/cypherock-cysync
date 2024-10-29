@@ -3,6 +3,8 @@ import {
   ArrowReceivedIcon,
   ArrowSentIcon,
   Button,
+  Chip,
+  CypherockCoverIcon,
   DropDownItemProps,
   Flex,
   FloatingMenu,
@@ -15,6 +17,7 @@ import {
   SupportIcon,
   Synchronizing,
   TutorialIcon,
+  Typography,
   WalletConnectWhiteIcon,
   WalletIcon,
   DollarIcon,
@@ -171,6 +174,21 @@ const SideBarComponent: FC<{ collapseWallets?: boolean }> = () => {
             Icon={DollarIcon}
             state={wallets.length === 0 ? State.disabled : undefined}
             onClick={() => navigate('buysell')}
+          />
+          <SideBarItem
+            text={strings.cypherockCover}
+            Icon={CypherockCoverIcon}
+            state={
+              wallets.length === 0 ? State.disabled : getState('inheritance')
+            }
+            extraRight={
+              <Chip $gradient>
+                <Typography $fontSize={10} $fontWeight="semibold" color="black">
+                  {strings.new}
+                </Typography>
+              </Chip>
+            }
+            onClick={() => navigate('inheritance')}
           />
         </Flex>
         <Flex direction="column" gap={0}>

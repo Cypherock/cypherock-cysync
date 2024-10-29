@@ -1,5 +1,4 @@
 import {
-  Bullet,
   Button,
   CheckBox,
   Container,
@@ -7,12 +6,11 @@ import {
   DialogBoxBody,
   DialogBoxFooter,
   Flex,
-  Image,
   LangDisplay,
   LogoOutlinedAsideImage,
-  openExternalLink,
   TermsOfUseGraphics,
   Typography,
+  ExternalLink,
 } from '@cypherock/cysync-ui';
 import React, {
   Dispatch,
@@ -29,42 +27,6 @@ import { selectLanguage, useAppSelector } from '~/store';
 import { keyValueStore } from '~/utils';
 
 import { OnboardingPageLayout } from './OnboardingPageLayout';
-
-const ExternalLinkItem: React.FC<{
-  text: string;
-  href: string;
-}> = ({ text, href }) => (
-  <Container
-    width="full"
-    $borderRadius={8}
-    px={3}
-    py="10"
-    $bgColor="input"
-    $borderWidth={1}
-  >
-    <Flex justify="space-between" align="center" width="full">
-      <Flex align="center" gap={16}>
-        <Bullet size="sm" />
-        <Typography variant="h6" color="heading">
-          <LangDisplay text={text} />
-        </Typography>
-      </Flex>
-      <a
-        href={href}
-        target="_blank"
-        rel="noopener noreferrer"
-        style={{ textDecoration: 'none' }}
-      >
-        <Image
-          src={openExternalLink}
-          $width={12}
-          $height={12}
-          alt="termsLink"
-        />
-      </a>
-    </Flex>
-  </Container>
-);
 
 const TermsDialogBox: FC<{
   isChecked: boolean;
@@ -105,11 +67,11 @@ const TermsDialogBox: FC<{
           </Typography>
         </Container>
         <Flex width="full" direction="column" gap={16}>
-          <ExternalLinkItem
+          <ExternalLink
             href={constants.termsOfUseLink}
             text={bulletPoints.terms}
           />
-          <ExternalLinkItem
+          <ExternalLink
             href={constants.privacyPolicyLink}
             text={bulletPoints.privacyPolicy}
           />

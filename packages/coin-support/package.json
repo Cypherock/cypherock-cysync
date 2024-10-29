@@ -1,6 +1,6 @@
 {
   "name": "@cypherock/coin-support",
-  "version": "0.0.9",
+  "version": "0.0.12",
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
   "types": "dist/esm/index.d.ts",
@@ -44,6 +44,7 @@
     "@cypherock/coin-support-near": "workspace:^",
     "@cypherock/coin-support-solana": "workspace:^",
     "@cypherock/coin-support-tron": "workspace:^",
+    "@cypherock/coin-support-xrp": "workspace:^",
     "@cypherock/coins": "workspace:^",
     "@cypherock/cysync-utils": "workspace:^"
   },

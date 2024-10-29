@@ -27,6 +27,7 @@ export const MessageBox: FC<{
   altText?: string;
   textColor?: TypographyColor;
   type: MessageBoxType;
+  icon?: React.ReactNode;
   rightImage?: React.ReactNode;
   variables?: any;
   showIcon?: boolean;
@@ -40,6 +41,7 @@ export const MessageBox: FC<{
   rightImage,
   variables,
   showIcon,
+  icon,
   showQuestionmark,
   actionButton,
 }) => {
@@ -63,9 +65,9 @@ export const MessageBox: FC<{
       $alignSelf="stretch"
     >
       {showIcon && (
-        <div>
-          <InfoItalicsIcon width={16} fill={iconFillMap[type]} />
-        </div>
+        <Container>
+          {icon ?? <InfoItalicsIcon width={16} fill={iconFillMap[type]} />}
+        </Container>
       )}
       <Flex direction="column" $flex={1}>
         <Typography variant="fineprint" color={textColor ?? 'muted'}>
@@ -95,4 +97,5 @@ MessageBox.defaultProps = {
   showIcon: true,
   showQuestionmark: false,
   actionButton: undefined,
+  icon: undefined,
 };

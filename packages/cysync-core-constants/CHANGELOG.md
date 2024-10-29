@@ -1,5 +1,58 @@
 # @cypherock/cysync-core-constants
 
+## 0.2.0
+
+### Minor Changes
+
+- [#644](https://github.com/Cypherock/cypherock-cysync/pull/644) [`b9857909`](https://github.com/Cypherock/cypherock-cysync/commit/b985790932df37f970b2568f9bea9115a44aa742) Thanks [@muzaffarbhat07](https://github.com/muzaffarbhat07)! - fixed xrp reserve balance issue and added spendable balance to account
+
+### Patch Changes
+
+- Updated dependencies [[`1820213c`](https://github.com/Cypherock/cypherock-cysync/commit/1820213c8c9f6d173b3e245758704d10d62ccf1a), [`b9857909`](https://github.com/Cypherock/cypherock-cysync/commit/b985790932df37f970b2568f9bea9115a44aa742)]:
+  - @cypherock/coins@0.1.0
+
+## 0.2.0-pre.0
+
+### Minor Changes
+
+- [#644](https://github.com/Cypherock/cypherock-cysync/pull/644) [`b9857909`](https://github.com/Cypherock/cypherock-cysync/commit/b985790932df37f970b2568f9bea9115a44aa742) Thanks [@muzaffarbhat07](https://github.com/muzaffarbhat07)! - fixed xrp reserve balance issue and added spendable balance to account
+
+### Patch Changes
+
+- Updated dependencies [[`1820213c`](https://github.com/Cypherock/cypherock-cysync/commit/1820213c8c9f6d173b3e245758704d10d62ccf1a), [`b9857909`](https://github.com/Cypherock/cypherock-cysync/commit/b985790932df37f970b2568f9bea9115a44aa742)]:
+  - @cypherock/coins@0.1.0-pre.0
+
+## 0.1.0
+
+### Minor Changes
+
+- [#597](https://github.com/Cypherock/cypherock-cysync/pull/597) [`65ce27ee`](https://github.com/Cypherock/cypherock-cysync/commit/65ce27ee7ebb9c48222772dd90d05a9eda867542) Thanks [@TejasvOnly](https://github.com/TejasvOnly)! - added language translations for xrp strings
+
+### Patch Changes
+
+- [#636](https://github.com/Cypherock/cypherock-cysync/pull/636) [`f4ece7ce`](https://github.com/Cypherock/cypherock-cysync/commit/f4ece7ceaf156bf571387576a72f93f28a3a19e3) Thanks [@TejasvOnly](https://github.com/TejasvOnly)! - Added Inheritance feature
+
+## 0.1.0-pre.0
+
+### Minor Changes
+
+- [#597](https://github.com/Cypherock/cypherock-cysync/pull/597) [`65ce27ee`](https://github.com/Cypherock/cypherock-cysync/commit/65ce27ee7ebb9c48222772dd90d05a9eda867542) Thanks [@TejasvOnly](https://github.com/TejasvOnly)! - added language translations for xrp strings
+
+### Patch Changes
+
+- [#636](https://github.com/Cypherock/cypherock-cysync/pull/636) [`f4ece7ce`](https://github.com/Cypherock/cypherock-cysync/commit/f4ece7ceaf156bf571387576a72f93f28a3a19e3) Thanks [@TejasvOnly](https://github.com/TejasvOnly)! - Added Inheritance feature
+
+## 0.0.4
+
+### Patch Changes
+
+- [#563](https://github.com/Cypherock/cypherock-cysync/pull/563) [`8286aa73`](https://github.com/Cypherock/cypherock-cysync/commit/8286aa7344346bcc04d5cb09125bac9aac1685cc) Thanks [@muzaffarbhat07](https://github.com/muzaffarbhat07)! - Added XRP support
+
+- [#582](https://github.com/Cypherock/cypherock-cysync/pull/582) [`fd260635`](https://github.com/Cypherock/cypherock-cysync/commit/fd260635181e28b8b1ef26205e86bbd53396066e) Thanks [@muzaffarbhat07](https://github.com/muzaffarbhat07)! - server coin errors handling base code
+
+- Updated dependencies [[`8286aa73`](https://github.com/Cypherock/cypherock-cysync/commit/8286aa7344346bcc04d5cb09125bac9aac1685cc)]:
+  - @cypherock/coins@0.0.9
+
 ## 0.0.3
 
 ### Patch Changes

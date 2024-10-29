@@ -27,6 +27,8 @@ export interface FontProps {
   $fontSize?: MediaQuery<number>;
   $fontFamily?: MediaQuery<FontFamily>;
   $wordBreak?: MediaQuery<WordBreak>;
+  $letterSpacing?: string | number;
+  $lineHeight?: MediaQuery<number | string>;
 }
 
 export const fontWeightObj: Record<string, string> = {
@@ -69,4 +71,21 @@ export const font = css<FontProps>`
   ${props =>
     props.$wordBreak &&
     generateCss<WordBreak>(['word-break'], val => val, props.$wordBreak)};
+
+  ${props =>
+    props.$letterSpacing !== undefined &&
+    css`
+      letter-spacing: ${typeof props.$letterSpacing === 'number'
+        ? `${props.$letterSpacing}em`
+        : props.$letterSpacing};
+    `}
+
+  ${props =>
+    props.$lineHeight &&
+    generateCss(
+      ['line-height'],
+      (item: number | string) =>
+        typeof item === 'number' ? `${item}px` : item,
+      props.$lineHeight,
+    )}
 `;

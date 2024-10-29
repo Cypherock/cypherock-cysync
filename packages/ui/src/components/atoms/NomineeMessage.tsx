@@ -1,0 +1,91 @@
+import React, { FC } from 'react';
+import styled from 'styled-components';
+
+import { Flex } from './Flex';
+import { Typography, TypographyColor } from './Typography';
+
+import { width, WidthProps } from '../utils';
+
+export type NomineeMessageVariant = 'danger';
+
+export interface NomineeMessageProps extends WidthProps {
+  label: string;
+  value?: string;
+  leading?: React.ReactNode;
+  trailing?: React.ReactNode;
+  variant?: NomineeMessageVariant;
+  withBackground?: boolean;
+  isHeader?: boolean;
+  centerText?: boolean;
+}
+
+const StyledNomineeMessage = styled.div<
+  { $withBackground: boolean } & WidthProps
+>`
+  display: flex;
+  min-width: 460px;
+  padding: 8px 16px;
+  justify-content: space-between;
+  align-items: flex-start;
+  background: ${({ $withBackground, theme }) =>
+    $withBackground ? theme.palette.background.slate : 'none'};
+  border-radius: 8px;
+  ${width}
+`;
+
+const variantColorMap: Record<NomineeMessageVariant, TypographyColor> = {
+  danger: 'error',
+};
+
+export const NomineeMessage: FC<NomineeMessageProps> = ({
+  label,
+  value,
+  leading,
+  trailing,
+  variant,
+  withBackground,
+  isHeader: withHeaderFont,
+  centerText,
+  ...props
+}) => (
+  <StyledNomineeMessage $withBackground={withBackground ?? false} {...props}>
+    <Flex
+      gap={16}
+      align="center"
+      {...(centerText ? { $flex: 1, width: '100%', justify: 'center' } : {})}
+    >
+      {leading}
+      <Typography
+        color={(variant && variantColorMap[variant]) ?? 'muted'}
+        {...(withHeaderFont
+          ? { $fontSize: 18, $fontWeight: 'medium', $letterSpacing: '0.9px' }
+          : {})}
+        $whiteSpace="nowrap"
+      >
+        {label}
+      </Typography>
+    </Flex>
+    {!centerText && (
+      <Flex gap={16} align="center" $maxWidth="70%">
+        <Typography
+          color={(variant && variantColorMap[variant]) ?? 'white'}
+          $whiteSpace="pre-wrap"
+          $wordBreak="break-all"
+        >
+          {value}
+        </Typography>
+        {trailing}
+      </Flex>
+    )}
+  </StyledNomineeMessage>
+);
+
+NomineeMessage.defaultProps = {
+  value: undefined,
+  leading: undefined,
+  trailing: undefined,
+  variant: undefined,
+  withBackground: undefined,
+  isHeader: undefined,
+  centerText: false,
+};

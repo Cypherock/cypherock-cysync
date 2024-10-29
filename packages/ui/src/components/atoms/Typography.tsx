@@ -33,7 +33,7 @@ interface HeadingProps
   $textAlign?: 'center' | 'left' | 'right';
   $letterSpacing?: string | number;
   $userSelect?: 'all' | 'auto' | 'none' | 'text';
-  $whiteSpace?: 'normal' | 'nowrap' | 'pre-wrap';
+  $whiteSpace?: 'normal' | 'nowrap' | 'pre-wrap' | 'pre-line';
   $textOverflow?: 'clip' | 'ellipsis' | 'fade';
   $filter?: string;
 }
@@ -86,7 +86,7 @@ const baseStyle = css<TypographyProps>`
         ? `${props.$letterSpacing}em`
         : props.$letterSpacing};
     `}
-    
+
   ${props =>
     props.$whiteSpace !== undefined &&
     css`
@@ -119,7 +119,6 @@ const baseStyle = css<TypographyProps>`
   ${position};
   ${flex};
   ${display};
-  ${flex};
 `;
 
 const HeadingOneStyle = styled.h1<HeadingProps>`

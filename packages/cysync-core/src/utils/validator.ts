@@ -1,15 +1,25 @@
-import { z } from 'zod';
+import { z, ZodSchema } from 'zod';
 
 import { ILangState } from '..';
 
-export const validateEmail = (email: string, lang: ILangState) => {
-  const EmailSchema = z
+export const getEmailValidationSchema = (
+  lang: ILangState,
+  isRequired = true,
+) => {
+  let schema: ZodSchema = z
     .string()
-    .min(1, { message: lang.strings.validation.generic.required })
+    .min(1, {
+      message: lang.strings.validation.generic.required,
+    })
     .email({ message: lang.strings.validation.email.invalid });
 
-  return EmailSchema.safeParse(email);
+  if (!isRequired) schema = z.union([z.literal(''), schema.optional()]);
+
+  return schema;
 };
+
+export const validateEmail = (email: string, lang: ILangState) =>
+  getEmailValidationSchema(lang).safeParse(email);
 
 const passwordPrefixed = (prefix: string, lang: ILangState) =>
   z
@@ -55,4 +65,14 @@ export const validatePassword = (
       path: ['confirm'],
     });
   return PasswordSchema.safeParse(passwordObj);
+};
+
+export const validateInputLanguage = (input: string, lang: ILangState) => {
+  const asciiCharsRegex = /^[\x20-\x7E\n\r]*$/;
+
+  const englishAsciiSchema = z
+    .string()
+    .regex(asciiCharsRegex, lang.strings.validation.generic.englishOnly);
+
+  return englishAsciiSchema.safeParse(input);
 };

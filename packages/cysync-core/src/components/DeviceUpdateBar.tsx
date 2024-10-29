@@ -27,7 +27,7 @@ export const DeviceUpdateBar: FC = () => {
   }
 
   return (
-    <Container px={2} pt={2} pb={1} $bgColor="contentGradient" width="full">
+    <Container $bgColor="contentGradient" width="full">
       <UpdateBar
         icon={
           <FirmwareIcon

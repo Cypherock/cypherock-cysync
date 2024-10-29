@@ -20,6 +20,18 @@ import { ErrorDialog } from './ErrorDialog';
 import { GuidedFlow } from './GuidedFlow';
 import { HistoryDialog } from './HistoryDialog';
 import {
+  InheritanceEditExecutorMessageDialog,
+  InheritanceEditReminderTimeDialog,
+  InheritanceEditUserDetailsDialog,
+  InheritancePlanLoginDialog,
+  InheritanceSyncPlansDialog,
+  InheritanceSilverPlanPurchaseDialog,
+  InheritanceGoldPlanPurchaseDialog,
+  InheritanceEditEncryptedMessageDialog,
+} from './Inheritance';
+import { InheritanceEstateRecoveryDialog } from './Inheritance/EstateRecovery';
+import { InheritancePinRecoveryDialog } from './Inheritance/PinRecovery';
+import {
   ChangePasswordDialog,
   RemovePasswordDialog,
   SetPasswordDialog,
@@ -57,4 +69,14 @@ export const dialogs: Record<DialogName, ReactComponentLike> = {
   contactSupportDialog: ContactSupportDialog,
   deleteAccount: DeleteAccountDialog,
   betaNotificationDialog: BetaNotificationDialog,
+  inheritanceSyncPlans: InheritanceSyncPlansDialog,
+  inheritancePlanLogin: InheritancePlanLoginDialog,
+  inheritanceSilverPlanPurchase: InheritanceSilverPlanPurchaseDialog,
+  inheritanceEditExecutorMessage: InheritanceEditExecutorMessageDialog,
+  inheritanceEditReminderTime: InheritanceEditReminderTimeDialog,
+  inheritanceEditUserDetails: InheritanceEditUserDetailsDialog,
+  inheritancePinRecovery: InheritancePinRecoveryDialog,
+  inheritanceGoldPlanPurchase: InheritanceGoldPlanPurchaseDialog,
+  inheritanceEditEncryptedMessage: InheritanceEditEncryptedMessageDialog,
+  inheritanceEstateRecovery: InheritanceEstateRecoveryDialog,
 };

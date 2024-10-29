@@ -1,9 +1,13 @@
 import {
-  ServerErrorType,
+  coinFamiliesMapWithDefault,
+  CoinFamilyWithDefault,
   DeviceErrorCodes,
+  ServerCoinError,
+  ServerCoinErrorTypes,
   ServerError,
   BinanceServerError,
   BinanceErrorType,
+  ServerErrorType,
 } from '@cypherock/cysync-core-constants';
 
 import {
@@ -11,6 +15,7 @@ import {
   ErrorActionMap,
   getDatabaseErrorHandlingDetails,
   getDeviceErrorHandlingDetails,
+  getServerCoinErrorHandlingDetails,
   getServerErrorHandlingDetails,
 } from '~/constants/errors';
 import { getBinanceErrorHandlingDetails } from '~/constants/errors/binanceError';
@@ -28,7 +33,10 @@ export * from './types';
 /**
  * Assuming we are using axios for server calls
  */
-const identifyServerErrors = (error: any) => {
+export const createServerErrorFromError = (
+  error: any,
+  type?: ServerErrorType,
+) => {
   if (error?.isAxiosError) {
     if (error.response?.data?.code) {
       return new BinanceServerError(error.response.data.code, undefined, {
@@ -38,8 +46,20 @@ const identifyServerErrors = (error: any) => {
         status: error?.response?.status,
       });
     }
+    if (error.response && error.response.data?.coinErrorCode) {
+      return new ServerCoinError({
+        coinFamily: error.response.data.coinFamily,
+        code: error.response.data.coinErrorCode,
+        message: error.response.data.coinError,
+        details: {
+          responseBody: error?.response?.data,
+          url: error?.request?.url,
+          status: error?.response?.status,
+        },
+      });
+    }
     if (error.response) {
-      return new ServerError(ServerErrorType.UNKNOWN_ERROR, undefined, {
+      return new ServerError(type ?? ServerErrorType.UNKNOWN_ERROR, undefined, {
         advanceText: error?.response?.data?.cysyncError,
         responseBody: error?.response?.data,
         url: error?.request?.url,
@@ -59,7 +79,7 @@ export const getParsedError = (params: {
 }): IParsedError => {
   const { error, lang, retries } = params;
 
-  const errorToParse = identifyServerErrors(error) ?? error;
+  const errorToParse = createServerErrorFromError(error) ?? error;
 
   let heading = params.defaultMsg ?? lang.strings.errors.default;
   let subtext: string | undefined;
@@ -106,6 +126,22 @@ export const getParsedError = (params: {
     advanceText = errorToParse?.details?.advanceText;
     details =
       getBinanceErrorHandlingDetails(lang, errorToParse.code) ?? details;
+  } else if (errorToParse?.isServerCoinError && errorToParse.code) {
+    const serverCoinErrors =
+      lang.strings.errors.serverCoinErrors[
+        errorToParse.coinFamily as CoinFamilyWithDefault
+      ] ??
+      lang.strings.errors.serverCoinErrors[coinFamiliesMapWithDefault.default];
+
+    heading =
+      errorToParse.message ??
+      (serverCoinErrors &&
+        serverCoinErrors[errorToParse.code as ServerCoinErrorTypes]?.heading);
+    subtext =
+      serverCoinErrors &&
+      serverCoinErrors[errorToParse.code as ServerCoinErrorTypes]?.subtext;
+
+    details = getServerCoinErrorHandlingDetails(errorToParse.code) ?? details;
   }
 
   let primaryAction: IErrorActionButtonDetails = {
