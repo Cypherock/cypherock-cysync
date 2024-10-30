@@ -1022,40 +1022,40 @@
     },
     "binanceErrors": {
       "BIN_0000": {
-        "heading": "System Error",
-        "subtext": "Try again and if the problem persists, contact Cypherock support for assistance"
+        "heading": "خطأ في النظام",
+        "subtext": "حاول مرة أخرى وإذا استمرت المشكلة، اتصل بدعم Cypherock للحصول على المساعدة"
       },
       "BIN_0001": {
-        "heading": "System Busy",
-        "subtext": "Try again and if the problem persists, contact Cypherock support for assistance"
+        "heading": "النظام مشغول",
+        "subtext": "حاول مرة أخرى وإذا استمرت المشكلة، اتصل بدعم Cypherock للحصول على المساعدة"
       },
       "BIN_0002": {
-        "heading": "Invalid Parameters",
-        "subtext": "Try again and if the problem persists, contact Cypherock support for assistance"
+        "heading": "معلمات غير صحيحة",
+        "subtext": "حاول مرة أخرى وإذا استمرت المشكلة، اتصل بدعم Cypherock للحصول على المساعدة"
       },
       "BIN_0003": {
-        "heading": "Missing Client ID",
-        "subtext": "Contact Cypherock support for assistance"
+        "heading": "معرّف العميل مفقود",
+        "subtext": "اتصل بدعم Cypherock للحصول على المساعدة"
       },
       "BIN_0004": {
-        "heading": "Parameter Disabled",
-        "subtext": "Contact Cypherock support for assistance"
+        "heading": "المعلمة معطلة",
+        "subtext": "اتصل بدعم Cypherock للحصول على المساعدة"
       },
       "BIN_0005": {
-        "heading": "Order Not Found",
-        "subtext": "Try again and if the problem persists, contact Cypherock support for assistance"
+        "heading": "لم يتم العثور على الطلب",
+        "subtext": "حاول مرة أخرى وإذا استمرت المشكلة، اتصل بدعم Cypherock للحصول على المساعدة"
       },
       "BIN_0006": {
-        "heading": "Unsupported Order Type",
-        "subtext": "Contact Cypherock support for assistance"
+        "heading": "نوع الطلب غير مدعوم",
+        "subtext": "اتصل بدعم Cypherock للحصول على المساعدة"
       },
       "BIN_0007": {
-        "heading": "Parameter Not Found",
-        "subtext": "Contact Cypherock support for assistance"
+        "heading": "لم يتم العثور على المعلمة",
+        "subtext": "اتصل بدعم Cypherock للحصول على المساعدة"
       },
       "BIN_0008": {
-        "heading": "Payment Method Not Supported",
-        "subtext": "Contact Cypherock support for assistance"
+        "heading": "طريقة الدفع غير مدعومة",
+        "subtext": "اتصل بدعم Cypherock للحصول على المساعدة"
       }
     },
     "serverCoinErrors": {
@@ -1605,57 +1605,57 @@
     }
   },
   "onramp": {
-    "title": "Buy Crypto",
+    "title": "شراء العملات الرقمية",
     "buy": {
-      "title": "Buy",
+      "title": "شراء",
       "selectCurrency": {
         "selectFiat": {
-          "label": "You will pay",
-          "placeholder": "Select Fiat Currency",
-          "searchText": "Search Fiat Currency"
+          "label": "ستدفع",
+          "placeholder": "اختر العملة الورقية",
+          "searchText": "ابحث عن العملة الورقية"
         },
         "selectCrypto": {
-          "label": "You will get",
-          "placeholder": "Select Crypto Currency",
-          "searchText": "Search Crypto Currency"
+          "label": "ستحصل على",
+          "placeholder": "اختر العملة الرقمية",
+          "searchText": "ابحث عن العملة الرقمية"
         },
         "amount": {
-          "label": "Amount",
-          "tooltip": "Displayed prices include transaction fees",
-          "error": "Input amount is invalid"
+          "label": "المبلغ",
+          "tooltip": "الأسعار المعروضة تشمل رسوم المعاملات",
+          "error": "المبلغ المدخل غير صالح"
         }
       },
       "selectWallet": {
-        "title": "Buy",
-        "subtitle": "Choose a wallet and account to credit ${currencyCode}",
+        "title": "شراء",
+        "subtitle": "اختر محفظة وحساباً لإضافة ${currencyCode}",
         "selectWallet": {
-          "placeholder": "Choose a Wallet",
-          "searchText": "Search Wallet"
+          "placeholder": "اختر محفظة",
+          "searchText": "ابحث عن المحفظة"
         },
         "selectAccount": {
-          "placeholder": "Select Account",
-          "searchText": "Search Account"
+          "placeholder": "اختر حساب",
+          "searchText": "ابحث عن الحساب"
         },
         "selectPaymentMethod": {
-          "label": "Choose payment method",
-          "placeholder": "Payment Method",
-          "searchText": "Search Payment Method"
+          "label": "اختر طريقة الدفع",
+          "placeholder": "طريقة الدفع",
+          "searchText": "ابحث عن طريقة الدفع"
         },
         "messageBox": {
-          "danger": "No accounts found for"
+          "danger": "لم يتم العثور على حسابات لـ"
         }
       },
       "redirectOrder": {
-        "title": "Order",
-        "subtitle": "Complete the order from your browser",
+        "title": "الطلب",
+        "subtitle": "أكمل الطلب من متصفحك",
         "info": {
-          "accountFieldLabel": "Account",
-          "amountFieldLabel": "You will pay",
-          "conversionFieldLabel": "You will get"
+          "accountFieldLabel": "الحساب",
+          "amountFieldLabel": "ستدفع",
+          "conversionFieldLabel": "ستحصل على"
         },
         "messageBox": {
-          "info": "Browser did not open?",
-          "action": "Click here"
+          "info": "لم يفتح المتصفح؟",
+          "action": "اضغط هنا"
         }
       }
     }

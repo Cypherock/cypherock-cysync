@@ -1027,40 +1027,40 @@
     },
     "binanceErrors": {
       "BIN_0000": {
-        "heading": "System Error",
-        "subtext": "Try again and if the problem persists, contact Cypherock support for assistance"
+        "heading": "Systemfehler",
+        "subtext": "Erneut versuchen und wenn das Problem weiterhin besteht, den Cypherock Support kontaktieren"
       },
       "BIN_0001": {
-        "heading": "System Busy",
-        "subtext": "Try again and if the problem persists, contact Cypherock support for assistance"
+        "heading": "System beschäftigt",
+        "subtext": "Erneut versuchen und wenn das Problem weiterhin besteht, den Cypherock Support kontaktieren"
       },
       "BIN_0002": {
-        "heading": "Invalid Parameters",
-        "subtext": "Try again and if the problem persists, contact Cypherock support for assistance"
+        "heading": "Ungültige Parameter",
+        "subtext": "Erneut versuchen und wenn das Problem weiterhin besteht, den Cypherock Support kontaktieren"
       },
       "BIN_0003": {
-        "heading": "Missing Client ID",
-        "subtext": "Contact Cypherock support for assistance"
+        "heading": "Client-ID fehlt",
+        "subtext": "Wenden Sie sich an den Cypherock Support für Unterstützung"
       },
       "BIN_0004": {
-        "heading": "Parameter Disabled",
-        "subtext": "Contact Cypherock support for assistance"
+        "heading": "Parameter deaktiviert",
+        "subtext": "Wenden Sie sich an den Cypherock Support für Unterstützung"
       },
       "BIN_0005": {
-        "heading": "Order Not Found",
-        "subtext": "Try again and if the problem persists, contact Cypherock support for assistance"
+        "heading": "Bestellung nicht gefunden",
+        "subtext": "Erneut versuchen und wenn das Problem weiterhin besteht, den Cypherock Support kontaktieren"
       },
       "BIN_0006": {
-        "heading": "Unsupported Order Type",
-        "subtext": "Contact Cypherock support for assistance"
+        "heading": "Nicht unterstützter Bestellungstyp",
+        "subtext": "Wenden Sie sich an den Cypherock Support für Unterstützung"
       },
       "BIN_0007": {
-        "heading": "Parameter Not Found",
-        "subtext": "Contact Cypherock support for assistance"
+        "heading": "Parameter nicht gefunden",
+        "subtext": "Wenden Sie sich an den Cypherock Support für Unterstützung"
       },
       "BIN_0008": {
-        "heading": "Payment Method Not Supported",
-        "subtext": "Contact Cypherock support for assistance"
+        "heading": "Zahlungsmethode nicht unterstützt",
+        "subtext": "Wenden Sie sich an den Cypherock Support für Unterstützung"
       }
     },
     "serverCoinErrors": {
@@ -1610,57 +1610,57 @@
     }
   },
   "onramp": {
-    "title": "Buy Crypto",
+    "title": "Krypto kaufen",
     "buy": {
-      "title": "Buy",
+      "title": "Kaufen",
       "selectCurrency": {
         "selectFiat": {
-          "label": "You will pay",
-          "placeholder": "Select Fiat Currency",
-          "searchText": "Search Fiat Currency"
+          "label": "Sie werden bezahlen",
+          "placeholder": "Fiat-Währung auswählen",
+          "searchText": "Fiat-Währung suchen"
         },
         "selectCrypto": {
-          "label": "You will get",
-          "placeholder": "Select Crypto Currency",
-          "searchText": "Search Crypto Currency"
+          "label": "Sie werden erhalten",
+          "placeholder": "Krypto-Währung auswählen",
+          "searchText": "Krypto-Währung suchen"
         },
         "amount": {
-          "label": "Amount",
-          "tooltip": "Displayed prices include transaction fees",
-          "error": "Input amount is invalid"
+          "label": "Betrag",
+          "tooltip": "Angezeigte Preise beinhalten Transaktionsgebühren",
+          "error": "Eingegebener Betrag ist ungültig"
         }
       },
       "selectWallet": {
-        "title": "Buy",
-        "subtitle": "Choose a wallet and account to credit ${currencyCode}",
+        "title": "Kaufen",
+        "subtitle": "Wählen Sie eine Wallet und ein Konto, um ${currencyCode} gutzuschreiben",
         "selectWallet": {
-          "placeholder": "Choose a Wallet",
-          "searchText": "Search Wallet"
+          "placeholder": "Wählen Sie eine Wallet",
+          "searchText": "Wallet suchen"
         },
         "selectAccount": {
-          "placeholder": "Select Account",
-          "searchText": "Search Account"
+          "placeholder": "Konto auswählen",
+          "searchText": "Konto suchen"
         },
         "selectPaymentMethod": {
-          "label": "Choose payment method",
-          "placeholder": "Payment Method",
-          "searchText": "Search Payment Method"
+          "label": "Zahlungsmethode wählen",
+          "placeholder": "Zahlungsmethode",
+          "searchText": "Zahlungsmethode suchen"
         },
         "messageBox": {
-          "danger": "No accounts found for"
+          "danger": "Keine Konten gefunden für"
         }
       },
       "redirectOrder": {
-        "title": "Order",
-        "subtitle": "Complete the order from your browser",
+        "title": "Bestellung",
+        "subtitle": "Schließen Sie die Bestellung in Ihrem Browser ab",
         "info": {
-          "accountFieldLabel": "Account",
-          "amountFieldLabel": "You will pay",
-          "conversionFieldLabel": "You will get"
+          "accountFieldLabel": "Konto",
+          "amountFieldLabel": "Sie werden bezahlen",
+          "conversionFieldLabel": "Sie werden erhalten"
         },
         "messageBox": {
-          "info": "Browser did not open?",
-          "action": "Click here"
+          "info": "Browser nicht geöffnet?",
+          "action": "Hier klicken"
         }
       }
     }

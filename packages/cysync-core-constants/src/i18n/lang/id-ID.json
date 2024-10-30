@@ -1027,40 +1027,40 @@
     },
     "binanceErrors": {
       "BIN_0000": {
-        "heading": "System Error",
-        "subtext": "Try again and if the problem persists, contact Cypherock support for assistance"
+        "heading": "Kesalahan Sistem",
+        "subtext": "Coba lagi dan jika masalah berlanjut, hubungi dukungan Cypherock untuk bantuan"
       },
       "BIN_0001": {
-        "heading": "System Busy",
-        "subtext": "Try again and if the problem persists, contact Cypherock support for assistance"
+        "heading": "Sistem Sibuk",
+        "subtext": "Coba lagi dan jika masalah berlanjut, hubungi dukungan Cypherock untuk bantuan"
       },
       "BIN_0002": {
-        "heading": "Invalid Parameters",
-        "subtext": "Try again and if the problem persists, contact Cypherock support for assistance"
+        "heading": "Parameter Tidak Valid",
+        "subtext": "Coba lagi dan jika masalah berlanjut, hubungi dukungan Cypherock untuk bantuan"
       },
       "BIN_0003": {
-        "heading": "Missing Client ID",
-        "subtext": "Contact Cypherock support for assistance"
+        "heading": "ID Klien Hilang",
+        "subtext": "Hubungi dukungan Cypherock untuk bantuan"
       },
       "BIN_0004": {
-        "heading": "Parameter Disabled",
-        "subtext": "Contact Cypherock support for assistance"
+        "heading": "Parameter Dinonaktifkan",
+        "subtext": "Hubungi dukungan Cypherock untuk bantuan"
       },
       "BIN_0005": {
-        "heading": "Order Not Found",
-        "subtext": "Try again and if the problem persists, contact Cypherock support for assistance"
+        "heading": "Pesanan Tidak Ditemukan",
+        "subtext": "Coba lagi dan jika masalah berlanjut, hubungi dukungan Cypherock untuk bantuan"
       },
       "BIN_0006": {
-        "heading": "Unsupported Order Type",
-        "subtext": "Contact Cypherock support for assistance"
+        "heading": "Tipe Pesanan Tidak Didukung",
+        "subtext": "Hubungi dukungan Cypherock untuk bantuan"
       },
       "BIN_0007": {
-        "heading": "Parameter Not Found",
-        "subtext": "Contact Cypherock support for assistance"
+        "heading": "Parameter Tidak Ditemukan",
+        "subtext": "Hubungi dukungan Cypherock untuk bantuan"
       },
       "BIN_0008": {
-        "heading": "Payment Method Not Supported",
-        "subtext": "Contact Cypherock support for assistance"
+        "heading": "Metode Pembayaran Tidak Didukung",
+        "subtext": "Hubungi dukungan Cypherock untuk bantuan"
       }
     },
     "serverCoinErrors": {
@@ -1610,57 +1610,57 @@
     }
   },
   "onramp": {
-    "title": "Buy Crypto",
+    "title": "Beli Kripto",
     "buy": {
-      "title": "Buy",
+      "title": "Beli",
       "selectCurrency": {
         "selectFiat": {
-          "label": "You will pay",
-          "placeholder": "Select Fiat Currency",
-          "searchText": "Search Fiat Currency"
+          "label": "Anda akan membayar",
+          "placeholder": "Pilih Mata Uang Fiat",
+          "searchText": "Cari Mata Uang Fiat"
         },
         "selectCrypto": {
-          "label": "You will get",
-          "placeholder": "Select Crypto Currency",
-          "searchText": "Search Crypto Currency"
+          "label": "Anda akan mendapatkan",
+          "placeholder": "Pilih Mata Uang Kripto",
+          "searchText": "Cari Mata Uang Kripto"
         },
         "amount": {
-          "label": "Amount",
-          "tooltip": "Displayed prices include transaction fees",
-          "error": "Input amount is invalid"
+          "label": "Jumlah",
+          "tooltip": "Harga yang ditampilkan termasuk biaya transaksi",
+          "error": "Jumlah input tidak valid"
         }
       },
       "selectWallet": {
-        "title": "Buy",
-        "subtitle": "Choose a wallet and account to credit ${currencyCode}",
+        "title": "Beli",
+        "subtitle": "Pilih dompet dan akun untuk dikreditkan ${currencyCode}",
         "selectWallet": {
-          "placeholder": "Choose a Wallet",
-          "searchText": "Search Wallet"
+          "placeholder": "Pilih Dompet",
+          "searchText": "Cari Dompet"
         },
         "selectAccount": {
-          "placeholder": "Select Account",
-          "searchText": "Search Account"
+          "placeholder": "Pilih Akun",
+          "searchText": "Cari Akun"
         },
         "selectPaymentMethod": {
-          "label": "Choose payment method",
-          "placeholder": "Payment Method",
-          "searchText": "Search Payment Method"
+          "label": "Pilih metode pembayaran",
+          "placeholder": "Metode Pembayaran",
+          "searchText": "Cari Metode Pembayaran"
         },
         "messageBox": {
-          "danger": "No accounts found for"
+          "danger": "Tidak ditemukan akun untuk"
         }
       },
       "redirectOrder": {
-        "title": "Order",
-        "subtitle": "Complete the order from your browser",
+        "title": "Pesanan",
+        "subtitle": "Selesaikan pesanan dari browser Anda",
         "info": {
-          "accountFieldLabel": "Account",
-          "amountFieldLabel": "You will pay",
-          "conversionFieldLabel": "You will get"
+          "accountFieldLabel": "Akun",
+          "amountFieldLabel": "Anda akan membayar",
+          "conversionFieldLabel": "Anda akan mendapatkan"
         },
         "messageBox": {
-          "info": "Browser did not open?",
-          "action": "Click here"
+          "info": "Browser tidak terbuka?",
+          "action": "Klik di sini"
         }
       }
     }
