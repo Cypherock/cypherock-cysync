@@ -21,9 +21,9 @@ export interface IPreparedXrpTransaction extends IPreparedTransaction {
     isFeeBelowMin: boolean;
     ownOutputAddressNotAllowed: boolean[];
     zeroAmountNotAllowed: boolean;
-    isAmountBelowXrpReserveAllowed: boolean;
+    isAmountBelowXrpReserve: boolean;
     isBalanceBelowXrpReserve: boolean;
-    isValidDestinationTag: boolean;
+    isInvalidDestinationTag: boolean;
   };
   staticData: {
     fees: string;
