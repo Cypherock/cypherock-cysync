@@ -196,9 +196,12 @@ export const BuySellProvider: FC<BuySellContextProviderProps> = ({
   }, []);
 
   const onRetry = useCallback(() => {
-    setState(BuySellState.CURRENCY_SELECT);
-    resetUserInput();
-  }, []);
+    if (state !== BuySellState.ORDER) {
+      setState(BuySellState.CURRENCY_SELECT);
+      resetUserInput();
+    }
+    resetPreorder();
+  }, [state]);
 
   const initHandler = useCallback(async () => {
     try {
