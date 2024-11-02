@@ -196,9 +196,12 @@ export const BuySellProvider: FC<BuySellContextProviderProps> = ({
   }, []);
 
   const onRetry = useCallback(() => {
-    setState(BuySellState.CURRENCY_SELECT);
-    resetUserInput();
-  }, []);
+    if (state !== BuySellState.ORDER) {
+      setState(BuySellState.CURRENCY_SELECT);
+      resetUserInput();
+    }
+    resetPreorder();
+  }, [state]);
 
   const initHandler = useCallback(async () => {
     try {
@@ -302,10 +305,8 @@ export const BuySellProvider: FC<BuySellContextProviderProps> = ({
           setAmountError(undefined);
           if (params.fiatAmount) {
             setCryptoAmount(result.totalAmount);
-            setFiatAmount(params.fiatAmount);
           } else if (params.cryptoAmount) {
             setFiatAmount(result.totalAmount);
-            setCryptoAmount(params.cryptoAmount);
           }
         }
         return true;
@@ -418,7 +419,14 @@ export const BuySellProvider: FC<BuySellContextProviderProps> = ({
       onError(err);
       return false;
     }
-  }, [selectedAccount, selectedPaymentMethod]);
+  }, [
+    selectedAccount,
+    selectedPaymentMethod,
+    selectedFiatCurrencyRef,
+    selectedCryptoCurrencyRef,
+    buySellSupport,
+    fiatAmountRef,
+  ]);
 
   const [preorder, isPreordering, , resetPreorder] = useAsync(
     preorderHandler,

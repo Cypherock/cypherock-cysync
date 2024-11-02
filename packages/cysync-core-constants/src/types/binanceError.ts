@@ -1,5 +1,6 @@
 import { ServerErrorDetails } from './serverError';
 
+// TODO: first error should be an unkown error
 export enum BinanceErrorType {
   SYSTEM_ERROR = 'BIN_0000',
   SYSTEM_BUSY = 'BIN_0001',
@@ -74,7 +75,8 @@ export class BinanceServerError extends Error {
   ) {
     super();
 
-    const mappedErrorCode = binanceErrorCodeMap[errorCode];
+    const mappedErrorCode =
+      binanceErrorCodeMap[errorCode] ?? BinanceErrorType.SYSTEM_ERROR;
     this.message = message ?? binanceErrorTypeDetails[mappedErrorCode].message;
     this.code = mappedErrorCode;
     this.details = details;

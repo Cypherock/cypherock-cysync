@@ -38,12 +38,12 @@ export const createServerErrorFromError = (
   type?: ServerErrorType,
 ) => {
   if (error?.isAxiosError) {
-    if (error.response?.data?.code) {
+    if (error.response?.data?.isBinanceError) {
       return new BinanceServerError(error.response.data.code, undefined, {
-        advanceText: error?.response?.data?.cysyncError,
-        responseBody: error?.response?.data,
-        url: error?.request?.url,
-        status: error?.response?.status,
+        advanceText: error.response.data.cysyncError,
+        responseBody: error.response.data,
+        url: error.request?.url,
+        status: error.response.status,
       });
     }
     if (error.response && error.response.data?.coinErrorCode) {

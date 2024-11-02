@@ -8,14 +8,13 @@ import {
   Dropdown,
   DialogBoxFooter,
   Button,
-  Throbber,
   InputLabel,
   MessageBox,
 } from '@cypherock/cysync-ui';
 import React, { useCallback } from 'react';
 
 import { openAddAccountDialog } from '~/actions';
-import { CoinIcon } from '~/components';
+import { CoinIcon, LoaderDialog } from '~/components';
 import { useBuySell } from '~/context';
 import { useAppSelector, selectLanguage, useAppDispatch } from '~/store';
 import logger from '~/utils/logger';
@@ -81,6 +80,8 @@ export const BuySellAccountSelector = () => {
       [handlePaymentMethodChange],
     );
 
+  if (isLoadingPaymentMethodList) return <LoaderDialog />;
+
   return (
     <DialogBox width={500}>
       <DialogBoxBody p={0} pt={4} gap={0}>
@@ -134,6 +135,7 @@ export const BuySellAccountSelector = () => {
             placeholderText={strings.selectWallet.placeholder}
             onChange={handleWalletChangeProxy}
             noLeftImageInList
+            autoFocus
           />
           <Dropdown
             items={accountDropdownList}
@@ -143,25 +145,22 @@ export const BuySellAccountSelector = () => {
             placeholderText={strings.selectAccount.placeholder}
             onChange={handleAccountChange}
           />
-          {isLoadingPaymentMethodList && <Throbber size={24} strokeWidth={3} />}
-          {!isLoadingPaymentMethodList && (
-            <Container direction="column" width="full">
-              <InputLabel>{strings.selectPaymentMethod.label}</InputLabel>
-              <Dropdown
-                items={paymentMethodDropdownList}
-                selectedItem={
-                  selectedPaymentMethod
-                    ? `${selectedPaymentMethod.payMethodCode}-${
-                        selectedPaymentMethod.payMethodSubCode ?? ''
-                      }`
-                    : undefined
-                }
-                searchText={strings.selectPaymentMethod.searchText}
-                placeholderText={strings.selectPaymentMethod.placeholder}
-                onChange={handlePaymentMethodChangeProxy}
-              />
-            </Container>
-          )}
+          <Container direction="column" width="full">
+            <InputLabel>{strings.selectPaymentMethod.label}</InputLabel>
+            <Dropdown
+              items={paymentMethodDropdownList}
+              selectedItem={
+                selectedPaymentMethod
+                  ? `${selectedPaymentMethod.payMethodCode}-${
+                      selectedPaymentMethod.payMethodSubCode ?? ''
+                    }`
+                  : undefined
+              }
+              searchText={strings.selectPaymentMethod.searchText}
+              placeholderText={strings.selectPaymentMethod.placeholder}
+              onChange={handlePaymentMethodChangeProxy}
+            />
+          </Container>
           {selectedWallet && accountDropdownList.length === 0 && (
             <MessageBox
               type="danger"

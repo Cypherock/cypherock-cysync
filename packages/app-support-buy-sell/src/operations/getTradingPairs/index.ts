@@ -62,7 +62,8 @@ export const getTradingPairs = async (): Promise<ITradingPairs> => {
 
   const { fiatCurrencies } = pairs;
 
-  const supportedCryptoCurrencies: ISupportedCryptoCurrency[] = [];
+  const supportedNativeCryptoCurrencies: ISupportedCryptoCurrency[] = [];
+  const supportedTokenCryptoCurrencies: ISupportedCryptoCurrency[] = [];
 
   for (const currency of cryptoCurrencies) {
     if (!currency.cryptoCurrency) continue;
@@ -73,7 +74,7 @@ export const getTradingPairs = async (): Promise<ITradingPairs> => {
       if (!chain) continue;
 
       if (network.network === currency.cryptoCurrency) {
-        supportedCryptoCurrencies.push({
+        supportedNativeCryptoCurrencies.push({
           cryptoCurrency: currency.cryptoCurrency,
           network: network.network,
           coin: chain,
@@ -97,7 +98,7 @@ export const getTradingPairs = async (): Promise<ITradingPairs> => {
       if (!token) continue;
 
       if (network.network !== currency.cryptoCurrency) {
-        supportedCryptoCurrencies.push({
+        supportedTokenCryptoCurrencies.push({
           cryptoCurrency: token.name,
           network: network.network,
           coin: token,
@@ -130,6 +131,9 @@ export const getTradingPairs = async (): Promise<ITradingPairs> => {
 
   return {
     fiatCurrencies: supportedFiatCurrencies,
-    cryptoCurrencies: supportedCryptoCurrencies,
+    cryptoCurrencies: [
+      ...supportedNativeCryptoCurrencies,
+      ...supportedTokenCryptoCurrencies,
+    ],
   };
 };
