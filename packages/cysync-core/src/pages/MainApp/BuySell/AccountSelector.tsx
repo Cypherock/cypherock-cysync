@@ -134,6 +134,7 @@ export const BuySellAccountSelector = () => {
             placeholderText={strings.selectWallet.placeholder}
             onChange={handleWalletChangeProxy}
             noLeftImageInList
+            autoFocus
           />
           <Dropdown
             items={accountDropdownList}

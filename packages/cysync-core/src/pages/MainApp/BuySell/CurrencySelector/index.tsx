@@ -96,6 +96,7 @@ export const BuySellCurrencySelector = () => {
               searchText={strings.selectFiat.searchText}
               placeholderText={strings.selectFiat.placeholder}
               onChange={handleFiatChangeProxy}
+              autoFocus
             />
           </Container>
           <Container direction="column" width="100%">
