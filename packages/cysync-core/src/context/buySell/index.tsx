@@ -418,7 +418,14 @@ export const BuySellProvider: FC<BuySellContextProviderProps> = ({
       onError(err);
       return false;
     }
-  }, [selectedAccount, selectedPaymentMethod]);
+  }, [
+    selectedAccount,
+    selectedPaymentMethod,
+    selectedFiatCurrencyRef,
+    selectedCryptoCurrencyRef,
+    buySellSupport,
+    fiatAmountRef,
+  ]);
 
   const [preorder, isPreordering, , resetPreorder] = useAsync(
     preorderHandler,
