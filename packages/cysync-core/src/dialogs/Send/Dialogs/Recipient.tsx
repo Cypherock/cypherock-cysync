@@ -127,7 +127,7 @@ export const Recipient: React.FC = () => {
           }
           pt={2}
           text={displayText.infoBox}
-          altText={getBalanceToDisplay()}
+          altText={`~${getBalanceToDisplay()}`}
           textVariant="span"
           fontSize={12}
           disabledInnerFlex
