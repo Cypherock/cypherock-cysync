@@ -1,9 +1,12 @@
 import { useState } from 'react';
+
 import { useMemoReturn, useStateWithRef } from '~/hooks';
 import { inheritanceLoginService } from '~/services';
 import { AuthTokenConfig } from '~/services/utils';
-import { IUserDetails } from '.';
+
 import { tabIndicies } from './useDialogHandler';
+
+import { IUserDetails } from '.';
 
 export const useExecutorRegistration = (
   onError: (e?: any) => void,
@@ -37,7 +40,7 @@ export const useExecutorRegistration = (
         name: executorDetailsRef.current.name,
         email: executorDetailsRef.current.email,
         alternateEmail: executorDetailsRef.current.alternateEmail,
-        nomineeEmail: nominees.current[nomineeIndex]?.email,
+        nomineeEmail: nominees.current[nomineeIndex].email,
         executorMessage,
         authTokenConfig,
       });

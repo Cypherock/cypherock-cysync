@@ -9,11 +9,11 @@ import {
 } from '@cypherock/cysync-ui';
 import React from 'react';
 
+import { VideoPlayer } from '~/components/VideoPlayer';
 import { selectLanguage, useAppSelector } from '~/store';
 
 import { useInheritanceEstateRecoveryDialog } from '../context';
 import { Layout } from '../Layout';
-import { VideoPlayer } from '~/components/VideoPlayer';
 
 export const Success = () => {
   const lang = useAppSelector(selectLanguage);

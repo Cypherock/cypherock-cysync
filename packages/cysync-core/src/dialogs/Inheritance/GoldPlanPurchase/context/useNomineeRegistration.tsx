@@ -3,9 +3,12 @@ import { useRef, useState } from 'react';
 import { useMemoReturn, useStateWithRef } from '~/hooks';
 import { inheritanceLoginService } from '~/services';
 import { AuthTokenConfig } from '~/services/utils';
-import { IUserDetails } from '.';
-import { IOtpVerificationDetails, OtpVerificationConcern } from '../../hooks';
+
 import { tabIndicies } from './useDialogHandler';
+
+import { IOtpVerificationDetails, OtpVerificationConcern } from '../../hooks';
+
+import { IUserDetails } from '.';
 
 export const useNomineeRegistration = (
   onError: (e?: any) => void,
@@ -70,7 +73,7 @@ export const useNomineeRegistration = (
 
       const result = await inheritanceLoginService.updateNominees({
         secret,
-        requestId: nomineeOtpVerificationDetails?.id,
+        requestId: nomineeOtpVerificationDetails.id,
         authTokenConfig,
       });
 
