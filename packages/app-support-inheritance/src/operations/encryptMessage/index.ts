@@ -68,14 +68,14 @@ export const encryptMessage = (
         if (personalMessage) {
           messages[ENCRYPTED_DATA_SERIALIZATION_TAGS.NOMINEE_MESSAGE] = {
             value: personalMessage,
-            verifyOnDevice: true,
+            verifyOnDevice: false,
           };
         }
 
         if (cardLocation) {
           messages[ENCRYPTED_DATA_SERIALIZATION_TAGS.WALLET_MESSAGE] = {
             value: cardLocation,
-            verifyOnDevice: false,
+            verifyOnDevice: true,
           };
         }
 

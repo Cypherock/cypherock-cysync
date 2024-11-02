@@ -1,5 +1,5 @@
 import { insertInheritancePlan } from '@cypherock/cysync-core-services';
-import { IWallet } from '@cypherock/db-interfaces';
+import { IInheritancePlan, IWallet } from '@cypherock/db-interfaces';
 import React, {
   Context,
   FC,
@@ -25,7 +25,7 @@ import { getDB } from '~/utils';
 
 import {
   InheritanceSilverPlanPurchaseDialogContextInterface,
-  IWalletWithDeleted,
+  IWalletForSelection,
 } from './types';
 import { tabIndicies, useSilverPlanDialogHanlders } from './useDialogHandler';
 
@@ -65,18 +65,31 @@ export const InheritanceSilverPlanPurchaseDialogProvider: FC<
   const wallets = useAppSelector(state => state.wallet.wallets);
   const lang = useAppSelector(selectLanguage);
   const deletedWallets = useAppSelector(state => state.wallet.deletedWallets);
+  const plans = useAppSelector(state => state.inheritance.inheritancePlans);
   const navigateTo = useNavigateTo();
 
-  const allWallets = useMemo<IWalletWithDeleted[]>(() => {
+  const isPlanActive = (plan: IInheritancePlan, walletId: string) => {
+    const now = Date.now();
+    return (
+      plan.walletId === walletId &&
+      plan.purchasedAt &&
+      plan.purchasedAt <= now &&
+      plan.expireAt &&
+      plan.expireAt >= now
+    );
+  };
+
+  const allWallets = useMemo<IWalletForSelection[]>(() => {
     const deletedWalletIds = deletedWallets.map(e => e.__id);
 
     return [
       ...wallets.map(e => ({
         ...e,
         isDeleted: deletedWalletIds.includes(e.__id),
+        isActive: plans.some(plan => e.__id && isPlanActive(plan, e.__id)),
       })),
     ];
-  }, [wallets, deletedWallets]);
+  }, [wallets, deletedWallets, plans]);
 
   const [isTermsAccepted, setIsTermsAccepted] = useState(false);
   const [selectedWallet, setSelectedWallet] = useState<IWallet | undefined>();
