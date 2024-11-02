@@ -30,17 +30,13 @@ export * from './types';
  */
 const identifyServerErrors = (error: any) => {
   if (error?.isAxiosError) {
-    if (error.response?.data && error.response?.data?.binanceError) {
-      return new BinanceServerError(
-        error.response.data.binanceErrorCode,
-        undefined,
-        {
-          advanceText: error?.response?.data?.cysyncError,
-          responseBody: error?.response?.data,
-          url: error?.request?.url,
-          status: error?.response?.status,
-        },
-      );
+    if (error.response?.data?.isBinanceError) {
+      return new BinanceServerError(error.response.data.code, undefined, {
+        advanceText: error.response.data.cysyncError,
+        responseBody: error.response.data,
+        url: error.request?.url,
+        status: error.response.status,
+      });
     }
     if (error.response) {
       return new ServerError(ServerErrorType.UNKNOWN_ERROR, undefined, {
