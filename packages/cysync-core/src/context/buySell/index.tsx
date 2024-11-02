@@ -305,10 +305,8 @@ export const BuySellProvider: FC<BuySellContextProviderProps> = ({
           setAmountError(undefined);
           if (params.fiatAmount) {
             setCryptoAmount(result.totalAmount);
-            setFiatAmount(params.fiatAmount);
           } else if (params.cryptoAmount) {
             setFiatAmount(result.totalAmount);
-            setCryptoAmount(params.cryptoAmount);
           }
         }
         return true;
