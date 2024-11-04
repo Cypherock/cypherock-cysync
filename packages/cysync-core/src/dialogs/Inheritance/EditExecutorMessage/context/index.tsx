@@ -14,7 +14,9 @@ import { inheritanceEditPlansService } from '~/services';
 import { inheritanceRecoverPlansService } from '~/services/inheritance/plan/recover';
 import {
   closeDialog,
+  IWalletAuthTokens,
   selectInheritanceSeedAuthTokens,
+  updateWalletAuthTokens,
   useAppDispatch,
   useAppSelector,
 } from '~/store';
@@ -27,6 +29,7 @@ import {
 
 import { useSession } from '../../hooks';
 import { FetchData, EditMessage, Success } from '../Dialogs';
+import { AuthTokenConfig } from '~/services/utils';
 
 export * from './types';
 
@@ -82,6 +85,7 @@ export const InheritanceEditExecutorMessageDialogProvider: FC<
   const fetchData = useCallback(async () => {
     let sessionId = await sessionService.getIsActive();
     const accessToken = walletAuthTokens[walletId]?.accessToken;
+    const refreshToken = walletAuthTokens[walletId]?.refreshToken;
 
     if (!sessionId) {
       sessionId = await sessionService.start();
@@ -89,9 +93,27 @@ export const InheritanceEditExecutorMessageDialogProvider: FC<
 
     assert(sessionId, 'sessionId not found');
     assert(accessToken, 'accessToken not found');
+    assert(refreshToken, 'refreshToken not found');
+
+    const updateAuthToken = (token: string) => {
+      const authTokens: IWalletAuthTokens = {
+        accessToken: token,
+        refreshToken,
+      };
+
+      updateWalletAuthTokens({ walletId, authTokens });
+    };
+
+    const authTokenConfig: AuthTokenConfig = {
+      accessToken,
+      refreshTokenConfig: {
+        refreshToken,
+        updateAuthToken,
+      },
+    };
 
     const response = await inheritanceRecoverPlansService.recover({
-      accessToken,
+      authTokenConfig,
       sessionId,
       executor: true,
     });
@@ -117,6 +139,7 @@ export const InheritanceEditExecutorMessageDialogProvider: FC<
     if (!executorMessage) return false;
     let sessionId = await sessionService.getIsActive();
     const accessToken = walletAuthTokens[walletId]?.accessToken;
+    const refreshToken = walletAuthTokens[walletId]?.refreshToken;
 
     if (!sessionId) {
       sessionId = await sessionService.start();
@@ -124,9 +147,27 @@ export const InheritanceEditExecutorMessageDialogProvider: FC<
 
     assert(accessToken, 'accessToken not found');
     assert(sessionId, 'sessionId not found');
+    assert(refreshToken, 'refreshToken not found');
+
+    const updateAuthToken = (token: string) => {
+      const authTokens: IWalletAuthTokens = {
+        accessToken: token,
+        refreshToken,
+      };
+
+      updateWalletAuthTokens({ walletId, authTokens });
+    };
+
+    const authTokenConfig: AuthTokenConfig = {
+      accessToken,
+      refreshTokenConfig: {
+        refreshToken,
+        updateAuthToken,
+      },
+    };
 
     const response = await inheritanceEditPlansService.updateExecutorMessage({
-      accessToken,
+      authTokenConfig,
       sessionId,
       executorMessage,
     });
