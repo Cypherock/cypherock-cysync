@@ -12,6 +12,7 @@ import React, {
 import { ITabs, useAsync, useMemoReturn, useTabsAndDialogs } from '~/hooks';
 import { inheritanceEditPlansService } from '~/services';
 import { inheritanceRecoverPlansService } from '~/services/inheritance/plan/recover';
+import { AuthTokenConfig } from '~/services/utils';
 import {
   closeDialog,
   IWalletAuthTokens,
@@ -29,7 +30,6 @@ import {
 
 import { useSession } from '../../hooks';
 import { FetchData, EditMessage, Success } from '../Dialogs';
-import { AuthTokenConfig } from '~/services/utils';
 
 export * from './types';
 
