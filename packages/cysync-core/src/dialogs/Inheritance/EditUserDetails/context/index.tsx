@@ -13,11 +13,11 @@ import React, {
 import { ITabs, useTabsAndDialogs } from '~/hooks';
 import { closeDialog, useAppDispatch } from '~/store';
 
-import { EditDetails, Success, VerifyOTP } from '../Dialogs';
 import {
   EditUserDetialsUserType,
   InheritanceEditUserDetailsDialogProps,
 } from '..';
+import { EditDetails, Success, VerifyOTP } from '../Dialogs';
 
 export interface IUserDetails {
   name: string;

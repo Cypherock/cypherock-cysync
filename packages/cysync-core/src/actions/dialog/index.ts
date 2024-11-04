@@ -6,8 +6,8 @@ import { DeviceAuthenticationDialogProps } from '~/dialogs/DeviceAuthenticationD
 import { EditAccountDialogProps } from '~/dialogs/EditAccountDialog';
 import { ErrorDialogProps } from '~/dialogs/ErrorDialog';
 import { IHistoryDialogProps } from '~/dialogs/HistoryDialog';
-import { InheritanceEditUserDetailsDialogProps } from '~/dialogs/Inheritance';
 import {
+  InheritanceEditUserDetailsDialogProps,
   InheritanceEstateRecoveryDialogProps,
   InheritancePinRecoveryDialogProps,
   InheritancePlanLoginDialogProps,

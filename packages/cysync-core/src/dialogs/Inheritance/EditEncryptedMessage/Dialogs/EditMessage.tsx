@@ -6,7 +6,7 @@ import {
   TextAreaInput,
   Typography,
 } from '@cypherock/cysync-ui';
-import React, { useState } from 'react';
+import React from 'react';
 
 import { selectLanguage, useAppSelector } from '~/store';
 
@@ -52,7 +52,7 @@ export const EditMessage = () => {
           tooltip={strings.form.cardLocationField.tooltip}
           placeholder={strings.form.cardLocationField.placeholder}
           height={120}
-          value={encryptedMessage?.cardLocation}
+          value={encryptedMessage.cardLocation}
           onChange={text =>
             setEncryptedMessage({ ...encryptedMessage, cardLocation: text })
           }
@@ -66,8 +66,8 @@ export const EditMessage = () => {
           placeholder={strings.form.personalMessageField.placeholder}
           height={120}
           maxChars={800}
-          currentChars={encryptedMessage?.personalMessage.length || 0}
-          value={encryptedMessage?.personalMessage}
+          currentChars={encryptedMessage.personalMessage.length || 0}
+          value={encryptedMessage.personalMessage}
           onChange={text =>
             setEncryptedMessage({
               ...encryptedMessage,

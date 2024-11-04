@@ -3,8 +3,8 @@ import React, { useEffect, useState } from 'react';
 
 import { WalletAuthLoginStep } from '~/dialogs/Inheritance/hooks';
 import { selectLanguage, useAppSelector } from '~/store';
-import { UserDetailsForm } from '../../components';
 
+import { UserDetailsForm } from '../../components';
 import { useInheritanceGoldPlanPurchaseDialog } from '../../context';
 import { Layout } from '../../Layout';
 
