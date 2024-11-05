@@ -128,6 +128,7 @@ export const DetailsCard: FC<DetailsCardProps> = ({
               pt={4}
               pb={1}
               $whiteSpace="pre-wrap"
+              $wordBreak="break-all"
             >
               {text}
             </Typography>
