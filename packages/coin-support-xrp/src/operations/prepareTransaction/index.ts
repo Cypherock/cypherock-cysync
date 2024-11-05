@@ -114,21 +114,19 @@ export const prepareTransaction = async (
     );
   }
 
-  let isAmountBelowXrpReserveAllowed = output.isActivated ?? true;
-  if (!isAmountBelowXrpReserveAllowed) {
-    isAmountBelowXrpReserveAllowed = sendAmount.isGreaterThanOrEqualTo(
-      coin.reserveXrp,
-    );
+  let isAmountBelowXrpReserve = !output.isActivated;
+  if (isAmountBelowXrpReserve) {
+    isAmountBelowXrpReserve = sendAmount.isLessThan(coin.reserveXrp);
   }
 
   const isValidFee = new BigNumber(fees).isGreaterThan(0);
   const isFeeBelowMin =
     isValidFee && new BigNumber(fees).isLessThan(txn.staticData.fees);
 
-  const isValidDestinationTag =
+  const isInvalidDestinationTag =
     output.destinationTag !== undefined
-      ? output.destinationTag < MAX_UNSIGNED_32BIT_INT
-      : true;
+      ? output.destinationTag >= MAX_UNSIGNED_32BIT_INT
+      : false;
 
   return {
     ...txn,
@@ -139,9 +137,9 @@ export const prepareTransaction = async (
       isFeeBelowMin,
       ownOutputAddressNotAllowed: [isOwnOutputAddress],
       zeroAmountNotAllowed: sendAmount.isZero(),
-      isAmountBelowXrpReserveAllowed,
+      isAmountBelowXrpReserve,
       isBalanceBelowXrpReserve,
-      isValidDestinationTag,
+      isInvalidDestinationTag,
     },
     computedData: {
       fees,
