@@ -44,6 +44,7 @@ const parseTransaction = (
     familyId: account.familyId,
     parentAssetId: account.parentAssetId,
     hash: txn.tx.hash,
+    confirmations: 1,
     fees,
     amount,
     status,
