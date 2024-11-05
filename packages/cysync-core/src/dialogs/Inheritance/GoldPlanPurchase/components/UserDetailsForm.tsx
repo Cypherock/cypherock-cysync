@@ -1,3 +1,4 @@
+import { constants } from '@cypherock/cysync-core-constants';
 import {
   Container,
   Typography,
@@ -81,6 +82,7 @@ export const UserDetailsForm: FC<UserDetailsFormProps> = ({
             $letterSpacing: 'unset',
           }}
           disabled={isSubmittingUserDetails}
+          maxLength={constants.inheritance.maxUserDetailsInputLength}
         />
       </Container>
       <Container direction="row" $width="full" gap={24}>
@@ -100,6 +102,7 @@ export const UserDetailsForm: FC<UserDetailsFormProps> = ({
             $letterSpacing: 'unset',
           }}
           disabled={isSubmittingUserDetails}
+          maxLength={constants.inheritance.maxUserDetailsInputLength}
         />
         <Input
           pasteAllowed
@@ -120,6 +123,7 @@ export const UserDetailsForm: FC<UserDetailsFormProps> = ({
             $letterSpacing: 'unset',
           }}
           disabled={isSubmittingUserDetails}
+          maxLength={constants.inheritance.maxUserDetailsInputLength}
         />
       </Container>
       {isSameEmail && (
