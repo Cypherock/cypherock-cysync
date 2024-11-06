@@ -7,13 +7,15 @@ import {
   DialogBoxBody,
   DialogBoxHeader,
   Flex,
+  LangDisplay,
   LeanBox,
   LeanBoxContainer,
   LeanBoxProps,
-  MessageBox,
   ScrollableContainer,
+  tapAnyCardDeviceAnimation2DVideo,
   Throbber,
   Typography,
+  Video,
 } from '@cypherock/cysync-ui';
 import React, { useEffect } from 'react';
 
@@ -105,10 +107,21 @@ export const WalletAuth: React.FC = () => {
             justify="center"
             $width="100%"
           >
+            <Video
+              src={tapAnyCardDeviceAnimation2DVideo}
+              autoPlay
+              loop
+              $width={506}
+              $height={285}
+              mb={4}
+            />
             <Typography $fontSize={20} $textAlign="center" color="white" mb={4}>
               {strings.walletAuth.title}
             </Typography>
-            <LeanBoxContainer mb={4}>
+            <Typography $fontSize={16} $textAlign="center" color="muted">
+              <LangDisplay text={strings.walletAuth.subTitle} />
+            </Typography>
+            <LeanBoxContainer>
               {actionsList.map(data => (
                 <LeanBox
                   key={data.id}
@@ -121,11 +134,6 @@ export const WalletAuth: React.FC = () => {
                 />
               ))}
             </LeanBoxContainer>
-            <MessageBox
-              type="warning"
-              text={strings.walletAuth.messageBox.warning}
-              showIcon
-            />
           </Flex>
         </DialogBoxBody>
       </ScrollableContainer>
