@@ -42,6 +42,7 @@ export const WalletAuth: React.FC = () => {
     walletAuthAbort,
     retryIndex,
     clearErrors,
+    walletName,
   } = useInheritancePlanLoginDialog();
 
   const getDeviceEventIcon = (
@@ -115,12 +116,17 @@ export const WalletAuth: React.FC = () => {
               $height={285}
               mb={4}
             />
-            <Typography $fontSize={20} $textAlign="center" color="white" mb={4}>
-              {strings.walletAuth.title}
-            </Typography>
-            <Typography $fontSize={16} $textAlign="center" color="muted">
-              <LangDisplay text={strings.walletAuth.subTitle} />
-            </Typography>
+            <Flex direction="column" gap={4} mb={4}>
+              <Typography $fontSize={20} $textAlign="center" color="white">
+                {strings.walletAuth.title}
+              </Typography>
+              <Typography $fontSize={16} $textAlign="center" color="muted">
+                <LangDisplay text={strings.walletAuth.subTitle} />
+                <Typography variant="span" $fontSize={16}>
+                  {` ${walletName}`}
+                </Typography>
+              </Typography>
+            </Flex>
             <LeanBoxContainer>
               {actionsList.map(data => (
                 <LeanBox

@@ -40,7 +40,12 @@ export const useInheritancePlanPage = () => {
   const onUnlock = useCallback(() => {
     if (!plan) return;
 
-    dispatch(openInheritancePlanLoginDialog({ walletId: plan.walletId }));
+    dispatch(
+      openInheritancePlanLoginDialog({
+        walletId: plan.walletId,
+        walletName: plan.walletName,
+      }),
+    );
   }, [plan]);
 
   useEffect(
