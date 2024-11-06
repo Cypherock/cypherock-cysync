@@ -1539,7 +1539,7 @@
     "inheritancePlanLogin": {
       "walletAuth": {
         "title": "Follow instructions on the X1 Vault to authenticate the selected wallet",
-        "subTitle": "Authenticating the wallet Cypherock",
+        "subTitle": "Authenticating the wallet ",
         "actions": {
           "confirm": "Confirm wallet authentication on device",
           "tapCard": "Enter PIN and tap any one card"

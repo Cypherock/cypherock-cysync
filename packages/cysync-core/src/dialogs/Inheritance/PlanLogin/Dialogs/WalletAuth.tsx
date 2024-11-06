@@ -2,10 +2,8 @@ import { InheritanceWalletAuthDeviceEvent } from '@cypherock/app-support-inherit
 import {
   ArrowRightIcon,
   Check,
-  CloseButton,
   DialogBox,
   DialogBoxBody,
-  DialogBoxHeader,
   Flex,
   LangDisplay,
   LeanBox,
@@ -97,9 +95,6 @@ export const WalletAuth: React.FC = () => {
 
   return (
     <DialogBox width={800} onClose={onClose} $maxHeight="90vh">
-      <DialogBoxHeader direction="row" justify="flex-end" py={2} px={3}>
-        <CloseButton width={24} onClick={onClose} />
-      </DialogBoxHeader>
       <ScrollableContainer>
         <DialogBoxBody px={5} py={4} gap={0}>
           <Flex
@@ -123,7 +118,7 @@ export const WalletAuth: React.FC = () => {
               <Typography $fontSize={16} $textAlign="center" color="muted">
                 <LangDisplay text={strings.walletAuth.subTitle} />
                 <Typography variant="span" $fontSize={16}>
-                  {` ${walletName}`}
+                  {walletName}
                 </Typography>
               </Typography>
             </Flex>
