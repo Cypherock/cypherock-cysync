@@ -1,3 +1,9 @@
+# v2.0.11
+
+### 🚀 Features
+
+- **XRP Network Support**: Now you can seamlessly manage your XRP assets directly through the app.
+
 # v2.0.10
 
 ### 🚀 Features
