@@ -4,7 +4,9 @@ import {
   Clipboard,
   Container,
   LangDisplay,
+  QuestionMarkButton,
   TextAreaInput,
+  Tooltip,
   Typography,
 } from '@cypherock/cysync-ui';
 import React, { useState } from 'react';
@@ -35,6 +37,9 @@ export const Message = () => {
         <Typography $fontSize={20}>
           <LangDisplay text={strings.title} variables={{ name: userName }} />
         </Typography>
+        <Tooltip text={strings.tooltip} tooltipPlacement="bottom">
+          <QuestionMarkButton />
+        </Tooltip>
       </Container>
       <Container direction="column" $flex={1} width="100%">
         <TextAreaInput
@@ -42,6 +47,7 @@ export const Message = () => {
           trailing={<Clipboard variant="gold" content={cardLocation} />}
           height={120}
           value={cardLocation}
+          tooltip={strings.form.cardLocationField.tooltip}
           placeholder={strings.form.cardLocationField.placeholder}
           autoFocus
         />
@@ -50,6 +56,7 @@ export const Message = () => {
           trailing={<Clipboard variant="gold" content={personalMessage} />}
           height={120}
           value={personalMessage}
+          tooltip={strings.form.personalMessageField.tooltip}
           placeholder={strings.form.personalMessageField.placeholder}
           mb={0}
         />
