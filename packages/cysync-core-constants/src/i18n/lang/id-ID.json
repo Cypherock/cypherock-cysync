@@ -258,7 +258,9 @@
         "dollar": "$",
         "error": "Dana tidak mencukupi",
         "zeroAmount": "Jumlah tidak boleh nol",
-        "notOverDustThreshold": "Jumlah lebih rendah dari dust limit"
+        "notOverDustThreshold": "Jumlah lebih rendah dari dust limit",
+        "amountBelowXrpReserve": "",
+        "balanceBelowXrpReserve": ""
       },
       "fees": {
         "title": "Biaya",
@@ -269,8 +271,14 @@
         "placeholder": "Masukkan catatan pribadi Anda di sini",
         "error": "Batas karakter maksimum terlampaui (120 karakter)"
       },
+      "destinationTag": {
+        "label": "",
+        "placeholder": "",
+        "error": ""
+      },
       "warning": "Transaksi bisa dibatalkan jika biaya terlalu rendah",
       "feeError": "Transaksi dengan 0 fee tidak diizinkan",
+      "feeBelowMinError": "",
       "notEnoughBalance": "Dana tidak mencukupi untuk transaksi",
       "toggleText": {
         "replace": "Izinkan transaksi untuk digantikan (Ganti dengan biaya)",
@@ -286,7 +294,8 @@
       "amount": "Jumlah",
       "network": "Biaya Jaringan",
       "debit": "Total yang didebet",
-      "remarks": "Catatan Pribadi"
+      "remarks": "Catatan Pribadi",
+      "destinationTag": ""
     },
     "finalMessage": {
       "button": "Periksa transaksi",
@@ -352,7 +361,8 @@
       "feePrefix": {
         "optimism": "L2 "
       },
-      "remarks": "Catatan Pribadi"
+      "remarks": "Catatan Pribadi",
+      "destinationTag": ""
     },
     "noData": {
       "text": "Belum ada transaksi",
