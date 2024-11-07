@@ -669,7 +669,7 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
       return lang.strings.send.recipient.amount.balanceBelowXrpReserve;
     }
 
-    if (xrpValdation?.isAmountBelowXrpReserveAllowed === false) {
+    if (xrpValdation?.isAmountBelowXrpReserve) {
       return lang.strings.send.recipient.amount.amountBelowXrpReserve;
     }
 
@@ -678,8 +678,8 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
 
   const getDestinationTagError = useCallback(() => {
     if (
-      !(transaction?.validation as IPreparedXrpTransaction['validation'])
-        .isValidDestinationTag
+      (transaction?.validation as IPreparedXrpTransaction['validation'])
+        .isInvalidDestinationTag
     ) {
       return lang.strings.send.recipient.destinationTag.error;
     }

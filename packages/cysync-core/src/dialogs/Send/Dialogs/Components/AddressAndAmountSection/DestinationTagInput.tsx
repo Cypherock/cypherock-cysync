@@ -3,9 +3,10 @@ import {
   Flex,
   LangDisplay,
   Typography,
-  NumberInput,
   CustomInputSend,
+  Input,
 } from '@cypherock/cysync-ui';
+import { BigNumber } from '@cypherock/cysync-utils';
 import lodash from 'lodash';
 import React, { useCallback, useState } from 'react';
 
@@ -24,16 +25,24 @@ export const DestinationTagInput: React.FC<DestinationTagInputProps> = ({
   onChange,
   error,
 }) => {
-  const [value, setValue] = useState(initialValue);
+  const [value, setValue] = useState<string>(initialValue?.toString() ?? '');
 
   const debouncedOnValueChange = useCallback(
     lodash.debounce(onChange, 300),
     [],
   );
 
-  const handleValueChange = (newValue: number) => {
-    setValue(newValue);
-    debouncedOnValueChange(newValue);
+  const handleValueChange = (newValue: string) => {
+    let filteredValue = newValue.replace(/[^0-9]/g, '');
+    let bigNum = new BigNumber(filteredValue);
+
+    if (bigNum.isNaN()) {
+      filteredValue = '';
+      bigNum = new BigNumber(-1);
+    }
+
+    setValue(filteredValue);
+    debouncedOnValueChange(bigNum.toNumber());
   };
 
   return (
@@ -44,11 +53,14 @@ export const DestinationTagInput: React.FC<DestinationTagInputProps> = ({
         </Typography>
       </Flex>
       <CustomInputSend>
-        <NumberInput
+        <Input
+          type="text"
           name="destinationTag"
           placeholder={placeholder}
-          initialValue={value}
           onChange={handleValueChange}
+          value={value}
+          $textColor="white"
+          $noBorder
         />
       </CustomInputSend>
       {error && (

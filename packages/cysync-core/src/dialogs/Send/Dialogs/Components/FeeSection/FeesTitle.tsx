@@ -14,7 +14,7 @@ export const FeesTitle: React.FC<FeesHeaderProps> = ({
   initialState,
   onChange,
   title,
-  toggleNotAllowed,
+  isToggleButtonHidden,
 }) => {
   const lang = useAppSelector(selectLanguage);
   const buttons = lang.strings.send.fees.header;
@@ -34,7 +34,7 @@ export const FeesTitle: React.FC<FeesHeaderProps> = ({
           <LangDisplay text={title} />
         </Typography>
       </Flex>
-      {!toggleNotAllowed && (
+      {!isToggleButtonHidden && (
         <Flex align="center" direction="row" gap={8}>
           <PillButtonToggle
             buttons={buttons}

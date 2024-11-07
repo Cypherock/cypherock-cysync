@@ -18,7 +18,7 @@ import { deriveAddress } from '../../utils';
 import { IXrpAccount } from '../types';
 
 const PER_PAGE_TXN_LIMIT = 100;
-const J2000 = 946684800000;
+const JANUARY_2000_UNIX_TIMESTAMP_OFFSET = 946684800000;
 
 const parseTransaction = (
   address: string,
@@ -44,6 +44,7 @@ const parseTransaction = (
     familyId: account.familyId,
     parentAssetId: account.parentAssetId,
     hash: txn.tx.hash,
+    confirmations: 1,
     fees,
     amount,
     status,
@@ -52,7 +53,8 @@ const parseTransaction = (
         ? TransactionTypeMap.send
         : TransactionTypeMap.receive,
     timestamp: new Date(
-      parseInt(txn.tx.date.toString(), 10) * 1000 + J2000,
+      parseInt(txn.tx.date.toString(), 10) * 1000 +
+        JANUARY_2000_UNIX_TIMESTAMP_OFFSET,
     ).getTime(), // the received date is w.r.t January 1, 2000, hence the conversion to unix
     blockHeight: txn.tx.ledger_index,
     inputs: [

@@ -82,12 +82,12 @@ export const Recipient: React.FC = () => {
         !transaction.validation.zeroAmountNotAllowed &&
         !(transaction.validation as IPreparedXrpTransaction['validation'])
           .isBalanceBelowXrpReserve &&
-        (transaction.validation as IPreparedXrpTransaction['validation'])
-          .isAmountBelowXrpReserveAllowed &&
+        !(transaction.validation as IPreparedXrpTransaction['validation'])
+          .isAmountBelowXrpReserve &&
         !(transaction.validation as IPreparedXrpTransaction['validation'])
           .isFeeBelowMin &&
-        (transaction.validation as IPreparedXrpTransaction['validation'])
-          .isValidDestinationTag,
+        !(transaction.validation as IPreparedXrpTransaction['validation'])
+          .isInvalidDestinationTag,
     );
   }, [transaction]);
 
@@ -127,7 +127,7 @@ export const Recipient: React.FC = () => {
           }
           pt={2}
           text={displayText.infoBox}
-          altText={getBalanceToDisplay()}
+          altText={`~${getBalanceToDisplay()}`}
           textVariant="span"
           fontSize={12}
           disabledInnerFlex

@@ -22,9 +22,9 @@ export const initializeTransaction = async (
       isFeeBelowMin: false,
       ownOutputAddressNotAllowed: [],
       zeroAmountNotAllowed: false,
-      isAmountBelowXrpReserveAllowed: true,
+      isAmountBelowXrpReserve: false,
       isBalanceBelowXrpReserve: false,
-      isValidDestinationTag: true,
+      isInvalidDestinationTag: false,
     },
     userInputs: {
       outputs: [],

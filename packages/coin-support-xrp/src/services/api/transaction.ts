@@ -8,6 +8,8 @@ import { config } from '../../config';
 const baseURL = `${config.API_CYPHEROCK}/xrp/transaction`;
 
 // Expire unconfirmed transactions after 70 ledger versions, approximately 1.5 minutes
+// This is manually set if the transaction is done early it will just take time to broadcast
+// otherwise, the transaction will fail
 const LEDGER_OFFSET = 70;
 
 export const getTransactions = async (
