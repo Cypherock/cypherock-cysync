@@ -1773,7 +1773,7 @@
                 "warning": "Tap the cards you used during the initial Cypherock setup process, not the cards given by the wallet owner"
               },
               {
-                "warning": "Your X1 device will restart after this processs"
+                "warning": "Your device will restart after this processs"
               }
             ]
           }
@@ -2070,7 +2070,9 @@
       "executorDetails": {
         "title": "Executor",
         "form": {
-          "nomineeNameField": { "label": "Name" },
+          "nomineeNameField": {
+            "label": "Name"
+          },
           "primaryEmailField": {
             "label": "Primary Email"
           },
