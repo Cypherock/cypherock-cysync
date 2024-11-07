@@ -30,7 +30,9 @@ export const Message = () => {
   return (
     <Layout
       footerComponent={
-        <Button onClick={() => onNext()}>{lang.strings.buttons.next}</Button>
+        <Button onClick={() => onNext()} disabled={!isChecked}>
+          {lang.strings.buttons.next}
+        </Button>
       }
     >
       <Container direction="row" gap={4}>
