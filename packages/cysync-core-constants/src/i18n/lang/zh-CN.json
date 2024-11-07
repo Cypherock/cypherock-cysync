@@ -1802,13 +1802,13 @@
         "name": "Decryption",
         "device": {
           "title": "Follow instructions on the X1 Vault",
-          "subTitle": "Do not remove the card till you hear a beep",
+          "subTitle": "Do not lift the card till you hear a beep sound",
           "actions": {
             "confirm": "Confirm decryption on device",
             "tapCard": "Tap the card you received as a nominee"
           },
           "messageBox": {
-            "warning": "The message will be decrypted by the X1 Card you received as a nominee"
+            "warning": "The message will be decrypted by the card you received as a nominee"
           }
         },
         "error": {
@@ -2070,7 +2070,9 @@
       "executorDetails": {
         "title": "Executor",
         "form": {
-          "nomineeNameField": { "label": "Name" },
+          "nomineeNameField": {
+            "label": "Name"
+          },
           "primaryEmailField": {
             "label": "Primary Email"
           },
