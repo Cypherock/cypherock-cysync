@@ -2,18 +2,18 @@ import { InheritanceWalletAuthDeviceEvent } from '@cypherock/app-support-inherit
 import {
   ArrowRightIcon,
   Check,
-  CloseButton,
   DialogBox,
   DialogBoxBody,
-  DialogBoxHeader,
   Flex,
+  LangDisplay,
   LeanBox,
   LeanBoxContainer,
   LeanBoxProps,
-  MessageBox,
   ScrollableContainer,
+  tapAnyCardDeviceAnimation2DVideo,
   Throbber,
   Typography,
+  Video,
 } from '@cypherock/cysync-ui';
 import React, { useEffect } from 'react';
 
@@ -40,6 +40,7 @@ export const WalletAuth: React.FC = () => {
     walletAuthAbort,
     retryIndex,
     clearErrors,
+    walletName,
   } = useInheritancePlanLoginDialog();
 
   const getDeviceEventIcon = (
@@ -94,9 +95,6 @@ export const WalletAuth: React.FC = () => {
 
   return (
     <DialogBox width={800} onClose={onClose} $maxHeight="90vh">
-      <DialogBoxHeader direction="row" justify="flex-end" py={2} px={3}>
-        <CloseButton width={24} onClick={onClose} />
-      </DialogBoxHeader>
       <ScrollableContainer>
         <DialogBoxBody px={5} py={4} gap={0}>
           <Flex
@@ -105,10 +103,26 @@ export const WalletAuth: React.FC = () => {
             justify="center"
             $width="100%"
           >
-            <Typography $fontSize={20} $textAlign="center" color="white" mb={4}>
-              {strings.walletAuth.title}
-            </Typography>
-            <LeanBoxContainer mb={4}>
+            <Video
+              src={tapAnyCardDeviceAnimation2DVideo}
+              autoPlay
+              loop
+              $width={506}
+              $height={285}
+              mb={4}
+            />
+            <Flex direction="column" gap={4} mb={4}>
+              <Typography $fontSize={20} $textAlign="center" color="white">
+                {strings.walletAuth.title}
+              </Typography>
+              <Typography $fontSize={16} $textAlign="center" color="muted">
+                <LangDisplay text={strings.walletAuth.subTitle} />
+                <Typography variant="span" $fontSize={16}>
+                  {walletName}
+                </Typography>
+              </Typography>
+            </Flex>
+            <LeanBoxContainer>
               {actionsList.map(data => (
                 <LeanBox
                   key={data.id}
@@ -121,11 +135,6 @@ export const WalletAuth: React.FC = () => {
                 />
               ))}
             </LeanBoxContainer>
-            <MessageBox
-              type="warning"
-              text={strings.walletAuth.messageBox.warning}
-              showIcon
-            />
           </Flex>
         </DialogBoxBody>
       </ScrollableContainer>

@@ -787,12 +787,10 @@ interface LangDialogs {
   inheritancePlanLogin: {
     walletAuth: {
       title: string;
+      subTitle: string;
       actions: {
         confirm: string;
         tapCard: string;
-      };
-      messageBox: {
-        warning: string;
       };
     };
     fetchData: {

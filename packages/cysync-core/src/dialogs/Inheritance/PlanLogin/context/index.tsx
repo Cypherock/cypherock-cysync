@@ -45,7 +45,7 @@ export interface InheritancePlanLoginDialogContextProviderProps
 
 export const InheritancePlanLoginDialogProvider: FC<
   InheritancePlanLoginDialogContextProviderProps
-> = ({ children, walletId }) => {
+> = ({ children, walletId, walletName }) => {
   const dispatch = useAppDispatch();
 
   const deviceRequiredDialogsMap: Record<number, number[] | undefined> =
@@ -249,6 +249,7 @@ export const InheritancePlanLoginDialogProvider: FC<
     onRetry,
     retryIndex,
     clearErrors,
+    walletName,
     walletAuthDeviceEvents: walletAuthService.deviceEvents,
     walletAuthFetchRequestId,
     walletAuthIsFetchingRequestId: walletAuthService.isFetchingRequestId,

@@ -1563,13 +1563,11 @@
     },
     "inheritancePlanLogin": {
       "walletAuth": {
-        "title": "Follow instructions on the X1 Vault",
+        "title": "Follow instructions on the X1 Vault to authenticate the selected wallet",
+        "subTitle": "Authenticating the wallet ",
         "actions": {
           "confirm": "Confirm wallet authentication on device",
           "tapCard": "Enter PIN and tap any one card"
-        },
-        "messageBox": {
-          "warning": "Authenticating"
         }
       },
       "fetchData": {
@@ -2064,28 +2062,52 @@
       "ownerDetails": {
         "title": "Owner Details",
         "form": {
-          "userNameField": { "label": "Name" },
-          "primaryEmailField": { "label": "Primary Email" },
-          "secondaryEmailField": { "label": "Secondary Email" }
+          "userNameField": {
+            "label": "Name"
+          },
+          "primaryEmailField": {
+            "label": "Primary Email"
+          },
+          "secondaryEmailField": {
+            "label": "Secondary Email"
+          }
         }
       },
       "nomineeDetails": {
         "title": "Nominee #${number}",
         "form": {
-          "nomineeNameField": { "label": "Name" },
-          "primaryEmailField": { "label": "Primary Email" },
-          "secondaryEmailField": { "label": "Secondary Email" },
-          "encryptedMessage": { "label": "Encrypted Message" }
+          "nomineeNameField": {
+            "label": "Name"
+          },
+          "primaryEmailField": {
+            "label": "Primary Email"
+          },
+          "secondaryEmailField": {
+            "label": "Secondary Email"
+          },
+          "encryptedMessage": {
+            "label": "Encrypted Message"
+          }
         }
       },
       "executorDetails": {
         "title": "Executor",
         "form": {
-          "nomineeNameField": { "label": "Name" },
-          "primaryEmailField": { "label": "Primary Email" },
-          "secondaryEmailField": { "label": "Secondary Email" },
-          "executorMessage": { "label": "Executor Message" },
-          "assignTo": { "label": "Assigned to" }
+          "nomineeNameField": {
+            "label": "Name"
+          },
+          "primaryEmailField": {
+            "label": "Primary Email"
+          },
+          "secondaryEmailField": {
+            "label": "Secondary Email"
+          },
+          "executorMessage": {
+            "label": "Executor Message"
+          },
+          "assignTo": {
+            "label": "Assigned to"
+          }
         }
       }
     },
@@ -2396,9 +2418,15 @@
       "ownerDetails": {
         "title": "Owner Details",
         "form": {
-          "userNameField": { "label": "Name" },
-          "primaryEmailField": { "label": "Primary Email" },
-          "secondaryEmailField": { "label": "Secondary Email" },
+          "userNameField": {
+            "label": "Name"
+          },
+          "primaryEmailField": {
+            "label": "Primary Email"
+          },
+          "secondaryEmailField": {
+            "label": "Secondary Email"
+          },
           "reminderPeriodField": {
             "label": "Reminder Period",
             "input": "Every ${month} month",
@@ -2409,9 +2437,15 @@
       "nomineeDetails": {
         "title": "Nominee #",
         "form": {
-          "nomineeNameField": { "label": "Name" },
-          "primaryEmailField": { "label": "Primary Email" },
-          "secondaryEmailField": { "label": "Secondary Email" }
+          "nomineeNameField": {
+            "label": "Name"
+          },
+          "primaryEmailField": {
+            "label": "Primary Email"
+          },
+          "secondaryEmailField": {
+            "label": "Secondary Email"
+          }
         }
       },
       "cardLocation": {
@@ -2423,10 +2457,18 @@
       "executorDetails": {
         "title": "Executor",
         "form": {
-          "nomineeNameField": { "label": "Name" },
-          "primaryEmailField": { "label": "Primary Email" },
-          "secondaryEmailField": { "label": "Secondary Email" },
-          "assignTo": { "label": "Assigned to" }
+          "nomineeNameField": {
+            "label": "Name"
+          },
+          "primaryEmailField": {
+            "label": "Primary Email"
+          },
+          "secondaryEmailField": {
+            "label": "Secondary Email"
+          },
+          "assignTo": {
+            "label": "Assigned to"
+          }
         }
       },
       "executorMessage": {
