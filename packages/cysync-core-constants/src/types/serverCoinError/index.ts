@@ -1,10 +1,6 @@
 import { coinFamiliesMap } from '@cypherock/coins';
 
-import { XrpServerErrorType } from './xrpServerError';
-
 import { ServerErrorDetails } from '../serverError';
-
-export { XrpServerErrorType };
 
 export const coinFamiliesMapWithDefault = {
   ...coinFamiliesMap,
@@ -19,7 +15,7 @@ export enum DefaultCoinErrorType {
 }
 
 // fill this variable as u define coin errors: ServerCoinErrorTypes = DefaultErrorType | XrpServerErrorType | BtcServerErrorType | EvmServerErrorType
-export type ServerCoinErrorTypes = DefaultCoinErrorType | XrpServerErrorType;
+export type ServerCoinErrorTypes = DefaultCoinErrorType;
 
 interface ServerCoinErrorParams {
   code: string;

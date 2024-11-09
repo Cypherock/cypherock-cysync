@@ -1040,16 +1040,6 @@
           "heading": "Terjadi kesalahan",
           "subtext": "Coba lagi dan jika masalah berlanjut, hubungi dukungan Cypherock untuk bantuan"
         }
-      },
-      "xrp": {
-        "XRP_0000": {
-          "heading": "Terjadi kesalahan yang tidak diketahui",
-          "subtext": "Coba lagi dan jika masalah berlanjut, hubungi dukungan Cypherock untuk bantuan"
-        },
-        "XRP_0001": {
-          "heading": "Transaksi Gagal",
-          "subtext": "Transaksi Anda mungkin gagal. Harap tunggu sebentar kemudian periksa riwayat transaksi sebelum mencoba lagi dan jika masalah berlanjut, hubungi dukungan Cypherock untuk bantuan"
-        }
       }
     },
     "default": "Terjadi kesalahan internal"

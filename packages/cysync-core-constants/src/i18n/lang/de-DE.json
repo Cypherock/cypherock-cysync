@@ -1040,16 +1040,6 @@
           "heading": "Etwas ist schief gelaufen",
           "subtext": "Versuchen Sie es erneut, und wenn das Problem weiterhin besteht, kontaktieren Sie den Cypherock-Support für Unterstützung."
         }
-      },
-      "xrp": {
-        "XRP_0000": {
-          "heading": "Ein unbekannter Fehler ist aufgetreten",
-          "subtext": "Versuchen Sie es erneut, und wenn das Problem weiterhin besteht, wenden Sie sich an den Cypherock-Support, um Unterstützung zu erhalten"
-        },
-        "XRP_0001": {
-          "heading": "Transaktion fehlgeschlagen",
-          "subtext": "Ihre Transaktion ist möglicherweise fehlgeschlagen. Bitte warten Sie einen Moment, überprüfen Sie dann die Transaktionshistorie, bevor Sie es erneut versuchen. Wenn das Problem weiterhin besteht, wenden Sie sich an den Cypherock-Support, um Unterstützung zu erhalten"
-        }
       }
     },
     "default": "Ein interner Fehler ist aufgetreten"
