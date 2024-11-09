@@ -1022,40 +1022,40 @@
     },
     "binanceErrors": {
       "BIN_0000": {
-        "heading": "System Error",
-        "subtext": "Try again and if the problem persists, contact Cypherock support for assistance"
+        "heading": "系统错误",
+        "subtext": "重试，如果问题仍然存在，请联系Cypherock支持以获得帮助"
       },
       "BIN_0001": {
-        "heading": "System Busy",
-        "subtext": "Try again and if the problem persists, contact Cypherock support for assistance"
+        "heading": "系统繁忙",
+        "subtext": "重试，如果问题仍然存在，请联系Cypherock支持以获得帮助"
       },
       "BIN_0002": {
-        "heading": "Invalid Parameters",
-        "subtext": "Try again and if the problem persists, contact Cypherock support for assistance"
+        "heading": "参数无效",
+        "subtext": "重试，如果问题仍然存在，请联系Cypherock支持以获得帮助"
       },
       "BIN_0003": {
-        "heading": "Missing Client ID",
-        "subtext": "Contact Cypherock support for assistance"
+        "heading": "缺少客户ID",
+        "subtext": "联系Cypherock支持以获得帮助"
       },
       "BIN_0004": {
-        "heading": "Parameter Disabled",
-        "subtext": "Contact Cypherock support for assistance"
+        "heading": "参数已禁用",
+        "subtext": "联系Cypherock支持以获得帮助"
       },
       "BIN_0005": {
-        "heading": "Order Not Found",
-        "subtext": "Try again and if the problem persists, contact Cypherock support for assistance"
+        "heading": "订单未找到",
+        "subtext": "重试，如果问题仍然存在，请联系Cypherock支持以获得帮助"
       },
       "BIN_0006": {
-        "heading": "Unsupported Order Type",
-        "subtext": "Contact Cypherock support for assistance"
+        "heading": "不支持的订单类型",
+        "subtext": "联系Cypherock支持以获得帮助"
       },
       "BIN_0007": {
-        "heading": "Parameter Not Found",
-        "subtext": "Contact Cypherock support for assistance"
+        "heading": "参数未找到",
+        "subtext": "联系Cypherock支持以获得帮助"
       },
       "BIN_0008": {
-        "heading": "Payment Method Not Supported",
-        "subtext": "Contact Cypherock support for assistance"
+        "heading": "不支持的支付方式",
+        "subtext": "联系Cypherock支持以获得帮助"
       }
     },
     "default": "发生了一些内部错误"
@@ -1577,57 +1577,57 @@
     }
   },
   "onramp": {
-    "title": "Buy Crypto",
+    "title": "购买加密货币",
     "buy": {
-      "title": "Buy",
+      "title": "购买",
       "selectCurrency": {
         "selectFiat": {
-          "label": "You will pay",
-          "placeholder": "Select Fiat Currency",
-          "searchText": "Search Fiat Currency"
+          "label": "您将支付",
+          "placeholder": "选择法定货币",
+          "searchText": "搜索法定货币"
         },
         "selectCrypto": {
-          "label": "You will get",
-          "placeholder": "Select Crypto Currency",
-          "searchText": "Search Crypto Currency"
+          "label": "您将获得",
+          "placeholder": "选择加密货币",
+          "searchText": "搜索加密货币"
         },
         "amount": {
-          "label": "Amount",
-          "tooltip": "Displayed prices include transaction fees",
-          "error": "Input amount is invalid"
+          "label": "金额",
+          "tooltip": "显示的价格包含交易费",
+          "error": "输入金额无效"
         }
       },
       "selectWallet": {
-        "title": "Buy",
-        "subtitle": "Choose a wallet and account to credit ${currencyCode}",
+        "title": "购买",
+        "subtitle": "选择一个钱包和账户以记入${currencyCode}",
         "selectWallet": {
-          "placeholder": "Choose a Wallet",
-          "searchText": "Search Wallet"
+          "placeholder": "选择一个钱包",
+          "searchText": "搜索钱包"
         },
         "selectAccount": {
-          "placeholder": "Select Account",
-          "searchText": "Search Account"
+          "placeholder": "选择账户",
+          "searchText": "搜索账户"
         },
         "selectPaymentMethod": {
-          "label": "Choose payment method",
-          "placeholder": "Payment Method",
-          "searchText": "Search Payment Method"
+          "label": "选择支付方式",
+          "placeholder": "支付方式",
+          "searchText": "搜索支付方式"
         },
         "messageBox": {
-          "danger": "No accounts found for"
+          "danger": "未找到账户"
         }
       },
       "redirectOrder": {
-        "title": "Order",
-        "subtitle": "Complete the order from your browser",
+        "title": "订单",
+        "subtitle": "在您的浏览器中完成订单",
         "info": {
-          "accountFieldLabel": "Account",
-          "amountFieldLabel": "You will pay",
-          "conversionFieldLabel": "You will get"
+          "accountFieldLabel": "账户",
+          "amountFieldLabel": "您将支付",
+          "conversionFieldLabel": "您将获得"
         },
         "messageBox": {
-          "info": "Browser did not open?",
-          "action": "Click here"
+          "info": "未打开浏览器？",
+          "action": "点击这里"
         }
       }
     }
