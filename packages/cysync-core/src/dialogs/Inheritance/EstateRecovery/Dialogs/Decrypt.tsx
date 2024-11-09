@@ -34,6 +34,7 @@ export const DecryptMessage = () => {
     clearErrors,
     decryptPinStart,
     decryptPinDeviceEvents,
+    decryptPinAbort,
   } = useInheritanceEstateRecoveryDialog();
 
   const getDeviceEventIcon = (
@@ -74,6 +75,10 @@ export const DecryptMessage = () => {
   useEffect(() => {
     clearErrors();
     decryptPinStart();
+
+    return () => {
+      decryptPinAbort();
+    };
   }, [retryIndex, clearErrors]);
 
   useEffect(() => {
