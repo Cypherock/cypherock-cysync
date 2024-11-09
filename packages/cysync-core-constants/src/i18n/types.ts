@@ -1252,7 +1252,10 @@ interface LangInheritance {
     userDetails: {
       form: {
         name: string;
-        email: string;
+        emailField: {
+          label: string;
+          tooltip: string;
+        };
         alternateEmail: string;
       };
       error: {
