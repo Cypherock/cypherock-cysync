@@ -1828,17 +1828,17 @@
       "viewMessage": {
         "name": "View Message",
         "title": "Message from ${name}",
-        "tooltip": "Something goes here",
+        "tooltip": "These messages were written by the wallet owner for you. They contain important information about how to recover their crypto assets stored on the Cypherock X1. \nNote- Make sure you keep these messages safe and private. ",
         "form": {
           "cardLocationField": {
             "label": "Card location",
             "placeholder": "Write the location of the card",
-            "tooltip": "The location of your cards"
+            "tooltip": "This is the location of another card written by wallet owner for you to fetch. You will only be able to recover the crypto assets after getting another card"
           },
           "personalMessageField": {
             "label": "Personal message",
             "placeholder": "Write your message",
-            "tooltip": "This is the message for you"
+            "tooltip": "This includes a personal message written by wallet owner for you"
           },
           "checkBox": {
             "label": "I have read and copied the above messages"
