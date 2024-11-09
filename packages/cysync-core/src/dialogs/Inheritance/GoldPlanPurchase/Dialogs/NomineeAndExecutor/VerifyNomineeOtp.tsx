@@ -57,7 +57,7 @@ export const VerifyNomineeOtp: React.FC = () => {
   const otpLength = 6;
 
   const retriesRemaining = nomineeOtpVerificationDetails?.retriesRemaining ?? 3;
-  const email = nomineeOtpVerificationDetails?.email ?? '';
+  const email = nomineeOtpVerificationDetails?.emails ?? '';
 
   useEffect(() => {
     if (otpRef.current) {
