@@ -2,6 +2,7 @@ import { ServerError, ServerErrorType } from '@cypherock/cysync-core-constants';
 import axios, { AxiosError, AxiosRequestConfig, AxiosResponse } from 'axios';
 
 import { createServerErrorFromError } from '~/utils';
+
 import { inheritanceBaseUrl } from '../inheritance';
 import { refreshAccessTokenResultSchema } from '../inheritance/login/schema';
 
@@ -137,7 +138,7 @@ export async function autoRefreshTokenRequest<T>(
     newAuthToken = refreshTokenResponse.authToken;
     if (!newAuthToken) throw error;
 
-    refreshTokenConfig.updateAuthToken?.(newAuthToken);
+    refreshTokenConfig.updateAuthToken(newAuthToken);
     result = await requestFunction(newAuthToken ?? '');
   }
   return result;
@@ -167,7 +168,7 @@ export async function makeGetRequest<T>(
 export type RequestFunction = (params: {
   config?: AxiosRequestConfig;
   data?: any;
-}) => Promise<AxiosResponse<any, any>>;
+}) => Promise<AxiosResponse>;
 
 async function makeRequest<T>(
   params: {

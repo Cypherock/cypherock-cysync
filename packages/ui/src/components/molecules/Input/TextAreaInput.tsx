@@ -1,9 +1,10 @@
 import React, { FC, TextareaHTMLAttributes } from 'react';
 import styled from 'styled-components';
 
+import { InputLabel, InputLabelProps } from './InputLabel';
+
 import { Container, Flex, LangDisplay, Tooltip, Typography } from '../../atoms';
 import { UtilsProps, utils } from '../../utils';
-import { InputLabel, InputLabelProps } from './InputLabel';
 import { QuestionMarkButton } from '../Prefabs';
 
 interface TextAreaInputProps

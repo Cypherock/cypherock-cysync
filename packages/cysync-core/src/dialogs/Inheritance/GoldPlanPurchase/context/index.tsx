@@ -11,8 +11,8 @@ import React, {
   useState,
   useRef,
 } from 'react';
-import { routes } from '~/constants';
 
+import { routes } from '~/constants';
 import {
   useAsync,
   useMemoReturn,
@@ -27,12 +27,7 @@ import {
 import { ReminderPeriod } from '~/services/inheritance/login/schema';
 import { selectLanguage, useAppSelector } from '~/store';
 import { getDB } from '~/utils';
-import {
-  useEncryptMessage,
-  useSession,
-  useWalletAuth,
-  WalletAuthLoginStep,
-} from '../../hooks';
+
 import {
   InheritanceGoldPlanPurchaseDialogContextInterface,
   IWalletForSelection,
@@ -40,6 +35,13 @@ import {
 import { tabIndicies, useGoldPlanDialogHanlders } from './useDialogHandler';
 import { useExecutorRegistration } from './useExecutorRegistraion';
 import { useNomineeRegistration } from './useNomineeRegistration';
+
+import {
+  useEncryptMessage,
+  useSession,
+  useWalletAuth,
+  WalletAuthLoginStep,
+} from '../../hooks';
 
 export interface IUserDetails {
   name: string;
@@ -124,8 +126,8 @@ export const InheritanceGoldPlanPurchaseDialogProvider: FC<
         authTokenConfig,
       });
 
-      if (result?.result?.success === false) {
-        throw result?.error ?? 'ReminderPeriod update failed';
+      if (result.result?.success === false) {
+        throw result.error ?? 'ReminderPeriod update failed';
       }
 
       if (!userDetails) {
@@ -182,7 +184,7 @@ export const InheritanceGoldPlanPurchaseDialogProvider: FC<
     if (fetchedExecutorDetails) {
       const nomineeIndex = Math.max(
         fetchedNomineeDetails
-          ?.map(details => details?.email)
+          ?.map(details => details.email)
           .indexOf(fetchedExecutorDetails.nominee?.[0]) ?? 0,
         0,
       );
@@ -216,6 +218,9 @@ export const InheritanceGoldPlanPurchaseDialogProvider: FC<
     Record<number, Record<number, (() => boolean) | undefined> | undefined>
   >(
     () => ({
+      [tabIndicies.instructions.tabNumber]: {
+        [tabIndicies.instructions.dialogs.video]: () => true,
+      },
       [tabIndicies.wallet.tabNumber]: {
         [tabIndicies.wallet.dialogs.fetchRequestId]: () => true,
         [tabIndicies.wallet.dialogs.walletAuth]: () => true,
@@ -225,13 +230,15 @@ export const InheritanceGoldPlanPurchaseDialogProvider: FC<
         [tabIndicies.encryption.dialogs.deviceEncryption]: () => true,
         [tabIndicies.encryption.dialogs.encryptionLoader]: () => true,
       },
+      [tabIndicies.message.tabNumber]: {
+        [tabIndicies.message.dialogs.video]: () => true,
+      },
     }),
     [],
   );
 
   const onRetry = useCallback(() => {
     const retryLogic = onRetryFuncMap[currentTab]?.[currentDialog];
-
     if (retryLogic) {
       setRetryIndex(v => v + 1);
       retryLogic();

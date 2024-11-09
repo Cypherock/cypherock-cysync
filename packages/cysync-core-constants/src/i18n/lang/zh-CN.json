@@ -56,7 +56,8 @@
     "saveAndContinue": "Save and continue",
     "exitWithoutSaving": "Exit without saving",
     "saveChanges": "Save changes",
-    "edit": "Edit"
+    "edit": "Edit",
+    "tryAgain": "Try Again"
   },
   "dashboard": {
     "wallet": {
@@ -1110,7 +1111,8 @@
         "subtext": "Try again and if the problem persists, contact Cypherock support for assistance"
       }
     },
-    "default": "发生了一些内部错误"
+    "default": "发生了一些内部错误",
+    "videoPlaybackError": "No Internet connection. Please check your connection and "
   },
   "validation": {
     "generic": {
