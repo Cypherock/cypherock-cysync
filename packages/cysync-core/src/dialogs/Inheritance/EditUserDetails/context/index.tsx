@@ -14,7 +14,7 @@ import { ITabs, useTabsAndDialogs } from '~/hooks';
 import { closeDialog, useAppDispatch } from '~/store';
 
 import {
-  EditUserDetialsUserType,
+  InheritanceEditUserDetailsUserType,
   InheritanceEditUserDetailsDialogProps,
 } from '..';
 import { EditDetails, Success, VerifyOTP } from '../Dialogs';
@@ -38,7 +38,7 @@ export interface InheritanceEditUserDetailsDialogContextInterface {
   userDetails?: IUserDetails;
   onUserDetailsSubmit: (params: IUserDetails) => void;
   isSubmittingUserDetails: boolean;
-  userType: EditUserDetialsUserType;
+  userType: InheritanceEditUserDetailsUserType;
 }
 
 export const InheritanceEditUserDetailsDialogContext: Context<InheritanceEditUserDetailsDialogContextInterface> =

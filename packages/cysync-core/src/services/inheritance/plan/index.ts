@@ -1,3 +1,4 @@
+import { inheritanceEditPlansService } from './edit';
 import { inheritanceRecoverPlansService } from './recover';
 import {
   activateResultSchema,
@@ -23,6 +24,7 @@ export {
 } from './schema';
 
 export * from './sync';
+export * from './edit';
 
 const baseUrl = `${inheritanceBaseUrl}/wallet-account`;
 const couponBaseUrl = `${inheritanceBaseUrl}/wallet-recovery`;
@@ -106,4 +108,5 @@ export const inheritancePlanService = {
   sync: inheritanceSyncPlansService,
   recover: inheritanceRecoverPlansService,
   getPlan,
+  edit: inheritanceEditPlansService,
 };
