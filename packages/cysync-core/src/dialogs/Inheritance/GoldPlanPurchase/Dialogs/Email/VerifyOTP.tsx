@@ -22,6 +22,7 @@ export const VerifyOTP: React.FC = () => {
     isVerifyingOtp,
     isOnSummaryPage,
     goTo,
+    onClose,
   } = useInheritanceGoldPlanPurchaseDialog();
 
   const title = useMemo(() => {
@@ -79,6 +80,7 @@ export const VerifyOTP: React.FC = () => {
 
   return (
     <OTPInputDialog
+      onClose={onClose}
       title={title}
       emails={email}
       onBack={onPrevious}

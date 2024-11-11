@@ -22,6 +22,7 @@ export const VerifyNomineeOtp: React.FC = () => {
     isSubmittingNomineeDetails,
     isOnSummaryPage,
     goTo,
+    onClose,
   } = useInheritanceGoldPlanPurchaseDialog();
 
   const title = useMemo(() => {
@@ -78,6 +79,7 @@ export const VerifyNomineeOtp: React.FC = () => {
 
   return (
     <OTPInputDialog
+      onClose={onClose}
       title={title}
       emails={email}
       onBack={onPrevious}
