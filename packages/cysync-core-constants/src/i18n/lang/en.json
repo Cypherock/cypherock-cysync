@@ -1636,7 +1636,12 @@
     },
     "inheritanceEditUserDetails": {
       "editDetails": {
-        "title": "Edit Details",
+        "title": "Edit ${userType} Details",
+        "userTypes": {
+          "owner": "Owner",
+          "nominee": "Nominee",
+          "executor": "Executor"
+        },
         "buttons": {
           "verifyEmail": "Verify Email"
         }
@@ -1648,7 +1653,7 @@
         }
       },
       "success": {
-        "title": "Owner details successfully updated"
+        "title": "${userType} details successfully updated"
       }
     },
     "inheritancePinRecovery": {
