@@ -186,7 +186,7 @@ export const InheritanceGoldPlanPurchaseDialogProvider: FC<
       updateExecutorFields(
         { ...fetchedExecutorDetails } as IUserDetails,
         fetchedNomineeDetails
-          ?.map(details => details.email)
+          ?.map(details => details?.email)
           .indexOf(fetchedExecutorDetails.nominee?.[0]) ?? 0,
       );
     }
