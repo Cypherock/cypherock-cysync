@@ -6,7 +6,8 @@ import {
 } from '@cypherock/cysync-ui';
 import React, { FC } from 'react';
 import { useTheme } from 'styled-components';
-import { openDeviceUpdateDialog } from '~/actions';
+
+import { openFirmwareReleaseNotesDialog } from '~/actions';
 
 import {
   selectLanguage,
@@ -15,7 +16,7 @@ import {
   useLatestDeviceVersion,
 } from '..';
 
-export const DeviceUpdateBar: FC = () => {
+export const DeviceFirmwareUpdateBar: FC = () => {
   const theme = useTheme();
   const lang = useAppSelector(selectLanguage);
   const dispatch = useAppDispatch();
@@ -37,15 +38,15 @@ export const DeviceUpdateBar: FC = () => {
           />
         }
         onButtonClick={() => {
-          dispatch(openDeviceUpdateDialog());
+          dispatch(openFirmwareReleaseNotesDialog());
         }}
         text={
           <LangDisplay
-            text={lang.strings.deviceUpdateBar.message}
-            variables={{ version }}
+            text={lang.strings.firmwareUpdateBar.message}
+            variables={{ version: version ?? 'N/A' }}
           />
         }
-        buttonText={lang.strings.deviceUpdateBar.button}
+        buttonText={lang.strings.firmwareUpdateBar.button}
       />
     </Container>
   );

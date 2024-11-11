@@ -77,6 +77,9 @@ const initialState: IDialogState = {
   releaseNotes: {
     isOpen: false,
   },
+  firmwareReleaseNotes: {
+    isOpen: false,
+  },
   historyDialog: {
     isOpen: false,
   },

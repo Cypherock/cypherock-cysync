@@ -91,6 +91,11 @@ export interface IDialogState {
     data?: undefined;
   };
 
+  firmwareReleaseNotes: {
+    isOpen: boolean;
+    data?: undefined;
+  };
+
   historyDialog: {
     isOpen: boolean;
     data?: IHistoryDialogProps;
