@@ -32,11 +32,7 @@ export * from './types';
  */
 const identifyServerErrors = (error: any) => {
   if (error?.isAxiosError) {
-    if (
-      error.response &&
-      error.response.data?.coinError &&
-      error.response.data?.coinErrorCode
-    ) {
+    if (error.response && error.response.data?.coinErrorCode) {
       return new ServerCoinError({
         coinFamily: error.response.data.coinFamily,
         code: error.response.data.coinErrorCode,
@@ -117,10 +113,10 @@ export const getParsedError = (params: {
     heading =
       errorToParse.message ??
       (serverCoinErrors &&
-        serverCoinErrors[errorToParse.code as ServerCoinErrorTypes].heading);
+        serverCoinErrors[errorToParse.code as ServerCoinErrorTypes]?.heading);
     subtext =
       serverCoinErrors &&
-      serverCoinErrors[errorToParse.code as ServerCoinErrorTypes].subtext;
+      serverCoinErrors[errorToParse.code as ServerCoinErrorTypes]?.subtext;
 
     details = getServerCoinErrorHandlingDetails(errorToParse.code) ?? details;
   }

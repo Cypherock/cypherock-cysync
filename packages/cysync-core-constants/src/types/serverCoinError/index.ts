@@ -13,7 +13,8 @@ export type CoinFamilyWithDefault =
 export enum DefaultCoinErrorType {
   DEFAULT = 'DEF_0000',
 }
-// fill this variable as u define coin errors: ServerCoinErrorTypes = DefaultErrorType | XrpErrorType | BtcErrorType | EvmErrorType
+
+// fill this variable as u define coin errors: ServerCoinErrorTypes = DefaultErrorType | XrpServerErrorType | BtcServerErrorType | EvmServerErrorType
 export type ServerCoinErrorTypes = DefaultCoinErrorType;
 
 interface ServerCoinErrorParams {
