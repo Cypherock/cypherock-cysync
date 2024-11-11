@@ -1,3 +1,4 @@
+/* eslint-disable react/no-array-index-key */
 import React, { FC } from 'react';
 import { useTheme } from 'styled-components';
 
@@ -9,7 +10,7 @@ import {
   Typography,
   TypographyColor,
 } from '../atoms';
-import { BgColor, BorderColor } from '../utils';
+import { BgColor, BorderColor, HeightProps } from '../utils';
 
 export type MessageBoxType = 'info' | 'warning' | 'danger';
 const borderColorMap: Record<MessageBoxType, BorderColor> = {
@@ -22,24 +23,54 @@ const bgColorMap: Record<MessageBoxType, BgColor> = {
   warning: 'warning',
   danger: 'error',
 };
-export const MessageBox: FC<{
-  text: string;
-  altText?: string;
-  textColor?: TypographyColor;
-  type: MessageBoxType;
-  rightImage?: React.ReactNode;
-  variables?: any;
-  showIcon?: boolean;
-  showQuestionmark?: boolean;
-}> = ({
+
+interface StyledPathTextProps {
+  pathText: string;
+}
+
+const StyledPathText: React.FC<StyledPathTextProps> = ({ pathText }) => {
+  const parts = pathText.split(' -> ');
+  return (
+    <Flex direction="row">
+      {parts.map((part, index) => (
+        <React.Fragment key={`${part}-${index}`}>
+          <Typography color="gold">{part}</Typography>
+          {index < parts.length - 1 && (
+            <Typography color="muted" mb="2px">
+              {'->'}
+            </Typography>
+          )}
+        </React.Fragment>
+      ))}
+    </Flex>
+  );
+};
+
+export const MessageBox: FC<
+  {
+    text: string;
+    altText?: string;
+    textColor?: TypographyColor;
+    type: MessageBoxType;
+    rightImage?: React.ReactNode;
+    variables?: any;
+    isTextDifferent?: boolean;
+    pathText?: string;
+    showIcon?: boolean;
+    showQuestionmark?: boolean;
+  } & HeightProps
+> = ({
   text,
   altText,
   type,
   textColor,
   rightImage,
   variables,
+  isTextDifferent,
+  pathText,
   showIcon,
   showQuestionmark,
+  ...heightProps
 }) => {
   const theme = useTheme();
   const iconFillMap: Record<MessageBoxType, string> = {
@@ -59,6 +90,7 @@ export const MessageBox: FC<{
       px={2}
       justify="flex-start"
       $alignSelf="stretch"
+      {...heightProps}
     >
       {showIcon && (
         <div>
@@ -79,6 +111,7 @@ export const MessageBox: FC<{
             {rightImage && rightImage}
           </Container>
         )}
+        {isTextDifferent && pathText && <StyledPathText pathText={pathText} />}
       </Flex>
     </Container>
   );
@@ -89,6 +122,8 @@ MessageBox.defaultProps = {
   altText: undefined,
   textColor: undefined,
   variables: undefined,
+  isTextDifferent: false,
+  pathText: undefined,
   showIcon: true,
   showQuestionmark: false,
 };

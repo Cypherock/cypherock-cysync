@@ -1,23 +1,18 @@
 // The ReactNodes won't be rendered as list so key is not required
 /* eslint-disable react/jsx-key */
 import {
-  ConfirmCreatePinDeviceGraphics,
+  ClearDeviceData,
   ConfirmCreateWalletDeviceGraphics,
-  ConfirmRestoreFromSeedphraseDeviceGraphics,
-  ConfirmWalletNameDeviceGraphics,
-  EnterPinDeviceGraphics,
-  EnterSeedphraseDeviceGraphics,
-  EnterWalletNameDeviceGraphics,
-  GenerateNewWalletDeviceGraphics,
-  GuidedFlowDialogBox,
+  ConfirmTransferDeviceGraphics,
+  EnterPin,
   Image,
+  MainMenu,
   MessageBoxType,
-  SelectSeedphraseWordCountDeviceGraphics,
-  VerifyPinDeviceGraphics,
-  VerifySeedphraseDeviceGraphics,
+  PairCards,
+  Restore,
+  SettingsDevice,
   Video,
-  distributeToLocationsAnimationVideo,
-  enterSeedphraseAnimationVideo,
+  ViewSeed,
   successIcon,
   tapAllCardDeviceAnimation2DVideo,
 } from '@cypherock/cysync-ui';
@@ -32,29 +27,32 @@ import React, {
   useState,
 } from 'react';
 
+import { openGuidedFlowDialog } from '~/actions';
+import { FinalMessage } from '~/dialogs/GuidedFlow/Dialogs/FinalMessage';
 import { addKeyboardEvents, useStateWithRef } from '~/hooks';
 
 import {
-  GuidedFlowType,
+  WalletTransferLostCardsFlowType,
   closeDialog,
   selectLanguage,
   useAppDispatch,
   useAppSelector,
 } from '../../..';
-import { FinalMessage } from '../Dialogs/FinalMessage';
+import { WalletTransferLostCardsFlowDialogBox } from '~/dialogs/WalletTransferLostCardsFlowDialogBox';
 
 type ITabs = {
   name: string;
   dialogs: ReactNode[];
 }[];
 
-export interface GuidedFlowContextInterface {
+export interface WalletTransferLostCardsFlowContextInterface {
   tabs: ITabs;
   currentTab: number;
   setCurrentTab: (data: number) => void;
   currentDialog: number;
   setCurrentDialog: (data: number) => void;
   onNext: () => void;
+  changeCondition?: () => void;
   onPrevious: () => void;
   blastConfetti: boolean;
   showBackButton: boolean;
@@ -62,28 +60,32 @@ export interface GuidedFlowContextInterface {
   title: string;
 }
 
-export const GuidedFlowContext: Context<GuidedFlowContextInterface> =
-  createContext<GuidedFlowContextInterface>({} as GuidedFlowContextInterface);
+export const WalletTransferLostCardsFlowContext: Context<WalletTransferLostCardsFlowContextInterface> =
+  createContext<WalletTransferLostCardsFlowContextInterface>(
+    {} as WalletTransferLostCardsFlowContextInterface,
+  );
 
-export interface GuidedFlowContextProviderProps {
+export interface WalletTransferLostCardsFlowContextProviderProps {
   children: ReactNode;
-  type: GuidedFlowType;
+  type: WalletTransferLostCardsFlowType;
 }
 
 const successIconReactElement = <Image src={successIcon} alt="device" />;
 
-const dialogsImages: Record<GuidedFlowType, React.ReactElement[][]> = {
-  createWallet: [
+const dialogsImages: Record<
+  WalletTransferLostCardsFlowType,
+  React.ReactElement[][]
+> = {
+  walletTransferLostCards: [
+    [],
     [
-      <ConfirmCreateWalletDeviceGraphics />,
-      <GenerateNewWalletDeviceGraphics />,
-      <EnterWalletNameDeviceGraphics />,
-      <ConfirmWalletNameDeviceGraphics />,
-      <ConfirmCreatePinDeviceGraphics />,
-      <EnterPinDeviceGraphics />,
-      <VerifyPinDeviceGraphics />,
-    ],
-    [
+      <SettingsDevice />,
+      <ClearDeviceData />,
+      <ClearDeviceData />,
+      successIconReactElement,
+      <SettingsDevice />,
+      <PairCards />,
+      <ConfirmTransferDeviceGraphics />,
       <Video
         src={tapAllCardDeviceAnimation2DVideo}
         autoPlay
@@ -91,41 +93,10 @@ const dialogsImages: Record<GuidedFlowType, React.ReactElement[][]> = {
         $width="full"
         $aspectRatio="16/9"
       />,
-    ],
-    [
       successIconReactElement,
-      successIconReactElement,
-      successIconReactElement,
-      <Video
-        src={enterSeedphraseAnimationVideo}
-        autoPlay
-        loop
-        $width="full"
-        $aspectRatio="16/9"
-      />,
-      <Video
-        src={distributeToLocationsAnimationVideo}
-        autoPlay
-        loop
-        $width="full"
-        $aspectRatio="16/9"
-      />,
-    ],
-  ],
-  importWallet: [
-    [
-      <ConfirmCreateWalletDeviceGraphics />,
-      <ConfirmRestoreFromSeedphraseDeviceGraphics />,
-      <EnterWalletNameDeviceGraphics />,
-      <ConfirmWalletNameDeviceGraphics />,
-      <ConfirmCreatePinDeviceGraphics />,
-      <EnterPinDeviceGraphics />,
-      <VerifyPinDeviceGraphics />,
-    ],
-    [
-      <SelectSeedphraseWordCountDeviceGraphics />,
-      <EnterSeedphraseDeviceGraphics />,
-      <VerifySeedphraseDeviceGraphics />,
+      <SettingsDevice />,
+      <Restore />,
+      <ConfirmTransferDeviceGraphics />,
       <Video
         src={tapAllCardDeviceAnimation2DVideo}
         autoPlay
@@ -133,54 +104,85 @@ const dialogsImages: Record<GuidedFlowType, React.ReactElement[][]> = {
         $width="full"
         $aspectRatio="16/9"
       />,
-    ],
-    [
-      successIconReactElement,
-      successIconReactElement,
-      successIconReactElement,
+      <ConfirmTransferDeviceGraphics />,
+      <EnterPin />,
       <Video
-        src={enterSeedphraseAnimationVideo}
+        src={tapAllCardDeviceAnimation2DVideo}
         autoPlay
         loop
         $width="full"
         $aspectRatio="16/9"
       />,
+      successIconReactElement,
+      <MainMenu />,
+      <ViewSeed />,
+      <EnterPin />,
       <Video
-        src={distributeToLocationsAnimationVideo}
+        src={tapAllCardDeviceAnimation2DVideo}
         autoPlay
         loop
         $width="full"
         $aspectRatio="16/9"
       />,
+      successIconReactElement,
+      <SettingsDevice />,
+      <ClearDeviceData />,
+      <ConfirmTransferDeviceGraphics />,
+      <Video
+        src={tapAllCardDeviceAnimation2DVideo}
+        autoPlay
+        loop
+        $width="full"
+        $aspectRatio="16/9"
+      />,
+      successIconReactElement,
+      <SettingsDevice />,
+      <PairCards />,
+      <ConfirmTransferDeviceGraphics />,
+      <Video
+        src={tapAllCardDeviceAnimation2DVideo}
+        autoPlay
+        loop
+        $width="full"
+        $aspectRatio="16/9"
+      />,
+      successIconReactElement,
+      <ConfirmCreateWalletDeviceGraphics />,
     ],
+    [],
+    [],
   ],
 };
 
-interface IGuidedDialogContent {
+interface ITransferDialogContent {
   title?: string;
   subtitle?: string;
   bulletList?: string[];
   messageBoxList?: Record<MessageBoxType, string>[];
 }
 
-export const GuidedFlowProvider: FC<GuidedFlowContextProviderProps> = ({
-  children,
-  type,
-}) => {
+export const WalletTransferLostCardsFlowProvider: FC<
+  WalletTransferLostCardsFlowContextProviderProps
+> = ({ children, type }) => {
   const lang = useAppSelector(selectLanguage);
   const [tabs, setTabs, tabsRef] = useStateWithRef<ITabs>([]);
-  const [currentTab, setCurrentTab, tabRef] = useStateWithRef(0);
+  const [currentTab, setCurrentTab, tabRef] = useStateWithRef(1);
   const [currentDialog, setCurrentDialog, dialogRef] = useStateWithRef(0);
   const [isConfettiBlastDone, setIsConfettiBlastDone] = useState(false);
   const [blastConfetti, setBlastConfetti] = useState(false);
   const [showBackButton, setShowBackButton] = useState(false);
   const [title, setTitle] = useState('');
+  const displayText = lang.strings.guidedFlows[type];
 
   const dispatch = useAppDispatch();
 
   const checkConfettiBlastDone = () => {
-    if (tabRef.current === 2 && dialogRef.current === 0)
+    if (
+      (tabRef.current === 1 && dialogRef.current === 12) ||
+      (tabRef.current === 2 && dialogRef.current === 3)
+    ) {
       setIsConfettiBlastDone(true);
+    }
   };
 
   const onNext = () => {
@@ -207,16 +209,30 @@ export const GuidedFlowProvider: FC<GuidedFlowContextProviderProps> = ({
     }
   };
 
+  if (dialogRef.current === 32) {
+    dispatch(closeDialog('walletTransferLostCardsFlow'));
+    dispatch(openGuidedFlowDialog('importWallet'));
+  }
+
   const onPrevious = () => {
+    if (
+      window.location.hash === '#/settings' &&
+      tabRef.current === 1 &&
+      dialogRef.current === 0
+    ) {
+      return;
+    }
+
     checkConfettiBlastDone();
+
     if (dialogRef.current - 1 < 0) {
-      if (tabRef.current === 0) {
-        setCurrentDialog(0);
+      if (tabRef.current > 1) {
+        const newTab = Math.max(1, tabRef.current - 1);
+        setCurrentTab(newTab);
+        setCurrentDialog(tabsRef.current[newTab].dialogs.length - 1);
       } else {
-        setCurrentDialog(
-          tabsRef.current[tabRef.current - 1].dialogs.length - 1,
-        );
-        setCurrentTab(Math.max(0, tabRef.current - 1));
+        // This condition is met if we're already at the first dialog of the first tab,
+        // so you might not need to do anything here or adjust based on your flow.
       }
     } else {
       setCurrentDialog(Math.max(0, dialogRef.current - 1));
@@ -230,11 +246,11 @@ export const GuidedFlowProvider: FC<GuidedFlowContextProviderProps> = ({
 
   const getDialogArray = (
     images: React.ReactElement[],
-    contents: IGuidedDialogContent[],
+    contents: ITransferDialogContent[],
     first?: boolean,
   ) =>
     contents.map((content, index) => (
-      <GuidedFlowDialogBox
+      <WalletTransferLostCardsFlowDialogBox
         key={`${index + 1}`}
         image={images[index]}
         {...content}
@@ -245,7 +261,7 @@ export const GuidedFlowProvider: FC<GuidedFlowContextProviderProps> = ({
     ));
 
   const init = () => {
-    const initTabs = lang.strings.guidedFlows[type].tabs.map(
+    const initTabs = displayText.tabs.map(
       (tab: { asideTitle: any; pages: any }, index: number) => ({
         name: tab.asideTitle,
         dialogs: getDialogArray(
@@ -257,12 +273,12 @@ export const GuidedFlowProvider: FC<GuidedFlowContextProviderProps> = ({
     );
     initTabs[initTabs.length - 1].dialogs.push(
       <FinalMessage
-        DialogBox={GuidedFlowDialogBox}
-        contextHook={useGuidedFlow}
+        DialogBox={WalletTransferLostCardsFlowDialogBox}
+        contextHook={useWalletTransferLostCardsFlow}
       />,
     );
     setTabs(initTabs);
-    setTitle(lang.strings.guidedFlows[type].title);
+    setTitle(displayText.title);
   };
 
   useEffect(() => {
@@ -270,16 +286,19 @@ export const GuidedFlowProvider: FC<GuidedFlowContextProviderProps> = ({
   }, []);
 
   useEffect(() => {
-    setBlastConfetti(
-      !isConfettiBlastDone && currentTab === 2 && currentDialog === 0,
-    );
+    const shouldBlastConfetti =
+      (isConfettiBlastDone && currentTab === 1 && currentDialog === 16) ||
+      (currentTab === 3 && currentDialog === 0);
+
+    setBlastConfetti(shouldBlastConfetti);
+
     setShowBackButton(currentTab === 0 && currentDialog === 0);
   }, [currentTab, currentDialog]);
 
   const onCloseDialog = () => {
     setCurrentTab(0);
     setCurrentDialog(0);
-    dispatch(closeDialog('guidedFlow'));
+    dispatch(closeDialog('walletTransferLostCardsFlow'));
   };
 
   const ctx = useMemo(
@@ -312,12 +331,12 @@ export const GuidedFlowProvider: FC<GuidedFlowContextProviderProps> = ({
   );
 
   return (
-    <GuidedFlowContext.Provider value={ctx}>
+    <WalletTransferLostCardsFlowContext.Provider value={ctx}>
       {children}
-    </GuidedFlowContext.Provider>
+    </WalletTransferLostCardsFlowContext.Provider>
   );
 };
 
-export function useGuidedFlow(): GuidedFlowContextInterface {
-  return useContext(GuidedFlowContext);
+export function useWalletTransferLostCardsFlow(): WalletTransferLostCardsFlowContextInterface {
+  return useContext(WalletTransferLostCardsFlowContext);
 }

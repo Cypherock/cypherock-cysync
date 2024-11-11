@@ -62,6 +62,7 @@ import solanaIcon from './solana.svg';
 import spinnerGoldIcon from './spinner-gold.svg';
 import successIcon from './success.svg';
 import tetherIcon from './tether.svg';
+import transferWalletGraphics from './trasnfer-wallet-graphics.png';
 import triangleInverseIcon from './triangle-inverse-icon.svg';
 import triangleGreyIcon from './triangleGrey.svg';
 import UniSwapLogo from './UniSwapLogo.svg';
@@ -144,4 +145,5 @@ export {
   UniSwapLogo,
   createWalletGraphics,
   recoverWalletFromSeedphraseGraphics,
+  transferWalletGraphics,
 };
