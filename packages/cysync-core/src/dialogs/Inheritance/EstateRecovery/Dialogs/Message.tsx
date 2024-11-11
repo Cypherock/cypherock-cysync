@@ -3,10 +3,10 @@ import {
   CheckBox,
   Clipboard,
   Container,
-  Flex,
-  InputLabel,
   LangDisplay,
+  QuestionMarkButton,
   TextAreaInput,
+  Tooltip,
   Typography,
 } from '@cypherock/cysync-ui';
 import React, { useState } from 'react';
@@ -30,38 +30,38 @@ export const Message = () => {
   return (
     <Layout
       footerComponent={
-        <Button onClick={() => onNext()}>{lang.strings.buttons.next}</Button>
+        <Button onClick={() => onNext()} disabled={!isChecked}>
+          {lang.strings.buttons.next}
+        </Button>
       }
     >
       <Container direction="row" gap={4}>
         <Typography $fontSize={20}>
           <LangDisplay text={strings.title} variables={{ name: userName }} />
         </Typography>
+        <Tooltip text={strings.tooltip} tooltipPlacement="bottom">
+          <QuestionMarkButton />
+        </Tooltip>
       </Container>
-      <Container direction="column" gap={16} $flex={1} width="100%">
-        <Container direction="column" $flex={1} width="100%">
-          <Flex justify="space-between" align="center" width="100%" $flex={1}>
-            <InputLabel>{strings.form.cardLocationField.label}</InputLabel>
-            <Clipboard variant="gold" content={cardLocation} />
-          </Flex>
-          <TextAreaInput
-            height={120}
-            value={cardLocation}
-            placeholder={strings.form.cardLocationField.placeholder}
-          />
-        </Container>
-        <Container direction="column" $flex={1} width="100%">
-          <Flex justify="space-between" align="center" width="100%" $flex={1}>
-            <InputLabel>{strings.form.personalMessageField.label}</InputLabel>
-            <Clipboard variant="gold" content={personalMessage} />
-          </Flex>
-          <TextAreaInput
-            height={120}
-            value={personalMessage}
-            placeholder={strings.form.personalMessageField.placeholder}
-            mb={0}
-          />
-        </Container>
+      <Container direction="column" $flex={1} width="100%">
+        <TextAreaInput
+          label={strings.form.cardLocationField.label}
+          trailing={<Clipboard variant="gold" content={cardLocation} />}
+          height={120}
+          value={cardLocation}
+          tooltip={strings.form.cardLocationField.tooltip}
+          placeholder={strings.form.cardLocationField.placeholder}
+          autoFocus
+        />
+        <TextAreaInput
+          label={strings.form.personalMessageField.label}
+          trailing={<Clipboard variant="gold" content={personalMessage} />}
+          height={120}
+          value={personalMessage}
+          tooltip={strings.form.personalMessageField.tooltip}
+          placeholder={strings.form.personalMessageField.placeholder}
+          mb={0}
+        />
       </Container>
       <CheckBox
         checked={isChecked}

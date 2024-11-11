@@ -1,8 +1,8 @@
 import { constants } from '@cypherock/cysync-core-constants';
 import { Button, LangDisplay, Typography } from '@cypherock/cysync-ui';
 import React from 'react';
-import ReactPlayer from 'react-player/youtube';
 
+import { VideoPlayer } from '~/components/VideoPlayer';
 import { selectLanguage, useAppSelector } from '~/store';
 
 import { useInheritanceSilverPlanPurchaseDialog } from '../context';
@@ -10,10 +10,10 @@ import { Layout } from '../Layout';
 
 export const Instructions = () => {
   const lang = useAppSelector(selectLanguage);
-
   const strings = lang.strings.inheritanceSilverPlanPurchase;
 
-  const { onNext, onPrevious } = useInheritanceSilverPlanPurchaseDialog();
+  const { onNext, onPrevious, onRetry, retryIndex } =
+    useInheritanceSilverPlanPurchaseDialog();
 
   return (
     <Layout
@@ -37,10 +37,12 @@ export const Instructions = () => {
       >
         <LangDisplay text={strings.instructions.video.title} />
       </Typography>
-      <ReactPlayer
+      <VideoPlayer
+        key={retryIndex}
         url={constants.inheritance.silverPlanPurchaseTutorialLink}
         width="720px"
         height="405px"
+        onRetry={onRetry}
       />
     </Layout>
   );

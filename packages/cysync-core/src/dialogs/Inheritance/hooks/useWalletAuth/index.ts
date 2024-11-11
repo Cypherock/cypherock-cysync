@@ -157,6 +157,7 @@ export const useWalletAuth = (onErrorCallback: (e?: any) => void) => {
       walletId: string,
       loginType: InheritanceUserType = InheritanceUserTypeMap.owner,
       authType: 'seed-based' | 'wallet-based' = 'seed-based',
+      dontSkipLogin = false,
     ) => {
       try {
         walletIdRef.current = walletId;
@@ -168,7 +169,11 @@ export const useWalletAuth = (onErrorCallback: (e?: any) => void) => {
             ? seedAuthTokensPerWallet[walletId]
             : walletAuthTokensPerWallet[walletId];
 
-        if (existingTokens && loginType === InheritanceUserTypeMap.owner) {
+        if (
+          !dontSkipLogin &&
+          existingTokens &&
+          loginType === InheritanceUserTypeMap.owner
+        ) {
           const result = await inheritanceLoginService.refreshAccessToken({
             refreshToken: existingTokens.refreshToken,
           });
@@ -249,7 +254,7 @@ export const useWalletAuth = (onErrorCallback: (e?: any) => void) => {
         setOtpVerificationDetails({
           id: 'emailVerificationOnLogin',
           concern: OtpVerificationConcern.login,
-          email: result.result.otpDetails[0].maskedEmail,
+          emails: result.result.otpDetails.map(details => details.maskedEmail),
           ...result.result.otpDetails[0],
         });
         setCurrentStep(WalletAuthLoginStep.loginOtpVerify);
@@ -290,7 +295,7 @@ export const useWalletAuth = (onErrorCallback: (e?: any) => void) => {
     setOtpVerificationDetails({
       id: 'primaryVerificationOnRegister',
       concern: OtpVerificationConcern.primary,
-      email: params.email,
+      emails: [params.email],
       ...result.result.otpDetails[0],
     });
     setCurrentStep(WalletAuthLoginStep.primaryOtpVerify);
@@ -374,7 +379,7 @@ export const useWalletAuth = (onErrorCallback: (e?: any) => void) => {
         setOtpVerificationDetails({
           id: 'alternateVerificationOnRegister',
           concern: OtpVerificationConcern.alternate,
-          email: userDetails.current.alternateEmail,
+          emails: [userDetails.current.alternateEmail],
           ...registerResponse.current.otpDetails[1],
         });
 

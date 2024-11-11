@@ -56,7 +56,8 @@
     "saveAndContinue": "Save and continue",
     "exitWithoutSaving": "Exit without saving",
     "saveChanges": "Save changes",
-    "edit": "Edit"
+    "edit": "Edit",
+    "tryAgain": "Try Again"
   },
   "dashboard": {
     "wallet": {
@@ -1115,7 +1116,8 @@
         "subtext": "Try again and if the problem persists, contact Cypherock support for assistance"
       }
     },
-    "default": "Terjadi kesalahan internal"
+    "default": "Terjadi kesalahan internal",
+    "videoPlaybackError": "No Internet connection. Please check your connection and "
   },
   "validation": {
     "generic": {
@@ -1563,13 +1565,11 @@
     },
     "inheritancePlanLogin": {
       "walletAuth": {
-        "title": "Follow instructions on the X1 Vault",
+        "title": "Follow instructions on the X1 Vault to authenticate the selected wallet",
+        "subTitle": "Authenticating the wallet ",
         "actions": {
           "confirm": "Confirm wallet authentication on device",
           "tapCard": "Enter PIN and tap any one card"
-        },
-        "messageBox": {
-          "warning": "Authenticating"
         }
       },
       "fetchData": {
@@ -1636,7 +1636,12 @@
     },
     "inheritanceEditUserDetails": {
       "editDetails": {
-        "title": "Edit Details",
+        "title": "Edit ${userType} Details",
+        "userTypes": {
+          "owner": "Owner",
+          "nominee": "Nominee",
+          "executor": "Executor"
+        },
         "buttons": {
           "verifyEmail": "Verify Email"
         }
@@ -1648,7 +1653,7 @@
         }
       },
       "success": {
-        "title": "Owner details successfully updated"
+        "title": "${userType} details successfully updated"
       }
     },
     "inheritancePinRecovery": {
@@ -1733,12 +1738,12 @@
         "form": {
           "cardLocationField": {
             "label": "Card location & Passphrase",
-            "placeholder": "Enter your card's location",
+            "placeholder": "Write the location of the card",
             "tooltip": "Write down the location of another card for the nominee to fetch. Nominee will only be able to recover crypto assets after getting another card. Remember this card should be different than the card(s) you may have given to your nominee(s).\nYou can also include the passphrase in this message"
           },
           "personalMessageField": {
             "label": "Personal message",
-            "placeholder": "Enter your personal message here",
+            "placeholder": "Write your message",
             "tooltip": "This can include your will/message for the nominee and other important pieces of information that you may want your nominee to know such as your crypto exchange account details, coins you have amongst others."
           }
         },
@@ -1798,7 +1803,7 @@
                 "warning": "Tap the cards you used during the initial Cypherock setup process, not the cards given by the wallet owner"
               },
               {
-                "warning": "Your X1 device will restart after this process"
+                "warning": "Your device will restart after this process"
               }
             ]
           }
@@ -1827,13 +1832,13 @@
         "name": "Decryption",
         "device": {
           "title": "Follow instructions on the X1 Vault",
-          "subTitle": "Do not remove the card till you hear a beep",
+          "subTitle": "Do not lift the card till you hear a beep sound",
           "actions": {
             "confirm": "Confirm decryption on device",
             "tapCard": "Tap the card you received as a nominee"
           },
           "messageBox": {
-            "warning": "The message will be decrypted by the X1 Card you received as a nominee"
+            "warning": "The message will be decrypted by the card you received as a nominee"
           }
         },
         "error": {
@@ -1846,7 +1851,7 @@
         "title": "Follow instructions on the X1 Vault",
         "subTitle": "PIN for wallet",
         "actions": {
-          "view": "View & copy the PIN on your device and then confirm"
+          "view": "View & copy the PIN displayed on your device and then confirm"
         },
         "messageBox": {
           "warning": "You will need this PIN to access crypto assets on this wallet. Make sure you do not forget it."
@@ -1855,17 +1860,17 @@
       "viewMessage": {
         "name": "View Message",
         "title": "Message from ${name}",
-        "tooltip": "Something goes here",
+        "tooltip": "These messages were written by the wallet owner for you. They contain important information about how to recover their crypto assets stored on the Cypherock X1. \nNote- Make sure you keep these messages safe and private. ",
         "form": {
           "cardLocationField": {
             "label": "Card location",
-            "placeholder": "Please enter card location",
-            "tooltip": "The location of your cards"
+            "placeholder": "Write the location of the card",
+            "tooltip": "This is the location of another card written by wallet owner for you to fetch. You will only be able to recover the crypto assets after getting another card"
           },
           "personalMessageField": {
             "label": "Personal message",
-            "placeholder": "Please enter your message",
-            "tooltip": "This is the message for you"
+            "placeholder": "Write your message",
+            "tooltip": "This includes a personal message written by wallet owner for you"
           },
           "checkBox": {
             "label": "I have read and copied the above messages"
@@ -2064,28 +2069,52 @@
       "ownerDetails": {
         "title": "Owner Details",
         "form": {
-          "userNameField": { "label": "Name" },
-          "primaryEmailField": { "label": "Primary Email" },
-          "secondaryEmailField": { "label": "Secondary Email" }
+          "userNameField": {
+            "label": "Name"
+          },
+          "primaryEmailField": {
+            "label": "Primary Email"
+          },
+          "secondaryEmailField": {
+            "label": "Secondary Email"
+          }
         }
       },
       "nomineeDetails": {
         "title": "Nominee #${number}",
         "form": {
-          "nomineeNameField": { "label": "Nominee Name" },
-          "primaryEmailField": { "label": "Primary Email" },
-          "secondaryEmailField": { "label": "Secondary Email" },
-          "encryptedMessage": { "label": "Encrypted Message" }
+          "nomineeNameField": {
+            "label": "Nominee Name"
+          },
+          "primaryEmailField": {
+            "label": "Primary Email"
+          },
+          "secondaryEmailField": {
+            "label": "Secondary Email"
+          },
+          "encryptedMessage": {
+            "label": "Encrypted Message"
+          }
         }
       },
       "executorDetails": {
         "title": "Executor",
         "form": {
-          "nomineeNameField": { "label": "Name" },
-          "primaryEmailField": { "label": "Primary Email" },
-          "secondaryEmailField": { "label": "Secondary Email" },
-          "executorMessage": { "label": "Executor Message" },
-          "assignTo": { "label": "Assigned to" }
+          "nomineeNameField": {
+            "label": "Name"
+          },
+          "primaryEmailField": {
+            "label": "Primary Email"
+          },
+          "secondaryEmailField": {
+            "label": "Secondary Email"
+          },
+          "executorMessage": {
+            "label": "Executor Message"
+          },
+          "assignTo": {
+            "label": "Assigned to"
+          }
         }
       }
     },
@@ -2106,7 +2135,10 @@
       "userDetails": {
         "form": {
           "name": "Name",
-          "email": "Primary Email",
+          "emailField": {
+            "label": "Primary Email",
+            "tooltip": "Enter the email on which you want to receive all reminder emails"
+          },
           "alternateEmail": "Alternate Email"
         },
         "error": {
@@ -2359,12 +2391,12 @@
         "tooltip": "End-to-end encryption keeps your messages between you and the nominee you choose. Not even Cypherock can read them",
         "form": {
           "locationField": {
-            "label": "Card Location* & Passphrase",
-            "placeholder": "Write your location",
+            "label": "Card Location & Passphrase",
+            "placeholder": "Write the location of the card",
             "tooltip": "Write down the location of another card for the nominee to fetch. Nominee will only be able to recover crypto assets after getting another card. Remember this card should be different than the card(s) you may have given to your nominee(s).\nYou can also include the passphrase in this message."
           },
           "personalMessage": {
-            "label": "Personal Message*",
+            "label": "Personal Message",
             "placeholder": "Write your message",
             "tooltip": "This can include your will/message for the nominee and other important pieces of information that you may want your nominee to know such as your crypto exchange account details, coins you have amongst others."
           }
@@ -2396,9 +2428,15 @@
       "ownerDetails": {
         "title": "Owner Details",
         "form": {
-          "userNameField": { "label": "Name" },
-          "primaryEmailField": { "label": "Primary Email" },
-          "secondaryEmailField": { "label": "Secondary Email" },
+          "userNameField": {
+            "label": "Name"
+          },
+          "primaryEmailField": {
+            "label": "Primary Email"
+          },
+          "secondaryEmailField": {
+            "label": "Secondary Email"
+          },
           "reminderPeriodField": {
             "label": "Reminder Period",
             "input": "Every ${month} month",
@@ -2409,9 +2447,15 @@
       "nomineeDetails": {
         "title": "Nominee #",
         "form": {
-          "nomineeNameField": { "label": "Nominee Name" },
-          "primaryEmailField": { "label": "Primary Email" },
-          "secondaryEmailField": { "label": "Secondary Email" }
+          "nomineeNameField": {
+            "label": "Nominee Name"
+          },
+          "primaryEmailField": {
+            "label": "Primary Email"
+          },
+          "secondaryEmailField": {
+            "label": "Secondary Email"
+          }
         }
       },
       "cardLocation": {
@@ -2423,10 +2467,18 @@
       "executorDetails": {
         "title": "Executor",
         "form": {
-          "nomineeNameField": { "label": "Nominee Name" },
-          "primaryEmailField": { "label": "Primary Email" },
-          "secondaryEmailField": { "label": "Secondary Email" },
-          "assignTo": { "label": "Assigned to" }
+          "nomineeNameField": {
+            "label": "Nominee Name"
+          },
+          "primaryEmailField": {
+            "label": "Primary Email"
+          },
+          "secondaryEmailField": {
+            "label": "Secondary Email"
+          },
+          "assignTo": {
+            "label": "Assigned to"
+          }
         }
       },
       "executorMessage": {

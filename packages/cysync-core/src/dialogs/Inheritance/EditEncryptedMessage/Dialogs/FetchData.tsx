@@ -9,9 +9,10 @@ export const FetchData = () => {
   const lang = useAppSelector(selectLanguage);
   const strings = lang.strings.dialogs.inheritanceEditEncryptedMessage.syncing;
 
-  const { onNext } = useInheritanceEditEncryptedMessageDialog();
+  const { onNext, fetchData } = useInheritanceEditEncryptedMessageDialog();
 
   useEffect(() => {
+    fetchData();
     setTimeout(() => onNext(), 2000);
   }, []);
 

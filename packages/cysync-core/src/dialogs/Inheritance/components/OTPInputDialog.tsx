@@ -30,6 +30,7 @@ export interface OTPInputDialogRef {
 }
 
 export interface OTPInputDialogProps {
+  showHeader?: boolean;
   onClose?: () => void;
   emails: string | string[];
   onBack: () => void;
@@ -61,6 +62,7 @@ export const OTPInputDialog: React.FC<
       otpExpireTime,
       wrongOtpError,
       title,
+      showHeader = false,
     },
     ref,
   ) => {
@@ -87,7 +89,7 @@ export const OTPInputDialog: React.FC<
 
     const textVariables = useMemo(
       () => ({
-        email: (Array.isArray(emails) ? emails.join('&') : emails).replace(
+        email: (Array.isArray(emails) ? emails.join(' & ') : emails).replace(
           /\*/g,
           `\\*`,
         ),
@@ -150,7 +152,7 @@ export const OTPInputDialog: React.FC<
 
     return (
       <DialogBox width={800} onClose={onClose}>
-        {onClose && (
+        {onClose && showHeader && (
           <DialogBoxHeader direction="row" justify="flex-end" py={2} px={3}>
             <CloseButton width={24} onClick={onClose} />
           </DialogBoxHeader>
@@ -217,4 +219,5 @@ OTPInputDialog.defaultProps = {
   otpExpireTime: undefined,
   title: undefined,
   onClose: undefined,
+  showHeader: false,
 };

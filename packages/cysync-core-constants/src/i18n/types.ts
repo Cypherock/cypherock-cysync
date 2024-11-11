@@ -98,6 +98,7 @@ interface LangButtons {
   exitWithoutSaving: string;
   saveChanges: string;
   edit: string;
+  tryAgain: string;
 }
 
 interface LangDashboard {
@@ -621,6 +622,7 @@ interface LangErrors {
   databaseError: IErrorMsg;
   serverErrors: Record<ServerErrorType, IErrorMsg>;
   default: string;
+  videoPlaybackError: string;
 }
 
 interface LangValidation {
@@ -787,12 +789,10 @@ interface LangDialogs {
   inheritancePlanLogin: {
     walletAuth: {
       title: string;
+      subTitle: string;
       actions: {
         confirm: string;
         tapCard: string;
-      };
-      messageBox: {
-        warning: string;
       };
     };
     fetchData: {
@@ -853,6 +853,11 @@ interface LangDialogs {
   inheritanceEditUserDetails: {
     editDetails: {
       title: string;
+      userTypes: {
+        owner: string;
+        nominee: string;
+        executor: string;
+      };
       buttons: {
         verifyEmail: string;
       };
@@ -1254,7 +1259,10 @@ interface LangInheritance {
     userDetails: {
       form: {
         name: string;
-        email: string;
+        emailField: {
+          label: string;
+          tooltip: string;
+        };
         alternateEmail: string;
       };
       error: {

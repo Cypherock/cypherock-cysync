@@ -1,5 +1,5 @@
 import { insertInheritancePlan } from '@cypherock/cysync-core-services';
-import { IWallet } from '@cypherock/db-interfaces';
+import { IInheritancePlan, IWallet } from '@cypherock/db-interfaces';
 import React, {
   Context,
   FC,
@@ -11,8 +11,8 @@ import React, {
   useState,
   useRef,
 } from 'react';
-import { routes } from '~/constants';
 
+import { routes } from '~/constants';
 import {
   useAsync,
   useMemoReturn,
@@ -27,20 +27,21 @@ import {
 import { ReminderPeriod } from '~/services/inheritance/login/schema';
 import { selectLanguage, useAppSelector } from '~/store';
 import { getDB } from '~/utils';
+
+import {
+  InheritanceGoldPlanPurchaseDialogContextInterface,
+  IWalletForSelection,
+} from './types';
+import { tabIndicies, useGoldPlanDialogHanlders } from './useDialogHandler';
+import { useExecutorRegistration } from './useExecutorRegistraion';
+import { useNomineeRegistration } from './useNomineeRegistration';
+
 import {
   useEncryptMessage,
   useSession,
   useWalletAuth,
   WalletAuthLoginStep,
 } from '../../hooks';
-import { InheritanceGoldPlanPurchaseDialogContextInterface } from './types';
-import { tabIndicies, useGoldPlanDialogHanlders } from './useDialogHandler';
-import { useExecutorRegistration } from './useExecutorRegistraion';
-import { useNomineeRegistration } from './useNomineeRegistration';
-
-export interface IWalletWithDeleted extends IWallet {
-  isDeleted?: boolean;
-}
 
 export interface IUserDetails {
   name: string;
@@ -74,16 +75,29 @@ export const InheritanceGoldPlanPurchaseDialogProvider: FC<
   const wallets = useAppSelector(state => state.wallet.wallets);
   const lang = useAppSelector(selectLanguage);
   const deletedWallets = useAppSelector(state => state.wallet.deletedWallets);
+  const plans = useAppSelector(state => state.inheritance.inheritancePlans);
 
-  const allWallets = useMemo<IWalletWithDeleted[]>(() => {
+  const isPlanActive = (plan: IInheritancePlan, walletId: string) => {
+    const now = Date.now();
+    return (
+      plan.walletId === walletId &&
+      plan.purchasedAt &&
+      plan.purchasedAt <= now &&
+      plan.expireAt &&
+      plan.expireAt >= now
+    );
+  };
+
+  const allWallets = useMemo<IWalletForSelection[]>(() => {
     const deletedWalletIds = deletedWallets.map(e => e.__id);
     return [
       ...wallets.map(e => ({
         ...e,
         isDeleted: deletedWalletIds.includes(e.__id),
+        isActive: plans.some(plan => e.__id && isPlanActive(plan, e.__id)),
       })),
     ];
-  }, [wallets, deletedWallets]);
+  }, [wallets, deletedWallets, plans]);
 
   const [selectedWallet, setSelectedWallet] = useState<IWallet | undefined>();
   const [isSubmittingReminderDetails, setIsSubmittingReminderDetails] =
@@ -112,8 +126,8 @@ export const InheritanceGoldPlanPurchaseDialogProvider: FC<
         authTokenConfig,
       });
 
-      if (result?.result?.success === false) {
-        throw result?.error ?? 'ReminderPeriod update failed';
+      if (result.result?.success === false) {
+        throw result.error ?? 'ReminderPeriod update failed';
       }
 
       if (!userDetails) {
@@ -168,12 +182,16 @@ export const InheritanceGoldPlanPurchaseDialogProvider: FC<
 
     const fetchedExecutorDetails = result.result.executor;
     if (fetchedExecutorDetails) {
+      const nomineeIndex = Math.max(
+        fetchedNomineeDetails
+          ?.map(details => details.email)
+          .indexOf(fetchedExecutorDetails.nominee?.[0]) ?? 0,
+        0,
+      );
       setHaveExecutor(true);
       updateExecutorFields(
-        { ...fetchedExecutorDetails } as IUserDetails,
-        fetchedNomineeDetails
-          ?.map(details => details?.email)
-          .indexOf(fetchedExecutorDetails.nominee?.[0]) ?? 0,
+        fetchedExecutorDetails as IUserDetails,
+        nomineeIndex,
       );
     }
     setIsFetchingDetails(false);
@@ -200,6 +218,9 @@ export const InheritanceGoldPlanPurchaseDialogProvider: FC<
     Record<number, Record<number, (() => boolean) | undefined> | undefined>
   >(
     () => ({
+      [tabIndicies.instructions.tabNumber]: {
+        [tabIndicies.instructions.dialogs.video]: () => true,
+      },
       [tabIndicies.wallet.tabNumber]: {
         [tabIndicies.wallet.dialogs.fetchRequestId]: () => true,
         [tabIndicies.wallet.dialogs.walletAuth]: () => true,
@@ -209,13 +230,15 @@ export const InheritanceGoldPlanPurchaseDialogProvider: FC<
         [tabIndicies.encryption.dialogs.deviceEncryption]: () => true,
         [tabIndicies.encryption.dialogs.encryptionLoader]: () => true,
       },
+      [tabIndicies.message.tabNumber]: {
+        [tabIndicies.message.dialogs.video]: () => true,
+      },
     }),
     [],
   );
 
   const onRetry = useCallback(() => {
     const retryLogic = onRetryFuncMap[currentTab]?.[currentDialog];
-
     if (retryLogic) {
       setRetryIndex(v => v + 1);
       retryLogic();
@@ -236,6 +259,7 @@ export const InheritanceGoldPlanPurchaseDialogProvider: FC<
       selectedWallet.__id,
       InheritanceUserTypeMap.owner,
       'seed-based',
+      true,
     );
   }, [selectedWallet, walletAuthService.fetchRequestId]);
 
@@ -392,6 +416,51 @@ export const InheritanceGoldPlanPurchaseDialogProvider: FC<
     [walletAuthService.registerUser],
   );
 
+  const [personalMessage, setPersonalMessage] = useState('');
+  const [cardLocation, setCardLocation] = useState('');
+  const [userDetails, setUserDetails] = useState<IUserDetails>();
+  const [isOnSummaryPage, setIsOnSummaryPage] = useState(false);
+
+  const {
+    onNomineeDetailsSubmit,
+    isSubmittingNomineeDetails,
+    nomineeCount,
+    setNomineeCount,
+    nomineeDetails,
+    updateNomineeDetails,
+    nomineeOtpSubmit,
+    clearNomineeDetails,
+    nomineeOtpVerificationDetails,
+    nominees,
+  } = useNomineeRegistration(
+    onError,
+    onNext,
+    goTo,
+    isOnSummaryPage,
+    authTokenConfig,
+  );
+
+  const {
+    haveExecutor,
+    setHaveExecutor,
+    onExecutorSelected,
+    onExecutorDetailsSubmit,
+    isSubmittingExecutorDetails,
+    executorNomineeIndex,
+    executorDetails,
+    executorMessage,
+    setExecutorMessage,
+    onExecutorMessageSubmit,
+    updateExecutorFields,
+  } = useExecutorRegistration(
+    onError,
+    onNext,
+    goTo,
+    isOnSummaryPage,
+    nominees,
+    authTokenConfig,
+  );
+
   const onNextActionMapPerDialog = useMemo<
     Record<number, Record<number, (() => boolean) | undefined> | undefined>
   >(
@@ -459,8 +528,20 @@ export const InheritanceGoldPlanPurchaseDialogProvider: FC<
           return true;
         },
       },
+      [tabIndicies.message.tabNumber]: {
+        [tabIndicies.message.dialogs.video]: () => {
+          if (!haveExecutor) {
+            goTo(
+              tabIndicies.nominieeAndExecutor.tabNumber,
+              tabIndicies.nominieeAndExecutor.dialogs.executorSelect,
+            );
+            return true;
+          }
+          return false;
+        },
+      },
     }),
-    [fallbackToWalletSelect],
+    [fallbackToWalletSelect, haveExecutor],
   );
 
   const onPreviousCallback = useCallback(() => {
@@ -484,50 +565,6 @@ export const InheritanceGoldPlanPurchaseDialogProvider: FC<
 
     onClose();
   }, [isSetupPlanCompleted, isCouponActivated, onClose]);
-
-  const [personalMessage, setPersonalMessage] = useState('');
-  const [cardLocation, setCardLocation] = useState('');
-  const [userDetails, setUserDetails] = useState<IUserDetails>();
-  const [isOnSummaryPage, setIsOnSummaryPage] = useState(false);
-
-  const {
-    onNomineeDetailsSubmit,
-    isSubmittingNomineeDetails,
-    nomineeCount,
-    setNomineeCount,
-    nomineeDetails,
-    updateNomineeDetails,
-    nomineeOtpSubmit,
-    clearNomineeDetails,
-    nomineeOtpVerificationDetails,
-    nominees,
-  } = useNomineeRegistration(
-    onError,
-    onNext,
-    goTo,
-    isOnSummaryPage,
-    authTokenConfig,
-  );
-  const {
-    haveExecutor,
-    setHaveExecutor,
-    onExecutorSelected,
-    onExecutorDetailsSubmit,
-    isSubmittingExecutorDetails,
-    executorNomineeIndex,
-    executorDetails,
-    executorMessage,
-    setExecutorMessage,
-    onExecutorMessageSubmit,
-    updateExecutorFields,
-  } = useExecutorRegistration(
-    onError,
-    onNext,
-    goTo,
-    isOnSummaryPage,
-    nominees,
-    authTokenConfig,
-  );
 
   const overriddenCurrentMilestone = useMemo(
     () => (isOnSummaryPage ? tabIndicies.summary.tabNumber : undefined),

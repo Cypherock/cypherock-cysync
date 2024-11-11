@@ -22,6 +22,7 @@ export const VerifyNomineeOtp: React.FC = () => {
     isSubmittingNomineeDetails,
     isOnSummaryPage,
     goTo,
+    onClose,
   } = useInheritanceGoldPlanPurchaseDialog();
 
   const title = useMemo(() => {
@@ -57,7 +58,7 @@ export const VerifyNomineeOtp: React.FC = () => {
   const otpLength = 6;
 
   const retriesRemaining = nomineeOtpVerificationDetails?.retriesRemaining ?? 3;
-  const email = nomineeOtpVerificationDetails?.email ?? '';
+  const email = nomineeOtpVerificationDetails?.emails ?? '';
 
   useEffect(() => {
     if (otpRef.current) {
@@ -78,6 +79,7 @@ export const VerifyNomineeOtp: React.FC = () => {
 
   return (
     <OTPInputDialog
+      onClose={onClose}
       title={title}
       emails={email}
       onBack={onPrevious}
