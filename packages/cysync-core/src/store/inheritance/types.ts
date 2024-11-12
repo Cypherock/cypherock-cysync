@@ -5,6 +5,14 @@ export interface IWalletAuthTokens {
   refreshToken: string;
 }
 
+export const reminderPeriodStringToNumMap: Record<string, number> = {
+  monthly: 1,
+  quarterly: 3,
+  'half-yearly': 6,
+  yearly: 12,
+  '': 0,
+} as const;
+
 export interface IInheritancePlanDetails {
   walletId: string;
   name: string;
@@ -20,11 +28,12 @@ export interface IInheritancePlanDetails {
     email: string;
     alternateEmail: string;
   }[];
-  executor: {
+  executor?: {
     name: string;
     email: string;
     alternateEmail: string;
   };
+  reminderPeriod: number;
 }
 
 export interface IInheritanceState {

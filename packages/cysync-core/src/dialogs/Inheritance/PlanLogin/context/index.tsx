@@ -14,6 +14,7 @@ import { InheritanceUserTypeMap, inheritancePlanService } from '~/services';
 import {
   closeDialog,
   IInheritancePlanDetails,
+  reminderPeriodStringToNumMap,
   updateInheritancePlanDetails,
   useAppDispatch,
 } from '~/store';
@@ -154,11 +155,15 @@ export const InheritancePlanLoginDialogProvider: FC<
           email: n.email ?? '',
           alternateEmail: n.alternateEmail ?? '',
         })) ?? [],
-      executor: {
-        name: result.result.executor?.name ?? '',
-        email: result.result.executor?.email ?? '',
-        alternateEmail: result.result.executor?.alternateEmail ?? '',
-      },
+      ...(result.result.executor !== undefined
+        ? {
+            executor: {
+              name: result.result.executor?.name ?? '',
+              email: result.result.executor?.email ?? '',
+              alternateEmail: result.result.executor?.alternateEmail ?? '',
+            },
+          }
+        : {}),
       owner: {
         name: result.result.owner?.name ?? '',
         email: result.result.owner?.email ?? '',
@@ -166,6 +171,10 @@ export const InheritancePlanLoginDialogProvider: FC<
       },
       activationDate: new Date(activationDate).getTime(),
       expiryDate: new Date(expiryDate).getTime(),
+      reminderPeriod:
+        reminderPeriodStringToNumMap[
+          result.result.emailConfig?.frequency ?? ''
+        ],
     };
 
     dispatch(

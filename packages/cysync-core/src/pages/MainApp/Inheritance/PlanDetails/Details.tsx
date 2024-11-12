@@ -1,7 +1,7 @@
 import { format as formatDate } from 'date-fns';
-import React, { FC, useMemo } from 'react';
+import React, { FC, useCallback, useMemo } from 'react';
 
-import { selectLanguage, useAppSelector } from '~/store';
+import { selectLanguage, useAppDispatch, useAppSelector } from '~/store';
 
 import { InheritancePlanDetailsSectionProps } from './types';
 
@@ -11,6 +11,12 @@ import {
   InheritancePlanDetailsLayout,
   UserDetails,
 } from '../components';
+import {
+  openInheritanceEditEncryptedMessageDialog,
+  openInheritanceEditExecutorMessageDialog,
+  openInheritanceEditReminderTimeDialog,
+  openInheritanceEditUserDetailsDialog,
+} from '~/actions';
 
 const planDetailsObjectKeyMapper = (obj: {
   name: string;
@@ -27,38 +33,64 @@ export const InheritancePlanDetailsSection: FC<
 > = ({ onBack, plan, planDetails }) => {
   const lang = useAppSelector(selectLanguage);
   const strings = lang.strings.inheritance;
+  const dispatch = useAppDispatch();
+
+  const editReminder = useCallback(() => {
+    dispatch(openInheritanceEditReminderTimeDialog());
+  }, [dispatch]);
+
+  const editOwnerDetails = useCallback(() => {
+    dispatch(openInheritanceEditUserDetailsDialog({ userType: 'owner' }));
+  }, [dispatch]);
+
+  const editNomineeDetails = useCallback(() => {
+    dispatch(openInheritanceEditUserDetailsDialog({ userType: 'nominee' }));
+  }, [dispatch]);
+
+  const editExecutorDetails = useCallback(() => {
+    dispatch(openInheritanceEditUserDetailsDialog({ userType: 'executor' }));
+  }, [dispatch]);
+
+  const editExecutorMessage = useCallback(() => {
+    dispatch(
+      openInheritanceEditExecutorMessageDialog({ walletId: plan.walletId }),
+    );
+  }, [dispatch, plan]);
+
+  const editEncryptedMessage = useCallback(() => {
+    dispatch(openInheritanceEditEncryptedMessageDialog());
+  }, [dispatch]);
 
   const data = useMemo<InheritancePlanData>(() => {
     const wallet = {
       walletName: planDetails.name,
       createdOn: formatDate(planDetails.activationDate, 'dd MMMM yyyy'),
       expiringOn: formatDate(planDetails.expiryDate, 'dd MMMM yyyy'),
-      onEdit: () => {
-        alert('Edit reminder period clicked!!');
-      },
+      onEdit: editReminder,
     };
+
+    if (planDetails.reminderPeriod)
+      Object.assign(wallet, { reminderPeriod: planDetails.reminderPeriod });
 
     const owner = {
       ...planDetailsObjectKeyMapper(planDetails.owner),
-      onEdit: () => {
-        alert('Edit owner details clicked!!');
-      },
+      onEdit: editOwnerDetails,
     };
 
     let nominees: UserDetails[] | undefined;
     if (planDetails.nominee.length > 0)
-      nominees = planDetails.nominee.map((n, index) => ({
+      nominees = planDetails.nominee.map(n => ({
         ...planDetailsObjectKeyMapper(n),
-        onEdit: () => alert(`Edit nominee #${index + 1} dialog`),
-        onSecondaryEdit: () => alert('Edit encrypted messages dialog'),
+        onEdit: editNomineeDetails,
+        onSecondaryEdit: editEncryptedMessage,
       }));
 
     let executor: UserDetails | undefined;
     if (planDetails.executor)
       executor = {
         ...planDetailsObjectKeyMapper(planDetails.executor),
-        onEdit: () => alert(`Edit executor dialog`),
-        onSecondaryEdit: () => alert('Edit executor message dialog'),
+        onEdit: editExecutorDetails,
+        onSecondaryEdit: editExecutorMessage,
       };
 
     return {
@@ -67,7 +99,16 @@ export const InheritancePlanDetailsSection: FC<
       nominees,
       executor,
     };
-  }, [planDetails, plan]);
+  }, [
+    planDetails,
+    plan,
+    editEncryptedMessage,
+    editExecutorMessage,
+    editNomineeDetails,
+    editExecutorDetails,
+    editOwnerDetails,
+    editReminder,
+  ]);
 
   return (
     <InheritancePlanDetailsLayout onBack={onBack} plan={plan}>

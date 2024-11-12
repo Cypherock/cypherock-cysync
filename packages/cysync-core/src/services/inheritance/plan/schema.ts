@@ -5,6 +5,11 @@ export const applyCouponResultSchema = z.object({});
 export const checkCouponResultSchema = z.object({ duration: z.string() });
 export const activateResultSchema = z.object({});
 export const getPlanResultSchema = z.object({
+  emailConfig: z
+    .object({
+      frequency: z.string().optional(),
+    })
+    .optional(),
   owner: z
     .object({
       email: z.string().optional(),
