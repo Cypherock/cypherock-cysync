@@ -195,6 +195,11 @@ export const InheritanceGoldPlanPurchaseDialogProvider: FC<
         nomineeIndex,
       );
     }
+
+    if (result.result.emailConfig?.frequency)
+      setReminderPeriod(
+        (result.result.emailConfig?.frequency as ReminderPeriod) ?? 'monthly',
+      );
     setIsFetchingDetails(false);
   };
 
