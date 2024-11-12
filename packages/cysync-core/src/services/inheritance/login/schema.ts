@@ -33,6 +33,17 @@ export const validateResultSchema = z.object({
   success: z.boolean(),
   concern: loginConcernSchema,
   otpDetails: z.array(otpDetailSchema).optional(),
+  wallet: z
+    .object({
+      owner: z
+        .object({
+          name: z.string().optional(),
+          email: z.string().optional(),
+          alternateEmail: z.string().optional(),
+        })
+        .optional(),
+    })
+    .optional(),
 });
 
 export const resendResultSchema = z.object({

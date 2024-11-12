@@ -15,17 +15,20 @@ export const UserDetails = () => {
   const silverPlanStrings =
     lang.strings.inheritanceSilverPlanPurchase.email.userDetails;
 
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [alternateEmail, setAlternateEmail] = useState('');
-
   const {
     registerUser,
     onPrevious,
     onNext,
     isRegisteringUser,
     walletAuthStep,
+    userDetailPrefillData,
   } = useInheritanceSilverPlanPurchaseDialog();
+
+  const [name, setName] = useState(userDetailPrefillData.name);
+  const [email, setEmail] = useState(userDetailPrefillData.email);
+  const [alternateEmail, setAlternateEmail] = useState(
+    userDetailPrefillData.alternateEmail,
+  );
 
   const formId = 'inheritance-silver-plan-user-details';
 

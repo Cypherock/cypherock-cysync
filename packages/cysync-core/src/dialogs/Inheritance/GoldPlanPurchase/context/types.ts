@@ -96,4 +96,5 @@ export interface InheritanceGoldPlanPurchaseDialogContextInterface {
   setIsOnSummaryPage: (val: boolean) => void;
   executorNomineeIndex?: number;
   fetchExistingDetailsFromServer: () => void;
+  userDetailPrefillData: IUserDetails;
 }

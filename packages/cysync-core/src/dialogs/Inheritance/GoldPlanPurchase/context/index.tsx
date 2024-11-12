@@ -205,7 +205,14 @@ export const InheritanceGoldPlanPurchaseDialogProvider: FC<
     setUnhandledError(undefined);
   }, []);
 
-  const walletAuthService = useWalletAuth(onError);
+  const [userDetailPrefillData, setUserDetailPrefillData] =
+    useState<IUserDetails>({
+      name: '',
+      email: '',
+      alternateEmail: '',
+    });
+
+  const walletAuthService = useWalletAuth(onError, setUserDetailPrefillData);
   const encryptMessageService = useEncryptMessage(onError);
   const sessionService = useSession(onError);
   const sessionIdRef = useRef<string | undefined>();
@@ -654,6 +661,7 @@ export const InheritanceGoldPlanPurchaseDialogProvider: FC<
     setExecutorMessage,
     onExecutorMessageSubmit,
     fetchExistingDetailsFromServer,
+    userDetailPrefillData,
   });
 
   return (
