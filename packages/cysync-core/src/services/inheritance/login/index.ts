@@ -12,6 +12,7 @@ import {
   ReminderPeriod,
   updateReminderResultSchema,
   NomineeType,
+  clearMeataDataResultSchema,
 } from './schema';
 
 import {
@@ -171,6 +172,23 @@ const updateReminder = async (params: {
     ),
   );
 
+const clearMetaData = async (params: {
+  resetExecutor?: boolean;
+  resetNominee?: boolean;
+  authTokenConfig: AuthTokenConfig;
+}) =>
+  runAndHandleServerErrors(() =>
+    makePostRequest(
+      clearMeataDataResultSchema,
+      `${baseUrl}/info/clear`,
+      {
+        executor: params.resetExecutor === true,
+        nominee: params.resetNominee === true,
+      },
+      params.authTokenConfig,
+    ),
+  );
+
 export const inheritanceLoginService = {
   init,
   resendOTP,
@@ -182,4 +200,5 @@ export const inheritanceLoginService = {
   updateNominees,
   updateExecutor,
   updateReminder,
+  clearMetaData,
 };

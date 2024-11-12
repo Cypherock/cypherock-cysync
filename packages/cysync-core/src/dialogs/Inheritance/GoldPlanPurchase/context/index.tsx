@@ -10,6 +10,7 @@ import React, {
   useMemo,
   useState,
   useRef,
+  useEffect,
 } from 'react';
 
 import { routes } from '~/constants';
@@ -194,6 +195,11 @@ export const InheritanceGoldPlanPurchaseDialogProvider: FC<
         nomineeIndex,
       );
     }
+
+    if (result.result.emailConfig?.frequency)
+      setReminderPeriod(
+        (result.result.emailConfig?.frequency as ReminderPeriod) ?? 'monthly',
+      );
     setIsFetchingDetails(false);
   };
 
@@ -205,7 +211,14 @@ export const InheritanceGoldPlanPurchaseDialogProvider: FC<
     setUnhandledError(undefined);
   }, []);
 
-  const walletAuthService = useWalletAuth(onError);
+  const [userDetailPrefillData, setUserDetailPrefillData] =
+    useState<IUserDetails>({
+      name: '',
+      email: '',
+      alternateEmail: '',
+    });
+
+  const walletAuthService = useWalletAuth(onError, setUserDetailPrefillData);
   const encryptMessageService = useEncryptMessage(onError);
   const sessionService = useSession(onError);
   const sessionIdRef = useRef<string | undefined>();
@@ -440,6 +453,15 @@ export const InheritanceGoldPlanPurchaseDialogProvider: FC<
     authTokenConfig,
   );
 
+  useEffect(() => {
+    if (nomineeCount === 1 && authTokenConfig !== undefined) {
+      inheritanceLoginService.clearMetaData({
+        resetNominee: true,
+        authTokenConfig,
+      });
+    }
+  }, [nomineeCount]);
+
   const {
     haveExecutor,
     setHaveExecutor,
@@ -460,6 +482,15 @@ export const InheritanceGoldPlanPurchaseDialogProvider: FC<
     nominees,
     authTokenConfig,
   );
+
+  useEffect(() => {
+    if (haveExecutor === false && authTokenConfig !== undefined) {
+      inheritanceLoginService.clearMetaData({
+        resetExecutor: true,
+        authTokenConfig,
+      });
+    }
+  }, [haveExecutor]);
 
   const onNextActionMapPerDialog = useMemo<
     Record<number, Record<number, (() => boolean) | undefined> | undefined>
@@ -538,6 +569,12 @@ export const InheritanceGoldPlanPurchaseDialogProvider: FC<
             return true;
           }
           return false;
+        },
+      },
+      [tabIndicies.nominieeAndExecutor.tabNumber]: {
+        [tabIndicies.nominieeAndExecutor.dialogs.nomineeCountSelect]: () => {
+          fallbackToWalletSelect();
+          return true;
         },
       },
     }),
@@ -654,6 +691,7 @@ export const InheritanceGoldPlanPurchaseDialogProvider: FC<
     setExecutorMessage,
     onExecutorMessageSubmit,
     fetchExistingDetailsFromServer,
+    userDetailPrefillData,
   });
 
   return (

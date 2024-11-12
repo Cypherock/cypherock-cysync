@@ -33,6 +33,18 @@ export const validateResultSchema = z.object({
   success: z.boolean(),
   concern: loginConcernSchema,
   otpDetails: z.array(otpDetailSchema).optional(),
+  wallet: z
+    .object({
+      owner: z
+        .object({
+          name: z.string().optional(),
+          email: z.string().optional(),
+          alternateEmail: z.string().optional(),
+        })
+        .optional(),
+    })
+    .optional()
+    .nullish(),
 });
 
 export const resendResultSchema = z.object({
@@ -77,6 +89,7 @@ export const updateNomineesResultSchema = z.object({
 });
 export const updateExecutorResultSchema = genericSuccessResult;
 export const updateReminderResultSchema = genericSuccessResult;
+export const clearMeataDataResultSchema = genericSuccessResult;
 
 export type InheritanceLoginInitResponse = z.infer<typeof initResultSchema>;
 export type InheritanceLoginResendResponse = z.infer<typeof resendResultSchema>;

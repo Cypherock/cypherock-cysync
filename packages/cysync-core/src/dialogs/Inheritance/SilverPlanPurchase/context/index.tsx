@@ -99,6 +99,12 @@ export const InheritanceSilverPlanPurchaseDialogProvider: FC<
   const [applyingCouponError, setApplyingCouponError] = useState<
     { heading: string; subtext: string } | undefined
   >();
+  const [userDetailPrefillData, setUserDetailPrefillData] =
+    useState<IUserDetails>({
+      name: '',
+      email: '',
+      alternateEmail: '',
+    });
   const [couponDuration, setCouponDuration] = useState('');
 
   const onError = useCallback((e?: any) => {
@@ -109,7 +115,7 @@ export const InheritanceSilverPlanPurchaseDialogProvider: FC<
     setUnhandledError(undefined);
   }, []);
 
-  const walletAuthService = useWalletAuth(onError);
+  const walletAuthService = useWalletAuth(onError, setUserDetailPrefillData);
   const encryptMessageService = useEncryptMessage(onError);
   const sessionService = useSession(onError);
   const sessionIdRef = useRef<string | undefined>();
@@ -480,6 +486,7 @@ export const InheritanceSilverPlanPurchaseDialogProvider: FC<
     couponDuration,
     isEstablishingSession: sessionService.isStartingSession,
     isRegisterationRequired: walletAuthService.isRegisterationRequired,
+    userDetailPrefillData,
   });
 
   return (
