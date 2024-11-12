@@ -953,6 +953,9 @@
         "heading": "Ihr X1 Vault hat eine Zeitüberschreitung",
         "subtext": "Navigieren Sie zum Hauptmenü auf dem Gerät und versuchen Sie es erneut"
       },
+      "APP_0207": {
+        "heading": "Could not establish session on device"
+      },
       "APP_0400": {
         "heading": "Unbekannter X1 Card-Fehler",
         "subtext": "Erneut versuchen oder auf Hilfe klicken, um eine Lösung zu finden"

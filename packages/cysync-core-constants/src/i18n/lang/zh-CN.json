@@ -948,6 +948,9 @@
         "heading": "您的 X1 Vault 已超时",
         "subtext": "在设备上导航到主菜单并重试"
       },
+      "APP_0207": {
+        "heading": "Could not establish session on device"
+      },
       "APP_0400": {
         "heading": "未知的 X1 Card 错误",
         "subtext": "重试或单击 帮助 以找到解决方案"
