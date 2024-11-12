@@ -1,5 +1,16 @@
 # @cypherock/cysync-core-constants
 
+## 0.0.4
+
+### Patch Changes
+
+- [#563](https://github.com/Cypherock/cypherock-cysync/pull/563) [`8286aa73`](https://github.com/Cypherock/cypherock-cysync/commit/8286aa7344346bcc04d5cb09125bac9aac1685cc) Thanks [@muzaffarbhat07](https://github.com/muzaffarbhat07)! - Added XRP support
+
+- [#582](https://github.com/Cypherock/cypherock-cysync/pull/582) [`fd260635`](https://github.com/Cypherock/cypherock-cysync/commit/fd260635181e28b8b1ef26205e86bbd53396066e) Thanks [@muzaffarbhat07](https://github.com/muzaffarbhat07)! - server coin errors handling base code
+
+- Updated dependencies [[`8286aa73`](https://github.com/Cypherock/cypherock-cysync/commit/8286aa7344346bcc04d5cb09125bac9aac1685cc)]:
+  - @cypherock/coins@0.0.9
+
 ## 0.0.3
 
 ### Patch Changes

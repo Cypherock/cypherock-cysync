@@ -14,7 +14,7 @@ export default [
   },
   {
     id: 'polygon',
-    abbr: 'MATIC',
+    abbr: 'POL',
     name: 'Polygon',
     magnitude: 18,
     isTest: false,

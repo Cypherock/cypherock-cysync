@@ -65,7 +65,7 @@ export async function runAndHandleServerErrors<T>(
           new ServerError(ServerErrorType.UNKNOWN_ERROR);
 
         return {
-          error: serverError,
+          error: serverError as ServerError,
         };
       }
     }
