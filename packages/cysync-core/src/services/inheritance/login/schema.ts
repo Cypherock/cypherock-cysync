@@ -43,7 +43,8 @@ export const validateResultSchema = z.object({
         })
         .optional(),
     })
-    .optional(),
+    .optional()
+    .nullish(),
 });
 
 export const resendResultSchema = z.object({
