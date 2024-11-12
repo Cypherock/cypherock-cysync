@@ -23,6 +23,7 @@ interface TextAreaInputProps
   rightLabel?: string;
   showRequiredStar?: boolean;
   trailing?: React.ReactNode;
+  error?: string;
 }
 
 const TextAreaInputStyle = styled.textarea`
@@ -59,6 +60,7 @@ export const TextAreaInput: FC<TextAreaInputProps> = ({
   rightLabel,
   showRequiredStar,
   trailing,
+  error,
   ...props
 }) => (
   <Flex
@@ -97,12 +99,22 @@ export const TextAreaInput: FC<TextAreaInputProps> = ({
       onBlur={e => onBlur?.(e.target.value)}
       maxLength={maxChars}
     />
-    {maxChars && (
-      <Flex width="100%" $flex={1} justify="flex-end">
-        <Typography
-          color="muted"
-          $fontSize={8}
-        >{`${currentChars}/${maxChars}`}</Typography>
+    {(maxChars || error) && (
+      <Flex
+        width="100%"
+        $flex={1}
+        justify={!error ? 'flex-end' : 'space-between'}
+      >
+        {error && (
+          <Typography $fontSize={14} color="error">
+            {error}
+          </Typography>
+        )}
+        {maxChars && (
+          <Typography color="muted" $fontSize={8}>
+            {`${currentChars}/${maxChars}`}
+          </Typography>
+        )}
       </Flex>
     )}
   </Flex>
@@ -121,4 +133,5 @@ TextAreaInput.defaultProps = {
   label: undefined,
   inputLabelProps: undefined,
   trailing: undefined,
+  error: undefined,
 };

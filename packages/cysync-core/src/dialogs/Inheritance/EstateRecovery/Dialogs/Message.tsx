@@ -9,12 +9,13 @@ import {
   Tooltip,
   Typography,
 } from '@cypherock/cysync-ui';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { selectLanguage, useAppSelector } from '~/store';
 
 import { useInheritanceEstateRecoveryDialog } from '../context';
 import { Layout } from '../Layout';
+import { validateInputLanguage } from '~/utils';
 
 export const Message = () => {
   const lang = useAppSelector(selectLanguage);
@@ -27,10 +28,46 @@ export const Message = () => {
   const cardLocation = decryptedCardLocation ?? '';
   const personalMessage = decryptedPersonalMessage ?? '';
 
+  const [cardLocationError, setCardLocationError] = useState<string>('');
+  const [personalMessageError, setPersonalMessageError] = useState<string>('');
+
+  const isNextDisabled =
+    !personalMessage.trim() ||
+    !cardLocation.trim() ||
+    !cardLocationError ||
+    !personalMessageError ||
+    !isChecked;
+
+  useEffect(() => {
+    const validateFields = () => {
+      const cardLocationValidation = validateInputLanguage(cardLocation, lang);
+      const personalMessageValidation = validateInputLanguage(
+        personalMessage,
+        lang,
+      );
+
+      if (!cardLocationValidation.success) {
+        setCardLocationError(cardLocationValidation.error.errors[0].message);
+      } else {
+        setCardLocationError('');
+      }
+
+      if (!personalMessageValidation.success) {
+        setPersonalMessageError(
+          personalMessageValidation.error.errors[0].message,
+        );
+      } else {
+        setPersonalMessageError('');
+      }
+    };
+
+    validateFields();
+  }, [cardLocation, personalMessage]);
+
   return (
     <Layout
       footerComponent={
-        <Button onClick={() => onNext()} disabled={!isChecked}>
+        <Button onClick={() => onNext()} disabled={isNextDisabled}>
           {lang.strings.buttons.next}
         </Button>
       }
@@ -51,6 +88,7 @@ export const Message = () => {
           value={cardLocation}
           tooltip={strings.form.cardLocationField.tooltip}
           placeholder={strings.form.cardLocationField.placeholder}
+          error={cardLocationError}
           autoFocus
         />
         <TextAreaInput
@@ -60,6 +98,7 @@ export const Message = () => {
           value={personalMessage}
           tooltip={strings.form.personalMessageField.tooltip}
           placeholder={strings.form.personalMessageField.placeholder}
+          error={personalMessageError}
           mb={0}
         />
       </Container>

@@ -1116,7 +1116,8 @@
   },
   "validation": {
     "generic": {
-      "required": "هذا الحقل مطلوب"
+      "required": "هذا الحقل مطلوب",
+      "englishOnly": "Only ASCII characters and English text are allowed"
     },
     "email": {
       "invalid": "هذا ليس بريدًا إلكترونيًا صالحًا"
