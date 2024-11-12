@@ -88,6 +88,7 @@ export const updateNomineesResultSchema = z.object({
 });
 export const updateExecutorResultSchema = genericSuccessResult;
 export const updateReminderResultSchema = genericSuccessResult;
+export const clearMeataDataResultSchema = genericSuccessResult;
 
 export type InheritanceLoginInitResponse = z.infer<typeof initResultSchema>;
 export type InheritanceLoginResendResponse = z.infer<typeof resendResultSchema>;

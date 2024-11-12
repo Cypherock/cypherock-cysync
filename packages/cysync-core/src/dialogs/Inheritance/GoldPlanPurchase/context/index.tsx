@@ -10,6 +10,7 @@ import React, {
   useMemo,
   useState,
   useRef,
+  useEffect,
 } from 'react';
 
 import { routes } from '~/constants';
@@ -447,6 +448,15 @@ export const InheritanceGoldPlanPurchaseDialogProvider: FC<
     authTokenConfig,
   );
 
+  useEffect(() => {
+    if (nomineeCount === 1 && authTokenConfig !== undefined) {
+      inheritanceLoginService.clearMetaData({
+        resetNominee: true,
+        authTokenConfig,
+      });
+    }
+  }, [nomineeCount]);
+
   const {
     haveExecutor,
     setHaveExecutor,
@@ -467,6 +477,15 @@ export const InheritanceGoldPlanPurchaseDialogProvider: FC<
     nominees,
     authTokenConfig,
   );
+
+  useEffect(() => {
+    if (haveExecutor === false && authTokenConfig !== undefined) {
+      inheritanceLoginService.clearMetaData({
+        resetExecutor: true,
+        authTokenConfig,
+      });
+    }
+  }, [haveExecutor]);
 
   const onNextActionMapPerDialog = useMemo<
     Record<number, Record<number, (() => boolean) | undefined> | undefined>
@@ -545,6 +564,12 @@ export const InheritanceGoldPlanPurchaseDialogProvider: FC<
             return true;
           }
           return false;
+        },
+      },
+      [tabIndicies.nominieeAndExecutor.tabNumber]: {
+        [tabIndicies.nominieeAndExecutor.dialogs.nomineeCountSelect]: () => {
+          fallbackToWalletSelect();
+          return true;
         },
       },
     }),
