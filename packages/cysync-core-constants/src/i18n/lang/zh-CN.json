@@ -2144,6 +2144,12 @@
           "subtext": "Please try a different coupon code"
         }
       }
+    },
+    "banner": {
+      "title": "Secure your crypto legacy with Cypherock Cover - Ensure your assets reach your loved ones",
+      "buttons": {
+        "knowMore": "Know More"
+      }
     }
   },
   "inheritanceSilverPlanPurchase": {

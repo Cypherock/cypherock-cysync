@@ -120,6 +120,7 @@ export const theme = {
       slateDark: colors.background.slateDark,
       cardActive: colors.background.cardActive,
       videoError: colors.background.videoError,
+      featureBanner: colors.background.featureBanner,
       timer: {
         main: colors.background.timer.main,
         default: colors.background.timer.default,
