@@ -139,7 +139,7 @@ export const WalletAuth = () => {
           <CardTapList
             items={[
               {
-                text: strings.walletAuth.actions.enterPinAndTapCard,
+                text: strings.walletAuth.actions.tapCard,
                 currentState: cardTapState,
                 totalState: 2,
               },
