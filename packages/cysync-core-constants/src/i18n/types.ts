@@ -1335,7 +1335,11 @@ interface LangInheritanceSilverPlanPurchase {
     selectWallet: {
       title: string;
       subTitle: string;
-      tooltip: string;
+      tooltips: {
+        noPin: string;
+        alreadyActive: string;
+        isDeleted: string;
+      };
     };
     walletAuth: {
       title: string;
@@ -1412,7 +1416,11 @@ interface LangInheritanceGoldPlanPurchase {
     selectWallet: {
       title: string;
       subTitle: string;
-      tooltip: string;
+      tooltips: {
+        noPin: string;
+        alreadyActive: string;
+        isDeleted: string;
+      };
     };
     walletAuth: {
       heading: string;

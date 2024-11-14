@@ -2268,7 +2268,11 @@
       "selectWallet": {
         "title": "Select the wallet you want to cover in this plan",
         "subTitle": "For setting up additional wallets individual plans can be created later",
-        "tooltip": "This wallet is not having a PIN setup, create a new wallet or select a different wallet having PIN setup"
+        "tooltips": {
+          "alreadyActive": "Plan is already setup for this wallet",
+          "noPin": "This wallet is not having a PIN setup, create a new wallet or select a different wallet having PIN setup",
+          "isDeleted": "Wallet not found in connected device, add this wallet or choose a different wallet"
+        }
       },
       "walletAuth": {
         "title": "Follow instructions on the X1 Vault to authenticate the selected wallet",
@@ -2349,7 +2353,11 @@
       "selectWallet": {
         "title": "Select the wallet you want to cover in this plan",
         "subTitle": "For setting up additional wallets, individual plans can be created later",
-        "tooltip": "This wallet is not having a PIN setup, create a new wallet or select a different wallet having PIN setup"
+        "tooltips": {
+          "alreadyActive": "Plan is already setup for this wallet",
+          "noPin": "This wallet is not having a PIN setup, create a new wallet or select a different wallet having PIN setup",
+          "isDeleted": "Wallet not found in connected device, add this wallet or choose a different wallet"
+        }
       },
       "walletAuth": {
         "heading": "Wallet Authentication",
