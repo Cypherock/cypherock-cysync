@@ -230,6 +230,9 @@ export const InheritanceSilverPlanPurchaseDialogProvider: FC<
           coupon: _coupon,
           authTokenConfig,
         });
+
+        if (result.error) throw result.error;
+
         setCouponDuration(result.result?.duration ?? '');
         setCoupon(_coupon);
       } catch (error) {
