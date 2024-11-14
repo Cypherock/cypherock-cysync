@@ -953,6 +953,9 @@
         "heading": "X1 Vault Anda telah kedaluwarsa",
         "subtext": "Navigasikan ke menu utama di perangkat dan coba lagi"
       },
+      "APP_0207": {
+        "heading": "Could not establish session on device"
+      },
       "APP_0400": {
         "heading": "Kesalahan X1 Card tidak dikenal",
         "subtext": "Coba lagi atau klik Bantuan untuk menemukan solusinya"

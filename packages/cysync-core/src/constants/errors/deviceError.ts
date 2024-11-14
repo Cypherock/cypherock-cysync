@@ -100,6 +100,8 @@ export const getDeviceErrorHandlingDetails = (
     [DeviceAppErrorType.WALLET_PARTIAL_STATE]:
       generateErrorHandlingDetails.retry(),
     [DeviceAppErrorType.APP_TIMEOUT]: generateErrorHandlingDetails.retry(),
+    [DeviceAppErrorType.DEVICE_SESSION_INVALID]:
+      generateErrorHandlingDetails.retryWithReport(),
     [DeviceAppErrorType.CARD_OPERATION_FAILED]:
       generateErrorHandlingDetails.retryWithHelp('cardError'),
     [DeviceAppErrorType.USER_REJECTION]: generateErrorHandlingDetails.retry(),

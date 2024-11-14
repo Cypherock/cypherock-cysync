@@ -953,6 +953,9 @@
         "heading": "Your X1 Vault has timed-out",
         "subtext": "Navigate to the main menu on the device and try again"
       },
+      "APP_0207": {
+        "heading": "Could not establish session on device"
+      },
       "APP_0400": {
         "heading": "Unknown X1 Card error",
         "subtext": "Retry or click Help to find a solution"
