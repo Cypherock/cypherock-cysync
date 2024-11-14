@@ -9,6 +9,7 @@ import {
   TopbarProps,
   Notification,
 } from '~/components';
+import { FeatureBanner } from '~/components/FeatureBanner';
 
 interface MainAppLayoutProps {
   topbar: TopbarProps;
@@ -52,6 +53,7 @@ const MainAppLayoutComponent: FC<MainAppLayoutProps> = ({
         <Flex ref={topbarRef} direction="column" gap={16}>
           <AppUpdateBar />
           <DeviceUpdateBar />
+          <FeatureBanner />
           <Topbar {...topbar} />
         </Flex>
         <Notification top={topbarHeight + 5} />

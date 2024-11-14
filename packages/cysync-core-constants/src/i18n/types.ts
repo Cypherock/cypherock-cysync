@@ -1310,6 +1310,12 @@ interface LangInheritance {
       };
     };
   };
+  banner: {
+    title: string;
+    buttons: {
+      knowMore: string;
+    };
+  };
 }
 
 interface LangInheritanceSilverPlanPurchase {
