@@ -8,8 +8,8 @@ import {
   Typography,
 } from '@cypherock/cysync-ui';
 import React from 'react';
-import ReactPlayer from 'react-player/youtube';
 
+import { VideoPlayer } from '~/components/VideoPlayer';
 import { selectLanguage, useAppSelector } from '~/store';
 
 import { useInheritanceEstateRecoveryDialog } from '../context';
@@ -21,7 +21,7 @@ export const Success = () => {
   const strings =
     lang.strings.dialogs.inheritanceEstateRecovery.confirmation.success;
 
-  const { onClose } = useInheritanceEstateRecoveryDialog();
+  const { onClose, onRetry, retryIndex } = useInheritanceEstateRecoveryDialog();
 
   return (
     <Layout
@@ -45,10 +45,12 @@ export const Success = () => {
           <LangDisplay text={strings.subTitle} />
         </Typography>
       </Container>
-      <ReactPlayer
-        url={constants.inheritance.silverPlanPurchaseTutorialLink}
+      <VideoPlayer
+        key={retryIndex}
+        url={constants.inheritance.goldPlanPurchaseTutorialLink}
         width="720px"
         height="405px"
+        onRetry={onRetry}
       />
     </Layout>
   );

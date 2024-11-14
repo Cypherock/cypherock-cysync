@@ -4,12 +4,13 @@ import React, { FC } from 'react';
 import { ErrorHandlerDialog } from '~/components';
 
 import {
+  InheritanceEditReminderTimeDialogProps,
   InheritanceEditReminderTimeDialogProvider,
   useInheritanceEditReminderTimeDialog,
 } from './context';
 
 const InheritanceEditReminderTime: FC = () => {
-  const { tabs, currentTab, currentDialog, unhandledError, onClose } =
+  const { tabs, currentTab, currentDialog, unhandledError, onClose, onRetry } =
     useInheritanceEditReminderTimeDialog();
 
   return (
@@ -17,6 +18,7 @@ const InheritanceEditReminderTime: FC = () => {
       <ErrorHandlerDialog
         onClose={onClose}
         error={unhandledError}
+        onRetry={onRetry}
         showCloseButton
         noDelay
       >
@@ -26,8 +28,10 @@ const InheritanceEditReminderTime: FC = () => {
   );
 };
 
-export const InheritanceEditReminderTimeDialog = () => (
-  <InheritanceEditReminderTimeDialogProvider>
+export const InheritanceEditReminderTimeDialog: FC<
+  InheritanceEditReminderTimeDialogProps
+> = props => (
+  <InheritanceEditReminderTimeDialogProvider {...props}>
     <InheritanceEditReminderTime />
   </InheritanceEditReminderTimeDialogProvider>
 );

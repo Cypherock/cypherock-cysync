@@ -99,6 +99,12 @@ export const InheritanceSilverPlanPurchaseDialogProvider: FC<
   const [applyingCouponError, setApplyingCouponError] = useState<
     { heading: string; subtext: string } | undefined
   >();
+  const [userDetailPrefillData, setUserDetailPrefillData] =
+    useState<IUserDetails>({
+      name: '',
+      email: '',
+      alternateEmail: '',
+    });
   const [couponDuration, setCouponDuration] = useState('');
 
   const onError = useCallback((e?: any) => {
@@ -109,7 +115,7 @@ export const InheritanceSilverPlanPurchaseDialogProvider: FC<
     setUnhandledError(undefined);
   }, []);
 
-  const walletAuthService = useWalletAuth(onError);
+  const walletAuthService = useWalletAuth(onError, setUserDetailPrefillData);
   const encryptMessageService = useEncryptMessage(onError);
   const sessionService = useSession(onError);
   const sessionIdRef = useRef<string | undefined>();
@@ -128,6 +134,7 @@ export const InheritanceSilverPlanPurchaseDialogProvider: FC<
       selectedWallet.__id,
       InheritanceUserTypeMap.owner,
       'seed-based',
+      true,
     );
   }, [selectedWallet, walletAuthService.fetchRequestId]);
 
@@ -159,6 +166,9 @@ export const InheritanceSilverPlanPurchaseDialogProvider: FC<
     Record<number, Record<number, (() => boolean) | undefined> | undefined>
   >(
     () => ({
+      [tabIndicies.instructions.tabNumber]: {
+        [tabIndicies.instructions.dialogs.video]: () => true,
+      },
       [tabIndicies.wallet.tabNumber]: {
         [tabIndicies.wallet.dialogs.fetchRequestId]: () => true,
         [tabIndicies.wallet.dialogs.walletAuth]: () => true,
@@ -476,6 +486,7 @@ export const InheritanceSilverPlanPurchaseDialogProvider: FC<
     couponDuration,
     isEstablishingSession: sessionService.isStartingSession,
     isRegisterationRequired: walletAuthService.isRegisterationRequired,
+    userDetailPrefillData,
   });
 
   return (

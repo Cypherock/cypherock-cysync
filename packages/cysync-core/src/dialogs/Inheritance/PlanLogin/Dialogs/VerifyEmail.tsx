@@ -41,7 +41,7 @@ export const VerifyEmail: React.FC = () => {
   const otpLength = 6;
 
   const retriesRemaining = otpVerificationDetails?.retriesRemaining ?? 3;
-  const email = otpVerificationDetails?.email ?? '';
+  const email = otpVerificationDetails?.emails ?? '';
 
   useEffect(() => {
     if (otpRef.current) {
@@ -61,6 +61,7 @@ export const VerifyEmail: React.FC = () => {
     <OTPInputDialog
       title={title}
       onClose={onClose}
+      showHeader
       emails={email}
       onBack={onPrevious}
       onResendOtp={onResend}

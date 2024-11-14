@@ -16,6 +16,17 @@ export enum ServerErrorType {
   ACCOUNT_LOCKED = 'SER_1013',
   SERVICE_UNAVAILABLE = 'SER_1014',
   REQUEST_CONFLICT = 'SER_1015',
+  VALIDATION_ERROR = 'SER_1016',
+  MISSING_WALLET = 'SER_1017',
+  MISSING_USER = 'SER_1018',
+  MISSING_NOMINEE = 'SER_1019',
+  MISSING_EXECUTOR = 'SER_1020',
+  MISSING_SESSION = 'SER_1021',
+  INVALID_COUPON = 'SER_1022',
+  INVALID_SESSION = 'SER_1023',
+  INVALID_DEVICE = 'SER_1024',
+  INVALID_PRIVATE_KEY = 'SER_1025',
+  ACTIVE_PLAN_FOUND = 'SER_1026',
 }
 
 type CodeToErrorMap = {
@@ -72,6 +83,39 @@ export const serverErrorTypeDetails: CodeToErrorMap = {
   },
   [ServerErrorType.REQUEST_CONFLICT]: {
     message: 'Request Conflict',
+  },
+  [ServerErrorType.VALIDATION_ERROR]: {
+    message: 'VALIDATION_ERROR',
+  },
+  [ServerErrorType.MISSING_WALLET]: {
+    message: 'MISSING_WALLET',
+  },
+  [ServerErrorType.MISSING_USER]: {
+    message: 'MISSING_USER',
+  },
+  [ServerErrorType.MISSING_NOMINEE]: {
+    message: 'MISSING_NOMINEE',
+  },
+  [ServerErrorType.MISSING_EXECUTOR]: {
+    message: 'MISSING_EXECUTOR',
+  },
+  [ServerErrorType.MISSING_SESSION]: {
+    message: 'MISSING_SESSION',
+  },
+  [ServerErrorType.INVALID_COUPON]: {
+    message: 'INVALID_COUPON',
+  },
+  [ServerErrorType.INVALID_SESSION]: {
+    message: 'INVALID_SESSION',
+  },
+  [ServerErrorType.INVALID_DEVICE]: {
+    message: 'INVALID_DEVICE',
+  },
+  [ServerErrorType.INVALID_PRIVATE_KEY]: {
+    message: 'INVALID_PRIVATE_KEY',
+  },
+  [ServerErrorType.ACTIVE_PLAN_FOUND]: {
+    message: 'ACTIVE_PLAN_FOUND',
   },
 };
 

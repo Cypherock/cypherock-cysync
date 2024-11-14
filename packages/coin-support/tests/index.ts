@@ -4,7 +4,7 @@ import { describe, expect, test } from '@jest/globals';
 import { getCoinSupport } from '../src';
 
 const coinFamiliesList = Object.values(coinFamiliesMap);
-const unsupportedCoinFamilies = ['xrp', 'crown', 'vivo'];
+const unsupportedCoinFamilies = ['crown', 'vivo'];
 
 describe('getCoinSupport', () => {
   describe('should return coin support for supported coin families', () => {

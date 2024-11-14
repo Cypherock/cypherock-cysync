@@ -7,10 +7,13 @@ import { EditAccountDialogProps } from '~/dialogs/EditAccountDialog';
 import { ErrorDialogProps } from '~/dialogs/ErrorDialog';
 import { IHistoryDialogProps } from '~/dialogs/HistoryDialog';
 import {
+  InheritanceEditUserDetailsDialogProps,
   InheritanceEstateRecoveryDialogProps,
   InheritancePinRecoveryDialogProps,
   InheritancePlanLoginDialogProps,
 } from '~/dialogs/Inheritance';
+import { InheritanceEditExecutorMessageDialogProps } from '~/dialogs/Inheritance/EditExecutorMessage/context';
+import { InheritanceEditReminderTimeDialogProps } from '~/dialogs/Inheritance/EditReminderTime/context';
 import { ReceiveDialogProps } from '~/dialogs/Receive';
 import { SendDialogProps } from '~/dialogs/Send/';
 import { GuidedFlowType, openDialog } from '~/store';
@@ -104,14 +107,17 @@ export const openInheritanceSilverPlanPurchaseDialog = () =>
 export const openInheritanceGoldPlanPurchaseDialog = () =>
   openDialog({ name: 'inheritanceGoldPlanPurchase', data: undefined });
 
-export const openInheritanceEditExecutorMessageDialog = () =>
-  openDialog({ name: 'inheritanceEditExecutorMessage', data: undefined });
+export const openInheritanceEditExecutorMessageDialog = (
+  props?: InheritanceEditExecutorMessageDialogProps,
+) => openDialog({ name: 'inheritanceEditExecutorMessage', data: props });
 
-export const openInheritanceEditReminderTimeDialog = () =>
-  openDialog({ name: 'inheritanceEditReminderTime', data: undefined });
+export const openInheritanceEditReminderTimeDialog = (
+  props: InheritanceEditReminderTimeDialogProps,
+) => openDialog({ name: 'inheritanceEditReminderTime', data: props });
 
-export const openInheritanceEditUserDetailsDialog = () =>
-  openDialog({ name: 'inheritanceEditUserDetails', data: undefined });
+export const openInheritanceEditUserDetailsDialog = (
+  props?: InheritanceEditUserDetailsDialogProps,
+) => openDialog({ name: 'inheritanceEditUserDetails', data: props });
 
 export const openInheritancePinRecoveryDialog = (
   props: InheritancePinRecoveryDialogProps,

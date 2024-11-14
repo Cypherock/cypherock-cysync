@@ -63,4 +63,5 @@ export interface InheritanceSilverPlanPurchaseDialogContextInterface {
   couponDuration: string;
   isEstablishingSession: boolean;
   isRegisterationRequired: boolean;
+  userDetailPrefillData: IUserDetails;
 }

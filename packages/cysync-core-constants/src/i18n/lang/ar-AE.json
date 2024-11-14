@@ -56,7 +56,8 @@
     "saveAndContinue": "Save and continue",
     "exitWithoutSaving": "Exit without saving",
     "saveChanges": "Save changes",
-    "edit": "Edit"
+    "edit": "Edit",
+    "tryAgain": "Try Again"
   },
   "dashboard": {
     "wallet": {
@@ -291,7 +292,9 @@
         "dollar": "$",
         "error": "أموال غير كافية",
         "zeroAmount": "لا يمكن أن يكون المبلغ صفرًا",
-        "notOverDustThreshold": "المبلغ أقل من الحد الأدنى"
+        "notOverDustThreshold": "المبلغ أقل من الحد الأدنى",
+        "amountBelowXrpReserve": "عنوان المستلم غير نشط. أرسل ما لا يقل عن 10 XRP لتنشيطه.",
+        "balanceBelowXrpReserve": "لا يمكن أن يكون الرصيد أقل من 10 XRP"
       },
       "fees": {
         "title": "الرسوم",
@@ -302,8 +305,14 @@
         "placeholder": "أدخل ملاحظاتك الشخصية هنا",
         "error": "تم تجاوز الحد الأقصى للحرف (120 حرفاً)"
       },
+      "destinationTag": {
+        "label": "علامة الوجهة",
+        "placeholder": "اختياري",
+        "error": "القيمة مرتفعة جدًا"
+      },
       "warning": "قد تلغى المعاملة إذا كانت الرسوم منخفضة جدًا",
       "feeError": "المعاملة ذات الرسوم 0 غير مسموح بها",
+      "feeBelowMinError": "ستفشل المعاملة مع رسم أقل من الحد الأدنى",
       "notEnoughBalance": "أموال غير كافية لإجراء المعاملة",
       "toggleText": {
         "replace": "السماح باستبدال المعاملة (استبدال برسوم)",
@@ -319,7 +328,8 @@
       "amount": "المبلغ",
       "network": "رسوم الشبكة",
       "debit": "المبلغ الإجمالي الذي سيتم خصمه",
-      "remarks": "ملاحظات شخصية"
+      "remarks": "ملاحظات شخصية",
+      "destinationTag": "علامة الوجهة"
     },
     "finalMessage": {
       "button": "تحقق من المعاملات",
@@ -385,7 +395,8 @@
       "feePrefix": {
         "optimism": "L2 "
       },
-      "remarks": "ملاحظات شخصية"
+      "remarks": "ملاحظات شخصية",
+      "destinationTag": "علامة الوجهة"
     },
     "noData": {
       "text": "لا توجد تعاملات حتى الآن",
@@ -937,6 +948,9 @@
         "heading": "جهاز X1 Vault الخاص بك قد انتهى الوقت المحدد له",
         "subtext": "انتقل إلى القائمة الرئيسية على الجهاز وحاول مرة أخرى"
       },
+      "APP_0207": {
+        "heading": "Could not establish session on device"
+      },
       "APP_0400": {
         "heading": "خطأ غير معروف في X1 Card",
         "subtext": "أعد المحاولة أو انقر فوق المساعدة للعثور على حل"
@@ -1108,6 +1122,59 @@
       "SER_1015": {
         "heading": "Your cySync app is facing some connectivity issue",
         "subtext": "Try again and if the problem persists, contact Cypherock support for assistance"
+      },
+      "SER_1016": {
+        "heading": "Your cySync app is facing some connectivity issue",
+        "subtext": "Try again and if the problem persists, contact Cypherock support for assistance"
+      },
+      "SER_1017": {
+        "heading": "Your cySync app is facing some connectivity issue",
+        "subtext": "Try again and if the problem persists, contact Cypherock support for assistance"
+      },
+      "SER_1018": {
+        "heading": "Your cySync app is facing some connectivity issue",
+        "subtext": "Try again and if the problem persists, contact Cypherock support for assistance"
+      },
+      "SER_1019": {
+        "heading": "Your cySync app is facing some connectivity issue",
+        "subtext": "Try again and if the problem persists, contact Cypherock support for assistance"
+      },
+      "SER_1020": {
+        "heading": "Your cySync app is facing some connectivity issue",
+        "subtext": "Try again and if the problem persists, contact Cypherock support for assistance"
+      },
+      "SER_1021": {
+        "heading": "Your cySync app is facing some connectivity issue",
+        "subtext": "Try again and if the problem persists, contact Cypherock support for assistance"
+      },
+      "SER_1022": {
+        "heading": "Your cySync app is facing some connectivity issue",
+        "subtext": "Try again and if the problem persists, contact Cypherock support for assistance"
+      },
+      "SER_1023": {
+        "heading": "Your cySync app is facing some connectivity issue",
+        "subtext": "Try again and if the problem persists, contact Cypherock support for assistance"
+      },
+      "SER_1024": {
+        "heading": "Your cySync app is facing some connectivity issue",
+        "subtext": "Try again and if the problem persists, contact Cypherock support for assistance"
+      },
+      "SER_1025": {
+        "heading": "Your cySync app is facing some connectivity issue",
+        "subtext": "Try again and if the problem persists, contact Cypherock support for assistance"
+      },
+      "SER_1026": {
+        "heading": "Your cySync app is facing some connectivity issue",
+        "subtext": "Try again and if the problem persists, contact Cypherock support for assistance"
+      }
+    },
+    "videoPlaybackError": "No Internet connection. Please check your connection and ",
+    "serverCoinErrors": {
+      "default": {
+        "DEF_0000": {
+          "heading": "حدث خطأ ما",
+          "subtext": "حاول مرة أخرى وإذا استمرت المشكلة، اتصل بدعم Cypherock للحصول على المساعدة"
+        }
       }
     },
     "default": "حدث خطأ داخلي"
@@ -1558,13 +1625,11 @@
     },
     "inheritancePlanLogin": {
       "walletAuth": {
-        "title": "Follow instructions on the X1 Vault",
+        "title": "Follow instructions on the X1 Vault to authenticate the selected wallet",
+        "subTitle": "Authenticating the wallet ",
         "actions": {
           "confirm": "Confirm wallet authentication on device",
           "tapCard": "Enter PIN and tap any one card"
-        },
-        "messageBox": {
-          "warning": "Authenticating"
         }
       },
       "fetchData": {
@@ -1631,7 +1696,12 @@
     },
     "inheritanceEditUserDetails": {
       "editDetails": {
-        "title": "Edit Details",
+        "title": "Edit ${userType} Details",
+        "userTypes": {
+          "owner": "Owner",
+          "nominee": "Nominee",
+          "executor": "Executor"
+        },
         "buttons": {
           "verifyEmail": "Verify Email"
         }
@@ -1643,7 +1713,7 @@
         }
       },
       "success": {
-        "title": "Owner details successfully updated"
+        "title": "${userType} details successfully updated"
       }
     },
     "inheritancePinRecovery": {
@@ -1793,7 +1863,7 @@
                 "warning": "Tap the cards you used during the initial Cypherock setup process, not the cards given by the wallet owner"
               },
               {
-                "warning": "Your X1 device will restart after this process"
+                "warning": "Your device will restart after this process"
               }
             ]
           }
@@ -1822,13 +1892,13 @@
         "name": "Decryption",
         "device": {
           "title": "Follow instructions on the X1 Vault",
-          "subTitle": "Do not remove the card till you hear a beep",
+          "subTitle": "Do not lift the card till you hear a beep sound",
           "actions": {
             "confirm": "Confirm decryption on device",
             "tapCard": "Tap the card you received as a nominee"
           },
           "messageBox": {
-            "warning": "The message will be decrypted by the X1 Card you received as a nominee"
+            "warning": "The message will be decrypted by the card you received as a nominee"
           }
         },
         "error": {
@@ -1841,7 +1911,7 @@
         "title": "Follow instructions on the X1 Vault",
         "subTitle": "PIN for wallet",
         "actions": {
-          "view": "View & copy the PIN on your device and then confirm"
+          "view": "View & copy the PIN displayed on your device and then confirm"
         },
         "messageBox": {
           "warning": "You will need this PIN to access crypto assets on this wallet. Make sure you do not forget it."
@@ -1850,17 +1920,17 @@
       "viewMessage": {
         "name": "View Message",
         "title": "Message from ${name}",
-        "tooltip": "Something goes here",
+        "tooltip": "These messages were written by the wallet owner for you. They contain important information about how to recover their crypto assets stored on the Cypherock X1. \nNote- Make sure you keep these messages safe and private. ",
         "form": {
           "cardLocationField": {
             "label": "Card location",
             "placeholder": "Write the location of the card",
-            "tooltip": "The location of your cards"
+            "tooltip": "This is the location of another card written by wallet owner for you to fetch. You will only be able to recover the crypto assets after getting another card"
           },
           "personalMessageField": {
             "label": "Personal message",
             "placeholder": "Write your message",
-            "tooltip": "This is the message for you"
+            "tooltip": "This includes a personal message written by wallet owner for you"
           },
           "checkBox": {
             "label": "I have read and copied the above messages"
@@ -2059,28 +2129,52 @@
       "ownerDetails": {
         "title": "Owner Details",
         "form": {
-          "userNameField": { "label": "Name" },
-          "primaryEmailField": { "label": "Primary Email" },
-          "secondaryEmailField": { "label": "Secondary Email" }
+          "userNameField": {
+            "label": "Name"
+          },
+          "primaryEmailField": {
+            "label": "Primary Email"
+          },
+          "secondaryEmailField": {
+            "label": "Secondary Email"
+          }
         }
       },
       "nomineeDetails": {
         "title": "Nominee #${number}",
         "form": {
-          "nomineeNameField": { "label": "Nominee Name" },
-          "primaryEmailField": { "label": "Primary Email" },
-          "secondaryEmailField": { "label": "Secondary Email" },
-          "encryptedMessage": { "label": "Encrypted Message" }
+          "nomineeNameField": {
+            "label": "Nominee Name"
+          },
+          "primaryEmailField": {
+            "label": "Primary Email"
+          },
+          "secondaryEmailField": {
+            "label": "Secondary Email"
+          },
+          "encryptedMessage": {
+            "label": "Encrypted Message"
+          }
         }
       },
       "executorDetails": {
         "title": "Executor",
         "form": {
-          "nomineeNameField": { "label": "Name" },
-          "primaryEmailField": { "label": "Primary Email" },
-          "secondaryEmailField": { "label": "Secondary Email" },
-          "executorMessage": { "label": "Executor Message" },
-          "assignTo": { "label": "Assigned to" }
+          "nomineeNameField": {
+            "label": "Name"
+          },
+          "primaryEmailField": {
+            "label": "Primary Email"
+          },
+          "secondaryEmailField": {
+            "label": "Secondary Email"
+          },
+          "executorMessage": {
+            "label": "Executor Message"
+          },
+          "assignTo": {
+            "label": "Assigned to"
+          }
         }
       }
     },
@@ -2101,7 +2195,10 @@
       "userDetails": {
         "form": {
           "name": "Name",
-          "email": "Primary Email",
+          "emailField": {
+            "label": "Primary Email",
+            "tooltip": "Enter the email on which you want to receive all reminder emails"
+          },
           "alternateEmail": "Alternate Email"
         },
         "error": {
@@ -2136,6 +2233,12 @@
           "errorHeading": "Invalid Coupon Code",
           "subtext": "Please try a different coupon code"
         }
+      }
+    },
+    "banner": {
+      "title": "Secure your crypto legacy with Cypherock Cover - Ensure your assets reach your loved ones",
+      "buttons": {
+        "knowMore": "Know More"
       }
     }
   },
@@ -2391,9 +2494,15 @@
       "ownerDetails": {
         "title": "Owner Details",
         "form": {
-          "userNameField": { "label": "Name" },
-          "primaryEmailField": { "label": "Primary Email" },
-          "secondaryEmailField": { "label": "Secondary Email" },
+          "userNameField": {
+            "label": "Name"
+          },
+          "primaryEmailField": {
+            "label": "Primary Email"
+          },
+          "secondaryEmailField": {
+            "label": "Secondary Email"
+          },
           "reminderPeriodField": {
             "label": "Reminder Period",
             "input": "Every ${month} month",
@@ -2404,9 +2513,15 @@
       "nomineeDetails": {
         "title": "Nominee #",
         "form": {
-          "nomineeNameField": { "label": "Nominee Name" },
-          "primaryEmailField": { "label": "Primary Email" },
-          "secondaryEmailField": { "label": "Secondary Email" }
+          "nomineeNameField": {
+            "label": "Nominee Name"
+          },
+          "primaryEmailField": {
+            "label": "Primary Email"
+          },
+          "secondaryEmailField": {
+            "label": "Secondary Email"
+          }
         }
       },
       "cardLocation": {
@@ -2418,10 +2533,18 @@
       "executorDetails": {
         "title": "Executor",
         "form": {
-          "nomineeNameField": { "label": "Nominee Name" },
-          "primaryEmailField": { "label": "Primary Email" },
-          "secondaryEmailField": { "label": "Secondary Email" },
-          "assignTo": { "label": "Assigned to" }
+          "nomineeNameField": {
+            "label": "Nominee Name"
+          },
+          "primaryEmailField": {
+            "label": "Primary Email"
+          },
+          "secondaryEmailField": {
+            "label": "Secondary Email"
+          },
+          "assignTo": {
+            "label": "Assigned to"
+          }
         }
       },
       "executorMessage": {

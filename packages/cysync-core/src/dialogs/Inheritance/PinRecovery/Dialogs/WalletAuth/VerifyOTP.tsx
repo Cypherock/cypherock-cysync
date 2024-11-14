@@ -17,6 +17,7 @@ export const VerifyOTP: React.FC = () => {
     otpVerificationDetails,
     verifyOtp,
     isVerifyingOtp,
+    onClose,
   } = useInheritancePinRecoveryDialog();
 
   const otpRef = useRef<OTPInputDialogRef | null>(null);
@@ -40,7 +41,7 @@ export const VerifyOTP: React.FC = () => {
   const otpLength = 6;
 
   const retriesRemaining = otpVerificationDetails?.retriesRemaining ?? 3;
-  const email = otpVerificationDetails?.email ?? '';
+  const email = otpVerificationDetails?.emails ?? '';
 
   useEffect(() => {
     if (otpRef.current) {
@@ -58,6 +59,7 @@ export const VerifyOTP: React.FC = () => {
 
   return (
     <OTPInputDialog
+      onClose={onClose}
       title={title}
       emails={email}
       onBack={onPrevious}

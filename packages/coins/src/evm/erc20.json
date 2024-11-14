@@ -13351,25 +13351,25 @@
     "symbol": "nkn"
   },
   {
-    "description": {
-      "en": ""
-    },
     "id": "polygon-ecosystem-token",
-    "image": {
-      "large": "https://assets.coingecko.com/coins/images/32440/large/polygon.png?1698233684",
-      "small": "https://assets.coingecko.com/coins/images/32440/small/polygon.png?1698233684",
-      "thumb": "https://assets.coingecko.com/coins/images/32440/thumb/polygon.png?1698233684"
-    },
-    "last_updated_at": "2024-03-27T09:13:40.277Z",
-    "market_cap": 118137331,
+    "symbol": "pol",
     "name": "Polygon Ecosystem Token",
     "platforms": {
       "ethereum": {
-        "contract_address": "0x455e53cbb86018ac2b8092fdcd39d8444affc3f6",
-        "decimal_place": 18
+        "decimal_place": 18,
+        "contract_address": "0x455e53cbb86018ac2b8092fdcd39d8444affc3f6"
       }
     },
-    "symbol": "pol"
+    "description": {
+      "en": ""
+    },
+    "image": {
+      "thumb": "https://coin-images.coingecko.com/coins/images/32440/thumb/polygon.png?1698233684",
+      "small": "https://coin-images.coingecko.com/coins/images/32440/small/polygon.png?1698233684",
+      "large": "https://coin-images.coingecko.com/coins/images/32440/large/polygon.png?1698233684"
+    },
+    "market_cap": 108522208,
+    "last_updated_at": "2024-08-30T13:40:47.716Z"
   },
   {
     "description": {

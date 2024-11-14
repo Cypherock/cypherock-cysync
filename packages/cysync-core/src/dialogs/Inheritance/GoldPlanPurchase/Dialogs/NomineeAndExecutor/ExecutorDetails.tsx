@@ -8,11 +8,11 @@ import {
   Tooltip,
   Typography,
 } from '@cypherock/cysync-ui';
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
 
 import { selectLanguage, useAppSelector } from '~/store';
 
-import { UserDetailsForm } from '../../components';
+import { UserDetailsForm } from '../../../components';
 import { useInheritanceGoldPlanPurchaseDialog } from '../../context';
 import { Layout } from '../../Layout';
 
@@ -59,7 +59,12 @@ export const ExecutorDetails = () => {
   };
 
   const isSameEmail = Boolean(email && email === alternateEmail);
-  const isFormIncomplete = !name || !email;
+
+  const [hasErrors, setHasErrors] = useState(false);
+  const isFormIncomplete = useMemo(
+    () => !name || !email || hasErrors,
+    [hasErrors],
+  );
 
   return (
     <Layout
@@ -109,6 +114,7 @@ export const ExecutorDetails = () => {
           setAlternateEmail={setAlternateEmail}
           isAlternateEmailRequired={false}
           isSameEmail={isSameEmail}
+          setHasErrors={setHasErrors}
         />
         <Container
           direction="column"

@@ -27,6 +27,7 @@ export const Tooltip: React.FC<TooltipProps> = ({
           wordBreak: 'break-word',
           lineBreak: 'loose',
           textAlign: 'center',
+          whiteSpace: 'pre-wrap',
         }}
       >
         {text}

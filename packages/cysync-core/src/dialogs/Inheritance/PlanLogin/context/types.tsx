@@ -4,6 +4,7 @@ import { WalletAuthLoginStep, IOtpVerificationDetails } from '../../hooks';
 
 export interface InheritancePlanLoginDialogProps {
   walletId: string;
+  walletName: string;
 }
 
 export interface InheritancePlanLoginDialogContextInterface {
@@ -19,6 +20,7 @@ export interface InheritancePlanLoginDialogContextInterface {
   onRetry: () => void;
   retryIndex: number;
   clearErrors: () => void;
+  walletName: string;
   walletAuthDeviceEvents: Record<number, boolean | undefined>;
   walletAuthFetchRequestId: () => void;
   walletAuthIsFetchingRequestId: boolean;

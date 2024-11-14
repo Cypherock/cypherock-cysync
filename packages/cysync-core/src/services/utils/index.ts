@@ -2,6 +2,7 @@ import { ServerError, ServerErrorType } from '@cypherock/cysync-core-constants';
 import axios, { AxiosError, AxiosRequestConfig, AxiosResponse } from 'axios';
 
 import { createServerErrorFromError } from '~/utils';
+
 import { inheritanceBaseUrl } from '../inheritance';
 import { refreshAccessTokenResultSchema } from '../inheritance/login/schema';
 
@@ -20,6 +21,17 @@ export const serverErrorCodeMap: Record<number, ServerErrorType | undefined> = {
   1013: ServerErrorType.ACCOUNT_LOCKED,
   1014: ServerErrorType.SERVICE_UNAVAILABLE,
   1015: ServerErrorType.REQUEST_CONFLICT,
+  1016: ServerErrorType.VALIDATION_ERROR,
+  1017: ServerErrorType.MISSING_WALLET,
+  1018: ServerErrorType.MISSING_USER,
+  1019: ServerErrorType.MISSING_NOMINEE,
+  1020: ServerErrorType.MISSING_EXECUTOR,
+  1021: ServerErrorType.MISSING_SESSION,
+  1022: ServerErrorType.INVALID_COUPON,
+  1023: ServerErrorType.INVALID_SESSION,
+  1024: ServerErrorType.INVALID_DEVICE,
+  1025: ServerErrorType.INVALID_PRIVATE_KEY,
+  1026: ServerErrorType.ACTIVE_PLAN_FOUND,
 };
 
 export type Only<T, U> = {
@@ -64,7 +76,7 @@ export async function runAndHandleServerErrors<T>(
           new ServerError(ServerErrorType.UNKNOWN_ERROR);
 
         return {
-          error: serverError,
+          error: serverError as ServerError,
         };
       }
     }
@@ -137,7 +149,7 @@ export async function autoRefreshTokenRequest<T>(
     newAuthToken = refreshTokenResponse.authToken;
     if (!newAuthToken) throw error;
 
-    refreshTokenConfig.updateAuthToken?.(newAuthToken);
+    refreshTokenConfig.updateAuthToken(newAuthToken);
     result = await requestFunction(newAuthToken ?? '');
   }
   return result;
@@ -167,7 +179,7 @@ export async function makeGetRequest<T>(
 export type RequestFunction = (params: {
   config?: AxiosRequestConfig;
   data?: any;
-}) => Promise<AxiosResponse<any, any>>;
+}) => Promise<AxiosResponse>;
 
 async function makeRequest<T>(
   params: {

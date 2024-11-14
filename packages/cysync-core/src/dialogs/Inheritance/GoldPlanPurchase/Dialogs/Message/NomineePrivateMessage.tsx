@@ -33,7 +33,7 @@ export const NomineePrivateMessageInput = () => {
     isOnSummaryPage,
   } = useInheritanceGoldPlanPurchaseDialog();
 
-  const isNextDisabled = !personalMessage?.trim() || !cardLocation?.trim();
+  const isNextDisabled = !personalMessage.trim() || !cardLocation.trim();
 
   return (
     <Layout

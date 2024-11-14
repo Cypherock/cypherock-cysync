@@ -1,5 +1,32 @@
 # @cypherock/coin-support
 
+## 0.0.10
+
+### Patch Changes
+
+- [#563](https://github.com/Cypherock/cypherock-cysync/pull/563) [`8286aa73`](https://github.com/Cypherock/cypherock-cysync/commit/8286aa7344346bcc04d5cb09125bac9aac1685cc) Thanks [@muzaffarbhat07](https://github.com/muzaffarbhat07)! - Added XRP support
+
+- Updated dependencies [[`8286aa73`](https://github.com/Cypherock/cypherock-cysync/commit/8286aa7344346bcc04d5cb09125bac9aac1685cc)]:
+  - @cypherock/coin-support-xrp@1.0.0
+  - @cypherock/coins@0.0.9
+  - @cypherock/coin-support-btc@0.0.10
+  - @cypherock/coin-support-evm@0.0.10
+  - @cypherock/coin-support-near@0.0.10
+  - @cypherock/coin-support-solana@0.0.10
+  - @cypherock/coin-support-tron@0.0.4
+
+## 0.0.9
+
+### Patch Changes
+
+- Updated dependencies [[`99eccbb6`](https://github.com/Cypherock/cypherock-cysync/commit/99eccbb6df848a2051a1c6872294fd42e238e3cf)]:
+  - @cypherock/coins@0.0.8
+  - @cypherock/coin-support-btc@0.0.9
+  - @cypherock/coin-support-evm@0.0.9
+  - @cypherock/coin-support-near@0.0.9
+  - @cypherock/coin-support-solana@0.0.9
+  - @cypherock/coin-support-tron@0.0.3
+
 ## 0.0.8
 
 ### Patch Changes

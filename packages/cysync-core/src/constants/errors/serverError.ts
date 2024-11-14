@@ -40,6 +40,28 @@ export const getServerErrorHandlingDetails = (
     [ServerErrorType.ACCOUNT_LOCKED]: generateErrorHandlingDetails.retry(),
     [ServerErrorType.SERVICE_UNAVAILABLE]: generateErrorHandlingDetails.retry(),
     [ServerErrorType.REQUEST_CONFLICT]: generateErrorHandlingDetails.retry(),
+    [ServerErrorType.VALIDATION_ERROR]:
+      generateErrorHandlingDetails.retryWithReport(),
+    [ServerErrorType.MISSING_WALLET]:
+      generateErrorHandlingDetails.retryWithReport(),
+    [ServerErrorType.MISSING_USER]:
+      generateErrorHandlingDetails.retryWithReport(),
+    [ServerErrorType.MISSING_NOMINEE]:
+      generateErrorHandlingDetails.retryWithReport(),
+    [ServerErrorType.MISSING_EXECUTOR]:
+      generateErrorHandlingDetails.retryWithReport(),
+    [ServerErrorType.MISSING_SESSION]:
+      generateErrorHandlingDetails.retryWithReport(),
+    [ServerErrorType.INVALID_COUPON]:
+      generateErrorHandlingDetails.retryWithReport(),
+    [ServerErrorType.INVALID_SESSION]:
+      generateErrorHandlingDetails.retryWithReport(),
+    [ServerErrorType.INVALID_DEVICE]:
+      generateErrorHandlingDetails.retryWithReport(),
+    [ServerErrorType.INVALID_PRIVATE_KEY]:
+      generateErrorHandlingDetails.retryWithReport(),
+    [ServerErrorType.ACTIVE_PLAN_FOUND]:
+      generateErrorHandlingDetails.retryWithReport(),
   };
 
   return serverErrorHandlingDetailsMap[errorCode];

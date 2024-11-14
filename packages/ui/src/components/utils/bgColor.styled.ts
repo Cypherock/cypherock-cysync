@@ -28,7 +28,9 @@ export type BgColor =
   | 'headlineLight'
   | 'error'
   | 'disabled'
-  | 'message';
+  | 'message'
+  | 'videoError'
+  | 'featureBanner';
 
 export interface BgColorProps {
   $bgColor?: BgColor;
@@ -168,5 +170,15 @@ ${props =>
     props.$bgColor === 'message' &&
     css`
       background: ${({ theme }) => theme.palette.background.message};
+    `}
+    ${props =>
+    props.$bgColor === 'videoError' &&
+    css`
+      background: ${({ theme }) => theme.palette.background.videoError};
+    `}
+    ${props =>
+    props.$bgColor === 'featureBanner' &&
+    css`
+      background: ${({ theme }) => theme.palette.background.featureBanner};
     `}
 `;

@@ -1,7 +1,11 @@
 import {
-  ServerErrorType,
+  coinFamiliesMapWithDefault,
+  CoinFamilyWithDefault,
   DeviceErrorCodes,
+  ServerCoinError,
+  ServerCoinErrorTypes,
   ServerError,
+  ServerErrorType,
 } from '@cypherock/cysync-core-constants';
 
 import {
@@ -9,6 +13,7 @@ import {
   ErrorActionMap,
   getDatabaseErrorHandlingDetails,
   getDeviceErrorHandlingDetails,
+  getServerCoinErrorHandlingDetails,
   getServerErrorHandlingDetails,
 } from '~/constants/errors';
 import { ILangState } from '~/store';
@@ -30,6 +35,18 @@ export const createServerErrorFromError = (
   type?: ServerErrorType,
 ) => {
   if (error?.isAxiosError) {
+    if (error.response && error.response.data?.coinErrorCode) {
+      return new ServerCoinError({
+        coinFamily: error.response.data.coinFamily,
+        code: error.response.data.coinErrorCode,
+        message: error.response.data.coinError,
+        details: {
+          responseBody: error?.response?.data,
+          url: error?.request?.url,
+          status: error?.response?.status,
+        },
+      });
+    }
     if (error.response) {
       return new ServerError(type ?? ServerErrorType.UNKNOWN_ERROR, undefined, {
         advanceText: error?.response?.data?.cysyncError,
@@ -89,6 +106,22 @@ export const getParsedError = (params: {
 
     advanceText = errorToParse?.details?.advanceText;
     details = getServerErrorHandlingDetails(lang, errorToParse.code) ?? details;
+  } else if (errorToParse?.isServerCoinError && errorToParse.code) {
+    const serverCoinErrors =
+      lang.strings.errors.serverCoinErrors[
+        errorToParse.coinFamily as CoinFamilyWithDefault
+      ] ??
+      lang.strings.errors.serverCoinErrors[coinFamiliesMapWithDefault.default];
+
+    heading =
+      errorToParse.message ??
+      (serverCoinErrors &&
+        serverCoinErrors[errorToParse.code as ServerCoinErrorTypes]?.heading);
+    subtext =
+      serverCoinErrors &&
+      serverCoinErrors[errorToParse.code as ServerCoinErrorTypes]?.subtext;
+
+    details = getServerCoinErrorHandlingDetails(errorToParse.code) ?? details;
   }
 
   let primaryAction: IErrorActionButtonDetails = {

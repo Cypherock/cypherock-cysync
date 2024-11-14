@@ -1,4 +1,10 @@
-import { DeviceErrorCodes, IErrorMsg, ServerErrorType } from '../types';
+import {
+  DeviceErrorCodes,
+  IErrorMsg,
+  ServerErrorType,
+  ServerCoinErrorTypes,
+  CoinFamilyWithDefault,
+} from '../types';
 
 export interface LanguageStrings {
   x1Card: string;
@@ -98,6 +104,7 @@ interface LangButtons {
   exitWithoutSaving: string;
   saveChanges: string;
   edit: string;
+  tryAgain: string;
 }
 
 interface LangDashboard {
@@ -275,15 +282,19 @@ interface LangSend {
       error: string;
       zeroAmount: string;
       notOverDustThreshold: string;
+      amountBelowXrpReserve: string;
+      balanceBelowXrpReserve: string;
     };
     fees: { title: string; label: string };
     warning: string;
     feeError: string;
+    feeBelowMinError: string;
     notEnoughBalance: string;
     toggleText: { replace: string; unconfirmed: string };
     infoBox: string;
     addButton: string;
     remarks: { label: string; placeholder: string; error: string };
+    destinationTag: { label: string; placeholder: string; error: string };
   };
   summary: {
     title: string;
@@ -293,6 +304,7 @@ interface LangSend {
     network: string;
     debit: string;
     remarks: string;
+    destinationTag: string;
   };
   finalMessage: {
     button: string;
@@ -348,6 +360,7 @@ interface LangHistory {
     description: string;
     feePrefix: { optimism: string };
     remarks: string;
+    destinationTag: string;
   };
   noData: { text: string; subText: string; buttonText: string };
   search: { placeholder: string; notFound: { text: string; subText: string } };
@@ -616,11 +629,15 @@ interface LangDeleteAccount {
   buttons: { yes: string; no: string };
 }
 
-interface LangErrors {
+export interface LangErrors {
   deviceErrors: Record<DeviceErrorCodes, IErrorMsg>;
   databaseError: IErrorMsg;
   serverErrors: Record<ServerErrorType, IErrorMsg>;
+  serverCoinErrors: Partial<
+    Record<CoinFamilyWithDefault, Record<ServerCoinErrorTypes, IErrorMsg>>
+  >;
   default: string;
+  videoPlaybackError: string;
 }
 
 interface LangValidation {
@@ -787,12 +804,10 @@ interface LangDialogs {
   inheritancePlanLogin: {
     walletAuth: {
       title: string;
+      subTitle: string;
       actions: {
         confirm: string;
         tapCard: string;
-      };
-      messageBox: {
-        warning: string;
       };
     };
     fetchData: {
@@ -853,6 +868,11 @@ interface LangDialogs {
   inheritanceEditUserDetails: {
     editDetails: {
       title: string;
+      userTypes: {
+        owner: string;
+        nominee: string;
+        executor: string;
+      };
       buttons: {
         verifyEmail: string;
       };
@@ -1254,7 +1274,10 @@ interface LangInheritance {
     userDetails: {
       form: {
         name: string;
-        email: string;
+        emailField: {
+          label: string;
+          tooltip: string;
+        };
         alternateEmail: string;
       };
       error: {
@@ -1285,6 +1308,12 @@ interface LangInheritance {
         errorHeading: string;
         subtext: string;
       };
+    };
+  };
+  banner: {
+    title: string;
+    buttons: {
+      knowMore: string;
     };
   };
 }

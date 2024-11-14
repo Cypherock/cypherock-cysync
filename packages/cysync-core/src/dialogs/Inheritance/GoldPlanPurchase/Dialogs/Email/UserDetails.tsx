@@ -1,9 +1,9 @@
 import { Button, LangDisplay } from '@cypherock/cysync-ui';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
+import { UserDetailsForm } from '~/dialogs/Inheritance/components';
 
 import { WalletAuthLoginStep } from '~/dialogs/Inheritance/hooks';
 import { selectLanguage, useAppSelector } from '~/store';
-import { UserDetailsForm } from '../../components';
 
 import { useInheritanceGoldPlanPurchaseDialog } from '../../context';
 import { Layout } from '../../Layout';
@@ -14,17 +14,20 @@ export const UserDetails = () => {
   const goldPlanStrings =
     lang.strings.inheritanceGoldPlanPurchase.email.userDetails;
 
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [alternateEmail, setAlternateEmail] = useState('');
-
   const {
     registerUser,
     onPrevious,
     onNext,
     isRegisteringUser,
     walletAuthStep,
+    userDetailPrefillData,
   } = useInheritanceGoldPlanPurchaseDialog();
+
+  const [name, setName] = useState(userDetailPrefillData.name);
+  const [email, setEmail] = useState(userDetailPrefillData.email);
+  const [alternateEmail, setAlternateEmail] = useState(
+    userDetailPrefillData.alternateEmail,
+  );
 
   const formId = 'inheritance-gold-plan-user-details';
 
@@ -47,7 +50,12 @@ export const UserDetails = () => {
   }, []);
 
   const isSameEmail = Boolean(email && email === alternateEmail);
-  const isFormIncomplete = !name || !email || !alternateEmail;
+
+  const [hasErrors, setHasErrors] = useState(false);
+  const isFormIncomplete = useMemo(
+    () => !name || !email || !alternateEmail || hasErrors,
+    [hasErrors, name, email, alternateEmail],
+  );
 
   return (
     <Layout
@@ -84,6 +92,7 @@ export const UserDetails = () => {
         alternateEmail={alternateEmail}
         setAlternateEmail={setAlternateEmail}
         isSameEmail={isSameEmail}
+        setHasErrors={setHasErrors}
       />
     </Layout>
   );

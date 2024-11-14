@@ -133,6 +133,8 @@ export const colors = {
     slateLight: '#302C29',
     headlineLight: '#655F53',
     cardActive: '#262423',
+    videoError: '#14110f',
+    featureBanner: '#282828',
   },
   border: {
     darkSlate: '#030303',

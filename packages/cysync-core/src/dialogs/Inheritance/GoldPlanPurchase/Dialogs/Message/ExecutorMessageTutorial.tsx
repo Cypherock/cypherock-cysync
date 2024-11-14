@@ -6,8 +6,8 @@ import {
   Typography,
 } from '@cypherock/cysync-ui';
 import React from 'react';
-import ReactPlayer from 'react-player/youtube';
 
+import { VideoPlayer } from '~/components/VideoPlayer';
 import { selectLanguage, useAppSelector } from '~/store';
 
 import { useInheritanceGoldPlanPurchaseDialog } from '../../context';
@@ -15,10 +15,10 @@ import { Layout } from '../../Layout';
 
 export const ExecutorMessageTutorial = () => {
   const lang = useAppSelector(selectLanguage);
-
   const strings = lang.strings.inheritanceGoldPlanPurchase.message;
 
-  const { onNext, onPrevious } = useInheritanceGoldPlanPurchaseDialog();
+  const { onNext, onPrevious, onRetry, retryIndex } =
+    useInheritanceGoldPlanPurchaseDialog();
 
   return (
     <Layout
@@ -46,10 +46,13 @@ export const ExecutorMessageTutorial = () => {
           <LangDisplay text={strings.tutorial.subtext} />
         </Typography>
       </Container>
-      <ReactPlayer
-        url={constants.inheritance.silverPlanPurchaseTutorialLink}
+
+      <VideoPlayer
+        key={retryIndex}
+        url={constants.inheritance.goldPlanPurchaseTutorialLink}
         width="720px"
         height="405px"
+        onRetry={onRetry}
       />
     </Layout>
   );

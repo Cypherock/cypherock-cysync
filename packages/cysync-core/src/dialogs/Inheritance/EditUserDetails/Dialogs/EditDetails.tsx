@@ -21,7 +21,7 @@ import { constants } from '@cypherock/cysync-core-constants';
 
 export const EditDetails = () => {
   const lang = useAppSelector(selectLanguage);
-  const { onClose, onUserDetailsSubmit, isSubmittingUserDetails } =
+  const { onClose, onUserDetailsSubmit, isSubmittingUserDetails, userType } =
     useInheritanceEditUserDetailsDialog();
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
@@ -60,7 +60,7 @@ export const EditDetails = () => {
                 $fontSize={20}
                 mb="4px"
               >
-                <LangDisplay text={strings.title} />
+                <LangDisplay text={strings.title} variables={{ userType }} />
               </Typography>
             </Container>
             <Container direction="column" $width="full" mb={3}>
@@ -87,7 +87,7 @@ export const EditDetails = () => {
                 pasteAllowed
                 name="email"
                 type="email"
-                label={form.email}
+                label={form.emailField.label}
                 rightLabel={lang.strings.labels.required}
                 value={email}
                 required

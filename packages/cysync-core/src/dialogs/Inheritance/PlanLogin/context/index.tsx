@@ -10,13 +10,8 @@ import React, {
 } from 'react';
 
 import { ITabs, useAsync, useMemoReturn, useTabsAndDialogs } from '~/hooks';
-import { InheritanceUserTypeMap, inheritancePlanService } from '~/services';
-import {
-  closeDialog,
-  IInheritancePlanDetails,
-  updateInheritancePlanDetails,
-  useAppDispatch,
-} from '~/store';
+import { InheritanceUserTypeMap } from '~/services';
+import { closeDialog, useAppDispatch } from '~/store';
 
 import {
   InheritancePlanLoginDialogContextInterface,
@@ -32,6 +27,7 @@ import {
   FetchRequestId,
   ValidateSignature,
 } from '../Dialogs';
+import { useUpdatePlanDetails } from '../../hooks/useUpdatePlanDetails';
 
 export const InheritancePlanLoginDialogContext: Context<InheritancePlanLoginDialogContextInterface> =
   createContext<InheritancePlanLoginDialogContextInterface>(
@@ -45,7 +41,7 @@ export interface InheritancePlanLoginDialogContextProviderProps
 
 export const InheritancePlanLoginDialogProvider: FC<
   InheritancePlanLoginDialogContextProviderProps
-> = ({ children, walletId }) => {
+> = ({ children, walletId, walletName }) => {
   const dispatch = useAppDispatch();
 
   const deviceRequiredDialogsMap: Record<number, number[] | undefined> =
@@ -126,44 +122,11 @@ export const InheritancePlanLoginDialogProvider: FC<
     );
   }, [walletId]);
 
+  const { fetchAndUpdatePlan } = useUpdatePlanDetails({ authTokenConfig });
+
   const fetchPlanHanlder = useCallback(async () => {
     if (!authTokenConfig) return false;
-
-    const result = await inheritancePlanService.getPlan({
-      authTokenConfig,
-    });
-
-    if (result.error) {
-      throw result.error;
-    }
-
-    const activationDate =
-      result.result.subscription?.[0]?.activationDate ??
-      new Date().toISOString();
-
-    const planDetails: IInheritancePlanDetails = {
-      walletId: result.result.wallet,
-      name: result.result.fullName ?? '',
-      nominee:
-        result.result.nominee?.map(n => ({ email: n.email ?? '' })) ?? [],
-      executor: result.result.executor?.nominee?.map(n => ({
-        email: n ?? '',
-      }))[0] ?? { email: '' },
-      owner: {
-        email: result.result.owner?.email ?? '',
-        alternateEmail: result.result.owner?.alternateEmail ?? '',
-      },
-      activationDate: new Date(activationDate).getTime(),
-      expiryDate: Date.now() + 2 * 365 * 24 * 60 * 60 * 1000,
-    };
-
-    dispatch(
-      updateInheritancePlanDetails({
-        walletId: planDetails.walletId,
-        planDetails,
-      }),
-    );
-
+    await fetchAndUpdatePlan();
     onClose();
     return true;
   }, [authTokenConfig, onClose]);
@@ -249,6 +212,7 @@ export const InheritancePlanLoginDialogProvider: FC<
     onRetry,
     retryIndex,
     clearErrors,
+    walletName,
     walletAuthDeviceEvents: walletAuthService.deviceEvents,
     walletAuthFetchRequestId,
     walletAuthIsFetchingRequestId: walletAuthService.isFetchingRequestId,

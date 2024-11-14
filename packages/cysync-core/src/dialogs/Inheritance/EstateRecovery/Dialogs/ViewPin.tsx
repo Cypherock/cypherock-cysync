@@ -4,9 +4,11 @@ import {
   Check,
   Container,
   Image,
+  LangDisplay,
   LeanBox,
   LeanBoxContainer,
   LeanBoxProps,
+  MessageBox,
   Throbber,
   Typography,
   verifyPinOnDevice,
@@ -27,8 +29,12 @@ export const ViewPin = () => {
 
   const strings = lang.strings.dialogs.inheritanceEstateRecovery.viewPin;
 
-  const { onNext, decryptPinIsCompleted, decryptPinDeviceEvents } =
-    useInheritanceEstateRecoveryDialog();
+  const {
+    onNext,
+    decryptPinIsCompleted,
+    decryptPinDeviceEvents,
+    selectedWallet,
+  } = useInheritanceEstateRecoveryDialog();
 
   const getDeviceEventIcon = (
     loadingEvent: InheritanceDecryptMessageDeviceEvent,
@@ -64,15 +70,18 @@ export const ViewPin = () => {
   return (
     <Layout>
       <Image src={verifyPinOnDevice} alt="verify pin on device" />
-      <Container direction="column">
+      <Container direction="column" mb={2}>
         <Typography $fontSize={20} $textAlign="center" color="white">
           {strings.title}
         </Typography>
-        <Typography $fontSize={16} $textAlign="center" color="muted" mb={2}>
-          {strings.subTitle}
+        <Typography $fontSize={16} $textAlign="center" color="muted">
+          <LangDisplay text={strings.subTitle} />
+          <Typography variant="span" $fontWeight="bold" $fontSize={16}>
+            {selectedWallet?.name}
+          </Typography>
         </Typography>
       </Container>
-      <LeanBoxContainer>
+      <LeanBoxContainer mb={2}>
         {actionsList.map(data => (
           <LeanBox
             key={data.id}
@@ -85,6 +94,7 @@ export const ViewPin = () => {
           />
         ))}
       </LeanBoxContainer>
+      <MessageBox type="warning" text={strings.messageBox.warning} />
     </Layout>
   );
 };
