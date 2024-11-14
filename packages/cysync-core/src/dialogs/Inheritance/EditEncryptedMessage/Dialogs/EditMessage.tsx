@@ -10,12 +10,14 @@ import {
   Tooltip,
   Typography,
 } from '@cypherock/cysync-ui';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { selectLanguage, useAppSelector } from '~/store';
 
 import { useInheritanceEditEncryptedMessageDialog } from '../context';
 import { Layout } from '../Layout';
+import { validateInputLanguage } from '~/utils';
+import { debounce } from 'lodash';
 
 export const EditMessage = () => {
   const lang = useAppSelector(selectLanguage);
@@ -24,6 +26,48 @@ export const EditMessage = () => {
   const { onNext, onClose, encryptedMessage, setEncryptedMessage } =
     useInheritanceEditEncryptedMessageDialog();
 
+  const { cardLocation } = encryptedMessage;
+  const { personalMessage } = encryptedMessage;
+
+  const [cardLocationError, setCardLocationError] = useState<string>('');
+  const [personalMessageError, setPersonalMessageError] = useState<string>('');
+
+  const isNextDisabled =
+    !personalMessage.trim() ||
+    !cardLocation.trim() ||
+    !cardLocationError ||
+    !personalMessageError;
+
+  const validateFields = debounce(() => {
+    const cardLocationValidation = validateInputLanguage(cardLocation, lang);
+    const personalMessageValidation = validateInputLanguage(
+      personalMessage,
+      lang,
+    );
+
+    if (!cardLocationValidation.success) {
+      setCardLocationError(cardLocationValidation.error.errors[0].message);
+    } else {
+      setCardLocationError('');
+    }
+
+    if (!personalMessageValidation.success) {
+      setPersonalMessageError(
+        personalMessageValidation.error.errors[0].message,
+      );
+    } else {
+      setPersonalMessageError('');
+    }
+  }, 300);
+
+  useEffect(() => {
+    validateFields();
+
+    return () => {
+      validateFields.cancel();
+    };
+  }, [cardLocation, personalMessage]);
+
   return (
     <Layout
       footerComponent={
@@ -31,7 +75,7 @@ export const EditMessage = () => {
           <Button variant="secondary" onClick={() => onClose()}>
             <LangDisplay text={lang.strings.buttons.exitWithoutSaving} />
           </Button>
-          <Button onClick={() => onNext()}>
+          <Button onClick={() => onNext()} disabled={isNextDisabled}>
             <LangDisplay text={lang.strings.buttons.saveChanges} />
           </Button>
         </>
@@ -64,11 +108,12 @@ export const EditMessage = () => {
             placeholder={strings.form.cardLocationField.placeholder}
             height={120}
             maxChars={800}
-            currentChars={encryptedMessage.cardLocation.length ?? 0}
-            value={encryptedMessage.cardLocation}
+            currentChars={cardLocation.length ?? 0}
+            value={cardLocation}
             onChange={text =>
               setEncryptedMessage({ ...encryptedMessage, cardLocation: text })
             }
+            error={cardLocationError}
           />
         </Container>
         <Container direction="column" width="100%" $flex={1}>
@@ -84,14 +129,15 @@ export const EditMessage = () => {
             placeholder={strings.form.personalMessageField.placeholder}
             height={120}
             maxChars={800}
-            currentChars={encryptedMessage.personalMessage.length ?? 0}
-            value={encryptedMessage.personalMessage}
+            currentChars={personalMessage.length ?? 0}
+            value={personalMessage}
             onChange={text =>
               setEncryptedMessage({
                 ...encryptedMessage,
                 personalMessage: text,
               })
             }
+            error={personalMessageError}
           />
         </Container>
       </Container>

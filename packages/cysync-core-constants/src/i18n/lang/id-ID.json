@@ -1186,7 +1186,8 @@
   },
   "validation": {
     "generic": {
-      "required": "Kolom ini wajib diisi"
+      "required": "Kolom ini wajib diisi",
+      "englishOnly": "Only ASCII characters and English text are allowed"
     },
     "email": {
       "invalid": "Ini bukan email yang valid"

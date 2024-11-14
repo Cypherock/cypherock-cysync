@@ -9,13 +9,15 @@ import {
   Tooltip,
   Typography,
 } from '@cypherock/cysync-ui';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { selectLanguage, useAppSelector } from '~/store';
 
 import { useInheritanceGoldPlanPurchaseDialog } from '../../context';
 import { tabIndicies } from '../../context/useDialogHandler';
 import { Layout } from '../../Layout';
+import { validateInputLanguage } from '~/utils';
+import { debounce } from 'lodash';
 
 export const NomineePrivateMessageInput = () => {
   const lang = useAppSelector(selectLanguage);
@@ -33,7 +35,44 @@ export const NomineePrivateMessageInput = () => {
     isOnSummaryPage,
   } = useInheritanceGoldPlanPurchaseDialog();
 
-  const isNextDisabled = !personalMessage.trim() || !cardLocation.trim();
+  const [cardLocationError, setCardLocationError] = useState<string>('');
+  const [personalMessageError, setPersonalMessageError] = useState<string>('');
+
+  const isNextDisabled =
+    !personalMessage.trim() ||
+    !cardLocation.trim() ||
+    !cardLocationError ||
+    !personalMessageError;
+
+  const validateFields = debounce(() => {
+    const cardLocationValidation = validateInputLanguage(cardLocation, lang);
+    const personalMessageValidation = validateInputLanguage(
+      personalMessage,
+      lang,
+    );
+
+    if (!cardLocationValidation.success) {
+      setCardLocationError(cardLocationValidation.error.errors[0].message);
+    } else {
+      setCardLocationError('');
+    }
+
+    if (!personalMessageValidation.success) {
+      setPersonalMessageError(
+        personalMessageValidation.error.errors[0].message,
+      );
+    } else {
+      setPersonalMessageError('');
+    }
+  }, 300);
+
+  useEffect(() => {
+    validateFields();
+
+    return () => {
+      validateFields.cancel();
+    };
+  }, [cardLocation, personalMessage]);
 
   return (
     <Layout
@@ -90,6 +129,7 @@ export const NomineePrivateMessageInput = () => {
           onChange={setCardLocation}
           maxChars={800}
           currentChars={cardLocation.length || 0}
+          error={cardLocationError}
           autoFocus
         />
         <TextAreaInput
@@ -103,6 +143,7 @@ export const NomineePrivateMessageInput = () => {
           height={120}
           maxChars={800}
           currentChars={personalMessage.length || 0}
+          error={personalMessageError}
         />
         <MessageBox type="warning" text={strings.nominee.messageBox.warning} />
       </Flex>

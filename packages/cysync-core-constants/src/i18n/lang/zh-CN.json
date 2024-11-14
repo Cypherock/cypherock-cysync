@@ -1181,7 +1181,8 @@
   },
   "validation": {
     "generic": {
-      "required": "此字段是必需的"
+      "required": "此字段是必需的",
+      "englishOnly": "Only ASCII characters and English text are allowed"
     },
     "email": {
       "invalid": "这不是一个有效的电子邮件"

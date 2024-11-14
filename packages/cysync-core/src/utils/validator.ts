@@ -66,3 +66,13 @@ export const validatePassword = (
     });
   return PasswordSchema.safeParse(passwordObj);
 };
+
+export const validateInputLanguage = (input: string, lang: ILangState) => {
+  const asciiCharsRegex = /^[\x20-\x7E\n\r]*$/;
+
+  const englishAsciiSchema = z
+    .string()
+    .regex(asciiCharsRegex, lang.strings.validation.generic.englishOnly);
+
+  return englishAsciiSchema.safeParse(input);
+};

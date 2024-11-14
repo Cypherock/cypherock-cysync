@@ -641,7 +641,10 @@ export interface LangErrors {
 }
 
 interface LangValidation {
-  generic: { required: string };
+  generic: {
+    required: string;
+    englishOnly: string;
+  };
   email: { invalid: string };
   password: {
     mismatch: string;

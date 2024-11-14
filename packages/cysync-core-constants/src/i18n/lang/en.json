@@ -1186,7 +1186,8 @@
   },
   "validation": {
     "generic": {
-      "required": "This field is required"
+      "required": "This field is required",
+      "englishOnly": "Only ASCII characters and English text are allowed"
     },
     "email": {
       "invalid": "This is not a valid email"
