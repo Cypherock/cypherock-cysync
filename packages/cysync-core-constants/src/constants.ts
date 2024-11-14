@@ -15,5 +15,6 @@ export const constants = {
     silverPlanPurchaseLink: 'https://www.cypherock.com',
     goldPlanPurchaseTutorialLink: 'https://youtu.be/bRmNxrOf3VM',
     goldPlanPurchaseLink: 'https://www.cypherock.com',
+    maxUserDetailsInputLength: 50,
   },
 };

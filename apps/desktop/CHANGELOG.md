@@ -1,5 +1,19 @@
 # @cypherock/cysync-desktop
 
+## 2.0.11
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @cypherock/cysync-desktop-ui@0.0.11
+
+## 2.0.10
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @cypherock/cysync-desktop-ui@0.0.10
+
 ## 2.0.9
 
 ### Patch Changes

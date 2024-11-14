@@ -36,7 +36,9 @@ export const InheritancePlanDetailsSection: FC<
   const dispatch = useAppDispatch();
 
   const editReminder = useCallback(() => {
-    dispatch(openInheritanceEditReminderTimeDialog());
+    dispatch(
+      openInheritanceEditReminderTimeDialog({ walletId: plan.walletId }),
+    );
   }, [dispatch]);
 
   const editOwnerDetails = useCallback(() => {

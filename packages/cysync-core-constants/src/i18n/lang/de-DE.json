@@ -292,7 +292,9 @@
         "dollar": "$",
         "error": "Unzureichende Mittel",
         "zeroAmount": "Betrag kann nicht null sein",
-        "notOverDustThreshold": "Betrag ist geringer als dust limit"
+        "notOverDustThreshold": "Betrag ist geringer als dust limit",
+        "amountBelowXrpReserve": "Empfängeradresse ist inaktiv. Senden Sie mindestens 10 XRP, um sie zu aktivieren.",
+        "balanceBelowXrpReserve": "Das Guthaben kann 10 XRP nicht unterschreiten"
       },
       "fees": {
         "title": "Gebühren",
@@ -303,8 +305,14 @@
         "placeholder": "Geben Sie hier Ihre persönlichen Notizen ein",
         "error": "Maximale Zeichengrenze überschritten (120 Zeichen)"
       },
+      "destinationTag": {
+        "label": "Ziel-Tag",
+        "placeholder": "Optional",
+        "error": "Wert zu hoch"
+      },
       "warning": "Die Transaktion könnte abgebrochen werden, wenn die Gebühren sehr niedrig sind",
       "feeError": "Transaktionen ohne Gebühr sind nicht erlaubt",
+      "feeBelowMinError": "Transaktion mit einer Gebühr unterhalb des Minimums wird fehlschlagen",
       "notEnoughBalance": "Unzureichende Mittel für die Transaktion",
       "toggleText": {
         "replace": "Erlauben Sie, die Transaktion zu ersetzen (Replace by fees)",
@@ -320,7 +328,8 @@
       "amount": "Betrag",
       "network": "Netzwerkgebühr",
       "debit": "Gesamtbetrag",
-      "remarks": "Persönliche Notizen"
+      "remarks": "Persönliche Notizen",
+      "destinationTag": "Ziel-Tag"
     },
     "finalMessage": {
       "button": "Transaktionen prüfen",
@@ -386,7 +395,8 @@
       "feePrefix": {
         "optimism": "L2 "
       },
-      "remarks": "Persönliche Notizen"
+      "remarks": "Persönliche Notizen",
+      "destinationTag": "Ziel-Tag"
     },
     "noData": {
       "text": "Noch keine Transaktionen",
@@ -943,6 +953,9 @@
         "heading": "Ihr X1 Vault hat eine Zeitüberschreitung",
         "subtext": "Navigieren Sie zum Hauptmenü auf dem Gerät und versuchen Sie es erneut"
       },
+      "APP_0207": {
+        "heading": "Could not establish session on device"
+      },
       "APP_0400": {
         "heading": "Unbekannter X1 Card-Fehler",
         "subtext": "Erneut versuchen oder auf Hilfe klicken, um eine Lösung zu finden"
@@ -1114,10 +1127,62 @@
       "SER_1015": {
         "heading": "Your cySync app is facing some connectivity issue",
         "subtext": "Try again and if the problem persists, contact Cypherock support for assistance"
+      },
+      "SER_1016": {
+        "heading": "Your cySync app is facing some connectivity issue",
+        "subtext": "Try again and if the problem persists, contact Cypherock support for assistance"
+      },
+      "SER_1017": {
+        "heading": "Your cySync app is facing some connectivity issue",
+        "subtext": "Try again and if the problem persists, contact Cypherock support for assistance"
+      },
+      "SER_1018": {
+        "heading": "Your cySync app is facing some connectivity issue",
+        "subtext": "Try again and if the problem persists, contact Cypherock support for assistance"
+      },
+      "SER_1019": {
+        "heading": "Your cySync app is facing some connectivity issue",
+        "subtext": "Try again and if the problem persists, contact Cypherock support for assistance"
+      },
+      "SER_1020": {
+        "heading": "Your cySync app is facing some connectivity issue",
+        "subtext": "Try again and if the problem persists, contact Cypherock support for assistance"
+      },
+      "SER_1021": {
+        "heading": "Your cySync app is facing some connectivity issue",
+        "subtext": "Try again and if the problem persists, contact Cypherock support for assistance"
+      },
+      "SER_1022": {
+        "heading": "Your cySync app is facing some connectivity issue",
+        "subtext": "Try again and if the problem persists, contact Cypherock support for assistance"
+      },
+      "SER_1023": {
+        "heading": "Your cySync app is facing some connectivity issue",
+        "subtext": "Try again and if the problem persists, contact Cypherock support for assistance"
+      },
+      "SER_1024": {
+        "heading": "Your cySync app is facing some connectivity issue",
+        "subtext": "Try again and if the problem persists, contact Cypherock support for assistance"
+      },
+      "SER_1025": {
+        "heading": "Your cySync app is facing some connectivity issue",
+        "subtext": "Try again and if the problem persists, contact Cypherock support for assistance"
+      },
+      "SER_1026": {
+        "heading": "Your cySync app is facing some connectivity issue",
+        "subtext": "Try again and if the problem persists, contact Cypherock support for assistance"
       }
     },
-    "default": "Ein interner Fehler ist aufgetreten",
-    "videoPlaybackError": "No Internet connection. Please check your connection and "
+    "videoPlaybackError": "No Internet connection. Please check your connection and ",
+    "serverCoinErrors": {
+      "default": {
+        "DEF_0000": {
+          "heading": "Etwas ist schief gelaufen",
+          "subtext": "Versuchen Sie es erneut, und wenn das Problem weiterhin besteht, kontaktieren Sie den Cypherock-Support für Unterstützung."
+        }
+      }
+    },
+    "default": "Ein interner Fehler ist aufgetreten"
   },
   "validation": {
     "generic": {
@@ -1666,7 +1731,7 @@
           "subTitle": "Authenticating the wallet ",
           "actions": {
             "confirmAuth": "Confirm wallet authentication on device",
-            "enterPinAndTapCard": "Tap any one card"
+            "tapCard": "Tap any one card"
           },
           "messageBox": {
             "warning": "Lift your card after 2 beep sounds"
@@ -2174,6 +2239,12 @@
           "errorHeading": "Invalid Coupon Code",
           "subtext": "Please try a different coupon code"
         }
+      }
+    },
+    "banner": {
+      "title": "Secure your crypto legacy with Cypherock Cover - Ensure your assets reach your loved ones",
+      "buttons": {
+        "knowMore": "Know More"
       }
     }
   },

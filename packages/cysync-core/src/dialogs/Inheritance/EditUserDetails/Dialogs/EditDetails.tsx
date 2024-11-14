@@ -17,6 +17,7 @@ import { useAppSelector } from '~/store';
 import { selectLanguage } from '~/store/lang';
 
 import { useInheritanceEditUserDetailsDialog } from '../context';
+import { constants } from '@cypherock/cysync-core-constants';
 
 export const EditDetails = () => {
   const lang = useAppSelector(selectLanguage);
@@ -78,6 +79,7 @@ export const EditDetails = () => {
                   $letterSpacing: 'unset',
                 }}
                 disabled={isSubmittingUserDetails}
+                maxLength={constants.inheritance.maxUserDetailsInputLength}
               />
             </Container>
             <Container direction="row" $width="full" gap={24}>
@@ -96,6 +98,7 @@ export const EditDetails = () => {
                   $letterSpacing: 'unset',
                 }}
                 disabled={isSubmittingUserDetails}
+                maxLength={constants.inheritance.maxUserDetailsInputLength}
               />
               <Input
                 pasteAllowed
@@ -112,6 +115,7 @@ export const EditDetails = () => {
                   $letterSpacing: 'unset',
                 }}
                 disabled={isSubmittingUserDetails}
+                maxLength={constants.inheritance.maxUserDetailsInputLength}
               />
             </Container>
           </form>

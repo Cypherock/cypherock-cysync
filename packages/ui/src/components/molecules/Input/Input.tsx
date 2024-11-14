@@ -43,6 +43,7 @@ export interface InputProps {
   autoFocus?: boolean;
   inputLabelProps?: InputLabelProps;
   tooltip?: string;
+  maxLength?: number;
 }
 
 const InputStyle = styled.input<{
@@ -141,6 +142,7 @@ export const Input: FC<InputProps & { ref?: ForwardedRef<HTMLInputElement> }> =
         autoFocus = false,
         inputLabelProps,
         tooltip = undefined,
+        maxLength = undefined,
       }: InputProps,
       ref: ForwardedRef<HTMLInputElement>,
     ) => (
@@ -206,6 +208,7 @@ export const Input: FC<InputProps & { ref?: ForwardedRef<HTMLInputElement> }> =
             onKeyDown={onKeyDown}
             $textColor={$textColor}
             $error={$error}
+            maxLength={maxLength}
           />
           {postfixIcon && (
             <PostfixIconStyle>
@@ -258,6 +261,7 @@ Input.defaultProps = {
   autoFocus: false,
   inputLabelProps: undefined,
   tooltip: undefined,
+  maxLength: undefined,
 };
 
 Input.displayName = 'Input';

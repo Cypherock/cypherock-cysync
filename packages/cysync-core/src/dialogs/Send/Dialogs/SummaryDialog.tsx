@@ -28,6 +28,7 @@ import { selectLanguage, selectPriceInfos, useAppSelector } from '~/store';
 
 import { useSendDialog } from '../context';
 import { useLabelSuffix } from '../hooks';
+import { IPreparedXrpTransaction } from '@cypherock/coin-support-xrp';
 
 export const SummaryDialog: React.FC = () => {
   const {
@@ -232,6 +233,22 @@ export const SummaryDialog: React.FC = () => {
     return transactionDetails;
   };
 
+  const getDestinationTagDetails = () => {
+    if (!transaction || !transaction.userInputs.outputs) return [];
+    const txn = transaction as IPreparedXrpTransaction;
+    if (txn.userInputs.outputs[0]?.destinationTag === undefined) return [];
+
+    const destinationTagDetails = txn.userInputs.outputs
+      .filter(output => output.destinationTag !== undefined)
+      .map((output, index) => ({
+        id: `destinationTag-${txn.accountId}-${index}`,
+        leftText: displayText.destinationTag,
+        rightText: output.destinationTag?.toString() ?? '',
+      }));
+
+    return destinationTagDetails;
+  };
+
   const isSingleTransaction = transaction?.userInputs.outputs.length === 1;
   return (
     <DialogBox width={600}>
@@ -259,6 +276,7 @@ export const SummaryDialog: React.FC = () => {
                 },
                 { isDivider: true, id: '2' },
                 ...getToDetails(),
+                ...getDestinationTagDetails(),
                 ...(isSingleTransaction &&
                 transaction.userInputs.outputs[0].remarks
                   ? [...getTransactionRemarks(), { isDivider: true, id: '5' }]

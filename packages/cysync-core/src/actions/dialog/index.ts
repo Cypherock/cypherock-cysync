@@ -13,6 +13,7 @@ import {
   InheritancePlanLoginDialogProps,
 } from '~/dialogs/Inheritance';
 import { InheritanceEditExecutorMessageDialogProps } from '~/dialogs/Inheritance/EditExecutorMessage/context';
+import { InheritanceEditReminderTimeDialogProps } from '~/dialogs/Inheritance/EditReminderTime/context';
 import { ReceiveDialogProps } from '~/dialogs/Receive';
 import { SendDialogProps } from '~/dialogs/Send/';
 import { GuidedFlowType, openDialog } from '~/store';
@@ -110,8 +111,9 @@ export const openInheritanceEditExecutorMessageDialog = (
   props?: InheritanceEditExecutorMessageDialogProps,
 ) => openDialog({ name: 'inheritanceEditExecutorMessage', data: props });
 
-export const openInheritanceEditReminderTimeDialog = () =>
-  openDialog({ name: 'inheritanceEditReminderTime', data: undefined });
+export const openInheritanceEditReminderTimeDialog = (
+  props: InheritanceEditReminderTimeDialogProps,
+) => openDialog({ name: 'inheritanceEditReminderTime', data: props });
 
 export const openInheritanceEditUserDetailsDialog = (
   props?: InheritanceEditUserDetailsDialogProps,
