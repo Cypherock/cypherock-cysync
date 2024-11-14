@@ -1,6 +1,7 @@
 import { InheritanceWalletAuthDeviceEvent } from '@cypherock/app-support-inheritance';
 import {
   ArrowRightIcon,
+  CardTapList,
   Check,
   Container,
   LangDisplay,
@@ -13,7 +14,7 @@ import {
   Typography,
   Video,
 } from '@cypherock/cysync-ui';
-import React, { useEffect, useMemo } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 
 import { selectLanguage, useAppSelector } from '~/store';
 
@@ -40,6 +41,8 @@ export const WalletAuth = () => {
     clearErrors,
   } = useInheritancePinRecoveryDialog();
 
+  const [cardTapState, setCardTapState] = useState(-1);
+
   const getDeviceEventIcon = (
     loadingEvent: InheritanceWalletAuthDeviceEvent,
     completedEvent: InheritanceWalletAuthDeviceEvent,
@@ -61,18 +64,29 @@ export const WalletAuth = () => {
           InheritanceWalletAuthDeviceEvent.CONFIRMED,
         ),
       },
-      {
-        id: '2',
-        text: strings.walletAuth.actions.enterPinAndTapCard,
-        rightImage: getDeviceEventIcon(
-          InheritanceWalletAuthDeviceEvent.CONFIRMED,
-          InheritanceWalletAuthDeviceEvent.WALLET_BASED_CARD_TAPPED,
-        ),
-      },
     ];
 
     return actions;
   }, [strings, walletAuthDeviceEvents]);
+
+  useEffect(() => {
+    const eventToState: Record<number, number | undefined> = {
+      [InheritanceWalletAuthDeviceEvent.CONFIRMED]: 0,
+      [InheritanceWalletAuthDeviceEvent.CARD_PAIRING_CARD_TAPPED]: 1,
+      [InheritanceWalletAuthDeviceEvent.WALLET_BASED_CARD_TAPPED]: 2,
+    };
+
+    let state: number | undefined;
+    for (const event in eventToState) {
+      if (walletAuthDeviceEvents[event] && eventToState[event] !== undefined) {
+        state = eventToState[event]!;
+      }
+    }
+
+    if (state !== undefined) {
+      setCardTapState(state);
+    }
+  }, [walletAuthDeviceEvents]);
 
   useEffect(() => {
     clearErrors();
@@ -108,7 +122,7 @@ export const WalletAuth = () => {
             {selectedWallet}
           </Typography>
         </Typography>
-        <LeanBoxContainer mb={4}>
+        <LeanBoxContainer>
           {actionsList.map(data => (
             <LeanBox
               key={data.id}
@@ -121,6 +135,18 @@ export const WalletAuth = () => {
             />
           ))}
         </LeanBoxContainer>
+        <Container mb={4} width="full">
+          <CardTapList
+            items={[
+              {
+                text: strings.walletAuth.actions.tapCard,
+                currentState: cardTapState,
+                totalState: 2,
+              },
+            ]}
+            variant="muted"
+          />
+        </Container>
         <MessageBox
           type="warning"
           text={strings.walletAuth.messageBox.warning}

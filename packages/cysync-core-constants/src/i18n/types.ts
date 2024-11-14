@@ -896,7 +896,7 @@ interface LangDialogs {
         subTitle: string;
         actions: {
           confirmAuth: string;
-          enterPinAndTapCard: string;
+          tapCard: string;
         };
         messageBox: {
           warning: string;
