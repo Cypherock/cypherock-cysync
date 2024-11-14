@@ -140,7 +140,7 @@ const updateExecutor = async (params: {
   name: string;
   email: string;
   alternateEmail: string;
-  nomineeEmail: string;
+  nomineeEmail?: string;
   executorMessage?: string;
   authTokenConfig: AuthTokenConfig;
 }) =>
@@ -152,7 +152,7 @@ const updateExecutor = async (params: {
         name: params.name,
         email: params.email,
         alternateEmail: params.alternateEmail,
-        nominee: [params.nomineeEmail],
+        nominee: params.nomineeEmail ? [params.nomineeEmail] : undefined,
         executorMessage: params.executorMessage,
       },
       params.authTokenConfig,

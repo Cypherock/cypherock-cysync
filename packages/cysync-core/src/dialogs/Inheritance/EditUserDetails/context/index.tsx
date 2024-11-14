@@ -1,4 +1,3 @@
-import { sleep } from '@cypherock/sdk-utils';
 import React, {
   Context,
   FC,
@@ -6,18 +5,22 @@ import React, {
   createContext,
   useCallback,
   useContext,
-  useMemo,
   useState,
 } from 'react';
 
-import { ITabs, useTabsAndDialogs } from '~/hooks';
+import { ITabs, useMemoReturn, useTabsAndDialogs } from '~/hooks';
+import { inheritanceLoginService } from '~/services';
 import { closeDialog, useAppDispatch } from '~/store';
 
 import {
   InheritanceEditUserDetailsUserType,
   InheritanceEditUserDetailsDialogProps,
 } from '..';
+import { IOtpVerificationDetails } from '../../hooks';
+import { useAuthTokenConfig } from '../../hooks/useAuthConfig';
+import { useCaptureUnhandledErrors } from '../../hooks/useCatpureUnhandledErrors';
 import { EditDetails, Success, VerifyOTP } from '../Dialogs';
+import { ConfirmVerification } from '../Dialogs/ConfirmVerification';
 
 export interface IUserDetails {
   name: string;
@@ -37,8 +40,12 @@ export interface InheritanceEditUserDetailsDialogContextInterface {
   unhandledError?: any;
   userDetails?: IUserDetails;
   onUserDetailsSubmit: (params: IUserDetails) => void;
-  isSubmittingUserDetails: boolean;
   userType: InheritanceEditUserDetailsUserType;
+  isLoading: boolean;
+  onRetry: () => void;
+  otpVerificationDetails?: IOtpVerificationDetails;
+  verifyOtp: (otp: string) => Promise<boolean>;
+  isVerifyingOtp: boolean;
 }
 
 export const InheritanceEditUserDetailsDialogContext: Context<InheritanceEditUserDetailsDialogContextInterface> =
@@ -53,17 +60,21 @@ export interface InheritanceEditUserDetailsDialogContextProviderProps
 
 export const InheritanceEditUserDetailsDialogProvider: FC<
   InheritanceEditUserDetailsDialogContextProviderProps
-> = ({ children, userType }) => {
+> = ({ children, userType, walletId }) => {
   const dispatch = useAppDispatch();
 
-  const [isSubmittingUserDetails, setIsSubmittingUserDetails] = useState(false);
-  const [userDetails, setUserDetails] = useState<IUserDetails | undefined>();
+  const [userDetails] = useState<IUserDetails | undefined>();
+  const [isLoading, setIsLoading] = useState(false);
 
   const deviceRequiredDialogsMap: Record<number, number[] | undefined> = {};
   const tabs: ITabs = [
     {
       name: 'Edit Details',
       dialogs: [<EditDetails key="EditDetails" />],
+    },
+    {
+      name: 'ConfirmVerification',
+      dialogs: [<ConfirmVerification key="ConfirmVerification" />],
     },
     { name: 'Verify OTP', dialogs: [<VerifyOTP key="VerifyOTP" />] },
     { name: 'Success', dialogs: [<Success key="Success" />] },
@@ -82,48 +93,60 @@ export const InheritanceEditUserDetailsDialogProvider: FC<
     dialogName: 'inheritanceEditUserDetails',
   });
 
+  const { unhandledError, setUnhandledError, captureErrors } =
+    useCaptureUnhandledErrors();
+
   const onClose = () => {
     dispatch(closeDialog('inheritanceEditUserDetails'));
   };
 
-  const onUserDetailsSubmit = useCallback(async (params: IUserDetails) => {
-    setIsSubmittingUserDetails(true);
-    setUserDetails(params);
-    await sleep(2000);
-    setIsSubmittingUserDetails(false);
-    goTo(1);
-  }, []);
+  const onRetry = () => {
+    setUnhandledError(undefined);
+    goTo(0);
+  };
 
-  const ctx = useMemo(
-    () => ({
-      onNext,
-      onPrevious,
-      tabs,
-      onClose,
-      goTo,
-      currentTab,
-      currentDialog,
-      isDeviceRequired,
-      userDetails,
-      onUserDetailsSubmit,
-      isSubmittingUserDetails,
-      userType,
+  const { authTokenConfig } = useAuthTokenConfig({
+    walletId,
+    authType: 'SEED',
+  });
+
+  const onUserDetailsSubmit = useCallback(
+    captureErrors(async (params: IUserDetails) => {
+      if (userType === 'executor') {
+        setIsLoading(true);
+        onNext();
+        await inheritanceLoginService.updateExecutor({
+          name: params.name,
+          email: params.email,
+          alternateEmail: params.alternateEmail,
+          authTokenConfig,
+        });
+        goTo(3);
+        setIsLoading(false);
+      }
     }),
-    [
-      onNext,
-      onPrevious,
-      tabs,
-      onClose,
-      goTo,
-      currentTab,
-      currentDialog,
-      isDeviceRequired,
-      userDetails,
-      onUserDetailsSubmit,
-      isSubmittingUserDetails,
-      userType,
-    ],
+    [userType],
   );
+
+  const ctx = useMemoReturn({
+    onNext,
+    onPrevious,
+    tabs,
+    onClose,
+    goTo,
+    currentTab,
+    currentDialog,
+    isDeviceRequired,
+    userDetails,
+    onUserDetailsSubmit,
+    userType,
+    onRetry,
+    unhandledError,
+    isVerifyingOtp: false,
+    verifyOtp: async (otp: string) => !!otp,
+    isLoading,
+    otpVerificationDetails: undefined,
+  });
 
   return (
     <InheritanceEditUserDetailsDialogContext.Provider value={ctx}>
