@@ -17,6 +17,7 @@ import { useInheritanceGoldPlanPurchaseDialog } from '../../context';
 import { tabIndicies } from '../../context/useDialogHandler';
 import { Layout } from '../../Layout';
 import { validateInputLanguage } from '~/utils';
+import { debounce } from 'lodash';
 
 export const NomineePrivateMessageInput = () => {
   const lang = useAppSelector(selectLanguage);
@@ -43,30 +44,34 @@ export const NomineePrivateMessageInput = () => {
     !cardLocationError ||
     !personalMessageError;
 
-  useEffect(() => {
-    const validateFields = () => {
-      const cardLocationValidation = validateInputLanguage(cardLocation, lang);
-      const personalMessageValidation = validateInputLanguage(
-        personalMessage,
-        lang,
+  const validateFields = debounce(() => {
+    const cardLocationValidation = validateInputLanguage(cardLocation, lang);
+    const personalMessageValidation = validateInputLanguage(
+      personalMessage,
+      lang,
+    );
+
+    if (!cardLocationValidation.success) {
+      setCardLocationError(cardLocationValidation.error.errors[0].message);
+    } else {
+      setCardLocationError('');
+    }
+
+    if (!personalMessageValidation.success) {
+      setPersonalMessageError(
+        personalMessageValidation.error.errors[0].message,
       );
+    } else {
+      setPersonalMessageError('');
+    }
+  }, 300);
 
-      if (!cardLocationValidation.success) {
-        setCardLocationError(cardLocationValidation.error.errors[0].message);
-      } else {
-        setCardLocationError('');
-      }
-
-      if (!personalMessageValidation.success) {
-        setPersonalMessageError(
-          personalMessageValidation.error.errors[0].message,
-        );
-      } else {
-        setPersonalMessageError('');
-      }
-    };
-
+  useEffect(() => {
     validateFields();
+
+    return () => {
+      validateFields.cancel();
+    };
   }, [cardLocation, personalMessage]);
 
   return (
