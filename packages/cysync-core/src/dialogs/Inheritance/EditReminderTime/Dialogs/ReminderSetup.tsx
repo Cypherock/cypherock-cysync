@@ -24,9 +24,9 @@ import { useInheritanceEditReminderTimeDialog } from '../context';
 export const ReminderSetup = () => {
   const lang = useAppSelector(selectLanguage);
   const [loading, setLoading] = useState(false);
-  const [newReminder, setNewReminder] = useState(1);
   const { onClose, updateData, reminder } =
     useInheritanceEditReminderTimeDialog();
+  const [newReminder, setNewReminder] = useState(reminder ?? 1);
   const strings =
     lang.strings.dialogs.inheritanceEditReminderTime.reminderSetup;
   const { form } = strings;
@@ -100,15 +100,6 @@ export const ReminderSetup = () => {
       </ScrollableContainer>
 
       <DialogBoxFooter py={4} px={5}>
-        <Button
-          variant="secondary"
-          onClick={e => {
-            e.preventDefault();
-          }}
-          type="button"
-        >
-          <LangDisplay text={lang.strings.buttons.back} />
-        </Button>
         <Button
           variant="primary"
           onClick={e => {

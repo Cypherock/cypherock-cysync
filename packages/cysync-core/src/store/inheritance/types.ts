@@ -1,4 +1,5 @@
 import { IInheritancePlan } from '@cypherock/db-interfaces';
+import { ReminderPeriod } from '~/services/inheritance/login/schema';
 
 export interface IWalletAuthTokens {
   accessToken: string;
@@ -11,6 +12,13 @@ export const reminderPeriodStringToNumMap: Record<string, number> = {
   'half-yearly': 6,
   yearly: 12,
   '': 0,
+} as const;
+
+export const reminderPeriodNumToStringMap: Record<number, ReminderPeriod> = {
+  1: 'monthly',
+  3: 'quarterly',
+  6: 'half-yearly',
+  12: 'yearly',
 } as const;
 
 export interface IInheritancePlanDetails {
