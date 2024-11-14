@@ -1,7 +1,8 @@
-import { IEntity } from '@cypherock/db-interfaces';
+import { IDatabase, IEntity } from '@cypherock/db-interfaces';
 import lodash from 'lodash';
 
 import fixtures from './__fixtures__';
+import { deviceData } from './__fixtures__/device';
 import {
   compareEntityArray as expectEqualEntityArray,
   removeBaseFelids,
@@ -12,6 +13,9 @@ import {
 import { createDb } from '../src/index';
 
 describe('Basic tests', () => {
+  let db: IDatabase;
+  const dbPath = 'testDir';
+
   beforeAll(async () => {
     await testHelper.setupTestDB();
   });
@@ -20,14 +24,73 @@ describe('Basic tests', () => {
     testHelper.teardownTestDB();
   });
 
-  test('Can create a new database instance', async () => {
-    const db = await createDb(':memory:');
-    await db.load();
-    expect(db).toBeDefined();
-    const devices = await db.device.getAll();
-    expect(devices.length).toEqual(0);
-    await db.close();
-    expect(db.device.getAll()).rejects.toThrow();
+  describe('Database Instance', () => {
+    afterEach(async () => {
+      if (db && (await db.isLoaded())) {
+        await db.clear();
+      }
+    });
+
+    test('Can create a new database instance', async () => {
+      db = await createDb(':memory:');
+      await db.load();
+      await expect(db.isLoaded()).resolves.toBeTruthy();
+    });
+
+    test('Can load and unload a database instance', async () => {
+      db = await createDb(':memory:');
+      await db.load();
+      await expect(db.isLoaded()).resolves.toBeTruthy();
+      await db.unload();
+      await expect(db.isLoaded()).resolves.toBeFalsy();
+    });
+
+    test('Can persist and retrieve data in a database instance created with a specific path', async () => {
+      db = await createDb(dbPath);
+      await db.load();
+      const testData = deviceData.all[0];
+      db.device.setVersion(0);
+      await db.device.insert(testData);
+      await db.close();
+      const savedDb = await createDb(dbPath);
+      await savedDb.load();
+      savedDb.device.setVersion(0);
+      const devices = await savedDb.device.getAll();
+      const cleanedDevices = removeBaseFelids(devices);
+      expect(cleanedDevices[0]).toEqual(testData);
+      await savedDb.close();
+    });
+
+    test('can clear the database', async () => {
+      db = await createDb(dbPath);
+      await db.load();
+      const testData = deviceData.all[0];
+      db.device.setVersion(0);
+      await db.device.insert(testData);
+      let devices = await db.device.getAll();
+      expect(devices).toHaveLength(1);
+      await db.clear();
+      await expect(db.isLoaded()).resolves.toBeFalsy();
+      db = await createDb(dbPath);
+      await db.load();
+      devices = await db.device.getAll();
+      expect(devices).toHaveLength(0);
+    });
+
+    test('Can change encryption key', async () => {
+      db = await createDb(dbPath);
+      await db.load();
+      const saveDBMock = jest
+        .spyOn((db as any).database, 'saveDB')
+        .mockResolvedValueOnce(undefined);
+      const updateKeyMock = jest.spyOn((db as any).database, 'updateKey');
+
+      const newKey = 'new-encryption-key';
+      await db.changeEncryptionKey(newKey);
+
+      expect(updateKeyMock).toHaveBeenCalledWith(newKey);
+      expect(saveDBMock).toHaveBeenCalled();
+    });
   });
 
   fixtures.forEach(entity => {

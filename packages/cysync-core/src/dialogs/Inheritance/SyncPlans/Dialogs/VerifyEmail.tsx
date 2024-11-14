@@ -52,6 +52,7 @@ export const VerifyEmail: React.FC = () => {
   return (
     <OTPInputDialog
       onClose={onClose}
+      showHeader
       emails={email}
       onBack={onPrevious}
       onResendOtp={onResendOtp}

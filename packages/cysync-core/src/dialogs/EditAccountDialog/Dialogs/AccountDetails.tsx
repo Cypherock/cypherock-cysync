@@ -59,7 +59,9 @@ export const AccountDetails: React.FC = () => {
   const accountData = useMemo(
     () => ({
       derivationPath: selectedAccount?.derivationPath,
-      derivationScheme: selectedAccount?.derivationScheme,
+      ...(selectedAccount?.derivationScheme
+        ? { derivationScheme: selectedAccount?.derivationScheme }
+        : {}),
       xpubOrAddress: selectedAccount?.xpubOrAddress,
     }),
     [selectedAccount],

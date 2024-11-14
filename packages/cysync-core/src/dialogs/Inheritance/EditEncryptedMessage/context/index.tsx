@@ -1,24 +1,23 @@
 import React, {
   Context,
+  Dispatch,
   FC,
   ReactNode,
+  SetStateAction,
   createContext,
   useContext,
   useMemo,
+  useState,
 } from 'react';
 
-import { ITabs, useTabsAndDialogs } from '~/hooks';
-import { closeDialog, useAppDispatch } from '~/store';
+import { ITabs } from '~/hooks';
 
-import {
-  Confirmation,
-  EditMessage,
-  ConfirmMessage,
-  Decryption,
-  Encryption,
-  FetchData,
-  Success,
-} from '../Dialogs';
+import { useInheritanceEditEncryptedMessageDialogHandler } from './useDialogHandler';
+
+interface IEncryptedMessage {
+  cardLocation: string;
+  personalMessage: string;
+}
 
 export interface InheritanceEditEncryptedMessageDialogContextInterface {
   tabs: ITabs;
@@ -30,6 +29,9 @@ export interface InheritanceEditEncryptedMessageDialogContextInterface {
   currentDialog: number;
   isDeviceRequired: boolean;
   unhandledError?: any;
+  fetchData: () => void;
+  encryptedMessage: IEncryptedMessage;
+  setEncryptedMessage: Dispatch<SetStateAction<IEncryptedMessage>>;
 }
 
 export const InheritanceEditEncryptedMessageDialogContext: Context<InheritanceEditEncryptedMessageDialogContextInterface> =
@@ -44,50 +46,34 @@ export interface InheritanceEditEncryptedMessageDialogContextProviderProps {
 export const InheritanceEditEncryptedMessageDialogProvider: FC<
   InheritanceEditEncryptedMessageDialogContextProviderProps
 > = ({ children }) => {
-  const dispatch = useAppDispatch();
-
-  const deviceRequiredDialogsMap: Record<number, number[] | undefined> =
-    useMemo(
-      () => ({
-        1: [0],
-      }),
-      [],
-    );
-
-  const tabs: ITabs = [
-    { name: 'Confirmation', dialogs: [<Confirmation key="Confirmation" />] },
-    { name: 'Fetch Data', dialogs: [<FetchData key="Fetch Data" />] },
-    { name: 'Decryption', dialogs: [<Decryption key="Decryption" />] },
-    { name: 'Edit Message', dialogs: [<EditMessage key="Edit Message" />] },
-    {
-      name: 'Confirm Message',
-      dialogs: [<ConfirmMessage key="Confirm Message" />],
-    },
-    {
-      name: 'Encryption',
-      dialogs: [<Encryption key="Encryption" />],
-    },
-    {
-      name: 'Success',
-      dialogs: [<Success key="Success" />],
-    },
-  ];
-
   const {
+    currentDialog,
+    currentTab,
+    goTo,
+    isDeviceRequired,
+    onClose,
     onNext,
     onPrevious,
-    goTo,
-    currentTab,
-    currentDialog,
-    isDeviceRequired,
-  } = useTabsAndDialogs({
-    deviceRequiredDialogsMap,
     tabs,
-    dialogName: 'inheritanceEditEncryptedMessage',
+  } = useInheritanceEditEncryptedMessageDialogHandler();
+
+  const [encryptedMessage, setEncryptedMessage] = useState<IEncryptedMessage>({
+    cardLocation: '',
+    personalMessage: '',
   });
 
-  const onClose = () => {
-    dispatch(closeDialog('inheritanceEditEncryptedMessage'));
+  const fetchData = () => {
+    'Implement this function';
+
+    const dummy =
+      'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque id  ullamcorper dui, sed vestibulum libero. Lorem ipsum dolor sit amet,  consectetur adipiscing elit. Sed placerat nibh sed justo sagittis  venenatis. Nullam dictum ipsum ac nunc aliquet, ut condimentum nibh  pharetra. Pellentesque interdum dignissim blandit. Nullam ac tincidunt  lacus. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices  posuere cubilia curae; Vivamus magna velit, pulvinar euismod nisi non,  venenatis vehicula justo. Morbi ligula purus, condimentum vitae eleifend  ut, mattis at diam. Sed non pulvinar ex.';
+    setEncryptedMessage({
+      cardLocation: dummy,
+      personalMessage: dummy,
+    });
+    setTimeout(() => {
+      onNext();
+    }, 2000);
   };
 
   const ctx = useMemo(
@@ -100,6 +86,9 @@ export const InheritanceEditEncryptedMessageDialogProvider: FC<
       currentTab,
       currentDialog,
       isDeviceRequired,
+      encryptedMessage,
+      setEncryptedMessage,
+      fetchData,
     }),
     [
       onNext,
@@ -110,6 +99,9 @@ export const InheritanceEditEncryptedMessageDialogProvider: FC<
       currentTab,
       currentDialog,
       isDeviceRequired,
+      encryptedMessage,
+      setEncryptedMessage,
+      fetchData,
     ],
   );
 

@@ -14,7 +14,7 @@ import {
   ScrollableContainer,
   Typography,
 } from '@cypherock/cysync-ui';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 
 import { LoaderDialog } from '~/components';
 import { selectLanguage, useAppSelector } from '~/store';
@@ -24,16 +24,12 @@ import { useInheritanceEditReminderTimeDialog } from '../context';
 export const ReminderSetup = () => {
   const lang = useAppSelector(selectLanguage);
   const [loading, setLoading] = useState(false);
-  const [currentReminder, setCurrentReminder] = useState(1);
-  const [newReminder, setNewReminder] = useState(1);
-  const { onClose, updateData } = useInheritanceEditReminderTimeDialog();
+  const { onClose, updateData, reminder } =
+    useInheritanceEditReminderTimeDialog();
+  const [newReminder, setNewReminder] = useState(reminder ?? 1);
   const strings =
     lang.strings.dialogs.inheritanceEditReminderTime.reminderSetup;
   const { form } = strings;
-
-  useEffect(() => {
-    setCurrentReminder(1);
-  }, []);
 
   if (loading) {
     return (
@@ -93,11 +89,11 @@ export const ReminderSetup = () => {
           </Flex>
           <MessageBox
             text={`${strings.currentReminder} ${
-              currentReminder === 1
+              reminder === 1
                 ? form.reminderField.month.toLocaleLowerCase()
                 : form.reminderField.months.toLocaleLowerCase()
             }`}
-            variables={{ month: currentReminder }}
+            variables={{ month: reminder }}
             type="info"
           />
         </DialogBoxBody>
@@ -105,20 +101,11 @@ export const ReminderSetup = () => {
 
       <DialogBoxFooter py={4} px={5}>
         <Button
-          variant="secondary"
-          onClick={e => {
-            e.preventDefault();
-          }}
-          type="button"
-        >
-          <LangDisplay text={lang.strings.buttons.back} />
-        </Button>
-        <Button
           variant="primary"
           onClick={e => {
             e.preventDefault();
             setLoading(true);
-            updateData();
+            updateData(newReminder);
           }}
           type="button"
         >

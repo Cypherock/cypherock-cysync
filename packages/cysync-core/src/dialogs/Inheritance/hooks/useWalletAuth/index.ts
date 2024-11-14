@@ -37,7 +37,10 @@ export * from './types';
 
 type AuthType = 'seed-based' | 'wallet-based';
 
-export const useWalletAuth = (onErrorCallback: (e?: any) => void) => {
+export const useWalletAuth = (
+  onErrorCallback: (e?: any) => void,
+  getPrefillData?: (data: IUserDetails) => void,
+) => {
   const dispatch = useAppDispatch();
 
   const walletAuthTokensPerWallet = useAppSelector(
@@ -248,6 +251,15 @@ export const useWalletAuth = (onErrorCallback: (e?: any) => void) => {
 
       if (result.error) {
         throw result.error;
+      }
+
+      const prefillData = result.result.wallet?.owner;
+      if (prefillData) {
+        getPrefillData?.({
+          name: prefillData.name ?? '',
+          email: prefillData.email ?? '',
+          alternateEmail: prefillData.alternateEmail ?? '',
+        });
       }
 
       if (result.result.otpDetails) {

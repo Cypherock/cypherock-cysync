@@ -1,5 +1,11 @@
 import { getAsset } from '@cypherock/coin-support-utils';
-import { BtcIdMap, EvmIdMap, SolanaIdMap, NearIdMap } from '@cypherock/coins';
+import {
+  BtcIdMap,
+  EvmIdMap,
+  SolanaIdMap,
+  NearIdMap,
+  XrpIdMap,
+} from '@cypherock/coins';
 import {
   ContainerProps,
   Container,
@@ -16,6 +22,7 @@ import {
   OptimismIcon,
   SolanaIcon,
   NearIcon,
+  XrpIcon,
   MediaQuery,
   Image,
   UtilsProps,
@@ -53,6 +60,7 @@ const coinToIconMap: Record<string, React.FC<IconProps> | undefined> = {
   [EvmIdMap.avalanche]: AvalancheIcon,
   [NearIdMap.near]: NearIcon,
   [SolanaIdMap.solana]: SolanaIcon,
+  [XrpIdMap.xrp]: XrpIcon,
 } as Record<string, React.FC<IconProps> | undefined>;
 
 const fallbackIcon = `https://static.cypherock.com/images/fallback-crypto-icon.png`;

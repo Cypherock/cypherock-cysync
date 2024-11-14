@@ -292,7 +292,9 @@
         "dollar": "$",
         "error": "资金不足",
         "zeroAmount": "金额不能为零",
-        "notOverDustThreshold": "金额低于 dust limit"
+        "notOverDustThreshold": "金额低于 dust limit",
+        "amountBelowXrpReserve": "收件人地址未激活。发送至少 10 XRP 以激活。",
+        "balanceBelowXrpReserve": "余额不能低于 10 XRP"
       },
       "fees": {
         "title": "费用",
@@ -303,8 +305,14 @@
         "placeholder": "在此输入您的个人便笺",
         "error": "超过最大字符限制 (120 个字符)"
       },
+      "destinationTag": {
+        "label": "目标标签",
+        "placeholder": "可选",
+        "error": "值过高"
+      },
       "warning": "如果 fee 非常低，交易可能会被取消",
       "feeError": "不允许 0 fee 的交易",
+      "feeBelowMinError": "低于最低费用的交易将失败",
       "notEnoughBalance": "交易资金不足",
       "toggleText": {
         "replace": "允许替换交易（通过 fee 替换）",
@@ -320,7 +328,8 @@
       "amount": "金额",
       "network": "网络费用",
       "debit": "总扣款",
-      "remarks": "个人笔记"
+      "remarks": "个人笔记",
+      "destinationTag": "目标标签"
     },
     "finalMessage": {
       "button": "检查交易",
@@ -386,7 +395,8 @@
       "feePrefix": {
         "optimism": "L2 "
       },
-      "remarks": "个人笔记"
+      "remarks": "个人笔记",
+      "destinationTag": "目标标签"
     },
     "noData": {
       "text": "暂无交易记录",
@@ -938,6 +948,9 @@
         "heading": "您的 X1 Vault 已超时",
         "subtext": "在设备上导航到主菜单并重试"
       },
+      "APP_0207": {
+        "heading": "Could not establish session on device"
+      },
       "APP_0400": {
         "heading": "未知的 X1 Card 错误",
         "subtext": "重试或单击 帮助 以找到解决方案"
@@ -1109,10 +1122,62 @@
       "SER_1015": {
         "heading": "Your cySync app is facing some connectivity issue",
         "subtext": "Try again and if the problem persists, contact Cypherock support for assistance"
+      },
+      "SER_1016": {
+        "heading": "Your cySync app is facing some connectivity issue",
+        "subtext": "Try again and if the problem persists, contact Cypherock support for assistance"
+      },
+      "SER_1017": {
+        "heading": "Your cySync app is facing some connectivity issue",
+        "subtext": "Try again and if the problem persists, contact Cypherock support for assistance"
+      },
+      "SER_1018": {
+        "heading": "Your cySync app is facing some connectivity issue",
+        "subtext": "Try again and if the problem persists, contact Cypherock support for assistance"
+      },
+      "SER_1019": {
+        "heading": "Your cySync app is facing some connectivity issue",
+        "subtext": "Try again and if the problem persists, contact Cypherock support for assistance"
+      },
+      "SER_1020": {
+        "heading": "Your cySync app is facing some connectivity issue",
+        "subtext": "Try again and if the problem persists, contact Cypherock support for assistance"
+      },
+      "SER_1021": {
+        "heading": "Your cySync app is facing some connectivity issue",
+        "subtext": "Try again and if the problem persists, contact Cypherock support for assistance"
+      },
+      "SER_1022": {
+        "heading": "Your cySync app is facing some connectivity issue",
+        "subtext": "Try again and if the problem persists, contact Cypherock support for assistance"
+      },
+      "SER_1023": {
+        "heading": "Your cySync app is facing some connectivity issue",
+        "subtext": "Try again and if the problem persists, contact Cypherock support for assistance"
+      },
+      "SER_1024": {
+        "heading": "Your cySync app is facing some connectivity issue",
+        "subtext": "Try again and if the problem persists, contact Cypherock support for assistance"
+      },
+      "SER_1025": {
+        "heading": "Your cySync app is facing some connectivity issue",
+        "subtext": "Try again and if the problem persists, contact Cypherock support for assistance"
+      },
+      "SER_1026": {
+        "heading": "Your cySync app is facing some connectivity issue",
+        "subtext": "Try again and if the problem persists, contact Cypherock support for assistance"
       }
     },
-    "default": "发生了一些内部错误",
-    "videoPlaybackError": "No Internet connection. Please check your connection and "
+    "videoPlaybackError": "No Internet connection. Please check your connection and ",
+    "serverCoinErrors": {
+      "default": {
+        "DEF_0000": {
+          "heading": "出现问题",
+          "subtext": "请重试，如果问题仍然存在，请联系 Cypherock 支持以获取帮助"
+        }
+      }
+    },
+    "default": "发生了一些内部错误"
   },
   "validation": {
     "generic": {
@@ -1611,7 +1676,12 @@
     },
     "inheritanceEditUserDetails": {
       "editDetails": {
-        "title": "Edit Details",
+        "title": "Edit ${userType} Details",
+        "userTypes": {
+          "owner": "Owner",
+          "nominee": "Nominee",
+          "executor": "Executor"
+        },
         "buttons": {
           "verifyEmail": "Verify Email"
         }
@@ -1623,7 +1693,7 @@
         }
       },
       "success": {
-        "title": "Owner details successfully updated"
+        "title": "${userType} details successfully updated"
       }
     },
     "inheritancePinRecovery": {

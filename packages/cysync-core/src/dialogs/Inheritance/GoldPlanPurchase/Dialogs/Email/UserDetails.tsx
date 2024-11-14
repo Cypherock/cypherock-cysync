@@ -14,17 +14,20 @@ export const UserDetails = () => {
   const goldPlanStrings =
     lang.strings.inheritanceGoldPlanPurchase.email.userDetails;
 
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [alternateEmail, setAlternateEmail] = useState('');
-
   const {
     registerUser,
     onPrevious,
     onNext,
     isRegisteringUser,
     walletAuthStep,
+    userDetailPrefillData,
   } = useInheritanceGoldPlanPurchaseDialog();
+
+  const [name, setName] = useState(userDetailPrefillData.name);
+  const [email, setEmail] = useState(userDetailPrefillData.email);
+  const [alternateEmail, setAlternateEmail] = useState(
+    userDetailPrefillData.alternateEmail,
+  );
 
   const formId = 'inheritance-gold-plan-user-details';
 
