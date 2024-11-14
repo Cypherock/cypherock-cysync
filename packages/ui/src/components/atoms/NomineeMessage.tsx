@@ -26,7 +26,7 @@ const StyledNomineeMessage = styled.div<
   min-width: 460px;
   padding: 8px 16px;
   justify-content: space-between;
-  align-items: center;
+  align-items: flex-start;
   background: ${({ $withBackground, theme }) =>
     $withBackground ? theme.palette.background.slate : 'none'};
   border-radius: 8px;
@@ -60,13 +60,18 @@ export const NomineeMessage: FC<NomineeMessageProps> = ({
         {...(withHeaderFont
           ? { $fontSize: 18, $fontWeight: 'medium', $letterSpacing: '0.9px' }
           : {})}
+        $whiteSpace="nowrap"
       >
         {label}
       </Typography>
     </Flex>
     {!centerText && (
-      <Flex gap={16} align="center">
-        <Typography color={(variant && variantColorMap[variant]) ?? 'white'}>
+      <Flex gap={16} align="center" $maxWidth="70%">
+        <Typography
+          color={(variant && variantColorMap[variant]) ?? 'white'}
+          $whiteSpace="pre-wrap"
+          $wordBreak="break-all"
+        >
           {value}
         </Typography>
         {trailing}
