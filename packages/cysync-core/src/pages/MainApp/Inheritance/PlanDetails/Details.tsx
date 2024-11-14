@@ -42,16 +42,31 @@ export const InheritancePlanDetailsSection: FC<
   }, [dispatch]);
 
   const editOwnerDetails = useCallback(() => {
-    dispatch(openInheritanceEditUserDetailsDialog({ userType: 'owner' }));
-  }, [dispatch]);
+    dispatch(
+      openInheritanceEditUserDetailsDialog({
+        userType: 'owner',
+        walletId: plan.walletId,
+      }),
+    );
+  }, [dispatch, plan]);
 
   const editNomineeDetails = useCallback(() => {
-    dispatch(openInheritanceEditUserDetailsDialog({ userType: 'nominee' }));
-  }, [dispatch]);
+    dispatch(
+      openInheritanceEditUserDetailsDialog({
+        userType: 'nominee 1',
+        walletId: plan.walletId,
+      }),
+    );
+  }, [dispatch, plan]);
 
   const editExecutorDetails = useCallback(() => {
-    dispatch(openInheritanceEditUserDetailsDialog({ userType: 'executor' }));
-  }, [dispatch]);
+    dispatch(
+      openInheritanceEditUserDetailsDialog({
+        userType: 'executor',
+        walletId: plan.walletId,
+      }),
+    );
+  }, [dispatch, plan]);
 
   const editExecutorMessage = useCallback(() => {
     dispatch(

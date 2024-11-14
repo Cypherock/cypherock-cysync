@@ -2,6 +2,7 @@ import { BlurOverlay } from '@cypherock/cysync-ui';
 import React, { FC } from 'react';
 
 import { ErrorHandlerDialog } from '~/components';
+import { IUserDetails } from '../hooks';
 
 import {
   InheritanceEditUserDetailsDialogProvider,
@@ -10,15 +11,18 @@ import {
 
 export type InheritanceEditUserDetailsUserType =
   | 'owner'
-  | 'nominee'
+  | 'nominee 1'
+  | 'nominee 2'
   | 'executor';
 
 export interface InheritanceEditUserDetailsDialogProps {
   userType: InheritanceEditUserDetailsUserType;
+  initialData?: IUserDetails;
+  walletId: string;
 }
 
 const InheritanceEditUserDetails = () => {
-  const { tabs, currentTab, currentDialog, unhandledError, onClose } =
+  const { tabs, currentTab, currentDialog, unhandledError, onClose, onRetry } =
     useInheritanceEditUserDetailsDialog();
 
   return (
@@ -27,6 +31,7 @@ const InheritanceEditUserDetails = () => {
         onClose={onClose}
         error={unhandledError}
         showCloseButton
+        onRetry={onRetry}
         noDelay
       >
         {tabs[currentTab]?.dialogs[currentDialog]}
@@ -42,3 +47,7 @@ export const InheritanceEditUserDetailsDialog: FC<
     <InheritanceEditUserDetails />
   </InheritanceEditUserDetailsDialogProvider>
 );
+
+InheritanceEditUserDetailsDialog.defaultProps = {
+  initialData: undefined,
+};

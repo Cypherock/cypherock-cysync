@@ -1,26 +1,25 @@
 import {
   Button,
   CloseButton,
-  Container,
   DialogBox,
   DialogBoxBody,
   DialogBoxFooter,
   DialogBoxHeader,
-  Input,
   LangDisplay,
+  parseLangTemplate,
   ScrollableContainer,
-  Typography,
 } from '@cypherock/cysync-ui';
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
 
 import { useAppSelector } from '~/store';
 import { selectLanguage } from '~/store/lang';
+import { UserDetailsForm } from '../../components';
 
 import { useInheritanceEditUserDetailsDialog } from '../context';
 
 export const EditDetails = () => {
   const lang = useAppSelector(selectLanguage);
-  const { onClose, onUserDetailsSubmit, isSubmittingUserDetails, userType } =
+  const { onClose, onUserDetailsSubmit, userType } =
     useInheritanceEditUserDetailsDialog();
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
@@ -34,14 +33,20 @@ export const EditDetails = () => {
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    if (isSubmittingUserDetails) return;
-
     onUserDetailsSubmit({
       name,
       email,
       alternateEmail,
     });
   };
+
+  const isSameEmail = Boolean(email && email === alternateEmail);
+
+  const [hasErrors, setHasErrors] = useState(false);
+  const isFormIncomplete = useMemo(
+    () => !name || !email || hasErrors,
+    [hasErrors],
+  );
 
   return (
     <DialogBox width={800} onClose={onClose} $maxHeight="90vh">
@@ -50,71 +55,30 @@ export const EditDetails = () => {
       </DialogBoxHeader>
       <ScrollableContainer>
         <DialogBoxBody px={5} py={4} gap={0}>
-          <form style={{ width: '100%' }} onSubmit={onSubmit} id={formId}>
-            <Container direction="column" $width="full" mb={4}>
-              <Typography
-                variant="h5"
-                color="heading"
-                $textAlign="center"
-                $fontSize={20}
-                mb="4px"
-              >
-                <LangDisplay text={strings.title} variables={{ userType }} />
-              </Typography>
-            </Container>
-            <Container direction="column" $width="full" mb={3}>
-              <Input
-                pasteAllowed
-                name="name"
-                type="text"
-                label={form.name}
-                rightLabel={lang.strings.labels.required}
-                value={name}
-                required
-                onChange={setName}
-                showRequiredStar
-                inputLabelProps={{
-                  $fontSize: 12,
-                  $letterSpacing: 'unset',
-                }}
-                disabled={isSubmittingUserDetails}
-              />
-            </Container>
-            <Container direction="row" $width="full" gap={24}>
-              <Input
-                pasteAllowed
-                name="email"
-                type="email"
-                label={form.emailField.label}
-                rightLabel={lang.strings.labels.required}
-                value={email}
-                required
-                onChange={setEmail}
-                showRequiredStar
-                inputLabelProps={{
-                  $fontSize: 12,
-                  $letterSpacing: 'unset',
-                }}
-                disabled={isSubmittingUserDetails}
-              />
-              <Input
-                pasteAllowed
-                name="alternateEmail"
-                type="email"
-                label={form.alternateEmail}
-                rightLabel={lang.strings.labels.required}
-                value={alternateEmail}
-                required
-                onChange={setAlternateEmail}
-                showRequiredStar
-                inputLabelProps={{
-                  $fontSize: 12,
-                  $letterSpacing: 'unset',
-                }}
-                disabled={isSubmittingUserDetails}
-              />
-            </Container>
-          </form>
+          <UserDetailsForm
+            onSubmit={onSubmit}
+            formId={formId}
+            strings={{
+              title: parseLangTemplate(strings.title, { userType }),
+              form: {
+                ...form,
+                emailField: {
+                  tooltip: (strings as any)?.tooltip ?? '',
+                  label: form.emailField.label,
+                },
+              },
+            }}
+            name={name}
+            setName={setName}
+            isSubmittingUserDetails={false}
+            email={email}
+            setEmail={setEmail}
+            alternateEmail={alternateEmail}
+            setAlternateEmail={setAlternateEmail}
+            isAlternateEmailRequired={false}
+            isSameEmail={isSameEmail}
+            setHasErrors={setHasErrors}
+          />
         </DialogBoxBody>
       </ScrollableContainer>
 
@@ -123,8 +87,7 @@ export const EditDetails = () => {
           variant="primary"
           type="submit"
           form={formId}
-          disabled={isSubmittingUserDetails}
-          isLoading={isSubmittingUserDetails}
+          disabled={isSameEmail || isFormIncomplete}
         >
           <LangDisplay text={strings.buttons.verifyEmail} />
         </Button>
