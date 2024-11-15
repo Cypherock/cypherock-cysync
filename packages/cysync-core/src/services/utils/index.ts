@@ -1,5 +1,10 @@
 import { ServerError, ServerErrorType } from '@cypherock/cysync-core-constants';
-import axios, { AxiosError, AxiosRequestConfig, AxiosResponse } from 'axios';
+import axios, {
+  AxiosError,
+  AxiosRequestConfig,
+  AxiosResponse,
+  HttpStatusCode,
+} from 'axios';
 
 import { createServerErrorFromError } from '~/utils';
 
@@ -132,7 +137,8 @@ export async function autoRefreshTokenRequest<T>(
     if (!refreshTokenConfig || !(error as any).isAxiosError) throw error;
 
     const axiosError = error as AxiosError;
-    if (axiosError.response?.status !== 500) throw error;
+    if (axiosError.response?.status !== HttpStatusCode.Unauthorized)
+      throw error;
 
     let newAuthToken = '';
     // won't recurse because we are not providing authTokenConfig in this call
