@@ -49,7 +49,10 @@ export const UserDetails = () => {
     }
   }, []);
 
-  const isSameEmail = Boolean(email && email === alternateEmail);
+  const isSameEmail = useMemo(
+    () => Boolean(email && email === alternateEmail),
+    [email, alternateEmail],
+  );
 
   const [hasErrors, setHasErrors] = useState(false);
   const isFormIncomplete = useMemo(

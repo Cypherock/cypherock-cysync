@@ -9,7 +9,7 @@ import {
   Tooltip,
   Typography,
 } from '@cypherock/cysync-ui';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 
 import { selectLanguage, useAppSelector } from '~/store';
 
@@ -38,11 +38,14 @@ export const NomineePrivateMessageInput = () => {
   const [cardLocationError, setCardLocationError] = useState<string>('');
   const [personalMessageError, setPersonalMessageError] = useState<string>('');
 
-  const isNextDisabled =
-    !personalMessage.trim() ||
-    !cardLocation.trim() ||
-    !cardLocationError ||
-    !personalMessageError;
+  const isNextDisabled = useMemo(
+    () =>
+      !personalMessage.trim() ||
+      !cardLocation.trim() ||
+      !!cardLocationError ||
+      !!personalMessageError,
+    [personalMessage, cardLocation, cardLocationError, personalMessageError],
+  );
 
   const validateFields = debounce(() => {
     const cardLocationValidation = validateInputLanguage(cardLocation, lang);

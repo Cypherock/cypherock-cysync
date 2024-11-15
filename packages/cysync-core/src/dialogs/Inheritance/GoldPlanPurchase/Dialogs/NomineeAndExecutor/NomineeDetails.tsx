@@ -49,12 +49,14 @@ export const NomineeDetails: React.FC<{ index: number }> = ({ index }) => {
     onNext();
   };
 
-  const isSameEmail = Boolean(email && email === alternateEmail);
-
   const [hasErrors, setHasErrors] = useState(false);
+  const isSameEmail = useMemo(
+    () => Boolean(email && email === alternateEmail),
+    [email, alternateEmail],
+  );
   const isFormIncomplete = useMemo(
     () => !name || !email || hasErrors,
-    [hasErrors],
+    [hasErrors, name, email],
   );
 
   return (

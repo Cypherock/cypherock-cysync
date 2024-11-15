@@ -58,12 +58,14 @@ export const ExecutorDetails = () => {
     );
   };
 
-  const isSameEmail = Boolean(email && email === alternateEmail);
-
   const [hasErrors, setHasErrors] = useState(false);
+  const isSameEmail = useMemo(
+    () => Boolean(email && email === alternateEmail),
+    [email, alternateEmail],
+  );
   const isFormIncomplete = useMemo(
     () => !name || !email || hasErrors,
-    [hasErrors],
+    [hasErrors, name, email],
   );
 
   return (
