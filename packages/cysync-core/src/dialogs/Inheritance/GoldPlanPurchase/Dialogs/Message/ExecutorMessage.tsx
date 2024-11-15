@@ -42,6 +42,7 @@ export const ExecutorMessage = () => {
             onClick={onExecutorMessageSubmit}
             variant="primary"
             isLoading={isSubmittingExecutorDetails}
+            disabled={executorMessage.length < 1}
           >
             <LangDisplay text={lang.strings.buttons.saveAndContinue} />
           </Button>
