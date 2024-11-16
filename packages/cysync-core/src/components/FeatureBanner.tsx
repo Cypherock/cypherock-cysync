@@ -27,7 +27,7 @@ export const FeatureBanner: FC = () => {
   }, [navigateTo]);
 
   return (
-    <Container px={2} pt={2} pb={1} $bgColor="contentGradient" width="full">
+    <Container $bgColor="contentGradient" width="full">
       <Container
         direction="row"
         $bgColor="featureBanner"

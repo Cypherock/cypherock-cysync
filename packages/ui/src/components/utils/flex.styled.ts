@@ -43,6 +43,7 @@ export interface FlexProps {
   children?: ReactNode;
   wrapReverse?: MediaQuery<boolean>;
   noWrap?: MediaQuery<boolean>;
+  hideIfEmpty?: MediaQuery<boolean>;
   justify?: MediaQuery<JustifyType>;
   align?: MediaQuery<AlignType>;
   direction?: MediaQuery<DirectionType>;
@@ -119,6 +120,16 @@ const flexWrap = css<FlexProps>`
     generateCss(['flex-wrap'], (item: string) => item, props.$flexWrap)}
 `;
 
+const emptyState = css<FlexProps>`
+  ${props =>
+    props.hideIfEmpty &&
+    `
+      &:empty {
+        display: none;
+      }
+    `}
+`;
+
 export const flex = css<FlexProps>`
   ${justifyContent}
   ${align}
@@ -129,4 +140,5 @@ export const flex = css<FlexProps>`
   ${alignSelf}
   ${flexProperty}
   ${flexWrap}
+  ${emptyState}
 `;
