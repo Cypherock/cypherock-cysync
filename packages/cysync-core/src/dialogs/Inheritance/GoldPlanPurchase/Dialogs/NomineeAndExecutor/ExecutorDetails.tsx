@@ -3,6 +3,7 @@ import {
   Container,
   Flex,
   LangDisplay,
+  MessageBox,
   QuestionMarkButton,
   RadioButton,
   Tooltip,
@@ -118,43 +119,50 @@ export const ExecutorDetails = () => {
           isSameEmail={isSameEmail}
           setHasErrors={setHasErrors}
         />
-        <Container
-          direction="column"
-          gap={16}
-          $flex={1}
-          width="100%"
-          align="flex-start"
-        >
-          <Flex gap={4} align="center">
-            <Typography $fontSize={16} color="muted">
-              {strings.executor.executorDetails.radio.label}
-            </Typography>
-            <Tooltip
-              text={strings.executor.executorDetails.radio.tooltip}
-              tooltipPlacement="bottom"
-            >
-              <QuestionMarkButton />
-            </Tooltip>
-          </Flex>
-          <Flex gap={40}>
-            {Array(nomineeCount)
-              .fill(0)
-              .map((_, index) => (
-                <Flex
-                  gap={8}
-                  align="center"
-                  key={`Nominee ${index + 1}`}
-                  onClick={() => setSelectedNominee(index)}
-                >
-                  <RadioButton checked={selectedNominee === index} />
-                  <Typography $fontSize={14} color="muted">
-                    {strings.executor.executorDetails.radio.options
-                      .labelPrefix + (index + 1).toString()}
-                  </Typography>
-                </Flex>
-              ))}
-          </Flex>
-        </Container>
+        {nomineeCount === 2 ? (
+          <Container
+            direction="column"
+            gap={16}
+            $flex={1}
+            width="100%"
+            align="flex-start"
+          >
+            <Flex gap={4} align="center">
+              <Typography $fontSize={16} color="muted">
+                {strings.executor.executorDetails.radio.label}
+              </Typography>
+              <Tooltip
+                text={strings.executor.executorDetails.radio.tooltip}
+                tooltipPlacement="bottom"
+              >
+                <QuestionMarkButton />
+              </Tooltip>
+            </Flex>
+            <Flex gap={40}>
+              {Array(nomineeCount)
+                .fill(0)
+                .map((_, index) => (
+                  <Flex
+                    gap={8}
+                    align="center"
+                    key={`Nominee ${index + 1}`}
+                    onClick={() => setSelectedNominee(index)}
+                  >
+                    <RadioButton checked={selectedNominee === index} />
+                    <Typography $fontSize={14} color="muted">
+                      {strings.executor.executorDetails.radio.options
+                        .labelPrefix + (index + 1).toString()}
+                    </Typography>
+                  </Flex>
+                ))}
+            </Flex>
+          </Container>
+        ) : (
+          <MessageBox
+            type="warning"
+            text={strings.executor.executorDetails.radio.messageBox.warning}
+          />
+        )}
       </Container>
     </Layout>
   );

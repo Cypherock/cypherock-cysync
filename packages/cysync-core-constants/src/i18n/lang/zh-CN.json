@@ -2421,6 +2421,9 @@
             "tooltip": "Select the nominee you want to link with the executor. If you choose Nominee 1 then the executor will receive their email written by you on same time as Nominee 1.\n\nIf you choose Nominee 2 then the executor will receive their email written by you on same time as Nominee 2 i.e, 3 months after Nominee 1.",
             "options": {
               "labelPrefix": "Nominee "
+            },
+            "messageBox": {
+              "warning": "The executor will receive their email written by you on same time as Nominee"
             }
           }
         }
