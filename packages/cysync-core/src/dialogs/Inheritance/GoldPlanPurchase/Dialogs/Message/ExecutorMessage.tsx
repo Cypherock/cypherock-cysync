@@ -78,6 +78,8 @@ export const ExecutorMessage = () => {
           height={120}
           maxChars={800}
           currentChars={executorMessage.length || 0}
+          rightLabel={lang.strings.labels.required}
+          showRequiredStar
           autoFocus
         />
       </Flex>
