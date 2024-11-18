@@ -23,7 +23,7 @@ export const Message = () => {
   const [isChecked, setIsChecked] = useState(false);
   const strings = lang.strings.dialogs.inheritanceEstateRecovery.viewMessage;
 
-  const userName = 'Alfred Ballows';
+  const ownerName = 'Wallet Owner';
   const cardLocation = decryptedCardLocation ?? '';
   const personalMessage = decryptedPersonalMessage ?? '';
 
@@ -37,7 +37,7 @@ export const Message = () => {
     >
       <Container direction="row" gap={4}>
         <Typography $fontSize={20}>
-          <LangDisplay text={strings.title} variables={{ name: userName }} />
+          <LangDisplay text={strings.title} variables={{ name: ownerName }} />
         </Typography>
         <Tooltip text={strings.tooltip} tooltipPlacement="bottom">
           <QuestionMarkButton />
