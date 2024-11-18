@@ -101,7 +101,7 @@ export const CouponInput: React.FC<CouponInputProps> = ({
 }) => (
   <Container {...restProps}>
     {!isApplied ? (
-      <>
+      <form style={{ display: 'flex', flex: 1 }}>
         <InputField
           placeholder={placeholderText}
           value={value}
@@ -116,12 +116,13 @@ export const CouponInput: React.FC<CouponInputProps> = ({
         <ApplyButton
           onClick={onApply}
           $isInvalid={isInvalid}
+          type="submit"
           // eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing
           disabled={disabled || isLoading || value.length !== couponLength}
         >
           {isLoading ? <Throbber size={16} strokeWidth={2} /> : applyButtonText}
         </ApplyButton>
-      </>
+      </form>
     ) : (
       <Flex
         width="full"
