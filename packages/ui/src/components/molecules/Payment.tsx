@@ -41,6 +41,7 @@ export interface PaymentProps {
   isLoading?: boolean;
   couponLength?: number;
   duration?: string;
+  autoFocus?: boolean;
 }
 
 export const Payment: FC<PaymentProps> = ({
@@ -57,6 +58,7 @@ export const Payment: FC<PaymentProps> = ({
   isLoading,
   couponLength,
   duration,
+  autoFocus,
 }) => {
   const theme = useTheme();
 
@@ -101,6 +103,7 @@ export const Payment: FC<PaymentProps> = ({
             disabled={disabled}
             isLoading={isLoading}
             couponLength={couponLength}
+            autoFocus={autoFocus}
           />
         </Flex>
         {applied && (
@@ -144,4 +147,5 @@ Payment.defaultProps = {
   error: undefined,
   couponLength: 14,
   duration: undefined,
+  autoFocus: undefined,
 };

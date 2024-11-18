@@ -82,6 +82,7 @@ export interface CouponInputProps extends WidthProps {
   disabled?: boolean;
   isLoading?: boolean;
   couponLength?: number;
+  autoFocus?: boolean;
 }
 
 export const CouponInput: React.FC<CouponInputProps> = ({
@@ -97,6 +98,7 @@ export const CouponInput: React.FC<CouponInputProps> = ({
   disabled,
   isLoading,
   couponLength,
+  autoFocus,
   ...restProps
 }) => (
   <Container {...restProps}>
@@ -112,6 +114,7 @@ export const CouponInput: React.FC<CouponInputProps> = ({
           onChange={event => onChange(event.target.value)}
           $isInvalid={isInvalid}
           maxLength={couponLength}
+          autoFocus={autoFocus}
         />
         <ApplyButton
           onClick={onApply}
@@ -165,4 +168,5 @@ CouponInput.defaultProps = {
   disabled: false,
   isLoading: false,
   couponLength: undefined,
+  autoFocus: undefined,
 };

@@ -80,6 +80,7 @@ export const EditDetails = () => {
                 }}
                 disabled={isSubmittingUserDetails}
                 maxLength={constants.inheritance.maxUserDetailsInputLength}
+                autoFocus
               />
             </Container>
             <Container direction="row" $width="full" gap={24}>
