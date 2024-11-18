@@ -1512,6 +1512,9 @@ interface LangInheritanceGoldPlanPurchase {
           options: {
             labelPrefix: string;
           };
+          messageBox: {
+            warning: string;
+          };
         };
       };
     };
