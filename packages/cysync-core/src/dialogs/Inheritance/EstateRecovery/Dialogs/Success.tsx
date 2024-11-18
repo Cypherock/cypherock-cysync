@@ -22,6 +22,7 @@ export const Success = () => {
     lang.strings.dialogs.inheritanceEstateRecovery.confirmation.success;
 
   const { onClose, onRetry, retryIndex } = useInheritanceEstateRecoveryDialog();
+  const ownerName = 'Wallet Owner';
 
   return (
     <Layout
@@ -39,7 +40,7 @@ export const Success = () => {
           $textAlign="center"
           $fontSize={20}
         >
-          <LangDisplay text={strings.title} />
+          <LangDisplay text={strings.title} variables={{ name: ownerName }} />
         </Typography>
         <Typography color="muted" $textAlign="center" $fontSize={16}>
           <LangDisplay text={strings.subTitle} />
