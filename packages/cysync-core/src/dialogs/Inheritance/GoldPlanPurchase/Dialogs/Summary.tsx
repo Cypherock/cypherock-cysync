@@ -50,6 +50,7 @@ export const Summary = () => {
     setIsOnSummaryPage,
     goTo,
     executorNomineeIndex,
+    walletAuthReset,
   } = useInheritanceGoldPlanPurchaseDialog();
 
   const reminderValue = useMemo(
@@ -62,10 +63,13 @@ export const Summary = () => {
   }, []);
 
   const editButtonGoto = useCallback(
-    (tab: number, dialog?: number) => (
+    (tab: number, dialog?: number, preRun?: () => void) => (
       <EditButton
         text={lang.strings.buttons.edit}
-        onClick={() => goTo(tab, dialog)}
+        onClick={() => {
+          preRun?.();
+          goTo(tab, dialog);
+        }}
       />
     ),
     [lang, goTo],
@@ -107,7 +111,11 @@ export const Summary = () => {
         />
         <DetailsCard
           headerText={strings.ownerDetails.title}
-          headerTrailing={editButtonGoto(tabIndicies.wallet.tabNumber)}
+          headerTrailing={editButtonGoto(
+            tabIndicies.wallet.tabNumber,
+            tabIndicies.wallet.dialogs.fetchRequestId,
+            walletAuthReset,
+          )}
           fields={[
             {
               label: strings.ownerDetails.form.userNameField.label,

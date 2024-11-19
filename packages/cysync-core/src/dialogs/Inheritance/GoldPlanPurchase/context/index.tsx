@@ -665,6 +665,7 @@ export const InheritanceGoldPlanPurchaseDialogProvider: FC<
     walletAuthIsValidatingSignature: walletAuthService.isValidatingSignature,
     walletAuthStep: walletAuthService.currentStep,
     walletAuthAbort: walletAuthService.abortWalletAuth,
+    walletAuthReset: walletAuthService.reset,
     onRegister: walletAuthService.registerUser,
     isRegisteringUser: walletAuthService.isRegisteringUser,
     otpVerificationDetails: walletAuthService.otpVerificationDetails,

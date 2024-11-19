@@ -37,6 +37,7 @@ export interface InheritanceGoldPlanPurchaseDialogContextInterface {
   walletAuthIsFetchingRequestId: boolean;
   walletAuthStart: () => void;
   walletAuthAbort: () => void;
+  walletAuthReset: () => void;
   walletAuthIsValidatingSignature: boolean;
   walletAuthValidateSignature: () => Promise<boolean>;
   walletAuthStep: WalletAuthLoginStep;
