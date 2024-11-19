@@ -46,10 +46,6 @@ export const VerifyNomineeOtp: React.FC = () => {
     [nomineeOtpSubmit],
   );
 
-  const onResend = () => {
-    // DUMMY FUNCTION
-  };
-
   const otpExpireTime = useMemo(
     () => nomineeOtpVerificationDetails?.otpExpiry ?? '',
     [nomineeOtpVerificationDetails?.otpExpiry],
@@ -83,7 +79,7 @@ export const VerifyNomineeOtp: React.FC = () => {
       title={title}
       emails={email}
       onBack={onPrevious}
-      onResendOtp={onResend}
+      onResendOtp={onPrevious}
       onVerify={onVerify}
       otpLength={otpLength}
       retriesRemaining={retriesRemaining}
