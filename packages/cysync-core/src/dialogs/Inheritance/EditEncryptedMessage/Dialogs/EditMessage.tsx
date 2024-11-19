@@ -114,6 +114,7 @@ export const EditMessage = () => {
               setEncryptedMessage({ ...encryptedMessage, cardLocation: text })
             }
             error={cardLocationError}
+            autoFocus
           />
         </Container>
         <Container direction="column" width="100%" $flex={1}>

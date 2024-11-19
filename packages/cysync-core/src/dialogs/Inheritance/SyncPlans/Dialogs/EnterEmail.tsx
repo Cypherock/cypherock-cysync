@@ -87,6 +87,7 @@ export const EnterEmail: React.FC = () => {
             onChange={onEmailChange}
             showRequiredStar
             disabled={isSendingEmail}
+            autoFocus
           />
           {displayError && (
             <Typography

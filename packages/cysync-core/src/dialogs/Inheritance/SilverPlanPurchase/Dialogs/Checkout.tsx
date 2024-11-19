@@ -88,6 +88,7 @@ export const Checkout = () => {
         onDelete={onDelete}
         duration={couponDuration}
         couponLength={14}
+        autoFocus
       />
     </Layout>
   );
