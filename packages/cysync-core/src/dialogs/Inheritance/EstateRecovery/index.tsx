@@ -8,7 +8,7 @@ import {
   MilestoneAside,
   WalletDialogMainContainer,
 } from '@cypherock/cysync-ui';
-import React, { FC } from 'react';
+import React, { FC, useEffect } from 'react';
 
 import {
   ErrorHandlerDialog,
@@ -54,7 +54,10 @@ const InheritanceEstateRecovery: FC = () => {
     onHelp,
     isDeviceRequired,
     onRetry,
+    decryptPinAbort,
   } = useInheritanceEstateRecoveryDialog();
+
+  useEffect(() => () => decryptPinAbort(), []);
 
   const lang = useAppSelector(selectLanguage);
 
