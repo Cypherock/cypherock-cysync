@@ -45,7 +45,7 @@
     "editAccount": "编辑账户",
     "submit": "提交",
     "showMore": "显示更多",
-    "resendOTP": "Resend OTP",
+    "resendOTP": "Restart",
     "next": "Next",
     "setup": "Setup",
     "sync": "Sync",
@@ -2042,7 +2042,7 @@
       "subTitle": "Please exit the flow and restart"
     },
     "buttons": {
-      "resendWithTimeout": "Resend OTP in ${timeout}s"
+      "resendWithTimeout": "Valid for ${timeout}s"
     }
   },
   "inheritance": {
