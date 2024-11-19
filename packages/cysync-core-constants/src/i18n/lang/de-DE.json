@@ -1915,12 +1915,12 @@
       "viewPin": {
         "name": "View PIN",
         "title": "Follow instructions on the X1 Vault",
-        "subTitle": "PIN for wallet",
+        "subTitle": "PIN for wallet ",
         "actions": {
           "view": "View & copy the PIN displayed on your device and then confirm"
         },
         "messageBox": {
-          "warning": "You will need this PIN to access crypto assets on this wallet. Make sure you do not forget it."
+          "warning": "You will need this PIN to access crypto assets on this wallet. Make sure you do not forget it"
         }
       },
       "viewMessage": {
