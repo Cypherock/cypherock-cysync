@@ -14,6 +14,7 @@ import { selectLanguage, useAppSelector } from '~/store';
 
 import { useInheritanceGoldPlanPurchaseDialog } from '../context';
 import { Layout } from '../Layout';
+import { IWalletForSelection } from '../context/types';
 
 export const SelectWallet = () => {
   const lang = useAppSelector(selectLanguage);
@@ -44,6 +45,47 @@ export const SelectWallet = () => {
         setTooltipPlacements(prev => ({ ...prev, [walletId]: placement }));
       }
     });
+  };
+
+  const getWalletCard = (wallet: IWalletForSelection) => {
+    const isDeleted = Boolean(wallet.isDeleted);
+    const doesNotHavePin = !wallet.hasPin;
+    const { isActive } = wallet;
+
+    const walletId = wallet.__id ?? '';
+    const tooltipPlacement = tooltipPlacements[walletId] || 'bottom';
+
+    let tooltip;
+
+    if (isActive) {
+      tooltip = strings.wallet.selectWallet.tooltips.alreadyActive;
+    } else if (isDeleted) {
+      tooltip = strings.wallet.selectWallet.tooltips.isDeleted;
+    } else if (doesNotHavePin) {
+      tooltip = strings.wallet.selectWallet.tooltips.noPin;
+    } else {
+      tooltip = undefined;
+    }
+
+    return (
+      <Tooltip
+        key={walletId}
+        text={tooltip}
+        tooltipPlacement={tooltipPlacement}
+      >
+        <div className="wallet-card" data-wallet-id={walletId}>
+          <ManyInMany
+            title={wallet.name}
+            disabled={doesNotHavePin || isDeleted}
+            isActive={isActive}
+            isSelected={selectedWallet?.__id === wallet.__id}
+            onClick={() => setSelectedWallet(wallet)}
+            $width={340}
+            $height={128}
+          />
+        </div>
+      </Tooltip>
+    );
   };
 
   useEffect(() => {
@@ -96,45 +138,7 @@ export const SelectWallet = () => {
       </Container>
       <ScrollableContainer $maxHeight={264} className="scrollable-container">
         <Container direction="row" gap={8} $flexWrap="wrap">
-          {allWallets.map(wallet => {
-            const isDisabled = Boolean(wallet.isDeleted) || !wallet.hasPin;
-            const walletId = wallet.__id ?? '';
-            const tooltipPlacement = tooltipPlacements[walletId] || 'bottom';
-            if (isDisabled) {
-              return (
-                <Tooltip
-                  key={walletId}
-                  text={strings.wallet.selectWallet.tooltip}
-                  tooltipPlacement={tooltipPlacement}
-                >
-                  <div className="wallet-card" data-wallet-id={walletId}>
-                    <ManyInMany
-                      title={wallet.name}
-                      disabled={isDisabled}
-                      isSelected={selectedWallet?.__id === wallet.__id}
-                      onClick={() => setSelectedWallet(wallet)}
-                      $width={340}
-                      $height={128}
-                    />
-                  </div>
-                </Tooltip>
-              );
-            }
-            return (
-              <ManyInMany
-                key={wallet.__id ?? ''}
-                title={wallet.name}
-                disabled={isDisabled}
-                isActive={wallet.isActive}
-                isSelected={selectedWallet?.__id === wallet.__id}
-                onClick={() => {
-                  setSelectedWallet(wallet);
-                }}
-                $width={340}
-                $height={128}
-              />
-            );
-          })}
+          {allWallets.map(getWalletCard)}
         </Container>
       </ScrollableContainer>
     </Layout>
