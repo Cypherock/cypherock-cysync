@@ -570,7 +570,6 @@ export const InheritanceGoldPlanPurchaseDialogProvider: FC<
           return true;
         },
         [tabIndicies.nominieeAndExecutor.dialogs.executorSelect]: () => {
-          console.log(nomineeCount);
           if (nomineeCount === 2) {
             goTo(
               tabIndicies.nominieeAndExecutor.tabNumber,
