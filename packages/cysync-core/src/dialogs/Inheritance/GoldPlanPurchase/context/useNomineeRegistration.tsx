@@ -19,7 +19,7 @@ export const useNomineeRegistration = (
 ) => {
   const [isSubmittingNomineeDetails, setIsSubmittingNomineeDetails] =
     useState(false);
-  const [nomineeCount, setNomineeCount, nomineeCountRef] = useStateWithRef(1);
+  const [nomineeCount, setNomineeCount, nomineeCountRef] = useStateWithRef(0);
   const [nomineeDetails, setNomineeDetails, nominees] = useStateWithRef<
     Record<number, IUserDetails>
   >({});

@@ -415,6 +415,7 @@ export const InheritanceGoldPlanPurchaseDialogProvider: FC<
     setCouponDuration('');
     setSelectedWallet(undefined);
     setRetryIndex(v => v + 1);
+    setIsOnSummaryPage(false);
     walletAuthService.reset();
     encryptMessageService.reset();
     sessionService.reset();
