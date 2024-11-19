@@ -49,56 +49,42 @@ export const SelectWallet = () => {
 
   const getWalletCard = (wallet: IWalletForSelection) => {
     const isDeleted = Boolean(wallet.isDeleted);
-    const isNotSecure = !wallet.hasPin;
+    const doesNotHavePin = !wallet.hasPin;
     const { isActive } = wallet;
-    const isDisabled = isDeleted || isNotSecure || isActive;
 
     const walletId = wallet.__id ?? '';
     const tooltipPlacement = tooltipPlacements[walletId] || 'bottom';
 
     let tooltip;
 
-    if (isNotSecure) {
-      tooltip = strings.wallet.selectWallet.tooltips.noPin;
-    } else if (isActive) {
+    if (isActive) {
       tooltip = strings.wallet.selectWallet.tooltips.alreadyActive;
     } else if (isDeleted) {
       tooltip = strings.wallet.selectWallet.tooltips.isDeleted;
-    }
-
-    if (isDisabled) {
-      return (
-        <Tooltip
-          key={walletId}
-          text={tooltip}
-          tooltipPlacement={tooltipPlacement}
-        >
-          <div className="wallet-card" data-wallet-id={walletId}>
-            <ManyInMany
-              title={wallet.name}
-              disabled={isNotSecure || isDeleted}
-              isActive={isActive}
-              isSelected={selectedWallet?.__id === wallet.__id}
-              onClick={() => setSelectedWallet(wallet)}
-              $width={340}
-              $height={128}
-            />
-          </div>
-        </Tooltip>
-      );
+    } else if (doesNotHavePin) {
+      tooltip = strings.wallet.selectWallet.tooltips.noPin;
+    } else {
+      tooltip = undefined;
     }
 
     return (
-      <ManyInMany
-        key={wallet.__id ?? ''}
-        title={wallet.name}
-        isSelected={selectedWallet?.__id === wallet.__id}
-        onClick={() => {
-          setSelectedWallet(wallet);
-        }}
-        $width={340}
-        $height={128}
-      />
+      <Tooltip
+        key={walletId}
+        text={tooltip}
+        tooltipPlacement={tooltipPlacement}
+      >
+        <div className="wallet-card" data-wallet-id={walletId}>
+          <ManyInMany
+            title={wallet.name}
+            disabled={doesNotHavePin || isDeleted}
+            isActive={isActive}
+            isSelected={selectedWallet?.__id === wallet.__id}
+            onClick={() => setSelectedWallet(wallet)}
+            $width={340}
+            $height={128}
+          />
+        </div>
+      </Tooltip>
     );
   };
 
