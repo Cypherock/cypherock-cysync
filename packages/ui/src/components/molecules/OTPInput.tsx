@@ -67,11 +67,6 @@ const OTPSingleInputContainer = styled.input<{
 const ActionButton = styled(Button)`
   color: ${({ theme }) => theme.palette.text.white};
   font-weight: 400;
-
-  &:disabled {
-    color: ${({ theme }) => theme.palette.background.separator};
-  }
-
   font-size: 14px;
 `;
 

@@ -45,7 +45,7 @@
     "editAccount": "تحرير الحساب",
     "submit": "إرسال",
     "showMore": "عرض المزيد",
-    "resendOTP": "Resend OTP in ${timeout}s",
+    "resendOTP": "Restart",
     "next": "Next",
     "setup": "Setup",
     "sync": "Sync",
@@ -2062,7 +2062,7 @@
       "subTitle": "Please exit the flow and restart"
     },
     "buttons": {
-      "resendWithTimeout": "Resend OTP in ${timeout}s"
+      "resendWithTimeout": "Valid for ${timeout}s"
     }
   },
   "inheritance": {

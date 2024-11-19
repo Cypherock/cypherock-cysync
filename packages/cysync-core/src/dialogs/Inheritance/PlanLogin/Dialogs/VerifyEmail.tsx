@@ -29,10 +29,6 @@ export const VerifyEmail: React.FC = () => {
     [verifyOtp],
   );
 
-  const onResend = () => {
-    // DUMMY FUNCTION
-  };
-
   const otpExpireTime = useMemo(
     () => otpVerificationDetails?.otpExpiry ?? '',
     [otpVerificationDetails?.otpExpiry],
@@ -64,7 +60,7 @@ export const VerifyEmail: React.FC = () => {
       showHeader
       emails={email}
       onBack={onPrevious}
-      onResendOtp={onResend}
+      onResendOtp={onPrevious}
       onVerify={onVerify}
       otpLength={otpLength}
       retriesRemaining={retriesRemaining}
