@@ -50,10 +50,12 @@ const MainAppLayoutComponent: FC<MainAppLayoutProps> = ({
     <Flex width="full" height="full" $bgColor="contentGradient">
       <SideBar />
       <Flex $flex={1} direction="column">
-        <Flex ref={topbarRef} direction="column" gap={16}>
-          <AppUpdateBar />
-          <DeviceUpdateBar />
-          <FeatureBanner />
+        <Flex ref={topbarRef} direction="column">
+          <Flex direction="column" gap={8} px={2} py={2} hideIfEmpty>
+            <AppUpdateBar />
+            <DeviceUpdateBar />
+            <FeatureBanner />
+          </Flex>
           <Topbar {...topbar} />
         </Flex>
         <Notification top={topbarHeight + 5} />

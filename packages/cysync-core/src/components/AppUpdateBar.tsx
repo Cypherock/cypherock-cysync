@@ -72,7 +72,7 @@ export const AppUpdateBar: FC = () => {
   };
 
   return updateInfo && updateBarMap[appUpdateState] ? (
-    <Container px={2} pt={2} pb={1} $bgColor="contentGradient" width="full">
+    <Container $bgColor="contentGradient" width="full">
       <UpdateBar
         progress={downloadProgress}
         icon={updateBarMap[appUpdateState]?.icon}
