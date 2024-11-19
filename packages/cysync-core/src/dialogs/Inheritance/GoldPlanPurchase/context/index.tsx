@@ -564,6 +564,27 @@ export const InheritanceGoldPlanPurchaseDialogProvider: FC<
           return true;
         },
       },
+      [tabIndicies.nominieeAndExecutor.tabNumber]: {
+        [tabIndicies.nominieeAndExecutor.dialogs.nomineeCountSelect]: () => {
+          fallbackToWalletSelect();
+          return true;
+        },
+        [tabIndicies.nominieeAndExecutor.dialogs.executorSelect]: () => {
+          console.log(nomineeCount);
+          if (nomineeCount === 2) {
+            goTo(
+              tabIndicies.nominieeAndExecutor.tabNumber,
+              tabIndicies.nominieeAndExecutor.dialogs.secondNomineeDetails,
+            );
+          } else {
+            goTo(
+              tabIndicies.nominieeAndExecutor.tabNumber,
+              tabIndicies.nominieeAndExecutor.dialogs.firstNomineeDetails,
+            );
+          }
+          return true;
+        },
+      },
       [tabIndicies.message.tabNumber]: {
         [tabIndicies.message.dialogs.video]: () => {
           if (!haveExecutor) {
@@ -574,12 +595,6 @@ export const InheritanceGoldPlanPurchaseDialogProvider: FC<
             return true;
           }
           return false;
-        },
-      },
-      [tabIndicies.nominieeAndExecutor.tabNumber]: {
-        [tabIndicies.nominieeAndExecutor.dialogs.nomineeCountSelect]: () => {
-          fallbackToWalletSelect();
-          return true;
         },
       },
       [tabIndicies.reminder.tabNumber]: {
@@ -595,7 +610,7 @@ export const InheritanceGoldPlanPurchaseDialogProvider: FC<
         },
       },
     }),
-    [fallbackToWalletSelect, haveExecutor],
+    [fallbackToWalletSelect, haveExecutor, nomineeCount],
   );
 
   const onPreviousCallback = useCallback(() => {
