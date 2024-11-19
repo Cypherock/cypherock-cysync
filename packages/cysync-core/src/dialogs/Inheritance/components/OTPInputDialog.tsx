@@ -125,9 +125,9 @@ export const OTPInputDialog: React.FC<
 
     const getActionText = () => {
       if (expireSeconds > 0) {
-        return lang.strings.buttons.resendOTP;
+        return lang.strings.otp.buttons.resendWithTimeout;
       }
-      return lang.strings.otp.buttons.resendWithTimeout;
+      return lang.strings.buttons.resendOTP;
     };
 
     useEffect(() => {
@@ -187,6 +187,7 @@ export const OTPInputDialog: React.FC<
                 value={otp}
                 onChange={onOtpChange}
                 disabled={isVerifyingEmail || isResendingOtp}
+                isActionDisbaled={expireSeconds > 0}
               />
             </Flex>
           </DialogBoxBody>

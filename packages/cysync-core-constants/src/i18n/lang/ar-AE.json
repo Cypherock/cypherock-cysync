@@ -45,7 +45,7 @@
     "editAccount": "تحرير الحساب",
     "submit": "إرسال",
     "showMore": "عرض المزيد",
-    "resendOTP": "Resend OTP in ${timeout}s",
+    "resendOTP": "Resend OTP",
     "next": "Next",
     "setup": "Setup",
     "sync": "Sync",
