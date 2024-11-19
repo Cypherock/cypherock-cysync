@@ -582,6 +582,18 @@ export const InheritanceGoldPlanPurchaseDialogProvider: FC<
           return true;
         },
       },
+      [tabIndicies.reminder.tabNumber]: {
+        [tabIndicies.reminder.dialogs.reminderInput]: () => {
+          if (!haveExecutor) {
+            goTo(
+              tabIndicies.message.tabNumber,
+              tabIndicies.message.dialogs.personalMessageInput,
+            );
+            return true;
+          }
+          return false;
+        },
+      },
     }),
     [fallbackToWalletSelect, haveExecutor],
   );
