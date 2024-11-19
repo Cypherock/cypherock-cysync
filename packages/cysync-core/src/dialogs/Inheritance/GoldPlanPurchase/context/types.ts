@@ -37,6 +37,7 @@ export interface InheritanceGoldPlanPurchaseDialogContextInterface {
   walletAuthIsFetchingRequestId: boolean;
   walletAuthStart: () => void;
   walletAuthAbort: () => void;
+  walletAuthReset: () => void;
   walletAuthIsValidatingSignature: boolean;
   walletAuthValidateSignature: () => Promise<boolean>;
   walletAuthStep: WalletAuthLoginStep;
@@ -63,6 +64,7 @@ export interface InheritanceGoldPlanPurchaseDialogContextInterface {
   applyingCouponError?: { heading: string; subtext: string };
   couponDuration: string;
   onNomineeDetailsSubmit: (params: boolean, index: number) => void;
+  onNomineeOtpSubmit: (index: number) => void;
   isSubmittingNomineeDetails: boolean;
   nomineeCount: number;
   setNomineeCount: (nomineeCount: number) => void;

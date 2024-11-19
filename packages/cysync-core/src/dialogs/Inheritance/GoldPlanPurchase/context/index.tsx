@@ -415,6 +415,7 @@ export const InheritanceGoldPlanPurchaseDialogProvider: FC<
     setCouponDuration('');
     setSelectedWallet(undefined);
     setRetryIndex(v => v + 1);
+    setIsOnSummaryPage(false);
     walletAuthService.reset();
     encryptMessageService.reset();
     sessionService.reset();
@@ -451,6 +452,7 @@ export const InheritanceGoldPlanPurchaseDialogProvider: FC<
     clearNomineeDetails,
     nomineeOtpVerificationDetails,
     nominees,
+    onNomineeOtpSubmit,
   } = useNomineeRegistration(
     onError,
     onNext,
@@ -565,6 +567,26 @@ export const InheritanceGoldPlanPurchaseDialogProvider: FC<
           return true;
         },
       },
+      [tabIndicies.nominieeAndExecutor.tabNumber]: {
+        [tabIndicies.nominieeAndExecutor.dialogs.nomineeCountSelect]: () => {
+          fallbackToWalletSelect();
+          return true;
+        },
+        [tabIndicies.nominieeAndExecutor.dialogs.executorSelect]: () => {
+          if (nomineeCount === 2) {
+            goTo(
+              tabIndicies.nominieeAndExecutor.tabNumber,
+              tabIndicies.nominieeAndExecutor.dialogs.secondNomineeDetails,
+            );
+          } else {
+            goTo(
+              tabIndicies.nominieeAndExecutor.tabNumber,
+              tabIndicies.nominieeAndExecutor.dialogs.firstNomineeDetails,
+            );
+          }
+          return true;
+        },
+      },
       [tabIndicies.message.tabNumber]: {
         [tabIndicies.message.dialogs.video]: () => {
           if (!haveExecutor) {
@@ -577,14 +599,20 @@ export const InheritanceGoldPlanPurchaseDialogProvider: FC<
           return false;
         },
       },
-      [tabIndicies.nominieeAndExecutor.tabNumber]: {
-        [tabIndicies.nominieeAndExecutor.dialogs.nomineeCountSelect]: () => {
-          fallbackToWalletSelect();
-          return true;
+      [tabIndicies.reminder.tabNumber]: {
+        [tabIndicies.reminder.dialogs.reminderInput]: () => {
+          if (!haveExecutor) {
+            goTo(
+              tabIndicies.message.tabNumber,
+              tabIndicies.message.dialogs.personalMessageInput,
+            );
+            return true;
+          }
+          return false;
         },
       },
     }),
-    [fallbackToWalletSelect, haveExecutor],
+    [fallbackToWalletSelect, haveExecutor, nomineeCount],
   );
 
   const onPreviousCallback = useCallback(() => {
@@ -639,6 +667,7 @@ export const InheritanceGoldPlanPurchaseDialogProvider: FC<
     walletAuthIsValidatingSignature: walletAuthService.isValidatingSignature,
     walletAuthStep: walletAuthService.currentStep,
     walletAuthAbort: walletAuthService.abortWalletAuth,
+    walletAuthReset: walletAuthService.reset,
     onRegister: walletAuthService.registerUser,
     isRegisteringUser: walletAuthService.isRegisteringUser,
     otpVerificationDetails: walletAuthService.otpVerificationDetails,
@@ -698,6 +727,7 @@ export const InheritanceGoldPlanPurchaseDialogProvider: FC<
     onExecutorMessageSubmit,
     fetchExistingDetailsFromServer,
     userDetailPrefillData,
+    onNomineeOtpSubmit,
   });
 
   return (

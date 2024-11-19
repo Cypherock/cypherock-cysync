@@ -13,23 +13,19 @@ import React from 'react';
 import { selectLanguage, useAppSelector } from '~/store';
 
 import { useInheritanceGoldPlanPurchaseDialog } from '../../context';
-import { tabIndicies } from '../../context/useDialogHandler';
 import { Layout } from '../../Layout';
 
 export const SelectExecutor = () => {
   const lang = useAppSelector(selectLanguage);
   const strings = lang.strings.inheritanceGoldPlanPurchase.nomineeAndExecutor;
-  const { goTo, haveExecutor, setHaveExecutor, onExecutorSelected } =
+  const { onPrevious, haveExecutor, setHaveExecutor, onExecutorSelected } =
     useInheritanceGoldPlanPurchaseDialog();
 
   return (
     <Layout
       footerComponent={
         <>
-          <Button
-            onClick={() => goTo(tabIndicies.nominieeAndExecutor.tabNumber, 0)}
-            variant="secondary"
-          >
+          <Button onClick={() => onPrevious()} variant="secondary">
             <LangDisplay text={lang.strings.buttons.back} />
           </Button>
           <Button onClick={() => onExecutorSelected()} variant="primary">

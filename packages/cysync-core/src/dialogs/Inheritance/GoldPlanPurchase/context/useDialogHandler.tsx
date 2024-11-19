@@ -166,13 +166,13 @@ export const useGoldPlanDialogHanlders = () => {
             key="Confirm Nominee Verification First"
             index={0}
           />,
-          <VerifyNomineeOtp key="Verify Nominee Otp First" />,
+          <VerifyNomineeOtp key="Verify Nominee Otp First" index={0} />,
           <NomineeDetails key="Nominee Details Second" index={1} />,
           <ConfirmNomineeVerification
             key="Confirm Nominee Verification Second"
             index={1}
           />,
-          <VerifyNomineeOtp key="Verify Nominee Otp Second" />,
+          <VerifyNomineeOtp key="Verify Nominee Otp Second" index={1} />,
           <SelectExecutor key="Confirm Executor" />,
           <ExecutorDetails key="Executor Details" />,
         ],

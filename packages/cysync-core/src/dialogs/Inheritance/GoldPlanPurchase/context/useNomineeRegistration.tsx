@@ -19,7 +19,7 @@ export const useNomineeRegistration = (
 ) => {
   const [isSubmittingNomineeDetails, setIsSubmittingNomineeDetails] =
     useState(false);
-  const [nomineeCount, setNomineeCount, nomineeCountRef] = useStateWithRef(1);
+  const [nomineeCount, setNomineeCount, nomineeCountRef] = useStateWithRef(0);
   const [nomineeDetails, setNomineeDetails, nominees] = useStateWithRef<
     Record<number, IUserDetails>
   >({});
@@ -122,6 +122,15 @@ export const useNomineeRegistration = (
     setIsSubmittingNomineeDetails(false);
   };
 
+  const onNomineeOtpSubmit = (index: number) => {
+    let nextDialog = tabIndicies.nominieeAndExecutor.dialogs.executorSelect;
+    if (nomineeCountRef.current === 2 && index === 0)
+      nextDialog = tabIndicies.nominieeAndExecutor.dialogs.secondNomineeDetails;
+
+    if (isOnSummaryPage) goTo(tabIndicies.summary.tabNumber);
+    else goTo(tabIndicies.nominieeAndExecutor.tabNumber, nextDialog);
+  };
+
   return useMemoReturn({
     onNomineeDetailsSubmit,
     isSubmittingNomineeDetails,
@@ -133,5 +142,6 @@ export const useNomineeRegistration = (
     clearNomineeDetails,
     nomineeOtpVerificationDetails,
     nominees,
+    onNomineeOtpSubmit,
   });
 };

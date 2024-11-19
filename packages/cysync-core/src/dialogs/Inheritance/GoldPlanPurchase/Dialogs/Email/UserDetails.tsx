@@ -21,6 +21,7 @@ export const UserDetails = () => {
     isRegisteringUser,
     walletAuthStep,
     userDetailPrefillData,
+    isOnSummaryPage,
   } = useInheritanceGoldPlanPurchaseDialog();
 
   const [name, setName] = useState(userDetailPrefillData.name);
@@ -67,7 +68,7 @@ export const UserDetails = () => {
           <Button
             onClick={() => onPrevious()}
             variant="secondary"
-            disabled={isRegisteringUser}
+            disabled={isRegisteringUser || isOnSummaryPage}
           >
             <LangDisplay text={lang.strings.buttons.back} />
           </Button>
