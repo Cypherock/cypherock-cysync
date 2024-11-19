@@ -422,14 +422,17 @@ export const InheritanceGoldPlanPurchaseDialogProvider: FC<
 
   const registerUser = useCallback(
     async (params: IUserDetails) => {
-      const isSuccess = await walletAuthService.registerUser(params);
+      const isSuccess = await walletAuthService.registerUser({
+        ...params,
+        walletName: selectedWallet?.name,
+      });
 
       if (isSuccess) {
         setUserDetails(params);
         goTo(tabIndicies.owner.tabNumber, tabIndicies.owner.dialogs.verifyOtp);
       }
     },
-    [walletAuthService.registerUser],
+    [walletAuthService.registerUser, selectedWallet],
   );
 
   const [personalMessage, setPersonalMessage] = useState('');

@@ -327,13 +327,16 @@ export const InheritanceSilverPlanPurchaseDialogProvider: FC<
 
   const registerUser = useCallback(
     async (params: IUserDetails) => {
-      const isSuccess = await walletAuthService.registerUser(params);
+      const isSuccess = await walletAuthService.registerUser({
+        ...params,
+        walletName: selectedWallet?.name,
+      });
 
       if (isSuccess) {
         goTo(tabIndicies.email.tabNumber, tabIndicies.email.dialogs.verifyOtp);
       }
     },
-    [walletAuthService.registerUser],
+    [walletAuthService.registerUser, selectedWallet],
   );
 
   const onNextActionMapPerDialog = useMemo<
