@@ -63,6 +63,7 @@ export interface InheritanceGoldPlanPurchaseDialogContextInterface {
   applyingCouponError?: { heading: string; subtext: string };
   couponDuration: string;
   onNomineeDetailsSubmit: (params: boolean, index: number) => void;
+  onNomineeOtpSubmit: (index: number) => void;
   isSubmittingNomineeDetails: boolean;
   nomineeCount: number;
   setNomineeCount: (nomineeCount: number) => void;

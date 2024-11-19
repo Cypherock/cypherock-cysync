@@ -448,6 +448,7 @@ export const InheritanceGoldPlanPurchaseDialogProvider: FC<
     clearNomineeDetails,
     nomineeOtpVerificationDetails,
     nominees,
+    onNomineeOtpSubmit,
   } = useNomineeRegistration(
     onError,
     onNext,
@@ -695,6 +696,7 @@ export const InheritanceGoldPlanPurchaseDialogProvider: FC<
     onExecutorMessageSubmit,
     fetchExistingDetailsFromServer,
     userDetailPrefillData,
+    onNomineeOtpSubmit,
   });
 
   return (
