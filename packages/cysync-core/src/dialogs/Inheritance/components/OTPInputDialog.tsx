@@ -75,13 +75,11 @@ export const OTPInputDialog: React.FC<
       otpExpireTime ? new Date(otpExpireTime).getTime() : new Date().getTime(),
     );
 
-    const onOtpChange = (val: string) => {
-      setOtp(val);
-
-      if (val.length === otpLength) {
-        onVerify(val);
+    useEffect(() => {
+      if (otp.length === otpLength) {
+        onVerify(otp);
       }
-    };
+    }, [otp]);
 
     const onResend = () => {
       onResendOtp();
@@ -185,7 +183,7 @@ export const OTPInputDialog: React.FC<
                 infoText={lang.strings.otp.infoTexts}
                 errorSubText={lang.strings.otp.noRetries.subTitle}
                 value={otp}
-                onChange={onOtpChange}
+                onChange={setOtp}
                 disabled={isVerifyingEmail || isResendingOtp}
                 isActionDisbaled={expireSeconds > 0}
               />
