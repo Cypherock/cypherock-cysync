@@ -1068,104 +1068,112 @@
         "heading": "请连接到互联网以继续"
       },
       "SER_1001": {
-        "heading": "Your cySync app is facing some connectivity issue",
+        "heading": "OTP verification failed",
         "subtext": "Try again and if the problem persists, contact Cypherock support for assistance"
       },
       "SER_1003": {
-        "heading": "Your cySync app is facing some connectivity issue",
-        "subtext": "Try again and if the problem persists, contact Cypherock support for assistance"
+        "heading": "Login Failed",
+        "subtext": "Unable to log in. Verify your credentials and try again. If the problem persists, contact Cypherock support for assistance"
       },
       "SER_1004": {
-        "heading": "Your cySync app is facing some connectivity issue",
-        "subtext": "Try again and if the problem persists, contact Cypherock support for assistance"
+        "heading": "Signature Verification Failed",
+        "subtext": "The signature could not be verified. Try again and if the problem persists, contact Cypherock support for assistance"
       },
       "SER_1005": {
-        "heading": "Your cySync app is facing some connectivity issue",
-        "subtext": "Try again and if the problem persists, contact Cypherock support for assistance"
+        "heading": "Invalid Request",
+        "subtext": "The request could not be processed. Check the input and try again. If the problem persists, contact Cypherock support for assistance"
       },
       "SER_1006": {
-        "heading": "Your cySync app is facing some connectivity issue",
-        "subtext": "Try again and if the problem persists, contact Cypherock support for assistance"
+        "heading": "Unauthorized Access",
+        "subtext": "You do not have permission to perform this action. Contact Cypherock support for assistance"
       },
       "SER_1007": {
-        "heading": "Your cySync app is facing some connectivity issue",
-        "subtext": "Try again and if the problem persists, contact Cypherock support for assistance"
+        "heading": "Resource Not Found",
+        "subtext": "The requested resource could not be located. Try again and if the problem persists, contact Cypherock support for assistance"
       },
       "SER_1008": {
-        "heading": "Your cySync app is facing some connectivity issue",
-        "subtext": "Try again and if the problem persists, contact Cypherock support for assistance"
+        "heading": "Internal Server Error",
+        "subtext": "An unexpected error occurred. Try again and if the problem persists, contact Cypherock support for assistance"
       },
       "SER_1009": {
-        "heading": "Your cySync app is facing some connectivity issue",
-        "subtext": "Try again and if the problem persists, contact Cypherock support for assistance"
+        "heading": "Request Timed Out",
+        "subtext": "The request took too long to process. Try again and if the problem persists, contact Cypherock support for assistance"
       },
       "SER_1010": {
-        "heading": "Your cySync app is facing some connectivity issue",
-        "subtext": "Try again and if the problem persists, contact Cypherock support for assistance"
+        "heading": "OTP Expired",
+        "subtext": "The OTP has expired. Please request a new one and try again."
       },
       "SER_1011": {
-        "heading": "Your cySync app is facing some connectivity issue",
-        "subtext": "Try again and if the problem persists, contact Cypherock support for assistance"
+        "heading": "Payload Validation Failed",
+        "subtext": "The input data is invalid. Verify and try again. If the problem persists, contact Cypherock support for assistance"
       },
       "SER_1012": {
-        "heading": "Your cySync app is facing some connectivity issue",
-        "subtext": "Try again and if the problem persists, contact Cypherock support for assistance"
+        "heading": "Maximum Retry Attempts Reached",
+        "subtext": "You've reached the retry limit. Please try again later. If the problem persists, contact Cypherock support for assistance"
       },
       "SER_1013": {
-        "heading": "Your cySync app is facing some connectivity issue",
-        "subtext": "Try again and if the problem persists, contact Cypherock support for assistance"
+        "heading": "Account Locked",
+        "subtext": "Your account has been temporarily locked. Contact Cypherock support for assistance"
       },
       "SER_1014": {
-        "heading": "Your cySync app is facing some connectivity issue",
-        "subtext": "Try again and if the problem persists, contact Cypherock support for assistance"
+        "heading": "Service Unavailable",
+        "subtext": "The service is currently unavailable. Please try again later. If the problem persists, contact Cypherock support for assistance"
       },
       "SER_1015": {
-        "heading": "Your cySync app is facing some connectivity issue",
-        "subtext": "Try again and if the problem persists, contact Cypherock support for assistance"
+        "heading": "Request Conflict",
+        "subtext": "A conflicting request was made. Review and try again. If the problem persists, contact Cypherock support for assistance"
       },
       "SER_1016": {
-        "heading": "Your cySync app is facing some connectivity issue",
-        "subtext": "Try again and if the problem persists, contact Cypherock support for assistance"
+        "heading": "Validation Error",
+        "subtext": "The input does not meet validation criteria. Review and try again. If the problem persists, contact Cypherock support for assistance"
       },
       "SER_1017": {
-        "heading": "Your cySync app is facing some connectivity issue",
-        "subtext": "Try again and if the problem persists, contact Cypherock support for assistance"
+        "heading": "Wallet Not Found",
+        "subtext": "No wallet was found for this operation. Review and try again. If the problem persists, contact Cypherock support for assistance"
       },
       "SER_1018": {
-        "heading": "Your cySync app is facing some connectivity issue",
-        "subtext": "Try again and if the problem persists, contact Cypherock support for assistance"
+        "heading": "User Not Found",
+        "subtext": "No user data was found. Review and try again. If the problem persists, contact Cypherock support for assistance"
       },
       "SER_1019": {
-        "heading": "Your cySync app is facing some connectivity issue",
-        "subtext": "Try again and if the problem persists, contact Cypherock support for assistance"
+        "heading": "Nominee Missing",
+        "subtext": "Please add a nominee to proceed."
       },
       "SER_1020": {
-        "heading": "Your cySync app is facing some connectivity issue",
-        "subtext": "Try again and if the problem persists, contact Cypherock support for assistance"
+        "heading": "Executor Missing",
+        "subtext": "Please add an executor to proceed."
       },
       "SER_1021": {
-        "heading": "Your cySync app is facing some connectivity issue",
-        "subtext": "Try again and if the problem persists, contact Cypherock support for assistance"
+        "heading": "Session Not Found",
+        "subtext": "The session data is missing. Try again and if the problem persists, contact Cypherock support for assistance"
       },
       "SER_1022": {
-        "heading": "Your cySync app is facing some connectivity issue",
-        "subtext": "Try again and if the problem persists, contact Cypherock support for assistance"
+        "heading": "Invalid Coupon",
+        "subtext": "The coupon code entered is invalid. Verify and try again. If the problem persists, contact Cypherock support for assistance"
       },
       "SER_1023": {
-        "heading": "Your cySync app is facing some connectivity issue",
-        "subtext": "Try again and if the problem persists, contact Cypherock support for assistance"
+        "heading": "Invalid Session",
+        "subtext": "The session is invalid or expired. Try again and if the problem persists, contact Cypherock support for assistance"
       },
       "SER_1024": {
-        "heading": "Your cySync app is facing some connectivity issue",
+        "heading": "Invalid Device",
         "subtext": "Try again and if the problem persists, contact Cypherock support for assistance"
       },
       "SER_1025": {
-        "heading": "Your cySync app is facing some connectivity issue",
+        "heading": "Invalid Key",
         "subtext": "Try again and if the problem persists, contact Cypherock support for assistance"
       },
       "SER_1026": {
-        "heading": "Your cySync app is facing some connectivity issue",
-        "subtext": "Try again and if the problem persists, contact Cypherock support for assistance"
+        "heading": "Active Plan Already Found",
+        "subtext": "You already have an active plan for this wallet. Choose a different wallet and try again."
+      },
+      "SER_1027": {
+        "heading": "OTP Resend Limit Reached",
+        "subtext": "You've reached the maximum number of OTP resend attempts. Please try again later or contact Cypherock support for assistance"
+      },
+      "SER_1028": {
+        "heading": "Email Already Exists",
+        "subtext": "An account with this email address already exists. Please use a different email address or contact Cypherock support for assistance"
       }
     },
     "videoPlaybackError": "No Internet connection. Please check your connection and ",

@@ -22,24 +22,31 @@ export const getServerErrorHandlingDetails = (
     [ServerErrorType.CONNOT_CONNECT]: generateErrorHandlingDetails.retry(),
 
     [ServerErrorType.OTP_VERIFICATION_FAILED]:
-      generateErrorHandlingDetails.retry(),
-    [ServerErrorType.LOGIN_FAILED]: generateErrorHandlingDetails.retry(),
+      generateErrorHandlingDetails.retryWithReport(),
+    [ServerErrorType.LOGIN_FAILED]:
+      generateErrorHandlingDetails.retryWithReport(),
     [ServerErrorType.SIGNATURE_VERIFICATION_FAILED]:
-      generateErrorHandlingDetails.retry(),
-    [ServerErrorType.INVALID_REQUEST]: generateErrorHandlingDetails.retry(),
-    [ServerErrorType.UNAUTHORIZED_ACCESS]: generateErrorHandlingDetails.retry(),
-    [ServerErrorType.RESOURCE_NOT_FOUND]: generateErrorHandlingDetails.retry(),
+      generateErrorHandlingDetails.retryWithReport(),
+    [ServerErrorType.INVALID_REQUEST]:
+      generateErrorHandlingDetails.retryWithReport(),
+    [ServerErrorType.UNAUTHORIZED_ACCESS]:
+      generateErrorHandlingDetails.report(),
+    [ServerErrorType.RESOURCE_NOT_FOUND]:
+      generateErrorHandlingDetails.retryWithReport(),
     [ServerErrorType.INTERNAL_SERVER_ERROR]:
-      generateErrorHandlingDetails.retry(),
-    [ServerErrorType.REQUEST_TIMEOUT]: generateErrorHandlingDetails.retry(),
+      generateErrorHandlingDetails.retryWithReport(),
+    [ServerErrorType.REQUEST_TIMEOUT]:
+      generateErrorHandlingDetails.retryWithReport(),
     [ServerErrorType.OTP_EXPIRED]: generateErrorHandlingDetails.retry(),
     [ServerErrorType.PAYLOAD_VALIDATION_ERROR]:
-      generateErrorHandlingDetails.retry(),
+      generateErrorHandlingDetails.retryWithReport(),
     [ServerErrorType.MAX_RETRIES_EXCEEDED]:
-      generateErrorHandlingDetails.retry(),
-    [ServerErrorType.ACCOUNT_LOCKED]: generateErrorHandlingDetails.retry(),
-    [ServerErrorType.SERVICE_UNAVAILABLE]: generateErrorHandlingDetails.retry(),
-    [ServerErrorType.REQUEST_CONFLICT]: generateErrorHandlingDetails.retry(),
+      generateErrorHandlingDetails.report(),
+    [ServerErrorType.ACCOUNT_LOCKED]: generateErrorHandlingDetails.report(),
+    [ServerErrorType.SERVICE_UNAVAILABLE]:
+      generateErrorHandlingDetails.retryWithReport(),
+    [ServerErrorType.REQUEST_CONFLICT]:
+      generateErrorHandlingDetails.retryWithReport(),
     [ServerErrorType.VALIDATION_ERROR]:
       generateErrorHandlingDetails.retryWithReport(),
     [ServerErrorType.MISSING_WALLET]:
@@ -61,6 +68,10 @@ export const getServerErrorHandlingDetails = (
     [ServerErrorType.INVALID_PRIVATE_KEY]:
       generateErrorHandlingDetails.retryWithReport(),
     [ServerErrorType.ACTIVE_PLAN_FOUND]:
+      generateErrorHandlingDetails.retryWithReport(),
+    [ServerErrorType.OTP_RESEND_LIMIT]:
+      generateErrorHandlingDetails.retryWithReport(),
+    [ServerErrorType.DUPLICATE_EMAIL]:
       generateErrorHandlingDetails.retryWithReport(),
   };
 
