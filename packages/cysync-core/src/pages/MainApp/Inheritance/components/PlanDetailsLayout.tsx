@@ -27,11 +27,6 @@ export const InheritancePlanDetailsLayout: FC<InheritancePageLayoutProps> = ({
   const lang = useAppSelector(selectLanguage);
   const strings = lang.strings.inheritance;
 
-  const onRenewPlan = () => {
-    // TODO: Implement renewal logic here
-    alert('Renewal Clicked');
-  };
-
   // TODO: Add upgrade plan logic here
 
   const onRecoverPin = () => {
@@ -55,9 +50,6 @@ export const InheritancePlanDetailsLayout: FC<InheritancePageLayoutProps> = ({
           <Flex justify="center" gap={16}>
             <Button variant="secondary" onClick={onRecoverPin}>
               {strings.buttons.recoverPin}
-            </Button>
-            <Button variant="primary" onClick={onRenewPlan}>
-              {strings.buttons.renewPlan}
             </Button>
           </Flex>
         </Container>

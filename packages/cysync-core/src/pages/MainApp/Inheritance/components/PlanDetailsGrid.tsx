@@ -1,7 +1,6 @@
 import {
   ClockIcon,
   DetailsCard,
-  EditButton,
   EmailIconSmall,
   EncryptedMessageIcon,
   parseLangTemplate,
@@ -106,9 +105,6 @@ export const InheritancePlanDetailsGrid: React.FC<PlanDetailsGridProps> = ({
                     strings.planDetails.walletDetails.reminderPeriodField.label,
                   icon: ClockIcon,
                   value: getReminderPeriodInputText(data.wallet.reminderPeriod),
-                  trailing: (
-                    <EditButton text="Edit" onClick={data.wallet.onEdit} />
-                  ),
                 },
               ]
             : []),
@@ -116,7 +112,6 @@ export const InheritancePlanDetailsGrid: React.FC<PlanDetailsGridProps> = ({
       />
       <DetailsCard
         headerText={strings.planDetails.ownerDetails.title}
-        headerTrailing={<EditButton text="Edit" onClick={data.owner.onEdit} />}
         fields={[
           {
             label: strings.planDetails.ownerDetails.form.userNameField.label,
@@ -145,7 +140,6 @@ export const InheritancePlanDetailsGrid: React.FC<PlanDetailsGridProps> = ({
               strings.planDetails.nomineeDetails.title,
               { number: index + 1 },
             )}
-            headerTrailing={<EditButton text="Edit" onClick={nominee.onEdit} />}
             fields={[
               {
                 label:
@@ -177,18 +171,12 @@ export const InheritancePlanDetailsGrid: React.FC<PlanDetailsGridProps> = ({
               label:
                 strings.planDetails.nomineeDetails.form.encryptedMessage.label,
               icon: EncryptedMessageIcon,
-              trailing: (
-                <EditButton text="Edit" onClick={nominee.onSecondaryEdit} />
-              ),
             }}
           />
         ))}
       {planType === InheritancePlanTypeMap.gold && data.executor && (
         <DetailsCard
           headerText={strings.planDetails.executorDetails.title}
-          headerTrailing={
-            <EditButton text="Edit" onClick={data.executor.onEdit} />
-          }
           fields={[
             {
               label:
@@ -219,9 +207,6 @@ export const InheritancePlanDetailsGrid: React.FC<PlanDetailsGridProps> = ({
             label:
               strings.planDetails.executorDetails.form.executorMessage.label,
             icon: EncryptedMessageIcon,
-            trailing: (
-              <EditButton text="Edit" onClick={data.executor.onSecondaryEdit} />
-            ),
           }}
         />
       )}
