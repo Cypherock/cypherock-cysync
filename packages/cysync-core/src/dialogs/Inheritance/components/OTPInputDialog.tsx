@@ -97,37 +97,6 @@ export const OTPInputDialog: React.FC<
       [emails, retriesRemaining, expireSeconds],
     );
 
-    const getStatus = (): OTPInputStatus => {
-      if (retriesRemaining <= 0) {
-        return 'retryExceeded';
-      }
-
-      if (wrongOtpError) {
-        return 'error';
-      }
-
-      return 'idle';
-    };
-
-    const getTitle = () => {
-      if (retriesRemaining <= 0) {
-        return lang.strings.otp.noRetries.title;
-      }
-
-      if (wrongOtpError) {
-        return lang.strings.otp.wrongOtpTitle;
-      }
-
-      return lang.strings.otp.title;
-    };
-
-    const getActionText = () => {
-      if (expireSeconds > 0) {
-        return lang.strings.otp.buttons.resendWithTimeout;
-      }
-      return lang.strings.buttons.resendOTP;
-    };
-
     useEffect(() => {
       if (!isVerifyingEmail) {
         setOtp('');
@@ -144,9 +113,36 @@ export const OTPInputDialog: React.FC<
       [],
     );
 
-    const otpTitle = getTitle();
-    const status = getStatus();
-    const actionText = getActionText();
+    const otpTitle = useMemo(() => {
+      if (retriesRemaining <= 0) {
+        return lang.strings.otp.noRetries.title;
+      }
+
+      if (wrongOtpError) {
+        return lang.strings.otp.wrongOtpTitle;
+      }
+
+      return lang.strings.otp.title;
+    }, [retriesRemaining, wrongOtpError]);
+
+    const status = useMemo((): OTPInputStatus => {
+      if (retriesRemaining <= 0) {
+        return 'retryExceeded';
+      }
+
+      if (wrongOtpError) {
+        return 'error';
+      }
+
+      return 'idle';
+    }, [retriesRemaining, wrongOtpError]);
+
+    const actionText = useMemo(() => {
+      if (expireSeconds > 0) {
+        return lang.strings.otp.buttons.resendWithTimeout;
+      }
+      return lang.strings.buttons.resendOTP;
+    }, [expireSeconds]);
 
     return (
       <DialogBox width={800} onClose={onClose}>
