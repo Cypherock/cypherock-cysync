@@ -75,13 +75,11 @@ export const OTPInputDialog: React.FC<
       otpExpireTime ? new Date(otpExpireTime).getTime() : new Date().getTime(),
     );
 
-    const onOtpChange = (val: string) => {
-      setOtp(val);
-
-      if (val.length === otpLength) {
-        onVerify(val);
+    useEffect(() => {
+      if (otp.length === otpLength) {
+        onVerify(otp);
       }
-    };
+    }, [otp]);
 
     const onResend = () => {
       onResendOtp();
@@ -99,37 +97,6 @@ export const OTPInputDialog: React.FC<
       [emails, retriesRemaining, expireSeconds],
     );
 
-    const getStatus = (): OTPInputStatus => {
-      if (retriesRemaining <= 0) {
-        return 'retryExceeded';
-      }
-
-      if (wrongOtpError) {
-        return 'error';
-      }
-
-      return 'idle';
-    };
-
-    const getTitle = () => {
-      if (retriesRemaining <= 0) {
-        return lang.strings.otp.noRetries.title;
-      }
-
-      if (wrongOtpError) {
-        return lang.strings.otp.wrongOtpTitle;
-      }
-
-      return lang.strings.otp.title;
-    };
-
-    const getActionText = () => {
-      if (expireSeconds > 0) {
-        return lang.strings.otp.buttons.resendWithTimeout;
-      }
-      return lang.strings.buttons.resendOTP;
-    };
-
     useEffect(() => {
       if (!isVerifyingEmail) {
         setOtp('');
@@ -146,9 +113,36 @@ export const OTPInputDialog: React.FC<
       [],
     );
 
-    const otpTitle = getTitle();
-    const status = getStatus();
-    const actionText = getActionText();
+    const otpTitle = useMemo(() => {
+      if (retriesRemaining <= 0) {
+        return lang.strings.otp.noRetries.title;
+      }
+
+      if (wrongOtpError) {
+        return lang.strings.otp.wrongOtpTitle;
+      }
+
+      return lang.strings.otp.title;
+    }, [retriesRemaining, wrongOtpError]);
+
+    const status = useMemo((): OTPInputStatus => {
+      if (retriesRemaining <= 0) {
+        return 'retryExceeded';
+      }
+
+      if (wrongOtpError) {
+        return 'error';
+      }
+
+      return 'idle';
+    }, [retriesRemaining, wrongOtpError]);
+
+    const actionText = useMemo(() => {
+      if (expireSeconds > 0) {
+        return lang.strings.otp.buttons.resendWithTimeout;
+      }
+      return lang.strings.buttons.resendOTP;
+    }, [expireSeconds]);
 
     return (
       <DialogBox width={800} onClose={onClose}>
@@ -185,7 +179,7 @@ export const OTPInputDialog: React.FC<
                 infoText={lang.strings.otp.infoTexts}
                 errorSubText={lang.strings.otp.noRetries.subTitle}
                 value={otp}
-                onChange={onOtpChange}
+                onChange={setOtp}
                 disabled={isVerifyingEmail || isResendingOtp}
                 isActionDisbaled={expireSeconds > 0}
               />
