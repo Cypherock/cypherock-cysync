@@ -232,13 +232,18 @@ export const InheritanceSilverPlanPurchaseDialogProvider: FC<
         });
 
         if (result.error) throw result.error;
+        if (result.result.planType !== 'SILVER')
+          throw { isForDifferentPlan: true };
 
         setCouponDuration(result.result?.duration ?? '');
         setCoupon(_coupon);
-      } catch (error) {
+      } catch (error: any) {
+        console.log({ error });
         setApplyingCouponError({
           heading: lang.strings.inheritance.dialog.payment.error.errorHeading,
-          subtext: lang.strings.inheritance.dialog.payment.error.subtext,
+          subtext: error?.isForDifferentPlan
+            ? lang.strings.inheritance.dialog.payment.error.differentPlanSubtext
+            : lang.strings.inheritance.dialog.payment.error.subtext,
         });
         return false;
       }

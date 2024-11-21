@@ -347,13 +347,17 @@ export const InheritanceGoldPlanPurchaseDialogProvider: FC<
         });
 
         if (result.error) throw result.error;
+        if (result.result.planType !== 'GOLD')
+          throw { isForDifferentPlan: true };
 
         setCouponDuration(result.result?.duration ?? '');
         setCoupon(_coupon);
-      } catch (error) {
+      } catch (error: any) {
         setApplyingCouponError({
           heading: lang.strings.inheritance.dialog.payment.error.errorHeading,
-          subtext: lang.strings.inheritance.dialog.payment.error.subtext,
+          subtext: error?.isForDifferentPlan
+            ? lang.strings.inheritance.dialog.payment.error.differentPlanSubtext
+            : lang.strings.inheritance.dialog.payment.error.subtext,
         });
         return false;
       }

@@ -1310,6 +1310,7 @@ interface LangInheritance {
       error: {
         errorHeading: string;
         subtext: string;
+        differentPlanSubtext: string;
       };
     };
   };
