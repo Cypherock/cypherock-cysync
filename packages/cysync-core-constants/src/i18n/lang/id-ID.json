@@ -2237,7 +2237,8 @@
         "year": "year",
         "error": {
           "errorHeading": "Invalid Coupon Code",
-          "subtext": "Please try a different coupon code"
+          "subtext": "Please try a different coupon code",
+          "differentPlanSubtext": "This coupon code is for a different plan"
         }
       }
     },
