@@ -2326,7 +2326,7 @@
       },
       "success": {
         "title": "PIN is successfully encrypted and saved",
-        "subTitle": "To complete your silver plan setup, you can now proceed with the plan purchase"
+        "subTitle": "To complete your Silver Plan setup, you can now proceed with the plan purchase"
       }
     },
     "checkout": {
@@ -2608,7 +2608,7 @@
       },
       "success": {
         "title": "Nominee message successfully encrypted",
-        "subtext": "To complete your gold plan setup, you can now proceed with the plan purchase"
+        "subtext": "To complete your Gold Plan setup, you can now proceed with the plan purchase"
       }
     },
     "checkout": {
