@@ -1142,11 +1142,11 @@
       },
       "SER_1019": {
         "heading": "Nominee Missing",
-        "subtext": "Please add a nominee to proceed."
+        "subtext": "Please add a Nominee to proceed."
       },
       "SER_1020": {
         "heading": "Executor Missing",
-        "subtext": "Please add an executor to proceed."
+        "subtext": "Please add an Executor to proceed."
       },
       "SER_1021": {
         "heading": "Session Not Found",
@@ -1689,7 +1689,7 @@
         "title": "Reminder setup",
         "reminderInfo": {
           "subtitle": "What is reminder time?",
-          "subtext": "Reminder Time is the interval at which you'll receive a confirmation email from Cypherock to verify your continued well-being. If no response is received within two months of the initial email, the inheritance process will commence and your nominee will receive the recovery instruction email from Cypherock"
+          "subtext": "Reminder Time is the interval at which you'll receive a confirmation email from Cypherock to verify your continued well-being. If no response is received within two months of the initial email, the inheritance process will commence and your Nominee will receive the recovery instruction email from Cypherock"
         },
         "form": {
           "reminderField": {
@@ -1765,7 +1765,7 @@
         },
         "error": {
           "title": "PIN Decryption Failed",
-          "subTitle": "PIN decryption was unsuccessful. Wallet ${wallet} was not found in the card"
+          "subTitle": "PIN Decryption was unsuccessful. Wallet ${wallet} was not found in the card"
         }
       },
       "viewPin": {
@@ -1778,12 +1778,12 @@
       },
       "success": {
         "name": "Confirmation",
-        "title": "Congratulations, Pin recovery is complete"
+        "title": "Congratulations, Pin Recovery is complete"
       }
     },
     "inheritanceEditEncryptedMessage": {
       "confirmation": {
-        "title": "Are you sure you want to edit the encrypted nominee message?",
+        "title": "Are you sure you want to edit the encrypted Nominee message?",
         "subTitle": "You will need the device and at least one card to encrypt the message again after editing"
       },
       "syncing": {
@@ -1808,25 +1808,25 @@
       },
       "editMessage": {
         "title": "Nominee message",
-        "subTitle": "The nominee messages will be end-to-end encrypted",
+        "subTitle": "The Nominee messages will be end-to-end encrypted",
         "form": {
           "cardLocationField": {
             "label": "Card location & Passphrase",
             "placeholder": "Write the location of the card",
-            "tooltip": "Write down the location of another card for the nominee to fetch. Nominee will only be able to recover crypto assets after getting another card. Remember this card should be different than the card(s) you may have given to your nominee(s).\nYou can also include the passphrase in this message"
+            "tooltip": "Write down the location of another card for the Nominee to fetch. Nominee will only be able to recover crypto assets after getting another card. Remember this card should be different than the card(s) you may have given to your Nominee(s).\nYou can also include the passphrase in this message"
           },
           "personalMessageField": {
             "label": "Personal message",
             "placeholder": "Write your message",
-            "tooltip": "This can include your will/message for the nominee and other important pieces of information that you may want your nominee to know such as your crypto exchange account details, coins you have amongst others."
+            "tooltip": "This can include your will/message for the Nominee and other important pieces of information that you may want your Nominee to know such as your crypto exchange account details, coins you have amongst others."
           }
         },
         "messageBox": {
-          "warning": "Make sure you describe the card's location clearly for the nominee"
+          "warning": "Make sure you describe the card's location clearly for the Nominee"
         }
       },
       "confirmMessage": {
-        "title": "Follow instructions on the X1 Vault to verify the nominee message",
+        "title": "Follow instructions on the X1 Vault to verify the Nominee message",
         "subTitle": "You can encrypt the message in the next step",
         "actions": {
           "confirmOnDevice": "Confirm on device",
@@ -1837,14 +1837,14 @@
         }
       },
       "encryption": {
-        "title": "Follow instructions on the X1 Vault to encrypt the nominee message",
+        "title": "Follow instructions on the X1 Vault to encrypt the Nominee message",
         "subTitle": "Lift your card after 2 beep sounds",
         "tooltip": "",
         "actions": {
           "enterPinAndTap": "Enter PIN and tap any one card"
         },
         "messageBox": {
-          "warning": "The nominee message will be encrypted by the Card"
+          "warning": "The Nominee message will be encrypted by the Card"
         },
         "syncing": {
           "title": "Please wait while we save the encrypted data on the server",
@@ -1856,7 +1856,7 @@
       }
     },
     "inheritanceEstateRecovery": {
-      "title": "Estate recovery",
+      "title": "Estate Recovery",
       "instructions": {
         "name": "Clear Device Data",
         "dialogs": {
@@ -1874,7 +1874,7 @@
             "subTitle": "Do not lift until you hear a beep sound",
             "messageBoxList": [
               {
-                "warning": "Tap the cards you used during the initial Cypherock setup process, not the cards given by the wallet owner"
+                "warning": "Tap the cards you used during the initial Cypherock setup process, not the cards given by the wallet Owner"
               },
               {
                 "warning": "Your device will restart after this process"
@@ -1889,7 +1889,7 @@
         "subTitle": "Authenticating the wallet ",
         "actions": {
           "confirm": "Confirm wallet authentication on device",
-          "tapCard": "Tap the card you received as a nominee"
+          "tapCard": "Tap the card you received as a Nominee"
         },
         "messageBox": {
           "warning": "Do not lift until you hear 2 beep sound"
@@ -1909,10 +1909,10 @@
           "subTitle": "Do not lift the card till you hear a beep sound",
           "actions": {
             "confirm": "Confirm decryption on device",
-            "tapCard": "Tap the card you received as a nominee"
+            "tapCard": "Tap the card you received as a Nominee"
           },
           "messageBox": {
-            "warning": "The message will be decrypted by the card you received as a nominee"
+            "warning": "The message will be decrypted by the card you received as a Nominee"
           }
         },
         "error": {
@@ -1934,17 +1934,17 @@
       "viewMessage": {
         "name": "View Message",
         "title": "Message from ${name}",
-        "tooltip": "These messages were written by the wallet owner for you. They contain important information about how to recover their crypto assets stored on the Cypherock X1. \nNote- Make sure you keep these messages safe and private. ",
+        "tooltip": "These messages were written by the wallet Owner for you. They contain important information about how to recover their crypto assets stored on the Cypherock X1. \nNote- Make sure you keep these messages safe and private. ",
         "form": {
           "cardLocationField": {
             "label": "Card location",
             "placeholder": "Write the location of the card",
-            "tooltip": "This is the location of another card written by wallet owner for you to fetch. You will only be able to recover the crypto assets after getting another card"
+            "tooltip": "This is the location of another card written by wallet Owner for you to fetch. You will only be able to recover the crypto assets after getting another card"
           },
           "personalMessageField": {
             "label": "Personal message",
             "placeholder": "Write your message",
-            "tooltip": "This includes a personal message written by wallet owner for you"
+            "tooltip": "This includes a personal message written by wallet Owner for you"
           },
           "checkBox": {
             "label": "I have read and copied the above messages"
@@ -2108,11 +2108,11 @@
       "headers": {
         "owner": {
           "title": "Owner",
-          "subtitle": "Setup recovery for your wallets"
+          "subtitle": "Setup Recovery for your wallets"
         },
         "nominee": {
           "title": "Nominee",
-          "subtitle": "You are a nominee of the following wallets"
+          "subtitle": "You are a Nominee of the following wallets"
         }
       },
       "setup": {
@@ -2122,7 +2122,7 @@
         },
         "syncFromMail": {
           "title": "Sync from Email",
-          "subTitle": "If you're already part of a Cypherock Cover plan, either as the plan owner or a beneficiary"
+          "subTitle": "If you're already part of a Cypherock Cover plan, either as the plan Owner or a beneficiary"
         },
         "learnMore": {
           "title": "What is Cypherock Cover?",
@@ -2415,35 +2415,35 @@
     "nomineeAndExecutor": {
       "heading": "Nominees & Executor",
       "select": {
-        "title": "How many nominees do you want?",
-        "subtitle": "You can have up to 2 nominees for this will",
-        "tooltip": "In case if you select two nominees then the 2nd nominee will receive the recovery email three months after the 1st nominee receives it\nNote - Both nominees will receive the same recovery email and same message written by you on the CySync app",
+        "title": "Press run the following command on your terminal to allow the application to access usb port",
+        "subtitle": "You can have up to two Nominees for this Will",
+        "tooltip": "In case if you select two Nominees then the 2nd Nominee will receive the recovery email three months after the 1st Nominee receives it\nNote - Both Nominees will receive the same recovery email and same message written by you on the CySync App",
         "options": {
-          "descOne": "Select if you want to have only one nominee",
-          "descTwo": "Select if you want to have two nominees"
+          "descOne": "Select if you want to have only one Nominee",
+          "descTwo": "Select if you want to have two Nominees"
         }
       },
       "nomineeDetails": {
         "first": {
-          "title": "Add first nominee",
-          "warning": "Make sure you give a card to your nominee",
+          "title": "Add First Nominee",
+          "warning": "Make sure you give a card to your Nominee",
           "tooltip": "Your Nominee will receive recovery instructions on this email"
         },
         "second": {
-          "title": "Add second nominee",
-          "warning": "Make sure you give a card to your second nominee"
+          "title": "Add Second Nominee",
+          "warning": "Make sure you give a card to your second Nominee"
         },
         "confirm": {
-          "title": "Do you want to verify nominee emails?",
-          "subtext": "An OTP will be sent to the provided emails. If you do not want to inform the nominee about this plan, you can skip verification of emails.",
-          "warning": "If you do not verify the nominee email then Cypherock emails may land in spam folder"
+          "title": "Do you want to verify Nominee emails?",
+          "subtext": "An OTP will be sent to the provided emails. If you do not want to inform the Nominee about this plan, you can skip verification of emails.",
+          "warning": "If you do not verify the Nominee email then Cypherock emails may land in spam folder"
         }
       },
       "executor": {
         "select": {
-          "title": "Do you want to have an executor for this will?",
-          "subtext": "The executor will help the nominee to recover funds ",
-          "tooltip": "An executor/helper can be someone you trust who does not have any financial stake but can be assigned as a helper to the nominee for funds recovery\nThe executor will receive the email on the same time as the nominee.",
+          "title": "Do you want to have an Executor for this Will?",
+          "subtext": "The Executor will help the Nominee to recover funds ",
+          "tooltip": "An Executor/helper can be someone you trust who does not have any financial stake but can be assigned as a helper to the Nominee for funds recovery\nThe Executor will receive the email on the same time as the Nominee.",
           "options": {
             "one": {
               "yes": "Yes",
@@ -2451,21 +2451,21 @@
             },
             "two": {
               "no": "No",
-              "desc": "If your nominees are tech savvy"
+              "desc": "If your Nominees are tech savvy"
             }
           }
         },
         "executorDetails": {
-          "title": "Add executor",
-          "tooltip": "Executor will receive instructions  to help nominee on this email",
+          "title": "Add Executor",
+          "tooltip": "Executor will receive instructions  to help Nominee on this email",
           "radio": {
-            "label": "Choose a nominee to link with executor",
-            "tooltip": "Select the nominee you want to link with the executor. If you choose Nominee 1 then the executor will receive their email written by you on same time as Nominee 1.\n\nIf you choose Nominee 2 then the executor will receive their email written by you on same time as Nominee 2 i.e, 3 months after Nominee 1.",
+            "label": "Choose a Nominee to link with Executor",
+            "tooltip": "Select the Nominee you want to link with the Executor. If you choose Nominee 1 then the Executor will receive their email written by you on same time as Nominee 1.\n\nIf you choose Nominee 2 then the Executor will receive their email written by you on same time as Nominee 2 i.e, 3 months after Nominee 1.",
             "options": {
               "labelPrefix": "Nominee "
             },
             "messageBox": {
-              "warning": "The executor will receive their email written by you on same time as Nominee"
+              "warning": "The Executor will receive their email written by you on same time as Nominee"
             }
           }
         }
@@ -2478,29 +2478,29 @@
         "subtext": "How to write the final messages"
       },
       "nominee": {
-        "title": "Draft the final message for the nominee",
-        "subtitle": "The nominee messages will be end-to-end encrypted",
-        "tooltip": "End-to-end encryption keeps your messages between you and the nominee you choose. Not even Cypherock can read them",
+        "title": "Draft the final message for the Nominee",
+        "subtitle": "The Nominee messages will be end-to-end encrypted",
+        "tooltip": "End-to-end encryption keeps your messages between you and the Nominee you choose. Not even Cypherock can read them",
         "form": {
           "locationField": {
             "label": "Card Location & Passphrase",
             "placeholder": "Write the location of the card",
-            "tooltip": "Write down the location of another card for the nominee to fetch. Nominee will only be able to recover crypto assets after getting another card. Remember this card should be different than the card(s) you may have given to your nominee(s).\nYou can also include the passphrase in this message."
+            "tooltip": "Write down the location of another card for the Nominee to fetch. Nominee will only be able to recover crypto assets after getting another card. Remember this card should be different than the card(s) you may have given to your Nominee(s).\nYou can also include the passphrase in this message."
           },
           "personalMessage": {
             "label": "Personal Message",
             "placeholder": "Write your message",
-            "tooltip": "This can include your will/message for the nominee and other important pieces of information that you may want your nominee to know such as your crypto exchange account details, coins you have amongst others."
+            "tooltip": "This can include your will/message for the Nominee and other important pieces of information that you may want your Nominee to know such as your crypto exchange account details, coins you have amongst others."
           }
         },
         "messageBox": {
-          "warning": "Make sure you describe the card's location clearly for the nominee"
+          "warning": "Make sure you describe the card's location clearly for the Nominee"
         }
       },
       "executor": {
-        "title": "Add a message for the executor",
-        "subtitle": "Please note that the message to the executor is not encrypted",
-        "tooltip": "This message will be received by the executor in case recovery is triggered, it's recommended to NOT add any critical information here",
+        "title": "Add a message for the Executor",
+        "subtitle": "Please note that the message to the Executor is not encrypted",
+        "tooltip": "This message will be received by the Executor in case recovery is triggered, it's recommended to NOT add any critical information here",
         "form": {
           "messageField": {
             "label": "Message",
@@ -2580,7 +2580,7 @@
     "encryption": {
       "heading": "Encryption",
       "confirm": {
-        "title": "Follow instructions on the X1 Vault to verify the nominee message",
+        "title": "Follow instructions on the X1 Vault to verify the Nominee message",
         "subtext": "You can encrypt the message in the next step",
         "actions": {
           "confirmOnDevice": "Confirm message verification on device",
