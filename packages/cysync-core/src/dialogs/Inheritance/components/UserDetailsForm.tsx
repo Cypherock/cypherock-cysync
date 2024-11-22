@@ -55,9 +55,15 @@ export const UserDetailsForm: FC<UserDetailsFormProps> = ({
 }) => {
   const lang = useAppSelector(selectLanguage);
   const userDetailsStrings = lang.strings.inheritance.dialog.userDetails;
-  const [emailValidationError, setEmailValidationError] = useState('');
+  const [userDetailsError, setUserDetailsError] = useState('');
 
   const schema = z.object({
+    name: z
+      .string()
+      .min(1, {
+        message: lang.strings.validation.generic.required,
+      })
+      .max(50),
     email: getEmailValidationSchema(lang),
     alternateEmail: getEmailValidationSchema(lang, isAlternateEmailRequired),
   });
@@ -65,26 +71,26 @@ export const UserDetailsForm: FC<UserDetailsFormProps> = ({
   const [errorKey, setErrorKey] = useState<string>('');
 
   const errorText = useMemo(() => {
-    if (emailValidationError) return emailValidationError;
+    if (userDetailsError) return userDetailsError;
     if (isSameEmail) return userDetailsStrings.error.sameEmail;
     return '';
-  }, [isSameEmail, emailValidationError]);
+  }, [isSameEmail, userDetailsError]);
 
   useEffect(() => {
     setHasErrors?.(false);
     if (!email && !alternateEmail) return;
-    const validation = schema.safeParse({ email, alternateEmail });
+    const validation = schema.safeParse({ email, alternateEmail, name });
     setErrorKey('');
-    setEmailValidationError('');
+    setUserDetailsError('');
 
     if (!validation.success) {
       const key = Object.keys(validation.error.formErrors.fieldErrors)[0];
       const error = (validation.error.formErrors.fieldErrors as any)[key][0];
       setErrorKey(key);
-      setEmailValidationError(error);
+      setUserDetailsError(error);
       setHasErrors?.(true);
     }
-  }, [email, alternateEmail]);
+  }, [email, alternateEmail, name]);
 
   return (
     <form style={{ width: '100%' }} onSubmit={onSubmit} id={formId}>
@@ -117,6 +123,7 @@ export const UserDetailsForm: FC<UserDetailsFormProps> = ({
           }}
           disabled={isSubmittingUserDetails}
           maxLength={constants.inheritance.maxUserDetailsInputLength}
+          $error={errorKey === 'name'}
         />
       </Container>
       <Container direction="row" $width="full" gap={24}>
