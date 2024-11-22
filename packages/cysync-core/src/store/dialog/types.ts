@@ -3,6 +3,12 @@ import { AddTokenDialogProps } from '~/dialogs/AddToken';
 import { DeleteAccountDialogProps } from '~/dialogs/DeleteAccountDialog';
 import { ErrorDialogProps } from '~/dialogs/ErrorDialog';
 import { IHistoryDialogProps } from '~/dialogs/HistoryDialog';
+import {
+  InheritanceEstateRecoveryDialogProps,
+  InheritancePinRecoveryDialogProps,
+  InheritancePlanLoginDialogProps,
+} from '~/dialogs/Inheritance';
+import { InheritanceEditExecutorMessageDialogProps } from '~/dialogs/Inheritance/EditExecutorMessage/context';
 import { SendDialogProps } from '~/dialogs/Send';
 
 export interface IDialogState {
@@ -131,6 +137,56 @@ export interface IDialogState {
   betaNotificationDialog: {
     isOpen: boolean;
     data?: undefined;
+  };
+
+  inheritanceSyncPlans: {
+    isOpen: boolean;
+    data?: undefined;
+  };
+
+  inheritancePlanLogin: {
+    isOpen: boolean;
+    data?: InheritancePlanLoginDialogProps;
+  };
+
+  inheritanceSilverPlanPurchase: {
+    isOpen: boolean;
+    data?: undefined;
+  };
+
+  inheritanceGoldPlanPurchase: {
+    isOpen: boolean;
+    data?: undefined;
+  };
+
+  inheritanceEditExecutorMessage: {
+    isOpen: boolean;
+    data?: InheritanceEditExecutorMessageDialogProps;
+  };
+
+  inheritanceEditReminderTime: {
+    isOpen: boolean;
+    data?: undefined;
+  };
+
+  inheritanceEditUserDetails: {
+    isOpen: boolean;
+    data?: undefined;
+  };
+
+  inheritancePinRecovery: {
+    isOpen: boolean;
+    data?: InheritancePinRecoveryDialogProps;
+  };
+
+  inheritanceEditEncryptedMessage: {
+    isOpen: boolean;
+    data?: undefined;
+  };
+
+  inheritanceEstateRecovery: {
+    isOpen: boolean;
+    data?: InheritanceEstateRecoveryDialogProps;
   };
 }
 

@@ -2,8 +2,9 @@ import React, { FC } from 'react';
 import styled, { css } from 'styled-components';
 
 import { CrossMark, SearchIcon } from '../../../assets';
-import { Input, Typography } from '../../atoms';
+import { Typography } from '../../atoms';
 import { goldenGradient, utils, UtilsProps } from '../../utils';
+import { Input } from '../Input';
 
 export interface TableSearchProps {
   placeholder?: string;

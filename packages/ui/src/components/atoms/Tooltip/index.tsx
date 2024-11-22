@@ -20,10 +20,22 @@ export const Tooltip: React.FC<TooltipProps> = ({
 }) => (
   <RCTooltip
     placement={tooltipPlacement}
-    overlay={<div>{text}</div>}
+    overlay={
+      <div
+        style={{
+          maxWidth: '384px',
+          wordBreak: 'break-word',
+          lineBreak: 'loose',
+          textAlign: 'center',
+          whiteSpace: 'pre-wrap',
+        }}
+      >
+        {text}
+      </div>
+    }
     visible={text && isActive === true ? undefined : false}
   >
-    {children}
+    <div>{children}</div>
   </RCTooltip>
 );
 

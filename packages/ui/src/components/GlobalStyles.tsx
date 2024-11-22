@@ -59,6 +59,64 @@ export const GlobalStyles: React.FC = () => (
           <stop offset="1" stopColor="#DCDFE4" />
         </linearGradient>
       </defs>
+
+      {/* For Many In Many Component */}
+      <linearGradient
+        id="paint0_linear_410_28220"
+        x1={6.43072}
+        y1={7.94736}
+        x2={11.4834}
+        y2={7.94736}
+        gradientUnits="userSpaceOnUse"
+      >
+        <stop stopColor="#E9B873" />
+        <stop offset={0.369792} stopColor="#FEDD8F" />
+        <stop offset={1} stopColor="#B78D51" />
+      </linearGradient>
+      <linearGradient
+        id="paint1_linear_410_28220"
+        x1={17.8064}
+        y1={12.5}
+        x2={26.6485}
+        y2={12.5}
+        gradientUnits="userSpaceOnUse"
+      >
+        <stop stopColor="#E9B873" />
+        <stop offset={0.369792} stopColor="#FEDD8F" />
+        <stop offset={1} stopColor="#B78D51" />
+      </linearGradient>
+      <linearGradient
+        id="paint2_linear_410_28220"
+        x1={20.3207}
+        y1={12.5}
+        x2={22.847}
+        y2={12.5}
+        gradientUnits="userSpaceOnUse"
+      >
+        <stop stopColor="#E9B873" />
+        <stop offset={0.369792} stopColor="#FEDD8F" />
+        <stop offset={1} stopColor="#B78D51" />
+      </linearGradient>
+      <linearGradient
+        id="paint3_linear_410_28220"
+        x1={1.41419}
+        y1={12.5}
+        x2={25.37}
+        y2={12.5}
+        gradientUnits="userSpaceOnUse"
+      >
+        <stop stopColor="#E9B873" />
+        <stop offset={0.369792} stopColor="#FEDD8F" />
+        <stop offset={1} stopColor="#B78D51" />
+      </linearGradient>
+      <clipPath id="clip0_410_28220">
+        <rect
+          width={27.7895}
+          height={24}
+          fill="white"
+          transform="translate(0.105286 0.5)"
+        />
+      </clipPath>
     </SvgStyle>
   </>
 );

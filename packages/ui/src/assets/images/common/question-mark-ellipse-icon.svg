@@ -1,0 +1,21 @@
+<svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="icon" clip-path="url(#clip0_5803_45725)">
+<path id="Vector" d="M22.6767 24.4974C23.7709 22.5221 25.8741 21.3568 27.0962 19.6089C28.3893 17.7758 27.6646 14.3511 23.9983 14.3511C21.5967 14.3511 20.4172 16.17 19.9198 17.6763L16.2393 16.1274C17.2483 13.1005 19.9909 10.5 23.9841 10.5C27.3235 10.5 29.6114 12.0205 30.7767 13.9247C31.7714 15.5589 32.3541 18.6142 30.8193 20.8879C29.1141 23.4032 27.4798 24.1705 26.5988 25.7905C26.2435 26.4442 26.1014 26.8705 26.1014 28.9737H21.9946C21.9804 27.8653 21.8098 26.0605 22.6767 24.4974ZM26.8404 34.6579C26.8404 36.2211 25.5614 37.5 23.9983 37.5C22.4351 37.5 21.1562 36.2211 21.1562 34.6579C21.1562 33.0947 22.4351 31.8158 23.9983 31.8158C25.5614 31.8158 26.8404 33.0947 26.8404 34.6579Z" fill="url(#paint0_linear_5803_45725)"/>
+<circle id="Ellipse 35" cx="24" cy="24" r="22" stroke="url(#paint1_linear_5803_45725)" stroke-width="4"/>
+</g>
+<defs>
+<linearGradient id="paint0_linear_5803_45725" x1="16.2689" y1="24" x2="31.7903" y2="24" gradientUnits="userSpaceOnUse">
+<stop stop-color="#E9B873"/>
+<stop offset="0.369792" stop-color="#FEDD8F"/>
+<stop offset="1" stop-color="#B78D51"/>
+</linearGradient>
+<linearGradient id="paint1_linear_5803_45725" x1="0.0916034" y1="24" x2="48.0916" y2="24" gradientUnits="userSpaceOnUse">
+<stop stop-color="#E9B873"/>
+<stop offset="0.369792" stop-color="#FEDD8F"/>
+<stop offset="1" stop-color="#B78D51"/>
+</linearGradient>
+<clipPath id="clip0_5803_45725">
+<rect width="48" height="48" fill="white"/>
+</clipPath>
+</defs>
+</svg>

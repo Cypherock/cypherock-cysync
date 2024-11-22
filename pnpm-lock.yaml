@@ -1,4 +1,4 @@
-lockfileVersion: '6.1'
+lockfileVersion: '6.0'
 
 settings:
   autoInstallPeers: true
@@ -117,20 +117,20 @@ importers:
         specifier: workspace:^
         version: link:../../packages/db-interfaces
       '@cypherock/sdk-app-manager':
-        specifier: ^0.0.31
-        version: 0.0.31
+        specifier: ^0.0.32
+        version: 0.0.32
       '@cypherock/sdk-hw-hid':
-        specifier: ^0.0.22
-        version: 0.0.22
+        specifier: ^0.0.23
+        version: 0.0.23
       '@cypherock/sdk-hw-serialport':
+        specifier: ^0.0.20
+        version: 0.0.20
+      '@cypherock/sdk-interfaces':
+        specifier: ^0.0.16
+        version: 0.0.16
+      '@cypherock/sdk-utils':
         specifier: ^0.0.19
         version: 0.0.19
-      '@cypherock/sdk-interfaces':
-        specifier: ^0.0.15
-        version: 0.0.15
-      '@cypherock/sdk-utils':
-        specifier: ^0.0.18
-        version: 0.0.18
       '@inquirer/checkbox':
         specifier: ^1.3.5
         version: 1.3.5
@@ -253,17 +253,17 @@ importers:
         specifier: workspace:^
         version: link:../../packages/db-interfaces
       '@cypherock/sdk-core':
-        specifier: ^0.0.25
-        version: 0.0.25
+        specifier: ^0.1.0
+        version: 0.1.0
       '@cypherock/sdk-hw-hid':
-        specifier: ^0.0.22
-        version: 0.0.22
+        specifier: ^0.0.23
+        version: 0.0.23
       '@cypherock/sdk-hw-serialport':
-        specifier: ^0.0.19
-        version: 0.0.19
+        specifier: ^0.0.20
+        version: 0.0.20
       '@cypherock/sdk-interfaces':
-        specifier: ^0.0.15
-        version: 0.0.15
+        specifier: ^0.0.16
+        version: 0.0.16
       buffer:
         specifier: ^6.0.3
         version: 6.0.3
@@ -387,7 +387,7 @@ importers:
         version: 4.9.5
       vite:
         specifier: ^4.3.9
-        version: 4.3.9(@types/node@18.15.11)(less@4.2.0)
+        version: 4.3.9(@types/node@20.5.1)
       vite-plugin-electron:
         specifier: ^0.12.0
         version: 0.12.0
@@ -397,6 +397,85 @@ importers:
       vite-plugin-multiple:
         specifier: ^0.2.0
         version: 0.2.0
+
+  packages/app-support-inheritance:
+    dependencies:
+      '@cypherock/cysync-interfaces':
+        specifier: workspace:^
+        version: link:../interfaces
+      '@cypherock/cysync-utils':
+        specifier: workspace:^
+        version: link:../utils
+      '@cypherock/sdk-app-inheritance':
+        specifier: ^1.0.0
+        version: 1.0.0
+      '@cypherock/sdk-interfaces':
+        specifier: ^0.0.16
+        version: 0.0.16
+      '@cypherock/sdk-utils':
+        specifier: ^0.0.19
+        version: 0.0.19
+      lodash:
+        specifier: ^4.17.21
+        version: 4.17.21
+      rxjs:
+        specifier: ^7.8.1
+        version: 7.8.1
+    devDependencies:
+      '@cypherock/eslint-config':
+        specifier: workspace:^
+        version: link:../util-eslint-config
+      '@cypherock/jest-config':
+        specifier: workspace:^
+        version: link:../util-jest-config
+      '@cypherock/prettier-config':
+        specifier: workspace:^
+        version: link:../util-prettier-config
+      '@cypherock/tsconfig':
+        specifier: workspace:^
+        version: link:../util-tsconfig
+      '@jest/globals':
+        specifier: ^29.5.0
+        version: 29.5.0
+      '@stryker-mutator/core':
+        specifier: ^7.0.2
+        version: 7.0.2
+      '@stryker-mutator/jest-runner':
+        specifier: ^7.0.2
+        version: 7.0.2(@stryker-mutator/core@7.0.2)
+      '@stryker-mutator/typescript-checker':
+        specifier: ^7.0.2
+        version: 7.0.2(@stryker-mutator/core@7.0.2)(typescript@4.9.5)
+      '@types/jest':
+        specifier: ^29.5.2
+        version: 29.5.2
+      '@types/lodash':
+        specifier: ^4.14.195
+        version: 4.14.195
+      '@types/node':
+        specifier: 18.15.11
+        version: 18.15.11
+      eslint:
+        specifier: ^8.43.0
+        version: 8.43.0
+      jest:
+        specifier: ^29.5.0
+        version: 29.5.0(@types/node@18.15.11)(ts-node@10.9.1)
+      lint-staged:
+        specifier: ^13.2.2
+        version: 13.2.2
+      prettier:
+        specifier: ^2.8.8
+        version: 2.8.8
+      rimraf:
+        specifier: ^5.0.1
+        version: 5.0.1
+      ts-jest:
+        specifier: ^29.1.0
+        version: 29.1.0(@babel/core@7.24.7)(esbuild@0.18.20)(jest@29.5.0)(typescript@4.9.5)
+      typescript:
+        specifier: ^4.9.5
+        version: 4.9.5
 
   packages/automation-scripts:
     dependencies:
@@ -592,14 +671,14 @@ importers:
         specifier: workspace:^
         version: link:../db-interfaces
       '@cypherock/sdk-app-btc':
-        specifier: ^0.0.36
-        version: 0.0.36
+        specifier: ^0.0.37
+        version: 0.0.37
       '@cypherock/sdk-interfaces':
-        specifier: ^0.0.15
-        version: 0.0.15
+        specifier: ^0.0.16
+        version: 0.0.16
       '@cypherock/sdk-utils':
-        specifier: ^0.0.18
-        version: 0.0.18
+        specifier: ^0.0.19
+        version: 0.0.19
       axios:
         specifier: ^1.4.0
         version: 1.4.0
@@ -695,14 +774,14 @@ importers:
         specifier: workspace:^
         version: link:../db-interfaces
       '@cypherock/sdk-app-evm':
-        specifier: ^0.0.32
-        version: 0.0.32
+        specifier: ^0.0.33
+        version: 0.0.33
       '@cypherock/sdk-interfaces':
-        specifier: ^0.0.15
-        version: 0.0.15
+        specifier: ^0.0.16
+        version: 0.0.16
       '@cypherock/sdk-utils':
-        specifier: ^0.0.18
-        version: 0.0.18
+        specifier: ^0.0.19
+        version: 0.0.19
       lodash:
         specifier: ^4.17.21
         version: 4.17.21
@@ -780,8 +859,8 @@ importers:
         specifier: workspace:^
         version: link:../db-interfaces
       '@cypherock/sdk-interfaces':
-        specifier: ^0.0.15
-        version: 0.0.15
+        specifier: ^0.0.16
+        version: 0.0.16
       rxjs:
         specifier: ^7.8.1
         version: 7.8.1
@@ -841,14 +920,14 @@ importers:
         specifier: workspace:^
         version: link:../db-interfaces
       '@cypherock/sdk-app-near':
-        specifier: ^0.0.30
-        version: 0.0.30
+        specifier: ^0.0.31
+        version: 0.0.31
       '@cypherock/sdk-interfaces':
-        specifier: ^0.0.15
-        version: 0.0.15
+        specifier: ^0.0.16
+        version: 0.0.16
       '@cypherock/sdk-utils':
-        specifier: ^0.0.18
-        version: 0.0.18
+        specifier: ^0.0.19
+        version: 0.0.19
       axios:
         specifier: ^1.4.0
         version: 1.4.0
@@ -938,14 +1017,14 @@ importers:
         specifier: workspace:^
         version: link:../db-interfaces
       '@cypherock/sdk-app-solana':
-        specifier: ^0.0.6
-        version: 0.0.6
+        specifier: ^0.0.7
+        version: 0.0.7
       '@cypherock/sdk-interfaces':
-        specifier: ^0.0.15
-        version: 0.0.15
+        specifier: ^0.0.16
+        version: 0.0.16
       '@cypherock/sdk-utils':
-        specifier: ^0.0.18
-        version: 0.0.18
+        specifier: ^0.0.19
+        version: 0.0.19
       axios:
         specifier: ^1.4.0
         version: 1.4.0
@@ -1041,14 +1120,14 @@ importers:
         specifier: workspace:^
         version: link:../db-interfaces
       '@cypherock/sdk-app-tron':
-        specifier: ^0.0.1
-        version: 0.0.1
+        specifier: ^0.0.2
+        version: 0.0.2
       '@cypherock/sdk-interfaces':
-        specifier: ^0.0.15
-        version: 0.0.15
+        specifier: ^0.0.16
+        version: 0.0.16
       '@cypherock/sdk-utils':
-        specifier: ^0.0.18
-        version: 0.0.18
+        specifier: ^0.0.19
+        version: 0.0.19
       lodash:
         specifier: ^4.17.21
         version: 4.17.21
@@ -1144,11 +1223,11 @@ importers:
         specifier: workspace:^
         version: link:../db-interfaces
       '@cypherock/sdk-interfaces':
-        specifier: ^0.0.15
-        version: 0.0.15
+        specifier: ^0.0.16
+        version: 0.0.16
       '@cypherock/sdk-utils':
-        specifier: ^0.0.18
-        version: 0.0.18
+        specifier: ^0.0.19
+        version: 0.0.19
       axios:
         specifier: ^1.4.0
         version: 1.4.0
@@ -1235,14 +1314,14 @@ importers:
         specifier: workspace:^
         version: link:../db-interfaces
       '@cypherock/sdk-app-xrp':
-        specifier: ^1.0.0
-        version: 1.0.0
+        specifier: ^1.0.1
+        version: 1.0.1
       '@cypherock/sdk-interfaces':
-        specifier: ^0.0.15
-        version: 0.0.15
+        specifier: ^0.0.16
+        version: 0.0.16
       '@cypherock/sdk-utils':
-        specifier: ^0.0.18
-        version: 0.0.18
+        specifier: ^0.0.19
+        version: 0.0.19
       lodash:
         specifier: ^4.17.21
         version: 4.17.21
@@ -1395,14 +1474,14 @@ importers:
         specifier: workspace:^
         version: link:../db-interfaces
       '@cypherock/sdk-app-manager':
-        specifier: ^0.0.31
-        version: 0.0.31
+        specifier: ^0.0.32
+        version: 0.0.32
       '@cypherock/sdk-interfaces':
-        specifier: ^0.0.15
-        version: 0.0.15
+        specifier: ^0.0.16
+        version: 0.0.16
       '@cypherock/sdk-utils':
-        specifier: ^0.0.18
-        version: 0.0.18
+        specifier: ^0.0.19
+        version: 0.0.19
       lodash:
         specifier: ^4.17.21
         version: 4.17.21
@@ -1467,6 +1546,9 @@ importers:
       '@aws-crypto/sha256-browser':
         specifier: ^4.0.0
         version: 4.0.0
+      '@cypherock/app-support-inheritance':
+        specifier: workspace:^
+        version: link:../app-support-inheritance
       '@cypherock/coin-support':
         specifier: workspace:^
         version: link:../coin-support
@@ -1519,29 +1601,29 @@ importers:
         specifier: workspace:^
         version: link:../db-interfaces
       '@cypherock/sdk-app-btc':
-        specifier: ^0.0.36
-        version: 0.0.36
+        specifier: ^0.0.37
+        version: 0.0.37
       '@cypherock/sdk-app-evm':
+        specifier: ^0.0.33
+        version: 0.0.33
+      '@cypherock/sdk-app-manager':
         specifier: ^0.0.32
         version: 0.0.32
-      '@cypherock/sdk-app-manager':
+      '@cypherock/sdk-app-near':
         specifier: ^0.0.31
         version: 0.0.31
-      '@cypherock/sdk-app-near':
-        specifier: ^0.0.30
-        version: 0.0.30
       '@cypherock/sdk-app-solana':
-        specifier: ^0.0.6
-        version: 0.0.6
+        specifier: ^0.0.7
+        version: 0.0.7
       '@cypherock/sdk-core':
-        specifier: ^0.0.25
-        version: 0.0.25
+        specifier: ^0.1.0
+        version: 0.1.0
       '@cypherock/sdk-interfaces':
-        specifier: ^0.0.15
-        version: 0.0.15
+        specifier: ^0.0.16
+        version: 0.0.16
       '@cypherock/sdk-utils':
-        specifier: ^0.0.18
-        version: 0.0.18
+        specifier: ^0.0.19
+        version: 0.0.19
       '@reduxjs/toolkit':
         specifier: ^1.9.5
         version: 1.9.5(react-redux@8.1.1)(react@18.2.0)
@@ -1689,7 +1771,7 @@ importers:
         version: 8.43.0
       eslint-import-resolver-typescript:
         specifier: ^3.5.5
-        version: 3.5.5(@typescript-eslint/parser@5.59.11)(eslint-plugin-import@2.27.5)(eslint@8.43.0)
+        version: 3.5.5(eslint-plugin-import@2.27.5)(eslint@8.43.0)
       ethers:
         specifier: ^6.7.0
         version: 6.7.0
@@ -1748,11 +1830,11 @@ importers:
         specifier: workspace:^
         version: link:../coins
       '@cypherock/sdk-app-manager':
-        specifier: ^0.0.31
-        version: 0.0.31
+        specifier: ^0.0.32
+        version: 0.0.32
       '@cypherock/sdk-interfaces':
-        specifier: ^0.0.15
-        version: 0.0.15
+        specifier: ^0.0.16
+        version: 0.0.16
     devDependencies:
       '@cypherock/eslint-config':
         specifier: workspace:^
@@ -1874,7 +1956,7 @@ importers:
         version: 8.43.0
       eslint-import-resolver-typescript:
         specifier: ^3.5.5
-        version: 3.5.5(@typescript-eslint/parser@5.59.11)(eslint-plugin-import@2.27.5)(eslint@8.43.0)
+        version: 3.5.5(eslint-plugin-import@2.27.5)(eslint@8.43.0)
       jest:
         specifier: ^29.5.0
         version: 29.5.0(@types/node@18.15.11)(ts-node@10.9.1)
@@ -2112,8 +2194,8 @@ importers:
         specifier: workspace:^
         version: link:../db-interfaces
       '@cypherock/sdk-interfaces':
-        specifier: ^0.0.15
-        version: 0.0.15
+        specifier: ^0.0.16
+        version: 0.0.16
     devDependencies:
       '@babel/preset-typescript':
         specifier: ^7.22.5
@@ -2178,15 +2260,18 @@ importers:
       focus-trap-react:
         specifier: ^10.2.3
         version: 10.2.3(prop-types@15.8.1)(react-dom@18.2.0)(react@18.2.0)
-      marked-react:
-        specifier: ^2.0.0
-        version: 2.0.0(react@18.2.0)
+      marked:
+        specifier: ^13.0.2
+        version: 13.0.2
       rc-tooltip:
         specifier: ^6.1.2
         version: 6.1.2(react-dom@18.2.0)(react@18.2.0)
       react:
         specifier: ^18.2.0
         version: 18.2.0
+      react-circular-progressbar:
+        specifier: ^2.1.0
+        version: 2.1.0(react@18.2.0)
       react-dom:
         specifier: ^18.2.0
         version: 18.2.0(react@18.2.0)
@@ -2196,6 +2281,9 @@ importers:
       react-multi-date-picker:
         specifier: ^4.1.2
         version: 4.1.2(react-dom@18.2.0)(react@18.2.0)
+      react-otp-input:
+        specifier: ^3.1.1
+        version: 3.1.1(react-dom@18.2.0)(react@18.2.0)
       react-tsparticles:
         specifier: ^2.10.1
         version: 2.10.1(react@18.2.0)
@@ -2236,9 +2324,6 @@ importers:
       '@storybook/addon-links':
         specifier: 7.2.0
         version: 7.2.0(react-dom@18.2.0)(react@18.2.0)
-      '@storybook/addon-onboarding':
-        specifier: 1.0.8
-        version: 1.0.8(react-dom@18.2.0)(react@18.2.0)
       '@storybook/addon-styling':
         specifier: ^1.3.5
         version: 1.3.5(@types/react-dom@18.2.6)(@types/react@18.2.13)(less@4.2.0)(postcss@8.4.38)(react-dom@18.2.0)(react@18.2.0)(typescript@4.9.5)(webpack@5.92.1)
@@ -5583,14 +5668,14 @@ packages:
     dependencies:
       '@jridgewell/trace-mapping': 0.3.9
 
-  /@cypherock/sdk-app-btc@0.0.36:
-    resolution: {integrity: sha512-X6CiWqqGIu7yd0u4Yo7fCTUHi6NE0E6HoLn0UjiXt70b6ltdFYjVZQ21TyZ2YHRBMLxJbuEiLzd508t5Iy1shg==}
+  /@cypherock/sdk-app-btc@0.0.37:
+    resolution: {integrity: sha512-3c89gX1sU2q6DQ7X6/SZA1CFHidgZ0EMi32ckwNqX2vw1EjMfO+lATLDKizopx4Pb5UG9fkaNdQPYFZMuNxiww==}
     dependencies:
       '@bitcoin-js/tiny-secp256k1-asmjs': 2.2.3
-      '@cypherock/sdk-core': 0.0.25
-      '@cypherock/sdk-interfaces': 0.0.15
-      '@cypherock/sdk-utils': 0.0.18
-      axios: 1.4.0
+      '@cypherock/sdk-core': 0.1.0
+      '@cypherock/sdk-interfaces': 0.0.16
+      '@cypherock/sdk-utils': 0.0.19
+      axios: 1.7.2
       bip66: 1.1.5(patch_hash=iqgcihxqyjluk6emr2sibelbgm)
       long: 5.2.3
       protobufjs: 7.3.2
@@ -5598,24 +5683,38 @@ packages:
       - debug
     dev: false
 
-  /@cypherock/sdk-app-evm@0.0.32:
-    resolution: {integrity: sha512-aBIFVo1npC8ZLF+/Jcc488iVzdfYNFYSSsZ/QpPn6X9PJ7XL9KhD2snLCpdgBxEaReFtcyV37rOMV7aCx+R9jg==}
+  /@cypherock/sdk-app-evm@0.0.33:
+    resolution: {integrity: sha512-oz+yT38mEDV3TZfvrn1uoti341gcsH3LZ5njhP3o3PV1cuYb6nQlmwaeSH0gqP9qzKuD86CllDaVDluPbBeq8Q==}
     dependencies:
-      '@cypherock/sdk-core': 0.0.25
-      '@cypherock/sdk-interfaces': 0.0.15
-      '@cypherock/sdk-utils': 0.0.18
+      '@cypherock/sdk-core': 0.1.0
+      '@cypherock/sdk-interfaces': 0.0.16
+      '@cypherock/sdk-utils': 0.0.19
       bignumber.js: 9.1.2
       long: 5.2.3
       protobufjs: 7.3.2
+    transitivePeerDependencies:
+      - debug
     dev: false
 
-  /@cypherock/sdk-app-manager@0.0.31:
-    resolution: {integrity: sha512-jbh/sCY4RyGCheBZvZKYzG+e27DrFwaATrCHEwKGguX3+a/CTl1YQe56m+V5UapP0MRT/1WCjeNb0Y03P2Ch+g==}
+  /@cypherock/sdk-app-inheritance@1.0.0:
+    resolution: {integrity: sha512-odpeDD7hk04SfPQmjXP13rKnE9PJnBelxEUVss34ejtos7Y+33EvlgFH2dkHx2fQ9AtEDIuSQsamGc7RcjRIHg==}
     dependencies:
-      '@cypherock/sdk-core': 0.0.25
-      '@cypherock/sdk-interfaces': 0.0.15
-      '@cypherock/sdk-utils': 0.0.18
-      axios: 1.4.0
+      '@cypherock/sdk-core': 0.1.0
+      '@cypherock/sdk-interfaces': 0.0.16
+      '@cypherock/sdk-utils': 0.0.19
+      long: 5.2.3
+      protobufjs: 7.3.2
+    transitivePeerDependencies:
+      - debug
+    dev: false
+
+  /@cypherock/sdk-app-manager@0.0.32:
+    resolution: {integrity: sha512-9Pfz8hRrv6I4hchMEOLepSX6E9hY9p6fRT7JMv/jW1Ex0Jcs+Co4M1kZjXKP4GQlImFY8GXibRLpiZFijIwPMA==}
+    dependencies:
+      '@cypherock/sdk-core': 0.1.0
+      '@cypherock/sdk-interfaces': 0.0.16
+      '@cypherock/sdk-utils': 0.0.19
+      axios: 1.7.2
       crypto-js: 4.2.0
       protobufjs: 7.3.2
       uuid: 9.0.0
@@ -5623,23 +5722,25 @@ packages:
       - debug
     dev: false
 
-  /@cypherock/sdk-app-near@0.0.30:
-    resolution: {integrity: sha512-yzMlgV1X/R1TuSl1r5DaN/Cyfe3jpluoHSpqp4liZ8bOH3ACo/Lnj7rr7RBFxGD2GFJt5KCVikbst7ys18XH0w==}
+  /@cypherock/sdk-app-near@0.0.31:
+    resolution: {integrity: sha512-jBGczwzIDvIsOoRplDDwbkeNVK3QMk10i2vjBy3pxVEXRYCIfUHqMW3f4YZ3te0T7rPRShWg4N7RvorCG8oadQ==}
     dependencies:
-      '@cypherock/sdk-core': 0.0.25
-      '@cypherock/sdk-interfaces': 0.0.15
-      '@cypherock/sdk-utils': 0.0.18
+      '@cypherock/sdk-core': 0.1.0
+      '@cypherock/sdk-interfaces': 0.0.16
+      '@cypherock/sdk-utils': 0.0.19
       long: 5.2.3
       protobufjs: 7.3.2
+    transitivePeerDependencies:
+      - debug
     dev: false
 
-  /@cypherock/sdk-app-solana@0.0.6:
-    resolution: {integrity: sha512-cMWqv9nUJ6Ofns4JH4OnoO08wX9gbmKKhOrXecm0LZa0+n+ri93RVxEnmvOr27KtFwgPBvU9y0OvtsZxMwyWrg==}
+  /@cypherock/sdk-app-solana@0.0.7:
+    resolution: {integrity: sha512-edc9Wj98lGl2PjKN8Xe3lQVktdYPJrZxa24w8Hte3Ta8+RuqrKhRAFeNevm2Va/l6DLscsufDLyhbaCKfXtriA==}
     dependencies:
-      '@cypherock/sdk-core': 0.0.25
-      '@cypherock/sdk-interfaces': 0.0.15
-      '@cypherock/sdk-utils': 0.0.18
-      axios: 1.4.0
+      '@cypherock/sdk-core': 0.1.0
+      '@cypherock/sdk-interfaces': 0.0.16
+      '@cypherock/sdk-utils': 0.0.19
+      axios: 1.7.2
       bs58: 5.0.0
       long: 5.2.3
       protobufjs: 7.3.2
@@ -5647,77 +5748,83 @@ packages:
       - debug
     dev: false
 
-  /@cypherock/sdk-app-tron@0.0.1:
-    resolution: {integrity: sha512-/0JEzCGOh0xL6z1WJyVezUwmmTJ3v+6UjN0cOvPI5VKOvaIkzQQOYkKupeIIgQUDRgwKzJHWKTW5GpJUuyc5VA==}
+  /@cypherock/sdk-app-tron@0.0.2:
+    resolution: {integrity: sha512-vKm3RxArG+JnWchkzUMNwIqx1hC5krQyYEiip4bdXzCPOtQd/CEtiuzvlFxvCwZ5PEiMZVv+RaCd+EH/4m48/w==}
     dependencies:
-      '@cypherock/sdk-core': 0.0.25
-      '@cypherock/sdk-interfaces': 0.0.15
-      '@cypherock/sdk-utils': 0.0.18
+      '@cypherock/sdk-core': 0.1.0
+      '@cypherock/sdk-interfaces': 0.0.16
+      '@cypherock/sdk-utils': 0.0.19
       long: 5.2.3
       protobufjs: 7.3.2
+    transitivePeerDependencies:
+      - debug
     dev: false
 
-  /@cypherock/sdk-app-xrp@1.0.0:
-    resolution: {integrity: sha512-P64Bx4tkDdmfeIhOntISGA26CAe1dhCjIn4O27HMPBGfAb686Y9/fYox1m925x4vS5ThqY2qzdrKUXzJSwUIEQ==}
+  /@cypherock/sdk-app-xrp@1.0.1:
+    resolution: {integrity: sha512-d1K4cD//JGTGdvqRvrtQhBQFhbdUR2BdssN57x5KlJKMUtIAsGPn53p3kUoc6tWO42f/toL8qxi31M2tXI9u9Q==}
     dependencies:
-      '@cypherock/sdk-core': 0.0.25
-      '@cypherock/sdk-interfaces': 0.0.15
-      '@cypherock/sdk-utils': 0.0.18
+      '@cypherock/sdk-core': 0.1.0
+      '@cypherock/sdk-interfaces': 0.0.16
+      '@cypherock/sdk-utils': 0.0.19
       long: 5.2.3
       protobufjs: 7.3.2
       xrpl: 4.0.0
     transitivePeerDependencies:
       - bufferutil
+      - debug
       - utf-8-validate
     dev: false
 
-  /@cypherock/sdk-core@0.0.25:
-    resolution: {integrity: sha512-g/a/pGoReevjkKKwZHxkIUUmv+jIN3UZXOCAQLydRi0/NuhRT2MQlz3dUb9AVddqo0KfRlCpy9827M+/NXaAZA==}
+  /@cypherock/sdk-core@0.1.0:
+    resolution: {integrity: sha512-1EMf5cqmmZrdskwIKKxA1h6UB+kxLmNK67IT1OZZCoVy/wyQt0b8ioB6XnKnnrziyJ5T34FsxVI5dwXrz0pfOA==}
     dependencies:
-      '@cypherock/sdk-interfaces': 0.0.15
-      '@cypherock/sdk-utils': 0.0.18
+      '@cypherock/sdk-interfaces': 0.0.16
+      '@cypherock/sdk-utils': 0.0.19
+      axios: 1.7.2
       compare-versions: 6.0.0-rc.1
       protobufjs: 7.3.2
       uuid: 9.0.0
+    transitivePeerDependencies:
+      - debug
     dev: false
 
-  /@cypherock/sdk-hw-hid@0.0.22:
-    resolution: {integrity: sha512-rskj2C1SIiyxieuIyd9GLJ4PIZ4GmLsBsj+rQAm4wPsueKqNeAavQo/86ymzEtwAGH8//Jb/NjKjISQLeCiMhQ==}
+  /@cypherock/sdk-hw-hid@0.0.23:
+    resolution: {integrity: sha512-ShQEwfY+KvytoqLPaYR8iKzHd1YFx7Ll4hR20diPtUKgyet4z4BMZHWLi9qRckW9Zu3JoRgUhBt3LGg2hnnwlw==}
     dependencies:
-      '@cypherock/sdk-interfaces': 0.0.15
-      '@cypherock/sdk-utils': 0.0.18
+      '@cypherock/sdk-interfaces': 0.0.16
+      '@cypherock/sdk-utils': 0.0.19
       node-hid: 3.1.0
       usb: 2.11.0
       uuid: 9.0.0
     dev: false
 
-  /@cypherock/sdk-hw-serialport@0.0.19:
-    resolution: {integrity: sha512-wDy9zzydFtDeKwqa0R9EkislHnAAYwB3hKOd36WfTIVFd3uJANYjpPfp7fW/ZFN0T3SuIPcVcvr9GF+AjSoATQ==}
+  /@cypherock/sdk-hw-serialport@0.0.20:
+    resolution: {integrity: sha512-/p7Sq58EaZTc4XPdXoxSbvh12/WpuDfuB1IvrmFX5jj2Ncj3rT4elkwB5iTQAv80pvcAWocS5QOcvSZhTIskmg==}
     dependencies:
-      '@cypherock/sdk-interfaces': 0.0.15
-      '@cypherock/sdk-utils': 0.0.18
+      '@cypherock/sdk-interfaces': 0.0.16
+      '@cypherock/sdk-utils': 0.0.19
       serialport: 10.0.0
       uuid: 9.0.0
     transitivePeerDependencies:
       - supports-color
     dev: false
 
-  /@cypherock/sdk-interfaces@0.0.15:
-    resolution: {integrity: sha512-2crzh5BppydjpVpVKN6qjM+IdrzRrevdKbRwhRDiDUMdSf+xDIxXfvRze/vzFeEIXkMdk1gVKGwYti+B1ifd4w==}
+  /@cypherock/sdk-interfaces@0.0.16:
+    resolution: {integrity: sha512-YHhgPxx1a4sgl70JRN2Z42TpG7jae+V0XwNiEwMglav5RmopOTdPtT3K7RlRXL6AL5gOyZQooVguK5uVN7j3jw==}
     dependencies:
       '@types/events': 3.0.0
       events: 3.3.0
       uuid: 9.0.0
     dev: false
 
-  /@cypherock/sdk-utils@0.0.18:
-    resolution: {integrity: sha512-u9pMJjvBKWkqKpBFE3NDcntsWiYBgPREs2+HRaMkwoidQmJoNlPQYOGda4cJds8sxzegXXQMe8flXGkpjl5K8A==}
+  /@cypherock/sdk-utils@0.0.19:
+    resolution: {integrity: sha512-uTEsPLjN0jy/sDdE3VLDqiByAagjsjqy1yIxFLxK+Ct8v+FHMpK4XCl8nIBqNuS5sXiHmAY+HWUyrZgH7/zzjg==}
     dependencies:
       '@aws-crypto/sha256-browser': 4.0.0
-      '@cypherock/sdk-interfaces': 0.0.15
+      '@cypherock/sdk-interfaces': 0.0.16
       compare-versions: 6.0.0-rc.1
       protobufjs: 7.3.2
-      semver: 7.5.3
+      semver: 7.6.2
       uuid: 9.0.0
     dev: false
 
@@ -9906,21 +10013,6 @@ packages:
       - '@types/react-dom'
     dev: true
 
-  /@storybook/addon-onboarding@1.0.8(react-dom@18.2.0)(react@18.2.0):
-    resolution: {integrity: sha512-3WwCocUuTibHWO89uzAbeONEn6x9NkmxA0mOU4rYPhEsMQ4NDNDD1GXcievZmpwt5VviFgw5FRx8+BxPn54YmQ==}
-    peerDependencies:
-      react: ^16.8.0 || ^17.0.0 || ^18.0.0
-      react-dom: ^16.8.0 || ^17.0.0 || ^18.0.0
-    dependencies:
-      '@storybook/telemetry': 7.6.20
-      react: 18.2.0
-      react-confetti: 6.1.0(react@18.2.0)
-      react-dom: 18.2.0(react@18.2.0)
-    transitivePeerDependencies:
-      - encoding
-      - supports-color
-    dev: true
-
   /@storybook/addon-outline@7.2.0(@types/react-dom@18.2.6)(@types/react@18.2.13)(react-dom@18.2.0)(react@18.2.0):
     resolution: {integrity: sha512-pP9Umngd8OsmVYAhRQqY4HGgTeQK63tZeNDOSdB5Jab4f6wDrdHUn6OMo0Hsfzw65g7mSQmEexnxbq1DrgKU1Q==}
     peerDependencies:
@@ -10642,22 +10734,6 @@ packages:
       - supports-color
     dev: false
 
-  /@storybook/csf-tools@7.6.20:
-    resolution: {integrity: sha512-rwcwzCsAYh/m/WYcxBiEtLpIW5OH1ingxNdF/rK9mtGWhJxXRDV8acPkFrF8rtFWIVKoOCXu5USJYmc3f2gdYQ==}
-    dependencies:
-      '@babel/generator': 7.24.7
-      '@babel/parser': 7.24.7
-      '@babel/traverse': 7.24.7
-      '@babel/types': 7.24.7
-      '@storybook/csf': 0.1.9
-      '@storybook/types': 7.6.20
-      fs-extra: 11.2.0
-      recast: 0.23.9
-      ts-dedent: 2.2.0
-    transitivePeerDependencies:
-      - supports-color
-    dev: true
-
   /@storybook/csf@0.0.1:
     resolution: {integrity: sha512-USTLkZze5gkel8MYCujSRBVIrUQ3YPBrLOx7GNk/0wttvVtlzWXAq9eLbQ4p/NicGxP+3T7KPEMVV//g+yubpw==}
     dependencies:
@@ -11071,22 +11147,6 @@ packages:
       '@storybook/client-logger': 7.2.0
       '@storybook/core-common': 7.2.0
       '@storybook/csf-tools': 7.2.0
-      chalk: 4.1.2
-      detect-package-manager: 2.0.1
-      fetch-retry: 5.0.6
-      fs-extra: 11.2.0
-      read-pkg-up: 7.0.1
-    transitivePeerDependencies:
-      - encoding
-      - supports-color
-    dev: true
-
-  /@storybook/telemetry@7.6.20:
-    resolution: {integrity: sha512-dmAOCWmOscYN6aMbhCMmszQjoycg7tUPRVy2kTaWg6qX10wtMrvEtBV29W4eMvqdsoRj5kcvoNbzRdYcWBUOHQ==}
-    dependencies:
-      '@storybook/client-logger': 7.6.20
-      '@storybook/core-common': 7.6.20
-      '@storybook/csf-tools': 7.6.20
       chalk: 4.1.2
       detect-package-manager: 2.0.1
       fetch-retry: 5.0.6
@@ -12407,7 +12467,7 @@ packages:
       '@babel/plugin-transform-react-jsx-self': 7.24.7(@babel/core@7.22.5)
       '@babel/plugin-transform-react-jsx-source': 7.24.7(@babel/core@7.22.5)
       react-refresh: 0.14.2
-      vite: 4.3.9(@types/node@18.15.11)(less@4.2.0)
+      vite: 4.3.9(@types/node@20.5.1)
     transitivePeerDependencies:
       - supports-color
     dev: true
@@ -13630,7 +13690,6 @@ packages:
       proxy-from-env: 1.1.0
     transitivePeerDependencies:
       - debug
-    dev: true
 
   /axobject-query@3.2.2:
     resolution: {integrity: sha512-QtQGAQJfHXiTrtRH8Q1gkarFLs56fDmfiMCptvRbo/AEQIImrW6u7EcUAOfkHHNE9dqZKH3227iRKRSp0KtfTw==}
@@ -13675,7 +13734,7 @@ packages:
       '@babel/core': 7.22.5
       find-cache-dir: 3.3.2
       schema-utils: 4.2.0
-      webpack: 5.92.1(esbuild@0.18.20)
+      webpack: 5.92.1
     dev: true
 
   /babel-plugin-istanbul@6.1.1:
@@ -15394,7 +15453,7 @@ packages:
       postcss-modules-values: 4.0.0(postcss@8.4.38)
       postcss-value-parser: 4.2.0
       semver: 7.5.3
-      webpack: 5.92.1(esbuild@0.18.20)
+      webpack: 5.92.1
     dev: true
 
   /css-select@4.3.0:
@@ -16800,6 +16859,30 @@ packages:
       - supports-color
     dev: true
 
+  /eslint-import-resolver-typescript@3.5.5(eslint-plugin-import@2.27.5)(eslint@8.43.0):
+    resolution: {integrity: sha512-TdJqPHs2lW5J9Zpe17DZNQuDnox4xo2o+0tE7Pggain9Rbc19ik8kFtXdxZ250FVx2kF4vlt2RSf4qlUpG7bhw==}
+    engines: {node: ^14.18.0 || >=16.0.0}
+    peerDependencies:
+      eslint: '*'
+      eslint-plugin-import: '*'
+    dependencies:
+      debug: 4.3.5(supports-color@8.1.1)
+      enhanced-resolve: 5.17.0
+      eslint: 8.43.0
+      eslint-module-utils: 2.8.1(eslint-import-resolver-node@0.3.9)(eslint-import-resolver-typescript@3.5.5)(eslint@8.43.0)
+      eslint-plugin-import: 2.27.5(eslint-import-resolver-typescript@3.5.5)(eslint@8.43.0)
+      get-tsconfig: 4.7.5
+      globby: 13.2.2
+      is-core-module: 2.14.0
+      is-glob: 4.0.3
+      synckit: 0.8.8
+    transitivePeerDependencies:
+      - '@typescript-eslint/parser'
+      - eslint-import-resolver-node
+      - eslint-import-resolver-webpack
+      - supports-color
+    dev: true
+
   /eslint-module-utils@2.8.1(@typescript-eslint/parser@5.59.11)(eslint-import-resolver-node@0.3.9)(eslint-import-resolver-typescript@3.5.5)(eslint@8.43.0):
     resolution: {integrity: sha512-rXDXR3h7cs7dy9RNpUlQf80nX31XWJEyGq1tRMo+6GsO5VmTe4UTwtmonAD4ZkAsrfMVDA2wlGJ3790Ys+D49Q==}
     engines: {node: '>=4'}
@@ -16830,6 +16913,35 @@ packages:
       - supports-color
     dev: true
 
+  /eslint-module-utils@2.8.1(eslint-import-resolver-node@0.3.9)(eslint-import-resolver-typescript@3.5.5)(eslint@8.43.0):
+    resolution: {integrity: sha512-rXDXR3h7cs7dy9RNpUlQf80nX31XWJEyGq1tRMo+6GsO5VmTe4UTwtmonAD4ZkAsrfMVDA2wlGJ3790Ys+D49Q==}
+    engines: {node: '>=4'}
+    peerDependencies:
+      '@typescript-eslint/parser': '*'
+      eslint: '*'
+      eslint-import-resolver-node: '*'
+      eslint-import-resolver-typescript: '*'
+      eslint-import-resolver-webpack: '*'
+    peerDependenciesMeta:
+      '@typescript-eslint/parser':
+        optional: true
+      eslint:
+        optional: true
+      eslint-import-resolver-node:
+        optional: true
+      eslint-import-resolver-typescript:
+        optional: true
+      eslint-import-resolver-webpack:
+        optional: true
+    dependencies:
+      debug: 3.2.7
+      eslint: 8.43.0
+      eslint-import-resolver-node: 0.3.9
+      eslint-import-resolver-typescript: 3.5.5(eslint-plugin-import@2.27.5)(eslint@8.43.0)
+    transitivePeerDependencies:
+      - supports-color
+    dev: true
+
   /eslint-plugin-import@2.27.5(@typescript-eslint/parser@5.59.11)(eslint-import-resolver-typescript@3.5.5)(eslint@8.43.0):
     resolution: {integrity: sha512-LmEt3GVofgiGuiE+ORpnvP+kAm3h6MLZJ4Q5HCyHADofsb4VzXFsRiWj3c0OFiV+3DWFh0qg3v9gcPlfc3zRow==}
     engines: {node: '>=4'}
@@ -16849,6 +16961,38 @@ packages:
       eslint: 8.43.0
       eslint-import-resolver-node: 0.3.9
       eslint-module-utils: 2.8.1(@typescript-eslint/parser@5.59.11)(eslint-import-resolver-node@0.3.9)(eslint-import-resolver-typescript@3.5.5)(eslint@8.43.0)
+      has: 1.0.4
+      is-core-module: 2.14.0
+      is-glob: 4.0.3
+      minimatch: 3.1.2
+      object.values: 1.2.0
+      resolve: 1.22.8
+      semver: 6.3.1
+      tsconfig-paths: 3.15.0
+    transitivePeerDependencies:
+      - eslint-import-resolver-typescript
+      - eslint-import-resolver-webpack
+      - supports-color
+    dev: true
+
+  /eslint-plugin-import@2.27.5(eslint-import-resolver-typescript@3.5.5)(eslint@8.43.0):
+    resolution: {integrity: sha512-LmEt3GVofgiGuiE+ORpnvP+kAm3h6MLZJ4Q5HCyHADofsb4VzXFsRiWj3c0OFiV+3DWFh0qg3v9gcPlfc3zRow==}
+    engines: {node: '>=4'}
+    peerDependencies:
+      '@typescript-eslint/parser': '*'
+      eslint: ^2 || ^3 || ^4 || ^5 || ^6 || ^7.2.0 || ^8
+    peerDependenciesMeta:
+      '@typescript-eslint/parser':
+        optional: true
+    dependencies:
+      array-includes: 3.1.8
+      array.prototype.flat: 1.3.2
+      array.prototype.flatmap: 1.3.2
+      debug: 3.2.7
+      doctrine: 2.1.0
+      eslint: 8.43.0
+      eslint-import-resolver-node: 0.3.9
+      eslint-module-utils: 2.8.1(eslint-import-resolver-node@0.3.9)(eslint-import-resolver-typescript@3.5.5)(eslint@8.43.0)
       has: 1.0.4
       is-core-module: 2.14.0
       is-glob: 4.0.3
@@ -19654,7 +19798,7 @@ packages:
       pretty-format: 29.7.0
       slash: 3.0.0
       strip-json-comments: 3.1.1
-      ts-node: 10.9.1(@types/node@20.5.1)(typescript@4.9.5)
+      ts-node: 10.9.1(@types/node@18.15.11)(typescript@4.9.5)
     transitivePeerDependencies:
       - babel-plugin-macros
       - supports-color
@@ -21089,18 +21233,9 @@ packages:
     dependencies:
       react: 18.2.0
 
-  /marked-react@2.0.0(react@18.2.0):
-    resolution: {integrity: sha512-Mp5HqfONf/RDqFtA+6xw2EjKkSbA8/xNPwyJ8ewLy/q3v21lRsPA7h+HUndVAW/yEIoebvcyzzSDpbjzL/xjZg==}
-    peerDependencies:
-      react: ^16.8.0 || >=17.0.0
-    dependencies:
-      marked: 6.0.0
-      react: 18.2.0
-    dev: false
-
-  /marked@6.0.0:
-    resolution: {integrity: sha512-7E3m/xIlymrFL5gWswIT4CheIE3fDeh51NV09M4x8iOc7NDYlyERcQMLAIHcSlrvwliwbPQ4OGD+MpPSYiQcqw==}
-    engines: {node: '>= 16'}
+  /marked@13.0.2:
+    resolution: {integrity: sha512-J6CPjP8pS5sgrRqxVRvkCIkZ6MFdRIjDkwUwgJ9nL2fbmM6qGQeB2C16hi8Cc9BOzj6xXzy0jyi0iPIfnMHYzA==}
+    engines: {node: '>= 18'}
     hasBin: true
     dev: false
 
@@ -21864,7 +21999,7 @@ packages:
       webpack: ^5.0.0
     dependencies:
       loader-utils: 2.0.4
-      webpack: 5.92.1(esbuild@0.18.20)
+      webpack: 5.92.1
     dev: true
 
   /node-preload@0.2.1:
@@ -22639,9 +22774,6 @@ packages:
     resolution: {integrity: sha512-2GTVocFkwblV/TIg9AmT7TI2fO4xdWkyN8aFUEVtiVNWt96GTR3FgQyHFValfCbcj1k9Xf962Ws2hYXYUr9k1Q==}
     engines: {node: '>= 12.0.0'}
     hasBin: true
-    peerDependenciesMeta:
-      '@parcel/core':
-        optional: true
     dependencies:
       '@parcel/config-default': 2.9.3(@parcel/core@2.9.3)(typescript@4.9.5)
       '@parcel/core': 2.9.3
@@ -23539,6 +23671,14 @@ packages:
       pure-color: 1.3.0
     dev: false
 
+  /react-circular-progressbar@2.1.0(react@18.2.0):
+    resolution: {integrity: sha512-xp4THTrod4aLpGy68FX/k1Q3nzrfHUjUe5v6FsdwXBl3YVMwgeXYQKDrku7n/D6qsJA9CuunarAboC2xCiKs1g==}
+    peerDependencies:
+      react: ^0.14.0 || ^15.0.0 || ^16.0.0 || ^17.0.0 || ^18.0.0
+    dependencies:
+      react: 18.2.0
+    dev: false
+
   /react-colorful@5.6.1(react-dom@18.2.0)(react@18.2.0):
     resolution: {integrity: sha512-1exovf0uGTGyq5mXQT0zgQ80uvj2PCwvF8zY1RN9/vbJVSjSo3fsB/4L3ObbF7u70NduSiK4xu4Y6q1MHoUGEw==}
     peerDependencies:
@@ -23547,16 +23687,6 @@ packages:
     dependencies:
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
-
-  /react-confetti@6.1.0(react@18.2.0):
-    resolution: {integrity: sha512-7Ypx4vz0+g8ECVxr88W9zhcQpbeujJAVqL14ZnXJ3I23mOI9/oBVTQ3dkJhUmB0D6XOtCZEM6N0Gm9PMngkORw==}
-    engines: {node: '>=10.18'}
-    peerDependencies:
-      react: ^16.3.0 || ^17.0.1 || ^18.0.0
-    dependencies:
-      react: 18.2.0
-      tween-functions: 1.2.0
-    dev: true
 
   /react-date-object@2.1.8:
     resolution: {integrity: sha512-94zg/9r29v/VsKsJT0E5+tPg85IyMirkU/B7qBWlhT7RDSuf9x5dczfbQOsj9TbzSVUK/Vx/ZDboOBy9hA381w==}
@@ -23682,6 +23812,16 @@ packages:
       react-date-object: 2.1.8
       react-dom: 18.2.0(react@18.2.0)
       react-element-popper: 2.1.6(react-dom@18.2.0)(react@18.2.0)
+    dev: false
+
+  /react-otp-input@3.1.1(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-bjPavgJ0/Zmf/AYi4onj8FbH93IjeD+e8pWwxIJreDEWsU1ILR5fs8jEJmMGWSBe/yyvPP6X/W6Mk9UkOCkTPw==}
+    peerDependencies:
+      react: '>=16.8.6 || ^17.0.0 || ^18.0.0'
+      react-dom: '>=16.8.6 || ^17.0.0 || ^18.0.0'
+    dependencies:
+      react: 18.2.0
+      react-dom: 18.2.0(react@18.2.0)
     dev: false
 
   /react-player@2.14.1(react@18.2.0):
@@ -25395,7 +25535,7 @@ packages:
     peerDependencies:
       webpack: ^5.0.0
     dependencies:
-      webpack: 5.92.1(esbuild@0.18.20)
+      webpack: 5.92.1
     dev: true
 
   /styled-components@6.0.0-rc.1(react-dom@18.2.0)(react@18.2.0):
@@ -25676,6 +25816,30 @@ packages:
       serialize-javascript: 6.0.2
       terser: 5.31.1
       webpack: 5.92.1(esbuild@0.18.20)
+    dev: true
+
+  /terser-webpack-plugin@5.3.10(webpack@5.92.1):
+    resolution: {integrity: sha512-BKFPWlPDndPs+NGGCr1U59t0XScL5317Y0UReNrHaw9/FwhPENlq6bfgs+4yPfyP51vqC1bQ4rp1EfXW5ZSH9w==}
+    engines: {node: '>= 10.13.0'}
+    peerDependencies:
+      '@swc/core': '*'
+      esbuild: '*'
+      uglify-js: '*'
+      webpack: ^5.1.0
+    peerDependenciesMeta:
+      '@swc/core':
+        optional: true
+      esbuild:
+        optional: true
+      uglify-js:
+        optional: true
+    dependencies:
+      '@jridgewell/trace-mapping': 0.3.25
+      jest-worker: 27.5.1
+      schema-utils: 3.3.0
+      serialize-javascript: 6.0.2
+      terser: 5.31.1
+      webpack: 5.92.1
     dev: true
 
   /terser@4.8.1:
@@ -26490,10 +26654,6 @@ packages:
       turbo-windows-arm64: 1.10.6
     dev: true
 
-  /tween-functions@1.2.0:
-    resolution: {integrity: sha512-PZBtLYcCLtEcjL14Fzb1gSxPBeL7nWvGhO5ZFPGqziCcr8uvHp0NDmdjBchp6KHL+tExcg0m3NISmKxhU394dA==}
-    dev: true
-
   /tweetnacl@1.0.3:
     resolution: {integrity: sha512-6rt+RN7aOi1nGMyC4Xa5DdYiukl2UWCbcJft7YhxReBGQD7OAM8Pbxw6YMo4r2diNEA8FEmu32YOn9rhaiE5yw==}
 
@@ -27230,6 +27390,39 @@ packages:
       fsevents: 2.3.3
     dev: true
 
+  /vite@4.3.9(@types/node@20.5.1):
+    resolution: {integrity: sha512-qsTNZjO9NoJNW7KnOrgYwczm0WctJ8m/yqYAMAK9Lxt4SoySUfS5S8ia9K7JHpa3KEeMfyF8LoJ3c5NeBJy6pg==}
+    engines: {node: ^14.18.0 || >=16.0.0}
+    hasBin: true
+    peerDependencies:
+      '@types/node': '>= 14'
+      less: '*'
+      sass: '*'
+      stylus: '*'
+      sugarss: '*'
+      terser: ^5.4.0
+    peerDependenciesMeta:
+      '@types/node':
+        optional: true
+      less:
+        optional: true
+      sass:
+        optional: true
+      stylus:
+        optional: true
+      sugarss:
+        optional: true
+      terser:
+        optional: true
+    dependencies:
+      '@types/node': 20.5.1
+      esbuild: 0.17.19
+      postcss: 8.4.38
+      rollup: 3.29.4
+    optionalDependencies:
+      fsevents: 2.3.3
+    dev: true
+
   /vm-browserify@1.1.2:
     resolution: {integrity: sha512-2ham8XPWTONajOR0ohOKOHXkm3+gaBmGut3SRuu75xLd/RRaY6vqgh8NBYYk7+RW3u5AtzPQZG8F10LHkl0lAQ==}
     dev: true
@@ -27575,6 +27768,46 @@ packages:
 
   /webpack-virtual-modules@0.6.2:
     resolution: {integrity: sha512-66/V2i5hQanC51vBQKPH4aI8NMAcBW59FVBs+rC7eGHupMyfn34q7rZIE+ETlJ+XTevqfUhVVBgSUNSW2flEUQ==}
+
+  /webpack@5.92.1:
+    resolution: {integrity: sha512-JECQ7IwJb+7fgUFBlrJzbyu3GEuNBcdqr1LD7IbSzwkSmIevTm8PF+wej3Oxuz/JFBUZ6O1o43zsPkwm1C4TmA==}
+    engines: {node: '>=10.13.0'}
+    hasBin: true
+    peerDependencies:
+      webpack-cli: '*'
+    peerDependenciesMeta:
+      webpack-cli:
+        optional: true
+    dependencies:
+      '@types/eslint-scope': 3.7.7
+      '@types/estree': 1.0.5
+      '@webassemblyjs/ast': 1.12.1
+      '@webassemblyjs/wasm-edit': 1.12.1
+      '@webassemblyjs/wasm-parser': 1.12.1
+      acorn: 8.12.0
+      acorn-import-attributes: 1.9.5(acorn@8.12.0)
+      browserslist: 4.23.1
+      chrome-trace-event: 1.0.4
+      enhanced-resolve: 5.17.0
+      es-module-lexer: 1.5.4
+      eslint-scope: 5.1.1
+      events: 3.3.0
+      glob-to-regexp: 0.4.1
+      graceful-fs: 4.2.11
+      json-parse-even-better-errors: 2.3.1
+      loader-runner: 4.3.0
+      mime-types: 2.1.35
+      neo-async: 2.6.2
+      schema-utils: 3.3.0
+      tapable: 2.2.1
+      terser-webpack-plugin: 5.3.10(webpack@5.92.1)
+      watchpack: 2.4.1
+      webpack-sources: 3.2.3
+    transitivePeerDependencies:
+      - '@swc/core'
+      - esbuild
+      - uglify-js
+    dev: true
 
   /webpack@5.92.1(esbuild@0.18.20):
     resolution: {integrity: sha512-JECQ7IwJb+7fgUFBlrJzbyu3GEuNBcdqr1LD7IbSzwkSmIevTm8PF+wej3Oxuz/JFBUZ6O1o43zsPkwm1C4TmA==}

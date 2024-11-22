@@ -27,6 +27,13 @@ export const Secondary: Story = {
   },
 };
 
+export const Silver: Story = {
+  args: {
+    ...Primary.args,
+    variant: 'silver',
+  },
+};
+
 export const Warning: Story = {
   args: {
     ...Primary.args,

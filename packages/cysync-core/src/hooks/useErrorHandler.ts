@@ -51,7 +51,7 @@ export const useErrorHandler = (params: IErrorHandlerParams) => {
 
   const errorMsg = React.useMemo(() => {
     if (error) {
-      logger.error(error);
+      logger.error(JSON.stringify(error, Object.getOwnPropertyNames(error)));
     }
 
     const parsedError = error

@@ -21,12 +21,15 @@ import {
   ITransactionNotificationReadRepository,
   IMigrationRepository,
   IMigration,
+  IInheritancePlan,
+  IInheritancePlanRepository,
 } from '@cypherock/db-interfaces';
 
 import { EncryptedDB } from './encryptedDb';
 import {
   Account,
   Device,
+  InheritancePlan,
   Migration,
   PriceHistory,
   PriceInfo,
@@ -62,6 +65,8 @@ export class Database implements IDatabase {
 
   migration: IMigrationRepository;
 
+  inheritancePlan: IInheritancePlanRepository;
+
   constructor(params: {
     database: EncryptedDB;
     device: IDeviceRepository;
@@ -73,6 +78,7 @@ export class Database implements IDatabase {
     transactionNotificationClick: ITransactionNotificationClickRepository;
     transactionNotificationRead: ITransactionNotificationReadRepository;
     migration: IMigrationRepository;
+    inheritancePlan: IInheritancePlanRepository;
   }) {
     this.database = params.database;
 
@@ -85,6 +91,7 @@ export class Database implements IDatabase {
     this.transactionNotificationClick = params.transactionNotificationClick;
     this.transactionNotificationRead = params.transactionNotificationRead;
     this.migration = params.migration;
+    this.inheritancePlan = params.inheritancePlan;
   }
 
   public static async create(dirPath: string) {
@@ -137,6 +144,11 @@ export class Database implements IDatabase {
       Migration.name,
       Migration.schema,
     );
+    const inheritancePlan = await Repository.create<IInheritancePlan>(
+      database,
+      InheritancePlan.name,
+      InheritancePlan.schema,
+    );
 
     return new Database({
       database,
@@ -149,6 +161,7 @@ export class Database implements IDatabase {
       transactionNotificationClick,
       transactionNotificationRead,
       migration,
+      inheritancePlan,
     });
   }
 

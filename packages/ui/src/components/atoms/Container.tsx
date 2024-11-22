@@ -26,9 +26,10 @@ export interface ContainerProps
   children?: ReactNode;
   size?: 'lg';
   $noFlex?: boolean;
+  $variant?: 'div' | 'span' | 'p';
 }
 
-const ContainerStyle = styled.div<ContainerProps>`
+const containerStyles = css<ContainerProps>`
   ${props =>
     !props.$noFlex &&
     css`
@@ -44,14 +45,33 @@ const ContainerStyle = styled.div<ContainerProps>`
   ${height}
 `;
 
-export const Container: FC<ContainerProps> = ({ children, ...props }) => (
-  <ContainerStyle {...props}>{children}</ContainerStyle>
-);
+const ContainerStyleDiv = styled.div<ContainerProps>`
+  ${containerStyles}
+`;
+const ContainerStyleP = styled.div<ContainerProps>`
+  ${containerStyles}
+`;
+const ContainerStyleSpan = styled.div<ContainerProps>`
+  ${containerStyles}
+`;
+
+const variantMap = {
+  div: ContainerStyleDiv,
+  p: ContainerStyleP,
+  span: ContainerStyleSpan,
+};
+
+export const Container: FC<ContainerProps> = ({ children, ...props }) => {
+  const ContainerStyle = variantMap[props.$variant ?? 'div'];
+
+  return <ContainerStyle {...props}>{children}</ContainerStyle>;
+};
 
 Container.defaultProps = {
   children: null,
   size: 'lg',
   $noFlex: false,
+  $variant: 'div',
 };
 
 export const FlexGapContainer = styled(Container)`

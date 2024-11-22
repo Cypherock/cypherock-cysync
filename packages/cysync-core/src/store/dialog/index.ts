@@ -86,6 +86,36 @@ const initialState: IDialogState = {
   betaNotificationDialog: {
     isOpen: false,
   },
+  inheritanceSyncPlans: {
+    isOpen: false,
+  },
+  inheritancePlanLogin: {
+    isOpen: false,
+  },
+  inheritanceSilverPlanPurchase: {
+    isOpen: false,
+  },
+  inheritanceGoldPlanPurchase: {
+    isOpen: false,
+  },
+  inheritanceEditExecutorMessage: {
+    isOpen: false,
+  },
+  inheritanceEditReminderTime: {
+    isOpen: false,
+  },
+  inheritanceEditUserDetails: {
+    isOpen: false,
+  },
+  inheritancePinRecovery: {
+    isOpen: false,
+  },
+  inheritanceEditEncryptedMessage: {
+    isOpen: false,
+  },
+  inheritanceEstateRecovery: {
+    isOpen: false,
+  },
 };
 
 export const dialogSlice = createSlice({
