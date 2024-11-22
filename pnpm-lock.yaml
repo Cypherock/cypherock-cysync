@@ -406,6 +406,9 @@ importers:
       '@cypherock/cysync-utils':
         specifier: workspace:^
         version: link:../utils
+      '@cypherock/sdk-app-inheritance':
+        specifier: ^1.0.0
+        version: 1.0.0
       '@cypherock/sdk-interfaces':
         specifier: ^0.0.15
         version: 0.0.15
@@ -5691,6 +5694,18 @@ packages:
       protobufjs: 7.3.2
     dev: false
 
+  /@cypherock/sdk-app-inheritance@1.0.0:
+    resolution: {integrity: sha512-odpeDD7hk04SfPQmjXP13rKnE9PJnBelxEUVss34ejtos7Y+33EvlgFH2dkHx2fQ9AtEDIuSQsamGc7RcjRIHg==}
+    dependencies:
+      '@cypherock/sdk-core': 0.1.0
+      '@cypherock/sdk-interfaces': 0.0.16
+      '@cypherock/sdk-utils': 0.0.19
+      long: 5.2.3
+      protobufjs: 7.3.2
+    transitivePeerDependencies:
+      - debug
+    dev: false
+
   /@cypherock/sdk-app-manager@0.0.31:
     resolution: {integrity: sha512-jbh/sCY4RyGCheBZvZKYzG+e27DrFwaATrCHEwKGguX3+a/CTl1YQe56m+V5UapP0MRT/1WCjeNb0Y03P2Ch+g==}
     dependencies:
@@ -5763,6 +5778,19 @@ packages:
       uuid: 9.0.0
     dev: false
 
+  /@cypherock/sdk-core@0.1.0:
+    resolution: {integrity: sha512-1EMf5cqmmZrdskwIKKxA1h6UB+kxLmNK67IT1OZZCoVy/wyQt0b8ioB6XnKnnrziyJ5T34FsxVI5dwXrz0pfOA==}
+    dependencies:
+      '@cypherock/sdk-interfaces': 0.0.16
+      '@cypherock/sdk-utils': 0.0.19
+      axios: 1.7.2
+      compare-versions: 6.0.0-rc.1
+      protobufjs: 7.3.2
+      uuid: 9.0.0
+    transitivePeerDependencies:
+      - debug
+    dev: false
+
   /@cypherock/sdk-hw-hid@0.0.22:
     resolution: {integrity: sha512-rskj2C1SIiyxieuIyd9GLJ4PIZ4GmLsBsj+rQAm4wPsueKqNeAavQo/86ymzEtwAGH8//Jb/NjKjISQLeCiMhQ==}
     dependencies:
@@ -5792,11 +5820,30 @@ packages:
       uuid: 9.0.0
     dev: false
 
+  /@cypherock/sdk-interfaces@0.0.16:
+    resolution: {integrity: sha512-YHhgPxx1a4sgl70JRN2Z42TpG7jae+V0XwNiEwMglav5RmopOTdPtT3K7RlRXL6AL5gOyZQooVguK5uVN7j3jw==}
+    dependencies:
+      '@types/events': 3.0.0
+      events: 3.3.0
+      uuid: 9.0.0
+    dev: false
+
   /@cypherock/sdk-utils@0.0.18:
     resolution: {integrity: sha512-u9pMJjvBKWkqKpBFE3NDcntsWiYBgPREs2+HRaMkwoidQmJoNlPQYOGda4cJds8sxzegXXQMe8flXGkpjl5K8A==}
     dependencies:
       '@aws-crypto/sha256-browser': 4.0.0
       '@cypherock/sdk-interfaces': 0.0.15
+      compare-versions: 6.0.0-rc.1
+      protobufjs: 7.3.2
+      semver: 7.6.2
+      uuid: 9.0.0
+    dev: false
+
+  /@cypherock/sdk-utils@0.0.19:
+    resolution: {integrity: sha512-uTEsPLjN0jy/sDdE3VLDqiByAagjsjqy1yIxFLxK+Ct8v+FHMpK4XCl8nIBqNuS5sXiHmAY+HWUyrZgH7/zzjg==}
+    dependencies:
+      '@aws-crypto/sha256-browser': 4.0.0
+      '@cypherock/sdk-interfaces': 0.0.16
       compare-versions: 6.0.0-rc.1
       protobufjs: 7.3.2
       semver: 7.6.2
@@ -13665,7 +13712,6 @@ packages:
       proxy-from-env: 1.1.0
     transitivePeerDependencies:
       - debug
-    dev: true
 
   /axobject-query@3.2.2:
     resolution: {integrity: sha512-QtQGAQJfHXiTrtRH8Q1gkarFLs56fDmfiMCptvRbo/AEQIImrW6u7EcUAOfkHHNE9dqZKH3227iRKRSp0KtfTw==}
@@ -19733,7 +19779,7 @@ packages:
       pretty-format: 29.7.0
       slash: 3.0.0
       strip-json-comments: 3.1.1
-      ts-node: 10.9.1(@types/node@20.5.1)(typescript@4.9.5)
+      ts-node: 10.9.1(@types/node@18.15.11)(typescript@4.9.5)
     transitivePeerDependencies:
       - babel-plugin-macros
       - supports-color
@@ -19774,7 +19820,7 @@ packages:
       pretty-format: 29.7.0
       slash: 3.0.0
       strip-json-comments: 3.1.1
-      ts-node: 10.9.1(@types/node@20.5.1)(typescript@4.9.5)
+      ts-node: 10.9.1(@types/node@18.15.11)(typescript@4.9.5)
     transitivePeerDependencies:
       - babel-plugin-macros
       - supports-color
