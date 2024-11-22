@@ -49,7 +49,7 @@ export const ExecutorMessageTutorial = () => {
 
       <VideoPlayer
         key={retryIndex}
-        url={constants.inheritance.goldPlanPurchaseTutorialLink}
+        url={constants.inheritance.goldPlanMessageTutorialVideo}
         width="720px"
         height="405px"
         onRetry={onRetry}
