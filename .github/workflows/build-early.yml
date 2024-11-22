@@ -54,16 +54,6 @@ jobs:
         with:
           node-version: ${{ matrix.node }}
 
-      - name: Install Protoc
-        run: |
-          PB_REL="https://github.com/protocolbuffers/protobuf/releases"
-          curl -LO $PB_REL/download/v22.2/protoc-22.2-linux-x86_64.zip
-          unzip protoc-22.2-linux-x86_64.zip -d $HOME/.local
-          export PATH="$PATH:$HOME/.local/bin"
-
-      - name: Check protoc installation
-        run: protoc --version
-
       - name: Setup pnpm store path
         run: pnpm config set store-dir ~/.pnpm-store
 
@@ -76,7 +66,7 @@ jobs:
             ${{ runner.os }}-pnpm-store-
 
       - name: pnpm install
-        run: pnpm inheritance-install
+        run: pnpm install
 
       - name: Setup turbo cache
         env:
@@ -125,16 +115,6 @@ jobs:
         with:
           node-version: ${{ matrix.node }}
 
-      - name: Install Protoc
-        run: |
-          PB_REL="https://github.com/protocolbuffers/protobuf/releases"
-          curl -LO $PB_REL/download/v22.2/protoc-22.2-linux-x86_64.zip
-          unzip protoc-22.2-linux-x86_64.zip -d $HOME/.local
-          export PATH="$PATH:$HOME/.local/bin"
-
-      - name: Check protoc installation
-        run: protoc --version
-
       - name: Setup pnpm store path
         run: pnpm config set store-dir ~/.pnpm-store
 
@@ -150,7 +130,7 @@ jobs:
         run: sudo apt-get install fakeroot dpkg rpm -y
 
       - name: pnpm install
-        run: pnpm inheritance-install
+        run: pnpm install
 
       - name: Setup turbo cache
         env:
@@ -229,7 +209,7 @@ jobs:
         run: pnpm fix:hashbang
 
       - name: pnpm install
-        run: pnpm inheritance-install
+        run: pnpm install
 
       - name: Setup turbo cache
         env:
@@ -301,7 +281,7 @@ jobs:
             ${{ runner.os }}-pnpm-store-
 
       - name: pnpm install
-        run: pnpm inheritance-install
+        run: pnpm install
 
       - name: Setup turbo cache
         env:
