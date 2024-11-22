@@ -50,6 +50,7 @@ export const useSession = (onErrorCallback: (e?: any) => void) => {
           connection: deviceConnection,
         }),
       );
+      onEnd();
 
       if (payload.sessionId && payload.sessionAge) {
         setIsSessionStarted(true);
