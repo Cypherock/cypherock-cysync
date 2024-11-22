@@ -27,6 +27,8 @@ export enum ServerErrorType {
   INVALID_DEVICE = 'SER_1024',
   INVALID_PRIVATE_KEY = 'SER_1025',
   ACTIVE_PLAN_FOUND = 'SER_1026',
+  OTP_RESEND_LIMIT = 'SER_1027',
+  DUPLICATE_EMAIL = 'SER_1028',
 }
 
 type CodeToErrorMap = {
@@ -85,37 +87,43 @@ export const serverErrorTypeDetails: CodeToErrorMap = {
     message: 'Request Conflict',
   },
   [ServerErrorType.VALIDATION_ERROR]: {
-    message: 'VALIDATION_ERROR',
+    message: 'Validation Error',
   },
   [ServerErrorType.MISSING_WALLET]: {
-    message: 'MISSING_WALLET',
+    message: 'Missing Wallet',
   },
   [ServerErrorType.MISSING_USER]: {
-    message: 'MISSING_USER',
+    message: 'Missing User',
   },
   [ServerErrorType.MISSING_NOMINEE]: {
-    message: 'MISSING_NOMINEE',
+    message: 'Missing Nominee',
   },
   [ServerErrorType.MISSING_EXECUTOR]: {
-    message: 'MISSING_EXECUTOR',
+    message: 'Missing Executor',
   },
   [ServerErrorType.MISSING_SESSION]: {
-    message: 'MISSING_SESSION',
+    message: 'Missing Session',
   },
   [ServerErrorType.INVALID_COUPON]: {
-    message: 'INVALID_COUPON',
+    message: 'Invalid Coupon',
   },
   [ServerErrorType.INVALID_SESSION]: {
-    message: 'INVALID_SESSION',
+    message: 'Invalid Session',
   },
   [ServerErrorType.INVALID_DEVICE]: {
-    message: 'INVALID_DEVICE',
+    message: 'Invalid Device',
   },
   [ServerErrorType.INVALID_PRIVATE_KEY]: {
-    message: 'INVALID_PRIVATE_KEY',
+    message: 'Invalid Private Key',
   },
   [ServerErrorType.ACTIVE_PLAN_FOUND]: {
-    message: 'ACTIVE_PLAN_FOUND',
+    message: 'Active Plan Found',
+  },
+  [ServerErrorType.OTP_RESEND_LIMIT]: {
+    message: 'Otp Resend Limit',
+  },
+  [ServerErrorType.DUPLICATE_EMAIL]: {
+    message: 'Duplicate Email',
   },
 };
 
