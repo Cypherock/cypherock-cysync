@@ -8,7 +8,7 @@ import {
   MilestoneAside,
   WalletDialogMainContainer,
 } from '@cypherock/cysync-ui';
-import React, { FC } from 'react';
+import React, { FC, useEffect } from 'react';
 
 import {
   ErrorHandlerDialog,
@@ -55,7 +55,10 @@ const InheritancePinRecovery: FC = () => {
     onHelp,
     isDeviceRequired,
     onRetry,
+    decryptPinAbort,
   } = useInheritancePinRecoveryDialog();
+
+  useEffect(() => decryptPinAbort, []);
 
   return (
     <BlurOverlay>
