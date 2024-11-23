@@ -1,5 +1,18 @@
 # @cypherock/cysync-desktop
 
+## 2.0.12-pre.0
+
+### Patch Changes
+
+- [#636](https://github.com/Cypherock/cypherock-cysync/pull/636) [`f4ece7ce`](https://github.com/Cypherock/cypherock-cysync/commit/f4ece7ceaf156bf571387576a72f93f28a3a19e3) Thanks [@TejasvOnly](https://github.com/TejasvOnly)! - Added Inheritance feature
+
+- Updated dependencies [[`f4ece7ce`](https://github.com/Cypherock/cypherock-cysync/commit/f4ece7ceaf156bf571387576a72f93f28a3a19e3)]:
+  - @cypherock/db-interfaces@0.0.5-pre.0
+  - @cypherock/cysync-desktop-ui@0.0.12-pre.0
+  - @cypherock/cysync-interfaces@0.0.6-pre.0
+  - @cypherock/database@0.0.9-pre.0
+  - @cypherock/cysync-utils@0.0.7-pre.0
+
 ## 2.0.11
 
 ### Patch Changes

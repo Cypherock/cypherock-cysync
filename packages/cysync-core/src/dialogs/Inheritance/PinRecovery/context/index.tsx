@@ -145,7 +145,7 @@ export const InheritancePinRecoveryDialogProvider: FC<
   const walletAuthFetchRequestId = useCallback(() => {
     walletAuthService.fetchRequestId(
       walletId,
-      InheritanceUserTypeMap.nominee,
+      InheritanceUserTypeMap.owner,
       'wallet-based',
     );
   }, [selectedWallet, walletAuthService.fetchRequestId]);

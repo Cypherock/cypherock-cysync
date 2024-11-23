@@ -1,13 +1,10 @@
-# v2.0.13
+# v2.0.12
 
 ### 🚀 Features
 
-- **XRP Network Support**: Now you can seamlessly manage your XRP assets directly through the app.
-
-#### Cypherock Cover Support
-
-- **PIN Recovery**: Securely back up your PIN so you never have to worry about losing it.
-- **Estate Recovery**: Seamless, non-custodial, and non-KYC recovery service for your crypto assets.
+- **Cypherock Cover Support**
+  - **PIN Recovery**: Securely back up your PIN so you never have to worry about losing it.
+  - **Estate Recovery**: Seamless, non-custodial, and non-KYC recovery service for your crypto assets.
 
 ### 🐛 Bugfixes
 

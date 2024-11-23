@@ -1,25 +1,25 @@
 {
-  "x1Card": "X1 Card",
+  "x1Card": "بطاقة X1",
   "help": "مساعدة",
   "back": "عودة",
-  "allWallets": "جميع Wallets",
+  "allWallets": "جميع المحافظ",
   "labels": {
-    "email": "Email",
-    "required": "Required"
+    "email": "بريد إلكتروني",
+    "required": "مطلوب"
   },
   "buttons": {
-    "addWallet": "إضافة Wallets",
+    "addWallet": "إضافة محفظة",
     "addAccount": "إضافة حساب",
-    "syncWallets": "مزامنة Wallets",
+    "syncWallets": "مزامنة المحافظ",
     "addToken": "إضافة رمز مميز",
     "reverify": "إعادة التحقق",
     "continue": "متابعة",
     "confirm": "تأكيد",
     "skip": "تخطي",
     "send": "إرسال",
-    "receive": "استقبال",
-    "back": "العودة",
-    "retry": "إعادة المحاولة",
+    "receive": "استلام",
+    "back": "رجوع",
+    "retry": "محاولة أخرى",
     "update": "تحديث",
     "cancel": "إلغاء",
     "reset": "إعادة تعيين",
@@ -28,125 +28,125 @@
     "report": "إبلاغ",
     "help": "مساعدة",
     "stop": "إيقاف",
-    "exit": "الخروج",
+    "exit": "خروج",
     "resync": "إعادة المزامنة",
     "showAll": "إظهار الكل",
-    "connect": "الاتصال",
+    "connect": "اتصال",
     "disconnect": "قطع الاتصال",
     "reject": "رفض",
     "check": "التحقق",
-    "authenticate": "المصادقة",
+    "authenticate": "التحقق",
     "start": "بدء",
-    "setPassword": "تعيين كلمة مرور",
+    "setPassword": "تعيين كلمة المرور",
     "changePassword": "تغيير كلمة المرور",
     "removePassword": "إزالة كلمة المرور",
     "details": "التفاصيل",
     "showQRCode": "إظهار رمز الاستجابة السريعة",
     "editAccount": "تحرير الحساب",
     "submit": "إرسال",
-    "showMore": "عرض المزيد",
-    "resendOTP": "Restart",
-    "next": "Next",
-    "setup": "Setup",
-    "sync": "Sync",
-    "learnMore": "Learn More",
-    "checkout": "Checkout",
-    "yes": "Yes",
-    "no": "No",
-    "saveAndContinue": "Save and continue",
-    "exitWithoutSaving": "Exit without saving",
-    "saveChanges": "Save changes",
-    "edit": "Edit",
-    "tryAgain": "Try Again"
+    "showMore": "إظهار المزيد",
+    "resendOTP": "إعادة تشغيل",
+    "next": "التالي",
+    "setup": "إعداد",
+    "sync": "مزامنة",
+    "learnMore": "تعرف على المزيد",
+    "checkout": "الدفع",
+    "yes": "نعم",
+    "no": "لا",
+    "saveAndContinue": "حفظ ومتابعة",
+    "exitWithoutSaving": "الخروج بدون حفظ",
+    "saveChanges": "حفظ التغييرات",
+    "edit": "تحرير",
+    "tryAgain": "حاول مرة أخرى"
   },
   "dashboard": {
     "wallet": {
-      "renewNow": "Renew Now",
-      "buyNow": "Buy Now",
-      "created": "Created",
-      "expiredOn": "Expired on",
-      "expiresIn": "Expires in",
-      "expiry": "Expiry",
-      "expiring": "Expiring",
-      "expired": "Expired",
-      "pending": "Pending",
-      "silver": "Silver",
-      "gold": "Gold",
-      "hours": "Hours",
-      "setupCover": "Setup Cypherock Cover"
+      "renewNow": "تجديد الآن",
+      "buyNow": "اشتر الآن",
+      "created": "تم إنشاؤه",
+      "expiredOn": "انتهت صلاحيته في",
+      "expiresIn": "تنتهي صلاحيته في",
+      "expiry": "تاريخ الانتهاء",
+      "expiring": "على وشك الانتهاء",
+      "expired": "منتهية الصلاحية",
+      "pending": "قيد الانتظار",
+      "silver": "فضي",
+      "gold": "ذهبي",
+      "hours": "ساعات",
+      "setupCover": "إعداد غلاف Cypherock"
     }
   },
   "tooltips": {
-    "downloadCsv": "تصدير كملف CSV"
+    "downloadCsv": "تصدير بصيغة CSV"
   },
   "deviceAuthentication": {
     "success": {
-      "title": "تم مصادقة X1 Vault بنجاح"
+      "title": "تمّت مصادقة X1 Vault بنجاح"
     },
     "loading": {
-      "title": "يرجى الانتظار أثناء مصادقة X1 Vault",
+      "title": "الرجاء الانتظار أثناء مصادقة X1 Vault",
       "subtitle": "لا تقم بفصل X1 Vault أثناء إجراء العملية"
     }
   },
   "lockscreen": {
     "title": "بوابتك نحو السيادة الذاتية",
     "passwordLabel": "أدخل كلمة المرور لفتح قفل cySync",
-    "forgotPassword": "هل نسيت كلمة المرور؟",
+    "forgotPassword": "نسيت كلمة المرور؟",
     "incorrectPassword": "كلمة مرور غير صحيحة",
     "sameOldAndNewPassword": "لا يمكن أن تكون كلمة المرور الجديدة هي نفسها كلمة المرور القديمة",
     "button": "فتح القفل",
     "forgotPasswordDialog": {
-      "title": "سوف يؤدي إعادة تعيين كلمة المرور إلى إعادة تعيين cySync app الخاص بك هل تريد المتابعة؟",
-      "subtext": "سيؤدي هذا إلى محو جميع بياناتك الموجودة على cySync app. لاحظ أن هذا لن يؤدي إلى خسارة الأصول"
+      "title": "هل تريد المتابعة؟ إعادة تعيين كلمة المرور ستؤدي إلى إعادة تعيين تطبيق cySync الخاص بك",
+      "subtext": "سيؤدي هذا إلى مسح جميع بياناتك على تطبيق cySync الخاص بك. لاحظ أن هذا لن يؤدي إلى فقدان الأصول"
     }
   },
   "permissionSetup": {
-    "title": "اضغط على تشغيل الأمر التالي على محطتك للسماح للتطبيق بالوصول إلى منفذ USB",
+    "title": "اضغط على تشغيل الأمر التالي على محطة التحكم الخاصة بك للسماح للتطبيق بالوصول إلى منفذ USB",
     "subtext": "أعد تشغيل التطبيق بعد تشغيل البرنامج النصي",
     "checkbox": "لقد قمت بتشغيل الأمر بالفعل"
   },
   "addAccount": {
     "header": "إضافة حساب",
     "select": {
-      "header": "اختر المحفظة والعملة التي تريد إضافتها",
+      "header": "حدد المحفظة والعملة التي تريد إضافتها",
       "searchText": "بحث",
-      "walletPlaceholder": "اختر wallet",
+      "walletPlaceholder": "اختر محفظة",
       "coinPlaceholder": "اختر عملة"
     },
     "deviceActions": {
-      "header": "اتبع التعليمات على X1 Vault",
-      "subtext": "أضف عملة/حساب إلى المحفظة",
+      "header": "اتبع التعليمات الموجودة على X1 Vault",
+      "subtext": "أضف عملة/حسابًا إلى المحفظة",
       "walletName": "${walletName}",
       "actions": {
         "verifyCoin": "تحقق من العملات على الجهاز",
-        "enterPassphrase": "أدخل passphrase",
-        "enterPin": "أدخل رمز PIN واضغط على أي بطاقة",
+        "enterPassphrase": "أدخل عبارة المرور",
+        "enterPin": "أدخل رقم التعريف الشخصي واضغط على أي بطاقة",
         "tapCard": "اضغط على أي بطاقة"
       }
     },
     "sync": {
       "syncingHeader": "مزامنة الحساب",
-      "header": "أضف حسابات جديدة",
+      "header": "إضافة حسابات جديدة",
       "newAccount": "حسابات جديدة",
-      "advancedButton": "عرض جميع أنواع العناوين",
-      "accountsNotSynced": "لم يتم مزامنة الحساب بعد (${count})",
+      "advancedButton": "إظهار جميع أنواع العناوين",
+      "accountsNotSynced": "الحساب لم يتم مزامنته بعد (${count})",
       "deselectAllButton": "إلغاء تحديد الكل",
       "selectAllButton": "تحديد الكل",
-      "accountsInPortfolio": "الحسابات الموجودة بالفعل في portfolio (${count})",
-      "addAccountButton": "أضف الحسابات",
+      "accountsInPortfolio": "الحسابات الموجودة بالفعل في المحفظة (${count})",
+      "addAccountButton": "إضافة حسابات",
       "resyncButton": "إعادة المزامنة"
     },
     "congrats": {
-      "header": "أضف عملة/حساب",
-      "subtext": "أضف حسابات أخرى أو ارجع إلى portfolio",
+      "header": "إضافة عملة/حساب",
+      "subtext": "أضف حسابات أخرى أو عد إلى المحفظة",
       "title": "تمت إضافة الحسابات بنجاح",
-      "buttonAddMore": "أضف المزيد"
+      "buttonAddMore": "إضافة المزيد"
     },
     "aside": {
       "tabs": {
-        "asset": "أصل",
+        "asset": "الأصل",
         "device": "X1 Vault",
-        "confirmation": "تأكيد"
+        "confirmation": "التأكيد"
       }
     }
   },
@@ -155,34 +155,34 @@
     "select": {
       "header": "حدد المحفظة والحسابات والرموز المميزة التي تريد إضافتها",
       "searchText": "بحث",
-      "walletPlaceholder": "اختر Wallet",
-      "tokenPlaceholder": "اختر الرموز المميزة",
-      "accountPlaceholder": "اختر الحسابات",
-      "message": "يجب إضافة حساب ${chainName} أولاً للمتابعة بإضافة الرموز المميزة"
+      "walletPlaceholder": "حدد المحفظة",
+      "tokenPlaceholder": "حدد الرموز المميزة",
+      "accountPlaceholder": "حدد الحسابات",
+      "message": "يجب إضافة حساب ${chainName} أولاً لمواصلة إضافة الرموز المميزة"
     },
     "congrats": {
       "title": "تمت إضافة الرموز المميزة بنجاح",
-      "subtitle": "أضف رموزًا أخرى أو ارجع إلى portfolio",
-      "buttonAddMore": "أضف المزيد"
+      "subtitle": "أضف رموزًا مميزة أخرى أو عد إلى المحفظة",
+      "buttonAddMore": "إضافة المزيد"
     }
   },
   "receive": {
-    "title": "استلام",
-    "showAnywayButton": "لا تمتلك جهازك؟",
+    "title": "استقبال",
+    "showAnywayButton": "ألا تملك جهازك؟",
     "source": {
-      "title": "استلام",
-      "subtitle": "اختر محفظة وحسابًا ليتم الائتمان",
+      "title": "استقبال",
+      "subtitle": "اختر محفظة وحسابًا للائتمان",
       "searchText": "بحث",
-      "walletPlaceholder": "اختر Wallet",
-      "accountPlaceholder": "الحساب المراد الائتمان"
+      "walletPlaceholder": "اختر محفظة",
+      "accountPlaceholder": "الحساب المراد اعتماده"
     },
     "x1Vault": {
-      "title": "اتبع التعليمات على X1 Vault",
-      "subtitle": "أكد العملية على جهازك لإنهاء",
+      "title": "اتبع التعليمات الموجودة على X1 Vault",
+      "subtitle": "أكد العملية على جهازك لإتمامها",
       "actions": {
         "verifyCoin": "تحقق من اسم الأصل والمحفظة على الجهاز",
-        "enterPassphrase": "أدخل passphrase",
-        "enterPin": "أدخل رمز PIN واضغط على أي بطاقة",
+        "enterPassphrase": "أدخل عبارة المرور",
+        "enterPin": "أدخل رقم التعريف الشخصي واضغط على أي بطاقة",
         "tapCard": "اضغط على أي بطاقة"
       }
     },
@@ -193,25 +193,25 @@
       },
       "addressLabel": "عنوان",
       "actions": {
-        "verify": "تحقق من تطابق العنوان على X1 Vault بالضبط مع العنوان المعروض أعلاه"
+        "verify": "تحقق من تطابق عنوان الاستقبال على X1 Vault تمامًا مع العنوان المعروض أعلاه"
       },
       "messageBox": {
-        "warning": "لم يتم التحقق من هذا عنوان الاستلام بواسطة الجهاز. استخدمه على مسؤوليتك الخاصة"
+        "warning": "لم يتم التحقق من عنوان الاستقبال هذا بواسطة الجهاز. استخدمه على مسؤوليتك الخاصة"
       }
     },
     "congrats": {
       "title": "تم التحقق من العنوان بنجاح"
     },
     "finalButtons": {
-      "secondary": "تحقق مرة أخرى",
-      "secondaryUnverified": "تحقق من العنوان",
+      "secondary": "التحقق مرة أخرى",
+      "secondaryUnverified": "التحقق من العنوان",
       "primary": "تم"
     },
     "aside": {
       "tabs": {
-        "source": "المصدر",
+        "source": "مصدر",
         "device": "X1 Vault",
-        "receive": "استلام"
+        "receive": "استقبال"
       }
     }
   },
@@ -237,7 +237,7 @@
         },
         {
           "id": 2,
-          "name": "متوسط"
+          "name": "المتوسط"
         },
         {
           "id": 3,
@@ -253,23 +253,23 @@
       "title": "المصدر",
       "subtitle": "اختر محفظة وحسابًا",
       "searchText": "بحث",
-      "walletPlaceholder": "اختر Wallet",
-      "accountPlaceholder": "الحساب الذي سيتم خصم منه"
+      "walletPlaceholder": "اختر محفظة",
+      "accountPlaceholder": "الحساب المراد خصمه"
     },
     "x1Vault": {
-      "title": "اتبع التعليمات على X1 Vault",
+      "title": "اتبع التعليمات الموجودة على X1 Vault",
       "actions": {
         "verifyCoin": "التحقق",
         "verifyDetails": "التحقق من تفاصيل المعاملة على الجهاز",
-        "enterPassphrase": "أدخل passphrase",
-        "enterPin": "أدخل رمز PIN واضغط على أي بطاقة",
+        "enterPassphrase": "أدخل عبارة المرور",
+        "enterPin": "أدخل رقم التعريف الشخصي واضغط على أي بطاقة",
         "tapCard": "اضغط على أي بطاقة"
       },
       "token": {
-        "info": "تذكر أن ${tokenName} هو رمز ${parentCoinName} ، لذلك سيتم حساب الرسوم بوحدة ${parentCoinUnit}"
+        "info": "تذكر أن ${tokenName} هو رمز ${parentCoinName}، وبالتالي سيتم احتساب الرسوم بوحدة ${parentCoinUnit}"
       },
       "messageBox": {
-        "warning": "تحقق دائمًا من تطابق العنوان المعروض على جهازك مع العنوان الذي قدمه المستلم بدقة"
+        "warning": "تحقق دائمًا من أن العنوان المعروض على جهازك يتطابق تمامًا مع العنوان الذي قدمه المستلم"
       }
     },
     "recipient": {
@@ -279,46 +279,46 @@
         "label": "عنوان المستلم",
         "placeholder": "أدخل العنوان",
         "error": "عنوان غير صالح",
-        "ownAddress": "نوان المستلم هو نفسه عنوان المرسل"
+        "ownAddress": "عنوان المستلم هو نفسه عنوان المرسل"
       },
       "tabs": {
         "single": "معاملة واحدة",
-        "batch": "معاملة دفعة"
+        "batch": "معاملة مجمعة"
       },
       "amount": {
         "label": "المبلغ المراد إرساله",
         "placeholder": "0",
-        "toggle": "إرسال أقصى قدر ممكن",
+        "toggle": "إرسال الحد الأقصى",
         "dollar": "$",
         "error": "أموال غير كافية",
-        "zeroAmount": "لا يمكن أن يكون المبلغ صفرًا",
-        "notOverDustThreshold": "المبلغ أقل من الحد الأدنى",
-        "amountBelowXrpReserve": "عنوان المستلم غير نشط. أرسل ما لا يقل عن 10 XRP لتنشيطه.",
-        "balanceBelowXrpReserve": "لا يمكن أن يكون الرصيد أقل من 10 XRP"
+        "zeroAmount": "لا يمكن أن يكون المبلغ صفراً",
+        "notOverDustThreshold": "المبلغ أقل من حد الغبار",
+        "amountBelowXrpReserve": "عنوان المستلم غير نشط. أرسل 10 XRP على الأقل لتنشيطه.",
+        "balanceBelowXrpReserve": "لا يمكن أن يقل الرصيد عن 10 XRP"
       },
       "fees": {
         "title": "الرسوم",
         "label": "رسوم الشبكة"
       },
       "remarks": {
-        "label": "مذكرة شخصية (اختياري)",
+        "label": "ملاحظة شخصية (اختياري)",
         "placeholder": "أدخل ملاحظاتك الشخصية هنا",
-        "error": "تم تجاوز الحد الأقصى للحرف (120 حرفاً)"
+        "error": "تم تجاوز الحد الأقصى لعدد الأحرف (120 حرفًا)"
       },
       "destinationTag": {
         "label": "علامة الوجهة",
         "placeholder": "اختياري",
-        "error": "القيمة مرتفعة جدًا"
+        "error": "قيمة مرتفعة جدًا"
       },
-      "warning": "قد تلغى المعاملة إذا كانت الرسوم منخفضة جدًا",
-      "feeError": "المعاملة ذات الرسوم 0 غير مسموح بها",
-      "feeBelowMinError": "ستفشل المعاملة مع رسم أقل من الحد الأدنى",
-      "notEnoughBalance": "أموال غير كافية لإجراء المعاملة",
+      "warning": "قد يتم إلغاء المعاملة إذا كانت الرسوم منخفضة جدًا",
+      "feeError": "لا يُسمح بالمعاملات بدون رسوم",
+      "feeBelowMinError": "المعاملة ذات الرسوم الأقل من الحد الأدنى ستفشل",
+      "notEnoughBalance": "أموال غير كافية للمعاملة",
       "toggleText": {
-        "replace": "السماح باستبدال المعاملة (استبدال برسوم)",
-        "unconfirmed": "تضمين العملات المعدنية من المعاملات غير المؤكدة والقابلة للاستبدال"
+        "replace": "السماح باستبدال المعاملة (استبدال بالرسوم)",
+        "unconfirmed": "تضمين العملات من المعاملات القابلة للاستبدال غير المؤكدة"
       },
-      "infoBox": "أقصى مبلغ يمكن إنفاقه هو ",
+      "infoBox": "الحد الأقصى للمبلغ الذي يمكن إنفاقه هو ",
       "addButton": "إضافة مستلم آخر"
     },
     "summary": {
@@ -327,16 +327,16 @@
       "to": "إلى",
       "amount": "المبلغ",
       "network": "رسوم الشبكة",
-      "debit": "المبلغ الإجمالي الذي سيتم خصمه",
-      "remarks": "ملاحظات شخصية",
+      "debit": "المجموع المراد خصمه",
+      "remarks": "ملاحظة شخصية",
       "destinationTag": "علامة الوجهة"
     },
     "finalMessage": {
-      "button": "تحقق من المعاملات",
+      "button": "التحقق من المعاملات",
       "title": "تم إرسال المعاملة",
-      "hashLabel": "معرف المعاملة",
+      "hashLabel": "هش المعاملة",
       "messageBox": {
-        "warning": "سيتم تحديث رصيد حسابك عند تأكيد المعاملة من قبل blockchain"
+        "warning": "سيتم تحديث رصيد حسابك عند تأكيد المعاملة بواسطة blockchain"
       }
     },
     "aside": {
@@ -349,19 +349,19 @@
       }
     },
     "optimism": {
-      "deviceAction": "رسوم L1: ${fee}. لن يتم التحقق من رسوم L1 من الجهاز",
+      "deviceAction": "رسوم L1: ${fee}. لن يتم التحقق من رسوم L1 الخاصة بك من الجهاز",
       "l1": " (L1)",
       "l2": " (L2)",
       "suffix": " (L1 + L2)"
     }
   },
   "history": {
-    "tableTitle": "التعاملات",
+    "tableTitle": "المعاملات",
     "tableHeader": {
       "time": "الوقت",
       "asset": "الأصل",
-      "walletAndAccount": "Wallet / الحساب",
-      "wallet": "Wallet",
+      "walletAndAccount": "المحفظة / الحساب",
+      "wallet": "المحفظة",
       "account": "الحساب",
       "amount": "الكمية",
       "value": "القيمة"
@@ -369,12 +369,12 @@
     "transactionStatus": {
       "send": {
         "failed": "فشل الإرسال",
-        "pending": "جاري الإرسال",
+        "pending": "جارٍ الإرسال",
         "success": "تم الإرسال"
       },
       "receive": {
         "failed": "فشل الاستلام",
-        "pending": "جاري الاستلام",
+        "pending": "جارٍ الاستلام",
         "success": "تم الاستلام"
       }
     },
@@ -384,59 +384,59 @@
       "fee": "الرسوم",
       "type": "النوع",
       "status": "الحالة",
-      "wallet": "Wallet",
+      "wallet": "المحفظة",
       "account": "الحساب",
       "asset": "الأصل",
       "sender": "المرسل",
       "receiver": "المستلم",
-      "mine": "لي",
-      "transactionHash": "معرف المعاملة",
+      "mine": "خاصتي",
+      "transactionHash": "هش المعاملة",
       "description": "الوصف",
       "feePrefix": {
         "optimism": "L2 "
       },
-      "remarks": "ملاحظات شخصية",
-      "destinationTag": "علامة الوجهة"
+      "remarks": "ملاحظة شخصية",
+      "destinationTag": "Destination Tag"
     },
     "noData": {
-      "text": "لا توجد تعاملات حتى الآن",
-      "subText": "استلم عملة مشفرة اليوم لعرض سجل تعاملاتك هنا",
-      "buttonText": "استلم"
+      "text": "لا توجد معاملات حتى الآن",
+      "subText": "استقبل العملات المشفرة اليوم لعرض سجل المعاملات هنا",
+      "buttonText": "استقبال"
     },
     "search": {
-      "placeholder": "ابحث...",
+      "placeholder": "بحث...",
       "notFound": {
         "text": "لم يتم العثور على نتائج لـ",
-        "subText": "يرجى محاولة البحث عن كلمات رئيسية أخرى"
+        "subText": "الرجاء محاولة البحث عن كلمات رئيسية أخرى"
       }
     }
   },
   "onboarding": {
     "info": {
       "aside": {
-        "title": "مرحبا بكم في cySync app",
-        "subTitle": "بوابة الوصول إلى السيادة الذاتية"
+        "title": "أهلاً بك في تطبيق cySync",
+        "subTitle": "بوابتك نحو السيادة الذاتية"
       },
       "dialogBox": {
-        "title": "تأكد من ما يلي قبل المتابعة",
+        "title": "تأكد من التالي قبل المتابعة",
         "listItems": [
-          "تواجدك في بيئة آمنة ومُحكمة",
-          "توفر 10-15 دقائق على الأقل لإعداد محفظتك",
-          "اتصال نشط بالإنترنت",
-          "ختم العبوة مُقاوم للتلاعب سليم",
-          "لن تطلب منك Cypherock أبدًا seed phrase ولن تطلب منك أبدًا التوقيع على معاملة",
-          "سيتواصل معك Cypherock فقط عبر البريد الإلكتروني من cypherock.com. لا تثق بأي بريد إلكتروني من أي مجال نطاق موقع ويب آخر"
+          "أنت موجود في بيئة آمنة ومأمونة",
+          "لديك ما لا يقل عن 10-15 دقيقة لإعداد محفظتك",
+          "لديك اتصال إنترنت نشط",
+          "ختم العبوة المضاد للعبث سليم",
+          "لن يطلب منك Cypherock أبدًا عبارة البذور الخاصة بك، ولن يطلب منك أبدًا التوقيع على معاملة",
+          "سيرسل إليك Cypherock رسائل بريد إلكتروني فقط من cypherock.com. لا تثق بأي بريد إلكتروني من أي مجال موقع ويب آخر"
         ]
       }
     },
     "usage": {
       "userNew": {
-        "title": "أستخدم Cypherock X1 لأول مرة",
+        "title": "أنا أستخدم Cypherock X1 لأول مرة",
         "note": "اختر هذا الخيار إذا لم تستخدم Cypherock X1 من قبل"
       },
       "userExpert": {
         "title": "لقد استخدمت Cypherock X1 من قبل",
-        "note": "اختر هذا الخيار إذا كنت ترغب في نقل محافظك إلى Cypherock X1 جديد. قد يكون ذلك ضروريًا في حالة فقدان X1 Vault أو واحد أو أكثر من X1 Cards"
+        "note": "اختر هذا الخيار إذا كنت تريد نقل محافظك إلى Cypherock X1 جديد. قد يكون هذا مطلوبًا في حالة فقدان X1 Vault وواحدة أو أكثر من بطاقات X1"
       }
     },
     "terms": {
@@ -450,18 +450,18 @@
     },
     "setPassword": {
       "heading": "تعيين كلمة المرور",
-      "title": "تعيين كلمة مرور cySync الخاصة بك",
-      "subtitle": "لا نقوم بتخزين كلمة مرورك على خوادمنا",
-      "success": "تم تعيين كلمة مرور CySync بنجاح",
+      "title": "حدد كلمة مرور cySync الخاصة بك",
+      "subtitle": "نحن لا نخزن كلمة المرور الخاصة بك على خوادمنا",
+      "success": "تم تعيين كلمة مرور cySync الخاصة بك بنجاح",
       "newPasswordLabel": "كلمة مرور جديدة",
       "confirmPasswordLabel": "تأكيد كلمة المرور",
       "hint": "استخدم 8 أحرف أو أكثر مع مزيج من الحروف والأرقام والرموز"
     },
     "emailAuth": {
       "heading": "مصادقة البريد الإلكتروني",
-      "title": "يوصى بإدخال معرف بريد إلكتروني كـ 2FA للحصول على نتائج المصادقة",
-      "subtitle": "لا نقوم بتخزين معرف البريد الإلكتروني هذا بشكل دائم على خوادمنا",
-      "success": "تم تعيين كلمة مرور CySync بنجاح",
+      "title": "نوصي بإدخال معرف بريد إلكتروني كـ 2FA للحصول على نتائج المصادقة",
+      "subtitle": "نحن لا نخزن معرف البريد الإلكتروني هذا بشكل دائم على خوادمنا",
+      "success": "تم تعيين كلمة مرور cySync الخاصة بك بنجاح",
       "enterEmailLabel": "البريد الإلكتروني",
       "placeholder": "البريد الإلكتروني"
     },
@@ -475,64 +475,64 @@
     },
     "deviceAuth": {
       "heading": "مصادقة الجهاز",
-      "title": "سيتم الآن مصادقة X1 Vault الخاص بك \nمن خلال خادم Cypherock للتحقق من صحة \n",
+      "title": "سيتم الآن التحقق من هوية X1 Vault من خلال خادم Cypherock للتحقق من أصالتها",
       "subtext": "لا تقم بفصل جهازك أثناء إجراء العملية",
       "success": {
-        "title": "تم مصادقة X1 Vault بنجاح",
-        "subtext": "انتظر بينما ننقل إلى الشاشة التالية"
+        "title": "تم التحقق من هوية X1 Vault بنجاح",
+        "subtext": "انتظر أثناء نقلك إلى الشاشة التالية"
       },
       "error": "فشلت مصادقة X1 Vault"
     },
     "joystickTraining": {
       "heading": "تعليمات عصا التحكم",
-      "subtext": "يوفر X1 Vault عصا تحكم بأربعة اتجاهات للتنقل على الشاشة",
+      "subtext": "يوفر X1 Vault عصا تحكم رباعية الاتجاهات للتنقل في الشاشة",
       "upTitle": "التبديل لأعلى",
       "rightTitle": "التبديل لليمين",
       "downTitle": "التبديل لأسفل",
       "leftTitle": "التبديل لليسار",
-      "centerTitle": "انقر على مركز عصا التحكم للمتابعة",
-      "centerSubtext": "يحتوي X1 Vault على زر مركزي لأداء النقر",
+      "centerTitle": "انقر في وسط عصا التحكم للمتابعة",
+      "centerSubtext": "يحتوي X1 Vault على زر في المنتصف للقيام بالنقر",
       "footer": "اتبع التعليمات الموجودة على الجهاز",
-      "success": "اكتملت تعليمات عصا التحكم",
+      "success": "تمت تعليمات عصا التحكم",
       "error": "فشلت تعليمات عصا التحكم"
     },
     "cardTraining": {
-      "heading": "تعليمات النقر على البطاقة",
-      "title": "اضغط على أي X1 Card أسفل X1 Vault لاختبار النقر على البطاقة",
-      "subtext": "تتواصل بطاقاتك مع الجهاز من خلال NFC المشفر. تأكد من الاحتفاظ بها مُلصقة حتى تسمع صوتًا صوتيًا",
-      "error": "فشل النقر على البطاقة"
+      "heading": "تعليمات لمس البطاقة",
+      "title": "انقر على أي بطاقة X1 أسفل X1 Vault لاختبار لمس البطاقة",
+      "subtext": "تتواصل بطاقاتك مع الجهاز من خلال NFC المشفر. تأكد من إبقاءها مثبتة حتى تسمع صوتًا",
+      "error": "فشل لمس البطاقة"
     },
     "cardAuth": {
       "heading": "مصادقة البطاقة",
-      "title": "اضغط على X1 Cards واحدة تلو الأخرى أسفل X1 Vault حتى تسمع 3 أصوات صفير",
-      "subtext": "ارفع بطاقتك بعد 3 أصوات صوتية"
+      "title": "انقر على بطاقات X1 واحدة تلو الأخرى أسفل X1 Vault حتى تسمع 3 أصوات",
+      "subtext": "ارفع بطاقتك بعد 3 أصوات"
     },
     "walletActionsDialogBox": {
-      "title": "دعنا ننشئ محفظة قبل المتابعة. تأكد من وجود جميع X1 Cards الأربع معك",
-      "subTitle": "توجد الدروس التعليمية التالية فقط لتوجيهك على جهازك. يمكنك إنشاء محفظة حتى بدون هذه الدروس التعليمية بشكل مستقل على Cypherock X1",
+      "title": "لنقم بإنشاء محفظة قبل المتابعة. تأكد من أن لديك جميع بطاقات X1 الأربع معك",
+      "subTitle": "هذه الدروس موجودة فقط لإرشادك على جهازك. يمكنك إنشاء محفظة حتى بدون هذه الدروس بشكل مستقل على Cypherock X1 الخاصة بك",
       "createWallet": {
-        "title": "إنشاء wallet جديدة",
-        "list": ["إذا اشتريت Cypherock X1 جديدًا وترغب في إعداد محفظة جديدة"]
+        "title": "إنشاء محفظة جديدة",
+        "list": ["إذا كنت قد اشتريت Cypherock X1 جديدة وتريد إعداد محفظة جديدة"]
       },
       "importWallet": {
-        "title": "قم باستيراد محفظتك من seed phrase",
+        "title": "استيراد محفظتك من عبارة البذور",
         "list": [
-          "ترغب في استخدام Cypherock X1 كنسخة احتياطية لمحافظك الأخرى",
-          "ترغب في نقل أصولك من محافظك الأخرى إلى Cypherock X1",
-          "ترغب في إدارة وتتبع محفظة محافظك الأخرى من خلال Cypherock X1"
+          "تريد استخدام Cypherock X1 كنسخة احتياطية من محافظك الأخرى",
+          "تريد تحويل أصولك من محافظك الأخرى إلى Cypherock X1",
+          "تريد إدارة وتتبع محفظة محافظك الأخرى من خلال Cypherock X1"
         ]
       }
     },
     "success": {
       "title": "تهانينا",
-      "subtext": "Cypherock X1 جاهز للاستخدام الآن"
+      "subtext": "أصبح Cypherock X1 جاهزًا للاستخدام الآن"
     },
     "appUpdate": {
       "heading": "تحديث التطبيق",
       "dialogs": {
         "checking": {
           "heading": "تحديث التطبيق",
-          "title": "يرجى الانتظار بينما نتحقق من وجود تحديثات لـ Cypherock CySync"
+          "title": "الرجاء الانتظار بينما نتحقق من تحديثات Cypherock CySync"
         },
         "checkingFailed": {
           "heading": "تحديث التطبيق",
@@ -541,18 +541,18 @@
         },
         "confirmation": {
           "heading": "تحديث التطبيق",
-          "title": "يتوفر تحديث جديد cySync app الخاص بك. قم بتحديث التطبيق إلى الإصدار ${version} للمتابعة",
-          "subtext": "يبدو أن X1 Vault الخاص بك غير متوافق مع cySync app الحالي. قم بتحديث تطبيق سطح المكتب إلى الإصدار ${version} للمتابعة"
+          "title": "تتوفر تحديثات جديدة لتطبيق cySync الخاص بك. قم بتحديث التطبيق إلى الإصدار ${version} للمتابعة",
+          "subtext": "يبدو أن X1 Vault غير متوافق مع تطبيق cySync الحالي. قم بتحديث تطبيق سطح المكتب الخاص بك إلى الإصدار ${version} للمتابعة"
         },
         "downloading": {
-          "heading": "التحديث...",
-          "subtext": "يرجى الانتظار بينما نقوم بتحديث cySync app الخاص بك",
+          "heading": "جارٍ التحديث...",
+          "subtext": "الرجاء الانتظار بينما نقوم بتحديث تطبيق cySync الخاص بك",
           "version": "الإصدار ${version}"
         },
         "updateSuccessful": {
-          "heading": "تم تحديث cySync app بنجاح",
-          "subtext": "يرجى الانتظار بينما نقوم بإعادة تشغيل التطبيق لتطبيق أحدث تحديث",
-          "bubbleText": "في حالة عدم إعادة تشغيل التطبيق بنفسه، أعد تشغيله يدويًا"
+          "heading": "تم تحديث تطبيق cySync بنجاح",
+          "subtext": "الرجاء الانتظار بينما نقوم بإعادة تشغيل التطبيق لتطبيق أحدث تحديث",
+          "bubbleText": "في حالة عدم إعادة تشغيل التطبيق تلقائيًا، قم بتشغيله يدويًا مرة أخرى"
         },
         "updateFailed": {
           "heading": "فشل تحديث cySync إلى الإصدار ${version}",
@@ -564,7 +564,7 @@
         "updateFailedFallback": {
           "heading": "فشل تحديث تطبيق cySync إلى الإصدار ${version}",
           "subtext": "قم بتنزيل وإعادة تثبيت تطبيق سطح المكتب من الرابط أدناه",
-          "alertText": "أغلق هذا التطبيق قبل إعادة تثبيت أحدث cySync app"
+          "alertText": "أغلق هذا التطبيق قبل إعادة تثبيت أحدث تطبيق cySync"
         }
       }
     },
@@ -573,37 +573,37 @@
       "version": "الإصدار ${version}",
       "dialogs": {
         "checking": {
-          "title": "يرجى الانتظار بينما نتحقق من وجود تحديثات لـ X1 Vault"
+          "title": "الرجاء الانتظار بينما نتحقق من تحديثات X1 Vault"
         },
         "confirmation": {
           "heading": "تحديث الجهاز",
-          "title": "يتوفر تحديث جديد لـ X1 Vault الخاص بك. قم بتحديث الجهاز إلى الإصدار ${version} للمتابعة",
+          "title": "تتوفر تحديثات جديدة لـ X1 Vault الخاص بك. قم بتحديث الجهاز إلى الإصدار ${version} للمتابعة",
           "subtext": "اتبع التعليمات الموجودة على الجهاز"
         },
         "loading": {
-          "text": "يرجى الانتظار بينما نتحقق من وجود تحديثات لـ X1 Vault"
+          "text": "الرجاء الانتظار بينما نتحقق من تحديثات X1 Vault"
         },
         "updating": {
-          "heading": "التحديث...",
-          "subtext": "يرجى الانتظار بينما نقوم بتحديث X1 Vault الخاص بك"
+          "heading": "جارٍ التحديث...",
+          "subtext": "الرجاء الانتظار بينما نقوم بتحديث X1 Vault الخاص بك"
         },
         "updateSuccessful": {
           "heading": "تم تحديث X1 Vault بنجاح",
           "headingWithVersion": "تم تحديث X1 Vault إلى الإصدار ${version} بنجاح",
-          "subtext": "يعمل جهازك الآن على أحدث البرامج الثابتة"
+          "subtext": "جهازك يعمل الآن على أحدث إصدار من البرامج الثابتة"
         },
         "updateFailed": {
-          "heading": "فشل تحديث البرامج الثابتة",
+          "heading": "فشل تحديث البرنامج الثابت",
           "subtext": "أعد توصيل الجهاز للمتابعة"
         }
       }
     }
   },
   "appUpdateBar": {
-    "confirmation": "التحديث إلى cySync version ${version} متاح",
-    "downloading": "تنزيل cySync version ${version}",
+    "confirmation": "يتوفر تحديث لـ cySync بالإصدار ${version}",
+    "downloading": "جارٍ تنزيل cySync بالإصدار ${version}",
     "error": "خطأ في تنزيل تحديث cySync",
-    "successful": "تم تنزيل تحديث cySync، وسيتم تثبيته تلقائيًا عند إغلاق التطبيق",
+    "successful": "تم تنزيل تحديث cySync، سيتم تثبيته تلقائيًا عند إغلاق التطبيق",
     "buttons": {
       "download": "تنزيل",
       "tryAgain": "حاول مرة أخرى",
@@ -611,12 +611,12 @@
     }
   },
   "deviceUpdateBar": {
-    "message": "تحديث البرامج الثابتة للإصدار ${version} متاح",
+    "message": "تحديث البرنامج الثابت الإصدار ${version} متوفر",
     "button": "تنزيل"
   },
   "betaNotificationBar": {
-    "message": "CySync v2.0.0 متوفر الآن!",
-    "button": "اعرف المزيد"
+    "message": "إصدار CySync v2.0.0 متوفر الآن!",
+    "button": "اعرف أكثر"
   },
   "topbar": {
     "statusTexts": {
@@ -626,7 +626,7 @@
         "error": "خطأ في الاتصال!"
       },
       "sync": {
-        "synchronized": "مُزامن",
+        "synchronized": "تم المزامنة",
         "synchronizing": "جارٍ المزامنة...",
         "error": "خطأ في المزامنة!",
         "networkErrorTooltip": "خطأ في الشبكة"
@@ -638,43 +638,43 @@
       "sendTransactionMultiple": "${amount} ${unit} ${type} إلى عناوين متعددة",
       "receiveTransaction": "${amount} ${unit} ${type} في الحساب ${walletName}/${accountName}",
       "noTransactions": {
-        "title": "كل شيء على ما يرام",
+        "title": "كل شيء جاهز",
         "subTitle": "لا توجد معاملات جديدة لعرضها"
       }
     }
   },
   "sidebar": {
-    "portfolio": "Portfolio",
-    "wallets": "Wallets",
-    "sendCrypto": "إرسال العملات المشفرة",
-    "receiveCrypto": "استقبال العملات المشفرة",
+    "portfolio": "محفظة",
+    "wallets": "محافظ",
+    "sendCrypto": "إرسال العملة المشفرة",
+    "receiveCrypto": "استقبال العملة المشفرة",
     "history": "السجل",
     "walletConnect": "Wallet Connect",
     "cypherockCover": "Cypherock Cover",
-    "tutorial": "تعليمات",
+    "tutorial": "دليل تعليمي",
     "settings": "الإعدادات",
     "help": "مساعدة",
-    "new": "New",
+    "new": "جديد",
     "tooltip": {
-      "walletDeleted": "${walletName} تم حذفه من  Cypherock X1 Vault"
+      "walletDeleted": "تم حذف ${walletName} من Cypherock X1 Vault الخاص بك"
     }
   },
   "walletSync": {
     "deletedOne": {
-      "title": "يبدو أنك حذفت المحفظة ${walletName} من X1 Vault. هل تريد حذفها من cySync أيضًا؟"
+      "title": "يبدو أنك قد حذفت المحفظة ${walletName} من X1 Vault. هل تريد حذفها أيضًا من cySync؟"
     },
     "deletedMany": {
-      "title": "يبدو أنك حذفت محافظ من X1 Vault. هل تريد حذفها من cySync أيضًا؟",
-      "subTitle": "يمكنك اختيار أي منها تريد الاحتفاظ بها وأي منها تريد حذفه"
+      "title": "يبدو أنك قد حذفت محافظ من X1 Vault. هل تريد حذفها من cySync أيضًا؟",
+      "subTitle": "يمكنك اختيار المحافظ التي تريد الاحتفاظ بها والتي تريد حذفها"
     },
     "freshOneCreated": {
-      "title": "يبدو أنك حذفت محافظ من X1 Vault أثناء إنشاء محافظ جديدة بنفس الاسم. هل تريد حذف المحافظ القديمة من cySync؟",
-      "subTitle": "يمكنك اختيار أي منها تريد الاحتفاظ بها وأي منها تريد حذفه",
-      "checkboxText": "لا تعرض هذا مرة أخرى"
+      "title": "يبدو أنك قد حذفت محافظ من X1 Vault أثناء إنشاء محافظ جديدة بنفس الاسم. هل تريد حذف المحافظ القديمة على cySync؟",
+      "subTitle": "يمكنك اختيار المحفظة التي تريد الاحتفاظ بها والتي تريد حذفها",
+      "checkboxText": "لا تُظهر هذا مرة أخرى"
     },
     "buttons": {
-      "keepIt": "احتفظ به",
-      "keepAll": "احتفظ بجميعها",
+      "keepIt": "احتفظ بها",
+      "keepAll": "احتفظ بالكل",
       "delete": "حذف"
     }
   },
@@ -693,17 +693,17 @@
   "walletConnect": {
     "uriTab": {
       "title": "WalletConnect",
-      "subTitle": "أدخل URI WalletConnect للتوصيل مع DApp",
-      "inputLabel": "أدخل URI الاتصال",
-      "placeholder": "ألصق URI"
+      "subTitle": "أدخل WalletConnect URI للتواصل مع DApp",
+      "inputLabel": "أدخل URI للاتصال",
+      "placeholder": "الصق URI"
     },
     "accountSelectionTab": {
       "title": "الاتصال بواجهة ${dappName}",
-      "chooseWallet": "اختر Wallet",
+      "chooseWallet": "اختر محفظة",
       "chooseAccount": "حدد حسابات ${assetName}",
-      "supportInfo": "يتم دعم هذه السلاسل الأساسية ولكن أضف حساباتها قبل الاستخدام",
+      "supportInfo": "يتم دعم سلاسل الكتل هذه ، ولكن أضف حساباتها قبل الاستخدام",
       "notSupportedWarning": {
-        "title": "لا يتم دعم هذه السلاسل الأساسية"
+        "title": "لا يتم دعم سلاسل الكتل هذه"
       }
     },
     "accountConnectedTab": {
@@ -713,22 +713,22 @@
     },
     "common": {
       "info": {
-        "title": "سيتمكن هذا التطبيق من:",
-        "points": ["تحقق من رصيد حسابك ونشاطه", "طلب الموافقات على المعاملات"]
+        "title": "يستطيع هذا التطبيق:",
+        "points": ["التحقق من رصيد حسابك ونشاطه", "طلب موافقات للمعاملات"]
       },
       "error": {
         "default": {
           "title": "حدث خطأ أثناء الاتصال",
-          "subtitle": "أعد محاولة الاتصال من dApp"
+          "subtitle": "أعد المحاولة من DApp"
         },
         "unsupportedChains": {
-          "title": "طلب ${dappName} الاتصال بـ chain(s) التي لا ندعمها بعد",
-          "subtitle": "نحن ندعم حاليًا ${chains}",
-          "message": "Chain(s) غير مدعومة: ${chains}"
+          "title": "طلب ${dappName} الاتصال بسلسلة (سلاسل) لا ندعمها حتى الآن",
+          "subtitle": "ندعم حاليًا ${chains}",
+          "message": "سلاسل غير مدعومة: ${chains}"
         }
       },
       "reject": {
-        "call": "رفض المستخدم"
+        "call": "User rejected"
       }
     }
   },
@@ -738,17 +738,17 @@
     "actions": {
       "confirmDevice": "تأكيد على الجهاز",
       "verifyData": "التحقق من البيانات",
-      "enterPassphrase": "أدخل passphrase",
-      "enterPin": "أدخل الرمز السري واضغط على أي بطاقة",
+      "enterPassphrase": "أدخل عبارة المرور",
+      "enterPin": "أدخل رقم التعريف الشخصي واضغط على أي بطاقة",
       "tapCard": "اضغط على أي بطاقة"
     }
   },
   "portfolio": {
-    "title": "Portfolio",
+    "title": "محفظة",
     "tokenTable": {
-      "title": "العُملات",
+      "title": "رموز",
       "tableHeader": {
-        "token": "العُملات",
+        "token": "رموز",
         "amount": "الكمية",
         "value": "القيمة"
       }
@@ -767,17 +767,17 @@
       }
     },
     "walletMissing": {
-      "text": "المحافظ مفقودة",
-      "subText": "أنشئ محفظة جديدة أو قم بالاستيراد من seed phrase للبدء",
-      "subText2": "إذا كنت قد أنشأت محافظ بالفعل في الجهاز، فما عليك سوى مزامنتها مع cySync"
+      "text": "محافظ مفقودة",
+      "subText": "أنشئ محفظة جديدة أو استوردها من عبارة البذور للبدء",
+      "subText2": "إذا كنت قد أنشأت محافظ بالفعل في الجهاز، فما عليك سوى مزامنتها باستخدام cySync"
     },
     "accountMissing": {
-      "text": "الحسابات مفقودة",
-      "subText": "أنشئ حسابًا أو استورده للبدء"
+      "text": "حسابات مفقودة",
+      "subText": "أنشئ أو استورد حسابًا للبدء"
     }
   },
   "wallet": {
-    "title": "Wallets",
+    "title": "محافظ",
     "tableTitle": "الحسابات",
     "buttons": {
       "less": "إظهار أقل",
@@ -792,19 +792,19 @@
       "value": "القيمة"
     },
     "accountMissing": {
-      "text": "لا يوجد حساب بعد",
-      "subText": "لم يتم العثور على أي عملات معدنية / حسابات في المحفظة"
+      "text": "لا يوجد حساب حتى الآن",
+      "subText": "لم يتم العثور على أي عملات معدنية/حسابات في المحفظة"
     },
     "search": {
-      "placeholder": "البحث",
+      "placeholder": "بحث",
       "text": "لم يتم العثور على نتائج لـ",
-      "subText": "يرجى محاولة البحث عن كلمات رئيسية أخرى"
+      "subText": "الرجاء محاولة البحث عن كلمات رئيسية أخرى"
     }
   },
   "deleteAccount": {
-    "title": "هل أنت متأكد من رغبتك في إزالة",
+    "title": "هل أنت متأكد أنك تريد إزالة",
     "subTitle": "يمكنك إضافة الحساب مرة أخرى من صفحة محفظة ${walletName}. لاحظ أن هذا لن يؤدي إلى فقدان الأصول",
-    "tokenSubtitle": "يمكنك إضافة الرمز المميز مرة أخرى من صفحة محفظة ${walletName}. لاحظ أن هذا لن يؤدي إلى فقدان الأصول",
+    "tokenSubtitle": "يمكنك إضافة الرمز مرة أخرى من صفحة محفظة ${walletName}. لاحظ أن هذا لن يؤدي إلى فقدان الأصول",
     "buttons": {
       "yes": "نعم",
       "no": "لا"
@@ -819,419 +819,419 @@
         "heading": "قم بتوصيل X1 Vault بجهاز الكمبيوتر الخاص بك للمتابعة"
       },
       "CON_0102": {
-        "heading": "لا يمكن لجهاز X1 Vault الخاص بك الاتصال",
+        "heading": "لا يمكن لـ X1 Vault الخاص بك الاتصال",
         "subtext": "أعد توصيل الجهاز وحاول مرة أخرى"
       },
       "COM_0000": {
-        "heading": "جهاز X1 Vault الخاص بك في وضع الأمان",
+        "heading": "X1 Vault الخاص بك في الوضع الآمن",
         "subtext": "قم بتحديث جهازك للمتابعة"
       },
       "COM_0104": {
-        "heading": "يواجه جهاز X1 Vault الخاص بك بعض مشكلات الاتصال",
+        "heading": "يواجه X1 Vault الخاص بك بعض مشكلات الاتصال",
         "subtext": "أعد توصيل الجهاز وحاول مرة أخرى"
       },
       "COM_0101": {
-        "heading": "يواجه جهاز X1 Vault الخاص بك بعض مشكلات الاتصال",
+        "heading": "يواجه X1 Vault الخاص بك بعض مشكلات الاتصال",
         "subtext": "أعد توصيل الجهاز وحاول مرة أخرى"
       },
       "COM_0102": {
-        "heading": "يواجه جهاز X1 Vault الخاص بك بعض مشكلات الاتصال",
+        "heading": "يواجه X1 Vault الخاص بك بعض مشكلات الاتصال",
         "subtext": "أعد توصيل الجهاز وحاول مرة أخرى"
       },
       "COM_0103": {
-        "heading": "يواجه جهاز X1 Vault الخاص بك بعض مشكلات الاتصال",
+        "heading": "يواجه X1 Vault الخاص بك بعض مشكلات الاتصال",
         "subtext": "أعد توصيل الجهاز وحاول مرة أخرى"
       },
       "COM_0100": {
-        "heading": "يواجه جهاز X1 Vault الخاص بك بعض مشكلات الاتصال",
+        "heading": "يواجه X1 Vault الخاص بك بعض مشكلات الاتصال",
         "subtext": "أعد توصيل الجهاز وحاول مرة أخرى"
       },
       "COM_0200": {
-        "heading": "جهاز X1 Vault الخاص بك لا يدعم هذه العملية",
+        "heading": "X1 Vault الخاص بك لا يدعم هذه العملية",
         "subtext": "قم بتحديث تطبيق cySync والجهاز إلى أحدث إصدار"
       },
       "COM_0201": {
-        "heading": "جهاز X1 Vault الخاص بك غير متوافق مع cySync app",
-        "subtext": "قم بتحديث cySync app والجهاز إلى أحدث إصدار"
+        "heading": "X1 Vault الخاص بك غير متوافق مع تطبيق cySync",
+        "subtext": "قم بتحديث تطبيق cySync والجهاز إلى أحدث إصدار"
       },
       "BTL_0000": {
-        "heading": "فشلت العملية على جهاز X1 Vault",
+        "heading": "فشلت العملية على X1 Vault",
         "subtext": "أعد توصيل الجهاز وحاول مرة أخرى"
       },
       "BTL_0100": {
-        "heading": "جهاز X1 Vault الخاص بك لا يدعم هذه البرامج الثابتة",
+        "heading": "X1 Vault الخاص بك لا يدعم هذا البرنامج الثابت",
         "subtext": "اتصل بدعم Cypherock للحصول على المساعدة"
       },
       "BTL_0101": {
-        "heading": "جهاز X1 Vault الخاص بك لا يدعم هذه البرامج الثابتة",
+        "heading": "X1 Vault الخاص بك لا يدعم هذا البرنامج الثابت",
         "subtext": "اتصل بدعم Cypherock للحصول على المساعدة"
       },
       "BTL_0102": {
-        "heading": "جهاز X1 Vault الخاص بك لا يدعم هذه البرامج الثابتة",
+        "heading": "X1 Vault الخاص بك لا يدعم هذا البرنامج الثابت",
         "subtext": "اتصل بدعم Cypherock للحصول على المساعدة"
       },
       "BTL_0103": {
-        "heading": "برامج الثابتة في جهاز X1 Vault غير أصلية",
-        "subtext": "عادة ما يحدث ذلك عند محاولة تثبيت برامج ثابتة لم يتم تطويرها بواسطة Cypherock"
+        "heading": "برنامج X1 Vault الثابت غير أصلي",
+        "subtext": "عادةً ما يحدث هذا عندما تحاول تثبيت برنامج ثابت لم تقم Cypherock بتطويره"
       },
       "BTL_0104": {
-        "heading": "لا يمكن تحديث جهاز X1 Vault إلى إصدار أقدم من البرامج الثابتة",
-        "subtext": "يدعم الجهاز فقط تحديث البرامج الثابتة إلى إصدار أعلى"
+        "heading": "لا يمكن تحديث X1 Vault إلى إصدار برنامج ثابت أقدم",
+        "subtext": "الجهاز يدعم فقط تحديث البرنامج الثابت إلى إصدار أعلى"
       },
       "BTL_0106": {
         "heading": "فشل تحديث X1 Vault",
-        "subtext": "أعد توصيل الجهاز ، حاول مرة أخرى وإذا استمرت المشكلة ، اتصل بدعم Cypherock للحصول على المساعدة"
+        "subtext": "أعد توصيل الجهاز، وحاول مرة أخرى، وإذا استمرت المشكلة، فاتصل بدعم Cypherock للحصول على المساعدة"
       },
       "BTL_0107": {
-        "heading": "جهاز X1 Vault الخاص بك لا يدعم هذه البرامج الثابتة",
+        "heading": "X1 Vault الخاص بك لا يدعم هذا البرنامج الثابت",
         "subtext": "اتصل بدعم Cypherock للحصول على المساعدة"
       },
       "BTL_0108": {
-        "heading": "يواجه جهاز X1 Vault الخاص بك بعض مشكلات الاتصال",
-        "subtext": "أعد توصيل الجهاز ، حاول مرة أخرى وإذا استمرت المشكلة ، اتصل بدعم Cypherock للحصول على المساعدة"
+        "heading": "يواجه X1 Vault الخاص بك بعض مشكلات الاتصال",
+        "subtext": "أعد توصيل الجهاز، وحاول مرة أخرى، وإذا استمرت المشكلة، فاتصل بدعم Cypherock للحصول على المساعدة"
       },
       "BTL_0109": {
         "heading": "حدث خطأ ما",
-        "subtext": "أعد توصيل الجهاز ، حاول مرة أخرى وإذا استمرت المشكلة ، اتصل بدعم Cypherock للحصول على المساعدة"
+        "subtext": "أعد توصيل الجهاز، وحاول مرة أخرى، وإذا استمرت المشكلة، فاتصل بدعم Cypherock للحصول على المساعدة"
       },
       "BTL_0105": {
-        "heading": "يواجه جهاز X1 Vault الخاص بك مشكلات في الاتصال",
-        "subtext": "أعد توصيل الجهاز ، حاول مرة أخرى وإذا استمرت المشكلة ، اتصل بدعم Cypherock للحصول على المساعدة"
+        "heading": "يواجه X1 Vault الخاص بك مشكلات في الاتصال",
+        "subtext": "أعد توصيل الجهاز، وحاول مرة أخرى، وإذا استمرت المشكلة، فاتصل بدعم Cypherock للحصول على المساعدة"
       },
       "APP_0000": {
         "heading": "حدث خطأ ما",
-        "subtext": "أعد توصيل الجهاز ، حاول مرة أخرى وإذا استمرت المشكلة ، اتصل بدعم Cypherock للحصول على المساعدة"
+        "subtext": "أعد توصيل الجهاز، وحاول مرة أخرى، وإذا استمرت المشكلة، فاتصل بدعم Cypherock للحصول على المساعدة"
       },
       "APP_0101": {
-        "heading": "جهاز X1 Vault الخاص بك مشغول حاليًا",
+        "heading": "X1 Vault الخاص بك مشغول حاليًا",
         "subtext": "انتقل إلى القائمة الرئيسية في الجهاز وحاول مرة أخرى"
       },
       "APP_0102": {
-        "heading": "ألغى جهاز X1 Vault الخاص بك هذه العملية",
-        "subtext": "يمكنك استئنافها من المكان الذي توقفت فيه"
+        "heading": "X1 Vault الخاص بك ألغى هذه العملية",
+        "subtext": "يمكنك استئنافها من المكان الذي توقفت فيه آخر مرة"
       },
       "APP_0103": {
-        "heading": "ألغى جهاز X1 Vault الخاص بك هذه العملية",
-        "subtext": "أعد توصيل الجهاز وحاول مرة أخرى وإذا استمرت المشكلة ، اتصل بدعم Cypherock للحصول على المساعدة"
+        "heading": "X1 Vault الخاص بك ألغى هذه العملية",
+        "subtext": "أعد توصيل الجهاز وحاول مرة أخرى، وإذا استمرت المشكلة، فاتصل بدعم Cypherock للحصول على المساعدة"
       },
       "APP_0200": {
-        "heading": "يواجه جهاز X1 Vault الخاص بك مشكلات في الاتصال",
-        "subtext": "أعد توصيل الجهاز ، حاول مرة أخرى وإذا استمرت المشكلة ، اتصل بدعم Cypherock للحصول على المساعدة"
+        "heading": "يواجه X1 Vault الخاص بك مشكلات في الاتصال",
+        "subtext": "أعد توصيل الجهاز، وحاول مرة أخرى، وإذا استمرت المشكلة، فاتصل بدعم Cypherock للحصول على المساعدة"
       },
       "APP_0201": {
-        "heading": "يواجه جهاز X1 Vault الخاص بك مشكلات في الاتصال",
-        "subtext": "أعد توصيل الجهاز ، حاول مرة أخرى وإذا استمرت المشكلة ، اتصل بدعم Cypherock للحصول على المساعدة"
+        "heading": "يواجه X1 Vault الخاص بك مشكلات في الاتصال",
+        "subtext": "أعد توصيل الجهاز، وحاول مرة أخرى، وإذا استمرت المشكلة، فاتصل بدعم Cypherock للحصول على المساعدة"
       },
       "APP_0202": {
-        "heading": "يواجه جهاز X1 Vault الخاص بك مشكلات في الاتصال",
-        "subtext": "أعد توصيل الجهاز ، حاول مرة أخرى وإذا استمرت المشكلة ، اتصل بدعم Cypherock للحصول على المساعدة"
+        "heading": "يواجه X1 Vault الخاص بك مشكلات في الاتصال",
+        "subtext": "أعد توصيل الجهاز، وحاول مرة أخرى، وإذا استمرت المشكلة، فاتصل بدعم Cypherock للحصول على المساعدة"
       },
       "APP_0203": {
         "heading": "التطبيق غير موجود على الجهاز"
       },
       "APP_0204": {
-        "heading": "جهاز X1 Vault الخاص بك مشغول حاليًا",
-        "subtext": "حاول مرة أخرى بعد مرور بعض الوقت ، وإذا استمرت المشكلة ، أعد توصيل الجهاز."
+        "heading": "X1 Vault الخاص بك مشغول حاليًا",
+        "subtext": "حاول مرة أخرى بعد بعض الوقت، وإذا استمرت المشكلة، فأعد توصيل الجهاز."
       },
       "APP_0205": {
-        "heading": "لم يتم إعداد جهاز X1 Vault الخاص بك بشكل صحيح حاليًا",
-        "subtext": "اضغط على المتابعة لبدء الإعداد"
+        "heading": "X1 Vault الخاص بك غير مُهيأ بشكل صحيح حاليًا",
+        "subtext": "اضغط على متابعة لبدء الإعداد"
       },
       "APP_0300": {
-        "heading": "لقد قمت بحذف المحفظة ${walletName} من X1 Vault. هل تريد حذفه من cySync app أيضًا؟"
+        "heading": "لقد قمت بحذف المحفظة ${walletName} من X1 Vault. هل تريد حذفها من تطبيق cySync أيضًا؟"
       },
       "APP_0301": {
-        "heading": "محفظتك ${walletName} مضبوطة بشكل خاطئ حاليًا على جهاز X1 Vault الخاص بك",
+        "heading": "محفظتك ${walletName} غير مُهيأة بشكل صحيح حاليًا على X1 Vault الخاص بك",
         "subtext": "انتقل إلى المحفظة ${walletName} من القائمة الرئيسية على جهازك لحل المشكلة"
       },
       "APP_0206": {
-        "heading": "جهاز X1 Vault الخاص بك قد انتهى الوقت المحدد له",
+        "heading": "انتهى وقت X1 Vault الخاص بك",
         "subtext": "انتقل إلى القائمة الرئيسية على الجهاز وحاول مرة أخرى"
       },
       "APP_0207": {
-        "heading": "Could not establish session on device"
+        "heading": "تعذر إنشاء جلسة على الجهاز"
       },
       "APP_0400": {
-        "heading": "خطأ غير معروف في X1 Card",
+        "heading": "خطأ غير معروف في بطاقة X1",
         "subtext": "أعد المحاولة أو انقر فوق المساعدة للعثور على حل"
       },
       "APP_0501": {
-        "heading": "لقد ألغيت هذه العملية على جهاز X1 Vault الخاص بك"
+        "heading": "لقد ألغيت هذه العملية على X1 Vault الخاص بك"
       },
       "APP_0600": {
-        "heading": "يواجه جهاز X1 Vault الخاص بك مشكلات في الاتصال",
+        "heading": "يواجه X1 Vault الخاص بك مشكلات في الاتصال",
         "subtext": "أعد المحاولة أو اتصل بدعم Cypherock للحصول على المساعدة"
       },
       "APP_0700": {
-        "heading": "يبدو أن الجهاز قد تعرض للتلاعب. اتصل بدعم Cypherock على الفور"
+        "heading": "يبدو أن الجهاز مُخترق. اتصل بدعم Cypherock على الفور"
       },
       "APP_0701": {
-        "heading": "يبدو أن البطاقة قد تعرضت للتلاعب. اتصل بدعم Cypherock على الفور"
+        "heading": "يبدو أن البطاقة مُخترقة. اتصل بدعم Cypherock على الفور"
       },
       "APP_0400_001": {
-        "heading": "خطأ غير معروف في X1 Card",
-        "subtext": "أعد المحاولة وإذا استمرت المشكلة ، اتصل بدعم Cypherock للحصول على المساعدة"
+        "heading": "خطأ غير معروف في بطاقة X1",
+        "subtext": "أعد المحاولة، وإذا استمرت المشكلة، فاتصل بدعم Cypherock للحصول على المساعدة"
       },
       "APP_0400_002": {
-        "heading": "لم يتم إقران بطاقة X1 Card الخاصة بك بجهاز X1 Vault حاليًا",
-        "subtext": "أقرن بطاقتك من خلال الانتقال إلى الإعدادات من القائمة الرئيسية على جهازك قبل إجراء عملية",
+        "heading": "بطاقة X1 الخاصة بك غير مُقرنة حاليًا بـ X1 Vault الخاص بك",
+        "subtext": "قم بإقران بطاقتك بالانتقال إلى الإعدادات من القائمة الرئيسية على جهازك قبل إجراء عملية",
         "deviceNavigationText": "القائمة الرئيسية > الإعدادات > إقران البطاقة"
       },
       "APP_0400_003": {
-        "heading": "فشلت مصادقة بطاقة X1 Card الخاصة بك",
-        "subtext": "جرب بطاقة أخرى وإذا استمرت المشكلة ، اتصل بدعم Cypherock للحصول على المساعدة"
+        "heading": "فشلت عملية مصادقة بطاقة X1 الخاصة بك",
+        "subtext": "جرب بطاقة مختلفة، وإذا استمرت المشكلة، فاتصل بدعم Cypherock للحصول على المساعدة"
       },
       "APP_0400_004": {
-        "heading": "تعطل عمل بطاقة X1 Card الخاصة بك",
+        "heading": "تعرضت بطاقة X1 الخاصة بك لخلل",
         "subtext": "أعد المحاولة أو انقر فوق المساعدة للعثور على حل"
       },
       "APP_0400_005": {
-        "heading": "يواجه X1 Card الخاص بك بعض مشكلات الاتصال",
+        "heading": "تواجه بطاقة X1 الخاصة بك بعض مشكلات الاتصال",
         "subtext": "أعد المحاولة أو انقر فوق المساعدة للعثور على حل"
       },
       "APP_0400_006": {
-        "heading": "لقد ضغطت على بطاقة X1 Card غير صحيحة",
+        "heading": "لقد نقرت على بطاقة X1 غير صحيحة",
         "subtext": "تأكد من أن بطاقتك تنتمي إلى نفس المجموعة"
       },
       "APP_0400_007": {
-        "heading": "يواجه X1 Card الخاص بك بعض مشكلات الاتصال",
-        "subtext": "أعد المحاولة وإذا استمرت المشكلة ، اتصل بدعم Cypherock للحصول على المساعدة"
+        "heading": "تواجه بطاقة X1 الخاصة بك بعض مشكلات الاتصال",
+        "subtext": "أعد المحاولة، وإذا استمرت المشكلة، فاتصل بدعم Cypherock للحصول على المساعدة"
       },
       "APP_0400_008": {
-        "heading": "لقد ضغطت على بطاقة X1 Card غير صحيحة",
-        "subtext": "يرجى النقر على البطاقات بالترتيب الصحيح"
+        "heading": "لقد نقرت على بطاقة X1 غير صحيحة",
+        "subtext": "يرجى النقر على البطاقات بالتسلسل الصحيح"
       },
       "APP_0400_009": {
-        "heading": "يواجه X1 Card الخاص بك بعض مشكلات الاتصال",
-        "subtext": "أعد المحاولة وإذا استمرت المشكلة ، اتصل بدعم Cypherock للحصول على المساعدة"
+        "heading": "تواجه بطاقة X1 الخاصة بك بعض مشكلات الاتصال",
+        "subtext": "أعد المحاولة، وإذا استمرت المشكلة، فاتصل بدعم Cypherock للحصول على المساعدة"
       },
       "APP_0400_010": {
-        "heading": "يواجه X1 Card الخاص بك بعض مشكلات الاتصال",
+        "heading": "تواجه بطاقة X1 الخاصة بك بعض مشكلات الاتصال",
         "subtext": "اتصل بدعم Cypherock للحصول على المساعدة"
       },
       "APP_0400_011": {
-        "heading": "X1 Card الخاص بك غير متزامن مع X1 Vault الخاص بك",
-        "subtext": "أعد مزامنة بطاقتك من خلال الانتقال إلى المحفظة ${walletName} من القائمة الرئيسية على جهازك قبل إجراء عملية"
+        "heading": "بطاقة X1 الخاصة بك غير متزامنة مع X1 Vault الخاص بك",
+        "subtext": "قم بمزامنة بطاقتك من خلال الانتقال إلى المحفظة ${walletName} من القائمة الرئيسية على جهازك قبل إجراء عملية"
       },
       "APP_0400_012": {
-        "heading": "ذاكرة X1 Card الخاصة بك ممتلئة",
-        "subtext": "يمكنك حذف محفظة لإضافة واحدة جديدة أو شراء Cypherock X1 أخرى"
+        "heading": "ذاكرة بطاقة X1 الخاصة بك ممتلئة",
+        "subtext": "يمكنك حذف محفظة لإضافة محفظة جديدة أو شراء Cypherock X1 آخر"
       },
       "APP_0400_013": {
-        "heading": "لقد أدخلت رمز PIN غير صحيح",
-        "subtext": "أدخل رمز PIN الصحيح قبل قفل البطاقة"
+        "heading": "لقد أدخلت رقم PIN غير صحيح",
+        "subtext": "أدخل رقم PIN الصحيح قبل أن يتم قفل البطاقة"
       },
       "APP_0400_014": {
-        "heading": "يواجه X1 Card الخاص بك بعض مشكلات الاتصال",
+        "heading": "تواجه بطاقة X1 الخاصة بك بعض مشكلات الاتصال",
         "subtext": "اتصل بدعم Cypherock للحصول على المساعدة"
       },
       "APP_0400_015": {
-        "heading": "يجب إقران X1 Card الخاص بك بجهاز X1 Vault الخاص بك",
+        "heading": "يجب إقران بطاقة X1 الخاصة بك بـ X1 Vault الخاص بك",
         "subtext": "يمكنك بدء إقران البطاقة من الإعدادات في الجهاز أو يمكنك استخدام مجموعة مختلفة من البطاقات"
       },
       "APP_0400_016": {
-        "heading": "يواجه X1 Card الخاص بك بعض مشكلات الاتصال",
+        "heading": "تواجه بطاقة X1 الخاصة بك بعض مشكلات الاتصال",
         "subtext": "اتصل بدعم Cypherock للحصول على المساعدة"
       },
       "APP_0400_017": {
-        "heading": "المحفظة ${walletName} مقفلة حاليًا على جهاز X1 Vault الخاص بك",
-        "subtext": "افتح قفل المحفظة أولاً قبل المحاولة مرة أخرى",
+        "heading": "المحفظة ${walletName} مقفلة حاليًا على X1 Vault الخاص بك",
+        "subtext": "قم بإلغاء قفل المحفظة أولاً قبل المحاولة مرة أخرى",
         "deviceNavigationText": "القائمة الرئيسية > ${walletName}"
       },
       "APP_0400_018": {
-        "heading": "تعطل عمل بطاقة X1 Card الخاصة بك",
+        "heading": "تعرضت بطاقة X1 الخاصة بك لخلل",
         "subtext": "انقر فوق المساعدة للعثور على حل"
       },
       "APP_0400_019": {
-        "heading": "تعطل عمل بطاقة X1 Card الخاصة بك",
+        "heading": "تعرضت بطاقة X1 الخاصة بك لخلل",
         "subtext": "أعد المحاولة أو انقر فوق المساعدة للعثور على حل"
       },
       "APP_0400_000": {
-        "heading": "خطأ غير معروف في X1 Card",
+        "heading": "خطأ غير معروف في بطاقة X1",
         "subtext": "أعد المحاولة أو انقر فوق المساعدة للعثور على حل"
       },
       "MGA_GL_0000": {
-        "heading": "السجلات معطلة على X1 Vault",
+        "heading": "سجلات X1 Vault معطلة",
         "subtext": "قم بتمكين السجلات في إعدادات X1 Vault وحاول مرة أخرى"
       }
     },
     "databaseError": {
-      "heading": "يواجه cySync app الخاص بك بعض المشكلات الداخلية",
-      "subtext": "حاول مرة أخرى وإذا استمرت المشكلة ، اتصل بدعم Cypherock للحصول على المساعدة"
+      "heading": "يواجه تطبيق cySync الخاص بك بعض المشكلات الداخلية",
+      "subtext": "حاول مرة أخرى، وإذا استمرت المشكلة، فاتصل بدعم Cypherock للحصول على المساعدة"
     },
     "serverErrors": {
       "SER_0000": {
-        "heading": "يواجه cySync app الخاص بك بعض مشكلات الاتصال",
-        "subtext": "Try again and if the problem persists, contact Cypherock support for assistance"
+        "heading": "يواجه تطبيق cySync الخاص بك بعض مشكلات الاتصال",
+        "subtext": "حاول مرة أخرى، وإذا استمرت المشكلة، فاتصل بدعم Cypherock للحصول على المساعدة"
       },
       "SER_0001": {
         "heading": "يرجى الاتصال بالإنترنت للمتابعة"
       },
       "SER_1001": {
-        "heading": "OTP verification failed",
-        "subtext": "Try again and if the problem persists, contact Cypherock support for assistance"
+        "heading": "فشل التحقق من OTP",
+        "subtext": "حاول مرة أخرى، وإذا استمرت المشكلة، فاتصل بدعم Cypherock للحصول على المساعدة"
       },
       "SER_1003": {
-        "heading": "Login Failed",
-        "subtext": "Unable to log in. Verify your credentials and try again. If the problem persists, contact Cypherock support for assistance"
+        "heading": "فشل تسجيل الدخول",
+        "subtext": "تعذر تسجيل الدخول. تأكد من بيانات الاعتماد الخاصة بك وحاول مرة أخرى. إذا استمرت المشكلة، فاتصل بدعم Cypherock للحصول على المساعدة"
       },
       "SER_1004": {
-        "heading": "Signature Verification Failed",
-        "subtext": "The signature could not be verified. Try again and if the problem persists, contact Cypherock support for assistance"
+        "heading": "فشل التحقق من التوقيع",
+        "subtext": "تعذر التحقق من التوقيع. حاول مرة أخرى، وإذا استمرت المشكلة، فاتصل بدعم Cypherock للحصول على المساعدة"
       },
       "SER_1005": {
-        "heading": "Invalid Request",
-        "subtext": "The request could not be processed. Check the input and try again. If the problem persists, contact Cypherock support for assistance"
+        "heading": "طلب غير صالح",
+        "subtext": "تعذر معالجة الطلب. تحقق من الإدخال وحاول مرة أخرى. إذا استمرت المشكلة، فاتصل بدعم Cypherock للحصول على المساعدة"
       },
       "SER_1006": {
-        "heading": "Unauthorized Access",
-        "subtext": "You do not have permission to perform this action. Contact Cypherock support for assistance"
+        "heading": "وصول غير مصرح به",
+        "subtext": "ليس لديك إذن لأداء هذا الإجراء. اتصل بدعم Cypherock للحصول على المساعدة"
       },
       "SER_1007": {
-        "heading": "Resource Not Found",
-        "subtext": "The requested resource could not be located. Try again and if the problem persists, contact Cypherock support for assistance"
+        "heading": "المورد غير موجود",
+        "subtext": "تعذر تحديد موقع المورد المطلوب. حاول مرة أخرى، وإذا استمرت المشكلة، فاتصل بدعم Cypherock للحصول على المساعدة"
       },
       "SER_1008": {
-        "heading": "Internal Server Error",
-        "subtext": "An unexpected error occurred. Try again and if the problem persists, contact Cypherock support for assistance"
+        "heading": "خطأ داخلي في الخادم",
+        "subtext": "حدث خطأ غير متوقع. حاول مرة أخرى، وإذا استمرت المشكلة، فاتصل بدعم Cypherock للحصول على المساعدة"
       },
       "SER_1009": {
-        "heading": "Request Timed Out",
-        "subtext": "The request took too long to process. Try again and if the problem persists, contact Cypherock support for assistance"
+        "heading": "انتهى وقت الطلب",
+        "subtext": "استغرق معالجة الطلب وقتًا طويلًا جدًا. حاول مرة أخرى، وإذا استمرت المشكلة، فاتصل بدعم Cypherock للحصول على المساعدة"
       },
       "SER_1010": {
-        "heading": "OTP Expired",
-        "subtext": "The OTP has expired. Please request a new one and try again."
+        "heading": "انتهى وقت OTP",
+        "subtext": "انتهى وقت OTP. يرجى طلب واحد جديد وحاول مرة أخرى."
       },
       "SER_1011": {
-        "heading": "Payload Validation Failed",
-        "subtext": "The input data is invalid. Verify and try again. If the problem persists, contact Cypherock support for assistance"
+        "heading": "فشل التحقق من صحة الحمولة",
+        "subtext": "بيانات الإدخال غير صالحة. تأكد منها وحاول مرة أخرى. إذا استمرت المشكلة، فاتصل بدعم Cypherock للحصول على المساعدة"
       },
       "SER_1012": {
-        "heading": "Maximum Retry Attempts Reached",
-        "subtext": "You've reached the retry limit. Please try again later. If the problem persists, contact Cypherock support for assistance"
+        "heading": "تم الوصول إلى الحد الأقصى لمحاولات إعادة المحاولة",
+        "subtext": "لقد وصلت إلى حد إعادة المحاولة. يرجى المحاولة مرة أخرى لاحقًا. إذا استمرت المشكلة، فاتصل بدعم Cypherock للحصول على المساعدة"
       },
       "SER_1013": {
-        "heading": "Account Locked",
-        "subtext": "Your account has been temporarily locked. Contact Cypherock support for assistance"
+        "heading": "الحساب مقفل",
+        "subtext": "تم قفل حسابك مؤقتًا. اتصل بدعم Cypherock للحصول على المساعدة"
       },
       "SER_1014": {
-        "heading": "Service Unavailable",
-        "subtext": "The service is currently unavailable. Please try again later. If the problem persists, contact Cypherock support for assistance"
+        "heading": "الخدمة غير متوفرة",
+        "subtext": "الخدمة غير متوفرة حاليًا. يرجى المحاولة مرة أخرى لاحقًا. إذا استمرت المشكلة، فاتصل بدعم Cypherock للحصول على المساعدة"
       },
       "SER_1015": {
-        "heading": "Request Conflict",
-        "subtext": "A conflicting request was made. Review and try again. If the problem persists, contact Cypherock support for assistance"
+        "heading": "تعارض في الطلب",
+        "subtext": "تم إجراء طلب متعارض. راجع وحاول مرة أخرى. إذا استمرت المشكلة، فاتصل بدعم Cypherock للحصول على المساعدة"
       },
       "SER_1016": {
-        "heading": "Validation Error",
-        "subtext": "The input does not meet validation criteria. Review and try again. If the problem persists, contact Cypherock support for assistance"
+        "heading": "خطأ في التحقق",
+        "subtext": "الإدخال لا يلبي معايير التحقق. راجع وحاول مرة أخرى. إذا استمرت المشكلة، فاتصل بدعم Cypherock للحصول على المساعدة"
       },
       "SER_1017": {
-        "heading": "Wallet Not Found",
-        "subtext": "No wallet was found for this operation. Review and try again. If the problem persists, contact Cypherock support for assistance"
+        "heading": "المحفظة غير موجودة",
+        "subtext": "لم يتم العثور على محفظة لهذه العملية. راجع وحاول مرة أخرى. إذا استمرت المشكلة، فاتصل بدعم Cypherock للحصول على المساعدة"
       },
       "SER_1018": {
-        "heading": "User Not Found",
-        "subtext": "No user data was found. Review and try again. If the problem persists, contact Cypherock support for assistance"
+        "heading": "المستخدم غير موجود",
+        "subtext": "لم يتم العثور على بيانات المستخدم. راجع وحاول مرة أخرى. إذا استمرت المشكلة، فاتصل بدعم Cypherock للحصول على المساعدة"
       },
       "SER_1019": {
-        "heading": "Nominee Missing",
-        "subtext": "Please add a nominee to proceed."
+        "heading": "المرشح مفقود",
+        "subtext": "يرجى إضافة مرشح للمتابعة."
       },
       "SER_1020": {
-        "heading": "Executor Missing",
-        "subtext": "Please add an executor to proceed."
+        "heading": "المنفذ مفقود",
+        "subtext": "يرجى إضافة منفذ للمتابعة."
       },
       "SER_1021": {
-        "heading": "Session Not Found",
-        "subtext": "The session data is missing. Try again and if the problem persists, contact Cypherock support for assistance"
+        "heading": "جلسة غير موجودة",
+        "subtext": "بيانات الجلسة مفقودة. حاول مرة أخرى، وإذا استمرت المشكلة، فاتصل بدعم Cypherock للحصول على المساعدة"
       },
       "SER_1022": {
-        "heading": "Invalid Coupon",
-        "subtext": "The coupon code entered is invalid. Verify and try again. If the problem persists, contact Cypherock support for assistance"
+        "heading": "قسيمة غير صالحة",
+        "subtext": "رمز القسيمة الذي تم إدخاله غير صالح. تأكد منه وحاول مرة أخرى. إذا استمرت المشكلة، فاتصل بدعم Cypherock للحصول على المساعدة"
       },
       "SER_1023": {
-        "heading": "Invalid Session",
-        "subtext": "The session is invalid or expired. Try again and if the problem persists, contact Cypherock support for assistance"
+        "heading": "جلسة غير صالحة",
+        "subtext": "الجلسة غير صالحة أو منتهية الصلاحية. حاول مرة أخرى، وإذا استمرت المشكلة، فاتصل بدعم Cypherock للحصول على المساعدة"
       },
       "SER_1024": {
-        "heading": "Invalid Device",
-        "subtext": "Try again and if the problem persists, contact Cypherock support for assistance"
+        "heading": "جهاز غير صالح",
+        "subtext": "حاول مرة أخرى، وإذا استمرت المشكلة، فاتصل بدعم Cypherock للحصول على المساعدة"
       },
       "SER_1025": {
-        "heading": "Invalid Key",
-        "subtext": "Try again and if the problem persists, contact Cypherock support for assistance"
+        "heading": "مفتاح غير صالح",
+        "subtext": "حاول مرة أخرى، وإذا استمرت المشكلة، فاتصل بدعم Cypherock للحصول على المساعدة"
       },
       "SER_1026": {
-        "heading": "Active Plan Already Found",
-        "subtext": "You already have an active plan for this wallet. Choose a different wallet and try again."
+        "heading": "تم العثور على خطة فعالة بالفعل",
+        "subtext": "لديك بالفعل خطة فعالة لهذه المحفظة. اختر محفظة مختلفة وحاول مرة أخرى."
       },
       "SER_1027": {
-        "heading": "OTP Resend Limit Reached",
-        "subtext": "You've reached the maximum number of OTP resend attempts. Please try again later or contact Cypherock support for assistance"
+        "heading": "تم الوصول إلى حد إعادة إرسال OTP",
+        "subtext": "لقد وصلت إلى الحد الأقصى لعدد محاولات إعادة إرسال OTP. يرجى المحاولة مرة أخرى لاحقًا أو الاتصال بدعم Cypherock للحصول على المساعدة"
       },
       "SER_1028": {
-        "heading": "Email Already Exists",
-        "subtext": "An account with this email address already exists. Please use a different email address or contact Cypherock support for assistance"
+        "heading": "البريد الإلكتروني موجود بالفعل",
+        "subtext": "يوجد بالفعل حساب به عنوان البريد الإلكتروني هذا. يرجى استخدام عنوان بريد إلكتروني مختلف أو الاتصال بدعم Cypherock للحصول على المساعدة"
       }
     },
-    "videoPlaybackError": "No Internet connection. Please check your connection and ",
+    "videoPlaybackError": "لا يوجد اتصال بالإنترنت. يرجى التحقق من اتصالك و",
     "serverCoinErrors": {
       "default": {
         "DEF_0000": {
           "heading": "حدث خطأ ما",
-          "subtext": "حاول مرة أخرى وإذا استمرت المشكلة، اتصل بدعم Cypherock للحصول على المساعدة"
+          "subtext": "حاول مرة أخرى، وإذا استمرت المشكلة، فاتصل بدعم Cypherock للحصول على المساعدة"
         }
       }
     },
-    "default": "حدث خطأ داخلي"
+    "default": "حدث خطأ داخلي ما"
   },
   "validation": {
     "generic": {
       "required": "هذا الحقل مطلوب",
-      "englishOnly": "Only ASCII characters and English text are allowed"
+      "englishOnly": "فقط أحرف ASCII والنصوص الإنجليزية مسموح بها"
     },
     "email": {
       "invalid": "هذا ليس بريدًا إلكترونيًا صالحًا"
     },
     "password": {
-      "mismatch": "كلمات المرور لا تطابق",
+      "mismatch": "كلمات المرور لا تتطابق",
       "passwordFieldPrefix": "كلمة المرور ",
       "confirmPasswordFieldPrefix": "تأكيد كلمة المرور ",
-      "minLength": "يجب أن يكون على الأقل 8 أحرف",
+      "minLength": "يجب أن يكون طوله 8 أحرف على الأقل",
       "containNumber": "يجب أن يحتوي على رقم واحد على الأقل",
       "containSymbol": "يجب أن يحتوي على رمز واحد على الأقل",
       "required": "مطلوب",
-      "containUppercase": "يجب أن يحتوي على حرف واحد كبير على الأقل",
-      "containLowercase": "يجب أن يحتوي على حرف واحد صغير على الأقل"
+      "containUppercase": "يجب أن يحتوي على حرف كبير واحد على الأقل",
+      "containLowercase": "يجب أن يحتوي على حرف صغير واحد على الأقل"
     }
   },
   "guidedFlows": {
     "createWallet": {
-      "title": "إنشاء wallet جديدة",
+      "title": "إنشاء محفظة جديدة",
       "tabs": [
         {
           "asideTitle": "X1 Vault",
           "pages": [
             {
-              "title": "من القائمة الرئيسية لـ X1 Vault ، انقر على \"إنشاء محفظة\""
+              "title": "من القائمة الرئيسية لـ X1 Vault، انقر فوق \"إنشاء محفظة\""
             },
             {
               "title": "انقر فوق \"إنشاء محفظة جديدة\" على X1 Vault"
             },
             {
-              "title": "أدخل اسمًا للمحفظة على X1 Vault",
+              "title": "أدخل اسم المحفظة على X1 Vault",
               "bulletList": [
-                "يُسمح بحد أقصى 15 حرفًا",
+                "يُسمح بما يصل إلى 15 حرفًا",
                 "يمكن أن يكون أبجديًا رقميًا"
               ],
               "messageBoxList": [
                 {
-                  "info": "تأكد من أن اسم المحفظة فريد من نوعه بالنسبة لأسماء المحافظ الأخرى الموجودة على الجهاز"
+                  "info": "تأكد من أن اسم المحفظة فريد من أسماء المحافظ الأخرى على الجهاز"
                 },
                 {
-                  "warning": "لا يمكن تعديل اسم المحفظة بعد تحديده. يرجى تحديد الاسم وفقًا لذلك"
+                  "warning": "اسم المحفظة بمجرد تعيينه لا يمكن تعديله. يرجى تعيين الاسم وفقًا لذلك"
                 }
               ]
             },
@@ -1242,53 +1242,53 @@
               "title": "هل تريد إعداد رقم التعريف الشخصي لمحفظتك؟",
               "messageBoxList": [
                 {
-                  "warning": "لا يمكن تغيير رقم التعريف الشخصي بعد تحديده. سيتعين عليك حذف المحفظة وإنشاء محفظة جديدة لتغيير رقم التعريف الشخصي"
+                  "warning": "رقم التعريف الشخصي بمجرد تعيينه لا يمكن تغييره. سيتعين عليك حذف المحفظة وإنشاء محفظة جديدة لتغيير رقم التعريف الشخصي"
                 }
               ]
             },
             {
-              "title": "إعداد رقم التعريف الشخصي على X1 Vault",
+              "title": "قم بإعداد رقم التعريف الشخصي على X1 Vault",
               "bulletList": [
                 "استخدم ما بين 4 و 8 أحرف",
                 "يمكن أن يكون رقم التعريف الشخصي أبجديًا رقميًا"
               ],
               "messageBoxList": [
                 {
-                  "warning": "تأكد من عمل نسخة احتياطية من رقم التعريف الشخصي. إذا فقدته ، فستفقد حق الوصول إلى أموالك"
+                  "warning": "تأكد من عمل نسخة احتياطية من رقم التعريف الشخصي الخاص بك. إذا فقدته، ستفقد حق الوصول إلى أموالك"
                 },
                 {
-                  "warning-white": "تخطّ هذه الخطوة إذا لم تكن تقوم بإعداد رقم التعريف الشخصي"
+                  "warning-white": "تخطي هذه الخطوة إذا كنت لا تقوم بإعداد رقم تعريف شخصي"
                 }
               ]
             },
             {
-              "title": "تأكيد رقم التعريف الشخصي المُدخَل على X1 Vault",
+              "title": "تأكيد رقم التعريف الشخصي المدخل على X1 Vault",
               "messageBoxList": [
                 {
-                  "warning": "تذكر رقم التعريف الشخصي الخاص بك ، فإذا فقدته ، فستفقد حق الوصول إلى أموالك. حتى Cypherock لن تتمكن من مساعدتك في استرداد أصولك"
+                  "warning": "تذكر رقم التعريف الشخصي الخاص بك، فإذا فقدته، ستفقد حق الوصول إلى أموالك. حتى Cypherock لن تتمكن من مساعدتك في استرداد أصولك"
                 },
                 {
                   "warning": "قم بعمل نسخة احتياطية منه في مكان آمن"
                 },
                 {
-                  "warning-white": "تخطّ هذه الخطوة إذا لم تكن تقوم بإعداد رقم التعريف الشخصي"
+                  "warning-white": "تخطي هذه الخطوة إذا كنت لا تقوم بإعداد رقم تعريف شخصي"
                 }
               ]
             }
           ]
         },
         {
-          "asideTitle": "مزامنة X1 Cards",
+          "asideTitle": "مزامنة بطاقات X1",
           "pages": [
             {
-              "title": "اضغط على X1 Cards واحدة تلو الأخرى أسفل X1 Vault",
-              "subtitle": "لا ترفعها حتى تسمع صوتًا طنينًا",
+              "title": "انقر على بطاقات X1 واحدة تلو الأخرى أسفل X1 Vault",
+              "subtitle": "لا ترفع حتى تسمع صوتًا صفيرًا",
               "messageBoxList": [
                 {
-                  "info": "تأكد من أن X1 Cards تنتمي إلى نفس العائلة"
+                  "info": "تأكد من أن بطاقات X1 الخاصة بك تنتمي إلى نفس العائلة"
                 },
                 {
-                  "info": "تأكد من أنك تضغط على X1 Cards بالترتيب الصحيح"
+                  "info": "تأكد من أنك تنقر على بطاقات X1 بالترتيب الصحيح"
                 }
               ]
             }
@@ -1298,28 +1298,28 @@
           "asideTitle": "التأكيد",
           "pages": [
             {
-              "title": "تهانينا ، تم إنشاء محفظتك بنجاح الآن"
+              "title": "تهانينا، تم الآن إنشاء محفظتك بنجاح"
             },
             {
-              "title": "في المرة التالية التي تحتاج فيها إلى إجراء معاملة ، ستحتاج فقط إلى إحضار X1 Card واحدة مع X1 Vault"
+              "title": "في المرة التالية التي تحتاج فيها إلى إجراء معاملة، تحتاج فقط إلى جلب أي بطاقة X1 واحدة مع X1 Vault"
             },
             {
-              "title": "في حالة فقدان X1 Vault ، يمكنك شراء X1 Vault جديد بشكل منفصل واستخدامه مع X1 Cards القديمة الخاصة بك"
+              "title": "في حالة فقدان X1 Vault، يمكنك شراء X1 Vault جديد بشكل منفصل واستخدامه مع بطاقات X1 القديمة الخاصة بك"
             },
             {
-              "title": "ملاحظة هامة",
+              "title": "ملاحظة مهمة",
               "messageBoxList": [
                 {
-                  "warning": "في حالة الحاجة إلى إضافة محفظة أخرى ، ستحتاج إلى إحضار جميع البطاقات الأربع معًا. في حالة رغبتك في استيراد محفظاتك الأخرى إلى Cypherock X1 ، الآن هو أفضل وقت لتجنب المتاعب في المستقبل"
+                  "warning": "في حالة حاجتك إلى إضافة محفظة أخرى، ستحتاج إلى جلب جميع البطاقات الأربع معًا. في حالة رغبتك في استيراد محافظك الأخرى إلى Cypherock X1، فإن الوقت الحالي هو أفضل وقت لتجنب المتاعب في المستقبل"
                 }
               ]
             },
             {
-              "title": "كخطوة تالية ، احتفظ ببطاقات X1 الخاصة بك بأمان داخل أكمام البطاقات وقم بتوزيعها في أماكن مختلفة. بعض الأمثلة على الأماكن يمكن أن تكون: ",
+              "title": "كخطوة تالية، احتفظ ببطاقات X1 الخاصة بك بأمان داخل أكمام البطاقات وقم بتوزيعها في أماكن مختلفة. بعض أمثلة الأماكن يمكن أن تكون:",
               "bulletList": [
                 "منازل أفراد عائلتك أو أصدقائك",
-                "مخبأ سري",
-                "خزنة البنك"
+                "مكان اختباء سري",
+                "خزنة بنك"
               ]
             }
           ]
@@ -1327,29 +1327,29 @@
       ]
     },
     "importWallet": {
-      "title": "استيراد Wallet",
+      "title": "استيراد محفظة",
       "tabs": [
         {
           "asideTitle": "X1 Vault",
           "pages": [
             {
-              "title": "من القائمة الرئيسية لـ X1 Vault ، انقر على \"إنشاء محفظة\""
+              "title": "من القائمة الرئيسية لـ X1 Vault، انقر فوق \"إنشاء محفظة\""
             },
             {
-              "title": "انقر فوق \"استعادة من Seed Phrase\" في X1 Vault الخاص بك"
+              "title": "انقر فوق \"استعادة من عبارة البذور\" على X1 Vault"
             },
             {
-              "title": "أدخل اسمًا للمحفظة على X1 Vault",
+              "title": "أدخل اسم المحفظة على X1 Vault",
               "bulletList": [
-                "يُسمح بحد أقصى 15 حرفًا",
+                "يُسمح بما يصل إلى 15 حرفًا",
                 "يمكن أن يكون أبجديًا رقميًا"
               ],
               "messageBoxList": [
                 {
-                  "info": "تأكد من أن اسم المحفظة فريد من نوعه بالنسبة لأسماء المحافظ الأخرى الموجودة على الجهاز"
+                  "info": "تأكد من أن اسم المحفظة فريد من أسماء المحافظ الأخرى على الجهاز"
                 },
                 {
-                  "warning": "لا يمكن تعديل اسم المحفظة بعد تحديده. يرجى تحديد الاسم وفقًا لذلك"
+                  "warning": "اسم المحفظة بمجرد تعيينه لا يمكن تعديله. يرجى تعيين الاسم وفقًا لذلك"
                 }
               ]
             },
@@ -1360,68 +1360,68 @@
               "title": "هل تريد إعداد رقم التعريف الشخصي لمحفظتك؟",
               "messageBoxList": [
                 {
-                  "warning": "لا يمكن تغيير رقم التعريف الشخصي بعد تحديده. سيتعين عليك حذف المحفظة وإنشاء محفظة جديدة لتغيير رقم التعريف الشخصي"
+                  "warning": "رقم التعريف الشخصي بمجرد تعيينه لا يمكن تغييره. سيتعين عليك حذف المحفظة وإنشاء محفظة جديدة لتغيير رقم التعريف الشخصي"
                 }
               ]
             },
             {
-              "title": "إعداد رقم التعريف الشخصي على X1 Vault",
+              "title": "قم بإعداد رقم التعريف الشخصي على X1 Vault",
               "bulletList": [
                 "استخدم ما بين 4 و 8 أحرف",
                 "يمكن أن يكون رقم التعريف الشخصي أبجديًا رقميًا"
               ],
               "messageBoxList": [
                 {
-                  "warning": "تأكد من عمل نسخة احتياطية من رقم التعريف الشخصي. إذا فقدته ، فستفقد حق الوصول إلى أموالك"
+                  "warning": "تأكد من عمل نسخة احتياطية من رقم التعريف الشخصي الخاص بك. إذا فقدته، ستفقد حق الوصول إلى أموالك"
                 },
                 {
-                  "warning-white": "تخطّ هذه الخطوة إذا لم تكن تقوم بإعداد رقم التعريف الشخصي"
+                  "warning-white": "تخطي هذه الخطوة إذا كنت لا تقوم بإعداد رقم تعريف شخصي"
                 }
               ]
             },
             {
-              "title": "تأكيد رقم التعريف الشخصي المُدخَل على X1 Vault",
+              "title": "تأكيد رقم التعريف الشخصي المدخل على X1 Vault",
               "messageBoxList": [
                 {
-                  "warning": "تذكر رقم التعريف الشخصي الخاص بك ، فإذا فقدته ، فستفقد حق الوصول إلى أموالك. حتى Cypherock لن تتمكن من مساعدتك في استرداد أصولك"
+                  "warning": "تذكر رقم التعريف الشخصي الخاص بك، فإذا فقدته، ستفقد حق الوصول إلى أموالك. حتى Cypherock لن تتمكن من مساعدتك في استرداد أصولك"
                 },
                 {
                   "warning": "قم بعمل نسخة احتياطية منه في مكان آمن"
                 },
                 {
-                  "warning-white": "تخطّ هذه الخطوة إذا لم تكن تقوم بإعداد رقم التعريف الشخصي"
+                  "warning-white": "تخطي هذه الخطوة إذا كنت لا تقوم بإعداد رقم تعريف شخصي"
                 }
               ]
             }
           ]
         },
         {
-          "asideTitle": "مزامنة X1 Cards",
+          "asideTitle": "مزامنة بطاقات X1",
           "pages": [
             {
-              "title": "احسب عدد كلمات seed phrase التي تقوم باستيرادها وحددها في X1 Vault"
+              "title": "احسب عدد كلمات عبارة البذور التي تقوم باستيرادها واخترها على X1 Vault"
             },
             {
-              "title": "أدخل seed phrase في X1 Vault",
+              "title": "أدخل عبارة البذور على X1 Vault",
               "messageBoxList": [
                 {
-                  "warning": "تأكد من عدم ارتكاب أخطاء إملائية أثناء إدخال الكلمات على الجهاز. غالبًا ما تكون الكلمات مثل \"غرب\" و \"عش\" مربكة أثناء القراءة وتحتاج إلى إدخالها بشكل صحيح"
+                  "warning": "تأكد من عدم ارتكاب أخطاء إملائية أثناء إدخال الكلمات على الجهاز. غالبًا ما تكون الكلمات مثل \"الغرب\" و \"العش\" مربكة أثناء القراءة وتحتاج إلى إدخالها بشكل صحيح"
                 }
               ]
             },
             {
-              "title": "تحقق من seed phrase التي أدخلتها على X1 Vault",
-              "subtitle": "طابق كل كلمة وكل كلمة بنجاح لاستيراد المحفظة الصحيحة"
+              "title": "تحقق من عبارة البذور التي أدخلتها على X1 Vault",
+              "subtitle": "طابق كل كلمة بنجاح لاستيراد المحفظة الصحيحة"
             },
             {
-              "title": "اضغط على X1 Cards واحدة تلو الأخرى أسفل X1 Vault",
-              "subtitle": "لا ترفعها حتى تسمع صوتًا طنينًا",
+              "title": "انقر على بطاقات X1 واحدة تلو الأخرى أسفل X1 Vault",
+              "subtitle": "لا ترفع حتى تسمع صوتًا صفيرًا",
               "messageBoxList": [
                 {
-                  "info": "تأكد من أن X1 Cards تنتمي إلى نفس العائلة"
+                  "info": "تأكد من أن بطاقات X1 الخاصة بك تنتمي إلى نفس العائلة"
                 },
                 {
-                  "info": "تأكد من أنك تضغط على X1 Cards بالترتيب الصحيح"
+                  "info": "تأكد من أنك تنقر على بطاقات X1 بالترتيب الصحيح"
                 }
               ]
             }
@@ -1431,28 +1431,28 @@
           "asideTitle": "التأكيد",
           "pages": [
             {
-              "title": "تهانينا ، تم إنشاء محفظتك بنجاح الآن"
+              "title": "تهانينا، تم الآن إنشاء محفظتك بنجاح"
             },
             {
-              "title": "في المرة التالية التي تحتاج فيها إلى إجراء معاملة ، ستحتاج فقط إلى إحضار X1 Card واحدة مع X1 Vault"
+              "title": "في المرة التالية التي تحتاج فيها إلى إجراء معاملة، تحتاج فقط إلى جلب أي بطاقة X1 واحدة مع X1 Vault"
             },
             {
-              "title": "في حالة فقدان X1 Vault ، يمكنك شراء X1 Vault جديد بشكل منفصل واستخدامه مع X1 Cards القديمة الخاصة بك"
+              "title": "في حالة فقدان X1 Vault، يمكنك شراء X1 Vault جديد بشكل منفصل واستخدامه مع بطاقات X1 القديمة الخاصة بك"
             },
             {
-              "title": "ملاحظة هامة",
+              "title": "ملاحظة مهمة",
               "messageBoxList": [
                 {
-                  "warning": "في حالة الحاجة إلى إضافة محفظة أخرى ، ستحتاج إلى إحضار جميع البطاقات الأربع معًا. في حالة رغبتك في استيراد محفظاتك الأخرى إلى Cypherock X1 ، الآن هو أفضل وقت لتجنب المتاعب في المستقبل"
+                  "warning": "في حالة حاجتك إلى إضافة محفظة أخرى، ستحتاج إلى جلب جميع البطاقات الأربع معًا. في حالة رغبتك في استيراد محافظك الأخرى إلى Cypherock X1، فإن الوقت الحالي هو أفضل وقت لتجنب المتاعب في المستقبل"
                 }
               ]
             },
             {
-              "title": "كخطوة تالية، احتفظ بـ X1 Cards الخاصة بك بأمان داخل أغلفة البطاقات وقم بتوزيعها في أماكن مختلفة. بعض الأمثلة على الأماكن يمكن أن تكون: ",
+              "title": "كخطوة تالية، احتفظ ببطاقات X1 الخاصة بك بأمان داخل أكمام البطاقات وقم بتوزيعها في أماكن مختلفة. بعض أمثلة الأماكن يمكن أن تكون:",
               "bulletList": [
                 "منازل أفراد عائلتك أو أصدقائك",
-                "مخبأ سري",
-                "خزنة البنك"
+                "مكان اختباء سري",
+                "خزنة بنك"
               ]
             }
           ]
@@ -1460,23 +1460,23 @@
       ]
     },
     "finalMessage": {
-      "title": "لإضافة العملات المعدنية والرموز المميزة إلى المحفظة، يجب عليك إضافة حساب أولاً. تأكد من أن لديك X1 Vault وبطاقة X1 Card في متناول يديك",
+      "title": "لإضافة العملات والرموز في المحفظة، يجب عليك إضافة حساب أولاً. تأكد من أن لديك X1 Vault وبطاقة X1 في متناول يديك",
       "buttons": {
-        "secondary": "تخطّ",
-        "primary": "أضف حسابًا"
+        "secondary": "تخطي",
+        "primary": "إضافة حساب"
       }
     },
     "walletNotCreatedDialog": {
-      "title": "يبدو أنك لم تنشئ محفظة بعد",
-      "subtitle": "لإضافة حساب ، يجب عليك أولاً إنشاء محفظة",
+      "title": "يبدو أنك لم تقم بإنشاء محفظة بعد",
+      "subtitle": "لإضافة حساب، يجب عليك أولاً إنشاء محفظة",
       "buttons": {
         "secondary": "سأفعل ذلك لاحقًا",
-        "primary": "إنشاء Wallet"
+        "primary": "إنشاء محفظة"
       }
     },
     "closeDialog": {
       "title": "هل أنت متأكد من أنك تريد الخروج؟",
-      "subtitle": "يمكنك دائمًا بدء هذا الدليل بالنقر فوق \"Add Wallet\" ضمن علامة التبويب Wallets",
+      "subtitle": "يمكنك دائمًا بدء هذا الدليل بالنقر فوق \"إضافة محفظة\" ضمن علامة التبويب المحافظ",
       "buttons": {
         "secondary": "إلغاء",
         "primary": "الخروج"
@@ -1485,32 +1485,32 @@
   },
   "dialogs": {
     "close": {
-      "title": "هل أنت متأكد من رغبتك في الخروج؟"
+      "title": "هل أنت متأكد أنك تريد الخروج؟"
     },
     "reset": {
       "confim": {
-        "title": "هل أنت متأكد من رغبتك في إعادة ضبط cySync app؟",
-        "subTitle": "سيتم مسح جميع بياناتك على cySync app. لاحظ أن هذا لن يؤدي إلى فقدان الأصول"
+        "title": "هل أنت متأكد من رغبتك في إعادة تعيين تطبيق cySync؟",
+        "subTitle": "سيؤدي هذا إلى مسح جميع بياناتك على تطبيق cySync. لاحظ أن هذا لن يؤدي إلى فقدان الأصول"
       }
     },
     "releaseNote": {
       "title": "ملاحظات الإصدار"
     },
     "auth": {
-      "title": "اتبع التعليمات على X1 Vault",
+      "title": "اتبع التعليمات الموجودة على X1 Vault",
       "email2fa": {
-        "title": "ننصحك بإدخال معرف بريد إلكتروني كـ 2FA للحصول على نتائج المصادقة",
+        "title": "نوصي بإدخال معرف بريد إلكتروني كـ 2FA للحصول على نتائج المصادقة",
         "emailInput": "البريد الإلكتروني"
       },
       "authX1Vault": {
         "description": "يتم الآن مصادقة جهازك",
-        "info": "لا تقم بفصل الجهاز أثناء المصادقة",
+        "info": "لا تقم بفصل الجهاز أثناء عملية المصادقة",
         "steps": {
           "confirm": "تأكيد المصادقة على الجهاز"
         },
         "success": "تمت مصادقة X1 Vault بنجاح",
         "authenticating": {
-          "title": "يرجى الانتظار أثناء مصادقة X1 Vault",
+          "title": "الرجاء الانتظار أثناء مصادقة X1 Vault",
           "description": "لا تقم بفصل X1 Vault أثناء إجراء العملية"
         }
       },
@@ -1519,7 +1519,7 @@
         "info": "لا تقم بفصل الجهاز أثناء مصادقة البطاقة",
         "steps": {
           "confirm": "تأكيد مصادقة البطاقة على الجهاز",
-          "tapCard": "انقر فوق أي بطاقة أسفل الجهاز"
+          "tapCard": "اضغط على أي بطاقة أسفل الجهاز"
         },
         "success": "تمت مصادقة X1 Card بنجاح"
       }
@@ -1533,7 +1533,7 @@
       },
       "error": {
         "mismatchError": "كلمة المرور غير متطابقة",
-        "lengthError": "يجب أن يكون طول كلمة المرور أكثر من 8",
+        "lengthError": "يجب أن يكون طول كلمة المرور أكثر من 8 أحرف",
         "failedToSet": "فشل في تعيين كلمة المرور"
       },
       "success": {
@@ -1542,22 +1542,22 @@
         "remove": "تم إزالة كلمة المرور بنجاح"
       },
       "info": {
-        "constraints": "استخدم 8 أحرف أو أكثر مع مزيج من الأحرف والأرقام والرموز"
+        "constraints": "استخدم 8 أحرف أو أكثر مع مزيج من الحروف والأرقام والرموز"
       },
       "confimPassword": {
         "title": "تأكيد كلمة المرور للمتابعة",
-        "subTitle": "أدخل كلمة المرور للمتابعة"
+        "subTitle": "قدم كلمة المرور للمتابعة"
       },
       "createNewPassword": {
-        "title": "قم بتعيين كلمة مرور cySync",
-        "subTitle": "نحن لا نخزن كلمة المرور الخاصة بك على خوادمنا"
+        "title": "عيّن كلمة مرور cySync الخاصة بك",
+        "subTitle": "نحن لا نخزن كلمة مرورك على خوادمنا"
       }
     },
     "contactSupport": {
       "form": {
         "header": "اتصل بالدعم",
-        "title": "كيف يمكننا مساعدتك؟",
-        "description": "فريقنا سعيد لسماع منك",
+        "title": "كيف يمكننا المساعدة؟",
+        "description": "يسعد فريقنا سماع آرائك",
         "field": {
           "email": {
             "label": "البريد الإلكتروني",
@@ -1576,7 +1576,7 @@
           "attachAppLogs": "إرفاق سجلات التطبيق",
           "attachDeviceLogs": "إرفاق سجلات الجهاز",
           "confirmDevice": "يرجى التأكيد على الجهاز للمتابعة",
-          "fetchingDeviceLogs": "الحصول على سجلات من الجهاز",
+          "fetchingDeviceLogs": "جلب السجلات من الجهاز",
           "attachedDeviceLogs": "تم إرفاق سجلات الجهاز بنجاح"
         },
         "errors": {
@@ -1590,20 +1590,20 @@
     },
     "betaNotification": {
       "title": "تحديث CySync v2.0.0",
-      "description": "لقد أجرينا إصلاحًا شاملاً على تطبيق cySync app.\nيأتي CySync الجديد مزودًا بجميع الميزات المفضلة لديك وغير ذلك الكثير.\nالتنزيل من <a href=\"https://cypherock.com/get-started\">https://cypherock.com/get-started</a>\n\n**مهم**\n\n* لن تخسر أموالك\n* بعد التحديث، سيتعين عليك استيراد حساباتك مرة أخرى\n* لا توجد تحديثات جديدة لبرنامج cySync v1 باستثناء التحديث الأمني\n"
+      "description": "لقد قمنا بإجراء عملية مراجعة شاملة لتطبيق CySync.\nيتضمن تطبيق CySync الجديد جميع ميزاتك المفضلة والمزيد.\nالتحميل من <a href=\"https://cypherock.com/get-started\">https://cypherock.com/get-started</a>\n\n**هام**\n\n* لن تخسر أموالك\n* بعد التحديث، سيتعين عليك استيراد حساباتك مرة أخرى\n* لا توجد تحديثات جديدة لـ CySync v1 باستثناء تحديث الأمان\n"
     },
     "editAccount": {
       "header": "تحرير الحساب",
       "accountSelection": {
-        "title": "حدد الحساب الذي تريد تحريره",
+        "title": "حدد الحساب المراد تحريره",
         "subtitle": "اختر الحساب الذي تريد تحريره",
         "searchText": "بحث",
-        "accountPlaceholder": "حدد الحسابات",
+        "accountPlaceholder": "اختر الحسابات",
         "walletPlaceholder": "اختر محفظة"
       },
       "accountEdit": {
         "title": "تفاصيل الحساب",
-        "subtitle": "عدّل سمات حسابك",
+        "subtitle": "حرر سمات حسابك",
         "input": {
           "accountName": {
             "title": "اسم الحساب",
@@ -1611,356 +1611,356 @@
           },
           "unit": {
             "title": "الوحدة",
-            "subtitle": "اختر الوحدة التي سيتم استخدامها"
+            "subtitle": "اختر الوحدة المراد استخدامها"
           }
         },
         "buttons": {
           "remove": "إزالة من المحفظة",
           "apply": "تطبيق"
         },
-        "info": "هذا هو ${derivationSchemeName} xpub. عند استيراده إلى محفظة تابعة لجهة خارجية، اختر نفس وضع الاستنتاج",
+        "info": "هذا هو xpub ${derivationSchemeName}. عند استيراده إلى محفظة تابعة لجهة خارجية، اختر وضع الاستنتاج نفسه",
         "advanced": "متقدم"
       }
     },
     "inheritanceSyncPlans": {
       "enterEmail": {
-        "title": "Please enter your primary email associated with this plan",
-        "subTitle": "An OTP will be sent to this email",
-        "button": "Verify"
+        "title": "الرجاء إدخال بريدك الإلكتروني الأساسي المرتبط بهذه الخطة",
+        "subTitle": "سيتم إرسال رمز التحقق إلى هذا البريد الإلكتروني",
+        "button": "التحقق"
       },
       "verifyEmail": {
-        "title": "OTP verification"
+        "title": "التحقق من رمز التحقق"
       }
     },
     "inheritancePlanLogin": {
       "walletAuth": {
-        "title": "Follow instructions on the X1 Vault to authenticate the selected wallet",
-        "subTitle": "Authenticating the wallet ",
+        "title": "اتبع التعليمات الموجودة على X1 Vault لمصادقة المحفظة المحددة",
+        "subTitle": "مصادقة المحفظة",
         "actions": {
-          "confirm": "Confirm wallet authentication on device",
-          "tapCard": "Enter PIN and tap any one card"
+          "confirm": "تأكيد مصادقة المحفظة على الجهاز",
+          "tapCard": "أدخل رقم التعريف الشخصي واضغط على أي بطاقة"
         }
       },
       "fetchData": {
-        "title": "Please wait while we fetch the plan data",
-        "subTitle": "Do not disconnect or close the app"
+        "title": "الرجاء الانتظار بينما نجلب بيانات الخطة",
+        "subTitle": "لا تقم بفصل الاتصال أو إغلاق التطبيق"
       },
       "verifyEmail": {
-        "title": "OTP Verification"
+        "title": "التحقق من رمز التحقق"
       }
     },
     "inheritanceEditExecutorMessage": {
       "fetchData": {
-        "title": "Please wait while we fetch the data",
-        "subTitle": "Do not disconnect or close the app"
+        "title": "الرجاء الانتظار بينما نجلب البيانات",
+        "subTitle": "لا تقم بفصل الاتصال أو إغلاق التطبيق"
       },
       "editMessage": {
-        "title": "Executor Message",
+        "title": "رسالة المنفذ",
         "form": {
           "messageField": {
-            "label": "Message",
-            "placeholder": "Executor Message"
+            "label": "الرسالة",
+            "placeholder": "رسالة المنفذ"
           }
         },
         "buttons": {
-          "exit": "Exit without saving",
-          "save": "Save changes"
+          "exit": "الخروج بدون حفظ",
+          "save": "حفظ التغييرات"
         },
         "loading": {
-          "title": "Please wait while we update the data",
-          "subtitle": "Do not disconnect or close the app"
+          "title": "الرجاء الانتظار بينما نقوم بتحديث البيانات",
+          "subtitle": "لا تقم بفصل الاتصال أو إغلاق التطبيق"
         }
       },
       "success": {
-        "title": "Executor message successfully encrypted"
+        "title": "تم تشفير رسالة المنفذ بنجاح"
       }
     },
     "inheritanceEditReminderTime": {
       "fetchData": {
-        "title": "Please wait while we fetch the data",
-        "subTitle": "Do not disconnect or close the app"
+        "title": "الرجاء الانتظار بينما نجلب البيانات",
+        "subTitle": "لا تقم بفصل الاتصال أو إغلاق التطبيق"
       },
       "reminderSetup": {
-        "title": "Reminder setup",
+        "title": "إعداد التذكير",
         "reminderInfo": {
-          "subtitle": "What is reminder time?",
-          "subtext": "Reminder Time is the interval at which you'll receive a confirmation email from Cypherock to verify your continued well-being. If no response is received within two months of the initial email, the inheritance process will commence and your nominee will receive the recovery instruction email from Cypherock"
+          "subtitle": "ما هو وقت التذكير؟",
+          "subtext": "وقت التذكير هو الفترة الزمنية التي ستتلقى فيها بريدًا إلكترونيًا للتأكيد من Cypherock للتحقق من استمرار صحتك. إذا لم يتم تلقي أي رد خلال شهرين من البريد الإلكتروني الأولي، فستبدأ عملية الميراث وسيتلقى مرشحك بريدًا إلكترونيًا بتعليمات الاسترداد من Cypherock"
         },
         "form": {
           "reminderField": {
-            "label": "Set reminder time interval",
-            "month": "Month",
-            "months": "Months"
+            "label": "عيّن فاصل زمني للتذكير",
+            "month": "شهر",
+            "months": "أشهر"
           }
         },
-        "currentReminder": "The current reminder is set at ${month}",
+        "currentReminder": "تم تعيين التذكير الحالي على ${month}",
         "loading": {
-          "title": "Please wait while we update the data",
-          "subtitle": "Do not disconnect or close the app"
+          "title": "الرجاء الانتظار بينما نقوم بتحديث البيانات",
+          "subtitle": "لا تقم بفصل الاتصال أو إغلاق التطبيق"
         }
       },
       "success": {
-        "title": "Reminders duration updated successfully"
+        "title": "تم تحديث مدة التذكيرات بنجاح"
       }
     },
     "inheritanceEditUserDetails": {
       "editDetails": {
-        "title": "Edit ${userType} Details",
+        "title": "تحرير تفاصيل ${userType}",
         "userTypes": {
-          "owner": "Owner",
-          "nominee": "Nominee",
-          "executor": "Executor"
+          "owner": "مالك",
+          "nominee": "مرشح",
+          "executor": "منفذ"
         },
         "buttons": {
-          "verifyEmail": "Verify Email"
+          "verifyEmail": "التحقق من البريد الإلكتروني"
         }
       },
       "verifyOtp": {
         "loading": {
-          "title": "Please wait while we update the data",
-          "subtext": "Do not disconnect or close the app"
+          "title": "الرجاء الانتظار بينما نقوم بتحديث البيانات",
+          "subtext": "لا تقم بفصل الاتصال أو إغلاق التطبيق"
         }
       },
       "success": {
-        "title": "${userType} details successfully updated"
+        "title": "تم تحديث تفاصيل ${userType} بنجاح"
       }
     },
     "inheritancePinRecovery": {
-      "title": "PIN Recovery",
+      "title": "استرداد رقم التعريف الشخصي",
       "sync": {
-        "name": "Syncing",
+        "name": "مزامنة",
         "walletAuth": {
-          "title": "Follow instructions on the X1 Vault to authenticate the selected wallet",
-          "subTitle": "Authenticating the wallet ",
+          "title": "اتبع التعليمات الموجودة على X1 Vault لمصادقة المحفظة المحددة",
+          "subTitle": "مصادقة المحفظة",
           "actions": {
-            "confirmAuth": "Confirm wallet authentication on device",
-            "tapCard": "Tap any one card"
+            "confirmAuth": "تأكيد مصادقة المحفظة على الجهاز",
+            "tapCard": "اضغط على أي بطاقة"
           },
           "messageBox": {
-            "warning": "Lift your card after 2 beep sounds"
+            "warning": "ارفع بطاقتك بعد سماع صوتين"
           }
         },
         "verifyOtp": {
-          "title": "OTP verification"
+          "title": "التحقق من رمز التحقق"
         },
         "fetch": {
-          "title": "Please wait while we fetch the encrypted PIN",
-          "subTitle": "Do no disconnect or close the app"
+          "title": "الرجاء الانتظار بينما نجلب رقم التعريف الشخصي المشفر",
+          "subTitle": "لا تقم بفصل الاتصال أو إغلاق التطبيق"
         }
       },
       "decryptPin": {
-        "name": "Decryption",
-        "title": "Follow instructions on the X1 Vault",
+        "name": "فك التشفير",
+        "title": "اتبع التعليمات الموجودة على X1 Vault",
         "actions": {
-          "confirmOnDevice": "Confirm decryption on device",
-          "tapCard": "Tap any one card"
+          "confirmOnDevice": "تأكيد فك التشفير على الجهاز",
+          "tapCard": "اضغط على أي بطاقة"
         },
         "messageBox": {
-          "warning": "The PIN will be decrypted by the card"
+          "warning": "سيتم فك تشفير رقم التعريف الشخصي بواسطة البطاقة"
         },
         "error": {
-          "title": "PIN Decryption Failed",
-          "subTitle": "PIN decryption was unsuccessful. Wallet ${wallet} was not found in the card"
+          "title": "فشل فك تشفير رقم التعريف الشخصي",
+          "subTitle": "فشل فك تشفير رقم التعريف الشخصي. لم يتم العثور على المحفظة ${wallet} في البطاقة"
         }
       },
       "viewPin": {
-        "name": "View PIN",
-        "title": "Follow instructions on the X1 Vault",
-        "subTitle": "PIN for wallet ",
+        "name": "عرض رقم التعريف الشخصي",
+        "title": "اتبع التعليمات الموجودة على X1 Vault",
+        "subTitle": "رقم التعريف الشخصي للمحفظة",
         "actions": {
-          "viewDevice": "View the PIN on your device and confirm"
+          "viewDevice": "عرض رقم التعريف الشخصي على جهازك وتأكيده"
         }
       },
       "success": {
-        "name": "Confirmation",
-        "title": "Congratulations, Pin recovery is complete"
+        "name": "تأكيد",
+        "title": "تهانينا، اكتمل استرداد رقم التعريف الشخصي"
       }
     },
     "inheritanceEditEncryptedMessage": {
       "confirmation": {
-        "title": "Are you sure you want to edit the encrypted nominee message?",
-        "subTitle": "You will need the device and at least one card to encrypt the message again after editing"
+        "title": "هل أنت متأكد من رغبتك في تحرير رسالة المرشح المشفرة؟",
+        "subTitle": "ستحتاج إلى الجهاز وبطاقة واحدة على الأقل لتشفير الرسالة مرة أخرى بعد التحرير"
       },
       "syncing": {
-        "title": "Please wait while we fetch the data",
-        "subTitle": "Do not disconnect or close the app"
+        "title": "الرجاء الانتظار بينما نجلب البيانات",
+        "subTitle": "لا تقم بفصل الاتصال أو إغلاق التطبيق"
       },
       "decryption": {
         "wallet": {
-          "title": "Follow instructions on the X1 Vault",
+          "title": "اتبع التعليمات الموجودة على X1 Vault",
           "actions": {
-            "confirm": "Confirm decryption on device",
-            "tapCard": "Tap any card"
+            "confirm": "تأكيد فك التشفير على الجهاز",
+            "tapCard": "اضغط على أي بطاقة"
           },
           "messageBox": {
-            "warning": "The message will be decrypted by the X1 card"
+            "warning": "سيتم فك تشفير الرسالة بواسطة بطاقة X1"
           },
           "decryption": {
-            "title": "Please wait while we decrypt the data",
-            "subTitle": "Do not disconnect or close the app"
+            "title": "الرجاء الانتظار بينما نقوم بفك تشفير البيانات",
+            "subTitle": "لا تقم بفصل الاتصال أو إغلاق التطبيق"
           }
         }
       },
       "editMessage": {
-        "title": "Nominee message",
-        "subTitle": "The nominee messages will be end-to-end encrypted",
+        "title": "رسالة المرشح",
+        "subTitle": "ستكون رسائل المرشح مشفرة من طرف إلى طرف",
         "form": {
           "cardLocationField": {
-            "label": "Card location & Passphrase",
-            "placeholder": "Write the location of the card",
-            "tooltip": "Write down the location of another card for the nominee to fetch. Nominee will only be able to recover crypto assets after getting another card. Remember this card should be different than the card(s) you may have given to your nominee(s).\nYou can also include the passphrase in this message"
+            "label": "موقع البطاقة وعبارة المرور",
+            "placeholder": "اكتب موقع البطاقة",
+            "tooltip": "دوِّن موقع بطاقة أخرى لكي يحصل عليها المرشح. لن يتمكن المرشح من استرداد الأصول المشفرة إلا بعد الحصول على بطاقة أخرى. تذكر أن هذه البطاقة يجب أن تكون مختلفة عن البطاقة (البطاقات) التي قد تكون قد أعطيتها لمرشحك (مرشحيك).\nيمكنك أيضًا تضمين عبارة المرور في هذه الرسالة"
           },
           "personalMessageField": {
-            "label": "Personal message",
-            "placeholder": "Write your message",
-            "tooltip": "This can include your will/message for the nominee and other important pieces of information that you may want your nominee to know such as your crypto exchange account details, coins you have amongst others."
+            "label": "رسالة شخصية",
+            "placeholder": "اكتب رسالتك",
+            "tooltip": "يمكن أن تتضمن وصيتك/رسالتك للمرشح وغيرها من المعلومات المهمة التي قد ترغب في أن يعرفها مرشحك مثل تفاصيل حسابك في بورصة العملات المشفرة، والعملات التي لديك من بين أمور أخرى."
           }
         },
         "messageBox": {
-          "warning": "Make sure you describe the card's location clearly for the nominee"
+          "warning": "تأكد من وصف موقع البطاقة بوضوح للمرشح"
         }
       },
       "confirmMessage": {
-        "title": "Follow instructions on the X1 Vault to verify the nominee message",
-        "subTitle": "You can encrypt the message in the next step",
+        "title": "اتبع التعليمات الموجودة على X1 Vault للتحقق من رسالة المرشح",
+        "subTitle": "يمكنك تشفير الرسالة في الخطوة التالية",
         "actions": {
-          "confirmOnDevice": "Confirm on device",
-          "verifyLocation": "Verify Card location in your device"
+          "confirmOnDevice": "تأكيد على الجهاز",
+          "verifyLocation": "التحقق من موقع البطاقة في جهازك"
         },
         "messageBox": {
-          "danger": "Read through the whole text and verify that the message shown in the device is same as you entered in cySync"
+          "danger": "اقرأ النص بالكامل وتحقق من أن الرسالة المعروضة في الجهاز هي نفسها التي أدخلتها في cySync"
         }
       },
       "encryption": {
-        "title": "Follow instructions on the X1 Vault to encrypt the nominee message",
-        "subTitle": "Lift your card after 2 beep sounds",
+        "title": "اتبع التعليمات الموجودة على X1 Vault لتشفير رسالة المرشح",
+        "subTitle": "ارفع بطاقتك بعد سماع صوتين",
         "tooltip": "",
         "actions": {
-          "enterPinAndTap": "Enter PIN and tap any one card"
+          "enterPinAndTap": "أدخل رقم التعريف الشخصي واضغط على أي بطاقة"
         },
         "messageBox": {
-          "warning": "The nominee message will be encrypted by the Card"
+          "warning": "سيتم تشفير رسالة المرشح بواسطة البطاقة"
         },
         "syncing": {
-          "title": "Please wait while we save the encrypted data on the server",
-          "subTitle": "Do not disconnect or close the app"
+          "title": "الرجاء الانتظار بينما نقوم بحفظ البيانات المشفرة على الخادم",
+          "subTitle": "لا تقم بفصل الاتصال أو إغلاق التطبيق"
         }
       },
       "success": {
-        "title": "Nominee message successfully updated"
+        "title": "تم تحديث رسالة المرشح بنجاح"
       }
     },
     "inheritanceEstateRecovery": {
-      "title": "Estate recovery",
+      "title": "استرداد الميراث",
       "instructions": {
-        "name": "Clear Device Data",
+        "name": "مسح بيانات الجهاز",
         "dialogs": {
           "settings": {
-            "title": "From the Main Menu of your X1 Vault, click \"Settings\""
+            "title": "من القائمة الرئيسية لـ X1 Vault، انقر فوق \"الإعدادات\""
           },
           "clearData": {
-            "title": "Click \"Clear Device Data\" on your X1 Vault"
+            "title": "انقر فوق \"مسح بيانات الجهاز\" على X1 Vault"
           },
           "confirmClearData": {
-            "title": "Confirm \"Clear device data\" on the X1 Vault"
+            "title": "تأكيد \"مسح بيانات الجهاز\" على X1 Vault"
           },
           "tapCards": {
-            "title": "Tap any 2 old X1 Cards below the X1 Vault",
-            "subTitle": "Do not lift until you hear a beep sound",
+            "title": "اضغط على أي بطاقتين قديمتين من بطاقات X1 أسفل X1 Vault",
+            "subTitle": "لا ترفع حتى تسمع صوتًا",
             "messageBoxList": [
               {
-                "warning": "Tap the cards you used during the initial Cypherock setup process, not the cards given by the wallet owner"
+                "warning": "اضغط على البطاقات التي استخدمتها أثناء عملية إعداد Cypherock الأولية، وليس البطاقات التي قدمها مالك المحفظة"
               },
               {
-                "warning": "Your device will restart after this process"
+                "warning": "سيتم إعادة تشغيل جهازك بعد هذه العملية"
               }
             ]
           }
         }
       },
       "wallet": {
-        "name": "Wallet",
-        "title": "Follow instructions on the X1 Vault to authenticate the selected wallet",
-        "subTitle": "Authenticating the wallet ",
+        "name": "محفظة",
+        "title": "اتبع التعليمات الموجودة على X1 Vault لمصادقة المحفظة المحددة",
+        "subTitle": "مصادقة المحفظة",
         "actions": {
-          "confirm": "Confirm wallet authentication on device",
-          "tapCard": "Tap the card you received as a nominee"
+          "confirm": "تأكيد مصادقة المحفظة على الجهاز",
+          "tapCard": "اضغط على البطاقة التي تلقيتها كمرشح"
         },
         "messageBox": {
-          "warning": "Do not lift until you hear 2 beep sound"
+          "warning": "لا ترفع حتى تسمع صوتين"
         },
         "verification": {
-          "title": "OTP verification"
+          "title": "التحقق من رمز التحقق"
         },
         "syncing": {
-          "title": "Please wait while we fetch the data",
-          "subTitle": "Do not disconnect or close the app"
+          "title": "الرجاء الانتظار بينما نجلب البيانات",
+          "subTitle": "لا تقم بفصل الاتصال أو إغلاق التطبيق"
         }
       },
       "decryption": {
-        "name": "Decryption",
+        "name": "فك التشفير",
         "device": {
-          "title": "Follow instructions on the X1 Vault",
-          "subTitle": "Do not lift the card till you hear a beep sound",
+          "title": "اتبع التعليمات الموجودة على X1 Vault",
+          "subTitle": "لا ترفع البطاقة حتى تسمع صوتًا",
           "actions": {
-            "confirm": "Confirm decryption on device",
-            "tapCard": "Tap the card you received as a nominee"
+            "confirm": "تأكيد فك التشفير على الجهاز",
+            "tapCard": "اضغط على البطاقة التي تلقيتها كمرشح"
           },
           "messageBox": {
-            "warning": "The message will be decrypted by the card you received as a nominee"
+            "warning": "سيتم فك تشفير الرسالة بواسطة البطاقة التي تلقيتها كمرشح"
           }
         },
         "error": {
-          "title": "Decrypted message",
-          "message": "Update was unsuccessful. Wallet ABC was not found in the card"
+          "title": "الرسالة المفككة",
+          "message": "فشل التحديث. لم يتم العثور على المحفظة ABC في البطاقة"
         }
       },
       "viewPin": {
-        "name": "View PIN",
-        "title": "Follow instructions on the X1 Vault",
-        "subTitle": "PIN for wallet ",
+        "name": "عرض رقم التعريف الشخصي",
+        "title": "اتبع التعليمات الموجودة على X1 Vault",
+        "subTitle": "رقم التعريف الشخصي للمحفظة",
         "actions": {
-          "view": "View & copy the PIN displayed on your device and then confirm"
+          "view": "عرض ونسخ رقم التعريف الشخصي المعروض على جهازك ثم التأكيد"
         },
         "messageBox": {
-          "warning": "You will need this PIN to access crypto assets on this wallet. Make sure you do not forget it"
+          "warning": "ستحتاج إلى هذا رقم التعريف الشخصي للوصول إلى الأصول المشفرة في هذه المحفظة. تأكد من عدم نسيانه"
         }
       },
       "viewMessage": {
-        "name": "View Message",
-        "title": "Message from ${name}",
-        "tooltip": "These messages were written by the wallet owner for you. They contain important information about how to recover their crypto assets stored on the Cypherock X1. \nNote- Make sure you keep these messages safe and private. ",
+        "name": "عرض الرسالة",
+        "title": "رسالة من ${name}",
+        "tooltip": "تم كتابة هذه الرسائل من قبل مالك المحفظة لك. وهي تحتوي على معلومات مهمة حول كيفية استرداد أصوله المشفرة المخزنة على Cypherock X1.\nملاحظة- تأكد من الاحتفاظ بهذه الرسائل آمنة وسرية.",
         "form": {
           "cardLocationField": {
-            "label": "Card location",
-            "placeholder": "Write the location of the card",
-            "tooltip": "This is the location of another card written by wallet owner for you to fetch. You will only be able to recover the crypto assets after getting another card"
+            "label": "موقع البطاقة",
+            "placeholder": "اكتب موقع البطاقة",
+            "tooltip": "هذا هو موقع بطاقة أخرى كتبها مالك المحفظة لك للحصول عليها. لن تتمكن من استرداد الأصول المشفرة إلا بعد الحصول على بطاقة أخرى"
           },
           "personalMessageField": {
-            "label": "Personal message",
-            "placeholder": "Write your message",
-            "tooltip": "This includes a personal message written by wallet owner for you"
+            "label": "رسالة شخصية",
+            "placeholder": "اكتب رسالتك",
+            "tooltip": "يشمل هذا رسالة شخصية كتبها مالك المحفظة لك"
           },
           "checkBox": {
-            "label": "I have read and copied the above messages"
+            "label": "لقد قرأت ونسخت الرسائل أعلاه"
           }
         }
       },
       "confirmation": {
-        "name": "Confirmation",
+        "name": "تأكيد",
         "success": {
-          "title": "Congratulations, you just decrypted the message from ${name}",
-          "subTitle": "Watch the video to understand the next steps"
+          "title": "تهانينا، لقد قمت للتو بفك تشفير الرسالة من ${name}",
+          "subTitle": "شاهد الفيديو لفهم الخطوات التالية"
         }
       }
     }
   },
   "toggle": {
-    "on": "ON",
-    "off": "OFF"
+    "on": "تشغيل",
+    "off": "إيقاف"
   },
   "snackbar": {
-    "copiedToClipboard": "نسخ إلى الحافظة",
+    "copiedToClipboard": "تم النسخ إلى الحافظة",
     "accountUpdated": "تم تحديث الحساب بنجاح",
     "downloadCSV": "تم تصدير سجل المعاملات"
   },
@@ -1970,24 +1970,24 @@
         "title": "عام",
         "item": {
           "syncMobile": {
-            "title": "مزامنة تطبيق cySync Mobile",
-            "description": "مزامنة حساباتك مع تطبيق cySync Mobile عبر رمز الاستجابة السريعة"
+            "title": "مزامنة تطبيق cySync للجوال",
+            "description": "زامن حساباتك مع تطبيق cySync للجوال من خلال رمز الاستجابة السريعة"
           },
           "editAccount": {
             "title": "تحرير الحسابات",
-            "description": "قم بتحرير الاسم والعملة المفضلة للحساب أو قم بإزالتها من portfolio"
+            "description": "تحرير اسم الحساب، أو العملة المفضلة للحساب، أو إزالته من المحفظة"
           },
           "toggleWalletOnPortfolio": {
-            "title": "إظهار/إخفاء المحافظ في Portfolio",
-            "description": "يمكنك تعطيل محفظة معينة من هنا. ولن يتم عرضه على صفحة portfolio"
+            "title": "إظهار/إخفاء المحافظ في المحفظة",
+            "description": "يمكنك تعطيل محفظة محددة من هنا. لن يتم عرضها في صفحة المحفظة"
           },
           "currency": {
             "title": "العملة المفضلة",
-            "description": "اختر العملة المعروضة بجوار رصيدك وعملياتك"
+            "description": "اختر العملة التي تظهر بجانب رصيدك وعملياتك"
           },
           "language": {
             "title": "لغة العرض",
-            "description": "تعيين لغة cySync app"
+            "description": "حدد لغة تطبيق cySync"
           },
           "region": {
             "title": "المنطقة",
@@ -1999,16 +1999,16 @@
         "title": "إعدادات التطبيق",
         "item": {
           "password": {
-            "title": "كلمة السر",
-            "description": "تغيير أو إيقاف / تشغيل كلمة مرور cySync app"
+            "title": "كلمة المرور",
+            "description": "تغيير أو تشغيل/إيقاف كلمة المرور لتطبيق cySync الخاص بك"
           },
           "anayticsAndBugReport": {
-            "title": "تحليلات وتقرير الأخطاء",
-            "description": "تمكين التحليلات وتقارير الأخطاء لمساعدة Cypherock على تحسين تجربة المستخدم ومساعدتك على حل مشكلاتك بشكل أسرع. يشمل ذلك النقرات وزيارات الصفحات وإعادة التوجيهات والإجراءات (إرسال واستقبال وقفل الخ) ، ونهاية التمرير على الصفحة ، (إلغاء) التثبيت وإصدار التطبيق ، وعدد الحسابات والأصول المشفرة والعمليات ، ومدة الجلسة ، ونوع جهاز Cypherock والبرامج الثابتة"
+            "title": "التحليلات وتقرير الأخطاء",
+            "description": "تمكين التحليلات وتقارير الأخطاء لمساعدة Cypherock على تحسين تجربة المستخدم وللمساعدة في حل مشاكلك بشكل أسرع. يتضمن ذلك النقرات، و زيارات الصفحات، وإعادة التوجيهات، والإجراءات (الإرسال، الاستلام، القفل، إلخ.)، و التمرير في نهاية الصفحة، و(إلغاء) التثبيت وإصدار التطبيق، وعدد الحسابات، والأصول المشفرة، والعمليات، وفترات الجلسات، ونوع جهاز Cypherock والبرامج الثابتة"
           },
           "reset": {
             "title": "إعادة تعيين cySync",
-            "description": "مسح جميع بيانات cysync المخزنة على جهاز الكمبيوتر الخاص بك ، بما في ذلك حساباتك وسجلات المعاملات والإعدادات. لاحظ أن هذا لن يؤدي إلى فقدان الأصول"
+            "description": "مسح جميع بيانات cysync المخزنة على جهاز الكمبيوتر الخاص بك، بما في ذلك حساباتك، وسجلات المعاملات، والإعدادات. لاحظ أن هذا لن يؤدي إلى فقدان الأصول"
           },
           "update": {
             "title": "تحديث cySync",
@@ -2016,7 +2016,7 @@
           },
           "usb": {
             "title": "تشخيص USB",
-            "description": "استكشاف أخطاء اتصال USB مع الجهاز"
+            "description": "استكشاف أخطاء اتصال USB مع الجهاز وإصلاحها"
           }
         }
       },
@@ -2025,15 +2025,15 @@
         "item": {
           "x1VaultAuth": {
             "title": "مصادقة X1 Vault",
-            "description": "مصادقة جهازك"
+            "description": "قم بمصادقة جهازك"
           },
           "x1CardAuth": {
-            "title": "مصادقة X1 Card",
-            "description": "مصادقة بطاقتك"
+            "title": "مصادقة بطاقة X1",
+            "description": "قم بمصادقة بطاقتك"
           },
           "transferWallet": {
-            "title": "تحويل Wallet",
-            "description": "إذا كان لديك من قبل جهاز Cypherock X1 وترغب في نقل محافظك باستخدام بطاقاتك في حالة فقدانها أو لأي سبب من الأسباب"
+            "title": "نقل المحفظة",
+            "description": "إذا كان لديك من قبل جهاز Cypherock X1 وتريد نقل محافظك باستخدام بطاقاتك في حالة فقدانها أو لأي سبب آخر"
           }
         }
       },
@@ -2046,575 +2046,575 @@
           },
           "termsOfUse": {
             "title": "شروط الاستخدام",
-            "description": "باستخدام cySync ، فإنك توافق على شروط الاستخدام الخاصة بنا"
+            "description": "باستخدام cySync، فإنك توافق على شروط الاستخدام الخاصة بنا"
           },
           "privacyPolicy": {
             "title": "سياسة الخصوصية",
-            "description": "اطلع على سياسة الخصوصية الخاصة بنا لمعرفة البيانات الشخصية التي نجمعها ولماذا وكيفية استخدامها"
+            "description": "راجع سياسة الخصوصية الخاصة بنا لمعرفة البيانات الشخصية التي نجمعها، ولماذا وكيف نستخدمها"
           }
         }
       }
     }
   },
   "otp": {
-    "title": "Enter OTP",
-    "wrongOtpTitle": "Wrong OTP",
-    "successRedirectTitle": "Please wait while we redirect you...",
-    "triesRemaining": "${retries} tries remaining",
+    "title": "أدخل رمز التحقق",
+    "wrongOtpTitle": "رمز التحقق خاطئ",
+    "successRedirectTitle": "الرجاء الانتظار أثناء إعادة توجيهك...",
+    "triesRemaining": "بقي ${retries} محاولات",
     "infoTexts": [
-      "An email has been sent to **${email}**",
-      "Please enter the code received on the email"
+      "تم إرسال بريد إلكتروني إلى **${email}**",
+      "الرجاء إدخال الرمز الذي تم استلامه عبر البريد الإلكتروني"
     ],
     "noRetries": {
-      "title": "You have 0 tries remaining",
-      "subTitle": "Please exit the flow and restart"
+      "title": "لقد نفدت محاولاتك",
+      "subTitle": "الرجاء الخروج من العملية وإعادة تشغيلها"
     },
     "buttons": {
-      "resendWithTimeout": "Valid for ${timeout}s"
+      "resendWithTimeout": "صالح لمدة ${timeout} ثانية"
     }
   },
   "inheritance": {
     "title": "Cypherock Cover",
     "plans": {
       "silver": {
-        "title": "Silver",
-        "description": "Secure your wallet PIN with us and easily recover it if forgotten, ensuring continuous access to your crypto assets"
+        "title": "فضة",
+        "description": "آمن رقم التعريف الشخصي الخاص بمحفظتك معنا واستعده بسهولة إذا نسيت، مما يضمن الوصول المستمر إلى أصولك المشفرة"
       },
       "gold": {
-        "title": "Gold",
-        "description": "Ensure your crypto assets are inherited by loved ones effortlessly, bypassing complex legal restrictions for smooth transfers"
+        "title": "ذهب",
+        "description": "تأكد من أن أصولك المشفرة تُورث لأحبائك بسهولة، متجاوزًا القيود القانونية المعقدة من أجل عمليات نقل سلسة"
       }
     },
     "choosePlan": {
-      "title": "Choose a plan",
+      "title": "اختر خطة",
       "plans": {
-        "buttonText": "SELECT",
-        "popularTagText": "MOST POPULAR",
+        "buttonText": "حدد",
+        "popularTagText": "الأكثر شعبية",
         "features": [
-          "No KYC required",
-          "Multi-Chain",
-          "PIN Recovery",
-          "Estate Recovery",
-          "Passphrase Recovery"
+          "لا يلزم KYC",
+          "متعدد السلاسل",
+          "استعادة رقم التعريف الشخصي",
+          "استعادة العقارات",
+          "استعادة عبارة المرور"
         ]
       }
     },
     "homePage": {
       "headers": {
         "owner": {
-          "title": "Owner",
-          "subtitle": "Setup recovery for your wallets"
+          "title": "مالك",
+          "subtitle": "إعداد الاسترداد لمحافظك"
         },
         "nominee": {
-          "title": "Nominee",
-          "subtitle": "You are a nominee of the following wallets"
+          "title": "مرشح",
+          "subtitle": "أنت مرشح للمحافظ التالية"
         }
       },
       "setup": {
         "setupCover": {
-          "title": "Setup Cypherock Cover",
-          "subTitle": "Protect your crypto assets and ensure smooth transfer to your beneficiaries in unforeseen circumstances"
+          "title": "إعداد Cypherock Cover",
+          "subTitle": "احمِ أصولك المشفرة وتأكد من نقلها بسلاسة إلى المستفيدين في ظروف غير متوقعة"
         },
         "syncFromMail": {
-          "title": "Sync from Email",
-          "subTitle": "If you're already part of a Cypherock Cover plan, either as the plan owner or a beneficiary"
+          "title": "مزامنة من البريد الإلكتروني",
+          "subTitle": "إذا كنت بالفعل جزءًا من خطة Cypherock Cover، إما كمالك الخطة أو مستفيد"
         },
         "learnMore": {
-          "title": "What is Cypherock Cover?",
-          "subTitle": "Learn how Cypherock Cover secures your crypto assets and ensures their seamless transfer to your loved ones"
+          "title": "ما هو Cypherock Cover؟",
+          "subTitle": "تعرف على كيفية تأمين Cypherock Cover لأصولك المشفرة وضمان نقلها بسلاسة إلى أحبائك"
         }
       }
     },
     "planDetails": {
       "walletDetails": {
-        "createdOn": "Created on",
-        "expiringOn": "Expiring on",
+        "createdOn": "تم إنشاؤه في",
+        "expiringOn": "ينتهي في",
         "reminderPeriodField": {
-          "label": "Reminder Period",
-          "input": "Every ${month} month",
-          "inputPlural": "Every ${month} months"
+          "label": "فترة التذكير",
+          "input": "كل ${month} شهر",
+          "inputPlural": "كل ${month} أشهر"
         }
       },
       "ownerDetails": {
-        "title": "Owner Details",
+        "title": "تفاصيل المالك",
         "form": {
           "userNameField": {
-            "label": "Name"
+            "label": "الاسم"
           },
           "primaryEmailField": {
-            "label": "Primary Email"
+            "label": "البريد الإلكتروني الأساسي"
           },
           "secondaryEmailField": {
-            "label": "Secondary Email"
+            "label": "البريد الإلكتروني الثانوي"
           }
         }
       },
       "nomineeDetails": {
-        "title": "Nominee #${number}",
+        "title": "المرشح رقم ${number}",
         "form": {
           "nomineeNameField": {
-            "label": "Nominee Name"
+            "label": "الاسم"
           },
           "primaryEmailField": {
-            "label": "Primary Email"
+            "label": "البريد الإلكتروني الأساسي"
           },
           "secondaryEmailField": {
-            "label": "Secondary Email"
+            "label": "البريد الإلكتروني الثانوي"
           },
           "encryptedMessage": {
-            "label": "Encrypted Message"
+            "label": "رسالة مشفرة"
           }
         }
       },
       "executorDetails": {
-        "title": "Executor",
+        "title": "منفذ",
         "form": {
           "nomineeNameField": {
-            "label": "Name"
+            "label": "الاسم"
           },
           "primaryEmailField": {
-            "label": "Primary Email"
+            "label": "البريد الإلكتروني الأساسي"
           },
           "secondaryEmailField": {
-            "label": "Secondary Email"
+            "label": "البريد الإلكتروني الثانوي"
           },
           "executorMessage": {
-            "label": "Executor Message"
+            "label": "رسالة المنفذ"
           },
           "assignTo": {
-            "label": "Assigned to"
+            "label": "مُعين لـ"
           }
         }
       }
     },
     "buttons": {
-      "syncFromEmail": "Sync from Email",
-      "recoverPin": "Recover PIN",
-      "renewPlan": "Renew Plan",
-      "unlock": "Unlock",
-      "upgradePlan": "Upgrade Plan"
+      "syncFromEmail": "مزامنة من البريد الإلكتروني",
+      "recoverPin": "استعادة رقم التعريف الشخصي",
+      "renewPlan": "تجديد الخطة",
+      "unlock": "فتح",
+      "upgradePlan": "ترقية الخطة"
     },
     "termsOfService": {
-      "title": "Terms of Use",
-      "termsOfService": "Terms of Service",
-      "privacyPolicy": "Privacy Policy",
-      "checkBoxLabel": "I have read and agree to Terms of service and Privacy policy"
+      "title": "شروط الاستخدام",
+      "termsOfService": "شروط الخدمة",
+      "privacyPolicy": "سياسة الخصوصية",
+      "checkBoxLabel": "لقد قرأت وأوافق على شروط الخدمة وسياسة الخصوصية"
     },
     "dialog": {
       "userDetails": {
         "form": {
-          "name": "Name",
+          "name": "الاسم",
           "emailField": {
-            "label": "Primary Email",
-            "tooltip": "Enter the email on which you want to receive all reminder emails"
+            "label": "البريد الإلكتروني الأساسي",
+            "tooltip": "أدخل البريد الإلكتروني الذي تريد استلام جميع رسائل البريد الإلكتروني التذكيرية عليه"
           },
-          "alternateEmail": "Alternate Email"
+          "alternateEmail": "البريد الإلكتروني البديل"
         },
         "error": {
-          "sameEmail": "Alternate email cannot be same as primary email"
+          "sameEmail": "لا يمكن أن يكون البريد الإلكتروني البديل هو نفسه البريد الإلكتروني الأساسي"
         }
       },
       "verifyOTP": {
         "primaryEmailOTP": {
-          "title": "OTP Verification for primary email"
+          "title": "التحقق من رمز OTP للبريد الإلكتروني الأساسي"
         },
         "alternateEmailOTP": {
-          "title": "OTP Verification for alternate email"
+          "title": "التحقق من رمز OTP للبريد الإلكتروني البديل"
         }
       },
       "payment": {
-        "heading": "Buy the plan on the Cypherock website",
-        "subtext": "You have to purchase the plan on the Cypherock website and then apply the generated coupon code in the 'Coupon Code' section below to complete your purchase",
+        "heading": "اشترِ الخطة على موقع Cypherock الإلكتروني",
+        "subtext": "يجب عليك شراء الخطة على موقع Cypherock الإلكتروني، ثم تطبيق رمز القسيمة المُولّد في قسم \"رمز القسيمة\" أدناه لإكمال عملية الشراء",
         "form": {
           "promoField": {
-            "label": "Promo code / coupon",
-            "placeholder": "Enter code"
+            "label": "رمز ترويجي / قسيمة",
+            "placeholder": "أدخل الرمز"
           }
         },
         "couponInput": {
-          "appliedButtonText": "Coupon applied:",
-          "applyButtonText": "Apply"
+          "appliedButtonText": "تم تطبيق القسيمة:",
+          "applyButtonText": "تطبيق"
         },
-        "noOfYear": "Number of years",
-        "total": "Total",
-        "year": "year",
+        "noOfYear": "عدد السنوات",
+        "total": "المجموع",
+        "year": "سنة",
         "error": {
-          "errorHeading": "Invalid Coupon Code",
-          "subtext": "Please try a different coupon code",
-          "differentPlanSubtext": "This coupon code is for a different plan"
+          "errorHeading": "رمز قسيمة غير صالح",
+          "subtext": "الرجاء تجربة رمز قسيمة مختلف",
+          "differentPlanSubtext": "رمز القسيمة هذا مخصص لخطة مختلفة"
         }
       }
     },
     "banner": {
-      "title": "Secure your crypto legacy with Cypherock Cover - Ensure your assets reach your loved ones",
+      "title": "آمن تراثك المشفر باستخدام Cypherock Cover - تأكد من وصول أصولك إلى أحبائك",
       "buttons": {
-        "knowMore": "Know More"
+        "knowMore": "اعرف أكثر"
       }
     }
   },
   "inheritanceSilverPlanPurchase": {
-    "title": "Silver Plan Setup",
+    "title": "إعداد الخطة الفضية",
     "instructions": {
-      "heading": "Instructions",
+      "heading": "تعليمات",
       "ensure": {
-        "title": "Ensure the following before you continue",
+        "title": "تأكد من التالي قبل المتابعة",
         "instructions": [
-          "Make sure you have 15-30 minutes to set it up",
-          "You are present in a safe environment",
-          "You need to have one device and one card handy to set it up"
+          "تأكد من أن لديك من 15 إلى 30 دقيقة لإعداده",
+          "أنت موجود في بيئة آمنة",
+          "تحتاج إلى جهاز وبطاقة واحدة لإعداده"
         ]
       },
       "video": {
-        "title": "Watch the tutorial video before you proceed further"
+        "title": "شاهد فيديو البرنامج التعليمي قبل المتابعة"
       }
     },
     "wallet": {
-      "heading": "Wallet",
+      "heading": "المحفظة",
       "selectWallet": {
-        "title": "Select the wallet you want to cover in this plan",
-        "subTitle": "For setting up additional wallets individual plans can be created later",
+        "title": "حدد المحفظة التي تريد تغطيتها في هذه الخطة",
+        "subTitle": "يمكن إنشاء خطط فردية لاحقًا لإعداد محافظ إضافية",
         "tooltips": {
-          "alreadyActive": "Plan is already setup for this wallet",
-          "noPin": "This wallet is not having a PIN setup, create a new wallet or select a different wallet having PIN setup",
-          "isDeleted": "Wallet not found in connected device, add this wallet or choose a different wallet"
+          "alreadyActive": "تم بالفعل إعداد الخطة لهذه المحفظة",
+          "noPin": "هذه المحفظة ليس بها إعداد رقم التعريف الشخصي، قم بإنشاء محفظة جديدة أو حدد محفظة أخرى بها إعداد رقم التعريف الشخصي",
+          "isDeleted": "لم يتم العثور على المحفظة في الجهاز المتصل، أضف هذه المحفظة أو اختر محفظة أخرى"
         }
       },
       "walletAuth": {
-        "title": "Follow instructions on the X1 Vault to authenticate the selected wallet",
-        "subTitle": "Authenticating the wallet ",
+        "title": "اتبع التعليمات الموجودة على X1 Vault للتحقق من صحة المحفظة المحددة",
+        "subTitle": "التحقق من صحة المحفظة",
         "actions": {
-          "confirm": "Confirm wallet authentication on device",
-          "tapCard": "Enter PIN and tap any one card"
+          "confirm": "تأكيد التحقق من صحة المحفظة على الجهاز",
+          "tapCard": "أدخل رقم التعريف الشخصي واضغط على أي بطاقة"
         },
         "messageBox": {
-          "warning": "Lift your card after 3 beep sounds"
+          "warning": "ارفع بطاقتك بعد 3 أصوات تنبيه"
         }
       }
     },
     "email": {
-      "heading": "Owner",
+      "heading": "مالك",
       "userDetails": {
-        "title": "Your Details",
-        "subTitle": "All the fields are mandatory",
+        "title": "بياناتك",
+        "subTitle": "جميع الحقول إلزامية",
         "buttons": {
-          "sendOTP": "Send OTP"
+          "sendOTP": "إرسال رمز التحقق"
         }
       }
     },
     "encryption": {
-      "heading": "Encryption",
+      "heading": "التشفير",
       "device": {
-        "title": "Follow instructions on the X1 Vault to encrypt the PIN",
-        "subTitle": "Lift your card after 2 beep sounds",
-        "tooltip": "Tap any one X1 card below the X1 device to encrypt the message and do not remove the card until you hear 2 beep sounds",
+        "title": "اتبع التعليمات الموجودة على X1 Vault لتشفير رقم التعريف الشخصي",
+        "subTitle": "ارفع بطاقتك بعد صوتين للتنبيه",
+        "tooltip": "اضغط على أي بطاقة X1 أسفل جهاز X1 لتشفير الرسالة ولا تقم بإزالة البطاقة حتى تسمع صوتين للتنبيه",
         "actions": {
-          "confirm": "Confirm encryption on device",
-          "tapCard": "Enter PIN and tap any one card"
+          "confirm": "تأكيد التشفير على الجهاز",
+          "tapCard": "أدخل رقم التعريف الشخصي واضغط على أي بطاقة"
         },
         "messageBox": {
-          "warning": "The PIN will be encrypted by the X1 card"
+          "warning": "سيتم تشفير رقم التعريف الشخصي بواسطة بطاقة X1"
         }
       },
       "loading": {
-        "title": "Please wait while we save the encrypted data on the server",
-        "subTitle": "Do not disconnect or close the app"
+        "title": "الرجاء الانتظار بينما نقوم بحفظ البيانات المشفرة على الخادم",
+        "subTitle": "لا تقم بفصل الاتصال أو إغلاق التطبيق"
       },
       "success": {
-        "title": "PIN is successfully encrypted and saved",
-        "subTitle": "To complete your silver plan setup, you can now proceed with the plan purchase"
+        "title": "تم تشفير رقم التعريف الشخصي وحفظه بنجاح",
+        "subTitle": "لإكمال إعداد الخطة الفضية، يمكنك الآن المتابعة مع شراء الخطة"
       }
     },
     "checkout": {
-      "heading": "Checkout",
+      "heading": "الدفع",
       "payment": {
-        "title": "Complete your payment",
-        "subtext": "You have to purchase the plan on the Cypherock website and then apply the generated coupon code in the 'Coupon Code' section below to complete your purchase"
+        "title": "أكمل عملية الدفع الخاصة بك",
+        "subtext": "يجب عليك شراء الخطة على موقع Cypherock الإلكتروني، ثم تطبيق رمز القسيمة الذي تم إنشاؤه في قسم \"رمز القسيمة\" أدناه لإكمال عملية الشراء"
       },
       "success": {
-        "title": "Thank you!",
-        "subtext": "Your Silver Plan is now activated"
+        "title": "شكرًا لك!",
+        "subtext": "تم الآن تفعيل خطتك الفضية"
       }
     }
   },
   "inheritanceGoldPlanPurchase": {
-    "title": "Gold Plan Setup",
+    "title": "إعداد خطة الذهب",
     "instructions": {
-      "heading": "Instructions",
+      "heading": "إرشادات",
       "ensure": {
-        "title": "Ensure the following before you continue",
+        "title": "تأكد من ما يلي قبل المتابعة",
         "instructions": [
-          "Make sure you have 15-30 minutes to set it up",
-          "You are present in a safe environment",
-          "You need to have one device and one card handy to set it up"
+          "تأكد من أن لديك من 15 إلى 30 دقيقة لإعداده",
+          "أنت موجود في بيئة آمنة",
+          "ستحتاج إلى جهاز واحد وبطاقة واحدة على الأقل لإعداده"
         ]
       },
       "video": {
-        "title": "Watch the tutorial video before you proceed",
-        "subTitle": "The video will help you take the right decisions"
+        "title": "شاهد فيديو البرنامج التعليمي قبل المتابعة",
+        "subTitle": "سيساعدك الفيديو على اتخاذ القرارات الصحيحة"
       }
     },
     "wallet": {
-      "heading": "Wallet",
+      "heading": "المحفظة",
       "selectWallet": {
-        "title": "Select the wallet you want to cover in this plan",
-        "subTitle": "For setting up additional wallets, individual plans can be created later",
+        "title": "حدد المحفظة التي تريد تغطيتها في هذه الخطة",
+        "subTitle": "لتعيين محافظ إضافية، يمكن إنشاء خطط فردية لاحقًا",
         "tooltips": {
-          "alreadyActive": "Plan is already setup for this wallet",
-          "noPin": "This wallet is not having a PIN setup, create a new wallet or select a different wallet having PIN setup",
-          "isDeleted": "Wallet not found in connected device, add this wallet or choose a different wallet"
+          "alreadyActive": "تم بالفعل إعداد الخطة لهذه المحفظة",
+          "noPin": "هذه المحفظة ليس لديها إعداد رقم التعريف الشخصي، قم بإنشاء محفظة جديدة أو حدد محفظة مختلفة بها إعداد رقم التعريف الشخصي",
+          "isDeleted": "لم يتم العثور على المحفظة في الجهاز المتصل، أضف هذه المحفظة أو اختر محفظة مختلفة"
         }
       },
       "walletAuth": {
-        "heading": "Wallet Authentication",
-        "title": "Follow instructions on the X1 Vault to authenticate the selected wallet",
-        "subTitle": "Authenticating the wallet ",
+        "heading": "مصادقة المحفظة",
+        "title": "اتبع التعليمات الموجودة على X1 Vault لمصادقة المحفظة المحددة",
+        "subTitle": "مصادقة المحفظة",
         "actions": {
-          "confirmOnDevice": "Confirm wallet authentication on device",
-          "tapCard": "Enter PIN and tap any one card"
+          "confirmOnDevice": "تأكيد مصادقة المحفظة على الجهاز",
+          "tapCard": "أدخل رقم التعريف الشخصي واضغط على أي بطاقة واحدة"
         },
         "messageBox": {
-          "warning": "Lift your card after 3 beep sounds"
+          "warning": "ارفع بطاقتك بعد 3 أصوات تنبيه"
         },
         "error": {
-          "title": "Wallet Authentication failed",
-          "subtext": "We could not authenticate the selected wallet",
+          "title": "فشلت مصادقة المحفظة",
+          "subtext": "لم نتمكن من مصادقة المحفظة المحددة",
           "messageBox": {
-            "warning": "This usually happens when the wallets in the Cysync and the device are not in sync. Sync the wallets between the Cysync and the device or choose a different wallet"
+            "warning": "عادةً ما يحدث هذا عندما لا تكون المحافظ في Cysync والجهاز متزامنة. قم بمزامنة المحافظ بين Cysync والجهاز أو اختر محفظة مختلفة"
           }
         }
       }
     },
     "email": {
-      "heading": "Owner",
+      "heading": "مالك",
       "userDetails": {
-        "title": "Your Details",
+        "title": "تفاصيلك",
         "form": {
-          "name": "Name",
+          "name": "الاسم",
           "emailField": {
-            "label": "Primary Email",
-            "tooltip": "Enter the email on which you want to receive all reminder emails"
+            "label": "البريد الإلكتروني الأساسي",
+            "tooltip": "أدخل البريد الإلكتروني الذي تريد استلام جميع رسائل البريد الإلكتروني التذكيرية عليه"
           },
-          "alternateEmail": "Alternate Email"
+          "alternateEmail": "بريد إلكتروني بديل"
         },
         "buttons": {
-          "sendOTP": "Send OTP"
+          "sendOTP": "إرسال رمز التحقق"
         }
       },
       "primaryEmailOTP": {
-        "title": "OTP Verification for primary email"
+        "title": "تحقق رمز التحقق للبريد الإلكتروني الأساسي"
       },
       "alternateEmailOTP": {
-        "title": "OTP Verification for alternate email"
+        "title": "تحقق رمز التحقق للبريد الإلكتروني البديل"
       }
     },
     "nomineeAndExecutor": {
-      "heading": "Nominees & Executor",
+      "heading": "المرشحون والمنفذ",
       "select": {
-        "title": "How many nominees do you want?",
-        "subtitle": "You can have up to 2 nominees for this will",
-        "tooltip": "In case if you select two nominees then the 2nd nominee will receive the recovery email three months after the 1st nominee receives it\nNote - Both nominees will receive the same recovery email and same message written by you on the CySync app",
+        "title": "اضغط على تشغيل الأمر التالي على محطة العمل الخاصة بك للسماح للتطبيق بالوصول إلى منفذ usb",
+        "subtitle": "يمكنك الحصول على ما يصل إلى مرشحين اثنين لهذه الوصية",
+        "tooltip": "في حالة اختيار مرشحين اثنين، فسيتلقى المرشح الثاني بريد الاسترداد بعد ثلاثة أشهر من استلام المرشح الأول له\nملاحظة - سيتلقى كلا المرشحين نفس بريد الاسترداد ونفس الرسالة التي كتبتها على تطبيق CySync",
         "options": {
-          "descOne": "Select if you want to have only one nominee",
-          "descTwo": "Select if you want to have two nominees"
+          "descOne": "حدد ما إذا كنت تريد أن يكون لديك مرشح واحد فقط",
+          "descTwo": "حدد ما إذا كنت تريد أن يكون لديك مرشحين اثنين"
         }
       },
       "nomineeDetails": {
         "first": {
-          "title": "Add first nominee",
-          "warning": "Make sure you give a card to your nominee",
-          "tooltip": "Your Nominee will receive recovery instructions on this email"
+          "title": "إضافة المرشح الأول",
+          "warning": "تأكد من إعطاء بطاقة لمرشحك",
+          "tooltip": "سيتلقى مرشحك تعليمات الاسترداد على هذا البريد الإلكتروني"
         },
         "second": {
-          "title": "Add second nominee",
-          "warning": "Make sure you give a card to your second nominee"
+          "title": "إضافة المرشح الثاني",
+          "warning": "تأكد من إعطاء بطاقة لمرشحك الثاني"
         },
         "confirm": {
-          "title": "Do you want to verify nominee emails?",
-          "subtext": "An OTP will be sent to the provided emails. If you do not want to inform the nominee about this plan, you can skip verification of emails.",
-          "warning": "If you do not verify the nominee email then Cypherock emails may land in spam folder"
+          "title": "هل تريد التحقق من رسائل البريد الإلكتروني للمرشحين؟",
+          "subtext": "سيتم إرسال رمز التحقق إلى رسائل البريد الإلكتروني المقدمة. إذا كنت لا تريد إبلاغ المرشح بهذه الخطة، فيمكنك تخطي التحقق من رسائل البريد الإلكتروني.",
+          "warning": "إذا لم تقم بالتحقق من بريد إلكتروني المرشح، فقد تصل رسائل البريد الإلكتروني من Cypherock إلى مجلد الرسائل غير المرغوب فيها"
         }
       },
       "executor": {
         "select": {
-          "title": "Do you want to have an executor for this will?",
-          "subtext": "The executor will help the nominee to recover funds ",
-          "tooltip": "An executor/helper can be someone you trust who does not have any financial stake but can be assigned as a helper to the nominee for funds recovery\nThe executor will receive the email on the same time as the nominee.",
+          "title": "هل تريد أن يكون لديك منفذ لهذه الوصية؟",
+          "subtext": "سيساعد المنفذ المرشح على استرداد الأموال",
+          "tooltip": "يمكن أن يكون المنفذ/المساعد شخصًا تثق به ولا يملك أي حصة مالية، ولكن يمكن تعيينه كمساعد للمرشح لاسترداد الأموال\nسيتلقى المنفذ البريد الإلكتروني في نفس الوقت الذي يتلقاه المرشح.",
           "options": {
             "one": {
-              "yes": "Yes",
-              "desc": "A tech savvy person whom you trust"
+              "yes": "نعم",
+              "desc": "شخص على دراية بالتكنولوجيا تثق به"
             },
             "two": {
-              "no": "No",
-              "desc": "If your nominees are tech savvy"
+              "no": "لا",
+              "desc": "إذا كان مرشحوك على دراية بالتكنولوجيا"
             }
           }
         },
         "executorDetails": {
-          "title": "Add executor",
-          "tooltip": "Executor will receive instructions  to help nominee on this email",
+          "title": "إضافة منفذ",
+          "tooltip": "سيتلقى المنفذ تعليمات لمساعدة المرشح على هذا البريد الإلكتروني",
           "radio": {
-            "label": "Choose a nominee to link with executor",
-            "tooltip": "Select the nominee you want to link with the executor. If you choose Nominee 1 then the executor will receive their email written by you on same time as Nominee 1.\n\nIf you choose Nominee 2 then the executor will receive their email written by you on same time as Nominee 2 i.e, 3 months after Nominee 1.",
+            "label": "اختر مرشحًا لربطه بالمنفذ",
+            "tooltip": "حدد المرشح الذي تريد ربطه بالمنفذ. إذا اخترت المرشح 1، فسيتلقى المنفذ بريده الإلكتروني الذي كتبته في نفس وقت المرشح 1.\n\nإذا اخترت المرشح 2، فسيتلقى المنفذ بريده الإلكتروني الذي كتبته في نفس وقت المرشح 2، أي بعد 3 أشهر من المرشح 1.",
             "options": {
-              "labelPrefix": "Nominee "
+              "labelPrefix": "مرشح"
             },
             "messageBox": {
-              "warning": "The executor will receive their email written by you on same time as Nominee"
+              "warning": "سيتلقى المنفذ بريده الإلكتروني الذي كتبته في نفس وقت المرشح"
             }
           }
         }
       }
     },
     "message": {
-      "heading": "Message",
+      "heading": "رسالة",
       "tutorial": {
-        "title": "Watch the tutorial video before you proceed further",
-        "subtext": "How to write the final messages"
+        "title": "شاهد فيديو البرنامج التعليمي قبل المتابعة",
+        "subtext": "كيفية كتابة الرسائل النهائية"
       },
       "nominee": {
-        "title": "Draft the final message for the nominee",
-        "subtitle": "The nominee messages will be end-to-end encrypted",
-        "tooltip": "End-to-end encryption keeps your messages between you and the nominee you choose. Not even Cypherock can read them",
+        "title": "قم بصياغة الرسالة النهائية للمرشح",
+        "subtitle": "سيتم تشفير رسائل المرشح من طرف إلى طرف",
+        "tooltip": "يحافظ التشفير من طرف إلى طرف على رسائلك بينك وبين المرشح الذي تختاره. حتى Cypherock لا يمكنها قراءتها",
         "form": {
           "locationField": {
-            "label": "Card Location & Passphrase",
-            "placeholder": "Write the location of the card",
-            "tooltip": "Write down the location of another card for the nominee to fetch. Nominee will only be able to recover crypto assets after getting another card. Remember this card should be different than the card(s) you may have given to your nominee(s).\nYou can also include the passphrase in this message."
+            "label": "موقع البطاقة وعبارة المرور",
+            "placeholder": "اكتب موقع البطاقة",
+            "tooltip": "دوِّن موقع بطاقة أخرى للمرشح ليحصل عليها. لن يتمكن المرشح من استرداد الأصول المشفرة إلا بعد الحصول على بطاقة أخرى. تذكر أن هذه البطاقة يجب أن تكون مختلفة عن البطاقة (البطاقات) التي قد تكون قد أعطيتها لمرشحك (مرشحيك).\nيمكنك أيضًا تضمين عبارة المرور في هذه الرسالة."
           },
           "personalMessage": {
-            "label": "Personal Message",
-            "placeholder": "Write your message",
-            "tooltip": "This can include your will/message for the nominee and other important pieces of information that you may want your nominee to know such as your crypto exchange account details, coins you have amongst others."
+            "label": "رسالة شخصية",
+            "placeholder": "اكتب رسالتك",
+            "tooltip": "يمكن أن تتضمن وصيتك/رسالتك للمرشح وغيرها من المعلومات المهمة التي قد ترغب في أن يعرفها مرشحك، مثل تفاصيل حسابك على بورصة التشفير، والعملات التي تمتلكها من بين أمور أخرى."
           }
         },
         "messageBox": {
-          "warning": "Make sure you describe the card's location clearly for the nominee"
+          "warning": "تأكد من وصف موقع البطاقة بوضوح للمرشح"
         }
       },
       "executor": {
-        "title": "Add a message for the executor",
-        "subtitle": "Please note that the message to the executor is not encrypted",
-        "tooltip": "This message will be received by the executor in case recovery is triggered, it's recommended to NOT add any critical information here",
+        "title": "أضف رسالة للمنفذ",
+        "subtitle": "يرجى ملاحظة أن الرسالة المرسلة إلى المنفذ غير مشفرة",
+        "tooltip": "سيتم استلام هذه الرسالة من قبل المنفذ في حالة بدء الاسترداد، يوصى بعدم إضافة أي معلومات سرية هنا",
         "form": {
           "messageField": {
-            "label": "Message",
-            "placeholder": "Write your message"
+            "label": "رسالة",
+            "placeholder": "اكتب رسالتك"
           }
         }
       }
     },
     "reminder": {
-      "heading": "Reminder",
-      "title": "Reminder setup"
+      "heading": "تذكير",
+      "title": "إعداد التذكير"
     },
     "summary": {
-      "heading": "Summary",
-      "title": "Summary",
-      "subtitle": "Please verify all the details before it gets encrypted with the device",
+      "heading": "ملخص",
+      "title": "ملخص",
+      "subtitle": "يرجى التحقق من جميع التفاصيل قبل تشفيرها باستخدام الجهاز",
       "ownerDetails": {
-        "title": "Owner Details",
+        "title": "تفاصيل المالك",
         "form": {
           "userNameField": {
-            "label": "Name"
+            "label": "الاسم"
           },
           "primaryEmailField": {
-            "label": "Primary Email"
+            "label": "البريد الإلكتروني الأساسي"
           },
           "secondaryEmailField": {
-            "label": "Secondary Email"
+            "label": "البريد الإلكتروني الثانوي"
           },
           "reminderPeriodField": {
-            "label": "Reminder Period",
-            "input": "Every ${month} month",
-            "inputPlural": "Every ${month} months"
+            "label": "فترة التذكير",
+            "input": "كل شهر ${month}",
+            "inputPlural": "كل ${month} أشهر"
           }
         }
       },
       "nomineeDetails": {
-        "title": "Nominee #",
+        "title": "المرشح رقم #",
         "form": {
           "nomineeNameField": {
-            "label": "Nominee Name"
+            "label": "الاسم"
           },
           "primaryEmailField": {
-            "label": "Primary Email"
+            "label": "البريد الإلكتروني الأساسي"
           },
           "secondaryEmailField": {
-            "label": "Secondary Email"
+            "label": "البريد الإلكتروني الثانوي"
           }
         }
       },
       "cardLocation": {
-        "title": "Card Location & Passphrase"
+        "title": "موقع البطاقة وعبارة المرور"
       },
       "personalMessage": {
-        "title": "Personal Message"
+        "title": "رسالة شخصية"
       },
       "executorDetails": {
-        "title": "Executor",
+        "title": "منفذ",
         "form": {
           "nomineeNameField": {
-            "label": "Nominee Name"
+            "label": "الاسم"
           },
           "primaryEmailField": {
-            "label": "Primary Email"
+            "label": "البريد الإلكتروني الأساسي"
           },
           "secondaryEmailField": {
-            "label": "Secondary Email"
+            "label": "البريد الإلكتروني الثانوي"
           },
           "assignTo": {
-            "label": "Assigned to"
+            "label": "مُعيّن إلى"
           }
         }
       },
       "executorMessage": {
-        "title": "Executor Message"
+        "title": "رسالة المنفذ"
       }
     },
     "encryption": {
-      "heading": "Encryption",
+      "heading": "تشفير",
       "confirm": {
-        "title": "Follow instructions on the X1 Vault to verify the nominee message",
-        "subtext": "You can encrypt the message in the next step",
+        "title": "اتبع التعليمات الموجودة على X1 Vault للتحقق من رسالة المرشح",
+        "subtext": "يمكنك تشفير الرسالة في الخطوة التالية",
         "actions": {
-          "confirmOnDevice": "Confirm message verification on device",
-          "verifyLocation": "Verify Card Location in your device"
+          "confirmOnDevice": "تأكيد التحقق من الرسالة على الجهاز",
+          "verifyLocation": "التحقق من موقع البطاقة في جهازك"
         },
         "messageBox": {
-          "danger": "Read through the whole text and verify that the message shown in the device is same as you entered in cySync"
+          "danger": "اقرأ النص بالكامل وتحقق من أن الرسالة المعروضة في الجهاز هي نفسها التي أدخلتها في cySync"
         }
       },
       "device": {
-        "title": "Follow instructions on the X1 Vault to encrypt the wallet PIN",
-        "subtext": "Lift your card after 2 beep sounds ",
-        "tooltip": "Tap any one X1 card below the X1 device to encrypt the message and do not remove the card until you hear 2 beep sounds",
+        "title": "اتبع التعليمات الموجودة على X1 Vault لتشفير رقم التعريف الشخصي للمحفظة",
+        "subtext": "ارفع بطاقتك بعد صوتين تنبيه",
+        "tooltip": "اضغط على أي بطاقة X1 أسفل جهاز X1 لتشفير الرسالة ولا تقم بإزالة البطاقة حتى تسمع صوتين تنبيه",
         "actions": {
-          "confirmOnDevice": "Confirm encryption on device",
-          "tapCard": "Enter PIN and tap any one card"
+          "confirmOnDevice": "تأكيد التشفير على الجهاز",
+          "tapCard": "أدخل رقم التعريف الشخصي واضغط على أي بطاقة واحدة"
         },
         "messageBox": {
-          "warning": "The PIN will be encrypted by the X1 card"
+          "warning": "سيتم تشفير رقم التعريف الشخصي بواسطة بطاقة X1"
         }
       },
       "loading": {
-        "title": "Please wait while we send the encrypted data to the server",
-        "subTitle": "Do not disconnect or close the app"
+        "title": "يرجى الانتظار بينما نرسل البيانات المشفرة إلى الخادم",
+        "subTitle": "لا تقم بفصل الاتصال أو إغلاق التطبيق"
       },
       "success": {
-        "title": "Nominee message successfully encrypted",
-        "subtext": "To complete your gold plan setup, you can now proceed with the plan purchase"
+        "title": "تم تشفير رسالة المرشح بنجاح",
+        "subtext": "لإكمال إعداد خطة الذهب، يمكنك الآن المتابعة مع شراء الخطة"
       }
     },
     "checkout": {
-      "heading": "Checkout",
+      "heading": "الدفع",
       "payment": {
-        "title": "Complete your payment",
-        "subtext": "You have to purchase the plan on the Cypherock website and then apply the generated coupon code in the 'Coupon Code' section below to complete your purchase"
+        "title": "أكمل دفعتك",
+        "subtext": "يجب عليك شراء الخطة على موقع Cypherock الإلكتروني، ثم تطبيق رمز القسيمة الذي تم إنشاؤه في قسم \"رمز القسيمة\" أدناه لإكمال عملية الشراء"
       },
       "greeting": {
-        "title": "Thank you!",
-        "subtext": "Your Gold Plan is now activated"
+        "title": "شكرا لك!",
+        "subtext": "تم الآن تفعيل خطة الذهب الخاصة بك"
       }
     }
   }
