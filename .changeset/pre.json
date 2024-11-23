@@ -31,7 +31,10 @@
     "@cypherock/tsconfig": "0.0.1",
     "@cypherock/cysync-utils": "0.0.6"
   },
-  "changesets": [],
+  "changesets": [
+    "gentle-toes-listen",
+    "loud-pillows-relax"
+  ],
   "$schema": "https://unpkg.com/@changesets/config@2.3.0/schema.json",
   "changelog": [
     "@changesets/changelog-github",
