@@ -1,5 +1,32 @@
 # @cypherock/cysync-core
 
+## 0.0.12
+
+### Patch Changes
+
+- [#636](https://github.com/Cypherock/cypherock-cysync/pull/636) [`f4ece7ce`](https://github.com/Cypherock/cypherock-cysync/commit/f4ece7ceaf156bf571387576a72f93f28a3a19e3) Thanks [@TejasvOnly](https://github.com/TejasvOnly)! - Added Inheritance feature
+
+- [#597](https://github.com/Cypherock/cypherock-cysync/pull/597) [`65ce27ee`](https://github.com/Cypherock/cypherock-cysync/commit/65ce27ee7ebb9c48222772dd90d05a9eda867542) Thanks [@TejasvOnly](https://github.com/TejasvOnly)! - added language translations for xrp strings
+
+- Updated dependencies [[`f4ece7ce`](https://github.com/Cypherock/cypherock-cysync/commit/f4ece7ceaf156bf571387576a72f93f28a3a19e3), [`65ce27ee`](https://github.com/Cypherock/cypherock-cysync/commit/65ce27ee7ebb9c48222772dd90d05a9eda867542)]:
+  - @cypherock/app-support-inheritance@1.0.0
+  - @cypherock/coin-support-interfaces@0.0.7
+  - @cypherock/cysync-core-constants@0.1.0
+  - @cypherock/coin-support-solana@0.0.11
+  - @cypherock/coin-support-utils@0.0.11
+  - @cypherock/coin-support-near@0.0.11
+  - @cypherock/coin-support-tron@0.0.5
+  - @cypherock/coin-support-btc@0.0.11
+  - @cypherock/coin-support-evm@0.0.11
+  - @cypherock/coin-support-xrp@1.0.1
+  - @cypherock/cysync-core-services@0.0.11
+  - @cypherock/db-interfaces@0.0.5
+  - @cypherock/cysync-interfaces@0.0.6
+  - @cypherock/cysync-utils@0.0.7
+  - @cypherock/cysync-ui@0.0.8
+  - @cypherock/coin-support@0.0.11
+  - @cypherock/cysync-core-workers@0.0.11
+
 ## 0.0.12-pre.0
 
 ### Patch Changes

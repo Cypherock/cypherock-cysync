@@ -1,5 +1,15 @@
 # @cypherock/cysync-core-constants
 
+## 0.1.0
+
+### Minor Changes
+
+- [#597](https://github.com/Cypherock/cypherock-cysync/pull/597) [`65ce27ee`](https://github.com/Cypherock/cypherock-cysync/commit/65ce27ee7ebb9c48222772dd90d05a9eda867542) Thanks [@TejasvOnly](https://github.com/TejasvOnly)! - added language translations for xrp strings
+
+### Patch Changes
+
+- [#636](https://github.com/Cypherock/cypherock-cysync/pull/636) [`f4ece7ce`](https://github.com/Cypherock/cypherock-cysync/commit/f4ece7ceaf156bf571387576a72f93f28a3a19e3) Thanks [@TejasvOnly](https://github.com/TejasvOnly)! - Added Inheritance feature
+
 ## 0.1.0-pre.0
 
 ### Minor Changes
