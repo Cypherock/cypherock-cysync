@@ -5,4 +5,5 @@ export * from './near';
 export * from './solana';
 export * from './tron';
 export * from './xrp';
+export * from './starknet';
 export * from './types';

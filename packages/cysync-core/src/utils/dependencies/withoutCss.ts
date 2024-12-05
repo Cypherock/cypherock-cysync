@@ -7,6 +7,7 @@ import { TronSupport } from '@cypherock/coin-support-tron';
 import { XrpSupport } from '@cypherock/coin-support-xrp';
 
 import { setWalletConnect, setWalletConnectCore } from '../walletConnect';
+import { StarknetSupport } from '@cypherock/coin-support-starknet';
 
 export const setGlobalDependencies = () => {
   setWalletConnect((globalThis as any).WalletConnect);
@@ -21,4 +22,5 @@ export const setGlobalDependencies = () => {
     new (globalThis as any).TronWeb({ fullHost: 'https://api.trongrid.io' }),
   );
   XrpSupport.setXrpLib((globalThis as any).xrpl);
+  StarknetSupport.setStarknetLib((globalThis as any).starknet);
 };
