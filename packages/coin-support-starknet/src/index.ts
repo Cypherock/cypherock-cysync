@@ -41,13 +41,13 @@ export class StarknetSupport implements CoinSupport {
   }
 
   public receive(params: IReceiveParams): Observable<IReceiveEvent> {
-    throw new Error(`Method not implemented. Params: ${params}`);
+    return operations.receive(params);
   }
 
   public createAccounts(
     params: ICreateAccountParams,
   ): Observable<ICreateAccountEvent> {
-    throw new Error(`Method not implemented. Params: ${params}`);
+    return operations.createAccounts(params);
   }
 
   public syncAccount(params: ISyncAccountsParams): Observable<void> {
