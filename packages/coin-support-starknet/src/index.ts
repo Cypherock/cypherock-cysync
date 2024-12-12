@@ -51,7 +51,7 @@ export class StarknetSupport implements CoinSupport {
   }
 
   public syncAccount(params: ISyncAccountsParams): Observable<void> {
-    throw new Error(`Method not implemented. Params: ${params}`);
+    return operations.syncAccount(params);
   }
 
   public async initializeTransaction(
@@ -111,7 +111,7 @@ export class StarknetSupport implements CoinSupport {
   }
 
   public getExplorerLink(params: IGetExplorerLink): string {
-    throw new Error(`Method not implemented. Params: ${params}`);
+    return operations.getExplorerLink(params);
   }
 
   public formatAddress(params: IFormatAddressParams): string {

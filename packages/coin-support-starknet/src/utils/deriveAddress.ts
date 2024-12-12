@@ -1,5 +1,10 @@
 import { starknetCoinList } from '@cypherock/coins';
+
 import { getCoinSupportStarknetLib } from './starknetLib';
+
+const removeHexPrefix = (hex: string) => hex.replace(/^0x/i, '');
+
+const addHexPrefix = (hex: string) => `0x0${removeHexPrefix(hex)}`;
 
 export const deriveAddress = (publicKey: string, assetId: string) => {
   const starknetLib = getCoinSupportStarknetLib();
@@ -10,5 +15,5 @@ export const deriveAddress = (publicKey: string, assetId: string) => {
     constructorAXCallData,
     0,
   );
-  return accountAXAddress;
+  return addHexPrefix(accountAXAddress);
 };

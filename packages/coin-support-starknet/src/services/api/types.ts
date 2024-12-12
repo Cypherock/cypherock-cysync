@@ -1,14 +1,14 @@
 export interface IStarknetTransactionParams {
   address: string;
   assetId: string;
-  contractAddress?: number;
+  contractAddress?: string;
   fromBlock?: number;
   toBlock?: number;
   pageSize?: number;
   pageKey?: string;
 }
 
-interface IStarknetResponseTransaction {
+export interface IStarknetResponseTransaction {
   contractAddress: string;
   contractDecimals: string;
   contractName: string;

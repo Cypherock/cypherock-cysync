@@ -57,7 +57,7 @@ const getAddressesFromDevice: GetAddressesFromDevice<
 
   observer.next({ type: 'Device', device: { isDone: true, events } });
 
-  return publicKeys; // .map(publicKey => `0x${publicKey.replace(/^0x/i, "")}`);   // prepend 0x if it's not there
+  return publicKeys;
 };
 
 const createAccountFromAddress: IMakeCreateAccountsObservableParams<StarknetApp>['createAccountFromAddress'] =
