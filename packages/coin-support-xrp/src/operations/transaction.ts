@@ -27,6 +27,7 @@ export interface IPreparedXrpTransaction extends IPreparedTransaction {
   };
   staticData: {
     fees: string;
+    reserveBaseBalance: string;
   };
   computedData: {
     output: IPreparedXrpTransactionOutput & {

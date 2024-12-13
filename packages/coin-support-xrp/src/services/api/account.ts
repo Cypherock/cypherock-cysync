@@ -1,5 +1,7 @@
 import { xrpCoinList } from '@cypherock/coins';
-import { makePostRequest } from '@cypherock/cysync-utils';
+import { BigNumber, makePostRequest } from '@cypherock/cysync-utils';
+
+import { getReserveBalance } from './chain';
 
 import { config } from '../../config';
 
@@ -65,4 +67,25 @@ export const getIsAccountActivated = async (
   const accountInfo = await getAccountInfo(address, assetId);
 
   return accountInfo?.Balance && accountInfo.Balance !== '0';
+};
+
+export const getAccountReserveBalance = async (
+  address: string,
+  assetId: string,
+): Promise<string> => {
+  const { reserveBaseBalance, reserveIncBalance } = await getReserveBalance(
+    assetId,
+  );
+
+  const accountInfo = await getAccountInfo(address, assetId);
+
+  const ownerCount = accountInfo?.OwnerCount ?? 0;
+
+  let reserveBalance = new BigNumber(reserveBaseBalance);
+  if (ownerCount)
+    reserveBalance = reserveBalance.plus(
+      new BigNumber(reserveIncBalance).multipliedBy(ownerCount),
+    );
+
+  return reserveBalance.toString();
 };

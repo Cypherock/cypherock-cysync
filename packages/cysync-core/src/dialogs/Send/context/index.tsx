@@ -16,6 +16,7 @@ import {
   formatDisplayAmount,
   formatDisplayPrice,
   getDefaultUnit,
+  getParsedAmount,
   getZeroUnit,
 } from '@cypherock/coin-support-utils';
 import { CoinFamily } from '@cypherock/coins';
@@ -662,19 +663,48 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
       return lang.strings.send.recipient.amount.error;
     }
 
-    const xrpValdation =
+    const xrpValidation =
       transaction?.validation as IPreparedXrpTransaction['validation'];
 
-    if (xrpValdation?.isBalanceBelowXrpReserve) {
-      return lang.strings.send.recipient.amount.balanceBelowXrpReserve;
+    if (xrpValidation.isBalanceBelowXrpReserve && selectedAccount) {
+      const reserveBalance = selectedAccount.spendableBalance
+        ? new BigNumber(selectedAccount.balance)
+            .minus(selectedAccount.spendableBalance)
+            .toString()
+        : '1000000'; // 1 XRP
+
+      const { amount: _amount, unit } = getParsedAmount({
+        coinId: selectedAccount.parentAssetId,
+        assetId: selectedAccount.assetId,
+        unitAbbr:
+          selectedAccount.unit ??
+          getDefaultUnit(selectedAccount.parentAssetId, selectedAccount.assetId)
+            .abbr,
+        amount: reserveBalance,
+      });
+
+      return `${lang.strings.send.recipient.amount.balanceBelowReserveBalance}${_amount} ${unit.abbr}.`;
     }
 
-    if (xrpValdation?.isAmountBelowXrpReserve) {
-      return lang.strings.send.recipient.amount.amountBelowXrpReserve;
+    if (xrpValidation.isAmountBelowXrpReserve && selectedAccount) {
+      const reserveBalance = (transaction as IPreparedXrpTransaction).staticData
+        .reserveBaseBalance;
+
+      const { amount: _amount, unit } = getParsedAmount({
+        coinId: selectedAccount.parentAssetId,
+        assetId: selectedAccount.assetId,
+        unitAbbr:
+          selectedAccount.unit ??
+          getDefaultUnit(selectedAccount.parentAssetId, selectedAccount.assetId)
+            .abbr,
+        amount: reserveBalance,
+      });
+
+      return `${lang.strings.send.recipient.amount.amountBelowReserveBalance}${_amount} ${unit.abbr}.`;
     }
 
     return '';
-  }, [transaction, lang]);
+  }, [transaction, lang, selectedAccount]);
 
   const getDestinationTagError = useCallback(() => {
     if (

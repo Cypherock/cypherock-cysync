@@ -293,8 +293,8 @@
         "error": "Insufficient funds",
         "zeroAmount": "Amount can't be zero",
         "notOverDustThreshold": "Amount is lower than dust limit",
-        "amountBelowXrpReserve": "Recipient address is inactive. Send atleast 10 XRP to activate it.",
-        "balanceBelowXrpReserve": "Balance cannot go below 10 XRP"
+        "amountBelowReserveBalance": "Recipient address is inactive. To activate it, send atleast ",
+        "balanceBelowReserveBalance": "Balance cannot go below "
       },
       "fees": {
         "title": "Fees",

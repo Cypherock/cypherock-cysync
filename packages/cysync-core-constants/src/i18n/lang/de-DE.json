@@ -609,8 +609,8 @@
         "error": "Unzureichende Mittel",
         "zeroAmount": "Betrag darf nicht null sein",
         "notOverDustThreshold": "Betrag ist niedriger als dust limit",
-        "amountBelowXrpReserve": "Empfängeradresse ist inaktiv. Senden Sie mindestens 10 XRP, um sie zu aktivieren.",
-        "balanceBelowXrpReserve": "Kontostand darf nicht unter 10 XRP fallen"
+        "amountBelowReserveBalance": "Die Empfängeradresse ist inaktiv. Um sie zu aktivieren, senden Sie mindestens ",
+        "balanceBelowReserveBalance": "Guthaben kann nicht unter "
       },
       "fees": {
         "title": "Gebühren",
