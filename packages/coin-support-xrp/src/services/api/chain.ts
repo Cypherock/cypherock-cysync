@@ -18,10 +18,10 @@ export const getReserveBalance = async (
 
   const { reserveBaseBalance, reserveIncBalance } = response.data;
 
-  if (reserveBaseBalance === undefined && reserveBaseBalance === null)
+  if (reserveBaseBalance === undefined || reserveBaseBalance === null)
     throw new Error('Invalid xrp reserveBaseBalance returned from server');
 
-  if (reserveIncBalance === undefined && reserveBaseBalance === null)
+  if (reserveIncBalance === undefined || reserveBaseBalance === null)
     throw new Error('Invalid xrp reserveIncBalance returned from server');
 
   return {

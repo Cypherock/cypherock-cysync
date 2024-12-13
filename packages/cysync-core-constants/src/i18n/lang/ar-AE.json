@@ -293,8 +293,8 @@
         "error": "أموال غير كافية",
         "zeroAmount": "لا يمكن أن يكون المبلغ صفراً",
         "notOverDustThreshold": "المبلغ أقل من حد الغبار",
-        "amountBelowReserveBalance": "عنوان المستلم غير نشط. لتفعيله، أرسل على الأقل ",
-        "balanceBelowReserveBalance": "لا يمكن أن يكون الرصيد أقل من "
+        "amountBelowReserveBalance": "عنوان المستلم غير نشط. أرسل على الأقل ${amount} ${unit} لتفعيله.",
+        "balanceBelowReserveBalance": "لا يمكن أن يكون الرصيد أقل من ${amount} ${unit}"
       },
       "fees": {
         "title": "الرسوم",

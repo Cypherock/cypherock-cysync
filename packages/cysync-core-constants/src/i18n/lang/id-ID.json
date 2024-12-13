@@ -349,8 +349,8 @@
         "error": "Dana tidak mencukupi",
         "zeroAmount": "Jumlah tidak boleh nol",
         "notOverDustThreshold": "Jumlah lebih rendah dari batas dust",
-        "amountBelowReserveBalance": "Alamat penerima tidak aktif. Untuk mengaktifkannya, kirim minimal ",
-        "balanceBelowReserveBalance": "Saldo tidak dapat turun di bawah "
+        "amountBelowReserveBalance": "Alamat penerima tidak aktif. Kirim setidaknya ${amount} ${unit} untuk mengaktifkannya.",
+        "balanceBelowReserveBalance": "Saldo tidak dapat turun di bawah ${amount} ${unit}"
       },
       "fees": {
         "title": "Biaya",

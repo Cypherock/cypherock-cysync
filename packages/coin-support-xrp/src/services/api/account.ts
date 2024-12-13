@@ -48,10 +48,10 @@ export const getFlagsAndSequence = async (
   const flags = accountInfo?.Flags;
   const sequence = accountInfo?.Sequence;
 
-  if (flags === undefined && flags === null)
+  if (flags === undefined || flags === null)
     throw new Error('Invalid xrp flags returned from server');
 
-  if (sequence === undefined && flags === null)
+  if (sequence === undefined || sequence === null)
     throw new Error('Invalid xrp sequence returned from server');
 
   return {

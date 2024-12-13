@@ -20,7 +20,7 @@ import {
   getZeroUnit,
 } from '@cypherock/coin-support-utils';
 import { CoinFamily } from '@cypherock/coins';
-import { DropDownItemProps } from '@cypherock/cysync-ui';
+import { DropDownItemProps, parseLangTemplate } from '@cypherock/cysync-ui';
 import { BigNumber } from '@cypherock/cysync-utils';
 import { IAccount, ITransaction, IWallet } from '@cypherock/db-interfaces';
 import lodash from 'lodash';
@@ -683,7 +683,10 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
         amount: reserveBalance,
       });
 
-      return `${lang.strings.send.recipient.amount.balanceBelowReserveBalance}${_amount} ${unit.abbr}.`;
+      return parseLangTemplate(
+        lang.strings.send.recipient.amount.balanceBelowReserveBalance,
+        { amount: _amount, unit: unit.abbr },
+      );
     }
 
     if (xrpValidation.isAmountBelowXrpReserve && selectedAccount) {
@@ -700,7 +703,10 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
         amount: reserveBalance,
       });
 
-      return `${lang.strings.send.recipient.amount.amountBelowReserveBalance}${_amount} ${unit.abbr}.`;
+      return parseLangTemplate(
+        lang.strings.send.recipient.amount.amountBelowReserveBalance,
+        { amount: _amount, unit: unit.abbr },
+      );
     }
 
     return '';

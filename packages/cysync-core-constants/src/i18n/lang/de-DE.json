@@ -609,8 +609,8 @@
         "error": "Unzureichende Mittel",
         "zeroAmount": "Betrag darf nicht null sein",
         "notOverDustThreshold": "Betrag ist niedriger als dust limit",
-        "amountBelowReserveBalance": "Die Empfängeradresse ist inaktiv. Um sie zu aktivieren, senden Sie mindestens ",
-        "balanceBelowReserveBalance": "Guthaben kann nicht unter "
+        "amountBelowReserveBalance": "Die Empfängeradresse ist inaktiv. Senden Sie mindestens ${amount} ${unit}, um sie zu aktivieren.",
+        "balanceBelowReserveBalance": "Das Guthaben darf nicht unter ${amount} ${unit} fallen"
       },
       "fees": {
         "title": "Gebühren",

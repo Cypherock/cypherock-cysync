@@ -138,11 +138,12 @@ const getAddressDetails: IGetAddressDetails<{
     iterationContext?.updatedSpendableBalance ??
     (balance.isZero()
       ? balance.toString()
-      : balance
-          .minus(
+      : BigNumber.max(
+          0,
+          balance.minus(
             await services.getAccountReserveBalance(address, account.assetId),
-          )
-          .toString());
+          ),
+        ).toString());
 
   const afterBlock =
     iterationContext?.afterBlock ??

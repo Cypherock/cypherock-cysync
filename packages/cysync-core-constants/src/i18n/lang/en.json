@@ -293,8 +293,8 @@
         "error": "Insufficient funds",
         "zeroAmount": "Amount can't be zero",
         "notOverDustThreshold": "Amount is lower than dust limit",
-        "amountBelowReserveBalance": "Recipient address is inactive. To activate it, send atleast ",
-        "balanceBelowReserveBalance": "Balance cannot go below "
+        "amountBelowReserveBalance": "Recipient address is inactive. Send atleast ${amount} ${unit} to activate it.",
+        "balanceBelowReserveBalance": "Balance cannot go below ${amount} ${unit}"
       },
       "fees": {
         "title": "Fees",

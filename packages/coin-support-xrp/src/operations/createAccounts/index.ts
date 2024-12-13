@@ -72,7 +72,10 @@ const createAccountFromAddress: IMakeCreateAccountsObservableParams<XrpApp>['cre
         address,
         coinId,
       );
-      spendableBalance = spendableBalance.minus(reserveBalance);
+      spendableBalance = BigNumber.max(
+        0,
+        spendableBalance.minus(reserveBalance),
+      );
     }
 
     const account: ICreatedXrpAccount = {
