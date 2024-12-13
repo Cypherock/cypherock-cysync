@@ -153,11 +153,16 @@ export const mapContractTransactionsForDb = async (params: {
   account: IAccount;
   transactions: IEvmContractTransactionItem[];
   existingTransactions: ITransaction[];
-}): Promise<{ transactions: ITransaction[]; newAccounts: IAccount[] }> => {
+}): Promise<{
+  transactions: ITransaction[];
+  newAccounts: IAccount[];
+  latestBlock: BigNumber;
+}> => {
   const { account, transactions, db, existingTransactions } = params;
 
   const txns: ITransaction[] = [];
   const newAccountsList: IAccount[] = [];
+  let latestBlock = new BigNumber(0);
 
   for (const txn of transactions) {
     const result = await mapContractTransactionForDb({
@@ -166,9 +171,12 @@ export const mapContractTransactionsForDb = async (params: {
       db,
       existingTransactions,
     });
+    // Update latestBlock regardless of transaction parser result
+    latestBlock = BigNumber.max(latestBlock, new BigNumber(txn.blockNumber));
+
     txns.push(...result.transactions);
     newAccountsList.push(...result.newAccounts);
   }
 
-  return { transactions: txns, newAccounts: newAccountsList };
+  return { transactions: txns, newAccounts: newAccountsList, latestBlock };
 };

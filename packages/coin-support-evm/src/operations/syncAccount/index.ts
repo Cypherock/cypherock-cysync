@@ -176,25 +176,23 @@ const fetchAndParseContractTransactions = async (params: {
     limit: PER_PAGE_TXN_LIMIT,
   });
 
-  const { transactions, newAccounts } = await mapContractTransactionsForDb({
-    account,
-    transactions: transactionDetails.result,
-    db,
-    existingTransactions,
-  });
+  const { transactions, newAccounts, latestBlock } =
+    await mapContractTransactionsForDb({
+      account,
+      transactions: transactionDetails.result,
+      db,
+      existingTransactions,
+    });
 
   const hasMore = transactionDetails.more;
 
-  const newAfterBlock = Math.max(
-    ...transactions
-      .filter(t => t.status === TransactionStatusMap.success && t.blockHeight)
-      .map(t => t.blockHeight),
-    0,
-  );
-
   onNewAccounts(newAccounts, db);
 
-  return { hasMore, transactions, afterBlock: newAfterBlock };
+  return {
+    hasMore,
+    transactions,
+    afterBlock: Math.max(latestBlock.toNumber(), afterBlock ?? 0),
+  };
 };
 
 const getAddressDetails: IGetAddressDetails<{
