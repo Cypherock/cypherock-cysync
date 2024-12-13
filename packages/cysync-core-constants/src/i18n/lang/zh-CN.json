@@ -396,8 +396,8 @@
         "error": "资金不足",
         "zeroAmount": "金额不能为零",
         "notOverDustThreshold": "金额低于 dust limit",
-        "amountBelowXrpReserve": "收件人地址未激活。至少发送 10 XRP 以激活。",
-        "balanceBelowXrpReserve": "余额不能低于 10 XRP"
+        "amountBelowReserveBalance": "接收地址未激活。至少发送 ${amount} ${unit} 以激活它。",
+        "balanceBelowReserveBalance": "余额不能低于 ${amount} ${unit}"
       },
       "fees": {
         "title": "费用",

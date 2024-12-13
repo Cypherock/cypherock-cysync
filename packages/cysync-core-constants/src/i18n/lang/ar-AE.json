@@ -293,8 +293,8 @@
         "error": "أموال غير كافية",
         "zeroAmount": "لا يمكن أن يكون المبلغ صفراً",
         "notOverDustThreshold": "المبلغ أقل من حد الغبار",
-        "amountBelowXrpReserve": "عنوان المستلم غير نشط. أرسل 10 XRP على الأقل لتنشيطه.",
-        "balanceBelowXrpReserve": "لا يمكن أن يقل الرصيد عن 10 XRP"
+        "amountBelowReserveBalance": "عنوان المستلم غير نشط. أرسل على الأقل ${amount} ${unit} لتفعيله.",
+        "balanceBelowReserveBalance": "لا يمكن أن يكون الرصيد أقل من ${amount} ${unit}"
       },
       "fees": {
         "title": "الرسوم",

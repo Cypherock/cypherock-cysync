@@ -16,10 +16,11 @@ import {
   formatDisplayAmount,
   formatDisplayPrice,
   getDefaultUnit,
+  getParsedAmount,
   getZeroUnit,
 } from '@cypherock/coin-support-utils';
 import { CoinFamily } from '@cypherock/coins';
-import { DropDownItemProps } from '@cypherock/cysync-ui';
+import { DropDownItemProps, parseLangTemplate } from '@cypherock/cysync-ui';
 import { BigNumber } from '@cypherock/cysync-utils';
 import { IAccount, ITransaction, IWallet } from '@cypherock/db-interfaces';
 import lodash from 'lodash';
@@ -662,19 +663,54 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
       return lang.strings.send.recipient.amount.error;
     }
 
-    const xrpValdation =
+    const xrpValidation =
       transaction?.validation as IPreparedXrpTransaction['validation'];
 
-    if (xrpValdation?.isBalanceBelowXrpReserve) {
-      return lang.strings.send.recipient.amount.balanceBelowXrpReserve;
+    if (xrpValidation.isBalanceBelowXrpReserve && selectedAccount) {
+      const reserveBalance = selectedAccount.spendableBalance
+        ? new BigNumber(selectedAccount.balance)
+            .minus(selectedAccount.spendableBalance)
+            .toString()
+        : '1000000'; // 1 XRP
+
+      const { amount: _amount, unit } = getParsedAmount({
+        coinId: selectedAccount.parentAssetId,
+        assetId: selectedAccount.assetId,
+        unitAbbr:
+          selectedAccount.unit ??
+          getDefaultUnit(selectedAccount.parentAssetId, selectedAccount.assetId)
+            .abbr,
+        amount: reserveBalance,
+      });
+
+      return parseLangTemplate(
+        lang.strings.send.recipient.amount.balanceBelowReserveBalance,
+        { amount: _amount, unit: unit.abbr },
+      );
     }
 
-    if (xrpValdation?.isAmountBelowXrpReserve) {
-      return lang.strings.send.recipient.amount.amountBelowXrpReserve;
+    if (xrpValidation.isAmountBelowXrpReserve && selectedAccount) {
+      const reserveBalance = (transaction as IPreparedXrpTransaction).staticData
+        .reserveBaseBalance;
+
+      const { amount: _amount, unit } = getParsedAmount({
+        coinId: selectedAccount.parentAssetId,
+        assetId: selectedAccount.assetId,
+        unitAbbr:
+          selectedAccount.unit ??
+          getDefaultUnit(selectedAccount.parentAssetId, selectedAccount.assetId)
+            .abbr,
+        amount: reserveBalance,
+      });
+
+      return parseLangTemplate(
+        lang.strings.send.recipient.amount.amountBelowReserveBalance,
+        { amount: _amount, unit: unit.abbr },
+      );
     }
 
     return '';
-  }, [transaction, lang]);
+  }, [transaction, lang, selectedAccount]);
 
   const getDestinationTagError = useCallback(() => {
     if (

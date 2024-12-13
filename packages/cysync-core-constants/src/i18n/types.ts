@@ -282,8 +282,8 @@ interface LangSend {
       error: string;
       zeroAmount: string;
       notOverDustThreshold: string;
-      amountBelowXrpReserve: string;
-      balanceBelowXrpReserve: string;
+      amountBelowReserveBalance: string;
+      balanceBelowReserveBalance: string;
     };
     fees: { title: string; label: string };
     warning: string;

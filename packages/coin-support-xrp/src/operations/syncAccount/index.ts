@@ -3,6 +3,7 @@ import {
   getLatestTransactionBlock,
   IGetAddressDetails,
 } from '@cypherock/coin-support-utils';
+import { BigNumber } from '@cypherock/cysync-utils';
 import {
   IAccount,
   ITransaction,
@@ -124,12 +125,22 @@ const getAddressDetails: IGetAddressDetails<{
   perPage: number;
   afterBlock?: number;
   updatedBalance?: string;
+  updatedSpendableBalance?: string;
 }> = async ({ db, account, iterationContext }) => {
   const address = deriveAddress(account.xpubOrAddress);
 
   const updatedBalance =
     iterationContext?.updatedBalance ??
     (await services.getBalance(address, account.assetId));
+
+  const updatedSpendableBalance =
+    iterationContext?.updatedSpendableBalance ??
+    BigNumber.max(
+      0,
+      new BigNumber(updatedBalance).minus(
+        await services.getAccountReserveBalance(address, account.assetId),
+      ),
+    ).toString();
 
   const afterBlock =
     iterationContext?.afterBlock ??
@@ -149,6 +160,7 @@ const getAddressDetails: IGetAddressDetails<{
 
   const updatedAccountInfo: Partial<IXrpAccount> = {
     balance: updatedBalance,
+    spendableBalance: updatedSpendableBalance,
   };
 
   return {
@@ -156,6 +168,8 @@ const getAddressDetails: IGetAddressDetails<{
     nextIterationContext: {
       perPage,
       afterBlock: transactionDetails.nextLedgerIndexMin,
+      updatedBalance,
+      updatedSpendableBalance,
     },
     transactions: transactionDetails.transactions,
     updatedAccountInfo,

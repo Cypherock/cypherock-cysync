@@ -349,8 +349,8 @@
         "error": "Dana tidak mencukupi",
         "zeroAmount": "Jumlah tidak boleh nol",
         "notOverDustThreshold": "Jumlah lebih rendah dari batas dust",
-        "amountBelowXrpReserve": "Alamat penerima tidak aktif. Kirim setidaknya 10 XRP untuk mengaktifkannya.",
-        "balanceBelowXrpReserve": "Saldo tidak boleh kurang dari 10 XRP"
+        "amountBelowReserveBalance": "Alamat penerima tidak aktif. Kirim setidaknya ${amount} ${unit} untuk mengaktifkannya.",
+        "balanceBelowReserveBalance": "Saldo tidak dapat turun di bawah ${amount} ${unit}"
       },
       "fees": {
         "title": "Biaya",
