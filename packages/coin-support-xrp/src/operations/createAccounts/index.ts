@@ -66,23 +66,18 @@ const createAccountFromAddress: IMakeCreateAccountsObservableParams<XrpApp>['cre
     const coin = xrpCoinList[coinId];
     const name = `${coin.name} ${index + 1}`;
 
-    let spendableBalance = new BigNumber(balance);
-    if (!spendableBalance.isZero()) {
-      const reserveBalance = await services.getAccountReserveBalance(
-        address,
-        coinId,
-      );
-      spendableBalance = BigNumber.max(
-        0,
-        spendableBalance.minus(reserveBalance),
-      );
-    }
+    const spendableBalance = BigNumber.max(
+      0,
+      new BigNumber(balance).minus(
+        await services.getAccountReserveBalance(address, coinId),
+      ),
+    ).toString();
 
     const account: ICreatedXrpAccount = {
       name,
       xpubOrAddress: address,
       balance,
-      spendableBalance: spendableBalance.toString(),
+      spendableBalance,
       unit: coin.units[0].abbr,
       derivationPath,
       type: AccountTypeMap.account,
