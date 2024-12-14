@@ -17,12 +17,11 @@ import {
   ICreatedStarknetAccount,
 } from './types';
 
+import { STRK_TOKEN_CONTRACT } from '../../constants';
 import * as services from '../../services';
 import { createApp, deriveAddress } from '../../utils';
 
 const DERIVATION_PATH_LIMIT = 15;
-const STRK_TOKEN_CONTRACT =
-  '0x04718f5a0fc34cc1af16a1cdee98ffb20c31f5cd61d6ab07201858f4287c938d';
 
 const getAddressesFromDevice: GetAddressesFromDevice<
   StarknetApp
@@ -98,12 +97,10 @@ const getBalanceAndTxnCount = async (
       STRK_TOKEN_CONTRACT,
       params.coinId,
     ),
-    txnCount: (
-      await services.getTransactions({
-        address,
-        assetId: params.coinId,
-      })
-    ).tokenTransfers.length,
+    txnCount: await services.getTransactionCount({
+      address,
+      assetId: params.coinId,
+    }),
   };
 };
 

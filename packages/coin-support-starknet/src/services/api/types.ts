@@ -3,9 +3,7 @@ export interface IStarknetTransactionParams {
   assetId: string;
   contractAddress?: string;
   fromBlock?: number;
-  toBlock?: number;
   pageSize?: number;
-  pageKey?: string;
 }
 
 export interface IStarknetResponseTransaction {
@@ -21,11 +19,12 @@ export interface IStarknetResponseTransaction {
   blockTimestamp: string;
   transactionHash: string;
   transactionIndex: number;
+  transactionFee: string;
+  status: string;
 }
 
-export interface IStarknetTransactionResult {
-  walletAddress: string;
+export interface IStarknetTransactionHistoryResult {
   count: number;
-  tokenTransfers: IStarknetResponseTransaction[];
-  nextPageKey?: string;
+  transactions: IStarknetResponseTransaction[];
+  hasMore: boolean;
 }
