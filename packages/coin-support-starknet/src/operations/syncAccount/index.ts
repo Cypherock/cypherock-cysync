@@ -135,7 +135,7 @@ const getAddressDetails: IGetAddressDetails<{
     hasMore: transactionDetails.hasMore,
     nextIterationContext: {
       perPage,
-      afterBlock: transactionDetails.latestBlockNumber,
+      afterBlock: transactionDetails.latestBlockNumber + 1,
     },
     transactions: transactionDetails.transactions,
     updatedAccountInfo,
