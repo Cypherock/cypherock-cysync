@@ -1,5 +1,32 @@
 # @cypherock/cysync-core
 
+## 0.1.0-pre.0
+
+### Minor Changes
+
+- [#644](https://github.com/Cypherock/cypherock-cysync/pull/644) [`b9857909`](https://github.com/Cypherock/cypherock-cysync/commit/b985790932df37f970b2568f9bea9115a44aa742) Thanks [@muzaffarbhat07](https://github.com/muzaffarbhat07)! - fixed xrp reserve balance issue and added spendable balance to account
+
+### Patch Changes
+
+- Updated dependencies [[`28e48f5b`](https://github.com/Cypherock/cypherock-cysync/commit/28e48f5bf55bd09986fb6d16342c400e8a0c4172), [`1820213c`](https://github.com/Cypherock/cypherock-cysync/commit/1820213c8c9f6d173b3e245758704d10d62ccf1a), [`b9857909`](https://github.com/Cypherock/cypherock-cysync/commit/b985790932df37f970b2568f9bea9115a44aa742)]:
+  - @cypherock/coin-support-evm@0.0.12-pre.0
+  - @cypherock/cysync-core-services@0.0.12-pre.0
+  - @cypherock/coins@0.1.0-pre.0
+  - @cypherock/cysync-core-constants@0.2.0-pre.0
+  - @cypherock/coin-support-xrp@1.1.0-pre.0
+  - @cypherock/db-interfaces@0.1.0-pre.0
+  - @cypherock/coin-support@0.0.12-pre.0
+  - @cypherock/cysync-core-workers@0.0.12-pre.0
+  - @cypherock/coin-support-btc@0.0.12-pre.0
+  - @cypherock/coin-support-near@0.0.12-pre.0
+  - @cypherock/coin-support-solana@0.0.12-pre.0
+  - @cypherock/coin-support-tron@0.0.6-pre.0
+  - @cypherock/coin-support-utils@0.0.12-pre.0
+  - @cypherock/coin-support-interfaces@0.0.8-pre.0
+  - @cypherock/cysync-interfaces@0.0.7-pre.0
+  - @cypherock/app-support-inheritance@1.0.1-pre.0
+  - @cypherock/cysync-utils@0.0.8-pre.0
+
 ## 0.0.12
 
 ### Patch Changes
