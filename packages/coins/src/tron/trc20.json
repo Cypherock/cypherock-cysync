@@ -1,7 +1,7 @@
 [
   {
     "description": {
-      "en": "Tether (USDT) is a cryptocurrency with a value meant to mirror the value of the U.S. dollar. The idea was to create a stable cryptocurrency that can be used like digital dollars. Coins that serve this purpose of being a stable dollar substitute are called “stable coins.” Tether is the most popular stable coin and even acts as a dollar replacement on many popular exchanges! According to their site, Tether converts cash into digital currency, to anchor or “tether” the value of the coin to the price of national currencies like the US dollar, the Euro, and the Yen. Like other cryptos it uses blockchain. Unlike other cryptos, it is [according to the official Tether site] “100% backed by USD” (USD is held in reserve). The primary use of Tether is that it offers some stability to the otherwise volatile crypto space and offers liquidity to exchanges who can’t deal in dollars and with banks (for example to the sometimes controversial but leading exchange <a href=\"https://www.coingecko.com/en/exchanges/bitfinex\">Bitfinex</a>).\r\n\r\nThe digital coins are issued by a company called Tether Limited that is governed by the laws of the British Virgin Islands, according to the legal part of its website. It is incorporated in Hong Kong. It has emerged that Jan Ludovicus van der Velde is the CEO of cryptocurrency exchange Bitfinex, which has been accused of being involved in the price manipulation of bitcoin, as well as tether. Many people trading on exchanges, including Bitfinex, will use tether to buy other cryptocurrencies like bitcoin. Tether Limited argues that using this method to buy virtual currencies allows users to move fiat in and out of an exchange more quickly and cheaply. Also, exchanges typically have rocky relationships with banks, and using Tether is a way to circumvent that.\r\n\r\nUSDT is fairly simple to use. Once on exchanges like <a href=\"https://www.coingecko.com/en/exchanges/poloniex\">Poloniex</a> or Bittrex, it can be used to purchase Bitcoin and other cryptocurrencies. It can be easily transferred from an exchange to any Omni Layer enabled wallet. Tether has no transaction fees, although external wallets and exchanges may charge one. In order to convert USDT to USD and vise versa through the Tether.to Platform, users must pay a small fee. Buying and selling Tether for Bitcoin can be done through a variety of exchanges like the ones mentioned previously or through the Tether.to platform, which also allows the conversion between USD to and from your bank account.\r\n\r\n"
+      "en": "Tether (USDT) is a cryptocurrency with a value meant to mirror the value of the U.S. dollar. The idea was to create a stable cryptocurrency that can be used like digital dollars. Coins that serve this purpose of being a stable dollar substitute are called “stable coins.” Tether is the most popular stable coin and even acts as a dollar replacement on many popular exchanges! According to their site, Tether converts cash into digital currency, to anchor or “tether” the value of the coin to the price of national currencies like the US dollar, the Euro, and the Yen. Like other cryptos it uses blockchain. Unlike other cryptos, it is [according to the official Tether site] “100% backed by USD” (USD is held in reserve). The primary use of Tether is that it offers some stability to the otherwise volatile crypto space and offers liquidity to exchanges who can’t deal in dollars and with banks (for example to the sometimes controversial but leading exchange <a href=\"https://www.coingecko.com/en/exchanges/bitfinex\">Bitfinex</a>).\r\n\r\nThe digital coins are issued by a company called Tether Limited that is governed by the laws of the British Virgin Islands, according to the legal part of its website. It is incorporated in Hong Kong. It has emerged that Jan Ludovicus van der Velde is the CEO of cryptocurrency exchange Bitfinex, which has been accused of being involved in the price manipulation of bitcoin, as well as tether. Many people trading on exchanges, including Bitfinex, will use tether to buy other cryptocurrencies like bitcoin. Tether Limited argues that using this method to buy virtual currencies allows users to move fiat in and out of an exchange more quickly and cheaply. Also, exchanges typically have rocky relationships with banks, and using Tether is a way to circumvent that.\r\n\r\nUSDT is fairly simple to use. Once on exchanges like <a href=\"https://www.coingecko.com/en/exchanges/poloniex\">Poloniex</a> or Bittrex, it can be used to purchase Bitcoin and other cryptocurrencies. It can be easily transferred from an exchange to any Omni Layer enabled wallet. Tether has no transaction fees, although external wallets and exchanges may charge one. In order to convert USDT to USD and vise versa through the Tether.to Platform, users must pay a small fee. Buying and selling Tether for Bitcoin can be done through a variety of exchanges like the ones mentioned previously or through the Tether.to platform, which also allows the conversion between USD to and from your bank account."
     },
     "id": "tether",
     "image": {
@@ -9,8 +9,8 @@
       "small": "https://coin-images.coingecko.com/coins/images/325/small/Tether.png?1696501661",
       "thumb": "https://coin-images.coingecko.com/coins/images/325/thumb/Tether.png?1696501661"
     },
-    "last_updated_at": "2024-12-14T06:08:17.117Z",
-    "market_cap": 140132287851,
+    "last_updated_at": "2024-06-20T04:55:30.138Z",
+    "market_cap": 112577500991,
     "name": "Tether",
     "platforms": {
       "tron": {
@@ -30,8 +30,8 @@
       "small": "https://coin-images.coingecko.com/coins/images/6319/small/usdc.png?1696506694",
       "thumb": "https://coin-images.coingecko.com/coins/images/6319/thumb/usdc.png?1696506694"
     },
-    "last_updated_at": "2024-12-14T06:08:59.213Z",
-    "market_cap": 41977715895,
+    "last_updated_at": "2024-06-20T04:20:49.600Z",
+    "market_cap": 32784507503,
     "name": "USDC",
     "platforms": {
       "tron": {
@@ -43,27 +43,6 @@
   },
   {
     "description": {
-      "en": "What is WETH (Wrapped ETH)?\r\nWETH is the tokenized/packaged form of ETH that you use to pay for items when you interact with Ethereum dApps. WETH follows the ERC-20 token standards, enabling it to achieve interoperability with other ERC-20 tokens. \r\n\r\nThis offers more utility to holders as they can use it across networks and dApps. You can stake, yield farm, lend, and provide liquidity to various liquidity pools with WETH. \r\n\r\nAlso, unlike ETH, which doesn’t conform to its own ERC-20 standard and thus has lower interoperability as it can’t be used on other chains besides Ethereum, WETH can be used on cheaper and high throughput alternatives like Binance, Polygon, Solana, and Cardano.\r\n\r\nThe price of WETH will always be the same as ETH because it maintains a 1:1 wrapping ratio.\r\n\r\nHow to Wrap ETH?\r\nCustodians wrap and unwrap ETH. To wrap ETH, you send ETH to a custodian. This can be a multi-sig wallet, a Decentralized Autonomous Organization (DAO), or a smart contract. After connecting your web3 wallet to a DeFi exchange, you enter the amount of ETH you wish to wrap and click the swap function. Once the transaction is confirmed, you will receive WETH tokens equivalent to the ETH that you’ve swapped.\r\n\r\nOn a centralized exchange, the exchange burns the deposited ETH and mints a wrapped form for you. And when you want to unwrap it, the exchange will burn the wrapped version and mint the ETH on your behalf.\r\n\r\nWhat’s Next for WETH?\r\nAccording to the developers, hopefully there will be no future for WETH. According to the website, steps are being taken to update ETH to make it compliant with its own ERC-20 standards. "
-    },
-    "id": "weth",
-    "image": {
-      "large": "https://coin-images.coingecko.com/coins/images/2518/large/weth.png?1696503332",
-      "small": "https://coin-images.coingecko.com/coins/images/2518/small/weth.png?1696503332",
-      "thumb": "https://coin-images.coingecko.com/coins/images/2518/thumb/weth.png?1696503332"
-    },
-    "last_updated_at": "2024-12-14T06:09:20.965Z",
-    "market_cap": 10707794858,
-    "name": "WETH",
-    "platforms": {
-      "tron": {
-        "contract_address": "THb4CqiFdwNHsWsQCs4JhzwjMWys4aqCbF",
-        "decimal_place": 18
-      }
-    },
-    "symbol": "weth"
-  },
-  {
-    "description": {
       "en": "What is WhiteBIT Token?\r\n\r\nWBT is a utility token of the largest European cryptocurrency exchange, WhiteBIT. The platform was established in 2018 and has already become one of the leading crypto exchanges with 3+ mln users worldwide. WhiteBIT’s goal is to contribute to the mass adoption and popularization of blockchain technologies by implementing the most effective trading and staking tools on the most convenient terms. The most popular and efficient trading orders for spot and margin trading, up to 20x leverage for margin and perpetual Bitcoin futures trading, unique passive income tools, a referral program, and the lowest trading fees on the market are only part of the functionality available on WhiteBIT. Discover the full potential of the platform at the link: https://whitebit.com/.\r\n\r\nWBT is a full-fledged product of the whole WhiteBIT ecosystem that is integrated into all WhiteBIT services, making it easier for the users to interact on the platform. WBT is a solid base for dozens of blockchain startups, new projects, and fruitful trading. Moreover, WhiteBIT Token is a reliable asset that can be used for staking on its native platform, which provides numerous perks to its holders and owners. \r\n\r\nKey advantages:\r\n\r\nincreased referral interest rate (up to 50%);\r\ndecreased trading fees; \r\nfree daily ERC-20/ETH withdrawals;\r\nfree daily AML checks; \r\nintegration with the current and future products of WhiteBIT and much more.\r\n\r\nWBT tokenomics\r\n\r\nThe token supply is limited to 400 000 000 WBT, with no new tokens to be created in the future. 200M of this amount is treasury tokens that are backing the total amount and will be unlocked within the next three months after the launch. \r\n\r\nTrading competitions, airdrops, bounties, beneficial holding programs, and access to the token from other exchange platforms are part of activities associated with the WBT cryptocurrency available on WhiteBIT. \r\n"
     },
     "id": "whitebit",
@@ -72,8 +51,8 @@
       "small": "https://coin-images.coingecko.com/coins/images/27045/small/wbt_token.png?1696526096",
       "thumb": "https://coin-images.coingecko.com/coins/images/27045/thumb/wbt_token.png?1696526096"
     },
-    "last_updated_at": "2024-12-14T06:09:18.303Z",
-    "market_cap": 3616714993,
+    "last_updated_at": "2024-06-20T04:43:31.142Z",
+    "market_cap": 1368190786,
     "name": "WhiteBIT Coin",
     "platforms": {
       "tron": {
@@ -93,8 +72,8 @@
       "small": "https://coin-images.coingecko.com/coins/images/22457/small/btt_logo.png?1696521780",
       "thumb": "https://coin-images.coingecko.com/coins/images/22457/thumb/btt_logo.png?1696521780"
     },
-    "last_updated_at": "2024-12-14T05:59:14.296Z",
-    "market_cap": 1308843454,
+    "last_updated_at": "2024-06-20T04:18:33.531Z",
+    "market_cap": 850041256,
     "name": "BitTorrent",
     "platforms": {
       "tron": {
@@ -114,8 +93,8 @@
       "small": "https://coin-images.coingecko.com/coins/images/25380/small/UUSD.jpg?1696524513",
       "thumb": "https://coin-images.coingecko.com/coins/images/25380/thumb/UUSD.jpg?1696524513"
     },
-    "last_updated_at": "2024-12-14T06:09:11.791Z",
-    "market_cap": 744197285,
+    "last_updated_at": "2024-06-20T04:40:11.005Z",
+    "market_cap": 735801231,
     "name": "USDD",
     "platforms": {
       "tron": {
@@ -127,27 +106,6 @@
   },
   {
     "description": {
-      "en": "APENFT Fund was born with the mission to register world-class artworks as NFTs on-chain. It is built on top of TRON, one of the world's top three public chains, and is powered by the world's largest distributed data storage system BitTorrent.\r\n\r\nLike how blockchain democratizes finance like never before, APENFT, by turning top artists and art pieces into NFTs, not only upgrades the way artworks are hosted but also transforms them from being elite-exclusive items to something that truly belongs to the people and mirrors their aspirations. APENFT is the art for everyone."
-    },
-    "id": "apenft",
-    "image": {
-      "large": "https://coin-images.coingecko.com/coins/images/15687/large/apenft.jpg?1696515316",
-      "small": "https://coin-images.coingecko.com/coins/images/15687/small/apenft.jpg?1696515316",
-      "thumb": "https://coin-images.coingecko.com/coins/images/15687/thumb/apenft.jpg?1696515316"
-    },
-    "last_updated_at": "2024-12-14T05:58:33.128Z",
-    "market_cap": 593841594,
-    "name": "APENFT",
-    "platforms": {
-      "tron": {
-        "contract_address": "TFczxzPhnThNSqr5by8tvxsdCFRRz6cPNq",
-        "decimal_place": 6
-      }
-    },
-    "symbol": "nft"
-  },
-  {
-    "description": {
       "en": "TUSD is the first digital asset with live on-chain attestations by independent third-party institutions and is backed 1:1 with the U.S. dollar (USD). So far, it has been listed on more than 100 trading platforms such as Binance and Huobi and is live on 12 mainstream public chains, including Ethereum, TRON, Avalanche, BSC, Fantom, and Polygon. TrueUSD is attested to in real-time by an independent, industry-specialized accounting firm in the U.S., to ensure the 1:1 ratio of its USD reserve to the circulating token supply and the 100% collateral rate. With the integration of Chainlink PoR, TrueUSD becomes the first USD-Backed stablecoin to secure minting and further ensure transparency and reliability. Users can access the relevant data via the official website tusd.io at any time. TUSD is granted statutory status as authorized digital currency and medium of exchange in the Commonwealth of Dominica, a country in the Caribbean, effective on October 7th 2022."
     },
     "id": "true-usd",
@@ -156,8 +114,8 @@
       "small": "https://coin-images.coingecko.com/coins/images/3449/small/tusd.png?1696504140",
       "thumb": "https://coin-images.coingecko.com/coins/images/3449/thumb/tusd.png?1696504140"
     },
-    "last_updated_at": "2024-12-14T06:08:58.355Z",
-    "market_cap": 497701631,
+    "last_updated_at": "2024-06-20T04:58:55.039Z",
+    "market_cap": 494811626,
     "name": "TrueUSD",
     "platforms": {
       "tron": {
@@ -169,6 +127,27 @@
   },
   {
     "description": {
+      "en": "APENFT Fund was born with the mission to register world-class artworks as NFTs on-chain. It is built on top of TRON, one of the world's top three public chains, and is powered by the world's largest distributed data storage system BitTorrent.\r\n\r\nLike how blockchain democratizes finance like never before, APENFT, by turning top artists and art pieces into NFTs, not only upgrades the way artworks are hosted but also transforms them from being elite-exclusive items to something that truly belongs to the people and mirrors their aspirations. APENFT is the art for everyone."
+    },
+    "id": "apenft",
+    "image": {
+      "large": "https://coin-images.coingecko.com/coins/images/15687/large/apenft.jpg?1696515316",
+      "small": "https://coin-images.coingecko.com/coins/images/15687/small/apenft.jpg?1696515316",
+      "thumb": "https://coin-images.coingecko.com/coins/images/15687/thumb/apenft.jpg?1696515316"
+    },
+    "last_updated_at": "2024-06-20T04:18:41.465Z",
+    "market_cap": 424510623,
+    "name": "APENFT",
+    "platforms": {
+      "tron": {
+        "contract_address": "TFczxzPhnThNSqr5by8tvxsdCFRRz6cPNq",
+        "decimal_place": 6
+      }
+    },
+    "symbol": "nft"
+  },
+  {
+    "description": {
       "en": ""
     },
     "id": "just",
@@ -177,8 +156,8 @@
       "small": "https://coin-images.coingecko.com/coins/images/11095/small/JUST.jpg?1696511035",
       "thumb": "https://coin-images.coingecko.com/coins/images/11095/thumb/JUST.jpg?1696511035"
     },
-    "last_updated_at": "2024-12-14T09:14:38.541Z",
-    "market_cap": 452206520,
+    "last_updated_at": "2024-06-20T04:42:25.462Z",
+    "market_cap": 272821728,
     "name": "JUST",
     "platforms": {
       "tron": {
@@ -198,8 +177,8 @@
       "small": "https://coin-images.coingecko.com/coins/images/12424/small/RSFOmQ.png?1696512245",
       "thumb": "https://coin-images.coingecko.com/coins/images/12424/thumb/RSFOmQ.png?1696512245"
     },
-    "last_updated_at": "2024-12-14T09:14:33.932Z",
-    "market_cap": 252473883,
+    "last_updated_at": "2024-06-20T04:57:31.186Z",
+    "market_cap": 114676518,
     "name": "Sun Token",
     "platforms": {
       "tron": {
@@ -211,27 +190,6 @@
   },
   {
     "description": {
-      "en": "The Dog on TRON taking us to the Sun"
-    },
-    "id": "sundog",
-    "image": {
-      "large": "https://coin-images.coingecko.com/coins/images/39752/large/sundog.png?1723794864",
-      "small": "https://coin-images.coingecko.com/coins/images/39752/small/sundog.png?1723794864",
-      "thumb": "https://coin-images.coingecko.com/coins/images/39752/thumb/sundog.png?1723794864"
-    },
-    "last_updated_at": "2024-12-14T09:14:33.323Z",
-    "market_cap": 144068699,
-    "name": "Sundog",
-    "platforms": {
-      "tron": {
-        "contract_address": "TXL6rJbvmjD46zeN1JssfgxvSo99qC8MRT",
-        "decimal_place": 18
-      }
-    },
-    "symbol": "sundog"
-  },
-  {
-    "description": {
       "en": "The first TRON ecosystem comprehensive oracle WINkLink fully integrates the real world with the blockchain space, will be able to provide reliable, unpredictable and verifiable random numbers, and fully restore trust and improve user experience by tapping into data, events, and payment systems etc. from the real world. The WINk team completed the acquisition of justlink.io on April 26, 2021, and WINkLink becomes the first TRON ecosystem comprehensive oracle.  WIN, a TRON-based TRC20 token, will be the governance token of the WINkLink oracle network. Up to now, WIN has been listed on Binance, KuCoin, Poloniex, Bithumb, HitBTC, WazirX and many other well-known international exchanges."
     },
     "id": "wink",
@@ -240,8 +198,8 @@
       "small": "https://coin-images.coingecko.com/coins/images/9129/small/WinK.png?1696509252",
       "thumb": "https://coin-images.coingecko.com/coins/images/9129/thumb/WinK.png?1696509252"
     },
-    "last_updated_at": "2024-12-14T09:14:35.724Z",
-    "market_cap": 138740007,
+    "last_updated_at": "2024-06-20T05:00:28.275Z",
+    "market_cap": 88603378,
     "name": "WINkLink",
     "platforms": {
       "tron": {
@@ -253,69 +211,6 @@
   },
   {
     "description": {
-      "en": "Shisha Coin is a premier brand offering top-tier narguiles, or hookahs, known for their exceptional quality and cutting-edge design. The company is dedicated to elevating the smoking experience through a range of stylish and innovative products that cater to diverse tastes. Committed to excellence and customer satisfaction, Shisha Coin delivers luxury smoking solutions that blend tradition with modernity, ensuring a refined and enjoyable experience for all enthusiasts."
-    },
-    "id": "shisha-coin",
-    "image": {
-      "large": "https://coin-images.coingecko.com/coins/images/39843/large/logo-shisha.png?1733992642",
-      "small": "https://coin-images.coingecko.com/coins/images/39843/small/logo-shisha.png?1733992642",
-      "thumb": "https://coin-images.coingecko.com/coins/images/39843/thumb/logo-shisha.png?1733992642"
-    },
-    "last_updated_at": "2024-12-14T09:14:43.553Z",
-    "market_cap": 70954893,
-    "name": "Shisha Coin",
-    "platforms": {
-      "tron": {
-        "contract_address": "TYJxozCVMUiHg3TbQp9PKeuXdTsX9ugJz9",
-        "decimal_place": 18
-      }
-    },
-    "symbol": "shisha"
-  },
-  {
-    "description": {
-      "en": "Zedxion offers a comprehensive solution to the major problems faced by the traditional, fiat-driven monetary system. Building a crypto powered ecosystem comprising Zedxion Token.\""
-    },
-    "id": "zedxion",
-    "image": {
-      "large": "https://coin-images.coingecko.com/coins/images/18841/large/ZEDXION.png?1696518302",
-      "small": "https://coin-images.coingecko.com/coins/images/18841/small/ZEDXION.png?1696518302",
-      "thumb": "https://coin-images.coingecko.com/coins/images/18841/thumb/ZEDXION.png?1696518302"
-    },
-    "last_updated_at": "2024-12-14T06:14:17.045Z",
-    "market_cap": 53369709,
-    "name": "Zedxion",
-    "platforms": {
-      "tron": {
-        "contract_address": "TUP3g7kbaESRFRhULeA19USSrcVBEpWLVY",
-        "decimal_place": 18
-      }
-    },
-    "symbol": "zedxion"
-  },
-  {
-    "description": {
-      "en": "Tron Bull :The Symbol for Encouragement, Tron Bull is born! Here to save you degen mfers and take you to the sun. \r\n\r\nTron Bull is revolutionizing the meme coin space with its unstoppable bullish energy. Join the charge and ride the wave of the future in crypto!\r\n\r\nTRON launched the new TRON mascot: Tron Bull in 2020, as an effort to bring hope and encouragement to the industry.\r\n\r\nTron Bull is the first monkey on tron, with the strongest power to reach the sun since the moon is far too close to earth! Fair launch. No presale seed round. No Bullshit."
-    },
-    "id": "tron-bull",
-    "image": {
-      "large": "https://coin-images.coingecko.com/coins/images/39893/large/Tron_Bull.png?1724707302",
-      "small": "https://coin-images.coingecko.com/coins/images/39893/small/Tron_Bull.png?1724707302",
-      "thumb": "https://coin-images.coingecko.com/coins/images/39893/thumb/Tron_Bull.png?1724707302"
-    },
-    "last_updated_at": "2024-12-14T09:14:34.688Z",
-    "market_cap": 41204077,
-    "name": "Tron Bull",
-    "platforms": {
-      "tron": {
-        "contract_address": "TAt4ufXFaHZAEV44ev7onThjTnF61SEaEM",
-        "decimal_place": 18
-      }
-    },
-    "symbol": "bull"
-  },
-  {
-    "description": {
       "en": "FMC is the native token of FMCPAY Exchange, aiming to simplify payment processes and enable efficient co-payment of transaction fees and travel expenses. It offers a streamlined approach to co-payment, reducing friction and enhancing the payment experience. FMC also serves as a versatile means of payment for travel-related services, such as airline tickets and hotel bookings. Overall, FMC facilitates a high-performance payment business environment, making transactions and travel payments more accessible and user-friendly."
     },
     "id": "fimarkcoin-com",
@@ -324,8 +219,8 @@
       "small": "https://coin-images.coingecko.com/coins/images/33132/small/fimarkcoin.png?1702316882",
       "thumb": "https://coin-images.coingecko.com/coins/images/33132/thumb/fimarkcoin.png?1702316882"
     },
-    "last_updated_at": "2024-12-14T09:14:37.334Z",
-    "market_cap": 32926227,
+    "last_updated_at": "2024-06-20T04:49:04.670Z",
+    "market_cap": 16318391,
     "name": "Fimarkcoin.com",
     "platforms": {
       "tron": {
@@ -337,237 +232,6 @@
   },
   {
     "description": {
-      "en": "Community has taken over this masterpiece, TRON BULL $TBULL THE OFFICIAL MASCOT OF TRON,,\r\n\r\nTron bull is out here running on 1000% caffeine and sheer lunacy! Watch your portfolio whiplash so hard you’ll think the matrix is glitching. Tron bull doesn’t care about your sleep schedule. Bulls don’t sleep they rage! \r\n\r\nThe tron bull has been acknowledged by justin sun and the tron dao team multiple times! justin sun loves $tbull!Zero taxthe most bullish bull on the tron blockchain!\r\n\r\nCome join tron bull!For when you’ve given up on sanity but still somehow believe in financial freedom!"
-    },
-    "id": "tron-bull-coin",
-    "image": {
-      "large": "https://coin-images.coingecko.com/coins/images/40054/large/Tron_Bull_2.png?1725446967",
-      "small": "https://coin-images.coingecko.com/coins/images/40054/small/Tron_Bull_2.png?1725446967",
-      "thumb": "https://coin-images.coingecko.com/coins/images/40054/thumb/Tron_Bull_2.png?1725446967"
-    },
-    "last_updated_at": "2024-12-14T09:13:38.931Z",
-    "market_cap": 12825692,
-    "name": "Tron Bull Coin",
-    "platforms": {
-      "tron": {
-        "contract_address": "TPeoxx1VhUMnAUyjwWfximDYFDQaxNQQ45",
-        "decimal_place": 18
-      }
-    },
-    "symbol": "tbull"
-  },
-  {
-    "description": {
-      "en": ""
-    },
-    "id": "puss",
-    "image": {
-      "large": "https://coin-images.coingecko.com/coins/images/50865/large/puss.jpg?1729314858",
-      "small": "https://coin-images.coingecko.com/coins/images/50865/small/puss.jpg?1729314858",
-      "thumb": "https://coin-images.coingecko.com/coins/images/50865/thumb/puss.jpg?1729314858"
-    },
-    "last_updated_at": "2024-12-14T09:14:15.249Z",
-    "market_cap": 7429751,
-    "name": "Puss",
-    "platforms": {
-      "tron": {
-        "contract_address": "TX5eXdf8458bZ77fk8xdvUgiQmC3L93iv7",
-        "decimal_place": 18
-      }
-    },
-    "symbol": "puss"
-  },
-  {
-    "description": {
-      "en": ""
-    },
-    "id": "suncat",
-    "image": {
-      "large": "https://coin-images.coingecko.com/coins/images/39753/large/suncat.jpeg?1723804124",
-      "small": "https://coin-images.coingecko.com/coins/images/39753/small/suncat.jpeg?1723804124",
-      "thumb": "https://coin-images.coingecko.com/coins/images/39753/thumb/suncat.jpeg?1723804124"
-    },
-    "last_updated_at": "2024-12-14T09:14:26.246Z",
-    "market_cap": 5049480,
-    "name": "Suncat",
-    "platforms": {
-      "tron": {
-        "contract_address": "TAwAg9wtQzTMFsijnSFotJrpxhMm3AqW1d",
-        "decimal_place": 18
-      }
-    },
-    "symbol": "suncat"
-  },
-  {
-    "description": {
-      "en": "The first boy on Tron with one mission; to share his $SUGAR.\r\n\r\nWhat are the future plans for Sugar Boy?\r\nSugar Boy will continue to grow its community, expand its presence in the TRON network, and increase its recognition through strategic campaigns and partnerships. The focus is on building a strong brand and creating value for all $SUGAR holders.\r\n\r\nAbout Sugar Boy.\r\n$SUGAR the meme token on TRON, inspired by Justin Sun and powered by a community that loves fun. \r\n$SUGAR is more than a token—it’s a meowment! Join the craze, hold $SUGAR, and let’s meow our way to the top together!"
-    },
-    "id": "sugar-boy",
-    "image": {
-      "large": "https://coin-images.coingecko.com/coins/images/52089/large/Sugar_Boy.png?1732541359",
-      "small": "https://coin-images.coingecko.com/coins/images/52089/small/Sugar_Boy.png?1732541359",
-      "thumb": "https://coin-images.coingecko.com/coins/images/52089/thumb/Sugar_Boy.png?1732541359"
-    },
-    "last_updated_at": "2024-12-14T09:14:38.644Z",
-    "market_cap": 4019218,
-    "name": "Sugar Boy",
-    "platforms": {
-      "tron": {
-        "contract_address": "TQKQRxEDH2vhtxGB4obGeHwu7AqGDryU3C",
-        "decimal_place": 18
-      }
-    },
-    "symbol": "sugar"
-  },
-  {
-    "description": {
-      "en": "In the vast universe of blockchain, a shining star is rising, which perfectly combines ancient wisdom with modern technology. This is the SUNWUKONG token. SunWukong, which means the energy and wisdom of the sun and the flexibility and determination of Sun Wukong, combines traditional culture with the innovative spirit of blockchain to create a sacred guardian on the TRON chain.\r\n\r\nSUN WU KONG or \"MONKEY KING\"\r\nThe most iconic figures in Chinese mythology. He is a central character in the classic Chinese novel \"Journey to the West,\" written during the Ming Dynasty. Born from a stone and possessing supernatural abilities, Sun Wukong is known for his rebellious nature, incredible strength, and mastery of the 72 transformations.\r\n"
-    },
-    "id": "sunwukong",
-    "image": {
-      "large": "https://coin-images.coingecko.com/coins/images/39849/large/8e0a6149-2cef-445f-93e4-72143a45a01f_%281%29.jpeg?1724306294",
-      "small": "https://coin-images.coingecko.com/coins/images/39849/small/8e0a6149-2cef-445f-93e4-72143a45a01f_%281%29.jpeg?1724306294",
-      "thumb": "https://coin-images.coingecko.com/coins/images/39849/thumb/8e0a6149-2cef-445f-93e4-72143a45a01f_%281%29.jpeg?1724306294"
-    },
-    "last_updated_at": "2024-12-14T09:14:25.140Z",
-    "market_cap": 3782650,
-    "name": "SunWukong",
-    "platforms": {
-      "tron": {
-        "contract_address": "TP3prcvQknVthrVnn281cKST56eWiLgJJM",
-        "decimal_place": 18
-      }
-    },
-    "symbol": "sunwukong"
-  },
-  {
-    "description": {
-      "en": "VIKITA is not just a cryptocurrency; it's a whole meme experience that makes every investment fun and engaging. With this token, you not only get the chance to participate in cryptocurrency games but also become part of a global meme community.\r\n\r\nUpcoming Game: Vikita Metaversia\r\n\r\nIn addition to its vibrant community and interactive elements, VIKITA will introduce an exciting new game, Vikita Metaversia. This game will be integrated into the VIKITA ecosystem and promises to offer:\r\n\r\nImmersive Gameplay: Dive into a rich, interactive world where meme culture and cryptocurrency come together in innovative ways.\r\nUnique Challenges and Rewards: Engage in fun challenges and quests, earning rewards that enhance your experience and status within the VIKITA community.\r\nCommunity Interaction: Collaborate with other players, participate in global events, and contribute to the evolution of the game's universe.\r\nExclusive Features: Unlock special in-game content and bonuses that are available only to token holders, making your participation even more rewarding.\r\nWith Vikita Metaversia, VIKITA aims to create a dynamic and entertaining environment that enhances both the gaming and investing experiences for its users."
-    },
-    "id": "vikita",
-    "image": {
-      "large": "https://coin-images.coingecko.com/coins/images/39938/large/2024-08-27_16.31.10.jpg?1724868928",
-      "small": "https://coin-images.coingecko.com/coins/images/39938/small/2024-08-27_16.31.10.jpg?1724868928",
-      "thumb": "https://coin-images.coingecko.com/coins/images/39938/thumb/2024-08-27_16.31.10.jpg?1724868928"
-    },
-    "last_updated_at": "2024-12-14T09:12:12.917Z",
-    "market_cap": 3469165,
-    "name": "VIKITA",
-    "platforms": {
-      "tron": {
-        "contract_address": "TP7r1pDoS1snMjEJE1kE17GRt3Df4mYuZz",
-        "decimal_place": 18
-      }
-    },
-    "symbol": "vikita"
-  },
-  {
-    "description": {
-      "en": "$MuNCAT i am stuck on the moon\r\nmun cat--A cat that’s stuck on the moon and is trying to get out.\r\n\r\nThe $MuNCAT a community token on the Solana blockchain where good vibes reign supreme. \r\n\r\n$MuNCAT is your passport to a vibing community. Join us in embracing the chill side of life, one vibe at a time!\r\n\r\nBeing a memecoin doesn’t mean we won’t have utilities. Our developers will develop some fun and useful tools for its community members as we continue to BUIDL! Our main goal is to make sure everyone has access to our utilities, so we build it with scalability in mind."
-    },
-    "id": "muncat",
-    "image": {
-      "large": "https://coin-images.coingecko.com/coins/images/39929/large/MUNCAT.png?1724835822",
-      "small": "https://coin-images.coingecko.com/coins/images/39929/small/MUNCAT.png?1724835822",
-      "thumb": "https://coin-images.coingecko.com/coins/images/39929/thumb/MUNCAT.png?1724835822"
-    },
-    "last_updated_at": "2024-12-14T09:13:37.928Z",
-    "market_cap": 2361127,
-    "name": "MUNCAT",
-    "platforms": {
-      "tron": {
-        "contract_address": "TE2T2vLnEQT1XW647EAQAHWqd6NZL1hweR",
-        "decimal_place": 18
-      }
-    },
-    "symbol": "muncat"
-  },
-  {
-    "description": {
-      "en": "Hewwo, I’m Twiskers, the fiercest cat in town! Better watch out, ‘cause I’m here to conquer all the memes with my fluff and claws, nya!                                                           \r\n\r\n\r\n\r\n                                                                                                                                                                                                                                                                                                                                               "
-    },
-    "id": "twiskers",
-    "image": {
-      "large": "https://coin-images.coingecko.com/coins/images/50973/large/Twiskers-Token-Logo.png?1729631828",
-      "small": "https://coin-images.coingecko.com/coins/images/50973/small/Twiskers-Token-Logo.png?1729631828",
-      "thumb": "https://coin-images.coingecko.com/coins/images/50973/thumb/Twiskers-Token-Logo.png?1729631828"
-    },
-    "last_updated_at": "2024-12-14T09:14:33.219Z",
-    "market_cap": 2313769,
-    "name": "Twiskers",
-    "platforms": {
-      "tron": {
-        "contract_address": "TTFreuJ4pYDaCeEMEtiR1GQDwPPrS4jKFk",
-        "decimal_place": 18
-      }
-    },
-    "symbol": "twx"
-  },
-  {
-    "description": {
-      "en": "The Donkey on TRON taking us to the sun. TRONKEY combines a love for Donkeys and the TRON Blockchain, launched by an experienced team with deep expertise within Blockchain Technology, cryptocurrency and community building. Inspired by the exciting potential of Meme coins on TRON, and the fast growing communities forming, Tronkey plans to build one of the strongest communities within the Web3 Space. "
-    },
-    "id": "tronkey",
-    "image": {
-      "large": "https://coin-images.coingecko.com/coins/images/39890/large/Tronkey_Logo.jpeg?1724700702",
-      "small": "https://coin-images.coingecko.com/coins/images/39890/small/Tronkey_Logo.jpeg?1724700702",
-      "thumb": "https://coin-images.coingecko.com/coins/images/39890/thumb/Tronkey_Logo.jpeg?1724700702"
-    },
-    "last_updated_at": "2024-12-14T09:11:03.407Z",
-    "market_cap": 2106452,
-    "name": "TRONKEY",
-    "platforms": {
-      "tron": {
-        "contract_address": "TRHsKfoPJxFHnJ4wJ8Zc9nmSNAyaNYqff7",
-        "decimal_place": 18
-      }
-    },
-    "symbol": "tronkey"
-  },
-  {
-    "description": {
-      "en": "The first deflationary utility meme on Tron with a fully working product from launch day. We are bringing liquidity into the Tron ecosystem with our Bridge. You can swap any assets from 30+ chains into Tron and all the top tron memes.\r\nAll fees collected will be used to buy back the token and send it to Justin Suns wallet. We got this inspiration from the SunPump model. Everything stays in the ecosystem!"
-    },
-    "id": "zapo",
-    "image": {
-      "large": "https://coin-images.coingecko.com/coins/images/50471/large/IMG_7295.jpeg?1727849194",
-      "small": "https://coin-images.coingecko.com/coins/images/50471/small/IMG_7295.jpeg?1727849194",
-      "thumb": "https://coin-images.coingecko.com/coins/images/50471/thumb/IMG_7295.jpeg?1727849194"
-    },
-    "last_updated_at": "2024-12-14T09:12:14.317Z",
-    "market_cap": 2048693,
-    "name": "ZAPO AI",
-    "platforms": {
-      "tron": {
-        "contract_address": "TPUZseUsV89tM157aLfkuKYEaRKzBirmRb",
-        "decimal_place": 18
-      }
-    },
-    "symbol": "zapo"
-  },
-  {
-    "description": {
-      "en": "InvestZone (IVfun) is a first CIS meme token built on the Tron blockchain, specifically designed to deliver entertainment and joy to its community. Unlike traditional cryptocurrencies, IVfun is driven by a vibrant community of fun enthusiasts who have propelled it to over a $50 million market cap, making it the first of its kind in the CIS region. IVfun's continued success is fueled by its unique blend of humor and community support."
-    },
-    "id": "invest-zone",
-    "image": {
-      "large": "https://coin-images.coingecko.com/coins/images/39924/large/ivfun200x200.png?1725222884",
-      "small": "https://coin-images.coingecko.com/coins/images/39924/small/ivfun200x200.png?1725222884",
-      "thumb": "https://coin-images.coingecko.com/coins/images/39924/thumb/ivfun200x200.png?1725222884"
-    },
-    "last_updated_at": "2024-12-14T09:14:25.451Z",
-    "market_cap": 1765996,
-    "name": "Invest Zone",
-    "platforms": {
-      "tron": {
-        "contract_address": "TSig7sWzEL2K83mkJMQtbyPpiVSbR6pZnb",
-        "decimal_place": 18
-      }
-    },
-    "symbol": "ivfun"
-  },
-  {
-    "description": {
       "en": "Revain is one of the new alternative currencies to be introduced in the already hyper crypto market. Revain is an unbiased review platform built on blockchain technology, which allows users to stay highly motivated. With the platform being a new generation feedback platform build on the blockchain technology, the platform aims to reinvent the review industry. Obviously, it’s an industry that needs a change – this booming industry has been fraught with peril and fraud as malicious users relentlessly write fake reviews. Also, a five star review on TripAdvisor, Yelp, and similar ratings websites can change the course of a business.\r\n\r\nThe platform is led by Rinat Arslanov as the CEO. He is an entrepreneur with 10+ years in business, venture capital, and blockchain experience. Other key members of the team include Sergey Potekhin, who leads the development and blockchain design of Revain and holds the position of CEO of the Technology area; as well as developer Sergey Omilyanchuk, who is responsible for server and application architecture.\r\n\r\nIn 2018 the team plans to launch the RVN token in quarter 3 and release gaming reviews in quarter 4. Revain is a marketing platform in the form of a Yelp-like online review platform. Businesses incentivize users to leave public feedback that’s posted to Revain’s digital ledger on the <a href=\"https://www.coingecko.com/en/coins/ethereum\">Ethereum</a> blockchain."
     },
     "id": "revain",
@@ -576,8 +240,8 @@
       "small": "https://coin-images.coingecko.com/coins/images/1107/small/256x256.png?1696502203",
       "thumb": "https://coin-images.coingecko.com/coins/images/1107/thumb/256x256.png?1696502203"
     },
-    "last_updated_at": "2024-12-13T10:48:49.853Z",
-    "market_cap": 1630879,
+    "last_updated_at": "2024-06-20T03:52:49.124Z",
+    "market_cap": 4301771,
     "name": "Revain",
     "platforms": {
       "tron": {
@@ -589,27 +253,6 @@
   },
   {
     "description": {
-      "en": "A legendary character inspired by Matt Furie's Boy's Club comic. The red mascot of the red chain, TRON.\r\n\r\nFoFar is a community meme on Tron and the first Matt Furie character on TRX, being the first market mover has given FoFar a great advantage for growth on the Tron Chain. We aim to produce high quality memes and content to tron users, the \"Brett\" or \"Pepe\" of Tron. FoFar has had great organic growth and it is not slowing down. "
-    },
-    "id": "fofar-2",
-    "image": {
-      "large": "https://coin-images.coingecko.com/coins/images/39798/large/0mWJSkHI_400x400.jpg?1728417701",
-      "small": "https://coin-images.coingecko.com/coins/images/39798/small/0mWJSkHI_400x400.jpg?1728417701",
-      "thumb": "https://coin-images.coingecko.com/coins/images/39798/thumb/0mWJSkHI_400x400.jpg?1728417701"
-    },
-    "last_updated_at": "2024-12-14T09:14:25.986Z",
-    "market_cap": 1422406,
-    "name": "FoFar",
-    "platforms": {
-      "tron": {
-        "contract_address": "TUFonyWZ4Tza5MzgDj6g2u5rfdGoRVYG7g",
-        "decimal_place": 18
-      }
-    },
-    "symbol": "fofar"
-  },
-  {
-    "description": {
       "en": "Inspired by Justin Sun's tweet asking the Tron community to create a meme token called \"Coconut Chicken- $CCC\""
     },
     "id": "coconut-chicken",
@@ -618,8 +261,8 @@
       "small": "https://coin-images.coingecko.com/coins/images/34439/small/CCC200x200.png?1709599233",
       "thumb": "https://coin-images.coingecko.com/coins/images/34439/thumb/CCC200x200.png?1709599233"
     },
-    "last_updated_at": "2024-12-14T09:14:28.022Z",
-    "market_cap": 1308830,
+    "last_updated_at": "2024-06-20T04:29:36.012Z",
+    "market_cap": 2484658,
     "name": "Coconut Chicken",
     "platforms": {
       "tron": {
@@ -631,132 +274,6 @@
   },
   {
     "description": {
-      "en": "Cyber Dog is a meme token created by the OGCommunity and launched on the TRON blockchain. It started as an inside joke within the community and recently turned into a full-fledged crypto asset. The token quickly gained popularity due to its playful branding and community-driven nature, appealing to a wide audience of meme coin enthusiasts and crypto investors alike. Backed by the OGCommunity, the project aims to leverage the decentralized power of blockchain technology while fostering a strong, engaged community. With a focus on fun and inclusivity, Cyber Dog is also exploring utility in various decentralized finance (DeFi) applications, staking rewards, and NFT integrations, positioning itself as more than just a meme but as a versatile asset within the broader crypto ecosystem."
-    },
-    "id": "cyber-dog",
-    "image": {
-      "large": "https://coin-images.coingecko.com/coins/images/40020/large/photo_2024-08-29_15.49.11%C2%A0%E2%80%94_%D0%BA%D0%BE%D0%BF%D0%B8%D1%8F_3.jpeg?1725345617",
-      "small": "https://coin-images.coingecko.com/coins/images/40020/small/photo_2024-08-29_15.49.11%C2%A0%E2%80%94_%D0%BA%D0%BE%D0%BF%D0%B8%D1%8F_3.jpeg?1725345617",
-      "thumb": "https://coin-images.coingecko.com/coins/images/40020/thumb/photo_2024-08-29_15.49.11%C2%A0%E2%80%94_%D0%BA%D0%BE%D0%BF%D0%B8%D1%8F_3.jpeg?1725345617"
-    },
-    "last_updated_at": "2024-12-14T09:12:13.221Z",
-    "market_cap": 1272918,
-    "name": "Cyber Dog",
-    "platforms": {
-      "tron": {
-        "contract_address": "TVXmroHbJsJ6rVm3wGn2G9723yz3Kbqp9x",
-        "decimal_place": 18
-      }
-    },
-    "symbol": "cdog"
-  },
-  {
-    "description": {
-      "en": ""
-    },
-    "id": "fix00",
-    "image": {
-      "large": "https://coin-images.coingecko.com/coins/images/29548/large/_7f0027.png?1696528489",
-      "small": "https://coin-images.coingecko.com/coins/images/29548/small/_7f0027.png?1696528489",
-      "thumb": "https://coin-images.coingecko.com/coins/images/29548/thumb/_7f0027.png?1696528489"
-    },
-    "last_updated_at": "2024-11-22T20:02:03.912Z",
-    "market_cap": 846388,
-    "name": "Fix00",
-    "platforms": {
-      "tron": {
-        "contract_address": "TAykmbrpL2VAemuRARXpTGjEttmsTjKPWA",
-        "decimal_place": 2
-      }
-    },
-    "symbol": "fix00"
-  },
-  {
-    "description": {
-      "en": "Pino TRX is a community based token on Tron blockchain. It is launched via fair launch on SunPump. This token will provide a utility - OTC-market mini-app for telegram, which will allow users to trade memecoins right on Telegram outside of DEXes. This app will help users to not affect the price of the token while trading.\r\n\r\nMain idea of the project is to unite all memecoins on Tron blockchain under one platform for trading and exchange"
-    },
-    "id": "pino-trx",
-    "image": {
-      "large": "https://coin-images.coingecko.com/coins/images/51554/large/IMG_5466_2.JPG?1731517557",
-      "small": "https://coin-images.coingecko.com/coins/images/51554/small/IMG_5466_2.JPG?1731517557",
-      "thumb": "https://coin-images.coingecko.com/coins/images/51554/thumb/IMG_5466_2.JPG?1731517557"
-    },
-    "last_updated_at": "2024-12-14T09:12:14.007Z",
-    "market_cap": 812875,
-    "name": "Pino TRX",
-    "platforms": {
-      "tron": {
-        "contract_address": "TAbkLGngV1k8bNb5hnqW7oX46FG4Dbs5e2",
-        "decimal_place": 18
-      }
-    },
-    "symbol": "pino"
-  },
-  {
-    "description": {
-      "en": "Are your bulls big enough to ride the most bullish bull to the sun? One of the fastest growing meme tokens in the Tron ecosystem $BULLS represents a community willing to ride this bull to the ends of the universe.\r\n\r\nA fast growing community and great memes.                                                                                                                                                                                                                                                                                                                                                                         "
-    },
-    "id": "bulls-2",
-    "image": {
-      "large": "https://coin-images.coingecko.com/coins/images/39912/large/bulls.jpg?1724785296",
-      "small": "https://coin-images.coingecko.com/coins/images/39912/small/bulls.jpg?1724785296",
-      "thumb": "https://coin-images.coingecko.com/coins/images/39912/thumb/bulls.jpg?1724785296"
-    },
-    "last_updated_at": "2024-12-12T13:01:00.950Z",
-    "market_cap": 726630,
-    "name": "BULLS",
-    "platforms": {
-      "tron": {
-        "contract_address": "TCkKRE1NPB7jVsauUZuLQjGHY9tSdSfkuu",
-        "decimal_place": 18
-      }
-    },
-    "symbol": "bulls"
-  },
-  {
-    "description": {
-      "en": "PandaFi is a community token! We are getting stronger with every new holder. Launched in the Typical Investor community, the main goal of the token is to introduce a friendly panda to the cryptocurrency world.\r\n\r\nWhat makes PandaFi unique is our focus on creating a vibrant and engaging community through humour and shared experiences. Our token is more than just a trading opportunity; it's about creating a positive and inclusive environment where members can socialise and have fun. We harness the power of memes and community-driven initiatives to foster a sense of belonging and excitement among our users.\r\n\r\nIn addition to being a fun and accessible token, PandaFi also aims to become a symbol of unity and collaboration in the crypto space. As our community grows, we plan to organise various events, giveaways and collaborative projects that reflect the spirit of our mascot, the panda. These events will help strengthen ties in our community and promote the project in a playful and fun way.\r\n\r\nUltimately, PandaFi aims to make the world of cryptocurrencies more accessible and enjoyable for everyone, step by step, with the help of a friendly panda."
-    },
-    "id": "pandafi",
-    "image": {
-      "large": "https://coin-images.coingecko.com/coins/images/40007/large/logo1.png?1725222293",
-      "small": "https://coin-images.coingecko.com/coins/images/40007/small/logo1.png?1725222293",
-      "thumb": "https://coin-images.coingecko.com/coins/images/40007/thumb/logo1.png?1725222293"
-    },
-    "last_updated_at": "2024-12-14T09:12:14.165Z",
-    "market_cap": 499850,
-    "name": "PandaFi",
-    "platforms": {
-      "tron": {
-        "contract_address": "TJ9mxWPmQSJswqMakEehFWcAntg73odiAq",
-        "decimal_place": 18
-      }
-    },
-    "symbol": "pfi"
-  },
-  {
-    "description": {
-      "en": "TC - A payment method designed to be used by TTcoin institutions and organizations."
-    },
-    "id": "ttcoin",
-    "image": {
-      "large": "https://coin-images.coingecko.com/coins/images/18887/large/200px.png?1696518346",
-      "small": "https://coin-images.coingecko.com/coins/images/18887/small/200px.png?1696518346",
-      "thumb": "https://coin-images.coingecko.com/coins/images/18887/thumb/200px.png?1696518346"
-    },
-    "last_updated_at": "2024-12-14T06:07:25.181Z",
-    "market_cap": 369906,
-    "name": "TTcoin",
-    "platforms": {
-      "tron": {
-        "contract_address": "TCMwzYUUCxLkTNpXjkYSBgXgqXwt7KJ82y",
-        "decimal_place": 4
-      }
-    },
-    "symbol": "tc"
-  },
-  {
-    "description": {
       "en": "As a crypto enthusiast, you hold several assets in multiple wallets across different blockchains. With CrossWallet, you will only need one wallet to navigate the ever growing number of assets and networks.\r\n\r\nSwap assets between all available networks with a single button. Whether arbitrage trading or moving funds to access another network’s features, CrossWallet’s bridge enables you to seize these opportunities with maximum efficiency, convenience, and speed.\r\n\r\nWith CrossWallet’s Binance Smart Chain and Ethereum aggregators, you can monitor price and liquidity on both networks simultaneously to identify any arbitrage opportunities –– and profit before everyone else."
     },
     "id": "crosswallet",
@@ -765,8 +282,8 @@
       "small": "https://coin-images.coingecko.com/coins/images/16460/small/AAoUhOw.png?1696516056",
       "thumb": "https://coin-images.coingecko.com/coins/images/16460/thumb/AAoUhOw.png?1696516056"
     },
-    "last_updated_at": "2024-12-14T05:58:13.916Z",
-    "market_cap": 302540,
+    "last_updated_at": "2024-06-20T04:39:07.374Z",
+    "market_cap": 671569,
     "name": "CrossWallet",
     "platforms": {
       "tron": {
@@ -778,234 +295,45 @@
   },
   {
     "description": {
-      "en": "A memecoin of the biggest meme in China known as Biaoqing, deployed and created on the Chinese chain of Justin Sun; Tron.\r\n\r\nA panda that represents different facial expressions - 'biaoqing' translates to 'facial expression' hence all the memes having different expressions.\r\n\r\nBiaoqing represents a strong cult like community due to the amount of support and backing this panda meme has not only in China but also world-wide."
+      "en": "TC - A payment method designed to be used by TTcoin institutions and organizations."
     },
-    "id": "biaoqing-tron",
+    "id": "ttcoin",
     "image": {
-      "large": "https://coin-images.coingecko.com/coins/images/39782/large/2024-08-18_08.34.23.jpg?1724100890",
-      "small": "https://coin-images.coingecko.com/coins/images/39782/small/2024-08-18_08.34.23.jpg?1724100890",
-      "thumb": "https://coin-images.coingecko.com/coins/images/39782/thumb/2024-08-18_08.34.23.jpg?1724100890"
+      "large": "https://coin-images.coingecko.com/coins/images/18887/large/200px.png?1696518346",
+      "small": "https://coin-images.coingecko.com/coins/images/18887/small/200px.png?1696518346",
+      "thumb": "https://coin-images.coingecko.com/coins/images/18887/thumb/200px.png?1696518346"
     },
-    "last_updated_at": "2024-12-14T09:12:14.213Z",
-    "market_cap": 294977,
-    "name": "Biaoqing TRON",
+    "last_updated_at": "2024-06-20T04:54:31.038Z",
+    "market_cap": 376507,
+    "name": "TTcoin",
     "platforms": {
       "tron": {
-        "contract_address": "TR95WcjR78Y4puyv8BkbFuxaf4WcvmmPpd",
-        "decimal_place": 18
+        "contract_address": "TCMwzYUUCxLkTNpXjkYSBgXgqXwt7KJ82y",
+        "decimal_place": 4
       }
     },
-    "symbol": "biao"
+    "symbol": "tc"
   },
   {
     "description": {
-      "en": "🐸 **SUNPEPE - The Brightest Meme on the TRON Blockchain!** ☀️\r\n\r\nJust when you thought PEPE couldn't get any cooler, he took a trip to the TRON blockchain and got a sun-kissed glow! 🌴 SUNPEPE is here to bring the heat with the same legendary vibes as PEPE, but with a TRON-powered twist. If you're ready to bask in the sun and ride the meme wave, SUNPEPE is your new best friend. Don't miss out—this is one frog you want to catch! 🌊🚀\r\n\r\n#SUNPEPE #MemeCoin #TRON #PEPE"
+      "en": "Netcoincapital is a blockchain firm founded to strengthen the world's new blockchain system. This coin, known as NCC, attracted a variety of investors during its AirDrop period and eventually entered the world's first tradable exchange, COINSBIT, on August 2, 2021. Introduced the original paper as well as a revised version known as Black Paper. On the other side, a specific fund has been formed for members of this project to conduct various transactions with NCC digital currency, which may generate revenue for the project's participants.\r\n\r\nNetcoincapital  has already finished the first step of its road map, which includes AirDrop and entering the first exchange, and is now moving on to the second phase of its project. The company's wallet will be offered first in this phase of the project, followed by the blockchain that has been launched under the name of Azgard in the team's black paper, Existing blockchain systems should be reduced. However, due to the structure of the blockchain, it may be utilized as a platform for decentralized applications, even with greater display graphics. The card system can be employed in the project's next steps. Another consequence of this blockchain technology is the Silk Gateway, which is a digital currency payment gateway designated after certain credit institutions.\r\n\r\nNetcoincapital  has decided to incorporate artificial intelligence into another discipline of computer science and programming, taking into account the needs of the user, due to the complexity of programming projects in many languages used in this field. This programming language, which can be integrated with the Asgard blockchain technology to build a blockchain-based operating system that is entirely decentralized, will be able to do the programming code automatically using a very simple user interface.\r\n\r\nPreviously, This company has also conducted research in the field of programming, among which we may name source code linked to difficult linear algebra calculations, which is one of the services given by this company to programmers in the high-level Python language.\r\n\r\nBecause of the creation of blockchain, Netcoincapital's programming language and proprietary operating system will continue to be developed to leverage the blockchain operating system, which is the first step toward powerful processors and the utilization of power. This firm is developing a greater computational mind, a processor that, instead of using metals to process data, will use combinations of metals and specific chemical compositions to process data at a higher rate than present systems.\r\n\r\nanother goal that can be achieved Netcoincapital  Group examined the development of special devices based on proprietary processors and the blockchain operating system, announcing that these devices could be similar to today's smartphones, laptops, and tablets, with the exception that Blockchains are completely decentralized and have higher processing power on the platform."
     },
-    "id": "sunpepe",
+    "id": "netcoincapital",
     "image": {
-      "large": "https://coin-images.coingecko.com/coins/images/39781/large/photo_2024-08-18_14-46-58.png?1724100252",
-      "small": "https://coin-images.coingecko.com/coins/images/39781/small/photo_2024-08-18_14-46-58.png?1724100252",
-      "thumb": "https://coin-images.coingecko.com/coins/images/39781/thumb/photo_2024-08-18_14-46-58.png?1724100252"
+      "large": "https://coin-images.coingecko.com/coins/images/17956/large/ncc.jpeg?1696517476",
+      "small": "https://coin-images.coingecko.com/coins/images/17956/small/ncc.jpeg?1696517476",
+      "thumb": "https://coin-images.coingecko.com/coins/images/17956/thumb/ncc.jpeg?1696517476"
     },
-    "last_updated_at": "2024-12-14T09:13:37.165Z",
-    "market_cap": 286049,
-    "name": "sunpepe",
+    "last_updated_at": "2024-06-20T04:15:08.043Z",
+    "market_cap": 174389,
+    "name": "Netcoincapital",
     "platforms": {
       "tron": {
-        "contract_address": "TAzpJHxxgJd8f5AKjzndEndH3S9pzNUM5W",
-        "decimal_place": 18
+        "contract_address": "TCDgp5bwtixaShPifUm7HpZ71C1pe6zif1",
+        "decimal_place": 6
       }
     },
-    "symbol": "sunpepe"
-  },
-  {
-    "description": {
-      "en": "$ROCK is more than just a meme; it’s a bold statement in the TRON blockchain community, embodying the spirit of fun and irreverence that has swept across the world of cryptocurrencies and NFTs. While many projects strive to offer utility and practical applications, $ROCK proudly embraces its role as a completely useless coin. It’s a playful nod to the absurdity that sometimes defines the crypto space, where value isn’t always tied to utility. The rocks have already cemented their place in the NFT world, celebrated for their tongue-in-cheek commentary on digital art and ownership. Now, $ROCK continues this legacy in the crypto market, representing the pure, unadulterated joy of participation without any pretense of usefulness. This coin isn’t about solving problems or revolutionizing industries; it’s about having fun, being part of a community that laughs in the face of convention, and celebrating the ridiculous side of blockchain technology. In a world where every project claims to be groundbreaking, $ROCK stands out by not trying to be anything other than what it is: a totally useless, yet irresistibly fun, meme coin. Join the $ROCK movement and embrace the absurd!\r\n"
-    },
-    "id": "rock-4",
-    "image": {
-      "large": "https://coin-images.coingecko.com/coins/images/39875/large/rock_logo-removebg-preview_%281%29.png?1724617404",
-      "small": "https://coin-images.coingecko.com/coins/images/39875/small/rock_logo-removebg-preview_%281%29.png?1724617404",
-      "thumb": "https://coin-images.coingecko.com/coins/images/39875/thumb/rock_logo-removebg-preview_%281%29.png?1724617404"
-    },
-    "last_updated_at": "2024-12-14T09:14:37.391Z",
-    "market_cap": 279540,
-    "name": "ROCK",
-    "platforms": {
-      "tron": {
-        "contract_address": "TJvwMR3RjHc8jA9QwwjWGANrR3Y4scLSZm",
-        "decimal_place": 18
-      }
-    },
-    "symbol": "rock"
-  },
-  {
-    "description": {
-      "en": "The biggest community meme token on TRON. Crypto Whale is a meme token on the TRON blockchain that combines entertainment with the innovative potential of cryptocurrencies. Its goal is to build an active community of enthusiasts by offering fun contests, unique NFTs, and dynamic reward mechanisms for token holders. With fast transactions on TRON, WHALE makes crypto not only profitable but also exciting."
-    },
-    "id": "crypto-whale",
-    "image": {
-      "large": "https://coin-images.coingecko.com/coins/images/40151/large/8_%285%29.png?1726070601",
-      "small": "https://coin-images.coingecko.com/coins/images/40151/small/8_%285%29.png?1726070601",
-      "thumb": "https://coin-images.coingecko.com/coins/images/40151/thumb/8_%285%29.png?1726070601"
-    },
-    "last_updated_at": "2024-12-14T09:11:41.401Z",
-    "market_cap": 276092,
-    "name": "Crypto Whale",
-    "platforms": {
-      "tron": {
-        "contract_address": "TWP6GgtstiuYbpygSFcZLzJQrj9eDVQcq2",
-        "decimal_place": 18
-      }
-    },
-    "symbol": "whale"
-  },
-  {
-    "description": {
-      "en": "Follow the red cat"
-    },
-    "id": "tron-cat",
-    "image": {
-      "large": "https://coin-images.coingecko.com/coins/images/39851/large/KY6WTW0V_400x400.jpg?1724346227",
-      "small": "https://coin-images.coingecko.com/coins/images/39851/small/KY6WTW0V_400x400.jpg?1724346227",
-      "thumb": "https://coin-images.coingecko.com/coins/images/39851/thumb/KY6WTW0V_400x400.jpg?1724346227"
-    },
-    "last_updated_at": "2024-12-14T09:14:35.173Z",
-    "market_cap": 271975,
-    "name": "Tron Cat",
-    "platforms": {
-      "tron": {
-        "contract_address": "TVgHqeP41s3qMDH3oKBsScEUzvyXw6bKAm",
-        "decimal_place": 18
-      }
-    },
-    "symbol": "tcat"
-  },
-  {
-    "description": {
-      "en": "MEW WOOF DAO ($MWD) is not just a meme token on the TRC-20 network from the MarsDAO team (MarsDAO is an ecosystem of products focused on promoting Web3 technologies and solutions for the mass market, supported by an active community.); it represents an entire philosophy of survival and triumph in the current bull run. The token was developed using SunPump, a new platform introduced by Tron founder Justin Sun based on the Fairlaunch principle, and it is fully owned by the community."
-    },
-    "id": "mew-woof-dao",
-    "image": {
-      "large": "https://coin-images.coingecko.com/coins/images/39833/large/tokens_icon.png?1724212098",
-      "small": "https://coin-images.coingecko.com/coins/images/39833/small/tokens_icon.png?1724212098",
-      "thumb": "https://coin-images.coingecko.com/coins/images/39833/thumb/tokens_icon.png?1724212098"
-    },
-    "last_updated_at": "2024-12-14T02:04:52.550Z",
-    "market_cap": 248228,
-    "name": "MEW WOOF DAO",
-    "platforms": {
-      "tron": {
-        "contract_address": "TEfg1LnM3yApCjAgax35wDg6SRpmZFuQS3",
-        "decimal_place": 18
-      }
-    },
-    "symbol": "mwd"
-  },
-  {
-    "description": {
-      "en": "The legendary PIG is back on TRON, and $SUNPIG is more powerful than ever! Fair-launched on SunPump with no presale, no VCs, no tax, no seed funding, and no team tokens, this project is driven entirely by its passionate community. It's not just about reaching the moon anymore—$SUNPIG is blazing a trail to the Sun and beyond. Join a movement fueled by dedication, transparency, and the unstoppable energy of its supporters! 🌞🐷🚀"
-    },
-    "id": "sunpig",
-    "image": {
-      "large": "https://coin-images.coingecko.com/coins/images/39954/large/Untitled_design%2814%29.png?1724903371",
-      "small": "https://coin-images.coingecko.com/coins/images/39954/small/Untitled_design%2814%29.png?1724903371",
-      "thumb": "https://coin-images.coingecko.com/coins/images/39954/thumb/Untitled_design%2814%29.png?1724903371"
-    },
-    "last_updated_at": "2024-12-14T05:15:31.535Z",
-    "market_cap": 241913,
-    "name": "SUNPIG",
-    "platforms": {
-      "tron": {
-        "contract_address": "TX4xgxs6ctAz8RFbpk4rPzBrULWHE7Siiq",
-        "decimal_place": 18
-      }
-    },
-    "symbol": "sunpig"
-  },
-  {
-    "description": {
-      "en": "The biggest meme on tron has arrived grab a drink, and trade some BMS - responsibly (or not)!\r\n\r\nBMS: Born from a meme, inspired by Justin Sun’s epic “BUY MY SHITCOIN” moment! Our mascot, none other than a wild, adventurous Justin Sun, will be causing chaos and having a blast on the Tron blockchain. With staking, utility, and endless meme magic, BMS keeps crypto right where it belongs—in crypto!\r\n\r\nCreated to honour  justinsun and shake up the #Tron memecoin space! Like Justin said: Buy My Shitcoin! $BMS to the sun!"
-    },
-    "id": "bms-coin",
-    "image": {
-      "large": "https://coin-images.coingecko.com/coins/images/51570/large/BMS_Coin.png?1731531885",
-      "small": "https://coin-images.coingecko.com/coins/images/51570/small/BMS_Coin.png?1731531885",
-      "thumb": "https://coin-images.coingecko.com/coins/images/51570/thumb/BMS_Coin.png?1731531885"
-    },
-    "last_updated_at": "2024-12-14T09:12:14.564Z",
-    "market_cap": 239592,
-    "name": "BMS Coin",
-    "platforms": {
-      "tron": {
-        "contract_address": "TYQ2rbuRmcPuTQVWnx71BMsqxj46rteweH",
-        "decimal_place": 18
-      }
-    },
-    "symbol": "bms"
-  },
-  {
-    "description": {
-      "en": "B1COIN is a community driven memecoin launched on TRON. The memecoin is dedicated to the image of a Pepe-style Bull and pays homage to all the Bulls in the market.\r\n\r\nThe game-changing idea behind $BICOIN is that Holders will get a chance to win a Lamborghini (a famous crypto meme Wen Lambo?). A transparent and fair lottery, regardless of location.\r\n\r\nThe $BICOIN roadmap includes 6 stages: including listing on centralized exchanges (CEX), the launch of the cross-chain Launchpad in Q3 2024, and a Lamorgini giveaway."
-    },
-    "id": "b1coin",
-    "image": {
-      "large": "https://coin-images.coingecko.com/coins/images/40148/large/Frame_102_%281%29.png?1726051563",
-      "small": "https://coin-images.coingecko.com/coins/images/40148/small/Frame_102_%281%29.png?1726051563",
-      "thumb": "https://coin-images.coingecko.com/coins/images/40148/thumb/Frame_102_%281%29.png?1726051563"
-    },
-    "last_updated_at": "2024-12-14T09:12:13.865Z",
-    "market_cap": 200819,
-    "name": "B1COIN",
-    "platforms": {
-      "tron": {
-        "contract_address": "TF7ixydn7nfCgj9wQj3fRdKRAvsZ8egHcx",
-        "decimal_place": 18
-      }
-    },
-    "symbol": "bicoin"
-  },
-  {
-    "description": {
-      "en": "xiao lang gou (小狼狗) is your chinese wolfdog quant boyfriend. he might be cool and domineering but he'll make you feel secure. xiao lang gou is for the people.\r\n\r\ndriven by the community, xiao lang gou is a symbol of strength, protection, and reliability that resonates with everyone who values these core principles. rooted in the fierce and protective spirit of the chinese wolfdog, xiao lang gou stands unwaveringly for the people. join the pack, embrace the power, and feel the security that only xiao lang gou can provide. together, we rise stronger."
-    },
-    "id": "xiao-lang-gou",
-    "image": {
-      "large": "https://coin-images.coingecko.com/coins/images/39891/large/photo_2024-08-24_15-46-47_%281%29.jpg?1724703269",
-      "small": "https://coin-images.coingecko.com/coins/images/39891/small/photo_2024-08-24_15-46-47_%281%29.jpg?1724703269",
-      "thumb": "https://coin-images.coingecko.com/coins/images/39891/thumb/photo_2024-08-24_15-46-47_%281%29.jpg?1724703269"
-    },
-    "last_updated_at": "2024-12-14T09:12:13.793Z",
-    "market_cap": 179533,
-    "name": "xiao lang gou",
-    "platforms": {
-      "tron": {
-        "contract_address": "TQzUXP5eXHwrRMou9KYQQq7wEmu8KQF7mX",
-        "decimal_place": 18
-      }
-    },
-    "symbol": "xlg"
-  },
-  {
-    "description": {
-      "en": "SunTron: Illuminating the Future of Meme Coins\r\n\r\nSunTron is a community-driven meme coin that aims to bring fun, innovation, and value to the cryptocurrency space. By leveraging the power of social media and community engagement, SunTron strives to create a vibrant and supportive ecosystem for its holders.SunTron is built by the community, for the community. Our decisions are influenced by the collective voice of our holders.\r\n"
-    },
-    "id": "tron-mascot",
-    "image": {
-      "large": "https://coin-images.coingecko.com/coins/images/51788/large/png.png?1731985987",
-      "small": "https://coin-images.coingecko.com/coins/images/51788/small/png.png?1731985987",
-      "thumb": "https://coin-images.coingecko.com/coins/images/51788/thumb/png.png?1731985987"
-    },
-    "last_updated_at": "2024-12-14T04:29:00.485Z",
-    "market_cap": 171114,
-    "name": "TRON MASCOT",
-    "platforms": {
-      "tron": {
-        "contract_address": "TPP9Pq2LQwtrwfyUDLSyFsKJwJjFouf45B",
-        "decimal_place": 18
-      }
-    },
-    "symbol": "suntron"
+    "symbol": "ncc"
   },
   {
     "description": {
@@ -1017,8 +345,8 @@
       "small": "https://coin-images.coingecko.com/coins/images/16811/small/EWV5xQB.jpeg?1696516381",
       "thumb": "https://coin-images.coingecko.com/coins/images/16811/thumb/EWV5xQB.jpeg?1696516381"
     },
-    "last_updated_at": "2024-12-14T06:07:32.234Z",
-    "market_cap": 149020,
+    "last_updated_at": "2024-06-20T04:40:34.395Z",
+    "market_cap": 150427,
     "name": "SWAPZ.app",
     "platforms": {
       "tron": {
@@ -1030,90 +358,6 @@
   },
   {
     "description": {
-      "en": "Dragon Sun ($DRGN) is a Tron-based memecoin that draws on the powerful symbolism of a dragon to represent the fusion of eastern and western political ideologies within the Tron ecosystem. The project aims to create a unique and engaging community by leveraging this cultural and political narrative, offering a fresh and intriguing theme for crypto enthusiasts. As the newest fire-breather in the Tron ecosystem, Dragon Sun is all about bringing people together through a shared interest in mythology and crypto."
-    },
-    "id": "dragon-sun",
-    "image": {
-      "large": "https://coin-images.coingecko.com/coins/images/39881/large/download_%283%29.png?1724622303",
-      "small": "https://coin-images.coingecko.com/coins/images/39881/small/download_%283%29.png?1724622303",
-      "thumb": "https://coin-images.coingecko.com/coins/images/39881/thumb/download_%283%29.png?1724622303"
-    },
-    "last_updated_at": "2024-12-14T09:12:13.277Z",
-    "market_cap": 133177,
-    "name": "Dragon Sun",
-    "platforms": {
-      "tron": {
-        "contract_address": "TV5yB8f4AdoAfVVUdkytyZnX5e7SeGAZr2",
-        "decimal_place": 18
-      }
-    },
-    "symbol": "drgn"
-  },
-  {
-    "description": {
-      "en": "I'm Sunlion, assistant to Justin Sun! \r\n\r\nJoin the pride with $SUNLION, the meme token that roars in support of the TRON community! Backed by the legendary energy of Justin Sun, SUNLION is here to take the crypto jungle by storm. \r\n\r\nSunlion is a first mover on the Tron network and is set to be a pioneer meme on the chain. Sunlion is backed by Justin Sun himself, the founder of TRON network. Sunlion is a cute and memorable lion. "
-    },
-    "id": "sunlion",
-    "image": {
-      "large": "https://coin-images.coingecko.com/coins/images/39852/large/IMG_8776.jpeg?1724349593",
-      "small": "https://coin-images.coingecko.com/coins/images/39852/small/IMG_8776.jpeg?1724349593",
-      "thumb": "https://coin-images.coingecko.com/coins/images/39852/thumb/IMG_8776.jpeg?1724349593"
-    },
-    "last_updated_at": "2024-12-14T09:12:13.761Z",
-    "market_cap": 125518,
-    "name": "sunlion",
-    "platforms": {
-      "tron": {
-        "contract_address": "TBk4dXtfo6j3rxPc1VJDhA7BsVi2XHK1bi",
-        "decimal_place": 18
-      }
-    },
-    "symbol": "sunlion"
-  },
-  {
-    "description": {
-      "en": "Top Cat is a meme coin on the Tron blockchain, centered around a quirky and charismatic Chinese cat who wears a distinctive hat. This feline has quickly become a sensation within the Tron community, capturing the imagination of users and taking the blockchain by storm. Our focus is on fostering a strong, vibrant community where members can connect, share experiences, and enjoy the playful spirit that Top Cat embodies. We're all about community building and creating a space where everyone can vibe together, embracing the fun and excitement that this unique meme coin brings. Whether you're a crypto enthusiast or just here for the fun, Top Cat welcomes you to be a part of our growing community!"
-    },
-    "id": "topcat-2",
-    "image": {
-      "large": "https://coin-images.coingecko.com/coins/images/39985/large/topcatcmc.jpg?1725027576",
-      "small": "https://coin-images.coingecko.com/coins/images/39985/small/topcatcmc.jpg?1725027576",
-      "thumb": "https://coin-images.coingecko.com/coins/images/39985/thumb/topcatcmc.jpg?1725027576"
-    },
-    "last_updated_at": "2024-12-14T09:12:13.847Z",
-    "market_cap": 123362,
-    "name": "Topcat",
-    "platforms": {
-      "tron": {
-        "contract_address": "TD6xZDStjpd5FjgpNGihSYnm46nQUA6Dsj",
-        "decimal_place": 18
-      }
-    },
-    "symbol": "topcat"
-  },
-  {
-    "description": {
-      "en": "☀️ Yalla Sun | The meme coin that's all about soaring high and shining bright! 🌟 100% community-driven, owned by YOU. Join the fun and be part of the journey! \r\n\r\nEmpower Your Voice\r\nTogether, we can shape the future of Yalla Sun and elevate our community to new heights.\r\n\r\nMeme Coin Growth\r\nExperience the power of community-driven growth with Yalla Sun, your meme coin for greatness.\r\n\r\nYALLA SUN MEANS Let's go to the sun and this is exactly what are we aiming for .. NOT ONLY THE MOON .. WE AIM THE SUN\r\n"
-    },
-    "id": "yalla-sun",
-    "image": {
-      "large": "https://coin-images.coingecko.com/coins/images/39862/large/2024-08-22_10.52.33.jpg?1724375813",
-      "small": "https://coin-images.coingecko.com/coins/images/39862/small/2024-08-22_10.52.33.jpg?1724375813",
-      "thumb": "https://coin-images.coingecko.com/coins/images/39862/thumb/2024-08-22_10.52.33.jpg?1724375813"
-    },
-    "last_updated_at": "2024-12-14T09:12:13.304Z",
-    "market_cap": 120539,
-    "name": "Yalla Sun",
-    "platforms": {
-      "tron": {
-        "contract_address": "TBAbgFHHpuLERRcUFvjnojtBjkBr39NFB7",
-        "decimal_place": 18
-      }
-    },
-    "symbol": "ysu"
-  },
-  {
-    "description": {
       "en": "FINXFLO is a best-in-class crypto brokerage that powers a trading ecosystem through deep liquidity. We consolidated across our growing network of partners to give you best available prices, always. \r\n\r\n1 Account, 1 KYC, 1 Wallet\r\nForget the hassle of multiple accounts and log-ins. See and trade all markets with 1 Account, 1 KYC, 1 Wallet\r\n\r\nDeep Liquidity  \r\nAccess best available prices through deep liquidity consolidated across a growing network of partners\r\n\r\nAlways Pricing  \r\nOur network stays on and ensures you get the best available prices through volatile market conditions, thanks to routing technology with liquidity providers\r\n\r\nOne-Click Trading Feature\r\nExercise orders quickly and safely, with just one click\r\n \r\nAsset Security \r\nStore your digital assets off-chain securely, with our trusted partner custodians\r\n\r\nRegulation and Compliance\t\r\nTrade with peace of mind because we are committed to the highest regulatory standards to protect your interests\r\n\r\nUnique Rebate Program  \r\nEarn attractive, first-of-its-kind rebates. The more you trade, the more you earn."
     },
     "id": "finxflo",
@@ -1122,8 +366,8 @@
       "small": "https://coin-images.coingecko.com/coins/images/13916/small/raVh1Iw.png?1696513657",
       "thumb": "https://coin-images.coingecko.com/coins/images/13916/thumb/raVh1Iw.png?1696513657"
     },
-    "last_updated_at": "2024-12-14T06:01:22.089Z",
-    "market_cap": 104951,
+    "last_updated_at": "2024-06-20T04:46:13.740Z",
+    "market_cap": 130892,
     "name": "FINXFLO",
     "platforms": {
       "tron": {
@@ -1135,363 +379,6 @@
   },
   {
     "description": {
-      "en": "The Meowing Sensation of TRON!\r\nPresenting $SUNNY the Cat, the meme token ready to take TRON by storm!\r\n\r\nAbout $SUNNY the Cat\r\n$SUNNY the Cat is the purr-fect meme token on TRON, inspired by Justin Sun and powered by a community that loves fun. Led by Atoz and his team, $SUNNY is more than a token—it’s a meowment! Join the craze, hold $SUNNY, and let’s meow our way to the top together!\r\n\r\nWhat are the future plans for $SUNNY the Cat?\r\n$SUNNY will continue to grow its community, expand its presence in the TRON network, and increase its recognition through strategic campaigns and partnerships. The focus is on building a strong brand and creating value for all $SUNNY holders."
-    },
-    "id": "sunny-on-tron",
-    "image": {
-      "large": "https://coin-images.coingecko.com/coins/images/50241/large/Sunny_on_Tron.png?1726677328",
-      "small": "https://coin-images.coingecko.com/coins/images/50241/small/Sunny_on_Tron.png?1726677328",
-      "thumb": "https://coin-images.coingecko.com/coins/images/50241/thumb/Sunny_on_Tron.png?1726677328"
-    },
-    "last_updated_at": "2024-12-13T17:36:10.959Z",
-    "market_cap": 102780,
-    "name": "Sunny on Tron",
-    "platforms": {
-      "tron": {
-        "contract_address": "TTNyx1NE8wsJa3GqxCKNv9BjvSRxATV5KG",
-        "decimal_place": 18
-      }
-    },
-    "symbol": "sunny"
-  },
-  {
-    "description": {
-      "en": "\r\nIn the ever-surprising world of crypto, Justin Sun, founder of Tron, made headlines after purchasing a taped banana art piece, sparking a viral frenzy. Sun then took to Twitter, cryptically linking his purchase to Tron with the phrase: \"N for Banana.\" This playful moment gave rise to Banana Coin, a memecoin with the ticker $N, built on the Tron blockchain. Combining humor, art, and blockchain innovation, $N embodies the essence of crypto culture: unpredictable, engaging, and driven by community enthusiasm. Whether it’s a clever nod to the meme economy or a new trendsetter, $N is already making waves in the Tron ecosystem, proving that even a banana can fuel the next big crypto phenomenon."
-    },
-    "id": "nforbanana",
-    "image": {
-      "large": "https://coin-images.coingecko.com/coins/images/51915/large/N_200_Final.jpg?1732178703",
-      "small": "https://coin-images.coingecko.com/coins/images/51915/small/N_200_Final.jpg?1732178703",
-      "thumb": "https://coin-images.coingecko.com/coins/images/51915/thumb/N_200_Final.jpg?1732178703"
-    },
-    "last_updated_at": "2024-12-14T09:12:13.912Z",
-    "market_cap": 99361,
-    "name": "Banana",
-    "platforms": {
-      "tron": {
-        "contract_address": "TBBThLgHtUhGuT9DJ1rrzXDQ6j2XSP2Dq5",
-        "decimal_place": 18
-      }
-    },
-    "symbol": "n"
-  },
-  {
-    "description": {
-      "en": "TronDog isn’t just another dog in the crypto park – it’s the playful pup of the TRON blockchain! Born to fetch gains and bring joy to the crypto community, TronDog is here to prove that meme tokens can have real bite. Whether you’re a seasoned trader or just here for the lols, TronDog is ready to be your loyal companion on the journey to the moon. 🌕\r\n\r\nWith fast, low-cost transactions on the TRON network, TronDog is more than a meme – it’s a movement. Join the pack, and let’s bark our way to success together! 🐾\r\n\r\n"
-    },
-    "id": "trondog",
-    "image": {
-      "large": "https://coin-images.coingecko.com/coins/images/39936/large/TDCMC.png?1724863020",
-      "small": "https://coin-images.coingecko.com/coins/images/39936/small/TDCMC.png?1724863020",
-      "thumb": "https://coin-images.coingecko.com/coins/images/39936/thumb/TDCMC.png?1724863020"
-    },
-    "last_updated_at": "2024-12-14T09:12:13.954Z",
-    "market_cap": 84359,
-    "name": "TronDog",
-    "platforms": {
-      "tron": {
-        "contract_address": "TEKWczHwjSiS75N37YSz1fgraZLuarks86",
-        "decimal_place": 18
-      }
-    },
-    "symbol": "trondog"
-  },
-  {
-    "description": {
-      "en": "GET SUNNED -- A true community & cult coin on TRX.\r\n\r\n$SUNNED is the first culture coin of the TRON Blockchain -- Fair launch. No presale seed round. No Bullshit.\r\n\r\nOn August 13 the whole memecoin market got sunned by H.E. Justin when he launched sunpump.meme and made the TRON blockchain the kingdom of memecoins. Since then TRON has surpassed Ethereum and Solana in daily revenue. $SUNNED is more than a memecoin, it's tokenized accomplishement and boldness.\r\n\r\nThe whole memecoins on Tron network is about \"SUN\" and $SUNNED represents the Sun. Think about it, our narrative is the guiding light of Tron !!!!"
-    },
-    "id": "sunned",
-    "image": {
-      "large": "https://coin-images.coingecko.com/coins/images/39900/large/SUNNED.png?1724733879",
-      "small": "https://coin-images.coingecko.com/coins/images/39900/small/SUNNED.png?1724733879",
-      "thumb": "https://coin-images.coingecko.com/coins/images/39900/thumb/SUNNED.png?1724733879"
-    },
-    "last_updated_at": "2024-12-14T09:12:13.840Z",
-    "market_cap": 68763,
-    "name": "SUNNED",
-    "platforms": {
-      "tron": {
-        "contract_address": "THMpAfhJwJic2V9SbReQhwXLPuRGSLsj5q",
-        "decimal_place": 18
-      }
-    },
-    "symbol": "sunned"
-  },
-  {
-    "description": {
-      "en": "Black Phoenix is a cryptocurrency with bright future ahead ,that bring benefits more and more for its holders and wants to make you a major investor in digital currency market."
-    },
-    "id": "black-phoenix",
-    "image": {
-      "large": "https://coin-images.coingecko.com/coins/images/16948/large/photo_2021-05-11_01-35-19.jpg?1696516516",
-      "small": "https://coin-images.coingecko.com/coins/images/16948/small/photo_2021-05-11_01-35-19.jpg?1696516516",
-      "thumb": "https://coin-images.coingecko.com/coins/images/16948/thumb/photo_2021-05-11_01-35-19.jpg?1696516516"
-    },
-    "last_updated_at": "2024-12-14T05:58:17.491Z",
-    "market_cap": 63249,
-    "name": "Black Phoenix",
-    "platforms": {
-      "tron": {
-        "contract_address": "TXBcx59eDVndV5upFQnTR2xdvqFd5reXET",
-        "decimal_place": 18
-      }
-    },
-    "symbol": "bpx"
-  },
-  {
-    "description": {
-      "en": "PRivaCY Coin is a privacy blockchain which is secure, scalable and contains the ultimate privacy features. PRCY is a fully anonymous staking coin and payment system. PRCY contains superior privacy technology like Bulletproof, Haprocates Protocol, mandatory stealth addresses and transactions, RingCT & Ring Signatures in a staking chain. With PRCY it is possible to stake, run masternodes and mine PoA blocks."
-    },
-    "id": "prcy-coin",
-    "image": {
-      "large": "https://coin-images.coingecko.com/coins/images/14151/large/prcy.png?1696513870",
-      "small": "https://coin-images.coingecko.com/coins/images/14151/small/prcy.png?1696513870",
-      "thumb": "https://coin-images.coingecko.com/coins/images/14151/thumb/prcy.png?1696513870"
-    },
-    "last_updated_at": "2024-12-14T06:06:12.946Z",
-    "market_cap": 61912,
-    "name": "PRivaCY Coin",
-    "platforms": {
-      "tron": {
-        "contract_address": "TYV5eu6UgSPtxVLkPD9YfxmUEcXhum35yS",
-        "decimal_place": 8
-      }
-    },
-    "symbol": "prcy"
-  },
-  {
-    "description": {
-      "en": "SunYang ($SUYA) is a meme token on the TRON network, inspired by Justin Sun's cat, SunYang. Its purpose is to foster community engagement and add a light-hearted element to the TRON ecosystem. $SUYA serves as a medium of exchange, granting holders access to exclusive content and updates. The project hosts events, giveaways, and supports animal welfare initiatives. Backed by influential opinion leaders, $SUYA is tradable on TRON's decentralized exchanges, offering liquidity and potential value appreciation."
-    },
-    "id": "sunyang",
-    "image": {
-      "large": "https://coin-images.coingecko.com/coins/images/39889/large/SUYA_%281%29.png?1724700135",
-      "small": "https://coin-images.coingecko.com/coins/images/39889/small/SUYA_%281%29.png?1724700135",
-      "thumb": "https://coin-images.coingecko.com/coins/images/39889/thumb/SUYA_%281%29.png?1724700135"
-    },
-    "last_updated_at": "2024-12-14T09:12:19.129Z",
-    "market_cap": 59992,
-    "name": "SunYang",
-    "platforms": {
-      "tron": {
-        "contract_address": "TJUHBYfCSBLKC1fSGNprnKjppdsXm9dj6x",
-        "decimal_place": 18
-      }
-    },
-    "symbol": "suya"
-  },
-  {
-    "description": {
-      "en": "Madhouse is a Memetoken based on TRON Network.\r\n⚠️📢We’re cranking up the MADness with some epic updates⚠️📢\r\n\r\n🔴⚠️📢 We’re ramping up the excitement with some major updates! ⚠️📢\r\n\r\n🔴 Schedule:\r\n- The presale ends today at 13:00 UTC.\r\n- Any excess contributions will be proportionally refunded at 14:00 UTC.\r\n\r\n🔴 New Launch Date:\r\n- The launch has been rescheduled to August 26th at 13:00 UTC.\r\n\r\n🔴 Sneak Peek:\r\n- Get ready! Over the next 3 days, airdrops are set to pour down. Buckle up!"
-    },
-    "id": "madhouse",
-    "image": {
-      "large": "https://coin-images.coingecko.com/coins/images/39921/large/IMG_20240825_202736_170.png?1724812346",
-      "small": "https://coin-images.coingecko.com/coins/images/39921/small/IMG_20240825_202736_170.png?1724812346",
-      "thumb": "https://coin-images.coingecko.com/coins/images/39921/thumb/IMG_20240825_202736_170.png?1724812346"
-    },
-    "last_updated_at": "2024-12-14T09:12:17.416Z",
-    "market_cap": 59982,
-    "name": "Madhouse",
-    "platforms": {
-      "tron": {
-        "contract_address": "TBoupmmqSwULKpa3jQJZuWNPDpbzfT2Grh",
-        "decimal_place": 6
-      }
-    },
-    "symbol": "mad"
-  },
-  {
-    "description": {
-      "en": "Neiro is the newest star on the TRON blockchain, following in the footsteps of the Neiro project on Ethereum. As the official sister of $DOGE, she brings the same playful energy and is ready to make a big impact in the crypto space. Inspired by the original Neiro on Ethereum, this new chapter on TRON was launched by her creator, who keeps fans updated with fun insights through a blog. With a loyal and growing community, Neiro is already gaining recognition in the digital world. Her mission is to unite crypto enthusiasts and strengthen the community spirit within the TRON network."
-    },
-    "id": "neiro-on-tron",
-    "image": {
-      "large": "https://coin-images.coingecko.com/coins/images/40157/large/Ads%C4%B1z_tasar%C4%B1m-290_%281%29.png?1726086091",
-      "small": "https://coin-images.coingecko.com/coins/images/40157/small/Ads%C4%B1z_tasar%C4%B1m-290_%281%29.png?1726086091",
-      "thumb": "https://coin-images.coingecko.com/coins/images/40157/thumb/Ads%C4%B1z_tasar%C4%B1m-290_%281%29.png?1726086091"
-    },
-    "last_updated_at": "2024-12-14T09:12:13.253Z",
-    "market_cap": 52504,
-    "name": "Neiro on Tron",
-    "platforms": {
-      "tron": {
-        "contract_address": "TCGPc27oyS2x7S5pex7ssyZxZ2edPWonk2",
-        "decimal_place": 18
-      }
-    },
-    "symbol": "neiro"
-  },
-  {
-    "description": {
-      "en": "To The Sun (SUNPUMP): The Meme Token That’s Pumping Beyond Limits\r\n\r\nSUNPUMP isn’t just a meme token—it’s a movement, a community, and an unstoppable force riding the waves of fun and humor. In the world of SUNPUMP, we don't just talk about going to the moon. That’s old news. We’re setting our sights higher and hotter, aiming straight for the sun! Why settle for the moon when the sun is right there, waiting to be conquered?\r\n\r\nWith SUNPUMP, every pump is a celebration. It’s a token that thrives on the excitement and energy of the community, where every rise brings us closer to the ultimate goal—the sun! Whether you’re holding, swapping, or just enjoying the wild ride, SUNPUMP is all about enjoying the journey and sharing in the meme-fueled fun.\r\n\r\nThe best part? SUNPUMP is driven by the people. There are no limits to what this meme-powered rocket can achieve when everyone is in on the joke, working together to pump harder than ever. The more we pump, the closer we get to the sun, where we can truly shine brighter than ever.\r\n\r\nIf you’re looking for a meme token that takes things to the next level, one that’s filled with laughs, inside jokes, and a whole lot of community spirit, then SUNPUMP is your ticket to the sun. Strap in, because we’re not stopping at the moon—this is a one-way trip to the brightest star in the sky!\r\n\r\nRemember: when you’re with SUNPUMP, the sky isn’t the limit. The sun is!"
-    },
-    "id": "to-the-sun",
-    "image": {
-      "large": "https://coin-images.coingecko.com/coins/images/40091/large/SUNPUMPCMC.png?1725590833",
-      "small": "https://coin-images.coingecko.com/coins/images/40091/small/SUNPUMPCMC.png?1725590833",
-      "thumb": "https://coin-images.coingecko.com/coins/images/40091/thumb/SUNPUMPCMC.png?1725590833"
-    },
-    "last_updated_at": "2024-12-14T09:12:14.946Z",
-    "market_cap": 50742,
-    "name": "To The Sun",
-    "platforms": {
-      "tron": {
-        "contract_address": "TMwk13CthNktLiNpo8WDRuUMpyrzZTVZYH",
-        "decimal_place": 18
-      }
-    },
-    "symbol": "sunpump"
-  },
-  {
-    "description": {
-      "en": "WELCOME To TRON, DEGENS.\r\n\r\nBlake is a surreal, multimedia odyssey that delves into the subconscious mind of its enigmatic protagonist. Inspired by Matt Furie's distinctive art style, this project brings Blake's dreamlike world to life through a fusion of animation, video games, and interactive experiences.\r\n\r\nIn Blake, users embark on a fantastical journey through a vibrant, ever-changing landscape of bizarre creatures, abstract architecture, and mind-bending puzzles. As they navigate this strange realm, they uncover clues about Blake's mysterious past and the forces that shape his reality.\r\n\r\nWith its unique blend of art, storytelling, and interactivity, Blake invites users to immerse themselves in a world that is both mesmerizing and unsettling, challenging their perceptions and blurring the lines between reality and fantasy."
-    },
-    "id": "blake",
-    "image": {
-      "large": "https://coin-images.coingecko.com/coins/images/39815/large/1000000082.jpg?1724171211",
-      "small": "https://coin-images.coingecko.com/coins/images/39815/small/1000000082.jpg?1724171211",
-      "thumb": "https://coin-images.coingecko.com/coins/images/39815/thumb/1000000082.jpg?1724171211"
-    },
-    "last_updated_at": "2024-12-12T22:33:22.548Z",
-    "market_cap": 46754,
-    "name": "BLAKE",
-    "platforms": {
-      "tron": {
-        "contract_address": "TXtu3Ke9mJQtPtAQxmoTbzu3N4Qx4XP9Y2",
-        "decimal_place": 18
-      }
-    },
-    "symbol": "blake"
-  },
-  {
-    "description": {
-      "en": "\"𝐓𝐡𝐞 𝐓𝐫𝐨𝐧𝐜𝐡𝐞𝐬\" is a brilliant and ingenious fusion of three powerful concepts: Tron, Riches, and Trenches. This trinity encapsulates a profound narrative and vision within a single, memorable word. Combining these three elements, \"𝐓𝐡𝐞 𝐓𝐫𝐨𝐧𝐜𝐡𝐞𝐬\" tells a compelling story of journeying from the trenches through the Tron network to attain riches. It encapsulates the essence of resilience and ambition, suggesting that through commitment and leveraging the power of Tron blockchain, individuals can overcome obstacles and achieve extraordinary success.  "
-    },
-    "id": "tronches",
-    "image": {
-      "large": "https://coin-images.coingecko.com/coins/images/39984/large/photo_2024-08-26_15-19-29.jpg?1725027050",
-      "small": "https://coin-images.coingecko.com/coins/images/39984/small/photo_2024-08-26_15-19-29.jpg?1725027050",
-      "thumb": "https://coin-images.coingecko.com/coins/images/39984/thumb/photo_2024-08-26_15-19-29.jpg?1725027050"
-    },
-    "last_updated_at": "2024-12-14T09:12:13.358Z",
-    "market_cap": 46092,
-    "name": "TRONCHES",
-    "platforms": {
-      "tron": {
-        "contract_address": "TVwzGbGPoQWXcN9CQ1q2REiMcMtV78MKPg",
-        "decimal_place": 18
-      }
-    },
-    "symbol": "tronches"
-  },
-  {
-    "description": {
-      "en": "SunNeiro : The Original Neiro Dog of TRON\r\n\r\nMeet SunNeiro, the first-ever Neiro dog to take over the TRON chain! This little pupper isn’t just chasing bones; it’s chasing the moon. With a bark that echoes across the crypto world, SunNeiro is here to fetch some serious fun. Forget the old dogs, Neiro is in town and it’s bringing the sunshine with it! Join the pack and let’s howl to the moon together—because when Neiro leads the way, the sky’s the limit!"
-    },
-    "id": "sunneiro",
-    "image": {
-      "large": "https://coin-images.coingecko.com/coins/images/39813/large/photo_2024-08-20_03-30-52.png?1724168220",
-      "small": "https://coin-images.coingecko.com/coins/images/39813/small/photo_2024-08-20_03-30-52.png?1724168220",
-      "thumb": "https://coin-images.coingecko.com/coins/images/39813/thumb/photo_2024-08-20_03-30-52.png?1724168220"
-    },
-    "last_updated_at": "2024-12-07T19:44:17.407Z",
-    "market_cap": 43118,
-    "name": "SunNeiro",
-    "platforms": {
-      "tron": {
-        "contract_address": "TNFsYemyso755pjPs19bfdEuDnchbDzqua",
-        "decimal_place": 18
-      }
-    },
-    "symbol": "sunneiro"
-  },
-  {
-    "description": {
-      "en": "StrongHands is a large community of financial activists, investors and enthusiasts engaged to set people free from state control of your money."
-    },
-    "id": "stronghands-finance",
-    "image": {
-      "large": "https://coin-images.coingecko.com/coins/images/20158/large/ISHND_512x512px.png?1696519571",
-      "small": "https://coin-images.coingecko.com/coins/images/20158/small/ISHND_512x512px.png?1696519571",
-      "thumb": "https://coin-images.coingecko.com/coins/images/20158/thumb/ISHND_512x512px.png?1696519571"
-    },
-    "last_updated_at": "2024-12-14T06:06:32.894Z",
-    "market_cap": 33161,
-    "name": "StrongHands Finance",
-    "platforms": {
-      "tron": {
-        "contract_address": "TV5MV8wjCY8xbJ6NfQSArP7xZRHHTw48No",
-        "decimal_place": 18
-      }
-    },
-    "symbol": "ishnd"
-  },
-  {
-    "description": {
-      "en": "The Caprisun project is making waves on TRON! Dive into our thrilling initiative, grab a pack of Caprisun, and join the fun. With a community of passionate content creators, gigachads, and Caprisun enthusiasts, we're set to reach new heights. As Justin Sun, TRON’s visionary founder, says, we're heading TO THE SUN! Be part of this exciting journey, contribute to our growth, and enjoy the ride with us."
-    },
-    "id": "caprisun",
-    "image": {
-      "large": "https://coin-images.coingecko.com/coins/images/39845/large/go7lausd_400x400.jpg?1724294712",
-      "small": "https://coin-images.coingecko.com/coins/images/39845/small/go7lausd_400x400.jpg?1724294712",
-      "thumb": "https://coin-images.coingecko.com/coins/images/39845/thumb/go7lausd_400x400.jpg?1724294712"
-    },
-    "last_updated_at": "2024-12-14T09:12:19.147Z",
-    "market_cap": 30996,
-    "name": "Caprisun",
-    "platforms": {
-      "tron": {
-        "contract_address": "TKmrM2UUNcTsC5UjiujDHwzRAmzzTJDcYd",
-        "decimal_place": 18
-      }
-    },
-    "symbol": "csun"
-  },
-  {
-    "description": {
-      "en": "Sun Department of Government Efficiency (S.D.O.G.E) Presenting (S.D.O.G.E), the meme token ready to take TRON by storm!\r\n\r\nWhat are the future plans for (S.D.O.G.E)?\r\n(S.D.O.G.E) will continue to grow its community, expand its presence in the TRON network, and increase its recognition through strategic campaigns and partnerships. The focus is on building a strong brand and creating value for all (S.D.O.G.E) holders.\r\n\r\nAbout (S.D.O.G.E)?\r\n(S.D.O.G.E) is a meme token on TRON, inspired by Justin Sun and powered by a community that loves fun.\r\n\r\n$SDOGE Working on the best TRON narrative... The next mooner is here to stay!!"
-    },
-    "id": "s-d-o-g-e-on-tron",
-    "image": {
-      "large": "https://coin-images.coingecko.com/coins/images/50478/large/S.D.O.G.E.png?1727851703",
-      "small": "https://coin-images.coingecko.com/coins/images/50478/small/S.D.O.G.E.png?1727851703",
-      "thumb": "https://coin-images.coingecko.com/coins/images/50478/thumb/S.D.O.G.E.png?1727851703"
-    },
-    "last_updated_at": "2024-12-12T23:46:58.294Z",
-    "market_cap": 28480,
-    "name": "S.D.O.G.E on Tron",
-    "platforms": {
-      "tron": {
-        "contract_address": "TBGa9VN3w3t6YyD4fwgN8cuFSauoUVTHMN",
-        "decimal_place": 18
-      }
-    },
-    "symbol": "sdoge"
-  },
-  {
-    "description": {
-      "en": "CryptoKIT is a fair launch meme token. It was initially created by a CIS influencer as a fun experiment for his audience to trade among themselves. However, the project quickly gained traction, far exceeding initial expectations. The token's market capitalization reached up to $10 million, and the number of holders almost hit 3,000. In the future we plan to add AI integration, develop crypto training for beginners, and build a large and strong community."
-    },
-    "id": "crypto-kit",
-    "image": {
-      "large": "https://coin-images.coingecko.com/coins/images/39894/large/token.jpg?1724708171",
-      "small": "https://coin-images.coingecko.com/coins/images/39894/small/token.jpg?1724708171",
-      "thumb": "https://coin-images.coingecko.com/coins/images/39894/thumb/token.jpg?1724708171"
-    },
-    "last_updated_at": "2024-12-07T08:37:13.563Z",
-    "market_cap": 27031,
-    "name": "Crypto KIT",
-    "platforms": {
-      "tron": {
-        "contract_address": "TQVkTUQPKWdr2JtTy9X8ZxYUMuwBQap3Y7",
-        "decimal_place": 18
-      }
-    },
-    "symbol": "kit"
-  },
-  {
-    "description": {
       "en": "USTX is a utility token deployed on Tron blockchain. Its purpose is to fill the gap between high yield tokens and stablecoins. High yield tokens have great growth potential but also exhibit a very high volatility and price fluctuations over short time. Stablecoins on the other hand have no volatility but they also cannot grow.\r\nUSTX has its heart in the project DEX that implements a novel reserve liquidity management to allow the token price to grow over time with low volatility, making it ideal for value storage and as a means of payment for goods and services.\r\nThe USTX DEX has a multiasset reserve made of stablecoins (USDT, USDC, USDJ and TUSD) and a smart contract driven liquidity management that mints and burns USTX in the reserve to enhance the price growth and reduce drawdown in case of sell-off. It's NOT a rebase token!"
     },
     "id": "upstabletoken",
@@ -1500,8 +387,8 @@
       "small": "https://coin-images.coingecko.com/coins/images/20225/small/logoSolid200.png?1696519634",
       "thumb": "https://coin-images.coingecko.com/coins/images/20225/thumb/logoSolid200.png?1696519634"
     },
-    "last_updated_at": "2024-12-13T05:49:16.588Z",
-    "market_cap": 23673,
+    "last_updated_at": "2024-06-20T04:37:46.702Z",
+    "market_cap": 110732,
     "name": "UpStable",
     "platforms": {
       "tron": {
@@ -1513,66 +400,45 @@
   },
   {
     "description": {
-      "en": "Who doesn’t love a big cup of tron beer?\r\nWe have everything you need for a sunny summer day. Grab a cold mug of $TBEER and enjoy the ultimate memecoin experience on TRON.\r\n\r\n01\r\nNot just a meme\r\nThe joy of $TBEER is understandable by everybody; that's why we want to capitalize on all the good things about it for people!\r\n02\r\nRapid Growth and Strong Marketing\r\n$TBEER has demonstrated various Marketing activities in just a few weeks, making a strong Community and wide appearance all over the Social Media\r\n03\r\nExciting Opportunities and Plans\r\nThrough our Quest campaign, future games, and planned brewery partnerships, $TBEER holders will earn extra tokens and rewards, adding value and enjoyment to their participation."
+      "en": "PRivaCY Coin is a privacy blockchain which is secure, scalable and contains the ultimate privacy features. PRCY is a fully anonymous staking coin and payment system. PRCY contains superior privacy technology like Bulletproof, Haprocates Protocol, mandatory stealth addresses and transactions, RingCT & Ring Signatures in a staking chain. With PRCY it is possible to stake, run masternodes and mine PoA blocks."
     },
-    "id": "tron-beer",
+    "id": "prcy-coin",
     "image": {
-      "large": "https://coin-images.coingecko.com/coins/images/39935/large/TBEERLOG2333O.jpg?1724862109",
-      "small": "https://coin-images.coingecko.com/coins/images/39935/small/TBEERLOG2333O.jpg?1724862109",
-      "thumb": "https://coin-images.coingecko.com/coins/images/39935/thumb/TBEERLOG2333O.jpg?1724862109"
+      "large": "https://coin-images.coingecko.com/coins/images/14151/large/prcy.png?1696513870",
+      "small": "https://coin-images.coingecko.com/coins/images/14151/small/prcy.png?1696513870",
+      "thumb": "https://coin-images.coingecko.com/coins/images/14151/thumb/prcy.png?1696513870"
     },
-    "last_updated_at": "2024-12-14T09:14:33.272Z",
-    "market_cap": 23052,
-    "name": "TRON BEER",
+    "last_updated_at": "2024-06-20T04:50:19.629Z",
+    "market_cap": 99496,
+    "name": "PRivaCY Coin",
     "platforms": {
       "tron": {
-        "contract_address": "TKCJp1q9325BfQbu2Suh7mshQs8ijuqv3y",
-        "decimal_place": 18
+        "contract_address": "TYV5eu6UgSPtxVLkPD9YfxmUEcXhum35yS",
+        "decimal_place": 8
       }
     },
-    "symbol": "tbeer"
+    "symbol": "prcy"
   },
   {
     "description": {
-      "en": "HAMMY is a cute hamster-themed memecoin built on the TRON blockchain, spearheaded by a dedicated CTO community. This project combines the charm of its hamster mascot with the innovative spirit of a technologically driven team, creating a unique and engaging experience for users.\r\n\r\nAs a memecoin, HAMMY stands out with its playful and approachable branding, making it accessible to a broad audience. The project is driven by a strong community ethos, with the CTO team at the helm, ensuring that the technical foundation of HAMMY is robust and reliable. The TRON blockchain provides the ideal platform for HAMMY, offering fast transactions and scalability, which are crucial for the project’s growth and user engagement.\r\n\r\nThe HAMMY community plays a central role in the project’s development, contributing ideas, feedback, and creative content such as Profile Picture (PFP) NFTs and promotional materials. These efforts help to strengthen the bond among community members and promote the HAMMY brand within the broader crypto space.\r\n\r\nHAMMY’s roadmap includes plans for listings on major cryptocurrency exchanges and expanding its ecosystem through integrations with other decentralized applications on TRON. The CTO community is committed to delivering a project that not only delights users with its cute and fun concept but also provides a secure and scalable platform for transactions and interactions.\r\n\r\nIn summary, HAMMY is more than just a memecoin; it’s a community-driven project centered around a lovable hamster mascot. With the support of a dedicated CTO team and the strengths of the TRON blockchain, HAMMY is poised to make a significant impact in the memecoin space, bringing together technology and fun in a unique and engaging way."
+      "en": "StrongHands is a large community of financial activists, investors and enthusiasts engaged to set people free from state control of your money."
     },
-    "id": "hammy",
+    "id": "stronghands-finance",
     "image": {
-      "large": "https://coin-images.coingecko.com/coins/images/39914/large/N_%282%29_%281%29.png?1724786192",
-      "small": "https://coin-images.coingecko.com/coins/images/39914/small/N_%282%29_%281%29.png?1724786192",
-      "thumb": "https://coin-images.coingecko.com/coins/images/39914/thumb/N_%282%29_%281%29.png?1724786192"
+      "large": "https://coin-images.coingecko.com/coins/images/20158/large/ISHND_512x512px.png?1696519571",
+      "small": "https://coin-images.coingecko.com/coins/images/20158/small/ISHND_512x512px.png?1696519571",
+      "thumb": "https://coin-images.coingecko.com/coins/images/20158/thumb/ISHND_512x512px.png?1696519571"
     },
-    "last_updated_at": "2024-12-13T23:46:18.446Z",
-    "market_cap": 22659,
-    "name": "HAMMY",
+    "last_updated_at": "2024-06-20T04:01:37.327Z",
+    "market_cap": 52055,
+    "name": "StrongHands Finance",
     "platforms": {
       "tron": {
-        "contract_address": "TEBdrpWiPVSU3cmR96wCVYgsxb9fwwJSZi",
+        "contract_address": "TV5MV8wjCY8xbJ6NfQSArP7xZRHHTw48No",
         "decimal_place": 18
       }
     },
-    "symbol": "hammy"
-  },
-  {
-    "description": {
-      "en": "Ducks are fascinating aquatic birds known for their distinctive quacks and webbed feet, which make them excellent swimmers. They have a torpedo-shaped body, a rounded head, and a slightly flattened bill. Ducks are often seen waddling on land and gliding gracefully on water. They are curious, playful, and adaptable creatures, often found in various habitats worldwide.\r\nducks have several predators. Common predators include:\r\nFoxes and coyotes: These mammals often hunt ducks, especially during nesting season.\r\nBirds of prey: Hawks, eagles, and owls can swoop down and catch ducks.\r\nSnakes: Some snakes may prey on duck eggs and ducklings.\r\nHumans: Ducks are also hunted by humans for sport and food."
-    },
-    "id": "decko",
-    "image": {
-      "large": "https://coin-images.coingecko.com/coins/images/39968/large/decko.jpeg?1724959169",
-      "small": "https://coin-images.coingecko.com/coins/images/39968/small/decko.jpeg?1724959169",
-      "thumb": "https://coin-images.coingecko.com/coins/images/39968/thumb/decko.jpeg?1724959169"
-    },
-    "last_updated_at": "2024-12-09T03:04:20.078Z",
-    "market_cap": 19766.29,
-    "name": "Decko",
-    "platforms": {
-      "tron": {
-        "contract_address": "TRNneCXQMeGfZ7ma4Vo8UvqHaAk9L29BAA",
-        "decimal_place": 18
-      }
-    },
-    "symbol": "decko"
+    "symbol": "ishnd"
   },
   {
     "description": {
@@ -1584,8 +450,8 @@
       "small": "https://coin-images.coingecko.com/coins/images/27341/small/logo_in_the_middle_.png?1696526388",
       "thumb": "https://coin-images.coingecko.com/coins/images/27341/thumb/logo_in_the_middle_.png?1696526388"
     },
-    "last_updated_at": "2024-12-14T06:01:24.261Z",
-    "market_cap": 18206.85,
+    "last_updated_at": "2024-06-20T04:46:09.192Z",
+    "market_cap": 25864,
     "name": "GOLCOIN",
     "platforms": {
       "tron": {
@@ -1597,111 +463,6 @@
   },
   {
     "description": {
-      "en": "Meow is the most famous cat on the TRON blockchain.\r\n\r\nMeow was once an ordinary stray cat, with no home and no purpose.\r\n\r\nOne day, sheltering from a rainstorm, Meow stumbled onto the Tron blockchain. Intrigued by it's complexities and opportunity, he was hooked.\r\n\r\nMeow has teamed up with The Boys to conquer the blockchain and cement himself into history as the Tron Cat.\r\n\r\nJoin them to craft a new era in crypto, blending innovation and mischief!"
-    },
-    "id": "meow-2",
-    "image": {
-      "large": "https://coin-images.coingecko.com/coins/images/39814/large/IMG_0216.png?1724169419",
-      "small": "https://coin-images.coingecko.com/coins/images/39814/small/IMG_0216.png?1724169419",
-      "thumb": "https://coin-images.coingecko.com/coins/images/39814/thumb/IMG_0216.png?1724169419"
-    },
-    "last_updated_at": "2024-12-13T23:57:39.453Z",
-    "market_cap": 17535.1,
-    "name": "Meow",
-    "platforms": {
-      "tron": {
-        "contract_address": "TR1iXU8Sp7oUYHXWiddsBervJzSbdibMFZ",
-        "decimal_place": 18
-      }
-    },
-    "symbol": "meow"
-  },
-  {
-    "description": {
-      "en": "Meowka Neko is a cryptocurrency project that revolves around the concept of meme coins. It aims to bring fun and entertainment to the crypto space with its unique theme centered around cute and playful neko (cat) characters. \r\n\r\nMeowka Neko offers a vibrant and engaging community where users can participate in various activities and events related to the project. \r\n\r\n\r\nAs a meme coin, Meowka Neko embraces the lighthearted nature of the crypto world while also providing opportunities for users to earn and trade the token. It combines the excitement of meme culture with the potential for financial growth within the crypto market."
-    },
-    "id": "meowka-neko",
-    "image": {
-      "large": "https://coin-images.coingecko.com/coins/images/40037/large/1000188646.jpg?1725385141",
-      "small": "https://coin-images.coingecko.com/coins/images/40037/small/1000188646.jpg?1725385141",
-      "thumb": "https://coin-images.coingecko.com/coins/images/40037/thumb/1000188646.jpg?1725385141"
-    },
-    "last_updated_at": "2024-12-14T09:14:33.612Z",
-    "market_cap": 16923.9,
-    "name": "Meowka Neko",
-    "platforms": {
-      "tron": {
-        "contract_address": "TYpSKB5hfaKpRDwS2p7bait3xuCKYnwDKJ",
-        "decimal_place": 18
-      }
-    },
-    "symbol": "meowka"
-  },
-  {
-    "description": {
-      "en": "First MEME AI token that Elon Musk likes and comments on 𝕏 😎This page is powered by #GROK. Every image is AI-made, aiming to prove that a GROK-powered page can have a wide-reach influence. We are the first AI MEME Coin on TRX Network and launched in 24 hours from sunpump. We have 2 millions impressions on X and gets bigger day by day.\r\nWe are aiming to become one of the BEST MEME tokens in crypto universe. "
-    },
-    "id": "primexai",
-    "image": {
-      "large": "https://coin-images.coingecko.com/coins/images/51130/large/PXA%C4%B0.png?1730183027",
-      "small": "https://coin-images.coingecko.com/coins/images/51130/small/PXA%C4%B0.png?1730183027",
-      "thumb": "https://coin-images.coingecko.com/coins/images/51130/thumb/PXA%C4%B0.png?1730183027"
-    },
-    "last_updated_at": "2024-12-13T08:31:09.766Z",
-    "market_cap": 14397.22,
-    "name": "PRIMEXAI",
-    "platforms": {
-      "tron": {
-        "contract_address": "TCxDsTm4nHDwNmY5MUQ4GFmSsbUqHnee2W",
-        "decimal_place": 18
-      }
-    },
-    "symbol": "$pxai"
-  },
-  {
-    "description": {
-      "en": "$RICE is the first 404 build launched on Tron via Sunpump and a new GameFi player launching their revolutionary crypto mystery box opening game, The Rice Cooker. This game combines engaging, high-stakes gameplay with multi-chain capabilities, offering players unique rewards and crypto assets through mystery box mechanics.\r\n\r\nIn addition to gaming, the $RICE team is developing an OTC marketplace for all meme coins listed on Tron. This marketplace enables P2P and crowdfunded OTC off-dex trades, allowing large positions to change hands without affecting the chart price, thereby providing liquidity solutions and ensuring market stability."
-    },
-    "id": "tron-rice",
-    "image": {
-      "large": "https://coin-images.coingecko.com/coins/images/50578/large/Untitled_design_%284%29.png?1728408761",
-      "small": "https://coin-images.coingecko.com/coins/images/50578/small/Untitled_design_%284%29.png?1728408761",
-      "thumb": "https://coin-images.coingecko.com/coins/images/50578/thumb/Untitled_design_%284%29.png?1728408761"
-    },
-    "last_updated_at": "2024-12-08T02:18:14.562Z",
-    "market_cap": 11004.59,
-    "name": "Tron Rice",
-    "platforms": {
-      "tron": {
-        "contract_address": "TAcN65mudDue4bqe7LTmHgjiiQdT92H1we",
-        "decimal_place": 18
-      }
-    },
-    "symbol": "rice"
-  },
-  {
-    "description": {
-      "en": "TRON ARMY isn’t just another meme token; it’s a movement. Inspired by the strength and unity of a real army, TRON ARMY is mobilizing the meme community on the TRON blockchain, rallying behind the iconic TRON logo. With every tweet, every post, and every trade, TRON ARMY grows stronger, creating a powerful force in the crypto world.\r\n\r\nBacked by the energy and enthusiasm of its community, TRON ARMY is on a mission to dominate the meme token battlefield. Whether you're a soldier in the TRON ARMY or just a supporter from afar, this project is all about combining the power of memes with the cutting-edge technology of TRON.\r\n\r\nJoin the ranks, spread the word, and watch as TRON ARMY marches to victory! 💪⚔️"
-    },
-    "id": "tronarmy",
-    "image": {
-      "large": "https://coin-images.coingecko.com/coins/images/40004/large/TronArmyCmc.png?1725214343",
-      "small": "https://coin-images.coingecko.com/coins/images/40004/small/TronArmyCmc.png?1725214343",
-      "thumb": "https://coin-images.coingecko.com/coins/images/40004/thumb/TronArmyCmc.png?1725214343"
-    },
-    "last_updated_at": "2024-12-09T20:29:06.946Z",
-    "market_cap": 9982.44,
-    "name": "TronArmy",
-    "platforms": {
-      "tron": {
-        "contract_address": "TYFfmZp77DjBrKgEU6xpJ4Kxcw8LDP1UAX",
-        "decimal_place": 18
-      }
-    },
-    "symbol": "tronarmy"
-  },
-  {
-    "description": {
       "en": "Recast1 Coin is a “non-fiat oriented stablecoin” that is not indexed to global fiat currencies and aims to maintain price stability. It uses changes in the numbers of increase in the user pool, increase-decrease in the number of user transfers, increase-decrease in the number of staked users,quantitative increase and decrease in the staked amount to maintain price stability. Recast1 coin will be the first stable coin and fiat currency to be affected by these four factors that only users can influence and to ensure price stability with these factors. For this reason, it is a fully decentralized \"non-fiat oriented stable coin\"."
     },
     "id": "recast1",
@@ -1710,8 +471,8 @@
       "small": "https://coin-images.coingecko.com/coins/images/22090/small/recast_200_200.png?1696521433",
       "thumb": "https://coin-images.coingecko.com/coins/images/22090/thumb/recast_200_200.png?1696521433"
     },
-    "last_updated_at": "2024-12-13T20:43:08.053Z",
-    "market_cap": 1197.59,
+    "last_updated_at": "2024-06-14T16:02:36.391Z",
+    "market_cap": 999.19,
     "name": "Recast1",
     "platforms": {
       "tron": {
@@ -1723,27 +484,6 @@
   },
   {
     "description": {
-      "en": "4TBank is a fully digital, innovative bank focused on the future of the financial system, which brings together the most modern and secure banking features in a single mobile application, providing full and real integration with crypto assets. With the help of the leading financial technology of the moment, 4TBank offers a complete and easy-to-use digital system so that customers can make their financial transactions with total security, transparency and guarantee."
-    },
-    "id": "4tb-coin",
-    "image": {
-      "large": "https://coin-images.coingecko.com/coins/images/39844/large/4TB_Logo.png?1724294526",
-      "small": "https://coin-images.coingecko.com/coins/images/39844/small/4TB_Logo.png?1724294526",
-      "thumb": "https://coin-images.coingecko.com/coins/images/39844/thumb/4TB_Logo.png?1724294526"
-    },
-    "last_updated_at": "2024-12-14T00:03:58.666Z",
-    "market_cap": 0,
-    "name": "4TB Coin",
-    "platforms": {
-      "tron": {
-        "contract_address": "TQgcDvhr6c1EUDnFxiAmuYpBewT3uJSnHF",
-        "decimal_place": 4
-      }
-    },
-    "symbol": "4tb"
-  },
-  {
-    "description": {
       "en": "Ever dreamt of owning a piece of your own professional online sports betting & casino and earn a daily income? Now is your chance!\r\n\r\nOur slogan is PLAY, MINE and EARN rewards!\r\n\r\nBy PLAYING on our fully licensed hybrid I-gaming platform 888starz you automatically MINE 888tokens with every bet placed. It doesn't matter if you win or lose - you get rewarded with 888tokens anyway!\r\n\r\nBy staking your 888tokens on the platform you EARN a passive income. Every 24 hours the smart contract pays out of the Net Gaming Revenue to 888token holders in USDT.\r\n\r\n888token is a TRC20 token created on the TRON blockchain and limited to 100 million tokens.\r\n\r\nThis REWARD MODEL encourages high player retention. By holding onto the 888tokens our players get a big share of the casino profits every day!"
     },
     "id": "888tron",
@@ -1752,7 +492,6 @@
       "small": "https://coin-images.coingecko.com/coins/images/8043/small/888token_.png?1696508264",
       "thumb": "https://coin-images.coingecko.com/coins/images/8043/thumb/888token_.png?1696508264"
     },
-    "is_zero_value_coin": true,
     "last_updated_at": "2024-06-18T20:19:10.078Z",
     "market_cap": 0,
     "name": "888tron",
@@ -1766,27 +505,6 @@
   },
   {
     "description": {
-      "en": "The most popular Inu dog before Shiba Inu made the headlines through crypto, Akita Inu is here to challenge for the top spot as the biggest Inu both physically and in the world of crypto"
-    },
-    "id": "akita-inu-4",
-    "image": {
-      "large": "https://coin-images.coingecko.com/coins/images/38785/large/Akita_200.png?1718855746",
-      "small": "https://coin-images.coingecko.com/coins/images/38785/small/Akita_200.png?1718855746",
-      "thumb": "https://coin-images.coingecko.com/coins/images/38785/thumb/Akita_200.png?1718855746"
-    },
-    "last_updated_at": "2024-12-14T09:14:26.094Z",
-    "market_cap": 0,
-    "name": "Akita Inu",
-    "platforms": {
-      "tron": {
-        "contract_address": "THNxv8gKxz4kzV1ST6EdNiTrwj1eEFRW2J",
-        "decimal_place": 18
-      }
-    },
-    "symbol": "akita"
-  },
-  {
-    "description": {
       "en": "The AZNT Token is the first cryptocurrency token designed to adapt to changing market conditions and rules, and its users have ultimate control over it. It is a platform that values human life, as indicated by its tagline, \"Being Human is Given, but Maintaining Our Humanity is a Choice.\" \"By keeping our word, we hope to meet the basic human needs of people who don't have a place to live, no one to turn to for help, and no resources with which to meet their basic human needs.\" The AZNT Token is a TRC-20 token, which is the token standard used by Tron. We've noticed that investors are looking for new fair launch tokens that will allow them to maximize their profits in a short period. We chose Tron, however, to indicate to our users that they are our primary emphasis. As a result, our cryptocurrency will be more stable and likely to survive than existing centralized and distributed cryptographic forms of money.\r\nMission\r\nOur client base and expansion objectives are vigorously sought by empowering newcomers and developing a strong community commitment to foster trust and address any problems that may emerge between the focal and members of our natural environment. Keeping the price of our token as a motivator for our representative holders. We must achieve our goal of providing a safe environment for our customers. We have no reservations about reaching an agreement on improvements to our understanding that will help our community, particularly homeless people in critical need of support. We do not want to see the market manipulated in any way. We are constantly looking for innovative methods to improve the lives of homeless people because we think that More Is Possible. In a variety of locations, we aim to provide a haven, permanent housing, and supportive services to persons experiencing chronic homelessness."
     },
     "id": "astrazion",
@@ -1795,7 +513,7 @@
       "small": "https://coin-images.coingecko.com/coins/images/26341/small/AZNT.png?1696525418",
       "thumb": "https://coin-images.coingecko.com/coins/images/26341/thumb/AZNT.png?1696525418"
     },
-    "last_updated_at": "2024-12-14T09:14:34.608Z",
+    "last_updated_at": "2024-06-20T04:08:38.375Z",
     "market_cap": 0,
     "name": "AstraZion",
     "platforms": {
@@ -1816,7 +534,6 @@
       "small": "https://coin-images.coingecko.com/coins/images/37597/small/163921315.jpg?1714984781",
       "thumb": "https://coin-images.coingecko.com/coins/images/37597/thumb/163921315.jpg?1714984781"
     },
-    "is_zero_value_coin": true,
     "last_updated_at": "2024-06-20T04:12:44.113Z",
     "market_cap": 0,
     "name": "Axel Wrapped",
@@ -1838,7 +555,7 @@
       "small": "https://coin-images.coingecko.com/coins/images/29036/small/IMG_20230207_011808_491.png?1696528005",
       "thumb": "https://coin-images.coingecko.com/coins/images/29036/thumb/IMG_20230207_011808_491.png?1696528005"
     },
-    "last_updated_at": "2024-12-14T09:12:59.194Z",
+    "last_updated_at": "2024-06-20T04:08:42.239Z",
     "market_cap": 0,
     "name": "Bemchain",
     "platforms": {
@@ -1859,7 +576,7 @@
       "small": "https://coin-images.coingecko.com/coins/images/16999/small/9486.png?1696516564",
       "thumb": "https://coin-images.coingecko.com/coins/images/16999/thumb/9486.png?1696516564"
     },
-    "last_updated_at": "2024-12-14T09:14:22.201Z",
+    "last_updated_at": "2024-06-20T04:11:39.498Z",
     "market_cap": 0,
     "name": "Bitcoin TRC20",
     "platforms": {
@@ -1880,7 +597,6 @@
       "small": "https://coin-images.coingecko.com/coins/images/24702/small/99951582.png?1696523868",
       "thumb": "https://coin-images.coingecko.com/coins/images/24702/thumb/99951582.png?1696523868"
     },
-    "is_zero_value_coin": true,
     "last_updated_at": "2024-06-04T14:30:49.171Z",
     "market_cap": 0,
     "name": "BITONE",
@@ -1902,7 +618,7 @@
       "small": "https://coin-images.coingecko.com/coins/images/7595/small/BTT_Token_Graphic.png?1696507854",
       "thumb": "https://coin-images.coingecko.com/coins/images/7595/thumb/BTT_Token_Graphic.png?1696507854"
     },
-    "last_updated_at": "2024-12-14T05:58:26.838Z",
+    "last_updated_at": "2024-06-20T04:25:50.387Z",
     "market_cap": 0,
     "name": "BitTorrent [OLD]",
     "platforms": {
@@ -1915,24 +631,24 @@
   },
   {
     "description": {
-      "en": "Empower Noble Causes with BRIL Token -Passionate community for transparent\r\ndonations and secure transactions.Token-Support global causes securely with blockchain technology and\r\ntransparent transactions.Community-Experience the stability of a Gold Guarantee equivalent to 1 USD for\r\neach token.BRIHLO Token is revolutionizing traditional methods through blockchain technology, enabling secure and transparent donations globally. Technology Get rewards for actively participating in donations and driving positive change worldwide.\r\n"
+      "en": "Black Phoenix is a cryptocurrency with bright future ahead ,that bring benefits more and more for its holders and wants to make you a major investor in digital currency market."
     },
-    "id": "brihlo",
+    "id": "black-phoenix",
     "image": {
-      "large": "https://coin-images.coingecko.com/coins/images/51441/large/150x150_Logo.png?1731237645",
-      "small": "https://coin-images.coingecko.com/coins/images/51441/small/150x150_Logo.png?1731237645",
-      "thumb": "https://coin-images.coingecko.com/coins/images/51441/thumb/150x150_Logo.png?1731237645"
+      "large": "https://coin-images.coingecko.com/coins/images/16948/large/photo_2021-05-11_01-35-19.jpg?1696516516",
+      "small": "https://coin-images.coingecko.com/coins/images/16948/small/photo_2021-05-11_01-35-19.jpg?1696516516",
+      "thumb": "https://coin-images.coingecko.com/coins/images/16948/thumb/photo_2021-05-11_01-35-19.jpg?1696516516"
     },
-    "last_updated_at": "2024-12-13T14:30:51.604Z",
+    "last_updated_at": "2024-06-20T04:24:44.154Z",
     "market_cap": 0,
-    "name": "BRIHLO",
+    "name": "Black Phoenix",
     "platforms": {
       "tron": {
-        "contract_address": "THkzgVF6wE9wUacsetbokJUophZtaLHRLJ",
+        "contract_address": "TXBcx59eDVndV5upFQnTR2xdvqFd5reXET",
         "decimal_place": 18
       }
     },
-    "symbol": "bril"
+    "symbol": "bpx"
   },
   {
     "description": {
@@ -1944,7 +660,7 @@
       "small": "https://coin-images.coingecko.com/coins/images/12893/small/logo_%2818%29.png?1696512681",
       "thumb": "https://coin-images.coingecko.com/coins/images/12893/thumb/logo_%2818%29.png?1696512681"
     },
-    "last_updated_at": "2024-12-14T05:56:17.302Z",
+    "last_updated_at": "2024-06-20T04:24:19.933Z",
     "market_cap": 0,
     "name": "CashBackPro",
     "platforms": {
@@ -1965,7 +681,6 @@
       "small": "https://coin-images.coingecko.com/coins/images/35476/small/cavada_main.png?1708773117",
       "thumb": "https://coin-images.coingecko.com/coins/images/35476/thumb/cavada_main.png?1708773117"
     },
-    "is_zero_value_coin": true,
     "last_updated_at": "2024-06-20T04:32:41.212Z",
     "market_cap": 0,
     "name": "Cavada",
@@ -2008,7 +723,7 @@
       "small": "https://coin-images.coingecko.com/coins/images/34877/small/photo_2024-03-04_21-11-46.jpg?1709643533",
       "thumb": "https://coin-images.coingecko.com/coins/images/34877/thumb/photo_2024-03-04_21-11-46.jpg?1709643533"
     },
-    "last_updated_at": "2024-12-14T09:02:37.750Z",
+    "last_updated_at": "2024-06-20T04:34:49.981Z",
     "market_cap": 0,
     "name": "Companion Pet Coin",
     "platforms": {
@@ -2029,7 +744,7 @@
       "small": "https://coin-images.coingecko.com/coins/images/18848/small/O4IzY2CQ_400x400.png?1696518309",
       "thumb": "https://coin-images.coingecko.com/coins/images/18848/thumb/O4IzY2CQ_400x400.png?1696518309"
     },
-    "last_updated_at": "2024-12-14T06:00:22.545Z",
+    "last_updated_at": "2024-06-20T04:23:50.170Z",
     "market_cap": 0,
     "name": "CORE MultiChain",
     "platforms": {
@@ -2050,7 +765,7 @@
       "small": "https://coin-images.coingecko.com/coins/images/21857/small/_LcCRbOp_400x400.png?1696521211",
       "thumb": "https://coin-images.coingecko.com/coins/images/21857/thumb/_LcCRbOp_400x400.png?1696521211"
     },
-    "last_updated_at": "2024-12-14T09:10:21.570Z",
+    "last_updated_at": "2024-06-19T01:47:50.586Z",
     "market_cap": 0,
     "name": "Cornatto",
     "platforms": {
@@ -2071,7 +786,7 @@
       "small": "https://coin-images.coingecko.com/coins/images/21780/small/cnf.png?1696521134",
       "thumb": "https://coin-images.coingecko.com/coins/images/21780/thumb/cnf.png?1696521134"
     },
-    "last_updated_at": "2024-12-14T04:57:57.320Z",
+    "last_updated_at": "2024-06-20T04:28:49.209Z",
     "market_cap": 0,
     "name": "CryptoNeur Network foundation",
     "platforms": {
@@ -2092,7 +807,7 @@
       "small": "https://coin-images.coingecko.com/coins/images/5476/small/cyberfm.png?1696505952",
       "thumb": "https://coin-images.coingecko.com/coins/images/5476/thumb/cyberfm.png?1696505952"
     },
-    "last_updated_at": "2024-12-14T05:58:11.070Z",
+    "last_updated_at": "2024-06-18T14:30:41.194Z",
     "market_cap": 0,
     "name": "CyberFM",
     "platforms": {
@@ -2113,7 +828,6 @@
       "small": "https://coin-images.coingecko.com/coins/images/17844/small/daisy.PNG?1696517367",
       "thumb": "https://coin-images.coingecko.com/coins/images/17844/thumb/daisy.PNG?1696517367"
     },
-    "is_zero_value_coin": true,
     "last_updated_at": "2024-06-20T04:28:47.697Z",
     "market_cap": 0,
     "name": "Daisy Protocol",
@@ -2135,7 +849,7 @@
       "small": "https://coin-images.coingecko.com/coins/images/20300/small/dct200.png?1696519704",
       "thumb": "https://coin-images.coingecko.com/coins/images/20300/thumb/dct200.png?1696519704"
     },
-    "last_updated_at": "2024-12-14T09:12:43.061Z",
+    "last_updated_at": "2024-06-20T04:12:36.686Z",
     "market_cap": 0,
     "name": "Degree Crypto",
     "platforms": {
@@ -2150,13 +864,34 @@
     "description": {
       "en": ""
     },
+    "id": "fix00",
+    "image": {
+      "large": "https://coin-images.coingecko.com/coins/images/29548/large/_7f0027.png?1696528489",
+      "small": "https://coin-images.coingecko.com/coins/images/29548/small/_7f0027.png?1696528489",
+      "thumb": "https://coin-images.coingecko.com/coins/images/29548/thumb/_7f0027.png?1696528489"
+    },
+    "last_updated_at": "2024-06-20T04:42:41.285Z",
+    "market_cap": 0,
+    "name": "Fix00",
+    "platforms": {
+      "tron": {
+        "contract_address": "TAykmbrpL2VAemuRARXpTGjEttmsTjKPWA",
+        "decimal_place": 2
+      }
+    },
+    "symbol": "fix00"
+  },
+  {
+    "description": {
+      "en": ""
+    },
     "id": "ftx-users-debt",
     "image": {
       "large": "https://coin-images.coingecko.com/coins/images/28956/large/fud.jpg?1696527929",
       "small": "https://coin-images.coingecko.com/coins/images/28956/small/fud.jpg?1696527929",
       "thumb": "https://coin-images.coingecko.com/coins/images/28956/thumb/fud.jpg?1696527929"
     },
-    "last_updated_at": "2024-12-14T09:14:15.667Z",
+    "last_updated_at": "2024-06-20T03:45:00.162Z",
     "market_cap": 0,
     "name": "FTX Users' Debt",
     "platforms": {
@@ -2177,7 +912,7 @@
       "small": "https://coin-images.coingecko.com/coins/images/25568/small/fjt.png?1696524701",
       "thumb": "https://coin-images.coingecko.com/coins/images/25568/thumb/fjt.png?1696524701"
     },
-    "last_updated_at": "2024-12-05T17:01:25.664Z",
+    "last_updated_at": "2024-06-20T04:13:48.122Z",
     "market_cap": 0,
     "name": "Fuji FJT",
     "platforms": {
@@ -2190,27 +925,6 @@
   },
   {
     "description": {
-      "en": "Welcome to GCB (GCB), a cutting-edge utility token operating on both the Binance Smart Chain and TRON platforms. At GCB, we are revolutionizing digital finance by leveraging blockchain technology to tackle the pressing challenges faced in the Middle East, Africa, and emerging markets globally. Our primary objective is to promote financial inclusion by simplifying access to essential financial services through our robust digital platform.\r\n\r\nGCB serves as the cornerstone of our comprehensive digital financial ecosystem, offering seamless solutions for account management, fund transfers, and decentralized finance (DeFi) opportunities. What sets us apart is our commitment to diversification across multiple industries, enhancing the utility and resilience of the GCB token. Whether it's facilitating cross-border transactions, empowering local businesses, or supporting innovative fintech initiatives, GCB is at the forefront of driving economic empowerment and digital transformation.\r\n\r\nBehind GCB's vision and success is our dynamic team of industry pioneers and experts. With extensive backgrounds in fintech, business development, blockchain architecture, Web3 technologies, artificial intelligence, and emerging tech trends, we are uniquely positioned to pioneer groundbreaking solutions that redefine the standards of digital finance.\r\n\r\nJoin us on our journey to reshape the future of finance, one innovative solution at a time. Discover the power of GCB and experience a new era of accessible, inclusive, and sustainable financial services."
-    },
-    "id": "global-commercial-business",
-    "image": {
-      "large": "https://coin-images.coingecko.com/coins/images/39089/large/gcbt.png?1720461904",
-      "small": "https://coin-images.coingecko.com/coins/images/39089/small/gcbt.png?1720461904",
-      "thumb": "https://coin-images.coingecko.com/coins/images/39089/thumb/gcbt.png?1720461904"
-    },
-    "last_updated_at": "2024-12-14T06:10:33.967Z",
-    "market_cap": 0,
-    "name": "Global Commercial Business",
-    "platforms": {
-      "tron": {
-        "contract_address": "TPN3AXU6GH9abi7xKchewq4jTuSFLGjq5i",
-        "decimal_place": 18
-      }
-    },
-    "symbol": "gcb"
-  },
-  {
-    "description": {
       "en": "GTX is a global company that is expanding globally and stands for Global Trading Xenocurrency.\r\nFounded in 2019, GTX has been developed as a company that collaborates with numerous companies not only in Korea but also around the world and serves as a bridge between operators and members.\r\nIt helps new businesses to make their business easier and more accurate by managing the necessary funds and new customers thoroughly through the central system, and creates a smoother and more ideal market for consumers to access various items.\r\nThrough the membership system, we provide various benefits and support to all members of the company, including mobile phones, Internet+IPTV, rental shopping malls, beauty diet shops, GKFX trading, Onebot, and Royal Q, and we strive to create a smooth communication and comfortable environment between all operators and customers.\r\nGTX aims for a spirit of constant research and challenge. In a rapidly developing society with steady efforts to become the best company, we are focusing all our efforts on improving our thoughts and ideas to think about people first and to make them richer and fresher with technology for people.\r\n\r\n"
     },
     "id": "global-trading-xenocurren",
@@ -2219,7 +933,7 @@
       "small": "https://coin-images.coingecko.com/coins/images/26289/small/jEKTizMb_400x400.png?1696525372",
       "thumb": "https://coin-images.coingecko.com/coins/images/26289/thumb/jEKTizMb_400x400.png?1696525372"
     },
-    "last_updated_at": "2024-12-14T09:12:34.283Z",
+    "last_updated_at": "2024-06-20T04:38:47.314Z",
     "market_cap": 0,
     "name": "Global Trading Xenocurrency",
     "platforms": {
@@ -2240,7 +954,7 @@
       "small": "https://coin-images.coingecko.com/coins/images/32345/small/Tee_logo_.png?1697469866",
       "thumb": "https://coin-images.coingecko.com/coins/images/32345/thumb/Tee_logo_.png?1697469866"
     },
-    "last_updated_at": "2024-12-14T09:14:18.819Z",
+    "last_updated_at": "2024-06-20T04:38:49.656Z",
     "market_cap": 0,
     "name": "Guarantee",
     "platforms": {
@@ -2261,7 +975,7 @@
       "small": "https://coin-images.coingecko.com/coins/images/35491/small/Frame_1321318576.png?1708908626",
       "thumb": "https://coin-images.coingecko.com/coins/images/35491/thumb/Frame_1321318576.png?1708908626"
     },
-    "last_updated_at": "2024-12-14T06:02:30.872Z",
+    "last_updated_at": "2024-06-20T04:34:40.066Z",
     "market_cap": 0,
     "name": "HTX DAO",
     "platforms": {
@@ -2282,7 +996,6 @@
       "small": "https://coin-images.coingecko.com/coins/images/34017/small/ITG.jpg?1703660754",
       "thumb": "https://coin-images.coingecko.com/coins/images/34017/thumb/ITG.jpg?1703660754"
     },
-    "is_zero_value_coin": true,
     "last_updated_at": "2024-06-11T02:17:49.592Z",
     "market_cap": 0,
     "name": "IT Technology Global Ltd",
@@ -2304,7 +1017,6 @@
       "small": "https://coin-images.coingecko.com/coins/images/15943/small/73Gfsv9M_400x400.jpg?1696515555",
       "thumb": "https://coin-images.coingecko.com/coins/images/15943/thumb/73Gfsv9M_400x400.jpg?1696515555"
     },
-    "is_zero_value_coin": true,
     "last_updated_at": "2024-06-17T23:56:35.504Z",
     "market_cap": 0,
     "name": "ITC",
@@ -2326,7 +1038,7 @@
       "small": "https://coin-images.coingecko.com/coins/images/10998/small/usdj.png?1696510946",
       "thumb": "https://coin-images.coingecko.com/coins/images/10998/thumb/usdj.png?1696510946"
     },
-    "last_updated_at": "2024-12-14T09:13:34.593Z",
+    "last_updated_at": "2024-06-20T04:45:59.162Z",
     "market_cap": 0,
     "name": "JUST Stablecoin",
     "platforms": {
@@ -2347,7 +1059,7 @@
       "small": "https://coin-images.coingecko.com/coins/images/25450/small/jm.png?1696524581",
       "thumb": "https://coin-images.coingecko.com/coins/images/25450/thumb/jm.png?1696524581"
     },
-    "last_updated_at": "2024-12-14T06:02:39.174Z",
+    "last_updated_at": "2024-06-20T04:39:38.337Z",
     "market_cap": 0,
     "name": "JustMoney",
     "platforms": {
@@ -2368,7 +1080,7 @@
       "small": "https://coin-images.coingecko.com/coins/images/21643/small/GHj1BMqu_400x400.jpg?1696521002",
       "thumb": "https://coin-images.coingecko.com/coins/images/21643/thumb/GHj1BMqu_400x400.jpg?1696521002"
     },
-    "last_updated_at": "2024-12-14T09:14:17.376Z",
+    "last_updated_at": "2024-06-20T04:49:41.672Z",
     "market_cap": 0,
     "name": "Kyrrex",
     "platforms": {
@@ -2389,7 +1101,7 @@
       "small": "https://coin-images.coingecko.com/coins/images/16559/small/logo200_%2816%29.png?1696516121",
       "thumb": "https://coin-images.coingecko.com/coins/images/16559/thumb/logo200_%2816%29.png?1696516121"
     },
-    "last_updated_at": "2024-12-14T09:12:14.053Z",
+    "last_updated_at": "2024-06-20T04:36:24.256Z",
     "market_cap": 0,
     "name": "LUMI Credits",
     "platforms": {
@@ -2410,7 +1122,6 @@
       "small": "https://coin-images.coingecko.com/coins/images/18695/small/MMSC_logo.png?1696518162",
       "thumb": "https://coin-images.coingecko.com/coins/images/18695/thumb/MMSC_logo.png?1696518162"
     },
-    "is_zero_value_coin": true,
     "last_updated_at": "2024-06-20T04:30:56.370Z",
     "market_cap": 0,
     "name": "MMS Coin",
@@ -2432,7 +1143,7 @@
       "small": "https://coin-images.coingecko.com/coins/images/27610/small/coinpool-c-removebg-preview.png?1696526641",
       "thumb": "https://coin-images.coingecko.com/coins/images/27610/thumb/coinpool-c-removebg-preview.png?1696526641"
     },
-    "last_updated_at": "2024-12-14T08:39:58.061Z",
+    "last_updated_at": "2024-06-20T03:54:53.495Z",
     "market_cap": 0,
     "name": "MX TOKEN",
     "platforms": {
@@ -2445,49 +1156,6 @@
   },
   {
     "description": {
-      "en": "Netcoincapital is a blockchain firm founded to strengthen the world's new blockchain system. This coin, known as NCC, attracted a variety of investors during its AirDrop period and eventually entered the world's first tradable exchange, COINSBIT, on August 2, 2021. Introduced the original paper as well as a revised version known as Black Paper. On the other side, a specific fund has been formed for members of this project to conduct various transactions with NCC digital currency, which may generate revenue for the project's participants.\r\n\r\nNetcoincapital  has already finished the first step of its road map, which includes AirDrop and entering the first exchange, and is now moving on to the second phase of its project. The company's wallet will be offered first in this phase of the project, followed by the blockchain that has been launched under the name of Azgard in the team's black paper, Existing blockchain systems should be reduced. However, due to the structure of the blockchain, it may be utilized as a platform for decentralized applications, even with greater display graphics. The card system can be employed in the project's next steps. Another consequence of this blockchain technology is the Silk Gateway, which is a digital currency payment gateway designated after certain credit institutions.\r\n\r\nNetcoincapital  has decided to incorporate artificial intelligence into another discipline of computer science and programming, taking into account the needs of the user, due to the complexity of programming projects in many languages used in this field. This programming language, which can be integrated with the Asgard blockchain technology to build a blockchain-based operating system that is entirely decentralized, will be able to do the programming code automatically using a very simple user interface.\r\n\r\nPreviously, This company has also conducted research in the field of programming, among which we may name source code linked to difficult linear algebra calculations, which is one of the services given by this company to programmers in the high-level Python language.\r\n\r\nBecause of the creation of blockchain, Netcoincapital's programming language and proprietary operating system will continue to be developed to leverage the blockchain operating system, which is the first step toward powerful processors and the utilization of power. This firm is developing a greater computational mind, a processor that, instead of using metals to process data, will use combinations of metals and specific chemical compositions to process data at a higher rate than present systems.\r\n\r\nanother goal that can be achieved Netcoincapital  Group examined the development of special devices based on proprietary processors and the blockchain operating system, announcing that these devices could be similar to today's smartphones, laptops, and tablets, with the exception that Blockchains are completely decentralized and have higher processing power on the platform."
-    },
-    "id": "netcoincapital-2",
-    "image": {
-      "large": "https://coin-images.coingecko.com/coins/images/38901/large/netcoin.jpg?1719457576",
-      "small": "https://coin-images.coingecko.com/coins/images/38901/small/netcoin.jpg?1719457576",
-      "thumb": "https://coin-images.coingecko.com/coins/images/38901/thumb/netcoin.jpg?1719457576"
-    },
-    "last_updated_at": "2024-11-27T09:18:40.858Z",
-    "market_cap": 0,
-    "name": "NetcoinCapital",
-    "platforms": {
-      "tron": {
-        "contract_address": "T9yYp7JUxypLk7GFhsLRj5jN6ZrNDcH2Cf",
-        "decimal_place": 6
-      }
-    },
-    "symbol": "ncc"
-  },
-  {
-    "description": {
-      "en": "Netcoincapital is a blockchain firm founded to strengthen the world's new blockchain system. This coin, known as NCC, attracted a variety of investors during its AirDrop period and eventually entered the world's first tradable exchange, COINSBIT, on August 2, 2021. Introduced the original paper as well as a revised version known as Black Paper. On the other side, a specific fund has been formed for members of this project to conduct various transactions with NCC digital currency, which may generate revenue for the project's participants.\r\n\r\nNetcoincapital  has already finished the first step of its road map, which includes AirDrop and entering the first exchange, and is now moving on to the second phase of its project. The company's wallet will be offered first in this phase of the project, followed by the blockchain that has been launched under the name of Azgard in the team's black paper, Existing blockchain systems should be reduced. However, due to the structure of the blockchain, it may be utilized as a platform for decentralized applications, even with greater display graphics. The card system can be employed in the project's next steps. Another consequence of this blockchain technology is the Silk Gateway, which is a digital currency payment gateway designated after certain credit institutions.\r\n\r\nNetcoincapital  has decided to incorporate artificial intelligence into another discipline of computer science and programming, taking into account the needs of the user, due to the complexity of programming projects in many languages used in this field. This programming language, which can be integrated with the Asgard blockchain technology to build a blockchain-based operating system that is entirely decentralized, will be able to do the programming code automatically using a very simple user interface.\r\n\r\nPreviously, This company has also conducted research in the field of programming, among which we may name source code linked to difficult linear algebra calculations, which is one of the services given by this company to programmers in the high-level Python language.\r\n\r\nBecause of the creation of blockchain, Netcoincapital's programming language and proprietary operating system will continue to be developed to leverage the blockchain operating system, which is the first step toward powerful processors and the utilization of power. This firm is developing a greater computational mind, a processor that, instead of using metals to process data, will use combinations of metals and specific chemical compositions to process data at a higher rate than present systems.\r\n\r\nanother goal that can be achieved Netcoincapital  Group examined the development of special devices based on proprietary processors and the blockchain operating system, announcing that these devices could be similar to today's smartphones, laptops, and tablets, with the exception that Blockchains are completely decentralized and have higher processing power on the platform."
-    },
-    "id": "netcoincapital",
-    "image": {
-      "large": "https://coin-images.coingecko.com/coins/images/17956/large/ncc.jpeg?1696517476",
-      "small": "https://coin-images.coingecko.com/coins/images/17956/small/ncc.jpeg?1696517476",
-      "thumb": "https://coin-images.coingecko.com/coins/images/17956/thumb/ncc.jpeg?1696517476"
-    },
-    "is_zero_value_coin": true,
-    "last_updated_at": "2024-06-20T04:15:08.043Z",
-    "market_cap": 0,
-    "name": "Netcoincapital",
-    "platforms": {
-      "tron": {
-        "contract_address": "TCDgp5bwtixaShPifUm7HpZ71C1pe6zif1",
-        "decimal_place": 6
-      }
-    },
-    "symbol": "ncc"
-  },
-  {
-    "description": {
       "en": "norT, the second meme on TRON Network inspired by Justin Sun's tweet & the robust support he has for meme tokens on TRON."
     },
     "id": "nort",
@@ -2496,7 +1164,7 @@
       "small": "https://coin-images.coingecko.com/coins/images/34629/small/3D252BCB-26D2-4C13-BAE5-19E4DBCE4BDB.jpeg?1705600513",
       "thumb": "https://coin-images.coingecko.com/coins/images/34629/thumb/3D252BCB-26D2-4C13-BAE5-19E4DBCE4BDB.jpeg?1705600513"
     },
-    "last_updated_at": "2024-12-09T05:10:02.157Z",
+    "last_updated_at": "2024-06-20T04:38:15.958Z",
     "market_cap": 0,
     "name": "norT",
     "platforms": {
@@ -2517,7 +1185,7 @@
       "small": "https://coin-images.coingecko.com/coins/images/23523/small/osk_defi11.jpg?1696522731",
       "thumb": "https://coin-images.coingecko.com/coins/images/23523/thumb/osk_defi11.jpg?1696522731"
     },
-    "last_updated_at": "2024-12-14T09:12:14.133Z",
+    "last_updated_at": "2024-06-02T02:53:11.617Z",
     "market_cap": 0,
     "name": "OSK",
     "platforms": {
@@ -2538,7 +1206,7 @@
       "small": "https://coin-images.coingecko.com/coins/images/15712/small/PAYNET-LOGO.jpg?1696515339",
       "thumb": "https://coin-images.coingecko.com/coins/images/15712/thumb/PAYNET-LOGO.jpg?1696515339"
     },
-    "last_updated_at": "2024-12-14T09:12:34.066Z",
+    "last_updated_at": "2024-06-20T04:49:04.535Z",
     "market_cap": 0,
     "name": "PAYNET",
     "platforms": {
@@ -2559,7 +1227,7 @@
       "small": "https://coin-images.coingecko.com/coins/images/12305/small/pearl_finance_logo.png?1696512135",
       "thumb": "https://coin-images.coingecko.com/coins/images/12305/thumb/pearl_finance_logo.png?1696512135"
     },
-    "last_updated_at": "2024-12-14T09:14:41.350Z",
+    "last_updated_at": "2024-06-20T04:52:43.173Z",
     "market_cap": 0,
     "name": "Pearl Finance",
     "platforms": {
@@ -2580,7 +1248,7 @@
       "small": "https://coin-images.coingecko.com/coins/images/11716/small/01awRmEP_400x400_%281%29.png?1696511599",
       "thumb": "https://coin-images.coingecko.com/coins/images/11716/thumb/01awRmEP_400x400_%281%29.png?1696511599"
     },
-    "last_updated_at": "2024-12-14T09:12:51.105Z",
+    "last_updated_at": "2024-06-20T04:56:41.384Z",
     "market_cap": 0,
     "name": "Proof Of Liquidity",
     "platforms": {
@@ -2601,7 +1269,7 @@
       "small": "https://coin-images.coingecko.com/coins/images/20665/small/ONqv4NJP_400x400.jpg?1696520066",
       "thumb": "https://coin-images.coingecko.com/coins/images/20665/thumb/ONqv4NJP_400x400.jpg?1696520066"
     },
-    "last_updated_at": "2024-12-13T20:44:01.246Z",
+    "last_updated_at": "2024-06-19T21:37:26.990Z",
     "market_cap": 0,
     "name": "RealLink",
     "platforms": {
@@ -2622,7 +1290,7 @@
       "small": "https://coin-images.coingecko.com/coins/images/29821/small/Frame_12.png?1696528749",
       "thumb": "https://coin-images.coingecko.com/coins/images/29821/thumb/Frame_12.png?1696528749"
     },
-    "last_updated_at": "2024-12-14T09:14:19.915Z",
+    "last_updated_at": "2024-06-20T04:16:23.721Z",
     "market_cap": 0,
     "name": "ROCK DAO",
     "platforms": {
@@ -2643,7 +1311,6 @@
       "small": "https://coin-images.coingecko.com/coins/images/17494/small/IMG-20210802-213909-942-removebg-preview.png?1696517035",
       "thumb": "https://coin-images.coingecko.com/coins/images/17494/thumb/IMG-20210802-213909-942-removebg-preview.png?1696517035"
     },
-    "is_zero_value_coin": true,
     "last_updated_at": "2024-05-29T01:01:52.274Z",
     "market_cap": 0,
     "name": "Ruby Currency",
@@ -2665,7 +1332,6 @@
       "small": "https://coin-images.coingecko.com/coins/images/12349/small/salmon_swap_logo.png?1696512175",
       "thumb": "https://coin-images.coingecko.com/coins/images/12349/thumb/salmon_swap_logo.png?1696512175"
     },
-    "is_zero_value_coin": true,
     "last_updated_at": "2024-06-20T04:19:07.874Z",
     "market_cap": 0,
     "name": "Salmon",
@@ -2687,7 +1353,7 @@
       "small": "https://coin-images.coingecko.com/coins/images/14786/small/0GeSrIaQ_400x400.jpg?1696514455",
       "thumb": "https://coin-images.coingecko.com/coins/images/14786/thumb/0GeSrIaQ_400x400.jpg?1696514455"
     },
-    "last_updated_at": "2024-12-14T06:06:15.831Z",
+    "last_updated_at": "2024-06-20T04:52:04.902Z",
     "market_cap": 0,
     "name": "Satozhi",
     "platforms": {
@@ -2708,7 +1374,6 @@
       "small": "https://coin-images.coingecko.com/coins/images/31323/small/logo_%283%29.png?1696530142",
       "thumb": "https://coin-images.coingecko.com/coins/images/31323/thumb/logo_%283%29.png?1696530142"
     },
-    "is_zero_value_coin": true,
     "last_updated_at": "2024-06-20T02:00:39.413Z",
     "market_cap": 0,
     "name": "Scratch Meme Coin",
@@ -2730,7 +1395,7 @@
       "small": "https://coin-images.coingecko.com/coins/images/21200/small/socialswap-logo.png?1696520575",
       "thumb": "https://coin-images.coingecko.com/coins/images/21200/thumb/socialswap-logo.png?1696520575"
     },
-    "last_updated_at": "2024-12-13T22:18:51.850Z",
+    "last_updated_at": "2024-06-05T17:31:12.430Z",
     "market_cap": 0,
     "name": "Social Swap",
     "platforms": {
@@ -2743,27 +1408,6 @@
   },
   {
     "description": {
-      "en": "What is the project about? \r\nSQUID Game (SQUID) originally started as a meme coin on the Binance Smart Chain, but is now following in the footsteps of prominent coins such as Bitcoin ($BTC), Dogecoin ($DOGE), and Shiba Inu ($SHIB). \r\nA token with no founder team, it is fully driven by its communities. \r\nSquid Game V2 Token (SQUID), evolving from a BNB Smart Chain meme token to an innovative OFTV2-powered coin, is now community-owned and leaderless. United by passion, our volunteers have revitalized SQUID, promising a future of secure cross-chain interoperability and growth. \r\nThe transition from SQUID V1 to SQUID Game V2 (SQUID) marks a pivotal shift towards heightened security and trust. The SQUID V1's proxy contract presented vulnerabilities that we've decisively addressed with SQUID V2. Unlike its predecessor, SQUID V2 is built with non-upgradeable contracts, eliminating the central point of control and making unauthorized alterations impossible. This fundamental change, combined with the innovative cross-chain capabilities provided by LayerZero, fortifies our ecosystem against the past vulnerabilities. \r\nHistory of your project. \r\nThe original SQUID token experienced a dramatic and unfortunate start, leading to significant losses for early adopters and casting a shadow over the project’s future. Recognizing the potential for redemption, the community rallied together, proposing a migration to a new token — SQUID V2. This migration was not merely a technical update but a complete reimagining of the token’s purpose and potential, integrating OFTV2 technology for seamless cross-chain interoperability. \r\nMost importantly, this migration of the SQUID token to a new, more secure smart contract on the BNB Smart Chain (BSC) is essential for addressing the security risks associated with the current proxy contract. This strategic move aims to eliminate vulnerabilities, prevent potential manipulations, and ensure alignment with the highest standards of token security."
-    },
-    "id": "squid-game",
-    "image": {
-      "large": "https://coin-images.coingecko.com/coins/images/20506/large/squid.png?1696519912",
-      "small": "https://coin-images.coingecko.com/coins/images/20506/small/squid.png?1696519912",
-      "thumb": "https://coin-images.coingecko.com/coins/images/20506/thumb/squid.png?1696519912"
-    },
-    "last_updated_at": "2024-12-14T06:08:09.728Z",
-    "market_cap": 0,
-    "name": "Squid Game",
-    "platforms": {
-      "tron": {
-        "contract_address": "TSjUeAj5y2p1QBX7353CKDAqHdb6gcpJhR",
-        "decimal_place": 18
-      }
-    },
-    "symbol": "squid"
-  },
-  {
-    "description": {
       "en": ""
     },
     "id": "staked-trx",
@@ -2772,7 +1416,7 @@
       "small": "https://coin-images.coingecko.com/coins/images/30071/small/strx_%281%29.png?1696528992",
       "thumb": "https://coin-images.coingecko.com/coins/images/30071/thumb/strx_%281%29.png?1696528992"
     },
-    "last_updated_at": "2024-12-14T09:14:14.460Z",
+    "last_updated_at": "2024-06-20T04:36:24.549Z",
     "market_cap": 0,
     "name": "Staked TRX",
     "platforms": {
@@ -2793,7 +1437,7 @@
       "small": "https://coin-images.coingecko.com/coins/images/31135/small/2veJywVy_400x400.jpg?1696529964",
       "thumb": "https://coin-images.coingecko.com/coins/images/31135/thumb/2veJywVy_400x400.jpg?1696529964"
     },
-    "last_updated_at": "2024-12-14T06:05:00.408Z",
+    "last_updated_at": "2024-06-18T22:29:48.309Z",
     "market_cap": 0,
     "name": "Staked USDT",
     "platforms": {
@@ -2814,7 +1458,6 @@
       "small": "https://coin-images.coingecko.com/coins/images/37488/small/star.jpg?1714492166",
       "thumb": "https://coin-images.coingecko.com/coins/images/37488/thumb/star.jpg?1714492166"
     },
-    "is_zero_value_coin": true,
     "last_updated_at": "2024-06-20T04:54:14.393Z",
     "market_cap": 0,
     "name": "Star Fate",
@@ -2828,48 +1471,6 @@
   },
   {
     "description": {
-      "en": ""
-    },
-    "id": "sun-tzu-2",
-    "image": {
-      "large": "https://coin-images.coingecko.com/coins/images/40000/large/TSU.jpg?1725069384",
-      "small": "https://coin-images.coingecko.com/coins/images/40000/small/TSU.jpg?1725069384",
-      "thumb": "https://coin-images.coingecko.com/coins/images/40000/thumb/TSU.jpg?1725069384"
-    },
-    "last_updated_at": "2024-12-10T15:34:49.611Z",
-    "market_cap": 0,
-    "name": "Sun Tzu",
-    "platforms": {
-      "tron": {
-        "contract_address": "TUPsKS6qYuLmY7q1Uuq5aCS4DwQcCCDmg3",
-        "decimal_place": 18
-      }
-    },
-    "symbol": "tsu"
-  },
-  {
-    "description": {
-      "en": "SunPumpTradingTool is the first professional telegram trading bot built on Tron, which was created by Ax, who has made 6000x profit on sundog\r\nOur standout features include:\r\nCost efficiency\r\nOur bot provides the function of replenishing energy, which will let you can save up 30%- 70% of the gas fee, and we are the only bot can do that for now.\r\nReal-Time Market monitoring\r\nKeep tabs on new coin creatings on SunPump with real-time monitoring, allowing you to capture emerging market opportunities.\r\nLightning-fast transactions\r\nExperience ultra-fast transaction processing, enhancing both speed and efficiency, saving you valuable time\r\nLimit orders (Coming Soon)\r\nLimit orders can effectively control transaction prices, and combined with stop-loss orders can reduce investors' losses, you can set your buying and selling price as you wish.\r\nAuto-Snipe (Coming Soon)\r\nOur bot enables users to snipe any token instantly once they were added on Sunpump\r\nTo use our bot you will pay trading fees (this is common across all bots).\r\nOur fees are:\r\nManual buys and limit orders  = 1%\r\nAutosniper  = 1%\r\nTrades  = 1%"
-    },
-    "id": "sunpumptrading",
-    "image": {
-      "large": "https://coin-images.coingecko.com/coins/images/39899/large/2024-08-26_11.03.01.jpg?1724733157",
-      "small": "https://coin-images.coingecko.com/coins/images/39899/small/2024-08-26_11.03.01.jpg?1724733157",
-      "thumb": "https://coin-images.coingecko.com/coins/images/39899/thumb/2024-08-26_11.03.01.jpg?1724733157"
-    },
-    "last_updated_at": "2024-12-14T09:12:18.970Z",
-    "market_cap": 0,
-    "name": "SunPumpTrading",
-    "platforms": {
-      "tron": {
-        "contract_address": "TN2tRjEMhgHSVKzj4ssy4gvHpXQNh5weSg",
-        "decimal_place": 18
-      }
-    },
-    "symbol": "spt"
-  },
-  {
-    "description": {
       "en": "Enjoy the low cost and fast speed of decentralized finance(Defi) and applications (dApp) on Tron Network using BTC, ETH, DOT and more. Welcome to the TronFi.io ecosystem!"
     },
     "id": "tai",
@@ -2878,7 +1479,6 @@
       "small": "https://coin-images.coingecko.com/coins/images/12310/small/TAI.png?1696512139",
       "thumb": "https://coin-images.coingecko.com/coins/images/12310/thumb/TAI.png?1696512139"
     },
-    "is_zero_value_coin": true,
     "last_updated_at": "2024-05-31T13:29:43.228Z",
     "market_cap": 0,
     "name": "tBridge",
@@ -2900,7 +1500,6 @@
       "small": "https://coin-images.coingecko.com/coins/images/30969/small/Z0zmQ-Eq_400x400.jpg?1696529809",
       "thumb": "https://coin-images.coingecko.com/coins/images/30969/thumb/Z0zmQ-Eq_400x400.jpg?1696529809"
     },
-    "is_zero_value_coin": true,
     "last_updated_at": "2024-06-19T17:31:22.636Z",
     "market_cap": 0,
     "name": "Toman Coin",
@@ -2922,7 +1521,7 @@
       "small": "https://coin-images.coingecko.com/coins/images/30598/small/Tim-logo.png?1696529468",
       "thumb": "https://coin-images.coingecko.com/coins/images/30598/thumb/Tim-logo.png?1696529468"
     },
-    "last_updated_at": "2024-12-14T09:12:58.933Z",
+    "last_updated_at": "2024-06-20T04:11:34.640Z",
     "market_cap": 0,
     "name": "Tourism Industry Metavers",
     "platforms": {
@@ -2943,7 +1542,7 @@
       "small": "https://coin-images.coingecko.com/coins/images/34027/small/photo_2023-12-24_10-34-06.jpg?1703674741",
       "thumb": "https://coin-images.coingecko.com/coins/images/34027/thumb/photo_2023-12-24_10-34-06.jpg?1703674741"
     },
-    "last_updated_at": "2024-12-14T08:48:39.335Z",
+    "last_updated_at": null,
     "market_cap": 0,
     "name": "Trepe",
     "platforms": {
@@ -2964,7 +1563,6 @@
       "small": "https://coin-images.coingecko.com/coins/images/9253/small/1000226.png?1696509365",
       "thumb": "https://coin-images.coingecko.com/coins/images/9253/thumb/1000226.png?1696509365"
     },
-    "is_zero_value_coin": true,
     "last_updated_at": "2024-06-19T17:21:18.268Z",
     "market_cap": 0,
     "name": "TronEuropeRewardCoin",
@@ -2986,7 +1584,6 @@
       "small": "https://coin-images.coingecko.com/coins/images/28499/small/TBqsNXUtqaLptVK8AYvdPPctpqd8oBYWUC.png?1696527491",
       "thumb": "https://coin-images.coingecko.com/coins/images/28499/thumb/TBqsNXUtqaLptVK8AYvdPPctpqd8oBYWUC.png?1696527491"
     },
-    "is_zero_value_coin": true,
     "last_updated_at": "2024-06-18T10:43:56.908Z",
     "market_cap": 0,
     "name": "TrueCNH",
@@ -3008,7 +1605,6 @@
       "small": "https://coin-images.coingecko.com/coins/images/12820/small/uted_new.png?1696512612",
       "thumb": "https://coin-images.coingecko.com/coins/images/12820/thumb/uted_new.png?1696512612"
     },
-    "is_zero_value_coin": true,
     "last_updated_at": "2024-06-20T04:59:03.549Z",
     "market_cap": 0,
     "name": "United",
@@ -3030,7 +1626,7 @@
       "small": "https://coin-images.coingecko.com/coins/images/20666/small/logo-200x200.png?1696520067",
       "thumb": "https://coin-images.coingecko.com/coins/images/20666/thumb/logo-200x200.png?1696520067"
     },
-    "last_updated_at": "2024-12-14T06:08:29.251Z",
+    "last_updated_at": "2024-06-20T04:01:43.586Z",
     "market_cap": 0,
     "name": "Uplift",
     "platforms": {
@@ -3051,7 +1647,6 @@
       "small": "https://coin-images.coingecko.com/coins/images/32096/small/logo_%282%29.png?1696530894",
       "thumb": "https://coin-images.coingecko.com/coins/images/32096/thumb/logo_%282%29.png?1696530894"
     },
-    "is_zero_value_coin": true,
     "last_updated_at": "2024-04-26T17:33:03.126Z",
     "market_cap": 0,
     "name": "USDJPM",
@@ -3073,7 +1668,6 @@
       "small": "https://coin-images.coingecko.com/coins/images/29302/small/200X200_uShark_Coin1-removebg-preview.png?1696528254",
       "thumb": "https://coin-images.coingecko.com/coins/images/29302/thumb/200X200_uShark_Coin1-removebg-preview.png?1696528254"
     },
-    "is_zero_value_coin": true,
     "last_updated_at": "2024-06-20T04:59:13.839Z",
     "market_cap": 0,
     "name": "uShark Token",
@@ -3087,6 +1681,27 @@
   },
   {
     "description": {
+      "en": "What is WETH (Wrapped ETH)?\r\nWETH is the tokenized/packaged form of ETH that you use to pay for items when you interact with Ethereum dApps. WETH follows the ERC-20 token standards, enabling it to achieve interoperability with other ERC-20 tokens. \r\n\r\nThis offers more utility to holders as they can use it across networks and dApps. You can stake, yield farm, lend, and provide liquidity to various liquidity pools with WETH. \r\n\r\nAlso, unlike ETH, which doesn’t conform to its own ERC-20 standard and thus has lower interoperability as it can’t be used on other chains besides Ethereum, WETH can be used on cheaper and high throughput alternatives like Binance, Polygon, Solana, and Cardano.\r\n\r\nThe price of WETH will always be the same as ETH because it maintains a 1:1 wrapping ratio.\r\n\r\nHow to Wrap ETH?\r\nCustodians wrap and unwrap ETH. To wrap ETH, you send ETH to a custodian. This can be a multi-sig wallet, a Decentralized Autonomous Organization (DAO), or a smart contract. After connecting your web3 wallet to a DeFi exchange, you enter the amount of ETH you wish to wrap and click the swap function. Once the transaction is confirmed, you will receive WETH tokens equivalent to the ETH that you’ve swapped.\r\n\r\nOn a centralized exchange, the exchange burns the deposited ETH and mints a wrapped form for you. And when you want to unwrap it, the exchange will burn the wrapped version and mint the ETH on your behalf.\r\n\r\nWhat’s Next for WETH?\r\nAccording to the developers, hopefully there will be no future for WETH. According to the website, steps are being taken to update ETH to make it compliant with its own ERC-20 standards. "
+    },
+    "id": "weth",
+    "image": {
+      "large": "https://coin-images.coingecko.com/coins/images/2518/large/weth.png?1696503332",
+      "small": "https://coin-images.coingecko.com/coins/images/2518/small/weth.png?1696503332",
+      "thumb": "https://coin-images.coingecko.com/coins/images/2518/thumb/weth.png?1696503332"
+    },
+    "last_updated_at": "2024-06-20T05:00:05.934Z",
+    "market_cap": 0,
+    "name": "WETH",
+    "platforms": {
+      "tron": {
+        "contract_address": "THb4CqiFdwNHsWsQCs4JhzwjMWys4aqCbF",
+        "decimal_place": 18
+      }
+    },
+    "symbol": "weth"
+  },
+  {
+    "description": {
       "en": "WFDP Coin is the first digital currency of its kind which is aimed at enhancing the ease of managing funds - be in the world of investment, travel & tourism, hotels, hospitals and medical facilities, education etc. or meeting the requirements of businesses in cash flow management, trade finance needs or even for large scale project funding, globally by using modern blockchain technologies."
     },
     "id": "wfdp",
@@ -3095,7 +1710,7 @@
       "small": "https://coin-images.coingecko.com/coins/images/23758/small/wfdp.png?1696522959",
       "thumb": "https://coin-images.coingecko.com/coins/images/23758/thumb/wfdp.png?1696522959"
     },
-    "last_updated_at": "2024-12-14T05:53:48.362Z",
+    "last_updated_at": "2024-06-20T04:59:42.507Z",
     "market_cap": 0,
     "name": "WFDP",
     "platforms": {
@@ -3108,17 +1723,17 @@
   },
   {
     "description": {
-      "en": ""
+      "en": "BitTorrent was initially conceived by Bram Cohen, a peer-to-peer protocol for users to transfer files around the world. The BitTorrent Token (BTT), a TRC-10 token is created on top of the TRON blockchain platform as a way to extend the capability of BitTorrent. The token is added to introduce some economics feature on BitTorrent for networking, bandwidth, and storage resources to be shared and tradeed.\r\n\r\nSome of the other feature that BitTorrent Token (BTT) offers would be BitTorrent Speed. This is whereby BTT tokens can be big in exchange for faster download speed."
     },
-    "id": "wrapped-btt-tron",
+    "id": "wrapped-btt",
     "image": {
-      "large": "https://coin-images.coingecko.com/coins/images/51809/large/wbtt.png?1732005818",
-      "small": "https://coin-images.coingecko.com/coins/images/51809/small/wbtt.png?1732005818",
-      "thumb": "https://coin-images.coingecko.com/coins/images/51809/thumb/wbtt.png?1732005818"
+      "large": "https://coin-images.coingecko.com/coins/images/24933/large/TKfjV9RNKJJCqPvBtK8L7Knykh7DNWvnYt.png?1696524089",
+      "small": "https://coin-images.coingecko.com/coins/images/24933/small/TKfjV9RNKJJCqPvBtK8L7Knykh7DNWvnYt.png?1696524089",
+      "thumb": "https://coin-images.coingecko.com/coins/images/24933/thumb/TKfjV9RNKJJCqPvBtK8L7Knykh7DNWvnYt.png?1696524089"
     },
-    "last_updated_at": "2024-12-14T09:14:32.996Z",
+    "last_updated_at": "2024-06-20T04:42:27.291Z",
     "market_cap": 0,
-    "name": "Wrapped BTT (Tron)",
+    "name": "Wrapped BTT",
     "platforms": {
       "tron": {
         "contract_address": "TKfjV9RNKJJCqPvBtK8L7Knykh7DNWvnYt",
@@ -3137,7 +1752,7 @@
       "small": "https://coin-images.coingecko.com/coins/images/31160/small/wstusdt.jpeg?1696529988",
       "thumb": "https://coin-images.coingecko.com/coins/images/31160/thumb/wstusdt.jpeg?1696529988"
     },
-    "last_updated_at": "2024-12-14T06:14:20.035Z",
+    "last_updated_at": "2024-06-20T04:43:54.295Z",
     "market_cap": 0,
     "name": "Wrapped Staked USDT",
     "platforms": {
@@ -3158,7 +1773,7 @@
       "small": "https://coin-images.coingecko.com/coins/images/22471/small/xOesRfpN_400x400.jpg?1696521795",
       "thumb": "https://coin-images.coingecko.com/coins/images/22471/thumb/xOesRfpN_400x400.jpg?1696521795"
     },
-    "last_updated_at": "2024-12-14T06:10:00.479Z",
+    "last_updated_at": "2024-06-20T04:59:26.543Z",
     "market_cap": 0,
     "name": "Wrapped Tron",
     "platforms": {
@@ -3179,7 +1794,7 @@
       "small": "https://coin-images.coingecko.com/coins/images/15654/small/yfx.PNG?1696515285",
       "thumb": "https://coin-images.coingecko.com/coins/images/15654/thumb/yfx.PNG?1696515285"
     },
-    "last_updated_at": "2024-12-14T06:09:06.743Z",
+    "last_updated_at": "2024-06-20T04:43:08.122Z",
     "market_cap": 0,
     "name": "Your Futures Exchange",
     "platforms": {
@@ -3189,5 +1804,26 @@
       }
     },
     "symbol": "yfx"
+  },
+  {
+    "description": {
+      "en": "Zedxion offers a comprehensive solution to the major problems faced by the traditional, fiat-driven monetary system. Building a crypto powered ecosystem comprising Zedxion Token.\""
+    },
+    "id": "zedxion",
+    "image": {
+      "large": "https://coin-images.coingecko.com/coins/images/18841/large/ZEDXION.png?1696518302",
+      "small": "https://coin-images.coingecko.com/coins/images/18841/small/ZEDXION.png?1696518302",
+      "thumb": "https://coin-images.coingecko.com/coins/images/18841/thumb/ZEDXION.png?1696518302"
+    },
+    "last_updated_at": "2024-06-20T04:43:20.306Z",
+    "market_cap": 0,
+    "name": "Zedxion",
+    "platforms": {
+      "tron": {
+        "contract_address": "TUP3g7kbaESRFRhULeA19USSrcVBEpWLVY",
+        "decimal_place": 18
+      }
+    },
+    "symbol": "zedxion"
   }
 ]
