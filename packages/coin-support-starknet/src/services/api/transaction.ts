@@ -31,18 +31,36 @@ export const getTransactions = async (
   return response.data;
 };
 
-export const getTransactionCount = async (
-  params: IStarknetTransactionParams,
-): Promise<number> => {
-  const url = `${baseURL}/transactionCount`;
+export const getTransactionDeploymentInfo = async (
+  address: string,
+  assetId: string,
+  contractAddress?: string,
+): Promise<{
+  hasTransactions: boolean;
+  isAccountDeployed: boolean;
+}> => {
+  const url = `${baseURL}/transactionDeploymentInfo`;
 
   const query: Record<string, any> = {
-    ...params,
-    network: starknetCoinList[params.assetId].network,
+    address,
+    network: starknetCoinList[assetId].network,
+    contractAddress,
   };
-  delete query.assetId;
 
   const response = await makePostRequest(url, query);
 
-  return response.data?.transactionCount ?? 0;
+  return response.data;
+};
+
+export const getTransactionCount = async (
+  address: string,
+  assetId: string,
+  contractAddress?: string,
+): Promise<number> => {
+  const { hasTransactions } = await getTransactionDeploymentInfo(
+    address,
+    assetId,
+    contractAddress,
+  );
+  return hasTransactions ? 1 : 0;
 };

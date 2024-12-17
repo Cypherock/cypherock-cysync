@@ -97,10 +97,11 @@ const getBalanceAndTxnCount = async (
       STRK_TOKEN_CONTRACT,
       params.coinId,
     ),
-    txnCount: await services.getTransactionCount({
+    txnCount: await services.getTransactionCount(
       address,
-      assetId: params.coinId,
-    }),
+      params.coinId,
+      STRK_TOKEN_CONTRACT,
+    ),
   };
 };
 
