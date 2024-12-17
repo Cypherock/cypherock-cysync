@@ -7,6 +7,11 @@ import {
 } from './types';
 
 import { config } from '../../config';
+import {
+  FeeData,
+  StarknetInvokeTransaction,
+  StarknetTransaction,
+} from '../transaction';
 
 const baseURL = `${config.API_CYPHEROCK}/starknet/transaction`;
 
@@ -63,4 +68,41 @@ export const getTransactionCount = async (
     contractAddress,
   );
   return hasTransactions ? 1 : 0;
+};
+
+export const estimateFees = async (params: {
+  transaction: StarknetTransaction;
+  assetId: string;
+}): Promise<FeeData> => {
+  const url = `${baseURL}/estimateFees`;
+
+  const query: Record<string, any> = {
+    transaction: params.transaction,
+    network: starknetCoinList[params.assetId].network,
+  };
+
+  const response = await makePostRequest(url, query);
+
+  return response.data;
+};
+
+export const broadcastTransactionToBlockchain = async (params: {
+  transaction: StarknetInvokeTransaction;
+  assetId: string;
+}): Promise<{ transactionHash: string }> => {
+  const url = `${baseURL}/broadcastInvoke`;
+
+  const query: Record<string, any> = {
+    transaction: params.transaction,
+    network: starknetCoinList[params.assetId].network,
+  };
+
+  const response = await makePostRequest(url, query);
+
+  assert(
+    response.data.result !== undefined,
+    'Invalid transaction broadcast response from server',
+  );
+
+  return response.data.result;
 };

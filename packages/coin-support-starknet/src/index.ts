@@ -1,7 +1,6 @@
 /* eslint-disable class-methods-use-this */
 import {
   CoinSupport,
-  IBroadcastTransactionParams,
   ICreateAccountEvent,
   ICreateAccountParams,
   IFormatAddressParams,
@@ -12,13 +11,10 @@ import {
   IGetExplorerLink,
   IInitializeTransactionParams,
   IPreparedTransaction,
-  IPrepareTransactionParams,
   IReceiveEvent,
   IReceiveParams,
   ISignMessageEvent,
   ISignMessageParams,
-  ISignTransactionEvent,
-  ISignTransactionParams,
   ISyncAccountsParams,
   ISyncPriceHistoriesParams,
   ISyncPricesParams,
@@ -29,9 +25,16 @@ import { setStarknetApiJs } from '@cypherock/sdk-app-starknet';
 import { Observable } from 'rxjs';
 
 import * as operations from './operations';
-
+import {
+  IBroadcastStarknetTransactionParams,
+  IPreparedStarknetTransaction,
+  IPrepareStarknetTransactionParams,
+  ISignStarknetTransactionEvent,
+  ISignStarknetTransactionParams,
+} from './operations/types';
 import { setCoinSupportStarknetLib, StarknetLibType } from './utils';
 
+export * from './operations/types';
 export { updateLogger } from './utils/logger';
 
 export class StarknetSupport implements CoinSupport {
@@ -57,25 +60,25 @@ export class StarknetSupport implements CoinSupport {
   public async initializeTransaction(
     params: IInitializeTransactionParams,
   ): Promise<IPreparedTransaction> {
-    throw new Error(`Method not implemented. Params: ${params}`);
+    return operations.initializeTransaction(params);
   }
 
   public async prepareTransaction(
-    params: IPrepareTransactionParams,
-  ): Promise<IPreparedTransaction> {
-    throw new Error(`Method not implemented. Params: ${params}`);
+    params: IPrepareStarknetTransactionParams,
+  ): Promise<IPreparedStarknetTransaction> {
+    return operations.prepareTransaction(params);
   }
 
   public signTransaction(
-    params: ISignTransactionParams,
-  ): Observable<ISignTransactionEvent<any>> {
-    throw new Error(`Method not implemented. Params: ${params}`);
+    params: ISignStarknetTransactionParams,
+  ): Observable<ISignStarknetTransactionEvent> {
+    return operations.signTransaction(params);
   }
 
   public broadcastTransaction(
-    params: IBroadcastTransactionParams<any>,
+    params: IBroadcastStarknetTransactionParams,
   ): Promise<ITransaction> {
-    throw new Error(`Method not implemented. Params: ${params}`);
+    return operations.broadcastTransaction(params);
   }
 
   public signMessage(

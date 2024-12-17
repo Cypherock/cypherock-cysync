@@ -11,6 +11,7 @@ import {
 import { IPreparedSolanaTransaction } from '@cypherock/coin-support-solana';
 import { IPreparedTronTransaction } from '@cypherock/coin-support-tron';
 import { IPreparedXrpTransaction } from '@cypherock/coin-support-xrp';
+import { IPreparedStarknetTransaction } from '@cypherock/coin-support-starknet';
 import {
   convertToUnit,
   formatDisplayAmount,
@@ -603,6 +604,12 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
     return computedData.fees || '0';
   };
 
+  const getStarknetFeeAmount = (txn: IPreparedTransaction | undefined) => {
+    if (!txn) return '0';
+    const { computedData } = txn as IPreparedStarknetTransaction;
+    return computedData.feeData.suggestedMaxFee || '0';
+  };
+
   const computedFeeMap: Record<
     CoinFamily,
     (txn: IPreparedTransaction | undefined) => string
@@ -613,7 +620,7 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
     solana: getSolanaFeeAmount,
     tron: getTronFeeAmount,
     xrp: getXrpFeeAmount,
-    starknet: () => '0',
+    starknet: getStarknetFeeAmount,
   };
 
   const getComputedFee = (coinFamily: CoinFamily, txn?: IPreparedTransaction) =>
