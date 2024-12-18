@@ -12,6 +12,7 @@ env:
   TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
   APP_NAME: '@cypherock/cysync-desktop'
   CHANNEL: 'pre'
+  DO_UPDATE_APP_VERSION: 'true'
 
 jobs:
   integrity-check:
@@ -211,7 +212,7 @@ jobs:
       - name: Fix hashBang in pnpm.cjs
         env:
           WINDOWS_USERNAME: ${{ secrets.WINDOWS_USERNAME }}
-          IS_CI: "true"
+          IS_CI: 'true'
         run: pnpm fix:hashbang
 
       - name: pnpm install
