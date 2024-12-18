@@ -591,6 +591,14 @@ const data = {
       platform: 'avalanche',
     },
     {
+      id: 'instadapp',
+      platform: 'ethereum',
+    },
+    {
+      id: 'instadapp',
+      platform: 'polygon',
+    },
+    {
       id: 'ivendpay',
       platform: 'binance',
     },
@@ -939,6 +947,10 @@ const data = {
       platform: 'binance',
     },
     {
+      id: 'send-token',
+      platform: 'ethereum',
+    },
+    {
       id: 'senspark',
       platform: 'binance',
     },
@@ -982,6 +994,10 @@ const data = {
     {
       id: 'swipe',
       platform: 'binance',
+    },
+    {
+      id: 'synonym-finance',
+      platform: 'arbitrum',
     },
     {
       id: 'terrier',
@@ -1106,6 +1122,5 @@ const data = {
     },
   ],
 };
-
 export const { idChanges } = data;
 export const { changedCoins } = data;
