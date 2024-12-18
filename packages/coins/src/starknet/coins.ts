@@ -10,6 +10,8 @@ export default [
     color: '#FFFFFF',
     family: 'starknet',
     network: 'mainnet',
+    argentXClassHash:
+      '0x036078334509b514626504edc9fb252328d1a240e4e948bef8d0c08dff45927f',
     units: [
       {
         name: 'STRK',

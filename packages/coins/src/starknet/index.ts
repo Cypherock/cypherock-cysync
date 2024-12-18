@@ -7,6 +7,7 @@ type StarknetFamily = typeof coinFamiliesMap.starknet;
 export interface IStarknetCoinInfo extends ICoinInfo {
   family: StarknetFamily;
   network: string;
+  argentXClassHash: string;
 }
 
 export const StarknetIdMap = {
@@ -31,6 +32,7 @@ export const starknetCoinList: Record<string, IStarknetCoinInfo> =
         network: coin.network,
         units: coin.units,
         color: coin.color,
+        argentXClassHash: coin.argentXClassHash,
       },
     }),
     {},
