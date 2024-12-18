@@ -1,3 +1,14 @@
+# v2.0.13
+
+### 🚀 Features
+
+- Added support for new EVM tokens
+
+### 🐛 Bugfixes
+
+- Fixed syncing issue with unsupported tokens.
+- Added XRP base reserve API implementation
+
 # v2.0.12
 
 ### 🚀 Features
