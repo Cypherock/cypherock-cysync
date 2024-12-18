@@ -1,5 +1,15 @@
 # @cypherock/coins
 
+## 0.1.0
+
+### Minor Changes
+
+- [#644](https://github.com/Cypherock/cypherock-cysync/pull/644) [`b9857909`](https://github.com/Cypherock/cypherock-cysync/commit/b985790932df37f970b2568f9bea9115a44aa742) Thanks [@muzaffarbhat07](https://github.com/muzaffarbhat07)! - fixed xrp reserve balance issue and added spendable balance to account
+
+### Patch Changes
+
+- [#645](https://github.com/Cypherock/cypherock-cysync/pull/645) [`1820213c`](https://github.com/Cypherock/cypherock-cysync/commit/1820213c8c9f6d173b3e245758704d10d62ccf1a) Thanks [@TejasvOnly](https://github.com/TejasvOnly)! - Update token lists
+
 ## 0.1.0-pre.0
 
 ### Minor Changes

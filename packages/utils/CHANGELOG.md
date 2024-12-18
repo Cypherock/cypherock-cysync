@@ -1,5 +1,12 @@
 # @cypherock/cysync-utils
 
+## 0.0.8
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @cypherock/cysync-interfaces@0.0.7
+
 ## 0.0.8-pre.0
 
 ### Patch Changes

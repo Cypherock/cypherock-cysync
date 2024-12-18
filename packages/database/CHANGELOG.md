@@ -1,5 +1,18 @@
 # @cypherock/database
 
+## 0.1.0
+
+### Minor Changes
+
+- [#644](https://github.com/Cypherock/cypherock-cysync/pull/644) [`b9857909`](https://github.com/Cypherock/cypherock-cysync/commit/b985790932df37f970b2568f9bea9115a44aa742) Thanks [@muzaffarbhat07](https://github.com/muzaffarbhat07)! - fixed xrp reserve balance issue and added spendable balance to account
+
+### Patch Changes
+
+- Updated dependencies [[`b9857909`](https://github.com/Cypherock/cypherock-cysync/commit/b985790932df37f970b2568f9bea9115a44aa742)]:
+  - @cypherock/db-interfaces@0.1.0
+  - @cypherock/cysync-interfaces@0.0.7
+  - @cypherock/cysync-utils@0.0.8
+
 ## 0.1.0-pre.0
 
 ### Minor Changes

@@ -1,5 +1,21 @@
 # @cypherock/cysync-core-services
 
+## 0.0.12
+
+### Patch Changes
+
+- [#645](https://github.com/Cypherock/cypherock-cysync/pull/645) [`1820213c`](https://github.com/Cypherock/cypherock-cysync/commit/1820213c8c9f6d173b3e245758704d10d62ccf1a) Thanks [@TejasvOnly](https://github.com/TejasvOnly)! - Update token lists
+
+- Updated dependencies [[`28e48f5b`](https://github.com/Cypherock/cypherock-cysync/commit/28e48f5bf55bd09986fb6d16342c400e8a0c4172), [`1820213c`](https://github.com/Cypherock/cypherock-cysync/commit/1820213c8c9f6d173b3e245758704d10d62ccf1a), [`b9857909`](https://github.com/Cypherock/cypherock-cysync/commit/b985790932df37f970b2568f9bea9115a44aa742)]:
+  - @cypherock/coin-support-evm@0.0.12
+  - @cypherock/coins@0.1.0
+  - @cypherock/db-interfaces@0.1.0
+  - @cypherock/coin-support@0.0.12
+  - @cypherock/coin-support-utils@0.0.12
+  - @cypherock/coin-support-interfaces@0.0.8
+  - @cypherock/cysync-interfaces@0.0.7
+  - @cypherock/cysync-utils@0.0.8
+
 ## 0.0.12-pre.0
 
 ### Patch Changes
