@@ -10,7 +10,7 @@ import {
   svgGradients,
   ArrowSentIcon,
 } from '@cypherock/cysync-ui';
-import React, { useCallback } from 'react';
+import React, { useCallback, useState } from 'react';
 
 import { selectAccounts, selectLanguage, useAppSelector } from '~/store';
 import logger from '~/utils/logger';
@@ -21,7 +21,7 @@ export const SelectionDialog: React.FC = () => {
   const lang = useAppSelector(selectLanguage);
 
   const {
-    onNext,
+    onSelectionDialogNext,
     selectedAccount,
     selectedWallet,
     handleAccountChange,
@@ -31,6 +31,8 @@ export const SelectionDialog: React.FC = () => {
     defaultWalletId,
     defaultAccountId,
   } = useSendDialog();
+
+  const [loadingNext, setLoadingNext] = useState(false);
 
   const dialogText = lang.strings.send.source;
   const buttonText = lang.strings.buttons;
@@ -60,6 +62,11 @@ export const SelectionDialog: React.FC = () => {
     },
     [allAccounts, handleAccountChange],
   );
+
+  const handleContinue = useCallback(() => {
+    setLoadingNext(true);
+    onSelectionDialogNext();
+  }, [onSelectionDialogNext, setLoadingNext]);
 
   return (
     <DialogBox width={500}>
@@ -108,11 +115,12 @@ export const SelectionDialog: React.FC = () => {
       <DialogBoxFooter>
         <Button
           variant="primary"
+          isLoading={loadingNext}
           disabled={!selectedAccount || !selectedWallet}
           autoFocus={Boolean(defaultWalletId) && Boolean(defaultAccountId)}
           onClick={e => {
             e.preventDefault();
-            onNext();
+            handleContinue();
           }}
         >
           <LangDisplay text={buttonText.continue} />

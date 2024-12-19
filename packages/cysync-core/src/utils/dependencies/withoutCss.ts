@@ -3,11 +3,11 @@ import { BtcSupport } from '@cypherock/coin-support-btc';
 import { EvmSupport } from '@cypherock/coin-support-evm';
 import { NearSupport } from '@cypherock/coin-support-near';
 import { SolanaSupport } from '@cypherock/coin-support-solana';
+import { StarknetSupport } from '@cypherock/coin-support-starknet';
 import { TronSupport } from '@cypherock/coin-support-tron';
 import { XrpSupport } from '@cypherock/coin-support-xrp';
 
 import { setWalletConnect, setWalletConnectCore } from '../walletConnect';
-import { StarknetSupport } from '@cypherock/coin-support-starknet';
 
 export const setGlobalDependencies = () => {
   setWalletConnect((globalThis as any).WalletConnect);

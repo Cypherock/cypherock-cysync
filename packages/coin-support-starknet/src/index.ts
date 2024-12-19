@@ -26,9 +26,15 @@ import { Observable } from 'rxjs';
 
 import * as operations from './operations';
 import {
+  IBroadcastStarknetDeployAccountTransactionParams,
   IBroadcastStarknetTransactionParams,
+  IIsAccountDeployedParams,
+  IPreparedStarknetDeployAccountTransaction,
   IPreparedStarknetTransaction,
+  IPrepareStarknetDeployAccountTransactionParams,
   IPrepareStarknetTransactionParams,
+  ISignStarknetDeployAccountTransactionEvent,
+  ISignStarknetDeployAccountTransactionParams,
   ISignStarknetTransactionEvent,
   ISignStarknetTransactionParams,
 } from './operations/types';
@@ -119,5 +125,27 @@ export class StarknetSupport implements CoinSupport {
 
   public formatAddress(params: IFormatAddressParams): string {
     return params.address;
+  }
+
+  public isAccountDeployed(params: IIsAccountDeployedParams): Promise<boolean> {
+    return operations.isAccountDeployed(params);
+  }
+
+  public async prepareDeployAccountTransaction(
+    params: IPrepareStarknetDeployAccountTransactionParams,
+  ): Promise<IPreparedStarknetDeployAccountTransaction> {
+    return operations.prepareDeployAccountTransaction(params);
+  }
+
+  public signDeployAccountTransaction(
+    params: ISignStarknetDeployAccountTransactionParams,
+  ): Observable<ISignStarknetDeployAccountTransactionEvent> {
+    return operations.signDeployAccountTransaction(params);
+  }
+
+  public broadcastDeployAccountTransaction(
+    params: IBroadcastStarknetDeployAccountTransactionParams,
+  ): Promise<ITransaction> {
+    return operations.broadcastDeployAccountTransaction(params);
   }
 }

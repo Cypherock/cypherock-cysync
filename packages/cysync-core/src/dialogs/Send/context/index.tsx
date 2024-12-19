@@ -9,9 +9,12 @@ import {
   ISignTransactionEvent,
 } from '@cypherock/coin-support-interfaces';
 import { IPreparedSolanaTransaction } from '@cypherock/coin-support-solana';
+import {
+  IPreparedStarknetTransaction,
+  StarknetSupport,
+} from '@cypherock/coin-support-starknet';
 import { IPreparedTronTransaction } from '@cypherock/coin-support-tron';
 import { IPreparedXrpTransaction } from '@cypherock/coin-support-xrp';
-import { IPreparedStarknetTransaction } from '@cypherock/coin-support-starknet';
 import {
   convertToUnit,
   formatDisplayAmount,
@@ -19,7 +22,7 @@ import {
   getDefaultUnit,
   getZeroUnit,
 } from '@cypherock/coin-support-utils';
-import { CoinFamily } from '@cypherock/coins';
+import { coinFamiliesMap, CoinFamily } from '@cypherock/coins';
 import { DropDownItemProps } from '@cypherock/cysync-ui';
 import { BigNumber } from '@cypherock/cysync-utils';
 import { IAccount, ITransaction, IWallet } from '@cypherock/db-interfaces';
@@ -38,6 +41,7 @@ import React, {
 } from 'react';
 import { Observer, Subscription } from 'rxjs';
 
+import { openDeployAccountDialog } from '~/actions';
 import { LoaderDialog } from '~/components';
 import {
   WalletConnectCallRequestMethodMap,
@@ -73,6 +77,7 @@ import {
 export interface SendDialogContextInterface {
   tabs: ITabs;
   onNext: (tab?: number, dialog?: number) => void;
+  onSelectionDialogNext: () => void;
   goTo: (tab: number, dialog?: number) => void;
   onPrevious: () => void;
   onClose: () => void;
@@ -130,6 +135,7 @@ export interface SendDialogProps {
   txnData?: Record<string, string>;
   disableAccountSelection?: boolean;
   isWalletConnectRequest?: boolean;
+  skipAccountSelection?: boolean;
 }
 
 export interface SendDialogContextProviderProps extends SendDialogProps {
@@ -143,6 +149,7 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
   txnData,
   disableAccountSelection,
   isWalletConnectRequest,
+  skipAccountSelection,
 }) => {
   const lang = useAppSelector(selectLanguage);
   const dispatch = useAppDispatch();
@@ -229,7 +236,7 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
   );
 
   useEffect(() => {
-    if (disableAccountSelection) goTo(1, 0);
+    if (disableAccountSelection || skipAccountSelection) goTo(1, 0);
   }, []);
 
   useEffect(() => {
@@ -695,11 +702,37 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
     return '';
   }, [transaction, lang]);
 
+  const onSelectionDialogNext = useCallback(async () => {
+    if (
+      selectedAccount &&
+      selectedAccount.familyId === coinFamiliesMap.starknet
+    ) {
+      const currentCoinSupport = getCurrentCoinSupport() as StarknetSupport;
+      const isAccountDeployed = await currentCoinSupport.isAccountDeployed({
+        address: selectedAccount.xpubOrAddress,
+        coinId: selectedAccount.familyId,
+      });
+      if (!isAccountDeployed) {
+        dispatch(
+          openDeployAccountDialog({
+            account: selectedAccount,
+            wallet: selectedWallet,
+            sendTxnData: txnData,
+            isWalletConnectRequest,
+          }),
+        );
+        return onClose();
+      }
+    }
+    return onNext();
+  }, [onNext, selectedAccount, txnData, isWalletConnectRequest]);
+
   const ctx = useMemo(
     () => ({
       defaultWalletId,
       defaultAccountId,
       onNext,
+      onSelectionDialogNext,
       onPrevious,
       tabs,
       goTo,
@@ -745,6 +778,7 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
       defaultWalletId,
       defaultAccountId,
       onNext,
+      onSelectionDialogNext,
       onPrevious,
       goTo,
       onClose,
@@ -805,4 +839,5 @@ SendDialogProvider.defaultProps = {
   txnData: undefined,
   disableAccountSelection: undefined,
   isWalletConnectRequest: undefined,
+  skipAccountSelection: undefined,
 };

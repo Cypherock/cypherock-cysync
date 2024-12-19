@@ -1,6 +1,7 @@
 import {
   StarknetInvokeTransaction,
   StarknetPrepareInvokeTransactionParams,
+  StarknetTransactionTypes,
 } from './types';
 
 import { getCoinSupportStarknetLib } from '../../utils';
@@ -44,7 +45,7 @@ export const prepareInvokeTransaction = (
   }
 
   return {
-    type: 'INVOKE',
+    type: StarknetTransactionTypes.INVOKE,
     sender_address: params.address,
     calldata: getInvokeCalldata(
       params.contractAddress,

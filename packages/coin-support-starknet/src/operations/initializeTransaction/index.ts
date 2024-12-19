@@ -5,6 +5,7 @@ import { starknetCoinList } from '@cypherock/coins';
 import { STRK_TOKEN_CONTRACT } from '../../constants';
 import {
   estimateFees,
+  getChainId,
   getNonce,
   prepareInvokeTransaction,
 } from '../../services';
@@ -31,6 +32,7 @@ export const initializeTransaction = async (
   });
 
   const feeData = await estimateFees({ transaction, assetId: account.assetId });
+  const chainId = await getChainId(account.assetId);
 
   return {
     accountId,
@@ -48,6 +50,7 @@ export const initializeTransaction = async (
     staticData: {
       fees: feeData.suggestedMaxFee,
       nonce,
+      chainId,
     },
     computedData: {
       output: { address: '', amount: '0' },

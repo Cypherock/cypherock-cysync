@@ -1,3 +1,5 @@
+import { IAccount } from '@cypherock/db-interfaces';
+import { starknetCoinList } from '@cypherock/coins';
 import { SignTransactionDeviceEvent } from '@cypherock/coin-support-interfaces';
 import {
   makeSignTransactionsObservable,
@@ -9,43 +11,43 @@ import { assert, hexToUint8Array } from '@cypherock/sdk-utils';
 import { Observable } from 'rxjs';
 
 import {
-  ISignStarknetTransactionParams,
-  ISignStarknetTransactionEvent,
-  signStarknetToDeviceEventMap,
+  signStarknetDeployAccountToDeviceEventMap,
+  ISignStarknetDeployAccountTransactionParams,
+  ISignStarknetDeployAccountTransactionEvent,
+  IPreparedStarknetDeployAccountTransaction,
 } from './types';
 
-import { STRK_TOKEN_CONTRACT } from '../../constants';
-import * as services from '../../services';
+import { getConstructorCalldata } from '../../services';
 import { createApp } from '../../utils';
 import logger from '../../utils/logger';
-import { IPreparedStarknetTransaction } from '../transaction';
 
 const prepareTxnToSign = async (
-  transaction: IPreparedStarknetTransaction,
-  address: string,
+  transaction: IPreparedStarknetDeployAccountTransaction,
+  account: IAccount,
 ): Promise<ISignTxnUnsignedTxn> => {
-  const { address: recipientAddress, amount } = transaction.computedData.output;
   const { resourceBounds } = transaction.computedData.feeData;
 
-  const calldata = services.getInvokeCalldata(
-    STRK_TOKEN_CONTRACT,
-    recipientAddress,
-    amount,
-  );
+  const salt = account.extraData?.salt ?? 'salt';
+  const calldata = getConstructorCalldata(salt);
 
   return {
-    invokeTxn: {
-      senderAddress: hexToUint8Array(address),
-      calldata: { value: calldata.map(item => hexToUint8Array(item)) },
+    deployTxn: {
+      contractAddress: hexToUint8Array(account.xpubOrAddress),
+      constructorCallData: {
+        value: calldata.map(item => hexToUint8Array(item)),
+      },
+      classHash: hexToUint8Array(
+        starknetCoinList[account.assetId].argentXClassHash,
+      ),
+      salt: hexToUint8Array(salt),
       version: hexToUint8Array('0x3'),
-      nonce: hexToUint8Array(transaction.staticData.nonce),
-      chainId: hexToUint8Array(transaction.staticData.chainId),
+      nonce: hexToUint8Array(transaction.computedData.nonce),
+      chainId: hexToUint8Array(transaction.computedData.chainId),
       tip: hexToUint8Array('0x0'),
       paymasterData: [],
-      accountDeploymentData: [],
       nonceDataAvailabilityMode: hexToUint8Array('0x0'),
       feeDataAvailabilityMode: hexToUint8Array('0x0'),
-      resourceBound: {
+      resourceBounds: {
         level1: {
           maxAmount: hexToUint8Array(resourceBounds.l1_gas.max_amount),
           maxPricePerUnit: hexToUint8Array(
@@ -74,8 +76,8 @@ const signTransactionFromDevice: SignTransactionFromDevice<
     {} as any;
 
   const txn = await prepareTxnToSign(
-    transaction as IPreparedStarknetTransaction,
-    account.xpubOrAddress,
+    transaction as IPreparedStarknetDeployAccountTransaction,
+    account,
   );
 
   assert(txn, 'Missing unsigned transaction');
@@ -85,7 +87,7 @@ const signTransactionFromDevice: SignTransactionFromDevice<
     derivationPath: mapDerivationPath(account.derivationPath),
     txn,
     onEvent: event => {
-      const deviceEvent = signStarknetToDeviceEventMap[event];
+      const deviceEvent = signStarknetDeployAccountToDeviceEventMap[event];
       if (deviceEvent !== undefined) {
         events[deviceEvent] = true;
       }
@@ -101,12 +103,12 @@ const signTransactionFromDevice: SignTransactionFromDevice<
   return signature;
 };
 
-export const signTransaction = (
-  params: ISignStarknetTransactionParams,
-): Observable<ISignStarknetTransactionEvent> =>
+export const signDeployAccountTransaction = (
+  params: ISignStarknetDeployAccountTransactionParams,
+): Observable<ISignStarknetDeployAccountTransactionEvent> =>
   makeSignTransactionsObservable<
     StarknetApp,
-    ISignStarknetTransactionEvent,
+    ISignStarknetDeployAccountTransactionEvent,
     string
   >({
     ...params,

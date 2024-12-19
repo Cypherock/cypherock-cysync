@@ -44,6 +44,9 @@ const initialState: IDialogState = {
   sendDialog: {
     isOpen: false,
   },
+  deployAccountDialog: {
+    isOpen: false,
+  },
   signMessage: {
     isOpen: false,
   },

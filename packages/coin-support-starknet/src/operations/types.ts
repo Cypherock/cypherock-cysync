@@ -1,5 +1,7 @@
 export * from './broadcastTransaction/types';
 export * from './createAccounts/types';
+export * from './deployAccount/types';
+export * from './isAccountDeployed/types';
 export * from './prepareTransaction/types';
 export * from './receive/types';
 export * from './signTransaction/types';

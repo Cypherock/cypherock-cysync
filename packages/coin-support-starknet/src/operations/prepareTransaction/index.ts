@@ -80,8 +80,12 @@ export const prepareTransaction = async (
   output.amount = new BigNumber(output.amount).toFixed(0);
   let sendAmount = new BigNumber(output.amount);
 
+  let hasEnoughBalance =
+    sendAmount.isNaN() ||
+    new BigNumber(account.balance).isGreaterThan(sendAmount);
+
   const feeData =
-    sendAmount.isNaN() || output.address === ''
+    sendAmount.isNaN() || output.address === '' || !hasEnoughBalance
       ? txn.computedData.feeData
       : await estimateTransactionFees(
           account,
@@ -99,8 +103,6 @@ export const prepareTransaction = async (
     // update userInput so that the max amount is editable & not reset to 0
     txn.userInputs.outputs[0].amount = output.amount;
   };
-
-  let hasEnoughBalance: boolean;
 
   if (txn.userInputs.isSendAll) {
     calculateMaxSend();
