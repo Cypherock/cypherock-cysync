@@ -3,6 +3,8 @@ import {
   DeviceErrorCodes,
   IErrorMsg,
   ServerErrorType,
+  CoinFamilyWithDefault,
+  ServerCoinErrorTypes,
 } from '../types';
 
 export interface LanguageStrings {
@@ -43,6 +45,15 @@ export interface LanguageStrings {
   snackbar: LangSnackbar;
   settings: LangSettings;
   onramp: LangOnramp;
+  otp: LangOTP;
+  inheritance: LangInheritance;
+  inheritanceSilverPlanPurchase: LangInheritanceSilverPlanPurchase;
+  inheritanceGoldPlanPurchase: LangInheritanceGoldPlanPurchase;
+}
+
+interface LangLabels {
+  email: string;
+  required: string;
 }
 
 interface LangButtons {
