@@ -324,13 +324,15 @@ export const BuySellProvider: FC<BuySellContextProviderProps> = ({
     onError,
   );
 
-  const onFiatAmountChange = useCallback(async (value: string) => {
+  const onFiatAmountChange = async (value: string) => {
+    setFiatAmount(value);
     await estimateAmount({ fiatAmount: value });
-  }, []);
+  };
 
-  const onCryptoAmountChange = useCallback(async (value: string) => {
+  const onCryptoAmountChange = async (value: string) => {
+    setCryptoAmount(value);
     await estimateAmount({ cryptoAmount: value });
-  }, []);
+  };
 
   useEffect(() => {
     if (selectedCryptoCurrency && selectedFiatCurrency) {
