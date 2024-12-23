@@ -15,6 +15,7 @@ import {
   ISignMessageEvent,
   ISignMessageParams,
   IFormatAddressParams,
+  IGetAccountAddressParams,
 } from '@cypherock/coin-support-interfaces';
 import { ITransaction } from '@cypherock/db-interfaces';
 import {
@@ -122,5 +123,9 @@ export class EvmSupport implements CoinSupport {
 
   public formatAddress(params: IFormatAddressParams) {
     return operations.formatAddress(params);
+  }
+
+  public async getAccountAddress(params: IGetAccountAddressParams) {
+    return (await operations.getExternalAddress(params)).address;
   }
 }
