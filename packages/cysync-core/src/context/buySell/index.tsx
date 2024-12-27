@@ -47,7 +47,7 @@ export enum BuySellState {
 export interface BuySellContextInterface {
   init: () => Promise<boolean>;
   reset: () => Promise<void>;
-  onRetry: () => void;
+  onRetry: (isForced?: boolean) => void;
   isInitializing: boolean;
   isInitialized: boolean;
   unhandledError?: any;
@@ -69,6 +69,7 @@ export interface BuySellContextInterface {
   handleFiatCurrencyChange: (id?: string) => void;
   handleCryptoCurrencyChange: (id?: string) => void;
   onNextState: () => void;
+  onPreviousState: () => void;
   fiatAmount: string;
   cryptoAmount: string;
   isAmountDiabled: boolean;
@@ -196,13 +197,16 @@ export const BuySellProvider: FC<BuySellContextProviderProps> = ({
     setUnhandledError(e);
   }, []);
 
-  const onRetry = useCallback(() => {
-    if (state !== BuySellState.ORDER) {
-      setState(BuySellState.CURRENCY_SELECT);
-      resetUserInput();
-    }
-    resetPreorder();
-  }, [state]);
+  const onRetry = useCallback(
+    (isForced?: boolean) => {
+      if (state !== BuySellState.ORDER || isForced) {
+        setState(BuySellState.CURRENCY_SELECT);
+        resetUserInput();
+      }
+      resetPreorder();
+    },
+    [state],
+  );
 
   const initHandler = useCallback(async () => {
     try {
@@ -439,6 +443,15 @@ export const BuySellProvider: FC<BuySellContextProviderProps> = ({
     onError,
   );
 
+  const onPreviousState = useCallback(() => {
+    if (state === BuySellState.ORDER) {
+      getPaymentMethodList();
+      setState(BuySellState.ACCOUNT_SELECT);
+    } else if (state === BuySellState.ACCOUNT_SELECT) {
+      setState(BuySellState.CURRENCY_SELECT);
+    }
+  }, [state, getPaymentMethodList]);
+
   const onNextState = useCallback(() => {
     if (state === BuySellState.CURRENCY_SELECT) {
       if (!selectedFiatCurrency || !selectedCryptoCurrency) {
@@ -529,6 +542,7 @@ export const BuySellProvider: FC<BuySellContextProviderProps> = ({
     handleFiatCurrencyChange,
     handleCryptoCurrencyChange,
     onNextState,
+    onPreviousState,
     fiatAmount,
     cryptoAmount,
     isAmountDiabled,

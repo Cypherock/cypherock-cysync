@@ -1,138 +1,107 @@
-import { IEvmErc20Token } from '@cypherock/coins';
+/* eslint-disable react/no-unknown-property */
 import {
-  DialogBox,
+  ArrowBackGoldenIcon,
+  Button,
+  Flex,
+  svgGradients,
+  Synchronizing,
   Typography,
-  DialogBoxBody,
-  Container,
-  LangDisplay,
-  WalletIcon,
-  MessageBox,
 } from '@cypherock/cysync-ui';
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 
-import { CoinIcon, LoaderDialog } from '~/components';
+import { LoaderDialog } from '~/components';
 import { useBuySell } from '~/context';
-import { selectLanguage, useAppSelector } from '~/store';
 
 export const BuySellOrder = () => {
-  const lang = useAppSelector(selectLanguage);
-  const strings = lang.strings.onramp.buy.redirectOrder;
-  const {
-    fiatAmount,
-    cryptoAmount,
-    isPreordering,
-    preorderDetails,
-    selectedWallet,
-    selectedAccount,
-    selectedCryptoCurrency,
-    selectedFiatCurrency,
-  } = useBuySell();
+  const { isPreordering, preorderDetails, onPreviousState, onRetry } =
+    useBuySell();
+  const webviewRef = useRef<any>();
+
+  const onRefresh = () => {
+    webviewRef.current?.reload();
+  };
+
+  const onBack = () => {
+    if (webviewRef.current?.canGoBack()) {
+      webviewRef.current.goBack();
+    } else {
+      onPreviousState();
+    }
+  };
+
+  const onStartNavigation = (e: any) => {
+    // TODO: fetch targetUrl from server as well?
+    const targetUrl = 'https://www.cypherock.com';
+    if (e?.url?.includes(targetUrl)) {
+      onRetry(true);
+    }
+  };
 
   useEffect(() => {
-    if (preorderDetails?.link) {
-      window.open(preorderDetails.link, '_blank', 'noopener,noreferrer');
+    const webview = document.getElementById('webviewid');
+    if (webview) {
+      webviewRef.current = webview;
+      webview.addEventListener('did-start-navigation', onStartNavigation);
     }
-  }, [preorderDetails?.link]);
+  }, [preorderDetails]);
 
-  if (isPreordering) {
-    return <LoaderDialog />;
-  }
-
-  return (
-    <DialogBox width={500}>
-      <DialogBoxBody px={5} py={4} gap={32}>
-        <Container
-          $bgColor="separatorSecondary"
-          $borderRadius={40}
-          width={60}
-          height={60}
+  if (!isPreordering && preorderDetails?.link)
+    return (
+      <Flex direction="column" $height="full" $width="full">
+        <Flex
+          height={58}
+          width="100%"
+          direction="row"
+          px={3}
+          py={1}
+          gap={32}
+          $bgColor="sideBar"
         >
-          <CoinIcon
-            assetId={selectedCryptoCurrency?.coin.coin.id}
-            parentAssetId={
-              (selectedCryptoCurrency?.coin.coin as IEvmErc20Token).parentId ??
-              selectedCryptoCurrency?.coin.coin.id
-            }
-          />
-        </Container>
-        <Container
-          display="flex"
-          direction="column"
-          gap={4}
-          width="full"
-          mb={2}
-        >
-          <Typography variant="h5" $textAlign="center">
-            <LangDisplay text={strings.title} />
-          </Typography>
-          <Typography variant="h6" $textAlign="center" color="muted">
-            <LangDisplay text={strings.subtitle} />
-          </Typography>
-        </Container>
-        <Container
-          display="flex"
-          direction="column"
-          gap={16}
-          mb={2}
-          width="full"
-        >
-          <Container display="flex" justify="space-between" width="full">
-            <Typography variant="p" $fontSize={14} color="muted">
-              <WalletIcon width={15} height={12} />{' '}
-              {strings.info.accountFieldLabel}
-            </Typography>
-            <Container direction="row" gap={12}>
-              <Typography $fontSize={14} color="muted">
-                {selectedWallet?.name}
-              </Typography>
-              <Typography $fontSize={16} $fontWeight="medium" color="muted">
-                /
-              </Typography>
-              {selectedAccount && (
-                <CoinIcon
-                  parentAssetId={selectedAccount.parentAssetId}
-                  assetId={selectedAccount.assetId}
-                />
-              )}
-              <Typography $fontSize={14}>{selectedAccount?.name}</Typography>
-            </Container>
-          </Container>
-          <Container display="flex" justify="space-between" width="full">
-            <Typography variant="p" $fontSize={14} color="muted">
-              {strings.info.amountFieldLabel}
-            </Typography>
-            <Typography $fontSize={14}>
-              {fiatAmount} {selectedFiatCurrency?.currency.code}
-            </Typography>
-          </Container>
-          <Container display="flex" justify="space-between" width="full">
-            <Typography variant="p" $fontSize={14} color="muted">
-              {strings.info.conversionFieldLabel}
-            </Typography>
-            <Typography $fontSize={14}>
-              {cryptoAmount} {selectedCryptoCurrency?.coin.coin.abbr}
-            </Typography>
-          </Container>
-        </Container>
-        <MessageBox
-          type="info"
-          text={strings.messageBox.info}
-          actionButton={
-            <a
-              href={preorderDetails?.link}
-              target="_blank"
-              rel="noreferrer"
-              style={{
-                textDecoration: 'none',
-              }}
+          <Button variant="none" onClick={onBack}>
+            <Flex
+              direction="row"
+              gap={16}
+              justify="center"
+              align="center"
+              px={2}
+              $height="full"
             >
-              <Typography variant="span" color="gold">
-                {strings.messageBox.action}
-              </Typography>
-            </a>
-          }
+              <ArrowBackGoldenIcon width={12} height={12} />
+              <Typography> Back </Typography>
+            </Flex>
+          </Button>
+          <Button variant="none" onClick={onRefresh}>
+            <Flex
+              direction="row"
+              gap={16}
+              justify="center"
+              align="center"
+              px={2}
+              $height="full"
+            >
+              <Synchronizing
+                width={12}
+                height={12}
+                fill={`url(#${svgGradients.gold})`}
+              />
+              <Typography> Retry </Typography>
+            </Flex>
+          </Button>
+        </Flex>
+        <webview
+          id="webviewid"
+          src={preorderDetails.link}
+          style={{
+            display: 'inline-flex',
+            height: '100%',
+            width: '100%',
+            padding: '20px',
+          }}
+          // @ts-expect-error Popups won't work without this line and it doesn't work when we pass a boolean
+          allowpopups="true"
         />
-      </DialogBoxBody>
-    </DialogBox>
-  );
+      </Flex>
+    );
+
+  return <LoaderDialog />;
 };
