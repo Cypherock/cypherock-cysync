@@ -69,6 +69,7 @@ export interface BuySellContextInterface {
   handleFiatCurrencyChange: (id?: string) => void;
   handleCryptoCurrencyChange: (id?: string) => void;
   onNextState: () => void;
+  onPreviousState: () => void;
   fiatAmount: string;
   cryptoAmount: string;
   isAmountDiabled: boolean;
@@ -439,6 +440,15 @@ export const BuySellProvider: FC<BuySellContextProviderProps> = ({
     onError,
   );
 
+  const onPreviousState = useCallback(() => {
+    if (state === BuySellState.ORDER) {
+      getPaymentMethodList();
+      setState(BuySellState.ACCOUNT_SELECT);
+    } else if (state === BuySellState.ACCOUNT_SELECT) {
+      setState(BuySellState.CURRENCY_SELECT);
+    }
+  }, [state, getPaymentMethodList]);
+
   const onNextState = useCallback(() => {
     if (state === BuySellState.CURRENCY_SELECT) {
       if (!selectedFiatCurrency || !selectedCryptoCurrency) {
@@ -529,6 +539,7 @@ export const BuySellProvider: FC<BuySellContextProviderProps> = ({
     handleFiatCurrencyChange,
     handleCryptoCurrencyChange,
     onNextState,
+    onPreviousState,
     fiatAmount,
     cryptoAmount,
     isAmountDiabled,

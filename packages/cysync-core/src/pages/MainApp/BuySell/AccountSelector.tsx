@@ -38,6 +38,7 @@ export const BuySellAccountSelector = () => {
     isLoadingPaymentMethodList,
     selectedCryptoCurrency,
     onNextState,
+    onPreviousState,
   } = useBuySell();
 
   const handleWalletChangeProxy: typeof handleWalletChange = useCallback(
@@ -188,6 +189,9 @@ export const BuySellAccountSelector = () => {
         </Container>
       </DialogBoxBody>
       <DialogBoxFooter>
+        <Button variant="secondary" onClick={onPreviousState}>
+          <LangDisplay text={lang.strings.buttons.back} />
+        </Button>
         <Button
           variant="primary"
           disabled={
