@@ -6,4 +6,5 @@ import {
 export interface ITradingPairs {
   fiatCurrencies: ISupportedFiatCurrency[];
   cryptoCurrencies: ISupportedCryptoCurrency[];
+  mapping: Record<string, Record<string, boolean>>;
 }

@@ -33,7 +33,7 @@ const getTradingPairs = async () => {
     url,
   );
 
-  return response.data;
+  return { ...response.data, mapping: response.mapping };
 };
 
 const getCryptoNetworks = async () => {

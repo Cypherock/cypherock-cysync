@@ -11,6 +11,7 @@ export const getTradingPairsResultSchema = commonResultSchema.extend({
     fiatCurrencies: z.array(z.string()),
     cryptoCurrencies: z.array(z.string()),
   }),
+  mapping: z.record(z.string(), z.record(z.string(), z.boolean())),
 });
 
 export const getCryptoNetworksResultSchema = commonResultSchema.extend({

@@ -135,5 +135,6 @@ export const getTradingPairs = async (): Promise<ITradingPairs> => {
       ...supportedNativeCryptoCurrencies,
       ...supportedTokenCryptoCurrencies,
     ],
+    mapping: pairs.mapping,
   };
 };

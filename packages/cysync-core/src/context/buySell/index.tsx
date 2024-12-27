@@ -261,6 +261,38 @@ export const BuySellProvider: FC<BuySellContextProviderProps> = ({
       setSelectedFiatCurrency(
         tradingPairs.current.fiatCurrencies.find(f => f.code === currency),
       );
+
+      if (currency) {
+        const cryptoDropdown: DropDownItemProps[] =
+          tradingPairs.current.cryptoCurrencies
+            .filter(
+              c =>
+                tradingPairs.current?.mapping[currency][
+                  c.coin.abbr.toUpperCase()
+                ],
+            )
+            .map(c => {
+              const { parentId } = c.coin as IEvmErc20Token;
+              return {
+                id: c.coin.id,
+                checkType: 'radio',
+                leftImage: (
+                  <CoinIcon
+                    assetId={c.coin.id}
+                    parentAssetId={
+                      (c.coin as IEvmErc20Token).parentId ?? c.coin.id
+                    }
+                  />
+                ),
+                text: c.coin.name,
+                shortForm: `(${c.coin.abbr})`,
+                rightText: parentId
+                  ? parentId[0].toUpperCase() + parentId.slice(1).toLowerCase()
+                  : '',
+              };
+            });
+        setCryptoDropdownList(cryptoDropdown);
+      }
     },
     [selectedCryptoCurrency],
   );

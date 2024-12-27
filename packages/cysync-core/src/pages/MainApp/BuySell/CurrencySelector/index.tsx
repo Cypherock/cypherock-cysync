@@ -107,6 +107,7 @@ export const BuySellCurrencySelector = () => {
               searchText={strings.selectCrypto.searchText}
               placeholderText={strings.selectCrypto.placeholder}
               onChange={handleCryptoChangeProxy}
+              disabled={!selectedFiatCurrency}
             />
           </Container>
           <Container direction="column">
