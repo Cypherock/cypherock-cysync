@@ -97,6 +97,7 @@ export const BuySellOrder = () => {
             width: '100%',
             padding: '20px',
           }}
+          webpreferences="nativeWindowOpen=true"
           // @ts-expect-error Popups won't work without this line and it doesn't work when we pass a boolean
           allowpopups="true"
         />
