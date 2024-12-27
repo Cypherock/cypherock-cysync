@@ -11,6 +11,7 @@ import {
   IGetExplorerLink,
   ISignMessageEvent,
   IFormatAddressParams,
+  IGetAccountAddressParams,
 } from '@cypherock/coin-support-interfaces';
 import { ITransaction } from '@cypherock/db-interfaces';
 import { nearApiJsLibType, setNearApiJs } from '@cypherock/sdk-app-near';
@@ -87,5 +88,9 @@ export class NearSupport implements CoinSupport {
 
   public formatAddress(params: IFormatAddressParams) {
     return params.address;
+  }
+
+  public async getAccountAddress(params: IGetAccountAddressParams) {
+    return (await operations.getExternalAddress(params)).address;
   }
 }

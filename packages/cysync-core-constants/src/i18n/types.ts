@@ -1,9 +1,10 @@
 import {
+  BinanceErrorType,
   DeviceErrorCodes,
   IErrorMsg,
   ServerErrorType,
-  ServerCoinErrorTypes,
   CoinFamilyWithDefault,
+  ServerCoinErrorTypes,
 } from '../types';
 
 export interface LanguageStrings {
@@ -43,6 +44,7 @@ export interface LanguageStrings {
   toggle: LangToggle;
   snackbar: LangSnackbar;
   settings: LangSettings;
+  onramp: LangOnramp;
   otp: LangOTP;
   inheritance: LangInheritance;
   inheritanceSilverPlanPurchase: LangInheritanceSilverPlanPurchase;
@@ -531,6 +533,7 @@ interface LangSidebar {
   tutorial: string;
   settings: string;
   help: string;
+  buysell: string;
   new: string;
   tooltip: { walletDeleted: string };
 }
@@ -633,6 +636,7 @@ export interface LangErrors {
   deviceErrors: Record<DeviceErrorCodes, IErrorMsg>;
   databaseError: IErrorMsg;
   serverErrors: Record<ServerErrorType, IErrorMsg>;
+  binanceErrors: Record<BinanceErrorType, IErrorMsg>;
   serverCoinErrors: Partial<
     Record<CoinFamilyWithDefault, Record<ServerCoinErrorTypes, IErrorMsg>>
   >;
@@ -1156,6 +1160,63 @@ interface LangSettings {
         cySyncVersion: { title: string; description: string };
         termsOfUse: { title: string; description: string };
         privacyPolicy: { title: string; description: string };
+      };
+    };
+  };
+}
+
+interface LangOnramp {
+  title: string;
+  buy: {
+    title: string;
+    selectCurrency: {
+      selectFiat: {
+        label: string;
+        searchText: string;
+        placeholder: string;
+      };
+      selectCrypto: {
+        label: string;
+        searchText: string;
+        placeholder: string;
+      };
+      amount: {
+        label: string;
+        tooltip: string;
+        error: string;
+      };
+    };
+    selectWallet: {
+      title: string;
+      subtitle: string;
+      selectWallet: {
+        placeholder: string;
+        searchText: string;
+      };
+      selectAccount: {
+        placeholder: string;
+        searchText: string;
+      };
+      selectPaymentMethod: {
+        label: string;
+        searchText: string;
+        placeholder: string;
+      };
+      messageBox: {
+        danger: string;
+      };
+    };
+    redirectOrder: {
+      title: string;
+      subtitle: string;
+      info: {
+        accountFieldLabel: string;
+        amountFieldLabel: string;
+        conversionFieldLabel: string;
+      };
+      messageBox: {
+        info: string;
+        action: string;
       };
     };
   };

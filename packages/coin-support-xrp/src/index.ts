@@ -4,6 +4,7 @@ import {
   ICreateAccountEvent,
   ICreateAccountParams,
   IFormatAddressParams,
+  IGetAccountAddressParams,
   IGetAccountHistoryParams,
   IGetAccountHistoryResult,
   IGetCoinAllocationsParams,
@@ -118,5 +119,9 @@ export class XrpSupport implements CoinSupport {
 
   public formatAddress(params: IFormatAddressParams): string {
     return params.address;
+  }
+
+  public async getAccountAddress(params: IGetAccountAddressParams) {
+    return (await operations.getExternalAddress(params)).address;
   }
 }

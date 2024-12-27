@@ -1,6 +1,63 @@
 {
-  "help": "Bantuan",
   "x1Card": "X1 Card",
+  "help": "Bantuan",
+  "back": "Kembali",
+  "allWallets": "Semua Wallets",
+  "buttons": {
+    "addWallet": "Tambahkan Dompet",
+    "addAccount": "Tambahkan Akun",
+    "syncWallets": "Sinkronkan Wallets",
+    "addToken": "Tambahkan Token",
+    "reverify": "Verifikasi Ulang",
+    "continue": "Lanjutkan",
+    "confirm": "Konfirmasi",
+    "skip": "Lewati",
+    "send": "Kirim",
+    "receive": "Terima",
+    "back": "Kembali",
+    "retry": "Coba Ulang",
+    "update": "Update",
+    "cancel": "Batalkan",
+    "reset": "Setel Ulang",
+    "done": "Selesai",
+    "close": "Tutup",
+    "report": "Laporkan",
+    "help": "Help",
+    "stop": "Berhenti",
+    "exit": "Keluar",
+    "resync": "Sinkronisasi Ulang",
+    "showAll": "Tampilkan Semua",
+    "connect": "Hubungkan",
+    "disconnect": "Putus Sambungan",
+    "reject": "Tolak",
+    "check": "Periksa",
+    "authenticate": "Otentikasi",
+    "start": "Mulai",
+    "setPassword": "Setel Kata Sandi",
+    "changePassword": "Ganti Kata Sandi",
+    "removePassword": "Hapus Kata Sandi",
+    "details": "Rincian",
+    "showQRCode": "Tampilkan Kode QR",
+    "editAccount": "Edit Akun",
+    "submit": "Kirim",
+    "showMore": "Tampilkan lebih banyak",
+    "resendOTP": "Mulai Ulang",
+    "next": "Berikutnya",
+    "setup": "Siapkan",
+    "sync": "Sinkronisasi",
+    "learnMore": "Pelajari Lebih Lanjut",
+    "checkout": "Pembayaran",
+    "yes": "Ya",
+    "no": "Tidak",
+    "saveAndContinue": "Simpan dan lanjutkan",
+    "exitWithoutSaving": "Keluar tanpa menyimpan",
+    "saveChanges": "Simpan perubahan",
+    "edit": "Sunting",
+    "tryAgain": "Coba Lagi"
+  },
+  "tooltips": {
+    "downloadCsv": "Ekspor sebagai CSV"
+  },
   "deviceAuthentication": {
     "success": {
       "title": "X1 Vault Anda berhasil diautentikasi"
@@ -26,23 +83,6 @@
     "title": "Tekan jalankan perintah berikut di terminal Anda untuk mengizinkan aplikasi mengakses port usb",
     "subtext": "Mulai ulang aplikasi setelah menjalankan skrip",
     "checkbox": "Saya telah menjalankan perintah"
-  },
-  "back": "Kembali",
-  "addToken": {
-    "header": "Tambahkan Token",
-    "select": {
-      "header": "Pilih dompet, akun & token yang ingin Anda tambahkan",
-      "searchText": "Cari",
-      "walletPlaceholder": "Pilih Dompet",
-      "tokenPlaceholder": "Pilih Token",
-      "accountPlaceholder": "Pilih Akun",
-      "message": "Akun ${chainName} perlu ditambahkan terlebih dahulu untuk melanjutkan penambahan token"
-    },
-    "congrats": {
-      "title": "Token berhasil ditambahkan",
-      "subtitle": "Tambahkan token lain atau kembali ke portofolio",
-      "buttonAddMore": "Tambahkan lebih banyak"
-    }
   },
   "addAccount": {
     "header": "Tambahkan Akun",
@@ -87,6 +127,22 @@
         "device": "X1 Vault",
         "confirmation": "Konfirmasi"
       }
+    }
+  },
+  "addToken": {
+    "header": "Tambahkan Token",
+    "select": {
+      "header": "Pilih dompet, akun & token yang ingin Anda tambahkan",
+      "searchText": "Cari",
+      "walletPlaceholder": "Pilih Dompet",
+      "tokenPlaceholder": "Pilih Token",
+      "accountPlaceholder": "Pilih Akun",
+      "message": "Akun ${chainName} perlu ditambahkan terlebih dahulu untuk melanjutkan penambahan token"
+    },
+    "congrats": {
+      "title": "Token berhasil ditambahkan",
+      "subtitle": "Tambahkan token lain atau kembali ke portofolio",
+      "buttonAddMore": "Tambahkan lebih banyak"
     }
   },
   "receive": {
@@ -138,139 +194,6 @@
       }
     }
   },
-  "history": {
-    "tableTitle": "Transaksi",
-    "tableHeader": {
-      "time": "Waktu",
-      "asset": "Aset",
-      "walletAndAccount": "Dompet / Akun",
-      "wallet": "Dompet",
-      "account": "Akun",
-      "amount": "Jumlah",
-      "value": "Nilai"
-    },
-    "transactionStatus": {
-      "send": {
-        "failed": "Pengiriman Gagal",
-        "pending": "Mengirim",
-        "success": "Terkirim"
-      },
-      "receive": {
-        "failed": "Penerimaan Gagal",
-        "pending": "Menerima",
-        "success": "Diterima"
-      }
-    },
-    "dialogBox": {
-      "value": "Nilai",
-      "view": "Lihat di penjelajah",
-      "fee": "Biaya",
-      "type": "Jenis",
-      "status": "Status",
-      "wallet": "Dompet",
-      "account": "Akun",
-      "asset": "Aset",
-      "sender": "Pengirim",
-      "receiver": "Penerima",
-      "mine": "Tambang",
-      "transactionHash": "Hash Transaksi",
-      "description": "Deskripsi",
-      "feePrefix": {
-        "optimism": "L2 "
-      },
-      "remarks": "Catatan Pribadi",
-      "destinationTag": "Tag Tujuan"
-    },
-    "noData": {
-      "text": "Belum ada transaksi",
-      "subText": "Terima Kripto hari ini untuk melihat riwayat transaksi Anda di sini",
-      "buttonText": "Terima"
-    },
-    "search": {
-      "placeholder": "Cari...",
-      "notFound": {
-        "text": "Tidak ada hasil ditemukan untuk",
-        "subText": "Silakan coba mencari dengan kata kunci lain"
-      }
-    }
-  },
-  "appUpdateBar": {
-    "confirmation": "Pembaruan ke versi CySync ${version} tersedia",
-    "downloading": "Mengunduh CySync versi ${version}",
-    "error": "Kesalahan saat mengunduh pembaruan CySync",
-    "successful": "Pembaruan CySync telah diunduh, akan terpasang otomatis saat Anda menutup aplikasi",
-    "buttons": {
-      "download": "Unduh",
-      "tryAgain": "Coba Lagi",
-      "installUpdate": "Pasang Pembaruan"
-    }
-  },
-  "deviceUpdateBar": {
-    "message": "Versi pembaruan Firmware ${version} tersedia",
-    "button": "Unduh"
-  },
-  "betaNotificationBar": {
-    "message": "CySync v2.0.0 tersedia!",
-    "button": "Pelajari Lebih Lanjut"
-  },
-  "allWallets": "Semua Wallets",
-  "labels": {
-    "email": "Email",
-    "required": "Diperlukan"
-  },
-  "topbar": {
-    "statusTexts": {
-      "connection": {
-        "connected": "Terhubung",
-        "disconnected": "Terputus",
-        "error": "Kesalahan koneksi!"
-      },
-      "sync": {
-        "synchronized": "Tersinkronisasi",
-        "synchronizing": "Mensinkronkan...",
-        "error": "Kesalahan sinkronisasi!",
-        "networkErrorTooltip": "Kesalahan Jaringan"
-      }
-    },
-    "notification": {
-      "title": "Transaksi",
-      "sendTransaction": "${amount} ${unit} ${type} ke ${address}",
-      "sendTransactionMultiple": "${amount} ${unit} ${type} ke beberapa alamat",
-      "receiveTransaction": "${amount} ${unit} ${type} dalam akun ${walletName}/${accountName}",
-      "noTransactions": {
-        "title": "Semua sudah selesai",
-        "subTitle": "Tidak ada transaksi baru untuk ditampilkan"
-      }
-    }
-  },
-  "graph": {
-    "totalBalance": "Saldo Total",
-    "walletDropdown": {
-      "search": "Cari"
-    },
-    "timeRange": {
-      "day": "1D",
-      "week": "1W",
-      "month": "1M",
-      "year": "1Y"
-    }
-  },
-  "sidebar": {
-    "portfolio": "Portfolio",
-    "wallets": "Wallets",
-    "sendCrypto": "Kirim Kripto",
-    "receiveCrypto": "Terima Kripto",
-    "history": "Riwayat",
-    "walletConnect": "Wallet Connect",
-    "cypherockCover": "Cypherock Cover",
-    "tutorial": "Tutorial",
-    "settings": "Pengaturan",
-    "help": "Help",
-    "new": "Baru",
-    "tooltip": {
-      "walletDeleted": "${walletName} telah dihapus dari X1 Vault Anda"
-    }
-  },
   "send": {
     "title": "Kirim",
     "fees": {
@@ -284,9 +207,53 @@
           "id": 2,
           "label": "Lanjutan",
           "type": "input"
+        },
+        {
+          "id": 1,
+          "label": "Standar",
+          "type": "slider"
+        },
+        {
+          "id": 2,
+          "label": "Lanjutan",
+          "type": "input"
+        },
+        {
+          "id": 1,
+          "label": "Standar",
+          "type": "slider"
+        },
+        {
+          "id": 2,
+          "label": "Lanjutan",
+          "type": "input"
         }
       ],
       "sliderLabels": [
+        {
+          "id": 1,
+          "name": "Min"
+        },
+        {
+          "id": 2,
+          "name": "Rata-rata"
+        },
+        {
+          "id": 3,
+          "name": "Maks"
+        },
+        {
+          "id": 1,
+          "name": "Min"
+        },
+        {
+          "id": 2,
+          "name": "Rata-rata"
+        },
+        {
+          "id": 3,
+          "name": "Maks"
+        },
         {
           "id": 1,
           "name": "Min"
@@ -361,21 +328,21 @@
         "placeholder": "Masukkan catatan pribadi Anda di sini",
         "error": "Batas karakter maksimum terlampaui (120 karakter)"
       },
-      "destinationTag": {
-        "label": "Tag Tujuan",
-        "placeholder": "Opsional",
-        "error": "Nilai terlalu tinggi"
-      },
       "warning": "Transaksi bisa dibatalkan jika biaya terlalu rendah",
       "feeError": "Transaksi dengan biaya 0 tidak diizinkan",
-      "feeBelowMinError": "Transaksi dengan biaya lebih rendah dari minimum akan gagal",
       "notEnoughBalance": "Dana tidak mencukupi untuk transaksi",
       "toggleText": {
         "replace": "Izinkan transaksi untuk diganti (Ganti dengan biaya)",
         "unconfirmed": "Sertakan koin dari transaksi yang belum dikonfirmasi dan dapat diganti"
       },
       "infoBox": "Jumlah maksimum yang dapat digunakan adalah ",
-      "addButton": "Tambahkan penerima lain"
+      "addButton": "Tambahkan penerima lain",
+      "destinationTag": {
+        "label": "Tag Tujuan",
+        "placeholder": "Opsional",
+        "error": "Nilai terlalu tinggi"
+      },
+      "feeBelowMinError": "Transaksi dengan biaya lebih rendah dari minimum akan gagal"
     },
     "summary": {
       "title": "Ringkasan",
@@ -411,265 +378,61 @@
       "suffix": " (L1 + L2)"
     }
   },
-  "walletSync": {
-    "deletedOne": {
-      "title": "Sepertinya Anda telah menghapus dompet ${walletName} dari X1 Vault. Apakah Anda ingin menghapusnya di cySync juga?"
-    },
-    "deletedMany": {
-      "title": "Sepertinya Anda telah menghapus dompet dari X1 Vault. Apakah Anda ingin menghapusnya dari cySync juga?",
-      "subTitle": "Anda dapat memilih yang ingin disimpan dan yang ingin dihapus"
-    },
-    "freshOneCreated": {
-      "title": "Sepertinya Anda telah menghapus dompet dari X1 Vault sambil membuat yang baru dengan nama yang sama. Apakah Anda ingin menghapus dompet lama di cySync?",
-      "subTitle": "Anda dapat memilih yang ingin disimpan dan yang ingin dihapus",
-      "checkboxText": "Jangan tampilkan ini lagi"
-    },
-    "buttons": {
-      "keepIt": "Simpan",
-      "keepAll": "Simpan Semua",
-      "delete": "Hapus"
-    }
-  },
-  "signMessage": {
-    "title": "Tandatangani Pesan",
-    "subTitle": "Terhubung ke akun berikut",
-    "actions": {
-      "confirmDevice": "Konfirmasi di perangkat",
-      "verifyData": "Verifikasi data",
-      "enterPassphrase": "Masukkan kata sandi",
-      "enterPin": "Masukkan PIN dan ketuk kartu mana saja",
-      "tapCard": "Ketuk kartu mana saja"
-    }
-  },
-  "deleteAccount": {
-    "title": "Apakah Anda yakin ingin menghapus",
-    "subTitle": "Anda dapat menambahkan kembali akun dari halaman dompet ${walletName}. Perhatikan bahwa ini tidak akan mengakibatkan kehilangan aset",
-    "tokenSubtitle": "Anda dapat menambahkan kembali token dari halaman dompet ${walletName}. Perhatikan bahwa ini tidak akan mengakibatkan kehilangan aset",
-    "buttons": {
-      "yes": "Ya",
-      "no": "Tidak"
-    }
-  },
-  "portfolio": {
-    "title": "Portofolio",
-    "tokenTable": {
-      "title": "Token",
-      "tableHeader": {
-        "token": "Token",
-        "amount": "Jumlah",
-        "value": "Nilai"
-      }
-    },
-    "assetAllocation": {
-      "title": "Alokasi Aset",
-      "accountTitle": "Akun",
-      "tableHeader": {
-        "asset": "Aset",
-        "account": "Akun",
-        "wallet": "Dompet",
-        "price": "Harga",
-        "balance": "Saldo",
-        "value": "Nilai",
-        "allocation": "Alokasi"
-      }
-    },
-    "walletMissing": {
-      "text": "Dompet Hilang",
-      "subText": "Buat dompet baru atau impor dari frasa benih untuk memulai",
-      "subText2": "Jika Anda sudah membuat dompet di perangkat, cukup sinkronkan dengan cySync"
-    },
-    "accountMissing": {
-      "text": "Akun Hilang",
-      "subText": "Buat atau impor akun untuk memulai"
-    }
-  },
-  "dashboard": {
-    "wallet": {
-      "renewNow": "Perbarui Sekarang",
-      "buyNow": "Beli Sekarang",
-      "created": "Dibuat",
-      "expiredOn": "Kedaluwarsa pada",
-      "expiresIn": "Kedaluwarsa dalam",
-      "expiry": "Kedaluwarsa",
-      "expiring": "Mendekati Kedaluwarsa",
-      "expired": "Kedaluwarsa",
-      "pending": "Tertunda",
-      "silver": "Perak",
-      "gold": "Emas",
-      "hours": "Jam",
-      "setupCover": "Atur Cypherock Cover"
-    }
-  },
-  "walletConnect": {
-    "uriTab": {
-      "title": "WalletConnect",
-      "subTitle": "Masukkan URI WalletConnect untuk terhubung dengan DApp",
-      "inputLabel": "Masukkan URI koneksi",
-      "placeholder": "Tempel URI"
-    },
-    "accountSelectionTab": {
-      "title": "Terhubung ke antarmuka ${dappName}",
-      "chooseWallet": "Pilih Wallet",
-      "chooseAccount": "Pilih Akun ${assetName}",
-      "supportInfo": "Blockchain ini didukung tetapi tambahkan akun mereka sebelum digunakan",
-      "notSupportedWarning": {
-        "title": "Blockchain ini tidak didukung"
-      }
-    },
-    "accountConnectedTab": {
-      "title": "Terhubung ke antarmuka ${dappName}",
-      "subTitle": "Akun",
-      "info": "Anda sekarang dapat mengakses DApp ${dappName} di peramban web Anda"
-    },
-    "common": {
-      "info": {
-        "title": "Aplikasi ini akan dapat:",
-        "points": [
-          "Memeriksa saldo dan aktivitas akun Anda",
-          "Meminta persetujuan untuk transaksi"
-        ]
-      },
-      "error": {
-        "default": {
-          "title": "Terjadi kesalahan saat menghubungkan",
-          "subtitle": "Coba ulangi koneksi dari dApp"
-        },
-        "unsupportedChains": {
-          "title": "${dappName} meminta untuk terhubung ke rantai yang belum kami dukung",
-          "subtitle": "Kami saat ini mendukung ${chains}",
-          "message": "Rantai yang Tidak Didukung: ${chains}"
-        }
-      },
-      "reject": {
-        "call": "Pengguna menolak"
-      }
-    }
-  },
-  "wallet": {
-    "title": "Wallets",
-    "tableTitle": "Akun",
-    "buttons": {
-      "less": "Tampilkan Sedikit",
-      "more": "Tampilkan Lebih Banyak",
-      "hide": "Sembunyikan Token",
-      "show": "Tampilkan Token"
-    },
+  "history": {
+    "tableTitle": "Transaksi",
     "tableHeader": {
+      "time": "Waktu",
+      "asset": "Aset",
+      "walletAndAccount": "Dompet / Akun",
+      "wallet": "Dompet",
       "account": "Akun",
-      "syncStatus": "Status Sinkronisasi",
-      "balance": "Saldo",
+      "amount": "Jumlah",
       "value": "Nilai"
     },
-    "accountMissing": {
-      "text": "Belum ada Akun",
-      "subText": "Tidak ada koin/akun yang ditemukan dalam dompet"
+    "transactionStatus": {
+      "send": {
+        "failed": "Pengiriman Gagal",
+        "pending": "Mengirim",
+        "success": "Terkirim"
+      },
+      "receive": {
+        "failed": "Penerimaan Gagal",
+        "pending": "Menerima",
+        "success": "Diterima"
+      }
+    },
+    "dialogBox": {
+      "value": "Nilai",
+      "view": "Lihat di penjelajah",
+      "fee": "Biaya",
+      "type": "Jenis",
+      "status": "Status",
+      "wallet": "Dompet",
+      "account": "Akun",
+      "asset": "Aset",
+      "sender": "Pengirim",
+      "receiver": "Penerima",
+      "mine": "Tambang",
+      "transactionHash": "Hash Transaksi",
+      "description": "Deskripsi",
+      "feePrefix": {
+        "optimism": "L2 "
+      },
+      "remarks": "Catatan Pribadi",
+      "destinationTag": "Tag Tujuan"
+    },
+    "noData": {
+      "text": "Belum ada transaksi",
+      "subText": "Terima Kripto hari ini untuk melihat riwayat transaksi Anda di sini",
+      "buttonText": "Terima"
     },
     "search": {
-      "placeholder": "Cari",
-      "text": "Tidak ada hasil ditemukan untuk",
-      "subText": "Silakan coba cari dengan kata kunci lain"
+      "placeholder": "Cari...",
+      "notFound": {
+        "text": "Tidak ada hasil ditemukan untuk",
+        "subText": "Silakan coba mencari dengan kata kunci lain"
+      }
     }
-  },
-  "toggle": {
-    "on": "NYALA",
-    "off": "MATI"
-  },
-  "snackbar": {
-    "copiedToClipboard": "Disalin ke clipboard",
-    "accountUpdated": "Akun Berhasil Diperbarui",
-    "downloadCSV": "Riwayat transaksi diekspor"
-  },
-  "tooltips": {
-    "downloadCsv": "Ekspor sebagai CSV"
-  },
-  "validation": {
-    "generic": {
-      "required": "Field ini diperlukan",
-      "englishOnly": "Hanya karakter ASCII dan teks bahasa Inggris yang diperbolehkan"
-    },
-    "email": {
-      "invalid": "Ini bukan email yang valid"
-    },
-    "password": {
-      "mismatch": "Kata sandi tidak cocok",
-      "passwordFieldPrefix": "Kata Sandi ",
-      "confirmPasswordFieldPrefix": "Konfirmasi Kata Sandi ",
-      "minLength": "harus setidaknya 8 karakter",
-      "containNumber": "harus mengandung setidaknya 1 angka",
-      "containSymbol": "harus mengandung setidaknya 1 simbol",
-      "required": "diperlukan",
-      "containUppercase": "harus mengandung setidaknya 1 huruf besar",
-      "containLowercase": "harus mengandung setidaknya 1 huruf kecil"
-    }
-  },
-  "otp": {
-    "title": "Masukkan OTP",
-    "wrongOtpTitle": "OTP Salah",
-    "successRedirectTitle": "Harap tunggu saat kami mengarahkan Anda...",
-    "triesRemaining": "${retries} percobaan tersisa",
-    "infoTexts": [
-      "Email telah dikirim ke **${email}**",
-      "Silakan masukkan kode yang diterima di email"
-    ],
-    "noRetries": {
-      "title": "Anda memiliki 0 percobaan tersisa",
-      "subTitle": "Harap keluar dan mulai ulang"
-    },
-    "buttons": {
-      "resendWithTimeout": "Berlaku selama ${timeout}s"
-    }
-  },
-  "buttons": {
-    "addWallet": "Tambahkan Dompet",
-    "addAccount": "Tambahkan Akun",
-    "syncWallets": "Sinkronkan Wallets",
-    "addToken": "Tambahkan Token",
-    "reverify": "Verifikasi Ulang",
-    "continue": "Lanjutkan",
-    "confirm": "Konfirmasi",
-    "skip": "Lewati",
-    "send": "Kirim",
-    "receive": "Terima",
-    "back": "Kembali",
-    "retry": "Coba Ulang",
-    "update": "Update",
-    "cancel": "Batalkan",
-    "reset": "Setel Ulang",
-    "done": "Selesai",
-    "close": "Tutup",
-    "report": "Laporkan",
-    "help": "Help",
-    "stop": "Berhenti",
-    "exit": "Keluar",
-    "resync": "Sinkronisasi Ulang",
-    "showAll": "Tampilkan Semua",
-    "connect": "Hubungkan",
-    "disconnect": "Putus Sambungan",
-    "reject": "Tolak",
-    "check": "Periksa",
-    "authenticate": "Otentikasi",
-    "start": "Mulai",
-    "setPassword": "Setel Kata Sandi",
-    "changePassword": "Ganti Kata Sandi",
-    "removePassword": "Hapus Kata Sandi",
-    "details": "Rincian",
-    "showQRCode": "Tampilkan Kode QR",
-    "editAccount": "Edit Akun",
-    "submit": "Kirim",
-    "showMore": "Tampilkan lebih banyak",
-    "resendOTP": "Mulai Ulang",
-    "next": "Berikutnya",
-    "setup": "Siapkan",
-    "sync": "Sinkronisasi",
-    "learnMore": "Pelajari Lebih Lanjut",
-    "checkout": "Pembayaran",
-    "yes": "Ya",
-    "no": "Tidak",
-    "saveAndContinue": "Simpan dan lanjutkan",
-    "exitWithoutSaving": "Keluar tanpa menyimpan",
-    "saveChanges": "Simpan perubahan",
-    "edit": "Sunting",
-    "tryAgain": "Coba Lagi"
   },
   "onboarding": {
     "info": {
@@ -680,9 +443,13 @@
       "dialogBox": {
         "title": "Pastikan hal berikut sebelum Anda melanjutkan",
         "listItems": [
-          "Anda berada dalam lingkungan yang aman dan terlindungi",
+          "Anda berada di lingkungan yang aman dan terjamin",
           "Anda memiliki waktu setidaknya 10-15 menit untuk menyiapkan dompet Anda",
           "Anda memiliki koneksi internet yang aktif",
+          "Segel tahan rusak pada paket tidak rusak",
+          "Cypherock tidak akan pernah meminta Anda untuk frasa seed Anda maupun meminta Anda untuk menandatangani transaksi",
+          "Cypherock hanya akan mengirim email dari cypherock.com. Jangan percaya email dari domain situs web lainnya",
+          "Anda berada dalam lingkungan yang aman dan terlindungi",
           "Segel anti-rusak pada paket masih utuh",
           "Cypherock tidak akan pernah meminta frasa kunci Anda atau meminta Anda untuk menandatangani transaksi",
           "Cypherock hanya akan mengirim email dari cypherock.com. Jangan percaya email dari domain situs web lain"
@@ -779,6 +546,9 @@
       "importWallet": {
         "title": "Impor dompet Anda dari frasa seed",
         "list": [
+          "Anda ingin menggunakan Cypherock X1 sebagai cadangan dari dompet Anda yang lain",
+          "Anda ingin mentransfer aset Anda dari dompet lain ke Cypherock X1",
+          "Anda ingin mengelola dan melacak portofolio dari dompet lain melalui Cypherock X1",
           "Anda ingin menggunakan Cypherock X1 sebagai cadangan dari dompet lain Anda",
           "Anda ingin mentransfer aset Anda dari dompet lain Anda ke Cypherock X1",
           "Anda ingin mengelola dan melacak portofolio dompet lain Anda melalui Cypherock X1"
@@ -859,6 +629,222 @@
           "subtext": "Hubungkan kembali perangkat Anda untuk melanjutkan"
         }
       }
+    }
+  },
+  "appUpdateBar": {
+    "confirmation": "Pembaruan ke versi CySync ${version} tersedia",
+    "downloading": "Mengunduh CySync versi ${version}",
+    "error": "Kesalahan saat mengunduh pembaruan CySync",
+    "successful": "Pembaruan CySync telah diunduh, akan terpasang otomatis saat Anda menutup aplikasi",
+    "buttons": {
+      "download": "Unduh",
+      "tryAgain": "Coba Lagi",
+      "installUpdate": "Pasang Pembaruan"
+    }
+  },
+  "deviceUpdateBar": {
+    "message": "Versi pembaruan Firmware ${version} tersedia",
+    "button": "Unduh"
+  },
+  "betaNotificationBar": {
+    "message": "CySync v2.0.0 tersedia!",
+    "button": "Pelajari Lebih Lanjut"
+  },
+  "topbar": {
+    "statusTexts": {
+      "connection": {
+        "connected": "Terhubung",
+        "disconnected": "Terputus",
+        "error": "Kesalahan koneksi!"
+      },
+      "sync": {
+        "synchronized": "Tersinkronisasi",
+        "synchronizing": "Mensinkronkan...",
+        "error": "Kesalahan sinkronisasi!",
+        "networkErrorTooltip": "Kesalahan Jaringan"
+      }
+    },
+    "notification": {
+      "title": "Transaksi",
+      "sendTransaction": "${amount} ${unit} ${type} ke ${address}",
+      "sendTransactionMultiple": "${amount} ${unit} ${type} ke beberapa alamat",
+      "receiveTransaction": "${amount} ${unit} ${type} dalam akun ${walletName}/${accountName}",
+      "noTransactions": {
+        "title": "Semua sudah selesai",
+        "subTitle": "Tidak ada transaksi baru untuk ditampilkan"
+      }
+    }
+  },
+  "sidebar": {
+    "portfolio": "Portfolio",
+    "wallets": "Wallets",
+    "sendCrypto": "Kirim Kripto",
+    "receiveCrypto": "Terima Kripto",
+    "history": "Riwayat",
+    "walletConnect": "Wallet Connect",
+    "tutorial": "Tutorial",
+    "settings": "Pengaturan",
+    "help": "Help",
+    "buysell": "Buy",
+    "tooltip": {
+      "walletDeleted": "${walletName} telah dihapus dari X1 Vault Anda"
+    },
+    "cypherockCover": "Cypherock Cover",
+    "new": "Baru"
+  },
+  "walletSync": {
+    "deletedOne": {
+      "title": "Sepertinya Anda telah menghapus dompet ${walletName} dari X1 Vault. Apakah Anda ingin menghapusnya di cySync juga?"
+    },
+    "deletedMany": {
+      "title": "Sepertinya Anda telah menghapus dompet dari X1 Vault. Apakah Anda ingin menghapusnya dari cySync juga?",
+      "subTitle": "Anda dapat memilih yang ingin disimpan dan yang ingin dihapus"
+    },
+    "freshOneCreated": {
+      "title": "Sepertinya Anda telah menghapus dompet dari X1 Vault sambil membuat yang baru dengan nama yang sama. Apakah Anda ingin menghapus dompet lama di cySync?",
+      "subTitle": "Anda dapat memilih yang ingin disimpan dan yang ingin dihapus",
+      "checkboxText": "Jangan tampilkan ini lagi"
+    },
+    "buttons": {
+      "keepIt": "Simpan",
+      "keepAll": "Simpan Semua",
+      "delete": "Hapus"
+    }
+  },
+  "graph": {
+    "totalBalance": "Saldo Total",
+    "walletDropdown": {
+      "search": "Cari"
+    },
+    "timeRange": {
+      "day": "1D",
+      "week": "1W",
+      "month": "1M",
+      "year": "1Y"
+    }
+  },
+  "walletConnect": {
+    "uriTab": {
+      "title": "WalletConnect",
+      "subTitle": "Masukkan URI WalletConnect untuk terhubung dengan DApp",
+      "inputLabel": "Masukkan URI koneksi",
+      "placeholder": "Tempel URI"
+    },
+    "accountSelectionTab": {
+      "title": "Terhubung ke antarmuka ${dappName}",
+      "chooseWallet": "Pilih Wallet",
+      "chooseAccount": "Pilih Akun ${assetName}",
+      "supportInfo": "Blockchain ini didukung tetapi tambahkan akun mereka sebelum digunakan",
+      "notSupportedWarning": {
+        "title": "Blockchain ini tidak didukung"
+      }
+    },
+    "accountConnectedTab": {
+      "title": "Terhubung ke antarmuka ${dappName}",
+      "subTitle": "Akun",
+      "info": "Anda sekarang dapat mengakses DApp ${dappName} di peramban web Anda"
+    },
+    "common": {
+      "info": {
+        "title": "Aplikasi ini akan dapat:",
+        "points": [
+          "Cek saldo dan aktivitas akun Anda",
+          "Meminta persetujuan untuk transaksi",
+          "Memeriksa saldo dan aktivitas akun Anda"
+        ]
+      },
+      "error": {
+        "default": {
+          "title": "Terjadi kesalahan saat menghubungkan",
+          "subtitle": "Coba ulangi koneksi dari dApp"
+        },
+        "unsupportedChains": {
+          "title": "${dappName} meminta untuk terhubung ke rantai yang belum kami dukung",
+          "subtitle": "Kami saat ini mendukung ${chains}",
+          "message": "Rantai yang Tidak Didukung: ${chains}"
+        }
+      },
+      "reject": {
+        "call": "Pengguna menolak"
+      }
+    }
+  },
+  "signMessage": {
+    "title": "Tandatangani Pesan",
+    "subTitle": "Terhubung ke akun berikut",
+    "actions": {
+      "confirmDevice": "Konfirmasi di perangkat",
+      "verifyData": "Verifikasi data",
+      "enterPassphrase": "Masukkan kata sandi",
+      "enterPin": "Masukkan PIN dan ketuk kartu mana saja",
+      "tapCard": "Ketuk kartu mana saja"
+    }
+  },
+  "portfolio": {
+    "title": "Portofolio",
+    "tokenTable": {
+      "title": "Token",
+      "tableHeader": {
+        "token": "Token",
+        "amount": "Jumlah",
+        "value": "Nilai"
+      }
+    },
+    "assetAllocation": {
+      "title": "Alokasi Aset",
+      "accountTitle": "Akun",
+      "tableHeader": {
+        "asset": "Aset",
+        "account": "Akun",
+        "wallet": "Dompet",
+        "price": "Harga",
+        "balance": "Saldo",
+        "value": "Nilai",
+        "allocation": "Alokasi"
+      }
+    },
+    "walletMissing": {
+      "text": "Dompet Hilang",
+      "subText": "Buat dompet baru atau impor dari frasa benih untuk memulai",
+      "subText2": "Jika Anda sudah membuat dompet di perangkat, cukup sinkronkan dengan cySync"
+    },
+    "accountMissing": {
+      "text": "Akun Hilang",
+      "subText": "Buat atau impor akun untuk memulai"
+    }
+  },
+  "wallet": {
+    "title": "Wallets",
+    "tableTitle": "Akun",
+    "buttons": {
+      "less": "Tampilkan Sedikit",
+      "more": "Tampilkan Lebih Banyak",
+      "hide": "Sembunyikan Token",
+      "show": "Tampilkan Token"
+    },
+    "tableHeader": {
+      "account": "Akun",
+      "syncStatus": "Status Sinkronisasi",
+      "balance": "Saldo",
+      "value": "Nilai"
+    },
+    "accountMissing": {
+      "text": "Belum ada Akun",
+      "subText": "Tidak ada koin/akun yang ditemukan dalam dompet"
+    },
+    "search": {
+      "placeholder": "Cari",
+      "text": "Tidak ada hasil ditemukan untuk",
+      "subText": "Silakan coba cari dengan kata kunci lain"
+    }
+  },
+  "deleteAccount": {
+    "title": "Apakah Anda yakin ingin menghapus",
+    "subTitle": "Anda dapat menambahkan kembali akun dari halaman dompet ${walletName}. Perhatikan bahwa ini tidak akan mengakibatkan kehilangan aset",
+    "tokenSubtitle": "Anda dapat menambahkan kembali token dari halaman dompet ${walletName}. Perhatikan bahwa ini tidak akan mengakibatkan kehilangan aset",
+    "buttons": {
+      "yes": "Ya",
+      "no": "Tidak"
     }
   },
   "errors": {
@@ -999,9 +985,6 @@
         "heading": "X1 Vault Anda mengalami waktu habis",
         "subtext": "Arahkan ke menu utama di perangkat dan coba lagi"
       },
-      "APP_0207": {
-        "heading": "Tidak dapat membuat sesi di perangkat"
-      },
       "APP_0400": {
         "heading": "Kesalahan X1 Card tidak dikenal",
         "subtext": "Coba ulangi atau klik Bantuan untuk menemukan solusi"
@@ -1104,6 +1087,9 @@
       "MGA_GL_0000": {
         "heading": "Log dinonaktifkan pada X1 Vault",
         "subtext": "Aktifkan log di pengaturan X1 Vault dan coba lagi"
+      },
+      "APP_0207": {
+        "heading": "Tidak dapat membuat sesi di perangkat"
       }
     },
     "databaseError": {
@@ -1227,7 +1213,45 @@
         "subtext": "Akun dengan alamat email ini sudah terdaftar. Silakan gunakan alamat email yang berbeda atau hubungi dukungan Cypherock untuk bantuan."
       }
     },
-    "videoPlaybackError": "Tidak ada koneksi internet. Harap periksa koneksi Anda dan ",
+    "binanceErrors": {
+      "BIN_0000": {
+        "heading": "Kesalahan Sistem",
+        "subtext": "Coba lagi dan jika masalah berlanjut, hubungi dukungan Cypherock untuk bantuan"
+      },
+      "BIN_0001": {
+        "heading": "Sistem Sibuk",
+        "subtext": "Coba lagi dan jika masalah berlanjut, hubungi dukungan Cypherock untuk bantuan"
+      },
+      "BIN_0002": {
+        "heading": "Parameter Tidak Valid",
+        "subtext": "Coba lagi dan jika masalah berlanjut, hubungi dukungan Cypherock untuk bantuan"
+      },
+      "BIN_0003": {
+        "heading": "ID Klien Hilang",
+        "subtext": "Hubungi dukungan Cypherock untuk bantuan"
+      },
+      "BIN_0004": {
+        "heading": "Parameter Dinonaktifkan",
+        "subtext": "Hubungi dukungan Cypherock untuk bantuan"
+      },
+      "BIN_0005": {
+        "heading": "Pesanan Tidak Ditemukan",
+        "subtext": "Coba lagi dan jika masalah berlanjut, hubungi dukungan Cypherock untuk bantuan"
+      },
+      "BIN_0006": {
+        "heading": "Tipe Pesanan Tidak Didukung",
+        "subtext": "Hubungi dukungan Cypherock untuk bantuan"
+      },
+      "BIN_0007": {
+        "heading": "Parameter Tidak Ditemukan",
+        "subtext": "Hubungi dukungan Cypherock untuk bantuan"
+      },
+      "BIN_0008": {
+        "heading": "Metode Pembayaran Tidak Didukung",
+        "subtext": "Hubungi dukungan Cypherock untuk bantuan"
+      }
+    },
+    "default": "Terjadi kesalahan internal",
     "serverCoinErrors": {
       "default": {
         "DEF_0000": {
@@ -1236,12 +1260,258 @@
         }
       }
     },
-    "default": "Terjadi kesalahan internal"
+    "videoPlaybackError": "Tidak ada koneksi internet. Harap periksa koneksi Anda dan "
+  },
+  "validation": {
+    "generic": {
+      "required": "Field ini diperlukan",
+      "englishOnly": "Hanya karakter ASCII dan teks bahasa Inggris yang diperbolehkan"
+    },
+    "email": {
+      "invalid": "Ini bukan email yang valid"
+    },
+    "password": {
+      "mismatch": "Kata sandi tidak cocok",
+      "passwordFieldPrefix": "Kata Sandi ",
+      "confirmPasswordFieldPrefix": "Konfirmasi Kata Sandi ",
+      "minLength": "harus setidaknya 8 karakter",
+      "containNumber": "harus mengandung setidaknya 1 angka",
+      "containSymbol": "harus mengandung setidaknya 1 simbol",
+      "required": "diperlukan",
+      "containUppercase": "harus mengandung setidaknya 1 huruf besar",
+      "containLowercase": "harus mengandung setidaknya 1 huruf kecil"
+    }
   },
   "guidedFlows": {
     "createWallet": {
       "title": "Buat Dompet Baru",
       "tabs": [
+        {
+          "asideTitle": "X1 Vault",
+          "pages": [
+            {
+              "title": "Dari Menu Utama X1 Vault Anda, klik \"Create Wallet\""
+            },
+            {
+              "title": "Klik \"Generate New Wallet\" pada X1 Vault Anda"
+            },
+            {
+              "title": "Masukkan nama dompet di X1 Vault Anda",
+              "bulletList": [
+                "Hingga 15 karakter diperbolehkan",
+                "Dapat berupa alfanumerik"
+              ],
+              "messageBoxList": [
+                {
+                  "info": "Pastikan nama dompet unik dibandingkan nama dompet lain di perangkat"
+                },
+                {
+                  "warning": "Nama dompet setelah diset tidak bisa diubah. Harap atur nama sesuai"
+                }
+              ]
+            },
+            {
+              "title": "Konfirmasi nama dompet pada X1 Vault"
+            },
+            {
+              "title": "Apakah Anda ingin mengatur PIN untuk dompet Anda?",
+              "messageBoxList": [
+                {
+                  "warning": "PIN setelah diset tidak bisa diubah. Anda harus menghapus dompet dan membuatnya lagi untuk mengubah PIN"
+                }
+              ]
+            },
+            {
+              "title": "Atur PIN di X1 Vault",
+              "bulletList": [
+                "Gunakan antara 4 dan 8 karakter",
+                "PIN bisa berupa alfanumerik"
+              ],
+              "messageBoxList": [
+                {
+                  "warning": "Pastikan Anda membuat cadangan PIN Anda. Jika hilang, Anda akan kehilangan akses ke dana Anda"
+                },
+                {
+                  "warning-white": "Lewati langkah ini jika Anda tidak menetapkan PIN"
+                }
+              ]
+            },
+            {
+              "title": "Konfirmasi PIN yang dimasukkan di X1 Vault",
+              "messageBoxList": [
+                {
+                  "warning": "Ingat PIN Anda, jika hilang, Anda akan kehilangan akses ke dana Anda. Bahkan Cypherock tidak akan bisa membantu Anda memulihkan aset Anda"
+                },
+                {
+                  "warning": "Cadangkan di tempat yang aman"
+                },
+                {
+                  "warning-white": "Lewati langkah ini jika Anda tidak menetapkan PIN"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "asideTitle": "Sinkronkan X1 Cards",
+          "pages": [
+            {
+              "title": "Ketuk X1 Cards satu per satu di bawah X1 Vault",
+              "subtitle": "Jangan angkat sampai Anda mendengar suara bip",
+              "messageBoxList": [
+                {
+                  "info": "Pastikan X1 Cards Anda berasal dari keluarga yang sama"
+                },
+                {
+                  "info": "Pastikan Anda mengetuk X1 Cards dalam urutan yang benar"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "asideTitle": "Konfirmasi",
+          "pages": [
+            {
+              "title": "Selamat, dompet Anda berhasil dibuat"
+            },
+            {
+              "title": "Lain kali bila Anda perlu melakukan transaksi, Anda hanya perlu mengambil satu X1 Card beserta X1 Vault"
+            },
+            {
+              "title": "Jika Anda kehilangan X1 Vault, Anda dapat membeli X1 Vault baru secara terpisah dan menggunakannya dengan X1 Cards lama Anda"
+            },
+            {
+              "title": "Catatan Penting",
+              "messageBoxList": [
+                {
+                  "warning": "Jika Anda perlu menambahkan dompet lain, Anda harus mengambil keempat kartu sekaligus. Jika Anda ingin mengimpor dompet lain Anda ke Cypherock X1, sekarang adalah saat yang terbaik untuk menghindari repot di masa mendatang"
+                }
+              ]
+            },
+            {
+              "title": "Sebagai langkah selanjutnya, simpan X1 Cards Anda dengan aman di dalam lengan kartu dan distribusikan mereka di berbagai tempat. Beberapa contoh tempat bisa jadi:",
+              "bulletList": [
+                "Rumah anggota keluarga atau teman Anda",
+                "Tempat persembunyian rahasia",
+                "Loker bank"
+              ]
+            }
+          ]
+        },
+        {
+          "asideTitle": "X1 Vault",
+          "pages": [
+            {
+              "title": "Dari Menu Utama X1 Vault Anda, klik \"Create Wallet\""
+            },
+            {
+              "title": "Klik \"Generate New Wallet\" pada X1 Vault Anda"
+            },
+            {
+              "title": "Masukkan nama dompet di X1 Vault Anda",
+              "bulletList": [
+                "Hingga 15 karakter diperbolehkan",
+                "Dapat berupa alfanumerik"
+              ],
+              "messageBoxList": [
+                {
+                  "info": "Pastikan nama dompet unik dibandingkan nama dompet lain di perangkat"
+                },
+                {
+                  "warning": "Nama dompet setelah diset tidak bisa diubah. Harap atur nama sesuai"
+                }
+              ]
+            },
+            {
+              "title": "Konfirmasi nama dompet pada X1 Vault"
+            },
+            {
+              "title": "Apakah Anda ingin mengatur PIN untuk dompet Anda?",
+              "messageBoxList": [
+                {
+                  "warning": "PIN setelah diset tidak bisa diubah. Anda harus menghapus dompet dan membuatnya lagi untuk mengubah PIN"
+                }
+              ]
+            },
+            {
+              "title": "Atur PIN di X1 Vault",
+              "bulletList": [
+                "Gunakan antara 4 dan 8 karakter",
+                "PIN bisa berupa alfanumerik"
+              ],
+              "messageBoxList": [
+                {
+                  "warning": "Pastikan Anda membuat cadangan PIN Anda. Jika hilang, Anda akan kehilangan akses ke dana Anda"
+                },
+                {
+                  "warning-white": "Lewati langkah ini jika Anda tidak menetapkan PIN"
+                }
+              ]
+            },
+            {
+              "title": "Konfirmasi PIN yang dimasukkan di X1 Vault",
+              "messageBoxList": [
+                {
+                  "warning": "Ingat PIN Anda, jika hilang, Anda akan kehilangan akses ke dana Anda. Bahkan Cypherock tidak akan bisa membantu Anda memulihkan aset Anda"
+                },
+                {
+                  "warning": "Cadangkan di tempat yang aman"
+                },
+                {
+                  "warning-white": "Lewati langkah ini jika Anda tidak menetapkan PIN"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "asideTitle": "Sinkronkan X1 Cards",
+          "pages": [
+            {
+              "title": "Ketuk X1 Cards satu per satu di bawah X1 Vault",
+              "subtitle": "Jangan angkat sampai Anda mendengar suara bip",
+              "messageBoxList": [
+                {
+                  "info": "Pastikan X1 Cards Anda berasal dari keluarga yang sama"
+                },
+                {
+                  "info": "Pastikan Anda mengetuk X1 Cards dalam urutan yang benar"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "asideTitle": "Konfirmasi",
+          "pages": [
+            {
+              "title": "Selamat, dompet Anda berhasil dibuat"
+            },
+            {
+              "title": "Lain kali bila Anda perlu melakukan transaksi, Anda hanya perlu mengambil satu X1 Card beserta X1 Vault"
+            },
+            {
+              "title": "Jika Anda kehilangan X1 Vault, Anda dapat membeli X1 Vault baru secara terpisah dan menggunakannya dengan X1 Cards lama Anda"
+            },
+            {
+              "title": "Catatan Penting",
+              "messageBoxList": [
+                {
+                  "warning": "Jika Anda perlu menambahkan dompet lain, Anda harus mengambil keempat kartu sekaligus. Jika Anda ingin mengimpor dompet lain Anda ke Cypherock X1, sekarang adalah saat yang terbaik untuk menghindari repot di masa mendatang"
+                }
+              ]
+            },
+            {
+              "title": "Sebagai langkah selanjutnya, simpan X1 Cards Anda dengan aman di dalam lengan kartu dan distribusikan mereka di berbagai tempat. Beberapa contoh tempat bisa jadi:",
+              "bulletList": [
+                "Rumah anggota keluarga atau teman Anda",
+                "Tempat persembunyian rahasia",
+                "Loker bank"
+              ]
+            }
+          ]
+        },
         {
           "asideTitle": "X1 Vault",
           "pages": [
@@ -1360,6 +1630,262 @@
     "importWallet": {
       "title": "Impor Dompet",
       "tabs": [
+        {
+          "asideTitle": "X1 Vault",
+          "pages": [
+            {
+              "title": "Dari Menu Utama X1 Vault Anda, klik \"Create Wallet\""
+            },
+            {
+              "title": "Klik \"Restore from Seed Phrase\" pada X1 Vault Anda"
+            },
+            {
+              "title": "Masukkan nama dompet di X1 Vault Anda",
+              "bulletList": [
+                "Hingga 15 karakter diperbolehkan",
+                "Dapat berupa alfanumerik"
+              ],
+              "messageBoxList": [
+                {
+                  "info": "Pastikan nama dompet unik dibandingkan nama dompet lain di perangkat"
+                },
+                {
+                  "warning": "Nama dompet setelah diset tidak bisa diubah. Harap atur nama sesuai"
+                }
+              ]
+            },
+            {
+              "title": "Konfirmasi nama dompet pada X1 Vault"
+            },
+            {
+              "title": "Apakah Anda ingin mengatur PIN untuk dompet Anda?",
+              "messageBoxList": [
+                {
+                  "warning": "PIN setelah diset tidak bisa diubah. Anda harus menghapus dompet dan membuatnya lagi untuk mengubah PIN"
+                }
+              ]
+            },
+            {
+              "title": "Atur PIN di X1 Vault",
+              "bulletList": [
+                "Gunakan antara 4 dan 8 karakter",
+                "PIN bisa berupa alfanumerik"
+              ],
+              "messageBoxList": [
+                {
+                  "warning": "Pastikan Anda membuat cadangan PIN Anda. Jika hilang, Anda akan kehilangan akses ke dana Anda"
+                },
+                {
+                  "warning-white": "Lewati langkah ini jika Anda tidak menetapkan PIN"
+                }
+              ]
+            },
+            {
+              "title": "Konfirmasi PIN yang dimasukkan di X1 Vault",
+              "messageBoxList": [
+                {
+                  "warning": "Ingat PIN Anda, jika hilang, Anda akan kehilangan akses ke dana Anda. Bahkan Cypherock tidak akan bisa membantu Anda memulihkan aset Anda"
+                },
+                {
+                  "warning": "Cadangkan di tempat yang aman"
+                },
+                {
+                  "warning-white": "Lewati langkah ini jika Anda tidak menetapkan PIN"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "asideTitle": "Sinkronkan X1 Cards",
+          "pages": [
+            {
+              "title": "Hitung jumlah kata dari seed phrase yang Anda impor dan pilih di X1 Vault"
+            },
+            {
+              "title": "Masukkan seed phrase pada X1 Vault",
+              "messageBoxList": [
+                {
+                  "warning": "Pastikan Anda tidak membuat kesalahan ejaan saat memasukkan kata-kata di perangkat. Kata-kata seperti \"west\" & \"nest\" seringkali membingungkan saat membaca dan harus dimasukkan dengan benar"
+                }
+              ]
+            },
+            {
+              "title": "Verifikasi seed phrase yang Anda masukkan di X1 Vault",
+              "subtitle": "Cocokkan setiap kata hingga berhasil mengimpor dompet yang benar"
+            },
+            {
+              "title": "Ketuk X1 Cards satu per satu di bawah X1 Vault",
+              "subtitle": "Jangan angkat sampai Anda mendengar suara bip",
+              "messageBoxList": [
+                {
+                  "info": "Pastikan X1 Cards Anda berasal dari keluarga yang sama"
+                },
+                {
+                  "info": "Pastikan Anda mengetuk X1 Cards dalam urutan yang benar"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "asideTitle": "Konfirmasi",
+          "pages": [
+            {
+              "title": "Selamat, dompet Anda berhasil dibuat"
+            },
+            {
+              "title": "Lain kali bila Anda perlu melakukan transaksi, Anda hanya perlu mengambil satu X1 Card beserta X1 Vault"
+            },
+            {
+              "title": "Jika Anda kehilangan X1 Vault, Anda dapat membeli X1 Vault baru secara terpisah dan menggunakannya dengan X1 Cards lama Anda"
+            },
+            {
+              "title": "Catatan Penting",
+              "messageBoxList": [
+                {
+                  "warning": "Jika Anda perlu menambahkan dompet lain, Anda harus mengambil keempat kartu sekaligus. Jika Anda ingin mengimpor dompet lain Anda ke Cypherock X1, sekarang adalah saat yang terbaik untuk menghindari repot di masa mendatang"
+                }
+              ]
+            },
+            {
+              "title": "Sebagai langkah selanjutnya, simpan X1 Cards Anda dengan aman di dalam lengan kartu dan distribusikan mereka di berbagai tempat. Beberapa contoh tempat bisa jadi:",
+              "bulletList": [
+                "Rumah anggota keluarga atau teman Anda",
+                "Tempat persembunyian rahasia",
+                "Loker bank"
+              ]
+            }
+          ]
+        },
+        {
+          "asideTitle": "X1 Vault",
+          "pages": [
+            {
+              "title": "Dari Menu Utama X1 Vault Anda, klik \"Create Wallet\""
+            },
+            {
+              "title": "Klik \"Restore from Seed Phrase\" pada X1 Vault Anda"
+            },
+            {
+              "title": "Masukkan nama dompet di X1 Vault Anda",
+              "bulletList": [
+                "Hingga 15 karakter diperbolehkan",
+                "Dapat berupa alfanumerik"
+              ],
+              "messageBoxList": [
+                {
+                  "info": "Pastikan nama dompet unik dibandingkan nama dompet lain di perangkat"
+                },
+                {
+                  "warning": "Nama dompet setelah diset tidak bisa diubah. Harap atur nama sesuai"
+                }
+              ]
+            },
+            {
+              "title": "Konfirmasi nama dompet pada X1 Vault"
+            },
+            {
+              "title": "Apakah Anda ingin mengatur PIN untuk dompet Anda?",
+              "messageBoxList": [
+                {
+                  "warning": "PIN setelah diset tidak bisa diubah. Anda harus menghapus dompet dan membuatnya lagi untuk mengubah PIN"
+                }
+              ]
+            },
+            {
+              "title": "Atur PIN di X1 Vault",
+              "bulletList": [
+                "Gunakan antara 4 dan 8 karakter",
+                "PIN bisa berupa alfanumerik"
+              ],
+              "messageBoxList": [
+                {
+                  "warning": "Pastikan Anda membuat cadangan PIN Anda. Jika hilang, Anda akan kehilangan akses ke dana Anda"
+                },
+                {
+                  "warning-white": "Lewati langkah ini jika Anda tidak menetapkan PIN"
+                }
+              ]
+            },
+            {
+              "title": "Konfirmasi PIN yang dimasukkan di X1 Vault",
+              "messageBoxList": [
+                {
+                  "warning": "Ingat PIN Anda, jika hilang, Anda akan kehilangan akses ke dana Anda. Bahkan Cypherock tidak akan bisa membantu Anda memulihkan aset Anda"
+                },
+                {
+                  "warning": "Cadangkan di tempat yang aman"
+                },
+                {
+                  "warning-white": "Lewati langkah ini jika Anda tidak menetapkan PIN"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "asideTitle": "Sinkronkan X1 Cards",
+          "pages": [
+            {
+              "title": "Hitung jumlah kata dari seed phrase yang Anda impor dan pilih di X1 Vault"
+            },
+            {
+              "title": "Masukkan seed phrase pada X1 Vault",
+              "messageBoxList": [
+                {
+                  "warning": "Pastikan Anda tidak membuat kesalahan ejaan saat memasukkan kata-kata di perangkat. Kata-kata seperti \"west\" & \"nest\" seringkali membingungkan saat membaca dan harus dimasukkan dengan benar"
+                }
+              ]
+            },
+            {
+              "title": "Verifikasi seed phrase yang Anda masukkan di X1 Vault",
+              "subtitle": "Cocokkan setiap kata hingga berhasil mengimpor dompet yang benar"
+            },
+            {
+              "title": "Ketuk X1 Cards satu per satu di bawah X1 Vault",
+              "subtitle": "Jangan angkat sampai Anda mendengar suara bip",
+              "messageBoxList": [
+                {
+                  "info": "Pastikan X1 Cards Anda berasal dari keluarga yang sama"
+                },
+                {
+                  "info": "Pastikan Anda mengetuk X1 Cards dalam urutan yang benar"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "asideTitle": "Konfirmasi",
+          "pages": [
+            {
+              "title": "Selamat, dompet Anda berhasil dibuat"
+            },
+            {
+              "title": "Lain kali bila Anda perlu melakukan transaksi, Anda hanya perlu mengambil satu X1 Card beserta X1 Vault"
+            },
+            {
+              "title": "Jika Anda kehilangan X1 Vault, Anda dapat membeli X1 Vault baru secara terpisah dan menggunakannya dengan X1 Cards lama Anda"
+            },
+            {
+              "title": "Catatan Penting",
+              "messageBoxList": [
+                {
+                  "warning": "Jika Anda perlu menambahkan dompet lain, Anda harus mengambil keempat kartu sekaligus. Jika Anda ingin mengimpor dompet lain Anda ke Cypherock X1, sekarang adalah saat yang terbaik untuk menghindari repot di masa mendatang"
+                }
+              ]
+            },
+            {
+              "title": "Sebagai langkah selanjutnya, simpan X1 Cards Anda dengan aman di dalam lengan kartu dan distribusikan mereka di berbagai tempat. Beberapa contoh tempat bisa jadi:",
+              "bulletList": [
+                "Rumah anggota keluarga atau teman Anda",
+                "Tempat persembunyian rahasia",
+                "Loker bank"
+              ]
+            }
+          ]
+        },
         {
           "asideTitle": "X1 Vault",
           "pages": [
@@ -1986,6 +2512,15 @@
       }
     }
   },
+  "toggle": {
+    "on": "NYALA",
+    "off": "MATI"
+  },
+  "snackbar": {
+    "copiedToClipboard": "Disalin ke clipboard",
+    "accountUpdated": "Akun Berhasil Diperbarui",
+    "downloadCSV": "Riwayat transaksi diekspor"
+  },
   "settings": {
     "tabs": {
       "general": {
@@ -2076,6 +2611,100 @@
           }
         }
       }
+    }
+  },
+  "onramp": {
+    "title": "Beli Kripto",
+    "buy": {
+      "title": "Beli",
+      "selectCurrency": {
+        "selectFiat": {
+          "label": "Anda akan membayar",
+          "placeholder": "Pilih Mata Uang Fiat",
+          "searchText": "Cari Mata Uang Fiat"
+        },
+        "selectCrypto": {
+          "label": "Anda akan mendapatkan",
+          "placeholder": "Pilih Mata Uang Kripto",
+          "searchText": "Cari Mata Uang Kripto"
+        },
+        "amount": {
+          "label": "Jumlah",
+          "tooltip": "Harga yang ditampilkan termasuk biaya transaksi",
+          "error": "Jumlah input tidak valid"
+        }
+      },
+      "selectWallet": {
+        "title": "Beli",
+        "subtitle": "Pilih dompet dan akun untuk dikreditkan ${currencyCode}",
+        "selectWallet": {
+          "placeholder": "Pilih Dompet",
+          "searchText": "Cari Dompet"
+        },
+        "selectAccount": {
+          "placeholder": "Pilih Akun",
+          "searchText": "Cari Akun"
+        },
+        "selectPaymentMethod": {
+          "label": "Pilih metode pembayaran",
+          "placeholder": "Metode Pembayaran",
+          "searchText": "Cari Metode Pembayaran"
+        },
+        "messageBox": {
+          "danger": "Tidak ditemukan akun untuk"
+        }
+      },
+      "redirectOrder": {
+        "title": "Pesanan",
+        "subtitle": "Selesaikan pesanan dari browser Anda",
+        "info": {
+          "accountFieldLabel": "Akun",
+          "amountFieldLabel": "Anda akan membayar",
+          "conversionFieldLabel": "Anda akan mendapatkan"
+        },
+        "messageBox": {
+          "info": "Browser tidak terbuka?",
+          "action": "Klik di sini"
+        }
+      }
+    }
+  },
+  "labels": {
+    "email": "Email",
+    "required": "Diperlukan"
+  },
+  "dashboard": {
+    "wallet": {
+      "renewNow": "Perbarui Sekarang",
+      "buyNow": "Beli Sekarang",
+      "created": "Dibuat",
+      "expiredOn": "Kedaluwarsa pada",
+      "expiresIn": "Kedaluwarsa dalam",
+      "expiry": "Kedaluwarsa",
+      "expiring": "Mendekati Kedaluwarsa",
+      "expired": "Kedaluwarsa",
+      "pending": "Tertunda",
+      "silver": "Perak",
+      "gold": "Emas",
+      "hours": "Jam",
+      "setupCover": "Atur Cypherock Cover"
+    }
+  },
+  "otp": {
+    "title": "Masukkan OTP",
+    "wrongOtpTitle": "OTP Salah",
+    "successRedirectTitle": "Harap tunggu saat kami mengarahkan Anda...",
+    "triesRemaining": "${retries} percobaan tersisa",
+    "infoTexts": [
+      "Email telah dikirim ke **${email}**",
+      "Silakan masukkan kode yang diterima di email"
+    ],
+    "noRetries": {
+      "title": "Anda memiliki 0 percobaan tersisa",
+      "subTitle": "Harap keluar dan mulai ulang"
+    },
+    "buttons": {
+      "resendWithTimeout": "Berlaku selama ${timeout}s"
     }
   },
   "inheritance": {

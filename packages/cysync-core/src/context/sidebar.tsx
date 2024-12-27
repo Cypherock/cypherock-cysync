@@ -29,7 +29,8 @@ export type Page =
   | 'history'
   | 'settings'
   | 'help'
-  | 'tutorial';
+  | 'tutorial'
+  | 'buysell';
 
 export interface SidebarContextInterface {
   strings: ILangState['strings']['sidebar'];

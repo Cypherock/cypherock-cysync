@@ -100,6 +100,7 @@ export const createWindowAndOpenUrl = (
       nodeIntegration: false,
       contextIsolation: true,
       devTools: !config.IS_PRODUCTION && !config.IS_TEST,
+      webviewTag: true,
     },
   });
 
