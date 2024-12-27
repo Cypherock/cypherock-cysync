@@ -47,7 +47,7 @@ export enum BuySellState {
 export interface BuySellContextInterface {
   init: () => Promise<boolean>;
   reset: () => Promise<void>;
-  onRetry: () => void;
+  onRetry: (isForced?: boolean) => void;
   isInitializing: boolean;
   isInitialized: boolean;
   unhandledError?: any;
@@ -197,13 +197,16 @@ export const BuySellProvider: FC<BuySellContextProviderProps> = ({
     setUnhandledError(e);
   }, []);
 
-  const onRetry = useCallback(() => {
-    if (state !== BuySellState.ORDER) {
-      setState(BuySellState.CURRENCY_SELECT);
-      resetUserInput();
-    }
-    resetPreorder();
-  }, [state]);
+  const onRetry = useCallback(
+    (isForced?: boolean) => {
+      if (state !== BuySellState.ORDER || isForced) {
+        setState(BuySellState.CURRENCY_SELECT);
+        resetUserInput();
+      }
+      resetPreorder();
+    },
+    [state],
+  );
 
   const initHandler = useCallback(async () => {
     try {
