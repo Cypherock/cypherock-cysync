@@ -1,5 +1,13 @@
 # @cypherock/coins
 
+## 0.1.1-pre.0
+
+### Patch Changes
+
+- [#541](https://github.com/Cypherock/cypherock-cysync/pull/541) [`1b1330cf`](https://github.com/Cypherock/cypherock-cysync/commit/1b1330cf125146484d927f4ac8f5eeab466346ff) Thanks [@irshadjsr21](https://github.com/irshadjsr21)! - Added get coin address interface
+
+- [#541](https://github.com/Cypherock/cypherock-cysync/pull/541) [`1b1330cf`](https://github.com/Cypherock/cypherock-cysync/commit/1b1330cf125146484d927f4ac8f5eeab466346ff) Thanks [@irshadjsr21](https://github.com/irshadjsr21)! - Add binance connect support
+
 ## 0.1.0
 
 ### Minor Changes

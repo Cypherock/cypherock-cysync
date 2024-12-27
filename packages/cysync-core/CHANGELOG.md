@@ -1,5 +1,32 @@
 # @cypherock/cysync-core
 
+## 0.1.1-pre.0
+
+### Patch Changes
+
+- [#541](https://github.com/Cypherock/cypherock-cysync/pull/541) [`1b1330cf`](https://github.com/Cypherock/cypherock-cysync/commit/1b1330cf125146484d927f4ac8f5eeab466346ff) Thanks [@irshadjsr21](https://github.com/irshadjsr21)! - Added get coin address interface
+
+- [#541](https://github.com/Cypherock/cypherock-cysync/pull/541) [`1b1330cf`](https://github.com/Cypherock/cypherock-cysync/commit/1b1330cf125146484d927f4ac8f5eeab466346ff) Thanks [@irshadjsr21](https://github.com/irshadjsr21)! - Add binance connect support
+
+- Updated dependencies [[`1b1330cf`](https://github.com/Cypherock/cypherock-cysync/commit/1b1330cf125146484d927f4ac8f5eeab466346ff), [`1b1330cf`](https://github.com/Cypherock/cypherock-cysync/commit/1b1330cf125146484d927f4ac8f5eeab466346ff)]:
+  - @cypherock/coin-support-interfaces@0.0.9-pre.0
+  - @cypherock/cysync-core-constants@0.2.1-pre.0
+  - @cypherock/app-support-buy-sell@0.0.1-pre.0
+  - @cypherock/coin-support-solana@0.0.13-pre.0
+  - @cypherock/coin-support-near@0.0.13-pre.0
+  - @cypherock/coin-support-tron@0.0.7-pre.0
+  - @cypherock/coin-support-btc@0.0.13-pre.0
+  - @cypherock/coin-support-evm@0.0.13-pre.0
+  - @cypherock/coin-support-xrp@1.1.1-pre.0
+  - @cypherock/coins@0.1.1-pre.0
+  - @cypherock/cysync-utils@0.0.9-pre.0
+  - @cypherock/cysync-ui@0.0.9-pre.0
+  - @cypherock/coin-support@0.0.13-pre.0
+  - @cypherock/coin-support-utils@0.0.13-pre.0
+  - @cypherock/cysync-core-services@0.0.13-pre.0
+  - @cypherock/cysync-core-workers@0.0.13-pre.0
+  - @cypherock/app-support-inheritance@1.0.2-pre.0
+
 ## 0.1.0
 
 ### Minor Changes
