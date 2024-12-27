@@ -231,5 +231,19 @@ export default function createApp() {
     }
   });
 
+  app.on('web-contents-created', (_, contents) => {
+    if (contents.getType() === 'webview') {
+      contents.setWindowOpenHandler(() => ({
+        action: 'allow',
+        overrideBrowserWindowOptions: {
+          autoHideMenuBar: true,
+          webPreferences: {
+            devTools: false,
+          },
+        },
+      }));
+    }
+  });
+
   addAppHooks(app);
 }

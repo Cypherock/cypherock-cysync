@@ -1,5 +1,5 @@
 import { Container } from '@cypherock/cysync-ui';
-import React, { useEffect } from 'react';
+import React, { useLayoutEffect } from 'react';
 
 import { ErrorHandlerDialog, LoaderDialog } from '~/components';
 import { BuySellState, useBuySell } from '~/context';
@@ -16,7 +16,7 @@ export const BuySell = () => {
   const { init, isInitializing, unhandledError, reset, state, onRetry } =
     useBuySell();
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     reset();
     init();
   }, []);

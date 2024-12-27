@@ -28,10 +28,10 @@ export const getBinanceErrorHandlingDetails = (
     [BinanceErrorType.ORDER_NOT_FOUND]:
       generateErrorHandlingDetails.retryWithReport(),
     [BinanceErrorType.UNSUPPORTED_ORDER_TYPE]:
-      generateErrorHandlingDetails.report(),
+      generateErrorHandlingDetails.retryWithReport(),
     [BinanceErrorType.PARTNER_NOT_FOUND]: generateErrorHandlingDetails.report(),
     [BinanceErrorType.PAYMENT_METHOD_NOT_SUPPORTED]:
-      generateErrorHandlingDetails.report(),
+      generateErrorHandlingDetails.retryWithReport(),
   };
 
   return binanceErrorHandlingDetailsMap[errorCode];
