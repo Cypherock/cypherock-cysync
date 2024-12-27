@@ -1,5 +1,8 @@
 import { IEvmErc20Token } from '@cypherock/coins';
 import {
+  BinanceConnet,
+  cysyncLogoSmall,
+  DashedLineEndCircled,
   DialogBox,
   Typography,
   DialogBoxBody,
@@ -10,6 +13,8 @@ import {
   Button,
   InputLabel,
   MessageBox,
+  Flex,
+  Image,
 } from '@cypherock/cysync-ui';
 import React, { useCallback } from 'react';
 
@@ -86,20 +91,41 @@ export const BuySellAccountSelector = () => {
   return (
     <DialogBox width={500}>
       <DialogBoxBody p={0} pt={4} gap={0}>
-        <Container
-          $bgColor="separatorSecondary"
-          $borderRadius={40}
-          width={60}
-          height={60}
-        >
-          <CoinIcon
-            assetId={selectedCryptoCurrency?.coin.coin.id}
-            parentAssetId={
-              (selectedCryptoCurrency?.coin.coin as IEvmErc20Token).parentId ??
-              selectedCryptoCurrency?.coin.coin.id
-            }
-          />
-        </Container>
+        <Flex direction="row" align="center" justify="center">
+          <Container
+            $bgColor="separatorSecondary"
+            $borderRadius={40}
+            width={60}
+            height={60}
+          >
+            <Image src={cysyncLogoSmall} alt="CySync" $width={32} />
+          </Container>
+          <DashedLineEndCircled mx="-5px" $zIndex={10} />
+          <Container
+            $bgColor="separatorSecondary"
+            $borderRadius={40}
+            width={60}
+            height={60}
+          >
+            <CoinIcon
+              assetId={selectedCryptoCurrency?.coin.coin.id}
+              parentAssetId={
+                (selectedCryptoCurrency?.coin.coin as IEvmErc20Token)
+                  .parentId ?? selectedCryptoCurrency?.coin.coin.id
+              }
+              size={32}
+            />
+          </Container>
+          <DashedLineEndCircled mx="-5px" $zIndex={10} />
+          <Container
+            $bgColor="separatorSecondary"
+            $borderRadius={40}
+            width={60}
+            height={60}
+          >
+            <BinanceConnet width={32} />
+          </Container>
+        </Flex>
         <Container
           display="flex"
           direction="column"
