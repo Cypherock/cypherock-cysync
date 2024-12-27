@@ -5,6 +5,7 @@ import {
   ISupportedFiatCurrency,
   ITradingPairs,
 } from '@cypherock/app-support-buy-sell';
+import { getCoinSupport } from '@cypherock/coin-support';
 import { getAsset } from '@cypherock/coin-support-utils';
 import { IEvmErc20Token } from '@cypherock/coins';
 import { DropDownItemProps, Typography } from '@cypherock/cysync-ui';
@@ -323,13 +324,15 @@ export const BuySellProvider: FC<BuySellContextProviderProps> = ({
     onError,
   );
 
-  const onFiatAmountChange = useCallback(async (value: string) => {
+  const onFiatAmountChange = async (value: string) => {
+    setFiatAmount(value);
     await estimateAmount({ fiatAmount: value });
-  }, []);
+  };
 
-  const onCryptoAmountChange = useCallback(async (value: string) => {
+  const onCryptoAmountChange = async (value: string) => {
+    setCryptoAmount(value);
     await estimateAmount({ cryptoAmount: value });
-  }, []);
+  };
 
   useEffect(() => {
     if (selectedCryptoCurrency && selectedFiatCurrency) {
@@ -405,13 +408,16 @@ export const BuySellProvider: FC<BuySellContextProviderProps> = ({
       return false;
 
     try {
+      const coinSupport = getCoinSupport(selectedAccount.familyId);
       const result = await buySellSupport.preorder({
         cryptoCurrency: selectedCryptoCurrencyRef.current.coin,
         fiatCurrency: selectedFiatCurrencyRef.current,
         fiatAmount: fiatAmountRef.current,
         payMethodCode: selectedPaymentMethod.payMethodCode ?? '',
         payMethodSubCode: selectedPaymentMethod.payMethodSubCode ?? '',
-        address: selectedAccount.xpubOrAddress,
+        address: await coinSupport.getAccountAddress({
+          account: selectedAccount,
+        }),
       });
       setPreorderDetails(result);
       return true;

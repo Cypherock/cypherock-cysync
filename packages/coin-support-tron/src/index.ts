@@ -3,6 +3,7 @@ import {
   CoinSupport,
   ICreateAccountEvent,
   IFormatAddressParams,
+  IGetAccountAddressParams,
   IGetAccountHistoryParams,
   IGetCoinAllocationsParams,
   IGetExplorerLink,
@@ -109,5 +110,9 @@ export class TronSupport implements CoinSupport {
 
   public formatAddress(params: IFormatAddressParams) {
     return operations.formatAddress(params);
+  }
+
+  public async getAccountAddress(params: IGetAccountAddressParams) {
+    return (await operations.getExternalAddress(params)).address;
   }
 }

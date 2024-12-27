@@ -19,7 +19,7 @@ import { IEvmReceiveEvent, IEvmReceiveParams, statusMap } from './types';
 import { createApp } from '../../utils';
 import { formatAddress } from '../formatAddress';
 
-const getExternalAddress = async (
+export const getExternalAddress = async (
   params: IGenerateReceiveAddressParams,
 ): Promise<IReceiveAddressInfo> => {
   const { xpubOrAddress, derivationPath } = params.account;
