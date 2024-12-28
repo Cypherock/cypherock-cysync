@@ -2623,7 +2623,8 @@
         "amount": {
           "label": "Amount",
           "tooltip": "Displayed prices include transaction fees",
-          "error": "Input amount is invalid"
+          "error": "Input amount is invalid",
+          "limitError": "Input amount should be between ${min} and ${max}"
         }
       },
       "selectWallet": {

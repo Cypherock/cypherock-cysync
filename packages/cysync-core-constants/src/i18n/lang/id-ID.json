@@ -2631,7 +2631,8 @@
         "amount": {
           "label": "Jumlah",
           "tooltip": "Harga yang ditampilkan termasuk biaya transaksi",
-          "error": "Jumlah input tidak valid"
+          "error": "Jumlah input tidak valid",
+          "limitError": "Jumlah input harus antara ${min} dan ${max}"
         }
       },
       "selectWallet": {

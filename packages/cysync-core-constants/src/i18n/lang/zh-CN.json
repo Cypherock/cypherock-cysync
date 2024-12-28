@@ -3060,7 +3060,8 @@
         "amount": {
           "label": "金额",
           "tooltip": "显示的价格包含交易费",
-          "error": "输入金额无效"
+          "error": "输入金额无效",
+          "limitError": "输入金额应介于 ${min} 和 ${max} 之间"
         }
       },
       "selectWallet": {

@@ -2632,7 +2632,8 @@
         "amount": {
           "label": "Betrag",
           "tooltip": "Angezeigte Preise beinhalten Transaktionsgebühren",
-          "error": "Eingegebener Betrag ist ungültig"
+          "error": "Eingegebener Betrag ist ungültig",
+          "limitError": "Der Eingabebetrag sollte zwischen ${min} und ${max} liegen"
         }
       },
       "selectWallet": {

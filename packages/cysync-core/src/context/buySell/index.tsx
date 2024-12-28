@@ -8,7 +8,16 @@ import {
 import { getCoinSupport } from '@cypherock/coin-support';
 import { getAsset } from '@cypherock/coin-support-utils';
 import { IEvmErc20Token } from '@cypherock/coins';
-import { DropDownItemProps, Typography } from '@cypherock/cysync-ui';
+import {
+  DropDownItemProps,
+  parseLangTemplate,
+  Typography,
+} from '@cypherock/cysync-ui';
+import {
+  BigNumber,
+  createLoggerWithPrefix,
+  NumberLike,
+} from '@cypherock/cysync-utils';
 import { IAccount, IWallet } from '@cypherock/db-interfaces';
 import React, {
   Context,
@@ -37,6 +46,9 @@ import {
   selectLanguage,
 } from '~/store';
 import { buySellSupport } from '~/utils/buysell';
+import baseLogger from '../../utils/logger';
+
+const logger = createLoggerWithPrefix(baseLogger, 'BuySell');
 
 export enum BuySellState {
   CURRENCY_SELECT = 0,
@@ -136,15 +148,18 @@ export const BuySellProvider: FC<BuySellContextProviderProps> = ({
 
   const [fiatAmount, setFiatAmount, fiatAmountRef] =
     useStateWithRef<string>('');
-  const [cryptoAmount, setCryptoAmount, cryptoAmountRef] =
-    useStateWithRef<string>('');
+  const [cryptoAmount, setCryptoAmount] = useStateWithRef<string>('');
   const [amountError, setAmountError] = useState<string | undefined>();
   const [isAmountDiabled, setIsAmountDisabled] = useState<boolean>(true);
 
-  const paymentMethodsRef = useRef<IPaymentMethod[]>([]);
+  const paymentMethodsRef = useRef<IPaymentMethod[] | undefined>();
   const [paymentMethodDropdownList, setPaymentMethodDropdownList] = useState<
     DropDownItemProps[]
   >([]);
+  const minFiatAmountRef = useRef<BigNumber>(new BigNumber(0));
+  const maxFiatAmountRef = useRef<BigNumber>(new BigNumber(0));
+  const minCryptoAmountRef = useRef<BigNumber>(new BigNumber(0));
+  const maxCryptoAmountRef = useRef<BigNumber>(new BigNumber(0));
   const [selectedPaymentMethod, setSelectedPaymentMethod] = useState<
     IPaymentMethod | undefined
   >();
@@ -297,25 +312,69 @@ export const BuySellProvider: FC<BuySellContextProviderProps> = ({
     [selectedCryptoCurrency],
   );
 
-  const handleCryptoCurrencyChange = useCallback((currency?: string) => {
-    if (!tradingPairs.current) return;
-    if (!currency) {
-      setSelectedCryptoCurrency(undefined);
-      return;
-    }
+  const handleCryptoCurrencyChange = useCallback(
+    (currency?: string) => {
+      if (!tradingPairs.current) return;
+      if (!currency) {
+        setSelectedCryptoCurrency(undefined);
+        return;
+      }
 
-    const coin = tradingPairs.current.cryptoCurrencies.find(
-      c => c.coin.id === currency,
-    );
+      const coin = tradingPairs.current.cryptoCurrencies.find(
+        c => c.coin.id === currency,
+      );
 
-    if (!coin) setSelectedCryptoCurrency(undefined);
-    else setSelectedCryptoCurrency({ coin, id: currency });
-  }, []);
+      paymentMethodsRef.current = undefined;
+      if (!coin) setSelectedCryptoCurrency(undefined);
+      else setSelectedCryptoCurrency({ coin, id: currency });
+    },
+    [tradingPairs],
+  );
 
   const [init, isInitializing, isInitialized, resetInitialization] = useAsync(
     initHandler,
     onError,
   );
+
+  const updateFiatAmountLimit = () => {
+    if (!paymentMethodsRef.current) return;
+    minFiatAmountRef.current = new BigNumber(Infinity);
+    maxFiatAmountRef.current = new BigNumber(0);
+
+    minCryptoAmountRef.current = new BigNumber(Infinity);
+    maxCryptoAmountRef.current = new BigNumber(0);
+
+    for (const paymentMethod of paymentMethodsRef.current) {
+      minFiatAmountRef.current = BigNumber.min(
+        minFiatAmountRef.current,
+        new BigNumber(paymentMethod.fiatMinLimit ?? '0'),
+      );
+      maxFiatAmountRef.current = BigNumber.max(
+        maxFiatAmountRef.current,
+        new BigNumber(paymentMethod.fiatMaxLimit ?? '0'),
+      );
+
+      minCryptoAmountRef.current = BigNumber.min(
+        minCryptoAmountRef.current,
+        new BigNumber(paymentMethod.cryptoMinLimit ?? '0'),
+      );
+      maxCryptoAmountRef.current = BigNumber.max(
+        maxCryptoAmountRef.current,
+        new BigNumber(paymentMethod.cryptoMaxLimit ?? '0'),
+      );
+    }
+  };
+
+  const isValueInRange = (
+    min: BigNumber,
+    value: NumberLike,
+    max: BigNumber,
+  ) => {
+    const valueNum = new BigNumber(value);
+    return (
+      valueNum.isGreaterThanOrEqualTo(min) && valueNum.isLessThanOrEqualTo(max)
+    );
+  };
 
   const handleAmountEstimation = useCallback(
     async (params: { fiatAmount?: string; cryptoAmount?: string }) => {
@@ -327,6 +386,59 @@ export const BuySellProvider: FC<BuySellContextProviderProps> = ({
       if (!params.fiatAmount && !params.cryptoAmount) return false;
 
       try {
+        if (paymentMethodsRef.current === undefined) {
+          // This api returs all payment methods regardless of amount
+          // Hence the hardcoded amount values
+          // TODO: upate this when binance has fixed their api
+          const result = await buySellSupport.getPaymentMethods({
+            cryptoCurrency: selectedCryptoCurrencyRef.current.coin,
+            fiatCurrency: selectedFiatCurrencyRef.current,
+            cryptoAmount: '1',
+            fiatAmount: '1',
+          });
+          paymentMethodsRef.current = result;
+          updateFiatAmountLimit();
+        }
+        if (
+          params.fiatAmount &&
+          !isValueInRange(
+            minFiatAmountRef.current,
+            params.fiatAmount,
+            maxFiatAmountRef.current,
+          )
+        ) {
+          setAmountError(
+            parseLangTemplate(
+              lang.strings.onramp.buy.selectCurrency.amount.limitError,
+              {
+                min: minFiatAmountRef.current.toString(),
+                max: maxFiatAmountRef.current.toString(),
+              },
+            ),
+          );
+          return false;
+        }
+
+        if (
+          params.cryptoAmount &&
+          !isValueInRange(
+            minCryptoAmountRef.current,
+            params.cryptoAmount,
+            maxCryptoAmountRef.current,
+          )
+        ) {
+          setAmountError(
+            parseLangTemplate(
+              lang.strings.onramp.buy.selectCurrency.amount.limitError,
+              {
+                min: minCryptoAmountRef.current.toString(),
+                max: maxCryptoAmountRef.current.toString(),
+              },
+            ),
+          );
+          return false;
+        }
+
         const result = await buySellSupport.getEstimatedQuote({
           cryptoCurrency: selectedCryptoCurrencyRef.current.coin,
           fiatCurrency: selectedFiatCurrencyRef.current,
@@ -352,7 +464,7 @@ export const BuySellProvider: FC<BuySellContextProviderProps> = ({
         return false;
       }
     },
-    [],
+    [paymentMethodsRef],
   );
 
   const [estimateAmount, , , resetEstimation] = useAsync(
@@ -386,23 +498,25 @@ export const BuySellProvider: FC<BuySellContextProviderProps> = ({
   const getPaymentMethodListHandler = useCallback(async () => {
     if (!selectedFiatCurrencyRef.current || !selectedCryptoCurrencyRef.current)
       return false;
+    if (!paymentMethodsRef.current) {
+      logger.error('Payments methods ref should be defined at this point');
+      return false;
+    }
 
     try {
-      const result = await buySellSupport.getPaymentMethods({
-        cryptoCurrency: selectedCryptoCurrencyRef.current.coin,
-        fiatCurrency: selectedFiatCurrencyRef.current,
-        cryptoAmount: cryptoAmountRef.current,
-        fiatAmount: fiatAmountRef.current,
-        language: lang.lang.split('-')[0],
-      });
-
-      paymentMethodsRef.current = result;
-
-      const dropdownList: DropDownItemProps[] = result.map(r => ({
-        id: `${r.payMethodCode}-${r.payMethodSubCode ?? ''}`,
-        checkType: 'radio',
-        text: r.paymentMethod,
-      }));
+      const dropdownList: DropDownItemProps[] = paymentMethodsRef.current
+        .filter(p => {
+          const fiatAmountNum = new BigNumber(fiatAmountRef.current);
+          return (
+            fiatAmountNum.isGreaterThanOrEqualTo(p.fiatMinLimit ?? 0) &&
+            fiatAmountNum.isLessThanOrEqualTo(p.fiatMaxLimit ?? 0)
+          );
+        })
+        .map(r => ({
+          id: `${r.payMethodCode}-${r.payMethodSubCode ?? ''}`,
+          checkType: 'radio',
+          text: r.paymentMethod,
+        }));
       setPaymentMethodDropdownList(dropdownList);
 
       return true;
