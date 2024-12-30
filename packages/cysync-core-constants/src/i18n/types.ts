@@ -1185,6 +1185,7 @@ interface LangOnramp {
         tooltip: string;
         error: string;
         limitError: string;
+        noMethodsError: string;
       };
     };
     selectWallet: {

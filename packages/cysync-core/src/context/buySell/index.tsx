@@ -180,6 +180,8 @@ export const BuySellProvider: FC<BuySellContextProviderProps> = ({
 
   const { accountDropdownList: accountDropdownListSrc } = useAccountDropdown({
     selectedWallet,
+    includeSubAccounts: true,
+    prependAccountNameToSubaccounts: true,
   });
 
   const accountDropdownList = useMemo(
@@ -398,6 +400,12 @@ export const BuySellProvider: FC<BuySellContextProviderProps> = ({
           });
           paymentMethodsRef.current = result;
           updateFiatAmountLimit();
+        }
+        if (paymentMethodsRef.current.length === 0) {
+          setAmountError(
+            lang.strings.onramp.buy.selectCurrency.amount.noMethodsError,
+          );
+          return false;
         }
         if (
           params.fiatAmount &&

@@ -2632,7 +2632,8 @@
           "label": "Jumlah",
           "tooltip": "Harga yang ditampilkan termasuk biaya transaksi",
           "error": "Jumlah input tidak valid",
-          "limitError": "Jumlah input harus antara ${min} dan ${max}"
+          "limitError": "Jumlah input harus antara ${min} dan ${max}",
+          "noMethodsError": "Tidak ada metode pembayaran yang tersedia saat ini untuk pasangan koin ini. Silakan coba pasangan koin lain"
         }
       },
       "selectWallet": {

@@ -3061,7 +3061,8 @@
           "label": "金额",
           "tooltip": "显示的价格包含交易费",
           "error": "输入金额无效",
-          "limitError": "输入金额应介于 ${min} 和 ${max} 之间"
+          "limitError": "输入金额应介于 ${min} 和 ${max} 之间",
+          "noMethodsError": "当前没有可用的支付方式适用于该币对。请尝试不同的币对"
         }
       },
       "selectWallet": {

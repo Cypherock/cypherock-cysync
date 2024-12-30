@@ -2624,7 +2624,8 @@
           "label": "Amount",
           "tooltip": "Displayed prices include transaction fees",
           "error": "Input amount is invalid",
-          "limitError": "Input amount should be between ${min} and ${max}"
+          "limitError": "Input amount should be between ${min} and ${max}",
+          "noMethodsError": "No payment methods are currently available for this coin pair. Please try a different coin pair"
         }
       },
       "selectWallet": {
