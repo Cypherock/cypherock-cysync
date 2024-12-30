@@ -11,6 +11,7 @@ export interface UseAccountDropdownProps {
   includeSubAccounts?: boolean;
   assetFilter?: string[];
   defaultAccountId?: string;
+  prependAccountNameToSubaccounts?: boolean;
 }
 
 export const useAccountDropdown = (props: UseAccountDropdownProps) => {
@@ -100,7 +101,10 @@ export const useAccountDropdown = (props: UseAccountDropdownProps) => {
                 assetId={subAccount.assetId}
               />
             ),
-            text: subAccount.name,
+            text:
+              (props.prependAccountNameToSubaccounts
+                ? `${account.name} - `
+                : '') + subAccount.name,
             rightText: getBalanceToDisplay(subAccount),
             showRightTextOnBottom: true,
             $parentId: account.__id,

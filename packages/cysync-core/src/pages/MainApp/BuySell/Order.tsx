@@ -7,15 +7,18 @@ import {
   Synchronizing,
   Typography,
 } from '@cypherock/cysync-ui';
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
 import { LoaderDialog } from '~/components';
 import { useBuySell } from '~/context';
+import { selectLanguage, useAppSelector } from '~/store';
 
 export const BuySellOrder = () => {
+  const lang = useAppSelector(selectLanguage);
   const { isPreordering, preorderDetails, onPreviousState, onRetry } =
     useBuySell();
   const webviewRef = useRef<any>();
+  const [showLoader, setShowLoader] = useState(true);
 
   const onRefresh = () => {
     webviewRef.current?.reload();
@@ -37,11 +40,16 @@ export const BuySellOrder = () => {
     }
   };
 
+  const onLoaded = () => {
+    setShowLoader(false);
+  };
+
   useEffect(() => {
     const webview = document.getElementById('webviewid');
     if (webview) {
       webviewRef.current = webview;
       webview.addEventListener('did-start-navigation', onStartNavigation);
+      webview.addEventListener('did-stop-loading', onLoaded);
     }
   }, [preorderDetails]);
 
@@ -67,7 +75,7 @@ export const BuySellOrder = () => {
               $height="full"
             >
               <ArrowBackGoldenIcon width={12} height={12} />
-              <Typography> Back </Typography>
+              <Typography> {lang.strings.buttons.back} </Typography>
             </Flex>
           </Button>
           <Button variant="none" onClick={onRefresh}>
@@ -84,19 +92,32 @@ export const BuySellOrder = () => {
                 height={12}
                 fill={`url(#${svgGradients.gold})`}
               />
-              <Typography> Retry </Typography>
+              <Typography> {lang.strings.buttons.retry} </Typography>
             </Flex>
           </Button>
         </Flex>
+        {showLoader && (
+          <div
+            style={{
+              position: 'absolute',
+              top: '50%',
+              left: '50%',
+              transform: 'translate(-50%, -50%)',
+            }}
+          >
+            <LoaderDialog />
+          </div>
+        )}
         <webview
           id="webviewid"
           src={preorderDetails.link}
           style={{
-            display: 'inline-flex',
+            display: showLoader ? 'none' : 'inline-flex',
             height: '100%',
             width: '100%',
             padding: '20px',
           }}
+          webpreferences="nativeWindowOpen=true"
           // @ts-expect-error Popups won't work without this line and it doesn't work when we pass a boolean
           allowpopups="true"
         />

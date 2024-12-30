@@ -44,7 +44,10 @@ export const AmountInput: React.FC<AmountInputProps> = ({
     cryptoAmount ?? '0',
   );
 
-  const parsedError = () => (internalFiatAmount !== '' ? error : '');
+  const parsedError = () => {
+    if (isLoading) return '';
+    return internalFiatAmount !== '' ? error : '';
+  };
 
   useEffect(() => {
     if (!fiatAmount && !cryptoAmount) {
@@ -152,7 +155,7 @@ export const AmountInput: React.FC<AmountInputProps> = ({
             placeholder={placeholder}
             onChange={handleCoinValueChange}
             value={internalCryptoAmount}
-            disabled={isDisabled}
+            disabled // Force disabling the input because binance api doesn't return the crypto amount for the same fiat amount
             $textColor="white"
             $noBorder
           />
