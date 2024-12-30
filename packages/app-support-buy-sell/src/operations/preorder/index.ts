@@ -10,7 +10,7 @@ export const preorder = async (
   const result = await binanceService.preorder({
     ...params,
     fiatCurrency: params.fiatCurrency.code,
-    cryptoCurrency: params.cryptoCurrency.cryptoCurrency,
+    cryptoCurrency: params.cryptoCurrency.coin.abbr.toUpperCase(),
     network: params.cryptoCurrency.network,
   });
 

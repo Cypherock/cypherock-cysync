@@ -18,7 +18,7 @@ export const getEstimatedQuote = async (
   const quote = await binanceService.getEstimatedQuote({
     requestedAmount: params.fiatAmount ?? params.cryptoAmount ?? '',
     fiatCurrency: params.fiatCurrency.code,
-    cryptoCurrency: params.cryptoCurrency.cryptoCurrency,
+    cryptoCurrency: params.cryptoCurrency.coin.abbr.toUpperCase(),
     network: params.cryptoCurrency.network,
     amountType: params.fiatAmount ? 1 : 2,
   });

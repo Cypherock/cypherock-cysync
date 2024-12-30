@@ -18,7 +18,7 @@ export const getPaymentMethods = async (
   const result = await binanceService.getPaymentMethodList({
     totalAmount: params.fiatAmount ?? params.cryptoAmount ?? '',
     fiatCurrency: params.fiatCurrency.code,
-    cryptoCurrency: params.cryptoCurrency.cryptoCurrency,
+    cryptoCurrency: params.cryptoCurrency.coin.abbr.toUpperCase(),
     amountType: params.fiatAmount ? 1 : 2,
     language: params.language,
   });
