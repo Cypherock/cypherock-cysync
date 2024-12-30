@@ -180,8 +180,6 @@ export const BuySellProvider: FC<BuySellContextProviderProps> = ({
 
   const { accountDropdownList: accountDropdownListSrc } = useAccountDropdown({
     selectedWallet,
-    includeSubAccounts: true,
-    prependAccountNameToSubaccounts: true,
   });
 
   const accountDropdownList = useMemo(
@@ -189,10 +187,13 @@ export const BuySellProvider: FC<BuySellContextProviderProps> = ({
       accountDropdownListSrc
         .filter(
           a =>
-            Boolean(a.id && accountList[a.id]) &&
+            a.id &&
+            accountList[a.id] &&
             selectedCryptoCurrency &&
-            selectedCryptoCurrency.coin.coin.id ===
-              accountList[a.id ?? ''].assetId,
+            (selectedCryptoCurrency.coin.coin.id ===
+              accountList[a.id].assetId ||
+              (selectedCryptoCurrency.coin.coin as any).parentId ===
+                accountList[a.id].assetId),
         )
         .map(a => {
           const account = a.id ? accountList[a.id] : undefined;

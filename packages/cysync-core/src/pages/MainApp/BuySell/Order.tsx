@@ -11,8 +11,10 @@ import React, { useEffect, useRef, useState } from 'react';
 
 import { LoaderDialog } from '~/components';
 import { useBuySell } from '~/context';
+import { selectLanguage, useAppSelector } from '~/store';
 
 export const BuySellOrder = () => {
+  const lang = useAppSelector(selectLanguage);
   const { isPreordering, preorderDetails, onPreviousState, onRetry } =
     useBuySell();
   const webviewRef = useRef<any>();
@@ -73,7 +75,7 @@ export const BuySellOrder = () => {
               $height="full"
             >
               <ArrowBackGoldenIcon width={12} height={12} />
-              <Typography> Back </Typography>
+              <Typography> {lang.strings.buttons.back} </Typography>
             </Flex>
           </Button>
           <Button variant="none" onClick={onRefresh}>
@@ -90,7 +92,7 @@ export const BuySellOrder = () => {
                 height={12}
                 fill={`url(#${svgGradients.gold})`}
               />
-              <Typography> Retry </Typography>
+              <Typography> {lang.strings.buttons.retry} </Typography>
             </Flex>
           </Button>
         </Flex>
