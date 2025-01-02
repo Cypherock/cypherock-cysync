@@ -458,6 +458,47 @@
       "suffix": "（L1 + L2）"
     }
   },
+  "deployAccount": {
+    "title": "Deploy Account",
+    "x1Vault": {
+      "title": "Follow instructions on the X1 Vault",
+      "actions": {
+        "verifyCoin": "Verify",
+        "verifyDetails": "Verify account deployment details on device",
+        "enterPassphrase": "Enter passphrase",
+        "enterPin": "Enter the PIN and tap any card",
+        "tapCard": "Tap any card"
+      },
+      "token": {
+        "info": "Remember ${tokenName} is an ${parentCoinName} token therefore fee will be calculated in ${parentCoinUnit}"
+      },
+      "messageBox": {
+        "warning": "Before you can make your first transaction on Starknet, your account needs to be activated. This transaction is for deploying your account on Starknet network"
+      }
+    },
+    "summary": {
+      "title": "Summary",
+      "from": "From",
+      "account": "Account Address",
+      "fee": "Max Deployment Fee",
+      "messageBox": {
+        "warning": "Before you can make your first transaction on Starknet, your account needs to be activated. This transaction is for deploying your account on Starknet network",
+        "error": "Your account does not have sufficient balance for Account Deployment"
+      }
+    },
+    "finalMessage": {
+      "button": "Continue",
+      "title": "Account Deployed Successfully",
+      "hashLabel": "Transaction Hash"
+    },
+    "aside": {
+      "tabs": {
+        "summary": "Summary",
+        "x1vault": "X1 Vault",
+        "confirm": "Confirmation"
+      }
+    }
+  },
   "walletConnect": {
     "uriTab": {
       "title": "WalletConnect",

@@ -22,6 +22,7 @@ export interface LanguageStrings {
   addToken: LangAddToken;
   receive: LangReceive;
   send: LangSend;
+  deployAccount: LangDeployAccount;
   history: LangHistory;
   onboarding: LangOnboarding;
   appUpdateBar: LangAppUpdateBar;
@@ -326,6 +327,41 @@ interface LangSend {
     l1: string;
     l2: string;
     suffix: string;
+  };
+}
+
+interface LangDeployAccount {
+  title: string;
+  x1Vault: {
+    title: string;
+    actions: {
+      verifyCoin: string;
+      verifyDetails: string;
+      enterPassphrase: string;
+      enterPin: string;
+      tapCard: string;
+    };
+    token: { info: string };
+    messageBox: { warning: string };
+  };
+  summary: {
+    title: string;
+    from: string;
+    account: string;
+    fee: string;
+    messageBox: { warning: string; error: string };
+  };
+  finalMessage: {
+    button: string;
+    title: string;
+    hashLabel: string;
+  };
+  aside: {
+    tabs: {
+      summary: string;
+      x1vault: string;
+      confirm: string;
+    };
   };
 }
 

@@ -13,6 +13,7 @@ import { BetaNotificationDialog } from './BetaNotificationDialog';
 import { ContactSupportDialog } from './ContactSupport';
 import { ReleaseNotesDialog, ResetCySyncDialog } from './CySync';
 import { DeleteAccountDialog } from './DeleteAccountDialog';
+import { DeployAccountDialog } from './DeployAccount';
 import { DeviceAuthenticationDialog } from './DeviceAuthenticationDialog';
 import { DeviceUpdateDialog } from './DeviceUpdateDialog';
 import { EditAccountDialog } from './EditAccountDialog';
@@ -51,6 +52,7 @@ export const dialogs: Record<DialogName, ReactComponentLike> = {
   addAccount: AddAccountDialog,
   addToken: AddTokenDialog,
   sendDialog: SendDialog,
+  deployAccountDialog: DeployAccountDialog,
   historyDialog: HistoryDialog,
   receive: ReceiveDialog,
   removePassword: RemovePasswordDialog,

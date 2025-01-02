@@ -1,5 +1,5 @@
 import { starknetCoinList } from '@cypherock/coins';
-import { makePostRequest } from '@cypherock/cysync-utils';
+import { assert, makePostRequest } from '@cypherock/cysync-utils';
 
 import { config } from '../../config';
 import { getCoinSupportStarknetLib } from '../../utils';
@@ -20,7 +20,7 @@ export const getBalance = async (
     network: starknetCoinList[assetId].network,
   });
 
-  let balance = response?.data?.balance ?? '0';
+  let balance = response.data?.balance ?? '0';
 
   if (typeof balance === 'number') balance = balance.toString();
 
@@ -28,4 +28,24 @@ export const getBalance = async (
     throw new Error('Invalid starknet balance returned from server');
 
   return balance;
+};
+
+export const getNonce = async (
+  address: string,
+  assetId: string,
+): Promise<string> => {
+  const url = `${baseURL}/nonce`;
+  const response = await makePostRequest(url, {
+    address,
+    network: starknetCoinList[assetId].network,
+  });
+
+  const nonce = response.data?.nonce;
+
+  assert(
+    nonce !== undefined && nonce !== null,
+    'Invalid nonce response from server',
+  );
+
+  return nonce;
 };
