@@ -126,7 +126,7 @@ export const SummaryDialog: React.FC = () => {
   }, []);
 
   const [hasError, setHasError] = useState(false);
-  const continueBtnState = hasError;
+  const continueBtnState = !hasError;
   useEffect(() => {
     setHasError(!transaction || !transaction.validation.hasEnoughBalance);
   }, [transaction]);

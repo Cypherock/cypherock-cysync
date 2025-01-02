@@ -721,7 +721,7 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
             isWalletConnectRequest,
           }),
         );
-        return onClose();
+        return onClose(true);
       }
     }
     return onNext();

@@ -30,12 +30,7 @@ import { Observer, Subscription } from 'rxjs';
 
 import { openSendDialog } from '~/actions';
 import { LoaderDialog } from '~/components';
-import {
-  WalletConnectCallRequestMethodMap,
-  deviceLock,
-  useDevice,
-  useWalletConnect,
-} from '~/context';
+import { deviceLock, useDevice } from '~/context';
 import { ITabs, useStateWithRef, useTabsAndDialogs } from '~/hooks';
 import {
   closeDialog,
@@ -136,7 +131,6 @@ export const DeployAccountDialogProvider: FC<
   >({});
   const { connection } = useDevice();
   const flowSubscription = useRef<Subscription | undefined>();
-  const { rejectCallRequest, callRequestData } = useWalletConnect();
 
   const tabs: ITabs = useMemo(
     () => [
@@ -163,12 +157,7 @@ export const DeployAccountDialogProvider: FC<
 
   useEffect(() => {
     if (signedTransaction) {
-      if (
-        !isWalletConnectRequest ||
-        callRequestData?.method ===
-          WalletConnectCallRequestMethodMap.ETH_SEND_TXN
-      )
-        broadcast();
+      broadcast();
     }
   }, [signedTransaction]);
 
@@ -187,9 +176,8 @@ export const DeployAccountDialogProvider: FC<
     }
   };
 
-  const onClose = async (skipRejection?: boolean) => {
+  const onClose = async () => {
     cleanUp();
-    if (!skipRejection && isWalletConnectRequest) rejectCallRequest();
     dispatch(closeDialog('deployAccountDialog'));
   };
 
