@@ -311,6 +311,7 @@ export const BuySellProvider: FC<BuySellContextProviderProps> = ({
             });
         setCryptoDropdownList(cryptoDropdown);
       }
+      paymentMethodsRef.current = undefined;
     },
     [selectedCryptoCurrency],
   );
@@ -379,102 +380,103 @@ export const BuySellProvider: FC<BuySellContextProviderProps> = ({
     );
   };
 
-  const handleAmountEstimation = useCallback(
-    async (params: { fiatAmount?: string; cryptoAmount?: string }) => {
-      if (
-        !selectedFiatCurrencyRef.current ||
-        !selectedCryptoCurrencyRef.current
-      )
-        return false;
-      if (!params.fiatAmount && !params.cryptoAmount) return false;
+  useEffect(() => {
+    setAmountError('');
+  }, [selectedCryptoCurrency, selectedFiatCurrency]);
 
-      try {
-        if (paymentMethodsRef.current === undefined) {
-          // This api returs all payment methods regardless of amount
-          // Hence the hardcoded amount values
-          // TODO: upate this when binance has fixed their api
-          const result = await buySellSupport.getPaymentMethods({
-            cryptoCurrency: selectedCryptoCurrencyRef.current.coin,
-            fiatCurrency: selectedFiatCurrencyRef.current,
-            cryptoAmount: '1',
-            fiatAmount: '1',
-          });
-          paymentMethodsRef.current = result;
-          updateFiatAmountLimit();
-        }
-        if (paymentMethodsRef.current.length === 0) {
-          setAmountError(
-            lang.strings.onramp.buy.selectCurrency.amount.noMethodsError,
-          );
-          return false;
-        }
-        if (
-          params.fiatAmount &&
-          !isValueInRange(
-            minFiatAmountRef.current,
-            params.fiatAmount,
-            maxFiatAmountRef.current,
-          )
-        ) {
-          setAmountError(
-            parseLangTemplate(
-              lang.strings.onramp.buy.selectCurrency.amount.limitError,
-              {
-                min: minFiatAmountRef.current.toString(),
-                max: maxFiatAmountRef.current.toString(),
-              },
-            ),
-          );
-          return false;
-        }
+  const handleAmountEstimation = async (params: {
+    fiatAmount?: string;
+    cryptoAmount?: string;
+  }) => {
+    if (!selectedFiatCurrencyRef.current || !selectedCryptoCurrencyRef.current)
+      return false;
+    if (!params.fiatAmount && !params.cryptoAmount) return false;
 
-        if (
-          params.cryptoAmount &&
-          !isValueInRange(
-            minCryptoAmountRef.current,
-            params.cryptoAmount,
-            maxCryptoAmountRef.current,
-          )
-        ) {
-          setAmountError(
-            parseLangTemplate(
-              lang.strings.onramp.buy.selectCurrency.amount.limitError,
-              {
-                min: minCryptoAmountRef.current.toString(),
-                max: maxCryptoAmountRef.current.toString(),
-              },
-            ),
-          );
-          return false;
-        }
-
-        const result = await buySellSupport.getEstimatedQuote({
+    try {
+      if (paymentMethodsRef.current === undefined) {
+        // This api returs all payment methods regardless of amount
+        // Hence the hardcoded amount values
+        // TODO: upate this when binance has fixed their api
+        const result = await buySellSupport.getPaymentMethods({
           cryptoCurrency: selectedCryptoCurrencyRef.current.coin,
           fiatCurrency: selectedFiatCurrencyRef.current,
-          cryptoAmount: params.cryptoAmount,
-          fiatAmount: params.fiatAmount,
+          cryptoAmount: '1',
+          fiatAmount: '1',
         });
-
-        if (result.totalAmount) {
-          if (result.totalAmount === '0') {
-            setAmountError(lang.strings.onramp.buy.selectCurrency.amount.error);
-            return false;
-          }
-          setAmountError(undefined);
-          if (params.fiatAmount) {
-            setCryptoAmount(result.totalAmount);
-          } else if (params.cryptoAmount) {
-            setFiatAmount(result.totalAmount);
-          }
-        }
-        return true;
-      } catch (err: any) {
-        onError(err);
+        paymentMethodsRef.current = result;
+        updateFiatAmountLimit();
+      }
+      if (paymentMethodsRef.current.length === 0) {
+        setAmountError(
+          lang.strings.onramp.buy.selectCurrency.amount.noMethodsError,
+        );
         return false;
       }
-    },
-    [paymentMethodsRef],
-  );
+      if (
+        params.fiatAmount &&
+        !isValueInRange(
+          minFiatAmountRef.current,
+          params.fiatAmount,
+          maxFiatAmountRef.current,
+        )
+      ) {
+        setAmountError(
+          parseLangTemplate(
+            lang.strings.onramp.buy.selectCurrency.amount.limitError,
+            {
+              min: minFiatAmountRef.current.toString(),
+              max: maxFiatAmountRef.current.toString(),
+            },
+          ),
+        );
+        return false;
+      }
+
+      if (
+        params.cryptoAmount &&
+        !isValueInRange(
+          minCryptoAmountRef.current,
+          params.cryptoAmount,
+          maxCryptoAmountRef.current,
+        )
+      ) {
+        setAmountError(
+          parseLangTemplate(
+            lang.strings.onramp.buy.selectCurrency.amount.limitError,
+            {
+              min: minCryptoAmountRef.current.toString(),
+              max: maxCryptoAmountRef.current.toString(),
+            },
+          ),
+        );
+        return false;
+      }
+
+      const result = await buySellSupport.getEstimatedQuote({
+        cryptoCurrency: selectedCryptoCurrencyRef.current.coin,
+        fiatCurrency: selectedFiatCurrencyRef.current,
+        cryptoAmount: params.cryptoAmount,
+        fiatAmount: params.fiatAmount,
+      });
+
+      if (result.totalAmount) {
+        if (result.totalAmount === '0') {
+          setAmountError(lang.strings.onramp.buy.selectCurrency.amount.error);
+          return false;
+        }
+        setAmountError(undefined);
+        if (params.fiatAmount) {
+          setCryptoAmount(result.totalAmount);
+        } else if (params.cryptoAmount) {
+          setFiatAmount(result.totalAmount);
+        }
+      }
+      return true;
+    } catch (err: any) {
+      onError(err);
+      return false;
+    }
+  };
 
   const [estimateAmount, , , resetEstimation] = useAsync(
     handleAmountEstimation,
