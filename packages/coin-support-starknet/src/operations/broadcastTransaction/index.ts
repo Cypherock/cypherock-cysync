@@ -16,15 +16,7 @@ import {
   broadcastInvokeTransactionToBlockchain,
   prepareInvokeTransaction,
 } from '../../services';
-
-const removeHexPrefix = (hex: string) => hex.replace(/^0x/i, '');
-
-const addHexPrefix = (hex: string) => {
-  let hexPrefix = '0x';
-  if (hex.length % 2) hexPrefix = '0x0';
-
-  return `${hexPrefix}${removeHexPrefix(hex)}`;
-};
+import { addHexPrefix } from '../../utils/addHexPrefix';
 
 export const broadcastTransaction = async (
   params: IBroadcastStarknetTransactionParams,

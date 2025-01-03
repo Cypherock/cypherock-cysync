@@ -10,6 +10,7 @@ export const getBalance = async (
   address: string,
   contractAddress: string,
   assetId: string,
+  blockId?: string,
 ): Promise<string> => {
   const url = `${baseURL}/balance`;
   const response = await makePostRequest(url, {
@@ -18,6 +19,7 @@ export const getBalance = async (
     entryPointSelector:
       getCoinSupportStarknetLib().hash.getSelectorFromName('balanceOf'),
     network: starknetCoinList[assetId].network,
+    blockId,
   });
 
   let balance = response.data?.balance ?? '0';

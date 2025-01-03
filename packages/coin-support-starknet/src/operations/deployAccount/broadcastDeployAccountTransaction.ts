@@ -3,6 +3,7 @@ import {
   insertOrUpdateTransactions,
 } from '@cypherock/coin-support-utils';
 import { starknetCoinList } from '@cypherock/coins';
+import { sleep } from '@cypherock/cysync-utils';
 import {
   ITransaction,
   TransactionStatusMap,
@@ -11,20 +12,16 @@ import {
 
 import { IBroadcastStarknetDeployAccountTransactionParams } from './types';
 
-import { STRKWARE_SEQUENCER_ADDRESS } from '../../constants';
+import {
+  STRK_TOKEN_CONTRACT,
+  STRKWARE_SEQUENCER_ADDRESS,
+} from '../../constants';
 import {
   broadcastDeployAccountTransactionToBlockchain,
+  getBalance,
   prepareDeployAccountTransaction,
 } from '../../services';
-
-const removeHexPrefix = (hex: string) => hex.replace(/^0x/i, '');
-
-const addHexPrefix = (hex: string) => {
-  let hexPrefix = '0x';
-  if (hex.length % 2) hexPrefix = '0x0';
-
-  return `${hexPrefix}${removeHexPrefix(hex)}`;
-};
+import { addHexPrefix } from '../../utils/addHexPrefix';
 
 export const broadcastDeployAccountTransaction = async (
   params: IBroadcastStarknetDeployAccountTransactionParams,
@@ -51,12 +48,6 @@ export const broadcastDeployAccountTransaction = async (
     transaction: deployAccountTransaction,
     assetId: coin.id,
   });
-
-  /**
-   * @todo: Fetch the transaction details using the result.transactionHash
-   * Update ITransaction with the actual values from the details fetched
-   * And if transaction status is SUCCEEDED, update the account balance as well
-   */
 
   const parsedTransaction: ITransaction = {
     hash: addHexPrefix(result.transactionHash),
@@ -92,6 +83,15 @@ export const broadcastDeployAccountTransaction = async (
   };
 
   const [addedTxn] = await insertOrUpdateTransactions(db, [parsedTransaction]);
+
+  await sleep(10000);
+  const balance = await getBalance(
+    myAddress,
+    STRK_TOKEN_CONTRACT,
+    account.assetId,
+    'pending',
+  );
+  await db.account.update({ __id: account.__id }, { balance });
 
   return addedTxn;
 };
