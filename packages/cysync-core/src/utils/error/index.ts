@@ -5,6 +5,8 @@ import {
   ServerCoinError,
   ServerCoinErrorTypes,
   ServerError,
+  BinanceServerError,
+  BinanceErrorType,
   ServerErrorType,
 } from '@cypherock/cysync-core-constants';
 
@@ -16,6 +18,7 @@ import {
   getServerCoinErrorHandlingDetails,
   getServerErrorHandlingDetails,
 } from '~/constants/errors';
+import { getBinanceErrorHandlingDetails } from '~/constants/errors/binanceError';
 import { ILangState } from '~/store';
 
 import {
@@ -35,6 +38,14 @@ export const createServerErrorFromError = (
   type?: ServerErrorType,
 ) => {
   if (error?.isAxiosError) {
+    if (error.response?.data?.isBinanceError) {
+      return new BinanceServerError(error.response.data.code, undefined, {
+        advanceText: error.response.data.cysyncError,
+        responseBody: error.response.data,
+        url: error.request?.url,
+        status: error.response.status,
+      });
+    }
     if (error.response && error.response.data?.coinErrorCode) {
       return new ServerCoinError({
         coinFamily: error.response.data.coinFamily,
@@ -55,10 +66,8 @@ export const createServerErrorFromError = (
         status: error?.response?.status,
       });
     }
-
     return new ServerError(ServerErrorType.CONNOT_CONNECT);
   }
-
   return undefined;
 };
 
@@ -106,6 +115,17 @@ export const getParsedError = (params: {
 
     advanceText = errorToParse?.details?.advanceText;
     details = getServerErrorHandlingDetails(lang, errorToParse.code) ?? details;
+  } else if (errorToParse?.isBinanceError && errorToParse.code) {
+    heading =
+      lang.strings.errors.binanceErrors[errorToParse.code as BinanceErrorType]
+        .heading ?? heading;
+    subtext =
+      lang.strings.errors.binanceErrors[errorToParse.code as BinanceErrorType]
+        .subtext;
+
+    advanceText = errorToParse?.details?.advanceText;
+    details =
+      getBinanceErrorHandlingDetails(lang, errorToParse.code) ?? details;
   } else if (errorToParse?.isServerCoinError && errorToParse.code) {
     const serverCoinErrors =
       lang.strings.errors.serverCoinErrors[

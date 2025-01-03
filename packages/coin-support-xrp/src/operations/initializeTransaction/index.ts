@@ -2,7 +2,7 @@ import { IInitializeTransactionParams } from '@cypherock/coin-support-interfaces
 import { getAccountAndCoin } from '@cypherock/coin-support-utils';
 import { xrpCoinList } from '@cypherock/coins';
 
-import { getFees } from '../../services';
+import { getFees, getReserveBalance } from '../../services';
 import { IPreparedXrpTransaction } from '../transaction';
 
 export const initializeTransaction = async (
@@ -12,6 +12,7 @@ export const initializeTransaction = async (
   const { account } = await getAccountAndCoin(db, xrpCoinList, accountId);
 
   const fees = await getFees(account.assetId);
+  const { reserveBaseBalance } = await getReserveBalance(account.assetId);
 
   return {
     accountId,
@@ -33,6 +34,7 @@ export const initializeTransaction = async (
     },
     staticData: {
       fees,
+      reserveBaseBalance,
     },
     computedData: {
       output: { address: '', amount: '0' },

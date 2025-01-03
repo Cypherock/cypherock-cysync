@@ -1,6 +1,6 @@
 {
   "name": "@cypherock/cysync-utils",
-  "version": "0.0.7",
+  "version": "0.0.9",
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
   "types": "dist/cjs/index.d.ts",
@@ -43,7 +43,8 @@
     "@cypherock/cysync-interfaces": "workspace:^",
     "axios": "^1.4.0",
     "bignumber.js": "^9.1.1",
-    "lodash": "^4.17.21"
+    "lodash": "^4.17.21",
+    "zod": "^3.21.4"
   },
   "lint-staged": {
     "*.{ts,tsx}": [

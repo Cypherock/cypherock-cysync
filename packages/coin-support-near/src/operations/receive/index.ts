@@ -17,7 +17,7 @@ import { INearReceiveEvent, INearReceiveParams, statusMap } from './types';
 
 import { createApp } from '../../utils';
 
-const getExternalAddress = async (
+export const getExternalAddress = async (
   params: IGenerateReceiveAddressParams,
 ): Promise<IReceiveAddressInfo> => {
   const { xpubOrAddress, derivationPath } = params.account;

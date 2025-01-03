@@ -1,6 +1,6 @@
+import { getDefaultUnit, getParsedAmount } from '@cypherock/coin-support-utils';
 import { IPreparedBtcTransaction } from '@cypherock/coin-support-btc';
 import { IPreparedXrpTransaction } from '@cypherock/coin-support-xrp';
-import { getDefaultUnit, getParsedAmount } from '@cypherock/coin-support-utils';
 import {
   BlockchainIcon,
   Button,
@@ -25,7 +25,6 @@ import logger from '~/utils/logger';
 import { AddressAndAmountSection, FeeSection } from './Components';
 
 import { useSendDialog } from '../context';
-import { coinFamiliesMap, xrpCoinList } from '@cypherock/coins';
 
 export const Recipient: React.FC = () => {
   const {
@@ -45,11 +44,7 @@ export const Recipient: React.FC = () => {
     const account = selectedAccount;
     if (!account) return `0`;
 
-    let { balance } = account;
-    if (account.familyId === coinFamiliesMap.xrp)
-      balance = new BigNumber(balance)
-        .minus(xrpCoinList[account.assetId].reserveXrp)
-        .toString();
+    const balance = account.spendableBalance ?? account.balance;
 
     const { amount: _amount, unit } = getParsedAmount({
       coinId: account.parentAssetId,

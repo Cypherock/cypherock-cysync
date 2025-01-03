@@ -1,5 +1,43 @@
 # @cypherock/coins
 
+## 0.1.1
+
+### Patch Changes
+
+- [#541](https://github.com/Cypherock/cypherock-cysync/pull/541) [`1b1330cf`](https://github.com/Cypherock/cypherock-cysync/commit/1b1330cf125146484d927f4ac8f5eeab466346ff) Thanks [@irshadjsr21](https://github.com/irshadjsr21)! - Added get coin address interface
+
+- [#541](https://github.com/Cypherock/cypherock-cysync/pull/541) [`1b1330cf`](https://github.com/Cypherock/cypherock-cysync/commit/1b1330cf125146484d927f4ac8f5eeab466346ff) Thanks [@irshadjsr21](https://github.com/irshadjsr21)! - Add binance connect support
+
+- [#651](https://github.com/Cypherock/cypherock-cysync/pull/651) [`dd105169`](https://github.com/Cypherock/cypherock-cysync/commit/dd1051690015c11fb2da93f885f288e15530e346) Thanks [@TejasvOnly](https://github.com/TejasvOnly)! - Integrate webview
+
+## 0.1.1-pre.0
+
+### Patch Changes
+
+- [#541](https://github.com/Cypherock/cypherock-cysync/pull/541) [`1b1330cf`](https://github.com/Cypherock/cypherock-cysync/commit/1b1330cf125146484d927f4ac8f5eeab466346ff) Thanks [@irshadjsr21](https://github.com/irshadjsr21)! - Added get coin address interface
+
+- [#541](https://github.com/Cypherock/cypherock-cysync/pull/541) [`1b1330cf`](https://github.com/Cypherock/cypherock-cysync/commit/1b1330cf125146484d927f4ac8f5eeab466346ff) Thanks [@irshadjsr21](https://github.com/irshadjsr21)! - Add binance connect support
+
+## 0.1.0
+
+### Minor Changes
+
+- [#644](https://github.com/Cypherock/cypherock-cysync/pull/644) [`b9857909`](https://github.com/Cypherock/cypherock-cysync/commit/b985790932df37f970b2568f9bea9115a44aa742) Thanks [@muzaffarbhat07](https://github.com/muzaffarbhat07)! - fixed xrp reserve balance issue and added spendable balance to account
+
+### Patch Changes
+
+- [#645](https://github.com/Cypherock/cypherock-cysync/pull/645) [`1820213c`](https://github.com/Cypherock/cypherock-cysync/commit/1820213c8c9f6d173b3e245758704d10d62ccf1a) Thanks [@TejasvOnly](https://github.com/TejasvOnly)! - Update token lists
+
+## 0.1.0-pre.0
+
+### Minor Changes
+
+- [#644](https://github.com/Cypherock/cypherock-cysync/pull/644) [`b9857909`](https://github.com/Cypherock/cypherock-cysync/commit/b985790932df37f970b2568f9bea9115a44aa742) Thanks [@muzaffarbhat07](https://github.com/muzaffarbhat07)! - fixed xrp reserve balance issue and added spendable balance to account
+
+### Patch Changes
+
+- [#645](https://github.com/Cypherock/cypherock-cysync/pull/645) [`1820213c`](https://github.com/Cypherock/cypherock-cysync/commit/1820213c8c9f6d173b3e245758704d10d62ccf1a) Thanks [@TejasvOnly](https://github.com/TejasvOnly)! - Update token lists
+
 ## 0.0.9
 
 ### Patch Changes

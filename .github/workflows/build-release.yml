@@ -206,7 +206,7 @@ jobs:
       - name: Fix hashBang in pnpm.cjs
         env:
           WINDOWS_USERNAME: ${{ secrets.WINDOWS_USERNAME }}
-          IS_CI: "true"
+          IS_CI: 'true'
         run: pnpm fix:hashbang
 
       - name: pnpm install

@@ -80,7 +80,7 @@ export const prepareTransaction = async (
   const calculateMaxSend = () => {
     sendAmount = new BigNumber(
       BigNumber.max(
-        new BigNumber(account.balance).minus(fees).minus(coin.reserveXrp),
+        new BigNumber(account.spendableBalance ?? account.balance).minus(fees),
         0,
       ).toFixed(0),
     );
@@ -108,15 +108,17 @@ export const prepareTransaction = async (
   if (hasEnoughBalance) {
     isBalanceBelowXrpReserve = !(
       sendAmount.isNaN() ||
-      new BigNumber(account.balance).isGreaterThanOrEqualTo(
-        sendAmount.plus(fees).plus(coin.reserveXrp),
-      )
+      new BigNumber(
+        account.spendableBalance ?? account.balance,
+      ).isGreaterThanOrEqualTo(sendAmount.plus(fees))
     );
   }
 
   let isAmountBelowXrpReserve = !output.isActivated;
   if (isAmountBelowXrpReserve) {
-    isAmountBelowXrpReserve = sendAmount.isLessThan(coin.reserveXrp);
+    isAmountBelowXrpReserve = sendAmount.isLessThan(
+      txn.staticData.reserveBaseBalance,
+    );
   }
 
   const isValidFee = new BigNumber(fees).isGreaterThan(0);

@@ -4,6 +4,7 @@ import {
   ICreateAccountEvent,
   ICreateAccountParams,
   IFormatAddressParams,
+  IGetAccountAddressParams,
   IGetAccountHistoryParams,
   IGetAccountHistoryResult,
   IGetCoinAllocationsParams,
@@ -147,5 +148,9 @@ export class StarknetSupport implements CoinSupport {
     params: IBroadcastStarknetDeployAccountTransactionParams,
   ): Promise<ITransaction> {
     return operations.broadcastDeployAccountTransaction(params);
+  }
+
+  public async getAccountAddress(params: IGetAccountAddressParams) {
+    return (await operations.getExternalAddress(params)).address;
   }
 }

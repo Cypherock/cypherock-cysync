@@ -7,3 +7,4 @@ export * from './tron';
 export * from './xrp';
 export * from './starknet';
 export * from './types';
+export * from './currencies';

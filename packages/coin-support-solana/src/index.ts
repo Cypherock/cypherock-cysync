@@ -12,6 +12,7 @@ import {
   IFormatAddressParams,
   IInitializeTransactionParams,
   IValidateAddressParams,
+  IGetAccountAddressParams,
 } from '@cypherock/coin-support-interfaces';
 import { ITransaction } from '@cypherock/db-interfaces';
 import { setSolanaWeb3 } from '@cypherock/sdk-app-solana';
@@ -108,5 +109,9 @@ export class SolanaSupport implements CoinSupport {
 
   public formatAddress(params: IFormatAddressParams) {
     return params.address;
+  }
+
+  public async getAccountAddress(params: IGetAccountAddressParams) {
+    return (await operations.getExternalAddress(params)).address;
   }
 }

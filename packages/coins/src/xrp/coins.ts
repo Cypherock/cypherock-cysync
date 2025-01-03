@@ -10,8 +10,6 @@ export default [
     color: '#FFFFFF',
     family: 'xrp',
     network: 'mainnet',
-    // TODO: this should be fetched from an api eventually and shouldn't be present in coins package
-    reserveXrp: '10000000', // in drops
     units: [
       {
         name: 'xrp',

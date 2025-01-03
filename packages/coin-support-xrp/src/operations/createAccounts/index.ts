@@ -5,6 +5,7 @@ import {
   makeCreateAccountsObservable,
 } from '@cypherock/coin-support-utils';
 import { xrpCoinList } from '@cypherock/coins';
+import { BigNumber } from '@cypherock/cysync-utils';
 import { AccountTypeMap } from '@cypherock/db-interfaces';
 import { GetPublicKeysEvent, XrpApp } from '@cypherock/sdk-app-xrp';
 import { hexToUint8Array } from '@cypherock/sdk-utils';
@@ -58,22 +59,34 @@ const getAddressesFromDevice: GetAddressesFromDevice<XrpApp> = async params => {
 
 const createAccountFromAddress: IMakeCreateAccountsObservableParams<XrpApp>['createAccountFromAddress'] =
   async (addressDetails, params) => {
-    const coin = xrpCoinList[params.coinId];
-    const name = `${coin.name} ${addressDetails.index + 1}`;
+    const { address, index, balance, txnCount, derivationPath, schemeName } =
+      addressDetails;
+    const { coinId, walletId } = params;
+
+    const coin = xrpCoinList[coinId];
+    const name = `${coin.name} ${index + 1}`;
+
+    const spendableBalance = BigNumber.max(
+      0,
+      new BigNumber(balance).minus(
+        await services.getAccountReserveBalance(address, coinId),
+      ),
+    ).toString();
 
     const account: ICreatedXrpAccount = {
       name,
-      xpubOrAddress: addressDetails.address,
-      balance: addressDetails.balance,
+      xpubOrAddress: address,
+      balance,
+      spendableBalance,
       unit: coin.units[0].abbr,
-      derivationPath: addressDetails.derivationPath,
+      derivationPath,
       type: AccountTypeMap.account,
       familyId: coin.family,
-      assetId: params.coinId,
-      parentAssetId: params.coinId,
-      walletId: params.walletId,
-      derivationScheme: addressDetails.schemeName as any,
-      isNew: addressDetails.txnCount <= 0,
+      assetId: coinId,
+      parentAssetId: coinId,
+      walletId,
+      derivationScheme: schemeName as any,
+      isNew: txnCount <= 0,
       extraData: {},
       isHidden: false,
     };

@@ -1,5 +1,47 @@
 # @cypherock/database
 
+## 0.1.1
+
+### Patch Changes
+
+- [#651](https://github.com/Cypherock/cypherock-cysync/pull/651) [`dd105169`](https://github.com/Cypherock/cypherock-cysync/commit/dd1051690015c11fb2da93f885f288e15530e346) Thanks [@TejasvOnly](https://github.com/TejasvOnly)! - Integrate webview
+
+- Updated dependencies [[`1b1330cf`](https://github.com/Cypherock/cypherock-cysync/commit/1b1330cf125146484d927f4ac8f5eeab466346ff), [`1b1330cf`](https://github.com/Cypherock/cypherock-cysync/commit/1b1330cf125146484d927f4ac8f5eeab466346ff), [`dd105169`](https://github.com/Cypherock/cypherock-cysync/commit/dd1051690015c11fb2da93f885f288e15530e346)]:
+  - @cypherock/cysync-utils@0.0.9
+
+## 0.1.1-pre.0
+
+### Patch Changes
+
+- Updated dependencies [[`1b1330cf`](https://github.com/Cypherock/cypherock-cysync/commit/1b1330cf125146484d927f4ac8f5eeab466346ff), [`1b1330cf`](https://github.com/Cypherock/cypherock-cysync/commit/1b1330cf125146484d927f4ac8f5eeab466346ff)]:
+  - @cypherock/cysync-utils@0.0.9-pre.0
+
+## 0.1.0
+
+### Minor Changes
+
+- [#644](https://github.com/Cypherock/cypherock-cysync/pull/644) [`b9857909`](https://github.com/Cypherock/cypherock-cysync/commit/b985790932df37f970b2568f9bea9115a44aa742) Thanks [@muzaffarbhat07](https://github.com/muzaffarbhat07)! - fixed xrp reserve balance issue and added spendable balance to account
+
+### Patch Changes
+
+- Updated dependencies [[`b9857909`](https://github.com/Cypherock/cypherock-cysync/commit/b985790932df37f970b2568f9bea9115a44aa742)]:
+  - @cypherock/db-interfaces@0.1.0
+  - @cypherock/cysync-interfaces@0.0.7
+  - @cypherock/cysync-utils@0.0.8
+
+## 0.1.0-pre.0
+
+### Minor Changes
+
+- [#644](https://github.com/Cypherock/cypherock-cysync/pull/644) [`b9857909`](https://github.com/Cypherock/cypherock-cysync/commit/b985790932df37f970b2568f9bea9115a44aa742) Thanks [@muzaffarbhat07](https://github.com/muzaffarbhat07)! - fixed xrp reserve balance issue and added spendable balance to account
+
+### Patch Changes
+
+- Updated dependencies [[`b9857909`](https://github.com/Cypherock/cypherock-cysync/commit/b985790932df37f970b2568f9bea9115a44aa742)]:
+  - @cypherock/db-interfaces@0.1.0-pre.0
+  - @cypherock/cysync-interfaces@0.0.7-pre.0
+  - @cypherock/cysync-utils@0.0.8-pre.0
+
 ## 0.0.9
 
 ### Patch Changes

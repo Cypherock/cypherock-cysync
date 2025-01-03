@@ -18,7 +18,7 @@ import { IBtcReceiveEvent, IBtcReceiveParams, statusMap } from './types';
 import { getFirstUnusedAddress } from '../../services';
 import { createApp } from '../../utils';
 
-const getFirstUnusedExternalAddress = async (
+export const getFirstUnusedExternalAddress = async (
   params: IGenerateReceiveAddressParams,
 ): Promise<IReceiveAddressInfo> => {
   const unusedAddress = await getFirstUnusedAddress(params.account, 'external');

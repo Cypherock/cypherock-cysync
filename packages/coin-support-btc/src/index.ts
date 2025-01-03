@@ -10,6 +10,7 @@ import {
   IGetExplorerLink,
   ISignMessageEvent,
   IFormatAddressParams,
+  IGetAccountAddressParams,
 } from '@cypherock/coin-support-interfaces';
 import { bitcoinJsLibType, setBitcoinJSLib } from '@cypherock/sdk-app-btc';
 import { Observable } from 'rxjs';
@@ -93,5 +94,9 @@ export class BtcSupport implements CoinSupport {
 
   public formatAddress(params: IFormatAddressParams) {
     return params.address;
+  }
+
+  public async getAccountAddress(params: IGetAccountAddressParams) {
+    return (await operations.getFirstUnusedExternalAddress(params)).address;
   }
 }
