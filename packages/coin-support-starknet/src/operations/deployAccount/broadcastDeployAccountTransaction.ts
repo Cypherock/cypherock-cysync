@@ -84,6 +84,15 @@ export const broadcastDeployAccountTransaction = async (
 
   const [addedTxn] = await insertOrUpdateTransactions(db, [parsedTransaction]);
 
+  /**
+   * Updating the account balance(balance - fees) after deploy account
+   * as we need to proceed to send txn
+   * Waiting for some time (10s) for the deploy account transaction
+   * to be included in a block so that we get the updated balance
+   * @todo: Check if we can somehow get the updated balance immediately
+   * as well as the deploy account txn status so that we can be sure
+   * how to proceed further and don't have to wait
+   */
   await sleep(10000);
   const balance = await getBalance(
     myAddress,
