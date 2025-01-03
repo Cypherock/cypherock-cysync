@@ -1128,6 +1128,9 @@ importers:
       '@cypherock/db-interfaces':
         specifier: workspace:^
         version: link:../db-interfaces
+      '@cypherock/sdk-app-starknet':
+        specifier: ^0.1.0
+        version: 0.1.0
       '@cypherock/sdk-interfaces':
         specifier: ^0.0.16
         version: 0.0.16
@@ -5854,6 +5857,18 @@ packages:
       '@cypherock/sdk-utils': 0.0.19
       axios: 1.7.2
       bs58: 5.0.0
+      long: 5.2.3
+      protobufjs: 7.3.2
+    transitivePeerDependencies:
+      - debug
+    dev: false
+
+  /@cypherock/sdk-app-starknet@0.1.0:
+    resolution: {integrity: sha512-lPpjbL3VKP+slRFwjV7pwznViY1LeSSFAaE1y7ekZRTJgRLd/MH8CCOhx+XPU55NNm5zXkDU3Hg3ruc/DYObZg==}
+    dependencies:
+      '@cypherock/sdk-core': 0.1.0
+      '@cypherock/sdk-interfaces': 0.0.16
+      '@cypherock/sdk-utils': 0.0.19
       long: 5.2.3
       protobufjs: 7.3.2
     transitivePeerDependencies:
