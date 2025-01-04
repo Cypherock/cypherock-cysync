@@ -14,7 +14,7 @@ import { ISyncStarknetAccountsParams } from './types';
 
 import { STRK_TOKEN_CONTRACT } from '../../constants';
 import * as services from '../../services';
-import { addHexPrefix } from '../../utils/addHexPrefix';
+import { completeHexHash } from '../../utils/completeHexHash';
 import { IStarknetAccount } from '../types';
 
 const PER_PAGE_TXN_LIMIT = 100;
@@ -33,7 +33,7 @@ const parseTransaction = (
     assetId: account.assetId,
     familyId: account.familyId,
     parentAssetId: account.parentAssetId,
-    hash: addHexPrefix(txn.transactionHash),
+    hash: completeHexHash(txn.transactionHash),
     confirmations: 1,
     fees: txn.transactionFee,
     amount,

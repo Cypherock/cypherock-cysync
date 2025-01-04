@@ -32,8 +32,6 @@ export const SelectionDialog: React.FC = () => {
     defaultAccountId,
   } = useSendDialog();
 
-  const [loadingNext, setLoadingNext] = useState(false);
-
   const dialogText = lang.strings.send.source;
   const buttonText = lang.strings.buttons;
 
@@ -63,10 +61,11 @@ export const SelectionDialog: React.FC = () => {
     [allAccounts, handleAccountChange],
   );
 
+  const [movingForward, setMovingForward] = useState(false);
   const handleContinue = useCallback(() => {
-    setLoadingNext(true);
+    setMovingForward(true);
     onSelectionDialogNext();
-  }, [onSelectionDialogNext, setLoadingNext]);
+  }, [onSelectionDialogNext, setMovingForward]);
 
   return (
     <DialogBox width={500}>
@@ -115,8 +114,7 @@ export const SelectionDialog: React.FC = () => {
       <DialogBoxFooter>
         <Button
           variant="primary"
-          isLoading={loadingNext}
-          disabled={!selectedAccount || !selectedWallet}
+          disabled={!selectedAccount || !selectedWallet || movingForward}
           autoFocus={Boolean(defaultWalletId) && Boolean(defaultAccountId)}
           onClick={e => {
             e.preventDefault();
