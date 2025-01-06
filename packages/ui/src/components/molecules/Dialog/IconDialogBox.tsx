@@ -18,6 +18,7 @@ interface IconDialogBoxProps extends DialogBoxProps {
   afterTextComponent?: ReactNode;
   footerComponent?: ReactNode;
   textVariables?: object;
+  allowMarkdown?: boolean;
 }
 
 export const IconDialogBox: FC<IconDialogBoxProps> = ({
@@ -74,13 +75,21 @@ export const IconDialogBox: FC<IconDialogBoxProps> = ({
         <Flex direction="column" align="center" gap={4} px={5}>
           {title && typeof title === 'string' && (
             <Typography variant="h5" $textAlign="center">
-              <LangDisplay text={title} variables={textVariables} />
+              <LangDisplay
+                text={title}
+                variables={textVariables}
+                $allowMarkdown={props.allowMarkdown}
+              />
             </Typography>
           )}
           {title && typeof title !== 'string' && title}
           {subtext && (
             <Typography variant="h6" $textAlign="center" color="muted">
-              <LangDisplay text={subtext} variables={textVariables} />
+              <LangDisplay
+                text={subtext}
+                variables={textVariables}
+                $allowMarkdown={props.allowMarkdown}
+              />
             </Typography>
           )}
         </Flex>
@@ -103,4 +112,5 @@ IconDialogBox.defaultProps = {
   afterTextComponent: undefined,
   footerComponent: undefined,
   textVariables: undefined,
+  allowMarkdown: undefined,
 };
