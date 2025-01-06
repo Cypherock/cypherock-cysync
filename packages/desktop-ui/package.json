@@ -44,8 +44,9 @@
     "@cypherock/cysync-interfaces": "workspace:^",
     "@cypherock/cysync-ui": "workspace:^",
     "@cypherock/cysync-utils": "workspace:^",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
+    "react": "^18.2.13",
+    "react-dom": "^18.2.6",
+    "react-error-boundary": "^5.0.0",
     "react-router-dom": "^6.13.0"
   },
   "lint-staged": {

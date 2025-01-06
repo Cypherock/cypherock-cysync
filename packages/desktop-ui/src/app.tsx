@@ -14,42 +14,55 @@ import {
   BuySellProvider,
   SnackBarManager,
 } from '@cypherock/cysync-core';
-import { GlobalStyles } from '@cypherock/cysync-ui';
+import { FallbackRenderer, GlobalStyles } from '@cypherock/cysync-ui';
 import React from 'react';
 
 import { AppRouter } from './Router';
+
+import { ErrorBoundary } from 'react-error-boundary';
+import logger from './utils/logger';
 
 const theme = getDefaultTheme();
 
 const App = () => (
   <ThemeProvider theme={theme}>
     <GlobalStyles />
-    <StoreProvider store={store}>
-      <LockscreenProvider>
-        <LockscreenBoundary>
-          <DeviceProvider
-            getDevices={window.electronAPI.getDevices}
-            connectDevice={window.electronAPI.connectDevice}
-            addUsbChangeListener={window.electronAPI.addUsbChangeListener}
-            removeUsbChangeListener={window.electronAPI.removeUsbChangeListener}
-          >
-            <AppUpdateProvider>
-              <LatestDeviceVersionProvider>
-                <WalletConnectProvider>
-                  <BuySellProvider>
-                    <AppRouter>
-                      <SnackBarManager />
-                      <DialogManager />
-                      <BackgroundTasks />
-                    </AppRouter>
-                  </BuySellProvider>
-                </WalletConnectProvider>
-              </LatestDeviceVersionProvider>
-            </AppUpdateProvider>
-          </DeviceProvider>
-        </LockscreenBoundary>
-      </LockscreenProvider>
-    </StoreProvider>
+    <ErrorBoundary
+      fallbackRender={FallbackRenderer}
+      onReset={details => {
+        logger.error(details);
+        window.electronAPI.restartApp();
+      }}
+    >
+      <StoreProvider store={store}>
+        <LockscreenProvider>
+          <LockscreenBoundary>
+            <DeviceProvider
+              getDevices={window.electronAPI.getDevices}
+              connectDevice={window.electronAPI.connectDevice}
+              addUsbChangeListener={window.electronAPI.addUsbChangeListener}
+              removeUsbChangeListener={
+                window.electronAPI.removeUsbChangeListener
+              }
+            >
+              <AppUpdateProvider>
+                <LatestDeviceVersionProvider>
+                  <WalletConnectProvider>
+                    <BuySellProvider>
+                      <AppRouter>
+                        <SnackBarManager />
+                        <DialogManager />
+                        <BackgroundTasks />
+                      </AppRouter>
+                    </BuySellProvider>
+                  </WalletConnectProvider>
+                </LatestDeviceVersionProvider>
+              </AppUpdateProvider>
+            </DeviceProvider>
+          </LockscreenBoundary>
+        </LockscreenProvider>
+      </StoreProvider>
+    </ErrorBoundary>
   </ThemeProvider>
 );
 
