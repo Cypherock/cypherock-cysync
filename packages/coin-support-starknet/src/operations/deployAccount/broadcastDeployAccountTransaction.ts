@@ -21,7 +21,7 @@ import {
   getBalance,
   prepareDeployAccountTransaction,
 } from '../../services';
-import { addHexPrefix } from '../../utils/addHexPrefix';
+import { completeHexHash } from '../../utils/completeHexHash';
 
 export const broadcastDeployAccountTransaction = async (
   params: IBroadcastStarknetDeployAccountTransactionParams,
@@ -50,7 +50,7 @@ export const broadcastDeployAccountTransaction = async (
   });
 
   const parsedTransaction: ITransaction = {
-    hash: addHexPrefix(result.transactionHash),
+    hash: completeHexHash(result.transactionHash),
     fees: feeData.suggestedMaxFee,
     amount: '0',
     status: TransactionStatusMap.pending,

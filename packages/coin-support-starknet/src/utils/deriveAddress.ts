@@ -1,6 +1,6 @@
 import { starknetCoinList } from '@cypherock/coins';
 
-import { addHexPrefix } from './addHexPrefix';
+import { completeHexHash } from './completeHexHash';
 import { getCoinSupportStarknetLib } from './starknetLib';
 
 export const deriveAddress = (publicKey: string, assetId: string) => {
@@ -12,5 +12,5 @@ export const deriveAddress = (publicKey: string, assetId: string) => {
     constructorAXCallData,
     0,
   );
-  return addHexPrefix(accountAXAddress);
+  return completeHexHash(accountAXAddress);
 };
