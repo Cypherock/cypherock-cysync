@@ -58,7 +58,7 @@ export const DeployAccountFlow: FC = () => {
               .filter(t => !t.dontShowOnMilestone)
               .map(t => t.name)}
             activeTab={currentTab}
-            heading={lang.strings.send.title}
+            heading={lang.strings.deployAccount.title}
           />
           <WalletDialogMainContainer>
             <DialogBoxBody

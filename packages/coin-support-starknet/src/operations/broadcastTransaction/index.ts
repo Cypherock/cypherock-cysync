@@ -16,7 +16,7 @@ import {
   broadcastInvokeTransactionToBlockchain,
   prepareInvokeTransaction,
 } from '../../services';
-import { addHexPrefix } from '../../utils/addHexPrefix';
+import { completeHexHash } from '../../utils/completeHexHash';
 
 export const broadcastTransaction = async (
   params: IBroadcastStarknetTransactionParams,
@@ -50,7 +50,7 @@ export const broadcastTransaction = async (
   });
 
   const parsedTransaction: ITransaction = {
-    hash: addHexPrefix(result.transactionHash),
+    hash: completeHexHash(result.transactionHash),
     fees: feeData.suggestedMaxFee,
     amount,
     status: TransactionStatusMap.pending,
