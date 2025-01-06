@@ -114,6 +114,7 @@ export const SelectionDialog: React.FC = () => {
       <DialogBoxFooter>
         <Button
           variant="primary"
+          isLoading={isLoading}
           disabled={!selectedAccount || !selectedWallet || isLoading}
           autoFocus={Boolean(defaultWalletId) && Boolean(defaultAccountId)}
           onClick={e => {
