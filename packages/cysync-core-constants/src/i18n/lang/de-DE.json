@@ -379,43 +379,43 @@
     }
   },
   "deployAccount": {
-    "title": "Deploy Account",
+    "title": "Kontobereitstellung",
     "x1Vault": {
-      "title": "Follow instructions on the X1 Vault",
+      "title": "Folgen Sie den Anweisungen auf dem X1 Vault",
       "actions": {
-        "verifyCoin": "Verify",
-        "verifyDetails": "Verify account deployment details on device",
-        "enterPassphrase": "Enter passphrase",
-        "enterPin": "Enter the PIN and tap any card",
-        "tapCard": "Tap any card"
+        "verifyCoin": "Überprüfen",
+        "verifyDetails": "Transaktionsdetails auf dem Gerät überprüfen",
+        "enterPassphrase": "Passphrase eingeben",
+        "enterPin": "Geben Sie die PIN ein und tippen Sie auf eine Karte",
+        "tapCard": "Tippen Sie auf eine Karte"
       },
       "token": {
-        "info": "Remember ${tokenName} is an ${parentCoinName} token therefore fee will be calculated in ${parentCoinUnit}"
+        "info": "Denken Sie daran, dass ${tokenName} ein ${parentCoinName}-Token ist, daher wird die Gebühr in ${parentCoinUnit} berechnet"
       },
       "messageBox": {
-        "warning": "Before you can make your first transaction on Starknet, your account needs to be activated. This transaction is for deploying your account on Starknet network"
+        "warning": "Bevor Sie Ihre erste Transaktion auf Starknet durchführen können, muss Ihr Konto aktiviert werden. Diese Transaktion dient der Bereitstellung Ihres Kontos im Starknet-Netzwerk"
       }
     },
     "summary": {
-      "title": "Summary",
-      "from": "From",
-      "account": "Account Address",
-      "fee": "Max Deployment Fee",
+      "title": "Zusammenfassung",
+      "from": "Von",
+      "account": "Kontoadresse",
+      "fee": "Maximale Bereitstellungsgebühr",
       "messageBox": {
-        "warning": "Before you can make your first transaction on Starknet, your account needs to be activated. This transaction is for deploying your account on Starknet network",
-        "error": "Your account does not have sufficient balance for Account Deployment"
+        "warning": "Bevor Sie Ihre erste Transaktion auf Starknet durchführen können, muss Ihr Konto aktiviert werden. Diese Transaktion dient der Bereitstellung Ihres Kontos im Starknet-Netzwerk",
+        "error": "Ihr Konto hat nicht genügend Guthaben für die Kontobereitstellung"
       }
     },
     "finalMessage": {
-      "button": "Continue",
-      "title": "Account Deployed Successfully",
-      "hashLabel": "Transaction Hash"
+      "button": "Weiter",
+      "title": "Konto erfolgreich bereitgestellt",
+      "hashLabel": "Transaktions-Hash"
     },
     "aside": {
       "tabs": {
-        "summary": "Summary",
+        "summary": "Zusammenfassung",
         "x1vault": "X1 Vault",
-        "confirm": "Confirmation"
+        "confirm": "Bestätigung"
       }
     }
   },

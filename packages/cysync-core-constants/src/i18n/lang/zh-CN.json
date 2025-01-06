@@ -423,43 +423,43 @@
     }
   },
   "deployAccount": {
-    "title": "Deploy Account",
+    "title": "账户部署",
     "x1Vault": {
-      "title": "Follow instructions on the X1 Vault",
+      "title": "请按照 X1 Vault 上的说明进行操作",
       "actions": {
-        "verifyCoin": "Verify",
-        "verifyDetails": "Verify account deployment details on device",
-        "enterPassphrase": "Enter passphrase",
-        "enterPin": "Enter the PIN and tap any card",
-        "tapCard": "Tap any card"
+        "verifyCoin": "验证",
+        "verifyDetails": "在设备上验证交易详情",
+        "enterPassphrase": "输入密码短语",
+        "enterPin": "输入 PIN 并触碰任意卡片",
+        "tapCard": "触碰任意卡片"
       },
       "token": {
-        "info": "Remember ${tokenName} is an ${parentCoinName} token therefore fee will be calculated in ${parentCoinUnit}"
+        "info": "请记住 ${tokenName} 是一个 ${parentCoinName} 代币，因此 fee 将以 ${parentCoinUnit} 计算"
       },
       "messageBox": {
-        "warning": "Before you can make your first transaction on Starknet, your account needs to be activated. This transaction is for deploying your account on Starknet network"
+        "warning": "在您可以在Starknet上进行首次交易之前，您的账户需要被激活。这笔交易是为了在Starknet网络上部署您的账户"
       }
     },
     "summary": {
-      "title": "Summary",
-      "from": "From",
-      "account": "Account Address",
-      "fee": "Max Deployment Fee",
+      "title": "摘要",
+      "from": "来自",
+      "account": "账户地址",
+      "fee": "最大部署费用",
       "messageBox": {
-        "warning": "Before you can make your first transaction on Starknet, your account needs to be activated. This transaction is for deploying your account on Starknet network",
-        "error": "Your account does not have sufficient balance for Account Deployment"
+        "warning": "在您可以在Starknet上进行首次交易之前，您的账户需要被激活。这笔交易是为了在Starknet网络上部署您的账户",
+        "error": "您的账户余额不足以进行账户部署"
       }
     },
     "finalMessage": {
-      "button": "Continue",
-      "title": "Account Deployed Successfully",
-      "hashLabel": "Transaction Hash"
+      "button": "继续",
+      "title": "账户成功部署",
+      "hashLabel": "交易哈希"
     },
     "aside": {
       "tabs": {
-        "summary": "Summary",
+        "summary": "摘要",
         "x1vault": "X1 Vault",
-        "confirm": "Confirmation"
+        "confirm": "确认"
       }
     }
   },
