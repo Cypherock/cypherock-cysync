@@ -1,4 +1,4 @@
-import { runMigrations } from '@cypherock/cysync-core-services';
+import { checkIntegrity, runMigrations } from '@cypherock/cysync-core-services';
 import React, { useEffect, useMemo, useState } from 'react';
 
 import { getDB, passwordUtils } from '~/utils';
@@ -34,7 +34,9 @@ export const LockscreenProvider: React.FC<LockscreenProviderProps> = ({
 
   const loadDB = async (encryptionKey?: string) => {
     await getDB().load(encryptionKey);
-    await runMigrations(getDB());
+    const db = getDB();
+    await runMigrations(db);
+    await checkIntegrity(db);
   };
 
   const checkIfLocked = async () => {

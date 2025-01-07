@@ -33,6 +33,7 @@ export interface ErrorDialogProps extends DialogBoxProps {
   advanceText?: string;
   deviceNavigationText?: string;
   messageBoxVariant?: MessageBoxType;
+  allowMarkdown?: boolean;
 }
 
 const iconMap: Record<ErrorIconType, ReactNode> = {
@@ -120,4 +121,5 @@ ErrorDialog.defaultProps = {
   deviceNavigationText: undefined,
   advanceText: undefined,
   messageBoxVariant: 'danger',
+  allowMarkdown: undefined,
 };
