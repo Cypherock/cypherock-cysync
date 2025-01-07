@@ -25,7 +25,7 @@
     "pretty:check": "pnpm pretty:root:check && turbo run pretty:check --no-daemon",
     "test": "cross-env NODE_ENV=test turbo run test --no-daemon --concurrency=50% && pnpm aggregate:report",
     "aggregate:report": "cross-env NODE_ENV=test node scripts/aggregateReport.js",
-    "e2e": "turbo run e2e --no-daemon",
+    "e2e": "cross-env NODE_OPTIONS=--max_old_space_size=8192 turbo run e2e --no-daemon",
     "pre-commit": "turbo run pre-commit --concurrency=1 --no-daemon",
     "prepare": "husky install",
     "clean": "node scripts/clean.js && bash ./scripts/clean.sh",
