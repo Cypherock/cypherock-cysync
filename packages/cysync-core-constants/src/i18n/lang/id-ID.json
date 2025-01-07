@@ -103,6 +103,9 @@
         "tapCard": "Ketuk kartu apapun"
       }
     },
+    "loader": {
+      "waitMessage": "This process might take around a minute. Please be patient"
+    },
     "sync": {
       "syncingHeader": "Menyinkronkan akun",
       "header": "Tambahkan akun baru",
@@ -176,6 +179,9 @@
       },
       "messageBox": {
         "warning": "Alamat Penerimaan ini TIDAK DIVERIFIKASI oleh perangkat. Gunakan dengan risiko Anda sendiri"
+      },
+      "waitMessageBox": {
+        "warning": "This process might take around a minute. Please be patient"
       }
     },
     "congrats": {

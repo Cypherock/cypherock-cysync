@@ -9,7 +9,9 @@ import {
   LeanBox,
   Throbber,
   ScrollableContainer,
+  MessageBox,
 } from '@cypherock/cysync-ui';
+import { coinFamiliesMap } from '@cypherock/coins';
 import React, { useEffect } from 'react';
 
 import { selectLanguage, useAppSelector } from '~/store';
@@ -19,7 +21,8 @@ import { AddressDisplay } from './Components';
 import { useReceiveDialog } from '../context';
 
 export const VerifyAddress: React.FC = () => {
-  const { onNext, onRetry, deviceEvents, isFlowCompleted } = useReceiveDialog();
+  const { onNext, onRetry, deviceEvents, isFlowCompleted, selectedAccount } =
+    useReceiveDialog();
   const lang = useAppSelector(selectLanguage);
 
   useEffect(() => {
@@ -45,6 +48,14 @@ export const VerifyAddress: React.FC = () => {
     },
   ];
 
+  let waitMessage: string | undefined;
+  if (
+    selectedAccount &&
+    selectedAccount.familyId === coinFamiliesMap.starknet
+  ) {
+    waitMessage = lang.strings.receive.receive.waitMessageBox.warning;
+  }
+
   return (
     <DialogBox width={600}>
       <DialogBoxBody p={0} pt={5}>
@@ -64,6 +75,7 @@ export const VerifyAddress: React.FC = () => {
                 />
               ))}
             </LeanBoxContainer>
+            {waitMessage && <MessageBox type="warning" text={waitMessage} />}
           </DialogBoxBody>
         </ScrollableContainer>
       </DialogBoxBody>

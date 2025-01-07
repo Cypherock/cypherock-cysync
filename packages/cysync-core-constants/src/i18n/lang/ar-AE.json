@@ -103,6 +103,9 @@
         "tapCard": "اضغط على أي بطاقة"
       }
     },
+    "loader": {
+      "waitMessage": "This process might take around a minute. Please be patient"
+    },
     "sync": {
       "syncingHeader": "مزامنة الحساب",
       "header": "إضافة حسابات جديدة",
@@ -176,6 +179,9 @@
       },
       "messageBox": {
         "warning": "لم يتم التحقق من عنوان الاستقبال هذا بواسطة الجهاز. استخدمه على مسؤوليتك الخاصة"
+      },
+      "waitMessageBox": {
+        "warning": "This process might take around a minute. Please be patient"
       }
     },
     "congrats": {
