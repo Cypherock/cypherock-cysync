@@ -104,7 +104,7 @@
       }
     },
     "loader": {
-      "waitMessage": "This process might take around a minute. Please be patient"
+      "waitMessage": "此过程可能需要大约一分钟。请耐心等待"
     },
     "sync": {
       "syncingHeader": "正在同步账户",
@@ -181,7 +181,7 @@
         "warning": "此接收地址未经过设备验证。使用风险自负"
       },
       "waitMessageBox": {
-        "warning": "This process might take around a minute. Please be patient"
+        "warning": "此过程可能需要大约一分钟。请耐心等待"
       }
     },
     "congrats": {

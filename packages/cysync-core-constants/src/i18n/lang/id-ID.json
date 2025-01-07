@@ -104,7 +104,7 @@
       }
     },
     "loader": {
-      "waitMessage": "This process might take around a minute. Please be patient"
+      "waitMessage": "Proses ini mungkin memakan waktu sekitar satu menit. Mohon bersabar"
     },
     "sync": {
       "syncingHeader": "Menyinkronkan akun",
@@ -181,7 +181,7 @@
         "warning": "Alamat Penerimaan ini TIDAK DIVERIFIKASI oleh perangkat. Gunakan dengan risiko Anda sendiri"
       },
       "waitMessageBox": {
-        "warning": "This process might take around a minute. Please be patient"
+        "warning": "Proses ini mungkin memakan waktu sekitar satu menit. Mohon bersabar"
       }
     },
     "congrats": {

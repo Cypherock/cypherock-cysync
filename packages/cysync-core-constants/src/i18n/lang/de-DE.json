@@ -104,7 +104,7 @@
       }
     },
     "loader": {
-      "waitMessage": "This process might take around a minute. Please be patient"
+      "waitMessage": "Dieser Vorgang kann ungefähr eine Minute dauern. Bitte haben Sie Geduld"
     },
     "sync": {
       "syncingHeader": "Das Konto wird synchronisiert",
@@ -181,7 +181,7 @@
         "warning": "Diese Empfangsadresse wurde NICHT vom Gerät VERIFIZIERT. Verwenden Sie sie auf eigenes Risiko"
       },
       "waitMessageBox": {
-        "warning": "This process might take around a minute. Please be patient"
+        "warning": "Dieser Vorgang kann ungefähr eine Minute dauern. Bitte haben Sie Geduld"
       }
     },
     "congrats": {
