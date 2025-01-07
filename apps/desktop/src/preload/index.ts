@@ -36,6 +36,10 @@ const exportedFunctions = [
     key: ipcConfig.methods.focusApp,
   },
   {
+    name: 'restartApp',
+    key: ipcConfig.methods.restartApp,
+  },
+  {
     name: 'checkForUpdates',
     key: ipcConfig.methods.checkForUpdates,
   },
