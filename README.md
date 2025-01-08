@@ -13,6 +13,8 @@
 
 Before you get started, please make sure you have the following setup -
 
+If you use Nix you can skip this step, and run `nix-shell` in root directory.
+
 - Node.js v18 (use [nvm][1] if already using a different Node version).
 - [`pnpm`][2]
   ```
@@ -87,13 +89,14 @@ pnpm start -s  # Start desktop application with short log format
 - `pnpm build:submodules`: Build submodules if you are changing them
 
 - Desktop App
-    - `pnpm start`: Start desktop application (Hot reload enabled)
-    - `pnpm make`: Created packaged desktop application
+
+  - `pnpm start`: Start desktop application (Hot reload enabled)
+  - `pnpm make`: Created packaged desktop application
 
 - CLI App
-    - `pnpm dev:cli -- <ARGS>`: Run cli application
-    - `pnpm make:cli`: Created packaged cli application
-        - NOTE: You need to install `pkg` via `npm i -g pkg` before running `pnpm make:cli`
+  - `pnpm dev:cli -- <ARGS>`: Run cli application
+  - `pnpm make:cli`: Created packaged cli application
+    - NOTE: You need to install `pkg` via `npm i -g pkg` before running `pnpm make:cli`
 
 ### Editing submodules
 
