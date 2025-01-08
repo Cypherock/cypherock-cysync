@@ -33,5 +33,10 @@
     "@cypherock/tsconfig": "0.0.1",
     "@cypherock/cysync-utils": "0.0.9"
   },
-  "changesets": []
+  "changesets": [
+    "dry-weeks-float",
+    "khaki-seals-destroy",
+    "modern-beers-nail",
+    "spicy-cars-compare"
+  ]
 }
