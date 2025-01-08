@@ -103,6 +103,9 @@
         "tapCard": "轻触任意卡片"
       }
     },
+    "loader": {
+      "waitMessage": "此过程可能需要大约一分钟。请耐心等待"
+    },
     "sync": {
       "syncingHeader": "正在同步账户",
       "header": "添加新账户",
@@ -176,6 +179,9 @@
       },
       "messageBox": {
         "warning": "此接收地址未经过设备验证。使用风险自负"
+      },
+      "waitMessageBox": {
+        "warning": "此过程可能需要大约一分钟。请耐心等待"
       }
     },
     "congrats": {
@@ -329,9 +335,50 @@
     },
     "optimism": {
       "deviceAction": "L1 费: ${fee}。您的 L1 费不会通过设备验证",
-      "l1": "（L1）",
-      "l2": "（L2）",
-      "suffix": "（L1 + L2）"
+      "l1": "（L1",
+      "l2": "（L2",
+      "suffix": "（L1 + L2"
+    }
+  },
+  "deployAccount": {
+    "title": "账户部署",
+    "x1Vault": {
+      "title": "请按照 X1 Vault 上的说明进行操作",
+      "actions": {
+        "verifyCoin": "验证",
+        "verifyDetails": "在设备上验证交易详情",
+        "enterPassphrase": "输入密码短语",
+        "enterPin": "输入 PIN 并触碰任意卡片",
+        "tapCard": "触碰任意卡片"
+      },
+      "token": {
+        "info": "请记住 ${tokenName} 是一个 ${parentCoinName} 代币，因此 fee 将以 ${parentCoinUnit} 计算"
+      },
+      "messageBox": {
+        "warning": "在您可以在Starknet上进行首次交易之前，您的账户需要被激活。这笔交易是为了在Starknet网络上部署您的账户"
+      }
+    },
+    "summary": {
+      "title": "摘要",
+      "from": "来自",
+      "account": "账户地址",
+      "fee": "最大部署费用",
+      "messageBox": {
+        "warning": "在您可以在Starknet上进行首次交易之前，您的账户需要被激活。这笔交易是为了在Starknet网络上部署您的账户",
+        "error": "您的账户余额不足以进行账户部署"
+      }
+    },
+    "finalMessage": {
+      "button": "继续",
+      "title": "账户成功部署",
+      "hashLabel": "交易哈希"
+    },
+    "aside": {
+      "tabs": {
+        "summary": "摘要",
+        "x1vault": "X1 Vault",
+        "confirm": "确认"
+      }
     }
   },
   "history": {

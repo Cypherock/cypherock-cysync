@@ -11,6 +11,7 @@ export const coinFamiliesMap = {
   solana: 'solana',
   tron: 'tron',
   xrp: 'xrp',
+  starknet: 'starknet',
 } as const;
 
 export type CoinFamily = (typeof coinFamiliesMap)[keyof typeof coinFamiliesMap];

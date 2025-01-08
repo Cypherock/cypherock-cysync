@@ -103,6 +103,9 @@
         "tapCard": "Tippen Sie auf eine Karte"
       }
     },
+    "loader": {
+      "waitMessage": "Dieser Vorgang kann ungefähr eine Minute dauern. Bitte haben Sie Geduld"
+    },
     "sync": {
       "syncingHeader": "Das Konto wird synchronisiert",
       "header": "Neue Konten hinzufügen",
@@ -176,6 +179,9 @@
       },
       "messageBox": {
         "warning": "Diese Empfangsadresse wurde NICHT vom Gerät VERIFIZIERT. Verwenden Sie sie auf eigenes Risiko"
+      },
+      "waitMessageBox": {
+        "warning": "Dieser Vorgang kann ungefähr eine Minute dauern. Bitte haben Sie Geduld"
       }
     },
     "congrats": {
@@ -332,6 +338,47 @@
       "l1": " (L1)",
       "l2": " (L2)",
       "suffix": " (L1 + L2)"
+    }
+  },
+  "deployAccount": {
+    "title": "Kontobereitstellung",
+    "x1Vault": {
+      "title": "Folgen Sie den Anweisungen auf dem X1 Vault",
+      "actions": {
+        "verifyCoin": "Überprüfen",
+        "verifyDetails": "Transaktionsdetails auf dem Gerät überprüfen",
+        "enterPassphrase": "Passphrase eingeben",
+        "enterPin": "Geben Sie die PIN ein und tippen Sie auf eine Karte",
+        "tapCard": "Tippen Sie auf eine Karte"
+      },
+      "token": {
+        "info": "Denken Sie daran, dass ${tokenName} ein ${parentCoinName}-Token ist, daher wird die Gebühr in ${parentCoinUnit} berechnet"
+      },
+      "messageBox": {
+        "warning": "Bevor Sie Ihre erste Transaktion auf Starknet durchführen können, muss Ihr Konto aktiviert werden. Diese Transaktion dient der Bereitstellung Ihres Kontos im Starknet-Netzwerk"
+      }
+    },
+    "summary": {
+      "title": "Zusammenfassung",
+      "from": "Von",
+      "account": "Kontoadresse",
+      "fee": "Maximale Bereitstellungsgebühr",
+      "messageBox": {
+        "warning": "Bevor Sie Ihre erste Transaktion auf Starknet durchführen können, muss Ihr Konto aktiviert werden. Diese Transaktion dient der Bereitstellung Ihres Kontos im Starknet-Netzwerk",
+        "error": "Ihr Konto hat nicht genügend Guthaben für die Kontobereitstellung"
+      }
+    },
+    "finalMessage": {
+      "button": "Weiter",
+      "title": "Konto erfolgreich bereitgestellt",
+      "hashLabel": "Transaktions-Hash"
+    },
+    "aside": {
+      "tabs": {
+        "summary": "Zusammenfassung",
+        "x1vault": "X1 Vault",
+        "confirm": "Bestätigung"
+      }
     }
   },
   "history": {

@@ -14,6 +14,7 @@ import {
   ArrowRightIcon,
   Throbber,
 } from '@cypherock/cysync-ui';
+import { coinFamiliesMap } from '@cypherock/coins';
 import React, { useEffect, useMemo } from 'react';
 
 import { LoaderDialog } from '~/components';
@@ -32,6 +33,7 @@ export const AddAccountDeviceActionDialog: React.FC = () => {
     deviceEvents,
     addAccountStatus,
     onNext,
+    selectedCoin,
     selectedWallet,
   } = useAddAccountDialog();
 
@@ -117,7 +119,11 @@ export const AddAccountDeviceActionDialog: React.FC = () => {
   );
 
   if (isProcessing) {
-    return <LoaderDialog />;
+    let waitMessage: string | undefined;
+    if (selectedCoin && selectedCoin.id === coinFamiliesMap.starknet) {
+      waitMessage = lang.strings.addAccount.loader.waitMessage;
+    }
+    return <LoaderDialog title={waitMessage} />;
   }
 
   return (

@@ -1,6 +1,7 @@
 import { AddAccountDialogProps } from '~/dialogs/AddAccount';
 import { AddTokenDialogProps } from '~/dialogs/AddToken';
 import { DeleteAccountDialogProps } from '~/dialogs/DeleteAccountDialog';
+import { DeployAccountDialogProps } from '~/dialogs/DeployAccount/context';
 import { ErrorDialogProps } from '~/dialogs/ErrorDialog';
 import { IHistoryDialogProps } from '~/dialogs/HistoryDialog';
 import {
@@ -55,6 +56,11 @@ export interface IDialogState {
   sendDialog: {
     isOpen: boolean;
     data?: SendDialogProps;
+  };
+
+  deployAccountDialog: {
+    isOpen: boolean;
+    data?: DeployAccountDialogProps;
   };
 
   removePassword: {

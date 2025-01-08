@@ -103,6 +103,9 @@
         "tapCard": "Ketuk kartu apapun"
       }
     },
+    "loader": {
+      "waitMessage": "Proses ini mungkin memakan waktu sekitar satu menit. Mohon bersabar"
+    },
     "sync": {
       "syncingHeader": "Menyinkronkan akun",
       "header": "Tambahkan akun baru",
@@ -176,6 +179,9 @@
       },
       "messageBox": {
         "warning": "Alamat Penerimaan ini TIDAK DIVERIFIKASI oleh perangkat. Gunakan dengan risiko Anda sendiri"
+      },
+      "waitMessageBox": {
+        "warning": "Proses ini mungkin memakan waktu sekitar satu menit. Mohon bersabar"
       }
     },
     "congrats": {
@@ -332,6 +338,47 @@
       "l1": " (L1)",
       "l2": " (L2)",
       "suffix": " (L1 + L2)"
+    }
+  },
+  "deployAccount": {
+    "title": "Deploy Akun",
+    "x1Vault": {
+      "title": "Ikuti instruksi pada X1 Vault",
+      "actions": {
+        "verifyCoin": "Verifikasi",
+        "verifyDetails": "Verifikasi detail transaksi pada perangkat",
+        "enterPassphrase": "Masukkan frasa sandi",
+        "enterPin": "Masukkan PIN dan ketuk kartu apa saja",
+        "tapCard": "Ketuk kartu apa saja"
+      },
+      "token": {
+        "info": "Ingat ${tokenName} adalah token ${parentCoinName} oleh karena itu biaya akan dihitung dalam ${parentCoinUnit}"
+      },
+      "messageBox": {
+        "warning": "Sebelum Anda dapat melakukan transaksi pertama Anda di Starknet, akun Anda perlu diaktifkan. Transaksi ini untuk menerapkan akun Anda di jaringan Starknet"
+      }
+    },
+    "summary": {
+      "title": "Ringkasan",
+      "from": "Dari",
+      "account": "Alamat Akun",
+      "fee": "Fee Maksimum Deployment",
+      "messageBox": {
+        "warning": "Sebelum Anda dapat melakukan transaksi pertama Anda di Starknet, akun Anda perlu diaktifkan. Transaksi ini untuk menerapkan akun Anda di jaringan Starknet",
+        "error": "Akun Anda tidak memiliki saldo yang cukup untuk Deploy Akun"
+      }
+    },
+    "finalMessage": {
+      "button": "Lanjutkan",
+      "title": "Akun Berhasil Diterapkan",
+      "hashLabel": "Hash Transaksi"
+    },
+    "aside": {
+      "tabs": {
+        "summary": "Ringkasan",
+        "x1vault": "X1 Vault",
+        "confirm": "Konfirmasi"
+      }
     }
   },
   "history": {

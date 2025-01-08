@@ -2,6 +2,7 @@ import { AddAccountDialogProps } from '~/dialogs/AddAccount';
 import { AddTokenDialogProps } from '~/dialogs/AddToken';
 import { IContactSupportDialogProps } from '~/dialogs/ContactSupport';
 import { DeleteAccountDialogProps } from '~/dialogs/DeleteAccountDialog';
+import { DeployAccountDialogProps } from '~/dialogs/DeployAccount/context';
 import { DeviceAuthenticationDialogProps } from '~/dialogs/DeviceAuthenticationDialog';
 import { EditAccountDialogProps } from '~/dialogs/EditAccountDialog';
 import { ErrorDialogProps } from '~/dialogs/ErrorDialog';
@@ -44,6 +45,9 @@ export const openReceiveDialog = (data?: ReceiveDialogProps) =>
 
 export const openSendDialog = (data?: SendDialogProps) =>
   openDialog({ name: 'sendDialog', data });
+
+export const openDeployAccountDialog = (data?: DeployAccountDialogProps) =>
+  openDialog({ name: 'deployAccountDialog', data });
 
 export const openRemovePasswordDialog = () =>
   openDialog({ name: 'removePassword', data: undefined });

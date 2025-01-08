@@ -18,6 +18,7 @@ export const useLabelSuffix = () => {
     solana: getDefaultSuffix,
     tron: getDefaultSuffix,
     xrp: getDefaultSuffix,
+    starknet: getDefaultSuffix,
   };
   const getFeeLabelSuffix = (selectedAccount?: IAccount) => {
     if (!selectedAccount) return '';

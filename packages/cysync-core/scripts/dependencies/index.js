@@ -9,3 +9,4 @@ globalThis.TronWeb = require('tronweb');
 globalThis.web3 = require('web3');
 globalThis.solanaWeb3 = require('@solana/web3.js');
 globalThis.xrpl = require('xrpl');
+globalThis.starknet = require('starknet');

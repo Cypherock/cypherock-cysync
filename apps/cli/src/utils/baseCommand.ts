@@ -4,6 +4,7 @@ import { EvmSupport } from '@cypherock/coin-support-evm';
 import { NearSupport } from '@cypherock/coin-support-near';
 import { SolanaSupport } from '@cypherock/coin-support-solana';
 import { XrpSupport } from '@cypherock/coin-support-xrp';
+import { StarknetSupport } from '@cypherock/coin-support-starknet';
 import { IDatabase, IKeyValueStore } from '@cypherock/db-interfaces';
 import { IDeviceConnection } from '@cypherock/sdk-interfaces';
 import { Command, Flags, Interfaces } from '@oclif/core';
@@ -13,6 +14,7 @@ import * as eip712 from 'eip-712';
 import { ethers } from 'ethers';
 import * as nearApiJs from 'near-api-js';
 import * as xrpl from 'xrpl';
+import starknet from 'starknet';
 
 import { initializeAndGetDb } from './db';
 import { cleanUpDeviceConnection, createConnection } from './device';
@@ -97,6 +99,7 @@ export abstract class BaseCommand<T extends typeof Command> extends Command {
     NearSupport.setNearApiJs(nearApiJs);
     SolanaSupport.setWeb3Library(solanaWeb3);
     XrpSupport.setXrpLib(xrpl);
+    StarknetSupport.setStarknetLib(starknet);
   }
 
   protected async catch(err: Error & { exitCode?: number }): Promise<any> {

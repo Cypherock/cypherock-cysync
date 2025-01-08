@@ -5,6 +5,7 @@ import { NearSupport } from '@cypherock/coin-support-near';
 import { SolanaSupport } from '@cypherock/coin-support-solana';
 import { TronSupport } from '@cypherock/coin-support-tron';
 import { XrpSupport } from '@cypherock/coin-support-xrp';
+import { StarknetSupport } from '@cypherock/coin-support-starknet';
 import { coinFamiliesMap, CoinFamily } from '@cypherock/coins';
 
 const coinSupportMap: Record<CoinFamily, CoinSupport> = {
@@ -14,6 +15,7 @@ const coinSupportMap: Record<CoinFamily, CoinSupport> = {
   [coinFamiliesMap.solana]: new SolanaSupport(),
   [coinFamiliesMap.tron]: new TronSupport(),
   [coinFamiliesMap.xrp]: new XrpSupport(),
+  [coinFamiliesMap.starknet]: new StarknetSupport(),
 };
 
 export const getCoinSupport = (coinFamily: string) => {

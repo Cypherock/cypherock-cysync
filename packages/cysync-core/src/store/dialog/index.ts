@@ -41,6 +41,9 @@ const initialState: IDialogState = {
   addToken: {
     isOpen: false,
   },
+  deployAccountDialog: {
+    isOpen: false,
+  },
   sendDialog: {
     isOpen: false,
   },
