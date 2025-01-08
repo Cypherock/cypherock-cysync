@@ -103,6 +103,9 @@
         "tapCard": "Tippen Sie auf eine Karte"
       }
     },
+    "loader": {
+      "waitMessage": "Dieser Vorgang kann ungefähr eine Minute dauern. Bitte haben Sie Geduld"
+    },
     "sync": {
       "syncingHeader": "Das Konto wird synchronisiert",
       "header": "Neue Konten hinzufügen",
@@ -176,6 +179,9 @@
       },
       "messageBox": {
         "warning": "Diese Empfangsadresse wurde NICHT vom Gerät VERIFIZIERT. Verwenden Sie sie auf eigenes Risiko"
+      },
+      "waitMessageBox": {
+        "warning": "Dieser Vorgang kann ungefähr eine Minute dauern. Bitte haben Sie Geduld"
       }
     },
     "congrats": {

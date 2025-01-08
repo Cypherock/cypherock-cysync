@@ -103,6 +103,9 @@
         "tapCard": "Tap any card"
       }
     },
+    "loader": {
+      "waitMessage": "This process might take around a minute. Please be patient"
+    },
     "sync": {
       "syncingHeader": "Syncing the account",
       "header": "Add new accounts",
@@ -176,6 +179,9 @@
       },
       "messageBox": {
         "warning": "This Receive Address was NOT VERIFIED by the device. Use it at your own risk"
+      },
+      "waitMessageBox": {
+        "warning": "This process might take around a minute. Please be patient"
       }
     },
     "congrats": {

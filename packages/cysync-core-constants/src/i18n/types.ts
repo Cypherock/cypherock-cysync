@@ -172,6 +172,9 @@ interface LangAddAccount {
       tapCard: string;
     };
   };
+  loader: {
+    waitMessage: string;
+  };
   sync: {
     syncingHeader: string;
     header: string;
@@ -231,6 +234,7 @@ interface LangReceive {
     addressLabel: string;
     actions: { verify: string };
     messageBox: { warning: string };
+    waitMessageBox: { warning: string };
   };
   congrats: { title: string };
   finalButtons: {
