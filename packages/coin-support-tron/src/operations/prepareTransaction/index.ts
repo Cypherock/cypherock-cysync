@@ -192,8 +192,11 @@ export const prepareTransaction = async (
 
   if (tokenDetails) {
     hasEnoughBalance =
-      sendAmount.isNaN() ||
-      new BigNumber(account.balance).isGreaterThanOrEqualTo(sendAmount);
+      new BigNumber(parentAccount?.balance ?? '0').isGreaterThanOrEqualTo(
+        fees,
+      ) &&
+      (sendAmount.isNaN() ||
+        new BigNumber(account.balance).isGreaterThanOrEqualTo(sendAmount));
   } else {
     hasEnoughBalance =
       sendAmount.isNaN() ||
