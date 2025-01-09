@@ -98,5 +98,14 @@ export const estimateTrc20SendEnergyConsumption = async (params: {
 
   const response = await makePostRequest(url, data);
 
+  // Sometimes above api fails to return the estimate
+  // Calling a different api with less accurate energy estimate
+  if (!response?.data?.energy_required) {
+    const lessAccurateEnergy = await triggerConstantContractCall(data);
+    response.data.energy_required = lessAccurateEnergy.energy_used
+      ? Math.floor(lessAccurateEnergy.energy_used * 1.2)
+      : undefined;
+  }
+
   return response.data;
 };
