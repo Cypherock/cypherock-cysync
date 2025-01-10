@@ -10,6 +10,7 @@
   "scripts": {
     "start": "cross-env NODE_OPTIONS=--max_old_space_size=8192 node scripts/watch/index.js",
     "dev": "turbo dev --no-daemon --filter @cypherock/cysync-desktop",
+    "dev:mobile": "turbo dev --no-daemon --filter @cypherock/cysync-mobile",
     "dev:cli": "bash scripts/devCli.sh",
     "make": "turbo make --no-daemon --filter @cypherock/cysync-desktop",
     "make:cli": "turbo make --no-daemon --filter @cypherock/cysync-cli",
