@@ -1,5 +1,6 @@
 import { checkIntegrity, runMigrations } from '@cypherock/cysync-core-services';
 import React, { useEffect, useMemo, useState } from 'react';
+import { useAsyncError } from '~/hooks';
 
 import { getDB, passwordUtils } from '~/utils';
 import logger from '~/utils/logger';
@@ -31,6 +32,7 @@ export const LockscreenProvider: React.FC<LockscreenProviderProps> = ({
   const [isLockscreenLoading, setIsLockscreenLoading] = useState(true);
   const [isLocked, setIsLocked] = useState(false);
   const [isPasswordSet, setIsPasswordSet] = useState(false);
+  const throwError = useAsyncError();
 
   const loadDB = async (encryptionKey?: string) => {
     await getDB().load(encryptionKey);
@@ -53,7 +55,7 @@ export const LockscreenProvider: React.FC<LockscreenProviderProps> = ({
   };
 
   useEffect(() => {
-    checkIfLocked();
+    checkIfLocked().catch(e => throwError(e));
   }, []);
 
   const lock = async () => {

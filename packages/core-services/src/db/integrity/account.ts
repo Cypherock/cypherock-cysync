@@ -7,21 +7,27 @@ const validateAccountDetails = (account: IAccount) => {
   const parentCoin = coinList[account.parentAssetId];
   if (!parentCoin) {
     logger.warn(
-      `Invalid parentAsset-${account.parentAssetId} for account-${account.__id}`,
+      `Invalid parentAsset:- ${account.parentAssetId} found for account:- ${account.__id}`,
     );
     return false;
   }
 
-  const coin = coinList[account.assetId];
-  if (!coin) {
-    logger.warn(`Invalid Asset-${account.assetId} for account-${account.__id}`);
-    return false;
+  if (account.parentAssetId !== account.assetId) {
+    const coin = (coinList[account.parentAssetId] as any).tokens[
+      account.assetId
+    ];
+    if (!coin) {
+      logger.warn(
+        `Invalid Asset:- ${account.assetId} found for account:- ${account.__id}`,
+      );
+      return false;
+    }
   }
 
   const coinFamily = (coinFamiliesMap as any)[account.familyId];
   if (!coinFamily) {
     logger.warn(
-      `Invalid Family-${account.familyId} for account-${account.__id}`,
+      `Invalid Family:- ${account.familyId} found for account:- ${account.__id}`,
     );
     return false;
   }

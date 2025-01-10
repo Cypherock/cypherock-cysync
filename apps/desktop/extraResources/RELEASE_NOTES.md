@@ -1,3 +1,15 @@
+# v2.0.15
+
+### 🚀 Features
+
+- Added support for Starknet network.
+
+### 🐛 Bugfixes
+
+- Send fees UI fixed.
+- Fixed Binance currency error.
+- Resolved white screen issue.
+
 # v2.0.14
 
 ### 🚀 Features

@@ -1,5 +1,17 @@
 # @cypherock/cysync-desktop-ui
 
+## 0.0.15-pre.0
+
+### Patch Changes
+
+- [#658](https://github.com/Cypherock/cypherock-cysync/pull/658) [`c910eabe`](https://github.com/Cypherock/cypherock-cysync/commit/c910eabe144fc0f1afc83ea7a186cc3d6645953f) Thanks [@TejasvOnly](https://github.com/TejasvOnly)! - Handle renderer erros
+
+- Updated dependencies [[`521acaca`](https://github.com/Cypherock/cypherock-cysync/commit/521acaca14a269c6dfc7711d5685cbd3c4cae39b), [`f922073b`](https://github.com/Cypherock/cypherock-cysync/commit/f922073b3811edb3cd3c894afcf56c5a49ca2edb), [`c910eabe`](https://github.com/Cypherock/cypherock-cysync/commit/c910eabe144fc0f1afc83ea7a186cc3d6645953f)]:
+  - @cypherock/cysync-core@0.2.0-pre.0
+  - @cypherock/cysync-interfaces@0.0.8-pre.0
+  - @cypherock/cysync-ui@0.0.10-pre.0
+  - @cypherock/cysync-utils@0.0.10-pre.0
+
 ## 0.0.14
 
 ### Patch Changes
