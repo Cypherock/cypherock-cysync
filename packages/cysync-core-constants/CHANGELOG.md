@@ -1,5 +1,18 @@
 # @cypherock/cysync-core-constants
 
+## 0.3.0
+
+### Minor Changes
+
+- [#642](https://github.com/Cypherock/cypherock-cysync/pull/642) [`f922073b`](https://github.com/Cypherock/cypherock-cysync/commit/f922073b3811edb3cd3c894afcf56c5a49ca2edb) Thanks [@muzaffarbhat07](https://github.com/muzaffarbhat07)! - Added starknet support
+
+### Patch Changes
+
+- [#657](https://github.com/Cypherock/cypherock-cysync/pull/657) [`5b2952da`](https://github.com/Cypherock/cypherock-cysync/commit/5b2952dac833cc07a8de12b0977fdf9d83691851) Thanks [@TejasvOnly](https://github.com/TejasvOnly)! - Remove redundant language texts
+
+- Updated dependencies [[`f922073b`](https://github.com/Cypherock/cypherock-cysync/commit/f922073b3811edb3cd3c894afcf56c5a49ca2edb)]:
+  - @cypherock/coins@0.2.0
+
 ## 0.3.0-pre.0
 
 ### Minor Changes
