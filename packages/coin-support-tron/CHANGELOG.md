@@ -1,5 +1,11 @@
 # @cypherock/coin-support-tron
 
+## 0.0.9
+
+### Patch Changes
+
+- [#662](https://github.com/Cypherock/cypherock-cysync/pull/662) [`399ffb0d`](https://github.com/Cypherock/cypherock-cysync/commit/399ffb0db22af0753fd24c3e6c1030a02c7cf74b) Thanks [@TejasvOnly](https://github.com/TejasvOnly)! - Fix token transfer fee estimation for tron
+
 ## 0.0.8
 
 ### Patch Changes
