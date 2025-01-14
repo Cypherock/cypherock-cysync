@@ -334,6 +334,9 @@ interface LangSend {
     l2: string;
     suffix: string;
   };
+  tron: {
+    notEnoughEnergyWarning: string;
+  };
 }
 
 interface LangDeployAccount {

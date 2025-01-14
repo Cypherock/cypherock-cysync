@@ -10,6 +10,7 @@ import { getAccountDetailsByAddress } from '../../services';
 import { estimateBandwidth, prepareUnsignedSendTxn } from '../../utils';
 import { IPreparedTronTransaction } from '../transaction';
 import { validateAddress } from '../validateAddress';
+import { logger } from '@cypherock/sdk-app-tron/dist/utils';
 
 const validateAddresses = (
   params: IPrepareTronTransactionParams,
@@ -144,16 +145,20 @@ export const prepareTransaction = async (
     account.xpubOrAddress.toLowerCase();
   const createUnsignedTransaction = async () => {
     if (output.address && outputsValidation[0] && !isOwnOutputAddress) {
-      const result = await prepareUnsignedSendTxn({
-        from: account.xpubOrAddress,
-        to: output.address,
-        amount: sendAmount.isGreaterThan(0) ? sendAmount.toString() : '1',
-        tokenDetails,
-        averageEnergyPrice: txn.staticData.averageEnergyPrice,
-      });
-
-      unsignedTransaction = result.txn;
-      txn.computedData.estimatedEnergy = result.estimatedEnergy ?? 0;
+      try {
+        const result = await prepareUnsignedSendTxn({
+          from: account.xpubOrAddress,
+          to: output.address,
+          amount: sendAmount.isGreaterThan(0) ? sendAmount.toString() : '1',
+          tokenDetails,
+          averageEnergyPrice: txn.staticData.averageEnergyPrice,
+        });
+        unsignedTransaction = result.txn;
+        txn.computedData.estimatedEnergy = result.estimatedEnergy ?? 0;
+      } catch (e) {
+        logger.error('Failed to create unsignedTransaction for tron');
+        logger.error(JSON.stringify(e));
+      }
     }
   };
 
@@ -192,8 +197,11 @@ export const prepareTransaction = async (
 
   if (tokenDetails) {
     hasEnoughBalance =
-      sendAmount.isNaN() ||
-      new BigNumber(account.balance).isGreaterThanOrEqualTo(sendAmount);
+      new BigNumber(parentAccount?.balance ?? '0').isGreaterThanOrEqualTo(
+        fees,
+      ) &&
+      (sendAmount.isNaN() ||
+        new BigNumber(account.balance).isGreaterThanOrEqualTo(sendAmount));
   } else {
     hasEnoughBalance =
       sendAmount.isNaN() ||
