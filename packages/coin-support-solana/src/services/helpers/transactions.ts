@@ -1,50 +1,69 @@
 import {
   IAccount,
+  IDatabase,
   ITransaction,
   TransactionStatusMap,
   TransactionTypeMap,
 } from '@cypherock/db-interfaces';
 
-import { parseTransactionItem } from './common';
-
 import { ISolanaTransactionItem } from '../api';
 
-export const mapTransactionForDb = (params: {
+import {
+  parseTokenTransactionItem,
+  parseTransactionItem,
+  TransactionParserReturnType,
+} from './common';
+
+export const mapTransactionsForDb = async (params: {
+  db: IDatabase;
   account: IAccount;
-  transactionItem: ISolanaTransactionItem;
-}): ITransaction[] => {
-  const transactions: ITransaction[] = [];
-  const parsedTransactions = parseTransactionItem(params);
+  rawTransactions: ISolanaTransactionItem[];
+}): Promise<TransactionParserReturnType> => {
+  const { db, account, rawTransactions } = params;
+  const result: TransactionParserReturnType = {
+    transactions: [],
+    newAccounts: [],
+  };
 
-  transactions.push(...parsedTransactions);
+  for (const rawTxn of rawTransactions) {
+    const { transactions, newAccounts } = await parseTransactionItem({
+      db,
+      account,
+      transactionItem: rawTxn,
+    });
 
-  // Even if the transaction failed, the transaction fee is still deducted.
-  for (const transaction of parsedTransactions) {
-    if (
-      transaction.status === TransactionStatusMap.failed &&
-      transaction.type === TransactionTypeMap.send
-    ) {
-      transactions.push({
-        ...transaction,
-        status: TransactionStatusMap.success,
-        type: TransactionTypeMap.hidden,
-        amount: '0',
-      });
+    result.transactions.push(...transactions);
+    result.newAccounts.push(...newAccounts);
+
+    // Even if the transaction failed, the transaction fee is still deducted.
+    for (const transaction of transactions) {
+      if (
+        transaction.status === TransactionStatusMap.failed &&
+        transaction.type === TransactionTypeMap.send
+      ) {
+        result.transactions.push({
+          ...transaction,
+          status: TransactionStatusMap.success,
+          type: TransactionTypeMap.hidden,
+          amount: '0',
+        });
+      }
     }
   }
 
-  return transactions;
+  return result;
 };
 
-export const mapTransactionsForDb = (params: {
-  account: IAccount;
-  transactions: ISolanaTransactionItem[];
-}): ITransaction[] => {
-  const { account, transactions } = params;
+export const mapTokenTransactionsForDb = (
+  account: IAccount,
+  rawTransactions: ISolanaTransactionItem[],
+): ITransaction[] => {
+  const transactions: ITransaction[] = [];
 
-  const txns: ITransaction[] = transactions.flatMap(txn =>
-    mapTransactionForDb({ account, transactionItem: txn }),
-  );
+  for (const rawTxn of rawTransactions) {
+    const txns = parseTokenTransactionItem(rawTxn, account);
+    transactions.push(...txns);
+  }
 
-  return txns;
+  return transactions;
 };

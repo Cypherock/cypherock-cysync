@@ -5,7 +5,7 @@ import { config } from '../../config';
 
 export const getExplorerLink = (params: IGetExplorerLink) => {
   const queryParams = {
-    network: solanaCoinList[params.transaction.assetId].network,
+    network: solanaCoinList[params.transaction.parentAssetId].network,
     txHash: params.transaction.hash,
   };
 
