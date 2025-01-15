@@ -304,7 +304,8 @@
         "placeholder": "Optional",
         "error": "Wert zu hoch"
       },
-      "feeBelowMinError": "Transaktion mit fee unter dem Minimum wird fehlschlagen"
+      "feeBelowMinError": "Transaktion mit fee unter dem Minimum wird fehlschlagen",
+      "rentExemptFeeWarning": "Das Empfängerkonto benötigt ein Mindestguthaben für die Miete befreit von Solana, dies ist in den Netzwerkgebühren enthalten"
     },
     "summary": {
       "title": "Zusammenfassung",

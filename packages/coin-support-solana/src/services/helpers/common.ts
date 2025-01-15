@@ -1,3 +1,5 @@
+import { insertAccountIfNotExists } from '@cypherock/coin-support-utils';
+import { coinList, ISolanaCoinInfo } from '@cypherock/coins';
 import { BigNumber } from '@cypherock/cysync-utils';
 import {
   ITransaction,
@@ -7,15 +9,12 @@ import {
   AccountTypeMap,
   IDatabase,
 } from '@cypherock/db-interfaces';
-import { coinList, ISolanaCoinInfo } from '@cypherock/coins';
-import { insertAccountIfNotExists } from '@cypherock/coin-support-utils';
 
-import { deriveAssociatedTokenAddress } from '../../utils';
 import { ISolanaSplTokenAccount } from '../../operations/types';
-
+import { deriveAssociatedTokenAddress } from '../../utils';
 import { ISolanaInstruction, ISolanaTransactionItem } from '../api';
 
-enum InstructionType {
+export enum InstructionType {
   create = 'create',
   transfer = 'transfer',
   transferChecked = 'transferChecked',
