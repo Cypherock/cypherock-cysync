@@ -7,6 +7,13 @@ import { config } from '../../config';
 
 const baseURL = `${config.API_CYPHEROCK}/solana/transaction`;
 
+/**
+ * Token Account Data Length can be calculated from its structure mentioned here:
+ * https://github.com/solana-labs/solana-program-library/blob/08d9999f997a8bf38719679be9d572f119d0d960/token/program/src/state.rs#L86-L106
+ *
+ * Also, the size 165 is used to filter token accounts here:
+ * https://spl.solana.com/token#finding-all-token-accounts-for-a-specific-mint
+ */
 const TOKEN_ACCOUNT_DATA_LENGTH = 165;
 
 export const getTransactions = async (params: {
