@@ -1,0 +1,149 @@
+import React, {
+  Context,
+  FC,
+  ReactNode,
+  createContext,
+  useCallback,
+  useContext,
+  useMemo,
+  useState,
+} from 'react';
+
+import { ITabs, useTabsAndDialogs } from '~/hooks';
+import {
+  closeDialog,
+  selectAccounts,
+  selectLanguage,
+  selectWallets,
+  useAppDispatch,
+  useAppSelector,
+} from '~/store';
+
+import { ShowQrCode } from '../Dialogs';
+
+export interface MobileAppSyncDialogContextInterface {
+  tabs: ITabs;
+  isDeviceRequired: boolean;
+  currentTab: number;
+  currentDialog: number;
+  onNext: () => void;
+  goTo: (tab: number, dialog?: number) => void;
+  onPrevious: () => void;
+  onClose: () => void;
+  getSyncData: () => Promise<string[]>;
+  isLoading: boolean;
+}
+
+export const MobileAppSyncDialogContext: Context<MobileAppSyncDialogContextInterface> =
+  createContext<MobileAppSyncDialogContextInterface>(
+    {} as MobileAppSyncDialogContextInterface,
+  );
+
+export interface MobileAppSyncDialogProviderProps {
+  children: ReactNode;
+}
+
+const CHUNK_SIZE = 200;
+
+export const MobileAppSyncDialogProvider: FC<
+  MobileAppSyncDialogProviderProps
+> = ({ children }) => {
+  const lang = useAppSelector(selectLanguage);
+  const { wallets } = useAppSelector(selectWallets);
+  const { accounts } = useAppSelector(selectAccounts);
+  const dispatch = useAppDispatch();
+  const deviceRequiredDialogsMap: Record<number, number[] | undefined> =
+    useMemo(() => ({}), []);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+
+  const onClose = () => {
+    dispatch(closeDialog('mobileAppSyncDialog'));
+  };
+
+  const chunkData = (data: string, size: number = CHUNK_SIZE) => {
+    const chunks = [];
+    let chunkIndex = 0;
+    for (let i = 0; i < data.length; i += size) {
+      chunkIndex += 1;
+      chunks.push(
+        `CHUNK|${chunkIndex}|${Math.ceil(data.length / size)}|${data.slice(
+          i,
+          i + size,
+        )}`,
+      );
+    }
+    return chunks;
+  };
+
+  const getSyncData = useCallback(async () => {
+    setIsLoading(true);
+    const data = accounts.reduce((a, t) => {
+      const { xpubOrAddress, name, walletId } = t;
+      const w = wallets.find(wallet => wallet.__id === walletId);
+      return [...a, { xpubOrAddress, name, walletId, walletName: w?.name }];
+    }, [] as any);
+    const chunks = chunkData(JSON.stringify(data));
+    setIsLoading(false);
+    return chunks;
+  }, [accounts, wallets]);
+
+  const tabs: ITabs = useMemo(
+    () => [
+      {
+        name: lang.strings.settings.tabs.app.title,
+        dialogs: [<ShowQrCode key="show-qr-code" />],
+      },
+    ],
+    [lang],
+  );
+
+  const {
+    onNext,
+    onPrevious,
+    goTo,
+    currentTab,
+    currentDialog,
+    isDeviceRequired,
+  } = useTabsAndDialogs({
+    deviceRequiredDialogsMap,
+    tabs,
+    dialogName: 'mobileAppSyncDialog',
+  });
+
+  const ctx = useMemo(
+    () => ({
+      isDeviceRequired,
+      currentTab,
+      currentDialog,
+      tabs,
+      onNext,
+      goTo,
+      onPrevious,
+      onClose,
+      getSyncData,
+      isLoading,
+    }),
+    [
+      isDeviceRequired,
+      currentTab,
+      currentDialog,
+      tabs,
+      onNext,
+      goTo,
+      onPrevious,
+      onClose,
+      getSyncData,
+      isLoading,
+    ],
+  );
+
+  return (
+    <MobileAppSyncDialogContext.Provider value={ctx}>
+      {children}
+    </MobileAppSyncDialogContext.Provider>
+  );
+};
+
+export function useMobileAppSyncDialog(): MobileAppSyncDialogContextInterface {
+  return useContext(MobileAppSyncDialogContext);
+}

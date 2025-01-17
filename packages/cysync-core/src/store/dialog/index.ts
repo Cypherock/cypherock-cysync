@@ -119,6 +119,9 @@ const initialState: IDialogState = {
   inheritanceEstateRecovery: {
     isOpen: false,
   },
+  mobileAppSyncDialog: {
+    isOpen: false,
+  },
 };
 
 export const dialogSlice = createSlice({

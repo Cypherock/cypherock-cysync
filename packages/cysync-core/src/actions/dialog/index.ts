@@ -133,3 +133,6 @@ export const openInheritanceEditEncryptedMessageDialog = () =>
 export const openInheritanceEstateRecoveryDialog = (
   props: InheritanceEstateRecoveryDialogProps,
 ) => openDialog({ name: 'inheritanceEstateRecovery', data: props });
+
+export const openMobileAppSyncDialog = () =>
+  openDialog({ name: 'mobileAppSyncDialog', data: undefined });

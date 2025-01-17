@@ -2,7 +2,11 @@ import { LanguageList } from '@cypherock/cysync-core-constants';
 import { Dropdown, Flex, LangDisplay } from '@cypherock/cysync-ui';
 import React, { useCallback } from 'react';
 
-import { setAppLanguage, openEditAccountDialog } from '~/actions';
+import {
+  setAppLanguage,
+  openEditAccountDialog,
+  openMobileAppSyncDialog,
+} from '~/actions';
 import { selectLanguage, useAppDispatch, useAppSelector } from '~/store';
 
 import { SettingsButton, SettingsStandardItem } from '../components';
@@ -79,6 +83,17 @@ export const GeneralSettings: React.FC = () => {
             noVirtualization
           />
         </Flex>
+      </SettingsStandardItem>
+      <SettingsStandardItem
+        title={{ text: 'Sync With Mobile' }}
+        description={{ text: 'Sync with your mobile app' }}
+      >
+        <SettingsButton
+          onClick={() => dispatch(openMobileAppSyncDialog())}
+          variant="primary"
+        >
+          <LangDisplay text="Sync" />
+        </SettingsButton>
       </SettingsStandardItem>
       {/* <SettingsStandardItem
         title={{ text: item.region.title }}

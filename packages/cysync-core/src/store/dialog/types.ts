@@ -194,6 +194,11 @@ export interface IDialogState {
     isOpen: boolean;
     data?: InheritanceEstateRecoveryDialogProps;
   };
+
+  mobileAppSyncDialog: {
+    isOpen: boolean;
+    data?: undefined;
+  };
 }
 
 export const GuidedFlowMap = {
