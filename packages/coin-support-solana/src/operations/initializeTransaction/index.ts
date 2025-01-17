@@ -2,16 +2,46 @@ import { IInitializeTransactionParams } from '@cypherock/coin-support-interfaces
 import { getAccountAndCoin } from '@cypherock/coin-support-utils';
 import { solanaCoinList } from '@cypherock/coins';
 
-import { getFees } from '../../services';
+import { constructTransaction, getFees } from '../../services';
 import { IPreparedSolanaTransaction } from '../transaction';
+import { AccountTypeMap } from '@cypherock/db-interfaces';
+import { InstructionType } from '../../services/helpers/common';
+import { ISolanaSplTokenAccount } from '../types';
 
 export const initializeTransaction = async (
   params: IInitializeTransactionParams,
 ): Promise<IPreparedSolanaTransaction> => {
   const { accountId, db } = params;
-  const { coin } = await getAccountAndCoin(db, solanaCoinList, accountId);
+  const { coin, account } = await getAccountAndCoin(
+    db,
+    solanaCoinList,
+    accountId,
+  );
 
-  const fees = await getFees({ assetId: coin.id });
+  const isTokenAccount = account.type === AccountTypeMap.subAccount;
+
+  // create a dummy txn for fee estimation
+  const transaction = await constructTransaction(
+    coin.id,
+    account.xpubOrAddress,
+    [
+      {
+        type: isTokenAccount
+          ? InstructionType.transferChecked
+          : InstructionType.transfer,
+        amount: 5,
+        recipient: account.xpubOrAddress,
+        mintAddress: isTokenAccount
+          ? (account as ISolanaSplTokenAccount).extraData.contractAddress
+          : undefined,
+      },
+    ],
+  );
+
+  const fees = await getFees(
+    transaction.serializeMessage().toString('base64'),
+    coin.id,
+  );
 
   return {
     accountId,
@@ -21,6 +51,7 @@ export const initializeTransaction = async (
       isValidFee: true,
       ownOutputAddressNotAllowed: [],
       zeroAmountNotAllowed: false,
+      isRentExemptFeeRequired: false,
     },
     userInputs: {
       outputs: [],
@@ -32,6 +63,7 @@ export const initializeTransaction = async (
     computedData: {
       output: { address: '', amount: '0' },
       fees,
+      instructions: [],
     },
   };
 };

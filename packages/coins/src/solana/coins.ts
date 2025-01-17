@@ -7,7 +7,7 @@ export default [
     coinGeckoId: 'solana',
     coinIndex: '800001f5',
     feesUnit: 'SOL',
-    network: 'devnet',
+    network: 'mainnet',
     curve: 'ed25519',
     color: '#0FF0A9',
   },

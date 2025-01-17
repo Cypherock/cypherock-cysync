@@ -7,6 +7,15 @@ import { config } from '../../config';
 
 const baseURL = `${config.API_CYPHEROCK}/solana/transaction`;
 
+/**
+ * Token Account Data Length can be calculated from its structure mentioned here:
+ * https://github.com/solana-labs/solana-program-library/blob/08d9999f997a8bf38719679be9d572f119d0d960/token/program/src/state.rs#L86-L106
+ *
+ * Also, the size 165 is used to filter token accounts here:
+ * https://spl.solana.com/token#finding-all-token-accounts-for-a-specific-mint
+ */
+const TOKEN_ACCOUNT_DATA_LENGTH = 165;
+
 export const getTransactions = async (params: {
   address: string;
   assetId: string;
@@ -33,12 +42,13 @@ export const getTransactions = async (params: {
   return response.data;
 };
 
-export const getFees = async (params: { assetId: string }) => {
+export const getFees = async (message: string, assetId: string) => {
   const url = `${baseURL}/fees`;
 
   const query: Record<string, any> = {
     responseType: 'v2',
-    network: solanaCoinList[params.assetId].network,
+    network: solanaCoinList[assetId].network,
+    message,
   };
 
   const response = await makePostRequest(url, query);
@@ -51,6 +61,28 @@ export const getFees = async (params: { assetId: string }) => {
     throw new Error('Invalid solana fees returned from server');
 
   return fees;
+};
+
+export const getTokenAccountRentExemptFees = async (assetId: string) => {
+  const url = `${baseURL}/rent-exempt-fee`;
+
+  const query: Record<string, any> = {
+    responseType: 'v2',
+    network: solanaCoinList[assetId].network,
+    accountDataLength: TOKEN_ACCOUNT_DATA_LENGTH,
+  };
+
+  const response = await makePostRequest(url, query);
+
+  let rentExemptFees = response.data?.rentExemptFee ?? '0';
+
+  if (typeof rentExemptFees === 'number')
+    rentExemptFees = rentExemptFees.toString();
+
+  if (typeof rentExemptFees !== 'string')
+    throw new Error('Invalid solana rentExemptFees returned from server');
+
+  return rentExemptFees;
 };
 
 export const broadcastTransactionToBlockchain = async (

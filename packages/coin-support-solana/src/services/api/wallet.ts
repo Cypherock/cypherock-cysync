@@ -42,3 +42,10 @@ export const getTokenBalance = async (address: string, assetId: string) => {
 
   return balance;
 };
+
+export const doesAccountExist = async (address: string, assetId: string) => {
+  const accountInfo = await getAccountInfo(address, assetId);
+
+  // if account doesn't exist accountInfo.value comes null
+  return accountInfo.value !== undefined && accountInfo.value !== null;
+};

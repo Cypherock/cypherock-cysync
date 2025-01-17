@@ -265,6 +265,9 @@ export const AddTokenDialogProvider: FC<AddTokenDialogContextProviderProps> = ({
             xpubOrAddress: account.xpubOrAddress,
             balance: '0',
             isHidden: false,
+            extraData: {
+              contractAddress: token.address,
+            },
           });
           tokenAccountEntries.push(tokenAccountEntry);
         } catch (err) {
