@@ -7,6 +7,7 @@ export { default as splJsonList } from './spl.json';
 export interface ISolanaSplToken extends ICoinInfo {
   parentId: string;
   address: string;
+  decimals: number;
 }
 
 const units: ICoinUnit[] = [
@@ -61,6 +62,7 @@ export const getSplTokens = (
         abbr: token.symbol.toUpperCase(),
         coinGeckoId: token.id,
         address: token.platforms[parentId].contract_address,
+        decimals: token.platforms[parentId].decimal_place,
         coinIndex: '',
         feesUnit: 'SOL',
         family: coinFamiliesMap.solana,
