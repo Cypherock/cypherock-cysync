@@ -5,14 +5,19 @@ import {
 import { solanaCoinList } from '@cypherock/coins';
 import { BigNumber } from '@cypherock/cysync-utils';
 import {
+  AccountTypeMap,
   ITransaction,
   TransactionStatusMap,
   TransactionTypeMap,
 } from '@cypherock/db-interfaces';
 
-import { IBroadcastSolanaTransactionParams } from './types';
+import { deriveAssociatedTokenAddress } from '../../utils';
+import {
+  broadcastTransactionToBlockchain,
+  InstructionType,
+} from '../../services';
 
-import { broadcastTransactionToBlockchain } from '../../services';
+import { IBroadcastSolanaTransactionParams } from './types';
 
 export const broadcastTransaction = async (
   params: IBroadcastSolanaTransactionParams,
@@ -23,13 +28,25 @@ export const broadcastTransaction = async (
     solanaCoinList,
     transaction.accountId,
   );
-  const isMine =
-    params.transaction.computedData.output.address === account.xpubOrAddress;
+
+  const recipientAddress = params.transaction.computedData.output.address;
+  const isMine = recipientAddress === account.xpubOrAddress;
 
   const txnHash = await broadcastTransactionToBlockchain(
     signedTransaction,
     coin.id,
   );
+
+  const isTokenAccount = account.type === AccountTypeMap.subAccount;
+  let recipientTokenAddress: string | undefined;
+  if (isTokenAccount) {
+    const tokenDetails =
+      solanaCoinList[account.parentAssetId].tokens[account.assetId];
+    recipientTokenAddress = deriveAssociatedTokenAddress(
+      recipientAddress,
+      tokenDetails.address,
+    );
+  }
 
   const parsedTransaction: ITransaction = {
     hash: txnHash,
@@ -60,6 +77,9 @@ export const broadcastTransaction = async (
     familyId: account.familyId,
     parentAccountId: account.parentAccountId,
     remarks: [transaction.userInputs.outputs[0].remarks ?? ''],
+    subType: isTokenAccount
+      ? InstructionType.transferChecked
+      : InstructionType.transfer,
   };
 
   const amount = parsedTransaction.outputs.reduce(
@@ -68,6 +88,10 @@ export const broadcastTransaction = async (
   );
   parsedTransaction.amount = amount.abs().toString();
   parsedTransaction.inputs[0].amount = amount.abs().toString();
+
+  parsedTransaction.customId = `id-${
+    recipientTokenAddress ?? recipientAddress
+  }-${amount}`;
 
   const [addedTxn] = await insertOrUpdateTransactions(db, [parsedTransaction]);
 

@@ -127,10 +127,13 @@ export const constructTransaction = async (
             mintPubKey,
           );
       } else if (instruction.type === InstructionType.transferChecked) {
+        const senderTokenAccount =
+          splTokenLibrary.getAssociatedTokenAddressSync(mintPubKey, feePayer);
+
         constructedInstruction = splTokenLibrary.createTransferInstruction(
-          feePayer,
+          senderTokenAccount,
           recipientTokenAccount,
-          recipientPubKey,
+          feePayer,
           instruction.amount ?? 0,
         );
       }
