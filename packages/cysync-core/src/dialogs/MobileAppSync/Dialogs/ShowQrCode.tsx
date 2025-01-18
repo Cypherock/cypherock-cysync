@@ -10,11 +10,13 @@ import React, { useEffect, useState } from 'react';
 import { useMobileAppSyncDialog } from '../context';
 import { LoaderDialog } from '~/components';
 import { QrCode } from '../components/QrCode';
+import { selectLanguage, useAppSelector } from '~/store';
 
 export const ShowQrCode: React.FC = () => {
   const [data, setData] = useState<string[]>([]);
   const { isLoading, onClose, getSyncData } = useMobileAppSyncDialog();
   const [chunkIndex, setChunkIndex] = useState(0);
+  const { strings } = useAppSelector(selectLanguage);
 
   useEffect(() => {
     (async () => {
@@ -56,7 +58,7 @@ export const ShowQrCode: React.FC = () => {
         align="center"
       >
         <Typography color="white" $fontSize={20} $textAlign="center">
-          Scan the QR Code with your cySync Mobile App
+          {strings.settings.tabs.general.item.syncMobile.title}
         </Typography>
         {data[chunkIndex] && <QrCode data={data[chunkIndex]} />}
       </DialogBoxBody>

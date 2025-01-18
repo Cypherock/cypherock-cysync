@@ -25,14 +25,6 @@ export const GeneralSettings: React.FC = () => {
 
   return (
     <>
-      {/* <SettingsStandardItem
-        title={{ text: item.syncMobile.title }}
-        description={{ text: item.syncMobile.description }}
-      >
-        <SettingsButton variant="primary" onClick={console.log}>
-          <LangDisplay text={strings.buttons.showQRCode} />
-        </SettingsButton>
-      </SettingsStandardItem> */}
       <SettingsStandardItem
         title={{ text: item.editAccount.title }}
         description={{ text: item.editAccount.description }}
@@ -85,14 +77,14 @@ export const GeneralSettings: React.FC = () => {
         </Flex>
       </SettingsStandardItem>
       <SettingsStandardItem
-        title={{ text: 'Sync With Mobile' }}
-        description={{ text: 'Sync with your mobile app' }}
+        title={{ text: item.syncMobile.title }}
+        description={{ text: item.syncMobile.description }}
       >
         <SettingsButton
-          onClick={() => dispatch(openMobileAppSyncDialog())}
           variant="primary"
+          onClick={() => dispatch(openMobileAppSyncDialog())}
         >
-          <LangDisplay text="Sync" />
+          <LangDisplay text={strings.buttons.showQRCode} />
         </SettingsButton>
       </SettingsStandardItem>
       {/* <SettingsStandardItem
