@@ -9,7 +9,10 @@ import {
   doesAccountExist,
   getFees,
   getTokenAccountRentExemptFees,
+  ICustomSolanaCreateAccountInstruction,
   ICustomSolanaInstruction,
+  ICustomSolanaTransferCheckedInstruction,
+  ICustomSolanaTransferInstruction,
   InstructionType,
 } from '../../services';
 
@@ -117,10 +120,10 @@ export const prepareTransaction = async (
       );
 
       instructions.push({
-        type: InstructionType.create,
+        type: InstructionType.createAccount,
         recipient: output.address,
         mintAddress: tokenDetails.address,
-      });
+      } as ICustomSolanaCreateAccountInstruction);
     }
   }
 
@@ -131,16 +134,27 @@ export const prepareTransaction = async (
     output.address !== '' &&
     outputsAddresses?.[0]
   ) {
-    instructions.push({
-      type: tokenDetails
-        ? InstructionType.transferChecked
-        : InstructionType.transfer,
-      amount: sendAmount.isNaN()
-        ? new BigNumber(account.balance).toNumber()
-        : sendAmount.toNumber(),
-      recipient: output.address,
-      mintAddress: tokenDetails?.address,
-    });
+    const amountToSend = sendAmount.isNaN()
+      ? new BigNumber(account.balance).toNumber()
+      : sendAmount.toNumber();
+
+    if (tokenDetails) {
+      const instruction: ICustomSolanaTransferCheckedInstruction = {
+        type: InstructionType.transferChecked,
+        amount: amountToSend,
+        recipient: output.address,
+        mintAddress: tokenDetails.address,
+        decimals: tokenDetails.decimals,
+      };
+      instructions.push(instruction);
+    } else {
+      const instruction: ICustomSolanaTransferInstruction = {
+        type: InstructionType.transfer,
+        amount: amountToSend,
+        recipient: output.address,
+      };
+      instructions.push(instruction);
+    }
 
     fee = new BigNumber(
       await estimateFees(account.xpubOrAddress, coin.id, instructions),

@@ -2,11 +2,16 @@ import { IInitializeTransactionParams } from '@cypherock/coin-support-interfaces
 import { getAccountAndCoin } from '@cypherock/coin-support-utils';
 import { solanaCoinList } from '@cypherock/coins';
 
-import { constructTransaction, getFees } from '../../services';
+import {
+  constructTransaction,
+  getFees,
+  ICustomSolanaInstruction,
+  ICustomSolanaTransferCheckedInstruction,
+  ICustomSolanaTransferInstruction,
+  InstructionType,
+} from '../../services';
 import { IPreparedSolanaTransaction } from '../transaction';
 import { AccountTypeMap } from '@cypherock/db-interfaces';
-import { InstructionType } from '../../services/helpers/common';
-import { ISolanaSplTokenAccount } from '../types';
 
 export const initializeTransaction = async (
   params: IInitializeTransactionParams,
@@ -21,21 +26,31 @@ export const initializeTransaction = async (
   const isTokenAccount = account.type === AccountTypeMap.subAccount;
 
   // create a dummy txn for fee estimation
+  const instructions: ICustomSolanaInstruction[] = [];
+  if (isTokenAccount) {
+    const tokenDetails =
+      solanaCoinList[account.parentAssetId].tokens[account.assetId];
+    const instruction: ICustomSolanaTransferCheckedInstruction = {
+      type: InstructionType.transferChecked,
+      amount: 5,
+      recipient: account.xpubOrAddress,
+      mintAddress: tokenDetails.address,
+      decimals: tokenDetails.decimals,
+    };
+    instructions.push(instruction);
+  } else {
+    const instruction: ICustomSolanaTransferInstruction = {
+      type: InstructionType.transfer,
+      amount: 5,
+      recipient: account.xpubOrAddress,
+    };
+    instructions.push(instruction);
+  }
+
   const transaction = await constructTransaction(
     coin.id,
     account.xpubOrAddress,
-    [
-      {
-        type: isTokenAccount
-          ? InstructionType.transferChecked
-          : InstructionType.transfer,
-        amount: 5,
-        recipient: account.xpubOrAddress,
-        mintAddress: isTokenAccount
-          ? (account as ISolanaSplTokenAccount).extraData.contractAddress
-          : undefined,
-      },
-    ],
+    instructions,
   );
 
   const fees = await getFees(

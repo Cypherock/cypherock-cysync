@@ -80,7 +80,6 @@ const signTransactionFromDevice: SignTransactionFromDevice<
 
   if (tokenDetails) {
     signTxnParams.tokenData = {
-      mintAddress: base58Decode(tokenDetails.address),
       recipientAddress: base58Decode(
         (transaction as IPreparedSolanaTransaction).computedData.output.address,
       ),

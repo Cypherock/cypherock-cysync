@@ -105,7 +105,7 @@ const fetchAndParseTransactions = async (params: {
   const isTokenAccount = account.type === AccountTypeMap.subAccount;
 
   if (isTokenAccount) {
-    const txns = mapTokenTransactionsForDb(account, rawTransactions);
+    const txns = await mapTokenTransactionsForDb(account, rawTransactions);
     transactions.push(...txns);
   } else {
     const { transactions: txns, newAccounts } = await mapTransactionsForDb({

@@ -11,19 +11,17 @@ import {
 } from '@cypherock/db-interfaces';
 
 import { ISolanaSplTokenAccount } from '../../operations/types';
-import { deriveAssociatedTokenAddress } from '../../utils';
-import { ISolanaInstruction, ISolanaTransactionItem } from '../api';
-
-export enum InstructionType {
-  create = 'create',
-  transfer = 'transfer',
-  transferChecked = 'transferChecked',
-}
-
-export interface TransactionParserReturnType {
-  transactions: ITransaction[];
-  newAccounts: IAccount[];
-}
+import {
+  deriveAssociatedTokenAddress,
+  getCoinSupportWeb3Lib,
+  getTokenSupportSplTokenLib,
+} from '../../utils';
+import {
+  getAccountInfo,
+  ISolanaInstruction,
+  ISolanaTransactionItem,
+} from '../api';
+import { InstructionType, TransactionParserReturnType } from './types';
 
 const parseCoinTransaction = (
   instruction: ISolanaInstruction,
@@ -88,13 +86,11 @@ const parseCoinTransaction = (
 };
 
 const determineAndSaveNewTokenAccounts = async (
-  instruction: ISolanaInstruction,
+  mint: string,
   account: IAccount,
   db: IDatabase,
 ): Promise<IAccount[]> => {
   const newAccounts: IAccount[] = [];
-
-  const mint = instruction.parsed.info?.mint;
 
   const coin = coinList[account.assetId] as ISolanaCoinInfo;
   const tokenObj = Object.values(coin.tokens).find(e => mint === e.address);
@@ -130,10 +126,10 @@ const determineAndSaveNewTokenAccounts = async (
 };
 
 const isSendTokenInstruction = (
-  instruction: ISolanaInstruction,
+  source: string,
+  mint: string,
   accountAddress: string,
 ) => {
-  const { source, mint } = instruction.parsed.info ?? {};
   const myTokenAddress = deriveAssociatedTokenAddress(accountAddress, mint);
 
   return source === myTokenAddress;
@@ -185,24 +181,34 @@ const parseCreateTokenTransaction = (
         isMine: false,
       },
     ],
-    subType: InstructionType.create,
+    subType: InstructionType.createAccount,
     customId: `id-${destination}`,
     extraData: {
-      InstructionType: InstructionType.create,
+      InstructionType: InstructionType.createAccount,
     },
   };
 
   return txn;
 };
 
-const parseTokenTransferTransaction = (
+const parseTokenTransferTransaction = async (
   instruction: ISolanaInstruction,
   account: IAccount,
   transactionItem: ISolanaTransactionItem,
   fees: string,
-): ITransaction | undefined => {
-  const { source, destination, mint, tokenAmount } =
-    instruction.parsed.info ?? {};
+): Promise<ITransaction | undefined> => {
+  const { source, destination, tokenAmount } = instruction.parsed.info ?? {};
+
+  let amount = '0';
+  if (tokenAmount) amount = String(tokenAmount.amount ?? 0);
+  else amount = String(instruction.parsed.info.amount ?? 0);
+
+  let mint = instruction.parsed.info?.mint; // in case of transferChecked
+  if (!mint && source) {
+    // no mint present in case of transfer
+    const accountInfo = await getAccountInfo(source, account.parentAssetId);
+    mint = accountInfo?.value?.data?.parsed?.info?.mint;
+  }
 
   const myAddress = account.xpubOrAddress;
   const myTokenAddress = deriveAssociatedTokenAddress(myAddress, mint);
@@ -212,14 +218,25 @@ const parseTokenTransferTransaction = (
   }
 
   const selfTransfer = source === destination;
-  const amount = String(tokenAmount?.amount ?? 0);
 
   const isSend = source === myTokenAddress;
 
-  const fromAddr = isSend ? myAddress : source;
-  const toAddr = isSend ? destination : myAddress;
-
   const customId = `id-${isSend ? destination : source}-${amount}`;
+
+  let fromAddr = source;
+  let toAddr = destination;
+
+  const accountInfo = await getAccountInfo(
+    isSend ? destination : source,
+    account.parentAssetId,
+  );
+  if (isSend) {
+    fromAddr = myAddress;
+    toAddr = accountInfo?.value?.data?.parsed?.info?.owner ?? toAddr;
+  } else {
+    fromAddr = accountInfo?.value?.data?.parsed?.info?.owner ?? fromAddr;
+    toAddr = myAddress;
+  }
 
   const txn: ITransaction = {
     hash: transactionItem.signature,
@@ -258,7 +275,7 @@ const parseTokenTransferTransaction = (
     subType: InstructionType.transferChecked,
     customId,
     extraData: {
-      instructionType: instruction.parsed.type,
+      instructionType: InstructionType.transferChecked,
     },
   };
 
@@ -271,6 +288,10 @@ export const parseTransactionItem = async (params: {
   db: IDatabase;
 }): Promise<TransactionParserReturnType> => {
   const { account, transactionItem, db } = params;
+
+  const coinSupportWeb3Lib = getCoinSupportWeb3Lib();
+  const splTokenLib = getTokenSupportSplTokenLib();
+
   const result: TransactionParserReturnType = {
     transactions: [],
     newAccounts: [],
@@ -286,8 +307,12 @@ export const parseTransactionItem = async (params: {
   for (const instruction of (
     transactionItem.transaction?.message?.instructions ?? []
   ).filter(ins => ins.parsed !== undefined)) {
-    // get the type of instruction: transfer SOL(transfer) | transfer token(transferChecked) | create token account(create)
-    if (instruction.parsed.type === InstructionType.transfer) {
+    // get the type of instruction: SOL transfer | token transfer
+    if (
+      instruction.programId ===
+        coinSupportWeb3Lib.PublicKey.default.toString() &&
+      instruction.parsed.type === InstructionType.transfer
+    ) {
       // SOL transfer
       const txn = parseCoinTransaction(
         instruction,
@@ -300,18 +325,30 @@ export const parseTransactionItem = async (params: {
         result.transactions.push(txn);
         isFeesAlreadyIncluded = true;
       }
-    } else if (instruction.parsed.type === InstructionType.transferChecked) {
+    } else if (
+      instruction.programId === splTokenLib.TOKEN_PROGRAM_ID.toString() &&
+      (instruction.parsed.type === InstructionType.transfer ||
+        instruction.parsed.type === InstructionType.transferChecked)
+    ) {
       // spl token transfer
       // In case of token transactions, only save new tokens and fee transactions: token transactions will be synced on token account separately
+      let mint = instruction.parsed.info?.mint;
+      const { source } = instruction.parsed.info;
+      if (!mint && source) {
+        const accountInfo = await getAccountInfo(source, account.parentAssetId);
+        mint = accountInfo?.value?.data?.parsed?.info?.mint;
+      }
+
       const newAccounts = await determineAndSaveNewTokenAccounts(
-        instruction,
+        mint,
         account,
         db,
       );
       result.newAccounts.push(...newAccounts);
 
       isSendTokenTxnFound = isSendTokenInstruction(
-        instruction,
+        source,
+        mint,
         account.xpubOrAddress,
       );
     }
@@ -320,7 +357,11 @@ export const parseTransactionItem = async (params: {
   // Parse the createAccount transactions from inner instructions
   for (const innerInstruction of transactionItem.meta?.innerInstructions?.[0]
     ?.instructions ?? []) {
-    if (innerInstruction.parsed?.type === 'createAccount') {
+    if (
+      innerInstruction.programId ===
+        coinSupportWeb3Lib.PublicKey.default.toString() &&
+      innerInstruction.parsed?.type === InstructionType.createAccount
+    ) {
       const txn = parseCreateTokenTransaction(
         innerInstruction,
         account,
@@ -358,10 +399,12 @@ export const parseTransactionItem = async (params: {
   return result;
 };
 
-export const parseTokenTransactionItem = (
+export const parseTokenTransactionItem = async (
   transactionItem: ISolanaTransactionItem,
   account: IAccount,
-): ITransaction[] => {
+): Promise<ITransaction[]> => {
+  const splTokenLib = getTokenSupportSplTokenLib();
+
   const transactions: ITransaction[] = [];
 
   const fees = new BigNumber(transactionItem.meta?.fee ?? 0).toString();
@@ -370,9 +413,13 @@ export const parseTokenTransactionItem = (
   for (const instruction of (
     transactionItem.transaction?.message?.instructions ?? []
   ).filter(ins => ins.parsed !== undefined)) {
-    // get the type of instruction: transfer SOL(transfer) | transfer token(transferChecked) | create token account(create)
-    if (instruction.parsed.type === InstructionType.transferChecked) {
-      const txn = parseTokenTransferTransaction(
+    // get the transfer token instruction
+    if (
+      instruction.programId === splTokenLib.TOKEN_PROGRAM_ID.toString() &&
+      (instruction.parsed.type === InstructionType.transfer ||
+        instruction.parsed.type === InstructionType.transferChecked)
+    ) {
+      const txn = await parseTokenTransferTransaction(
         instruction,
         account,
         transactionItem,

@@ -8,22 +8,15 @@ import {
 } from '@cypherock/db-interfaces';
 import { getLatestBlockHash } from '@cypherock/sdk-app-solana';
 
-import {
-  InstructionType,
-  parseTokenTransactionItem,
-  parseTransactionItem,
-  TransactionParserReturnType,
-} from './common';
+import { parseTokenTransactionItem, parseTransactionItem } from './common';
 
 import { getCoinSupportWeb3Lib, getTokenSupportSplTokenLib } from '../../utils';
 import { ISolanaTransactionItem } from '../api';
-
-export interface ICustomSolanaInstruction {
-  type: InstructionType;
-  amount?: number;
-  recipient: string;
-  mintAddress?: string;
-}
+import {
+  ICustomSolanaInstruction,
+  InstructionType,
+  TransactionParserReturnType,
+} from './types';
 
 export const mapTransactionsForDb = async (params: {
   db: IDatabase;
@@ -65,14 +58,14 @@ export const mapTransactionsForDb = async (params: {
   return result;
 };
 
-export const mapTokenTransactionsForDb = (
+export const mapTokenTransactionsForDb = async (
   account: IAccount,
   rawTransactions: ISolanaTransactionItem[],
-): ITransaction[] => {
+): Promise<ITransaction[]> => {
   const transactions: ITransaction[] = [];
 
   for (const rawTxn of rawTransactions) {
-    const txns = parseTokenTransactionItem(rawTxn, account);
+    const txns = await parseTokenTransactionItem(rawTxn, account);
     transactions.push(...txns);
   }
 
@@ -105,7 +98,7 @@ export const constructTransaction = async (
       constructedInstruction = web3Lib.SystemProgram.transfer({
         fromPubkey: feePayer,
         toPubkey: new web3Lib.PublicKey(instruction.recipient),
-        lamports: instruction.amount ?? 0,
+        lamports: instruction.amount,
       });
     } else {
       if (!instruction.mintAddress) continue;
@@ -118,7 +111,7 @@ export const constructTransaction = async (
           recipientPubKey,
         );
 
-      if (instruction.type === InstructionType.create) {
+      if (instruction.type === InstructionType.createAccount) {
         constructedInstruction =
           splTokenLibrary.createAssociatedTokenAccountInstruction(
             feePayer,
@@ -130,12 +123,15 @@ export const constructTransaction = async (
         const senderTokenAccount =
           splTokenLibrary.getAssociatedTokenAddressSync(mintPubKey, feePayer);
 
-        constructedInstruction = splTokenLibrary.createTransferInstruction(
-          senderTokenAccount,
-          recipientTokenAccount,
-          feePayer,
-          instruction.amount ?? 0,
-        );
+        constructedInstruction =
+          splTokenLibrary.createTransferCheckedInstruction(
+            senderTokenAccount,
+            mintPubKey,
+            recipientTokenAccount,
+            feePayer,
+            instruction.amount,
+            instruction.decimals,
+          );
       }
     }
 
