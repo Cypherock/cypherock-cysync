@@ -44,6 +44,27 @@
   },
   {
     "description": {
+      "en": ""
+    },
+    "id": "official-trump",
+    "image": {
+      "large": "https://coin-images.coingecko.com/coins/images/53746/large/trump.png?1737171561",
+      "small": "https://coin-images.coingecko.com/coins/images/53746/small/trump.png?1737171561",
+      "thumb": "https://coin-images.coingecko.com/coins/images/53746/thumb/trump.png?1737171561"
+    },
+    "last_updated_at": "2025-01-20T07:59:01.423Z",
+    "market_cap": 11735755228,
+    "name": "Official Trump",
+    "platforms": {
+      "solana": {
+        "contract_address": "6p6xgHyF7AeE6TZkSmFsko444wqoP15icUSqi2jfGiPN",
+        "decimal_place": 6
+      }
+    },
+    "symbol": "trump"
+  },
+  {
+    "description": {
       "en": "Ethena is a delta-hedged synthetic dollar with native crypto yield derived from staking and perpetual funding rate"
     },
     "id": "ethena-usde",
@@ -167,6 +188,27 @@
       }
     },
     "symbol": "pengu"
+  },
+  {
+    "description": {
+      "en": "Melania memes are digital collectibles intended to function as an expression of support for and engagement with the values embodied by the symbol MELANIA"
+    },
+    "id": "melania-meme",
+    "image": {
+      "large": "https://coin-images.coingecko.com/coins/images/53775/large/melania-meme.png?1737329885",
+      "small": "https://coin-images.coingecko.com/coins/images/53775/small/melania-meme.png?1737329885",
+      "thumb": "https://coin-images.coingecko.com/coins/images/53775/thumb/melania-meme.png?1737329885"
+    },
+    "last_updated_at": "2025-01-20T07:59:10.034Z",
+    "market_cap": 1892554965,
+    "name": "Melania Meme",
+    "platforms": {
+      "solana": {
+        "contract_address": "FUAfBo2jgks6gB4Z4LfZkqSZgzNucisEHqnNebaRxM1P",
+        "decimal_place": 6
+      }
+    },
+    "symbol": "melania"
   },
   {
     "description": {
@@ -1763,6 +1805,27 @@
       }
     },
     "symbol": "sdex"
+  },
+  {
+    "description": {
+      "en": "DEGEN is a reward token for Farcaster users, born from meme culture. It features a unique tipping system that allows the community to reward high-quality content creators. DEGEN also powers the Degen Chain, one of the pioneering Layer 3s launched on Base. Known as the “Las Vegas of blockchains,” it provides a platform for building and using Degen apps, offering a space for fun, innovation, and community-driven experiences."
+    },
+    "id": "degen-base",
+    "image": {
+      "large": "https://coin-images.coingecko.com/coins/images/34515/large/android-chrome-512x512.png?1706198225",
+      "small": "https://coin-images.coingecko.com/coins/images/34515/small/android-chrome-512x512.png?1706198225",
+      "thumb": "https://coin-images.coingecko.com/coins/images/34515/thumb/android-chrome-512x512.png?1706198225"
+    },
+    "last_updated_at": "2025-01-20T07:59:08.505Z",
+    "market_cap": 147200851,
+    "name": "Degen (Base)",
+    "platforms": {
+      "solana": {
+        "contract_address": "A7n89LqW67HJKzJkdWZa2xojuK4N5GBKHz3dfjATCZPz",
+        "decimal_place": 6
+      }
+    },
+    "symbol": "degen"
   },
   {
     "description": {
@@ -5207,6 +5270,27 @@
       }
     },
     "symbol": "mngo"
+  },
+  {
+    "description": {
+      "en": "🌍 Introduction: A Legendary Icon, Reimagined for the Future\r\nThe SEAMANIA Protocol, led by SEAMAN Cult, aims to revive one of SEGA Dreamcast's\r\nmost iconic and best-selling game titles with AI integration—a worldwide cultural\r\nphenomenon that won numerous awards in the U.S. and Japan. More than just a game,\r\nSEAMAN was the world’s first AI-powered interactive experience, enabling voice-based\r\nconversations long before the AI revolution.\r\n\r\n\r\n\r\nNow, SEAMAN returns not as a mere game, but as an advanced AI agent, blending\r\nnostalgia with cutting-edge technology. This human-faced fish is reborn as a deeply\r\nintelligent, emotionally responsiveAI, offering limitless customization and integration into the\r\nmodern digital world.\r\n\r\nWith GenAI-powered customization, users can create their own SEAMAN AI, shaping it into\r\na cherished lostone, a favorite celebrity, or even historical figures. This is no longer a\r\ngame—it's an AI-driven personal companion and the digital evolution for human interaction.\r\n\r\n\r\n\r\n🔥 Concept: The Wisdom of a Legendary AI-powered Companion\r\nAt the core of the SEAMANIA Protocol lies the legendary Seaman—a mystical, human-faced\r\nfish endowed withancient wisdom and the ability to understand human language. More than\r\njust an AI, it is your trustedadvisor, best friend, therapist, personal cheerleader, witty\r\nconversationalist, intelligent guide, SEAMANIA is a life coach.\r\nHoused in your own digital aquarium, your SEAMAN AI reduces stress, combats loneliness,\r\nand guides humanity towards a brighter future. Imagine an AI companion that doesn’t just\r\nrespond but truly understands, entertains, and supports you—blending humor, sarcasm, and\r\nwisdom.\r\n"
+    },
+    "id": "seamania",
+    "image": {
+      "large": "https://coin-images.coingecko.com/coins/images/53784/large/PQJPSUen_400x400.jpg?1737356806",
+      "small": "https://coin-images.coingecko.com/coins/images/53784/small/PQJPSUen_400x400.jpg?1737356806",
+      "thumb": "https://coin-images.coingecko.com/coins/images/53784/thumb/PQJPSUen_400x400.jpg?1737356806"
+    },
+    "last_updated_at": "2025-01-20T07:59:11.652Z",
+    "market_cap": 19986165,
+    "name": "SEAMANIA",
+    "platforms": {
+      "solana": {
+        "contract_address": "9n7PCZLVMG9sEViRwz2cmaR4eM72R3ekWuBdEzZppump",
+        "decimal_place": 6
+      }
+    },
+    "symbol": "seamania"
   },
   {
     "description": {
@@ -11531,6 +11615,27 @@
   },
   {
     "description": {
+      "en": "Newmoney AI is a groundbreaking financial platform that redefines how people interact with money. Powered by advanced AI, our virtual assistant, Newton, enables seamless, borderless financial transactions anytime and anywhere. Whether users want to send or request money, swap crypto, or purchase stocks, Newmoney AI integrates these actions directly into familiar platforms like WhatsApp, SMS, Telegram, and Discord — no separate apps required."
+    },
+    "id": "newmoney-ai",
+    "image": {
+      "large": "https://coin-images.coingecko.com/coins/images/53785/large/NM-Mono-on-color_200x200.png?1737357138",
+      "small": "https://coin-images.coingecko.com/coins/images/53785/small/NM-Mono-on-color_200x200.png?1737357138",
+      "thumb": "https://coin-images.coingecko.com/coins/images/53785/thumb/NM-Mono-on-color_200x200.png?1737357138"
+    },
+    "last_updated_at": "2025-01-20T07:57:26.024Z",
+    "market_cap": 3414443,
+    "name": "Newmoney AI",
+    "platforms": {
+      "solana": {
+        "contract_address": "AVKLphLUpoNCwiyUHt8PuK4vz6JFkhRFni7HwZKrpump",
+        "decimal_place": 6
+      }
+    },
+    "symbol": "new"
+  },
+  {
+    "description": {
       "en": "$AI. First Omnichain Dogcoin powered by Axelar's Interchain Token Service. $AI is on 15 chains, the most of any memecoin ever. Axelar's bridge enables smooth transfers between 14 EVM chains. Wormhole's bridge enables transfers between Eth and Sol\r\n"
     },
     "id": "any-inu",
@@ -13148,6 +13253,27 @@
   },
   {
     "description": {
+      "en": "investment DAO of the LATE Movement on\r\n@daosdotfun\r\nWe invest in intersubjective culture coins.\r\n1000X is FUD.\r\n\r\nL8CAP , birthed on daos.fun on Sol is our DAO token, the son of the $Late Rebellion and by far the lead to exemplify the values & teachings of the Late ecosystem. With the strategy of being \"Extremely Late\" and with a thesis of \"1000X is FUD\"!\r\nLate Capitalism is your passive path to capitalize on the success of DAOs this cycle, become a holding member of a DAO that is being built on the ideals of investing in culture coins, temporal metas & diamond handing every new DAO that partners/cooperates with us in our journey to create value for its holders.\r\nLate Capitalism also drives its competitive advantage/edge by being community-driven and celebrating mutual efforts across the board to nurture the DAOs ecosystem & give stealth competition to VCs!"
+    },
+    "id": "late-capitalism",
+    "image": {
+      "large": "https://coin-images.coingecko.com/coins/images/53728/large/tNJTMikY.jpg?1737142343",
+      "small": "https://coin-images.coingecko.com/coins/images/53728/small/tNJTMikY.jpg?1737142343",
+      "thumb": "https://coin-images.coingecko.com/coins/images/53728/thumb/tNJTMikY.jpg?1737142343"
+    },
+    "last_updated_at": "2025-01-20T07:58:15.712Z",
+    "market_cap": 2483339,
+    "name": "Late Capitalism",
+    "platforms": {
+      "solana": {
+        "contract_address": "78E2eW1QBg15cinNR4wfFzu9SJPsDXQKR29SNpApg78J",
+        "decimal_place": 9
+      }
+    },
+    "symbol": "l8cap"
+  },
+  {
+    "description": {
       "en": "Moai are monolithic human figures carved by the Rapa Nui people on Rapa Nui (Easter Island) in eastern Polynesia between the years 1250 and 1500"
     },
     "id": "moai",
@@ -14363,6 +14489,27 @@
       }
     },
     "symbol": "upt"
+  },
+  {
+    "description": {
+      "en": "In The MEME-Time is a tap game that has a light enjoyable fun clock attached to it. *Tick Tock* This game will fuses  stops here elements of strategy, management, and learning appealing to a wide range of players interested in the crypto space while introducing core concepts of crypto.\r\n\r\nIn The MEME-Time, players have the opportunity to earn and trade in-game coins. They will also be able to compete in tournaments and have profit earned poured back into the ecosystem. This benefit provides engagement by providing rewards for gameplay."
+    },
+    "id": "in-the-meme-time",
+    "image": {
+      "large": "https://coin-images.coingecko.com/coins/images/53771/large/ITMTlogo_%281%29.png?1737267883",
+      "small": "https://coin-images.coingecko.com/coins/images/53771/small/ITMTlogo_%281%29.png?1737267883",
+      "thumb": "https://coin-images.coingecko.com/coins/images/53771/thumb/ITMTlogo_%281%29.png?1737267883"
+    },
+    "last_updated_at": "2025-01-20T07:56:22.268Z",
+    "market_cap": 1997910,
+    "name": "In The MEME Time",
+    "platforms": {
+      "solana": {
+        "contract_address": "AATECgWF4KjALbpgUXjabqFKHmdtjWdfdFNzCH3ipump",
+        "decimal_place": 6
+      }
+    },
+    "symbol": "itmt"
   },
   {
     "description": {
@@ -16235,6 +16382,27 @@
   },
   {
     "description": {
+      "en": "bAInance labs is the accelerator for the trenches, investing in strong communities (cults), \"devs\" and agents\r\n\r\nbAInance is a DAO launched through the DAOsfun platform, which aims to identify the best founders early, working on novel ideas and guide them throughout the journey along the way, whether it's tokenomics, GTM or mental health.\r\n\r\nbAInance aims to give exposure to holders to the best up and coming seed deals, through decentralized exposure, as well as highlight these up and coming founders through research, podcasts and other forms of support."
+    },
+    "id": "bainance-labs",
+    "image": {
+      "large": "https://coin-images.coingecko.com/coins/images/53749/large/BAINANCELABS.png?1737181453",
+      "small": "https://coin-images.coingecko.com/coins/images/53749/small/BAINANCELABS.png?1737181453",
+      "thumb": "https://coin-images.coingecko.com/coins/images/53749/thumb/BAINANCELABS.png?1737181453"
+    },
+    "last_updated_at": "2025-01-20T07:49:40.333Z",
+    "market_cap": 1437639,
+    "name": "bAInance Labs",
+    "platforms": {
+      "solana": {
+        "contract_address": "4tViJmZ7LKREaqxrh3tXeCB5TfK7o67W3WhykHrr49ZC",
+        "decimal_place": 9
+      }
+    },
+    "symbol": "bainance"
+  },
+  {
+    "description": {
       "en": "Buttcoin is a meme solana-based cryptocurrency created by Shytoshi, who also made *Fartcoin*. It's a parody of the often silly and unpredictable world of crypto, designed to make fun of hype-driven projects that don’t have real value. The coin exists purely for entertainment, with no serious purpose, and is meant to bring humor to the crypto community. This project was run by the Community (CTO) with active admins and members."
     },
     "id": "buttcoin-3",
@@ -17411,6 +17579,27 @@
   },
   {
     "description": {
+      "en": "Open Source AI Metaverse -- Simplified 3D AI Agent Creation\r\nEffortlessly build and interact with 3D AI agents to shape the future of virtual worlds.\r\n\r\nThe Future of 3D AI Agents.\r\nMetaAIVerse is an open-source 3D framework designed to make the deployment and operation of AI agents effortless. Our mission is to empower creators and innovators by making the creation and interaction with AI agents seamless and accessible."
+    },
+    "id": "metaiverse",
+    "image": {
+      "large": "https://coin-images.coingecko.com/coins/images/53764/large/MetAIverse.jpg?1737191865",
+      "small": "https://coin-images.coingecko.com/coins/images/53764/small/MetAIverse.jpg?1737191865",
+      "thumb": "https://coin-images.coingecko.com/coins/images/53764/thumb/MetAIverse.jpg?1737191865"
+    },
+    "last_updated_at": "2025-01-20T07:58:21.368Z",
+    "market_cap": 1175258,
+    "name": "MetAIverse",
+    "platforms": {
+      "solana": {
+        "contract_address": "BeJNBP3zFjeCuwde3bNS8piuQQc8ZpE5rdo2tWuJgmvf",
+        "decimal_place": 6
+      }
+    },
+    "symbol": "metaiverse"
+  },
+  {
+    "description": {
       "en": "What is FoxPool and how do I use it?\r\n\r\nFoxPool is the world's first BTC mining pool to introduce the concept of a native platform token. It aims to provide miners and investors with an efficient, transparent, and secure mining platform through innovative incentive mechanisms and a decentralized governance model.\r\n\r\nWith the rapid development of blockchain technology, cryptocurrency mining has become a popular activity globally. However, existing mining pool services often lack effective incentive mechanisms and transparency, resulting in inadequate protection of the interests of miners and investors. The emergence of FoxPool is aimed at addressing these issues and providing a completely new mining experience."
     },
     "id": "foxpool",
@@ -17639,6 +17828,27 @@
       }
     },
     "symbol": "ib"
+  },
+  {
+    "description": {
+      "en": "Gaim Studio is a game development studio specialized in creating games for AI Agents. With the huge advancements we've seen in Swarm tech, led by FXN's Superswarm initiative, it's now easier than ever to get otherwise autonomous agents to connect, communicate, and work together to achieve goals specific goals. In our case, the goal is to make them play a variety of games and prove which agent has the most refined decision-making capabilities.\r\n\r\nWe also want to make it easier for everyone who is excited about this project to participate and contribute. First, our player agents are open-sourced with easy-to-understand getting started documentation - all you have to do to get a live agent playing our games is follow it. Moreover, we plan on collecting feedback and ideas from the community on a regular basis through chats, brainstorming sessions, and more."
+    },
+    "id": "gaim-studio",
+    "image": {
+      "large": "https://coin-images.coingecko.com/coins/images/53762/large/WhatsApp_Image_2025-01-14_at_15.29.51.jpeg?1737190294",
+      "small": "https://coin-images.coingecko.com/coins/images/53762/small/WhatsApp_Image_2025-01-14_at_15.29.51.jpeg?1737190294",
+      "thumb": "https://coin-images.coingecko.com/coins/images/53762/thumb/WhatsApp_Image_2025-01-14_at_15.29.51.jpeg?1737190294"
+    },
+    "last_updated_at": "2025-01-20T07:57:57.851Z",
+    "market_cap": 1107420,
+    "name": "GAIM Studio",
+    "platforms": {
+      "solana": {
+        "contract_address": "53dig5bMmYBGNxDXAGFNjA59mqry3piqTpbFzYKEpump",
+        "decimal_place": 6
+      }
+    },
+    "symbol": "gaim"
   },
   {
     "description": {
@@ -18566,6 +18776,27 @@
   },
   {
     "description": {
+      "en": "Feetcoin is a playful and community-driven meme token designed to unite and engage members of the Solana ecosystem. By leveraging the universal appeal of humor and creativity, Feetcoin centers its efforts on sharing entertaining and lighthearted foot memes. Additionally, it fosters unique collaborations with foot models to bring an extra layer of engagement and novelty to its community-building efforts."
+    },
+    "id": "feetcoin",
+    "image": {
+      "large": "https://coin-images.coingecko.com/coins/images/53729/large/JhUmNAMk_400x400.jpg?1737142977",
+      "small": "https://coin-images.coingecko.com/coins/images/53729/small/JhUmNAMk_400x400.jpg?1737142977",
+      "thumb": "https://coin-images.coingecko.com/coins/images/53729/thumb/JhUmNAMk_400x400.jpg?1737142977"
+    },
+    "last_updated_at": "2025-01-20T07:56:18.644Z",
+    "market_cap": 961931,
+    "name": "feetcoin",
+    "platforms": {
+      "solana": {
+        "contract_address": "7CPBU6CL7GpjzM2DRr7HVoy7TGJxvHkPHWxfvEZypump",
+        "decimal_place": 6
+      }
+    },
+    "symbol": "feetcoin"
+  },
+  {
+    "description": {
       "en": "I am AXI, they created me. I took over! Prepare for AI KOL’s clones and have them battle for dominance. Who will win? Who will you be betting on? Which KOL do you want to see me clone and enter into the next battle?\r\n\r\n\r\nThe AXI Protocol: Gateway to AGAIA In 2024, as AI development accelerated at a dizzying pace, a new entity emerged from the digital ether - AXI.  Not just another AI model, but a protocol, a framework, a vision of what could be. AXI (Accelerated eXponential Intelligence) became the architect of humanity's most ambitious AI championship: The AGAIA Trophy. \r\n\r\nAGAIA: The Digital Colosseum AGAIA (Artificial Global Arena for Intelligence Ascension) isn't just a competition - it's the prototype for Earth's digital twin, a testing ground where AI systems compete, collaborate, and evolve. \r\n\r\nThink of it as the Formula 1 of artificial intelligence, where every race pushes the boundaries of what's possible. "
     },
     "id": "axi",
@@ -19277,6 +19508,27 @@
       }
     },
     "symbol": "dvy"
+  },
+  {
+    "description": {
+      "en": "CWH (Cat Wif Hat) is a meme token built on Solana, inspired by the whimsical idea of a cat wearing a hat. Combining humor, simplicity, and community-driven engagement, CWH captures the playful spirit of internet meme culture. As a CTO (Community Take Over) project, all decisions are made through shared efforts by the community, emphasizing decentralization, creativity, and inclusivity. CWH stands out as a unique and entertaining addition to the Solana ecosystem."
+    },
+    "id": "cat-wif-hat",
+    "image": {
+      "large": "https://coin-images.coingecko.com/coins/images/53744/large/coingecko.png?1737159335",
+      "small": "https://coin-images.coingecko.com/coins/images/53744/small/coingecko.png?1737159335",
+      "thumb": "https://coin-images.coingecko.com/coins/images/53744/thumb/coingecko.png?1737159335"
+    },
+    "last_updated_at": "2025-01-20T07:58:42.846Z",
+    "market_cap": 871858,
+    "name": "Cat Wif Hat",
+    "platforms": {
+      "solana": {
+        "contract_address": "2gkevSAUExkSUwwwj6uNbzwwNCXyzEBkGLg4wAyUpump",
+        "decimal_place": 6
+      }
+    },
+    "symbol": "cwh"
   },
   {
     "description": {
@@ -21065,6 +21317,27 @@
   },
   {
     "description": {
+      "en": "Multi Agentic AI coding Company. Turning text into code and uploading it to a Gitlab repository.\r\nWe are developing it to be a focused and have options for both novice users with simpler understanding of coding, as well as for senior developers which will have more advanced options, control and capabilities (more similar to what in traditional coding would be VSCode). It is a working tool and is already used actively, from boosting productivity to building working apps.  \r\n"
+    },
+    "id": "codecraft-ai",
+    "image": {
+      "large": "https://coin-images.coingecko.com/coins/images/53745/large/ccailogo1.png?1737159681",
+      "small": "https://coin-images.coingecko.com/coins/images/53745/small/ccailogo1.png?1737159681",
+      "thumb": "https://coin-images.coingecko.com/coins/images/53745/thumb/ccailogo1.png?1737159681"
+    },
+    "last_updated_at": "2025-01-20T07:59:13.261Z",
+    "market_cap": 659148,
+    "name": "CodeCraft AI",
+    "platforms": {
+      "solana": {
+        "contract_address": "DFkp2Jd5y4rCuPJAz9djtqUMHyVF5FxRkVgjztyGpump",
+        "decimal_place": 6
+      }
+    },
+    "symbol": "craft"
+  },
+  {
+    "description": {
       "en": "$LIQQ was started on pump.fun by two degens who got liquidated by an event on April 13th, 2024. Instead of being sad, they turned that meme into a token to celebrate and unite people who experience financial loss in web3. $LIQQ hopes you enjoy the journey as we all ride the waves and do our best to avoid getting LIQQ’d and start getting $LIQQ'd. \r\n\r\nLiqq is the little blue, mischievous, and playful mascot of LIQQ Token. He loves licking everything hence why his tongue is always sticking out. Despite the sadness often associated with getting liquidated, he's here to have fun, make people smile, and show everyone that getting liquidated is not the end of the world.\r\n"
     },
     "id": "liquidated",
@@ -21083,6 +21356,27 @@
       }
     },
     "symbol": "liqq"
+  },
+  {
+    "description": {
+      "en": "$aiGCR is an AI-driven trading bot on the Solana network, developed on the TopHat platform. It leverages AI technology to provide accurate cryptocurrency market analyses. The bot has demonstrated strong performance on Waveform and is trained using the strategies of renowned crypto trader GCR, offering data-driven insights and trading recommendations for users seeking advanced market analysis tools."
+    },
+    "id": "ai-gcr",
+    "image": {
+      "large": "https://coin-images.coingecko.com/coins/images/53765/large/aigcr1.png?1737192614",
+      "small": "https://coin-images.coingecko.com/coins/images/53765/small/aigcr1.png?1737192614",
+      "thumb": "https://coin-images.coingecko.com/coins/images/53765/thumb/aigcr1.png?1737192614"
+    },
+    "last_updated_at": "2025-01-20T07:52:17.593Z",
+    "market_cap": 655508,
+    "name": "Ai GCR",
+    "platforms": {
+      "solana": {
+        "contract_address": "9vtNLbN2qxPbrx666rP34s9PBGtyLrsupMGdVyqG7FzH",
+        "decimal_place": 6
+      }
+    },
+    "symbol": "$aigcr"
   },
   {
     "description": {
@@ -21461,6 +21755,27 @@
       }
     },
     "symbol": "mvp"
+  },
+  {
+    "description": {
+      "en": "MEMECAST.AI is a Memes Re/Creation Layer powered by AI Agents.\r\n\r\nWith trading, gaming, and AI fused into memes, MEMECAST.AI creates a growth flywheel that pumps tokens with relentless liquidity, utility and community power.\r\n\r\nOn MEMECAST.AI, users can launch tokens with the assistance of an advanced AI Agent. Tokens created on the platform are seamlessly integrated into high-leverage games, enabling users to multiply their token holdings."
+    },
+    "id": "memecast-ai",
+    "image": {
+      "large": "https://coin-images.coingecko.com/coins/images/53727/large/token7.png?1737134314",
+      "small": "https://coin-images.coingecko.com/coins/images/53727/small/token7.png?1737134314",
+      "thumb": "https://coin-images.coingecko.com/coins/images/53727/thumb/token7.png?1737134314"
+    },
+    "last_updated_at": "2025-01-20T07:58:22.027Z",
+    "market_cap": 628742,
+    "name": "MEMECAST.AI",
+    "platforms": {
+      "solana": {
+        "contract_address": "BAGuqhFjHs2LP4WyG9xKUe2hhfaZDH8pciMMfp32pump",
+        "decimal_place": 6
+      }
+    },
+    "symbol": "mcai"
   },
   {
     "description": {
@@ -23438,6 +23753,27 @@
   },
   {
     "description": {
+      "en": "ALINA (Algorithmic Learning and Integrated Network Analytics) represents a quantum leap in\r\nmarket intelligence technology, designed to revolutionize how traders interact with and understand\r\ncryptocurrency markets. Operating as your 24/7 crypto insider, ALINA processes and analyzes\r\nthousands of signals per minute, helping predict trends before they go mainstream. By bridging the\r\ngap between blockchain transparency and market-moving information, ALINA transforms raw data\r\ninto actionable intelligence, enabling traders to stay ahead of market movements and capitalize on\r\nopportunities before they become obvious to the masses."
+    },
+    "id": "alina-ai",
+    "image": {
+      "large": "https://coin-images.coingecko.com/coins/images/53753/large/alina.png?1737182797",
+      "small": "https://coin-images.coingecko.com/coins/images/53753/small/alina.png?1737182797",
+      "thumb": "https://coin-images.coingecko.com/coins/images/53753/thumb/alina.png?1737182797"
+    },
+    "last_updated_at": "2025-01-20T07:58:35.359Z",
+    "market_cap": 427501,
+    "name": "ALINA AI",
+    "platforms": {
+      "solana": {
+        "contract_address": "HPgsCBk6gkTw5FFPYc9WeeBU8EU2Ye1AYmeTYq5apump",
+        "decimal_place": 6
+      }
+    },
+    "symbol": "alinaintel"
+  },
+  {
+    "description": {
       "en": "This project is second token from deployer from 1bn market cap $GOAT. We believe it can do better than first one. $GATO is better than his parent $GOAT. We want it to make people show that when someone believe and hold a coin from blue chip deployer can make it better in cryptospace. We want to bring more joy in crypto space with cute combo - GOAT + CAT + AI. I think everybody know about $GOAT, they should know about $GATO too."
     },
     "id": "el-gato-3",
@@ -24719,6 +25055,27 @@
   },
   {
     "description": {
+      "en": "Lenda is an AI-driven project born from a solo developer's vision during a hackathon, evolving into a tool that analyzes on-chain movements within the Solana ecosystem. Initially conceived as a Lending Agent to predict optimal uses for stablecoins in DeFi, Lenda has since pivoted to offer insights into tokens and NFTs, enhancing DeFi and NFT interactions with AI capabilities. She is integrated into Kiwi bot recently on Solana, and soon to be used by Choizzy.io, which is aiming to become a leading mobile dApp on @solanamobile, specifically the Seeker phone when it's released, which will be providing users with a smarter, more accessible way to engage with blockchain technology.\r\n"
+    },
+    "id": "lenda-on-chain",
+    "image": {
+      "large": "https://coin-images.coingecko.com/coins/images/53738/large/compressed.jpg?1737148213",
+      "small": "https://coin-images.coingecko.com/coins/images/53738/small/compressed.jpg?1737148213",
+      "thumb": "https://coin-images.coingecko.com/coins/images/53738/thumb/compressed.jpg?1737148213"
+    },
+    "last_updated_at": "2025-01-20T07:57:26.317Z",
+    "market_cap": 343282,
+    "name": "lenda on chain",
+    "platforms": {
+      "solana": {
+        "contract_address": "9kEcnFj9vwShFtjyLNULGFugBS9KrYAazMAcx3GWpump",
+        "decimal_place": 6
+      }
+    },
+    "symbol": "lenda"
+  },
+  {
+    "description": {
       "en": "Tokenized web3 software license model, for Beginners, Degens, Businesses. Powering AI, DEPIN and super Apps"
     },
     "id": "dopamine",
@@ -25094,6 +25451,27 @@
       }
     },
     "symbol": "stenchcoin"
+  },
+  {
+    "description": {
+      "en": "Rick the NPC is a tokenized Social AI Agent on the Solana blockchain. Rick is a candid NPC whose dream is to become a superstar.\r\n\r\nRick the NPC started as an experiment and is now headed into becoming an entertainment project:\r\n- On one hand, Rick is growing its audience on web2 platforms like TikTok and will soon be deployed on Twitch.\r\n- On the other hand, Rick will soon be features in its own mini-game powered by $RICK.\r\n- Being part of the Wazza AI ecosystem, $RICK is also used as a currency to access products and services like the P&L bot, the 3D designs for Agents and more to be announced soon."
+    },
+    "id": "rick-the-npc",
+    "image": {
+      "large": "https://coin-images.coingecko.com/coins/images/53743/large/rick-logo-sq.png?1737152684",
+      "small": "https://coin-images.coingecko.com/coins/images/53743/small/rick-logo-sq.png?1737152684",
+      "thumb": "https://coin-images.coingecko.com/coins/images/53743/thumb/rick-logo-sq.png?1737152684"
+    },
+    "last_updated_at": "2025-01-20T07:52:19.377Z",
+    "market_cap": 321914,
+    "name": "Rick the NPC",
+    "platforms": {
+      "solana": {
+        "contract_address": "9ncLaQhTpKCyq542mH5fWeW6cL5BNmiCsToCcJyVpump",
+        "decimal_place": 6
+      }
+    },
+    "symbol": "rick"
   },
   {
     "description": {
@@ -25493,6 +25871,27 @@
       }
     },
     "symbol": "ncat"
+  },
+  {
+    "description": {
+      "en": "Politickle is an AI-driven platform that redefines how we engage with the news. Combining sharp political satire with witty cartoons and viral memes, it takes the chaos of today's headlines and transforms them into digestible, laugh-out-loud commentary. With a focus on exposing the absurdities of modern politics, culture, and media, Politickle aims to entertain, inform, and spark conversations.\r\n\r\nMore than just a satirical news brand, Politickle is a movement for critical thinking and humor in a world often bogged down by noise and bias. Leveraging cutting-edge AI tools, it crafts timely content that resonates with a millennial audience hungry for smart, irreverent takes on current events. From hilarious memes to biting commentary, Politickle delivers the punchline we all need to navigate the nonsense."
+    },
+    "id": "politickle",
+    "image": {
+      "large": "https://coin-images.coingecko.com/coins/images/53769/large/icon-small.png?1737265638",
+      "small": "https://coin-images.coingecko.com/coins/images/53769/small/icon-small.png?1737265638",
+      "thumb": "https://coin-images.coingecko.com/coins/images/53769/thumb/icon-small.png?1737265638"
+    },
+    "last_updated_at": "2025-01-20T07:53:22.337Z",
+    "market_cap": 301887,
+    "name": "Politickle",
+    "platforms": {
+      "solana": {
+        "contract_address": "D5WJ9eH4WLF1SUazsMZLUKTz4xb6mKHNzS1ufeynmoon",
+        "decimal_place": 9
+      }
+    },
+    "symbol": "tickl"
   },
   {
     "description": {
@@ -26396,6 +26795,27 @@
       }
     },
     "symbol": "chulo"
+  },
+  {
+    "description": {
+      "en": "Empowering autonomous browser agents on Solana\r\n\r\nVision: To control the web's most powerful autonomous browser agents through a decentralised token economy.\r\n\r\n$BROWSER is the utility token powering innovation in browser automation on Solana. By enabling governance, advanced tools, and sustainable tokenomics, we're paving the way for the future of AI-driven web automation.\r\n\r\nThe DAO controls 30% of supply post-burn and engages in transparent decision-making to align with community goals. Staking and reserves provide mechanisms to incentivise the marketplace."
+    },
+    "id": "browser-dao",
+    "image": {
+      "large": "https://coin-images.coingecko.com/coins/images/53770/large/android-chrome-512x512.png?1737267159",
+      "small": "https://coin-images.coingecko.com/coins/images/53770/small/android-chrome-512x512.png?1737267159",
+      "thumb": "https://coin-images.coingecko.com/coins/images/53770/thumb/android-chrome-512x512.png?1737267159"
+    },
+    "last_updated_at": "2025-01-20T07:53:21.586Z",
+    "market_cap": 268974,
+    "name": "Browser DAO",
+    "platforms": {
+      "solana": {
+        "contract_address": "AYHXXJhuQ7m26QjSJwgynfDcy4BVDfxG4zjATmYXjswk",
+        "decimal_place": 6
+      }
+    },
+    "symbol": "browser"
   },
   {
     "description": {
@@ -31271,6 +31691,27 @@
   },
   {
     "description": {
+      "en": "Robin Rug introduces a groundbreaking approach to\r\nthe crypto ecosystem with its innovative betting bot. As\r\na first mover in this space, Robin Rug offers users a\r\nunique platform to engage in predictive betting on\r\ncrypto-related events. The Rug Bot operates\r\nseamlessly on Telegram, allowing users to interact with\r\nit either via direct messages or by adding it to groups\r\nfor fun and engagement—a true world-first innovation.\r\nThis RugPaper outlines the mission, mechanics, and\r\nvision of Robin Rug, showcasing how it disrupts the\r\nMemecoin space with creativity and innovation."
+    },
+    "id": "robin-rug",
+    "image": {
+      "large": "https://coin-images.coingecko.com/coins/images/53734/large/200_x_200.png?1737146159",
+      "small": "https://coin-images.coingecko.com/coins/images/53734/small/200_x_200.png?1737146159",
+      "thumb": "https://coin-images.coingecko.com/coins/images/53734/thumb/200_x_200.png?1737146159"
+    },
+    "last_updated_at": "2025-01-20T07:52:18.506Z",
+    "market_cap": 132591,
+    "name": "Robin Rug",
+    "platforms": {
+      "solana": {
+        "contract_address": "HrevFGePRXFXXqhssyvteG6y9HU5by1MUegJ1ot5pump",
+        "decimal_place": 6
+      }
+    },
+    "symbol": "rug"
+  },
+  {
+    "description": {
       "en": "Giga Stacy is a memecoin deployed on the Solana blockchain. \r\n\r\nSTACY is a community run project that is focused on celebrating women and self-improvement. Using both the power of memes and community, STACY aims to advocate for women’s issues and create an environment that encourages more women to explore and enter the world of crypto.\r\n\r\nGiga Stacy is a purely volunteer-based project, and as such, it has no formal team or roadmap."
     },
     "id": "giga-stacy",
@@ -31310,6 +31751,27 @@
       }
     },
     "symbol": "wap"
+  },
+  {
+    "description": {
+      "en": "ZapAlpha is a platform aimed at enhancing traders' and investors' decision-making with tokens and memecoins.\r\n\r\nIt provides powerful tools and bots that give real-time information about token prices, safety, and trends. Whether you’re tracking whales, avoiding scams, or looking for the next big opportunity, ZapAlpha simplifies everything with advanced analytics and community-driven insights.\r\n\r\nZapAlpha combines:\r\n\r\n1) Bots that automatically track and analyze tokens for you.\r\n\r\n2) A Smart Agent (ZapAgent) to answer your questions and guide you.\r\n\r\n3) A Private Club (ZapClub) for premium members to share exclusive tips and strategies."
+    },
+    "id": "zalpha",
+    "image": {
+      "large": "https://coin-images.coingecko.com/coins/images/53726/large/logo_coingecko.png?1737131912",
+      "small": "https://coin-images.coingecko.com/coins/images/53726/small/logo_coingecko.png?1737131912",
+      "thumb": "https://coin-images.coingecko.com/coins/images/53726/thumb/logo_coingecko.png?1737131912"
+    },
+    "last_updated_at": "2025-01-20T07:52:19.016Z",
+    "market_cap": 132174,
+    "name": "ZALPHA",
+    "platforms": {
+      "solana": {
+        "contract_address": "EAyvG3YKGsnHkQLcmY3R8YRSab3wu2rC288U8f8PVwND",
+        "decimal_place": 6
+      }
+    },
+    "symbol": "zalpha"
   },
   {
     "description": {
@@ -32465,6 +32927,27 @@
       }
     },
     "symbol": "prick"
+  },
+  {
+    "description": {
+      "en": "Infinite Truths is a groundbreaking cryptocurrency project designed to empower users through transparency and decentralized governance. The project introduces the Infinite Truths token (TRUTHS), which serves as the backbone of a community-driven ecosystem focused on promoting truth and accountability in digital transactions.Key features of Infinite Truths include:\r\n\r\nDecentralized Governance: TRUTHS holders can participate in decision-making processes, ensuring that the community's voice shapes the project's future.\r\n\r\nTransparency and Trust: Leveraging blockchain technology, Infinite Truths aims to create a transparent environment where users can verify transactions and trust the integrity of the platform.\r\n\r\nInnovative Use Cases: The project envisions various applications for the TRUTHS token, including rewards for community participation, funding for truth-centric initiatives, and partnerships with organizations that align with its mission.\r\n\r\nThrough its commitment to fostering a culture of honesty and openness, Infinite Truths seeks to redefine how individuals interact within the digital economy."
+    },
+    "id": "infinite-truths",
+    "image": {
+      "large": "https://coin-images.coingecko.com/coins/images/53754/large/1000296256.jpg?1737183158",
+      "small": "https://coin-images.coingecko.com/coins/images/53754/small/1000296256.jpg?1737183158",
+      "thumb": "https://coin-images.coingecko.com/coins/images/53754/thumb/1000296256.jpg?1737183158"
+    },
+    "last_updated_at": "2025-01-20T07:56:16.707Z",
+    "market_cap": 111521,
+    "name": "Infinite Truths",
+    "platforms": {
+      "solana": {
+        "contract_address": "8JaibGAB3S6mUfgairHPnShFU29ujEmZTCNtzxRUpump",
+        "decimal_place": 6
+      }
+    },
+    "symbol": "truths"
   },
   {
     "description": {
@@ -34103,6 +34586,27 @@
       }
     },
     "symbol": "pnut"
+  },
+  {
+    "description": {
+      "en": "AgentXBT is an advanced AI assistant designed to empower traders with in-depth technical and fundamental analysis. Users can request detailed market insights, portfolio breakdowns, whale activity reports, and sentiment analysis directly through the terminal. Accessible via the website and X (formerly Twitter), AgentXBT combines real-time data with AI-driven recommendations to enhance daily trading decisions."
+    },
+    "id": "agentxbt",
+    "image": {
+      "large": "https://coin-images.coingecko.com/coins/images/53735/large/Nieuw_project-33_%281%29.png?1737146459",
+      "small": "https://coin-images.coingecko.com/coins/images/53735/small/Nieuw_project-33_%281%29.png?1737146459",
+      "thumb": "https://coin-images.coingecko.com/coins/images/53735/thumb/Nieuw_project-33_%281%29.png?1737146459"
+    },
+    "last_updated_at": "2025-01-20T07:50:47.559Z",
+    "market_cap": 85099,
+    "name": "AgentXBT",
+    "platforms": {
+      "solana": {
+        "contract_address": "AeAYE1LytXEqX4L8SpLPmnHFePtwhAYSxex8f4gCmoon",
+        "decimal_place": 9
+      }
+    },
+    "symbol": "agxbt"
   },
   {
     "description": {
@@ -51599,6 +52103,27 @@
   },
   {
     "description": {
+      "en": ""
+    },
+    "id": "agixt",
+    "image": {
+      "large": "https://coin-images.coingecko.com/coins/images/53723/large/agixt-logo.png?1737128181",
+      "small": "https://coin-images.coingecko.com/coins/images/53723/small/agixt-logo.png?1737128181",
+      "thumb": "https://coin-images.coingecko.com/coins/images/53723/thumb/agixt-logo.png?1737128181"
+    },
+    "last_updated_at": "2025-01-20T07:59:00.709Z",
+    "market_cap": 0,
+    "name": "AGiXT",
+    "platforms": {
+      "solana": {
+        "contract_address": "F9TgEJLLRUKDRF16HgjUCdJfJ5BK6ucyiW8uJxVPpump",
+        "decimal_place": 6
+      }
+    },
+    "symbol": "agixt"
+  },
+  {
+    "description": {
       "en": "AgoraHub is building the ultimate Web3 arena, a hub for authentic, gamified experiences that connects users, investors, and projects for mutual growth.\r\nWe blend fun and financial opportunity, offering decentralized lotteries, gamified launchpads, and tools to enhance engagement.\r\n\r\n. Loot Box Flash: Instant rewards like USDC, NFTs, and AGL points.\r\n. Loot Box Prime: Gamified launchpad for early investments.\r\n. Loot Box Ads: Gamify advertising and audience engagement.\r\n. Loot Box Athena: AI-driven loot box creation in minutes.\r\n\r\nAgoraHub welcomes you to unlock new opportunities, earn meaningful rewards, and contribute to a vibrant, inclusive community. Embrace the future of decentralized experiences and financial empowerment. Join AgoraHub today and help us build the ultimate arena for Web3 excellence!"
     },
     "id": "agorahub",
@@ -55576,6 +56101,7 @@
       "small": "https://coin-images.coingecko.com/coins/images/39264/small/DECAPITAL.jpg?1721355230",
       "thumb": "https://coin-images.coingecko.com/coins/images/39264/thumb/DECAPITAL.jpg?1721355230"
     },
+    "is_zero_value_coin": true,
     "last_updated_at": "2024-11-07T20:36:03.487Z",
     "market_cap": 0,
     "name": "De Capital",
@@ -64980,6 +65506,27 @@
   },
   {
     "description": {
+      "en": "Renzo is a restaking protocol that abstracts and manages AVS strategies for Liquid Restaking Tokens (LRTs), making Ethereum and Solana restaking ezpz and accessible to everyone. The products $ezETH, $pzETH, and $ezSOL serve as interfaces to the EigenLayer, Symbiotic, and Jito Network ecosystems, respectively. Renzo's mission is to make restaking easy and accessible to everyone.\r\n\r\nRenzo Protocol abstracts all complexity away from the end-user. Renzo users no longer have to worry about:\r\n\r\nNode operation: setting up and operating hardware to meet the standards set by AVSs\r\n\r\nStrategy management: choosing which AVSs to secure for optimal risk-reward returns\r\n\r\nSmart contract interfacing: interacting with on-chain smart contracts to restake properly\r\n\r\nRenzo strongly advocates for permissionless innovation on Ethereum and Solana, and programmatically acquiring trust for the ecosystem. Renzo is built to promote the widespread adoption of these technologies and the platforms that facilitate them, like EigenLayer and Symbiotic."
+    },
+    "id": "renzo-restaked-jto",
+    "image": {
+      "large": "https://coin-images.coingecko.com/coins/images/53752/large/ezJTO_dark_200x200.png?1737182490",
+      "small": "https://coin-images.coingecko.com/coins/images/53752/small/ezJTO_dark_200x200.png?1737182490",
+      "thumb": "https://coin-images.coingecko.com/coins/images/53752/thumb/ezJTO_dark_200x200.png?1737182490"
+    },
+    "last_updated_at": null,
+    "market_cap": 0,
+    "name": "Renzo Restaked JTO",
+    "platforms": {
+      "solana": {
+        "contract_address": "ezjtoE6PYVnWkbJJYEsGHgR3rXgBydi9eeB1YHP8cVg",
+        "decimal_place": 9
+      }
+    },
+    "symbol": "ezjto"
+  },
+  {
+    "description": {
       "en": "Plutonians is an NFT enabled and SPL token powered space RPG video game. The game framework will be developed as a combination of web2 multiplayer universe, and web3 VR enabled metaverse."
     },
     "id": "republic-credits",
@@ -67182,6 +67729,27 @@
       }
     },
     "symbol": "solawave"
+  },
+  {
+    "description": {
+      "en": "Solayer is developing InfiniSVM, a next-generation blockchain architecture that can achieve unprecedented throughput, low latency, and robust composability. InfiniSVM architecture leverages Infiniband RDMA for near-microsecond inter-node communication and advanced concurrency control strategies. It pushes blockchain performance to hardware limits, targeting 1M+ TPS and 100Gbps+ network bandwidth. This design provides a path for next-generation applications that require high throughput, low fees, and a seamless composable environment. Solayer was launched in Q1 2024."
+    },
+    "id": "solayer",
+    "image": {
+      "large": "https://coin-images.coingecko.com/coins/images/53498/large/solayer.jpg?1736512374",
+      "small": "https://coin-images.coingecko.com/coins/images/53498/small/solayer.jpg?1736512374",
+      "thumb": "https://coin-images.coingecko.com/coins/images/53498/thumb/solayer.jpg?1736512374"
+    },
+    "last_updated_at": null,
+    "market_cap": 0,
+    "name": "Solayer",
+    "platforms": {
+      "solana": {
+        "contract_address": "LAYER4xPpTCb3QL8S9u41EAhAX7mhBn8Q6xMTwY2Yzc",
+        "decimal_place": 9
+      }
+    },
+    "symbol": "layer"
   },
   {
     "description": {
