@@ -1,5 +1,17 @@
 # @cypherock/cysync-interfaces
 
+## 0.0.8
+
+### Patch Changes
+
+- [#658](https://github.com/Cypherock/cypherock-cysync/pull/658) [`c910eabe`](https://github.com/Cypherock/cypherock-cysync/commit/c910eabe144fc0f1afc83ea7a186cc3d6645953f) Thanks [@TejasvOnly](https://github.com/TejasvOnly)! - Handle renderer erros
+
+## 0.0.8-pre.0
+
+### Patch Changes
+
+- [#658](https://github.com/Cypherock/cypherock-cysync/pull/658) [`c910eabe`](https://github.com/Cypherock/cypherock-cysync/commit/c910eabe144fc0f1afc83ea7a186cc3d6645953f) Thanks [@TejasvOnly](https://github.com/TejasvOnly)! - Handle renderer erros
+
 ## 0.0.7
 
 ### Patch Changes

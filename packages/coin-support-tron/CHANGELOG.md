@@ -1,5 +1,31 @@
 # @cypherock/coin-support-tron
 
+## 0.0.9
+
+### Patch Changes
+
+- [#662](https://github.com/Cypherock/cypherock-cysync/pull/662) [`399ffb0d`](https://github.com/Cypherock/cypherock-cysync/commit/399ffb0db22af0753fd24c3e6c1030a02c7cf74b) Thanks [@TejasvOnly](https://github.com/TejasvOnly)! - Fix token transfer fee estimation for tron
+
+## 0.0.8
+
+### Patch Changes
+
+- Updated dependencies [[`f922073b`](https://github.com/Cypherock/cypherock-cysync/commit/f922073b3811edb3cd3c894afcf56c5a49ca2edb), [`c910eabe`](https://github.com/Cypherock/cypherock-cysync/commit/c910eabe144fc0f1afc83ea7a186cc3d6645953f)]:
+  - @cypherock/coins@0.2.0
+  - @cypherock/cysync-interfaces@0.0.8
+  - @cypherock/coin-support-utils@0.0.14
+  - @cypherock/cysync-utils@0.0.10
+
+## 0.0.8-pre.0
+
+### Patch Changes
+
+- Updated dependencies [[`f922073b`](https://github.com/Cypherock/cypherock-cysync/commit/f922073b3811edb3cd3c894afcf56c5a49ca2edb), [`c910eabe`](https://github.com/Cypherock/cypherock-cysync/commit/c910eabe144fc0f1afc83ea7a186cc3d6645953f)]:
+  - @cypherock/coins@0.2.0-pre.0
+  - @cypherock/cysync-interfaces@0.0.8-pre.0
+  - @cypherock/coin-support-utils@0.0.14-pre.0
+  - @cypherock/cysync-utils@0.0.10-pre.0
+
 ## 0.0.7
 
 ### Patch Changes

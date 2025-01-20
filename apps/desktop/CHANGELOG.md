@@ -1,5 +1,36 @@
 # @cypherock/cysync-desktop
 
+## 2.0.16
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @cypherock/cysync-desktop-ui@0.0.16
+
+## 2.0.15
+
+### Patch Changes
+
+- [#658](https://github.com/Cypherock/cypherock-cysync/pull/658) [`c910eabe`](https://github.com/Cypherock/cypherock-cysync/commit/c910eabe144fc0f1afc83ea7a186cc3d6645953f) Thanks [@TejasvOnly](https://github.com/TejasvOnly)! - Handle renderer erros
+
+- Updated dependencies [[`c910eabe`](https://github.com/Cypherock/cypherock-cysync/commit/c910eabe144fc0f1afc83ea7a186cc3d6645953f)]:
+  - @cypherock/cysync-desktop-ui@0.0.15
+  - @cypherock/cysync-interfaces@0.0.8
+  - @cypherock/database@0.1.2
+  - @cypherock/cysync-utils@0.0.10
+
+## 2.0.15-pre.0
+
+### Patch Changes
+
+- [#658](https://github.com/Cypherock/cypherock-cysync/pull/658) [`c910eabe`](https://github.com/Cypherock/cypherock-cysync/commit/c910eabe144fc0f1afc83ea7a186cc3d6645953f) Thanks [@TejasvOnly](https://github.com/TejasvOnly)! - Handle renderer erros
+
+- Updated dependencies [[`c910eabe`](https://github.com/Cypherock/cypherock-cysync/commit/c910eabe144fc0f1afc83ea7a186cc3d6645953f)]:
+  - @cypherock/cysync-desktop-ui@0.0.15-pre.0
+  - @cypherock/cysync-interfaces@0.0.8-pre.0
+  - @cypherock/database@0.1.2-pre.0
+  - @cypherock/cysync-utils@0.0.10-pre.0
+
 ## 2.0.14
 
 ### Patch Changes

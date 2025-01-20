@@ -33,6 +33,7 @@ import { OptimismFeesHeader } from './OptimismFeesHeader';
 
 import { useSendDialog } from '../../../context';
 import { IPreparedSolanaTransaction } from '@cypherock/coin-support-solana';
+import { IPreparedTronTransaction } from '@cypherock/coin-support-tron';
 
 const feeInputMap: Partial<Record<CoinFamily, React.FC<any>>> = {
   bitcoin: BitcoinInput,
@@ -307,9 +308,17 @@ export const FeeSection: React.FC<FeeSectionProps> = ({ showErrors }) => {
       {isFeeLow && transaction?.validation.isValidFee && (
         <MessageBox type="warning" text={displayText.warning} />
       )}
+      {(transaction?.validation as IPreparedTronTransaction['validation'])
+        .notEnoughEnergy && (
+        <MessageBox
+          type="warning"
+          text={lang.strings.send.tron.notEnoughEnergyWarning}
+        />
+      )}
       {!transaction?.validation.isValidFee && (
         <MessageBox type="danger" text={displayText.feeError} />
       )}
+
       {(transaction?.validation as IPreparedXrpTransaction['validation'])
         .isFeeBelowMin && (
         <MessageBox type="danger" text={displayText.feeBelowMinError} />

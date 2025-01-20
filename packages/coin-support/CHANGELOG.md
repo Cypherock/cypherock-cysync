@@ -1,5 +1,50 @@
 # @cypherock/coin-support
 
+## 0.1.1
+
+### Patch Changes
+
+- Updated dependencies [[`399ffb0d`](https://github.com/Cypherock/cypherock-cysync/commit/399ffb0db22af0753fd24c3e6c1030a02c7cf74b)]:
+  - @cypherock/coin-support-tron@0.0.9
+
+## 0.1.0
+
+### Minor Changes
+
+- [#642](https://github.com/Cypherock/cypherock-cysync/pull/642) [`f922073b`](https://github.com/Cypherock/cypherock-cysync/commit/f922073b3811edb3cd3c894afcf56c5a49ca2edb) Thanks [@muzaffarbhat07](https://github.com/muzaffarbhat07)! - Added starknet support
+
+### Patch Changes
+
+- Updated dependencies [[`f922073b`](https://github.com/Cypherock/cypherock-cysync/commit/f922073b3811edb3cd3c894afcf56c5a49ca2edb)]:
+  - @cypherock/coins@0.2.0
+  - @cypherock/coin-support-starknet@1.0.1
+  - @cypherock/coin-support-btc@0.0.14
+  - @cypherock/coin-support-evm@0.0.14
+  - @cypherock/coin-support-near@0.0.14
+  - @cypherock/coin-support-solana@0.0.14
+  - @cypherock/coin-support-tron@0.0.8
+  - @cypherock/coin-support-xrp@1.1.2
+  - @cypherock/cysync-utils@0.0.10
+
+## 0.1.0-pre.0
+
+### Minor Changes
+
+- [#642](https://github.com/Cypherock/cypherock-cysync/pull/642) [`f922073b`](https://github.com/Cypherock/cypherock-cysync/commit/f922073b3811edb3cd3c894afcf56c5a49ca2edb) Thanks [@muzaffarbhat07](https://github.com/muzaffarbhat07)! - Added starknet support
+
+### Patch Changes
+
+- Updated dependencies [[`f922073b`](https://github.com/Cypherock/cypherock-cysync/commit/f922073b3811edb3cd3c894afcf56c5a49ca2edb)]:
+  - @cypherock/coins@0.2.0-pre.0
+  - @cypherock/coin-support-starknet@1.0.1-pre.0
+  - @cypherock/coin-support-btc@0.0.14-pre.0
+  - @cypherock/coin-support-evm@0.0.14-pre.0
+  - @cypherock/coin-support-near@0.0.14-pre.0
+  - @cypherock/coin-support-solana@0.0.14-pre.0
+  - @cypherock/coin-support-tron@0.0.8-pre.0
+  - @cypherock/coin-support-xrp@1.1.2-pre.0
+  - @cypherock/cysync-utils@0.0.10-pre.0
+
 ## 0.0.13
 
 ### Patch Changes

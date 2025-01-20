@@ -1,5 +1,17 @@
 # @cypherock/coins
 
+## 0.2.0
+
+### Minor Changes
+
+- [#642](https://github.com/Cypherock/cypherock-cysync/pull/642) [`f922073b`](https://github.com/Cypherock/cypherock-cysync/commit/f922073b3811edb3cd3c894afcf56c5a49ca2edb) Thanks [@muzaffarbhat07](https://github.com/muzaffarbhat07)! - Added starknet support
+
+## 0.2.0-pre.0
+
+### Minor Changes
+
+- [#642](https://github.com/Cypherock/cypherock-cysync/pull/642) [`f922073b`](https://github.com/Cypherock/cypherock-cysync/commit/f922073b3811edb3cd3c894afcf56c5a49ca2edb) Thanks [@muzaffarbhat07](https://github.com/muzaffarbhat07)! - Added starknet support
+
 ## 0.1.1
 
 ### Patch Changes

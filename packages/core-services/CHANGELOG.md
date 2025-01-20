@@ -1,5 +1,40 @@
 # @cypherock/cysync-core-services
 
+## 0.0.15
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @cypherock/coin-support@0.1.1
+
+## 0.0.14
+
+### Patch Changes
+
+- [#658](https://github.com/Cypherock/cypherock-cysync/pull/658) [`c910eabe`](https://github.com/Cypherock/cypherock-cysync/commit/c910eabe144fc0f1afc83ea7a186cc3d6645953f) Thanks [@TejasvOnly](https://github.com/TejasvOnly)! - Handle renderer erros
+
+- Updated dependencies [[`f922073b`](https://github.com/Cypherock/cypherock-cysync/commit/f922073b3811edb3cd3c894afcf56c5a49ca2edb), [`c910eabe`](https://github.com/Cypherock/cypherock-cysync/commit/c910eabe144fc0f1afc83ea7a186cc3d6645953f)]:
+  - @cypherock/coin-support@0.1.0
+  - @cypherock/coins@0.2.0
+  - @cypherock/cysync-interfaces@0.0.8
+  - @cypherock/coin-support-evm@0.0.14
+  - @cypherock/coin-support-utils@0.0.14
+  - @cypherock/cysync-utils@0.0.10
+
+## 0.0.14-pre.0
+
+### Patch Changes
+
+- [#658](https://github.com/Cypherock/cypherock-cysync/pull/658) [`c910eabe`](https://github.com/Cypherock/cypherock-cysync/commit/c910eabe144fc0f1afc83ea7a186cc3d6645953f) Thanks [@TejasvOnly](https://github.com/TejasvOnly)! - Handle renderer erros
+
+- Updated dependencies [[`f922073b`](https://github.com/Cypherock/cypherock-cysync/commit/f922073b3811edb3cd3c894afcf56c5a49ca2edb), [`c910eabe`](https://github.com/Cypherock/cypherock-cysync/commit/c910eabe144fc0f1afc83ea7a186cc3d6645953f)]:
+  - @cypherock/coin-support@0.1.0-pre.0
+  - @cypherock/coins@0.2.0-pre.0
+  - @cypherock/cysync-interfaces@0.0.8-pre.0
+  - @cypherock/coin-support-evm@0.0.14-pre.0
+  - @cypherock/coin-support-utils@0.0.14-pre.0
+  - @cypherock/cysync-utils@0.0.10-pre.0
+
 ## 0.0.13
 
 ### Patch Changes
