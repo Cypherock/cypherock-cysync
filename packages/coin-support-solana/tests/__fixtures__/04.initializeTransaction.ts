@@ -20,6 +20,7 @@ export const valid: IInitializeTransactionTestCases[] = [
         isValidFee: true,
         ownOutputAddressNotAllowed: [],
         zeroAmountNotAllowed: false,
+        isRentExemptFeeRequired: false,
       },
       userInputs: {
         outputs: [],
@@ -31,6 +32,7 @@ export const valid: IInitializeTransactionTestCases[] = [
       computedData: {
         output: { address: '', amount: '0' },
         fees: '5000',
+        instructions: [],
       },
     },
     mocks: {

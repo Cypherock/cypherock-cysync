@@ -2,13 +2,19 @@ import { IDatabase } from '@cypherock/db-interfaces';
 import { IDeviceConnection } from '@cypherock/sdk-interfaces';
 import { beforeEach, describe, expect, jest, test } from '@jest/globals';
 import * as solanaWeb3 from '@solana/web3.js';
+import * as splTokenLib from '@solana/spl-token';
 import { Observer } from 'rxjs';
 
 import * as solanaAppMock from './__mocks__/solanaApp';
 
-import { SolanaSupport, ISignSolanaTransactionEvent } from '../src';
+import {
+  SolanaSupport,
+  ISignSolanaTransactionEvent,
+  IPreparedSolanaTransaction,
+} from '../src';
+import { InstructionType } from '../src/services';
 
-const transaction = {
+const transaction: IPreparedSolanaTransaction = {
   accountId: '1',
   userInputs: {
     outputs: [
@@ -17,14 +23,21 @@ const transaction = {
     isSendAll: false,
   },
   staticData: {
-    fees: 5000,
+    fees: '5000',
   },
   computedData: {
-    fees: 5000,
+    fees: '5000',
     output: {
       address: 'CiQQoJBdWgQUVjo4JUemrVMU1BwoMsTFrXZPt69ht33v',
       amount: '0',
     },
+    instructions: [
+      {
+        type: InstructionType.transfer,
+        amount: 0,
+        recipient: 'CiQQoJBdWgQUVjo4JUemrVMU1BwoMsTFrXZPt69ht33v',
+      },
+    ],
   },
   validation: {
     hasEnoughBalance: true,
@@ -32,6 +45,7 @@ const transaction = {
     isValidFee: true,
     ownOutputAddressNotAllowed: [],
     zeroAmountNotAllowed: false,
+    isRentExemptFeeRequired: false,
   },
 };
 
@@ -51,6 +65,7 @@ describe('06. Sign Transaction', () => {
 
   beforeEach(() => {
     SolanaSupport.setWeb3Library(solanaWeb3);
+    SolanaSupport.setSplTokenLibrary(splTokenLib);
     support = new SolanaSupport();
     connection = {} as any;
     db = {

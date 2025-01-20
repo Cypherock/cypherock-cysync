@@ -1,6 +1,7 @@
 import { ITransaction } from '@cypherock/db-interfaces';
 
 import { ISolanaAccount, IPreparedSolanaTransaction } from '../../src';
+import { InstructionType } from '../../src/services';
 
 export interface IPrepareTransactionTestCases {
   name: string;
@@ -34,6 +35,13 @@ export const valid: IPrepareTransactionTestCases[] = [
           amount: '100000000',
         },
         fees: '5000',
+        instructions: [
+          {
+            type: InstructionType.transfer,
+            amount: 100000000,
+            recipient: 'CiQQoJBdWgQUVjo4JUemrVMU1BwoMsTFrXZPt69ht33v',
+          },
+        ],
       },
       validation: {
         hasEnoughBalance: true,
@@ -41,6 +49,7 @@ export const valid: IPrepareTransactionTestCases[] = [
         isValidFee: true,
         ownOutputAddressNotAllowed: [],
         zeroAmountNotAllowed: false,
+        isRentExemptFeeRequired: false,
       },
     },
     mocks: {

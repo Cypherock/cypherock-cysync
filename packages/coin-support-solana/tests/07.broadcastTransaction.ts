@@ -1,5 +1,8 @@
 import { beforeEach, describe, expect, jest, test } from '@jest/globals';
 
+import * as solanaWeb3 from '@solana/web3.js';
+import * as splTokenLib from '@solana/spl-token';
+
 import * as testData from './__fixtures__/07.broadcastTransaction';
 import * as serviceMock from './__mocks__/services';
 
@@ -16,6 +19,8 @@ describe('07. Broadcast Transaction', () => {
     .mockReturnValue(Promise.resolve(undefined));
 
   beforeEach(() => {
+    SolanaSupport.setWeb3Library(solanaWeb3);
+    SolanaSupport.setSplTokenLibrary(splTokenLib);
     support = new SolanaSupport();
 
     getOneTransactionMock.mockClear();

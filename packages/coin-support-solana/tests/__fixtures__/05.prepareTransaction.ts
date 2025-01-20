@@ -24,6 +24,7 @@ export const valid: IPrepareTransactionTestCases[] = [
       computedData: {
         output: { address: 'address', amount: '0' },
         fees: '5000',
+        instructions: [],
       },
       validation: {
         hasEnoughBalance: true,
@@ -31,6 +32,7 @@ export const valid: IPrepareTransactionTestCases[] = [
         isValidFee: true,
         ownOutputAddressNotAllowed: [],
         zeroAmountNotAllowed: false,
+        isRentExemptFeeRequired: false,
       },
     },
     mocks: {
@@ -55,6 +57,7 @@ export const valid: IPrepareTransactionTestCases[] = [
           address: 'address',
           amount: '0',
         },
+        instructions: [],
       },
       validation: {
         hasEnoughBalance: false,
@@ -62,6 +65,7 @@ export const valid: IPrepareTransactionTestCases[] = [
         isValidFee: true,
         ownOutputAddressNotAllowed: [],
         zeroAmountNotAllowed: false,
+        isRentExemptFeeRequired: false,
       },
     },
   },
