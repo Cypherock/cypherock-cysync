@@ -24,8 +24,7 @@ import {
   signSolanaToDeviceEventMap,
 } from './types';
 
-import { constructTransaction } from '../../services';
-import { createApp } from '../../utils';
+import { constructTransaction, createApp } from '../../utils';
 import logger from '../../utils/logger';
 import { IPreparedSolanaTransaction } from '../transaction';
 

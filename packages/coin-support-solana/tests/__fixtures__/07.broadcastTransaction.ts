@@ -1,7 +1,7 @@
 import { ITransaction } from '@cypherock/db-interfaces';
 
 import { ISolanaAccount, IPreparedSolanaTransaction } from '../../src';
-import { InstructionType } from '../../src/services';
+import { InstructionType } from '../../src/utils';
 
 export interface IPrepareTransactionTestCases {
   name: string;
@@ -92,6 +92,8 @@ export const valid: IPrepareTransactionTestCases[] = [
       familyId: 'solana',
       parentAccountId: undefined,
       remarks: [''],
+      subType: 'transfer',
+      customId: 'id-CiQQoJBdWgQUVjo4JUemrVMU1BwoMsTFrXZPt69ht33v-100000000',
     },
   },
 ];

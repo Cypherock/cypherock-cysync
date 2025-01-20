@@ -40,6 +40,7 @@ export const valid: IInitializeTransactionTestCases[] = [
         assetId: 'solana',
         parentAssetId: 'solana',
         familyId: 'solana',
+        xpubOrAddress: 'CnHNArLuS9r9iSLq2iYdPeWdvg2B5GH8dAGJrJmVrVph',
       },
       fees: '5000',
     },

@@ -12,10 +12,9 @@ import {
 } from '@cypherock/db-interfaces';
 
 import { deriveAssociatedTokenAddress } from '../../utils';
-import {
-  broadcastTransactionToBlockchain,
-  InstructionType,
-} from '../../services';
+import { broadcastTransactionToBlockchain } from '../../services';
+
+import { InstructionType } from '../../services/helpers';
 
 import { IBroadcastSolanaTransactionParams } from './types';
 

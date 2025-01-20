@@ -16,14 +16,12 @@ import { solanaCoinList } from '@cypherock/coins';
 import { lastValueFrom } from 'rxjs';
 
 import logger from '../../utils/logger';
-import { deriveAssociatedTokenAddress } from '../../utils';
 import {
-  getTransactions,
-  getBalance,
-  mapTransactionsForDb,
-  getTokenBalance,
+  deriveAssociatedTokenAddress,
   mapTokenTransactionsForDb,
-} from '../../services';
+  mapTransactionsForDb,
+} from '../../utils';
+import { getTransactions, getBalance, getTokenBalance } from '../../services';
 import { ISolanaAccount } from '../types';
 
 import { ISolanaSplTokenAccount, ISyncSolanaAccountsParams } from './types';

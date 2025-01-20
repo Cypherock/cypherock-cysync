@@ -2,7 +2,7 @@ import {
   IPreparedTransaction,
   IPreparedTransactionOutput,
 } from '@cypherock/coin-support-interfaces';
-import { ICustomSolanaInstruction } from '../services';
+import { ICustomSolanaInstruction } from '../utils';
 
 export interface IPreparedSolanaTransaction extends IPreparedTransaction {
   userInputs: {

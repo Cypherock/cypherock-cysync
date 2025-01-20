@@ -12,7 +12,7 @@ import {
   ISignSolanaTransactionEvent,
   IPreparedSolanaTransaction,
 } from '../src';
-import { InstructionType } from '../src/services';
+import { InstructionType } from '../src/utils';
 
 const transaction: IPreparedSolanaTransaction = {
   accountId: '1',
