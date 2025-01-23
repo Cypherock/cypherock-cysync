@@ -11,7 +11,6 @@ import {
   TransactionTypeMap,
 } from '@cypherock/db-interfaces';
 
-import { deriveAssociatedTokenAddress } from '../../utils';
 import { broadcastTransactionToBlockchain } from '../../services';
 
 import { InstructionType } from '../../services/helpers';
@@ -37,15 +36,6 @@ export const broadcastTransaction = async (
   );
 
   const isTokenAccount = account.type === AccountTypeMap.subAccount;
-  let recipientTokenAddress: string | undefined;
-  if (isTokenAccount) {
-    const tokenDetails =
-      solanaCoinList[account.parentAssetId].tokens[account.assetId];
-    recipientTokenAddress = deriveAssociatedTokenAddress(
-      recipientAddress,
-      tokenDetails.address,
-    );
-  }
 
   const parsedTransaction: ITransaction = {
     hash: txnHash,
@@ -79,6 +69,7 @@ export const broadcastTransaction = async (
     subType: isTokenAccount
       ? InstructionType.transferChecked
       : InstructionType.transfer,
+    customId: 'id-0', // 0 is index, since we have single transfer instruction
   };
 
   const amount = parsedTransaction.outputs.reduce(
@@ -87,10 +78,6 @@ export const broadcastTransaction = async (
   );
   parsedTransaction.amount = amount.abs().toString();
   parsedTransaction.inputs[0].amount = amount.abs().toString();
-
-  parsedTransaction.customId = `id-${
-    recipientTokenAddress ?? recipientAddress
-  }-${amount}`;
 
   const [addedTxn] = await insertOrUpdateTransactions(db, [parsedTransaction]);
 
