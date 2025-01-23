@@ -33,10 +33,15 @@ const prepareUnsignedTxn = async (
   coin: ISolanaCoinInfo,
   account: IAccount,
 ): Promise<ISignTxnParams['txn']> => {
+  const { instructions, computeUnits, computeUnitPriceMicroLamports } =
+    transaction.computedData;
+
   const txn = await constructTransaction(
     coin.id,
     account.xpubOrAddress,
-    transaction.computedData.instructions,
+    instructions,
+    computeUnits,
+    computeUnitPriceMicroLamports,
   );
 
   const unsignedSerializedTxn = txn.serializeMessage().toString('hex');

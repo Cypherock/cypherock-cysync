@@ -1,8 +1,13 @@
 import { IInitializeTransactionParams } from '@cypherock/coin-support-interfaces';
 import { getAccountAndCoin } from '@cypherock/coin-support-utils';
 import { solanaCoinList } from '@cypherock/coins';
+import { BigNumber } from '@cypherock/cysync-utils';
 
-import { getFees } from '../../services';
+import {
+  getFees,
+  getPriorityFees,
+  getSimulationComputeUnits,
+} from '../../services';
 
 import { IPreparedSolanaTransaction } from '../transaction';
 import { AccountTypeMap } from '@cypherock/db-interfaces';
@@ -54,10 +59,27 @@ export const initializeTransaction = async (
     instructions,
   );
 
-  const fees = await getFees(
+  let fees = await getFees(
     transaction.serializeMessage().toString('base64'),
     coin.id,
   );
+
+  const computeUnits = await getSimulationComputeUnits(
+    transaction
+      .serialize({ requireAllSignatures: false, verifySignatures: false })
+      .toString('base64'),
+    coin.id,
+  );
+
+  const computeUnitPriceMicroLamports = await getPriorityFees(coin.id);
+
+  fees = new BigNumber(fees)
+    .plus(
+      new BigNumber(computeUnitPriceMicroLamports)
+        .dividedBy(10 ** 6)
+        .multipliedBy(computeUnits),
+    )
+    .toFixed(0);
 
   return {
     accountId,
@@ -80,6 +102,8 @@ export const initializeTransaction = async (
       output: { address: '', amount: '0' },
       fees,
       instructions: [],
+      computeUnits,
+      computeUnitPriceMicroLamports,
     },
   };
 };

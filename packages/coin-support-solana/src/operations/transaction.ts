@@ -24,5 +24,7 @@ export interface IPreparedSolanaTransaction extends IPreparedTransaction {
     output: IPreparedTransactionOutput;
     fees: string;
     instructions: ICustomSolanaInstruction[];
+    computeUnits: number;
+    computeUnitPriceMicroLamports: number;
   };
 }
