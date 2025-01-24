@@ -24,6 +24,7 @@ import { IPreparedSolanaTransaction } from '../transaction';
 import { validateAddress } from '../validateAddress';
 
 import { IPrepareSolanaTransactionParams } from './types';
+import logger from '../../utils/logger';
 
 const validateAddresses = (
   params: IPrepareSolanaTransactionParams,
@@ -81,14 +82,26 @@ const estimateFees = async (
     assetId,
   );
 
-  const computeUnits = await getSimulationComputeUnits(
-    transaction
-      .serialize({ requireAllSignatures: false, verifySignatures: false })
-      .toString('base64'),
-    assetId,
-  );
+  let computeUnits = 200_000; // Fallback value for computeunits
+  try {
+    computeUnits = await getSimulationComputeUnits(
+      transaction
+        .serialize({ requireAllSignatures: false, verifySignatures: false })
+        .toString('base64'),
+      assetId,
+    );
+  } catch (e) {
+    logger.warn('Failed to simulate transaction');
+    logger.warn(JSON.stringify(e));
+  }
 
-  const computeUnitPriceMicroLamports = await getPriorityFees(assetId);
+  let computeUnitPriceMicroLamports = 0; // Fallback value for computeprice
+  try {
+    computeUnitPriceMicroLamports = await getPriorityFees(assetId);
+  } catch (e) {
+    logger.warn('Failed to fetch priority fees from server');
+    logger.warn(JSON.stringify(e));
+  }
 
   fees = new BigNumber(fees)
     .plus(
