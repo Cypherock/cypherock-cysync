@@ -108,3 +108,27 @@ export const broadcastTransactionToBlockchain = async (
 
   return response.data.signature;
 };
+
+export const checkTransactionStatus = async (
+  signature: string,
+  assetId: string,
+): Promise<string> => {
+  const url = `${baseURL}/signature-status`;
+  const response = await makePostRequest(
+    url,
+    {
+      signatures: [signature],
+      network: solanaCoinList[assetId].network,
+    },
+    {
+      maxTries: 0,
+    },
+  );
+
+  assert(
+    response.data.status,
+    new Error('Server: Invalid transaction status from server'),
+  );
+
+  return response.data.status;
+};
