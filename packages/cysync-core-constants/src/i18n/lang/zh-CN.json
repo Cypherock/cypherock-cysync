@@ -305,7 +305,7 @@
         "error": "值过高"
       },
       "feeBelowMinError": "低于最低 fee 的交易将失败",
-      "rentExemptFeeWarning": "收款账户需要为 Solana 的租金豁免保留最低余额，这包含在网络费用中"
+      "rentExemptFeeWarning": "首次在 Solana 上接收代币会产生租金豁免费用，已包含在总费用中。"
     },
     "summary": {
       "title": "摘要",

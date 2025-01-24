@@ -12,6 +12,9 @@ export const getSimulationComputeUnits = jest
 export const broadcastTransactionToBlockchain = jest
   .fn()
   .mockReturnValue(Promise.resolve('test'));
+export const checkTransactionStatus = jest
+  .fn()
+  .mockReturnValue(Promise.resolve('confirmed'));
 
 jest.mock('../../src/services', () => ({
   __esModule: true,
@@ -21,4 +24,5 @@ jest.mock('../../src/services', () => ({
   getPriorityFees,
   getSimulationComputeUnits,
   broadcastTransactionToBlockchain,
+  checkTransactionStatus,
 }));
