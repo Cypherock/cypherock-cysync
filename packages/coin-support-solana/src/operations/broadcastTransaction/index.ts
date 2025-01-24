@@ -3,7 +3,7 @@ import {
   insertOrUpdateTransactions,
 } from '@cypherock/coin-support-utils';
 import { solanaCoinList } from '@cypherock/coins';
-import { BigNumber } from '@cypherock/cysync-utils';
+import { BigNumber, sleep } from '@cypherock/cysync-utils';
 import {
   AccountTypeMap,
   ITransaction,
@@ -12,11 +12,15 @@ import {
 } from '@cypherock/db-interfaces';
 
 import { deriveAssociatedTokenAddress } from '../../utils';
-import { broadcastTransactionToBlockchain } from '../../services';
+import {
+  broadcastTransactionToBlockchain,
+  checkTransactionStatus,
+} from '../../services';
 
 import { InstructionType } from '../../services/helpers';
 
 import { IBroadcastSolanaTransactionParams } from './types';
+import logger from '../../utils/logger';
 
 export const broadcastTransaction = async (
   params: IBroadcastSolanaTransactionParams,
@@ -35,6 +39,15 @@ export const broadcastTransaction = async (
     signedTransaction,
     coin.id,
   );
+
+  // Wait for 30 seconds to confirm the status of transaction before adding it to the data base
+  await sleep(30000);
+  try {
+    await checkTransactionStatus(txnHash, coin.id); // throws error if transaction didn't succeed
+  } catch (e) {
+    logger.error(JSON.stringify(e));
+    throw new Error('Could not get the transaction status on blockchain');
+  }
 
   const isTokenAccount = account.type === AccountTypeMap.subAccount;
   let recipientTokenAddress: string | undefined;
