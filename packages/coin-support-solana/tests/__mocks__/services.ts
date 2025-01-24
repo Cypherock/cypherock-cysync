@@ -5,6 +5,10 @@ export const getTransactions = jest
   .mockReturnValue(Promise.resolve({ data: [] }));
 export const getBalance = jest.fn().mockReturnValue(Promise.resolve('0'));
 export const getFees = jest.fn().mockReturnValue(Promise.resolve('5000'));
+export const getPriorityFees = jest.fn().mockReturnValue(Promise.resolve(100));
+export const getSimulationComputeUnits = jest
+  .fn()
+  .mockReturnValue(Promise.resolve(150));
 export const broadcastTransactionToBlockchain = jest
   .fn()
   .mockReturnValue(Promise.resolve('test'));
@@ -14,5 +18,7 @@ jest.mock('../../src/services', () => ({
   getTransactions,
   getBalance,
   getFees,
+  getPriorityFees,
+  getSimulationComputeUnits,
   broadcastTransactionToBlockchain,
 }));

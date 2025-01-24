@@ -38,6 +38,8 @@ const transaction: IPreparedSolanaTransaction = {
         recipient: 'CiQQoJBdWgQUVjo4JUemrVMU1BwoMsTFrXZPt69ht33v',
       },
     ],
+    computeUnits: 150,
+    computeUnitPriceMicroLamports: 100,
   },
   validation: {
     hasEnoughBalance: true,

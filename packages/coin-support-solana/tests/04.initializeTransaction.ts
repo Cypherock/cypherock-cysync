@@ -19,6 +19,8 @@ describe('04. Create Transaction', () => {
     support = new SolanaSupport();
 
     serviceMock.getFees.mockClear();
+    serviceMock.getPriorityFees.mockClear();
+    serviceMock.getSimulationComputeUnits.mockClear();
 
     solanaAppMock.getLatestBlockHash.mockClear();
     solanaAppMock.getLatestBlockHash.mockReturnValue(
@@ -37,6 +39,12 @@ describe('04. Create Transaction', () => {
         } as any;
         serviceMock.getFees.mockReturnValue(
           Promise.resolve(testCase.mocks.fees),
+        );
+        serviceMock.getPriorityFees.mockReturnValue(
+          Promise.resolve(testCase.mocks.computeUnitPriceMicroLamports),
+        );
+        serviceMock.getSimulationComputeUnits.mockReturnValue(
+          Promise.resolve(testCase.mocks.computeUnits),
         );
 
         const result = await support.initializeTransaction({
