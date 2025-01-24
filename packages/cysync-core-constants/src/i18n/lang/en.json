@@ -305,7 +305,7 @@
         "error": "Value too high"
       },
       "feeBelowMinError": "Transaction with fee lesser than minimum will fail",
-      "rentExemptFeeWarning": "The recipient account requires a minimum balance for Solana's rent exemption, this is included in the network fees"
+      "rentExemptFeeWarning": "Receiving a token on solana for the first time incurs rent exemption fees, included in total fees."
     },
     "summary": {
       "title": "Summary",

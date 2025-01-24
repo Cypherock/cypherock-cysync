@@ -305,7 +305,7 @@
         "error": "Wert zu hoch"
       },
       "feeBelowMinError": "Transaktion mit fee unter dem Minimum wird fehlschlagen",
-      "rentExemptFeeWarning": "Das Empfängerkonto benötigt ein Mindestguthaben für die Miete befreit von Solana, dies ist in den Netzwerkgebühren enthalten"
+      "rentExemptFeeWarning": "Das erstmalige Empfangen eines Tokens auf Solana zieht Mietbefreiungsgebühren nach sich, die in den Gesamtgebühren enthalten sind."
     },
     "summary": {
       "title": "Zusammenfassung",

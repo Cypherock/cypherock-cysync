@@ -305,7 +305,7 @@
         "error": "Nilai terlalu tinggi"
       },
       "feeBelowMinError": "Transaksi dengan biaya lebih rendah dari minimum akan gagal",
-      "rentExemptFeeWarning": "Akun penerima memerlukan saldo minimum untuk pengecualian sewa Solana, ini termasuk dalam biaya jaringan"
+      "rentExemptFeeWarning": "Menerima token di Solana untuk pertama kali akan dikenakan biaya pembebasan sewa, yang termasuk dalam total biaya."
     },
     "summary": {
       "title": "Ringkasan",
