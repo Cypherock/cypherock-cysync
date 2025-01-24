@@ -15,6 +15,8 @@ import {
 import {
   doesAccountExist,
   getFees,
+  getPriorityFees,
+  getSimulationComputeUnits,
   getTokenAccountRentExemptFees,
 } from '../../services';
 
@@ -74,7 +76,29 @@ const estimateFees = async (
     instructions,
   );
 
-  return getFees(transaction.serializeMessage().toString('base64'), assetId);
+  let fees = await getFees(
+    transaction.serializeMessage().toString('base64'),
+    assetId,
+  );
+
+  const computeUnits = await getSimulationComputeUnits(
+    transaction
+      .serialize({ requireAllSignatures: false, verifySignatures: false })
+      .toString('base64'),
+    assetId,
+  );
+
+  const computeUnitPriceMicroLamports = await getPriorityFees(assetId);
+
+  fees = new BigNumber(fees)
+    .plus(
+      new BigNumber(computeUnitPriceMicroLamports)
+        .dividedBy(10 ** 6)
+        .multipliedBy(computeUnits),
+    )
+    .toFixed(0);
+
+  return { fees, computeUnits, computeUnitPriceMicroLamports };
 };
 
 export const prepareTransaction = async (
@@ -130,6 +154,7 @@ export const prepareTransaction = async (
   }
 
   let fee = new BigNumber(txn.computedData.fees);
+  let { computeUnitPriceMicroLamports, computeUnits } = txn.computedData;
 
   if (
     (!sendAmount.isNaN() || txn.userInputs.isSendAll) &&
@@ -137,7 +162,7 @@ export const prepareTransaction = async (
     outputsAddresses?.[0]
   ) {
     const amountToSend = sendAmount.isNaN()
-      ? new BigNumber(account.balance).toNumber()
+      ? new BigNumber(new BigNumber(account.balance).toFixed(0)).toNumber()
       : sendAmount.toNumber();
 
     if (tokenDetails) {
@@ -158,9 +183,15 @@ export const prepareTransaction = async (
       instructions.push(instruction);
     }
 
-    fee = new BigNumber(
-      await estimateFees(account.xpubOrAddress, coin.id, instructions),
+    const estimatedFees = await estimateFees(
+      account.xpubOrAddress,
+      coin.id,
+      instructions,
     );
+
+    fee = new BigNumber(estimatedFees.fees);
+    computeUnits = estimatedFees.computeUnits;
+    computeUnitPriceMicroLamports = estimatedFees.computeUnitPriceMicroLamports;
   }
 
   fee = fee.plus(rentExemptFees);
@@ -170,12 +201,9 @@ export const prepareTransaction = async (
   if (txn.userInputs.isSendAll) {
     sendAmount = new BigNumber(account.balance);
 
-    if (!isTokenAccount)
-      sendAmount = new BigNumber(
-        BigNumber.max(sendAmount.minus(fee), 0).toFixed(0),
-      );
+    if (!isTokenAccount) sendAmount = BigNumber.max(sendAmount.minus(fee), 0);
 
-    output.amount = sendAmount.toString(10);
+    output.amount = new BigNumber(sendAmount.toFixed(0)).toString(10);
 
     // update userInput so that the max amount is editable & not reset to 0
     txn.userInputs.outputs[0].amount = output.amount;
@@ -207,6 +235,8 @@ export const prepareTransaction = async (
       fees: fee.toString(),
       output,
       instructions,
+      computeUnits,
+      computeUnitPriceMicroLamports,
     },
   };
 };

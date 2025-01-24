@@ -6,6 +6,8 @@ export interface IInitializeTransactionTestCases {
   mocks: {
     account: Partial<ISolanaAccount>;
     fees: string;
+    computeUnitPriceMicroLamports: number;
+    computeUnits: number;
   };
 }
 
@@ -33,6 +35,8 @@ export const valid: IInitializeTransactionTestCases[] = [
         output: { address: '', amount: '0' },
         fees: '5000',
         instructions: [],
+        computeUnitPriceMicroLamports: 100,
+        computeUnits: 150,
       },
     },
     mocks: {
@@ -43,6 +47,8 @@ export const valid: IInitializeTransactionTestCases[] = [
         xpubOrAddress: 'CnHNArLuS9r9iSLq2iYdPeWdvg2B5GH8dAGJrJmVrVph',
       },
       fees: '5000',
+      computeUnitPriceMicroLamports: 100,
+      computeUnits: 150,
     },
   },
 ];

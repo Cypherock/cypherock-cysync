@@ -28,6 +28,7 @@ const parseCoinTransaction = (
   account: IAccount,
   transactionItem: ISolanaTransactionItem,
   fees: string,
+  instructionIndex: number,
 ): ITransaction | undefined => {
   const myAddress = account.xpubOrAddress;
   const fromAddr = instruction.parsed?.info?.source;
@@ -39,8 +40,6 @@ const parseCoinTransaction = (
   const amount = String(instruction.parsed?.info?.lamports || 0);
 
   const isSend = fromAddr === myAddress;
-
-  const customId = `id-${isSend ? toAddr : fromAddr}-${amount}`;
 
   const txn: ITransaction = {
     hash: transactionItem.signature,
@@ -76,7 +75,7 @@ const parseCoinTransaction = (
       },
     ],
     subType: InstructionType.transfer,
-    customId,
+    customId: `id-${instructionIndex}`,
     extraData: {
       instructionType: instruction.parsed?.type,
     },
@@ -139,6 +138,7 @@ const parseCreateTokenTransaction = (
   instruction: ISolanaInstruction,
   account: IAccount,
   transactionItem: ISolanaTransactionItem,
+  instructionIndex: number,
 ): ITransaction | undefined => {
   const myAddress = account.xpubOrAddress;
   const {
@@ -182,7 +182,7 @@ const parseCreateTokenTransaction = (
       },
     ],
     subType: InstructionType.createAccount,
-    customId: `id-${destination}`,
+    customId: `id-${instructionIndex}`,
     extraData: {
       InstructionType: InstructionType.createAccount,
     },
@@ -196,6 +196,7 @@ const parseTokenTransferTransaction = async (
   account: IAccount,
   transactionItem: ISolanaTransactionItem,
   fees: string,
+  instructionIndex: number,
 ): Promise<ITransaction | undefined> => {
   const { source, destination, tokenAmount } = instruction.parsed.info ?? {};
 
@@ -220,8 +221,6 @@ const parseTokenTransferTransaction = async (
   const selfTransfer = source === destination;
 
   const isSend = source === myTokenAddress;
-
-  const customId = `id-${isSend ? destination : source}-${amount}`;
 
   let fromAddr = source;
   let toAddr = destination;
@@ -273,7 +272,7 @@ const parseTokenTransferTransaction = async (
       },
     ],
     subType: InstructionType.transferChecked,
-    customId,
+    customId: `id-${instructionIndex}`,
     extraData: {
       instructionType: InstructionType.transferChecked,
     },
@@ -302,6 +301,7 @@ export const parseTransactionItem = async (params: {
   let isFeesAlreadyIncluded = false;
 
   let isSendTokenTxnFound = false;
+  let solTransferInstructionIndex = 0;
 
   // Only iterate through parsable instructions
   for (const instruction of (
@@ -319,11 +319,13 @@ export const parseTransactionItem = async (params: {
         account,
         transactionItem,
         isFeesAlreadyIncluded ? '0' : fees.toString(),
+        solTransferInstructionIndex,
       );
 
       if (txn) {
         result.transactions.push(txn);
         isFeesAlreadyIncluded = true;
+        solTransferInstructionIndex += 1;
       }
     } else if (
       instruction.programId === splTokenLib.TOKEN_PROGRAM_ID.toString() &&
@@ -354,6 +356,7 @@ export const parseTransactionItem = async (params: {
     }
   }
 
+  let createAccountInstructionIndex = 0;
   // Parse the createAccount transactions from inner instructions
   for (const innerInstruction of transactionItem.meta?.innerInstructions?.[0]
     ?.instructions ?? []) {
@@ -366,8 +369,12 @@ export const parseTransactionItem = async (params: {
         innerInstruction,
         account,
         transactionItem,
+        createAccountInstructionIndex,
       );
-      if (txn) result.transactions.push(txn);
+      if (txn) {
+        result.transactions.push(txn);
+        createAccountInstructionIndex += 1;
+      }
     }
   }
 
@@ -409,6 +416,8 @@ export const parseTokenTransactionItem = async (
 
   const fees = new BigNumber(transactionItem.meta?.fee ?? 0).toString();
 
+  let tokenTransferInstructionIndex = 0;
+
   // Only iterate through parsable token instructions
   for (const instruction of (
     transactionItem.transaction?.message?.instructions ?? []
@@ -424,9 +433,13 @@ export const parseTokenTransactionItem = async (
         account,
         transactionItem,
         fees,
+        tokenTransferInstructionIndex,
       );
 
-      if (txn) transactions.push(txn);
+      if (txn) {
+        transactions.push(txn);
+        tokenTransferInstructionIndex += 1;
+      }
     }
   }
 

@@ -11,6 +11,7 @@ import { getLatestBlockHash } from '@cypherock/sdk-app-solana';
 import { parseTokenTransactionItem, parseTransactionItem } from './common';
 
 import { getCoinSupportWeb3Lib, getTokenSupportSplTokenLib } from '../../utils';
+
 import { ISolanaTransactionItem } from '../api';
 import {
   ICustomSolanaInstruction,
@@ -76,6 +77,8 @@ export const constructTransaction = async (
   assetId: string,
   payer: string,
   instructions: ICustomSolanaInstruction[],
+  computeUnits = 200_000,
+  computeUnitPrice = 0,
 ) => {
   const recentBlockhash = await getLatestBlockHash(
     solanaCoinList[assetId].network,
@@ -90,6 +93,15 @@ export const constructTransaction = async (
     recentBlockhash,
     feePayer,
   });
+
+  txn.add(
+    web3Lib.ComputeBudgetProgram.setComputeUnitLimit({ units: computeUnits }),
+  );
+  txn.add(
+    web3Lib.ComputeBudgetProgram.setComputeUnitPrice({
+      microLamports: computeUnitPrice,
+    }),
+  );
 
   for (const instruction of instructions) {
     let constructedInstruction: any;

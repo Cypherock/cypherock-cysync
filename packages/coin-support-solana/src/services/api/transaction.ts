@@ -63,6 +63,52 @@ export const getFees = async (message: string, assetId: string) => {
   return fees;
 };
 
+export const getSimulationComputeUnits = async (
+  transaction: string,
+  assetId: string,
+): Promise<number> => {
+  const url = `${baseURL}/simulation-compute-units`;
+
+  const query: Record<string, string> = {
+    transaction,
+    responseType: 'v2',
+    network: solanaCoinList[assetId].network,
+  };
+
+  const response = await makePostRequest(url, query);
+
+  const units = response.data?.units ?? 0;
+
+  if (typeof units !== 'number')
+    throw new Error(
+      'Invalid solana simulation compute units returned from server',
+    );
+
+  return units;
+};
+
+export const getPriorityFees = async (
+  assetId: string,
+  addresses?: string[],
+): Promise<number> => {
+  const url = `${baseURL}/priority-fees`;
+
+  const query: Record<string, any> = {
+    addresses,
+    responseType: 'v2',
+    network: solanaCoinList[assetId].network,
+  };
+
+  const response = await makePostRequest(url, query);
+
+  const priorityFees = response.data?.priorityFee ?? 0;
+
+  if (typeof priorityFees !== 'number')
+    throw new Error('Invalid solana priorityFees returned from server');
+
+  return priorityFees;
+};
+
 export const getTokenAccountRentExemptFees = async (assetId: string) => {
   const url = `${baseURL}/rent-exempt-fee`;
 

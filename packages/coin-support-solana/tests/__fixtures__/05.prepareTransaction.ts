@@ -25,6 +25,8 @@ export const valid: IPrepareTransactionTestCases[] = [
         output: { address: 'address', amount: '0' },
         fees: '5000',
         instructions: [],
+        computeUnitPriceMicroLamports: 100,
+        computeUnits: 150,
       },
       validation: {
         hasEnoughBalance: true,
@@ -58,6 +60,8 @@ export const valid: IPrepareTransactionTestCases[] = [
           amount: '0',
         },
         instructions: [],
+        computeUnitPriceMicroLamports: 100,
+        computeUnits: 150,
       },
       validation: {
         hasEnoughBalance: false,

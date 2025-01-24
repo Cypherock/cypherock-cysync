@@ -42,6 +42,8 @@ export const valid: IPrepareTransactionTestCases[] = [
             recipient: 'CiQQoJBdWgQUVjo4JUemrVMU1BwoMsTFrXZPt69ht33v',
           },
         ],
+        computeUnitPriceMicroLamports: 100,
+        computeUnits: 150,
       },
       validation: {
         hasEnoughBalance: true,
@@ -93,7 +95,7 @@ export const valid: IPrepareTransactionTestCases[] = [
       parentAccountId: undefined,
       remarks: [''],
       subType: 'transfer',
-      customId: 'id-CiQQoJBdWgQUVjo4JUemrVMU1BwoMsTFrXZPt69ht33v-100000000',
+      customId: 'id-0',
     },
   },
 ];
