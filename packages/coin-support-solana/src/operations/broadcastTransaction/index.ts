@@ -93,6 +93,8 @@ export const broadcastTransaction = async (
   parsedTransaction.amount = amount.abs().toString();
   parsedTransaction.inputs[0].amount = amount.abs().toString();
 
+  // To fix race condition with sync account
+  // Transaction might have already updated in sync, since we are waiting for it to confirm
   const txnId = await createTransactionId(parsedTransaction);
   const existingTxn = await db.transaction.getOne({ __id: txnId });
 
