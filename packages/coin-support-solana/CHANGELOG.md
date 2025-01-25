@@ -1,5 +1,19 @@
 # @cypherock/coin-support-solana
 
+## 0.1.0-pre.0
+
+### Minor Changes
+
+- [#663](https://github.com/Cypherock/cypherock-cysync/pull/663) [`26418c0b`](https://github.com/Cypherock/cypherock-cysync/commit/26418c0b3ff2455008b48efd083d5d3a1b02d633) Thanks [@muzaffarbhat07](https://github.com/muzaffarbhat07)! - Adds solana token support
+
+### Patch Changes
+
+- [#663](https://github.com/Cypherock/cypherock-cysync/pull/663) [`26418c0b`](https://github.com/Cypherock/cypherock-cysync/commit/26418c0b3ff2455008b48efd083d5d3a1b02d633) Thanks [@muzaffarbhat07](https://github.com/muzaffarbhat07)! - Add signature status api
+
+- Updated dependencies [[`26418c0b`](https://github.com/Cypherock/cypherock-cysync/commit/26418c0b3ff2455008b48efd083d5d3a1b02d633)]:
+  - @cypherock/coins@0.3.0-pre.0
+  - @cypherock/coin-support-utils@0.0.15-pre.0
+
 ## 0.0.14
 
 ### Patch Changes

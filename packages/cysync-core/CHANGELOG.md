@@ -1,5 +1,29 @@
 # @cypherock/cysync-core
 
+## 0.3.0-pre.0
+
+### Minor Changes
+
+- [#663](https://github.com/Cypherock/cypherock-cysync/pull/663) [`26418c0b`](https://github.com/Cypherock/cypherock-cysync/commit/26418c0b3ff2455008b48efd083d5d3a1b02d633) Thanks [@muzaffarbhat07](https://github.com/muzaffarbhat07)! - Adds solana token support
+
+### Patch Changes
+
+- Updated dependencies [[`26418c0b`](https://github.com/Cypherock/cypherock-cysync/commit/26418c0b3ff2455008b48efd083d5d3a1b02d633), [`26418c0b`](https://github.com/Cypherock/cypherock-cysync/commit/26418c0b3ff2455008b48efd083d5d3a1b02d633)]:
+  - @cypherock/coin-support-solana@0.1.0-pre.0
+  - @cypherock/cysync-core-constants@0.4.0-pre.0
+  - @cypherock/cysync-core-services@0.1.0-pre.0
+  - @cypherock/coins@0.3.0-pre.0
+  - @cypherock/coin-support@0.1.2-pre.0
+  - @cypherock/cysync-core-workers@0.0.16-pre.0
+  - @cypherock/app-support-buy-sell@0.0.3-pre.0
+  - @cypherock/coin-support-btc@0.0.15-pre.0
+  - @cypherock/coin-support-evm@0.0.15-pre.0
+  - @cypherock/coin-support-near@0.0.15-pre.0
+  - @cypherock/coin-support-starknet@1.0.2-pre.0
+  - @cypherock/coin-support-tron@0.0.10-pre.0
+  - @cypherock/coin-support-utils@0.0.15-pre.0
+  - @cypherock/coin-support-xrp@1.1.3-pre.0
+
 ## 0.2.1
 
 ### Patch Changes
