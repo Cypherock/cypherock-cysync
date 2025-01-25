@@ -1,4 +1,5 @@
 import {
+  createTransactionId,
   getAccountAndCoin,
   insertOrUpdateTransactions,
 } from '@cypherock/coin-support-utils';
@@ -92,7 +93,12 @@ export const broadcastTransaction = async (
   parsedTransaction.amount = amount.abs().toString();
   parsedTransaction.inputs[0].amount = amount.abs().toString();
 
-  const [addedTxn] = await insertOrUpdateTransactions(db, [parsedTransaction]);
+  const txnId = await createTransactionId(parsedTransaction);
+  const existingTxn = await db.transaction.getOne({ __id: txnId });
+
+  const [addedTxn] = existingTxn
+    ? [existingTxn]
+    : await insertOrUpdateTransactions(db, [parsedTransaction]);
 
   return addedTxn;
 };
