@@ -1,18 +1,26 @@
 import {
+  createTransactionId,
   getAccountAndCoin,
   insertOrUpdateTransactions,
 } from '@cypherock/coin-support-utils';
 import { solanaCoinList } from '@cypherock/coins';
-import { BigNumber } from '@cypherock/cysync-utils';
+import { BigNumber, sleep } from '@cypherock/cysync-utils';
 import {
+  AccountTypeMap,
   ITransaction,
   TransactionStatusMap,
   TransactionTypeMap,
 } from '@cypherock/db-interfaces';
 
-import { IBroadcastSolanaTransactionParams } from './types';
+import {
+  broadcastTransactionToBlockchain,
+  checkTransactionStatus,
+} from '../../services';
 
-import { broadcastTransactionToBlockchain } from '../../services';
+import { InstructionType } from '../../services/helpers';
+
+import { IBroadcastSolanaTransactionParams } from './types';
+import logger from '../../utils/logger';
 
 export const broadcastTransaction = async (
   params: IBroadcastSolanaTransactionParams,
@@ -23,13 +31,25 @@ export const broadcastTransaction = async (
     solanaCoinList,
     transaction.accountId,
   );
-  const isMine =
-    params.transaction.computedData.output.address === account.xpubOrAddress;
+
+  const recipientAddress = params.transaction.computedData.output.address;
+  const isMine = recipientAddress === account.xpubOrAddress;
 
   const txnHash = await broadcastTransactionToBlockchain(
     signedTransaction,
     coin.id,
   );
+
+  // Wait for 30 seconds to confirm the status of transaction before adding it to the data base
+  await sleep(30000);
+  try {
+    await checkTransactionStatus(txnHash, coin.id); // throws error if transaction didn't succeed
+  } catch (e) {
+    logger.error(JSON.stringify(e));
+    throw new Error('Could not get the transaction status on blockchain');
+  }
+
+  const isTokenAccount = account.type === AccountTypeMap.subAccount;
 
   const parsedTransaction: ITransaction = {
     hash: txnHash,
@@ -60,6 +80,10 @@ export const broadcastTransaction = async (
     familyId: account.familyId,
     parentAccountId: account.parentAccountId,
     remarks: [transaction.userInputs.outputs[0].remarks ?? ''],
+    subType: isTokenAccount
+      ? InstructionType.transferChecked
+      : InstructionType.transfer,
+    customId: 'id-0', // 0 is index, since we have single transfer instruction
   };
 
   const amount = parsedTransaction.outputs.reduce(
@@ -69,7 +93,14 @@ export const broadcastTransaction = async (
   parsedTransaction.amount = amount.abs().toString();
   parsedTransaction.inputs[0].amount = amount.abs().toString();
 
-  const [addedTxn] = await insertOrUpdateTransactions(db, [parsedTransaction]);
+  // To fix race condition with sync account
+  // Transaction might have already updated in sync, since we are waiting for it to confirm
+  const txnId = await createTransactionId(parsedTransaction);
+  const existingTxn = await db.transaction.getOne({ __id: txnId });
+
+  const [addedTxn] = existingTxn
+    ? [existingTxn]
+    : await insertOrUpdateTransactions(db, [parsedTransaction]);
 
   return addedTxn;
 };

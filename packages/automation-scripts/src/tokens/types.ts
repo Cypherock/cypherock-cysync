@@ -1,4 +1,4 @@
-import { IEvmCoinInfo, ITronCoinInfo } from '@cypherock/coins';
+import { IEvmCoinInfo, ISolanaCoinInfo, ITronCoinInfo } from '@cypherock/coins';
 
 export type CoingeckoPlatformMapping = Record<string, string>;
 
@@ -42,7 +42,7 @@ export type TokenAssetIdGenerator = (params: {
 export interface TokenAutomationParams {
   createTokenAssetId: TokenAssetIdGenerator;
   tokenJsonList: TokenListItem[];
-  coinList: Record<string, IEvmCoinInfo | ITronCoinInfo>;
+  coinList: Record<string, IEvmCoinInfo | ITronCoinInfo | ISolanaCoinInfo>;
   coinIdMap: Record<string, string>;
   coingeckoPlatformMapping: CoingeckoPlatformMapping;
   filePrefix: string;

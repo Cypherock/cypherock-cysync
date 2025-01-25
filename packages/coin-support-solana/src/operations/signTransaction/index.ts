@@ -4,13 +4,16 @@ import {
   mapDerivationPath,
   SignTransactionFromDevice,
 } from '@cypherock/coin-support-utils';
-import { ISolanaCoinInfo } from '@cypherock/coins';
-import { IAccount } from '@cypherock/db-interfaces';
+import {
+  ISolanaCoinInfo,
+  ISolanaSplToken,
+  solanaCoinList,
+} from '@cypherock/coins';
+import { AccountTypeMap, IAccount } from '@cypherock/db-interfaces';
 import {
   SolanaApp,
   ISignTxnParams,
   base58Decode,
-  getLatestBlockHash,
 } from '@cypherock/sdk-app-solana';
 import { assert, hexToUint8Array } from '@cypherock/sdk-utils';
 import { Observable } from 'rxjs';
@@ -21,7 +24,7 @@ import {
   signSolanaToDeviceEventMap,
 } from './types';
 
-import { createApp, getCoinSupportWeb3Lib } from '../../utils';
+import { constructTransaction, createApp } from '../../utils';
 import logger from '../../utils/logger';
 import { IPreparedSolanaTransaction } from '../transaction';
 
@@ -30,29 +33,17 @@ const prepareUnsignedTxn = async (
   coin: ISolanaCoinInfo,
   account: IAccount,
 ): Promise<ISignTxnParams['txn']> => {
-  const web3Lib = getCoinSupportWeb3Lib();
+  const { instructions, computeUnits, computeUnitPriceMicroLamports } =
+    transaction.computedData;
 
-  const feePayer = web3Lib.PublicKey.decode(
-    Buffer.from(base58Decode(account.xpubOrAddress)).reverse(),
-  );
-  const receiverPublicKey = web3Lib.PublicKey.decode(
-    Buffer.from(
-      base58Decode(transaction.computedData.output.address),
-    ).reverse(),
-  );
-
-  const recentBlockhash = await getLatestBlockHash(coin.network);
-
-  const txn = new web3Lib.Transaction({
-    recentBlockhash,
-    feePayer,
-  });
-  txn.add(
-    web3Lib.SystemProgram.transfer({
-      fromPubkey: feePayer,
-      toPubkey: receiverPublicKey,
-      lamports: parseInt(transaction.computedData.output.amount, 10),
-    }),
+  const txn = await constructTransaction(
+    coin.id,
+    account.xpubOrAddress,
+    instructions,
+    {
+      computeUnits,
+      computeUnitPrice: computeUnitPriceMicroLamports,
+    },
   );
 
   const unsignedSerializedTxn = txn.serializeMessage().toString('hex');
@@ -79,11 +70,30 @@ const signTransactionFromDevice: SignTransactionFromDevice<
     coin as ISolanaCoinInfo,
     account,
   );
-  const { serializedTxn } = await app.signTxn({
+
+  const isTokenAccount = account.type === AccountTypeMap.subAccount;
+  let tokenDetails: ISolanaSplToken | undefined;
+  if (isTokenAccount)
+    tokenDetails =
+      solanaCoinList[account.parentAssetId].tokens[account.assetId];
+
+  const signTxnParams: ISignTxnParams = {
     walletId: hexToUint8Array(account.walletId),
     derivationPath: mapDerivationPath(account.derivationPath),
     txn,
     serializeTxn: true,
+  };
+
+  if (tokenDetails) {
+    signTxnParams.tokenData = {
+      recipientAddress: base58Decode(
+        (transaction as IPreparedSolanaTransaction).computedData.output.address,
+      ),
+    };
+  }
+
+  const { serializedTxn } = await app.signTxn({
+    ...signTxnParams,
     onEvent: event => {
       const deviceEvent = signSolanaToDeviceEventMap[event];
       if (deviceEvent !== undefined) {

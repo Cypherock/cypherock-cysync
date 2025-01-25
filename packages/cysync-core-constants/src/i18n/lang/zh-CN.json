@@ -304,7 +304,8 @@
         "placeholder": "可选",
         "error": "值过高"
       },
-      "feeBelowMinError": "低于最低 fee 的交易将失败"
+      "feeBelowMinError": "低于最低 fee 的交易将失败",
+      "rentExemptFeeWarning": "首次在 Solana 上接收代币会产生租金豁免费用，已包含在总费用中。"
     },
     "summary": {
       "title": "摘要",

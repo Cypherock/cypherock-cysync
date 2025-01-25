@@ -32,6 +32,7 @@ import { FeesHeader } from './FeesHeader';
 import { OptimismFeesHeader } from './OptimismFeesHeader';
 
 import { useSendDialog } from '../../../context';
+import { IPreparedSolanaTransaction } from '@cypherock/coin-support-solana';
 import { IPreparedTronTransaction } from '@cypherock/coin-support-tron';
 
 const feeInputMap: Partial<Record<CoinFamily, React.FC<any>>> = {
@@ -321,6 +322,10 @@ export const FeeSection: React.FC<FeeSectionProps> = ({ showErrors }) => {
       {(transaction?.validation as IPreparedXrpTransaction['validation'])
         .isFeeBelowMin && (
         <MessageBox type="danger" text={displayText.feeBelowMinError} />
+      )}
+      {(transaction?.validation as IPreparedSolanaTransaction['validation'])
+        .isRentExemptFeeRequired && (
+        <MessageBox type="warning" text={displayText.rentExemptFeeWarning} />
       )}
       {showErrors && transaction?.validation.hasEnoughBalance === false && (
         <MessageBox type="danger" text={displayText.notEnoughBalance} />

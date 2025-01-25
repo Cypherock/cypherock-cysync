@@ -1,17 +1,85 @@
 import { IInitializeTransactionParams } from '@cypherock/coin-support-interfaces';
 import { getAccountAndCoin } from '@cypherock/coin-support-utils';
 import { solanaCoinList } from '@cypherock/coins';
+import { BigNumber } from '@cypherock/cysync-utils';
 
-import { getFees } from '../../services';
+import {
+  getFees,
+  getPriorityFees,
+  getSimulationComputeUnits,
+} from '../../services';
+
 import { IPreparedSolanaTransaction } from '../transaction';
+import { AccountTypeMap } from '@cypherock/db-interfaces';
+import {
+  constructTransaction,
+  ICustomSolanaInstruction,
+  ICustomSolanaTransferCheckedInstruction,
+  ICustomSolanaTransferInstruction,
+  InstructionType,
+} from '../../utils';
 
 export const initializeTransaction = async (
   params: IInitializeTransactionParams,
 ): Promise<IPreparedSolanaTransaction> => {
   const { accountId, db } = params;
-  const { coin } = await getAccountAndCoin(db, solanaCoinList, accountId);
+  const { coin, account } = await getAccountAndCoin(
+    db,
+    solanaCoinList,
+    accountId,
+  );
 
-  const fees = await getFees({ assetId: coin.id });
+  const isTokenAccount = account.type === AccountTypeMap.subAccount;
+
+  // create a dummy txn for fee estimation
+  const instructions: ICustomSolanaInstruction[] = [];
+  if (isTokenAccount) {
+    const tokenDetails =
+      solanaCoinList[account.parentAssetId].tokens[account.assetId];
+    const instruction: ICustomSolanaTransferCheckedInstruction = {
+      type: InstructionType.transferChecked,
+      amount: 5,
+      recipient: account.xpubOrAddress,
+      mintAddress: tokenDetails.address,
+      decimals: tokenDetails.decimals,
+    };
+    instructions.push(instruction);
+  } else {
+    const instruction: ICustomSolanaTransferInstruction = {
+      type: InstructionType.transfer,
+      amount: 5,
+      recipient: account.xpubOrAddress,
+    };
+    instructions.push(instruction);
+  }
+
+  const transaction = await constructTransaction(
+    coin.id,
+    account.xpubOrAddress,
+    instructions,
+  );
+
+  let fees = await getFees(
+    transaction.serializeMessage().toString('base64'),
+    coin.id,
+  );
+
+  const computeUnits = await getSimulationComputeUnits(
+    transaction
+      .serialize({ requireAllSignatures: false, verifySignatures: false })
+      .toString('base64'),
+    coin.id,
+  );
+
+  const computeUnitPriceMicroLamports = await getPriorityFees(coin.id);
+
+  fees = new BigNumber(fees)
+    .plus(
+      new BigNumber(computeUnitPriceMicroLamports)
+        .dividedBy(10 ** 6)
+        .multipliedBy(computeUnits),
+    )
+    .toFixed(0);
 
   return {
     accountId,
@@ -21,6 +89,7 @@ export const initializeTransaction = async (
       isValidFee: true,
       ownOutputAddressNotAllowed: [],
       zeroAmountNotAllowed: false,
+      isRentExemptFeeRequired: false,
     },
     userInputs: {
       outputs: [],
@@ -32,6 +101,9 @@ export const initializeTransaction = async (
     computedData: {
       output: { address: '', amount: '0' },
       fees,
+      instructions: [],
+      computeUnits,
+      computeUnitPriceMicroLamports,
     },
   };
 };
