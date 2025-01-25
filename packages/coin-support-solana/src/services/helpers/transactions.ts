@@ -14,6 +14,7 @@ import { getCoinSupportWeb3Lib, getTokenSupportSplTokenLib } from '../../utils';
 
 import { ISolanaTransactionItem } from '../api';
 import {
+  IConstructTransactionOptions,
   ICustomSolanaInstruction,
   InstructionType,
   TransactionParserReturnType,
@@ -77,9 +78,13 @@ export const constructTransaction = async (
   assetId: string,
   payer: string,
   instructions: ICustomSolanaInstruction[],
-  computeUnits = 200_000,
-  computeUnitPrice = 0,
+  options?: IConstructTransactionOptions,
 ) => {
+  let { computeUnitPrice = 0 } = options ?? {};
+  const { computeUnits = 200_000, useMinimumAmounts = false } = options ?? {};
+
+  if (useMinimumAmounts) computeUnitPrice = 0;
+
   const recentBlockhash = await getLatestBlockHash(
     solanaCoinList[assetId].network,
   );
@@ -110,7 +115,7 @@ export const constructTransaction = async (
       constructedInstruction = web3Lib.SystemProgram.transfer({
         fromPubkey: feePayer,
         toPubkey: new web3Lib.PublicKey(instruction.recipient),
-        lamports: instruction.amount,
+        lamports: useMinimumAmounts ? 1 : instruction.amount,
       });
     } else {
       if (!instruction.mintAddress) continue;
@@ -141,7 +146,7 @@ export const constructTransaction = async (
             mintPubKey,
             recipientTokenAccount,
             feePayer,
-            instruction.amount,
+            useMinimumAmounts ? 1 : instruction.amount,
             instruction.decimals,
           );
       }

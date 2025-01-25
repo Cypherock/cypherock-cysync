@@ -75,6 +75,7 @@ const estimateFees = async (
     assetId,
     address,
     instructions,
+    { useMinimumAmounts: true },
   );
 
   let fees = await getFees(

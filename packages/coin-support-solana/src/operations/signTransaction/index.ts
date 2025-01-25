@@ -40,8 +40,10 @@ const prepareUnsignedTxn = async (
     coin.id,
     account.xpubOrAddress,
     instructions,
-    computeUnits,
-    computeUnitPriceMicroLamports,
+    {
+      computeUnits,
+      computeUnitPrice: computeUnitPriceMicroLamports,
+    },
   );
 
   const unsignedSerializedTxn = txn.serializeMessage().toString('hex');
