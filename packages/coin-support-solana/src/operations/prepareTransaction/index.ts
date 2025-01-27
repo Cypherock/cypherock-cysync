@@ -78,11 +78,6 @@ const estimateFees = async (
     { useMinimumAmounts: true },
   );
 
-  let fees = await getFees(
-    transaction.serializeMessage().toString('base64'),
-    assetId,
-  );
-
   let computeUnits = 200_000; // Fallback value for computeunits
   try {
     computeUnits = await getSimulationComputeUnits(
@@ -104,7 +99,24 @@ const estimateFees = async (
     logger.warn(JSON.stringify(e));
   }
 
-  fees = new BigNumber(fees)
+  // Remove ComputeBudget instructions from the message when estimating the base fee
+  // since the exact priority fees are computed separately and getFeeForMessage also
+  // considers priority fees.
+  if (transaction.instructions.length > 2)
+    transaction.instructions.splice(0, 2);
+
+  let baseFee = '5000'; // Fallback value for base fee
+  try {
+    baseFee = await getFees(
+      transaction.serializeMessage().toString('base64'),
+      assetId,
+    );
+  } catch (e) {
+    logger.warn('Failed to fetch base fee from server');
+    logger.warn(JSON.stringify(e));
+  }
+
+  const fees = new BigNumber(baseFee)
     .plus(
       new BigNumber(computeUnitPriceMicroLamports)
         .dividedBy(10 ** 6)
