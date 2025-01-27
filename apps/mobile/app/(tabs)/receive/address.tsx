@@ -8,9 +8,7 @@ import {
   Typography,
 } from '@/components/ui';
 import { colors } from '@/components/ui/themes/color.styled';
-import { Images } from '@/constants';
 import Octicons from '@expo/vector-icons/Octicons';
-import { Image } from 'expo-image';
 import { useState } from 'react';
 import * as Clipboard from 'expo-clipboard';
 import { useAppSelector } from '@/store';
@@ -69,7 +67,11 @@ export default function Receive() {
           </View>
           <Card
             borderColor="secondary"
-            style={{ flexDirection: 'row', gap: 24 }}
+            style={{
+              flexDirection: 'row',
+              justifyContent: 'space-between',
+              gap: 24,
+            }}
           >
             <Typography type="para" style={{ textAlign: 'left' }}>
               {derivedAddress}
