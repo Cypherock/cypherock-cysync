@@ -34,11 +34,18 @@ export default function Onboarding() {
       image: Images.onboarding.screen3,
       title: strings.onboarding.receive.title,
       subtitle: strings.onboarding.receive.description,
+      actions: {
+        primary: {
+          title: strings.buttons.continue,
+          onPress: () => router.push('/(onboarding)/PasswordPage'),
+        },
+      },
     },
     {
       id: 4,
       image: Images.onboarding.screen4_1,
       title: strings.onboarding.scan.title,
+      titleType: 'h2',
       subtitles: [
         strings.onboarding.scan.description[0],
         strings.onboarding.scan.description[1],
