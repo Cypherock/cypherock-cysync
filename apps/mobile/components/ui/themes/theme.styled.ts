@@ -1,7 +1,14 @@
 import { colors } from './color.styled';
 import { spacing } from './layout.styled';
 import { shadows } from './shadow.styled';
-import { fontFamily, fontWeight, typography } from './typography.styled';
+import {
+  fontFamily,
+  fontWeight,
+  fontSize,
+  fontSizeLarge,
+  lineHeights,
+  lineHeightsLarge,
+} from './typography.styled';
 
 export type ThemeType = typeof theme;
 
@@ -12,7 +19,10 @@ export const theme = {
     tonalOffset: 0.2,
   },
   typography: {
-    fontSize: { ...typography.body, ...typography.heading },
+    fontSize: {
+      ...fontSize.body,
+      ...fontSize.heading,
+    },
     fontWeight: { ...fontWeight },
     shared: {
       fontFamily: fontFamily.poppins,
@@ -22,25 +32,32 @@ export const theme = {
         fontWeight: fontWeight.medium,
       },
       display: {
-        fontSize: typography.heading.display1,
+        fontSize: fontSize.heading.display1,
+        lineHeight: lineHeights.heading.display1,
       },
       h1: {
-        fontSize: typography.heading.h1,
+        fontSize: fontSize.heading.h1,
+        lineHeight: lineHeights.heading.h1,
       },
       h2: {
-        fontSize: typography.heading.h2,
+        fontSize: fontSize.heading.h2,
+        lineHeight: lineHeights.heading.h2,
       },
       h3: {
-        fontSize: typography.heading.h3,
+        fontSize: fontSize.heading.h3,
+        lineHeight: lineHeights.heading.h3,
       },
       h4: {
-        fontSize: typography.heading.h4,
+        fontSize: fontSize.heading.h4,
+        lineHeight: lineHeights.heading.h4,
       },
       h5: {
-        fontSize: typography.heading.h5,
+        fontSize: fontSize.heading.h5,
+        lineHeight: lineHeights.heading.h5,
       },
       h6: {
-        fontSize: typography.heading.h6,
+        fontSize: fontSize.heading.h6,
+        lineHeight: lineHeights.heading.h6,
       },
     },
     body: {
@@ -48,16 +65,20 @@ export const theme = {
         fontWeight: fontWeight.regular,
       },
       para: {
-        fontSize: typography.body.lg,
+        fontSize: fontSize.body.lg,
+        lineHeight: lineHeights.body.lg,
       },
       body: {
-        fontSize: typography.body.base,
+        fontSize: fontSize.body.base,
+        lineHeight: lineHeights.body.base,
       },
       label: {
-        fontSize: typography.body.sm,
+        fontSize: fontSize.body.sm,
+        lineHeight: lineHeights.body.sm,
       },
       tag: {
-        fontSize: typography.body.xs,
+        fontSize: fontSize.body.xs,
+        lineHeight: lineHeights.body.xs,
       },
     },
   },
@@ -74,5 +95,68 @@ export const theme = {
   },
   shadow: {
     popup: shadows.popup,
+  },
+};
+
+export const largeTheme = {
+  ...theme,
+  typography: {
+    ...theme.typography,
+    fontSize: {
+      ...fontSizeLarge.body,
+      ...fontSizeLarge.heading,
+    },
+    heading: {
+      ...theme.typography.heading,
+      display: {
+        fontSize: fontSizeLarge.heading.display1,
+        lineHeight: lineHeightsLarge.heading.display1,
+      },
+      h1: {
+        fontSize: fontSizeLarge.heading.h1,
+        lineHeight: lineHeightsLarge.heading.h1,
+      },
+      h2: {
+        fontSize: fontSizeLarge.heading.h2,
+        lineHeight: lineHeightsLarge.heading.h2,
+      },
+      h3: {
+        fontSize: fontSizeLarge.heading.h3,
+        lineHeight: lineHeightsLarge.heading.h3,
+      },
+      h4: {
+        fontSize: fontSizeLarge.heading.h4,
+        lineHeight: lineHeightsLarge.heading.h4,
+      },
+      h5: {
+        fontSize: fontSizeLarge.heading.h5,
+        lineHeight: lineHeightsLarge.heading.h5,
+      },
+      h6: {
+        fontSize: fontSizeLarge.heading.h6,
+        lineHeight: lineHeightsLarge.heading.h6,
+      },
+    },
+    body: {
+      shared: {
+        fontWeight: fontWeight.regular,
+      },
+      para: {
+        fontSize: fontSizeLarge.body.lg,
+        lineHeight: lineHeightsLarge.body.lg,
+      },
+      body: {
+        fontSize: fontSizeLarge.body.base,
+        lineHeight: lineHeightsLarge.body.base,
+      },
+      label: {
+        fontSize: fontSizeLarge.body.sm,
+        lineHeight: lineHeightsLarge.body.sm,
+      },
+      tag: {
+        fontSize: fontSizeLarge.body.xs,
+        lineHeight: lineHeightsLarge.body.xs,
+      },
+    },
   },
 };

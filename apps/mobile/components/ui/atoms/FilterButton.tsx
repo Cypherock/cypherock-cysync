@@ -12,12 +12,12 @@ const ButtonContainer = styled.TouchableOpacity`
   align-items: center;
   flex-grow: 0;
 
-  width: 118px;
+  width: auto;
 
   padding-horizontal: 12px;
-  padding-vertical: 6px;
+  padding-vertical: 8px;
   border-radius: 8px;
-  gap: 16px;
+  gap: 8px;
 
   border: 0.5px solid ${({ theme }) => theme.palette.border.secondary};
   background: ${({ theme, disabled }) =>
@@ -26,13 +26,13 @@ const ButtonContainer = styled.TouchableOpacity`
 
 const ValueText = styled.Text`
   flex: 1;
-  font-size: ${({ theme }) => theme.typography.body.body.fontSize}px;
+  font-size: ${({ theme }) => theme.typography.body.label.fontSize}px;
   color: ${({ theme }) => theme.palette.text.primary};
 `;
 
 const PlaceholderText = styled.Text`
   flex: 1;
-  font-size: ${({ theme }) => theme.typography.body.body.fontSize}px;
+  font-size: ${({ theme }) => theme.typography.body.label.fontSize}px;
   color: ${({ theme, disabled }) =>
     disabled ? theme.palette.text.muted : theme.palette.text.secondary};
 `;
