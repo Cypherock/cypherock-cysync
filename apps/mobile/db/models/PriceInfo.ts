@@ -1,21 +1,21 @@
 import { Realm } from '@realm/react';
 
 export class PriceInfo extends Realm.Object {
-  _id!: Realm.BSON.ObjectId;
-  currency!: string;
-  latestPrice!: string;
-  assetId!: string;
-  lastSyncedAt!: number;
-
-  static schema = {
+  static schema: Realm.ObjectSchema = {
     name: 'PriceInfo',
-    primaryKey: '_id',
+    primaryKey: '__id',
     properties: {
-      _id: 'objectId',
+      __id: 'string',
       currency: 'string',
       latestPrice: 'string',
       assetId: 'string',
       lastSyncedAt: 'int',
     },
   };
+
+  __id!: string;
+  currency!: string;
+  latestPrice!: string;
+  assetId!: string;
+  lastSyncedAt!: number;
 }
