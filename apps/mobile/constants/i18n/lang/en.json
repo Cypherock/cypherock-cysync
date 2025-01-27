@@ -15,7 +15,7 @@
   },
   "onboarding": {
     "welcome": {
-      "title": "Welcome to Cysync App",
+      "title": "Welcome to cySync App",
       "description": "Your gateway to self-sovereignty",
       "termsOfUse": "Terms of Use",
       "privacyPolicy": "Privacy Policy",
@@ -31,22 +31,39 @@
     },
     "receive": {
       "title": "Receive",
-      "description": "Receive your Crypto assets directly into your Cypherock X1. On the Go"
+      "description": "Receive your Crypto assets directly into your Cypherock X1. On the Go!"
     },
     "scan": {
       "title": "Sync QR from Desktop App",
       "description": [
         "Make sure you have bought a Cypherock X1 and have it already setup before scanning",
-        "On your cysync desktop app, Go to Settings > General > Export with mobile and scan the QR Code"
+        "On your cySync desktop app, Go to Settings > General > Export with mobile and scan the QR Code"
       ]
     },
     "permission": {
       "title": "Camera permission required",
-      "description": "Please provide camera access. Without the camera access you will not be able to scan the QR required to sync with your Cysync desktop"
+      "description": "Please provide camera access. Without the camera access you will not be able to scan the QR required to sync with your cySync desktop"
     },
     "info": {
       "title": "Your Desktop and Mobile Apps must be synced manually",
       "description": "cySync App stores your data locally. If you update your coins/accounts on your desktop app, you will need to do the same on your mobile app"
+    },
+    "passwordPage": {
+      "title": "Create New Password",
+      "inputs": {
+        "newPassword": {
+          "placeholder": "New password",
+          "description": "Password must be 8-16 characters and include at least two of the following: uppercase, lowercase, number or symbol"
+        },
+        "confirmPassword": {
+          "placeholder": "Confirm password",
+          "description": "Both passwords must match"
+        }
+      },
+      "success": {
+        "title": "New Password added successfully",
+        "subTitle": "You can now use your new password to log in"
+      }
     }
   },
   "scan": {
@@ -63,7 +80,7 @@
     "heading": "Portfolio",
     "noAccount": {
       "title": "Nothing here yet!",
-      "subTitle": "We couldn't find anything.  Try scanning the QR code on your desktop  again "
+      "subTitle": "We couldn't find anything. Try scanning the QR code on your desktop again"
     },
     "dashboard": {
       "table": {
@@ -75,7 +92,7 @@
   "history": {
     "heading": "History",
     "history": {
-      "title": "Transactions History",
+      "title": "Transaction Hash",
       "table": {
         "time": "Time",
         "amount": "Amount"
@@ -136,7 +153,7 @@
     },
     "about": {
       "heading": "About",
-      "title": "CySync version",
+      "title": "cySync version",
       "version": "",
       "termsOfUse": "Terms of use",
       "privacyPolicy": "Privacy policy"
@@ -152,14 +169,11 @@
       "inputs": {
         "newPassword": {
           "placeholder": "New password",
-          "description": "Password must be 8-16 characters and include at least two of the following: uppercase. lowercase, number or symbol"
+          "description": "Password must be 8-16 characters and include at least two of the following: uppercase, lowercase, number or symbol"
         },
         "confirmPassword": {
           "placeholder": "Confirm password",
           "description": "Both passwords must match"
-        },
-        "radio": {
-          "label": "Allow fingerprint unlocking"
         }
       }
     },
@@ -172,19 +186,16 @@
         "newPassword": {
           "placeholder": "New password"
         },
-        "description": "Password must be 8-16 characters and include at least two of the following: uppercase. lowercase, number or symbol",
+        "description": "Password must be 8-16 characters and include at least two of the following: uppercase, lowercase, number or symbol",
         "confirmPassword": {
           "placeholder": "Confirm password",
           "description": "Both passwords must match"
-        },
-        "radio": {
-          "label": "Allow fingerprint unlocking"
         }
       }
     },
     "newPasswordAdded": {
       "title": "New Password added successfully",
-      "description": "You must login again to use the app. Click the button below"
+      "description": ""
     },
     "removePassword": {
       "title": "Remove Password?",
