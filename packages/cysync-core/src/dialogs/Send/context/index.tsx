@@ -333,7 +333,7 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
       );
       onNext();
     } catch (e: any) {
-      logger.error(e);
+      logger.error(JSON.stringify(e));
 
       const broadcastError = new ServerError(
         ServerErrorType.TRANSACTION_BROADCAST_FAILED,
