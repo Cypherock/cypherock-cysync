@@ -19,14 +19,15 @@ import {
 } from '@/components/ui';
 import { colors } from '@/components/ui/themes/color.styled';
 import { Images } from '@/constants';
-import { useAppSelector } from '@/store';
-import { selectLanguage } from '@/store/lang';
 import Entypo from '@expo/vector-icons/Entypo';
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 import { BottomSheetModal } from '@gorhom/bottom-sheet';
 import { router } from 'expo-router';
 import { useCallback, useRef } from 'react';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { View } from 'react-native';
+import { useAppSelector } from '@/store';
+import { selectLanguage } from '@/store/lang';
 
 const data = [
   { value: 10, label: 'Nov 1', date: 'Nov 1' },
@@ -34,8 +35,11 @@ const data = [
   { value: 30, label: 'Nov 9', date: 'Nov 9' },
   { value: 20, label: 'Nov 5', date: 'Nov 5' },
   { value: 30, label: 'Nov 9', date: 'Nov 9' },
+  { value: 19, label: 'Nov 10', date: 'Nov 10' },
+  { value: 19, label: 'Nov 11', date: 'Nov 11' },
+  { value: 19, label: 'Nov 13', date: 'Nov 13' },
 ];
-const dummyData = [
+const dummyNotifications = [
   {
     type: 'sent',
     status: 'success',
@@ -124,10 +128,23 @@ export default function Portfolio() {
         subtitle={strings.banner.description}
       />
       <Container style={{ paddingHorizontal: 12, gap: 24 }}>
-        <Flex gap={4}>
-          <FilterButton placeholder="All wallets" onPress={handleShowFilter} />
-          <FilterButton placeholder="1W" onPress={handleShowFilter} />
-        </Flex>
+        <View
+          style={{
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+            gap: 4,
+          }}
+        >
+          <Flex gap={4} style={{ flex: 1 }}>
+            <FilterButton
+              placeholder="All wallets"
+              onPress={handleShowFilter}
+            />
+          </Flex>
+          <Flex gap={4} style={{ flex: 1 }}>
+            <FilterButton placeholder="1W" onPress={handleShowFilter} />
+          </Flex>
+        </View>
         <Flex justifyContent="space-between">
           <Typography type="h3">$32,584</Typography>
           <Flex gap={8}>
@@ -156,7 +173,7 @@ export default function Portfolio() {
         </TableHeader>
         <TableBody
           type="flat"
-          data={dummyData}
+          data={dummyNotifications}
           renderItem={({
             item,
             index,
