@@ -35,6 +35,7 @@
   },
   "changesets": [
     "itchy-months-accept",
-    "odd-mayflies-cover"
+    "odd-mayflies-cover",
+    "strong-days-report"
   ]
 }

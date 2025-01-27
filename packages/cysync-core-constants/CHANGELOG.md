@@ -1,5 +1,11 @@
 # @cypherock/cysync-core-constants
 
+## 0.4.0-pre.1
+
+### Patch Changes
+
+- [#678](https://github.com/Cypherock/cypherock-cysync/pull/678) [`eb06d2c1`](https://github.com/Cypherock/cypherock-cysync/commit/eb06d2c1d7ad5424eb62614c7478581e5b3eb919) Thanks [@TejasvOnly](https://github.com/TejasvOnly)! - Added explicit broadcast error
+
 ## 0.4.0-pre.0
 
 ### Minor Changes
