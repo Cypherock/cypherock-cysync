@@ -47,7 +47,7 @@ export default function Index() {
               text={strings.onboarding.welcome.byProceeding}
               variables={{
                 termsOfUse: (
-                  <Link href={'https://www.cypherock.com/privacy'}>
+                  <Link href={'https://www.cypherock.com/terms'}>
                     {strings.onboarding.welcome.termsOfUse}
                   </Link>
                 ),
