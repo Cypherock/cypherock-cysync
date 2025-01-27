@@ -1,8 +1,11 @@
 import React from 'react';
+import { Pressable, View } from 'react-native';
 import { Header as StyledHeader } from '../ui';
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 import { router } from 'expo-router';
 import { colors } from '../ui/themes/color.styled';
+import { Icon } from '@/components/ui';
+import { Images } from '@/constants';
 
 interface HeaderProps {
   title: string;
@@ -26,20 +29,24 @@ export function Header({
       showBack={showBack}
       onBackPress={onBackPress}
       rightIcons={
-        <>
-          <MaterialCommunityIcons
-            name={'bell-badge-outline'}
-            size={24}
-            color={colors.text.secondary}
-            onPress={() => router.push('/notification')}
-          />
+        <View style={{ flexDirection: 'row', alignItems: 'center', gap: 16 }}>
+          <Pressable onPress={() => router.push('/notification')}>
+            <Icon
+              source={{
+                default: Images.icon.notification_default,
+                disabled: Images.icon.notification_disabed,
+              }}
+              size="default"
+              onPress={() => router.push('/notification')}
+            />
+          </Pressable>
           <MaterialCommunityIcons
             name="qrcode"
+            onPress={() => router.push('/scan')}
             size={18}
             color={'#8B8682'}
-            onPress={() => router.push('/scan')}
           />
-        </>
+        </View>
       }
       showDiscard={showDiscard}
       onDiscard={() => router.back()}
