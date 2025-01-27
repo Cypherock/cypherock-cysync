@@ -1,0 +1,214 @@
+{
+  "language": "لغة العرض",
+  "buttons": {
+    "ok": "Ok",
+    "continue": "Continue",
+    "skip": "Skip",
+    "apply": "Apply",
+    "confirm": "Confirm",
+    "login": "Login",
+    "getStarted": "Get Started",
+    "scanQrCode": "Scan QrCode",
+    "buyCypherockX1": "Buy Cypherock X1",
+    "grantPermission": "Grant Permission",
+    "allWallets": "All Wallets"
+  },
+  "onboarding": {
+    "welcome": {
+      "title": "Welcome to Cysync App",
+      "description": "Your gateway to self-sovereignty",
+      "termsOfUse": "Terms of Use",
+      "privacyPolicy": "Privacy Policy",
+      "byProceeding": "By proceeding, you accept Cypherock's ${termsOfUse} and ${privacyPolicy}"
+    },
+    "portfolio": {
+      "title": "Portfolio",
+      "description": "Track your Crypto assets across Metamask, Ledger and any other wallet you own"
+    },
+    "history": {
+      "title": "History",
+      "description": "View your past transaction history and get notified whenever there is a transaction initiated from your Cypherock X1"
+    },
+    "receive": {
+      "title": "Receive",
+      "description": "Receive your Crypto assets directly into your Cypherock X1. On the Go"
+    },
+    "scan": {
+      "title": "Sync QR from Desktop App",
+      "description": [
+        "Make sure you have bought a Cypherock X1 and have it already setup before scanning",
+        "On your cysync desktop app, Go to Settings > General > Export with mobile and scan the QR Code"
+      ]
+    },
+    "permission": {
+      "title": "Camera permission required",
+      "description": "Please provide camera access. Without the camera access you will not be able to scan the QR required to sync with your Cysync desktop"
+    },
+    "info": {
+      "title": "Your Desktop and Mobile Apps must be synced manually",
+      "description": "cySync App stores your data locally. If you update your coins/accounts on your desktop app, you will need to do the same on your mobile app"
+    }
+  },
+  "scan": {
+    "alignQrCode": "Align QR code to fill inside the frame",
+    "pleaseWait": "Please Wait",
+    "messageBox": {
+      "warning": "Note: There can be more than one QR code to scan"
+    },
+    "loading": {
+      "description": "Please wait while we are fetching your details"
+    }
+  },
+  "portfolio": {
+    "heading": "Portfolio",
+    "noAccount": {
+      "title": "Nothing here yet!",
+      "subTitle": "We couldn't find anything.  Try scanning the QR code on your desktop  again "
+    },
+    "dashboard": {
+      "table": {
+        "asset": "Asset",
+        "amount": "Amount"
+      }
+    }
+  },
+  "history": {
+    "heading": "History",
+    "history": {
+      "title": "Transactions History",
+      "table": {
+        "time": "Time",
+        "amount": "Amount"
+      }
+    },
+    "details": {
+      "heading": {
+        "sent": "Sent",
+        "received": "Received"
+      }
+    }
+  },
+  "receive": {
+    "heading": "Heading",
+    "chooseWallet": {
+      "title": "Choose a wallet to receive crypto in"
+    },
+    "chooseAccount": {
+      "title": "Choose a crypto you want to receive"
+    },
+    "receive": {
+      "info": "Address for ${crypto} in ${wallet}",
+      "messageBox": {
+        "danger": "The receive address is not verified on the device. Use it at your own risk"
+      }
+    }
+  },
+  "support": {
+    "heading": "Support",
+    "support": {
+      "title": "How can we help?",
+      "description": "email to: "
+    },
+    "socials": {
+      "title": "Stay in touch with Cypherock",
+      "description": "Announcements can be found in our blog"
+    }
+  },
+  "settings": {
+    "heading": "Settings",
+    "settings": {
+      "general": "General",
+      "app": "App Settings",
+      "about": "About"
+    },
+    "general": {
+      "heading": "General",
+      "displayLanguage": "Display Language",
+      "preferredCurrency": "Preferred Currency"
+    },
+    "displayLanguage": {
+      "heading": "Language",
+      "title": "Choose Language"
+    },
+    "preferredCurrency": {
+      "heading": "Curreny",
+      "title": "Preferred Currency"
+    },
+    "about": {
+      "heading": "About",
+      "title": "CySync version",
+      "version": "",
+      "termsOfUse": "Terms of use",
+      "privacyPolicy": "Privacy policy"
+    },
+    "app": {
+      "heading": "App Settings",
+      "addNewPassword": "Add New Password",
+      "changePassword": "Change Password",
+      "removePassword": "Remove Password"
+    },
+    "addNewPassword": {
+      "title": "Create New Password",
+      "inputs": {
+        "newPassword": {
+          "placeholder": "New password",
+          "description": "Password must be 8-16 characters and include at least two of the following: uppercase. lowercase, number or symbol"
+        },
+        "confirmPassword": {
+          "placeholder": "Confirm password",
+          "description": "Both passwords must match"
+        },
+        "radio": {
+          "label": "Allow fingerprint unlocking"
+        }
+      }
+    },
+    "changePassword": {
+      "title": "Change Password",
+      "inputs": {
+        "oldPassword": {
+          "placeholder": "Old password"
+        },
+        "newPassword": {
+          "placeholder": "New password"
+        },
+        "description": "Password must be 8-16 characters and include at least two of the following: uppercase. lowercase, number or symbol",
+        "confirmPassword": {
+          "placeholder": "Confirm password",
+          "description": "Both passwords must match"
+        },
+        "radio": {
+          "label": "Allow fingerprint unlocking"
+        }
+      }
+    },
+    "newPasswordAdded": {
+      "title": "New Password added successfully",
+      "description": "You must login again to use the app. Click the button below"
+    },
+    "removePassword": {
+      "title": "Remove Password?",
+      "description": "Are you sure you want to remove the password?"
+    },
+    "passwordRemoved": {
+      "title": "Password removed successfully"
+    }
+  },
+  "notifications": {
+    "heading": "Notifications"
+  },
+  "banner": {
+    "title": "Cypherock Cover is here!",
+    "description": "Click here to know more"
+  },
+  "toast": {
+    "addressCopied": "Address copied successfully"
+  },
+  "bottomTabs": {
+    "portfolio": "Portfolio",
+    "history": "History",
+    "receive": "Receive",
+    "support": "Support",
+    "settings": "Settings"
+  }
+}
