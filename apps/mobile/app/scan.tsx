@@ -22,6 +22,10 @@ export default function Scan() {
   const [decodedData, setDecodedData] = useState<WalletData[]>([]);
   const realm = useRealm();
 
+  function navigateToNext() {
+    router.dismissTo('/receive/wallet');
+  }
+
   function onQrScanned(qr: ScanningResult) {
     const data = qr.data.split('|');
     const chunkIndex = Number(data[1]);
@@ -79,7 +83,7 @@ export default function Scan() {
           });
         });
       });
-      router.dismissTo('/receive/wallet');
+      navigateToNext();
     }
   }, [decodedData, realm]);
 
@@ -91,7 +95,7 @@ export default function Scan() {
             default: Images.icon.close_default,
             disabled: Images.icon.close_disabed,
           }}
-          onPress={() => router.dismiss()}
+          onPress={navigateToNext}
           size="small"
         />
       </View>

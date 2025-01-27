@@ -52,66 +52,76 @@ export default function Support() {
           </Link>
         </View>
         <View style={{ gap: 16, flexDirection: 'row' }}>
-          <Card
-            style={{
-              width: 24,
-              height: 24,
-              paddingHorizontal: 0,
-              paddingVertical: 0,
-              justifyContent: 'center',
-              alignItems: 'center',
-            }}
-          >
-            <TelegramIcon style={{ width: 12 }} />
-          </Card>
-          <Card
-            style={{
-              width: 24,
-              height: 24,
-              paddingHorizontal: 0,
-              paddingVertical: 0,
-              justifyContent: 'center',
-              alignItems: 'center',
-            }}
-          >
-            <AntDesign name="github" size={12} color={'white'} />
-          </Card>
-          <Card
-            style={{
-              width: 24,
-              height: 24,
-              paddingHorizontal: 0,
-              paddingVertical: 0,
-              justifyContent: 'center',
-              alignItems: 'center',
-            }}
-          >
-            <WellfoundIcon style={{ width: 12 }} />
-          </Card>
-          <Card
-            style={{
-              width: 24,
-              height: 24,
-              paddingHorizontal: 0,
-              paddingVertical: 0,
-              justifyContent: 'center',
-              alignItems: 'center',
-            }}
-          >
-            <LinkedinIcon style={{ width: 12 }} />
-          </Card>
-          <Card
-            style={{
-              width: 24,
-              height: 24,
-              paddingHorizontal: 0,
-              paddingVertical: 0,
-              justifyContent: 'center',
-              alignItems: 'center',
-            }}
-          >
-            <XIcon style={{ width: 12 }} />
-          </Card>
+          <Link href={'https://t.me/cypherock'}>
+            <Card
+              style={{
+                width: 24,
+                height: 24,
+                paddingHorizontal: 0,
+                paddingVertical: 0,
+                justifyContent: 'center',
+                alignItems: 'center',
+              }}
+            >
+              <TelegramIcon style={{ width: 12 }} />
+            </Card>
+          </Link>
+          <Link href={'https://github.com/Cypherock'}>
+            <Card
+              style={{
+                width: 24,
+                height: 24,
+                paddingHorizontal: 0,
+                paddingVertical: 0,
+                justifyContent: 'center',
+                alignItems: 'center',
+              }}
+            >
+              <AntDesign name="github" size={12} color={'white'} />
+            </Card>
+          </Link>
+          <Link href={'https://wellfound.com/company/cypherock-wallet'}>
+            <Card
+              style={{
+                width: 24,
+                height: 24,
+                paddingHorizontal: 0,
+                paddingVertical: 0,
+                justifyContent: 'center',
+                alignItems: 'center',
+              }}
+            >
+              <WellfoundIcon style={{ width: 12 }} />
+            </Card>
+          </Link>
+          <Link href={'https://sg.linkedin.com/company/cypherockwallet'}>
+            <Card
+              style={{
+                width: 24,
+                height: 24,
+                paddingHorizontal: 0,
+                paddingVertical: 0,
+                justifyContent: 'center',
+                alignItems: 'center',
+              }}
+            >
+              <LinkedinIcon style={{ width: 12 }} />
+            </Card>
+          </Link>
+          <Link href={'https://x.com/CypherockWallet'}>
+            <Card
+              style={{
+                width: 24,
+                height: 24,
+                paddingHorizontal: 0,
+                paddingVertical: 0,
+                justifyContent: 'center',
+                alignItems: 'center',
+              }}
+            >
+              <XIcon style={{ width: 12 }} />
+            </Card>
+          </Link>
         </View>
       </Container>
     </ScreenContainer>

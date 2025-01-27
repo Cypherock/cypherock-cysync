@@ -9,13 +9,30 @@ import {
 } from '@/components/ui';
 import { colors } from '@/components/ui/themes/color.styled';
 import { Images } from '@/constants';
-import { useAppSelector } from '@/store';
-import { selectLanguage } from '@/store/lang';
 import Octicons from '@expo/vector-icons/Octicons';
 import { Image } from 'expo-image';
+import { useState } from 'react';
+import * as Clipboard from 'expo-clipboard';
+import { useAppSelector } from '@/store';
+import { selectLanguage } from '@/store/lang';
+import { useLocalSearchParams } from 'expo-router';
+import QRCode from 'react-native-qrcode-svg';
+import { View } from 'react-native';
 
 export default function Receive() {
+  const { walletName, accountName, address } = useLocalSearchParams();
   const { strings } = useAppSelector(selectLanguage);
+  const [copied, setCopied] = useState(false);
+
+  const derivedAddress = Array.isArray(address) ? address[0] : address;
+
+  const handleCopy = async () => {
+    await Clipboard.setStringAsync(derivedAddress);
+    setCopied(true);
+    setTimeout(() => {
+      setCopied(false);
+    }, 2000);
+  };
 
   return (
     <ScreenContainer>
@@ -26,12 +43,12 @@ export default function Receive() {
             variables={{
               crypto: (
                 <Typography type="para" color="primary">
-                  Ethereum 1
+                  {accountName}
                 </Typography>
               ),
               wallet: (
                 <Typography type="para" color="primary">
-                  Cypherock
+                  {walletName}
                 </Typography>
               ),
             }}
@@ -45,18 +62,19 @@ export default function Receive() {
             alignItems: 'center',
           }}
         >
-          <Image
-            source={Images.onboarding.screen4_1}
-            style={{ width: 151, height: 151 }}
-          />
+          <View
+            style={{ backgroundColor: 'white', padding: 10, borderRadius: 8 }}
+          >
+            <QRCode value={derivedAddress} size={151} />
+          </View>
           <Card
             borderColor="secondary"
             style={{ flexDirection: 'row', gap: 24 }}
           >
             <Typography type="para" style={{ textAlign: 'left' }}>
-              0xe0A4568d7F15e7EeF2194CC8cA507C2fD17C63D6
+              {derivedAddress}
             </Typography>
-            <Copy />
+            <Copy onPress={handleCopy} copied={copied} />
           </Card>
         </Container>
         <MessageBox
