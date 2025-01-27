@@ -1,6 +1,6 @@
 {
   "name": "cysync-mobile",
-  "main": "expo-router/entry",
+  "main": "./App.js",
   "version": "0.1.0",
   "scripts": {
     "start": "expo start",
