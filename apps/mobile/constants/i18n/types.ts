@@ -65,6 +65,23 @@ export interface LangOnboarding {
     title: string;
     description: string;
   };
+  passwordPage: {
+    title: string;
+    inputs: {
+      newPassword: {
+        placeholder: string;
+        description: string;
+      };
+      confirmPassword: {
+        placeholder: string;
+        description: string;
+      };
+    };
+    success: {
+      title: string;
+      subTitle: string;
+    };
+  };
 }
 
 export interface LangScan {
@@ -183,9 +200,6 @@ export interface LangSettings {
         placeholder: string;
         description: string;
       };
-      radio: {
-        label: string;
-      };
     };
   };
   changePassword: {
@@ -201,9 +215,6 @@ export interface LangSettings {
       confirmPassword: {
         placeholder: string;
         description: string;
-      };
-      radio: {
-        label: string;
       };
     };
   };
