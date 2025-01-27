@@ -1,47 +1,28 @@
 import { Realm } from '@realm/react';
+import {
+  ITransaction,
+  ITransactionInputOutput,
+  ObjectLiteral,
+} from '@cypherock/db-interfaces';
 
-export class Transaction extends Realm.Object {
-  _id!: Realm.BSON.ObjectId;
-  hash!: string;
-  fees!: string;
-  amount!: string;
-  status!: string;
-  type!: string;
-  timestamp!: number;
-  blockHeight!: number;
-  inputs!: Realm.List<any>;
-  outputs!: Realm.List<any>;
-  accountId!: string;
-  confirmations?: number;
-  extraData?: object;
-  assetId!: string;
-  walletId!: string;
-  familyId!: string;
-  parentTransactionId?: string;
-  parentAccountId?: string;
-  parentAssetId!: string;
-  subType?: string;
-  customId?: string;
-  description?: string;
-  remarks?: Realm.List<any>;
-
-  static schema = {
+export class Transaction extends Realm.Object<ITransaction> {
+  static schema: Realm.ObjectSchema = {
     name: 'Transaction',
-    primaryKey: '_id',
+    primaryKey: '__id',
     properties: {
-      _id: 'objectId',
+      __id: 'string',
       hash: 'string',
       fees: 'string',
       amount: 'string',
       status: 'string',
       type: 'string',
-      timestamp: 'int',
+      timestamp: 'double',
       blockHeight: 'int',
-      inputs: 'list',
-      outputs: 'list',
+      inputs: 'mixed',
+      outputs: 'mixed',
       accountId: 'string',
       confirmations: 'int?',
-      extraData: 'object?',
+      extraData: 'mixed',
       assetId: 'string',
       walletId: 'string',
       familyId: 'string',
@@ -51,7 +32,31 @@ export class Transaction extends Realm.Object {
       subType: 'string?',
       customId: 'string?',
       description: 'string?',
-      remarks: 'list?',
+      remarks: 'mixed?',
     },
   };
+
+  __id!: string;
+  hash!: string;
+  fees!: string;
+  amount!: string;
+  status!: string;
+  type!: string;
+  timestamp!: number;
+  blockHeight!: number;
+  inputs!: ITransactionInputOutput[];
+  outputs!: ITransactionInputOutput[];
+  accountId!: string;
+  confirmations?: number;
+  extraData!: ObjectLiteral;
+  assetId!: string;
+  walletId!: string;
+  familyId!: string;
+  parentTransactionId?: string;
+  parentAccountId?: string;
+  parentAssetId!: string;
+  subType?: string;
+  customId?: string;
+  description?: string;
+  remarks?: string[];
 }

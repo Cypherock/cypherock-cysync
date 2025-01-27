@@ -17,8 +17,6 @@ import {
   ITransactionNotificationReadRepository,
   ITransactionNotificationRead,
   ITransactionNotificationClick,
-  IDevice,
-  IMigration,
   IPriceHistory,
   IPriceInfo,
 } from '@cypherock/db-interfaces';
@@ -30,8 +28,6 @@ import { Account } from './models/Account';
 import { Transaction } from './models/Transaction';
 import { TransactionNotificationRead } from './models/TransactionNotificationRead';
 import { TransactionNotificationClick } from './models/TransactionNotificationClick';
-import { Device } from './models/Device';
-import { Migration } from './models/Migration';
 import { PriceHistory } from './models/PriceHistory';
 import { PriceInfo } from './models/PriceInfo';
 
@@ -72,7 +68,7 @@ export class Database implements IDatabase {
 
   public static async create() {
     const database = await Realm.open({
-      path: 'mydatabase',
+      path: 'parallellines',
       schema: [
         Wallet.schema,
         Account.schema,

@@ -67,19 +67,23 @@ export class Repository<T extends IEntity> implements IRepository<T> {
   async update(
     filter: Partial<T> | Partial<T>[] | undefined,
     updateEntity: Partial<T>,
-    options?: IGetOptions<T>,
   ): Promise<T[]> {
     try {
       const objects = await this.findObjects(filter);
 
       this.realm.write(() => {
         objects.forEach(obj => {
-          Object.assign(obj, { ...updateEntity, __version: this.version });
+          const { __id, ...otherUpdates } = updateEntity;
+          console.log('updateEntitiy: ', otherUpdates);
+          Object.assign(obj, {
+            ...otherUpdates,
+          });
         });
       });
 
       return Array.from(objects);
     } catch (error: any) {
+      console.log(error);
       throw new DatabaseError(
         DatabaseErrorType.UPDATE_FAILED,
         `Failed to update: ${error.message}`,
@@ -167,11 +171,14 @@ export class Repository<T extends IEntity> implements IRepository<T> {
 
     if (filter) {
       const filters = Array.isArray(filter) ? filter : [filter];
+
       query = filters
         .map(f =>
           Object.entries(f)
             .map(([key, value]) => {
+              if (value === null) return `${key} == null`;
               if (typeof value === 'string') return `${key} == "${value}"`;
+              if (typeof value === 'boolean') return `${key} == ${value}`;
               return `${key} == ${value}`;
             })
             .join(' AND '),
@@ -179,13 +186,15 @@ export class Repository<T extends IEntity> implements IRepository<T> {
         .join(' OR ');
     }
 
-    return query
-      ? (this.realm
-          .objects(this.name)
-          .filtered(query) as unknown as Realm.Results<T & Realm.Object>)
-      : (this.realm.objects(this.name) as unknown as Realm.Results<
-          T & Realm.Object
-        >);
+    if (!query.trim()) {
+      return this.realm.objects(this.name) as unknown as Realm.Results<
+        T & Realm.Object
+      >;
+    }
+
+    return this.realm
+      .objects(this.name)
+      .filtered(query) as unknown as Realm.Results<T & Realm.Object>;
   }
 
   addListener(type: 'change', listener: (...args: any[]) => void): void {
