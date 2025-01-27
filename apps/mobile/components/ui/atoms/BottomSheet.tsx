@@ -1,5 +1,6 @@
 import styled from 'styled-components/native';
 import {
+  BottomSheetBackdrop,
   BottomSheetBackdropProps,
   BottomSheetBackgroundProps,
   BottomSheetModal,
@@ -16,24 +17,6 @@ export const CyBottomSheetView = styled(OgBottomSheetView)`
   padding-top: 4px;
 `;
 
-const BottomSheetBackground: FC<BottomSheetBackgroundProps> = ({ style }) => {
-  return (
-    <Animated.View
-      pointerEvents="none"
-      style={[{ backgroundColor: colors.background.primary }, style]}
-    />
-  );
-};
-
-const Backdrop: FC<BottomSheetBackdropProps> = ({ style }) => {
-  return (
-    <Animated.View
-      pointerEvents="none"
-      style={[{ backgroundColor: colors.black, opacity: 0.5 }, style]}
-    />
-  );
-};
-
 export const CyBottomSheetModal = forwardRef(
   (
     props: BottomSheetModalProps,
@@ -41,14 +24,31 @@ export const CyBottomSheetModal = forwardRef(
   ) => {
     return (
       <BottomSheetModal
-        backdropComponent={Backdrop}
+        backdropComponent={backdropProps => (
+          <BottomSheetBackdrop
+            {...backdropProps}
+            opacity={0.5}
+            pressBehavior="close" // This enables the backdrop press to close the modal
+            disappearsOnIndex={-1}
+            appearsOnIndex={0}
+            enableTouchThrough={false}
+          />
+        )}
         handleIndicatorStyle={{ backgroundColor: 'white', borderRadius: 16 }}
         containerStyle={{
           borderTopEndRadius: 16,
         }}
         {...props}
         ref={ref}
-        backgroundComponent={BottomSheetBackground}
+        backgroundComponent={(backgroundProps: BottomSheetBackgroundProps) => (
+          <Animated.View
+            pointerEvents="none"
+            style={[
+              { backgroundColor: colors.background.primary },
+              backgroundProps.style,
+            ]}
+          />
+        )}
       />
     );
   },

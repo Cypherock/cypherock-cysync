@@ -3,6 +3,7 @@ import { TouchableOpacityProps } from 'react-native';
 import styled from 'styled-components/native';
 import { Tag } from './Tag';
 import { colors } from '../themes/color.styled';
+import { Typography } from './Typography';
 
 interface InteractiveItemProps extends TouchableOpacityProps {
   leftIcon?: ReactNode;
@@ -45,18 +46,7 @@ const TextContainer = styled.View`
   align-items: center;
 `;
 
-const StyledText = styled.Text`
-  text-align: left;
-  color: ${({ theme }) => theme.palette.text.secondary};
-  font-size: 12px;
-  line-height: 18px;
-`;
-
-const StyledAltText = styled(StyledText)`
-  color: ${({ theme }) => theme.palette.text.muted};
-`;
-
-const StyledRightText = styled(StyledText)`
+const StyledRightText = styled(Typography)`
   text-align: right;
   text-transform: uppercase;
 `;
@@ -79,12 +69,16 @@ export function InteractiveItem({
       {<SelectedBar selected={selected} />}
       {leftIcon && <Icon>{leftIcon}</Icon>}
       <TextContainer>
-        <StyledText>{text}</StyledText>
-        {altText && <StyledAltText>{altText}</StyledAltText>}
+        <Typography type="body">{text}</Typography>
+        {altText && (
+          <Typography type="label" color="muted">
+            {altText}
+          </Typography>
+        )}
         {tag && <Tag>{tag}</Tag>}
       </TextContainer>
       {rightIcon && <Icon>{rightIcon}</Icon>}
-      {rightText && <StyledRightText>{rightText}</StyledRightText>}
+      {rightText && <StyledRightText type="body">{rightText}</StyledRightText>}
     </Container>
   );
 }
