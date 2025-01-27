@@ -74,6 +74,7 @@ import {
   SelectionDialog,
   DeviceAction,
 } from '../Dialogs';
+import { ServerError, ServerErrorType } from '@cypherock/cysync-core-constants';
 
 export interface SendDialogContextInterface {
   tabs: ITabs;
@@ -332,7 +333,16 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
       );
       onNext();
     } catch (e: any) {
-      onError(e);
+      logger.error(e);
+
+      const broadcastError = new ServerError(
+        ServerErrorType.TRANSACTION_BROADCAST_FAILED,
+        undefined,
+        {
+          advanceText: e?.message,
+        },
+      );
+      onError(broadcastError);
     }
   };
 

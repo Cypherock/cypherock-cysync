@@ -10,6 +10,8 @@ export enum ServerErrorType {
   RESOURCE_NOT_FOUND = 'SER_1007',
   INTERNAL_SERVER_ERROR = 'SER_1008',
   REQUEST_TIMEOUT = 'SER_1009',
+
+  // Inheritance Errors
   OTP_EXPIRED = 'SER_1010',
   PAYLOAD_VALIDATION_ERROR = 'SER_1011',
   MAX_RETRIES_EXCEEDED = 'SER_1012',
@@ -29,6 +31,8 @@ export enum ServerErrorType {
   ACTIVE_PLAN_FOUND = 'SER_1026',
   OTP_RESEND_LIMIT = 'SER_1027',
   DUPLICATE_EMAIL = 'SER_1028',
+
+  TRANSACTION_BROADCAST_FAILED = 'SER_2000',
 }
 
 type CodeToErrorMap = {
@@ -124,6 +128,9 @@ export const serverErrorTypeDetails: CodeToErrorMap = {
   },
   [ServerErrorType.DUPLICATE_EMAIL]: {
     message: 'Duplicate Email',
+  },
+  [ServerErrorType.TRANSACTION_BROADCAST_FAILED]: {
+    message: 'Transaction Broadcast Failed',
   },
 };
 
