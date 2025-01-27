@@ -7,20 +7,18 @@ import { router } from 'expo-router';
 import { ScanningResult } from 'expo-camera';
 import { useAppSelector } from '@/store';
 import { selectLanguage } from '@/store/lang';
-import { useRealm } from '@realm/react';
+import { IAccount, IWallet } from '@cypherock/db-interfaces';
+import { getDB } from '@/db';
 
 interface WalletData {
-  name: string;
-  walletId: string;
-  walletName: string;
-  xpubOrAddress: string;
+  wallets: IWallet[];
+  accounts: IAccount[];
 }
 
 export default function Scan() {
   const { strings } = useAppSelector(selectLanguage);
   const scannedData = useRef<Record<number, string>>({});
-  const [decodedData, setDecodedData] = useState<WalletData[]>([]);
-  const realm = useRealm();
+  const [decodedData, setDecodedData] = useState<WalletData>();
 
   function navigateToNext() {
     router.dismissTo('/receive/wallet');
@@ -40,52 +38,27 @@ export default function Scan() {
         .map(key => scannedData.current[Number(key)]);
 
       const completeData = sortedChunks.join('');
-      setDecodedData(JSON.parse(completeData) as WalletData[]);
+      setDecodedData(JSON.parse(completeData) as WalletData);
+    }
+  }
+
+  async function saveDataToDb(data: WalletData) {
+    try {
+      const db = await getDB();
+      await db.wallet.insert(data.wallets[0]);
+      await db.account.insert(data.accounts[0]);
+    } catch (error) {
+      console.log(error);
+      console.log('Failed to save data');
     }
   }
 
   useEffect(() => {
-    if (decodedData.length > 0) {
-      decodedData.forEach(data => {
-        realm.write(() => {
-          realm.delete(realm.objects('Wallet'));
-          realm.create('Wallet', {
-            __id: new Realm.BSON.ObjectId().toHexString(),
-            name: data.name,
-            walletId: data.walletId,
-            walletName: data.walletName,
-            xpubOrAddress: data.xpubOrAddress,
-            hasPin: false,
-            hasPassphrase: false,
-            deviceId: 'mockDeviceId',
-          });
-        });
-        realm.write(() => {
-          realm.delete(realm.objects('Account'));
-          realm.create('Account', {
-            __id: new Realm.BSON.ObjectId().toHexString(),
-            name: data.name,
-            walletId: data.walletId,
-            walletName: data.walletName,
-            xpubOrAddress: data.xpubOrAddress,
-            balance: '0',
-            spendableBalance: '0',
-            unit: 'BTC',
-            derivationScheme: 'BIP44',
-            derivationPath: "m/44'/0'/0'/0",
-            type: 'bitcoin',
-            extraData: '{}',
-            assetId: 'bitcoin',
-            familyId: 'bitcoin',
-            parentAssetId: 'bitcoin',
-            parentAccountId: 'bitcoin',
-            isHidden: false,
-          });
-        });
-      });
+    if (decodedData) {
+      saveDataToDb(decodedData);
       navigateToNext();
     }
-  }, [decodedData, realm]);
+  }, [decodedData]);
 
   return (
     <ScreenContainer>
