@@ -1,17 +1,17 @@
 import { View, ScrollView } from 'react-native';
-import React, { useEffect } from 'react';
-import { router, useLocalSearchParams, useNavigation } from 'expo-router';
+import React, { useEffect, useState } from 'react';
+import { useLocalSearchParams, useNavigation } from 'expo-router';
 import { Copy, Flex, ScreenContainer, Tag, Typography } from '@/components/ui';
 import { colors } from '@/components/ui/themes/color.styled';
 import { useAppSelector } from '@/store';
 import { selectLanguage } from '@/store/lang';
+import * as Clipboard from 'expo-clipboard';
 
 interface ISender {
   address: string;
   tag?: string;
 }
 
-// eslint-disable-next-line @typescript-eslint/no-empty-object-type
 interface IReceiver extends ISender {}
 
 interface ITransaction {
@@ -57,6 +57,7 @@ export default function Index() {
   const { strings } = useAppSelector(selectLanguage);
   const { id } = useLocalSearchParams();
   const navigation = useNavigation();
+  const [copied, setCopied] = useState<string | null>(null);
 
   useEffect(() => {
     navigation.setOptions({
@@ -66,6 +67,14 @@ export default function Index() {
           : strings.history.details.heading.received,
     });
   }, []);
+
+  const handleCopy = async (text: string) => {
+    await Clipboard.setStringAsync(text);
+    setCopied(text);
+    setTimeout(() => {
+      setCopied(null);
+    }, 2000); // 2 seconds
+  };
 
   return (
     <ScreenContainer>
@@ -100,9 +109,13 @@ export default function Index() {
           <Typography type="body" textAlign="left" style={{ flex: 1 }}>
             {id}
           </Typography>
-          <Copy size={10} />
+          <Copy
+            size={10}
+            onPress={() => handleCopy(id as string)}
+            copied={copied === id}
+          />
         </View>
-        <ScrollView>
+        <ScrollView style={{ width: '100%' }}>
           {Object.entries(Transaction).map(([key, value], i) => (
             <Flex
               style={[
@@ -133,13 +146,15 @@ export default function Index() {
                 {key}
               </Typography>
               {Array.isArray(value) ? (
-                value.map((item: ISender) => (
+                value.map((item: ISender, itemIndex: number) => (
                   <Flex
+                    key={`${key}-${itemIndex}`}
                     style={{
                       width: '100%',
                       maxWidth: '100%',
                       paddingTop: 8,
-                      gap: 8,
+                      flexDirection: 'row',
+                      alignItems: 'center',
                     }}
                   >
                     <Typography
@@ -148,11 +163,25 @@ export default function Index() {
                       numberOfLines={1}
                       textAlign="left"
                       color={item.tag ? 'secondary' : undefined}
+                      style={{ flex: 1 }}
                     >
                       {item.address}
                     </Typography>
-                    {item.tag && <Tag>{item.tag}</Tag>}
-                    <Copy size={10} style={{ marginLeft: 'auto' }} />
+                    <Flex
+                      style={{
+                        marginLeft: 'auto',
+                        flexDirection: 'row',
+                        alignItems: 'center',
+                        gap: 8,
+                      }}
+                    >
+                      {item.tag && <Tag>{item.tag}</Tag>}
+                      <Copy
+                        size={10}
+                        onPress={() => handleCopy(item.address)}
+                        copied={copied === item.address}
+                      />
+                    </Flex>
                   </Flex>
                 ))
               ) : (
