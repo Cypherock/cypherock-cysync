@@ -1,4 +1,5 @@
 import Realm from 'realm';
+import { ObjectLiteral } from '@cypherock/db-interfaces';
 
 export class Account extends Realm.Object {
   static schema: Realm.ObjectSchema = {
@@ -14,7 +15,7 @@ export class Account extends Realm.Object {
       derivationScheme: 'string?',
       derivationPath: 'string',
       type: 'string',
-      extraData: 'string?',
+      extraData: 'mixed',
       assetId: 'string',
       familyId: 'string',
       walletId: 'string',
@@ -33,7 +34,7 @@ export class Account extends Realm.Object {
   derivationScheme?: string;
   derivationPath!: string;
   type!: string;
-  extraData?: string;
+  extraData?: ObjectLiteral;
   assetId!: string;
   familyId!: string;
   walletId!: string;
