@@ -39,12 +39,14 @@ export default function Wallet() {
         <ScrollView>
           <Card style={styles.card}>
             {wallets.map((wallet, index) => (
-              <React.Fragment key={wallet._id}>
+              <React.Fragment key={wallet.__id}>
                 <InteractiveItem
                   leftIcon={<WalletIcon />}
                   text={wallet.name}
                   onPress={() =>
-                    router.push(`/receive/account?walletId=${wallet.walletId}`)
+                    router.push(
+                      `/receive/account?walletId=${wallet.deviceId}&walletName=${wallet.name}`,
+                    )
                   }
                 />
                 {index < wallets.length - 1 && <Seperator />}
