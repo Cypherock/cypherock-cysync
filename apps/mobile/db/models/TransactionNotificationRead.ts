@@ -1,19 +1,19 @@
 import { Realm } from '@realm/react';
 
 export class TransactionNotificationRead extends Realm.Object {
-  _id!: Realm.BSON.ObjectId;
-  transactionId!: string;
-  transactionStatus!: string;
-  isRead!: boolean;
-
   static schema = {
     name: 'TransactionNotificationRead',
-    primaryKey: '_id',
+    primaryKey: '__id',
     properties: {
-      _id: 'objectId',
+      __id: 'string',
       transactionId: 'string',
       transactionStatus: 'string',
       isRead: 'bool',
     },
   };
+
+  __id!: string;
+  transactionId!: string;
+  transactionStatus!: string;
+  isRead!: boolean;
 }

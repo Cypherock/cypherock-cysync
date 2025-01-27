@@ -1,19 +1,20 @@
+import { ITransactionNotificationClick } from '@cypherock/db-interfaces';
 import { Realm } from '@realm/react';
 
-export class TransactionNotificationClick extends Realm.Object {
-  _id!: Realm.BSON.ObjectId;
-  transactionId!: string;
-  isClicked!: boolean;
-  transactionStatus!: string;
-
-  static schema = {
+export class TransactionNotificationClick extends Realm.Object<ITransactionNotificationClick> {
+  static schema: Realm.ObjectSchema = {
     name: 'TransactionNotificationClick',
-    primaryKey: '_id',
+    primaryKey: '__id',
     properties: {
-      _id: 'objectId',
+      __id: 'string',
       transactionId: 'string',
       isClicked: 'bool',
       transactionStatus: 'string',
     },
   };
+
+  __id!: string;
+  transactionId!: string;
+  isClicked!: boolean;
+  transactionStatus!: string;
 }

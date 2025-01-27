@@ -1,21 +1,22 @@
+import { IPriceSnapshot } from '@cypherock/db-interfaces';
 import { Realm } from '@realm/react';
 
 export class PriceHistory extends Realm.Object {
-  _id!: Realm.BSON.ObjectId;
-  days!: number;
-  history!: Realm.List<any>;
-  assetId!: string;
-  currency!: string;
-
-  static schema = {
+  static schema: Realm.ObjectSchema = {
     name: 'PriceHistory',
-    primaryKey: '_id',
+    primaryKey: '__id',
     properties: {
-      _id: 'objectId',
+      __id: 'string',
       days: 'int',
-      history: 'list',
+      history: 'mixed',
       assetId: 'string',
       currency: 'string',
     },
   };
+
+  __id!: string;
+  days!: number;
+  history!: IPriceSnapshot;
+  assetId!: string;
+  currency!: string;
 }
