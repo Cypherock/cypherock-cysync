@@ -73,6 +73,8 @@ export const getServerErrorHandlingDetails = (
       generateErrorHandlingDetails.retryWithReport(),
     [ServerErrorType.DUPLICATE_EMAIL]:
       generateErrorHandlingDetails.retryWithReport(),
+    [ServerErrorType.TRANSACTION_BROADCAST_FAILED]:
+      generateErrorHandlingDetails.retryWithReport(),
   };
 
   return serverErrorHandlingDetailsMap[errorCode];

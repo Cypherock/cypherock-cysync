@@ -1218,6 +1218,10 @@
       "SER_1028": {
         "heading": "Email Sudah Terdaftar",
         "subtext": "Akun dengan alamat email ini sudah terdaftar. Silakan gunakan alamat email yang berbeda atau hubungi dukungan Cypherock untuk bantuan."
+      },
+      "SER_2000": {
+        "heading": "Penyiaran transaksi gagal",
+        "subtext": "Coba lagi atau hubungi dukungan untuk bantuan"
       }
     },
     "binanceErrors": {
