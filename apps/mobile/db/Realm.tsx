@@ -19,7 +19,7 @@ const RealmSync = () => {
 
     const walletListener = () => {
       const walletsData: IWallet[] = wallets.map(wallet => ({
-        _id: wallet.__id,
+        __id: wallet.__id,
         name: wallet.name,
         hasPin: wallet.hasPin,
         hasPassphrase: wallet.hasPassphrase,
@@ -30,7 +30,7 @@ const RealmSync = () => {
 
     const accountListener = () => {
       const accountsData: IAccount[] = accounts.map(account => ({
-        _id: account.__id,
+        __id: account.__id,
         name: account.name,
         walletId: account.walletId,
         xpubOrAddress: account.xpubOrAddress,
