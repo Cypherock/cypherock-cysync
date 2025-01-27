@@ -33,13 +33,11 @@ const BannerTitle = styled.Text`
   font-size: ${({ theme }) => theme.typography.fontSize.sm}px;
   color: ${({ theme }) => theme.palette.accent};
   font-weight: ${({ theme }) => theme.typography.fontWeight.bold};
-  line-height: 15px;
 `;
 
 const BannerSubtitle = styled.Text`
-  font-size: ${({ theme }) => theme.typography.fontSize.xs}px;
+  font-size: ${({ theme }) => theme.typography.fontSize.xs * 0.8}px;
   color: ${({ theme }) => theme.palette.text.primary};
-  line-height: 11px;
 `;
 
 export const Banner = ({ img, title, subtitle, onPress }: BannerProps) => {
