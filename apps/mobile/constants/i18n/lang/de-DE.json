@@ -15,70 +15,87 @@
   },
   "onboarding": {
     "welcome": {
-      "title": "Willkommen in der Cysync App",
-      "description": "Ihr Tor zur Selbstbestimmung",
+      "title": "Willkommen in der cySync App",
+      "description": "Ihr Tor zur Selbstsouveränität",
       "termsOfUse": "Nutzungsbedingungen",
       "privacyPolicy": "Datenschutzrichtlinie",
-      "byProceeding": "Durch das Fortfahren akzeptieren Sie Cypherocks ${termsOfUse} und ${privacyPolicy}"
+      "byProceeding": "Indem Sie fortfahren, akzeptieren Sie Cypherocks ${termsOfUse} und ${privacyPolicy}"
     },
     "portfolio": {
       "title": "Portfolio",
-      "description": "Verfolgen Sie Ihre Krypto-Vermögenswerte über Metamask, Ledger und jede andere Wallet, die Sie besitzen"
+      "description": "Verfolgen Sie Ihre Krypto-Assets über Metamask, Ledger und jede andere Wallet, die Sie besitzen"
     },
     "history": {
       "title": "Verlauf",
-      "description": "Sehen Sie sich Ihre bisherigen Transaktionen an und erhalten Sie Benachrichtigungen, wenn eine Transaktion von Ihrem Cypherock X1 initiiert wird"
+      "description": "Sehen Sie sich Ihren vergangenen Transaktionsverlauf an und lassen Sie sich benachrichtigen, wenn eine Transaktion von Ihrem Cypherock X1 initiiert wird"
     },
     "receive": {
       "title": "Empfangen",
-      "description": "Empfangen Sie Ihre Krypto-Vermögenswerte direkt in Ihrem Cypherock X1. Unterwegs"
+      "description": "Empfangen Sie Ihre Krypto-Assets direkt in Ihrem Cypherock X1. Unterwegs!"
     },
     "scan": {
       "title": "QR von der Desktop-App synchronisieren",
       "description": [
-        "Stellen Sie sicher, dass Sie ein Cypherock X1 gekauft haben und es bereits eingerichtet ist, bevor Sie scannen",
-        "Öffnen Sie in der Cysync Desktop-App die Einstellungen > Allgemein > Mit mobilem Gerät exportieren und scannen Sie den QR-Code"
+        "Stellen Sie sicher, dass Sie einen Cypherock X1 gekauft und bereits eingerichtet haben, bevor Sie scannen",
+        "Gehen Sie in Ihrer cySync-Desktop-App zu Einstellungen > Allgemein > Mit Mobilgerät exportieren und scannen Sie den QR-Code"
       ]
     },
     "permission": {
-      "title": "Kamera-Berechtigung erforderlich",
-      "description": "Bitte erteilen Sie Zugriff auf die Kamera. Ohne Kamera-Zugriff können Sie den QR-Code nicht scannen, der erforderlich ist, um mit Ihrer Cysync-Desktop-App zu synchronisieren"
+      "title": "Kameraberechtigung erforderlich",
+      "description": "Bitte gewähren Sie Zugriff auf die Kamera. Ohne Kamerazugriff können Sie den QR-Code nicht scannen, der für die Synchronisierung mit Ihrem cySync-Desktop erforderlich ist"
     },
     "info": {
-      "title": "Ihre Desktop- und Mobile-Apps müssen manuell synchronisiert werden",
-      "description": "Die cySync App speichert Ihre Daten lokal. Wenn Sie Ihre Coins/Konten in der Desktop-App aktualisieren, müssen Sie dies auch in der mobilen App tun"
+      "title": "Ihre Desktop- und Mobil-Apps müssen manuell synchronisiert werden",
+      "description": "Die cySync-App speichert Ihre Daten lokal. Wenn Sie Ihre Coins/Konten in Ihrer Desktop-App aktualisieren, müssen Sie dasselbe in Ihrer mobilen App tun"
+    },
+    "passwordPage": {
+      "title": "Neues Passwort erstellen",
+      "inputs": {
+        "newPassword": {
+          "placeholder": "Neues Passwort",
+          "description": "Das Passwort muss 8-16 Zeichen lang sein und mindestens zwei der folgenden Elemente enthalten: Großbuchstaben, Kleinbuchstaben, Zahlen oder Sonderzeichen"
+        },
+        "confirmPassword": {
+          "placeholder": "Passwort bestätigen",
+          "description": "Beide Passwörter müssen übereinstimmen"
+        }
+      },
+      "success": {
+        "title": "Neues Passwort erfolgreich hinzugefügt",
+        "subTitle": "Sie können sich jetzt mit Ihrem neuen Passwort anmelden"
+      }
     }
   },
   "scan": {
-    "alignQrCode": "QR-Code ausrichten, damit er im Rahmen passt",
+    "alignQrCode": "Richten Sie den QR-Code so aus, dass er in den Rahmen passt",
     "pleaseWait": "Bitte warten",
     "messageBox": {
-      "warning": "Hinweis: Es kann mehr als einen QR-Code zum Scannen geben"
+      "warning": "Hinweis: Es kann mehr als ein QR-Code zu scannen sein"
     },
     "loading": {
-      "description": "Bitte warten, während wir Ihre Daten abrufen"
+      "description": "Bitte warten Sie, während wir Ihre Daten abrufen"
     }
   },
   "portfolio": {
     "heading": "Portfolio",
     "noAccount": {
-      "title": "Noch nichts hier!",
-      "subTitle": "Wir konnten nichts finden. Versuchen Sie erneut, den QR-Code auf Ihrem Desktop zu scannen"
+      "title": "Hier ist noch nichts!",
+      "subTitle": "Wir konnten nichts finden. Versuchen Sie, den QR-Code auf Ihrem Desktop erneut zu scannen"
     },
     "dashboard": {
       "table": {
         "asset": "Vermögenswert",
-        "amount": "Menge"
+        "amount": "Betrag"
       }
     }
   },
   "history": {
     "heading": "Verlauf",
     "history": {
-      "title": "Transaktionsverlauf",
+      "title": "Transaktions-Hash",
       "table": {
         "time": "Zeit",
-        "amount": "Menge"
+        "amount": "Betrag"
       }
     },
     "details": {
@@ -91,15 +108,15 @@
   "receive": {
     "heading": "Empfangen",
     "chooseWallet": {
-      "title": "Wählen Sie eine Wallet, um Krypto zu empfangen"
+      "title": "Wählen Sie eine Wallet aus, in der Sie Kryptowährungen empfangen möchten"
     },
     "chooseAccount": {
-      "title": "Wählen Sie die Krypto-Währung, die Sie empfangen möchten"
+      "title": "Wählen Sie eine Kryptowährung aus, die Sie empfangen möchten"
     },
     "receive": {
       "info": "Adresse für ${crypto} in ${wallet}",
       "messageBox": {
-        "danger": "Die Empfangsadresse ist auf dem Gerät nicht verifiziert. Nutzen Sie sie auf eigenes Risiko"
+        "danger": "Die Empfangsadresse wurde nicht auf dem Gerät verifiziert. Verwenden Sie sie auf eigenes Risiko"
       }
     }
   },
@@ -110,7 +127,7 @@
       "description": "E-Mail an: "
     },
     "socials": {
-      "title": "Bleiben Sie in Kontakt mit Cypherock",
+      "title": "Bleiben Sie mit Cypherock in Verbindung",
       "description": "Ankündigungen finden Sie in unserem Blog"
     }
   },
@@ -128,7 +145,7 @@
     },
     "displayLanguage": {
       "heading": "Sprache",
-      "title": "Sprache wählen"
+      "title": "Sprache auswählen"
     },
     "preferredCurrency": {
       "heading": "Währung",
@@ -136,8 +153,8 @@
     },
     "about": {
       "heading": "Über",
-      "title": "CySync Version",
-      "version": "",
+      "title": "cySync Version",
+      "version": "Version",
       "termsOfUse": "Nutzungsbedingungen",
       "privacyPolicy": "Datenschutzrichtlinie"
     },
@@ -152,14 +169,11 @@
       "inputs": {
         "newPassword": {
           "placeholder": "Neues Passwort",
-          "description": "Das Passwort muss 8-16 Zeichen enthalten und mindestens zwei der folgenden Elemente beinhalten: Großbuchstaben, Kleinbuchstaben, Zahlen oder Symbole"
+          "description": "Das Passwort muss 8-16 Zeichen lang sein und mindestens zwei der folgenden Elemente enthalten: Großbuchstaben, Kleinbuchstaben, Zahlen oder Sonderzeichen"
         },
         "confirmPassword": {
           "placeholder": "Passwort bestätigen",
           "description": "Beide Passwörter müssen übereinstimmen"
-        },
-        "radio": {
-          "label": "Fingerabdruckentsperrung erlauben"
         }
       }
     },
@@ -172,19 +186,16 @@
         "newPassword": {
           "placeholder": "Neues Passwort"
         },
-        "description": "Das Passwort muss 8-16 Zeichen enthalten und mindestens zwei der folgenden Elemente beinhalten: Großbuchstaben, Kleinbuchstaben, Zahlen oder Symbole",
+        "description": "Das Passwort muss 8-16 Zeichen lang sein und mindestens zwei der folgenden Elemente enthalten: Großbuchstaben, Kleinbuchstaben, Zahlen oder Sonderzeichen",
         "confirmPassword": {
           "placeholder": "Passwort bestätigen",
           "description": "Beide Passwörter müssen übereinstimmen"
-        },
-        "radio": {
-          "label": "Fingerabdruckentsperrung erlauben"
         }
       }
     },
     "newPasswordAdded": {
       "title": "Neues Passwort erfolgreich hinzugefügt",
-      "description": "Sie müssen sich erneut anmelden, um die App zu nutzen. Klicken Sie auf die Schaltfläche unten"
+      "description": ""
     },
     "removePassword": {
       "title": "Passwort entfernen?",
