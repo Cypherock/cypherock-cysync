@@ -1,14 +1,16 @@
 import { View } from 'react-native';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Button, Container, ScreenContainer, Typography } from '../atoms';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { colors } from '../themes/color.styled';
+import { router } from 'expo-router';
 
 interface SuccessScreenProps {
   title: string;
   subTitle?: string;
   actionText?: string;
   onAction?: () => void;
+  redirectRoute?: string;
 }
 
 export function Success({
@@ -16,7 +18,18 @@ export function Success({
   subTitle,
   actionText,
   onAction,
+  redirectRoute,
 }: SuccessScreenProps) {
+  useEffect(() => {
+    if (redirectRoute) {
+      const timer = setTimeout(() => {
+        router.replace(redirectRoute);
+      }, 2000);
+
+      return () => clearTimeout(timer);
+    }
+  }, [redirectRoute]);
+
   return (
     <ScreenContainer>
       <Container
@@ -35,7 +48,7 @@ export function Success({
         />
         <View style={{ gap: 4 }}>
           <Typography type="h3">{title}</Typography>
-          {subTitle ?? (
+          {subTitle && (
             <Typography type="body" color="secondary" style={{ flexShrink: 0 }}>
               {subTitle}
             </Typography>
