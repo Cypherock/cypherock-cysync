@@ -7,7 +7,6 @@ export default function RootLayout() {
       <Stack.Screen name="info" />
       <Stack.Screen name="onboarding" />
       <Stack.Screen name="PasswordPage" />
-      <Stack.Screen name="permission" />
     </Stack>
   );
 }

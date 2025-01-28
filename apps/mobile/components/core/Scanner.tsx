@@ -2,13 +2,16 @@ import { View, StyleSheet, Dimensions } from 'react-native';
 import React, { useState } from 'react';
 import { ImageBackground } from 'expo-image';
 import { Images } from '@/constants/images';
-import { Icon, Link, Typography } from '../atoms';
+import { Icon, Typography } from '../ui/atoms';
 import {
   CameraView,
   useCameraPermissions,
   FlashMode,
   ScanningResult,
 } from 'expo-camera';
+import { useAppSelector } from '@/store';
+import { selectLanguage } from '@/store/lang';
+import { Redirect } from 'expo-router';
 
 const width = Dimensions.get('window').width;
 
@@ -17,11 +20,12 @@ interface ScannerProps {
 }
 
 export function Scanner({ onQrScanned }: ScannerProps) {
+  const { strings } = useAppSelector(selectLanguage);
   const [flashMode, setFlashMode] = useState<FlashMode>('off');
   const [permission] = useCameraPermissions();
 
-  if (!permission?.granted) {
-    return <View style={[styles.camera, { backgroundColor: '#2C2825' }]} />;
+  if (permission && !permission.granted) {
+    return <Redirect href={'/permission'} />;
   }
 
   function toggleFlashMode() {
@@ -52,18 +56,7 @@ export function Scanner({ onQrScanned }: ScannerProps) {
           }}
         />
       </ImageBackground>
-      {!permission.granted ? (
-        <Typography type="body">
-          Align QR code to fill inside the frame
-        </Typography>
-      ) : (
-        <Typography type="body">
-          Enable camera permissions{' '}
-          <Link style={{ fontSize: 12 }} href={'/permission'}>
-            from here
-          </Link>
-        </Typography>
-      )}
+      <Typography type="body">{strings.scan.alignQrCode}</Typography>
     </View>
   );
 }

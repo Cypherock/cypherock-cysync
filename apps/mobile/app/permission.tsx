@@ -1,12 +1,12 @@
 import React, { useEffect } from 'react';
 import { Card, OnboardingItem, ScreenContainer } from '@/components/ui';
 import { Images } from '@/constants';
-import { router } from 'expo-router';
 import { Image } from 'expo-image';
 import { useCameraPermissions } from 'expo-camera';
 import { keyValueStore } from '@/db';
 import { useAppSelector } from '@/store';
 import { selectLanguage } from '@/store/lang';
+import { Redirect } from 'expo-router';
 
 export default function Permission() {
   const { strings } = useAppSelector(selectLanguage);
@@ -15,9 +15,12 @@ export default function Permission() {
   useEffect(() => {
     if (permission?.granted) {
       keyValueStore.isOnboardingCompleted.set(true);
-      router.push('/scan');
     }
   }, [permission?.granted]);
+
+  if (permission?.granted) {
+    return <Redirect href={'/scan'} />;
+  }
 
   return (
     <ScreenContainer>
