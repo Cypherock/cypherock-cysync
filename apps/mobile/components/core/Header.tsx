@@ -22,6 +22,8 @@ export function Header({
   onBackPress,
   showDiscard = false,
 }: HeaderProps) {
+  let notifications;
+
   return (
     <StyledHeader
       title={title}
@@ -34,9 +36,10 @@ export function Header({
             <Icon
               source={{
                 default: Images.icon.notification_default,
-                disabled: Images.icon.notification_disabed,
+                disabled: Images.icon.notification_plain_default,
               }}
-              size="default"
+              size={'default'}
+              state={!notifications ? 'disabled' : 'default'}
               onPress={() => router.push('/notification')}
             />
           </Pressable>
