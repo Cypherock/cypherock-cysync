@@ -1,36 +1,34 @@
 import {
   Card,
   Container,
+  IInteractiveItemListItem,
   InteractiveItem,
   ScreenContainer,
   Search,
   Seperator,
   Typography,
-  WalletIcon,
 } from '@/components/ui';
 import NoDataScreen from '@/components/ui/molecules/NoDataScreen';
 import { getDB } from '@/db';
 import { useAppSelector } from '@/store';
-import { selectAccounts } from '@/store/accounts';
 import { selectLanguage } from '@/store/lang';
 import { getCoinSupport } from '@cypherock/coin-support';
 import { IReceiveEvent } from '@cypherock/coin-support-interfaces';
-import { IAccount } from '@cypherock/db-interfaces';
 import { router, useLocalSearchParams } from 'expo-router';
-import { useRef, useState, useEffect } from 'react';
+import { useRef, useState, useEffect, useCallback } from 'react';
 import { FlatList } from 'react-native';
 import { Subscription, Observer } from 'rxjs';
+import { useAccountList } from '@/hooks/useAccountList';
 
 export default function Account() {
   const { walletId, walletName }: { walletId: string; walletName: string } =
     useLocalSearchParams();
   const { strings } = useAppSelector(selectLanguage);
-  const { accounts: allAccounts } = useAppSelector(selectAccounts);
-  const [selectedAccount, setSelectedAccount] = useState<
-    IAccount | undefined
-  >();
   const [derivedAddress, setDerivedAddress] = useState('');
-  const [accounts, setAccounts] = useState<IAccount[] | undefined>();
+
+  const { accountList, selectedAccount, handleAccountChange } = useAccountList({
+    selectedWalletId: walletId,
+  });
 
   const flowSubscription = useRef<Subscription | undefined>();
 
@@ -38,13 +36,13 @@ export default function Account() {
     throw err;
   };
 
-  const onEnd = () => {
+  const onEnd = useCallback(() => {
     if (selectedAccount && derivedAddress) {
       router.push(
-        `/receive/address?accountName=${selectedAccount.name}&walletName=${walletName}&address=${derivedAddress}`,
+        `/receive/address?accountName=${selectedAccount.name}&assetId=${selectedAccount.assetId}&parentAssetId=${selectedAccount.parentAssetId}&walletName=${walletName}&address=${derivedAddress}`,
       );
     }
-  };
+  }, [selectedAccount, derivedAddress]);
 
   const cleanUp = () => {
     if (flowSubscription.current) {
@@ -61,20 +59,23 @@ export default function Account() {
     },
     error: err => {
       onError(err);
+      cleanUp();
     },
     complete: () => {
-      onEnd();
+      if (derivedAddress) {
+        onEnd();
+      }
       cleanUp();
     },
   });
 
-  async function getWalletAddress(account: IAccount) {
+  const getWalletAddress = useCallback(async () => {
     try {
-      setSelectedAccount(account);
-      const coinSupport = getCoinSupport(account.familyId);
+      if (!selectedAccount) return;
+      const coinSupport = getCoinSupport(selectedAccount.familyId);
       const subscription = coinSupport
         .receive({
-          accountId: account.__id ?? '',
+          accountId: selectedAccount.__id ?? '',
           db: await getDB(),
         })
         .subscribe(getFlowObserver(onEnd));
@@ -83,16 +84,34 @@ export default function Account() {
       console.log(error);
       console.log('Failed to derive address');
     }
-  }
+  }, [selectedAccount]);
 
   useEffect(() => {
-    const accounts = allAccounts.filter(ac => ac.walletId == walletId);
-    if (accounts.length > 0) {
-      setAccounts(accounts);
+    if (selectedAccount) {
+      getWalletAddress();
     }
-  }, [allAccounts]);
+    return cleanUp;
+  }, [selectedAccount]);
 
-  if (!accounts) {
+  useEffect(() => {
+    onEnd();
+  }, [derivedAddress, selectedAccount]);
+
+  const getAccountItem = ({ item }: { item: IInteractiveItemListItem }) => (
+    <InteractiveItem
+      key={item.id}
+      leftIcon={item.leftIcon}
+      text={item.text}
+      tag={item.tag}
+      rightText={item.rightText}
+      onPress={() => {
+        handleAccountChange(item.id);
+      }}
+      selected={selectedAccount?.__id == item.id}
+    />
+  );
+
+  if (accountList.length === 0) {
     return (
       <NoDataScreen
         title={strings.portfolio.noAccount.title}
@@ -113,18 +132,8 @@ export default function Account() {
         <Card style={{ paddingHorizontal: 0, paddingVertical: 0 }}>
           <FlatList
             style={{ width: '100%' }}
-            data={accounts}
-            renderItem={({ item }) => (
-              <InteractiveItem
-                key={item.__id}
-                leftIcon={<WalletIcon />}
-                text={item.name}
-                tag={item.unit}
-                onPress={() => {
-                  getWalletAddress(item);
-                }}
-              />
-            )}
+            data={accountList}
+            renderItem={getAccountItem}
             ItemSeparatorComponent={() => <Seperator />}
           />
         </Card>
