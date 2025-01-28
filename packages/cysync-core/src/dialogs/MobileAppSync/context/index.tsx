@@ -77,11 +77,10 @@ export const MobileAppSyncDialogProvider: FC<
 
   const getSyncData = useCallback(async () => {
     setIsLoading(true);
-    const data = accounts.reduce((a, t) => {
-      const { xpubOrAddress, name, walletId } = t;
-      const w = wallets.find(wallet => wallet.__id === walletId);
-      return [...a, { xpubOrAddress, name, walletId, walletName: w?.name }];
-    }, [] as any);
+    const data = {
+      wallets,
+      accounts,
+    };
     const chunks = chunkData(JSON.stringify(data));
     setIsLoading(false);
     return chunks;
