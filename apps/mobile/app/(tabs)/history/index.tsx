@@ -13,106 +13,28 @@ import {
   TableRowData,
   Typography,
 } from '@/components/ui';
+import NoDataScreen from '@/components/ui/molecules/NoDataScreen';
 import { colors } from '@/components/ui/themes/color.styled';
 import { useAppSelector } from '@/store';
 import { selectLanguage } from '@/store/lang';
-import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 import { router } from 'expo-router';
-
-interface IHistory {
-  title: string;
-  data: NotificationProps[];
-}
-
-const dummyHistory: IHistory[] = [
-  {
-    title: 'Monday, February 31, 2024',
-    data: [
-      {
-        type: 'sent',
-        status: 'success',
-        icon: <MaterialIcons name="check-circle" size={10} color="green" />,
-        info: 'Your payment to John was successful and really great that we gave them extra.',
-        time: '2024-02-31T10:30:00',
-        amount: '$50.00',
-      },
-      {
-        type: 'received',
-        status: 'success',
-        icon: <MaterialIcons name="check-circle" size={10} color="blue" />,
-        info: 'You received a payment from Alice.',
-        time: '2024-02-31T09:00:00',
-        amount: '$120.00',
-      },
-    ],
-  },
-  {
-    title: 'Tuesday, March 1, 2024',
-    data: [
-      {
-        type: 'sent',
-        status: 'pending',
-        icon: <MaterialIcons name="lock-clock" size={10} color="orange" />,
-        info: 'Payment to Bob is still processing.',
-        time: '2024-03-01T11:15:00',
-        amount: '$75.00',
-      },
-      {
-        type: 'received',
-        status: 'failed',
-        icon: <MaterialIcons name="add-alert" size={10} color="red" />,
-        info: 'Payment from Charlie failed.',
-        time: '2024-03-01T01:00:00',
-        amount: '$200.00',
-      },
-    ],
-  },
-  {
-    title: 'Wednesday, March 2, 2024',
-    data: [
-      {
-        type: 'sent',
-        status: 'failed',
-        icon: <MaterialIcons name="add-alert" size={10} color="red" />,
-        info: 'Payment to Dave failed.',
-        time: '2024-03-02T02:30:00',
-        amount: '$90.00',
-      },
-      {
-        type: 'received',
-        status: 'pending',
-        icon: <MaterialIcons name="lock-clock" size={10} color="orange" />,
-        info: 'You are waiting for a payment from Emma.',
-        time: '2024-03-02T04:00:00',
-        amount: '$45.00',
-      },
-      {
-        type: 'sent',
-        status: 'success',
-        icon: <MaterialIcons name="check-circle" size={10} color="green" />,
-        info: 'Your payment to Frank was successful and really great that we gave them extra.',
-        time: '2024-03-02T08:30:00',
-        amount: '$30.00',
-      },
-    ],
-  },
-  {
-    title: 'Thursday, March 3, 2024',
-    data: [
-      {
-        type: 'received',
-        status: 'success',
-        icon: <MaterialIcons name="check-circle" size={10} color="blue" />,
-        info: 'You received a payment from George.',
-        time: '2024-03-03T12:00:00',
-        amount: '$250.00',
-      },
-    ],
-  },
-];
+import { useState } from 'react';
 
 export default function History() {
   const { strings } = useAppSelector(selectLanguage);
+  const [history] = useState();
+
+  if (!history) {
+    return (
+      <NoDataScreen
+        title={strings.portfolio.noAccount.title}
+        description={strings.portfolio.noAccount.subTitle}
+        action={() => router.push('/scan')}
+        actionText={strings.buttons.scanQrCode}
+      />
+    );
+  }
+
   return (
     <ScreenContainer>
       <Flex
@@ -143,7 +65,7 @@ export default function History() {
         </TableHeader>
         <TableBody
           type="section"
-          data={dummyHistory}
+          data={history}
           renderItem={({
             item,
             index,
