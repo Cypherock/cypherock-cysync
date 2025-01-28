@@ -6,12 +6,15 @@ import {
   Typography,
 } from '@/components/ui';
 import { SectionList } from 'react-native';
+import NoDataScreen from '@/components/ui/molecules/NoDataScreen';
 
 export default function Notification() {
   const [notification] = useState();
   return (
     <ScreenContainer>
-      {notification && (
+      {notification ? (
+        <NoDataScreen title="No notifications yet!" />
+      ) : (
         <SectionList
           style={{
             flex: 1,
