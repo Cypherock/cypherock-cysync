@@ -15,7 +15,7 @@ export default function About() {
             {strings.settings.about.title}
           </Typography>
           <Typography type="para" textAlign="left">
-            ver 2.013-cover.0
+            ver 0.1.0
           </Typography>
         </View>
         <View>
