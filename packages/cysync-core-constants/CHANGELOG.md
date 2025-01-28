@@ -1,5 +1,22 @@
 # @cypherock/cysync-core-constants
 
+## 0.4.0-pre.1
+
+### Patch Changes
+
+- [#678](https://github.com/Cypherock/cypherock-cysync/pull/678) [`eb06d2c1`](https://github.com/Cypherock/cypherock-cysync/commit/eb06d2c1d7ad5424eb62614c7478581e5b3eb919) Thanks [@TejasvOnly](https://github.com/TejasvOnly)! - Added explicit broadcast error
+
+## 0.4.0-pre.0
+
+### Minor Changes
+
+- [#663](https://github.com/Cypherock/cypherock-cysync/pull/663) [`26418c0b`](https://github.com/Cypherock/cypherock-cysync/commit/26418c0b3ff2455008b48efd083d5d3a1b02d633) Thanks [@muzaffarbhat07](https://github.com/muzaffarbhat07)! - Adds solana token support
+
+### Patch Changes
+
+- Updated dependencies [[`26418c0b`](https://github.com/Cypherock/cypherock-cysync/commit/26418c0b3ff2455008b48efd083d5d3a1b02d633)]:
+  - @cypherock/coins@0.3.0-pre.0
+
 ## 0.3.1
 
 ### Patch Changes
