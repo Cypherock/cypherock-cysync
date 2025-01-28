@@ -18,7 +18,9 @@
     "preset": "jest-expo"
   },
   "dependencies": {
+    "@cypherock/coins": "workspace:^",
     "@cypherock/coin-support": "workspace:^",
+    "@cypherock/coin-support-utils": "workspace:^",
     "@cypherock/coin-support-interfaces": "workspace:^",
     "@cypherock/db-interfaces": "workspace:^",
     "@expo/vector-icons": "^14.0.2",
