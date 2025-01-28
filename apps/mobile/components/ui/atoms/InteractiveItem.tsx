@@ -82,3 +82,7 @@ export function InteractiveItem({
     </Container>
   );
 }
+
+export interface IInteractiveItemListItem extends InteractiveItemProps {
+  id: string;
+}
