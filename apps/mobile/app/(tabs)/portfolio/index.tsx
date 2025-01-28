@@ -20,96 +20,21 @@ import {
 import { colors } from '@/components/ui/themes/color.styled';
 import { Images } from '@/constants';
 import Entypo from '@expo/vector-icons/Entypo';
-import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 import { BottomSheetModal } from '@gorhom/bottom-sheet';
 import { router } from 'expo-router';
-import { useCallback, useRef } from 'react';
+import { useCallback, useRef, useState } from 'react';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { View } from 'react-native';
 import { useAppSelector } from '@/store';
 import { selectLanguage } from '@/store/lang';
-
-const data = [
-  { value: 10, label: 'Nov 1', date: 'Nov 1' },
-  { value: 20, label: 'Nov 5', date: 'Nov 5' },
-  { value: 30, label: 'Nov 9', date: 'Nov 9' },
-  { value: 20, label: 'Nov 5', date: 'Nov 5' },
-  { value: 30, label: 'Nov 9', date: 'Nov 9' },
-  { value: 19, label: 'Nov 10', date: 'Nov 10' },
-  { value: 19, label: 'Nov 11', date: 'Nov 11' },
-  { value: 19, label: 'Nov 13', date: 'Nov 13' },
-];
-const dummyNotifications = [
-  {
-    type: 'sent',
-    status: 'success',
-    icon: <MaterialIcons name="check-circle" size={10} color="green" />,
-    info: 'Your payment to John was successful and really great that we gave them extra.',
-    time: '2024-02-31T10:30:00',
-    amount: '$50.00',
-  },
-  {
-    type: 'received',
-    status: 'success',
-    icon: <MaterialIcons name="check-circle" size={10} color="blue" />,
-    info: 'You received a payment from Alice.',
-    time: '2024-02-31T09:00:00',
-    amount: '$120.00',
-  },
-  {
-    type: 'sent',
-    status: 'pending',
-    icon: <MaterialIcons name="lock-clock" size={10} color="orange" />,
-    info: 'Payment to Bob is still processing.',
-    time: '2024-03-01T11:15:00',
-    amount: '$75.00',
-  },
-  {
-    type: 'received',
-    status: 'failed',
-    icon: <MaterialIcons name="add-alert" size={10} color="red" />,
-    info: 'Payment from Charlie failed.',
-    time: '2024-03-01T01:00:00',
-    amount: '$200.00',
-  },
-  {
-    type: 'sent',
-    status: 'failed',
-    icon: <MaterialIcons name="add-alert" size={10} color="red" />,
-    info: 'Payment to Dave failed.',
-    time: '2024-03-02T02:30:00',
-    amount: '$90.00',
-  },
-  {
-    type: 'received',
-    status: 'pending',
-    icon: <MaterialIcons name="lock-clock" size={10} color="orange" />,
-    info: 'You are waiting for a payment from Emma.',
-    time: '2024-03-02T04:00:00',
-    amount: '$45.00',
-  },
-  {
-    type: 'sent',
-    status: 'success',
-    icon: <MaterialIcons name="check-circle" size={10} color="green" />,
-    info: 'Your payment to Frank was successful and really great that we gave them extra.',
-    time: '2024-03-02T08:30:00',
-    amount: '$30.00',
-  },
-  {
-    type: 'received',
-    status: 'success',
-    icon: <MaterialIcons name="check-circle" size={10} color="blue" />,
-    info: 'You received a payment from George.',
-    time: '2024-03-03T12:00:00',
-    amount: '$250.00',
-  },
-];
+import NoDataScreen from '@/components/ui/molecules/NoDataScreen';
 
 export default function Portfolio() {
   const { strings } = useAppSelector(selectLanguage);
   const insets = useSafeAreaInsets();
   const filterRef = useRef<BottomSheetModal | null>(null);
+  const [graphData] = useState();
+  const [transactions] = useState();
 
   const handleShowFilter = useCallback(() => {
     filterRef.current?.present();
@@ -118,6 +43,17 @@ export default function Portfolio() {
   const handleHideFilter = useCallback(() => {
     filterRef.current?.close();
   }, []);
+
+  if (!graphData && !transactions) {
+    return (
+      <NoDataScreen
+        title={strings.portfolio.noAccount.title}
+        description={strings.portfolio.noAccount.subTitle}
+        action={() => router.push('/scan')}
+        actionText={strings.buttons.scanQrCode}
+      />
+    );
+  }
 
   return (
     <ScreenContainer>
