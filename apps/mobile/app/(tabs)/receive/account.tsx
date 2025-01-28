@@ -8,6 +8,7 @@ import {
   Typography,
   WalletIcon,
 } from '@/components/ui';
+import NoDataScreen from '@/components/ui/molecules/NoDataScreen';
 import { getDB } from '@/db';
 import { useAppSelector } from '@/store';
 import { selectAccounts } from '@/store/accounts';
@@ -16,7 +17,7 @@ import { getCoinSupport } from '@cypherock/coin-support';
 import { IReceiveEvent } from '@cypherock/coin-support-interfaces';
 import { IAccount } from '@cypherock/db-interfaces';
 import { router, useLocalSearchParams } from 'expo-router';
-import { useRef, useState } from 'react';
+import { useRef, useState, useEffect } from 'react';
 import { FlatList } from 'react-native';
 import { Subscription, Observer } from 'rxjs';
 
@@ -24,11 +25,12 @@ export default function Account() {
   const { walletId, walletName }: { walletId: string; walletName: string } =
     useLocalSearchParams();
   const { strings } = useAppSelector(selectLanguage);
-  const { accounts } = useAppSelector(selectAccounts);
+  const { accounts: allAccounts } = useAppSelector(selectAccounts);
   const [selectedAccount, setSelectedAccount] = useState<
     IAccount | undefined
   >();
   const [derivedAddress, setDerivedAddress] = useState('');
+  const [accounts, setAccounts] = useState<IAccount[] | undefined>();
 
   const flowSubscription = useRef<Subscription | undefined>();
 
@@ -83,6 +85,24 @@ export default function Account() {
     }
   }
 
+  useEffect(() => {
+    const accounts = allAccounts.filter(ac => ac.walletId == walletId);
+    if (accounts.length > 0) {
+      setAccounts(accounts);
+    }
+  }, [allAccounts]);
+
+  if (!accounts) {
+    return (
+      <NoDataScreen
+        title={strings.portfolio.noAccount.title}
+        description={strings.portfolio.noAccount.subTitle}
+        action={() => router.push('/scan')}
+        actionText={strings.buttons.scanQrCode}
+      />
+    );
+  }
+
   return (
     <ScreenContainer>
       <Container style={{ padding: 16, gap: 24 }}>
@@ -93,7 +113,7 @@ export default function Account() {
         <Card style={{ paddingHorizontal: 0, paddingVertical: 0 }}>
           <FlatList
             style={{ width: '100%' }}
-            data={accounts.filter(ac => ac.walletId == walletId)}
+            data={accounts}
             renderItem={({ item }) => (
               <InteractiveItem
                 key={item.__id}
