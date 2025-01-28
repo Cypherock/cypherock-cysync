@@ -30,10 +30,10 @@ interface Meta {
 
 interface InnerInstruction {
   index: number;
-  instructions: Instruction[];
+  instructions: ISolanaInstruction[];
 }
 
-interface Instruction {
+export interface ISolanaInstruction {
   accounts?: string[];
   data?: string;
   programId: string;
@@ -49,7 +49,7 @@ interface Transaction {
 
 interface Message {
   accountKeys?: AccountKey[];
-  instructions?: Instruction[];
+  instructions?: ISolanaInstruction[];
   recentBlockhash: string;
 }
 

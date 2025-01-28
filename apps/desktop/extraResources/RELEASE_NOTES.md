@@ -1,3 +1,28 @@
+# v2.0.17
+
+### 🚀 Features
+
+- **Token Support on Solana Network**: Seamlessly manage your SPL tokens directly in cySync — view balances, send, and receive your tokens with ease.
+
+# v2.0.16
+
+### 🐛 Bugfixes
+
+- **Tron Energy Warning**: Alerts if energy is insufficient for transactions.
+- **Backup API Call**: Ensures accurate fee estimation in Tron when the first attempt fails.
+
+# v2.0.15
+
+### 🚀 Features
+
+- Added support for Starknet network.
+
+### 🐛 Bugfixes
+
+- Send fees UI fixed.
+- Fixed Binance currency error.
+- Resolved white screen issue.
+
 # v2.0.14
 
 ### 🚀 Features

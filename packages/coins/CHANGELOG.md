@@ -1,5 +1,29 @@
 # @cypherock/coins
 
+## 0.3.0
+
+### Minor Changes
+
+- [#663](https://github.com/Cypherock/cypherock-cysync/pull/663) [`26418c0b`](https://github.com/Cypherock/cypherock-cysync/commit/26418c0b3ff2455008b48efd083d5d3a1b02d633) Thanks [@muzaffarbhat07](https://github.com/muzaffarbhat07)! - Adds solana token support
+
+## 0.3.0-pre.0
+
+### Minor Changes
+
+- [#663](https://github.com/Cypherock/cypherock-cysync/pull/663) [`26418c0b`](https://github.com/Cypherock/cypherock-cysync/commit/26418c0b3ff2455008b48efd083d5d3a1b02d633) Thanks [@muzaffarbhat07](https://github.com/muzaffarbhat07)! - Adds solana token support
+
+## 0.2.0
+
+### Minor Changes
+
+- [#642](https://github.com/Cypherock/cypherock-cysync/pull/642) [`f922073b`](https://github.com/Cypherock/cypherock-cysync/commit/f922073b3811edb3cd3c894afcf56c5a49ca2edb) Thanks [@muzaffarbhat07](https://github.com/muzaffarbhat07)! - Added starknet support
+
+## 0.2.0-pre.0
+
+### Minor Changes
+
+- [#642](https://github.com/Cypherock/cypherock-cysync/pull/642) [`f922073b`](https://github.com/Cypherock/cypherock-cysync/commit/f922073b3811edb3cd3c894afcf56c5a49ca2edb) Thanks [@muzaffarbhat07](https://github.com/muzaffarbhat07)! - Added starknet support
+
 ## 0.1.1
 
 ### Patch Changes

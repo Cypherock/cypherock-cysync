@@ -302,6 +302,7 @@ interface LangSend {
     addButton: string;
     remarks: { label: string; placeholder: string; error: string };
     destinationTag: { label: string; placeholder: string; error: string };
+    rentExemptFeeWarning: string;
   };
   summary: {
     title: string;
@@ -333,6 +334,9 @@ interface LangSend {
     l1: string;
     l2: string;
     suffix: string;
+  };
+  tron: {
+    notEnoughEnergyWarning: string;
   };
 }
 

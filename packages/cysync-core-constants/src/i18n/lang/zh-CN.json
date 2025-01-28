@@ -304,7 +304,8 @@
         "placeholder": "可选",
         "error": "值过高"
       },
-      "feeBelowMinError": "低于最低 fee 的交易将失败"
+      "feeBelowMinError": "低于最低 fee 的交易将失败",
+      "rentExemptFeeWarning": "首次在 Solana 上接收代币会产生租金豁免费用，已包含在总费用中。"
     },
     "summary": {
       "title": "摘要",
@@ -338,6 +339,9 @@
       "l1": "（L1",
       "l2": "（L2",
       "suffix": "（L1 + L2"
+    },
+    "tron": {
+      "notEnoughEnergyWarning": "能量不足，这可能会导致高达 50 TRX 的费用"
     }
   },
   "deployAccount": {
@@ -1212,6 +1216,10 @@
       "SER_1028": {
         "heading": "电子邮件已存在",
         "subtext": "使用此电子邮件地址的帐户已存在。请使用其他电子邮件地址或联系 Cypherock 支持寻求帮助。"
+      },
+      "SER_2000": {
+        "heading": "交易广播失败",
+        "subtext": "请重试或联系客服以获得帮助"
       }
     },
     "binanceErrors": {

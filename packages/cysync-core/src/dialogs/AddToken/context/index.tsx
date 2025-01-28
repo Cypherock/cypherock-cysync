@@ -9,6 +9,7 @@ import {
   TokenTypes,
   coinFamiliesMap,
   evmCoinList,
+  solanaCoinList,
   tronCoinList,
 } from '@cypherock/coins';
 import { DropDownItemProps } from '@cypherock/cysync-ui';
@@ -150,7 +151,11 @@ export const AddTokenDialogProvider: FC<AddTokenDialogContextProviderProps> = ({
       Object.fromEntries(
         lodash
           .concat(
-            ...[...Object.values(evmCoinList), ...Object.values(tronCoinList)]
+            ...[
+              ...Object.values(evmCoinList),
+              ...Object.values(tronCoinList),
+              ...Object.values(solanaCoinList),
+            ]
               .filter(
                 c =>
                   window.cysyncEnv.IS_PRODUCTION === 'false' ||
@@ -260,6 +265,9 @@ export const AddTokenDialogProvider: FC<AddTokenDialogContextProviderProps> = ({
             xpubOrAddress: account.xpubOrAddress,
             balance: '0',
             isHidden: false,
+            extraData: {
+              contractAddress: token.address,
+            },
           });
           tokenAccountEntries.push(tokenAccountEntry);
         } catch (err) {

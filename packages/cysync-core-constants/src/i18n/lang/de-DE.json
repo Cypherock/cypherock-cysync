@@ -304,7 +304,8 @@
         "placeholder": "Optional",
         "error": "Wert zu hoch"
       },
-      "feeBelowMinError": "Transaktion mit fee unter dem Minimum wird fehlschlagen"
+      "feeBelowMinError": "Transaktion mit fee unter dem Minimum wird fehlschlagen",
+      "rentExemptFeeWarning": "Das erstmalige Empfangen eines Tokens auf Solana zieht Mietbefreiungsgebühren nach sich, die in den Gesamtgebühren enthalten sind."
     },
     "summary": {
       "title": "Zusammenfassung",
@@ -338,6 +339,9 @@
       "l1": " (L1)",
       "l2": " (L2)",
       "suffix": " (L1 + L2)"
+    },
+    "tron": {
+      "notEnoughEnergyWarning": "Unzureichende Energie, dies kann zu Gebühren von bis zu 50 TRX führen"
     }
   },
   "deployAccount": {
@@ -1215,6 +1219,10 @@
       "SER_1028": {
         "heading": "E-Mail-Adresse bereits vorhanden",
         "subtext": "Ein Konto mit dieser E-Mail-Adresse existiert bereits. Bitte verwenden Sie eine andere E-Mail-Adresse oder wenden Sie sich an den Cypherock-Support für Unterstützung."
+      },
+      "SER_2000": {
+        "heading": "Transaktionsübertragung fehlgeschlagen",
+        "subtext": "Versuchen Sie es erneut oder kontaktieren Sie den Support für Hilfe"
       }
     },
     "binanceErrors": {

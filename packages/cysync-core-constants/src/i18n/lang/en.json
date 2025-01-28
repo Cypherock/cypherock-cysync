@@ -304,7 +304,8 @@
         "placeholder": "Optional",
         "error": "Value too high"
       },
-      "feeBelowMinError": "Transaction with fee lesser than minimum will fail"
+      "feeBelowMinError": "Transaction with fee lesser than minimum will fail",
+      "rentExemptFeeWarning": "Receiving a token on solana for the first time incurs rent exemption fees, included in total fees."
     },
     "summary": {
       "title": "Summary",
@@ -338,6 +339,9 @@
       "l1": " (L1)",
       "l2": " (L2)",
       "suffix": " (L1 + L2)"
+    },
+    "tron": {
+      "notEnoughEnergyWarning": "Insufficient energy, this may result in fees up to 50 TRX"
     }
   },
   "deployAccount": {
@@ -1206,6 +1210,10 @@
       "SER_1028": {
         "heading": "Email Already Exists",
         "subtext": "An account with this email address already exists. Please use a different email address or contact Cypherock support for assistance"
+      },
+      "SER_2000": {
+        "heading": "Transaction broadcast failed",
+        "subtext": "Try again or contact support for assistance"
       }
     },
     "binanceErrors": {

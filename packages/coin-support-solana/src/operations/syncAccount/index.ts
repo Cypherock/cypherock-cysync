@@ -1,34 +1,85 @@
 import {
   IGetAddressDetails,
   createSyncAccountsObservable,
+  createSyncPriceHistoriesObservable,
+  createSyncPricesObservable,
   getLatestTransactionHash,
 } from '@cypherock/coin-support-utils';
 import {
+  AccountTypeMap,
   IAccount,
   IDatabase,
   ITransaction,
   TransactionStatusMap,
 } from '@cypherock/db-interfaces';
+import { solanaCoinList } from '@cypherock/coins';
+import { lastValueFrom } from 'rxjs';
 
-import { ISyncSolanaAccountsParams } from './types';
-
+import logger from '../../utils/logger';
 import {
-  getTransactions,
-  getBalance,
+  deriveAssociatedTokenAddress,
+  mapTokenTransactionsForDb,
   mapTransactionsForDb,
-} from '../../services';
+} from '../../utils';
+import { getTransactions, getBalance, getTokenBalance } from '../../services';
 import { ISolanaAccount } from '../types';
+
+import { ISolanaSplTokenAccount, ISyncSolanaAccountsParams } from './types';
 
 // Solana transaction are fetched via individual calls, therefore the limit is set relatively low to prevent server timeout.
 const PER_PAGE_TXN_LIMIT = 25;
 
+const onNewAccounts = (newAccounts: IAccount[], db: IDatabase) => {
+  for (const newAccount of newAccounts) {
+    lastValueFrom(
+      syncAccount({
+        db,
+        accountId: newAccount.__id ?? '',
+      }),
+    ).catch(error => {
+      logger.error('Error in syncing tron token account');
+      logger.error(error);
+    });
+  }
+
+  if (newAccounts.length > 0) {
+    const getCoinIds = async () =>
+      newAccounts.map(e => ({
+        parentAssetId: e.parentAssetId,
+        assetId: e.assetId,
+      }));
+
+    lastValueFrom(
+      createSyncPricesObservable({
+        db,
+        getCoinIds,
+      }),
+    ).catch(error => {
+      logger.error('Error in syncing tron token prices');
+      logger.error(error);
+    });
+
+    lastValueFrom(
+      createSyncPriceHistoriesObservable({
+        db,
+        getCoinIds,
+      }),
+    ).catch(error => {
+      logger.error('Error in syncing tron token price histories');
+      logger.error(error);
+    });
+  }
+};
+
 const fetchAndParseTransactions = async (params: {
   db: IDatabase;
   account: IAccount;
+  address: string;
   afterTransactionHash?: string;
   beforeTransactionHash?: string;
 }) => {
-  const { db, account, afterTransactionHash, beforeTransactionHash } = params;
+  const { db, account, address, afterTransactionHash, beforeTransactionHash } =
+    params;
 
   const afterHash =
     afterTransactionHash ??
@@ -39,86 +90,108 @@ const fetchAndParseTransactions = async (params: {
     undefined;
 
   const transactionDetails = await getTransactions({
-    address: account.xpubOrAddress,
+    address,
     assetId: account.parentAssetId,
     from: afterHash,
     before: beforeTransactionHash,
     limit: PER_PAGE_TXN_LIMIT,
   });
 
-  const transactions = mapTransactionsForDb({
-    account,
-    transactions: transactionDetails.data,
-  });
+  const rawTransactions = transactionDetails.data;
+
+  const transactions: ITransaction[] = [];
+  const isTokenAccount = account.type === AccountTypeMap.subAccount;
+
+  if (isTokenAccount) {
+    const txns = await mapTokenTransactionsForDb(account, rawTransactions);
+    transactions.push(...txns);
+  } else {
+    const { transactions: txns, newAccounts } = await mapTransactionsForDb({
+      db,
+      account,
+      rawTransactions,
+    });
+
+    transactions.push(...txns);
+    onNewAccounts(newAccounts, db);
+  }
 
   const hasMore = transactionDetails.more;
+  const beforeHash = rawTransactions[rawTransactions.length - 1]?.signature;
 
-  const beforeHash = transactions[transactions.length - 1]?.hash;
+  const firstTransactionHash = rawTransactions[0]?.signature;
 
-  return { hasMore, transactions, afterHash, beforeHash };
+  return { hasMore, transactions, afterHash, beforeHash, firstTransactionHash };
 };
 
 const getAddressDetails: IGetAddressDetails<{
-  transactionsTillNow?: ITransaction[];
   updatedBalance?: string;
-  updatedAccountInfo?: Partial<ISolanaAccount>;
+  updatedLatestTransactionHash?: string;
   afterTransactionHash?: string;
   beforeTransactionHash?: string;
-  hasMoreTransactions?: boolean;
 }> = async ({ db, account, iterationContext }) => {
   let {
+    updatedBalance,
+    updatedLatestTransactionHash,
     afterTransactionHash,
     beforeTransactionHash,
-    hasMoreTransactions,
-    transactionsTillNow,
-    updatedBalance,
-    updatedAccountInfo,
   } = iterationContext ?? {};
 
-  updatedBalance ??= await getBalance(
-    account.xpubOrAddress,
-    account.parentAssetId,
-  );
-
-  transactionsTillNow ??= await db.transaction.getAll({
-    accountId: account.__id,
-  });
-
-  updatedAccountInfo = {
-    ...(updatedAccountInfo ?? {}),
-    balance: updatedBalance,
-    extraData: { ...(account.extraData ?? {}) },
-  };
-
   const transactions: ITransaction[] = [];
+  let hasMore = false;
 
-  if (hasMoreTransactions !== false) {
-    const transactionDetails = await fetchAndParseTransactions({
-      db,
-      account,
-      afterTransactionHash,
-      beforeTransactionHash,
-    });
+  let address = account.xpubOrAddress;
 
-    transactions.push(...transactionDetails.transactions);
-    hasMoreTransactions = transactionDetails.hasMore;
-    afterTransactionHash = transactionDetails.afterHash;
-    beforeTransactionHash = transactionDetails.beforeHash;
+  const isTokenAccount = account.type === AccountTypeMap.subAccount;
+  if (isTokenAccount) {
+    const tokenDetails =
+      solanaCoinList[account.parentAssetId].tokens[account.assetId];
+    address = deriveAssociatedTokenAddress(
+      account.xpubOrAddress,
+      tokenDetails.address,
+    );
 
-    transactionsTillNow.push(...transactions);
+    updatedBalance ??= await getTokenBalance(address, account.parentAssetId);
+  } else {
+    updatedBalance ??= await getBalance(address, account.parentAssetId);
   }
 
+  afterTransactionHash ??= (account as ISolanaAccount | ISolanaSplTokenAccount)
+    .extraData.latestTransactionHash;
+
+  const transactionDetails = await fetchAndParseTransactions({
+    db,
+    account,
+    address,
+    afterTransactionHash,
+    beforeTransactionHash,
+  });
+
+  transactions.push(...transactionDetails.transactions);
+  hasMore = transactionDetails.hasMore;
+  afterTransactionHash = transactionDetails.afterHash;
+  beforeTransactionHash = transactionDetails.beforeHash;
+
+  updatedLatestTransactionHash ??= transactionDetails.firstTransactionHash;
+
+  const updatedAccountInfo: Partial<ISolanaAccount> = {
+    balance: updatedBalance,
+    extraData: {
+      ...account.extraData,
+      latestTransactionHash:
+        updatedLatestTransactionHash ?? afterTransactionHash,
+    },
+  };
+
   return {
-    hasMore: hasMoreTransactions,
+    hasMore,
     transactions,
     updatedAccountInfo,
     nextIterationContext: {
-      hasMoreTransactions,
       afterTransactionHash,
       beforeTransactionHash,
       updatedBalance,
-      updatedAccountInfo,
-      transactionsTillNow,
+      updatedLatestTransactionHash,
     },
   };
 };

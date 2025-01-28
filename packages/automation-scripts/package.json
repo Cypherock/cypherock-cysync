@@ -1,6 +1,6 @@
 {
   "name": "@cypherock/cysync-automation-scripts",
-  "version": "0.0.13",
+  "version": "0.1.0",
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
   "types": "dist/cjs/index.d.ts",
@@ -22,6 +22,9 @@
     "trc20-diff": "node dist/cjs/commands/trc20/diff.js",
     "gen-trc20-list": "node dist/cjs/commands/trc20/createNewList.js",
     "download-trc20-images": "node dist/cjs/commands/trc20/downloadImages.js",
+    "spl-diff": "node dist/cjs/commands/spl/diff.js",
+    "gen-spl-list": "node dist/cjs/commands/spl/createNewList.js",
+    "download-spl-images": "node dist/cjs/commands/spl/downloadImages.js",
     "gen-translations": "node dist/cjs/commands/translate.js"
   },
   "devDependencies": {

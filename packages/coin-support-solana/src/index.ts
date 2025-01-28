@@ -30,7 +30,11 @@ import {
   ICreateSolanaAccountEvent,
   ICreateSolanaAccountParams,
 } from './operations/types';
-import { setCoinSupportWeb3Lib } from './utils';
+import {
+  setCoinSupportWeb3Lib,
+  setTokenSupportSplTokenLib,
+  splTokenLibType,
+} from './utils';
 
 export * from './operations/types';
 export { updateLogger } from './utils/logger';
@@ -39,6 +43,10 @@ export class SolanaSupport implements CoinSupport {
   public static setWeb3Library(web3: any): void {
     setSolanaWeb3(web3);
     setCoinSupportWeb3Lib(web3);
+  }
+
+  public static setSplTokenLibrary(splTokenLibrary: splTokenLibType): void {
+    setTokenSupportSplTokenLib(splTokenLibrary);
   }
 
   public receive(params: IReceiveParams) {

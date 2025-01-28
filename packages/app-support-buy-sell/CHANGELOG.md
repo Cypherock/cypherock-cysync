@@ -1,5 +1,37 @@
 # @cypherock/app-support-buy-sell
 
+## 0.0.3
+
+### Patch Changes
+
+- Updated dependencies [[`26418c0b`](https://github.com/Cypherock/cypherock-cysync/commit/26418c0b3ff2455008b48efd083d5d3a1b02d633)]:
+  - @cypherock/coins@0.3.0
+
+## 0.0.3-pre.0
+
+### Patch Changes
+
+- Updated dependencies [[`26418c0b`](https://github.com/Cypherock/cypherock-cysync/commit/26418c0b3ff2455008b48efd083d5d3a1b02d633)]:
+  - @cypherock/coins@0.3.0-pre.0
+
+## 0.0.2
+
+### Patch Changes
+
+- Updated dependencies [[`f922073b`](https://github.com/Cypherock/cypherock-cysync/commit/f922073b3811edb3cd3c894afcf56c5a49ca2edb), [`c910eabe`](https://github.com/Cypherock/cypherock-cysync/commit/c910eabe144fc0f1afc83ea7a186cc3d6645953f)]:
+  - @cypherock/coins@0.2.0
+  - @cypherock/cysync-interfaces@0.0.8
+  - @cypherock/cysync-utils@0.0.10
+
+## 0.0.2-pre.0
+
+### Patch Changes
+
+- Updated dependencies [[`f922073b`](https://github.com/Cypherock/cypherock-cysync/commit/f922073b3811edb3cd3c894afcf56c5a49ca2edb), [`c910eabe`](https://github.com/Cypherock/cypherock-cysync/commit/c910eabe144fc0f1afc83ea7a186cc3d6645953f)]:
+  - @cypherock/coins@0.2.0-pre.0
+  - @cypherock/cysync-interfaces@0.0.8-pre.0
+  - @cypherock/cysync-utils@0.0.10-pre.0
+
 ## 0.0.1
 
 ### Patch Changes

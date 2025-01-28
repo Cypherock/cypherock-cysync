@@ -9,10 +9,16 @@ import { SolanaDerivationSchemeName } from './schemes/types';
 
 export interface ISolanaAccount extends IAccount {
   derivationScheme: SolanaDerivationSchemeName;
+  extraData: {
+    latestTransactionHash?: string;
+  };
 }
 
 export interface ICreatedSolanaAccount extends ICreatedAccount {
   derivationScheme: SolanaDerivationSchemeName;
+  extraData: {
+    latestTransactionHash?: string;
+  };
 }
 
 export type ICreateSolanaAccountParams = ICreateAccountParams;

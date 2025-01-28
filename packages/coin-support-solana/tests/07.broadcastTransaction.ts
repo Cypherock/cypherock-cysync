@@ -1,5 +1,8 @@
 import { beforeEach, describe, expect, jest, test } from '@jest/globals';
 
+import * as solanaWeb3 from '@solana/web3.js';
+import * as splTokenLib from '@solana/spl-token';
+
 import * as testData from './__fixtures__/07.broadcastTransaction';
 import * as serviceMock from './__mocks__/services';
 
@@ -16,6 +19,8 @@ describe('07. Broadcast Transaction', () => {
     .mockReturnValue(Promise.resolve(undefined));
 
   beforeEach(() => {
+    SolanaSupport.setWeb3Library(solanaWeb3);
+    SolanaSupport.setSplTokenLibrary(splTokenLib);
     support = new SolanaSupport();
 
     getOneTransactionMock.mockClear();
@@ -26,40 +31,52 @@ describe('07. Broadcast Transaction', () => {
 
   describe('should be able to broadcast transaction', () => {
     testData.valid.forEach(testCase => {
-      test(testCase.name, async () => {
-        const getOneAccountMock = jest
-          .fn()
-          .mockReturnValue(testCase.mocks.account);
-        const db = {
-          account: {
-            getOne: getOneAccountMock,
-          },
-          transaction: {
-            getOne: getOneTransactionMock,
-            insert: insertTransactionMock,
-          },
-        } as any;
-        serviceMock.broadcastTransactionToBlockchain.mockReturnValue(
-          Promise.resolve(testCase.output.hash),
-        );
-        insertTransactionMock.mockReturnValue(Promise.resolve(testCase.output));
-        global.Date.now = jest.fn(() => testCase.output.timestamp);
+      test(
+        testCase.name,
+        async () => {
+          const getOneAccountMock = jest
+            .fn()
+            .mockReturnValue(testCase.mocks.account);
+          const db = {
+            account: {
+              getOne: getOneAccountMock,
+            },
+            transaction: {
+              getOne: getOneTransactionMock,
+              insert: insertTransactionMock,
+            },
+          } as any;
+          serviceMock.broadcastTransactionToBlockchain.mockReturnValue(
+            Promise.resolve(testCase.output.hash),
+          );
+          serviceMock.getTransactions.mockReturnValue(
+            Promise.resolve(testCase.output.hash),
+          );
+          serviceMock.checkTransactionStatus.mockReturnValue(
+            Promise.resolve('confirmed'),
+          );
+          insertTransactionMock.mockReturnValue(
+            Promise.resolve(testCase.output),
+          );
+          global.Date.now = jest.fn(() => testCase.output.timestamp);
 
-        const preparedTransaction = await support.broadcastTransaction({
-          db,
-          transaction: testCase.txn,
-          signedTransaction: '',
-        });
+          const preparedTransaction = await support.broadcastTransaction({
+            db,
+            transaction: testCase.txn,
+            signedTransaction: '',
+          });
 
-        expect(preparedTransaction).toBeDefined();
-        expect(insertTransactionMock.mock.calls.length).toEqual(1);
-        expect(
-          insertTransactionMock.mock.calls[0].map((t: any) =>
-            lodash.omit(t, ['__id']),
-          ),
-        ).toEqual([preparedTransaction]);
-        expect(preparedTransaction).toEqual(testCase.output);
-      });
+          expect(preparedTransaction).toBeDefined();
+          expect(insertTransactionMock.mock.calls.length).toEqual(1);
+          expect(
+            insertTransactionMock.mock.calls[0].map((t: any) =>
+              lodash.omit(t, ['__id']),
+            ),
+          ).toEqual([preparedTransaction]);
+          expect(preparedTransaction).toEqual(testCase.output);
+        },
+        35 * 1000,
+      );
     });
   });
 });

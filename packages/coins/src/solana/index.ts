@@ -1,6 +1,9 @@
 import coinList from './coins';
+import { ISolanaSplToken, getSplTokens } from './token';
 
 import { coinFamiliesMap, ICoinInfo, ICoinUnit } from '../types';
+
+export * from './token';
 
 type SolanaFamily = typeof coinFamiliesMap.solana;
 
@@ -8,6 +11,8 @@ export interface ISolanaCoinInfo extends ICoinInfo {
   family: SolanaFamily;
   network: string;
   curve: string;
+  tokens: Record<string, ISolanaSplToken>;
+  tokensByContract: Record<string, ISolanaSplToken>;
 }
 
 export const SolanaIdMap = {
@@ -47,6 +52,7 @@ export const solanaCoinList: Record<string, ISolanaCoinInfo> = coinList.reduce<
       curve: coin.curve,
       color: coin.color,
       units,
+      ...getSplTokens(coin.id, { color: coin.color }),
     },
   }),
   {},
