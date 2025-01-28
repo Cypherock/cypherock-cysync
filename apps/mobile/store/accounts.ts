@@ -1,4 +1,4 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createSelector, createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 import { RootState } from './store';
 import { IAccount } from '@cypherock/db-interfaces';
@@ -23,4 +23,10 @@ const accountsSlice = createSlice({
 
 export const { updateAccounts } = accountsSlice.actions;
 export const selectAccounts = (state: RootState) => state.accounts;
+export const selectUnHiddenAccounts: (state: RootState) => AccountsState =
+  createSelector([selectAccounts], accountState => ({
+    ...accountState,
+    accounts: accountState.accounts.filter(a => !a.isHidden),
+  }));
+
 export default accountsSlice.reducer;
