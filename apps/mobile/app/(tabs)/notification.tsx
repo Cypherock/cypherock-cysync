@@ -12,7 +12,7 @@ export default function Notification() {
   const [notification] = useState();
   return (
     <ScreenContainer>
-      {notification ? (
+      {!notification ? (
         <NoDataScreen title="No notifications yet!" />
       ) : (
         <SectionList
