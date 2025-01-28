@@ -58,6 +58,11 @@ export default function Scan() {
       saveDataToDb(decodedData);
       navigateToNext();
     }
+
+    return () => {
+      setDecodedData(undefined);
+      scannedData.current = {};
+    };
   }, [decodedData]);
 
   return (
