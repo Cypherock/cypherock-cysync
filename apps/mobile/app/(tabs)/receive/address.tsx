@@ -16,9 +16,11 @@ import { selectLanguage } from '@/store/lang';
 import { useLocalSearchParams } from 'expo-router';
 import QRCode from 'react-native-qrcode-svg';
 import { View } from 'react-native';
+import { CoinIcon } from '@/components/core';
 
 export default function Receive() {
-  const { walletName, accountName, address } = useLocalSearchParams();
+  const { walletName, accountName, address, assetId, parentAssetId } =
+    useLocalSearchParams();
   const { strings } = useAppSelector(selectLanguage);
   const [copied, setCopied] = useState(false);
 
@@ -41,6 +43,11 @@ export default function Receive() {
             variables={{
               crypto: (
                 <Typography type="para" color="primary">
+                  <CoinIcon
+                    parentAssetId={parentAssetId as string}
+                    assetId={assetId as string}
+                    size={16}
+                  />{' '}
                   {accountName}
                 </Typography>
               ),
