@@ -45,7 +45,7 @@ export default function Wallet() {
                   text={wallet.name}
                   onPress={() =>
                     router.push(
-                      `/receive/account?walletId=${wallet.deviceId}&walletName=${wallet.name}`,
+                      `/receive/account?walletId=${wallet.__id}&walletName=${wallet.name}`,
                     )
                   }
                 />
