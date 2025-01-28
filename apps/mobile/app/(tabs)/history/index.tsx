@@ -29,7 +29,7 @@ export default function History() {
       <NoDataScreen
         title={strings.portfolio.noAccount.title}
         description={strings.portfolio.noAccount.subTitle}
-        action={() => router.push('/scan')}
+        onAction={() => router.push('/scan')}
         actionText={strings.buttons.scanQrCode}
       />
     );
