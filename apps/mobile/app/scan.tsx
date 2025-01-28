@@ -1,6 +1,7 @@
 import { View, StyleSheet } from 'react-native';
 import React, { useEffect, useRef, useState } from 'react';
-import { Icon, MessageBox, Scanner, ScreenContainer } from '@/components/ui';
+import { Icon, MessageBox, ScreenContainer } from '@/components/ui';
+import { Scanner } from '@/components/core';
 import IonIcon from '@expo/vector-icons/Ionicons';
 import { Images } from '@/constants/images';
 import { router } from 'expo-router';
