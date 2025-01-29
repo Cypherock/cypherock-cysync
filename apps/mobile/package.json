@@ -22,6 +22,7 @@
     "@cypherock/coin-support-interfaces": "workspace:^",
     "@cypherock/coin-support-utils": "workspace:^",
     "@cypherock/coins": "workspace:^",
+    "@cypherock/cysync-core-services": "workspace:^",
     "@cypherock/db-interfaces": "workspace:^",
     "@expo/vector-icons": "^14.0.2",
     "@gorhom/bottom-sheet": "^5.0.6",
