@@ -11,14 +11,18 @@ import {
   useDispatch,
 } from 'react-redux';
 
-import accountsReducer, { AccountsState } from './accounts';
+import accountsReducer, { IAccountsState } from './accounts';
 import langReducers, { ILangState } from './lang';
-import walletsReducer, { WalletsState } from './wallets';
+import walletsReducer, { IWalletsState } from './wallets';
+import accountSyncReducer, { IAccountSyncState } from './accountSync';
+import { INetworkState } from './network';
 
 export interface RootState {
   lang: ILangState;
-  wallets: WalletsState;
-  accounts: AccountsState;
+  wallets: IWalletsState;
+  accounts: IAccountsState;
+  accountSync: IAccountSyncState;
+  network: INetworkState;
 }
 
 export const store = configureStore({
@@ -26,6 +30,7 @@ export const store = configureStore({
     lang: langReducers,
     wallets: walletsReducer,
     accounts: accountsReducer,
+    accountSync: accountSyncReducer,
   },
 });
 

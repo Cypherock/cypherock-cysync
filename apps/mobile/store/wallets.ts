@@ -3,11 +3,11 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RootState } from './store';
 import { IWallet } from '@cypherock/db-interfaces';
 
-export interface WalletsState {
+export interface IWalletsState {
   wallets: IWallet[];
 }
 
-const initialState: WalletsState = {
+const initialState: IWalletsState = {
   wallets: [],
 };
 
