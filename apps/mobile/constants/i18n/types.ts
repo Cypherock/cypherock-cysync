@@ -140,6 +140,9 @@ export interface LangReceive {
       danger: string;
     };
   };
+  shared: {
+    noAccounts: string;
+  };
 }
 
 export interface LangSupport {

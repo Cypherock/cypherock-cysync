@@ -90,7 +90,7 @@ export default function Account() {
             />
           ) : (
             <Typography type="para" style={{ paddingVertical: 24 }}>
-              No accounts found!
+              {strings.receive.shared.noAccounts}
             </Typography>
           )}
         </Card>
