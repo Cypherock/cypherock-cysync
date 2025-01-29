@@ -1,0 +1,70 @@
+import { useState, useRef, useCallback, useEffect } from 'react';
+import { Observer, Subscription } from 'rxjs';
+import { getCoinSupport } from '@cypherock/coin-support';
+import { IReceiveEvent } from '@cypherock/coin-support-interfaces';
+import { getDB } from '@/db';
+import { IAccount } from '@cypherock/db-interfaces';
+
+interface UseDeriveAddressProps {
+  selectedAccount?: IAccount;
+}
+
+export const useDeriveAddress = ({
+  selectedAccount,
+}: UseDeriveAddressProps) => {
+  const [derivedAddress, setDerivedAddress] = useState('');
+
+  const flowSubscription = useRef<Subscription | undefined>();
+
+  const onError = (err: any) => {
+    throw err;
+  };
+
+  const cleanUp = () => {
+    if (flowSubscription.current) {
+      flowSubscription.current.unsubscribe();
+      flowSubscription.current = undefined;
+    }
+  };
+
+  const getFlowObserver = (): Observer<IReceiveEvent> => ({
+    next: payload => {
+      if (payload.address) {
+        setDerivedAddress(payload.address);
+      }
+    },
+    error: err => {
+      onError(err);
+      cleanUp();
+    },
+    complete: () => {
+      cleanUp();
+    },
+  });
+
+  const getWalletAddress = useCallback(async () => {
+    try {
+      if (!selectedAccount) return;
+      const coinSupport = getCoinSupport(selectedAccount.familyId);
+      const subscription = coinSupport
+        .receive({
+          accountId: selectedAccount.__id ?? '',
+          db: await getDB(),
+        })
+        .subscribe(getFlowObserver());
+      flowSubscription.current = subscription;
+    } catch (error) {
+      console.log(error);
+      console.log('Failed to derive address');
+    }
+  }, [selectedAccount]);
+
+  useEffect(() => {
+    if (selectedAccount) {
+      getWalletAddress();
+    }
+    return cleanUp;
+  }, [selectedAccount]);
+
+  return { derivedAddress };
+};
