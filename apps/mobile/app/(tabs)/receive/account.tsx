@@ -9,34 +9,24 @@ import {
   Typography,
 } from '@/components/ui';
 import NoDataScreen from '@/components/ui/molecules/NoDataScreen';
-import { getDB } from '@/db';
 import { useAppSelector } from '@/store';
 import { selectLanguage } from '@/store/lang';
-import { getCoinSupport } from '@cypherock/coin-support';
-import { IReceiveEvent } from '@cypherock/coin-support-interfaces';
 import { router, useLocalSearchParams } from 'expo-router';
-import { useRef, useState, useEffect, useCallback } from 'react';
 import { FlatList } from 'react-native';
-import { Subscription, Observer } from 'rxjs';
 import { useAccountList } from '@/hooks/useAccountList';
+import { useDeriveAddress } from '@/hooks/useDeriveAddress';
+import { useCallback, useEffect } from 'react';
 
 export default function Account() {
   const { walletId, walletName }: { walletId: string; walletName: string } =
     useLocalSearchParams();
   const { strings } = useAppSelector(selectLanguage);
-  const [derivedAddress, setDerivedAddress] = useState('');
-
   const { accountList, selectedAccount, handleAccountChange } = useAccountList({
     selectedWalletId: walletId,
   });
+  const { derivedAddress } = useDeriveAddress({ selectedAccount });
 
-  const flowSubscription = useRef<Subscription | undefined>();
-
-  const onError = (err: any) => {
-    throw err;
-  };
-
-  const onEnd = useCallback(() => {
+  const onAddressDerived = useCallback(() => {
     if (selectedAccount && derivedAddress) {
       router.push(
         `/receive/address?accountName=${selectedAccount.name}&assetId=${selectedAccount.assetId}&parentAssetId=${selectedAccount.parentAssetId}&walletName=${walletName}&address=${derivedAddress}`,
@@ -44,57 +34,8 @@ export default function Account() {
     }
   }, [selectedAccount, derivedAddress]);
 
-  const cleanUp = () => {
-    if (flowSubscription.current) {
-      flowSubscription.current.unsubscribe();
-      flowSubscription.current = undefined;
-    }
-  };
-
-  const getFlowObserver = (onEnd: () => void): Observer<IReceiveEvent> => ({
-    next: payload => {
-      if (payload.address) {
-        setDerivedAddress(payload.address);
-      }
-    },
-    error: err => {
-      onError(err);
-      cleanUp();
-    },
-    complete: () => {
-      if (derivedAddress) {
-        onEnd();
-      }
-      cleanUp();
-    },
-  });
-
-  const getWalletAddress = useCallback(async () => {
-    try {
-      if (!selectedAccount) return;
-      const coinSupport = getCoinSupport(selectedAccount.familyId);
-      const subscription = coinSupport
-        .receive({
-          accountId: selectedAccount.__id ?? '',
-          db: await getDB(),
-        })
-        .subscribe(getFlowObserver(onEnd));
-      flowSubscription.current = subscription;
-    } catch (error) {
-      console.log(error);
-      console.log('Failed to derive address');
-    }
-  }, [selectedAccount]);
-
   useEffect(() => {
-    if (selectedAccount) {
-      getWalletAddress();
-    }
-    return cleanUp;
-  }, [selectedAccount]);
-
-  useEffect(() => {
-    onEnd();
+    onAddressDerived();
   }, [derivedAddress, selectedAccount]);
 
   const getAccountItem = ({ item }: { item: IInteractiveItemListItem }) => (
