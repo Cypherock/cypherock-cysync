@@ -13,6 +13,7 @@ interface InteractiveItemProps extends TouchableOpacityProps {
   rightText?: string;
   tag?: string;
   selected?: boolean;
+  $parentId?: string;
 }
 
 const Container = styled.TouchableOpacity`
