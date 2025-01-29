@@ -3,11 +3,13 @@ import { createSelector, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RootState } from './store';
 import { IAccount } from '@cypherock/db-interfaces';
 
-export interface AccountsState {
+export interface IAccountsState {
+  isLoaded: boolean;
   accounts: IAccount[];
 }
 
-const initialState: AccountsState = {
+const initialState: IAccountsState = {
+  isLoaded: false,
   accounts: [],
 };
 
@@ -16,6 +18,7 @@ const accountsSlice = createSlice({
   initialState,
   reducers: {
     updateAccounts(state, action: PayloadAction<IAccount[]>) {
+      state.isLoaded = true;
       state.accounts = action.payload;
     },
   },
@@ -23,7 +26,7 @@ const accountsSlice = createSlice({
 
 export const { updateAccounts } = accountsSlice.actions;
 export const selectAccounts = (state: RootState) => state.accounts;
-export const selectUnHiddenAccounts: (state: RootState) => AccountsState =
+export const selectUnHiddenAccounts: (state: RootState) => IAccountsState =
   createSelector([selectAccounts], accountState => ({
     ...accountState,
     accounts: accountState.accounts.filter(a => !a.isHidden),

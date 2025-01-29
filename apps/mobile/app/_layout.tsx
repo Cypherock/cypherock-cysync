@@ -5,10 +5,10 @@ import * as SystemUI from 'expo-system-ui';
 import { colors } from '@/components/ui/themes/color.styled';
 import { store, StoreProvider } from '@/store';
 import { CustomRealmProvider, keyValueStore } from '@/db';
-import { BgTasks } from '@/components/core';
-import React, { useEffect, useState, useCallback } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useWindowDimensions } from 'react-native';
 import { SplashScreen } from 'expo-router';
+import { BackgroundTasks } from '@/bgTasks';
 
 SystemUI.setBackgroundColorAsync(colors.background.primary);
 SplashScreen.preventAutoHideAsync();
@@ -65,7 +65,7 @@ export default function RootLayout() {
             <Stack.Screen name="permission" />
             <Stack.Screen name="scan" />
           </Stack>
-          <BgTasks />
+          <BackgroundTasks />
         </CustomRealmProvider>
       </ThemeProvider>
     </StoreProvider>
