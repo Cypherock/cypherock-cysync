@@ -118,6 +118,9 @@
       "messageBox": {
         "danger": "接收地址未在设备上验证。使用风险自负"
       }
+    },
+    "shared": {
+      "noAccounts": "未找到账户！"
     }
   },
   "support": {
