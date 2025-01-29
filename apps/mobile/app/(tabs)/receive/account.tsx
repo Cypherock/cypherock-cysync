@@ -15,16 +15,24 @@ import { router, useLocalSearchParams } from 'expo-router';
 import { FlatList } from 'react-native';
 import { useAccountList } from '@/hooks/useAccountList';
 import { useDeriveAddress } from '@/hooks/useDeriveAddress';
-import { useCallback, useEffect } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
+import { searchInItems } from '@/utils';
 
 export default function Account() {
+  const [search, setSearch] = useState('');
   const { walletId, walletName }: { walletId: string; walletName: string } =
     useLocalSearchParams();
   const { strings } = useAppSelector(selectLanguage);
-  const { accountList, selectedAccount, handleAccountChange } = useAccountList({
+  const {
+    accountList: allAccounts,
+    selectedAccount,
+    handleAccountChange,
+  } = useAccountList({
     selectedWalletId: walletId,
   });
   const { derivedAddress } = useDeriveAddress({ selectedAccount });
+  const [accountList, setAccountList] =
+    useState<IInteractiveItemListItem[]>(allAccounts);
 
   const onAddressDerived = useCallback(() => {
     if (selectedAccount && derivedAddress) {
@@ -52,16 +60,18 @@ export default function Account() {
     />
   );
 
-  if (accountList.length === 0) {
-    return (
-      <NoDataScreen
-        title={strings.portfolio.noAccount.title}
-        description={strings.portfolio.noAccount.subTitle}
-        onAction={() => router.push('/scan')}
-        actionText={strings.buttons.scanQrCode}
-      />
-    );
-  }
+  const filterItems = useCallback(() => {
+    if (search.length === 0) return;
+    setAccountList(searchInItems(accountList, search));
+  }, [accountList, search]);
+
+  useEffect(() => {
+    if (search.length === 0) {
+      setAccountList(allAccounts);
+      return;
+    }
+    filterItems();
+  }, [search]);
 
   return (
     <ScreenContainer>
@@ -69,14 +79,20 @@ export default function Account() {
         <Typography type="h3" style={{ textAlign: 'left' }}>
           {strings.receive.chooseAccount.title}
         </Typography>
-        <Search />
+        <Search onChange={v => setSearch(v)} value={search} />
         <Card style={{ paddingHorizontal: 0, paddingVertical: 0 }}>
-          <FlatList
-            style={{ width: '100%' }}
-            data={accountList}
-            renderItem={getAccountItem}
-            ItemSeparatorComponent={() => <Seperator />}
-          />
+          {accountList.length > 0 ? (
+            <FlatList
+              style={{ width: '100%' }}
+              data={accountList}
+              renderItem={getAccountItem}
+              ItemSeparatorComponent={() => <Seperator />}
+            />
+          ) : (
+            <Typography type="para" style={{ paddingVertical: 24 }}>
+              No accounts found!
+            </Typography>
+          )}
         </Card>
       </Container>
     </ScreenContainer>

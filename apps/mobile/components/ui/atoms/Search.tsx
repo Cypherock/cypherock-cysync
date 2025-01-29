@@ -9,7 +9,12 @@ const Input = styled.TextInput`
   font-size: ${({ theme }) => theme.typography.body.body.fontSize}px;
 `;
 
-export function Search() {
+interface SearchProps {
+  value: string;
+  onChange: (v: string) => void;
+}
+
+export function Search({ value, onChange }: SearchProps) {
   return (
     <Card
       borderColor={'secondary'}
@@ -21,6 +26,8 @@ export function Search() {
     >
       <Input
         placeholder="Search..."
+        value={value}
+        onChangeText={v => onChange(v)}
         placeholderTextColor={colors.text.secondary}
       />
       <Feather name="search" size={24} color="white" />
