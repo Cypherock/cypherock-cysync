@@ -118,6 +118,9 @@
       "messageBox": {
         "danger": "The receive address is not verified on the device. Use it at your own risk"
       }
+    },
+    "shared": {
+      "noAccounts": "No accounts found!"
     }
   },
   "support": {
