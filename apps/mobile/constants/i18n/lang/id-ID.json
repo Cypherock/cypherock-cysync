@@ -118,6 +118,9 @@
       "messageBox": {
         "danger": "Alamat penerima tidak diverifikasi pada perangkat. Gunakan dengan risiko Anda sendiri"
       }
+    },
+    "shared": {
+      "noAccounts": "Tidak ada akun yang ditemukan!"
     }
   },
   "support": {

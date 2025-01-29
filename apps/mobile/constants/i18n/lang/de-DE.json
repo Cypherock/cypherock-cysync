@@ -118,6 +118,9 @@
       "messageBox": {
         "danger": "Die Empfangsadresse wurde nicht auf dem Gerät verifiziert. Verwenden Sie sie auf eigenes Risiko"
       }
+    },
+    "shared": {
+      "noAccounts": "Keine Konten gefunden!"
     }
   },
   "support": {
