@@ -8,7 +8,6 @@ import {
   Seperator,
   Typography,
 } from '@/components/ui';
-import NoDataScreen from '@/components/ui/molecules/NoDataScreen';
 import { useAppSelector } from '@/store';
 import { selectLanguage } from '@/store/lang';
 import { router, useLocalSearchParams } from 'expo-router';

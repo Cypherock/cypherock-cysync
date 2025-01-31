@@ -1,5 +1,5 @@
 import { getDefaultUnit, getParsedAmount } from '@cypherock/coin-support-utils';
-import { IAccount, IWallet } from '@cypherock/db-interfaces';
+import { IAccount } from '@cypherock/db-interfaces';
 import { useEffect, useMemo, useState } from 'react';
 import { useAppSelector } from '@/store';
 import { selectUnHiddenAccounts } from '@/store/accounts';
