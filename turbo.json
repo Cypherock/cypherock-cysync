@@ -89,6 +89,10 @@
         "vite.loading.config.js"
       ]
     },
+    "@cypherock/cysync-mobile#build": {
+      "dependsOn": ["^build"],
+      "outputs": ["dist/**"]
+    },
     "make": {
       "dependsOn": ["build", "^make"],
       "cache": false

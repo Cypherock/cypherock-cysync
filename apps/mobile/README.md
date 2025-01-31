@@ -7,13 +7,19 @@ This is a mobile app for cysync.
 1. Install dependencies
 
    ```bash
-   npm install
+   pnpm install
    ```
 
 2. Start the app
 
    ```bash
-    npx expo start
+   npx expo start
+   ```
+
+3. Build internal dependencies
+
+   ```bash
+   pnpm turbo build
    ```
 
 In the output, you'll find options to open the app in a
