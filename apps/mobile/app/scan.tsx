@@ -9,7 +9,7 @@ import { ScanningResult } from 'expo-camera';
 import { useAppSelector } from '@/store';
 import { selectLanguage } from '@/store/lang';
 import { IAccount, IWallet } from '@cypherock/db-interfaces';
-import { getDB } from '@/db';
+import { getDB } from '@/utils';
 
 interface WalletData {
   wallets: IWallet[];

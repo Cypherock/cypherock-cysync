@@ -32,7 +32,7 @@ import { PriceHistory } from './models/PriceHistory';
 import { PriceInfo } from './models/PriceInfo';
 
 export class Database implements IDatabase {
-  database: Realm | undefined;
+  private database: Realm | undefined;
 
   account: IAccountRepository;
   wallet: IWalletRepository;
@@ -180,8 +180,12 @@ export class Database implements IDatabase {
       this.database?.deleteAll();
     });
   }
+
+  public getRealm(): Realm | undefined {
+    return this.database;
+  }
 }
 
-export const getDB = async () => {
-  return await Database.create();
-};
+export function createDB() {
+  return Database.create();
+}
