@@ -1,5 +1,7 @@
 import { IInteractiveItemListItem } from '@/components/ui';
 
+export * from './db';
+
 export const findSelectedItem = (
   menuItems: IInteractiveItemListItem[],
   selectedId: string | undefined,
