@@ -2,7 +2,7 @@ import { useState, useRef, useCallback, useEffect } from 'react';
 import { Observer, Subscription } from 'rxjs';
 import { getCoinSupport } from '@cypherock/coin-support';
 import { IReceiveEvent } from '@cypherock/coin-support-interfaces';
-import { getDB } from '@/db';
+import { getDB } from '@/utils';
 import { IAccount } from '@cypherock/db-interfaces';
 
 interface UseDeriveAddressProps {
@@ -49,7 +49,7 @@ export const useDeriveAddress = ({
       const subscription = coinSupport
         .receive({
           accountId: selectedAccount.__id ?? '',
-          db: await getDB(),
+          db: getDB(),
         })
         .subscribe(getFlowObserver());
       flowSubscription.current = subscription;
