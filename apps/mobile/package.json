@@ -18,10 +18,10 @@
     "preset": "jest-expo"
   },
   "dependencies": {
-    "@cypherock/coins": "workspace:^",
     "@cypherock/coin-support": "workspace:^",
-    "@cypherock/coin-support-utils": "workspace:^",
     "@cypherock/coin-support-interfaces": "workspace:^",
+    "@cypherock/coin-support-utils": "workspace:^",
+    "@cypherock/coins": "workspace:^",
     "@cypherock/db-interfaces": "workspace:^",
     "@expo/vector-icons": "^14.0.2",
     "@gorhom/bottom-sheet": "^5.0.6",
@@ -48,6 +48,7 @@
     "expo-symbols": "~0.2.1",
     "expo-system-ui": "~4.0.7",
     "expo-web-browser": "~14.0.2",
+    "lottie-react-native": "7.1.0",
     "node-libs-react-native": "^1.2.1",
     "react": "18.3.1",
     "react-dom": "18.3.1",
