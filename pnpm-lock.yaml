@@ -529,6 +529,9 @@ importers:
       expo-web-browser:
         specifier: ~14.0.2
         version: 14.0.2(expo@52.0.27)(react-native@0.76.6)
+      lottie-react-native:
+        specifier: 7.1.0
+        version: 7.1.0(react-native@0.76.6)(react@18.3.1)
       node-libs-react-native:
         specifier: ^1.2.1
         version: 1.2.1
@@ -26237,6 +26240,23 @@ packages:
 
   /lossless-json@4.1.1:
     resolution: {integrity: sha512-HusN80C0ohtT9kOHQH7EuUaqzRQsnekpa+2ot8OzvW0iC08dq/YtM/7uKwwajldQsCrHyC8q9fz3t3L+TmDltA==}
+    dev: false
+
+  /lottie-react-native@7.1.0(react-native@0.76.6)(react@18.3.1):
+    resolution: {integrity: sha512-73jtQySxRZ8KTTSKf6CtcpCt8tpOCw4NRiCST4HTYgXlycxIihIp89jRcK8rS/QiBKl5bzyixMzpVmd4mYVH5Q==}
+    peerDependencies:
+      '@lottiefiles/dotlottie-react': ^0.6.5
+      react: '*'
+      react-native: '>=0.46'
+      react-native-windows: '>=0.63.x'
+    peerDependenciesMeta:
+      '@lottiefiles/dotlottie-react':
+        optional: true
+      react-native-windows:
+        optional: true
+    dependencies:
+      react: 18.3.1
+      react-native: 0.76.6(@babel/core@7.25.2)(@babel/preset-env@7.28.3)(@types/react@18.3.12)(react@18.3.1)
     dev: false
 
   /loupe@2.3.7:
