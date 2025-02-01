@@ -15,16 +15,33 @@ import {
 } from '@/components/ui';
 import NoDataScreen from '@/components/ui/molecules/NoDataScreen';
 import { colors } from '@/components/ui/themes/color.styled';
+import { getDB } from '@/utils';
 import { useAppSelector } from '@/store';
 import { selectLanguage } from '@/store/lang';
+import { ITransaction } from '@cypherock/db-interfaces';
 import { router } from 'expo-router';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 export default function History() {
   const { strings } = useAppSelector(selectLanguage);
-  const [history] = useState();
+  const [history, setHistory] = useState<ITransaction[]>([]);
 
-  if (!history) {
+  async function getHistory() {
+    const db = getDB();
+    try {
+      const history = await db.transaction.getAll();
+      console.log('history', history);
+      setHistory(history);
+    } catch (error) {
+      console.log('Cant fetch history', error);
+    }
+  }
+
+  useEffect(() => {
+    getHistory();
+  }, []);
+
+  if (history.length === 0) {
     return (
       <NoDataScreen
         title={strings.portfolio.noAccount.title}

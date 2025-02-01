@@ -11,8 +11,8 @@ export const AccountSyncTask: React.FC = () => {
   const { lastSyncedAt } = useAppSelector(selectAccountSync);
 
   const startSyncing = () => {
-    console.log('syncing!');
-    dispatch(syncAllAccounts);
+    console.log('should start sync');
+    dispatch(syncAllAccounts());
   };
 
   const debouncedStartSyncing = lodash.debounce(
@@ -21,9 +21,7 @@ export const AccountSyncTask: React.FC = () => {
   );
 
   useEffect(() => {
-    if (lastSyncedAt) {
-      debouncedStartSyncing();
-    }
+    debouncedStartSyncing();
   }, [lastSyncedAt]);
 
   return null;

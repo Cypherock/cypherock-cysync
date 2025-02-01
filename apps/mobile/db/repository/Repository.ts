@@ -74,7 +74,6 @@ export class Repository<T extends IEntity> implements IRepository<T> {
       this.realm.write(() => {
         objects.forEach(obj => {
           const { __id, ...otherUpdates } = updateEntity;
-          console.log('updateEntitiy: ', otherUpdates);
           Object.assign(obj, {
             ...otherUpdates,
           });
