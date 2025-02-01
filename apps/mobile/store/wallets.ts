@@ -15,12 +15,12 @@ const walletsSlice = createSlice({
   name: 'wallets',
   initialState,
   reducers: {
-    updateWallets(state, action: PayloadAction<IWallet[]>) {
+    setWallets(state, action: PayloadAction<IWallet[]>) {
       state.wallets = action.payload;
     },
   },
 });
 
-export const { updateWallets } = walletsSlice.actions;
+export const { setWallets } = walletsSlice.actions;
 export const selectWallets = (state: RootState) => state.wallets;
 export default walletsSlice.reducer;

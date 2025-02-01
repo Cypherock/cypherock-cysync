@@ -17,14 +17,14 @@ const accountsSlice = createSlice({
   name: 'accounts',
   initialState,
   reducers: {
-    updateAccounts(state, action: PayloadAction<IAccount[]>) {
+    setAccounts(state, action: PayloadAction<IAccount[]>) {
       state.isLoaded = true;
       state.accounts = action.payload;
     },
   },
 });
 
-export const { updateAccounts } = accountsSlice.actions;
+export const { setAccounts } = accountsSlice.actions;
 export const selectAccounts = (state: RootState) => state.accounts;
 export const selectUnHiddenAccounts: (state: RootState) => IAccountsState =
   createSelector([selectAccounts], accountState => ({
