@@ -14,7 +14,7 @@ import {
   setSyncError,
   updateAccountSyncMap,
 } from '@/store';
-import { getDB } from '@/db';
+import { getDB } from '@/utils';
 
 export const syncAccounts = createAsyncThunk<
   void,
@@ -22,8 +22,9 @@ export const syncAccounts = createAsyncThunk<
   { state: RootState }
 >(
   'accounts/sync',
-  async ({ accounts: allAccounts, isSyncAll }, { dispatch, getState }) =>
-    new Promise<void>(resolve => {
+  async ({ accounts: allAccounts, isSyncAll }, { dispatch, getState }) => {
+    return new Promise<void>(resolve => {
+      console.log('syncing accounts');
       const unhiddenAccounts = allAccounts.filter(a => !a.isHidden);
 
       if (!getState().network.active) {
@@ -94,14 +95,12 @@ export const syncAccounts = createAsyncThunk<
         );
       });
 
-      (async () => {
-        const db = await getDB();
-        syncAccountsCore({
-          db,
-          accounts: unhiddenAccounts,
-        }).subscribe(observer);
-      })();
-    }),
+      syncAccountsCore({
+        db: getDB(),
+        accounts: unhiddenAccounts,
+      }).subscribe(observer);
+    });
+  },
 );
 
 export const syncAllAccounts =
@@ -115,9 +114,10 @@ export const syncAllAccounts =
       dispatch(setAccountLastSyncedAt(Date.now()));
     } else {
       dispatch(setSyncError(undefined));
+      console.log('In between sync');
       dispatch(
         syncAccounts({
-          accounts: getState().account.accounts,
+          accounts: getState().accounts.accounts,
           isSyncAll: true,
         }),
       );
