@@ -1,15 +1,13 @@
-import { keyValueStore } from '@/db';
-import { setLanguage, store } from '@/store';
 import React, { useEffect } from 'react';
 
-export const syncAllDb = async (isFirst: boolean) => {
-  console.log('getting db');
-  store.dispatch(setLanguage((await keyValueStore.appLanguage.get()) as any));
-};
+import { syncAllDb, addListeners, removeListeners } from './helper';
 
 export const DatabaseListener: React.FC = () => {
   useEffect(() => {
     syncAllDb(true);
+    addListeners();
+
+    return removeListeners;
   }, []);
 
   return null;

@@ -7,7 +7,7 @@ export interface INetworkState {
 }
 
 const initialState: INetworkState = {
-  active: false,
+  active: true,
 };
 
 export const networkSlice = createSlice({
