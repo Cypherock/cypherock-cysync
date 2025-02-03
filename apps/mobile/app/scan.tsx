@@ -10,8 +10,9 @@ import { useAppSelector } from '@/store';
 import { selectLanguage } from '@/store/lang';
 import { IAccount, IWallet } from '@cypherock/db-interfaces';
 import { getDB } from '@/utils';
+import { inflate } from 'pako';
 
-interface WalletData {
+interface CysyncData {
   wallets: IWallet[];
   accounts: IAccount[];
 }
@@ -19,7 +20,7 @@ interface WalletData {
 export default function Scan() {
   const { strings } = useAppSelector(selectLanguage);
   const scannedData = useRef<Record<number, string>>({});
-  const [decodedData, setDecodedData] = useState<WalletData>();
+  const [decodedData, setDecodedData] = useState<CysyncData>();
 
   function navigateToNext() {
     router.dismissTo('/receive/wallet');
@@ -39,13 +40,16 @@ export default function Scan() {
         .map(key => scannedData.current[Number(key)]);
 
       const completeData = sortedChunks.join('');
-      setDecodedData(JSON.parse(completeData) as WalletData);
+      const buffer = Buffer.from(completeData, 'base64');
+      const decompressedData = inflate(new Uint8Array(buffer));
+      const decodedData = Buffer.from(decompressedData).toString();
+      setDecodedData(JSON.parse(decodedData) as CysyncData);
     }
   }
 
-  async function saveDataToDb(data: WalletData) {
+  async function saveDataToDb(data: CysyncData) {
     try {
-      const db = await getDB();
+      const db = getDB();
       await db.wallet.insert(data.wallets);
       await db.account.insert(data.accounts);
     } catch (error) {
