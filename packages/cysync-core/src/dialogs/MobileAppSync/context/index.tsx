@@ -12,14 +12,14 @@ import React, {
 import { ITabs, useTabsAndDialogs } from '~/hooks';
 import {
   closeDialog,
-  selectAccounts,
   selectLanguage,
-  selectWallets,
   useAppDispatch,
   useAppSelector,
 } from '~/store';
 
 import { ShowQrCode } from '../Dialogs';
+import { getDB } from '~/utils';
+import pako from 'pako';
 
 export interface MobileAppSyncDialogContextInterface {
   tabs: ITabs;
@@ -43,14 +43,12 @@ export interface MobileAppSyncDialogProviderProps {
   children: ReactNode;
 }
 
-const CHUNK_SIZE = 200;
+const CHUNK_SIZE = 250;
 
 export const MobileAppSyncDialogProvider: FC<
   MobileAppSyncDialogProviderProps
 > = ({ children }) => {
   const lang = useAppSelector(selectLanguage);
-  const { wallets } = useAppSelector(selectWallets);
-  const { accounts } = useAppSelector(selectAccounts);
   const dispatch = useAppDispatch();
   const deviceRequiredDialogsMap: Record<number, number[] | undefined> =
     useMemo(() => ({}), []);
@@ -61,15 +59,15 @@ export const MobileAppSyncDialogProvider: FC<
   };
 
   const chunkData = (data: string, size: number = CHUNK_SIZE) => {
+    const delimiter = '|';
     const chunks = [];
     let chunkIndex = 0;
     for (let i = 0; i < data.length; i += size) {
       chunkIndex += 1;
       chunks.push(
-        `CHUNK|${chunkIndex}|${Math.ceil(data.length / size)}|${data.slice(
-          i,
-          i + size,
-        )}`,
+        `CHUNK${delimiter}${chunkIndex}${delimiter}${Math.ceil(
+          data.length / size,
+        )}${delimiter}${data.slice(i, i + size)}`,
       );
     }
     return chunks;
@@ -77,14 +75,16 @@ export const MobileAppSyncDialogProvider: FC<
 
   const getSyncData = useCallback(async () => {
     setIsLoading(true);
-    const data = {
-      wallets,
-      accounts,
-    };
-    const chunks = chunkData(JSON.stringify(data));
+    const db = getDB();
+    const wallets = await db.wallet.getAll();
+    const accounts = await db.account.getAll();
+    const data = { wallets, accounts };
+    const compressedData = pako.deflate(JSON.stringify(data));
+    const base64data = Buffer.from(compressedData).toString('base64');
+    const chunks = chunkData(base64data);
     setIsLoading(false);
     return chunks;
-  }, [accounts, wallets]);
+  }, []);
 
   const tabs: ITabs = useMemo(
     () => [

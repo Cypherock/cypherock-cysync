@@ -1851,6 +1851,9 @@ importers:
       lodash:
         specifier: ^4.17.21
         version: 4.17.21
+      pako:
+        specifier: ^2.1.0
+        version: 2.1.0
       prop-types:
         specifier: ^15.8.1
         version: 15.8.1
@@ -1939,6 +1942,9 @@ importers:
       '@types/node':
         specifier: 18.15.11
         version: 18.15.11
+      '@types/pako':
+        specifier: ^2.0.3
+        version: 2.0.3
       '@types/prop-types':
         specifier: ^15.7.5
         version: 15.7.5
@@ -13020,6 +13026,10 @@ packages:
 
   /@types/normalize-package-data@2.4.4:
     resolution: {integrity: sha512-37i+OaWTh9qeK4LSHPsyRC7NahnGotNuZvjLSgcPzblpHB3rrCJxAOgI5gCdKm7coonsaX1Of0ILiTcnZjbfxA==}
+    dev: true
+
+  /@types/pako@2.0.3:
+    resolution: {integrity: sha512-bq0hMV9opAcrmE0Byyo0fY3Ew4tgOevJmQ9grUhpXQhYfyLJ1Kqg3P33JT5fdbT2AjeAjR51zqqVjAL/HMkx7Q==}
     dev: true
 
   /@types/plist@3.0.5:
