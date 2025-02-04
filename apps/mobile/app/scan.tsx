@@ -1,12 +1,6 @@
-import { View, StyleSheet, Dimensions } from 'react-native';
+import { View, StyleSheet } from 'react-native';
 import React, { useEffect, useRef, useState } from 'react';
-import {
-  Icon,
-  MessageBox,
-  ScreenContainer,
-  Typography,
-} from '@/components/ui';
-
+import { Icon, MessageBox, ScreenContainer } from '@/components/ui';
 import { Scanner } from '@/components/core';
 import IonIcon from '@expo/vector-icons/Ionicons';
 import { Images } from '@/constants/images';
@@ -14,28 +8,23 @@ import { router } from 'expo-router';
 import { ScanningResult } from 'expo-camera';
 import { useAppSelector } from '@/store';
 import { selectLanguage } from '@/store/lang';
-import { useRealm } from '@realm/react';
-import { LinearGradient } from 'expo-linear-gradient';
-import { LottieSplash } from '@/components/ui/molecules/LottieSplash';
-import helloAnimation from '@/assets/lottie/success-2.json';
+import { IAccount, IWallet } from '@cypherock/db-interfaces';
+import { getDB } from '@/utils';
+import { inflate } from 'pako';
 
-const { width } = Dimensions.get('window');
-
-interface WalletData {
-  name: string;
-  walletId: string;
-  walletName: string;
-  xpubOrAddress: string;
+interface CysyncData {
+  wallets: IWallet[];
+  accounts: IAccount[];
 }
 
 export default function Scan() {
   const { strings } = useAppSelector(selectLanguage);
   const scannedData = useRef<Record<number, string>>({});
-  const [decodedData, setDecodedData] = useState<WalletData[]>([]);
-  const [scanProgress, setScanProgress] = useState(0);
-  const [isScanningComplete, setIsScanningComplete] = useState(false);
-  const [showAnimation, setShowAnimation] = useState(false);
-  const realm = useRealm();
+  const [decodedData, setDecodedData] = useState<CysyncData>();
+
+  function navigateToNext() {
+    router.dismissTo('/info');
+  }
 
   function onQrScanned(qr: ScanningResult) {
     const data = qr.data.split('|');
@@ -45,88 +34,41 @@ export default function Scan() {
 
     scannedData.current[chunkIndex] = chunkData;
 
-    const currentProgress =
-      (Object.keys(scannedData.current).length / dataLength) * 100;
-    setScanProgress(currentProgress);
-
-    if (currentProgress === 100) {
-      setIsScanningComplete(true);
-    }
-
     if (Object.keys(scannedData.current).length === dataLength) {
       const sortedChunks = Object.keys(scannedData.current)
         .sort((a, b) => Number(a) - Number(b))
         .map(key => scannedData.current[Number(key)]);
 
       const completeData = sortedChunks.join('');
-      setDecodedData(JSON.parse(completeData) as WalletData[]);
+      const buffer = Buffer.from(completeData, 'base64');
+      const decompressedData = inflate(new Uint8Array(buffer));
+      const decodedData = Buffer.from(decompressedData).toString();
+      setDecodedData(JSON.parse(decodedData) as CysyncData);
+    }
+  }
+
+  async function saveDataToDb(data: CysyncData) {
+    try {
+      const db = getDB();
+      await db.wallet.insert(data.wallets);
+      await db.account.insert(data.accounts);
+    } catch (error) {
+      console.log(error);
+      console.log('Failed to save data');
     }
   }
 
   useEffect(() => {
-    if (isScanningComplete) {
-      setShowAnimation(true);
+    if (decodedData) {
+      saveDataToDb(decodedData);
+      navigateToNext();
     }
-  }, [isScanningComplete]);
 
-  useEffect(() => {
-    if (decodedData.length > 0) {
-      realm.write(() => {
-        decodedData.forEach(data => {
-          const existingWallet = realm
-            .objects('Wallet')
-            .filtered('walletId == $0', data.walletId)[0];
-          if (existingWallet) {
-            existingWallet.name = data.name;
-            existingWallet.walletName = data.walletName;
-            existingWallet.xpubOrAddress = data.xpubOrAddress;
-          } else {
-            realm.create('Wallet', {
-              _id: new Realm.BSON.ObjectId(),
-              name: data.name,
-              walletId: data.walletId,
-              walletName: data.walletName,
-              xpubOrAddress: data.xpubOrAddress,
-              balance: 0,
-              currency: '',
-              createdAt: new Date(),
-            });
-          }
-        });
-      });
-      realm.write(() => {
-        decodedData.forEach(data => {
-          const existingAccount = realm
-            .objects('Account')
-            .filtered('walletId == $0', data.walletId)[0];
-          if (existingAccount) {
-            existingAccount.name = data.name;
-            existingAccount.walletName = data.walletName;
-            existingAccount.xpubOrAddress = data.xpubOrAddress;
-          } else {
-            realm.create('Account', {
-              _id: new Realm.BSON.ObjectId(),
-              name: data.name,
-              walletId: data.walletId,
-              walletName: data.walletName,
-              xpubOrAddress: data.xpubOrAddress,
-              balance: 0,
-              createdAt: new Date(),
-            });
-          }
-        });
-      });
-    }
-  }, [decodedData, realm]);
-
-  useEffect(() => {
-    if (showAnimation) {
-      router.replace('/(onboarding)/info');
-    }
-  }, [showAnimation]);
-  if (showAnimation) {
-    return <LottieSplash source={helloAnimation} autoPlay loop={false} />;
-  }
+    return () => {
+      setDecodedData(undefined);
+      scannedData.current = {};
+    };
+  }, [decodedData]);
 
   return (
     <ScreenContainer>
@@ -136,32 +78,11 @@ export default function Scan() {
             default: Images.icon.close_default,
             disabled: Images.icon.close_disabed,
           }}
-          onPress={() => router.replace('/(onboarding)/info')}
+          onPress={navigateToNext}
           size="small"
         />
       </View>
       <Scanner onQrScanned={onQrScanned} />
-      <View style={styles.progressContainer}>
-        <Typography
-          type="body"
-          color="secondary"
-          textAlign="center"
-          style={{ paddingBottom: 4 }}
-        >
-          {strings.scan.pleaseWait}
-        </Typography>
-        <View style={styles.progressBarContainer}>
-          <LinearGradient
-            colors={['#E9B873', '#FEDD8F', '#B78D51']}
-            start={{ x: 0, y: 0 }}
-            end={{ x: 1, y: 0 }}
-            style={{
-              width: `${scanProgress}%`,
-              height: 5,
-            }}
-          />
-        </View>
-      </View>
       <View style={styles.textContainer}>
         <MessageBox
           type="warning"
@@ -187,18 +108,5 @@ const styles = StyleSheet.create({
     gap: 16,
     paddingBottom: 40,
     paddingHorizontal: 24,
-  },
-  progressBarContainer: {
-    width: '80%',
-    height: 5,
-    backgroundColor: '#272320',
-    overflow: 'hidden',
-    alignSelf: 'center',
-  },
-  progressContainer: {
-    gap: 4,
-    marginTop: -20,
-    paddingHorizontal: 24,
-    width: '100%',
   },
 });
