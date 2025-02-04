@@ -44,14 +44,14 @@ export default function Onboarding() {
       subtitle: strings.onboarding.notifications.subtitle,
     },
     {
-      id: 5, // New onboarding screen
-      image: Images.onboarding.screen5, // The new image
+      id: 5,  
+      image: Images.onboarding.screen5, 
       title: strings.onboarding.allSet.title,
       titleType: 'h2',
       subtitle: strings.onboarding.allSet.subtitle,
       actions: {
         primary: {
-          title: strings.buttons.continue, // Or a specific title for this button
+          title: strings.buttons.continue, 
           onPress: () => router.push('/(onboarding)/PasswordPage'), 
         },
       },
