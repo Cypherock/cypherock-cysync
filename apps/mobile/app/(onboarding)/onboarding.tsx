@@ -5,12 +5,13 @@ import {
   PagerDots,
   ScreenContainer,
 } from '@/components/ui';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { useAppSelector } from '@/store';
 import { selectLanguage } from '@/store/lang';
 import { Images } from '@/constants/images';
 import { router } from 'expo-router';
+import { Dimensions, StyleSheet, View } from 'react-native';
 
 export default function Onboarding() {
   const { strings } = useAppSelector(selectLanguage);
@@ -34,31 +35,24 @@ export default function Onboarding() {
       image: Images.onboarding.screen3,
       title: strings.onboarding.receive.title,
       subtitle: strings.onboarding.receive.description,
-      actions: {
-        primary: {
-          title: strings.buttons.continue,
-          onPress: () => router.push('/(onboarding)/PasswordPage'),
-        },
-      },
     },
     {
       id: 4,
-      image: Images.onboarding.screen4_1,
-      title: strings.onboarding.scan.title,
+      image: Images.onboarding.screen4,
+      title: strings.onboarding.notifications.title,
       titleType: 'h2',
-      subtitles: [
-        strings.onboarding.scan.description[0],
-        strings.onboarding.scan.description[1],
-      ],
+      subtitle: strings.onboarding.notifications.subtitle,
+    },
+    {
+      id: 5, // New onboarding screen
+      image: Images.onboarding.screen5, // The new image
+      title: strings.onboarding.allSet.title,
+      titleType: 'h2',
+      subtitle: strings.onboarding.allSet.subtitle,
       actions: {
         primary: {
-          title: strings.buttons.scanQrCode,
-          onPress: () => router.push('/(onboarding)/info'),
-        },
-        secondary: {
-          title: strings.buttons.buyCypherockX1,
-          onPress: () =>
-            router.navigate('https://www.cypherock.com/product/cypherock-x1/'),
+          title: strings.buttons.continue, // Or a specific title for this button
+          onPress: () => router.push('/(onboarding)/PasswordPage'), 
         },
       },
     },
@@ -71,7 +65,7 @@ export default function Onboarding() {
   return (
     <ScreenContainer>
       <PagerDots index={currentIndex} length={pages.length} />
-      <GestureHandlerRootView>
+      <GestureHandlerRootView style={{flex: 1}}>
         <FlatList
           horizontal
           data={pages}

@@ -17,7 +17,11 @@
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#1C1815"
       },
-      "package": "com.cypherock.cysync"
+      "package": "com.cypherock.cysync",
+      "permissions": [
+        "android.permission.CAMERA",
+        "android.permission.RECORD_AUDIO"
+      ]
     },
     "plugins": [
       "expo-router",
@@ -46,6 +50,9 @@
     "extra": {
       "router": {
         "origin": false
+      },
+      "eas": {
+        "projectId": "63ea374d-6364-4f00-a71e-4ba715105cc7"
       }
     }
   }

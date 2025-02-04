@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Image } from 'expo-image';
 import { Images } from '@/constants';
 import { OnboardingItem, ScreenContainer } from '@/components/ui';
@@ -8,7 +8,6 @@ import { selectLanguage } from '@/store/lang';
 
 export default function Info() {
   const { strings } = useAppSelector(selectLanguage);
-
   return (
     <ScreenContainer>
       <OnboardingItem
@@ -24,7 +23,7 @@ export default function Info() {
         actions={{
           primary: {
             title: strings.buttons.ok,
-            onPress: () => router.push('/permission'),
+            onPress: () => router.replace('/receive/wallet'),
           },
         }}
       />

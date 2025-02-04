@@ -35,18 +35,6 @@ export default function General() {
           }
           onPress={() => router.push('/settings/language')}
         />
-        <InteractiveItem
-          leftIcon={
-            <Typography type="label" style={{ fontWeight: 'bold' }}>
-              $
-            </Typography>
-          }
-          text={settingsStrings.preferredCurrency}
-          rightIcon={
-            <Entypo name="chevron-small-right" size={16} color="white" />
-          }
-          onPress={() => router.push('/settings/currency')}
-        />
       </Card>
     </ScreenContainer>
   );
