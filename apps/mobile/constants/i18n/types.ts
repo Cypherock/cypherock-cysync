@@ -61,6 +61,14 @@ export interface LangOnboarding {
     title: string;
     description: string;
   };
+  allSet: {
+    title: string;
+    subtitle: string;
+  };
+  notifications: {
+    title: string;
+    subtitle: string;
+  };
   info: {
     title: string;
     description: string;

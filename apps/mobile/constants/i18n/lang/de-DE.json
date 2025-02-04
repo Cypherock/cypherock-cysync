@@ -53,7 +53,7 @@
       "inputs": {
         "newPassword": {
           "placeholder": "Neues Passwort",
-          "description": "Das Passwort muss 8-16 Zeichen lang sein und mindestens zwei der folgenden Elemente enthalten: Großbuchstaben, Kleinbuchstaben, Zahlen oder Sonderzeichen"
+          "description": "Erstellen Sie ein starkes Passwort mit einer Mischung aus Buchstaben, Zahlen und Symbolen"
         },
         "confirmPassword": {
           "placeholder": "Passwort bestätigen",
@@ -64,6 +64,14 @@
         "title": "Neues Passwort erfolgreich hinzugefügt",
         "subTitle": "Sie können sich jetzt mit Ihrem neuen Passwort anmelden"
       }
+    },
+    "notifications": {
+      "title": "Benachrichtigungen",
+      "subtitle": "Empfangen Sie Ihre Krypto-Assets direkt in Ihrem Cypherock X1. Unterwegs!"
+    },
+    "allSet": {
+      "title": "Du bist startklar!",
+      "subtitle": ""
     }
   },
   "scan": {
@@ -116,11 +124,8 @@
     "receive": {
       "info": "Adresse für ${crypto} in ${wallet}",
       "messageBox": {
-        "danger": "Die Empfangsadresse wurde nicht auf dem Gerät verifiziert. Verwenden Sie sie auf eigenes Risiko"
+        "danger": "Diese Empfangsadresse wurde NICHT vom Gerät ÜBERPRÜFT. Benutzen Sie sie auf eigene Gefahr."
       }
-    },
-    "shared": {
-      "noAccounts": "Keine Konten gefunden!"
     }
   },
   "support": {
@@ -172,7 +177,7 @@
       "inputs": {
         "newPassword": {
           "placeholder": "Neues Passwort",
-          "description": "Das Passwort muss 8-16 Zeichen lang sein und mindestens zwei der folgenden Elemente enthalten: Großbuchstaben, Kleinbuchstaben, Zahlen oder Sonderzeichen"
+          "description": "Erstellen Sie ein starkes Passwort mit einer Mischung aus Buchstaben, Zahlen und Symbolen"
         },
         "confirmPassword": {
           "placeholder": "Passwort bestätigen",
@@ -189,7 +194,7 @@
         "newPassword": {
           "placeholder": "Neues Passwort"
         },
-        "description": "Das Passwort muss 8-16 Zeichen lang sein und mindestens zwei der folgenden Elemente enthalten: Großbuchstaben, Kleinbuchstaben, Zahlen oder Sonderzeichen",
+        "description": "Erstellen Sie ein starkes Passwort mit einer Mischung aus Buchstaben, Zahlen und Symbolen",
         "confirmPassword": {
           "placeholder": "Passwort bestätigen",
           "description": "Beide Passwörter müssen übereinstimmen"

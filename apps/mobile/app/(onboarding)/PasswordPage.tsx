@@ -5,7 +5,7 @@ import {
   Dimensions,
   StyleSheet,
 } from 'react-native';
-import { useRouter } from 'expo-router';
+import { router } from 'expo-router';
 import * as SecureStore from 'expo-secure-store';
 import {
   Button,
@@ -16,11 +16,15 @@ import {
   ScreenContainer,
   Typography,
 } from '@/components/ui';
-import styled, { NativeTarget, useTheme } from 'styled-components/native';
+import styled, { useTheme } from 'styled-components/native';
 import { useAppSelector } from '@/store';
 import { selectLanguage } from '@/store/lang';
 
 const { height, width } = Dimensions.get('window');
+
+const KeyboardView = styled(KeyboardAvoidingView)`
+  flex: 1;
+`;
 
 const validatePassword = (password: string) => {
   const regex =
@@ -44,7 +48,6 @@ const useSecurePasswordStorage = () => {
 };
 
 export default function PasswordPage() {
-  const router = useRouter();
   const { strings } = useAppSelector(selectLanguage);
   const [newPassword, setNewPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
@@ -69,7 +72,14 @@ export default function PasswordPage() {
     const success = await save('userPassword', newPassword);
     if (success) {
       setShowSuccess(true);
+      setTimeout(() => {
+        router.replace('/(onboarding)/onboarding-scan'); // Updated route
+      }, 2000);
     }
+  };
+
+  const handleSkip = () => {
+    router.replace('/(onboarding)/onboarding-scan');
   };
 
   if (showSuccess) {
@@ -78,7 +88,6 @@ export default function PasswordPage() {
         <Success
           title={strings.onboarding.passwordPage.success.title}
           subTitle={strings.onboarding.passwordPage.success.subTitle}
-          redirectRoute="/(onboarding)/info"
         />
       </ScreenContainer>
     );
@@ -86,16 +95,14 @@ export default function PasswordPage() {
 
   return (
     <ScreenContainer>
-      <KeyboardAvoidingView
-        style={{ flex: 1 }}
-        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-      >
+      <KeyboardView behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
         <Container
           style={{
             flex: 1,
             width,
             height,
             padding: 16,
+            backgroundColor: theme.palette.background.primary,
           }}
         >
           <Flex direction="column" style={{ flex: 1, paddingTop: 24 }}>
@@ -145,16 +152,21 @@ export default function PasswordPage() {
               )}
             </Container>
           </Flex>
-
           <Container style={styles.buttonContainer}>
             <Button
               title={strings.buttons.continue}
               onPress={handleContinue}
               style={styles.button}
             />
+            <Button
+              title={strings.buttons.skip}
+              onPress={handleSkip}
+              type="secondary"
+              style={styles.button}
+            />
           </Container>
         </Container>
-      </KeyboardAvoidingView>
+      </KeyboardView>
     </ScreenContainer>
   );
 }
@@ -174,6 +186,8 @@ const styles = StyleSheet.create({
     bottom: 100,
     left: 16,
     right: 16,
+    flexDirection: 'column',
+    gap: 10,
   },
   button: {
     borderRadius: 8,

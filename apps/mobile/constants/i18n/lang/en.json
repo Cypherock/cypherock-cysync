@@ -53,7 +53,7 @@
       "inputs": {
         "newPassword": {
           "placeholder": "New password",
-          "description": "Password must be 8-16 characters and include at least two of the following: uppercase, lowercase, number or symbol"
+          "description": "Create a strong password with a mix of letters, numbers and symbols"
         },
         "confirmPassword": {
           "placeholder": "Confirm password",
@@ -64,6 +64,14 @@
         "title": "New Password added successfully",
         "subTitle": "You can now use your new password to log in"
       }
+    },
+    "notifications": {
+      "title": "Notifications",
+      "subtitle": "Receive your Crypto assets directly into your Cypherock X1. On the Go!"
+    },
+    "allSet": {
+      "title": "You are all set to go!",
+      "subtitle": ""
     }
   },
   "scan": {
@@ -80,7 +88,7 @@
     "heading": "Portfolio",
     "noAccount": {
       "title": "Nothing here yet!",
-      "subTitle": "We couldn't find anything. Try scanning the QR code on your desktop again"
+      "subTitle": "We couldn't find anything. Try scanning the QR code on your desktop  again "
     },
     "dashboard": {
       "table": {
@@ -116,11 +124,8 @@
     "receive": {
       "info": "Address for ${crypto} in ${wallet}",
       "messageBox": {
-        "danger": "The receive address is not verified on the device. Use it at your own risk"
+        "danger": "This Receive Address was NOT VERIFIED by the device. Use it at your own risk."
       }
-    },
-    "shared": {
-      "noAccounts": "No accounts found!"
     }
   },
   "support": {
@@ -172,7 +177,7 @@
       "inputs": {
         "newPassword": {
           "placeholder": "New password",
-          "description": "Password must be 8-16 characters and include at least two of the following: uppercase, lowercase, number or symbol"
+          "description": "Create a strong password with a mix of letters, numbers and symbols"
         },
         "confirmPassword": {
           "placeholder": "Confirm password",
@@ -189,7 +194,7 @@
         "newPassword": {
           "placeholder": "New password"
         },
-        "description": "Password must be 8-16 characters and include at least two of the following: uppercase, lowercase, number or symbol",
+        "description": "Create a strong password with a mix of letters, numbers and symbols",
         "confirmPassword": {
           "placeholder": "Confirm password",
           "description": "Both passwords must match"
@@ -224,5 +229,11 @@
     "receive": "Receive",
     "support": "Support",
     "settings": "Settings"
+  },
+  "login": {
+    "emailPlaceholder": "Email",
+    "passwordPlaceholder": "Password",
+    "message": "This is a dummy login implementation. Any input will redirect to the next page.",
+    "forgotPassword": "Forgot password?"
   }
 }

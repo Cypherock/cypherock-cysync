@@ -53,7 +53,7 @@
       "inputs": {
         "newPassword": {
           "placeholder": "Kata sandi baru",
-          "description": "Kata sandi harus terdiri dari 8-16 karakter dan menyertakan setidaknya dua dari berikut ini: huruf besar, huruf kecil, angka, atau simbol"
+          "description": "Buat kata sandi yang kuat dengan campuran huruf, angka, dan simbol"
         },
         "confirmPassword": {
           "placeholder": "Konfirmasi kata sandi",
@@ -64,6 +64,14 @@
         "title": "Kata Sandi Baru berhasil ditambahkan",
         "subTitle": "Anda sekarang dapat menggunakan kata sandi baru Anda untuk masuk"
       }
+    },
+    "notifications": {
+      "title": "Notifikasi",
+      "subtitle": "Terima aset Kripto Anda langsung ke Cypherock X1 Anda. Di mana saja!"
+    },
+    "allSet": {
+      "title": "Anda sudah siap!",
+      "subtitle": ""
     }
   },
   "scan": {
@@ -116,11 +124,8 @@
     "receive": {
       "info": "Alamat untuk ${crypto} di ${wallet}",
       "messageBox": {
-        "danger": "Alamat penerima tidak diverifikasi pada perangkat. Gunakan dengan risiko Anda sendiri"
+        "danger": "Alamat Penerima ini TIDAK DIVERIFIKASI oleh perangkat. Gunakan dengan risiko Anda sendiri."
       }
-    },
-    "shared": {
-      "noAccounts": "Tidak ada akun yang ditemukan!"
     }
   },
   "support": {
@@ -172,7 +177,7 @@
       "inputs": {
         "newPassword": {
           "placeholder": "Kata sandi baru",
-          "description": "Kata sandi harus terdiri dari 8-16 karakter dan menyertakan setidaknya dua dari berikut ini: huruf besar, huruf kecil, angka, atau simbol"
+          "description": "Buat kata sandi yang kuat dengan campuran huruf, angka, dan simbol"
         },
         "confirmPassword": {
           "placeholder": "Konfirmasi kata sandi",
@@ -189,7 +194,7 @@
         "newPassword": {
           "placeholder": "Kata sandi baru"
         },
-        "description": "Kata sandi harus terdiri dari 8-16 karakter dan menyertakan setidaknya dua dari berikut ini: huruf besar, huruf kecil, angka, atau simbol",
+        "description": "Buat kata sandi yang kuat dengan campuran huruf, angka, dan simbol",
         "confirmPassword": {
           "placeholder": "Konfirmasi kata sandi",
           "description": "Kedua kata sandi harus cocok"

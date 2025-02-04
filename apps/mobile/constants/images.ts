@@ -4,8 +4,10 @@ export const Images = {
     screen1: require('@/assets/images/onboarding-screen-1.png'),
     screen2: require('@/assets/images/onboarding-screen-2.png'),
     screen3: require('@/assets/images/onboarding-screen-3.png'),
+    screen4: require('@/assets/images/onboarding-screen-4.png'),
     screen4_1: require('@/assets/images/onboarding-screen-4.1.png'),
     screen4_2: require('@/assets/images/onboarding-screen-4.2.png'),
+    screen5: require('@/assets/images/onboarding-screen-5.png'),
     qr_frame: require('@/assets/images/qr-frame.png'),
     camera: require('@/assets/images/carbon-camera.png'),
   },
@@ -49,5 +51,7 @@ export const Images = {
   },
   other: {
     banner_default: require('@/assets/images/banner.png'),
+    password_success_tick: require('@/assets/images/password-success-tick.png'),
+    logo: require('@/assets/images/logo-lock.png'), // Added the logo here
   },
 };
