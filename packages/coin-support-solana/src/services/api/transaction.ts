@@ -16,6 +16,9 @@ const baseURL = `${config.API_CYPHEROCK}/solana/transaction`;
  */
 const TOKEN_ACCOUNT_DATA_LENGTH = 165;
 
+// Get the accountInfo of any native account, the length of accountInfo.value.data[0] is 0
+const NATIVE_ACCOUNT_DATA_LENGTH = 0;
+
 export const getTransactions = async (params: {
   address: string;
   assetId: string;
@@ -77,7 +80,7 @@ export const getSimulationComputeUnits = async (
 
   const response = await makePostRequest(url, query);
 
-  const units = response.data?.units ?? 0;
+  const units = Number(response.data?.units ?? 0);
 
   if (typeof units !== 'number')
     throw new Error(
@@ -109,13 +112,16 @@ export const getPriorityFees = async (
   return priorityFees;
 };
 
-export const getTokenAccountRentExemptFees = async (assetId: string) => {
+export const getRentExemptFees = async (
+  accountDataLength: number,
+  assetId: string,
+) => {
   const url = `${baseURL}/rent-exempt-fee`;
 
   const query: Record<string, any> = {
     responseType: 'v2',
     network: solanaCoinList[assetId].network,
-    accountDataLength: TOKEN_ACCOUNT_DATA_LENGTH,
+    accountDataLength,
   };
 
   const response = await makePostRequest(url, query);
@@ -130,6 +136,12 @@ export const getTokenAccountRentExemptFees = async (assetId: string) => {
 
   return rentExemptFees;
 };
+
+export const getTokenAccountRentExemptFees = async (assetId: string) =>
+  getRentExemptFees(TOKEN_ACCOUNT_DATA_LENGTH, assetId);
+
+export const getNativeAccountRentExemptFees = async (assetId: string) =>
+  getRentExemptFees(NATIVE_ACCOUNT_DATA_LENGTH, assetId);
 
 export const broadcastTransactionToBlockchain = async (
   transaction: string,
