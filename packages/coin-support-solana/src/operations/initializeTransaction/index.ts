@@ -89,7 +89,6 @@ export const initializeTransaction = async (
       ownOutputAddressNotAllowed: [],
       zeroAmountNotAllowed: false,
       isRentExemptFeeRequired: false,
-      isBalanceBelowRentExempt: false,
       isAmountBelowRentExempt: false,
     },
     userInputs: {

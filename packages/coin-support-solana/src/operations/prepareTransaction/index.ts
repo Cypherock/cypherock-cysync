@@ -254,14 +254,6 @@ export const prepareTransaction = async (
   hasEnoughBalance =
     new BigNumber(txn.userInputs.outputs[0].amount).isNaN() || hasEnoughBalance;
 
-  let isBalanceBelowRentExempt = false;
-  if (!isTokenAccount && hasEnoughBalance) {
-    isBalanceBelowRentExempt = !(
-      sendAmount.isNaN() ||
-      spendableBalance.isGreaterThanOrEqualTo(sendAmount.plus(fee))
-    );
-  }
-
   let isAmountBelowRentExempt = false;
   if (!isTokenAccount && output.doesExist === false) {
     isAmountBelowRentExempt = sendAmount.isLessThan(txn.staticData.rentExempt);
@@ -276,7 +268,6 @@ export const prepareTransaction = async (
       ownOutputAddressNotAllowed: [],
       zeroAmountNotAllowed: false,
       isRentExemptFeeRequired: !rentExemptFees.isZero(),
-      isBalanceBelowRentExempt,
       isAmountBelowRentExempt,
     },
     computedData: {
