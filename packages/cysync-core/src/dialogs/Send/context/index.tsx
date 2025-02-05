@@ -760,6 +760,26 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
       );
     }
 
+    if (solanaValidation.isAmountBelowRentExempt && selectedAccount) {
+      const { rentExempt } = (transaction as IPreparedSolanaTransaction)
+        .staticData;
+
+      const { amount: _amount, unit } = getParsedAmount({
+        coinId: selectedAccount.parentAssetId,
+        assetId: selectedAccount.assetId,
+        unitAbbr:
+          selectedAccount.unit ??
+          getDefaultUnit(selectedAccount.parentAssetId, selectedAccount.assetId)
+            .abbr,
+        amount: rentExempt,
+      });
+
+      return parseLangTemplate(
+        lang.strings.send.recipient.amount.amountBelowReserveBalance,
+        { amount: _amount, unit: unit.abbr },
+      );
+    }
+
     return '';
   }, [transaction, lang, selectedAccount]);
 

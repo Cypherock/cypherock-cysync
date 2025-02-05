@@ -3,7 +3,7 @@ import { getAccountAndCoin } from '@cypherock/coin-support-utils';
 import { solanaCoinList } from '@cypherock/coins';
 import { BigNumber } from '@cypherock/cysync-utils';
 
-import { getFees } from '../../services';
+import { getFees, getRentExemptFees } from '../../services';
 
 import { IPreparedSolanaTransaction } from '../transaction';
 import { AccountTypeMap } from '@cypherock/db-interfaces';
@@ -75,6 +75,11 @@ export const initializeTransaction = async (
     )
     .toFixed(0);
 
+  let rentExempt = '0';
+  if (!isTokenAccount) {
+    rentExempt = await getRentExemptFees(0, coin.id); // For a new native solana account, account data length is 0
+  }
+
   return {
     accountId,
     validation: {
@@ -85,6 +90,7 @@ export const initializeTransaction = async (
       zeroAmountNotAllowed: false,
       isRentExemptFeeRequired: false,
       isBalanceBelowRentExempt: false,
+      isAmountBelowRentExempt: false,
     },
     userInputs: {
       outputs: [],
@@ -92,6 +98,7 @@ export const initializeTransaction = async (
     },
     staticData: {
       baseFee,
+      rentExempt,
     },
     computedData: {
       output: { address: '', amount: '0' },

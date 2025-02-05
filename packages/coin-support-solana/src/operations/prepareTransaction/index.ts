@@ -1,7 +1,7 @@
 import { getAccountAndCoin } from '@cypherock/coin-support-utils';
 import { solanaCoinList, ICoinInfo, ISolanaSplToken } from '@cypherock/coins';
 import { assert, BigNumber } from '@cypherock/cysync-utils';
-import { AccountTypeMap, IAccount } from '@cypherock/db-interfaces';
+import { AccountTypeMap } from '@cypherock/db-interfaces';
 
 import {
   constructTransaction,
@@ -53,7 +53,6 @@ const validateAddresses = (
 };
 
 const checkIfRecipientTokenAccountExists = async (
-  account: IAccount,
   recipientAddress: string,
   assetId: string,
   mintAddress: string,
@@ -133,8 +132,31 @@ export const prepareTransaction = async (
     new BigNumber(account.spendableBalance ?? account.balance).toFixed(0),
   );
 
+  const isTokenAccount = account.type === AccountTypeMap.subAccount;
+  let tokenDetails: ISolanaSplToken | undefined;
+  if (isTokenAccount)
+    tokenDetails =
+      solanaCoinList[account.parentAssetId].tokens[account.assetId];
+
   const outputsAddresses = validateAddresses(params, coin);
-  const output = { ...txn.userInputs.outputs[0] };
+  let doesExist: boolean | undefined;
+  if (txn.userInputs.outputs[0].address === txn.computedData.output.address) {
+    doesExist = txn.computedData.output.doesExist;
+  }
+
+  const output = { ...txn.userInputs.outputs[0], doesExist };
+
+  if (output.address && outputsAddresses[0] && output.doesExist === undefined) {
+    output.doesExist = tokenDetails
+      ? await checkIfRecipientTokenAccountExists(
+          output.address,
+          coin.id,
+          tokenDetails.address,
+        )
+      : await doesAccountExist(output.address, account.assetId);
+    txn.computedData.output.doesExist = output.doesExist;
+  }
+
   // Amount shouldn't have any decimal value as it's in lowest unit
   output.amount = new BigNumber(output.amount).toFixed(0);
 
@@ -142,22 +164,9 @@ export const prepareTransaction = async (
 
   const instructions: ICustomSolanaInstruction[] = [];
 
-  const isTokenAccount = account.type === AccountTypeMap.subAccount;
-  let tokenDetails: ISolanaSplToken | undefined;
-  if (isTokenAccount)
-    tokenDetails =
-      solanaCoinList[account.parentAssetId].tokens[account.assetId];
-
   let rentExemptFees = new BigNumber(0);
   if (tokenDetails && output.address !== '' && outputsAddresses?.[0]) {
-    const doesExist = await checkIfRecipientTokenAccountExists(
-      account,
-      output.address,
-      coin.id,
-      tokenDetails.address,
-    );
-
-    if (!doesExist) {
+    if (output.doesExist === false) {
       rentExemptFees = new BigNumber(
         await getTokenAccountRentExemptFees(coin.id),
       );
@@ -253,6 +262,11 @@ export const prepareTransaction = async (
     );
   }
 
+  let isAmountBelowRentExempt = false;
+  if (!isTokenAccount && output.doesExist === false) {
+    isAmountBelowRentExempt = sendAmount.isLessThan(txn.staticData.rentExempt);
+  }
+
   return {
     ...txn,
     validation: {
@@ -263,6 +277,7 @@ export const prepareTransaction = async (
       zeroAmountNotAllowed: false,
       isRentExemptFeeRequired: !rentExemptFees.isZero(),
       isBalanceBelowRentExempt,
+      isAmountBelowRentExempt,
     },
     computedData: {
       fees: fee.toString(),
