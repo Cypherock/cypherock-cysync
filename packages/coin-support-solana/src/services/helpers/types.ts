@@ -39,5 +39,4 @@ export type ICustomSolanaInstruction =
 export interface IConstructTransactionOptions {
   computeUnits?: number;
   computeUnitPrice?: number;
-  useMinimumAmounts?: boolean; // Used for simulating transaction without using actual amounts
 }

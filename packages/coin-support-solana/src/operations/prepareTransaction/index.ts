@@ -75,7 +75,6 @@ const estimateFees = async (
     assetId,
     address,
     instructions,
-    { useMinimumAmounts: true },
   );
 
   let fees = await getFees(
@@ -83,7 +82,7 @@ const estimateFees = async (
     assetId,
   );
 
-  let computeUnits = 200_000; // Fallback value for computeunits
+  let computeUnits = 10_000; // Fallback value for computeunits
   try {
     computeUnits = await getSimulationComputeUnits(
       transaction
@@ -96,7 +95,7 @@ const estimateFees = async (
     logger.warn(JSON.stringify(e));
   }
 
-  let computeUnitPriceMicroLamports = 0; // Fallback value for computeprice
+  let computeUnitPriceMicroLamports = 100_000; // Fallback value for computeprice
   try {
     computeUnitPriceMicroLamports = await getPriorityFees(assetId);
   } catch (e) {

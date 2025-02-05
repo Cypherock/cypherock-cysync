@@ -80,10 +80,7 @@ export const constructTransaction = async (
   instructions: ICustomSolanaInstruction[],
   options?: IConstructTransactionOptions,
 ) => {
-  let { computeUnitPrice = 0 } = options ?? {};
-  const { computeUnits = 200_000, useMinimumAmounts = false } = options ?? {};
-
-  if (useMinimumAmounts) computeUnitPrice = 0;
+  const { computeUnits = 200_000, computeUnitPrice = 0 } = options ?? {};
 
   const recentBlockhash = await getLatestBlockHash(
     solanaCoinList[assetId].network,
@@ -115,7 +112,7 @@ export const constructTransaction = async (
       constructedInstruction = web3Lib.SystemProgram.transfer({
         fromPubkey: feePayer,
         toPubkey: new web3Lib.PublicKey(instruction.recipient),
-        lamports: useMinimumAmounts ? 1 : instruction.amount,
+        lamports: instruction.amount,
       });
     } else {
       if (!instruction.mintAddress) continue;
@@ -146,7 +143,7 @@ export const constructTransaction = async (
             mintPubKey,
             recipientTokenAccount,
             feePayer,
-            useMinimumAmounts ? 1 : instruction.amount,
+            instruction.amount,
             instruction.decimals,
           );
       }
