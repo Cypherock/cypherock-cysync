@@ -218,7 +218,16 @@ export const prepareTransaction = async (
 
     if (!isTokenAccount) sendAmount = BigNumber.max(sendAmount.minus(fee), 0);
 
-    output.amount = new BigNumber(sendAmount.toFixed(0)).toString(10);
+    output.amount = sendAmount.toFixed(0);
+
+    // update the amount in transfer instruction
+    if (instructions.length > 0) {
+      (
+        instructions[instructions.length - 1] as
+          | ICustomSolanaTransferInstruction
+          | ICustomSolanaTransferCheckedInstruction
+      ).amount = new BigNumber(output.amount).toNumber();
+    }
 
     // update userInput so that the max amount is editable & not reset to 0
     txn.userInputs.outputs[0].amount = output.amount;
