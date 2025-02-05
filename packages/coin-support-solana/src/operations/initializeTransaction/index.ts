@@ -3,11 +3,7 @@ import { getAccountAndCoin } from '@cypherock/coin-support-utils';
 import { solanaCoinList } from '@cypherock/coins';
 import { BigNumber } from '@cypherock/cysync-utils';
 
-import {
-  getFees,
-  getPriorityFees,
-  getSimulationComputeUnits,
-} from '../../services';
+import { getFees } from '../../services';
 
 import { IPreparedSolanaTransaction } from '../transaction';
 import { AccountTypeMap } from '@cypherock/db-interfaces';
@@ -18,7 +14,6 @@ import {
   ICustomSolanaTransferInstruction,
   InstructionType,
 } from '../../utils';
-import logger from '../../utils/logger';
 
 export const initializeTransaction = async (
   params: IInitializeTransactionParams,
@@ -65,26 +60,12 @@ export const initializeTransaction = async (
     coin.id,
   );
 
-  let computeUnits = 200_000; // Fallback value for computeunits
-  try {
-    computeUnits = await getSimulationComputeUnits(
-      transaction
-        .serialize({ requireAllSignatures: false, verifySignatures: false })
-        .toString('base64'),
-      coin.id,
-    );
-  } catch (e) {
-    logger.warn('Failed to simulate transaction');
-    logger.warn(JSON.stringify(e));
-  }
+  // Not needed the calculation from blockchain for inital values. Just use max/default values
+  // Max compute units possible for our case (setComputeUnitPrice + setComputeUnitLimit + createAccount + transferChecked)
+  const computeUnits = 10_000;
 
-  let computeUnitPriceMicroLamports = 0; // Fallback value for computeprice
-  try {
-    computeUnitPriceMicroLamports = await getPriorityFees(coin.id);
-  } catch (e) {
-    logger.warn('Failed to fetch priority fees from server');
-    logger.warn(JSON.stringify(e));
-  }
+  // Default price, taken from trezor
+  const computeUnitPriceMicroLamports = 100_000;
 
   fees = new BigNumber(fees)
     .plus(
