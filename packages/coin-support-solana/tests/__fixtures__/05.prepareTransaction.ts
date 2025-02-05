@@ -19,7 +19,8 @@ export const valid: IPrepareTransactionTestCases[] = [
         isSendAll: false,
       },
       staticData: {
-        fees: '5000',
+        baseFee: '5000',
+        rentExempt: '890880',
       },
       computedData: {
         output: { address: 'address', amount: '0' },
@@ -35,6 +36,7 @@ export const valid: IPrepareTransactionTestCases[] = [
         ownOutputAddressNotAllowed: [],
         zeroAmountNotAllowed: false,
         isRentExemptFeeRequired: false,
+        isAmountBelowRentExempt: false,
       },
     },
     mocks: {
@@ -51,7 +53,8 @@ export const valid: IPrepareTransactionTestCases[] = [
         isSendAll: false,
       },
       staticData: {
-        fees: '5000',
+        baseFee: '5000',
+        rentExempt: '890880',
       },
       computedData: {
         fees: '5000',
@@ -70,6 +73,7 @@ export const valid: IPrepareTransactionTestCases[] = [
         ownOutputAddressNotAllowed: [],
         zeroAmountNotAllowed: false,
         isRentExemptFeeRequired: false,
+        isAmountBelowRentExempt: false,
       },
     },
   },
