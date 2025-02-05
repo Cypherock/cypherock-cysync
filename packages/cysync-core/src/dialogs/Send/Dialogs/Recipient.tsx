@@ -34,6 +34,7 @@ export const Recipient: React.FC = () => {
     transaction,
     selectedAccount,
     isAccountSelectionDisabled,
+    isPreparingTxn,
   } = useSendDialog();
   const lang = useAppSelector(selectLanguage);
   const button = lang.strings.buttons;
@@ -60,7 +61,8 @@ export const Recipient: React.FC = () => {
   const [btnState, handleButtonState] = useState(false);
   useEffect(() => {
     handleButtonState(
-      !!transaction &&
+      !isPreparingTxn &&
+        !!transaction &&
         transaction.validation.hasEnoughBalance &&
         !(transaction.validation as IPreparedBtcTransaction['validation'])
           .isNotOverDustThreshold &&
@@ -84,7 +86,7 @@ export const Recipient: React.FC = () => {
         !(transaction.validation as IPreparedXrpTransaction['validation'])
           .isInvalidDestinationTag,
     );
-  }, [transaction]);
+  }, [transaction, isPreparingTxn]);
 
   useEffect(() => {
     initialize();

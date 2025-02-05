@@ -126,6 +126,7 @@ export interface SendDialogContextInterface {
   getOutputError: (index: number) => string;
   getAmountError: () => string;
   getDestinationTagError: () => string;
+  isPreparingTxn: boolean;
 }
 
 export const SendDialogContext: Context<SendDialogContextInterface> =
@@ -382,10 +383,12 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
     txnData?.gas ??
     (transaction as IPreparedEvmTransaction).computedData.gasLimitEstimate;
 
+  const [isPreparingTxn, setPreparingTxn] = useState(false);
   const prepare = async (txn: IPreparedTransaction) => {
     logger.info('Preparing send transaction');
 
     try {
+      setPreparingTxn(true);
       const preparedTransaction =
         await getCurrentCoinSupport().prepareTransaction({
           accountId: selectedAccount?.__id ?? '',
@@ -396,6 +399,8 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
       setTransaction(structuredClone(preparedTransaction));
     } catch (e: any) {
       onError(e);
+    } finally {
+      setPreparingTxn(false);
     }
   };
 
@@ -819,6 +824,7 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
       getOutputError,
       getAmountError,
       getDestinationTagError,
+      isPreparingTxn,
     }),
     [
       defaultWalletId,
@@ -865,6 +871,7 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
       getOutputError,
       getAmountError,
       getDestinationTagError,
+      isPreparingTxn,
     ],
   );
 
