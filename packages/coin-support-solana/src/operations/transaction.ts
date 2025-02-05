@@ -18,7 +18,7 @@ export interface IPreparedSolanaTransaction extends IPreparedTransaction {
     isRentExemptFeeRequired: boolean;
   };
   staticData: {
-    fees: string;
+    baseFee: string;
   };
   computedData: {
     output: IPreparedTransactionOutput;

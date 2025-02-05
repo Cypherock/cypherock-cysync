@@ -55,7 +55,7 @@ export const initializeTransaction = async (
     instructions,
   );
 
-  let fees = await getFees(
+  const baseFee = await getFees(
     transaction.serializeMessage().toString('base64'),
     coin.id,
   );
@@ -67,7 +67,7 @@ export const initializeTransaction = async (
   // Default price, taken from trezor
   const computeUnitPriceMicroLamports = 100_000;
 
-  fees = new BigNumber(fees)
+  const fees = new BigNumber(baseFee)
     .plus(
       new BigNumber(computeUnitPriceMicroLamports)
         .dividedBy(10 ** 6)
@@ -90,7 +90,7 @@ export const initializeTransaction = async (
       isSendAll: false,
     },
     staticData: {
-      fees,
+      baseFee,
     },
     computedData: {
       output: { address: '', amount: '0' },

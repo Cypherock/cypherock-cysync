@@ -129,6 +129,10 @@ export const prepareTransaction = async (
     new Error('Solana transaction requires exactly 1 output'),
   );
 
+  const spendableBalance = new BigNumber(
+    new BigNumber(account.spendableBalance ?? account.balance).toFixed(0),
+  );
+
   const outputsAddresses = validateAddresses(params, coin);
   const output = { ...txn.userInputs.outputs[0] };
   // Amount shouldn't have any decimal value as it's in lowest unit
@@ -174,14 +178,12 @@ export const prepareTransaction = async (
     output.address !== '' &&
     outputsAddresses?.[0]
   ) {
-    const amountToSend = sendAmount.isNaN()
-      ? new BigNumber(new BigNumber(account.balance).toFixed(0)).toNumber()
-      : sendAmount.toNumber();
+    const amountToSend = sendAmount.isNaN() ? spendableBalance : sendAmount;
 
     if (tokenDetails) {
       const instruction: ICustomSolanaTransferCheckedInstruction = {
         type: InstructionType.transferChecked,
-        amount: amountToSend,
+        amount: amountToSend.toNumber(),
         recipient: output.address,
         mintAddress: tokenDetails.address,
         decimals: tokenDetails.decimals,
@@ -190,7 +192,7 @@ export const prepareTransaction = async (
     } else {
       const instruction: ICustomSolanaTransferInstruction = {
         type: InstructionType.transfer,
-        amount: amountToSend,
+        amount: amountToSend.minus(txn.staticData.baseFee).toNumber(),
         recipient: output.address,
       };
       instructions.push(instruction);
@@ -212,7 +214,7 @@ export const prepareTransaction = async (
   let hasEnoughBalance: boolean;
 
   if (txn.userInputs.isSendAll) {
-    sendAmount = new BigNumber(account.balance);
+    sendAmount = spendableBalance;
 
     if (!isTokenAccount) sendAmount = BigNumber.max(sendAmount.minus(fee), 0);
 
@@ -226,10 +228,8 @@ export const prepareTransaction = async (
 
   hasEnoughBalance = isTokenAccount
     ? new BigNumber(parentAccount?.balance ?? 0).isGreaterThan(fee) &&
-      new BigNumber(account.balance).isGreaterThanOrEqualTo(sendAmount)
-    : new BigNumber(account.balance).isGreaterThanOrEqualTo(
-        sendAmount.plus(fee),
-      );
+      spendableBalance.isGreaterThanOrEqualTo(sendAmount)
+    : spendableBalance.isGreaterThanOrEqualTo(sendAmount.plus(fee));
 
   hasEnoughBalance =
     new BigNumber(txn.userInputs.outputs[0].amount).isNaN() || hasEnoughBalance;
