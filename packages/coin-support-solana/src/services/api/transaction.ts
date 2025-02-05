@@ -4,6 +4,7 @@ import { assert, makePostRequest } from '@cypherock/cysync-utils';
 import { ISolanaTransactionResult } from './types';
 
 import { config } from '../../config';
+import { getAccountDataLength } from './wallet';
 
 const baseURL = `${config.API_CYPHEROCK}/solana/transaction`;
 
@@ -15,9 +16,6 @@ const baseURL = `${config.API_CYPHEROCK}/solana/transaction`;
  * https://spl.solana.com/token#finding-all-token-accounts-for-a-specific-mint
  */
 const TOKEN_ACCOUNT_DATA_LENGTH = 165;
-
-// Get the accountInfo of any native account, the length of accountInfo.value.data[0] is 0
-const NATIVE_ACCOUNT_DATA_LENGTH = 0;
 
 export const getTransactions = async (params: {
   address: string;
@@ -140,8 +138,10 @@ export const getRentExemptFees = async (
 export const getTokenAccountRentExemptFees = async (assetId: string) =>
   getRentExemptFees(TOKEN_ACCOUNT_DATA_LENGTH, assetId);
 
-export const getNativeAccountRentExemptFees = async (assetId: string) =>
-  getRentExemptFees(NATIVE_ACCOUNT_DATA_LENGTH, assetId);
+export const getNativeAccountRentExemptFees = async (
+  address: string,
+  assetId: string,
+) => getRentExemptFees(await getAccountDataLength(address, assetId), assetId);
 
 export const broadcastTransactionToBlockchain = async (
   transaction: string,
