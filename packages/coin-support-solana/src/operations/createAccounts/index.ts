@@ -19,6 +19,7 @@ import {
 } from './types';
 
 import * as services from '../../services';
+import { BigNumber } from '@cypherock/cysync-utils';
 
 const DERIVATION_PATH_LIMIT = 30;
 
@@ -63,10 +64,19 @@ const createAccountFromAddress: IMakeCreateAccountsObservableParams<SolanaApp>['
     const coin = solanaCoinList[params.coinId];
     const name = `${coin.name} ${addressDetails.index + 1}`;
 
+    const { address, balance } = addressDetails;
+    const spendableBalance = BigNumber.max(
+      0,
+      new BigNumber(balance).minus(
+        await services.getNativeAccountRentExemptFees(address, coin.id),
+      ),
+    ).toString();
+
     const account: ICreatedSolanaAccount = {
       name,
-      xpubOrAddress: addressDetails.address,
+      xpubOrAddress: address,
       balance: addressDetails.balance,
+      spendableBalance,
       unit: coin.units[0].abbr,
       derivationPath: addressDetails.derivationPath,
       type: AccountTypeMap.account,
