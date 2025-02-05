@@ -1,5 +1,6 @@
 import { getDefaultUnit, getParsedAmount } from '@cypherock/coin-support-utils';
 import { IPreparedBtcTransaction } from '@cypherock/coin-support-btc';
+import { IPreparedSolanaTransaction } from '@cypherock/coin-support-solana';
 import { IPreparedXrpTransaction } from '@cypherock/coin-support-xrp';
 import {
   BlockchainIcon,
@@ -82,7 +83,9 @@ export const Recipient: React.FC = () => {
         !(transaction.validation as IPreparedXrpTransaction['validation'])
           .isFeeBelowMin &&
         !(transaction.validation as IPreparedXrpTransaction['validation'])
-          .isInvalidDestinationTag,
+          .isInvalidDestinationTag &&
+        !(transaction.validation as IPreparedSolanaTransaction['validation'])
+          .isBalanceBelowRentExempt,
     );
   }, [transaction]);
 

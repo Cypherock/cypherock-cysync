@@ -734,6 +734,32 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
       );
     }
 
+    const solanaValidation =
+      transaction?.validation as IPreparedSolanaTransaction['validation'];
+
+    if (solanaValidation.isBalanceBelowRentExempt && selectedAccount) {
+      const rentExempt = selectedAccount.spendableBalance
+        ? new BigNumber(selectedAccount.balance)
+            .minus(selectedAccount.spendableBalance)
+            .toString()
+        : '890880';
+
+      const { amount: _amount, unit } = getParsedAmount({
+        coinId: selectedAccount.parentAssetId,
+        assetId: selectedAccount.assetId,
+        unitAbbr:
+          selectedAccount.unit ??
+          getDefaultUnit(selectedAccount.parentAssetId, selectedAccount.assetId)
+            .abbr,
+        amount: rentExempt,
+      });
+
+      return parseLangTemplate(
+        lang.strings.send.recipient.amount.balanceBelowReserveBalance,
+        { amount: _amount, unit: unit.abbr },
+      );
+    }
+
     return '';
   }, [transaction, lang, selectedAccount]);
 
