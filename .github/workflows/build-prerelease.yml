@@ -157,7 +157,7 @@ jobs:
       - name: Build
         run: pnpm make
 
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4
         with:
           name: build-linux
           path: |
@@ -232,7 +232,7 @@ jobs:
           WINDOWS_CERT_SUBJECT: ${{ secrets.WINDOWS_CERT_SUBJECT }}
         run: pnpm make
 
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4
         with:
           name: build-win
           path: |
@@ -321,7 +321,7 @@ jobs:
         run: |
           pnpm make
 
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4
         with:
           name: build-macos
           path: |
