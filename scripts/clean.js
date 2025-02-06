@@ -15,6 +15,7 @@ const packages = {
     'videos',
   ],
   'apps/cli': [...commonFolders, 'release'],
+  'apps/mobile': [...commonFolders, '.expo', 'android', 'ios'],
   'packages/coin-support': [...commonFolders],
   'packages/app-support-inheritance': [...commonFolders],
   'packages/coin-support-evm': [...commonFolders],
