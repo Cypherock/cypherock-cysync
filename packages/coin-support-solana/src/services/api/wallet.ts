@@ -49,3 +49,21 @@ export const doesAccountExist = async (address: string, assetId: string) => {
   // if account doesn't exist accountInfo.value comes null
   return accountInfo.value !== undefined && accountInfo.value !== null;
 };
+
+export const getAccountDataLength = async (
+  address: string,
+  assetId: string,
+) => {
+  const accountInfo = await getAccountInfo(address, assetId);
+
+  let dataLength = 0;
+  if (Array.isArray(accountInfo.value?.data)) {
+    // for native account
+    dataLength = accountInfo.value.data[0].length ?? 0;
+  } else if (typeof accountInfo.value?.data === 'object') {
+    // for token account
+    dataLength = accountInfo.value.data.space ?? 0;
+  }
+
+  return dataLength;
+};

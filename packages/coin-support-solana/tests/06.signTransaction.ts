@@ -23,7 +23,8 @@ const transaction: IPreparedSolanaTransaction = {
     isSendAll: false,
   },
   staticData: {
-    fees: '5000',
+    baseFee: '5000',
+    rentExempt: '890880',
   },
   computedData: {
     fees: '5000',
@@ -48,6 +49,7 @@ const transaction: IPreparedSolanaTransaction = {
     ownOutputAddressNotAllowed: [],
     zeroAmountNotAllowed: false,
     isRentExemptFeeRequired: false,
+    isAmountBelowRentExempt: false,
   },
 };
 

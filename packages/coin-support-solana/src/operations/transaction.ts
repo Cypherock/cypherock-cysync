@@ -16,12 +16,16 @@ export interface IPreparedSolanaTransaction extends IPreparedTransaction {
     ownOutputAddressNotAllowed: boolean[];
     zeroAmountNotAllowed: boolean;
     isRentExemptFeeRequired: boolean;
+    isAmountBelowRentExempt: boolean;
   };
   staticData: {
-    fees: string;
+    baseFee: string;
+    rentExempt: string;
   };
   computedData: {
-    output: IPreparedTransactionOutput;
+    output: IPreparedTransactionOutput & {
+      doesExist?: boolean;
+    };
     fees: string;
     instructions: ICustomSolanaInstruction[];
     computeUnits: number;

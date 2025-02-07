@@ -21,10 +21,16 @@ import {
   mapTokenTransactionsForDb,
   mapTransactionsForDb,
 } from '../../utils';
-import { getTransactions, getBalance, getTokenBalance } from '../../services';
+import {
+  getTransactions,
+  getBalance,
+  getTokenBalance,
+  getNativeAccountRentExemptFees,
+} from '../../services';
 import { ISolanaAccount } from '../types';
 
 import { ISolanaSplTokenAccount, ISyncSolanaAccountsParams } from './types';
+import { BigNumber } from '@cypherock/cysync-utils';
 
 // Solana transaction are fetched via individual calls, therefore the limit is set relatively low to prevent server timeout.
 const PER_PAGE_TXN_LIMIT = 25;
@@ -126,12 +132,14 @@ const fetchAndParseTransactions = async (params: {
 
 const getAddressDetails: IGetAddressDetails<{
   updatedBalance?: string;
+  updatedSpendableBalance?: string;
   updatedLatestTransactionHash?: string;
   afterTransactionHash?: string;
   beforeTransactionHash?: string;
 }> = async ({ db, account, iterationContext }) => {
   let {
     updatedBalance,
+    updatedSpendableBalance,
     updatedLatestTransactionHash,
     afterTransactionHash,
     beforeTransactionHash,
@@ -154,6 +162,13 @@ const getAddressDetails: IGetAddressDetails<{
     updatedBalance ??= await getTokenBalance(address, account.parentAssetId);
   } else {
     updatedBalance ??= await getBalance(address, account.parentAssetId);
+
+    updatedSpendableBalance ??= BigNumber.max(
+      0,
+      new BigNumber(updatedBalance).minus(
+        await getNativeAccountRentExemptFees(address, account.assetId),
+      ),
+    ).toString();
   }
 
   afterTransactionHash ??= (account as ISolanaAccount | ISolanaSplTokenAccount)
@@ -176,6 +191,7 @@ const getAddressDetails: IGetAddressDetails<{
 
   const updatedAccountInfo: Partial<ISolanaAccount> = {
     balance: updatedBalance,
+    spendableBalance: updatedSpendableBalance,
     extraData: {
       ...account.extraData,
       latestTransactionHash:
@@ -191,6 +207,7 @@ const getAddressDetails: IGetAddressDetails<{
       afterTransactionHash,
       beforeTransactionHash,
       updatedBalance,
+      updatedSpendableBalance,
       updatedLatestTransactionHash,
     },
   };

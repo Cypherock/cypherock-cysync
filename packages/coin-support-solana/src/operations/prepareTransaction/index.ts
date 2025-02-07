@@ -1,7 +1,7 @@
 import { getAccountAndCoin } from '@cypherock/coin-support-utils';
 import { solanaCoinList, ICoinInfo, ISolanaSplToken } from '@cypherock/coins';
 import { assert, BigNumber } from '@cypherock/cysync-utils';
-import { AccountTypeMap, IAccount } from '@cypherock/db-interfaces';
+import { AccountTypeMap } from '@cypherock/db-interfaces';
 
 import {
   constructTransaction,
@@ -53,7 +53,6 @@ const validateAddresses = (
 };
 
 const checkIfRecipientTokenAccountExists = async (
-  account: IAccount,
   recipientAddress: string,
   assetId: string,
   mintAddress: string,
@@ -75,7 +74,6 @@ const estimateFees = async (
     assetId,
     address,
     instructions,
-    { useMinimumAmounts: true },
   );
 
   let fees = await getFees(
@@ -83,7 +81,7 @@ const estimateFees = async (
     assetId,
   );
 
-  let computeUnits = 200_000; // Fallback value for computeunits
+  let computeUnits = 10_000; // Fallback value for computeunits
   try {
     computeUnits = await getSimulationComputeUnits(
       transaction
@@ -96,7 +94,7 @@ const estimateFees = async (
     logger.warn(JSON.stringify(e));
   }
 
-  let computeUnitPriceMicroLamports = 0; // Fallback value for computeprice
+  let computeUnitPriceMicroLamports = 100_000; // Fallback value for computeprice
   try {
     computeUnitPriceMicroLamports = await getPriorityFees(assetId);
   } catch (e) {
@@ -130,14 +128,9 @@ export const prepareTransaction = async (
     new Error('Solana transaction requires exactly 1 output'),
   );
 
-  const outputsAddresses = validateAddresses(params, coin);
-  const output = { ...txn.userInputs.outputs[0] };
-  // Amount shouldn't have any decimal value as it's in lowest unit
-  output.amount = new BigNumber(output.amount).toFixed(0);
-
-  let sendAmount = new BigNumber(output.amount);
-
-  const instructions: ICustomSolanaInstruction[] = [];
+  const spendableBalance = new BigNumber(
+    new BigNumber(account.spendableBalance ?? account.balance).toFixed(0),
+  );
 
   const isTokenAccount = account.type === AccountTypeMap.subAccount;
   let tokenDetails: ISolanaSplToken | undefined;
@@ -145,16 +138,35 @@ export const prepareTransaction = async (
     tokenDetails =
       solanaCoinList[account.parentAssetId].tokens[account.assetId];
 
+  const outputsAddresses = validateAddresses(params, coin);
+  let doesExist: boolean | undefined;
+  if (txn.userInputs.outputs[0].address === txn.computedData.output.address) {
+    doesExist = txn.computedData.output.doesExist;
+  }
+
+  const output = { ...txn.userInputs.outputs[0], doesExist };
+
+  if (output.address && outputsAddresses[0] && output.doesExist === undefined) {
+    output.doesExist = tokenDetails
+      ? await checkIfRecipientTokenAccountExists(
+          output.address,
+          coin.id,
+          tokenDetails.address,
+        )
+      : await doesAccountExist(output.address, account.assetId);
+    txn.computedData.output.doesExist = output.doesExist;
+  }
+
+  // Amount shouldn't have any decimal value as it's in lowest unit
+  output.amount = new BigNumber(output.amount).toFixed(0);
+
+  let sendAmount = new BigNumber(output.amount);
+
+  const instructions: ICustomSolanaInstruction[] = [];
+
   let rentExemptFees = new BigNumber(0);
   if (tokenDetails && output.address !== '' && outputsAddresses?.[0]) {
-    const doesExist = await checkIfRecipientTokenAccountExists(
-      account,
-      output.address,
-      coin.id,
-      tokenDetails.address,
-    );
-
-    if (!doesExist) {
+    if (output.doesExist === false) {
       rentExemptFees = new BigNumber(
         await getTokenAccountRentExemptFees(coin.id),
       );
@@ -175,14 +187,12 @@ export const prepareTransaction = async (
     output.address !== '' &&
     outputsAddresses?.[0]
   ) {
-    const amountToSend = sendAmount.isNaN()
-      ? new BigNumber(new BigNumber(account.balance).toFixed(0)).toNumber()
-      : sendAmount.toNumber();
+    const amountToSend = sendAmount.isNaN() ? spendableBalance : sendAmount;
 
     if (tokenDetails) {
       const instruction: ICustomSolanaTransferCheckedInstruction = {
         type: InstructionType.transferChecked,
-        amount: amountToSend,
+        amount: amountToSend.toNumber(),
         recipient: output.address,
         mintAddress: tokenDetails.address,
         decimals: tokenDetails.decimals,
@@ -191,7 +201,7 @@ export const prepareTransaction = async (
     } else {
       const instruction: ICustomSolanaTransferInstruction = {
         type: InstructionType.transfer,
-        amount: amountToSend,
+        amount: amountToSend.minus(txn.staticData.baseFee).toNumber(),
         recipient: output.address,
       };
       instructions.push(instruction);
@@ -213,11 +223,20 @@ export const prepareTransaction = async (
   let hasEnoughBalance: boolean;
 
   if (txn.userInputs.isSendAll) {
-    sendAmount = new BigNumber(account.balance);
+    sendAmount = spendableBalance;
 
     if (!isTokenAccount) sendAmount = BigNumber.max(sendAmount.minus(fee), 0);
 
-    output.amount = new BigNumber(sendAmount.toFixed(0)).toString(10);
+    output.amount = sendAmount.toFixed(0);
+
+    // update the amount in transfer instruction
+    if (instructions.length > 0) {
+      (
+        instructions[instructions.length - 1] as
+          | ICustomSolanaTransferInstruction
+          | ICustomSolanaTransferCheckedInstruction
+      ).amount = new BigNumber(output.amount).toNumber();
+    }
 
     // update userInput so that the max amount is editable & not reset to 0
     txn.userInputs.outputs[0].amount = output.amount;
@@ -226,14 +245,19 @@ export const prepareTransaction = async (
   const isValidFee = fee.isGreaterThan(0);
 
   hasEnoughBalance = isTokenAccount
-    ? new BigNumber(parentAccount?.balance ?? 0).isGreaterThan(fee) &&
-      new BigNumber(account.balance).isGreaterThanOrEqualTo(sendAmount)
-    : new BigNumber(account.balance).isGreaterThanOrEqualTo(
-        sendAmount.plus(fee),
-      );
+    ? new BigNumber(
+        parentAccount?.spendableBalance ?? parentAccount?.balance ?? 0,
+      ).isGreaterThan(fee) &&
+      spendableBalance.isGreaterThanOrEqualTo(sendAmount)
+    : spendableBalance.isGreaterThanOrEqualTo(sendAmount.plus(fee));
 
   hasEnoughBalance =
     new BigNumber(txn.userInputs.outputs[0].amount).isNaN() || hasEnoughBalance;
+
+  let isAmountBelowRentExempt = false;
+  if (!isTokenAccount && output.doesExist === false) {
+    isAmountBelowRentExempt = sendAmount.isLessThan(txn.staticData.rentExempt);
+  }
 
   return {
     ...txn,
@@ -244,6 +268,7 @@ export const prepareTransaction = async (
       ownOutputAddressNotAllowed: [],
       zeroAmountNotAllowed: false,
       isRentExemptFeeRequired: !rentExemptFees.isZero(),
+      isAmountBelowRentExempt,
     },
     computedData: {
       fees: fee.toString(),

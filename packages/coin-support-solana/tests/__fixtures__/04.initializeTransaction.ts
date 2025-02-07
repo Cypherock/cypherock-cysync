@@ -23,20 +23,22 @@ export const valid: IInitializeTransactionTestCases[] = [
         ownOutputAddressNotAllowed: [],
         zeroAmountNotAllowed: false,
         isRentExemptFeeRequired: false,
+        isAmountBelowRentExempt: false,
       },
       userInputs: {
         outputs: [],
         isSendAll: false,
       },
       staticData: {
-        fees: '5000',
+        baseFee: '5000',
+        rentExempt: '890880',
       },
       computedData: {
         output: { address: '', amount: '0' },
-        fees: '5000',
+        fees: '6000',
         instructions: [],
-        computeUnitPriceMicroLamports: 100,
-        computeUnits: 150,
+        computeUnitPriceMicroLamports: 100_000,
+        computeUnits: 10_000,
       },
     },
     mocks: {
@@ -47,8 +49,8 @@ export const valid: IInitializeTransactionTestCases[] = [
         xpubOrAddress: 'CnHNArLuS9r9iSLq2iYdPeWdvg2B5GH8dAGJrJmVrVph',
       },
       fees: '5000',
-      computeUnitPriceMicroLamports: 100,
-      computeUnits: 150,
+      computeUnitPriceMicroLamports: 100_000,
+      computeUnits: 10_000,
     },
   },
 ];
