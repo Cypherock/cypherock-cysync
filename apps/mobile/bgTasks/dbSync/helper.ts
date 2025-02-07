@@ -2,7 +2,7 @@ import { syncAccounts } from '@/actions';
 import { keyValueStore } from '@/db';
 import { setAccounts, setLanguage, setWallets, store } from '@/store';
 import { getDB } from '@/utils';
-import throttle from 'lodash/throttle';
+import { throttle } from 'lodash';
 
 const createFuncWithErrorHandler =
   (name: string, func: (isFirst?: boolean) => Promise<any>) =>
@@ -38,7 +38,7 @@ const syncAccountsDb = createFuncWithErrorHandler(
     });
     store.dispatch(setAccounts(accounts));
 
-    if (isFirst) {
+    if (isFirst === true) {
       store.dispatch(syncAccounts({ accounts, isSyncAll: true }));
     }
   },
