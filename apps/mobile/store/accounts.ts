@@ -1,3 +1,6 @@
+// eslint-disable-next-line import/no-extraneous-dependencies
+import 'immer';
+
 import { createSelector, createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 import { RootState } from './store';
@@ -17,9 +20,9 @@ const accountsSlice = createSlice({
   name: 'accounts',
   initialState,
   reducers: {
-    setAccounts(state, action: PayloadAction<IAccount[]>) {
+    setAccounts(state, payload: PayloadAction<IAccount[]>) {
       state.isLoaded = true;
-      state.accounts = action.payload;
+      state.accounts = payload.payload;
     },
   },
 });
