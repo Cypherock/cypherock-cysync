@@ -24,7 +24,6 @@ export const syncAccounts = createAsyncThunk<
   'accounts/sync',
   async ({ accounts: allAccounts, isSyncAll }, { dispatch, getState }) => {
     return new Promise<void>(resolve => {
-      console.log('syncing accounts');
       const unhiddenAccounts = allAccounts.filter(a => !a.isHidden);
 
       if (!getState().network.active) {
@@ -37,7 +36,7 @@ export const syncAccounts = createAsyncThunk<
           );
         });
 
-        if (isSyncAll) {
+        if (isSyncAll === true) {
           dispatch(setAccountLastSyncedAt(Date.now()));
         }
 
@@ -114,7 +113,6 @@ export const syncAllAccounts =
       dispatch(setAccountLastSyncedAt(Date.now()));
     } else {
       dispatch(setSyncError(undefined));
-      console.log('In between sync');
       dispatch(
         syncAccounts({
           accounts: getState().accounts.accounts,
