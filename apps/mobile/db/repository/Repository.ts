@@ -124,7 +124,6 @@ export class Repository<T extends IEntity> implements IRepository<T> {
           options.sortBy.descending,
         );
       }
-
       if (options?.sortBy) {
         results = results.sorted(
           options.sortBy.key as string,
@@ -133,10 +132,7 @@ export class Repository<T extends IEntity> implements IRepository<T> {
       }
 
       if (options?.limit) {
-        results = this.realm
-          .objects(this.name)
-          .filtered('TRUEPREDICATE')
-          .slice(0, options.limit) as unknown as Realm.Results<
+        results = results.slice(0, options.limit) as unknown as Realm.Results<
           T & Realm.Object
         >;
       }
