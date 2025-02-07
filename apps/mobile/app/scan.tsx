@@ -45,7 +45,7 @@ export default function Scan() {
 
   async function saveDataToDb(data: WalletData) {
     try {
-      const db = await getDB();
+      const db = getDB();
       await db.wallet.insert(data.wallets);
       await db.account.insert(data.accounts);
     } catch (error) {
