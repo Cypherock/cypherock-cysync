@@ -1,4 +1,4 @@
-import lodash from 'lodash';
+import { debounce } from 'lodash';
 import React, { useEffect } from 'react';
 
 import { syncAllAccounts } from '@/actions';
@@ -11,17 +11,17 @@ export const AccountSyncTask: React.FC = () => {
   const { lastSyncedAt } = useAppSelector(selectAccountSync);
 
   const startSyncing = () => {
-    console.log('should start sync');
-    dispatch(syncAllAccounts());
+    if (!__DEV__) {
+      dispatch(syncAllAccounts());
+    }
   };
 
-  const debouncedStartSyncing = lodash.debounce(
-    startSyncing,
-    AUTO_RESYNC_INTERVAL,
-  );
+  const debouncedStartSyncing = debounce(startSyncing, AUTO_RESYNC_INTERVAL);
 
   useEffect(() => {
-    debouncedStartSyncing();
+    if (lastSyncedAt) {
+      debouncedStartSyncing();
+    }
   }, [lastSyncedAt]);
 
   return null;
