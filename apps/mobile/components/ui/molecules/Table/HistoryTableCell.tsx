@@ -5,9 +5,7 @@ import { ThemeType } from '../../themes';
 import { colors } from '../../themes/color.styled';
 import styled from 'styled-components/native';
 import { View } from 'react-native';
-
-type TransactionType = 'sent' | 'received';
-type TransactionStatus = 'success' | 'failed' | 'pending';
+import { TransactionType, TransactionStatus } from '@cypherock/db-interfaces';
 
 interface HistoryTableTimeCellProps {
   transactionType: TransactionType;
@@ -31,8 +29,9 @@ const TransactionTypeToIcon: Record<
   TransactionType,
   (status: TransactionStatus) => ReactNode
 > = {
-  received: status => <PaymentReceivedIcon fill={StatusToColorHex[status]} />,
-  sent: status => <PaymentSentIcon fill={StatusToColorHex[status]} />,
+  receive: status => <PaymentReceivedIcon fill={StatusToColorHex[status]} />,
+  send: status => <PaymentSentIcon fill={StatusToColorHex[status]} />,
+  hidden: () => null,
 };
 
 const LeftIconContainer = styled(View)`
@@ -54,9 +53,9 @@ export const HistoryTableTimeCell: FC<HistoryTableTimeCellProps> = ({
   transactionTime,
 }) => {
   const statusToTitle: Record<TransactionStatus, string> = {
-    success: transactionType === 'sent' ? 'Sent' : 'Received',
-    failed: transactionType === 'sent' ? 'Sent Failed' : 'Received Failed',
-    pending: transactionType === 'sent' ? 'Sent Pending' : 'Received Pending',
+    success: transactionType === 'send' ? 'Sent' : 'Received',
+    failed: transactionType === 'send' ? 'Sent Failed' : 'Received Failed',
+    pending: transactionType === 'send' ? 'Sent Pending' : 'Received Pending',
   };
 
   const statusToColorKey: Record<

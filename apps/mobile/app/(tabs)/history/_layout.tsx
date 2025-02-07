@@ -26,6 +26,7 @@ export default function Layout() {
       <Stack.Screen
         name="details/[id]"
         options={{
+          title: 'Transaction',
           header: ({ navigation, options, route }) => (
             <Header
               showBack={true}

@@ -1,71 +1,84 @@
 import { View, ScrollView } from 'react-native';
 import React, { useEffect, useState } from 'react';
-import { useLocalSearchParams, useNavigation } from 'expo-router';
+import { router, useLocalSearchParams, useNavigation } from 'expo-router';
 import { Copy, Flex, ScreenContainer, Tag, Typography } from '@/components/ui';
 import { colors } from '@/components/ui/themes/color.styled';
 import { useAppSelector } from '@/store';
 import { selectLanguage } from '@/store/lang';
 import * as Clipboard from 'expo-clipboard';
+import { getDB } from '@/utils';
+import {
+  TransactionType,
+  ITransactionInputOutput,
+  TransactionStatus,
+} from '@cypherock/db-interfaces';
+import NoDataScreen from '@/components/ui/molecules/NoDataScreen';
 
 interface ISender {
   address: string;
-  tag?: string;
+  tag?: boolean;
 }
 
-interface IReceiver extends ISender {}
-
-interface ITransaction {
+interface IDetails {
   value: string;
   fee: string;
   date: string;
-  type: string;
-  status: string;
+  type: TransactionType;
+  status: TransactionStatus;
   wallet: string;
   account: string;
   asset: string;
   sender: ISender[];
-  receiver: IReceiver[];
+  receiver: ISender[];
 }
-
-const Transaction: ITransaction = {
-  value: '100.00',
-  fee: '0.50',
-  date: '2024-12-30T10:30:00Z',
-  type: 'send',
-  status: 'completed',
-  wallet: 'wallet_001',
-  account: 'account_12345',
-  asset: 'BTC',
-  sender: [
-    {
-      address: '1A1zP1eP5QGefi2DMPTfTL5SLmv7DivfNa',
-      tag: 'mine',
-    },
-  ],
-  receiver: [
-    {
-      address: '1Fgk5H6a9qTk9HWt7h8gP9YwZdpCVR75GH',
-    },
-    {
-      address: '1A1zP1eP5QGefi2DMPTfTL5SLmv7DivfNa',
-      tag: 'mine',
-    },
-  ],
-};
 
 export default function Index() {
   const { strings } = useAppSelector(selectLanguage);
   const { id } = useLocalSearchParams();
   const navigation = useNavigation();
   const [copied, setCopied] = useState<string | null>(null);
+  const [transaction, setTransaction] = useState<IDetails | undefined>();
 
   useEffect(() => {
+    if (!transaction) return;
     navigation.setOptions({
       title:
-        Transaction.type === 'send'
+        transaction.type === 'send'
           ? strings.history.details.heading.sent
           : strings.history.details.heading.received,
     });
+  }, []);
+
+  useEffect(() => {
+    async function getTransactionData() {
+      const db = getDB();
+      const data = await db.transaction.getOne({
+        __id: typeof id === 'string' ? id : id[0],
+      });
+      if (data) {
+        const formattedTransaction: IDetails = {
+          value: data.amount,
+          fee: data.fees,
+          date: new Date(data.timestamp).toLocaleDateString(),
+          type: data.type,
+          status: data.status,
+          wallet: data.walletId,
+          account: data.accountId,
+          asset: data.assetId,
+          sender: data.inputs.map((s: ITransactionInputOutput) => ({
+            address: s.address,
+            tag: s.isMine,
+          })),
+          receiver: data.outputs.map((r: ITransactionInputOutput) => ({
+            address: r.address,
+            tag: r.isMine,
+          })),
+        };
+        setTransaction(formattedTransaction);
+      }
+    }
+
+    getTransactionData();
   }, []);
 
   const handleCopy = async (text: string) => {
@@ -73,8 +86,12 @@ export default function Index() {
     setCopied(text);
     setTimeout(() => {
       setCopied(null);
-    }, 2000); // 2 seconds
+    }, 2000);
   };
+
+  if (!transaction) {
+    return <NoDataScreen title="Loading Data!" />;
+  }
 
   return (
     <ScreenContainer>
@@ -116,7 +133,7 @@ export default function Index() {
           />
         </View>
         <ScrollView style={{ width: '100%' }}>
-          {Object.entries(Transaction).map(([key, value], i) => (
+          {Object.entries(transaction).map(([key, value], i) => (
             <Flex
               style={[
                 {
@@ -125,7 +142,7 @@ export default function Index() {
                   width: '100%',
                   paddingVertical: 6,
                 },
-                i !== Object.entries(Transaction).length - 1
+                i !== Object.entries(transaction).length - 1
                   ? {
                       borderBottomWidth: 1,
                       borderBottomColor: colors.border.secondary,
@@ -175,7 +192,7 @@ export default function Index() {
                         gap: 8,
                       }}
                     >
-                      {item.tag && <Tag>{item.tag}</Tag>}
+                      {item.tag && <Tag>Mine</Tag>}
                       <Copy
                         size={10}
                         onPress={() => handleCopy(item.address)}
