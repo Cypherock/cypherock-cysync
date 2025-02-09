@@ -6,3 +6,4 @@ export * from './SelectFilterSheet';
 export * from './Table';
 export * from './Graph';
 export * from './Header';
+export * from './LottieSplash';
