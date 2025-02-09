@@ -446,8 +446,8 @@ importers:
         specifier: ~52.0.27
         version: 52.0.28(@babel/core@7.26.0)(@babel/preset-env@7.24.7)(react-native-webview@13.12.5)(react-native@0.76.6)(react@18.3.1)
       expo-asset:
-        specifier: ~11.0.2
-        version: 11.0.2(expo@52.0.28)(react-native@0.76.6)(react@18.3.1)
+        specifier: ~11.0.3
+        version: 11.0.3(expo@52.0.28)(react-native@0.76.6)(react@18.3.1)
       expo-blur:
         specifier: ~14.0.3
         version: 14.0.3(expo@52.0.28)(react-native@0.76.6)(react@18.3.1)
@@ -488,8 +488,8 @@ importers:
         specifier: ~2.0.1
         version: 2.0.1(react-native@0.76.6)(react@18.3.1)
       expo-symbols:
-        specifier: ~0.2.1
-        version: 0.2.1(expo@52.0.28)
+        specifier: ~0.2.2
+        version: 0.2.2(expo@52.0.28)
       expo-system-ui:
         specifier: ~4.0.7
         version: 4.0.7(expo@52.0.28)(react-native-web@0.19.13)(react-native@0.76.6)
@@ -502,6 +502,9 @@ importers:
       node-libs-react-native:
         specifier: ^1.2.1
         version: 1.2.1
+      pako:
+        specifier: ^2.1.0
+        version: 2.1.0
       react:
         specifier: 18.3.1
         version: 18.3.1
@@ -575,6 +578,9 @@ importers:
       '@types/jest':
         specifier: ^29.5.12
         version: 29.5.12
+      '@types/pako':
+        specifier: ^2.0.3
+        version: 2.0.3
       '@types/react':
         specifier: ~18.3.12
         version: 18.3.12
@@ -14224,6 +14230,10 @@ packages:
     resolution: {integrity: sha512-37i+OaWTh9qeK4LSHPsyRC7NahnGotNuZvjLSgcPzblpHB3rrCJxAOgI5gCdKm7coonsaX1Of0ILiTcnZjbfxA==}
     dev: true
 
+  /@types/pako@2.0.3:
+    resolution: {integrity: sha512-bq0hMV9opAcrmE0Byyo0fY3Ew4tgOevJmQ9grUhpXQhYfyLJ1Kqg3P33JT5fdbT2AjeAjR51zqqVjAL/HMkx7Q==}
+    dev: true
+
   /@types/plist@3.0.5:
     resolution: {integrity: sha512-E6OCaRmAe4WDmWNsL/9RMqdkkzDCY1etutkflWk4c+AcjDU07Pcz1fQwTX0TQz+Pxqn9i4L1TU3UFpjnrcDgxA==}
     requiresBuild: true
@@ -15404,7 +15414,7 @@ packages:
     resolution: {integrity: sha512-0bIpgx8PDjYdrLFeC3csF305QQ1L7sxaWnL5y71mCvhenZzJgku9QsA+9QCXBC1eNYtxWO/xR91zrXJy2T/ixg==}
     engines: {node: '>=16.0.0'}
     dependencies:
-      '@noble/hashes': 1.4.0
+      '@noble/hashes': 1.7.0
       eventemitter3: 5.0.1
       ws: 8.18.0(bufferutil@4.0.9)(utf-8-validate@5.0.10)
     transitivePeerDependencies:
@@ -16854,7 +16864,7 @@ packages:
   /bs58check@3.0.1:
     resolution: {integrity: sha512-hjuuJvoWEybo7Hn/0xOrczQKKEKD63WguEjlhLExYs2wUBcebDC1jDNK17eEAD2lYfw82d5ASC1d7K3SWszjaQ==}
     dependencies:
-      '@noble/hashes': 1.4.0
+      '@noble/hashes': 1.7.0
       bs58: 5.0.0
 
   /bser@2.1.1:
@@ -20694,8 +20704,8 @@ packages:
       jest-util: 29.7.0
     dev: true
 
-  /expo-asset@11.0.2(expo@52.0.28)(react-native@0.76.6)(react@18.3.1):
-    resolution: {integrity: sha512-We3Td5WsNsNQyXoheLnuwic6JCOt/pqXqIIyWaZ3z/PeHrA+SwoQdI18MjDhkudLK08tbIVyDSUW8IJHXa04eg==}
+  /expo-asset@11.0.3(expo@52.0.28)(react-native@0.76.6)(react@18.3.1):
+    resolution: {integrity: sha512-vgJnC82IooAVMy5PxbdFIMNJhW4hKAUyxc5VIiAPPf10vFYw6CqHm+hrehu4ST1I4bvg5PV4uKdPxliebcbgLg==}
     peerDependencies:
       expo: '*'
       react: '*'
@@ -20941,8 +20951,8 @@ packages:
       react-native: 0.76.6(@babel/core@7.26.0)(@babel/preset-env@7.24.7)(@types/react@18.3.12)(react@18.3.1)
     dev: false
 
-  /expo-symbols@0.2.1(expo@52.0.28):
-    resolution: {integrity: sha512-7MchQEfEYq+BDGM4r7bBh0GbgoAemnW+TEiFb3QQc/D1nYuNMIBzK7KKhjgWzi1pRiPX4TIJgAcj2R+WN23s5w==}
+  /expo-symbols@0.2.2(expo@52.0.28):
+    resolution: {integrity: sha512-yTk1MxhA61YflYIMortImD57MCneKEoSvU1acqQ4oKigV5+cNw1XKB7GhcKe3d8Ny3ikC/b1Ia+HQjR0Hmr4JA==}
     peerDependencies:
       expo: '*'
     dependencies:
@@ -21004,7 +21014,7 @@ packages:
       '@expo/metro-config': 0.19.9
       '@expo/vector-icons': 14.0.2
       babel-preset-expo: 12.0.6(@babel/core@7.26.0)(@babel/preset-env@7.24.7)
-      expo-asset: 11.0.2(expo@52.0.28)(react-native@0.76.6)(react@18.3.1)
+      expo-asset: 11.0.3(expo@52.0.28)(react-native@0.76.6)(react@18.3.1)
       expo-constants: 17.0.5(expo@52.0.28)(react-native@0.76.6)
       expo-file-system: 18.0.7(expo@52.0.28)(react-native@0.76.6)
       expo-font: 13.0.3(expo@52.0.28)(react@18.3.1)

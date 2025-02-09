@@ -11,14 +11,24 @@ import {
   useDispatch,
 } from 'react-redux';
 
-import accountsReducer, { AccountsState } from './accounts';
+import accountsReducer, { IAccountsState } from './accounts';
 import langReducers, { ILangState } from './lang';
-import walletsReducer, { WalletsState } from './wallets';
+import walletsReducer, { IWalletsState } from './wallets';
+import accountSyncReducer, { IAccountSyncState } from './accountSync';
+import networkReducer, { INetworkState } from './network';
+import transactionsReducer, { ITransactionState } from './transaction';
+import priceInfoReducer, { IPriceInfoState } from './priceInfo';
+import priceHistoryReducer, { IPriceHistoryState } from './priceHistory';
 
 export interface RootState {
   lang: ILangState;
-  wallets: WalletsState;
-  accounts: AccountsState;
+  wallets: IWalletsState;
+  accounts: IAccountsState;
+  transactions: ITransactionState;
+  accountSync: IAccountSyncState;
+  priceInfo: IPriceInfoState;
+  priceHistory: IPriceHistoryState;
+  network: INetworkState;
 }
 
 export const store = configureStore({
@@ -26,7 +36,16 @@ export const store = configureStore({
     lang: langReducers,
     wallets: walletsReducer,
     accounts: accountsReducer,
+    transactions: transactionsReducer,
+    accountSync: accountSyncReducer,
+    priceInfo: priceInfoReducer,
+    priceHistory: priceHistoryReducer,
+    network: networkReducer,
   },
+  middleware: getDefaultMiddleware =>
+    getDefaultMiddleware({
+      serializableCheck: false,
+    }),
 });
 
 export const StoreProvider = Provider;
