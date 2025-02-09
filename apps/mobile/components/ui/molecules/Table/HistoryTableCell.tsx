@@ -5,12 +5,18 @@ import { ThemeType } from '../../themes';
 import { colors } from '../../themes/color.styled';
 import styled from 'styled-components/native';
 import { View } from 'react-native';
-import { TransactionType, TransactionStatus } from '@cypherock/db-interfaces';
+import {
+  TransactionTypeMap,
+  TransactionStatus,
+} from '@cypherock/db-interfaces';
+
+type TransactionType = keyof typeof TransactionTypeMap;
 
 interface HistoryTableTimeCellProps {
   transactionType: TransactionType;
   transactionStatus: TransactionStatus;
   transactionTime: string;
+  transactionTypeText: string;
 }
 
 interface HistoryTableAmountCellProps {
@@ -49,15 +55,10 @@ const LeftIconContainer = styled(View)`
 
 export const HistoryTableTimeCell: FC<HistoryTableTimeCellProps> = ({
   transactionType,
+  transactionTypeText,
   transactionStatus,
   transactionTime,
 }) => {
-  const statusToTitle: Record<TransactionStatus, string> = {
-    success: transactionType === 'send' ? 'Sent' : 'Received',
-    failed: transactionType === 'send' ? 'Sent Failed' : 'Received Failed',
-    pending: transactionType === 'send' ? 'Sent Pending' : 'Received Pending',
-  };
-
   const statusToColorKey: Record<
     TransactionStatus,
     keyof ThemeType['palette']
@@ -74,7 +75,7 @@ export const HistoryTableTimeCell: FC<HistoryTableTimeCellProps> = ({
           {TransactionTypeToIcon[transactionType](transactionStatus)}
         </LeftIconContainer>
       }
-      primaryText={statusToTitle[transactionStatus]}
+      primaryText={transactionTypeText}
       primaryTextType={'heading'}
       primaryTextColor={statusToColorKey[transactionStatus]}
       secondaryText={transactionTime}
