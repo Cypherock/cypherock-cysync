@@ -23,7 +23,7 @@ export default function Scan() {
   const [decodedData, setDecodedData] = useState<CysyncData>();
 
   function navigateToNext() {
-    router.dismissTo('/receive/wallet');
+    router.dismissTo('/info');
   }
 
   function onQrScanned(qr: ScanningResult) {
