@@ -1,6 +1,14 @@
 import { syncAccounts } from '@/actions';
 import { keyValueStore } from '@/db';
-import { setAccounts, setLanguage, setWallets, store } from '@/store';
+import {
+  setAccounts,
+  setLanguage,
+  setPriceHistories,
+  setPriceInfos,
+  setWallets,
+  store,
+} from '@/store';
+import { setTransactions } from '@/store/transaction';
 import { getDB } from '@/utils';
 import { throttle } from 'lodash';
 
@@ -39,14 +47,47 @@ const syncAccountsDb = createFuncWithErrorHandler(
     store.dispatch(setAccounts(accounts));
 
     if (isFirst === true) {
-      store.dispatch(syncAccounts({ accounts, isSyncAll: true }));
+      store.dispatch(syncAccounts({ accounts, isSyncAll: true }) as any);
     }
+  },
+);
+
+const syncTransactionsDb = createFuncWithErrorHandler(
+  'syncTransactionsDb',
+  async () => {
+    const db = getDB();
+
+    const transactions = await db.transaction.getAll();
+    store.dispatch(setTransactions(transactions));
+  },
+);
+
+const syncPriceInfosDb = createFuncWithErrorHandler(
+  'syncPriceInfosDb',
+  async () => {
+    const db = getDB();
+
+    const priceInfos = await db.priceInfo.getAll();
+    store.dispatch(setPriceInfos(priceInfos));
+  },
+);
+
+const syncPriceHistoriesDb = createFuncWithErrorHandler(
+  'syncPriceHistoriesDb',
+  async () => {
+    const db = getDB();
+
+    const priceHistories = await db.priceHistory.getAll();
+    store.dispatch(setPriceHistories(priceHistories));
   },
 );
 
 export const syncAllDb = async (isFirst: boolean) => {
   await syncAccountsDb(isFirst);
   await syncWalletsDb();
+  await syncTransactionsDb();
+  await syncPriceInfosDb();
+  await syncPriceHistoriesDb();
 
   store.dispatch(setLanguage((await keyValueStore.appLanguage.get()) as any));
 };
@@ -59,6 +100,7 @@ export const addListeners = () => {
 
   db.wallet.addListener('change', throttleDbFunction(syncWalletsDb));
   db.account.addListener('change', throttleDbFunction(syncAccountsDb));
+  db.transaction.addListener('change', throttleDbFunction(syncTransactionsDb));
 };
 
 export const removeListeners = () => {
@@ -66,4 +108,5 @@ export const removeListeners = () => {
 
   db.wallet.removeAllListener();
   db.account.removeAllListener();
+  db.transaction.removeAllListener();
 };
