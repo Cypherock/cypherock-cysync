@@ -5,14 +5,18 @@ import { ThemeType } from '../../themes';
 import { colors } from '../../themes/color.styled';
 import styled from 'styled-components/native';
 import { View } from 'react-native';
+import {
+  TransactionTypeMap,
+  TransactionStatus,
+} from '@cypherock/db-interfaces';
 
-type TransactionType = 'sent' | 'received';
-type TransactionStatus = 'success' | 'failed' | 'pending';
+type TransactionType = keyof typeof TransactionTypeMap;
 
 interface HistoryTableTimeCellProps {
   transactionType: TransactionType;
   transactionStatus: TransactionStatus;
   transactionTime: string;
+  transactionTypeText: string;
 }
 
 interface HistoryTableAmountCellProps {
@@ -31,8 +35,9 @@ const TransactionTypeToIcon: Record<
   TransactionType,
   (status: TransactionStatus) => ReactNode
 > = {
-  received: status => <PaymentReceivedIcon fill={StatusToColorHex[status]} />,
-  sent: status => <PaymentSentIcon fill={StatusToColorHex[status]} />,
+  receive: status => <PaymentReceivedIcon fill={StatusToColorHex[status]} />,
+  send: status => <PaymentSentIcon fill={StatusToColorHex[status]} />,
+  hidden: () => null,
 };
 
 const LeftIconContainer = styled(View)`
@@ -50,15 +55,10 @@ const LeftIconContainer = styled(View)`
 
 export const HistoryTableTimeCell: FC<HistoryTableTimeCellProps> = ({
   transactionType,
+  transactionTypeText,
   transactionStatus,
   transactionTime,
 }) => {
-  const statusToTitle: Record<TransactionStatus, string> = {
-    success: transactionType === 'sent' ? 'Sent' : 'Received',
-    failed: transactionType === 'sent' ? 'Sent Failed' : 'Received Failed',
-    pending: transactionType === 'sent' ? 'Sent Pending' : 'Received Pending',
-  };
-
   const statusToColorKey: Record<
     TransactionStatus,
     keyof ThemeType['palette']
@@ -75,7 +75,7 @@ export const HistoryTableTimeCell: FC<HistoryTableTimeCellProps> = ({
           {TransactionTypeToIcon[transactionType](transactionStatus)}
         </LeftIconContainer>
       }
-      primaryText={statusToTitle[transactionStatus]}
+      primaryText={transactionTypeText}
       primaryTextType={'heading'}
       primaryTextColor={statusToColorKey[transactionStatus]}
       secondaryText={transactionTime}

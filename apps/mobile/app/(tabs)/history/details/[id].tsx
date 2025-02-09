@@ -1,80 +1,37 @@
-import { View, ScrollView } from 'react-native';
 import React, { useEffect, useState } from 'react';
-import { useLocalSearchParams, useNavigation } from 'expo-router';
+import { View, ScrollView } from 'react-native';
+import { useNavigation } from 'expo-router';
 import { Copy, Flex, ScreenContainer, Tag, Typography } from '@/components/ui';
 import { colors } from '@/components/ui/themes/color.styled';
-import { useAppSelector } from '@/store';
-import { selectLanguage } from '@/store/lang';
 import * as Clipboard from 'expo-clipboard';
-
-interface ISender {
-  address: string;
-  tag?: string;
-}
-
-interface IReceiver extends ISender {}
-
-interface ITransaction {
-  value: string;
-  fee: string;
-  date: string;
-  type: string;
-  status: string;
-  wallet: string;
-  account: string;
-  asset: string;
-  sender: ISender[];
-  receiver: IReceiver[];
-}
-
-const Transaction: ITransaction = {
-  value: '100.00',
-  fee: '0.50',
-  date: '2024-12-30T10:30:00Z',
-  type: 'send',
-  status: 'completed',
-  wallet: 'wallet_001',
-  account: 'account_12345',
-  asset: 'BTC',
-  sender: [
-    {
-      address: '1A1zP1eP5QGefi2DMPTfTL5SLmv7DivfNa',
-      tag: 'mine',
-    },
-  ],
-  receiver: [
-    {
-      address: '1Fgk5H6a9qTk9HWt7h8gP9YwZdpCVR75GH',
-    },
-    {
-      address: '1A1zP1eP5QGefi2DMPTfTL5SLmv7DivfNa',
-      tag: 'mine',
-    },
-  ],
-};
+import NoDataScreen from '@/components/ui/molecules/NoDataScreen';
+import { useHistoryContext } from '@/contexts/useHistoryContext';
+import { selectLanguage, useAppSelector } from '@/store';
 
 export default function Index() {
   const { strings } = useAppSelector(selectLanguage);
-  const { id } = useLocalSearchParams();
+  const { transaction } = useHistoryContext();
   const navigation = useNavigation();
   const [copied, setCopied] = useState<string | null>(null);
 
   useEffect(() => {
+    if (!transaction) return;
     navigation.setOptions({
-      title:
-        Transaction.type === 'send'
-          ? strings.history.details.heading.sent
-          : strings.history.details.heading.received,
+      title: transaction.type === 'send' ? 'Sent' : 'Received',
     });
-  }, []);
+  }, [transaction]);
 
   const handleCopy = async (text: string) => {
     await Clipboard.setStringAsync(text);
     setCopied(text);
     setTimeout(() => {
       setCopied(null);
-    }, 2000); // 2 seconds
+    }, 2000);
   };
+
+  if (!transaction) {
+    return <NoDataScreen title="Loading Data!" />;
+  }
 
   return (
     <ScreenContainer>
@@ -91,7 +48,7 @@ export default function Index() {
         }}
       >
         <Typography type="para" textAlign="left">
-          {strings.history.history.title}
+          {strings.history.details.title}
         </Typography>
         <View
           style={{
@@ -107,16 +64,16 @@ export default function Index() {
           }}
         >
           <Typography type="body" textAlign="left" style={{ flex: 1 }}>
-            {id}
+            {transaction.hash}
           </Typography>
           <Copy
             size={10}
-            onPress={() => handleCopy(id as string)}
-            copied={copied === id}
+            onPress={() => handleCopy(transaction.hash as string)}
+            copied={copied === transaction.hash}
           />
         </View>
         <ScrollView style={{ width: '100%' }}>
-          {Object.entries(Transaction).map(([key, value], i) => (
+          {Object.entries(transaction).map(([key, value], i) => (
             <Flex
               style={[
                 {
@@ -125,7 +82,7 @@ export default function Index() {
                   width: '100%',
                   paddingVertical: 6,
                 },
-                i !== Object.entries(Transaction).length - 1
+                i !== Object.entries(transaction).length - 1
                   ? {
                       borderBottomWidth: 1,
                       borderBottomColor: colors.border.secondary,
@@ -146,7 +103,7 @@ export default function Index() {
                 {key}
               </Typography>
               {Array.isArray(value) ? (
-                value.map((item: ISender, itemIndex: number) => (
+                value.map((item, itemIndex: number) => (
                   <Flex
                     key={`${key}-${itemIndex}`}
                     style={{
@@ -175,7 +132,7 @@ export default function Index() {
                         gap: 8,
                       }}
                     >
-                      {item.tag && <Tag>{item.tag}</Tag>}
+                      {item.tag && <Tag>Mine</Tag>}
                       <Copy
                         size={10}
                         onPress={() => handleCopy(item.address)}

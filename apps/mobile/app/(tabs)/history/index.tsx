@@ -3,7 +3,6 @@ import {
   Flex,
   HistoryTableAmountCell,
   HistoryTableTimeCell,
-  NotificationProps,
   ScreenContainer,
   Seperator,
   Table,
@@ -18,13 +17,16 @@ import { colors } from '@/components/ui/themes/color.styled';
 import { useAppSelector } from '@/store';
 import { selectLanguage } from '@/store/lang';
 import { router } from 'expo-router';
-import { useState } from 'react';
+import React from 'react';
+import { TransactionRowData, useTransactions } from '@/hooks/useTransactions';
+import { useHistoryContext } from '@/contexts/useHistoryContext';
 
 export default function History() {
   const { strings } = useAppSelector(selectLanguage);
-  const [history] = useState();
+  const { isAscending, onSort, displayedData, sortedBy } = useTransactions();
+  const { setSelectedTransaction } = useHistoryContext();
 
-  if (!history) {
+  if (displayedData?.length === 0) {
     return (
       <NoDataScreen
         title={strings.portfolio.noAccount.title}
@@ -58,44 +60,37 @@ export default function History() {
             <TableHeaderData
               key={v}
               data={v}
-              ascending={false}
-              onClick={() => console.log('Header Pressed')}
+              ascending={sortedBy === v && isAscending}
+              onPress={() => onSort(v.toLocaleLowerCase())}
             />
           ))}
         </TableHeader>
         <TableBody
           type="section"
-          data={history}
+          data={displayedData}
           renderItem={({
             item,
             index,
           }: {
-            item: NotificationProps;
+            item: TransactionRowData;
             index: number;
           }) => (
             <TableRowData
               index={index}
-              onPress={() =>
-                router.push(
-                  '/(tabs)/history/details/1A1zP1eP5QGefi2DMPTfTL5SLmv7DivfNa',
-                )
-              }
+              onPress={() => {
+                setSelectedTransaction(item);
+              }}
             >
               <HistoryTableTimeCell
                 transactionType={item.type}
+                transactionTypeText={item.typeText}
                 transactionStatus={item.status}
-                transactionTime={new Date(item.time).toLocaleTimeString(
-                  'en-US',
-                  {
-                    hour: '2-digit',
-                    minute: '2-digit',
-                  },
-                )}
+                transactionTime={item.time}
               />
               <HistoryTableAmountCell
-                icon={item.icon}
-                cryptoAmount={item.amount}
-                fiatAmount={item.status}
+                icon={<item.assetIcon />}
+                cryptoAmount={item.displayAmount}
+                fiatAmount={item.displayValue}
               />
             </TableRowData>
           )}

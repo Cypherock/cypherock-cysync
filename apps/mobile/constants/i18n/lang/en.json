@@ -92,13 +92,14 @@
   "history": {
     "heading": "History",
     "history": {
-      "title": "Transaction Hash",
+      "title": "Transaction History",
       "table": {
         "time": "Time",
         "amount": "Amount"
       }
     },
     "details": {
+      "title": "Transaction Hash",
       "heading": {
         "sent": "Sent",
         "received": "Received"
@@ -224,5 +225,19 @@
     "receive": "Receive",
     "support": "Support",
     "settings": "Settings"
+  },
+  "transactions": {
+    "transactionStatus": {
+      "send": {
+        "failed": "Send Failed",
+        "pending": "Sending",
+        "success": "Sent"
+      },
+      "receive": {
+        "failed": "Receive Failed",
+        "pending": "Receiving",
+        "success": "Received"
+      }
+    }
   }
 }
