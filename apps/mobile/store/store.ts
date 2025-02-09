@@ -16,12 +16,18 @@ import langReducers, { ILangState } from './lang';
 import walletsReducer, { IWalletsState } from './wallets';
 import accountSyncReducer, { IAccountSyncState } from './accountSync';
 import networkReducer, { INetworkState } from './network';
+import transactionsReducer, { ITransactionState } from './transaction';
+import priceInfoReducer, { IPriceInfoState } from './priceInfo';
+import priceHistoryReducer, { IPriceHistoryState } from './priceHistory';
 
 export interface RootState {
   lang: ILangState;
   wallets: IWalletsState;
   accounts: IAccountsState;
+  transactions: ITransactionState;
   accountSync: IAccountSyncState;
+  priceInfo: IPriceInfoState;
+  priceHistory: IPriceHistoryState;
   network: INetworkState;
 }
 
@@ -30,19 +36,15 @@ export const store = configureStore({
     lang: langReducers,
     wallets: walletsReducer,
     accounts: accountsReducer,
+    transactions: transactionsReducer,
     accountSync: accountSyncReducer,
+    priceInfo: priceInfoReducer,
+    priceHistory: priceHistoryReducer,
     network: networkReducer,
   },
   middleware: getDefaultMiddleware =>
     getDefaultMiddleware({
-      serializableCheck: {
-        // Ignore these action types
-        ignoredActions: ['accounts/setAccounts'],
-        // Ignore these field paths in all actions
-        ignoredActionPaths: ['meta.arg', 'payload.timestamp'],
-        // Ignore these paths in the state
-        ignoredPaths: ['items.dates', 'accounts.accounts'],
-      },
+      serializableCheck: false,
     }),
 });
 

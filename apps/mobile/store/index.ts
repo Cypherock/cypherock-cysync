@@ -3,3 +3,6 @@ export * from './accountSync';
 export * from './accounts';
 export * from './lang';
 export * from './wallets';
+export * from './transaction';
+export * from './priceInfo';
+export * from './priceHistory';
