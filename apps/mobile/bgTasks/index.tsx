@@ -1,7 +1,8 @@
 import React, { useEffect } from 'react';
 import { AccountSyncTask } from './accountsSync';
 import { DatabaseListener } from './dbSync';
-let render = 0;
+import { PriceSyncTask } from './priceSync';
+let render = 1;
 export const BackgroundTasks = () => {
   useEffect(() => {
     console.log(`background task rendered ${render++} times`);
@@ -10,6 +11,7 @@ export const BackgroundTasks = () => {
     <>
       <AccountSyncTask />
       <DatabaseListener />
+      <PriceSyncTask />
     </>
   );
 };
