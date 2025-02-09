@@ -12,6 +12,7 @@ export interface LanguageStrings {
   banner: LangBanner;
   toast: LangToast;
   bottomTabs: LangBottomTabs;
+  transactions: LangTransactions;
 }
 
 export interface LangButtons {
@@ -127,6 +128,7 @@ export interface LangHistory {
     };
   };
   details: {
+    title: string;
     heading: {
       sent: string;
       received: string;
@@ -261,4 +263,11 @@ export interface LangBottomTabs {
   receive: string;
   support: string;
   settings: string;
+}
+
+export interface LangTransactions {
+  transactionStatus: {
+    send: { failed: string; pending: string; success: string };
+    receive: { failed: string; pending: string; success: string };
+  };
 }
