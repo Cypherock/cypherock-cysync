@@ -4,12 +4,16 @@ import { Typography } from '../../atoms';
 import Octicons from '@expo/vector-icons/Octicons';
 import React from 'react';
 import { SortIcon } from '../../icons';
-import { PressableProps, SectionBase, View, ViewProps } from 'react-native';
+import {
+  PressableProps,
+  SectionBase,
+  TouchableOpacityProps,
+  View,
+} from 'react-native';
 
-interface TableHeaderDataProps extends ViewProps {
+interface TableHeaderDataProps extends TouchableOpacityProps {
   data: string;
   ascending: boolean;
-  onClick: (name: string) => void;
   selected?: boolean;
 }
 
