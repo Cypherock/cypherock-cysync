@@ -40,7 +40,9 @@ export function OnboardingItem(props: IOnboardingItem) {
       </View>
       <View style={styles.bottomContainer}>
         <View style={styles.textContainer}>
-          <Typography type={'h2'}>{props.title}</Typography>
+          <Typography type={props.titleType ?? 'display'}>
+            {props.title}
+          </Typography>
           {props.subtitle && (
             <Typography type="para">{props.subtitle}</Typography>
           )}
@@ -96,6 +98,7 @@ const styles = StyleSheet.create({
     marginBottom: '10%',
   },
   textContainer: {
+    minHeight: 160,
     paddingHorizontal: 24,
     gap: 8,
     justifyContent: 'flex-start',

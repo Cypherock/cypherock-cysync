@@ -5,13 +5,12 @@ import {
   PagerDots,
   ScreenContainer,
 } from '@/components/ui';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { useAppSelector } from '@/store';
 import { selectLanguage } from '@/store/lang';
 import { Images } from '@/constants/images';
 import { router } from 'expo-router';
-import { Dimensions, StyleSheet, View } from 'react-native';
 
 export default function Onboarding() {
   const { strings } = useAppSelector(selectLanguage);
@@ -40,19 +39,17 @@ export default function Onboarding() {
       id: 4,
       image: Images.onboarding.screen4,
       title: strings.onboarding.notifications.title,
-      titleType: 'h2',
       subtitle: strings.onboarding.notifications.subtitle,
     },
     {
-      id: 5,  
-      image: Images.onboarding.screen5, 
+      id: 5,
+      image: Images.onboarding.screen5,
       title: strings.onboarding.allSet.title,
-      titleType: 'h2',
       subtitle: strings.onboarding.allSet.subtitle,
       actions: {
         primary: {
-          title: strings.buttons.continue, 
-          onPress: () => router.push('/(onboarding)/PasswordPage'), 
+          title: strings.buttons.continue,
+          onPress: () => router.push('/(onboarding)/password-page'),
         },
       },
     },
@@ -65,7 +62,7 @@ export default function Onboarding() {
   return (
     <ScreenContainer>
       <PagerDots index={currentIndex} length={pages.length} />
-      <GestureHandlerRootView style={{flex: 1}}>
+      <GestureHandlerRootView style={{ flex: 1 }}>
         <FlatList
           horizontal
           data={pages}

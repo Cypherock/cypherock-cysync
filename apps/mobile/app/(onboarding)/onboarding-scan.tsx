@@ -23,7 +23,7 @@ export default function ScanQRScreen() {
         imageNode={
           <Image
             source={Images.onboarding.screen4_1}
-            style={{ width: 154.29, height: 120 }}
+            style={{ width: 120, height: 120 }}
           />
         }
         title={strings.onboarding.scan.title}
