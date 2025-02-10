@@ -1,5 +1,11 @@
 # @cypherock/coin-support-solana
 
+## 0.1.1
+
+### Patch Changes
+
+- [#686](https://github.com/Cypherock/cypherock-cysync/pull/686) [`3aa5200f`](https://github.com/Cypherock/cypherock-cysync/commit/3aa5200f18bcca5d743a465984c5f8e6622ce24a) Thanks [@muzaffarbhat07](https://github.com/muzaffarbhat07)! - fixed solana send max issue and added spendable balance(balance - rentExempt) in solana account
+
 ## 0.1.0
 
 ### Minor Changes

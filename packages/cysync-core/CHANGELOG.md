@@ -1,5 +1,19 @@
 # @cypherock/cysync-core
 
+## 0.3.1
+
+### Patch Changes
+
+- [#687](https://github.com/Cypherock/cypherock-cysync/pull/687) [`09f3ee01`](https://github.com/Cypherock/cypherock-cysync/commit/09f3ee012a1ca1a2f2973e918227fa027a6006ed) Thanks [@muzaffarbhat07](https://github.com/muzaffarbhat07)! - Disable continue btn in dialogs/send/recipient while preparing transaction
+
+- [#686](https://github.com/Cypherock/cypherock-cysync/pull/686) [`3aa5200f`](https://github.com/Cypherock/cypherock-cysync/commit/3aa5200f18bcca5d743a465984c5f8e6622ce24a) Thanks [@muzaffarbhat07](https://github.com/muzaffarbhat07)! - fixed solana send max issue and added spendable balance(balance - rentExempt) in solana account
+
+- Updated dependencies [[`3aa5200f`](https://github.com/Cypherock/cypherock-cysync/commit/3aa5200f18bcca5d743a465984c5f8e6622ce24a)]:
+  - @cypherock/coin-support-solana@0.1.1
+  - @cypherock/coin-support@0.1.3
+  - @cypherock/cysync-core-services@0.1.1
+  - @cypherock/cysync-core-workers@0.0.17
+
 ## 0.3.0
 
 ### Minor Changes
