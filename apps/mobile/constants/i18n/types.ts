@@ -13,6 +13,7 @@ export interface LanguageStrings {
   toast: LangToast;
   bottomTabs: LangBottomTabs;
   transactions: LangTransactions;
+  graph: LangGraph;
 }
 
 export interface LangButtons {
@@ -270,4 +271,9 @@ export interface LangTransactions {
     send: { failed: string; pending: string; success: string };
     receive: { failed: string; pending: string; success: string };
   };
+}
+
+export interface LangGraph {
+  totalBalance: string;
+  timeRange: { day: string; week: string; month: string; year: string };
 }
