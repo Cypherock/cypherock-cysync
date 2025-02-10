@@ -127,6 +127,9 @@
       "messageBox": {
         "danger": "لم يتم التحقق من عنوان الاستلام هذا بواسطة الجهاز. استخدمه على مسؤوليتك الخاصة."
       }
+    },
+    "shared": {
+      "noAccounts": "No Accounts found in this wallet!"
     }
   },
   "support": {

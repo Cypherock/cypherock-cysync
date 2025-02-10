@@ -127,6 +127,9 @@
       "messageBox": {
         "danger": "Alamat Penerima ini TIDAK DIVERIFIKASI oleh perangkat. Gunakan dengan risiko Anda sendiri."
       }
+    },
+    "shared": {
+      "noAccounts": "No Accounts found in this wallet!"
     }
   },
   "support": {

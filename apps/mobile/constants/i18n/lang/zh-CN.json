@@ -127,6 +127,9 @@
       "messageBox": {
         "danger": "此接收地址未經設備驗證。請自行承擔風險使用"
       }
+    },
+    "shared": {
+      "noAccounts": "No Accounts found in this wallet!"
     }
   },
   "support": {
