@@ -8,26 +8,39 @@ export default function Layout() {
   return (
     <Stack
       screenOptions={{
-        header: ({ navigation, options, route }) => (
-          <Header
-            onBackPress={() => navigation.canGoBack() && navigation.goBack()}
-            title={options.title ?? route.name}
-            showBack={true}
-          />
-        ),
+        header: ({ navigation, options, route }) => {
+          const params = route.params || {};
+          return (
+            <Header
+              onBackPress={() => navigation.canGoBack() && navigation.goBack()}
+              title={options.title ?? route.name}
+              showBack={true}
+              leftIcon={
+                typeof options.headerLeft === 'function'
+                  ? options.headerLeft({})
+                  : options.headerLeft
+              }
+              {...params}
+            />
+          );
+        },
       }}
     >
       <Stack.Screen
         name="index"
         options={{
           title: strings.portfolio.heading,
-          header: ({ navigation, options, route }) => (
-            <Header
-              onBackPress={() => navigation.canGoBack() && navigation.goBack()}
-              title={options.title ?? route.name}
-              showBack={false}
-            />
-          ),
+          header: ({ navigation, options, route }) => {
+            return (
+              <Header
+                onBackPress={() =>
+                  navigation.canGoBack() && navigation.goBack()
+                }
+                title={options.title ?? route.name}
+                showBack={false}
+              />
+            );
+          },
         }}
       />
       <Stack.Screen name="coins/[id]" />
