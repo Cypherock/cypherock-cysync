@@ -1,5 +1,5 @@
 import { View, StyleSheet } from 'react-native';
-import React from 'react';
+import React, { ReactNode } from 'react';
 import { HeaderContainer, Typography } from '../atoms';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import AntDesign from '@expo/vector-icons/AntDesign';
@@ -11,7 +11,7 @@ interface HeaderProps {
   title: string;
   showBack?: boolean;
   rightIcons?: JSX.Element;
-  leftIcon?: JSX.Element;
+  leftIcon?: ReactNode;
   onBackPress: () => void;
   showDiscard?: boolean;
   onDiscard?: () => void;

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ReactNode } from 'react';
 import { Pressable, View } from 'react-native';
 import { Header as StyledHeader } from '../ui';
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
@@ -9,7 +9,7 @@ import { Images } from '@/constants';
 
 interface HeaderProps {
   title: string;
-  leftIcon?: JSX.Element;
+  leftIcon?: ReactNode;
   showBack?: boolean;
   onBackPress: () => void;
   showDiscard?: any;
