@@ -1,6 +1,5 @@
 import React, { forwardRef } from 'react';
 import { BottomSheetModal } from '@gorhom/bottom-sheet';
-import { EdgeInsets } from 'react-native-safe-area-context';
 import {
   Card,
   CyBottomSheetModal,
@@ -14,22 +13,26 @@ import Feather from '@expo/vector-icons/Feather';
 import { colors } from '../themes/color.styled';
 import { FlatList } from 'react-native';
 
+export interface IFilterDataType {
+  text: string;
+  id: string;
+}
+
 interface SelectFilterSheetProps {
   title: string;
-  data: string[];
+  data: IFilterDataType[];
   onHide: () => void;
-  onSelect?: () => void;
-  insets: EdgeInsets;
+  onSelect: (id: string) => void;
 }
 
 export const SelectFilterSheet = forwardRef(
   (
-    { onHide, data, title, insets, onSelect }: SelectFilterSheetProps,
+    { onHide, data, title, onSelect }: SelectFilterSheetProps,
     ref: React.ForwardedRef<BottomSheetModal<any>> | undefined,
   ) => {
     return (
       <CyBottomSheetModal ref={ref}>
-        <CyBottomSheetView style={{ paddingBottom: insets.bottom }}>
+        <CyBottomSheetView style={{ paddingBottom: 20 }}>
           <Flex
             justifyContent="space-between"
             style={{ paddingVertical: 16, paddingHorizontal: 8 }}
@@ -53,8 +56,14 @@ export const SelectFilterSheet = forwardRef(
             <FlatList
               style={{ width: '100%' }}
               data={data}
-              renderItem={({ item }: { item: string }) => (
-                <InteractiveItem text={item} onPress={onSelect} />
+              renderItem={({ item }: { item: IFilterDataType }) => (
+                <InteractiveItem
+                  text={item.text}
+                  onPress={() => {
+                    onSelect(item.id);
+                    onHide();
+                  }}
+                />
               )}
               ItemSeparatorComponent={() => <Seperator />}
             />
