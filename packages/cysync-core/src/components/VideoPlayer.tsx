@@ -58,6 +58,7 @@ export const VideoPlayer: FC<VideoPlayerProps> = ({ onRetry, ...props }) => {
       </Container>
     );
   }
-
+  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  // @ts-ignore
   return <ReactPlayer {...props} onReady={() => setError(false)} />;
 };

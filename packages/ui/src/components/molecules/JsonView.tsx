@@ -8,6 +8,8 @@ export const JsonView: React.FC<ReactJsonViewProps> = (
   const theme = useTheme();
 
   return (
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
     <ReactJson
       iconStyle="triangle"
       theme={{

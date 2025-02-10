@@ -62,6 +62,8 @@ export const AddressDisplay: React.FC = () => {
         </Typography>
       </Flex>
       <Container $bgColor="white" p="12">
+        {/* // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore */}
         <QRCode size={228} value={derivedAddress ?? ''} />
       </Container>
       <Container

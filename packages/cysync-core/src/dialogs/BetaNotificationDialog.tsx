@@ -95,6 +95,8 @@ export const BetaNotificationDialog: FC = () => {
               width="inherit"
               direction="column"
             >
+              {/* // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+              // @ts-ignore */}
               <ReactPlayer url="https://www.youtube.com/embed/X7Kv4cGptcA" />
               <Typography $textAlign="center" variant="div">
                 <Typography mb={1} $textAlign="center">

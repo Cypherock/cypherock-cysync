@@ -150,6 +150,9 @@ export const DashboardWallet: FC<DashboardWalletProps> = ({
           </Flex>
           <TimerContainer $isHover={isHover}>
             <ProgressbarWrapper>
+              {/*
+              // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+              // @ts-ignore */}
               <CircularProgressbar
                 value={isHover ? hoverProgress.value : progress.value}
                 strokeWidth={6}

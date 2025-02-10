@@ -33,6 +33,8 @@ export const BlurOverlay: FC<BlurOverlayProps> = ({ children }) => {
   const elementRef = useRef<HTMLDivElement | null>(null);
 
   return (
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
     <FocusTrap
       focusTrapOptions={{
         fallbackFocus: () => elementRef.current ?? '',

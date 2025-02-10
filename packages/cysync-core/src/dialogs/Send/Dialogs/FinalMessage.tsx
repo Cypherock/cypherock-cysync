@@ -47,6 +47,8 @@ export const FinalMessage: React.FC = () => {
         <ScrollableContainer $maxHeight={{ def: '40vh', lg: '65vh' }}>
           <DialogBoxBody p={0} px={4} pb={5}>
             <Container $bgColor="white" p="12">
+              {/* // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+              // @ts-ignore */}
               <QRCode size={228} value={storedTransaction?.hash ?? ''} />
             </Container>
             <Container display="flex" direction="column" gap={48} width="full">

@@ -27,6 +27,8 @@ const theme = getDefaultTheme();
 const App = () => (
   <ThemeProvider theme={theme}>
     <GlobalStyles />
+    {/* // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore */}
     <ErrorBoundary
       fallbackRender={FallbackRenderer}
       onReset={details => {

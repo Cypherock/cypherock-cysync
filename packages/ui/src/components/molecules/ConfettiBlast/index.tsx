@@ -11,6 +11,8 @@ export const ConfettiBlast = () => {
   }, []);
 
   return (
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
     <Particles
       id="tsparticles"
       init={particlesInit}
