@@ -127,6 +127,9 @@
       "messageBox": {
         "danger": "Diese Empfangsadresse wurde NICHT vom Gerät ÜBERPRÜFT. Benutzen Sie sie auf eigene Gefahr."
       }
+    },
+    "shared": {
+      "noAccounts": "No Accounts found in this wallet!"
     }
   },
   "support": {
