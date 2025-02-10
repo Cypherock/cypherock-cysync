@@ -127,6 +127,9 @@
       "messageBox": {
         "danger": "This Receive Address was NOT VERIFIED by the device. Use it at your own risk."
       }
+    },
+    "shared": {
+      "noAccounts": "No Accounts found in this wallet!"
     }
   },
   "support": {
