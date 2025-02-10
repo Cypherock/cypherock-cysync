@@ -98,7 +98,7 @@ export default function Portfolio() {
               </Typography>
             </Flex>
           </Flex>
-          <Graph areaChart data={data} maxValue={30} stepValue={10} />
+          <Graph areaChart data={graphData} maxValue={30} stepValue={10} />
         </Container>
       )}
       <Table>
@@ -124,7 +124,9 @@ export default function Portfolio() {
           }) => (
             <TableRowData
               index={index}
-              onPress={() => console.log(item.assetName, ' pressed')}
+              onPress={() => {
+                router.push(`/portfolio/coins/${item.parentAssetId}`);
+              }}
             >
               <XTableCell
                 leftIcon={item.assetIcon}
