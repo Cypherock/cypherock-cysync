@@ -247,5 +247,14 @@
         "success": "Received"
       }
     }
+  },
+  "graph": {
+    "totalBalance": "Total Balance",
+    "timeRange": {
+      "day": "1D",
+      "week": "1W",
+      "month": "1M",
+      "year": "1Y"
+    }
   }
 }
