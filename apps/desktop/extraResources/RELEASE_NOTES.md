@@ -1,3 +1,10 @@
+# v2.0.18
+
+### 🐛 Bugfixes
+
+- Resolved **Solana Send Max** transaction failure issue.
+- Fixed **Continue** button not showing disabled state in Solana send flow.
+
 # v2.0.17
 
 ### 🚀 Features
