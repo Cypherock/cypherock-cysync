@@ -234,12 +234,6 @@
     "support": "Support",
     "settings": "Settings"
   },
-  "login": {
-    "emailPlaceholder": "Email",
-    "passwordPlaceholder": "Password",
-    "message": "This is a dummy login implementation. Any input will redirect to the next page.",
-    "forgotPassword": "Forgot password?"
-  },
   "transactions": {
     "transactionStatus": {
       "send": {
