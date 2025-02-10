@@ -1,6 +1,6 @@
-import { View, StyleSheet } from 'react-native';
+import { View, StyleSheet, Dimensions } from 'react-native';
 import React, { useEffect, useRef, useState } from 'react';
-import { Icon, MessageBox, ScreenContainer } from '@/components/ui';
+import { Icon, MessageBox, ScreenContainer, Typography } from '@/components/ui';
 import { Scanner } from '@/components/core';
 import IonIcon from '@expo/vector-icons/Ionicons';
 import { Images } from '@/constants/images';
@@ -11,6 +11,8 @@ import { selectLanguage } from '@/store/lang';
 import { IAccount, IWallet } from '@cypherock/db-interfaces';
 import { getDB } from '@/utils';
 import { inflate } from 'pako';
+import { Animated } from 'react-native';
+import { colors } from '@/components/ui/themes/color.styled';
 
 interface CysyncData {
   wallets: IWallet[];
@@ -18,9 +20,12 @@ interface CysyncData {
 }
 
 export default function Scan() {
-  const { strings } = useAppSelector(selectLanguage);
+  const { strings } = useAppSelector(selectLanguage);  
   const scannedData = useRef<Record<number, string>>({});
   const [decodedData, setDecodedData] = useState<CysyncData>();
+  const [totalChunks, setTotalChunks] = useState(0);
+  const [chunksReceived, setChunksReceived] = useState(0);
+  const progressAnim = useRef(new Animated.Value(0)).current;
 
   function navigateToNext() {
     router.dismissTo('/info');
@@ -32,7 +37,11 @@ export default function Scan() {
     const dataLength = Number(data[2]);
     const chunkData = data[3];
 
+    if (scannedData.current[chunkIndex]) return;
+
     scannedData.current[chunkIndex] = chunkData;
+    setTotalChunks(dataLength);
+    setChunksReceived(Object.keys(scannedData.current).length);
 
     if (Object.keys(scannedData.current).length === dataLength) {
       const sortedChunks = Object.keys(scannedData.current)
@@ -47,14 +56,22 @@ export default function Scan() {
     }
   }
 
+  useEffect(() => {
+    Animated.timing(progressAnim, {
+      toValue: chunksReceived / (totalChunks || 1),
+      duration: 300,
+      useNativeDriver: false,
+    }).start();
+  }, [chunksReceived, totalChunks, progressAnim]);
+
   async function saveDataToDb(data: CysyncData) {
     try {
       const db = getDB();
       await db.wallet.insert(data.wallets);
       await db.account.insert(data.accounts);
     } catch (error) {
-      console.log(error);
-      console.log('Failed to save data');
+      console.error('Error saving data to DB:', error);
+      // TODO: Error message if the scan dosent happen (screen dosent exist in figma currently)
     }
   }
 
@@ -67,8 +84,15 @@ export default function Scan() {
     return () => {
       setDecodedData(undefined);
       scannedData.current = {};
+      setChunksReceived(0);
+      setTotalChunks(0);
     };
   }, [decodedData]);
+
+  const progressWidth = progressAnim.interpolate({
+    inputRange: [0, 1],
+    outputRange: ['0%', '100%'],
+  });
 
   return (
     <ScreenContainer>
@@ -84,12 +108,26 @@ export default function Scan() {
       </View>
       <Scanner onQrScanned={onQrScanned} />
       <View style={styles.textContainer}>
+        <Typography type="body" style={styles.pleaseWait}>
+          {strings.scan.pleaseWait}  
+        </Typography>
+
+        <View style={styles.progressBarContainer}>
+          <Animated.View
+            style={[styles.progressBar, { width: progressWidth }]}
+          />
+        </View>
+
         <MessageBox
           type="warning"
           icon={
-            <IonIcon name="person-circle-outline" color={'#F1AE4A'} size={24} />
+            <IonIcon
+              name="person-circle-outline"
+              color={colors.warning}
+              size={24}
+            />
           }
-          text={strings.scan.messageBox.warning}
+          text={strings.scan.messageBox.warning}  
         />
       </View>
     </ScreenContainer>
@@ -108,5 +146,21 @@ const styles = StyleSheet.create({
     gap: 16,
     paddingBottom: 40,
     paddingHorizontal: 24,
+  },
+  pleaseWait: {
+    textAlign: 'center',
+    color: colors.text.secondary,
+  },
+  progressBarContainer: {
+    width: '100%',
+    height: 8,
+    backgroundColor: colors.border.secondary,
+    borderRadius: 4,
+    overflow: 'hidden',
+  },
+  progressBar: {
+    height: '100%',
+    backgroundColor: colors.accent,
+    borderRadius: 4,
   },
 });

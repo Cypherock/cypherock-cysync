@@ -100,14 +100,14 @@
   "history": {
     "heading": "Verlauf",
     "history": {
-      "title": "Transaktions History",
+      "title": "Transaktionsverlauf",
       "table": {
         "time": "Zeit",
         "amount": "Betrag"
       }
     },
     "details": {
-      "title": "Transaction Hash",
+      "title": "Transaktions-Hash",
       "heading": {
         "sent": "Gesendet",
         "received": "Empfangen"
@@ -129,14 +129,14 @@
       }
     },
     "shared": {
-      "noAccounts": "No Accounts found in this wallet!"
+      "noAccounts": "Keine Konten gefunden."
     }
   },
   "support": {
     "heading": "Support",
     "support": {
       "title": "Wie können wir helfen?",
-      "description": "E-Mail an: "
+      "description": "Senden Sie eine E-Mail an: "
     },
     "socials": {
       "title": "Bleiben Sie mit Cypherock in Verbindung",
@@ -237,15 +237,24 @@
   "transactions": {
     "transactionStatus": {
       "send": {
-        "failed": "Send Failed",
-        "pending": "Sending",
-        "success": "Sent"
+        "failed": "Senden fehlgeschlagen",
+        "pending": "Wird gesendet",
+        "success": "Gesendet"
       },
       "receive": {
-        "failed": "Receive Failed",
-        "pending": "Receiving",
-        "success": "Received"
+        "failed": "Empfangen fehlgeschlagen",
+        "pending": "Wird empfangen",
+        "success": "Empfangen"
       }
+    }
+  },
+  "graph": {
+    "totalBalance": "Total Balance",
+    "timeRange": {
+      "day": "1D",
+      "week": "1W",
+      "month": "1M",
+      "year": "1Y"
     }
   },
   "graph": {

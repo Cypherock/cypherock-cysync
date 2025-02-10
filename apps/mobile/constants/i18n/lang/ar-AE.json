@@ -14,7 +14,7 @@
     "allWallets": "جميع المحافظ"
   },
   "onboarding": {
-    "welcome": {
+     "welcome": {
       "title": "مرحبًا بك في تطبيق cySync",
       "description": "بوابتك إلى السيادة الذاتية",
       "termsOfUse": "شروط الاستخدام",
@@ -44,7 +44,7 @@
       "title": "إذن الكاميرا مطلوب",
       "description": "يرجى توفير الوصول إلى الكاميرا. بدون الوصول إلى الكاميرا، لن تتمكن من مسح رمز الاستجابة السريعة المطلوب للمزامنة مع سطح مكتب cySync الخاص بك"
     },
-    "info": {
+   "info": {
       "title": "يجب مزامنة تطبيقات سطح المكتب والهاتف المحمول يدويًا",
       "description": "يقوم تطبيق cySync بتخزين بياناتك محليًا. إذا قمت بتحديث عملاتك / حساباتك على تطبيق سطح المكتب، فستحتاج إلى القيام بنفس الشيء على تطبيق الهاتف المحمول الخاص بك"
     },
@@ -65,7 +65,7 @@
         "subTitle": "يمكنك الآن استخدام كلمة المرور الجديدة الخاصة بك لتسجيل الدخول"
       }
     },
-    "notifications": {
+      "notifications": {
       "title": "الإشعارات",
       "subtitle": "استقبل أصولك المشفرة مباشرة في Cypherock X1 الخاص بك. أثناء التنقل!"
     },
@@ -76,17 +76,17 @@
   },
   "scan": {
     "alignQrCode": "قم بمحاذاة رمز الاستجابة السريعة ليملأ الإطار",
-    "pleaseWait": "يرجى الانتظار",
+    "pleaseWait": "أرجو الإنتظار",  
     "messageBox": {
-      "warning": "ملاحظة: يمكن أن يكون هناك أكثر من رمز QR واحد للمسح الضوئي"
+      "warning": "ملاحظة: يمكن أن يكون هناك أكثر من رمز QR واحد للمسح الضوئي"  
     },
     "loading": {
       "description": "يرجى الانتظار بينما نقوم بجلب التفاصيل الخاصة بك"
     }
   },
-  "portfolio": {
+   "portfolio": {
     "heading": "المحفظة",
-    "noAccount": {
+     "noAccount": {
       "title": "لا شيء هنا حتى الآن!",
       "subTitle": "لم نتمكن من العثور على أي شيء. حاول مسح رمز الاستجابة السريعة ضوئيًا على سطح المكتب مرة أخرى"
     },
@@ -99,32 +99,33 @@
   },
   "history": {
     "heading": "السجل",
-    "history": {
-      "title": "تاريخ المعاملات",
-      "table": {
-        "time": "الوقت",
-        "amount": "المبلغ"
+    "history":{
+      "title":"تاريخ المعاملات",
+      "table":{
+          "time": "الوقت",
+          "amount":"المبلغ"
       }
     },
-    "details": {
+    "details":{
       "title": "معرف المعاملة",
-      "heading": {
+       "heading": {
         "sent": "تم الإرسال",
         "received": "تم الاستلام"
       }
     }
+
   },
   "receive": {
     "heading": "استلام",
-    "chooseWallet": {
-      "title": "اختر محفظة لاستلام العملات المشفرة فيها"
+    "chooseWallet":{
+      "title":"اختر محفظة لاستلام العملات المشفرة فيها"
     },
-    "chooseAccount": {
+    "chooseAccount":{
       "title": "اختر العملة المشفرة التي تريد استلامها"
     },
-    "receive": {
+    "receive":{
       "info": "عنوان ${crypto} في ${wallet}",
-      "messageBox": {
+      "messageBox":{
         "danger": "لم يتم التحقق من عنوان الاستلام هذا بواسطة الجهاز. استخدمه على مسؤوليتك الخاصة."
       }
     },
@@ -217,24 +218,24 @@
       "title": "تمت إزالة كلمة المرور بنجاح"
     }
   },
-  "notifications": {
-    "heading": "الإشعارات"
-  },
-  "banner": {
-    "title": "غطاء Cypherock أصبح هنا!",
-    "description": "انقر هنا لمعرفة المزيد"
-  },
-  "toast": {
-    "addressCopied": "تم نسخ العنوان بنجاح"
-  },
-  "bottomTabs": {
-    "portfolio": "المحفظة",
-    "history": "السجل",
-    "receive": "استلام",
-    "support": "الدعم",
-    "settings": "الإعدادات"
-  },
-  "transactions": {
+    "notifications":{
+      "heading": "الإشعارات"
+    },
+    "banner":{
+      "title": "غطاء Cypherock أصبح هنا!",
+      "description": "انقر هنا لمعرفة المزيد"
+    },
+    "toast":{
+      "addressCopied": "تم نسخ العنوان بنجاح"
+    },
+     "bottomTabs": {
+      "portfolio": "المحفظة",
+      "history": "السجل",
+      "receive": "استلام",
+      "support": "الدعم",
+      "settings": "الإعدادات"
+    },
+    "transactions": {
     "transactionStatus": {
       "send": {
         "failed": "Send Failed",
