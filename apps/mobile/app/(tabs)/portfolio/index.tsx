@@ -18,10 +18,8 @@ import {
 import { colors } from '@/components/ui/themes/color.styled';
 import { Images } from '@/constants';
 import Entypo from '@expo/vector-icons/Entypo';
-import { BottomSheetModal } from '@gorhom/bottom-sheet';
 import { router } from 'expo-router';
-import { useCallback, useRef, useState } from 'react';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { useState } from 'react';
 import { View } from 'react-native';
 import { useAppSelector } from '@/store';
 import { selectLanguage } from '@/store/lang';
@@ -29,23 +27,23 @@ import NoDataScreen from '@/components/ui/molecules/NoDataScreen';
 import {
   CoinAllocationRow,
   useAssetAllocations,
-} from '@/hooks/useAssetAllocation';
+  usePortfolioFilters,
+} from '@/hooks';
 
 export default function Portfolio() {
   const { strings } = useAppSelector(selectLanguage);
-  const insets = useSafeAreaInsets();
-  const filterRef = useRef<BottomSheetModal | null>(null);
   const [graphData] = useState();
   const { coinAllocations, onSort, sortedBy, isAscending } =
     useAssetAllocations();
-
-  const handleShowFilter = useCallback(() => {
-    filterRef.current?.present();
-  }, []);
-
-  const handleHideFilter = useCallback(() => {
-    filterRef.current?.close();
-  }, []);
+  const {
+    filters,
+    selectedFilter,
+    filterRef,
+    onFilterSelect,
+    onHideFilter,
+    selectedRange,
+    onShowFilter,
+  } = usePortfolioFilters();
 
   if (!graphData && !coinAllocations) {
     return (
@@ -66,41 +64,44 @@ export default function Portfolio() {
         title={strings.banner.title}
         subtitle={strings.banner.description}
       />
-      {graphData && (
-        <Container style={{ paddingHorizontal: 12, gap: 24 }}>
-          <View
-            style={{
-              flexDirection: 'row',
-              justifyContent: 'space-between',
-              gap: 4,
-            }}
-          >
-            <Flex gap={4} style={{ flex: 1 }}>
-              <FilterButton
-                placeholder="All wallets"
-                onPress={handleShowFilter}
-              />
-            </Flex>
-            <Flex gap={4} style={{ flex: 1 }}>
-              <FilterButton placeholder="1W" onPress={handleShowFilter} />
-            </Flex>
-          </View>
-          <Flex justifyContent="space-between">
-            <Typography type="h3">$32,584</Typography>
-            <Flex gap={8}>
-              <Entypo name="triangle-up" size={8} color={colors.success} />
-              <Typography type="h5" color={'secondary'}>
-                2.3%
-              </Typography>
-              <Seperator type="v" />
-              <Typography type="h5" color={'secondary'}>
-                $00.321
-              </Typography>
-            </Flex>
+      <Container style={{ paddingHorizontal: 12, gap: 24 }}>
+        <View
+          style={{
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+            gap: 4,
+          }}
+        >
+          <Flex gap={4} style={{ flex: 1 }}>
+            <FilterButton
+              placeholder="All wallets"
+              onPress={() => onShowFilter('wallets')}
+            />
           </Flex>
-          <Graph areaChart data={graphData} maxValue={30} stepValue={10} />
-        </Container>
-      )}
+          <Flex gap={4} style={{ flex: 1 }}>
+            <FilterButton
+              value={strings.graph.timeRange[selectedRange]}
+              placeholder="1W"
+              onPress={() => onShowFilter('time')}
+            />
+          </Flex>
+        </View>
+        <Flex justifyContent="space-between">
+          <Typography type="h3">$32,584</Typography>
+          <Flex gap={8}>
+            <Entypo name="triangle-up" size={8} color={colors.success} />
+            <Typography type="h5" color={'secondary'}>
+              2.3%
+            </Typography>
+            <Seperator type="v" />
+            <Typography type="h5" color={'secondary'}>
+              $00.321
+            </Typography>
+          </Flex>
+        </Flex>
+        <Graph areaChart data={graphData} maxValue={30} stepValue={10} />
+      </Container>
+
       <Table>
         <TableHeader style={{ backgroundColor: colors.background.input }}>
           {Object.values(strings.portfolio.dashboard.table).map((v: string) => (
@@ -156,13 +157,16 @@ export default function Portfolio() {
           )}
         />
       </Table>
-      <SelectFilterSheet
-        ref={filterRef}
-        title={'Select Wallet'}
-        data={['Cypherock', 'CyA1']}
-        onHide={handleHideFilter}
-        insets={insets}
-      />
+
+      {filters && selectedFilter && (
+        <SelectFilterSheet
+          ref={filterRef}
+          title={'Select Wallet'}
+          onSelect={onFilterSelect}
+          data={filters}
+          onHide={onHideFilter}
+        />
+      )}
     </ScreenContainer>
   );
 }
