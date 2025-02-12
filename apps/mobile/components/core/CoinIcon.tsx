@@ -24,6 +24,7 @@ import {
   NearIcon,
   XrpIcon,
 } from '../ui/icons';
+import { useTheme } from '../ui';
 
 const coinToIconMap: Record<string, React.FC<any>> = {
   [BtcIdMap.bitcoin]: BitcoinIcon,
@@ -69,16 +70,24 @@ export const CoinIcon: React.FC<CoinIconProps> = ({
   withParentIconAtBottom,
 }) => {
   const Icon = coinToIconMap[parentAssetId];
+  const theme = useTheme();
 
   const containerStyle = {
     ...styles.container,
     width: size,
     height: size,
-    backgroundColor: withBackground ? '#27221D' : 'transparent',
+    backgroundColor: withBackground
+      ? theme.palette.background.secondary
+      : 'transparent',
   };
 
   const iconStyle = {
     ...styles.icon,
+  };
+
+  const iconSize = {
+    width: withBackground ? size - 6 : size,
+    height: withBackground ? size - 6 : size,
   };
 
   const defaultSubIconSize = 20;
@@ -108,7 +117,9 @@ export const CoinIcon: React.FC<CoinIconProps> = ({
         <Image
           source={{ uri: requestErc20ImageFile(asset.coinGeckoId) }}
           defaultSource={{ uri: fallbackIcon }}
-          style={[iconStyle, { width: size, height: size }]}
+          style={[iconStyle]}
+          width={iconSize.width}
+          height={iconSize.height}
         />
       </View>
     );
@@ -117,7 +128,11 @@ export const CoinIcon: React.FC<CoinIconProps> = ({
   if (withSubIconAtBottom && parentAssetId !== assetId) {
     return (
       <View style={containerStyle}>
-        <Icon width={size} height={size} style={iconStyle} />
+        <Icon
+          width={iconSize.width}
+          height={iconSize.height}
+          style={iconStyle}
+        />
         <View style={subContainerStyle}>
           <Image
             source={{
@@ -149,7 +164,9 @@ export const CoinIcon: React.FC<CoinIconProps> = ({
             ),
           }}
           defaultSource={{ uri: fallbackIcon }}
-          style={[iconStyle, { width: size, height: size }]}
+          style={[iconStyle]}
+          width={iconSize.width}
+          height={iconSize.height}
         />
         <View style={subContainerStyle}>
           <Icon
@@ -164,7 +181,7 @@ export const CoinIcon: React.FC<CoinIconProps> = ({
 
   return (
     <View style={containerStyle}>
-      <Icon width={size} height={size} style={iconStyle} />
+      <Icon width={iconSize.width} height={iconSize.height} style={iconStyle} />
     </View>
   );
 };
@@ -173,11 +190,12 @@ const styles = StyleSheet.create({
   container: {
     position: 'relative',
     borderRadius: 8,
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   icon: {
     position: 'absolute',
-    top: 0,
-    left: 0,
   },
   subContainer: {
     position: 'absolute',
