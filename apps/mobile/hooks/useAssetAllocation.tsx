@@ -217,6 +217,7 @@ export const useAssetAllocations = ({
               subContainerSize={16}
               withParentIconAtBottom={withParentIconAtBottom}
               withSubIconAtBottom={withSubIconAtBottom}
+              withBackground
             />
           ),
           balance: new BigNumber(amount).toNumber(),
