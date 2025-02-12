@@ -3,8 +3,9 @@ import styled from 'styled-components/native';
 import { colors } from '../themes/color.styled';
 import React from 'react';
 import FontAwesome from '@expo/vector-icons/FontAwesome';
+import { PressableProps } from 'react-native';
 
-interface BannerProps {
+interface BannerProps extends PressableProps {
   img: any;
   title: string;
   subtitle: string;
@@ -12,8 +13,6 @@ interface BannerProps {
 }
 
 const BannerContainer = styled.Pressable`
-  margin-horizontal: 16px;
-  margin-vertical: 12px;
   padding-right: 10px;
   flex-direction: row;
   align-items: center;
@@ -40,9 +39,15 @@ const BannerSubtitle = styled.Text`
   color: ${({ theme }) => theme.palette.text.primary};
 `;
 
-export const Banner = ({ img, title, subtitle, onPress }: BannerProps) => {
+export const Banner = ({
+  img,
+  title,
+  subtitle,
+  onPress,
+  ...props
+}: BannerProps) => {
   return (
-    <BannerContainer onPress={onPress}>
+    <BannerContainer onPress={onPress} {...props}>
       <Image source={img} style={{ width: 109, height: 38 }} />
       <BannerTextContainer>
         <BannerTitle>{title}</BannerTitle>
