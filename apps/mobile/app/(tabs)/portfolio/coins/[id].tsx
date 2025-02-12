@@ -1,147 +1,75 @@
 import {
-  Banner,
   Container,
   FilterButton,
   Flex,
-  Graph,
   ScreenContainer,
   SelectFilterSheet,
-  Seperator,
-  Table,
-  TableBody,
-  TableHeader,
-  TableHeaderData,
-  TableRowData,
-  Typography,
-  XTableCell,
 } from '@/components/ui';
-import { colors } from '@/components/ui/themes/color.styled';
-import { Images } from '@/constants';
-import Entypo from '@expo/vector-icons/Entypo';
-import { BottomSheetModal } from '@gorhom/bottom-sheet';
-import { useCallback, useEffect, useRef, useState } from 'react';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import {
-  CoinAllocationRow,
-  useAssetAllocations,
-} from '@/hooks/useAssetAllocation';
+import { Graph } from '@/components/core';
+import { useEffect } from 'react';
 import { useLocalSearchParams, useNavigation } from 'expo-router';
-import { CoinIcon } from '@/components/core';
+import { CoinIcon, PortfolioHeader } from '@/components/core';
+import AllocationTable from '@/components/core/AllocationTable';
+import { usePortfolioFilters } from '@/hooks';
+import { selectLanguage, useAppSelector } from '@/store';
 
 export default function Coins() {
   const { id } = useLocalSearchParams() as { id: string };
-  const insets = useSafeAreaInsets();
-  const filterRef = useRef<BottomSheetModal | null>(null);
-  const [graphData] = useState();
-  const { lang, coinAllocations, onSort, sortedBy, isAscending } =
-    useAssetAllocations({ parentAssetId: id as string });
   const navigation = useNavigation();
 
-  const handleShowFilter = useCallback(() => {
-    filterRef.current?.present();
-  }, []);
-
-  const handleHideFilter = useCallback(() => {
-    filterRef.current?.close();
-  }, []);
+  const { strings } = useAppSelector(selectLanguage);
+  const {
+    filters,
+    selectedFilter,
+    filterRef,
+    onFilterSelect,
+    onHideFilter,
+    selectedRange,
+    selectedWallet,
+    onShowFilter,
+  } = usePortfolioFilters();
+  const parentAssetId = id as string;
 
   useEffect(() => {
+    if (!parentAssetId) return;
     navigation.setOptions({ title: id });
     navigation.setOptions({
-      headerLeft: () => <CoinIcon parentAssetId={id} size={14} />,
+      headerLeft: () => <CoinIcon parentAssetId={parentAssetId} size={14} />,
     });
-  }, []);
+  }, [parentAssetId]);
 
   return (
     <ScreenContainer>
-      <Banner
-        img={Images.other.banner_default}
-        onPress={() => console.log('Banner Pressed')}
-        title={'Cypherock Cover is here!'}
-        subtitle={'Click here to know more'}
-      />
-      {graphData && (
-        <Container style={{ paddingHorizontal: 12, gap: 24 }}>
-          <Flex gap={4}>
+      <PortfolioHeader />
+      <Container style={{ paddingHorizontal: 12, gap: 24 }}>
+        <Flex justifyContent="space-between">
+          <Flex gap={4} style={{ flex: 1 }}>
             <FilterButton
+              value={selectedWallet?.name}
               placeholder="All wallets"
-              onPress={handleShowFilter}
+              onPress={() => onShowFilter('wallets')}
             />
-            <FilterButton placeholder="1W" onPress={handleShowFilter} />
           </Flex>
-          <Flex justifyContent="space-between">
-            <Typography type="h3">$32,584</Typography>
-            <Flex gap={8}>
-              <Entypo name="triangle-up" size={8} color={colors.success} />
-              <Typography type="h5" color={'secondary'}>
-                2.3%
-              </Typography>
-              <Seperator type="v" />
-              <Typography type="h5" color={'secondary'}>
-                $00.321
-              </Typography>
-            </Flex>
-          </Flex>
-          <Graph areaChart data={data} maxValue={30} stepValue={10} />
-        </Container>
-      )}
-      <Table>
-        <TableHeader style={{ backgroundColor: colors.background.input }}>
-          {Object.values(lang.strings.portfolio.dashboard.table).map(v => (
-            <TableHeaderData
-              key={v}
-              data={v}
-              ascending={sortedBy === v.toLowerCase() && isAscending}
-              onPress={() => onSort(v.toLowerCase())}
+          <Flex gap={4} style={{ flex: 1 }}>
+            <FilterButton
+              value={strings.graph.timeRange[selectedRange]}
+              placeholder="1W"
+              onPress={() => onShowFilter('time')}
             />
-          ))}
-        </TableHeader>
-        <TableBody
-          type="flat"
-          data={coinAllocations}
-          renderItem={({
-            item,
-            index,
-          }: {
-            item: CoinAllocationRow;
-            index: number;
-          }) => (
-            <TableRowData index={index} onPress={() => {}}>
-              <XTableCell
-                leftIcon={item.assetIcon}
-                primaryText={item.assetName}
-                secondaryText={item.displayBalance}
-              />
-              <XTableCell
-                primaryTextAlign="right"
-                primaryText={item.displayPrice}
-                secondaryTextAlign="right"
-                secondaryText={item.displayValue}
-                justifyContent="flex-end"
-              />
-            </TableRowData>
-          )}
-          renderSectionHeader={({ section: { title } }) => (
-            <Container
-              style={{ backgroundColor: colors.black, paddingVertical: 10 }}
-            >
-              <Typography type="para" color="primary">
-                {title}
-              </Typography>
-            </Container>
-          )}
-          seperator={() => (
-            <Seperator style={{ backgroundColor: colors.black }} />
-          )}
+          </Flex>
+        </Flex>
+        <Graph selectedRange={selectedRange} parentAssetId={parentAssetId} />
+      </Container>
+      <AllocationTable parentAssetId={parentAssetId} />
+      {filters.length > 0 && selectedFilter && (
+        <SelectFilterSheet
+          ref={filterRef}
+          title={'Select Option'}
+          onSelect={onFilterSelect}
+          data={filters}
+          onHide={onHideFilter}
         />
-      </Table>
-      <SelectFilterSheet
-        ref={filterRef}
-        title={'Select Wallet'}
-        data={['Cypherock', 'CyA1']}
-        onHide={handleHideFilter}
-        insets={insets}
-      />
+      )}
     </ScreenContainer>
   );
 }
