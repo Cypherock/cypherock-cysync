@@ -1,8 +1,9 @@
 import { IFilterDataType } from '@/components/ui';
 import { GraphTimeRange, GraphTimeRangeMap, useGraphTimeRange } from '@/hooks';
 import { selectWallets, useAppSelector } from '@/store';
+import { IWallet } from '@cypherock/db-interfaces';
 import { BottomSheetModal } from '@gorhom/bottom-sheet';
-import { useRef, useState, useCallback } from 'react';
+import { useRef, useState, useCallback, useEffect } from 'react';
 
 type FilterKeys = 'wallets' | 'time';
 
@@ -14,6 +15,7 @@ interface IPortfolioFilters {
   onFilterSelect: (id: string) => void;
   onHideFilter: () => void;
   onShowFilter: (key: FilterKeys) => void;
+  selectedWallet?: IWallet;
 }
 
 export const usePortfolioFilters = (): IPortfolioFilters => {
@@ -24,18 +26,31 @@ export const usePortfolioFilters = (): IPortfolioFilters => {
   const [selectedFilter, setSelectedFilter] = useState<
     FilterKeys | undefined
   >();
+  const [selectedWallet, setSelectedWallet] = useState<IWallet>();
+  const [formatedWalletList, setFormatedWalletList] = useState<
+    IFilterDataType[]
+  >([]);
 
-  const handleShowFilter = useCallback((key: FilterKeys) => {
+  useEffect(() => {
+    const walletList = wallets.map(wallet => ({
+      text: wallet.name,
+      id: wallet.__id ?? '',
+    }));
+    setFormatedWalletList(walletList);
+  }, [wallets]);
+
+  const handleShowFilter = (key: FilterKeys) => {
     setSelectedFilter(key);
     if (key === 'time') {
       setFilters(rangeList);
+      filterRef.current?.present();
+    } else if (key === 'wallets') {
+      setFilters(formatedWalletList);
+      filterRef.current?.present();
     } else {
-      setFilters(
-        wallets.map(wallet => ({ text: wallet.name, id: wallet.__id ?? '' })),
-      );
+      throw Error('Invalid filter selected');
     }
-    filterRef.current?.present();
-  }, []);
+  };
 
   const handleHideFilter = useCallback(() => {
     filterRef.current?.close();
@@ -45,10 +60,10 @@ export const usePortfolioFilters = (): IPortfolioFilters => {
     time: id => {
       setSelectedRange(GraphTimeRangeMap[id as keyof typeof GraphTimeRangeMap]);
     },
-    wallets: (id: string) =>
-      console.log(
-        `Selected wallet id: ${wallets.find(w => w.__id === id)?.name}`,
-      ),
+    wallets: (id: string) => {
+      const wallet = wallets.find(w => w.__id === id);
+      setSelectedWallet(wallet);
+    },
   };
 
   return {
@@ -61,5 +76,6 @@ export const usePortfolioFilters = (): IPortfolioFilters => {
       ? handleFilterSelectMap[selectedFilter]
       : () => {},
     selectedRange,
+    selectedWallet,
   };
 };
