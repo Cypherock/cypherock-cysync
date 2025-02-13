@@ -1,5 +1,11 @@
 import React, { useState, useCallback } from 'react';
-import { View, Dimensions, KeyboardAvoidingView, Platform } from 'react-native';
+import {
+  View,
+  KeyboardAvoidingView,
+  Platform,
+  ScrollView,
+  SafeAreaView,
+} from 'react-native';
 import {
   Button,
   Container,
@@ -7,15 +13,11 @@ import {
   ScreenContainer,
   Success,
   Typography,
-  // Removed RadioButton import
-  // RadioButton,
 } from '@/components/ui';
 import { useAppSelector } from '@/store';
 import { selectLanguage } from '@/store/lang';
 import * as SecureStore from 'expo-secure-store';
 import styled from 'styled-components/native';
-
-const { height, width } = Dimensions.get('window');
 
 const validatePassword = (password: string) => {
   const regex =
@@ -40,16 +42,21 @@ const useSecurePasswordStorage = () => {
 
 const KeyboardView = styled(KeyboardAvoidingView)`
   flex: 1;
-  width: ${width}px;
 `;
+
 
 const MainContainer = styled(View)`
   flex: 1;
-  width: ${width}px;
-  height: ${height}px;
   padding: 16px;
   background-color: ${props => props.theme.palette.background.primary};
   justify-content: space-between;
+`;
+
+/**
+ * Allows content to grow and be scrollable in smaller screens
+ */
+const ContentScroll = styled(ScrollView)`
+  flex: 1;
 `;
 
 const ContentContainer = styled(View)`
@@ -92,13 +99,6 @@ const ErrorText = styled(Typography)`
   margin-bottom: 16px;
 `;
 
-// Removed RadioButtonContainer styled component
-/*
-const RadioButtonContainer = styled(View)`
-  margin-top: 8px;
-`;
-*/
-
 const ButtonContainer = styled(View)`
   width: 100%;
   gap: 12px;
@@ -122,10 +122,6 @@ export default function ChangePassword() {
   const [confirmPassword, setConfirmPassword] = useState('');
   const [passwordsMatch, setPasswordsMatch] = useState(true);
   const [passwordValid, setPasswordValid] = useState(true);
-  // Removed allowFingerprint state
-  /*
-  const [allowFingerprint, setAllowFingerprint] = useState(false);
-  */
   const [passwordChanged, setPasswordChanged] = useState(false);
 
   const { save } = useSecurePasswordStorage();
@@ -153,73 +149,80 @@ export default function ChangePassword() {
 
   return (
     <ScreenContainer>
-      <KeyboardView behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
-        <MainContainer>
-          <ContentContainer>
-            <Heading type="h3" textAlign="left">
-              {strings.settings.changePassword.title}
-            </Heading>
-            <InputContainer>
-              <StyledInput
-                placeholder={
-                  strings.settings.changePassword.inputs.oldPassword.placeholder
-                }
-                value={oldPassword}
-                onChangeText={setOldPassword}
-                secureTextEntry
+      {/**
+       * Using SafeAreaView helps avoid the notch area on iOS.
+       * It won't affect Android devices much, but it's a good practice.
+       */}
+      <SafeAreaView style={{ flex: 1 }}>
+        <KeyboardView behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
+          <MainContainer>
+            {/**
+             * Wrap the content in a ScrollView so it remains visible
+             * even if the screen is smaller or the keyboard is up.
+             */}
+            <ContentScroll
+              contentContainerStyle={{ flexGrow: 1 }}
+              keyboardShouldPersistTaps="handled"
+            >
+              <ContentContainer>
+                <Heading type="h3" textAlign="left">
+                  {strings.settings.changePassword.title}
+                </Heading>
+                <InputContainer>
+                  <StyledInput
+                    placeholder={
+                      strings.settings.changePassword.inputs.oldPassword.placeholder
+                    }
+                    value={oldPassword}
+                    onChangeText={setOldPassword}
+                    secureTextEntry
+                  />
+                  <StyledInput
+                    placeholder={
+                      strings.settings.changePassword.inputs.newPassword.placeholder
+                    }
+                    value={newPassword}
+                    onChangeText={setNewPassword}
+                    secureTextEntry
+                  />
+                  <HelperText
+                    type="label"
+                    color={passwordValid ? 'secondary' : 'error'}
+                    textAlign="left"
+                  >
+                    {strings.settings.changePassword.inputs.description}
+                  </HelperText>
+                  <StyledInput
+                    placeholder={
+                      strings.settings.changePassword.inputs.confirmPassword
+                        .placeholder
+                    }
+                    value={confirmPassword}
+                    onChangeText={setConfirmPassword}
+                    secureTextEntry
+                  />
+                  {!passwordsMatch && (
+                    <ErrorText type="label" textAlign="left">
+                      {
+                        strings.settings.changePassword.inputs.confirmPassword
+                          .description
+                      }
+                    </ErrorText>
+                  )}
+                  {/** Removed RadioButton as requested */}
+                </InputContainer>
+              </ContentContainer>
+            </ContentScroll>
+
+            <ButtonContainer>
+              <ContinueButton
+                title={strings.buttons.continue}
+                onPress={handleContinue}
               />
-              <StyledInput
-                placeholder={
-                  strings.settings.changePassword.inputs.newPassword.placeholder
-                }
-                value={newPassword}
-                onChangeText={setNewPassword}
-                secureTextEntry
-              />
-              <HelperText
-                type="label"
-                color={passwordValid ? 'secondary' : 'error'}
-                textAlign="left"
-              >
-                {strings.settings.changePassword.inputs.description}
-              </HelperText>
-              <StyledInput
-                placeholder={
-                  strings.settings.changePassword.inputs.confirmPassword
-                    .placeholder
-                }
-                value={confirmPassword}
-                onChangeText={setConfirmPassword}
-                secureTextEntry
-              />
-              {!passwordsMatch && (
-                <ErrorText type="label" textAlign="left">
-                  {
-                    strings.settings.changePassword.inputs.confirmPassword
-                      .description
-                  }
-                </ErrorText>
-              )}
-              {/* Removed RadioButtonContainer and RadioButton */}
-              {/*
-              <RadioButtonContainer>
-                <RadioButton
-                  selected={allowFingerprint}
-                  onPress={() => setAllowFingerprint(!allowFingerprint)}
-                  label={strings.settings.changePassword.inputs.radio.label}
-                />
-              </RadioButtonContainer>
-              */}
-            </InputContainer>
-          </ContentContainer>
-          <ButtonContainer>
-            <ContinueButton
-              title={strings.buttons.continue}
-              onPress={handleContinue}
-            />
-          </ButtonContainer>
-        </MainContainer>
-      </KeyboardView>
+            </ButtonContainer>
+          </MainContainer>
+        </KeyboardView>
+      </SafeAreaView>
     </ScreenContainer>
   );
 }

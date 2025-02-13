@@ -5,6 +5,7 @@ import {
   Container,
   Input,
   ScreenContainer,
+  Success,
   Typography,
 } from '@/components/ui';
 import { useAppSelector } from '@/store';
@@ -80,6 +81,7 @@ export default function AddPassword() {
   const [confirmPassword, setConfirmPassword] = useState('');
   const [passwordsMatch, setPasswordsMatch] = useState(true);
   const [passwordValid, setPasswordValid] = useState(true);
+  const [success, setSuccess] = useState(false);
 
   const { save } = useSecurePasswordStorage();
 
@@ -95,13 +97,12 @@ export default function AddPassword() {
     if (!isValid) return;
 
     const success = await save('userPassword', newPassword);
-    if (success) {
-      console.log('Password set successfully!');
-      // navigate to another screen
-    } else {
-      // Handle the error
-    }
+    setSuccess(success);
   };
+
+  if (success) {
+    return <Success title={strings.settings.newPasswordAdded.title} />;
+  }
 
   return (
     <ScreenContainer>
