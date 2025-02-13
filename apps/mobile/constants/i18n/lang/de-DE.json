@@ -100,14 +100,14 @@
   "history": {
     "heading": "Verlauf",
     "history": {
-      "title": "Transaktions History",
+      "title": "Transaktionsverlauf",
       "table": {
         "time": "Zeit",
         "amount": "Betrag"
       }
     },
     "details": {
-      "title": "Transaction Hash",
+      "title": "Transaktions-Hash",
       "heading": {
         "sent": "Gesendet",
         "received": "Empfangen"
@@ -127,13 +127,16 @@
       "messageBox": {
         "danger": "Diese Empfangsadresse wurde NICHT vom Gerät ÜBERPRÜFT. Benutzen Sie sie auf eigene Gefahr."
       }
+    },
+    "shared": {
+      "noAccounts": "Keine Konten gefunden."
     }
   },
   "support": {
     "heading": "Support",
     "support": {
       "title": "Wie können wir helfen?",
-      "description": "E-Mail an: "
+      "description": "Senden Sie eine E-Mail an: "
     },
     "socials": {
       "title": "Bleiben Sie mit Cypherock in Verbindung",
@@ -234,14 +237,14 @@
   "transactions": {
     "transactionStatus": {
       "send": {
-        "failed": "Send Failed",
-        "pending": "Sending",
-        "success": "Sent"
+        "failed": "Senden fehlgeschlagen",
+        "pending": "Wird gesendet",
+        "success": "Gesendet"
       },
       "receive": {
-        "failed": "Receive Failed",
-        "pending": "Receiving",
-        "success": "Received"
+        "failed": "Empfangen fehlgeschlagen",
+        "pending": "Wird empfangen",
+        "success": "Empfangen"
       }
     }
   }

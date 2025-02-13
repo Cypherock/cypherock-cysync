@@ -1,5 +1,6 @@
 import { View, StyleSheet } from 'react-native';
 import React, { useEffect, useRef, useState } from 'react';
+import { useSharedValue, withSpring } from 'react-native-reanimated';
 import { Icon, MessageBox, ScreenContainer } from '@/components/ui';
 import { Scanner } from '@/components/core';
 import IonIcon from '@expo/vector-icons/Ionicons';
@@ -11,6 +12,7 @@ import { selectLanguage } from '@/store/lang';
 import { IAccount, IWallet } from '@cypherock/db-interfaces';
 import { getDB } from '@/utils';
 import { inflate } from 'pako';
+import { colors } from '@/components/ui/themes/color.styled';
 
 interface CysyncData {
   wallets: IWallet[];
@@ -21,6 +23,9 @@ export default function Scan() {
   const { strings } = useAppSelector(selectLanguage);
   const scannedData = useRef<Record<number, string>>({});
   const [decodedData, setDecodedData] = useState<CysyncData>();
+  const [totalChunks, setTotalChunks] = useState(0);
+  const [chunksReceived, setChunksReceived] = useState(0);
+  const progress = useSharedValue(0);
 
   function navigateToNext() {
     router.dismissTo('/info');
@@ -31,9 +36,10 @@ export default function Scan() {
     const chunkIndex = Number(data[1]);
     const dataLength = Number(data[2]);
     const chunkData = data[3];
-
+    if (scannedData.current[chunkIndex]) return;
     scannedData.current[chunkIndex] = chunkData;
-
+    setTotalChunks(dataLength);
+    setChunksReceived(Object.keys(scannedData.current).length);
     if (Object.keys(scannedData.current).length === dataLength) {
       const sortedChunks = Object.keys(scannedData.current)
         .sort((a, b) => Number(a) - Number(b))
@@ -47,14 +53,20 @@ export default function Scan() {
     }
   }
 
+  useEffect(() => {
+    progress.value = withSpring(chunksReceived / (totalChunks || 1), {
+      damping: 20,
+      stiffness: 90,
+    });
+  }, [chunksReceived, totalChunks]);
+
   async function saveDataToDb(data: CysyncData) {
     try {
       const db = getDB();
       await db.wallet.insert(data.wallets);
       await db.account.insert(data.accounts);
     } catch (error) {
-      console.log(error);
-      console.log('Failed to save data');
+      console.error('Error saving data to DB:', error);
     }
   }
 
@@ -67,6 +79,8 @@ export default function Scan() {
     return () => {
       setDecodedData(undefined);
       scannedData.current = {};
+      setChunksReceived(0);
+      setTotalChunks(0);
     };
   }, [decodedData]);
 
@@ -82,12 +96,16 @@ export default function Scan() {
           size="small"
         />
       </View>
-      <Scanner onQrScanned={onQrScanned} />
+      <Scanner onQrScanned={onQrScanned} progress={progress} />
       <View style={styles.textContainer}>
         <MessageBox
           type="warning"
           icon={
-            <IonIcon name="person-circle-outline" color={'#F1AE4A'} size={24} />
+            <IonIcon
+              name="person-circle-outline"
+              color={colors.warning}
+              size={24}
+            />
           }
           text={strings.scan.messageBox.warning}
         />
@@ -108,5 +126,9 @@ const styles = StyleSheet.create({
     gap: 16,
     paddingBottom: 40,
     paddingHorizontal: 24,
+  },
+  pleaseWait: {
+    textAlign: 'center',
+    color: colors.text.secondary,
   },
 });

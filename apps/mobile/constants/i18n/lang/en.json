@@ -14,7 +14,7 @@
     "allWallets": "All Wallets"
   },
   "onboarding": {
-    "welcome": {
+     "welcome": {
       "title": "Welcome to cySync App",
       "description": "Your gateway to self-sovereignty",
       "termsOfUse": "Terms of Use",
@@ -44,7 +44,7 @@
       "title": "Camera permission required",
       "description": "Please provide camera access. Without the camera access you will not be able to scan the QR required to sync with your cySync desktop"
     },
-    "info": {
+   "info": {
       "title": "Your Desktop and Mobile Apps must be synced manually",
       "description": "cySync App stores your data locally. If you update your coins/accounts on your desktop app, you will need to do the same on your mobile app"
     },
@@ -65,7 +65,7 @@
         "subTitle": "You can now use your new password to log in"
       }
     },
-    "notifications": {
+      "notifications": {
       "title": "Notifications",
       "subtitle": "Receive your Crypto assets directly into your Cypherock X1. On the Go!"
     },
@@ -76,9 +76,9 @@
   },
   "scan": {
     "alignQrCode": "Align QR code to fill inside the frame",
-    "pleaseWait": "Please Wait",
+    "pleaseWait": "Please Wait",  
     "messageBox": {
-      "warning": "Note: There can be more than one QR code to scan"
+      "warning": "Note: There can be more than one QR code to scan"  
     },
     "loading": {
       "description": "Please wait while we are fetching your details"
@@ -86,7 +86,7 @@
   },
   "portfolio": {
     "heading": "Portfolio",
-    "noAccount": {
+     "noAccount": {
       "title": "Nothing here yet!",
       "subTitle": "We couldn't find anything. Try scanning the QR code on your desktop  again "
     },
@@ -99,32 +99,33 @@
   },
   "history": {
     "heading": "History",
-    "history": {
-      "title": "Transaction History",
-      "table": {
-        "time": "Time",
-        "amount": "Amount"
+    "history":{
+      "title":"Transaction History",
+      "table":{
+          "time": "Time",
+          "amount":"Amount"
       }
     },
-    "details": {
+    "details":{
       "title": "Transaction Hash",
-      "heading": {
+       "heading": {
         "sent": "Sent",
         "received": "Received"
       }
     }
+
   },
   "receive": {
     "heading": "Receive",
-    "chooseWallet": {
-      "title": "Choose a wallet to receive crypto in"
+    "chooseWallet":{
+      "title":"Choose a wallet to receive crypto in"
     },
-    "chooseAccount": {
+    "chooseAccount":{
       "title": "Choose a crypto you want to receive"
     },
-    "receive": {
+    "receive":{
       "info": "Address for ${crypto} in ${wallet}",
-      "messageBox": {
+      "messageBox":{
         "danger": "This Receive Address was NOT VERIFIED by the device. Use it at your own risk."
       }
     }
@@ -214,25 +215,25 @@
       "title": "Password removed successfully"
     }
   },
-  "notifications": {
-    "heading": "Notifications"
-  },
-  "banner": {
-    "title": "Cypherock Cover is here!",
-    "description": "Click here to know more"
-  },
-  "toast": {
-    "addressCopied": "Address copied successfully"
-  },
-  "bottomTabs": {
-    "portfolio": "Portfolio",
-    "history": "History",
-    "receive": "Receive",
-    "support": "Support",
-    "settings": "Settings"
-  },
-  "transactions": {
-    "transactionStatus": {
+    "notifications":{
+      "heading": "Notifications"
+    },
+    "banner":{
+      "title": "Cypherock Cover is here!",
+      "description": "Click here to know more"
+    },
+    "toast":{
+      "addressCopied": "Address copied successfully"
+    },
+     "bottomTabs": {
+      "portfolio": "Portfolio",
+      "history": "History",
+      "receive": "Receive",
+      "support": "Support",
+      "settings": "Settings"
+    },
+     "transactions": {
+      "transactionStatus": {
       "send": {
         "failed": "Send Failed",
         "pending": "Sending",
