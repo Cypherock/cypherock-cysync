@@ -46,6 +46,7 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
     gap: 4,
+    marginTop: 5,
   },
   dot: {
     width: 5,

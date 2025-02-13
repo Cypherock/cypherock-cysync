@@ -1,9 +1,13 @@
-import { View } from 'react-native';
+import { View, StyleSheet } from 'react-native';
 import React, { useEffect } from 'react';
-import { Button, Container, ScreenContainer, Typography } from '../atoms';
-import Ionicons from '@expo/vector-icons/Ionicons';
-import { colors } from '../themes/color.styled';
+import {
+  Button,
+  Container,
+  ScreenContainer,
+  Typography,
+} from '@/components/ui/atoms';
 import { router } from 'expo-router';
+import LottieView from 'lottie-react-native';
 
 interface SuccessScreenProps {
   title: string;
@@ -24,7 +28,7 @@ export function Success({
     if (redirectRoute) {
       const timer = setTimeout(() => {
         router.replace(redirectRoute);
-      }, 2000);
+      }, 5000); // 5 seconds
 
       return () => clearTimeout(timer);
     }
@@ -41,10 +45,11 @@ export function Success({
           paddingHorizontal: 16,
         }}
       >
-        <Ionicons
-          name="checkmark-circle"
-          size={64}
-          color={colors.text.success}
+        <LottieView
+          source={require('@/assets/lottie/success.json')}
+          autoPlay
+          loop={false}
+          style={styles.lottie}
         />
         <View style={{ gap: 4 }}>
           <Typography type="h3">{title}</Typography>
@@ -67,3 +72,10 @@ export function Success({
     </ScreenContainer>
   );
 }
+
+const styles = StyleSheet.create({
+  lottie: {
+    width: 200,
+    height: 200,
+  },
+});

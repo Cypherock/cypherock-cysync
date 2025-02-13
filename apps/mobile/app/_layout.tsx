@@ -1,4 +1,4 @@
-import { getDefaultTheme, getLargeTheme } from '@/components/ui';
+import { getDefaultTheme, getLargeTheme, LottieSplash } from '@/components/ui';
 import { Stack } from 'expo-router';
 import { ThemeProvider } from 'styled-components/native';
 import * as SystemUI from 'expo-system-ui';
@@ -10,8 +10,8 @@ import { useWindowDimensions } from 'react-native';
 import { SplashScreen } from 'expo-router';
 import { BackgroundTasks } from '@/bgTasks';
 
-SystemUI.setBackgroundColorAsync(colors.background.primary);
 SplashScreen.preventAutoHideAsync();
+SystemUI.setBackgroundColorAsync(colors.background.primary);
 
 export default function RootLayout() {
   const { width } = useWindowDimensions();
@@ -47,7 +47,7 @@ export default function RootLayout() {
   }, [width]);
 
   if (!appIsReady) {
-    return null;
+    return <LottieSplash source={require('@/assets/lottie/splash.json')} />;
   }
 
   return (
@@ -61,9 +61,9 @@ export default function RootLayout() {
             }}
           >
             <Stack.Screen name="(onboarding)" redirect={onBoaridngCompleted} />
-            <Stack.Screen name="(tabs)" />
+            {/* <Stack.Screen name="(tabs)" />
             <Stack.Screen name="permission" />
-            <Stack.Screen name="scan" />
+            <Stack.Screen name="scan" /> */}
           </Stack>
           <BackgroundTasks />
         </CustomRealmProvider>

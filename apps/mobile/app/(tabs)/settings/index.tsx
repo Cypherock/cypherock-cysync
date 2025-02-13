@@ -5,11 +5,13 @@ import {
   GeneralSettingsIcon,
   InteractiveItem,
   ScreenContainer,
+  Seperator,
 } from '@/components/ui';
 import Entypo from '@expo/vector-icons/Entypo';
 import { router } from 'expo-router';
 import { useAppSelector } from '@/store';
 import { selectLanguage } from '@/store/lang';
+import React from 'react';
 
 export default function Settings() {
   const { strings } = useAppSelector(selectLanguage);
@@ -33,6 +35,7 @@ export default function Settings() {
           }
           onPress={() => router.push('/settings/general')}
         />
+        <Seperator />
         <InteractiveItem
           leftIcon={<AppSettingsIcon />}
           text={settingsStrings.app}
@@ -41,6 +44,7 @@ export default function Settings() {
           }
           onPress={() => router.push('/settings/app')}
         />
+        <Seperator />
         <InteractiveItem
           leftIcon={<AboutIcon />}
           text={settingsStrings.about}
