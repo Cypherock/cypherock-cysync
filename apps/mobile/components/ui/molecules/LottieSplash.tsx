@@ -14,14 +14,14 @@ export function LottieSplash({
   autoPlay = true,
   loop = true,
   style,
-  source, 
+  source,
 }: LottieSplashProps) {
   return (
     <View style={styles.container}>
       <LottieView
         autoPlay={autoPlay}
         loop={loop}
-        source={source} 
+        source={source}
         style={[{ width: 200, height: 200 }, style]}
       />
     </View>
