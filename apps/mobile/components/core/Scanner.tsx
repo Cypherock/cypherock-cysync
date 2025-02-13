@@ -12,17 +12,41 @@ import {
 import { useAppSelector } from '@/store';
 import { selectLanguage } from '@/store/lang';
 import { Redirect } from 'expo-router';
+import Animated, {
+  SharedValue,
+  useAnimatedStyle,
+  useAnimatedReaction,
+  runOnJS,
+} from 'react-native-reanimated';
+import { colors } from '../ui/themes/color.styled';
 
 const width = Dimensions.get('window').width;
 
 interface ScannerProps {
   onQrScanned: (result: ScanningResult) => void;
+  progress?: SharedValue<number>;
 }
 
-export function Scanner({ onQrScanned }: ScannerProps) {
+export function Scanner({ onQrScanned, progress }: ScannerProps) {
   const { strings } = useAppSelector(selectLanguage);
   const [flashMode, setFlashMode] = useState<FlashMode>('off');
+  const [showProgress, setShowProgress] = useState(false);
   const [permission] = useCameraPermissions();
+
+  useAnimatedReaction(
+    () => progress?.value ?? 0,
+    currentValue => {
+      runOnJS(setShowProgress)(currentValue > 0);
+    },
+    [progress],
+  );
+
+  const animatedStyle = useAnimatedStyle(
+    () => ({
+      width: `${progress ? progress.value * 100 : 0}%`,
+    }),
+    [progress],
+  );
 
   if (permission && !permission.granted) {
     return <Redirect href={'/permission'} />;
@@ -56,7 +80,14 @@ export function Scanner({ onQrScanned }: ScannerProps) {
           }}
         />
       </ImageBackground>
-      <Typography type="body">{strings.scan.alignQrCode}</Typography>
+      <Typography type="body">
+        {showProgress ? strings.scan.pleaseWait : strings.scan.alignQrCode}
+      </Typography>
+      {showProgress && (
+        <View style={styles.progressBarContainer}>
+          <Animated.View style={[styles.progressBar, animatedStyle]} />
+        </View>
+      )}
     </View>
   );
 }
@@ -77,5 +108,20 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#2C2825',
     borderRadius: 2,
+  },
+  progressBarContainer: {
+    flex: 1,
+    width: width,
+    maxWidth: 250,
+    maxHeight: 8,
+    backgroundColor: colors.border.secondary,
+    borderRadius: 4,
+    overflow: 'hidden',
+  },
+  progressBar: {
+    width: 0,
+    height: '100%',
+    backgroundColor: colors.accent,
+    borderRadius: 4,
   },
 });
