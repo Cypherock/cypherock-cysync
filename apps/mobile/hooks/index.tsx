@@ -5,3 +5,4 @@ export * from './useGraphTimeRange';
 export * from './useStateToRef';
 export * from './useTransactions';
 export * from './usePortfolioFilters';
+export * from './useGraph';
