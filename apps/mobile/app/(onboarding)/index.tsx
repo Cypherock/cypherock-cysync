@@ -1,8 +1,9 @@
-import { StyleSheet, View } from 'react-native';
+import { Dimensions, StyleSheet, View } from 'react-native';
 import { Image } from 'expo-image';
 import { router } from 'expo-router';
 import {
   Button,
+  Container,
   LangDisplay,
   Link,
   ScreenContainer,
@@ -16,7 +17,9 @@ export default function Index() {
   const { strings } = useAppSelector(selectLanguage);
   return (
     <ScreenContainer>
-      <Image source={Images.onboarding.welcome} style={styles.image} />
+      <Container>
+        <Image source={Images.onboarding.welcome} style={styles.image} />
+      </Container>
       <View
         style={{
           gap: 24,
@@ -69,7 +72,9 @@ export default function Index() {
 const styles = StyleSheet.create({
   image: {
     flex: 1,
-    height: 311,
+    left: -20,
+    position: 'absolute',
+    height: '100%',
     width: '100%',
   },
 });

@@ -13,6 +13,7 @@ export const useDeriveAddress = ({
   selectedAccount,
 }: UseDeriveAddressProps) => {
   const [derivedAddress, setDerivedAddress] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
 
   const flowSubscription = useRef<Subscription | undefined>();
 
@@ -31,6 +32,7 @@ export const useDeriveAddress = ({
     next: payload => {
       if (payload.address) {
         setDerivedAddress(payload.address);
+        setIsLoading(false);
       }
     },
     error: err => {
@@ -45,6 +47,7 @@ export const useDeriveAddress = ({
   const getWalletAddress = useCallback(async () => {
     try {
       if (!selectedAccount) return;
+      setIsLoading(true);
       const coinSupport = getCoinSupport(selectedAccount.familyId);
       const subscription = coinSupport
         .receive({
@@ -66,5 +69,5 @@ export const useDeriveAddress = ({
     return cleanUp;
   }, [selectedAccount]);
 
-  return { derivedAddress };
+  return { derivedAddress, isLoading };
 };

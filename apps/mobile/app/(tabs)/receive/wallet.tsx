@@ -14,12 +14,21 @@ import { router } from 'expo-router';
 import { ScrollView, StyleSheet } from 'react-native';
 import { selectWallets } from '@/store/wallets';
 import NoDataScreen from '@/components/ui/molecules/NoDataScreen';
+import { useReceiveContext } from '@/contexts/useReceiveContext';
+import { IWallet } from '@cypherock/db-interfaces';
 
 export default function Wallet() {
   const { strings } = useAppSelector(selectLanguage);
   const { wallets } = useAppSelector(selectWallets);
+  const { setSelectedWallet } = useReceiveContext();
 
-  if (wallets.length == 0) {
+  const onAccountSelect = (wallet?: IWallet) => {
+    if (!wallet) return;
+    setSelectedWallet(wallet);
+    router.push('/receive/account');
+  };
+
+  if (wallets.length === 0) {
     return (
       <NoDataScreen
         title={strings.portfolio.noAccount.title}
@@ -43,11 +52,7 @@ export default function Wallet() {
                 <InteractiveItem
                   leftIcon={<WalletIcon />}
                   text={wallet.name}
-                  onPress={() =>
-                    router.push(
-                      `/receive/account?walletId=${wallet.__id}&walletName=${wallet.name}`,
-                    )
-                  }
+                  onPress={() => onAccountSelect(wallet)}
                 />
                 {index < wallets.length - 1 && <Seperator />}
               </React.Fragment>

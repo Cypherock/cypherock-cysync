@@ -76,7 +76,7 @@
   },
   "scan": {
     "alignQrCode": "قم بمحاذاة رمز الاستجابة السريعة ليملأ الإطار",
-    "pleaseWait": "يرجى الانتظار",
+    "pleaseWait": "أرجو الإنتظار",
     "messageBox": {
       "warning": "ملاحظة: يمكن أن يكون هناك أكثر من رمز QR واحد للمسح الضوئي"
     },
@@ -129,7 +129,7 @@
       }
     },
     "shared": {
-      "noAccounts": "No Accounts found in this wallet!"
+      "noAccounts": "No accounts found in this wallet!"
     }
   },
   "support": {

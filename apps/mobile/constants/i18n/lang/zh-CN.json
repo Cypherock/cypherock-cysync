@@ -76,7 +76,7 @@
   },
   "scan": {
     "alignQrCode": "将二维码对准框内",
-    "pleaseWait": "请稍候",
+    "pleaseWait": "请稍等",
     "messageBox": {
       "warning": "注意：可能需要扫描多个二维码"
     },
@@ -129,14 +129,14 @@
       }
     },
     "shared": {
-      "noAccounts": "No Accounts found in this wallet!"
+      "noAccounts": "No accounts found in this wallet!"
     }
   },
   "support": {
     "heading": "支持",
     "support": {
       "title": "我们能为您做什么？",
-      "description": "发送电子邮件至："
+      "description": "发送电子邮件至： "
     },
     "socials": {
       "title": "与 Cypherock 保持联系",
