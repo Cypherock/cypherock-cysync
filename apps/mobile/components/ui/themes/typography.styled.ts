@@ -48,7 +48,7 @@ export const fontSizeLarge = {
     lg: 17.5,
     base: 15,
     sm: 13.75,
-    xs: 12.5,
+    xs: 10,
   },
 };
 
