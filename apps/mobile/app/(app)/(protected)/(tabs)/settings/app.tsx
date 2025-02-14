@@ -6,6 +6,7 @@ import {
   RemovePasswordIcon,
   ScreenContainer,
 } from '@/components/ui';
+import { useLockscreen } from '@/contexts/useLockscreenContext';
 import { useAppSelector } from '@/store';
 import { selectLanguage } from '@/store/lang';
 import Entypo from '@expo/vector-icons/Entypo';
@@ -13,6 +14,7 @@ import { router } from 'expo-router';
 
 export default function AppSettings() {
   const lang = useAppSelector(selectLanguage);
+  const { isPasswordSet } = useLockscreen();
   const strings = lang.strings.settings.app;
   return (
     <ScreenContainer>
@@ -26,6 +28,7 @@ export default function AppSettings() {
       >
         <InteractiveItem
           leftIcon={<NewPasswordIcon />}
+          disabled={isPasswordSet}
           text={strings.addNewPassword}
           rightIcon={
             <Entypo name="chevron-small-right" size={16} color="white" />
@@ -34,6 +37,7 @@ export default function AppSettings() {
         />
         <InteractiveItem
           leftIcon={<ChangePasswordIcon />}
+          disabled={!isPasswordSet}
           text={strings.changePassword}
           rightIcon={
             <Entypo name="chevron-small-right" size={16} color="white" />
@@ -41,6 +45,7 @@ export default function AppSettings() {
           onPress={() => router.push('/settings/change')}
         />
         <InteractiveItem
+          disabled={!isPasswordSet}
           leftIcon={<RemovePasswordIcon />}
           text={strings.removePassword}
           rightIcon={

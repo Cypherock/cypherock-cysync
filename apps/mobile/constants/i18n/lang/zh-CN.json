@@ -6,12 +6,28 @@
     "skip": "跳过",
     "apply": "应用",
     "confirm": "确认",
+    "reset": "Reset",
+    "cancel": "Cancel",
     "login": "登录",
     "getStarted": "开始使用",
     "scanQrCode": "扫描二维码",
     "buyCypherockX1": "购买 Cypherock X1",
     "grantPermission": "授予权限",
     "allWallets": "所有钱包"
+  },
+  "lockscreen": {
+    "login": {
+      "tagline": "Your Gateway to Self-Sovereignty",
+      "input": {
+        "label": "Enter password to unlock",
+        "action": "Forgot password?",
+        "error": "Incorrect password"
+      }
+    },
+    "reset": {
+      "title": "Resetting password will reset your cySync app do you want to proceed?",
+      "description": "This will erase all your data on your cySync app. Note this will not result in loss of assets"
+    }
   },
   "onboarding": {
     "welcome": {

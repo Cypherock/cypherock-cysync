@@ -13,6 +13,7 @@ export interface LanguageStrings {
   toast: LangToast;
   bottomTabs: LangBottomTabs;
   transactions: LangTransactions;
+  lockscreen: LangLockScreen;
   graph: LangGraph;
 }
 
@@ -24,6 +25,8 @@ export interface LangButtons {
   apply: string;
   confirm: string;
   login: string;
+  reset: string;
+  cancel: string;
 
   // Onboarding
   getStarted: string;
@@ -33,6 +36,21 @@ export interface LangButtons {
 
   // Portfolio
   allWallets: string;
+}
+
+export interface LangLockScreen {
+  login: {
+    tagline: string;
+    input: {
+      label: string;
+      action: string;
+      error: string;
+    };
+  };
+  reset: {
+    title: string;
+    description: string;
+  };
 }
 
 export interface LangOnboarding {
