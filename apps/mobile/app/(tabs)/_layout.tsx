@@ -42,7 +42,7 @@ export default function Layout() {
               tabBarIcon: props => (
                 <MaterialCommunityIcons
                   name="chart-box-outline"
-                  size={16}
+                  size={20}
                   color={props.color}
                 />
               ),
@@ -55,7 +55,7 @@ export default function Layout() {
               tabBarLabel: strings.bottomTabs.history,
               headerShown: false,
               tabBarIcon: props => (
-                <MaterialIcons name="history" size={16} color={props.color} />
+                <MaterialIcons name="history" size={20} color={props.color} />
               ),
             }}
           />
@@ -66,7 +66,7 @@ export default function Layout() {
               tabBarLabel: strings.bottomTabs.receive,
               headerShown: false,
               tabBarIcon: props => (
-                <Octicons name="download" size={16} color={props.color} />
+                <Octicons name="download" size={20} color={props.color} />
               ),
             }}
           />
@@ -76,7 +76,7 @@ export default function Layout() {
               title: strings.support.heading,
               tabBarLabel: strings.bottomTabs.support,
               tabBarIcon: props => (
-                <Feather name="life-buoy" size={16} color={props.color} />
+                <Feather name="life-buoy" size={20} color={props.color} />
               ),
             }}
           />
@@ -89,7 +89,7 @@ export default function Layout() {
               tabBarIcon: props => (
                 <Ionicons
                   name="settings-outline"
-                  size={16}
+                  size={20}
                   color={props.color}
                 />
               ),
