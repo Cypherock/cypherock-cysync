@@ -80,44 +80,35 @@ export class Database implements IDatabase {
       ],
     });
 
-    const wallet = await Repository.create<IWallet>(
-      database,
-      Wallet.name,
-      Wallet.schema,
-    );
-
-    const account = await AccountRepository.build(database, Account.name);
-
-    const transaction = await TransactionRepository.build(
-      database,
-      Transaction.name,
-    );
-
-    const transactionNotificationRead =
-      await Repository.create<ITransactionNotificationRead>(
+    const [
+      wallet,
+      account,
+      transaction,
+      transactionNotificationRead,
+      transactionNotificationClick,
+      priceHistory,
+      priceInfo,
+    ] = await Promise.all([
+      Repository.create<IWallet>(database, Wallet.name, Wallet.schema),
+      AccountRepository.build(database, Account.name),
+      TransactionRepository.build(database, Transaction.name),
+      Repository.create<ITransactionNotificationRead>(
         database,
         TransactionNotificationRead.name,
         TransactionNotificationRead.schema,
-      );
-
-    const transactionNotificationClick =
-      await Repository.create<ITransactionNotificationClick>(
+      ),
+      Repository.create<ITransactionNotificationClick>(
         database,
         TransactionNotificationClick.name,
         TransactionNotificationClick.schema,
-      );
-
-    const priceHistory = await Repository.create<IPriceHistory>(
-      database,
-      PriceHistory.name,
-      PriceHistory.schema,
-    );
-
-    const priceInfo = await Repository.create<IPriceInfo>(
-      database,
-      PriceInfo.name,
-      PriceInfo.schema,
-    );
+      ),
+      Repository.create<IPriceHistory>(
+        database,
+        PriceHistory.name,
+        PriceHistory.schema,
+      ),
+      Repository.create<IPriceInfo>(database, PriceInfo.name, PriceInfo.schema),
+    ]);
 
     return new Database({
       database,
@@ -131,15 +122,9 @@ export class Database implements IDatabase {
     });
   }
 
+  /** TODO: implementation incomplete */
   async load(key?: string): Promise<void> {
-    if (this.database) return;
-
-    const config: Realm.Configuration = {
-      schema: [],
-      encryptionKey: key ? new Int8Array(Buffer.from(key)) : undefined,
-    };
-
-    this.database = await Realm.open(config);
+    return;
   }
 
   async unload(): Promise<void> {
@@ -155,11 +140,7 @@ export class Database implements IDatabase {
 
   async changeEncryptionKey(encryptionKey?: string): Promise<void> {
     if (!this.database) throw new Error('Database not loaded');
-
-    if (encryptionKey) {
-      await this.unload();
-      await this.load(encryptionKey);
-    }
+    await this.load(encryptionKey);
   }
 
   async createOrFetchRepository<T extends IEntity>(
