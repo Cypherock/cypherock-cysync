@@ -76,17 +76,17 @@
   },
   "scan": {
     "alignQrCode": "Sejajarkan kode QR agar muat di dalam bingkai",
-    "pleaseWait": "Harap Tunggu",   
+    "pleaseWait": "Harap Tunggu",
     "messageBox": {
-      "warning": "Catatan: Mungkin ada lebih dari satu kode QR untuk dipindai" 
+      "warning": "Catatan: Mungkin ada lebih dari satu kode QR untuk dipindai"
     },
     "loading": {
       "description": "Harap tunggu selagi kami mengambil detail Anda"
     }
   },
-   "portfolio": {
+  "portfolio": {
     "heading": "Portofolio",
-     "noAccount": {
+    "noAccount": {
       "title": "Belum ada apa-apa di sini!",
       "subTitle": "Kami tidak dapat menemukan apa pun. Coba pindai kode QR di desktop Anda lagi"
     },
@@ -99,38 +99,37 @@
   },
   "history": {
     "heading": "Riwayat",
-    "history":{
-      "title":"History Transaksi",
-      "table":{
-          "time": "Waktu",
-          "amount":"Jumlah"
+    "history": {
+      "title": "History Transaksi",
+      "table": {
+        "time": "Waktu",
+        "amount": "Jumlah"
       }
     },
-    "details":{
+    "details": {
       "title": "Hash Transaksi",
-       "heading": {
+      "heading": {
         "sent": "Terkirim",
         "received": "Diterima"
       }
     }
-
   },
   "receive": {
     "heading": "Terima",
-    "chooseWallet":{
-      "title":"Pilih dompet untuk menerima kripto"
+    "chooseWallet": {
+      "title": "Pilih dompet untuk menerima kripto"
     },
-    "chooseAccount":{
+    "chooseAccount": {
       "title": "Pilih kripto yang ingin Anda terima"
     },
-    "receive":{
+    "receive": {
       "info": "Alamat untuk ${crypto} di ${wallet}",
-      "messageBox":{
+      "messageBox": {
         "danger": "Alamat Penerima ini TIDAK DIVERIFIKASI oleh perangkat. Gunakan dengan risiko Anda sendiri."
       }
     },
     "shared": {
-      "noAccounts": "No Accounts found in this wallet!"
+      "noAccounts": "No accounts found in this wallet!"
     }
   },
   "support": {
@@ -218,24 +217,24 @@
       "title": "Kata sandi berhasil dihapus"
     }
   },
-    "notifications":{
-      "heading": "Notifikasi"
-    },
-    "banner":{
-      "title": "Cypherock Cover sudah hadir!",
-      "description": "Klik di sini untuk info lebih lanjut"
-    },
-    "toast":{
-      "addressCopied": "Alamat berhasil disalin"
-    },
-    "bottomTabs": {
-      "portfolio": "Portofolio",
-      "history": "Riwayat",
-      "receive": "Terima",
-      "support": "Dukungan",
-      "settings": "Pengaturan"
-    },
-    "transactions": {
+  "notifications": {
+    "heading": "Notifikasi"
+  },
+  "banner": {
+    "title": "Cypherock Cover sudah hadir!",
+    "description": "Klik di sini untuk info lebih lanjut"
+  },
+  "toast": {
+    "addressCopied": "Alamat berhasil disalin"
+  },
+  "bottomTabs": {
+    "portfolio": "Portofolio",
+    "history": "Riwayat",
+    "receive": "Terima",
+    "support": "Dukungan",
+    "settings": "Pengaturan"
+  },
+  "transactions": {
     "transactionStatus": {
       "send": {
         "failed": "Send Failed",

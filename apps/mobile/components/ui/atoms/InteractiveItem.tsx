@@ -22,7 +22,6 @@ const Container = styled.TouchableOpacity`
   padding-right: 24px;
   align-items: center;
   justify-content: center;
-  gap: 8px;
   width: 100%;
 `;
 
@@ -31,6 +30,7 @@ const SelectedBar = styled.View<{ selected: boolean }>`
   height: 100%;
   background: ${({ selected, theme }) =>
     selected ? theme.palette.text.accent : 'transparent'};
+  margin-right: 4px;
 `;
 
 const Icon = styled.View`
@@ -38,16 +38,19 @@ const Icon = styled.View`
   min-height: 12px;
   align-items: center;
   justify-content: center;
+  margin-right: 4px;
 `;
 
 const TextContainer = styled.View`
-  gap: 8px;
+  gap: 4px;
   flex: 1;
   flex-direction: row;
   align-items: center;
+  margin-right: 4px;
 `;
 
 const StyledRightText = styled(Typography)`
+  flex: 1;
   text-align: right;
   text-transform: uppercase;
 `;
@@ -70,7 +73,9 @@ export function InteractiveItem({
       {<SelectedBar selected={selected} />}
       {leftIcon && <Icon>{leftIcon}</Icon>}
       <TextContainer>
-        <Typography type="body">{text}</Typography>
+        <Typography type="body" style={{ flexShrink: 0 }}>
+          {text}
+        </Typography>
         {altText && (
           <Typography type="label" color="muted">
             {altText}
@@ -79,7 +84,11 @@ export function InteractiveItem({
         {tag && <Tag>{tag}</Tag>}
       </TextContainer>
       {rightIcon && <Icon>{rightIcon}</Icon>}
-      {rightText && <StyledRightText type="body">{rightText}</StyledRightText>}
+      {rightText && (
+        <StyledRightText type="body" numberOfLines={1} ellipsizeMode="middle">
+          {rightText}
+        </StyledRightText>
+      )}
     </Container>
   );
 }
