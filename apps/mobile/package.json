@@ -65,6 +65,7 @@
     "expo-symbols": "~0.2.2",
     "expo-system-ui": "~4.0.8",
     "expo-web-browser": "~14.0.2",
+    "expo-crypto": "~14.0.2",
     "immer": "9.0.21",
     "lodash": "^4.17.21",
     "lottie-react-native": "7.1.0",

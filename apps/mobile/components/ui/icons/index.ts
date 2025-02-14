@@ -27,3 +27,5 @@ export * from './optimism-icon';
 export * from './solana-icon';
 export * from './near-icon';
 export * from './xrp-icon';
+export * from './cypherock-locked';
+export * from './logotype';

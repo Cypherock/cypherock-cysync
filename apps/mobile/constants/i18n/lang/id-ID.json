@@ -6,12 +6,28 @@
     "skip": "Lewati",
     "apply": "Terapkan",
     "confirm": "Konfirmasi",
+    "reset": "Reset",
+    "cancel": "Cancel",
     "login": "Masuk",
     "getStarted": "Mulai",
     "scanQrCode": "Pindai Kode QR",
     "buyCypherockX1": "Beli Cypherock X1",
     "grantPermission": "Berikan Izin",
     "allWallets": "Semua Dompet"
+  },
+  "lockscreen": {
+    "login": {
+      "tagline": "Your Gateway to Self-Sovereignty",
+      "input": {
+        "label": "Enter password to unlock",
+        "action": "Forgot password?",
+        "error": "Incorrect password"
+      }
+    },
+    "reset": {
+      "title": "Resetting password will reset your cySync app do you want to proceed?",
+      "description": "This will erase all your data on your cySync app. Note this will not result in loss of assets"
+    }
   },
   "onboarding": {
     "welcome": {

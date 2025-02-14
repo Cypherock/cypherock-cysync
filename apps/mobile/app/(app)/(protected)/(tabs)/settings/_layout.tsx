@@ -1,10 +1,12 @@
 import { Header } from '@/components/core';
+import { useLockscreen } from '@/contexts/useLockscreenContext';
 import { useAppSelector } from '@/store';
 import { selectLanguage } from '@/store/lang';
 import { Stack } from 'expo-router';
 
 export default function Layout() {
   const { strings } = useAppSelector(selectLanguage);
+  const { isPasswordSet } = useLockscreen();
   return (
     <Stack
       screenOptions={{
@@ -59,14 +61,17 @@ export default function Layout() {
       />
       <Stack.Screen
         name="add"
+        redirect={isPasswordSet}
         options={{ title: strings.settings.app.heading }}
       />
       <Stack.Screen
         name="remove"
+        redirect={!isPasswordSet}
         options={{ title: strings.settings.app.heading }}
       />
       <Stack.Screen
         name="change"
+        redirect={!isPasswordSet}
         options={{ title: strings.settings.app.heading }}
       />
     </Stack>
