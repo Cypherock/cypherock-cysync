@@ -61,9 +61,9 @@ export default function RootLayout() {
             }}
           >
             <Stack.Screen name="(onboarding)" redirect={onBoaridngCompleted} />
-            {/* <Stack.Screen name="(tabs)" />
+            <Stack.Screen name="(tabs)" />
             <Stack.Screen name="permission" />
-            <Stack.Screen name="scan" /> */}
+            <Stack.Screen name="scan" />
           </Stack>
           <BackgroundTasks />
         </CustomRealmProvider>

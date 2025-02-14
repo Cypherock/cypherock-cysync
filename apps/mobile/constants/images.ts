@@ -51,7 +51,6 @@ export const Images = {
   },
   other: {
     banner_default: require('@/assets/images/banner.png'),
-    password_success_tick: require('@/assets/images/password-success-tick.png'),
-    logo: require('@/assets/images/logo-lock.png'), 
+    logo: require('@/assets/images/logo-lock.png'),
   },
 };
