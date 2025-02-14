@@ -1,4 +1,8 @@
-import { getDefaultUnit, getParsedAmount } from '@cypherock/coin-support-utils';
+import {
+  formatDisplayAmount,
+  getDefaultUnit,
+  getParsedAmount,
+} from '@cypherock/coin-support-utils';
 import { IAccount } from '@cypherock/db-interfaces';
 import { useEffect, useMemo, useState } from 'react';
 import { useAppSelector } from '@/store';
@@ -29,7 +33,7 @@ export const useAccountList = (props: UseAccountListProps) => {
         getDefaultUnit(account.parentAssetId, account.assetId).abbr,
       amount: account.balance,
     });
-    return `${amount} ${unit.abbr}`;
+    return `${formatDisplayAmount(amount, 5).fixed} ${unit.abbr}`;
   };
 
   const handleAccountChange = (id?: string) => {

@@ -3,6 +3,7 @@ import {
   Container,
   IInteractiveItemListItem,
   InteractiveItem,
+  LoaderScreen,
   ScreenContainer,
   Search,
   Seperator,
@@ -16,34 +17,14 @@ import { useAccountList } from '@/hooks/useAccountList';
 import { useDeriveAddress } from '@/hooks/useDeriveAddress';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { searchInItems } from '@/utils';
+import { useReceiveContext } from '@/contexts/useReceiveContext';
 
 export default function Account() {
-  const [search, setSearch] = useState('');
-  const { walletId, walletName }: { walletId: string; walletName: string } =
-    useLocalSearchParams();
+  const { accountList, selectedAccount, handleAccountChange } =
+    useReceiveContext();
   const { strings } = useAppSelector(selectLanguage);
-  const {
-    accountList: allAccounts,
-    selectedAccount,
-    handleAccountChange,
-  } = useAccountList({
-    selectedWalletId: walletId,
-  });
-  const { derivedAddress } = useDeriveAddress({ selectedAccount });
-  const [accountList, setAccountList] =
-    useState<IInteractiveItemListItem[]>(allAccounts);
-
-  const onAddressDerived = useCallback(() => {
-    if (selectedAccount && derivedAddress) {
-      router.push(
-        `/receive/address?accountName=${selectedAccount.name}&assetId=${selectedAccount.assetId}&parentAssetId=${selectedAccount.parentAssetId}&walletName=${walletName}&address=${derivedAddress}`,
-      );
-    }
-  }, [selectedAccount, derivedAddress]);
-
-  useEffect(() => {
-    onAddressDerived();
-  }, [derivedAddress, selectedAccount]);
+  const [search, setSearch] = useState('');
+  const [filteredAccounts, setFilteredAccounts] = useState(accountList);
 
   const getAccountItem = ({ item }: { item: IInteractiveItemListItem }) => (
     <InteractiveItem
@@ -54,23 +35,19 @@ export default function Account() {
       rightText={item.rightText}
       onPress={() => {
         handleAccountChange(item.id);
+        router.push('/receive/address');
       }}
       selected={selectedAccount?.__id == item.id}
     />
   );
 
-  const filterItems = useCallback(() => {
-    if (search.length === 0) return;
-    setAccountList(searchInItems(accountList, search));
-  }, [accountList, search]);
-
   useEffect(() => {
     if (search.length === 0) {
-      setAccountList(allAccounts);
+      setFilteredAccounts(accountList);
       return;
     }
-    filterItems();
-  }, [search]);
+    setFilteredAccounts(searchInItems(accountList, search));
+  }, [search, accountList]);
 
   return (
     <ScreenContainer>
@@ -80,10 +57,10 @@ export default function Account() {
         </Typography>
         <Search onChange={v => setSearch(v)} value={search} />
         <Card style={{ paddingHorizontal: 0, paddingVertical: 0 }}>
-          {accountList.length > 0 ? (
+          {filteredAccounts.length > 0 ? (
             <FlatList
               style={{ width: '100%' }}
-              data={accountList}
+              data={filteredAccounts}
               renderItem={getAccountItem}
               ItemSeparatorComponent={() => <Seperator />}
             />
