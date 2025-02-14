@@ -3,28 +3,44 @@ import {
   Container,
   Copy,
   LangDisplay,
+  LoaderScreen,
   MessageBox,
   ScreenContainer,
   Typography,
 } from '@/components/ui';
 import { colors } from '@/components/ui/themes/color.styled';
 import Octicons from '@expo/vector-icons/Octicons';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import * as Clipboard from 'expo-clipboard';
 import { useAppSelector } from '@/store';
 import { selectLanguage } from '@/store/lang';
-import { useLocalSearchParams } from 'expo-router';
 import QRCode from 'react-native-qrcode-svg';
 import { View } from 'react-native';
 import { CoinIcon } from '@/components/core';
+import { useReceiveContext } from '@/contexts/useReceiveContext';
 
 export default function Receive() {
-  const { walletName, accountName, address, assetId, parentAssetId } =
-    useLocalSearchParams();
+  const {
+    selectedAccount,
+    derivedAddress,
+    selectedWallet,
+    resetReceiveData,
+    isLoading,
+  } = useReceiveContext();
   const { strings } = useAppSelector(selectLanguage);
   const [copied, setCopied] = useState(false);
 
-  const derivedAddress = Array.isArray(address) ? address[0] : address;
+  useEffect(() => {
+    return () => {
+      resetReceiveData();
+    };
+  }, []);
+
+  if (!derivedAddress || isLoading) {
+    return (
+      <LoaderScreen title="Please wait while we are fetching your details" />
+    );
+  }
 
   const handleCopy = async () => {
     await Clipboard.setStringAsync(derivedAddress);
@@ -44,16 +60,16 @@ export default function Receive() {
               crypto: (
                 <Typography type="para" color="primary">
                   <CoinIcon
-                    parentAssetId={parentAssetId as string}
-                    assetId={assetId as string}
+                    parentAssetId={selectedAccount.parentAssetId}
+                    assetId={selectedAccount.assetId}
                     size={16}
                   />{' '}
-                  {accountName}
+                  {selectedAccount.name}
                 </Typography>
               ),
               wallet: (
                 <Typography type="para" color="primary">
-                  {walletName}
+                  {selectedWallet?.name}
                 </Typography>
               ),
             }}

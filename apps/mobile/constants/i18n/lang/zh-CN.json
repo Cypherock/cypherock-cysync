@@ -14,7 +14,7 @@
     "allWallets": "所有钱包"
   },
   "onboarding": {
-     "welcome": {
+    "welcome": {
       "title": "欢迎使用 cySync 应用程序",
       "description": "您的自我主权之门",
       "termsOfUse": "使用条款",
@@ -44,7 +44,7 @@
       "title": "需要相机权限",
       "description": "请提供相机访问权限。如果没有相机访问权限，您将无法扫描与 cySync 桌面同步所需的二维码"
     },
-   "info": {
+    "info": {
       "title": "您的桌面和移动应用程序必须手动同步",
       "description": "cySync 应用程序在本地存储您的数据。如果您在桌面应用程序上更新了您的币种/账户，则需要在移动应用程序上执行相同的操作"
     },
@@ -65,7 +65,7 @@
         "subTitle": "您现在可以使用新密码登录了"
       }
     },
-      "notifications": {
+    "notifications": {
       "title": "通知",
       "subtitle": "直接将您的加密资产接收到您的 Cypherock X1 中。随时随地！"
     },
@@ -76,9 +76,9 @@
   },
   "scan": {
     "alignQrCode": "将二维码对准框内",
-    "pleaseWait": "请稍等",  
+    "pleaseWait": "请稍等",
     "messageBox": {
-      "warning": "注意：可能需要扫描多个二维码" 
+      "warning": "注意：可能需要扫描多个二维码"
     },
     "loading": {
       "description": "请稍候，我们正在获取您的详细信息"
@@ -86,7 +86,7 @@
   },
   "portfolio": {
     "heading": "资产组合",
-     "noAccount": {
+    "noAccount": {
       "title": "这里还没有任何内容！",
       "subTitle": "我们找不到任何内容。请尝试重新扫描桌面上的二维码"
     },
@@ -99,38 +99,37 @@
   },
   "history": {
     "heading": "历史记录",
-    "history":{
-      "title":"交易历史",
-      "table":{
-          "time": "时间",
-          "amount":"金额"
+    "history": {
+      "title": "交易历史",
+      "table": {
+        "time": "时间",
+        "amount": "金额"
       }
     },
-    "details":{
+    "details": {
       "title": "交易哈希",
-       "heading": {
+      "heading": {
         "sent": "已发送",
         "received": "已接收"
       }
     }
-
   },
   "receive": {
     "heading": "接收",
-    "chooseWallet":{
-      "title":"选择一个钱包来接收加密货币"
+    "chooseWallet": {
+      "title": "选择一个钱包来接收加密货币"
     },
-    "chooseAccount":{
+    "chooseAccount": {
       "title": "选择您要接收的加密货币"
     },
-    "receive":{
+    "receive": {
       "info": "${wallet} 中 ${crypto} 的地址",
-      "messageBox":{
+      "messageBox": {
         "danger": "此接收地址未經設備驗證。請自行承擔風險使用"
       }
     },
     "shared": {
-      "noAccounts": "No Accounts found in this wallet!"
+      "noAccounts": "No accounts found in this wallet!"
     }
   },
   "support": {
@@ -218,24 +217,24 @@
       "title": "密码已成功移除"
     }
   },
-    "notifications":{
-      "heading": "通知"
-    },
-    "banner":{
-      "title": "Cypherock 保护套来了！",
-      "description": "点击此处了解更多"
-    },
-    "toast":{
-      "addressCopied": "地址已成功复制"
-    },
-    "bottomTabs": {
-      "portfolio": "资产组合",
-      "history": "历史记录",
-      "receive": "接收",
-      "support": "支持",
-      "settings": "设置"
-    },
-    "transactions": {
+  "notifications": {
+    "heading": "通知"
+  },
+  "banner": {
+    "title": "Cypherock 保护套来了！",
+    "description": "点击此处了解更多"
+  },
+  "toast": {
+    "addressCopied": "地址已成功复制"
+  },
+  "bottomTabs": {
+    "portfolio": "资产组合",
+    "history": "历史记录",
+    "receive": "接收",
+    "support": "支持",
+    "settings": "设置"
+  },
+  "transactions": {
     "transactionStatus": {
       "send": {
         "failed": "Send Failed",
