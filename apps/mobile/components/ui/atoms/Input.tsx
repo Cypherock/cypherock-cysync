@@ -55,14 +55,16 @@ export const Input: FC<IInputProps> = props => {
     <StyledContainer>
       {props.label && <StyledText>{props.label}</StyledText>}
       <StyledInput {...props} placeholderTextColor={colors.text.secondary} />
-      <Flex>
-        <ErrorText>{props.error}</ErrorText>
-        {props.actionText && props.onAction && (
-          <TouchableOpacity onPress={props.onAction}>
-            <StyledText textAlign="right">{props.actionText}</StyledText>
-          </TouchableOpacity>
-        )}
-      </Flex>
+      {((props.actionText && props.onAction) || props.error) && (
+        <Flex>
+          <ErrorText>{props.error}</ErrorText>
+          {props.actionText && props.onAction && (
+            <TouchableOpacity onPress={props.onAction}>
+              <StyledText textAlign="right">{props.actionText}</StyledText>
+            </TouchableOpacity>
+          )}
+        </Flex>
+      )}
     </StyledContainer>
   );
 };
