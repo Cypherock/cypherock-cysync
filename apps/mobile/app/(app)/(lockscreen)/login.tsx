@@ -3,7 +3,6 @@ import {
   Button,
   Container,
   CypherockLockedIcon,
-  Flex,
   Input,
   LogotypeIcon,
   ScreenContainer,
@@ -12,7 +11,7 @@ import {
 import { useAppSelector } from '@/store';
 import { selectLanguage } from '@/store/lang';
 import { useLockscreen } from '@/contexts/useLockscreenContext';
-import { Link, useRouter } from 'expo-router';
+import { useRouter } from 'expo-router';
 import { View } from 'react-native';
 
 export default function Login() {
@@ -25,7 +24,7 @@ export default function Login() {
   const handleUnlock = async () => {
     const success = await unlock(password);
     if (success) {
-      router.replace('/');
+      router.dismissTo('/(app)/(protected)/(onboarding)');
     } else {
       setError(strings.lockscreen.login.input.error);
     }
