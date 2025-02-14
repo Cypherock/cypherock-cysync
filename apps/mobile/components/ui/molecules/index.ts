@@ -7,3 +7,4 @@ export * from './Table';
 export * from './Graph';
 export * from './Header';
 export * from './LottieSplash';
+export * from './LoaderScreen';
