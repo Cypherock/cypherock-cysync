@@ -6,12 +6,28 @@
     "skip": "تخطي",
     "apply": "تطبيق",
     "confirm": "تأكيد",
+    "reset": "Reset",
+    "cancel": "Cancel",
     "login": "تسجيل الدخول",
     "getStarted": "البدء",
     "scanQrCode": "مسح رمز الاستجابة السريعة",
     "buyCypherockX1": "شراء Cypherock X1",
     "grantPermission": "منح الإذن",
     "allWallets": "جميع المحافظ"
+  },
+  "lockscreen": {
+    "login": {
+      "tagline": "Your Gateway to Self-Sovereignty",
+      "input": {
+        "label": "Enter password to unlock",
+        "action": "Forgot password?",
+        "error": "Incorrect password"
+      }
+    },
+    "reset": {
+      "title": "Resetting password will reset your cySync app do you want to proceed?",
+      "description": "This will erase all your data on your cySync app. Note this will not result in loss of assets"
+    }
   },
   "onboarding": {
     "welcome": {
