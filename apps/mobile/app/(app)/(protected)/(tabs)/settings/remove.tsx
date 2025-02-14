@@ -7,17 +7,20 @@ import {
 } from '@/components/ui';
 import { colors } from '@/components/ui/themes/color.styled';
 import AntDesign from '@expo/vector-icons/AntDesign';
-import { useState } from 'react';
 import { View } from 'react-native';
 import { useAppSelector } from '@/store';
 import { selectLanguage } from '@/store/lang';
+import { useLockscreen } from '@/contexts/useLockscreenContext';
+import { router } from 'expo-router';
 
 export default function RemovePassword() {
   const { strings } = useAppSelector(selectLanguage);
-  const [passwordRemoved, setPasswordRemoved] = useState(false);
+  const { removePassword, isPasswordSet } = useLockscreen();
 
-  if (passwordRemoved)
+  if (!isPasswordSet) {
+    setTimeout(() => router.back(), 2000);
     return <Success title={strings.settings.passwordRemoved.title} />;
+  }
 
   return (
     <ScreenContainer>
@@ -48,7 +51,7 @@ export default function RemovePassword() {
         <Button
           title={strings.buttons.confirm}
           style={{ marginHorizontal: 16, marginVertical: 12 }}
-          onPress={() => setPasswordRemoved(true)}
+          onPress={removePassword}
         />
       </View>
     </ScreenContainer>

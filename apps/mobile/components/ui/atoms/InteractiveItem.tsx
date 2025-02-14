@@ -16,13 +16,14 @@ interface InteractiveItemProps extends TouchableOpacityProps {
   $parentId?: string;
 }
 
-const Container = styled.TouchableOpacity`
+const Container = styled.TouchableOpacity<{ disabled?: boolean }>`
   flex-direction: row;
   padding: 12px 16px;
   padding-right: 24px;
   align-items: center;
   justify-content: center;
   width: 100%;
+  opacity: ${({ disabled }) => (disabled ? 0.5 : 1)};
 `;
 
 const SelectedBar = styled.View<{ selected: boolean }>`
