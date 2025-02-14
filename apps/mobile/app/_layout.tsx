@@ -8,6 +8,7 @@ import React, { useEffect, useState } from 'react';
 import { useWindowDimensions } from 'react-native';
 import { SplashScreen } from 'expo-router';
 import { LockscreenProvider } from '@/contexts/useLockscreenContext';
+import { CustomRealmProvider } from '@/db';
 
 SplashScreen.preventAutoHideAsync();
 SystemUI.setBackgroundColorAsync(colors.background.primary);
@@ -31,9 +32,11 @@ export default function RootLayout() {
   return (
     <StoreProvider store={store}>
       <ThemeProvider theme={currentTheme}>
-        <LockscreenProvider>
-          <Slot />
-        </LockscreenProvider>
+        <CustomRealmProvider>
+          <LockscreenProvider>
+            <Slot />
+          </LockscreenProvider>
+        </CustomRealmProvider>
       </ThemeProvider>
     </StoreProvider>
   );

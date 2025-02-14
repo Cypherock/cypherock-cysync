@@ -1,6 +1,6 @@
-import { LottieSplash } from '@/components/ui';
+import { LottieSplash, useTheme } from '@/components/ui';
 import { Stack } from 'expo-router';
-import { CustomRealmProvider, keyValueStore } from '@/db';
+import { keyValueStore } from '@/db';
 import React, { useEffect, useState } from 'react';
 import { SplashScreen } from 'expo-router';
 import { BackgroundTasks } from '@/bgTasks';
@@ -8,6 +8,7 @@ import { BackgroundTasks } from '@/bgTasks';
 export default function Layout() {
   const [onBoaridngCompleted, setOnBoardingCompleted] = useState(false);
   const [appIsReady, setAppIsReady] = useState(false);
+  const theme = useTheme();
 
   async function getOnboardingStatus() {
     const onBoardingStatus = await keyValueStore.isOnboardingCompleted.get();
@@ -34,10 +35,11 @@ export default function Layout() {
   }
 
   return (
-    <CustomRealmProvider>
+    <>
       <Stack
         screenOptions={{
           headerShown: false,
+          contentStyle: { backgroundColor: theme.palette.background.primary },
         }}
       >
         <Stack.Screen name="(onboarding)" redirect={onBoaridngCompleted} />
@@ -46,6 +48,6 @@ export default function Layout() {
         <Stack.Screen name="scan" />
       </Stack>
       <BackgroundTasks />
-    </CustomRealmProvider>
+    </>
   );
 }
