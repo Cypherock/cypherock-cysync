@@ -29,7 +29,8 @@ interface IDetails {
 }
 
 interface HistoryContextProps {
-  transaction: IDetails | undefined;
+  transaction: TransactionRowData | undefined;
+  details: IDetails | undefined;
   setSelectedTransaction: (transaction: TransactionRowData) => void;
 }
 
@@ -38,7 +39,7 @@ const HistoryContext = createContext<HistoryContextProps | undefined>(
 );
 
 export const HistoryProvider: React.FC<PropsWithChildren> = ({ children }) => {
-  const [transaction, setTransaction] = useState<IDetails | undefined>();
+  const [details, setDetails] = useState<IDetails | undefined>();
   const [selectedTransaction, setSelectedTransaction] = useState<
     TransactionRowData | undefined
   >();
@@ -68,18 +69,24 @@ export const HistoryProvider: React.FC<PropsWithChildren> = ({ children }) => {
           }),
         ),
       };
-      setTransaction(formattedTransaction);
+      setDetails(formattedTransaction);
     }
   }, [selectedTransaction]);
 
   useEffect(() => {
-    if (transaction) {
-      router.push(`/history/details/${transaction.hash}`);
+    if (details) {
+      router.push(`/history/details/${details.hash}`);
     }
-  }, [transaction]);
+  }, [details]);
 
   return (
-    <HistoryContext.Provider value={{ transaction, setSelectedTransaction }}>
+    <HistoryContext.Provider
+      value={{
+        transaction: selectedTransaction,
+        details,
+        setSelectedTransaction,
+      }}
+    >
       {children}
     </HistoryContext.Provider>
   );

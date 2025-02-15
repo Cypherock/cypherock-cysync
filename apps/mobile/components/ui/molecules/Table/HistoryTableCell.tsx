@@ -10,7 +10,7 @@ import {
   TransactionStatus,
 } from '@cypherock/db-interfaces';
 
-type TransactionType = keyof typeof TransactionTypeMap;
+export type TransactionType = keyof typeof TransactionTypeMap;
 
 interface HistoryTableTimeCellProps {
   transactionType: TransactionType;
@@ -25,13 +25,13 @@ interface HistoryTableAmountCellProps {
   fiatAmount: string;
 }
 
-const StatusToColorHex: Record<TransactionStatus, string> = {
+export const StatusToColorHex: Record<TransactionStatus, string> = {
   success: colors.success,
   pending: colors.warning,
   failed: colors.error,
 };
 
-const TransactionTypeToIcon: Record<
+export const TransactionTypeToIcon: Record<
   TransactionType,
   (status: TransactionStatus) => ReactNode
 > = {
