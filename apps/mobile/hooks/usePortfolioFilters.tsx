@@ -16,6 +16,7 @@ interface IPortfolioFilters {
   onHideFilter: () => void;
   onShowFilter: (key: FilterKeys) => void;
   selectedWallet?: IWallet;
+  onFilterReset: () => void;
 }
 
 export const usePortfolioFilters = (): IPortfolioFilters => {
@@ -66,6 +67,10 @@ export const usePortfolioFilters = (): IPortfolioFilters => {
     },
   };
 
+  const resetFitlers = useCallback(() => {
+    setSelectedWallet(undefined);
+  }, []);
+
   return {
     filters,
     selectedFilter,
@@ -77,5 +82,6 @@ export const usePortfolioFilters = (): IPortfolioFilters => {
       : () => {},
     selectedRange,
     selectedWallet,
+    onFilterReset: resetFitlers,
   };
 };
