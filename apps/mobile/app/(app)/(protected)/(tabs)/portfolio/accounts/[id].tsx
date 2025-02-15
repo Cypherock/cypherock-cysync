@@ -27,6 +27,7 @@ export default function Accounts() {
     selectedRange,
     selectedWallet,
     onShowFilter,
+    onFilterReset,
   } = usePortfolioFilters();
   const accountId = id as string;
   const selectedAccount = accounts.find(ac => ac.__id === accountId);
@@ -61,9 +62,13 @@ export default function Accounts() {
             />
           </Flex>
         </Flex>
-        <Graph selectedRange={selectedRange} accountId={accountId} />
+        <Graph
+          selectedRange={selectedRange}
+          accountId={accountId}
+          selectedWallet={selectedWallet}
+        />
       </Container>
-      <AllocationTable accountId={accountId} />
+      <AllocationTable accountId={accountId} walletId={selectedWallet?.__id} />
       {filters.length > 0 && selectedFilter && (
         <SelectFilterSheet
           ref={filterRef}
@@ -71,6 +76,7 @@ export default function Accounts() {
           onSelect={onFilterSelect}
           data={filters}
           onHide={onHideFilter}
+          onReset={onFilterReset}
         />
       )}
     </ScreenContainer>
