@@ -12,6 +12,15 @@ import { useGraph, UseGraphProps } from '@/hooks';
 
 export interface GraphPropTypes extends UseGraphProps {}
 
+interface FormattedGraphData {
+  label?: string;
+  value: number;
+  dataPointLabelComponent: () => React.JSX.Element;
+  yAxisLabelTexts: string;
+}
+
+const MAX_GRAPH_POINTS = 200;
+
 export const Graph = (props: GraphPropTypes) => {
   const {
     summaryDetails,
@@ -20,35 +29,47 @@ export const Graph = (props: GraphPropTypes) => {
     formatTooltipValue,
     formatTimestamp,
     formatYAxisTick,
+    isLoading,
   } = useGraph(props);
 
-  const [optimizedGraphData, setOptimizedGraphData] = useState<
-    {
-      label?: string;
-      value: number;
-      dataPointLabelComponent: () => React.JSX.Element;
-      yAxisLabelTexts: string;
-    }[]
-  >([]);
+  /**Needs further optimization */
+  const optimizedGraphData = useMemo(() => {
+    const selectedGraphData =
+      graphData.length > MAX_GRAPH_POINTS
+        ? (() => {
+            const step = (graphData.length - 1) / (MAX_GRAPH_POINTS - 1);
+            return Array.from({ length: MAX_GRAPH_POINTS }, (_, i) => {
+              const index = Math.round(i * step);
+              return graphData[index];
+            });
+          })()
+        : graphData;
 
-  const formatGraphData = useMemo(() => {
-    return graphData.map(d => {
-      return {
-        label: formatTimestamp(d.timestamp),
+    const MAX_LABELS = 5;
+    const labelIndexes = new Set<number>();
+    for (let i = 0; i < MAX_LABELS; i++) {
+      const index = Math.round(
+        (i * (selectedGraphData.length - 1)) / (MAX_LABELS - 1),
+      );
+      labelIndexes.add(index);
+    }
+
+    return selectedGraphData.map((d, i) => {
+      const dataPoint: FormattedGraphData = {
         value: d.value,
         dataPointLabelComponent: () => (
           <DataPointLabel>{formatTooltipValue(d)}</DataPointLabel>
         ),
         yAxisLabelTexts: formatYAxisTick(d.value),
       };
+      if (labelIndexes.has(i)) {
+        dataPoint.label = formatTimestamp(d.timestamp);
+      }
+      return dataPoint;
     });
-  }, [graphData]);
+  }, [graphData, formatTimestamp, formatTooltipValue, formatYAxisTick]);
 
-  useEffect(() => {
-    setOptimizedGraphData(formatGraphData);
-  }, [graphData]);
-
-  if (graphData.length === 0) {
+  if (graphData.length === 0 || isLoading) {
     return null;
   }
 
@@ -69,7 +90,7 @@ export const Graph = (props: GraphPropTypes) => {
           </Typography>
         </Flex>
       </Flex>
-      <DisplayGraph
+      {/* <DisplayGraph
         areaChart
         spacing={Dimensions.get('screen').width / optimizedGraphData.length}
         data={optimizedGraphData}
@@ -80,7 +101,7 @@ export const Graph = (props: GraphPropTypes) => {
             ? coinList[props.parentAssetId].color
             : coinList[BtcIdMap.bitcoin].color
         }
-      />
+      /> */}
     </>
   );
 };
