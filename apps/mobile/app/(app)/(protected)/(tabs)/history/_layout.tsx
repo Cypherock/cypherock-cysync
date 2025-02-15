@@ -31,11 +31,12 @@ export default function Layout() {
             title: 'Transaction',
             header: ({ navigation, options, route }) => (
               <Header
-                showBack={true}
+                showBack={false}
                 onBackPress={() =>
                   navigation.canGoBack() && navigation.goBack()
                 }
                 title={options.title ?? route.name}
+                leftIcon={options.headerLeft && options.headerLeft({})}
               />
             ),
           }}
