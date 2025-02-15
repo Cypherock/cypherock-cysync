@@ -27,6 +27,7 @@ export default function Coins() {
     selectedRange,
     selectedWallet,
     onShowFilter,
+    onFilterReset,
   } = usePortfolioFilters();
   const parentAssetId = id as string;
 
@@ -58,9 +59,16 @@ export default function Coins() {
             />
           </Flex>
         </Flex>
-        <Graph selectedRange={selectedRange} parentAssetId={parentAssetId} />
+        <Graph
+          selectedRange={selectedRange}
+          parentAssetId={parentAssetId}
+          selectedWallet={selectedWallet}
+        />
       </Container>
-      <AllocationTable parentAssetId={parentAssetId} />
+      <AllocationTable
+        parentAssetId={parentAssetId}
+        walletId={selectedWallet?.__id}
+      />
       {filters.length > 0 && selectedFilter && (
         <SelectFilterSheet
           ref={filterRef}
@@ -68,6 +76,7 @@ export default function Coins() {
           onSelect={onFilterSelect}
           data={filters}
           onHide={onHideFilter}
+          onReset={onFilterReset}
         />
       )}
     </ScreenContainer>
