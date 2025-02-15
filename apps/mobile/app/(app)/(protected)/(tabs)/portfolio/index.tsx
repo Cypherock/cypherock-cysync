@@ -24,6 +24,7 @@ export default function Portfolio() {
     selectedRange,
     selectedWallet,
     onShowFilter,
+    onFilterReset,
   } = usePortfolioFilters();
 
   if (wallets.length === 0) {
@@ -57,9 +58,9 @@ export default function Portfolio() {
             />
           </Flex>
         </Flex>
-        <Graph selectedRange={selectedRange} />
+        <Graph selectedRange={selectedRange} selectedWallet={selectedWallet} />
       </Container>
-      <AllocationTable isMain />
+      <AllocationTable isMain walletId={selectedWallet?.__id} />
       {filters.length > 0 && selectedFilter && (
         <SelectFilterSheet
           ref={filterRef}
@@ -67,6 +68,7 @@ export default function Portfolio() {
           onSelect={onFilterSelect}
           data={filters}
           onHide={onHideFilter}
+          onReset={onFilterReset}
         />
       )}
     </ScreenContainer>

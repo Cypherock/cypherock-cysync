@@ -23,11 +23,12 @@ interface SelectFilterSheetProps {
   data: IFilterDataType[];
   onHide: () => void;
   onSelect: (id: string) => void;
+  onReset: () => void;
 }
 
 export const SelectFilterSheet = forwardRef(
   (
-    { onHide, data, title, onSelect }: SelectFilterSheetProps,
+    { onHide, data, title, onSelect, onReset }: SelectFilterSheetProps,
     ref: React.ForwardedRef<BottomSheetModal<any>> | undefined,
   ) => {
     return (
@@ -42,7 +43,10 @@ export const SelectFilterSheet = forwardRef(
               name="x"
               size={14}
               color={colors.text.secondary}
-              onPress={onHide}
+              onPress={() => {
+                onReset();
+                onHide();
+              }}
             />
           </Flex>
           <Card
