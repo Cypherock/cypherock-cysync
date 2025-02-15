@@ -32,7 +32,7 @@ export function Header({
       onBackPress={onBackPress}
       rightIcons={
         <View style={{ flexDirection: 'row', alignItems: 'center', gap: 16 }}>
-          <Pressable onPress={() => router.push('/notification')}>
+          {/* <Pressable onPress={() => router.push('/notification')}>
             <Icon
               source={{
                 default: Images.icon.notification_default,
@@ -42,7 +42,7 @@ export function Header({
               state={!notifications ? 'disabled' : 'default'}
               onPress={() => router.push('/notification')}
             />
-          </Pressable>
+          </Pressable> */}
           <MaterialCommunityIcons
             name="qrcode"
             onPress={() => router.push('/scan')}
