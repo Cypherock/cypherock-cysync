@@ -134,6 +134,7 @@ export const FeeSection: React.FC<FeeSectionProps> = ({ showErrors }) => {
     tron: () => ({}),
     xrp: getXrpProps,
     starknet: () => ({}),
+    icp: () => ({}),
   };
 
   const getFeeInputComponent = () => {

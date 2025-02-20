@@ -74,6 +74,7 @@ export const SingleTransaction: React.FC<SingleTransactionProps> = ({
     tron: () => '',
     xrp: () => '',
     starknet: () => '',
+    icp: () => '',
   };
 
   const getXrpDestinationTagInputProps = () => {
@@ -98,6 +99,7 @@ export const SingleTransaction: React.FC<SingleTransactionProps> = ({
     tron: () => ({}),
     xrp: getXrpDestinationTagInputProps,
     starknet: () => ({}),
+    icp: () => ({}),
   };
 
   const destinationTagInputMap: Partial<Record<CoinFamily, React.FC<any>>> = {

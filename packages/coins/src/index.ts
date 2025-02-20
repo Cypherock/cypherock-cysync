@@ -6,5 +6,6 @@ export * from './solana';
 export * from './tron';
 export * from './xrp';
 export * from './starknet';
+export * from './icp';
 export * from './types';
 export * from './currencies';

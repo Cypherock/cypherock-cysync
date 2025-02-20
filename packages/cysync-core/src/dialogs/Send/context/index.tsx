@@ -644,6 +644,7 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
     tron: getTronFeeAmount,
     xrp: getXrpFeeAmount,
     starknet: getStarknetFeeAmount,
+    icp: () => '0',
   };
 
   const getComputedFee = (coinFamily: CoinFamily, txn?: IPreparedTransaction) =>
