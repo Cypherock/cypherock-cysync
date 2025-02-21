@@ -54,7 +54,7 @@ export const Graph = (props: GraphPropTypes) => {
       labelIndexes.add(index);
     }
 
-    return selectedGraphData.map((d, i) => {
+    const data = selectedGraphData.map((d, i) => {
       const dataPoint: FormattedGraphData = {
         value: d.value,
         dataPointLabelComponent: () => (
@@ -67,6 +67,7 @@ export const Graph = (props: GraphPropTypes) => {
       }
       return dataPoint;
     });
+    return data;
   }, [graphData, formatTimestamp, formatTooltipValue, formatYAxisTick]);
 
   if (graphData.length === 0 || isLoading) {
@@ -90,18 +91,20 @@ export const Graph = (props: GraphPropTypes) => {
           </Typography>
         </Flex>
       </Flex>
-      {/* <DisplayGraph
-        areaChart
-        spacing={Dimensions.get('screen').width / optimizedGraphData.length}
-        data={optimizedGraphData}
-        maxValue={parseFloat(summaryDetails.totalValue) * 1.8}
-        hideYAxisText
-        color={
-          props.parentAssetId
-            ? coinList[props.parentAssetId].color
-            : coinList[BtcIdMap.bitcoin].color
-        }
-      /> */}
+      {!isLoading && (
+        <DisplayGraph
+          areaChart
+          spacing={Dimensions.get('screen').width / optimizedGraphData.length}
+          data={optimizedGraphData}
+          maxValue={parseFloat(summaryDetails.totalValue) * 1.8}
+          hideYAxisText
+          color={
+            props.parentAssetId
+              ? coinList[props.parentAssetId].color
+              : coinList[BtcIdMap.bitcoin].color
+          }
+        />
+      )}
     </>
   );
 };
