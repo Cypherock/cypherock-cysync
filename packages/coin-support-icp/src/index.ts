@@ -40,7 +40,7 @@ export class IcpSupport implements CoinSupport {
   public createAccounts(
     params: ICreateAccountParams,
   ): Observable<ICreateAccountEvent> {
-    throw new Error(`Method not implemented Params: ${params}`);
+    return operations.createAccounts(params);
   }
 
   public syncAccount(params: ISyncAccountsParams): Observable<void> {
