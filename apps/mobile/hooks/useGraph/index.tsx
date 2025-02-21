@@ -16,7 +16,6 @@ import {
   GraphTimeRange,
   GraphTimeRangeMap,
   graphTimeRangeToDaysMap,
-  useGraphTimeRange,
   useStateToRef,
 } from '@/hooks';
 
@@ -125,53 +124,48 @@ export const useGraph = ({ selectedRange, ...props }: UseGraphProps) => {
     return { parentAssetId, assetId };
   };
 
-  const calculatePortfolioData = useCallback(
-    async (setLoading?: boolean) => {
-      if (setLoading) setIsLoading(true);
+  const calculatePortfolioData = useCallback(async () => {
+    setIsLoading(true);
 
-      const data = refData.current;
+    const data = refData.current;
 
-      const params = {
-        accounts: data.accounts,
-        transactions: data.transactions,
-        priceHistories: data.priceHistories,
-        priceInfos: data.priceInfos,
-        selectedWallet: data.selectedWallet,
-        assetId: data.props?.assetId,
-        accountId: data.props?.accountId,
-        parentAssetId: data.props?.parentAssetId,
-        showGraphInUSD: data.showGraphInUSD,
-        days: graphTimeRangeToDaysMap[data.selectedRange],
-      };
+    const params = {
+      accounts: data.accounts,
+      transactions: data.transactions,
+      priceHistories: data.priceHistories,
+      priceInfos: data.priceInfos,
+      selectedWallet: data.selectedWallet,
+      assetId: data.props?.assetId,
+      accountId: data.props?.accountId,
+      parentAssetId: data.props?.parentAssetId,
+      showGraphInUSD: data.showGraphInUSD,
+      days: graphTimeRangeToDaysMap[data.selectedRange],
+    };
 
-      try {
-        const result = await calculatePortfolioGraphData(params);
+    try {
+      const result = await calculatePortfolioGraphData(params);
 
-        if (result?.summary.isIncreased || result?.summary.isDecreased) {
-          const changeIconColor = result.summary.isDecreased
-            ? theme.palette.text.error
-            : data.theme.palette.success;
+      if (result?.summary.isIncreased || result?.summary.isDecreased) {
+        const changeIconColor = result.summary.isDecreased
+          ? theme.palette.text.error
+          : data.theme.palette.success;
 
-          result.summary.changeIcon = (
-            <Entypo
-              name={
-                result.summary.isIncreased ? 'triangle-up' : 'triangle-down'
-              }
-              size={8}
-              color={changeIconColor}
-            />
-          );
-        }
-
-        if (result) setCalculatedData(result);
-      } catch (error) {
-        console.error('Error in calculatePortfolioData:', error);
+        result.summary.changeIcon = (
+          <Entypo
+            name={result.summary.isIncreased ? 'triangle-up' : 'triangle-down'}
+            size={8}
+            color={changeIconColor}
+          />
+        );
       }
 
-      if (setLoading) setIsLoading(false);
-    },
-    [refData, theme],
-  );
+      if (result) setCalculatedData(result);
+    } catch (error) {
+      console.error('Error in calculatePortfolioData:', error);
+    }
+
+    setIsLoading(false);
+  }, [refData, theme]);
 
   const throttledCalculatePortfolioDataOnDataChange = useCallback(
     lodash.throttle(calculatePortfolioData, 10000, { leading: true }),
@@ -186,7 +180,7 @@ export const useGraph = ({ selectedRange, ...props }: UseGraphProps) => {
   useEffect(() => {
     InteractionManager.runAfterInteractions(() => {
       setIsLoading(true);
-      throttledCalculatePortfolioDataOnUserAction(true);
+      throttledCalculatePortfolioDataOnUserAction();
     });
   }, [
     props?.selectedWallet,
