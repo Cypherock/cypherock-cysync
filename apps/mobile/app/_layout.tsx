@@ -24,7 +24,6 @@ export default function RootLayout() {
       width >= largeScreenThreshold ? getLargeTheme() : getDefaultTheme(),
     );
     setAppIsReady(true);
-    SplashScreen.hide();
   }, [width]);
 
   if (!appIsReady) return null;

@@ -1,6 +1,6 @@
 import { KeyValueStore } from './logic/store';
 
-const keyDb = new KeyValueStore();
+export const keyDb = new KeyValueStore();
 
 const createBooleanValueStore = (key: string) => ({
   get: async () => (await keyDb.getItem(key)) === 'true',
