@@ -14,6 +14,7 @@ export const AboutIcon = (props: SvgProps) => (
     width={12}
     height={12}
     fill="none"
+    viewBox="0 0 12 12"
     {...props}
   >
     <G strokeWidth={1.091} clipPath="url(#a)">
