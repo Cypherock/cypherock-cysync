@@ -1,4 +1,8 @@
-import { OnboardingItem, ScreenContainer, IOnboardingItem } from '@/components/ui'; 
+import {
+  OnboardingItem,
+  ScreenContainer,
+  IOnboardingItem,
+} from '@/components/ui';
 import { useAppSelector } from '@/store';
 import { selectLanguage } from '@/store/lang';
 import { Images } from '@/constants/images';
@@ -19,7 +23,7 @@ export default function Sync() {
     actions: {
       primary: {
         title: strings.buttons.scanQrCode,
-        onPress: () => router.push('/(onboarding)/onboarding-scan'),
+        onPress: () => router.push('/onboarding-scan'),
       },
       secondary: {
         title: strings.buttons.buyCypherockX1,
