@@ -19,6 +19,7 @@ import networkReducer, { INetworkState } from './network';
 import transactionsReducer, { ITransactionState } from './transaction';
 import priceInfoReducer, { IPriceInfoState } from './priceInfo';
 import priceHistoryReducer, { IPriceHistoryState } from './priceHistory';
+import notificationReducer, { INotificationState } from './notification';
 
 export interface RootState {
   lang: ILangState;
@@ -29,6 +30,7 @@ export interface RootState {
   priceInfo: IPriceInfoState;
   priceHistory: IPriceHistoryState;
   network: INetworkState;
+  notification: INotificationState;
 }
 
 export const store = configureStore({
@@ -41,6 +43,7 @@ export const store = configureStore({
     priceInfo: priceInfoReducer,
     priceHistory: priceHistoryReducer,
     network: networkReducer,
+    notification: notificationReducer,
   },
   middleware: getDefaultMiddleware =>
     getDefaultMiddleware({
