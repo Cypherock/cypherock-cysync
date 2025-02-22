@@ -234,7 +234,14 @@
     }
   },
   "notifications": {
-    "heading": "Notifications"
+    "heading": "Notifications",
+    "sendTransaction": "${amount} ${unit} ${type} to ${address}",
+    "sendTransactionMultiple": "${amount} ${unit} ${type} to multiple addresses",
+    "receiveTransaction": "${amount} ${unit} ${type} in the account ${walletName}/${accountName}",
+    "noTransactions": {
+      "title": "All caught up",
+      "subTitle": "No new transactions to show"
+    }
   },
   "banner": {
     "title": "Cypherock Cover is here!",
