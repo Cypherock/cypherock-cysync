@@ -5,9 +5,10 @@ import { Container, ScreenContainer, Typography } from '../atoms';
 
 interface ILoaderProps {
   title?: string;
+  loaderSize?: number;
 }
 
-export const LoaderScreen = ({ title }: ILoaderProps) => {
+export const LoaderScreen = ({ title, loaderSize = 200 }: ILoaderProps) => {
   return (
     <ScreenContainer>
       <Container
@@ -20,7 +21,7 @@ export const LoaderScreen = ({ title }: ILoaderProps) => {
           autoPlay
           loop
           source={require('@/assets/lottie/loader.json')}
-          style={{ width: 200, height: 200 }}
+          style={{ width: loaderSize, height: loaderSize }}
         />
         {title && (
           <Typography type="para" color="primary">
