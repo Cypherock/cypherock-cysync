@@ -46,7 +46,7 @@ const deriveAccountIdFromPrincipal = (
   const hash = new SHA224().update(buffer).digest();
 
   const checksum = Buffer.alloc(4);
-  checksum.writeUInt32BE(crc32.buf(hash), 0);
+  checksum.writeUInt32BE(crc32.buf(hash) >>> 0, 0); // eslint-disable-line no-bitwise
 
   return Buffer.concat([checksum, hash]).toString('hex');
 };
