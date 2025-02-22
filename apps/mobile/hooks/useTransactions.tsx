@@ -165,7 +165,7 @@ export const mapTransactionForDisplay = (params: {
   const timeString = formatDate(timestamp, 'h:mm a');
   const dateString = formatDate(timestamp, 'd/M/yy');
   const dateTime = formatDate(timestamp, 'eeee, MMMM d yyyy h:mm a');
-  const dateHeader = formatDate(timestamp, 'eeee, MMMM d yyyy');
+  const dateHeader = formatDate(timestamp, 'eeee, MMMM d, yyyy');
   const assetName = getAsset(
     transaction.parentAssetId,
     transaction.assetId,
@@ -326,12 +326,16 @@ export const useTransactions = () => {
     setIsAscending(true);
   };
 
-  return {
-    searchTerm,
-    setSearchTerm,
-    isAscending,
-    onSort,
-    displayedData,
-    sortedBy,
-  };
+  return useMemo(
+    () => ({
+      searchTerm,
+      setSearchTerm,
+      isAscending,
+      onSort,
+      displayedData,
+      sortedBy,
+      noData: !wallets || !accounts,
+    }),
+    [searchTerm, isAscending, displayedData, sortedBy],
+  );
 };
