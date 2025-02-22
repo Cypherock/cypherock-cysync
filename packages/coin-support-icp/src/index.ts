@@ -34,7 +34,7 @@ export { updateLogger } from './utils/logger';
 
 export class IcpSupport implements CoinSupport {
   public receive(params: IReceiveParams): Observable<IReceiveEvent> {
-    throw new Error(`Method not implemented Params: ${params}`);
+    return operations.receive(params);
   }
 
   public createAccounts(
