@@ -1,4 +1,4 @@
-import { IPriceSnapshot } from '@cypherock/db-interfaces';
+import { IPriceSnapshot, ObjectLiteral } from '@cypherock/db-interfaces';
 import { Realm } from '@realm/react';
 
 export class PriceHistory extends Realm.Object {
@@ -11,6 +11,7 @@ export class PriceHistory extends Realm.Object {
       history: 'mixed',
       assetId: 'string',
       currency: 'string',
+      meta: 'mixed?',
     },
   };
 
@@ -19,4 +20,5 @@ export class PriceHistory extends Realm.Object {
   history!: IPriceSnapshot;
   assetId!: string;
   currency!: string;
+  meta?: ObjectLiteral;
 }
