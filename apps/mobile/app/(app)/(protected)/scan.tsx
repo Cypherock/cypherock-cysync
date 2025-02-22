@@ -13,7 +13,7 @@ import { IAccount, IWallet } from '@cypherock/db-interfaces';
 import { getDB } from '@/utils';
 import { inflate } from 'pako';
 import { colors } from '@/components/ui/themes/color.styled';
-import { syncAllAccounts } from '@/actions';
+import { syncAllDb } from '@/bgTasks/dbSync/helper';
 
 interface CysyncData {
   wallets: IWallet[];
@@ -75,7 +75,7 @@ export default function Scan() {
   useEffect(() => {
     if (decodedData) {
       saveDataToDb(decodedData);
-      dispatch(syncAllAccounts());
+      syncAllDb(true);
       navigateToNext();
     }
 
