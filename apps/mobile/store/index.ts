@@ -6,3 +6,4 @@ export * from './wallets';
 export * from './transaction';
 export * from './priceInfo';
 export * from './priceHistory';
+export * from './notification';

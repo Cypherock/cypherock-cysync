@@ -1,28 +1,30 @@
 import React, { ReactNode } from 'react';
 import styled from 'styled-components/native';
 import { ThemeType } from '../themes';
-import { View } from 'react-native';
+import { TouchableOpacityProps, View } from 'react-native';
 import { Typography } from '../atoms';
 import { PaymentReceivedIcon, PaymentSentIcon } from '../icons';
 import { colors } from '../themes/color.styled';
+import { TransactionType } from './Table';
 
-type NotificationType = 'sent' | 'received';
+type NotificationType = TransactionType;
 type NotificationStatus = 'success' | 'failed' | 'pending';
 
-export interface NotificationProps {
+export interface NotificationProps extends TouchableOpacityProps {
   type: NotificationType;
   status: NotificationStatus;
   icon: ReactNode;
   info: string;
   time: string;
-  amount: string;
+  isClicked?: boolean;
 }
 
-const NotificationContainer = styled.View`
+const NotificationContainer = styled.TouchableOpacity<{ isClicked?: boolean }>`
   margin-top: 12px;
   flex-direction: row;
   gap: 16px;
   align-items: center;
+  opacity: ${({ isClicked }) => (isClicked ? 0.5 : 1)};
 `;
 
 const StatusToColorHex: Record<NotificationStatus, string> = {
@@ -35,8 +37,9 @@ const NotificationTypeToIcon: Record<
   NotificationType,
   (status: NotificationStatus) => ReactNode
 > = {
-  received: status => <PaymentReceivedIcon fill={StatusToColorHex[status]} />,
-  sent: status => <PaymentSentIcon fill={StatusToColorHex[status]} />,
+  receive: status => <PaymentReceivedIcon fill={StatusToColorHex[status]} />,
+  send: status => <PaymentSentIcon fill={StatusToColorHex[status]} />,
+  hidden: () => null,
 };
 
 const StatusToColorKey: Record<NotificationStatus, keyof ThemeType['palette']> =
@@ -67,16 +70,16 @@ export function NotificationItem({
   icon,
   info,
   time,
-  amount,
+  ...props
 }: NotificationProps) {
   const statusToTitle: Record<NotificationStatus, string> = {
-    success: type === 'sent' ? 'Sent' : 'Received',
-    failed: type === 'sent' ? 'Sent Failed' : 'Received Failed',
-    pending: type === 'sent' ? 'Sent Pending' : 'Received Pending',
+    success: type === 'send' ? 'Sent' : 'Received',
+    failed: type === 'send' ? 'Sent Failed' : 'Received Failed',
+    pending: type === 'send' ? 'Sent Pending' : 'Received Pending',
   };
 
   return (
-    <NotificationContainer>
+    <NotificationContainer {...props}>
       {NotificationTypeToIcon[type](status)}
       <View style={{ flex: 1 }}>
         <NotificationHeader>
@@ -91,7 +94,7 @@ export function NotificationItem({
           textAlign="left"
           style={{ flexShrink: 0 }}
         >
-          {icon} <Typography type="body">{amount}</Typography> {info}
+          {icon} {info}
         </Typography>
       </View>
     </NotificationContainer>
