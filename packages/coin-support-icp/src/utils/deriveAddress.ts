@@ -1,7 +1,6 @@
-import { createHash } from 'crypto';
-
 import crc32 from 'crc-32';
 import { ec as EC } from 'elliptic';
+import { sha224 as SHA224 } from 'sha.js';
 
 const secp256k1 = new EC('secp256k1');
 
@@ -44,8 +43,7 @@ const deriveAccountIdFromPrincipal = (
     ...Array.from(subaccountIdentifer),
   ]);
 
-  const sha224 = createHash('sha224').update(buffer);
-  const hash = sha224.digest();
+  const hash = new SHA224().update(buffer).digest();
 
   const checksum = Buffer.alloc(4);
   checksum.writeUInt32BE(crc32.buf(hash), 0);
@@ -58,8 +56,7 @@ export const derivePrincipal = (publicKey: string) => {
 
   const derEncodedPubKey = getDerEncodedPublicKey(uncompressedPubKey);
 
-  const sha224 = createHash('sha224').update(derEncodedPubKey);
-  const hash = sha224.digest();
+  const hash = new SHA224().update(derEncodedPubKey).digest();
 
   return Uint8Array.from([...Array.from(hash), SELF_AUTHENTICATING_SUFFIX]);
 };
