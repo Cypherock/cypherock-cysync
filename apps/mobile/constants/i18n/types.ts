@@ -33,6 +33,7 @@ export interface LangButtons {
   scanQrCode: string;
   buyCypherockX1: string;
   grantPermission: string;
+  nextOnboarding: string;
 
   // Portfolio
   allWallets: string;
@@ -189,8 +190,8 @@ export interface LangSupport {
 export interface LangSettings {
   heading: string;
   settings: {
-    general: string;
-    app: string;
+    displayLanguage: string;
+    password: string;
     about: string;
   };
   // general
@@ -215,7 +216,7 @@ export interface LangSettings {
     privacyPolicy: string;
   };
   // app
-  app: {
+  password: {
     heading: string;
     addNewPassword: string;
     changePassword: string;

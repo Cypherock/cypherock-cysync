@@ -74,6 +74,7 @@ export function Scanner({ onQrScanned, progress }: ScannerProps) {
         <CameraView
           style={styles.camera}
           flash={flashMode}
+          enableTorch={flashMode === 'on'}
           onBarcodeScanned={onQrScanned}
           barcodeScannerSettings={{
             barcodeTypes: ['qr'],

@@ -28,17 +28,29 @@ export default function Settings() {
         }}
       >
         <InteractiveItem
-          leftIcon={<GeneralSettingsIcon />}
-          text={settingsStrings.general}
+          leftIcon={
+            <GeneralSettingsIcon
+              width={14}
+              height={14}
+              style={{ marginRight: 8 }}
+            />
+          }
+          text={settingsStrings.displayLanguage}
           rightIcon={
             <Entypo name="chevron-small-right" size={16} color="white" />
           }
-          onPress={() => router.push('/settings/general')}
+          onPress={() => router.push('/settings/language')}
         />
         <Seperator />
         <InteractiveItem
-          leftIcon={<AppSettingsIcon />}
-          text={settingsStrings.app}
+          leftIcon={
+            <AppSettingsIcon
+              width={14}
+              height={14}
+              style={{ marginRight: 8 }}
+            />
+          }
+          text={settingsStrings.password}
           rightIcon={
             <Entypo name="chevron-small-right" size={16} color="white" />
           }
@@ -46,7 +58,9 @@ export default function Settings() {
         />
         <Seperator />
         <InteractiveItem
-          leftIcon={<AboutIcon />}
+          leftIcon={
+            <AboutIcon width={14} height={14} style={{ marginRight: 8 }} />
+          }
           text={settingsStrings.about}
           rightIcon={
             <Entypo name="chevron-small-right" size={16} color="white" />
