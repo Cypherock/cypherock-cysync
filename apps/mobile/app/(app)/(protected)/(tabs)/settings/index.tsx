@@ -29,7 +29,7 @@ export default function Settings() {
       >
         <InteractiveItem
           leftIcon={<GeneralSettingsIcon />}
-          text={settingsStrings.general}
+          text={settingsStrings.displayLanguage}
           rightIcon={
             <Entypo name="chevron-small-right" size={16} color="white" />
           }
@@ -38,7 +38,7 @@ export default function Settings() {
         <Seperator />
         <InteractiveItem
           leftIcon={<AppSettingsIcon />}
-          text={settingsStrings.app}
+          text={settingsStrings.password}
           rightIcon={
             <Entypo name="chevron-small-right" size={16} color="white" />
           }
