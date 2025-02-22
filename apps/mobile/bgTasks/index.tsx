@@ -3,6 +3,7 @@ import { AccountSyncTask } from './accountsSync';
 import { DatabaseListener } from './dbSync';
 import { PriceSyncTask } from './priceSync';
 import { NotificationSyncTask } from './notificationSync';
+import { NetworkPingTask } from './networkTask';
 let render = 1;
 export const BackgroundTasks = () => {
   useEffect(() => {
@@ -14,6 +15,7 @@ export const BackgroundTasks = () => {
       <DatabaseListener />
       <PriceSyncTask />
       <NotificationSyncTask />
+      <NetworkPingTask />
     </>
   );
 };
