@@ -1,4 +1,7 @@
-import { ITransactionNotificationClick } from '@cypherock/db-interfaces';
+import {
+  ITransactionNotificationClick,
+  ObjectLiteral,
+} from '@cypherock/db-interfaces';
 import { Realm } from '@realm/react';
 
 export class TransactionNotificationClick extends Realm.Object<ITransactionNotificationClick> {
@@ -10,6 +13,7 @@ export class TransactionNotificationClick extends Realm.Object<ITransactionNotif
       transactionId: 'string',
       isClicked: 'bool',
       transactionStatus: 'string',
+      meta: 'mixed?',
     },
   };
 
@@ -17,4 +21,5 @@ export class TransactionNotificationClick extends Realm.Object<ITransactionNotif
   transactionId!: string;
   isClicked!: boolean;
   transactionStatus!: string;
+  meta?: ObjectLiteral;
 }

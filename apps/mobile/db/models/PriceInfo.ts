@@ -1,3 +1,4 @@
+import { ObjectLiteral } from '@cypherock/db-interfaces';
 import { Realm } from '@realm/react';
 
 export class PriceInfo extends Realm.Object {
@@ -10,6 +11,7 @@ export class PriceInfo extends Realm.Object {
       latestPrice: 'string',
       assetId: 'string',
       lastSyncedAt: 'int',
+      meta: 'mixed?',
     },
   };
 
@@ -18,4 +20,5 @@ export class PriceInfo extends Realm.Object {
   latestPrice!: string;
   assetId!: string;
   lastSyncedAt!: number;
+  meta?: ObjectLiteral;
 }
