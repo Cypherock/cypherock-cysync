@@ -45,10 +45,10 @@ export default function Support() {
             {strings.support.socials.description}
           </Typography>
           <Link
-            href={'https://cypherock.com/blog'}
+            href={'https://cypherock.com/blogs'}
             style={{ textAlign: 'center' }}
           >
-            https://cypherock.com/blog
+            https://cypherock.com/blogs
           </Link>
         </View>
         <View style={{ gap: 16, flexDirection: 'row' }}>
