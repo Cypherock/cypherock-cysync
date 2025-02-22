@@ -177,6 +177,7 @@ export default function Notification() {
           renderItem={({ item }) => (
             <NotificationItem
               {...item}
+              isClicked={item.txn?.isClicked}
               type={item.type as any}
               onPress={() => onNotificationClick(item.txn)}
             />
