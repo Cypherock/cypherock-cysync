@@ -19,13 +19,14 @@ export default function Layout() {
       <BottomSheetModalProvider>
         <Tabs
           screenOptions={{
-            header: ({ navigation, route }) => (
+            header: ({ navigation, route, options }) => (
               <Header
                 onBackPress={() =>
                   navigation.canGoBack() && navigation.goBack()
                 }
                 title={route.name}
                 showBack={false}
+                {...options}
               />
             ),
             tabBarStyle: styles.tabBar,

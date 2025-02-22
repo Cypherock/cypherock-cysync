@@ -1,12 +1,10 @@
-import React, { useMemo, useState } from 'react';
+import React, { useMemo } from 'react';
 import {
   Card,
   NotificationItem,
   parseLangTemplate,
   ScreenContainer,
-  Seperator,
   Typography,
-  useTheme,
 } from '@/components/ui';
 import { SectionList } from 'react-native';
 import NoDataScreen from '@/components/ui/molecules/NoDataScreen';
@@ -16,15 +14,10 @@ import {
   selectNotifications,
   selectUnHiddenAccounts,
   selectWallets,
-  toggleNotification,
-  useAppDispatch,
   useAppSelector,
 } from '@/store';
 import { createSelector } from '@reduxjs/toolkit';
-import {
-  markAllTransactionNotificationRead,
-  markTransactionNotificationClicked,
-} from '@/actions';
+import { markTransactionNotificationClicked } from '@/actions';
 import {
   IAccount,
   ITransaction,
@@ -36,6 +29,7 @@ import { CoinIcon } from '@/components/core';
 import { format as formatDate } from 'date-fns';
 import lodash from 'lodash';
 import { getDefaultUnit, getParsedAmount } from '@cypherock/coin-support-utils';
+import { useNavigation } from 'expo-router';
 
 const selector = createSelector(
   [selectLanguage, selectNotifications, selectWallets, selectUnHiddenAccounts],
@@ -101,16 +95,12 @@ const getNotificationText = (params: {
 };
 
 export default function Notification() {
-  const dispatch = useAppDispatch();
-  const theme = useTheme();
   const { transactions, lang, wallets, accounts, unreadTransactions } =
     useAppSelector(selector);
-
-  const onClose = () => {
-    markAllTransactionNotificationRead(transactions);
-    dispatch(toggleNotification());
-  };
-
+  const navigation = useNavigation();
+  navigation.setOptions({
+    showDiscard: true,
+  });
   const onNotificationClick = (t: ITransaction) => {
     markTransactionNotificationClicked(t);
   };
