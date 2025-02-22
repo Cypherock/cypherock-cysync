@@ -33,6 +33,7 @@ export interface LangButtons {
   scanQrCode: string;
   buyCypherockX1: string;
   grantPermission: string;
+  nextOnboarding: string;
 
   // Portfolio
   allWallets: string;
