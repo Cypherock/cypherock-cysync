@@ -163,8 +163,8 @@
   "settings": {
     "heading": "Settings",
     "settings": {
-      "general": "Display Language",
-      "app": "Password",
+      "displayLanguage": "Display Language",
+      "password": "Password",
       "about": "About"
     },
     "general": {
@@ -187,7 +187,7 @@
       "termsOfUse": "Terms of use",
       "privacyPolicy": "Privacy policy"
     },
-    "app": {
+    "password": {
       "heading": "Password",
       "addNewPassword": "Add New Password",
       "changePassword": "Change Password",
