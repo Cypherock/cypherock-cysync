@@ -1,3 +1,4 @@
+import { ObjectLiteral } from '@cypherock/db-interfaces';
 import Realm from 'realm';
 
 export class Wallet extends Realm.Object {
@@ -10,6 +11,7 @@ export class Wallet extends Realm.Object {
       hasPin: 'bool',
       hasPassphrase: 'bool',
       deviceId: 'string',
+      meta: 'mixed?',
     },
   };
 
@@ -18,4 +20,5 @@ export class Wallet extends Realm.Object {
   hasPin!: boolean;
   hasPassphrase!: boolean;
   deviceId!: string;
+  meta?: ObjectLiteral;
 }
