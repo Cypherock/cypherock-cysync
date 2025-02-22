@@ -18,7 +18,12 @@ import { useAppSelector } from '@/store';
 import { selectLanguage } from '@/store/lang';
 import { router } from 'expo-router';
 import React from 'react';
-import { TransactionRowData, useTransactions } from '@/hooks/useTransactions';
+import {
+  TransactionTableHeaderKeys,
+  transactionComparatorMap,
+  TransactionRowData,
+  useTransactions,
+} from '@/hooks/useTransactions';
 import { useHistoryContext } from '@/contexts/useHistoryContext';
 
 export default function History() {
@@ -53,15 +58,17 @@ export default function History() {
       </Flex>
       <Table>
         <TableHeader>
-          {[
-            strings.history.history.table.time,
-            strings.history.history.table.amount,
-          ].map(v => (
+          {(
+            Object.keys(
+              transactionComparatorMap,
+            ) as TransactionTableHeaderKeys[]
+          ).map(v => (
             <TableHeaderData
               key={v}
-              data={v}
-              ascending={sortedBy === v && isAscending}
-              onPress={() => onSort(v.toLocaleLowerCase())}
+              data={strings.history.history.table[v]}
+              ascending={isAscending}
+              onPress={() => onSort(v)}
+              selected={sortedBy === v}
             />
           ))}
         </TableHeader>

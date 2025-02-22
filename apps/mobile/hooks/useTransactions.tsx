@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useMemo } from 'react';
 import { selectPriceInfos, useAppSelector } from '@/store';
 import { selectWallets, selectUnHiddenAccounts } from '@/store';
 import { ILangState, selectLanguage } from '@/store/lang';
@@ -26,8 +26,12 @@ import { BigNumber } from '@cypherock/cysync-utils';
 import { format as formatDate } from 'date-fns';
 import { CoinIcon } from '@/components/core';
 import { selectTransactions } from '@/store/transaction';
+import { LanguageStrings } from '@/constants';
 
 type TransactionType = keyof typeof TransactionTypeMap;
+
+export type TransactionTableHeaderKeys =
+  keyof LanguageStrings['history']['history']['table'];
 
 export interface TransactionRowData {
   id: string;
@@ -75,7 +79,10 @@ export interface GroupedTransactionRowData {
   data: TransactionRowData[];
 }
 
-export const transactionComparatorMap: Record<string, string> = {
+export const transactionComparatorMap: Record<
+  TransactionTableHeaderKeys,
+  string
+> = {
   time: 'timestamp',
   amount: 'amount',
 };
@@ -253,7 +260,7 @@ export const useTransactions = () => {
   const [transactionList, setTransactionList] = useState<TransactionRowData[]>(
     [],
   );
-  const [sortedBy, setSortedBy] = useState('date');
+  const [sortedBy, setSortedBy] = useState<TransactionTableHeaderKeys>('time');
   const [isAscending, setIsAscending] = useState(false);
 
   const getDisplayDataList = (
@@ -310,7 +317,7 @@ export const useTransactions = () => {
     setDisplayedData(getDisplayDataList(transactionList));
   }, [searchTerm, isAscending, sortedBy, transactionList]);
 
-  const onSort = (columnName: string) => {
+  const onSort = (columnName: TransactionTableHeaderKeys) => {
     if (sortedBy === columnName) {
       setIsAscending(!isAscending);
       return;
