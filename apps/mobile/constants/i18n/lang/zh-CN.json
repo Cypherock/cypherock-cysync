@@ -162,8 +162,8 @@
   "settings": {
     "heading": "设置",
     "settings": {
-      "general": "显示语言",
-      "app": "应用设置",
+      "displayLanguage": "显示语言",
+      "password": "密码",
       "about": "关于"
     },
     "general": {
