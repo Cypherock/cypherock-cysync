@@ -59,7 +59,7 @@ export function Header({
       {showDiscard && (
         <Feather
           name="x"
-          size={14}
+          size={18}
           color={colors.text.secondary}
           onPress={onDiscard}
         />
