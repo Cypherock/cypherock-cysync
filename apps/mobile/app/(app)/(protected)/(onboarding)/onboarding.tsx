@@ -11,6 +11,7 @@ import { useAppSelector } from '@/store';
 import { selectLanguage } from '@/store/lang';
 import { Images } from '@/constants/images';
 import { router } from 'expo-router';
+import { keyValueStore } from '@/db';
 
 export default function Onboarding() {
   const { strings } = useAppSelector(selectLanguage);
@@ -48,8 +49,11 @@ export default function Onboarding() {
       subtitle: strings.onboarding.allSet.subtitle,
       actions: {
         primary: {
-          title: strings.buttons.nextOnboarding,
-          onPress: () => router.push('/(onboarding)/password-page'),
+          title: strings.buttons.continue,
+          onPress: () => {
+            keyValueStore.isOnboardingCompleted.set(true);
+            router.push('/password-page');
+          },
         },
       },
     },

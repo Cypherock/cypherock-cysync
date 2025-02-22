@@ -12,12 +12,6 @@ export default function Permission() {
   const { strings } = useAppSelector(selectLanguage);
   const [permission, requestPermission] = useCameraPermissions();
 
-  useEffect(() => {
-    if (permission?.granted) {
-      keyValueStore.isOnboardingCompleted.set(true);
-    }
-  }, [permission?.granted]);
-
   if (permission?.granted) {
     return <Redirect href={'/scan'} />;
   }

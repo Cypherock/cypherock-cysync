@@ -1,14 +1,6 @@
-import { StyleSheet, View } from 'react-native';
 import { Image } from 'expo-image';
 import { router } from 'expo-router';
-import {
-  Button,
-  LangDisplay,
-  Link,
-  OnboardingItem,
-  ScreenContainer,
-  Typography,
-} from '@/components/ui';
+import { OnboardingItem, ScreenContainer } from '@/components/ui';
 import { Images } from '@/constants/images';
 import { useAppSelector } from '@/store';
 import { selectLanguage } from '@/store/lang';
