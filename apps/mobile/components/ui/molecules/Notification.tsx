@@ -16,13 +16,15 @@ export interface NotificationProps extends TouchableOpacityProps {
   icon: ReactNode;
   info: string;
   time: string;
+  isClicked?: boolean;
 }
 
-const NotificationContainer = styled.TouchableOpacity`
+const NotificationContainer = styled.TouchableOpacity<{ isClicked?: boolean }>`
   margin-top: 12px;
   flex-direction: row;
   gap: 16px;
   align-items: center;
+  opacity: ${({ isClicked }) => (isClicked ? 0.5 : 1)};
 `;
 
 const StatusToColorHex: Record<NotificationStatus, string> = {
