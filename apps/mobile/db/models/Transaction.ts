@@ -33,6 +33,7 @@ export class Transaction extends Realm.Object<ITransaction> {
       customId: 'string?',
       description: 'string?',
       remarks: 'mixed?',
+      meta: 'mixed?',
     },
   };
 
@@ -59,4 +60,5 @@ export class Transaction extends Realm.Object<ITransaction> {
   customId?: string;
   description?: string;
   remarks?: string[];
+  meta?: ObjectLiteral;
 }
