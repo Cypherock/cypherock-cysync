@@ -33,7 +33,7 @@ export default function Settings() {
           rightIcon={
             <Entypo name="chevron-small-right" size={16} color="white" />
           }
-          onPress={() => router.push('/settings/general')}
+          onPress={() => router.push('/settings/language')}
         />
         <Seperator />
         <InteractiveItem
