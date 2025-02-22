@@ -13,6 +13,7 @@
     "scanQrCode": "Scan QrCode",
     "buyCypherockX1": "Buy Cypherock X1",
     "grantPermission": "Grant Permission",
+    "nextOnboarding": "Next",
     "allWallets": "All Wallets"
   },
   "lockscreen": {
@@ -162,8 +163,8 @@
   "settings": {
     "heading": "Settings",
     "settings": {
-      "general": "General",
-      "app": "App Settings",
+      "general": "Display Language",
+      "app": "Password",
       "about": "About"
     },
     "general": {
@@ -187,7 +188,7 @@
       "privacyPolicy": "Privacy policy"
     },
     "app": {
-      "heading": "App Settings",
+      "heading": "Password",
       "addNewPassword": "Add New Password",
       "changePassword": "Change Password",
       "removePassword": "Remove Password"
