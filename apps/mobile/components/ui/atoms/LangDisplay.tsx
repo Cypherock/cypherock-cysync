@@ -11,13 +11,17 @@ export const parseLangTemplate = (
   templateStr: string,
   variables: { [key: string]: React.ReactNode | string } = {},
 ) => {
-  const parts = templateStr.split(/\${(.*?)}/g);
-  return parts.map((part, index) => {
+  const parts = templateStr.split(/\${(.*?)}/g).map((part, index) => {
     if (index % 2 === 1) {
       return variables[part] ?? part;
     }
     return part;
   });
+
+  if (parts.every(part => typeof part === 'string')) {
+    return parts.join('');
+  }
+  return parts;
 };
 
 const BaseLangDisplay: React.FC<LangDisplayProps> = ({
@@ -29,9 +33,11 @@ const BaseLangDisplay: React.FC<LangDisplayProps> = ({
 
   return (
     <Text style={!$noPreWrap ? { flexWrap: 'wrap' } : undefined}>
-      {parsedText.map((part, index) => (
-        <React.Fragment key={index}>{part}</React.Fragment>
-      ))}
+      {typeof parsedText === 'string'
+        ? parsedText
+        : parsedText.map((part: React.ReactNode, index: number) => (
+            <React.Fragment key={index}>{part}</React.Fragment>
+          ))}
     </Text>
   );
 };
