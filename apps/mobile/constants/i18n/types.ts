@@ -265,6 +265,10 @@ export interface LangSettings {
 
 export interface LangNotifications {
   heading: string;
+  sendTransaction: string;
+  sendTransactionMultiple: string;
+  receiveTransaction: string;
+  noTransactions: { title: string; subTitle: string };
 }
 
 export interface LangBanner {
