@@ -12,7 +12,8 @@ interface HeaderProps {
   leftIcon?: ReactNode;
   showBack?: boolean;
   onBackPress: () => void;
-  showDiscard?: any;
+  showDiscard?: boolean;
+  unreadNotifications?: boolean;
 }
 
 export function Header({
@@ -21,9 +22,8 @@ export function Header({
   showBack = true,
   onBackPress,
   showDiscard = false,
+  unreadNotifications = undefined,
 }: HeaderProps) {
-  let notifications;
-
   return (
     <StyledHeader
       title={title}
@@ -39,7 +39,7 @@ export function Header({
                 disabled: Images.icon.notification_plain_default,
               }}
               size={'default'}
-              state={!notifications ? 'disabled' : 'default'}
+              state={!unreadNotifications ? 'disabled' : 'default'}
               onPress={() => router.push('/notification')}
             />
           </Pressable> */}
