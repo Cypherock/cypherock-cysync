@@ -16,6 +16,7 @@ export class Account extends Realm.Object {
       derivationPath: 'string',
       type: 'string',
       extraData: 'mixed',
+      meta: 'mixed?',
       assetId: 'string',
       familyId: 'string',
       walletId: 'string',
@@ -35,6 +36,7 @@ export class Account extends Realm.Object {
   derivationPath!: string;
   type!: string;
   extraData?: ObjectLiteral;
+  meta?: ObjectLiteral;
   assetId!: string;
   familyId!: string;
   walletId!: string;
