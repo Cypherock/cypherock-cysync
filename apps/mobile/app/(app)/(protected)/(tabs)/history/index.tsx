@@ -3,6 +3,7 @@ import {
   Flex,
   HistoryTableAmountCell,
   HistoryTableTimeCell,
+  LoaderScreen,
   ScreenContainer,
   Seperator,
   Table,
@@ -28,10 +29,11 @@ import { useHistoryContext } from '@/contexts/useHistoryContext';
 
 export default function History() {
   const { strings } = useAppSelector(selectLanguage);
-  const { isAscending, onSort, displayedData, sortedBy } = useTransactions();
+  const { isAscending, onSort, displayedData, sortedBy, noData } =
+    useTransactions();
   const { setSelectedTransaction } = useHistoryContext();
 
-  if (displayedData?.length === 0) {
+  if (noData) {
     return (
       <NoDataScreen
         title={strings.portfolio.noAccount.title}
@@ -39,6 +41,12 @@ export default function History() {
         onAction={() => router.push('/scan')}
         actionText={strings.buttons.scanQrCode}
       />
+    );
+  }
+
+  if (displayedData.length === 0) {
+    return (
+      <LoaderScreen loaderSize={80} title={strings.scan.loading.description} />
     );
   }
 

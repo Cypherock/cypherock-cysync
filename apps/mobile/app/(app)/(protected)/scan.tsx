@@ -7,12 +7,13 @@ import IonIcon from '@expo/vector-icons/Ionicons';
 import { Images } from '@/constants/images';
 import { router } from 'expo-router';
 import { ScanningResult } from 'expo-camera';
-import { useAppSelector } from '@/store';
+import { useAppDispatch, useAppSelector } from '@/store';
 import { selectLanguage } from '@/store/lang';
 import { IAccount, IWallet } from '@cypherock/db-interfaces';
 import { getDB } from '@/utils';
 import { inflate } from 'pako';
 import { colors } from '@/components/ui/themes/color.styled';
+import { syncAllAccounts } from '@/actions';
 
 interface CysyncData {
   wallets: IWallet[];
@@ -21,6 +22,7 @@ interface CysyncData {
 
 export default function Scan() {
   const { strings } = useAppSelector(selectLanguage);
+  const dispatch = useAppDispatch();
   const scannedData = useRef<Record<number, string>>({});
   const [decodedData, setDecodedData] = useState<CysyncData>();
   const [totalChunks, setTotalChunks] = useState(0);
@@ -73,6 +75,7 @@ export default function Scan() {
   useEffect(() => {
     if (decodedData) {
       saveDataToDb(decodedData);
+      dispatch(syncAllAccounts());
       navigateToNext();
     }
 
