@@ -7,3 +7,4 @@ export * from './transaction';
 export * from './priceInfo';
 export * from './priceHistory';
 export * from './notification';
+export * from './network';
