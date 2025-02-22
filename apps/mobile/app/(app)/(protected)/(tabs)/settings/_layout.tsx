@@ -32,12 +32,6 @@ export default function Layout() {
         }}
       />
       <Stack.Screen
-        name="general"
-        options={{
-          title: strings.settings.general.heading,
-        }}
-      />
-      <Stack.Screen
         name="language"
         options={{
           title: strings.settings.displayLanguage.heading,
@@ -57,22 +51,22 @@ export default function Layout() {
       />
       <Stack.Screen
         name="app"
-        options={{ title: strings.settings.app.heading }}
+        options={{ title: strings.settings.password.heading }}
       />
       <Stack.Screen
         name="add"
         redirect={isPasswordSet}
-        options={{ title: strings.settings.app.heading }}
+        options={{ title: strings.settings.password.heading }}
       />
       <Stack.Screen
         name="remove"
         redirect={!isPasswordSet}
-        options={{ title: strings.settings.app.heading }}
+        options={{ title: strings.settings.password.heading }}
       />
       <Stack.Screen
         name="change"
         redirect={!isPasswordSet}
-        options={{ title: strings.settings.app.heading }}
+        options={{ title: strings.settings.password.heading }}
       />
     </Stack>
   );

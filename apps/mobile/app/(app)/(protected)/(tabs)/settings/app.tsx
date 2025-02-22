@@ -15,7 +15,7 @@ import { router } from 'expo-router';
 export default function AppSettings() {
   const lang = useAppSelector(selectLanguage);
   const { isPasswordSet } = useLockscreen();
-  const strings = lang.strings.settings.app;
+  const strings = lang.strings.settings.password;
   return (
     <ScreenContainer>
       <Card

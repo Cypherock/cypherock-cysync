@@ -162,8 +162,8 @@
   "settings": {
     "heading": "Einstellungen",
     "settings": {
-      "general": "Anzeigesprache",
-      "app": "App-Einstellungen",
+      "displayLanguage": "Anzeigesprache",
+      "password": "App-Einstellungen",
       "about": "Über"
     },
     "general": {
@@ -186,7 +186,7 @@
       "termsOfUse": "Nutzungsbedingungen",
       "privacyPolicy": "Datenschutzrichtlinie"
     },
-    "app": {
+    "password": {
       "heading": "App-Einstellungen",
       "addNewPassword": "Neues Passwort hinzufügen",
       "changePassword": "Passwort ändern",

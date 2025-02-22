@@ -162,8 +162,8 @@
   "settings": {
     "heading": "الإعدادات",
     "settings": {
-      "general": "عام",
-      "app": "إعدادات التطبيق",
+      "displayLanguage": "لغة العرض",
+      "password": "إعدادات التطبيق",
       "about": "حول"
     },
     "general": {
@@ -186,7 +186,7 @@
       "termsOfUse": "شروط الاستخدام",
       "privacyPolicy": "سياسة الخصوصية"
     },
-    "app": {
+    "password": {
       "heading": "إعدادات التطبيق",
       "addNewPassword": "إضافة كلمة مرور جديدة",
       "changePassword": "تغيير كلمة المرور",
