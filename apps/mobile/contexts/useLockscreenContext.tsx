@@ -126,6 +126,7 @@ export const LockscreenProvider: React.FC<LockscreenProviderProps> = ({
     const db = getDB();
     await db.changeEncryptionKey(undefined);
     setIsPasswordSet(false);
+    setIsLocked(false);
     console.info('Password removed');
     return true;
   };

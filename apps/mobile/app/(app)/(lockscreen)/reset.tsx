@@ -5,18 +5,21 @@ import { useAppSelector } from '@/store';
 import { selectLanguage } from '@/store/lang';
 import Feather from '@expo/vector-icons/Feather';
 import { getDB } from '@/utils';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import { keyDb } from '@/db';
+import { useLockscreen } from '@/contexts/useLockscreenContext';
 
 export default function Reset() {
   const { strings } = useAppSelector(selectLanguage);
+  const { removePassword } = useLockscreen();
   const theme = useTheme();
   const db = getDB();
 
   const reset = async () => {
     console.log('Reset Cysync');
     await db.clear();
-    await AsyncStorage.clear();
-    router.dismissTo('/');
+    await keyDb.clear();
+    await removePassword();
+    router.dismissAll();
   };
 
   return (
