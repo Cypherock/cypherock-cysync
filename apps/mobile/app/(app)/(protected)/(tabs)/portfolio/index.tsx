@@ -1,50 +1,33 @@
 import {
-  Banner,
   Container,
   FilterButton,
   Flex,
-  Graph,
-  HistoryTableAmountCell,
-  HistoryTableTimeCell,
-  NotificationProps,
   ScreenContainer,
   SelectFilterSheet,
-  Seperator,
-  Table,
-  TableBody,
-  TableHeader,
-  TableHeaderData,
-  TableRowData,
-  Typography,
 } from '@/components/ui';
-import { colors } from '@/components/ui/themes/color.styled';
-import { Images } from '@/constants';
-import Entypo from '@expo/vector-icons/Entypo';
-import { BottomSheetModal } from '@gorhom/bottom-sheet';
+import { Graph, PortfolioHeader } from '@/components/core';
 import { router } from 'expo-router';
-import { useCallback, useRef, useState } from 'react';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { View } from 'react-native';
-import { useAppSelector } from '@/store';
-import { selectLanguage } from '@/store/lang';
 import NoDataScreen from '@/components/ui/molecules/NoDataScreen';
+import { usePortfolioFilters } from '@/hooks';
+import { selectLanguage, selectWallets, useAppSelector } from '@/store';
+import AllocationTable from '@/components/core/AllocationTable';
 
 export default function Portfolio() {
   const { strings } = useAppSelector(selectLanguage);
-  const insets = useSafeAreaInsets();
-  const filterRef = useRef<BottomSheetModal | null>(null);
-  const [graphData] = useState();
-  const [transactions] = useState();
+  const { wallets } = useAppSelector(selectWallets);
+  const {
+    filters,
+    selectedFilter,
+    filterRef,
+    onFilterSelect,
+    onHideFilter,
+    selectedRange,
+    selectedWallet,
+    onShowFilter,
+    onFilterReset,
+  } = usePortfolioFilters();
 
-  const handleShowFilter = useCallback(() => {
-    filterRef.current?.present();
-  }, []);
-
-  const handleHideFilter = useCallback(() => {
-    filterRef.current?.close();
-  }, []);
-
-  if (!graphData && !transactions) {
+  if (wallets.length === 0) {
     return (
       <NoDataScreen
         title={strings.portfolio.noAccount.title}
@@ -57,113 +40,37 @@ export default function Portfolio() {
 
   return (
     <ScreenContainer>
-      <Banner
-        img={Images.other.banner_default}
-        onPress={() => console.log('Banner Pressed')}
-        title={strings.banner.title}
-        subtitle={strings.banner.description}
-      />
+      <PortfolioHeader />
       <Container style={{ paddingHorizontal: 12, gap: 24 }}>
-        <View
-          style={{
-            flexDirection: 'row',
-            justifyContent: 'space-between',
-            gap: 4,
-          }}
-        >
+        <Flex justifyContent="space-between">
           <Flex gap={4} style={{ flex: 1 }}>
             <FilterButton
+              value={selectedWallet?.name}
               placeholder="All wallets"
-              onPress={handleShowFilter}
+              onPress={() => onShowFilter('wallets')}
             />
           </Flex>
           <Flex gap={4} style={{ flex: 1 }}>
-            <FilterButton placeholder="1W" onPress={handleShowFilter} />
-          </Flex>
-        </View>
-        <Flex justifyContent="space-between">
-          <Typography type="h3">$32,584</Typography>
-          <Flex gap={8}>
-            <Entypo name="triangle-up" size={8} color={colors.success} />
-            <Typography type="h5" color={'secondary'}>
-              2.3%
-            </Typography>
-            <Seperator type="v" />
-            <Typography type="h5" color={'secondary'}>
-              $00.321
-            </Typography>
+            <FilterButton
+              value={strings.graph.timeRange[selectedRange]}
+              placeholder="1W"
+              onPress={() => onShowFilter('time')}
+            />
           </Flex>
         </Flex>
-        <Graph areaChart data={data} maxValue={30} stepValue={10} />
+        <Graph selectedRange={selectedRange} selectedWallet={selectedWallet} />
       </Container>
-      <Table>
-        <TableHeader style={{ backgroundColor: colors.background.input }}>
-          {['Time', 'Amount'].map(v => (
-            <TableHeaderData
-              key={v}
-              data={v}
-              ascending={false}
-              onClick={() => console.log('Header Pressed')}
-            />
-          ))}
-        </TableHeader>
-        <TableBody
-          type="flat"
-          data={dummyNotifications}
-          renderItem={({
-            item,
-            index,
-          }: {
-            item: NotificationProps;
-            index: number;
-          }) => (
-            <TableRowData
-              index={index}
-              onPress={() =>
-                router.push(
-                  '/(tabs)/history/details/1A1zP1eP5QGefi2DMPTfTL5SLmv7DivfNa',
-                )
-              }
-            >
-              <HistoryTableTimeCell
-                transactionType={item.type}
-                transactionStatus={item.status}
-                transactionTime={new Date(item.time).toLocaleTimeString(
-                  'en-US',
-                  {
-                    hour: '2-digit',
-                    minute: '2-digit',
-                  },
-                )}
-              />
-              <HistoryTableAmountCell
-                icon={item.icon}
-                cryptoAmount={item.amount}
-                fiatAmount={item.status}
-              />
-            </TableRowData>
-          )}
-          renderSectionHeader={({ section: { title } }) => (
-            <Container
-              style={{ backgroundColor: colors.black, paddingVertical: 10 }}
-            >
-              <Typography type="para" color="primary">
-                {title}
-              </Typography>
-            </Container>
-          )}
-          seperator={() => (
-            <Seperator style={{ backgroundColor: colors.black }} />
-          )}
+      <AllocationTable isMain walletId={selectedWallet?.__id} />
+      {filters.length > 0 && selectedFilter && (
+        <SelectFilterSheet
+          ref={filterRef}
+          title={'Select Option'}
+          onSelect={onFilterSelect}
+          data={filters}
+          onHide={onHideFilter}
+          onReset={onFilterReset}
         />
-      </Table>
-      <SelectFilterSheet
-        ref={filterRef}
-        title={'Select Wallet'}
-        data={['Cypherock', 'CyA1']}
-        onHide={handleHideFilter}
-        insets={insets}
-      />
+      )}
     </ScreenContainer>
   );
 }
