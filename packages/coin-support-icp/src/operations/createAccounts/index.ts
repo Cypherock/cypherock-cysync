@@ -91,14 +91,11 @@ const createAccountFromAddress: IMakeCreateAccountsObservableParams<IcpApp>['cre
     return account;
   };
 
-const getBalanceAndTxnCount = async (
-  publicKey: string,
-  params: ICreateIcpAccountParams,
-) => {
+const getBalanceAndTxnCount = async (publicKey: string) => {
   const address = deriveAddress(publicKey);
   return {
     balance: await services.getBalance(address),
-    txnCount: await services.getTransactionsCount(address, params.coinId),
+    txnCount: (await services.getTransactions(address, BigInt(1))).length,
   };
 };
 
