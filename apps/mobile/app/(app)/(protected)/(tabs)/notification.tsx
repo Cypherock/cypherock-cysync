@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React, { useEffect, useMemo } from 'react';
 import {
   Card,
   NotificationItem,
@@ -98,9 +98,7 @@ export default function Notification() {
   const { transactions, lang, wallets, accounts, unreadTransactions } =
     useAppSelector(selector);
   const navigation = useNavigation();
-  navigation.setOptions({
-    showDiscard: true,
-  });
+
   const onNotificationClick = (t: ITransaction) => {
     markTransactionNotificationClicked(t);
   };
@@ -146,6 +144,12 @@ export default function Notification() {
 
     return newList;
   }, [transactions]);
+
+  useEffect(() => {
+    navigation.setOptions({
+      showDiscard: true,
+    });
+  }, []);
 
   return (
     <ScreenContainer>
