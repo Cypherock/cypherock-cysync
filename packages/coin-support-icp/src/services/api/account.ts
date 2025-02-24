@@ -22,11 +22,3 @@ export const getBalance = async (accountId: string) => {
     throw new Error('Error fetching ICP account balance');
   }
 };
-
-export const getTransactionsCount = async (
-  accountId: string,
-  assetId: string,
-) => {
-  console.log({ accountId, assetId });
-  return Promise.resolve(1);
-};
