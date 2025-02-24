@@ -38,6 +38,7 @@ import {
   useAppSelector,
 } from '@/store';
 import { CoinIcon } from '@/components/core';
+import { LanguageStrings } from '@/constants';
 
 export interface CoinAllocationRow {
   id: string;
@@ -60,6 +61,9 @@ export interface CoinAllocationRow {
   displayValue: string;
   allocation: number;
 }
+
+export type AllocationTableHeaderKeys =
+  keyof LanguageStrings['portfolio']['dashboard']['table'];
 
 const selector = createSelector(
   [
@@ -87,9 +91,12 @@ export interface UseAssetAllocationProps {
   withSubIconAtBottom?: boolean;
 }
 
-export const allocationComparatorMap: Record<string, string> = {
+export const allocationComparatorMap: Record<
+  AllocationTableHeaderKeys,
+  string
+> = {
   asset: 'assetName',
-  amount: 'amount',
+  amount: 'balance',
 };
 
 export const useAssetAllocations = ({
@@ -127,7 +134,7 @@ export const useAssetAllocations = ({
   const [sortedCoinAllocations, setSortedCoinAllocations] = useState<
     CoinAllocationRow[]
   >([]);
-  const [sortedBy, setSortedBy] = useState('asset');
+  const [sortedBy, setSortedBy] = useState<AllocationTableHeaderKeys>('asset');
   const [isAscending, setIsAscending] = useState(false);
 
   const getSortedData = useCallback(
@@ -237,9 +244,9 @@ export const useAssetAllocations = ({
     }
   };
 
-  const onSort = (columnName: string) => {
+  const onSort = (columnName: AllocationTableHeaderKeys) => {
     if (sortedBy === columnName) {
-      setIsAscending(!isAscending);
+      setIsAscending(p => !p);
     } else {
       setSortedBy(columnName);
       setIsAscending(true);
