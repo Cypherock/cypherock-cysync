@@ -1,5 +1,6 @@
 import React from 'react';
 import {
+  AllocationTableHeaderKeys,
   CoinAllocationRow,
   UseAssetAllocationProps,
   useAssetAllocations,
@@ -30,12 +31,15 @@ export default function AllocationTable(props: AllocationTableProps) {
   return (
     <Table>
       <TableHeader style={{ backgroundColor: colors.background.input }}>
-        {Object.values(strings.portfolio.dashboard.table).map((v: string) => (
+        {Object.keys(strings.portfolio.dashboard.table).map(v => (
           <TableHeaderData
             key={v}
-            data={v}
-            ascending={sortedBy === v && isAscending}
-            onPress={() => onSort(v.toLowerCase())}
+            data={
+              strings.portfolio.dashboard.table[v as AllocationTableHeaderKeys]
+            }
+            selected={sortedBy === v}
+            ascending={isAscending}
+            onPress={() => onSort(v as AllocationTableHeaderKeys)}
           />
         ))}
       </TableHeader>
