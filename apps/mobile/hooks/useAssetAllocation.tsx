@@ -136,14 +136,17 @@ export const useAssetAllocations = ({
   >([]);
   const [sortedBy, setSortedBy] = useState<AllocationTableHeaderKeys>('asset');
   const [isAscending, setIsAscending] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const getSortedData = useCallback(
     (data: CoinAllocationRow[]) => {
-      return lodash.orderBy(
+      const sorted = lodash.orderBy(
         data,
         [allocationComparatorMap[sortedBy]],
         [isAscending ? 'asc' : 'desc'],
       );
+      setIsLoading(false);
+      return sorted;
     },
     [sortedBy, isAscending],
   );
@@ -151,6 +154,7 @@ export const useAssetAllocations = ({
   const generateCoinAllocations = async () => {
     try {
       const data = refData.current;
+      setIsLoading(true);
       let result: (IAccountAllocation | ICoinAllocationWithPercentage)[] = [];
       if (data.parentAssetId) {
         result = await getAccountAllocations({
@@ -288,5 +292,6 @@ export const useAssetAllocations = ({
     onSort,
     sortedBy,
     isAscending,
+    isLoading,
   };
 };
