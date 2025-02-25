@@ -33,6 +33,7 @@ export default function Index() {
         TransactionTypeToIcon[transaction.type as TransactionType](
           transaction.status,
         ),
+      showDiscard: true,
     });
   }, [transaction]);
 
