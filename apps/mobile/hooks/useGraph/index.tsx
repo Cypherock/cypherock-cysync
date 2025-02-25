@@ -178,10 +178,7 @@ export const useGraph = ({ selectedRange, ...props }: UseGraphProps) => {
   );
 
   useEffect(() => {
-    InteractionManager.runAfterInteractions(() => {
-      setIsLoading(true);
-      throttledCalculatePortfolioDataOnUserAction();
-    });
+    throttledCalculatePortfolioDataOnUserAction();
   }, [
     props?.selectedWallet,
     props?.accountId,
@@ -192,9 +189,7 @@ export const useGraph = ({ selectedRange, ...props }: UseGraphProps) => {
   ]);
 
   useEffect(() => {
-    InteractionManager.runAfterInteractions(() => {
-      throttledCalculatePortfolioDataOnDataChange();
-    });
+    throttledCalculatePortfolioDataOnDataChange();
   }, [accounts, transactions, priceHistories, priceInfos]);
 
   const formatGraphAmountDisplay = (
