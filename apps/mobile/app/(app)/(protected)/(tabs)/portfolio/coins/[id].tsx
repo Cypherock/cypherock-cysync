@@ -5,17 +5,18 @@ import {
   ScreenContainer,
   SelectFilterSheet,
 } from '@/components/ui';
-import { Graph } from '@/components/core';
 import { useEffect } from 'react';
 import { useLocalSearchParams, useNavigation } from 'expo-router';
-import { CoinIcon, PortfolioHeader } from '@/components/core';
+import { CoinIcon, Graph, PortfolioHeader } from '@/components/core';
 import AllocationTable from '@/components/core/AllocationTable';
 import { usePortfolioFilters } from '@/hooks';
 import { selectLanguage, useAppSelector } from '@/store';
+import useShowAfterDelay from '@/hooks/useShowAfterDelay';
 
 export default function Coins() {
   const { id } = useLocalSearchParams() as { id: string };
   const navigation = useNavigation();
+  const showGraph = useShowAfterDelay();
 
   const { strings } = useAppSelector(selectLanguage);
   const {
@@ -59,11 +60,13 @@ export default function Coins() {
             />
           </Flex>
         </Flex>
-        <Graph
-          selectedRange={selectedRange}
-          parentAssetId={parentAssetId}
-          selectedWallet={selectedWallet}
-        />
+        {showGraph && (
+          <Graph
+            selectedRange={selectedRange}
+            parentAssetId={parentAssetId}
+            selectedWallet={selectedWallet}
+          />
+        )}
       </Container>
       <AllocationTable
         parentAssetId={parentAssetId}
