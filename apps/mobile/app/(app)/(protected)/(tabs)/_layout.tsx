@@ -11,6 +11,7 @@ import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { colors } from '@/components/ui/themes/color.styled';
 import { useAppSelector } from '@/store';
 import { selectLanguage } from '@/store/lang';
+import { HistoryIcon } from '@/components/ui/icons';  
 
 export default function Layout() {
   const { strings } = useAppSelector(selectLanguage);
@@ -56,7 +57,7 @@ export default function Layout() {
               tabBarLabel: strings.bottomTabs.history,
               headerShown: false,
               tabBarIcon: props => (
-                <MaterialIcons name="history" size={20} color={props.color} />
+                <HistoryIcon size={20} color={props.color} /> 
               ),
             }}
           />
