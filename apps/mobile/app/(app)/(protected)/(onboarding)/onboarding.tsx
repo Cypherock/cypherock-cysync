@@ -49,7 +49,7 @@ export default function Onboarding() {
       subtitle: strings.onboarding.allSet.subtitle,
       actions: {
         primary: {
-          title: strings.buttons.continue,
+          title: strings.buttons.nextOnboarding,
           onPress: () => {
             keyValueStore.isOnboardingCompleted.set(true);
             router.push('/password-page');
