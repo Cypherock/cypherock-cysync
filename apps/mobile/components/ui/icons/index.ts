@@ -29,3 +29,4 @@ export * from './near-icon';
 export * from './xrp-icon';
 export * from './cypherock-locked';
 export * from './logotype';
+export * from './history-icon';
