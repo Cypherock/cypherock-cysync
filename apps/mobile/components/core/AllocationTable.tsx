@@ -24,7 +24,7 @@ export interface AllocationTableProps extends UseAssetAllocationProps {
 }
 
 export default function AllocationTable(props: AllocationTableProps) {
-  const { lang, coinAllocations, onSort, sortedBy, isAscending } =
+  const { lang, coinAllocations, onSort, sortedBy, isAscending, isLoading } =
     useAssetAllocations(props);
   const strings = lang.strings;
 
@@ -45,6 +45,7 @@ export default function AllocationTable(props: AllocationTableProps) {
       </TableHeader>
       <TableBody
         type="flat"
+        isLoading={isLoading}
         data={coinAllocations}
         renderItem={({
           item,

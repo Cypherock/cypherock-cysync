@@ -1,6 +1,6 @@
 import { FC } from 'react';
 import styled from 'styled-components/native';
-import { Typography } from '../../atoms';
+import { Loader, Typography } from '../../atoms';
 import Octicons from '@expo/vector-icons/Octicons';
 import React from 'react';
 import { SortIcon } from '../../icons';
@@ -27,6 +27,7 @@ interface TableBodyProps {
   renderItem: (item: any) => JSX.Element;
   renderSectionHeader?: (section: any) => JSX.Element;
   seperator?: (item: any) => JSX.Element;
+  isLoading?: boolean;
 }
 
 export const Table = styled.View`
@@ -115,8 +116,15 @@ export const TableBody: FC<TableBodyProps> = ({
   renderItem,
   renderSectionHeader,
   seperator,
+  isLoading,
 }) => {
   if (!data) return null;
+  if (isLoading)
+    return (
+      <View style={{ flex: 1, justifyContent: 'center' }}>
+        <Loader />
+      </View>
+    );
 
   return type === 'section' ? (
     <TableSectionListBody

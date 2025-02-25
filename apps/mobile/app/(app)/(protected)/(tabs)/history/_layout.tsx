@@ -37,6 +37,7 @@ export default function Layout() {
                 }
                 title={options.title ?? route.name}
                 leftIcon={options.headerLeft && options.headerLeft({})}
+                {...options}
               />
             ),
           }}

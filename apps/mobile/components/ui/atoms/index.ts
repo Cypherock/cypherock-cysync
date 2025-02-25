@@ -19,3 +19,4 @@ export * from './Flex';
 export * from './BottomSheet';
 export * from './LangDisplay';
 export * from './RadioButton';
+export * from './Loader';
