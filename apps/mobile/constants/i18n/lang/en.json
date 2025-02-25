@@ -142,7 +142,7 @@
     "receive": {
       "info": "Address for ${crypto} in ${wallet}",
       "messageBox": {
-        "danger": "This Receive Address was NOT VERIFIED by the device. Use it at your own risk."
+        "danger": "This Receive Address was NOT VERIFIED by the device. Use it at your own risk or verify address using cySync desktop app"
       }
     },
     "shared": {

@@ -141,7 +141,7 @@
     "receive": {
       "info": "Alamat untuk ${crypto} di ${wallet}",
       "messageBox": {
-        "danger": "Alamat Penerima ini TIDAK DIVERIFIKASI oleh perangkat. Gunakan dengan risiko Anda sendiri."
+        "danger": "Alamat Penerima Ini TIDAK TERVERIFIKASI oleh perangkat. Gunakan dengan risiko Anda sendiri atau verifikasi alamat menggunakan aplikasi desktop cySync."
       }
     },
     "shared": {

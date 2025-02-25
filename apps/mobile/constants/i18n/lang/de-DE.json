@@ -141,7 +141,7 @@
     "receive": {
       "info": "Adresse für ${crypto} in ${wallet}",
       "messageBox": {
-        "danger": "Diese Empfangsadresse wurde NICHT vom Gerät ÜBERPRÜFT. Benutzen Sie sie auf eigene Gefahr."
+        "danger": "Dit ontvangstadres is NIET VERIFIËERD door het apparaat. Gebruik het op eigen risico of verifieer het adres met de cySync desktop app."
       }
     },
     "shared": {
