@@ -12,6 +12,7 @@ import { CoinIcon, PortfolioHeader } from '@/components/core';
 import AllocationTable from '@/components/core/AllocationTable';
 import { usePortfolioFilters } from '@/hooks';
 import { selectAccounts, selectLanguage, useAppSelector } from '@/store';
+import useShowAfterDelay from '@/hooks/useShowAfterDelay';
 
 export default function Accounts() {
   const { id } = useLocalSearchParams() as { id: string };
@@ -29,6 +30,7 @@ export default function Accounts() {
     onShowFilter,
     onFilterReset,
   } = usePortfolioFilters();
+  const showGraph = useShowAfterDelay();
   const accountId = id as string;
   const selectedAccount = accounts.find(ac => ac.__id === accountId);
 
@@ -62,11 +64,13 @@ export default function Accounts() {
             />
           </Flex>
         </Flex>
-        <Graph
-          selectedRange={selectedRange}
-          accountId={accountId}
-          selectedWallet={selectedWallet}
-        />
+        {showGraph ?? (
+          <Graph
+            selectedRange={selectedRange}
+            accountId={accountId}
+            selectedWallet={selectedWallet}
+          />
+        )}
       </Container>
       <AllocationTable accountId={accountId} walletId={selectedWallet?.__id} />
       {filters.length > 0 && selectedFilter && (
