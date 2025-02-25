@@ -141,7 +141,7 @@
     "receive": {
       "info": "${wallet} 中 ${crypto} 的地址",
       "messageBox": {
-        "danger": "此接收地址未經設備驗證。請自行承擔風險使用"
+        "danger": "此接收地址未经验证设备验证。风险自负，或使用 cySync 桌面应用程序验证地址。"
       }
     },
     "shared": {
