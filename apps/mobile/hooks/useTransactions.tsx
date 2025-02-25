@@ -334,7 +334,7 @@ export const useTransactions = () => {
       onSort,
       displayedData,
       sortedBy,
-      noData: !wallets || !accounts,
+      noData: wallets.length === 0 || accounts.length === 0,
     }),
     [searchTerm, isAscending, displayedData, sortedBy],
   );
