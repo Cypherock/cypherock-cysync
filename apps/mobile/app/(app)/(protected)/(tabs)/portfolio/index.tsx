@@ -11,6 +11,7 @@ import NoDataScreen from '@/components/ui/molecules/NoDataScreen';
 import { usePortfolioFilters } from '@/hooks';
 import { selectLanguage, selectWallets, useAppSelector } from '@/store';
 import AllocationTable from '@/components/core/AllocationTable';
+import useShowAfterDelay from '@/hooks/useShowAfterDelay';
 
 export default function Portfolio() {
   const { strings } = useAppSelector(selectLanguage);
@@ -26,6 +27,7 @@ export default function Portfolio() {
     onShowFilter,
     onFilterReset,
   } = usePortfolioFilters();
+  const showGraph = useShowAfterDelay();
 
   if (wallets.length === 0) {
     return (
@@ -58,7 +60,12 @@ export default function Portfolio() {
             />
           </Flex>
         </Flex>
-        <Graph selectedRange={selectedRange} selectedWallet={selectedWallet} />
+        {showGraph && (
+          <Graph
+            selectedRange={selectedRange}
+            selectedWallet={selectedWallet}
+          />
+        )}
       </Container>
       <AllocationTable isMain walletId={selectedWallet?.__id} />
       {filters.length > 0 && selectedFilter && (
