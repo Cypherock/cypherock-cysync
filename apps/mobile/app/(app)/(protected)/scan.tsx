@@ -75,8 +75,8 @@ export default function Scan() {
   useEffect(() => {
     if (decodedData) {
       saveDataToDb(decodedData);
-      syncAllDb(true);
       navigateToNext();
+      syncAllDb(true);
     }
 
     return () => {

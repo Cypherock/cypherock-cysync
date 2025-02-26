@@ -1,9 +1,10 @@
-import { Dimensions } from 'react-native';
-import React, { useEffect, useMemo, useState } from 'react';
+import { Dimensions, View } from 'react-native';
+import React, { useMemo } from 'react';
 import {
   DataPointLabel,
   DisplayGraph,
   Flex,
+  Loader,
   Seperator,
   Typography,
 } from '../ui';
@@ -70,8 +71,12 @@ export const Graph = (props: GraphPropTypes) => {
     return data;
   }, [graphData, formatTimestamp, formatTooltipValue, formatYAxisTick]);
 
-  if (graphData.length === 0 || isLoading) {
-    return null;
+  if (isLoading) {
+    return (
+      <View style={{ justifyContent: 'center', flex: 1 }}>
+        <Loader />
+      </View>
+    );
   }
 
   return (
@@ -91,20 +96,19 @@ export const Graph = (props: GraphPropTypes) => {
           </Typography>
         </Flex>
       </Flex>
-      {!isLoading && (
-        <DisplayGraph
-          areaChart
-          spacing={Dimensions.get('screen').width / optimizedGraphData.length}
-          data={optimizedGraphData}
-          maxValue={parseFloat(summaryDetails.totalValue) * 1.8}
-          hideYAxisText
-          color={
-            props.parentAssetId
-              ? coinList[props.parentAssetId].color
-              : coinList[BtcIdMap.bitcoin].color
-          }
-        />
-      )}
+
+      <DisplayGraph
+        areaChart
+        spacing={Dimensions.get('screen').width / optimizedGraphData.length}
+        data={optimizedGraphData}
+        maxValue={parseFloat(summaryDetails.totalValue) * 1.8}
+        hideYAxisText
+        color={
+          props.parentAssetId
+            ? coinList[props.parentAssetId].color
+            : coinList[BtcIdMap.bitcoin].color
+        }
+      />
     </>
   );
 };

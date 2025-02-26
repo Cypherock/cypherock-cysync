@@ -2,7 +2,6 @@
   "expo": {
     "name": "cySync",
     "slug": "cysync",
-    "version": "0.0.1",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
     "scheme": "cysync",
@@ -51,8 +50,9 @@
         "origin": false
       },
       "eas": {
-        "projectId": "63ea374d-6364-4f00-a71e-4ba715105cc7"
+        "projectId": "b2f196d7-7c1a-41fe-a676-9399ad696f70"
       }
-    }
+    },
+    "owner": "cypherock"
   }
 }
