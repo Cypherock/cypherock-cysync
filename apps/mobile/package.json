@@ -12,7 +12,8 @@
     "lint": "eslint \"./**/*.{ts,tsx}\" --fix",
     "lint:check": "eslint \"./**/*.{ts,tsx}\"",
     "pretty": "prettier --write \"./**/*.ts?(x)\" \"tests/**/*.ts?(x)\"",
-    "pretty:check": "prettier --check \"./**/*.ts?(x)\" \"tests/**/*.ts?(x)\""
+    "pretty:check": "prettier --check \"./**/*.ts?(x)\" \"tests/**/*.ts?(x)\"",
+    "postinstall": "pnpm turbo build"
   },
   "jest": {
     "preset": "jest-expo"
