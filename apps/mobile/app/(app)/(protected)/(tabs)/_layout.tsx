@@ -1,7 +1,5 @@
 import { Tabs } from 'expo-router';
 import { StyleSheet } from 'react-native';
-import MaterialIcons from '@expo/vector-icons/MaterialIcons';
-import Octicons from '@expo/vector-icons/Octicons';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 import Feather from '@expo/vector-icons/Feather';
@@ -11,7 +9,7 @@ import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { colors } from '@/components/ui/themes/color.styled';
 import { useAppSelector } from '@/store';
 import { selectLanguage } from '@/store/lang';
-import { HistoryIcon } from '@/components/ui/icons';  
+import { HistoryIcon, ReceiveIcon } from '@/components/ui/icons';  
 
 export default function Layout() {
   const { strings } = useAppSelector(selectLanguage);
@@ -57,7 +55,7 @@ export default function Layout() {
               tabBarLabel: strings.bottomTabs.history,
               headerShown: false,
               tabBarIcon: props => (
-                <HistoryIcon size={20} color={props.color} /> 
+                <HistoryIcon size={20} color={props.color} />  
               ),
             }}
           />
@@ -68,7 +66,7 @@ export default function Layout() {
               tabBarLabel: strings.bottomTabs.receive,
               headerShown: false,
               tabBarIcon: props => (
-                <Octicons name="download" size={20} color={props.color} />
+                <ReceiveIcon size={20} color={props.color} />  
               ),
             }}
           />
