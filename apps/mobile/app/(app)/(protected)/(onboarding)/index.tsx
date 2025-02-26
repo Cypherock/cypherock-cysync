@@ -1,4 +1,4 @@
-import { Dimensions, StyleSheet, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import { Image } from 'expo-image';
 import { router } from 'expo-router';
 import {
@@ -12,6 +12,7 @@ import {
 import { Images } from '@/constants/images';
 import { useAppSelector } from '@/store';
 import { selectLanguage } from '@/store/lang';
+import Constants from 'expo-constants';
 
 export default function Index() {
   const { strings } = useAppSelector(selectLanguage);
@@ -62,7 +63,7 @@ export default function Index() {
               }}
             />
           </Typography>
-          <Typography type="para">v 0.1.0</Typography>
+          <Typography type="para">{Constants.expoConfig?.version}</Typography>
         </View>
       </View>
     </ScreenContainer>
