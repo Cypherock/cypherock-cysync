@@ -2,6 +2,7 @@ import { Container, Link, ScreenContainer, Typography } from '@/components/ui';
 import { useAppSelector } from '@/store';
 import { selectLanguage } from '@/store/lang';
 import { View } from 'react-native';
+import Constants from 'expo-constants';
 
 export default function About() {
   const { strings } = useAppSelector(selectLanguage);
@@ -15,7 +16,7 @@ export default function About() {
             {strings.settings.about.title}
           </Typography>
           <Typography type="para" textAlign="left">
-            ver 0.1.0
+            {Constants.expoConfig?.version}
           </Typography>
         </View>
         <View>
