@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { KeyboardAvoidingView, Platform, View } from 'react-native';
+import { KeyboardAvoidingView, Platform } from 'react-native';
 import {
   Button,
   Container,
@@ -24,20 +24,20 @@ export default function ChangePassword() {
   const [newPassword, setNewPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [passwordsMatch, setPasswordsMatch] = useState(true);
-  const [passwordValid, setPasswordValid] = useState(true); // Tracks overall validity
+  const [passwordValid, setPasswordValid] = useState(true);
   const [passwordChanged, setPasswordChanged] = useState(false);
   const [confirmPasswordFocused, setConfirmPasswordFocused] = useState(false);
-  const [newPasswordFocused, setNewPasswordFocused] = useState(false); 
+  const [newPasswordFocused, setNewPasswordFocused] = useState(false);
   const { setPassword: changeAppPassword } = useLockscreen();
 
   const handleContinue = async () => {
     if (newPassword !== confirmPassword) {
       setPasswordsMatch(false);
-      setPasswordValid(true); // Keep overall validity true; show mismatch only
+      setPasswordValid(true);
       return;
     }
 
-    setPasswordsMatch(true); // Reset mismatch
+    setPasswordsMatch(true);
 
     const isValid = validatePassword(newPassword);
     setPasswordValid(isValid);
@@ -58,11 +58,8 @@ export default function ChangePassword() {
   const hasDigit = /\d/.test(newPassword);
   const hasUppercase = /[A-Z]/.test(newPassword);
   const hasSpecialChar = /[!@#$%^&*]/.test(newPassword);
-
-  // Determine which validation message to show, if any.
   let validationMessage = null;
-  if (confirmPasswordFocused) {
-    // Only show after confirm password focus
+  if (newPasswordFocused || confirmPasswordFocused || newPassword.length > 0) {
     if (!hasMinLength) {
       validationMessage = validationStrings.minLength;
     } else if (!hasDigit) {
@@ -99,14 +96,19 @@ export default function ChangePassword() {
               strings.settings.changePassword.inputs.newPassword.placeholder
             }
             value={newPassword}
-            onChangeText={setNewPassword}
+            onChangeText={text => {
+              setNewPassword(text);
+              if (confirmPassword.length > 0) {
+                setPasswordsMatch(text === confirmPassword);
+              }
+            }}
             secureTextEntry
-            onFocus={() => setNewPasswordFocused(true)} // NEW
-            onBlur={() => setNewPasswordFocused(false)} // NEW
+            onFocus={() => setNewPasswordFocused(true)}
+            onBlur={() => setNewPasswordFocused(false)}
           />
-          <Typography // This is the restored guideline
+          <Typography
             type="label"
-            color={passwordValid ? 'secondary' : 'error'} // Keep color logic
+            color={passwordValid ? 'secondary' : 'error'}
             textAlign="left"
           >
             {strings.settings.changePassword.inputs.description}
@@ -116,12 +118,15 @@ export default function ChangePassword() {
               strings.settings.changePassword.inputs.confirmPassword.placeholder
             }
             value={confirmPassword}
-            onChangeText={setConfirmPassword}
+            onChangeText={text => {
+              setConfirmPassword(text);
+              setPasswordsMatch(text === newPassword);
+            }}
             secureTextEntry
             onFocus={() => setConfirmPasswordFocused(true)}
             onBlur={() => setConfirmPasswordFocused(false)}
           />
-          {!passwordsMatch && (
+          {!passwordsMatch && confirmPassword.length > 0 && (
             <Typography type="label" textAlign="left" color="error">
               {
                 strings.settings.changePassword.inputs.confirmPassword
@@ -129,8 +134,7 @@ export default function ChangePassword() {
               }
             </Typography>
           )}
-          {/* Display only one validation message, and only when confirm password is focused */}
-          {confirmPasswordFocused && validationMessage && (
+          {validationMessage && (
             <Typography type="label" color="error" textAlign="left">
               {validationMessage}
             </Typography>
