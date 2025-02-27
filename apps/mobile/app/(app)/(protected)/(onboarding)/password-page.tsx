@@ -28,6 +28,8 @@ export default function PasswordPage() {
   const [passwordValid, setPasswordValid] = useState(true);
   const [showSuccess, setShowSuccess] = useState(false);
   const { setPassword } = useLockscreen();
+  const [confirmPasswordFocused, setConfirmPasswordFocused] = useState(false);
+  const [newPasswordFocused, setNewPasswordFocused] = useState(false);
 
   const handleContinue = async () => {
     if (newPassword !== confirmPassword) {
@@ -35,6 +37,7 @@ export default function PasswordPage() {
       setPasswordValid(true);
       return;
     }
+    setPasswordsMatch(true);
     const isValid = validatePassword(newPassword);
     setPasswordValid(isValid);
     if (!isValid) return;
@@ -63,6 +66,24 @@ export default function PasswordPage() {
     );
   }
 
+  const validationStrings = strings.onboarding.passwordPage.validation;
+  const hasMinLength = newPassword.length >= 8;
+  const hasDigit = /\d/.test(newPassword);
+  const hasUppercase = /[A-Z]/.test(newPassword);
+  const hasSpecialChar = /[!@#$%^&*]/.test(newPassword);
+  let validationMessage = null;
+  if (confirmPasswordFocused) {
+    if (!hasMinLength) {
+      validationMessage = validationStrings.minLength;
+    } else if (!hasDigit) {
+      validationMessage = validationStrings.minDigit;
+    } else if (!hasUppercase) {
+      validationMessage = validationStrings.minUppercase;
+    } else if (!hasSpecialChar) {
+      validationMessage = validationStrings.minSpecialChar;
+    }
+  }
+
   return (
     <ScreenContainer
       style={{ paddingVertical: 12, paddingHorizontal: 16, paddingBottom: 24 }}
@@ -83,6 +104,8 @@ export default function PasswordPage() {
               value={newPassword}
               onChangeText={setNewPassword}
               secureTextEntry
+              onFocus={() => setNewPasswordFocused(true)}
+              onBlur={() => setNewPasswordFocused(false)}
             />
             <Typography
               type="label"
@@ -99,6 +122,8 @@ export default function PasswordPage() {
               value={confirmPassword}
               onChangeText={setConfirmPassword}
               secureTextEntry
+              onFocus={() => setConfirmPasswordFocused(true)}
+              onBlur={() => setConfirmPasswordFocused(false)}
             />
             {!passwordsMatch && (
               <Typography type="label" color="error" textAlign="left">
@@ -106,6 +131,11 @@ export default function PasswordPage() {
                   strings.onboarding.passwordPage.inputs.confirmPassword
                     .description
                 }
+              </Typography>
+            )}
+            {confirmPasswordFocused && validationMessage && (
+              <Typography type="label" color="error" textAlign="left">
+                {validationMessage}
               </Typography>
             )}
           </Container>
