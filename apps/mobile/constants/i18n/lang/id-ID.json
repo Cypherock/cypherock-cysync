@@ -76,6 +76,12 @@
           "description": "Kedua kata sandi harus cocok"
         }
       },
+      "validation": {
+        "minLength": "Minimal 8 karakter",
+        "minDigit": "Minimal 1 angka",
+        "minUppercase": "Minimal 1 huruf besar",
+        "minSpecialChar": "Minimal 1 karakter khusus (!@#$%^&*)"
+      },
       "success": {
         "title": "Kata Sandi Baru berhasil ditambahkan",
         "subTitle": "Anda sekarang dapat menggunakan kata sandi baru Anda untuk masuk"
@@ -116,7 +122,7 @@
   "history": {
     "heading": "Riwayat",
     "history": {
-      "title": "History Transaksi",
+      "title": "Riwayat Transaksi",
       "table": {
         "time": "Waktu",
         "amount": "Jumlah"
@@ -141,7 +147,7 @@
     "receive": {
       "info": "Alamat untuk ${crypto} di ${wallet}",
       "messageBox": {
-        "danger": "Alamat Penerima Ini TIDAK TERVERIFIKASI oleh perangkat. Gunakan dengan risiko Anda sendiri atau verifikasi alamat menggunakan aplikasi desktop cySync."
+        "danger": "Alamat Penerima Ini TIDAK DIVERIFIKASI oleh perangkat. Gunakan dengan risiko Anda sendiri atau verifikasi alamat menggunakan aplikasi desktop cySync."
       }
     },
     "shared": {
@@ -182,7 +188,7 @@
     "about": {
       "heading": "Tentang",
       "title": "Versi cySync",
-      "version": "Versi",
+      "version": "",
       "termsOfUse": "Syarat Penggunaan",
       "privacyPolicy": "Kebijakan Privasi"
     },
@@ -203,6 +209,12 @@
           "placeholder": "Konfirmasi kata sandi",
           "description": "Kedua kata sandi harus cocok"
         }
+      },
+      "validation": {
+        "minLength": "Minimal 8 karakter",
+        "minDigit": "Minimal 1 angka",
+        "minUppercase": "Minimal 1 huruf besar",
+        "minSpecialChar": "Minimal 1 karakter khusus (!@#$%^&*)"
       }
     },
     "changePassword": {
@@ -219,6 +231,12 @@
           "placeholder": "Konfirmasi kata sandi",
           "description": "Kedua kata sandi harus cocok"
         }
+      },
+      "validation": {
+        "minLength": "Minimal 8 karakter",
+        "minDigit": "Minimal 1 angka",
+        "minUppercase": "Minimal 1 huruf besar",
+        "minSpecialChar": "Minimal 1 karakter khusus (!@#$%^&*)"
       }
     },
     "newPasswordAdded": {
