@@ -6,27 +6,28 @@
     "skip": "Überspringen",
     "apply": "Anwenden",
     "confirm": "Bestätigen",
-    "reset": "Reset",
-    "cancel": "Cancel",
+    "reset": "Zurücksetzen",
+    "cancel": "Abbrechen",
     "login": "Anmelden",
     "getStarted": "Loslegen",
     "scanQrCode": "QR-Code scannen",
     "buyCypherockX1": "Cypherock X1 kaufen",
     "grantPermission": "Berechtigung erteilen",
+    "nextOnboarding": "Weiter",
     "allWallets": "Alle Wallets"
   },
   "lockscreen": {
     "login": {
-      "tagline": "Your Gateway to Self-Sovereignty",
+      "tagline": "Ihr Tor zur Selbstsouveränität",
       "input": {
-        "label": "Enter password to unlock",
-        "action": "Forgot password?",
-        "error": "Incorrect password"
+        "label": "Passwort eingeben, um zu entsperren",
+        "action": "Passwort vergessen?",
+        "error": "Falsches Passwort"
       }
     },
     "reset": {
-      "title": "Resetting password will reset your cySync app do you want to proceed?",
-      "description": "This will erase all your data on your cySync app. Note this will not result in loss of assets"
+      "title": "Durch das Zurücksetzen des Passworts wird Ihre cySync-App zurückgesetzt. Möchten Sie fortfahren?",
+      "description": "Dadurch werden alle Ihre Daten in Ihrer cySync-App gelöscht. Beachten Sie, dass dies nicht zum Verlust von Vermögenswerten führt."
     }
   },
   "onboarding": {
@@ -76,6 +77,12 @@
           "description": "Beide Passwörter müssen übereinstimmen"
         }
       },
+      "validation": {
+        "minLength": "Mindestens 8 Zeichen",
+        "minDigit": "Mindestens 1 Ziffer",
+        "minUppercase": "Mindestens 1 Großbuchstabe",
+        "minSpecialChar": "Mindestens 1 Sonderzeichen (!@#$%^&*)"
+      },
       "success": {
         "title": "Neues Passwort erfolgreich hinzugefügt",
         "subTitle": "Sie können sich jetzt mit Ihrem neuen Passwort anmelden"
@@ -83,10 +90,10 @@
     },
     "notifications": {
       "title": "Benachrichtigungen",
-      "subtitle": "Blijf in realtime op de hoogte van inkomende en uitgaande transacties en wallet updates."
+      "subtitle": "Bleiben Sie in Echtzeit über eingehende und ausgehende Transaktionen sowie Wallet-Updates informiert."
     },
     "allSet": {
-      "title": "Du bist startklar!",
+      "title": "Sie sind startklar!",
       "subtitle": ""
     }
   },
@@ -141,18 +148,18 @@
     "receive": {
       "info": "Adresse für ${crypto} in ${wallet}",
       "messageBox": {
-        "danger": "Dit ontvangstadres is NIET VERIFIËERD door het apparaat. Gebruik het op eigen risico of verifieer het adres met de cySync desktop app."
+        "danger": "Diese Empfangsadresse wurde NICHT vom Gerät VERIFIZIERT. Verwenden Sie sie auf eigenes Risiko oder überprüfen Sie die Adresse mit der cySync-Desktop-App."
       }
     },
     "shared": {
-      "noAccounts": "No accounts found in this wallet!"
+      "noAccounts": "Keine Konten in dieser Wallet gefunden!"
     }
   },
   "support": {
     "heading": "Support",
     "support": {
       "title": "Wie können wir helfen?",
-      "description": "Senden Sie eine E-Mail an: "
+      "description": "E-Mail an: "
     },
     "socials": {
       "title": "Bleiben Sie mit Cypherock in Verbindung",
@@ -182,7 +189,7 @@
     "about": {
       "heading": "Über",
       "title": "cySync Version",
-      "version": "Version",
+      "version": "",
       "termsOfUse": "Nutzungsbedingungen",
       "privacyPolicy": "Datenschutzrichtlinie"
     },
@@ -203,6 +210,12 @@
           "placeholder": "Passwort bestätigen",
           "description": "Beide Passwörter müssen übereinstimmen"
         }
+      },
+      "validation": {
+        "minLength": "Mindestens 8 Zeichen",
+        "minDigit": "Mindestens 1 Ziffer",
+        "minUppercase": "Mindestens 1 Großbuchstabe",
+        "minSpecialChar": "Mindestens 1 Sonderzeichen (!@#$%^&*)"
       }
     },
     "changePassword": {
@@ -219,6 +232,12 @@
           "placeholder": "Passwort bestätigen",
           "description": "Beide Passwörter müssen übereinstimmen"
         }
+      },
+      "validation": {
+        "minLength": "Mindestens 8 Zeichen",
+        "minDigit": "Mindestens 1 Ziffer",
+        "minUppercase": "Mindestens 1 Großbuchstabe",
+        "minSpecialChar": "Mindestens 1 Sonderzeichen (!@#$%^&*)"
       }
     },
     "newPasswordAdded": {
