@@ -31,10 +31,29 @@ export default function PasswordPage() {
   const [confirmPasswordFocused, setConfirmPasswordFocused] = useState(false);
   const [newPasswordFocused, setNewPasswordFocused] = useState(false);
 
+  const handleNewPasswordChange = (text: string) => {
+    setNewPassword(text);
+    // Optionally update validation in real-time
+    if (confirmPassword && text !== confirmPassword) {
+      setPasswordsMatch(false);
+    } else {
+      setPasswordsMatch(true);
+    }
+  };
+
+  const handleConfirmPasswordChange = (text: string) => {
+    setConfirmPassword(text);
+    if (newPassword && text !== newPassword) {
+      setPasswordsMatch(false);
+    } else {
+      setPasswordsMatch(true);
+    }
+  };
+
   const handleContinue = async () => {
     if (newPassword !== confirmPassword) {
       setPasswordsMatch(false);
-      setPasswordValid(true); 
+      setPasswordValid(true);
       return;
     }
     const isValid = validatePassword(newPassword);
@@ -64,13 +83,15 @@ export default function PasswordPage() {
       </ScreenContainer>
     );
   }
+
   const validationStrings = strings.onboarding.passwordPage.validation;
   const hasMinLength = newPassword.length >= 8;
   const hasDigit = /\d/.test(newPassword);
   const hasUppercase = /[A-Z]/.test(newPassword);
   const hasSpecialChar = /[!@#$%^&*]/.test(newPassword);
+
   let validationMessage = null;
-  if (confirmPasswordFocused) {
+  if (newPasswordFocused || confirmPasswordFocused) {
     if (!hasMinLength) {
       validationMessage = validationStrings.minLength;
     } else if (!hasDigit) {
@@ -100,10 +121,11 @@ export default function PasswordPage() {
                 strings.onboarding.passwordPage.inputs.newPassword.placeholder
               }
               value={newPassword}
-              onChangeText={setNewPassword}
+              onChangeText={handleNewPasswordChange}
               secureTextEntry
               onFocus={() => setNewPasswordFocused(true)}
               onBlur={() => setNewPasswordFocused(false)}
+              defaultValue={newPassword} // Ensures value persists
             />
             <Typography
               type="label"
@@ -118,10 +140,11 @@ export default function PasswordPage() {
                   .placeholder
               }
               value={confirmPassword}
-              onChangeText={setConfirmPassword}
+              onChangeText={handleConfirmPasswordChange}
               secureTextEntry
               onFocus={() => setConfirmPasswordFocused(true)}
               onBlur={() => setConfirmPasswordFocused(false)}
+              defaultValue={confirmPassword} // Ensures value persists
             />
             {!passwordsMatch && (
               <Typography type="label" color="error" textAlign="left">
@@ -131,11 +154,12 @@ export default function PasswordPage() {
                 }
               </Typography>
             )}
-            {confirmPasswordFocused && validationMessage && (
-              <Typography type="label" color="error" textAlign="left">
-                {validationMessage}
-              </Typography>
-            )}
+            {validationMessage &&
+              (newPasswordFocused || confirmPasswordFocused) && (
+                <Typography type="label" color="error" textAlign="left">
+                  {validationMessage}
+                </Typography>
+              )}
           </Container>
         </Container>
         <View style={{ gap: 8, width: '100%' }}>
