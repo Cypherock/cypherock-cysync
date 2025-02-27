@@ -13,6 +13,7 @@ import {
   CalculatePortfolioGraphDataParamsWithComputedData,
   CalculatePortfolioGraphDataParams,
 } from './types';
+import { memoizeFunctionWithObjectArg } from '@/utils/memoize';
 
 export * from './types';
 
@@ -210,40 +211,40 @@ const formatPortfolioGraphData = (
   });
 };
 
-export const calculatePortfolioGraphData = async (
-  params: CalculatePortfolioGraphDataParams,
-) => {
-  const walletId = params.selectedWallet?.__id;
+export const calculatePortfolioGraphData = memoizeFunctionWithObjectArg(
+  async (params: CalculatePortfolioGraphDataParams) => {
+    const walletId = params.selectedWallet?.__id;
 
-  try {
-    const balanceHistory = await getBalanceHistory({
-      accounts: params.accounts,
-      transactions: params.transactions,
-      priceHistories: params.priceHistories,
-      priceInfos: params.priceInfos,
-      currency: 'usd',
-      days: params.days,
-      walletId,
-      assetId: params.assetId,
-      parentAssetId: params.parentAssetId,
-      accountId: params.accountId,
-    });
+    try {
+      const balanceHistory = await getBalanceHistory({
+        accounts: params.accounts,
+        transactions: params.transactions,
+        priceHistories: params.priceHistories,
+        priceInfos: params.priceInfos,
+        currency: 'usd',
+        days: params.days,
+        walletId,
+        assetId: params.assetId,
+        parentAssetId: params.parentAssetId,
+        accountId: params.accountId,
+      });
 
-    const paramsWithComputedData = {
-      ...params,
-      computedData: balanceHistory,
-    };
+      const paramsWithComputedData = {
+        ...params,
+        computedData: balanceHistory,
+      };
 
-    const summary = calculatePortfolioGraphSummary(paramsWithComputedData);
-    const graphData = formatPortfolioGraphData(paramsWithComputedData);
+      const summary = calculatePortfolioGraphSummary(paramsWithComputedData);
+      const graphData = formatPortfolioGraphData(paramsWithComputedData);
 
-    return { balanceHistory, summary, graphData };
-  } catch (error) {
-    console.error('Error in calculatePortfolioGraphData:', error);
-  }
+      return { balanceHistory, summary, graphData };
+    } catch (error) {
+      console.error('Error in calculatePortfolioGraphData:', error);
+    }
 
-  return undefined;
-};
+    return undefined;
+  },
+);
 
 export type CalculatePortfolioGraphDataType =
   typeof calculatePortfolioGraphData;
