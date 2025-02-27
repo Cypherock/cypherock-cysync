@@ -13,6 +13,7 @@
     "scanQrCode": "مسح رمز الاستجابة السريعة",
     "buyCypherockX1": "شراء Cypherock X1",
     "grantPermission": "منح الإذن",
+    "nextOnboarding": "التالي",
     "allWallets": "جميع المحافظ"
   },
   "lockscreen": {
@@ -75,6 +76,12 @@
           "placeholder": "تأكيد كلمة المرور",
           "description": "يجب أن تتطابق كلمتا المرور"
         }
+      },
+      "validation": {
+        "minLength": "8 أحرف على الأقل",
+        "minDigit": "رقم واحد على الأقل",
+        "minUppercase": "حرف كبير واحد على الأقل",
+        "minSpecialChar": "حرف خاص واحد على الأقل (!@#$%^&*)"
       },
       "success": {
         "title": "تمت إضافة كلمة المرور الجديدة بنجاح",
@@ -182,7 +189,7 @@
     "about": {
       "heading": "حول",
       "title": "إصدار CySync",
-      "version": "الإصدار",
+      "version": "",
       "termsOfUse": "شروط الاستخدام",
       "privacyPolicy": "سياسة الخصوصية"
     },
@@ -203,6 +210,12 @@
           "placeholder": "تأكيد كلمة المرور",
           "description": "يجب أن تتطابق كلمتا المرور"
         }
+      },
+      "validation": {
+        "minLength": "8 أحرف على الأقل",
+        "minDigit": "رقم واحد على الأقل",
+        "minUppercase": "حرف كبير واحد على الأقل",
+        "minSpecialChar": "حرف خاص واحد على الأقل (!@#$%^&*)"
       }
     },
     "changePassword": {
@@ -219,6 +232,12 @@
           "placeholder": "تأكيد كلمة المرور",
           "description": "يجب أن تتطابق كلمتا المرور"
         }
+      },
+      "validation": {
+        "minLength": "8 أحرف على الأقل",
+        "minDigit": "رقم واحد على الأقل",
+        "minUppercase": "حرف كبير واحد على الأقل",
+        "minSpecialChar": "حرف خاص واحد على الأقل (!@#$%^&*)"
       }
     },
     "newPasswordAdded": {
@@ -247,11 +266,11 @@
     }
   },
   "banner": {
-    "title": "غطاء Cypherock أصبح هنا!",
-    "description": "انقر هنا لمعرفة المزيد"
+    "title": "Cypherock Cover is here!",
+    "description": "Click here to know more"
   },
   "toast": {
-    "addressCopied": "تم نسخ العنوان بنجاح"
+    "addressCopied": "Address copied successfully"
   },
   "bottomTabs": {
     "portfolio": "المحفظة",
