@@ -77,6 +77,12 @@
           "description": "Both passwords must match"
         }
       },
+      "validation": {
+        "minLength": "Minimum 8 characters",
+        "minDigit": "Minimum 1 digit",
+        "minUppercase": "Minimum 1 uppercase character",
+        "minSpecialChar": "Minimum 1 special character (!@#$%^&*)"
+      },
       "success": {
         "title": "New Password added successfully",
         "subTitle": "You can now use your new password to log in"
@@ -236,12 +242,15 @@
   },
   "notifications": {
     "heading": "Notifications",
-    "sendTransaction": "${amount} ${unit} ${type} to ${address}",
-    "sendTransactionMultiple": "${amount} ${unit} ${type} to multiple addresses",
-    "receiveTransaction": "${amount} ${unit} ${type} in the account ${walletName}/${accountName}",
-    "noTransactions": {
-      "title": "All caught up",
-      "subTitle": "No new transactions to show"
+    "notifications": {
+      "heading": "Notifications",
+      "sendTransaction": "${amount} ${unit} ${type} to ${address}",
+      "sendTransactionMultiple": "${amount} ${unit} ${type} to multiple addresses",
+      "receiveTransaction": "${amount} ${unit} ${type} in the account ${walletName}/${accountName}",
+      "noTransactions": {
+        "title": "All caught up",
+        "subTitle": "No new transactions to show"
+      }
     }
   },
   "banner": {
