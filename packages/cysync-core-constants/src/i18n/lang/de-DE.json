@@ -318,7 +318,10 @@
       "network": "Netzwerkgebühr",
       "debit": "Gesamtsumme zum Abbuchen",
       "remarks": "Persönliche Notiz",
-      "destinationTag": "Ziel-Tag"
+      "destinationTag": {
+        "xrp": "Ziel-Tag",
+        "icp": "Memo"
+      }
     },
     "finalMessage": {
       "button": "Transaktionen überprüfen",
@@ -429,7 +432,8 @@
         "optimism": "L2 "
       },
       "remarks": "Persönliche Notiz",
-      "destinationTag": "Ziel-Tag"
+      "destinationTag": "Ziel-Tag",
+      "memo": "Memo"
     },
     "noData": {
       "text": "Noch keine Transaktionen",

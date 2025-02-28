@@ -318,7 +318,10 @@
       "network": "Biaya Jaringan",
       "debit": "Total yang didebet",
       "remarks": "Catatan Pribadi",
-      "destinationTag": "Tag Tujuan"
+      "destinationTag": {
+        "xrp": "Tag Tujuan",
+        "icp": "Memo"
+      }
     },
     "finalMessage": {
       "button": "Periksa transaksi",
@@ -429,7 +432,8 @@
         "optimism": "L2 "
       },
       "remarks": "Catatan Pribadi",
-      "destinationTag": "Tag Tujuan"
+      "destinationTag": "Tag Tujuan",
+      "memo": "Memo"
     },
     "noData": {
       "text": "Belum ada transaksi",

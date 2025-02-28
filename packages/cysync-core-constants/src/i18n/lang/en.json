@@ -318,7 +318,10 @@
       "network": "Network Fee",
       "debit": "Total to debit",
       "remarks": "Personal Note",
-      "destinationTag": "Destination Tag"
+      "destinationTag": {
+        "xrp": "Destination Tag",
+        "icp": "Memo"
+      }
     },
     "finalMessage": {
       "button": "Check transactions",
@@ -429,7 +432,8 @@
         "optimism": "L2 "
       },
       "remarks": "Personal Note",
-      "destinationTag": "Destination Tag"
+      "destinationTag": "Destination Tag",
+      "memo": "Memo"
     },
     "noData": {
       "text": "No transactions yet",

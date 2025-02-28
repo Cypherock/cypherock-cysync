@@ -318,7 +318,10 @@
       "network": "رسوم الشبكة",
       "debit": "المجموع المراد خصمه",
       "remarks": "ملاحظة شخصية",
-      "destinationTag": "علامة الوجهة"
+      "destinationTag": {
+        "xrp": "علامة الوجهة",
+        "icp": "Memo"
+      }
     },
     "finalMessage": {
       "button": "التحقق من المعاملات",
@@ -429,7 +432,8 @@
         "optimism": "L2 "
       },
       "remarks": "ملاحظة شخصية",
-      "destinationTag": "Destination Tag"
+      "destinationTag": "Destination Tag",
+      "memo": "Memo"
     },
     "noData": {
       "text": "لا توجد معاملات حتى الآن",

@@ -29,6 +29,7 @@ import { selectLanguage, selectPriceInfos, useAppSelector } from '~/store';
 import { useSendDialog } from '../context';
 import { useLabelSuffix } from '../hooks';
 import { IPreparedXrpTransaction } from '@cypherock/coin-support-xrp';
+import { IPreparedIcpTransaction } from '@cypherock/coin-support-icp';
 
 export const SummaryDialog: React.FC = () => {
   const {
@@ -235,18 +236,34 @@ export const SummaryDialog: React.FC = () => {
 
   const getDestinationTagDetails = () => {
     if (!transaction || !transaction.userInputs.outputs) return [];
-    const txn = transaction as IPreparedXrpTransaction;
-    if (txn.userInputs.outputs[0]?.destinationTag === undefined) return [];
 
-    const destinationTagDetails = txn.userInputs.outputs
-      .filter(output => output.destinationTag !== undefined)
-      .map((output, index) => ({
-        id: `destinationTag-${txn.accountId}-${index}`,
-        leftText: displayText.destinationTag,
-        rightText: output.destinationTag?.toString() ?? '',
-      }));
+    const xrpTxn = transaction as IPreparedXrpTransaction;
+    if (xrpTxn.userInputs.outputs[0]?.destinationTag !== undefined) {
+      const destinationTagDetails = xrpTxn.userInputs.outputs
+        .filter(output => output.destinationTag !== undefined)
+        .map((output, index) => ({
+          id: `destinationTag-${xrpTxn.accountId}-${index}`,
+          leftText: displayText.destinationTag.xrp,
+          rightText: output.destinationTag?.toString() ?? '',
+        }));
 
-    return destinationTagDetails;
+      return destinationTagDetails;
+    }
+
+    const icpTxn = transaction as IPreparedIcpTransaction;
+    if (icpTxn.userInputs.outputs[0]?.memo !== undefined) {
+      const destinationTagDetails = icpTxn.userInputs.outputs
+        .filter(output => output.memo !== undefined)
+        .map((output, index) => ({
+          id: `memo-${icpTxn.accountId}-${index}`,
+          leftText: displayText.destinationTag.icp,
+          rightText: output.memo ?? '',
+        }));
+
+      return destinationTagDetails;
+    }
+
+    return [];
   };
 
   const isSingleTransaction = transaction?.userInputs.outputs.length === 1;

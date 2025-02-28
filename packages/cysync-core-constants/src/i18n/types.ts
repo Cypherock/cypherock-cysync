@@ -316,7 +316,7 @@ interface LangSend {
     network: string;
     debit: string;
     remarks: string;
-    destinationTag: string;
+    destinationTag: { xrp: string; icp: string };
   };
   finalMessage: {
     button: string;
@@ -411,6 +411,7 @@ interface LangHistory {
     feePrefix: { optimism: string };
     remarks: string;
     destinationTag: string;
+    memo: string;
   };
   noData: { text: string; subText: string; buttonText: string };
   search: { placeholder: string; notFound: { text: string; subText: string } };
