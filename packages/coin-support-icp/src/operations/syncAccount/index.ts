@@ -1,5 +1,6 @@
 import {
   createSyncAccountsObservable,
+  getLatestTransactionHash,
   IGetAddressDetails,
 } from '@cypherock/coin-support-utils';
 import {
@@ -69,7 +70,7 @@ const parseTransaction = (
         },
       ],
       extraData: {
-        memo: Number(txn.transaction.memo),
+        memo: txn.transaction.memo.toString(),
       },
     };
   }
@@ -82,22 +83,35 @@ const fetchAndParseTransactions = async (params: {
   account: IAccount;
   limit: number;
   beforeTransactionId?: bigint;
+  afterTransactionId: bigint;
 }) => {
-  const { address, account, limit, beforeTransactionId } = params;
+  const { address, account, limit, beforeTransactionId, afterTransactionId } =
+    params;
   const txns = await services.getTransactions(
     address,
     BigInt(limit),
     beforeTransactionId,
   );
 
+  let hasMore = true;
+  let lastTransactionId = BigInt(0);
+
   const transactions: ITransaction[] = [];
   for (const txn of txns) {
+    if (txn.id <= afterTransactionId) {
+      hasMore = false;
+      lastTransactionId = txn.id;
+      break;
+    }
+
     const transaction = parseTransaction(address, account, txn);
     if (transaction) transactions.push({ ...transaction });
   }
 
-  const hasMore = limit <= txns.length;
-  const lastTransactionId = txns.length ? txns[txns.length - 1].id : BigInt(0);
+  if (hasMore) {
+    hasMore = limit <= txns.length;
+    lastTransactionId = txns.length ? txns[txns.length - 1].id : BigInt(0);
+  }
 
   return {
     transactions,
@@ -109,8 +123,9 @@ const fetchAndParseTransactions = async (params: {
 const getAddressDetails: IGetAddressDetails<{
   perPage: number;
   beforeTransactionId?: bigint;
+  afterTransactionId?: bigint;
   updatedBalance?: string;
-}> = async ({ account, iterationContext }) => {
+}> = async ({ account, db, iterationContext }) => {
   const address = account.xpubOrAddress;
 
   const updatedBalance =
@@ -118,11 +133,20 @@ const getAddressDetails: IGetAddressDetails<{
 
   const perPage = iterationContext?.perPage ?? PER_PAGE_TXN_LIMIT;
 
+  const afterTransactionId =
+    iterationContext?.afterTransactionId ??
+    BigInt(
+      (await getLatestTransactionHash(db, {
+        accountId: account.__id,
+      })) ?? 0,
+    );
+
   const transactionDetails = await fetchAndParseTransactions({
     address,
     account,
     limit: perPage,
     beforeTransactionId: iterationContext?.beforeTransactionId,
+    afterTransactionId,
   });
 
   const updatedAccountInfo: Partial<IIcpAccount> = {
@@ -134,6 +158,7 @@ const getAddressDetails: IGetAddressDetails<{
     nextIterationContext: {
       perPage,
       beforeTransactionId: transactionDetails.lastTransactionId,
+      afterTransactionId,
       updatedBalance,
     },
     transactions: transactionDetails.transactions,
