@@ -133,11 +133,14 @@ const getAddressDetails: IGetAddressDetails<{
 
   const perPage = iterationContext?.perPage ?? PER_PAGE_TXN_LIMIT;
 
+  // Getting afterTransactionId from txn hash instead of block because
+  // txn id is a bigint and block is a number. Block value might not be accurate
   const afterTransactionId =
     iterationContext?.afterTransactionId ??
     BigInt(
       (await getLatestTransactionHash(db, {
         accountId: account.__id,
+        status: TransactionStatusMap.success,
       })) ?? 0,
     );
 
