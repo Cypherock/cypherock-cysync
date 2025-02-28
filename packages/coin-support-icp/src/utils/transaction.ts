@@ -19,15 +19,15 @@ import { IPreparedIcpTransaction } from '../operations/transaction';
 const ICP_LEDGER_CANISTER_ID = 'ryjl3-tyaaa-aaaaa-aaaba-cai';
 
 const Tokens = IDL.Record({ e8s: IDL.Nat64 });
-// const SubAccount = IDL.Vec(IDL.Nat8);
-// const TimeStamp = IDL.Record({ 'timestamp_nanos' : IDL.Nat64 });
+const SubAccount = IDL.Vec(IDL.Nat8);
+const TimeStamp = IDL.Record({ timestamp_nanos: IDL.Nat64 });
 const TransferArgs = IDL.Record({
   to: IDL.Vec(IDL.Nat8),
   amount: Tokens,
   fee: Tokens,
   memo: IDL.Nat64,
-  // 'from_subaccount' : IDL.Opt(SubAccount),
-  // 'created_at_time' : IDL.Opt(TimeStamp),
+  from_subaccount: IDL.Opt(SubAccount),
+  created_at_time: IDL.Opt(TimeStamp),
 });
 
 const MINUTE_TO_MSECS = 60 * 1000;
@@ -81,8 +81,8 @@ export const prepareTransferRequest = (
     fee: { e8s: BigInt(preparedTxnData.fees) },
     amount: { e8s: BigInt(preparedTxnData.output.amount) },
     memo: BigInt(preparedTxnData.output.memo ?? 0),
-    // created_at_time: [],
-    // from_subaccount: [],
+    created_at_time: [],
+    from_subaccount: [],
   };
 
   return {
