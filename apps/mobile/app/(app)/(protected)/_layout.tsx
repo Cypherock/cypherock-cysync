@@ -1,9 +1,8 @@
 import { LottieSplash, useTheme } from '@/components/ui';
 import { Stack } from 'expo-router';
 import { keyValueStore } from '@/db';
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { SplashScreen } from 'expo-router';
-import { BackgroundTasks } from '@/bgTasks';
 
 export default function Layout() {
   const [onBoaridngCompleted, setOnBoardingCompleted] = useState(false);
@@ -35,19 +34,16 @@ export default function Layout() {
   }
 
   return (
-    <>
-      <Stack
-        screenOptions={{
-          headerShown: false,
-          contentStyle: { backgroundColor: theme.palette.background.primary },
-        }}
-      >
-        <Stack.Screen name="(onboarding)" redirect={onBoaridngCompleted} />
-        <Stack.Screen name="(tabs)" />
-        <Stack.Screen name="permission" />
-        <Stack.Screen name="scan" />
-      </Stack>
-      <BackgroundTasks />
-    </>
+    <Stack
+      screenOptions={{
+        headerShown: false,
+        contentStyle: { backgroundColor: theme.palette.background.primary },
+      }}
+    >
+      <Stack.Screen name="(onboarding)" redirect={onBoaridngCompleted} />
+      <Stack.Screen name="(tabs)" />
+      <Stack.Screen name="permission" />
+      <Stack.Screen name="scan" />
+    </Stack>
   );
 }
