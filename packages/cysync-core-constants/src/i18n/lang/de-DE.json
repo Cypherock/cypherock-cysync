@@ -300,7 +300,10 @@
       "infoBox": "Höchstbetrag, der ausgegeben werden kann, ist ",
       "addButton": "Einen weiteren Empfänger hinzufügen",
       "destinationTag": {
-        "label": "Ziel-Tag",
+        "label": {
+          "xrp": "Ziel-Tag",
+          "icp": "Memo"
+        },
         "placeholder": "Optional",
         "error": "Wert zu hoch"
       },

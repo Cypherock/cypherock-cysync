@@ -301,7 +301,11 @@ interface LangSend {
     infoBox: string;
     addButton: string;
     remarks: { label: string; placeholder: string; error: string };
-    destinationTag: { label: string; placeholder: string; error: string };
+    destinationTag: {
+      label: { xrp: string; icp: string };
+      placeholder: string;
+      error: string;
+    };
     rentExemptFeeWarning: string;
   };
   summary: {

@@ -300,7 +300,10 @@
       "infoBox": "最大可花费金额为",
       "addButton": "添加另一个收件人",
       "destinationTag": {
-        "label": "目标标签",
+        "label": {
+          "xrp": "目标标签",
+          "icp": "Memo"
+        },
         "placeholder": "可选",
         "error": "值过高"
       },

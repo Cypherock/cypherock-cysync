@@ -2,6 +2,7 @@ import { getDefaultUnit, getParsedAmount } from '@cypherock/coin-support-utils';
 import { IPreparedBtcTransaction } from '@cypherock/coin-support-btc';
 import { IPreparedSolanaTransaction } from '@cypherock/coin-support-solana';
 import { IPreparedXrpTransaction } from '@cypherock/coin-support-xrp';
+import { IPreparedIcpTransaction } from '@cypherock/coin-support-icp';
 import {
   BlockchainIcon,
   Button,
@@ -87,7 +88,9 @@ export const Recipient: React.FC = () => {
         !(transaction.validation as IPreparedXrpTransaction['validation'])
           .isInvalidDestinationTag &&
         !(transaction.validation as IPreparedSolanaTransaction['validation'])
-          .isAmountBelowRentExempt,
+          .isAmountBelowRentExempt &&
+        !(transaction.validation as IPreparedIcpTransaction['validation'])
+          .isInvalidMemo,
     );
   }, [transaction, isPreparingTxn]);
 

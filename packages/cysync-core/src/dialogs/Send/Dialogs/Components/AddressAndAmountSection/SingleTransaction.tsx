@@ -1,6 +1,7 @@
 import { IPreparedBtcTransaction } from '@cypherock/coin-support-btc';
 import { IPreparedEvmTransaction } from '@cypherock/coin-support-evm';
 import { IPreparedXrpTransaction } from '@cypherock/coin-support-xrp';
+import { IPreparedIcpTransaction } from '@cypherock/coin-support-icp';
 import { IPreparedTransaction } from '@cypherock/coin-support-interfaces';
 import { getDefaultUnit, getParsedAmount } from '@cypherock/coin-support-utils';
 import { CoinFamily } from '@cypherock/coins';
@@ -80,9 +81,20 @@ export const SingleTransaction: React.FC<SingleTransactionProps> = ({
   const getXrpDestinationTagInputProps = () => {
     const txn = transaction as IPreparedXrpTransaction;
     return {
-      label: displayText.destinationTag.label,
+      label: displayText.destinationTag.label.xrp,
       placeholder: displayText.destinationTag.placeholder,
-      initialValue: txn?.userInputs.outputs[0]?.destinationTag,
+      initialValue: txn?.userInputs.outputs[0]?.destinationTag?.toString(),
+      onChange: prepareDestinationTag,
+      error: getDestinationTagError(),
+    };
+  };
+
+  const getIcpDestinationTagInputProps = () => {
+    const txn = transaction as IPreparedIcpTransaction;
+    return {
+      label: displayText.destinationTag.label.icp,
+      placeholder: displayText.destinationTag.placeholder,
+      initialValue: txn?.userInputs.outputs[0]?.memo,
       onChange: prepareDestinationTag,
       error: getDestinationTagError(),
     };
@@ -99,11 +111,12 @@ export const SingleTransaction: React.FC<SingleTransactionProps> = ({
     tron: () => ({}),
     xrp: getXrpDestinationTagInputProps,
     starknet: () => ({}),
-    icp: () => ({}),
+    icp: getIcpDestinationTagInputProps,
   };
 
   const destinationTagInputMap: Partial<Record<CoinFamily, React.FC<any>>> = {
     xrp: DestinationTagInput,
+    icp: DestinationTagInput,
   };
 
   const getDestinationTagInputComponent = () => {

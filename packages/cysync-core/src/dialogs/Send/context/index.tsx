@@ -15,6 +15,7 @@ import {
 } from '@cypherock/coin-support-starknet';
 import { IPreparedTronTransaction } from '@cypherock/coin-support-tron';
 import { IPreparedXrpTransaction } from '@cypherock/coin-support-xrp';
+import { IPreparedIcpTransaction } from '@cypherock/coin-support-icp';
 import {
   convertToUnit,
   formatDisplayAmount,
@@ -112,7 +113,7 @@ export interface SendDialogContextInterface {
   prepareAmountChanged: (val: string) => Promise<void>;
   prepareTransactionRemarks: (val: string) => Promise<void>;
   prepareSendMax: (state: boolean) => Promise<string>;
-  prepareDestinationTag: (tag: number) => Promise<void>;
+  prepareDestinationTag: (tag: string) => Promise<void>;
   priceConverter: (val: string, inverse?: boolean) => string;
   updateUserInputs: (count: number) => void;
   isAccountSelectionDisabled: boolean | undefined;
@@ -541,23 +542,45 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
     return formatDisplayAmount(convertedAmount.amount).complete;
   };
 
-  const prepareDestinationTag = async (tag: number) => {
-    const txn = transactionRef.current as IPreparedXrpTransaction;
-    if (!txn) return;
+  const prepareDestinationTag = async (tag: string) => {
+    if (!selectedAccount) return;
 
-    const valueToSet = tag < 0 ? undefined : tag;
-    if (txn.userInputs.outputs.length > 0) {
-      txn.userInputs.outputs[0].destinationTag = valueToSet;
-    } else {
-      txn.userInputs.outputs = [
-        {
-          address: '',
-          amount: '',
-          destinationTag: valueToSet,
-        },
-      ];
+    if (selectedAccount.familyId === coinFamiliesMap.xrp) {
+      const txn = transactionRef.current as IPreparedXrpTransaction;
+      if (!txn) return;
+
+      const destinationTag = new BigNumber(tag).toNumber();
+      const valueToSet = destinationTag < 0 ? undefined : destinationTag;
+      if (txn.userInputs.outputs.length > 0) {
+        txn.userInputs.outputs[0].destinationTag = valueToSet;
+      } else {
+        txn.userInputs.outputs = [
+          {
+            address: '',
+            amount: '',
+            destinationTag: valueToSet,
+          },
+        ];
+      }
+      await prepare(txn);
+    } else if (selectedAccount.familyId === coinFamiliesMap.icp) {
+      const txn = transactionRef.current as IPreparedIcpTransaction;
+      if (!txn) return;
+
+      const valueToSet = new BigNumber(tag).isLessThan(0) ? undefined : tag;
+      if (txn.userInputs.outputs.length > 0) {
+        txn.userInputs.outputs[0].memo = valueToSet;
+      } else {
+        txn.userInputs.outputs = [
+          {
+            address: '',
+            amount: '',
+            memo: valueToSet,
+          },
+        ];
+      }
+      await prepare(txn);
     }
-    await prepare(txn);
   };
 
   const priceConverter = (val: string, invert?: boolean) => {
@@ -633,6 +656,12 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
     return computedData.feeData.suggestedMaxFee || '0';
   };
 
+  const getIcpFeeAmount = (txn: IPreparedTransaction | undefined) => {
+    if (!txn) return '0';
+    const { computedData } = txn as IPreparedIcpTransaction;
+    return computedData.fees || '0';
+  };
+
   const computedFeeMap: Record<
     CoinFamily,
     (txn: IPreparedTransaction | undefined) => string
@@ -644,7 +673,7 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
     tron: getTronFeeAmount,
     xrp: getXrpFeeAmount,
     starknet: getStarknetFeeAmount,
-    icp: () => '0',
+    icp: getIcpFeeAmount,
   };
 
   const getComputedFee = (coinFamily: CoinFamily, txn?: IPreparedTransaction) =>
@@ -769,7 +798,9 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
   const getDestinationTagError = useCallback(() => {
     if (
       (transaction?.validation as IPreparedXrpTransaction['validation'])
-        .isInvalidDestinationTag
+        .isInvalidDestinationTag ||
+      (transaction?.validation as IPreparedIcpTransaction['validation'])
+        .isInvalidMemo
     ) {
       return lang.strings.send.recipient.destinationTag.error;
     }

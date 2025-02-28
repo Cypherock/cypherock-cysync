@@ -300,7 +300,10 @@
       "infoBox": "Jumlah maksimum yang dapat digunakan adalah ",
       "addButton": "Tambahkan penerima lain",
       "destinationTag": {
-        "label": "Tag Tujuan",
+        "label": {
+          "xrp": "Tag Tujuan",
+          "icp": "Memo"
+        },
         "placeholder": "Opsional",
         "error": "Nilai terlalu tinggi"
       },

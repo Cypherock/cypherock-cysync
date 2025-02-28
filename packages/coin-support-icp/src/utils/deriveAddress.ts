@@ -20,11 +20,13 @@ const decompressPublicKey = (compressedKey: string) => {
   return key.getPublic().encode('array', false);
 };
 
-const getDerEncodedPublicKey = (publicKey: number[]) => {
+export const getDerEncodedPublicKey = (publicKey: string) => {
+  const uncompressedPubKey = decompressPublicKey(publicKey);
+
   const oidPrefixedPubKey = Array.from([
     ...SECP256K1_OID,
-    ...[0x03, publicKey.length + 1, 0x00], // Bit string tag (0x03), publicKey.byteLength + 1, padding 0x00
-    ...publicKey,
+    ...[0x03, uncompressedPubKey.length + 1, 0x00], // Bit string tag (0x03), uncompressedPubKey.byteLength + 1, padding 0x00
+    ...uncompressedPubKey,
   ]);
 
   return Uint8Array.from([
@@ -52,9 +54,7 @@ const deriveAccountIdFromPrincipal = (
 };
 
 export const derivePrincipal = (publicKey: string) => {
-  const uncompressedPubKey = decompressPublicKey(publicKey);
-
-  const derEncodedPubKey = getDerEncodedPublicKey(uncompressedPubKey);
+  const derEncodedPubKey = getDerEncodedPublicKey(publicKey);
 
   const hash = new SHA224().update(derEncodedPubKey).digest();
 

@@ -300,7 +300,10 @@
       "infoBox": "Maximum spendable amount is ",
       "addButton": "Add another recipient",
       "destinationTag": {
-        "label": "Destination Tag",
+        "label": {
+          "xrp": "Destination Tag",
+          "icp": "Memo"
+        },
         "placeholder": "Optional",
         "error": "Value too high"
       },

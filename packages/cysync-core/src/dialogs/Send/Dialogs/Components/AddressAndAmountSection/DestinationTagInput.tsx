@@ -13,8 +13,8 @@ import React, { useCallback, useState } from 'react';
 interface DestinationTagInputProps {
   label: string;
   placeholder: string;
-  initialValue?: number;
-  onChange: (value: number) => Promise<void>;
+  initialValue?: string;
+  onChange: (value: string) => Promise<void>;
   error?: string;
 }
 
@@ -25,7 +25,7 @@ export const DestinationTagInput: React.FC<DestinationTagInputProps> = ({
   onChange,
   error,
 }) => {
-  const [value, setValue] = useState<string>(initialValue?.toString() ?? '');
+  const [value, setValue] = useState<string>(initialValue ?? '');
 
   const debouncedOnValueChange = useCallback(
     lodash.debounce(onChange, 300),
@@ -42,7 +42,7 @@ export const DestinationTagInput: React.FC<DestinationTagInputProps> = ({
     }
 
     setValue(filteredValue);
-    debouncedOnValueChange(bigNum.toNumber());
+    debouncedOnValueChange(bigNum.toString());
   };
 
   return (
