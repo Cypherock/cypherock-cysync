@@ -302,7 +302,7 @@
       "destinationTag": {
         "label": {
           "xrp": "目标标签",
-          "icp": "Memo"
+          "icp": "备忘录"
         },
         "placeholder": "可选",
         "error": "值过高"
@@ -320,7 +320,7 @@
       "remarks": "个人备注",
       "destinationTag": {
         "xrp": "目标标签",
-        "icp": "Memo"
+        "icp": "备忘录"
       }
     },
     "finalMessage": {
@@ -433,7 +433,7 @@
       },
       "remarks": "个人备注",
       "destinationTag": "目标标签",
-      "memo": "Memo"
+      "memo": "备忘录"
     },
     "noData": {
       "text": "尚无交易",

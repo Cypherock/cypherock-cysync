@@ -302,7 +302,7 @@
       "destinationTag": {
         "label": {
           "xrp": "علامة الوجهة",
-          "icp": "Memo"
+          "icp": "مذكرة"
         },
         "placeholder": "اختياري",
         "error": "قيمة مرتفعة جدًا"
@@ -320,7 +320,7 @@
       "remarks": "ملاحظة شخصية",
       "destinationTag": {
         "xrp": "علامة الوجهة",
-        "icp": "Memo"
+        "icp": "مذكرة"
       }
     },
     "finalMessage": {
@@ -433,7 +433,7 @@
       },
       "remarks": "ملاحظة شخصية",
       "destinationTag": "Destination Tag",
-      "memo": "Memo"
+      "memo": "مذكرة"
     },
     "noData": {
       "text": "لا توجد معاملات حتى الآن",
