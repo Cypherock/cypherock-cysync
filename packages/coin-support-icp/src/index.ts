@@ -34,17 +34,17 @@ export { updateLogger } from './utils/logger';
 
 export class IcpSupport implements CoinSupport {
   public receive(params: IReceiveParams): Observable<IReceiveEvent> {
-    throw new Error(`Method not implemented Params: ${params}`);
+    return operations.receive(params);
   }
 
   public createAccounts(
     params: ICreateAccountParams,
   ): Observable<ICreateAccountEvent> {
-    throw new Error(`Method not implemented Params: ${params}`);
+    return operations.createAccounts(params);
   }
 
   public syncAccount(params: ISyncAccountsParams): Observable<void> {
-    throw new Error(`Method not implemented Params: ${params}`);
+    return operations.syncAccount(params);
   }
 
   public async initializeTransaction(
@@ -104,7 +104,7 @@ export class IcpSupport implements CoinSupport {
   }
 
   public getExplorerLink(params: IGetExplorerLink): string {
-    throw new Error(`Method not implemented Params: ${params}`);
+    return operations.getExplorerLink(params);
   }
 
   public formatAddress(params: IFormatAddressParams): string {
