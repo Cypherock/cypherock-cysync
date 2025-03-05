@@ -2,7 +2,7 @@ import {
   IPreparedTransaction,
   IPreparedTransactionOutput,
 } from '@cypherock/coin-support-interfaces';
-import { Nonce } from '@dfinity/agent';
+import type { Nonce } from '@dfinity/agent';
 
 export interface IPreparedIcpTransactionOutput
   extends IPreparedTransactionOutput {

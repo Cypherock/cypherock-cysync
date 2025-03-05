@@ -11,12 +11,12 @@ import {
 } from '@cypherock/db-interfaces';
 import { ISignTxnResult } from '@cypherock/sdk-app-icp';
 import { hexToUint8Array } from '@cypherock/sdk-utils';
-import { encode } from '@dfinity/agent/lib/cjs/cbor';
 
 import { IBroadcastIcpTransactionParams } from './types';
 
 import { broadcastTransactionToBlockchain } from '../../services';
 import {
+  getCoinSupportDfinityLib,
   getDerEncodedPublicKey,
   prepareReadStateRequest,
   prepareTransferRequest,
@@ -41,7 +41,8 @@ const prepareSignedTxn = (
     (account as IIcpAccount).extraData.publicKey,
   );
 
-  const serializedTransferRequest = encode({
+  const { agent } = getCoinSupportDfinityLib();
+  const serializedTransferRequest = agent.Cbor.encode({
     content: transferRequest,
     sender_pubkey: derPubKey,
     sender_sig: hexToUint8Array(signature.transferRequestSignature),

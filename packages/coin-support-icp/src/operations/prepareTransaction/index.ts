@@ -5,7 +5,6 @@ import { assert, BigNumber } from '@cypherock/cysync-utils';
 import { IPrepareIcpTransactionParams } from './types';
 
 import { getIngressExpiry, getNonce } from '../../utils';
-
 import { IPreparedIcpTransaction } from '../transaction';
 import { validateAddress } from '../validateAddress';
 

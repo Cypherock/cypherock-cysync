@@ -1,46 +1,33 @@
-import {
+import type {
   CallRequest,
-  Expiry,
-  hashOfMap,
-  makeNonce,
   Nonce,
   RequestId,
   SubmitRequestType,
 } from '@dfinity/agent';
-import { IDL, lebDecode, lebEncode, PipeArrayBuffer } from '@dfinity/candid';
-import { AccountIdentifier } from '@dfinity/ledger-icp';
-import { Principal } from '@dfinity/principal';
 import * as cbor from 'simple-cbor';
 
 import { derivePrincipal } from './deriveAddress';
+import { getCoinSupportDfinityLib } from './dfinityLib';
 
 import { IPreparedIcpTransaction } from '../operations/transaction';
 
 const ICP_LEDGER_CANISTER_ID = 'ryjl3-tyaaa-aaaaa-aaaba-cai';
 
-const Tokens = IDL.Record({ e8s: IDL.Nat64 });
-const SubAccount = IDL.Vec(IDL.Nat8);
-const TimeStamp = IDL.Record({ timestamp_nanos: IDL.Nat64 });
-const TransferArgs = IDL.Record({
-  to: IDL.Vec(IDL.Nat8),
-  amount: Tokens,
-  fee: Tokens,
-  memo: IDL.Nat64,
-  from_subaccount: IDL.Opt(SubAccount),
-  created_at_time: IDL.Opt(TimeStamp),
-});
-
 const MINUTE_TO_MSECS = 60 * 1000;
 const maxIngressExpiryInMinutes = 5;
 
+// The Expiry class from @dfinity/agent has some limitations for our use case
 export class MyExpiry {
   private readonly _value: string;
 
   constructor(params: { deltaInMSec?: number; value?: string }) {
     const { deltaInMSec, value } = params;
     if (deltaInMSec) {
-      const expiry = new Expiry(deltaInMSec);
-      this._value = lebDecode(new PipeArrayBuffer(expiry.toHash())).toString();
+      const { agent, candid } = getCoinSupportDfinityLib();
+      const expiry = new agent.Expiry(deltaInMSec);
+      this._value = candid
+        .lebDecode(new candid.PipeArrayBuffer(expiry.toHash()))
+        .toString();
     } else if (value) {
       this._value = value;
     } else {
@@ -53,13 +40,33 @@ export class MyExpiry {
   }
 
   public toHash(): ArrayBuffer {
-    return lebEncode(BigInt(this._value));
+    const { candid } = getCoinSupportDfinityLib();
+    return candid.lebEncode(BigInt(this._value));
   }
 
   public getValue(): string {
     return this._value;
   }
 }
+
+// Ref: https://github.com/dfinity/ic-js/blob/main/packages/ledger-icp/candid/ledger.certified.idl.js#L291
+const getTransferArgs = () => {
+  const { candid } = getCoinSupportDfinityLib();
+
+  const { IDL } = candid;
+  const Tokens = IDL.Record({ e8s: IDL.Nat64 });
+  const SubAccount = IDL.Vec(IDL.Nat8);
+  const TimeStamp = IDL.Record({ timestamp_nanos: IDL.Nat64 });
+
+  return IDL.Record({
+    to: IDL.Vec(IDL.Nat8),
+    amount: Tokens,
+    fee: Tokens,
+    memo: IDL.Nat64,
+    from_subaccount: IDL.Opt(SubAccount),
+    created_at_time: IDL.Opt(TimeStamp),
+  });
+};
 
 type CallRequestStrict = Omit<
   CallRequest,
@@ -74,8 +81,10 @@ export const prepareTransferRequest = (
   preparedTxnData: IPreparedIcpTransaction['computedData'],
   publicKey: string,
 ): CallRequestStrict => {
+  const { candid, icp, principal } = getCoinSupportDfinityLib();
+
   const transferTxn = {
-    to: AccountIdentifier.fromHex(
+    to: icp.AccountIdentifier.fromHex(
       preparedTxnData.output.address,
     ).toUint8Array(),
     fee: { e8s: BigInt(preparedTxnData.fees) },
@@ -87,9 +96,9 @@ export const prepareTransferRequest = (
 
   return {
     request_type: SubmitRequestType.Call,
-    canister_id: Principal.from(ICP_LEDGER_CANISTER_ID),
+    canister_id: principal.Principal.from(ICP_LEDGER_CANISTER_ID),
     method_name: 'transfer',
-    arg: IDL.encode([TransferArgs], [transferTxn]),
+    arg: candid.IDL.encode([getTransferArgs()], [transferTxn]),
     sender: derivePrincipal(publicKey),
     ingress_expiry: new MyExpiry({ value: preparedTxnData.ingressExpiry }),
     nonce: preparedTxnData.nonce,
@@ -101,10 +110,14 @@ export const getIngressExpiry = () =>
     deltaInMSec: maxIngressExpiryInMinutes * MINUTE_TO_MSECS,
   }).getValue();
 
-export const getNonce = makeNonce;
+export const getNonce = () => {
+  const { agent } = getCoinSupportDfinityLib();
+  return agent.makeNonce();
+};
 
 export const prepareReadStateRequest = (transferRequest: CallRequestStrict) => {
-  const transferRequestId = hashOfMap(transferRequest) as RequestId;
+  const { agent } = getCoinSupportDfinityLib();
+  const transferRequestId = agent.hashOfMap(transferRequest) as RequestId;
   const path = [new TextEncoder().encode('request_status'), transferRequestId];
   return {
     transferRequestId,

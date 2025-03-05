@@ -31,11 +31,16 @@ import {
   IBroadcastIcpTransactionParams,
   IPrepareIcpTransactionParams,
 } from './operations/types';
+import { DfinityLib, setCoinSupportDfinityLib } from './utils';
 
 export { updateLogger } from './utils/logger';
 export * from './operations/types';
 
 export class IcpSupport implements CoinSupport {
+  public static setDfinityLib(dfinitylib: DfinityLib): void {
+    setCoinSupportDfinityLib(dfinitylib);
+  }
+
   public receive(params: IReceiveParams): Observable<IReceiveEvent> {
     return operations.receive(params);
   }

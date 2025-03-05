@@ -9,7 +9,7 @@ import {
   TransactionStatusMap,
   TransactionTypeMap,
 } from '@cypherock/db-interfaces';
-import { TransactionWithId } from '@dfinity/ledger-icp';
+import type { TransactionWithId } from '@dfinity/ledger-icp';
 
 import { ISyncIcpAccountsParams } from './types';
 
