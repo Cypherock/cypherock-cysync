@@ -419,6 +419,19 @@ export const HistoryDialog: FC<IHistoryDialogProps> = ({ txn: _txn }) => {
                   </Container>
                 </HistoryItem>
               )}
+              {displayTransaction.memo !== undefined && (
+                <HistoryItem leftText={keys.memo}>
+                  <Container direction="row" gap={8}>
+                    <Typography
+                      variant="span"
+                      $maxWidth="400"
+                      $textOverflow="ellipsis"
+                    >
+                      {displayTransaction.memo}
+                    </Typography>
+                  </Container>
+                </HistoryItem>
+              )}
               <HistoryItem leftText={keys.transactionHash}>
                 <Container direction="row" gap={8}>
                   <Typography

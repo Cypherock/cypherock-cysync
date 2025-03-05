@@ -15,6 +15,7 @@ import {
 } from '@cypherock/coin-support-starknet';
 import { IPreparedTronTransaction } from '@cypherock/coin-support-tron';
 import { IPreparedXrpTransaction } from '@cypherock/coin-support-xrp';
+import { IPreparedIcpTransaction } from '@cypherock/coin-support-icp';
 import {
   convertToUnit,
   formatDisplayAmount,
@@ -113,6 +114,7 @@ export interface SendDialogContextInterface {
   prepareTransactionRemarks: (val: string) => Promise<void>;
   prepareSendMax: (state: boolean) => Promise<string>;
   prepareDestinationTag: (tag: number) => Promise<void>;
+  prepareMemo: (memo: string) => Promise<void>;
   priceConverter: (val: string, inverse?: boolean) => string;
   updateUserInputs: (count: number) => void;
   isAccountSelectionDisabled: boolean | undefined;
@@ -126,6 +128,7 @@ export interface SendDialogContextInterface {
   getOutputError: (index: number) => string;
   getAmountError: () => string;
   getDestinationTagError: () => string;
+  getMemoError: () => string;
   isPreparingTxn: boolean;
 }
 
@@ -560,6 +563,29 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
     await prepare(txn);
   };
 
+  const prepareMemo = async (tag: string) => {
+    if (!selectedAccount) return;
+
+    if (selectedAccount.familyId === coinFamiliesMap.icp) {
+      const txn = transactionRef.current as IPreparedIcpTransaction;
+      if (!txn) return;
+
+      const valueToSet = new BigNumber(tag).isLessThan(0) ? undefined : tag;
+      if (txn.userInputs.outputs.length > 0) {
+        txn.userInputs.outputs[0].memo = valueToSet;
+      } else {
+        txn.userInputs.outputs = [
+          {
+            address: '',
+            amount: '',
+            memo: valueToSet,
+          },
+        ];
+      }
+      await prepare(txn);
+    }
+  };
+
   const priceConverter = (val: string, invert?: boolean) => {
     const coinPrice = priceInfos.find(
       p =>
@@ -633,6 +659,12 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
     return computedData.feeData.suggestedMaxFee || '0';
   };
 
+  const getIcpFeeAmount = (txn: IPreparedTransaction | undefined) => {
+    if (!txn) return '0';
+    const { computedData } = txn as IPreparedIcpTransaction;
+    return computedData.fees || '0';
+  };
+
   const computedFeeMap: Record<
     CoinFamily,
     (txn: IPreparedTransaction | undefined) => string
@@ -644,7 +676,7 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
     tron: getTronFeeAmount,
     xrp: getXrpFeeAmount,
     starknet: getStarknetFeeAmount,
-    icp: () => '0',
+    icp: getIcpFeeAmount,
   };
 
   const getComputedFee = (coinFamily: CoinFamily, txn?: IPreparedTransaction) =>
@@ -777,6 +809,17 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
     return '';
   }, [transaction, lang]);
 
+  const getMemoError = useCallback(() => {
+    if (
+      (transaction?.validation as IPreparedIcpTransaction['validation'])
+        .isInvalidMemo
+    ) {
+      return lang.strings.send.recipient.memo.error;
+    }
+
+    return '';
+  }, [transaction, lang]);
+
   const onSelectionDialogNext = useCallback(async () => {
     if (
       selectedAccount &&
@@ -840,6 +883,7 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
       prepareTransactionRemarks,
       prepareSendMax,
       prepareDestinationTag,
+      prepareMemo,
       priceConverter,
       updateUserInputs,
       isAccountSelectionDisabled: disableAccountSelection,
@@ -848,6 +892,7 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
       getOutputError,
       getAmountError,
       getDestinationTagError,
+      getMemoError,
       isPreparingTxn,
     }),
     [

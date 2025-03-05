@@ -22,7 +22,7 @@ patchedDependencies:
     hash: 4ejbwv4r5ntzw6v5u3ozsksn5q
     path: patches/bitcoinjs-lib@6.1.3.patch
   borc@2.1.2:
-    hash: reejnnwygczwd5v2qb2g2zh6bm
+    hash: t42q4b6bcxlezmf7kdeypnpad4
     path: patches/borc@2.1.2.patch
   coinselect@3.1.13:
     hash: w7ctbdrdl4sctyxj3zcjqsoscm
@@ -31,7 +31,7 @@ patchedDependencies:
     hash: 2elhtkirubv6k56zon6hryqaqe
     path: patches/crc@3.8.0.patch
   sha.js@2.4.11:
-    hash: 7lxedgqpslb5fgc4yec3ixtnpm
+    hash: ws3cppufijpp2htrgbsyvpz24a
     path: patches/sha.js@2.4.11.patch
   signal-exit@4.1.0:
     hash: jxose4paqilet3jx27i6f3cksy
@@ -970,21 +970,15 @@ importers:
       '@cypherock/db-interfaces':
         specifier: workspace:^
         version: link:../db-interfaces
+      '@cypherock/sdk-app-icp':
+        specifier: ^2.0.0
+        version: 2.0.0
       '@cypherock/sdk-interfaces':
         specifier: ^0.0.16
         version: 0.0.16
       '@cypherock/sdk-utils':
         specifier: ^0.0.19
         version: 0.0.19
-      '@dfinity/agent':
-        specifier: ^2.3.0
-        version: 2.3.0(@dfinity/candid@2.3.0)(@dfinity/principal@2.3.0)
-      '@dfinity/ledger-icp':
-        specifier: ^2.6.9
-        version: 2.6.9(@dfinity/agent@2.3.0)(@dfinity/candid@2.3.0)(@dfinity/principal@2.3.0)(@dfinity/utils@2.10.1)
-      '@dfinity/principal':
-        specifier: ^2.3.0
-        version: 2.3.0
       crc-32:
         specifier: ^1.2.2
         version: 1.2.2
@@ -1002,7 +996,10 @@ importers:
         version: 7.8.1
       sha.js:
         specifier: ^2.4.11
-        version: 2.4.11(patch_hash=7lxedgqpslb5fgc4yec3ixtnpm)
+        version: 2.4.11(patch_hash=ws3cppufijpp2htrgbsyvpz24a)
+      simple-cbor:
+        specifier: 0.4.1
+        version: 0.4.1
     devDependencies:
       '@cypherock/eslint-config':
         specifier: workspace:^
@@ -1016,6 +1013,18 @@ importers:
       '@cypherock/tsconfig':
         specifier: workspace:^
         version: link:../util-tsconfig
+      '@dfinity/agent':
+        specifier: ^2.3.0
+        version: 2.3.0(@dfinity/candid@2.3.0)(@dfinity/principal@2.3.0)
+      '@dfinity/candid':
+        specifier: ^2.3.0
+        version: 2.3.0(@dfinity/principal@2.3.0)
+      '@dfinity/ledger-icp':
+        specifier: ^2.6.9
+        version: 2.6.9(@dfinity/agent@2.3.0)(@dfinity/candid@2.3.0)(@dfinity/principal@2.3.0)(@dfinity/utils@2.10.1)
+      '@dfinity/principal':
+        specifier: ^2.3.0
+        version: 2.3.0
       '@jest/globals':
         specifier: ^29.5.0
         version: 29.5.0
@@ -1951,6 +1960,18 @@ importers:
       '@cypherock/sdk-utils':
         specifier: ^0.0.19
         version: 0.0.19
+      '@dfinity/agent':
+        specifier: ^2.3.0
+        version: 2.3.0(@dfinity/candid@2.3.0)(@dfinity/principal@2.3.0)
+      '@dfinity/candid':
+        specifier: ^2.3.0
+        version: 2.3.0(@dfinity/principal@2.3.0)
+      '@dfinity/ledger-icp':
+        specifier: ^2.6.9
+        version: 2.6.9(@dfinity/agent@2.3.0)(@dfinity/candid@2.3.0)(@dfinity/principal@2.3.0)(@dfinity/utils@2.10.1)
+      '@dfinity/principal':
+        specifier: ^2.3.0
+        version: 2.3.0
       '@reduxjs/toolkit':
         specifier: ^1.9.5
         version: 1.9.5(react-redux@8.1.1)(react@18.3.1)
@@ -6299,6 +6320,18 @@ packages:
       - debug
     dev: false
 
+  /@cypherock/sdk-app-icp@2.0.0:
+    resolution: {integrity: sha512-luF3VOQ43iWVSHM4Dt7HMlENJm3cGQvC+bKHvWYSeGuPOVNoB0R9ybgx4u+e6BnT0nJdP6Lr4FDTi0yyTV9O9A==}
+    dependencies:
+      '@cypherock/sdk-core': 0.1.0
+      '@cypherock/sdk-interfaces': 0.0.16
+      '@cypherock/sdk-utils': 0.0.19
+      long: 5.2.3
+      protobufjs: 7.3.2
+    transitivePeerDependencies:
+      - debug
+    dev: false
+
   /@cypherock/sdk-app-inheritance@1.0.0:
     resolution: {integrity: sha512-odpeDD7hk04SfPQmjXP13rKnE9PJnBelxEUVss34ejtos7Y+33EvlgFH2dkHx2fQ9AtEDIuSQsamGc7RcjRIHg==}
     dependencies:
@@ -6484,10 +6517,9 @@ packages:
       '@noble/curves': 1.8.0
       '@noble/hashes': 1.7.0
       base64-arraybuffer: 0.2.0
-      borc: 2.1.2(patch_hash=reejnnwygczwd5v2qb2g2zh6bm)
+      borc: 2.1.2(patch_hash=t42q4b6bcxlezmf7kdeypnpad4)
       buffer: 6.0.3
       simple-cbor: 0.4.1
-    dev: false
 
   /@dfinity/candid@2.3.0(@dfinity/principal@2.3.0):
     resolution: {integrity: sha512-Xzj3EWfwaVZy90jq6WBRP4Cyqo93r3g8tvBea8W8PN3I4W6KcN2/9ZJaBhT3Y4NP+p2w4ZO6aJ+qp9xH990aYw==}
@@ -6495,7 +6527,6 @@ packages:
       '@dfinity/principal': ^2.3.0
     dependencies:
       '@dfinity/principal': 2.3.0
-    dev: false
 
   /@dfinity/ledger-icp@2.6.9(@dfinity/agent@2.3.0)(@dfinity/candid@2.3.0)(@dfinity/principal@2.3.0)(@dfinity/utils@2.10.1):
     resolution: {integrity: sha512-vnbsD2NdTeiKv2ILBmr5jeIhgbYK8NOujP+8+KL67q+dBnuqoqynDIBLVPEr/dMJq+WebUiJQ1T7lo/8taXLpw==}
@@ -6509,13 +6540,11 @@ packages:
       '@dfinity/candid': 2.3.0(@dfinity/principal@2.3.0)
       '@dfinity/principal': 2.3.0
       '@dfinity/utils': 2.10.1(@dfinity/agent@2.3.0)(@dfinity/candid@2.3.0)(@dfinity/principal@2.3.0)
-    dev: false
 
   /@dfinity/principal@2.3.0:
     resolution: {integrity: sha512-rb3TsxR3L/Vq2GWV/GGIMXPbzDDqxNohPbNW8nJKhpcm8Ds00tCVEmPUDqrn735xJW0Pmzog/6/S1L9jG2UT9g==}
     dependencies:
       '@noble/hashes': 1.7.0
-    dev: false
 
   /@dfinity/utils@2.10.1(@dfinity/agent@2.3.0)(@dfinity/candid@2.3.0)(@dfinity/principal@2.3.0):
     resolution: {integrity: sha512-ycsaWrmv02Moh2hTRJzqNzPPi88qDj3koUiaqKSUbcSwmPM/xQ73VPNz/tSj3pxCynmBgwUzyPHr5Cb5muBZrw==}
@@ -6527,7 +6556,6 @@ packages:
       '@dfinity/agent': 2.3.0(@dfinity/candid@2.3.0)(@dfinity/principal@2.3.0)
       '@dfinity/candid': 2.3.0(@dfinity/principal@2.3.0)
       '@dfinity/principal': 2.3.0
-    dev: false
 
   /@discoveryjs/json-ext@0.5.7:
     resolution: {integrity: sha512-dBVuXR082gk3jsFp7Rd/JI4kytwGHecnCoTtXFb7DB6CNHp4rg5k1bhg0nWdLGLnOV71lmDzGQaLMy8iPLY0pw==}
@@ -14992,7 +15020,6 @@ packages:
   /base64-arraybuffer@0.2.0:
     resolution: {integrity: sha512-7emyCsu1/xiBXgQZrscw/8KPRT44I4Yq9Pe6EGs3aPRTsWuggML1/1DTuZUuIaJPIm1FTDUVXl4x/yW8s0kQDQ==}
     engines: {node: '>= 0.6.0'}
-    dev: false
 
   /base64-js@1.5.1:
     resolution: {integrity: sha512-AKpaYlHn8t4SVbOHCy+b5+KKgvR4vrsD8vbvrbiQJps7fKDTkjkDry6ji0rUJjC0kzbNePLwzxq8iypo41qeWA==}
@@ -15160,7 +15187,7 @@ packages:
     dev: true
     optional: true
 
-  /borc@2.1.2(patch_hash=reejnnwygczwd5v2qb2g2zh6bm):
+  /borc@2.1.2(patch_hash=t42q4b6bcxlezmf7kdeypnpad4):
     resolution: {integrity: sha512-Sy9eoUi4OiKzq7VovMn246iTo17kzuyHJKomCfpWMlI6RpfN1gk95w7d7gH264nApVLg0HZfcpz62/g4VH1Y4w==}
     engines: {node: '>=4'}
     dependencies:
@@ -15171,7 +15198,6 @@ packages:
       iso-url: 0.4.7
       json-text-sequence: 0.1.1
       readable-stream: 3.6.2
-    dev: false
     patched: true
 
   /borsh@0.7.0:
@@ -16428,7 +16454,7 @@ packages:
       inherits: 2.0.4
       md5.js: 1.3.5
       ripemd160: 2.0.2
-      sha.js: 2.4.11(patch_hash=7lxedgqpslb5fgc4yec3ixtnpm)
+      sha.js: 2.4.11(patch_hash=ws3cppufijpp2htrgbsyvpz24a)
     dev: true
 
   /create-hmac@1.1.7:
@@ -16439,7 +16465,7 @@ packages:
       inherits: 2.0.4
       ripemd160: 2.0.2
       safe-buffer: 5.2.1
-      sha.js: 2.4.11(patch_hash=7lxedgqpslb5fgc4yec3ixtnpm)
+      sha.js: 2.4.11(patch_hash=ws3cppufijpp2htrgbsyvpz24a)
     dev: true
 
   /create-jest@29.7.0(@types/node@16.18.36)(ts-node@10.9.1):
@@ -17103,7 +17129,6 @@ packages:
 
   /delimit-stream@0.1.0:
     resolution: {integrity: sha512-a02fiQ7poS5CnjiJBAsjGLPp5EwVoGHNeu9sziBd9huppRfsAFIpv5zNLv0V1gbop53ilngAf5Kf331AwcoRBQ==}
-    dev: false
 
   /depd@1.1.2:
     resolution: {integrity: sha512-7emPTl6Dpo6JRXOXjLRxck+FlLRX5847cLKEn00PLAgc3g2hTZZgr+e4c2v6QpSmLeFP3n5yUo7ft6avBK/5jQ==}
@@ -20606,7 +20631,6 @@ packages:
   /iso-url@0.4.7:
     resolution: {integrity: sha512-27fFRDnPAMnHGLq36bWTpKET+eiXct3ENlCcdcMdk+mjXrb2kw3mhBUg1B7ewAC0kVzlOPhADzQgz1SE6Tglog==}
     engines: {node: '>=10'}
-    dev: false
 
   /isobject@3.0.1:
     resolution: {integrity: sha512-WhB9zCku7EGTj/HQQRz5aUQEUeoQZH2bWcltRErOpymJ4boYE6wL9Tbr23krRPSZ+C5zqNSrSw+Cc7sZZ4b7vg==}
@@ -21645,7 +21669,6 @@ packages:
     resolution: {integrity: sha512-L3mEegEWHRekSHjc7+sc8eJhba9Clq1PZ8kMkzf8OxElhXc8O4TS5MwcVlj9aEbm5dr81N90WHC5nAz3UO971w==}
     dependencies:
       delimit-stream: 0.1.0
-    dev: false
 
   /json5@1.0.2:
     resolution: {integrity: sha512-g1MWMLBiz8FKi1e4w0UyVL3w+iJceWAFBAaBnnGKOpNa5f8TLktkbre1+s6oICydWAm+HRUGTmI+//xv2hvXYA==}
@@ -24166,7 +24189,7 @@ packages:
       create-hmac: 1.1.7
       ripemd160: 2.0.2
       safe-buffer: 5.2.1
-      sha.js: 2.4.11(patch_hash=7lxedgqpslb5fgc4yec3ixtnpm)
+      sha.js: 2.4.11(patch_hash=ws3cppufijpp2htrgbsyvpz24a)
     dev: true
 
   /peek-stream@1.1.3:
@@ -26092,7 +26115,7 @@ packages:
   /setprototypeof@1.2.0:
     resolution: {integrity: sha512-E5LDX7Wrp85Kil5bhZv46j8jOeboKq5JMmYM3gVGdGH8xFpPWXUMsNrlODCrkoxMEeNi/XZIwuRvY4XNwYMJpw==}
 
-  /sha.js@2.4.11(patch_hash=7lxedgqpslb5fgc4yec3ixtnpm):
+  /sha.js@2.4.11(patch_hash=ws3cppufijpp2htrgbsyvpz24a):
     resolution: {integrity: sha512-QMEp5B7cftE7APOjk5Y6xgrbWu+WkLVQwk8JNjZ8nKRciZaByEW6MubieAiToS7+dwvrjGhH8jRXz3MVd0AYqQ==}
     hasBin: true
     dependencies:
@@ -26183,7 +26206,6 @@ packages:
 
   /simple-cbor@0.4.1:
     resolution: {integrity: sha512-rijcxtwx2b4Bje3sqeIqw5EeW7UlOIC4YfOdwqIKacpvRQ/D78bWg/4/0m5e0U91oKvlGh7LlJuZCu07ISCC7w==}
-    dev: false
 
   /simple-concat@1.0.1:
     resolution: {integrity: sha512-cSFtAPtRhljv69IK0hTVZQ+OfE9nePi/rtJmw5UjHeVyVroEqJXP1sFztKUy1qU+xvz3u/sfYJLa947b7nAN2Q==}

@@ -6,6 +6,7 @@ import { SolanaSupport } from '@cypherock/coin-support-solana';
 import { StarknetSupport } from '@cypherock/coin-support-starknet';
 import { TronSupport } from '@cypherock/coin-support-tron';
 import { XrpSupport } from '@cypherock/coin-support-xrp';
+import { IcpSupport } from '@cypherock/coin-support-icp';
 
 import { setWalletConnect, setWalletConnectCore } from '../walletConnect';
 
@@ -24,4 +25,5 @@ export const setGlobalDependencies = () => {
   );
   XrpSupport.setXrpLib((globalThis as any).xrpl);
   StarknetSupport.setStarknetLib((globalThis as any).starknet);
+  IcpSupport.setDfinityLib((globalThis as any).dfinity);
 };

@@ -304,6 +304,11 @@
         "placeholder": "Opsional",
         "error": "Nilai terlalu tinggi"
       },
+      "memo": {
+        "label": "Memo",
+        "placeholder": "Opsional",
+        "error": "Nilai terlalu tinggi"
+      },
       "feeBelowMinError": "Transaksi dengan biaya lebih rendah dari minimum akan gagal",
       "rentExemptFeeWarning": "Menerima token di Solana untuk pertama kali akan dikenakan biaya pembebasan sewa, yang termasuk dalam total biaya."
     },
@@ -315,7 +320,8 @@
       "network": "Biaya Jaringan",
       "debit": "Total yang didebet",
       "remarks": "Catatan Pribadi",
-      "destinationTag": "Tag Tujuan"
+      "destinationTag": "Tag Tujuan",
+      "memo": "Memo"
     },
     "finalMessage": {
       "button": "Periksa transaksi",
@@ -426,7 +432,8 @@
         "optimism": "L2 "
       },
       "remarks": "Catatan Pribadi",
-      "destinationTag": "Tag Tujuan"
+      "destinationTag": "Tag Tujuan",
+      "memo": "Memo"
     },
     "noData": {
       "text": "Belum ada transaksi",

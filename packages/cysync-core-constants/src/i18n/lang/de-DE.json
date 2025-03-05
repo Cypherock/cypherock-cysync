@@ -304,6 +304,11 @@
         "placeholder": "Optional",
         "error": "Wert zu hoch"
       },
+      "memo": {
+        "label": "Memo",
+        "placeholder": "Optional",
+        "error": "Wert zu hoch"
+      },
       "feeBelowMinError": "Transaktion mit fee unter dem Minimum wird fehlschlagen",
       "rentExemptFeeWarning": "Das erstmalige Empfangen eines Tokens auf Solana zieht Mietbefreiungsgebühren nach sich, die in den Gesamtgebühren enthalten sind."
     },
@@ -315,7 +320,8 @@
       "network": "Netzwerkgebühr",
       "debit": "Gesamtsumme zum Abbuchen",
       "remarks": "Persönliche Notiz",
-      "destinationTag": "Ziel-Tag"
+      "destinationTag": "Ziel-Tag",
+      "memo": "Memo"
     },
     "finalMessage": {
       "button": "Transaktionen überprüfen",
@@ -426,7 +432,8 @@
         "optimism": "L2 "
       },
       "remarks": "Persönliche Notiz",
-      "destinationTag": "Ziel-Tag"
+      "destinationTag": "Ziel-Tag",
+      "memo": "Memo"
     },
     "noData": {
       "text": "Noch keine Transaktionen",
