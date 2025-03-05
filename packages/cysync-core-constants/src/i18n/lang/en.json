@@ -300,10 +300,12 @@
       "infoBox": "Maximum spendable amount is ",
       "addButton": "Add another recipient",
       "destinationTag": {
-        "label": {
-          "xrp": "Destination Tag",
-          "icp": "Memo"
-        },
+        "label": "Destination Tag",
+        "placeholder": "Optional",
+        "error": "Value too high"
+      },
+      "memo": {
+        "label": "Memo",
         "placeholder": "Optional",
         "error": "Value too high"
       },
@@ -318,10 +320,8 @@
       "network": "Network Fee",
       "debit": "Total to debit",
       "remarks": "Personal Note",
-      "destinationTag": {
-        "xrp": "Destination Tag",
-        "icp": "Memo"
-      }
+      "destinationTag": "Destination Tag",
+      "memo": "Memo"
     },
     "finalMessage": {
       "button": "Check transactions",

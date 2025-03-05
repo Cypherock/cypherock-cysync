@@ -300,10 +300,12 @@
       "infoBox": "Höchstbetrag, der ausgegeben werden kann, ist ",
       "addButton": "Einen weiteren Empfänger hinzufügen",
       "destinationTag": {
-        "label": {
-          "xrp": "Ziel-Tag",
-          "icp": "Memo"
-        },
+        "label": "Ziel-Tag",
+        "placeholder": "Optional",
+        "error": "Wert zu hoch"
+      },
+      "memo": {
+        "label": "Memo",
         "placeholder": "Optional",
         "error": "Wert zu hoch"
       },
@@ -318,10 +320,8 @@
       "network": "Netzwerkgebühr",
       "debit": "Gesamtsumme zum Abbuchen",
       "remarks": "Persönliche Notiz",
-      "destinationTag": {
-        "xrp": "Ziel-Tag",
-        "icp": "Memo"
-      }
+      "destinationTag": "Ziel-Tag",
+      "memo": "Memo"
     },
     "finalMessage": {
       "button": "Transaktionen überprüfen",

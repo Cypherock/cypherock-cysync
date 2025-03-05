@@ -300,10 +300,12 @@
       "infoBox": "Jumlah maksimum yang dapat digunakan adalah ",
       "addButton": "Tambahkan penerima lain",
       "destinationTag": {
-        "label": {
-          "xrp": "Tag Tujuan",
-          "icp": "Memo"
-        },
+        "label": "Tag Tujuan",
+        "placeholder": "Opsional",
+        "error": "Nilai terlalu tinggi"
+      },
+      "memo": {
+        "label": "Memo",
         "placeholder": "Opsional",
         "error": "Nilai terlalu tinggi"
       },
@@ -318,10 +320,8 @@
       "network": "Biaya Jaringan",
       "debit": "Total yang didebet",
       "remarks": "Catatan Pribadi",
-      "destinationTag": {
-        "xrp": "Tag Tujuan",
-        "icp": "Memo"
-      }
+      "destinationTag": "Tag Tujuan",
+      "memo": "Memo"
     },
     "finalMessage": {
       "button": "Periksa transaksi",

@@ -302,7 +302,12 @@ interface LangSend {
     addButton: string;
     remarks: { label: string; placeholder: string; error: string };
     destinationTag: {
-      label: { xrp: string; icp: string };
+      label: string;
+      placeholder: string;
+      error: string;
+    };
+    memo: {
+      label: string;
       placeholder: string;
       error: string;
     };
@@ -316,7 +321,8 @@ interface LangSend {
     network: string;
     debit: string;
     remarks: string;
-    destinationTag: { xrp: string; icp: string };
+    destinationTag: string;
+    memo: string;
   };
   finalMessage: {
     button: string;

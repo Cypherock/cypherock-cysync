@@ -113,7 +113,8 @@ export interface SendDialogContextInterface {
   prepareAmountChanged: (val: string) => Promise<void>;
   prepareTransactionRemarks: (val: string) => Promise<void>;
   prepareSendMax: (state: boolean) => Promise<string>;
-  prepareDestinationTag: (tag: string) => Promise<void>;
+  prepareDestinationTag: (tag: number) => Promise<void>;
+  prepareMemo: (memo: string) => Promise<void>;
   priceConverter: (val: string, inverse?: boolean) => string;
   updateUserInputs: (count: number) => void;
   isAccountSelectionDisabled: boolean | undefined;
@@ -127,6 +128,7 @@ export interface SendDialogContextInterface {
   getOutputError: (index: number) => string;
   getAmountError: () => string;
   getDestinationTagError: () => string;
+  getMemoError: () => string;
   isPreparingTxn: boolean;
 }
 
@@ -542,28 +544,29 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
     return formatDisplayAmount(convertedAmount.amount).complete;
   };
 
-  const prepareDestinationTag = async (tag: string) => {
+  const prepareDestinationTag = async (tag: number) => {
+    const txn = transactionRef.current as IPreparedXrpTransaction;
+    if (!txn) return;
+
+    const valueToSet = tag < 0 ? undefined : tag;
+    if (txn.userInputs.outputs.length > 0) {
+      txn.userInputs.outputs[0].destinationTag = valueToSet;
+    } else {
+      txn.userInputs.outputs = [
+        {
+          address: '',
+          amount: '',
+          destinationTag: valueToSet,
+        },
+      ];
+    }
+    await prepare(txn);
+  };
+
+  const prepareMemo = async (tag: string) => {
     if (!selectedAccount) return;
 
-    if (selectedAccount.familyId === coinFamiliesMap.xrp) {
-      const txn = transactionRef.current as IPreparedXrpTransaction;
-      if (!txn) return;
-
-      const destinationTag = new BigNumber(tag).toNumber();
-      const valueToSet = destinationTag < 0 ? undefined : destinationTag;
-      if (txn.userInputs.outputs.length > 0) {
-        txn.userInputs.outputs[0].destinationTag = valueToSet;
-      } else {
-        txn.userInputs.outputs = [
-          {
-            address: '',
-            amount: '',
-            destinationTag: valueToSet,
-          },
-        ];
-      }
-      await prepare(txn);
-    } else if (selectedAccount.familyId === coinFamiliesMap.icp) {
+    if (selectedAccount.familyId === coinFamiliesMap.icp) {
       const txn = transactionRef.current as IPreparedIcpTransaction;
       if (!txn) return;
 
@@ -798,11 +801,20 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
   const getDestinationTagError = useCallback(() => {
     if (
       (transaction?.validation as IPreparedXrpTransaction['validation'])
-        .isInvalidDestinationTag ||
+        .isInvalidDestinationTag
+    ) {
+      return lang.strings.send.recipient.destinationTag.error;
+    }
+
+    return '';
+  }, [transaction, lang]);
+
+  const getMemoError = useCallback(() => {
+    if (
       (transaction?.validation as IPreparedIcpTransaction['validation'])
         .isInvalidMemo
     ) {
-      return lang.strings.send.recipient.destinationTag.error;
+      return lang.strings.send.recipient.memo.error;
     }
 
     return '';
@@ -871,6 +883,7 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
       prepareTransactionRemarks,
       prepareSendMax,
       prepareDestinationTag,
+      prepareMemo,
       priceConverter,
       updateUserInputs,
       isAccountSelectionDisabled: disableAccountSelection,
@@ -879,6 +892,7 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
       getOutputError,
       getAmountError,
       getDestinationTagError,
+      getMemoError,
       isPreparingTxn,
     }),
     [

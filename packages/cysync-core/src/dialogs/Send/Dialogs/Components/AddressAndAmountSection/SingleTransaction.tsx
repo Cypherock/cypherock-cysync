@@ -17,6 +17,7 @@ import { NotesInput } from './NotesInput';
 
 import { useSendDialog } from '../../../context';
 import { DestinationTagInput } from './DestinationTagInput';
+import { MemoInput } from './MemoInput';
 
 interface SingleTransactionProps {
   disableInputs?: boolean;
@@ -36,12 +37,14 @@ export const SingleTransaction: React.FC<SingleTransactionProps> = ({
     prepareTransactionRemarks,
     prepareSendMax,
     prepareDestinationTag,
+    prepareMemo,
     priceConverter,
     updateUserInputs,
     prepare,
     getOutputError,
     getAmountError,
     getDestinationTagError,
+    getMemoError,
   } = useSendDialog();
 
   useEffect(() => {
@@ -81,20 +84,9 @@ export const SingleTransaction: React.FC<SingleTransactionProps> = ({
   const getXrpDestinationTagInputProps = () => {
     const txn = transaction as IPreparedXrpTransaction;
     return {
-      label: displayText.destinationTag.label.xrp,
+      label: displayText.destinationTag.label,
       placeholder: displayText.destinationTag.placeholder,
-      initialValue: txn?.userInputs.outputs[0]?.destinationTag?.toString(),
-      onChange: prepareDestinationTag,
-      error: getDestinationTagError(),
-    };
-  };
-
-  const getIcpDestinationTagInputProps = () => {
-    const txn = transaction as IPreparedIcpTransaction;
-    return {
-      label: displayText.destinationTag.label.icp,
-      placeholder: displayText.destinationTag.placeholder,
-      initialValue: txn?.userInputs.outputs[0]?.memo,
+      initialValue: txn?.userInputs.outputs[0]?.destinationTag,
       onChange: prepareDestinationTag,
       error: getDestinationTagError(),
     };
@@ -111,12 +103,11 @@ export const SingleTransaction: React.FC<SingleTransactionProps> = ({
     tron: () => ({}),
     xrp: getXrpDestinationTagInputProps,
     starknet: () => ({}),
-    icp: getIcpDestinationTagInputProps,
+    icp: () => ({}),
   };
 
   const destinationTagInputMap: Partial<Record<CoinFamily, React.FC<any>>> = {
     xrp: DestinationTagInput,
-    icp: DestinationTagInput,
   };
 
   const getDestinationTagInputComponent = () => {
@@ -127,6 +118,43 @@ export const SingleTransaction: React.FC<SingleTransactionProps> = ({
     if (!Component) return null;
 
     const props = destinationTagInputPropsMap[coinFamily]();
+    return <Component {...props} />;
+  };
+
+  const getIcpMemoInputProps = () => {
+    const txn = transaction as IPreparedIcpTransaction;
+    return {
+      label: displayText.memo.label,
+      placeholder: displayText.memo.placeholder,
+      initialValue: txn?.userInputs.outputs[0]?.memo,
+      onChange: prepareMemo,
+      error: getMemoError(),
+    };
+  };
+
+  const memoInputPropsMap: Record<CoinFamily, () => Record<string, any>> = {
+    bitcoin: () => ({}),
+    evm: () => ({}),
+    near: () => ({}),
+    solana: () => ({}),
+    tron: () => ({}),
+    xrp: () => ({}),
+    starknet: () => ({}),
+    icp: getIcpMemoInputProps,
+  };
+
+  const memoInputMap: Partial<Record<CoinFamily, React.FC<any>>> = {
+    icp: MemoInput,
+  };
+
+  const getMemoInputComponent = () => {
+    if (!selectedAccount) return null;
+    const coinFamily = selectedAccount.familyId as CoinFamily;
+
+    const Component = memoInputMap[coinFamily];
+    if (!Component) return null;
+
+    const props = memoInputPropsMap[coinFamily]();
     return <Component {...props} />;
   };
 
@@ -190,6 +218,7 @@ export const SingleTransaction: React.FC<SingleTransactionProps> = ({
         />
 
         {getDestinationTagInputComponent()}
+        {getMemoInputComponent()}
 
         <NotesInput
           label={displayText.remarks.label}

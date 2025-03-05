@@ -10,22 +10,22 @@ import { BigNumber } from '@cypherock/cysync-utils';
 import lodash from 'lodash';
 import React, { useCallback, useState } from 'react';
 
-interface DestinationTagInputProps {
+interface MemoInputProps {
   label: string;
   placeholder: string;
-  initialValue?: number;
-  onChange: (value: number) => Promise<void>;
+  initialValue?: string;
+  onChange: (value: string) => Promise<void>;
   error?: string;
 }
 
-export const DestinationTagInput: React.FC<DestinationTagInputProps> = ({
+export const MemoInput: React.FC<MemoInputProps> = ({
   label,
   placeholder,
   initialValue,
   onChange,
   error,
 }) => {
-  const [value, setValue] = useState<string>(initialValue?.toString() ?? '');
+  const [value, setValue] = useState<string>(initialValue ?? '');
 
   const debouncedOnValueChange = useCallback(
     lodash.debounce(onChange, 300),
@@ -42,7 +42,7 @@ export const DestinationTagInput: React.FC<DestinationTagInputProps> = ({
     }
 
     setValue(filteredValue);
-    debouncedOnValueChange(bigNum.toNumber());
+    debouncedOnValueChange(bigNum.toString());
   };
 
   return (
@@ -55,7 +55,7 @@ export const DestinationTagInput: React.FC<DestinationTagInputProps> = ({
       <CustomInputSend>
         <Input
           type="text"
-          name="destinationTag"
+          name="memo"
           placeholder={placeholder}
           onChange={handleValueChange}
           value={value}
@@ -77,7 +77,7 @@ export const DestinationTagInput: React.FC<DestinationTagInputProps> = ({
   );
 };
 
-DestinationTagInput.defaultProps = {
+MemoInput.defaultProps = {
   initialValue: undefined,
   error: '',
 };
