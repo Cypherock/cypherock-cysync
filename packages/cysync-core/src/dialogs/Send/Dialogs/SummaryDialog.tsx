@@ -29,6 +29,7 @@ import { selectLanguage, selectPriceInfos, useAppSelector } from '~/store';
 import { useSendDialog } from '../context';
 import { useLabelSuffix } from '../hooks';
 import { IPreparedXrpTransaction } from '@cypherock/coin-support-xrp';
+import { IPreparedIcpTransaction } from '@cypherock/coin-support-icp';
 
 export const SummaryDialog: React.FC = () => {
   const {
@@ -249,6 +250,23 @@ export const SummaryDialog: React.FC = () => {
     return destinationTagDetails;
   };
 
+  const getMemoDetails = () => {
+    if (!transaction || !transaction.userInputs.outputs) return [];
+
+    const icpTxn = transaction as IPreparedIcpTransaction;
+    if (icpTxn.userInputs.outputs[0]?.memo !== undefined) {
+      return icpTxn.userInputs.outputs
+        .filter(output => output.memo !== undefined)
+        .map((output, index) => ({
+          id: `memo-${icpTxn.accountId}-${index}`,
+          leftText: displayText.memo,
+          rightText: output.memo ?? '',
+        }));
+    }
+
+    return [];
+  };
+
   const isSingleTransaction = transaction?.userInputs.outputs.length === 1;
   return (
     <DialogBox width={600}>
@@ -277,6 +295,7 @@ export const SummaryDialog: React.FC = () => {
                 { isDivider: true, id: '2' },
                 ...getToDetails(),
                 ...getDestinationTagDetails(),
+                ...getMemoDetails(),
                 ...(isSingleTransaction &&
                 transaction.userInputs.outputs[0].remarks
                   ? [...getTransactionRemarks(), { isDivider: true, id: '5' }]

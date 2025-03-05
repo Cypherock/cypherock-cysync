@@ -301,7 +301,16 @@ interface LangSend {
     infoBox: string;
     addButton: string;
     remarks: { label: string; placeholder: string; error: string };
-    destinationTag: { label: string; placeholder: string; error: string };
+    destinationTag: {
+      label: string;
+      placeholder: string;
+      error: string;
+    };
+    memo: {
+      label: string;
+      placeholder: string;
+      error: string;
+    };
     rentExemptFeeWarning: string;
   };
   summary: {
@@ -313,6 +322,7 @@ interface LangSend {
     debit: string;
     remarks: string;
     destinationTag: string;
+    memo: string;
   };
   finalMessage: {
     button: string;
@@ -407,6 +417,7 @@ interface LangHistory {
     feePrefix: { optimism: string };
     remarks: string;
     destinationTag: string;
+    memo: string;
   };
   noData: { text: string; subText: string; buttonText: string };
   search: { placeholder: string; notFound: { text: string; subText: string } };

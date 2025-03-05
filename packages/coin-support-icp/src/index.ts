@@ -1,7 +1,6 @@
 /* eslint-disable class-methods-use-this */
 import {
   CoinSupport,
-  IBroadcastTransactionParams,
   ICreateAccountEvent,
   ICreateAccountParams,
   IFormatAddressParams,
@@ -13,7 +12,6 @@ import {
   IGetExplorerLink,
   IInitializeTransactionParams,
   IPreparedTransaction,
-  IPrepareTransactionParams,
   IReceiveEvent,
   IReceiveParams,
   ISignMessageEvent,
@@ -29,10 +27,20 @@ import { ITransaction } from '@cypherock/db-interfaces';
 import { Observable } from 'rxjs';
 
 import * as operations from './operations';
+import {
+  IBroadcastIcpTransactionParams,
+  IPrepareIcpTransactionParams,
+} from './operations/types';
+import { DfinityLib, setCoinSupportDfinityLib } from './utils';
 
 export { updateLogger } from './utils/logger';
+export * from './operations/types';
 
 export class IcpSupport implements CoinSupport {
+  public static setDfinityLib(dfinitylib: DfinityLib): void {
+    setCoinSupportDfinityLib(dfinitylib);
+  }
+
   public receive(params: IReceiveParams): Observable<IReceiveEvent> {
     return operations.receive(params);
   }
@@ -50,25 +58,25 @@ export class IcpSupport implements CoinSupport {
   public async initializeTransaction(
     params: IInitializeTransactionParams,
   ): Promise<IPreparedTransaction> {
-    throw new Error(`Method not implemented Params: ${params}`);
+    return operations.initializeTransaction(params);
   }
 
   public async prepareTransaction(
-    params: IPrepareTransactionParams,
+    params: IPrepareIcpTransactionParams,
   ): Promise<IPreparedTransaction> {
-    throw new Error(`Method not implemented Params: ${params}`);
+    return operations.prepareTransaction(params);
   }
 
   public signTransaction(
     params: ISignTransactionParams,
   ): Observable<ISignTransactionEvent<any>> {
-    throw new Error(`Method not implemented Params: ${params}`);
+    return operations.signTransaction(params);
   }
 
   public broadcastTransaction(
-    params: IBroadcastTransactionParams<any>,
+    params: IBroadcastIcpTransactionParams,
   ): Promise<ITransaction> {
-    throw new Error(`Method not implemented Params: ${params}`);
+    return operations.broadcastTransaction(params);
   }
 
   public signMessage(
@@ -90,7 +98,7 @@ export class IcpSupport implements CoinSupport {
   }
 
   public validateAddress(params: IValidateAddressParams): boolean {
-    throw new Error(`Method not implemented Params: ${params}`);
+    return operations.validateAddress(params);
   }
 
   public syncPrices(params: ISyncPricesParams): Observable<void> {
@@ -112,6 +120,6 @@ export class IcpSupport implements CoinSupport {
   }
 
   public async getAccountAddress(params: IGetAccountAddressParams) {
-    return `Method not implemented Params: ${params}`;
+    return (await operations.getExternalAddress(params)).address;
   }
 }

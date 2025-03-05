@@ -304,6 +304,11 @@
         "placeholder": "Optional",
         "error": "Value too high"
       },
+      "memo": {
+        "label": "Memo",
+        "placeholder": "Optional",
+        "error": "Value too high"
+      },
       "feeBelowMinError": "Transaction with fee lesser than minimum will fail",
       "rentExemptFeeWarning": "Receiving a token on solana for the first time incurs rent exemption fees, included in total fees."
     },
@@ -315,7 +320,8 @@
       "network": "Network Fee",
       "debit": "Total to debit",
       "remarks": "Personal Note",
-      "destinationTag": "Destination Tag"
+      "destinationTag": "Destination Tag",
+      "memo": "Memo"
     },
     "finalMessage": {
       "button": "Check transactions",
@@ -426,7 +432,8 @@
         "optimism": "L2 "
       },
       "remarks": "Personal Note",
-      "destinationTag": "Destination Tag"
+      "destinationTag": "Destination Tag",
+      "memo": "Memo"
     },
     "noData": {
       "text": "No transactions yet",

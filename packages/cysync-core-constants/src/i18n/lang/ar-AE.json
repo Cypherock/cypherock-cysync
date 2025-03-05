@@ -304,6 +304,11 @@
         "placeholder": "اختياري",
         "error": "قيمة مرتفعة جدًا"
       },
+      "memo": {
+        "label": "مذكرة",
+        "placeholder": "اختياري",
+        "error": "قيمة مرتفعة جدًا"
+      },
       "feeBelowMinError": "المعاملة ذات الرسوم الأقل من الحد الأدنى ستفشل",
       "rentExemptFeeWarning": "استلام رمز على سولانا لأول مرة يستلزم رسوم إعفاء من الإيجار، وتشمل إجمالي الرسوم."
     },
@@ -315,7 +320,8 @@
       "network": "رسوم الشبكة",
       "debit": "المجموع المراد خصمه",
       "remarks": "ملاحظة شخصية",
-      "destinationTag": "علامة الوجهة"
+      "destinationTag": "علامة الوجهة",
+      "memo": "مذكرة"
     },
     "finalMessage": {
       "button": "التحقق من المعاملات",
@@ -426,7 +432,8 @@
         "optimism": "L2 "
       },
       "remarks": "ملاحظة شخصية",
-      "destinationTag": "Destination Tag"
+      "destinationTag": "Destination Tag",
+      "memo": "مذكرة"
     },
     "noData": {
       "text": "لا توجد معاملات حتى الآن",

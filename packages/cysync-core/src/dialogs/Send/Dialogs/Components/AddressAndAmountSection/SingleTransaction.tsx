@@ -1,6 +1,7 @@
 import { IPreparedBtcTransaction } from '@cypherock/coin-support-btc';
 import { IPreparedEvmTransaction } from '@cypherock/coin-support-evm';
 import { IPreparedXrpTransaction } from '@cypherock/coin-support-xrp';
+import { IPreparedIcpTransaction } from '@cypherock/coin-support-icp';
 import { IPreparedTransaction } from '@cypherock/coin-support-interfaces';
 import { getDefaultUnit, getParsedAmount } from '@cypherock/coin-support-utils';
 import { CoinFamily } from '@cypherock/coins';
@@ -16,6 +17,7 @@ import { NotesInput } from './NotesInput';
 
 import { useSendDialog } from '../../../context';
 import { DestinationTagInput } from './DestinationTagInput';
+import { MemoInput } from './MemoInput';
 
 interface SingleTransactionProps {
   disableInputs?: boolean;
@@ -35,12 +37,14 @@ export const SingleTransaction: React.FC<SingleTransactionProps> = ({
     prepareTransactionRemarks,
     prepareSendMax,
     prepareDestinationTag,
+    prepareMemo,
     priceConverter,
     updateUserInputs,
     prepare,
     getOutputError,
     getAmountError,
     getDestinationTagError,
+    getMemoError,
   } = useSendDialog();
 
   useEffect(() => {
@@ -117,6 +121,43 @@ export const SingleTransaction: React.FC<SingleTransactionProps> = ({
     return <Component {...props} />;
   };
 
+  const getIcpMemoInputProps = () => {
+    const txn = transaction as IPreparedIcpTransaction;
+    return {
+      label: displayText.memo.label,
+      placeholder: displayText.memo.placeholder,
+      initialValue: txn?.userInputs.outputs[0]?.memo,
+      onChange: prepareMemo,
+      error: getMemoError(),
+    };
+  };
+
+  const memoInputPropsMap: Record<CoinFamily, () => Record<string, any>> = {
+    bitcoin: () => ({}),
+    evm: () => ({}),
+    near: () => ({}),
+    solana: () => ({}),
+    tron: () => ({}),
+    xrp: () => ({}),
+    starknet: () => ({}),
+    icp: getIcpMemoInputProps,
+  };
+
+  const memoInputMap: Partial<Record<CoinFamily, React.FC<any>>> = {
+    icp: MemoInput,
+  };
+
+  const getMemoInputComponent = () => {
+    if (!selectedAccount) return null;
+    const coinFamily = selectedAccount.familyId as CoinFamily;
+
+    const Component = memoInputMap[coinFamily];
+    if (!Component) return null;
+
+    const props = memoInputPropsMap[coinFamily]();
+    return <Component {...props} />;
+  };
+
   useEffect(() => {
     if (transaction?.userInputs.isSendAll) {
       const value =
@@ -177,6 +218,7 @@ export const SingleTransaction: React.FC<SingleTransactionProps> = ({
         />
 
         {getDestinationTagInputComponent()}
+        {getMemoInputComponent()}
 
         <NotesInput
           label={displayText.remarks.label}
