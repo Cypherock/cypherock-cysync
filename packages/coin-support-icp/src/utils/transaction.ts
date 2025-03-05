@@ -1,9 +1,4 @@
-import type {
-  CallRequest,
-  Nonce,
-  RequestId,
-  SubmitRequestType,
-} from '@dfinity/agent';
+import type { CallRequest, Nonce, RequestId } from '@dfinity/agent';
 import * as cbor from 'simple-cbor';
 
 import { derivePrincipal } from './deriveAddress';
@@ -81,7 +76,7 @@ export const prepareTransferRequest = (
   preparedTxnData: IPreparedIcpTransaction['computedData'],
   publicKey: string,
 ): CallRequestStrict => {
-  const { candid, icp, principal } = getCoinSupportDfinityLib();
+  const { agent, candid, icp, principal } = getCoinSupportDfinityLib();
 
   const transferTxn = {
     to: icp.AccountIdentifier.fromHex(
@@ -95,7 +90,7 @@ export const prepareTransferRequest = (
   };
 
   return {
-    request_type: SubmitRequestType.Call,
+    request_type: agent.SubmitRequestType.Call,
     canister_id: principal.Principal.from(ICP_LEDGER_CANISTER_ID),
     method_name: 'transfer',
     arg: candid.IDL.encode([getTransferArgs()], [transferTxn]),
