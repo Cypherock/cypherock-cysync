@@ -8,10 +8,9 @@ export const AccountSyncStateMap = {
   syncing: 'syncing',
   synced: 'synced',
   failed: 'failed',
-};
+} as const;
 
-export type AccountSyncState =
-  (typeof AccountSyncStateMap)[keyof typeof AccountSyncStateMap];
+export type AccountSyncState = keyof typeof AccountSyncStateMap;
 
 export interface IndividualAccountSyncStatus {
   syncState?: AccountSyncState;

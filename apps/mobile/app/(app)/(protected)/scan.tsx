@@ -28,7 +28,7 @@ export default function Scan() {
   const progress = useSharedValue(0);
 
   function navigateToNext() {
-    router.dismissTo('/info');
+    router.dismissTo('/loading');
   }
 
   function onQrScanned(qr: ScanningResult) {
@@ -92,7 +92,7 @@ export default function Scan() {
             default: Images.icon.close_default,
             disabled: Images.icon.close_disabed,
           }}
-          onPress={navigateToNext}
+          onPress={() => router.dismiss()}
           size="small"
         />
       </View>
