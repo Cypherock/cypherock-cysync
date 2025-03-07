@@ -23,7 +23,7 @@ export default function Sync() {
     actions: {
       primary: {
         title: strings.buttons.scanQrCode,
-        onPress: () => router.push('/onboarding-scan'),
+        onPress: () => router.dismissTo('/onboarding-scan'),
       },
       secondary: {
         title: strings.buttons.buyCypherockX1,

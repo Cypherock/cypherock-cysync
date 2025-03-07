@@ -6,12 +6,13 @@ import {
   SelectFilterSheet,
 } from '@/components/ui';
 import { Graph, PortfolioHeader } from '@/components/core';
-import { router } from 'expo-router';
+import { router, useNavigation } from 'expo-router';
 import NoDataScreen from '@/components/ui/molecules/NoDataScreen';
 import { usePortfolioFilters } from '@/hooks';
 import { selectLanguage, selectWallets, useAppSelector } from '@/store';
 import AllocationTable from '@/components/core/AllocationTable';
 import useShowAfterDelay from '@/hooks/useShowAfterDelay';
+import { useEffect } from 'react';
 
 export default function Portfolio() {
   const { strings } = useAppSelector(selectLanguage);
@@ -28,6 +29,15 @@ export default function Portfolio() {
     onFilterReset,
   } = usePortfolioFilters();
   const showGraph = useShowAfterDelay();
+  const navigation = useNavigation();
+
+  useEffect(() => {
+    navigation.addListener('beforeRemove', e => {
+      if (e.data.action.type === 'GO_BACK') {
+        e.preventDefault();
+      }
+    });
+  }, []);
 
   if (wallets.length === 0) {
     return (
