@@ -27,7 +27,7 @@ export default function ScanQRScreen() {
         actions={{
           primary: {
             title: strings.buttons.scanQrCode,
-            onPress: () => router.push('/scan'),
+            onPress: () => router.dismissTo('/scan'),
           },
           secondary: {
             title: strings.buttons.buyCypherockX1,
