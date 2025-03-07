@@ -123,7 +123,7 @@ export const getBalanceHistory = async (params: {
 
   const queue = new PromiseQueue<IGetAccountHistoryResult>({
     tasks,
-    concurrentCount: 5,
+    concurrentCount: 10,
     onNext: result => {
       balanceHistoryList.push(result);
     },
