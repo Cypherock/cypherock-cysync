@@ -31,6 +31,10 @@ export default function Scan() {
     router.dismissTo('/loading');
   }
 
+  function handleDismiss() {
+    router.canDismiss() ? router.dismiss() : router.dismissTo('/info');
+  }
+
   function onQrScanned(qr: ScanningResult) {
     const data = qr.data.split('|');
     const chunkIndex = Number(data[1]);
@@ -92,7 +96,7 @@ export default function Scan() {
             default: Images.icon.close_default,
             disabled: Images.icon.close_disabed,
           }}
-          onPress={() => router.dismiss()}
+          onPress={handleDismiss}
           size="small"
         />
       </View>
