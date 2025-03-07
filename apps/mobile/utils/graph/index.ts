@@ -3,7 +3,7 @@ import {
   getDefaultUnit,
   getParsedAmount,
 } from '@cypherock/coin-support-utils';
-import { getBalanceHistory } from '@cypherock/cysync-core-services';
+import { getBalanceHistory } from './getBalanceHistory';
 import { BigNumber } from '@cypherock/cysync-utils';
 import { IAccount } from '@cypherock/db-interfaces';
 import { format as formatDate } from 'date-fns';
@@ -13,7 +13,7 @@ import {
   CalculatePortfolioGraphDataParamsWithComputedData,
   CalculatePortfolioGraphDataParams,
 } from './types';
-import { memoizeFunctionWithObjectArg } from '@/utils/memoize';
+import { memoizeFunctionWithObjectArg } from '../memoize';
 
 export * from './types';
 
