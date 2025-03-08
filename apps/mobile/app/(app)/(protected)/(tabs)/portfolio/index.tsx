@@ -19,7 +19,6 @@ export default function Portfolio() {
   const { wallets } = useAppSelector(selectWallets);
   const {
     filters,
-    selectedFilter,
     filterRef,
     onFilterSelect,
     onHideFilter,
@@ -78,16 +77,14 @@ export default function Portfolio() {
         )}
       </Container>
       <AllocationTable isMain walletId={selectedWallet?.__id} />
-      {filters.length > 0 && selectedFilter && (
-        <SelectFilterSheet
-          ref={filterRef}
-          title={'Select Option'}
-          onSelect={onFilterSelect}
-          data={filters}
-          onHide={onHideFilter}
-          onReset={onFilterReset}
-        />
-      )}
+      <SelectFilterSheet
+        ref={filterRef}
+        title={'Select Option'}
+        onSelect={onFilterSelect}
+        data={filters}
+        onHide={onHideFilter}
+        onReset={onFilterReset}
+      />
     </ScreenContainer>
   );
 }
