@@ -21,7 +21,6 @@ export default function Accounts() {
   const { strings } = useAppSelector(selectLanguage);
   const {
     filters,
-    selectedFilter,
     filterRef,
     onFilterSelect,
     onHideFilter,
@@ -73,16 +72,14 @@ export default function Accounts() {
         )}
       </Container>
       <AllocationTable accountId={accountId} walletId={selectedWallet?.__id} />
-      {filters.length > 0 && selectedFilter && (
-        <SelectFilterSheet
-          ref={filterRef}
-          title={'Select Option'}
-          onSelect={onFilterSelect}
-          data={filters}
-          onHide={onHideFilter}
-          onReset={onFilterReset}
-        />
-      )}
+      <SelectFilterSheet
+        ref={filterRef}
+        title={'Select Option'}
+        onSelect={onFilterSelect}
+        data={filters}
+        onHide={onHideFilter}
+        onReset={onFilterReset}
+      />
     </ScreenContainer>
   );
 }
