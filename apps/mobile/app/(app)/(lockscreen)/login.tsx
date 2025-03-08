@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   Button,
   Container,
@@ -19,16 +19,22 @@ export default function Login() {
   const [error, setError] = useState('');
   const router = useRouter();
   const { strings } = useAppSelector(selectLanguage);
-  const { unlock } = useLockscreen();
+  const { unlock, isLocked } = useLockscreen();
 
   const handleUnlock = async () => {
     const success = await unlock(password);
     if (success) {
-      router.dismissTo('/(app)/(protected)/(onboarding)');
+      setError('');
     } else {
       setError(strings.lockscreen.login.input.error);
     }
   };
+
+  useEffect(() => {
+    if (!isLocked) {
+      router.dismissTo('/receive/wallet');
+    }
+  }, [isLocked]);
 
   return (
     <ScreenContainer
