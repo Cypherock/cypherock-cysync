@@ -71,6 +71,7 @@ export default function Portfolio() {
         </Flex>
         {showGraph && (
           <Graph
+            key={selectedRange}
             selectedRange={selectedRange}
             selectedWallet={selectedWallet}
           />

@@ -1,3 +1,4 @@
+import { GraphTimeRange } from '@/hooks';
 import { IBalanceHistory } from '@cypherock/coin-support-interfaces';
 import {
   IWallet,
@@ -25,6 +26,7 @@ export interface CalculatePortfolioGraphDataParams {
   parentAssetId?: string;
   accountId?: string;
   showGraphInUSD: boolean;
+  selectedRange: GraphTimeRange;
 }
 
 export interface CalculatePortfolioGraphDataParamsWithComputedData

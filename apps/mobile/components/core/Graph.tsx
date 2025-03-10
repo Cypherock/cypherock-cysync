@@ -1,5 +1,5 @@
 import { Dimensions, View } from 'react-native';
-import React, { useMemo } from 'react';
+import React, { useMemo, useState } from 'react';
 import {
   DataPointLabel,
   DisplayGraph,
@@ -32,30 +32,17 @@ export const Graph = (props: GraphPropTypes) => {
     formatYAxisTick,
     isLoading,
   } = useGraph(props);
+  const [maxValue, setMaxValue] = useState(
+    parseFloat(summaryDetails.totalValue),
+  );
 
-  /**Needs further optimization */
   const optimizedGraphData = useMemo(() => {
-    const selectedGraphData =
-      graphData.length > MAX_GRAPH_POINTS
-        ? (() => {
-            const step = (graphData.length - 1) / (MAX_GRAPH_POINTS - 1);
-            return Array.from({ length: MAX_GRAPH_POINTS }, (_, i) => {
-              const index = Math.round(i * step);
-              return graphData[index];
-            });
-          })()
-        : graphData;
-
-    const MAX_LABELS = 5;
-    const labelIndexes = new Set<number>();
-    for (let i = 0; i < MAX_LABELS; i++) {
-      const index = Math.round(
-        (i * (selectedGraphData.length - 1)) / (MAX_LABELS - 1),
-      );
-      labelIndexes.add(index);
-    }
-
-    const data = selectedGraphData.map((d, i) => {
+    const totalValue = parseFloat(summaryDetails.totalValue);
+    let maxValue = 0;
+    const data = graphData.map((d, i) => {
+      if (d.value > totalValue) {
+        maxValue = d.value;
+      }
       const dataPoint: FormattedGraphData = {
         value: d.value,
         dataPointLabelComponent: () => (
@@ -63,11 +50,12 @@ export const Graph = (props: GraphPropTypes) => {
         ),
         yAxisLabelTexts: formatYAxisTick(d.value),
       };
-      if (labelIndexes.has(i)) {
+      if (i == 0 || i == graphData.length - 1) {
         dataPoint.label = formatTimestamp(d.timestamp);
       }
       return dataPoint;
     });
+    setMaxValue(maxValue);
     return data;
   }, [graphData, formatTimestamp, formatTooltipValue, formatYAxisTick]);
 
@@ -101,7 +89,7 @@ export const Graph = (props: GraphPropTypes) => {
         areaChart
         spacing={Dimensions.get('screen').width / optimizedGraphData.length}
         data={optimizedGraphData}
-        maxValue={parseFloat(summaryDetails.totalValue) * 1.8}
+        maxValue={maxValue * 1.8}
         hideYAxisText
         color={
           props.parentAssetId
