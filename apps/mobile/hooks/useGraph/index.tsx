@@ -153,7 +153,7 @@ export const useGraph = ({ selectedRange, ...props }: UseGraphProps) => {
         result.summary.changeIcon = (
           <Entypo
             name={result.summary.isIncreased ? 'triangle-up' : 'triangle-down'}
-            size={8}
+            size={16}
             color={changeIconColor}
           />
         );

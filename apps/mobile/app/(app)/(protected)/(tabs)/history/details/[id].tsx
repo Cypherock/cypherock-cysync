@@ -10,6 +10,7 @@ import {
   TransactionType,
   TransactionTypeToIcon,
   Typography,
+  useTheme,
 } from '@/components/ui';
 import { colors } from '@/components/ui/themes/color.styled';
 import * as Clipboard from 'expo-clipboard';
@@ -24,6 +25,7 @@ export default function Index() {
   const { transaction, details } = useHistoryContext();
   const navigation = useNavigation();
   const [copied, setCopied] = useState<string | null>(null);
+  const theme = useTheme();
 
   useEffect(() => {
     if (!transaction) return;
@@ -81,120 +83,118 @@ export default function Index() {
   }
 
   return (
-    <ScreenContainer>
-      <Flex
-        direction="column"
-        gap={4}
-        style={{
-          alignItems: 'flex-start',
-          justifyContent: 'flex-start',
-          width: '100%',
-          flex: 1,
-          paddingHorizontal: 16,
-          paddingVertical: 12,
-        }}
-      >
-        <Typography type="para" textAlign="left">
+    <ScreenContainer style={{ gap: 16 }}>
+      <View style={{ paddingHorizontal: 16, gap: 4 }}>
+        <Typography type="para" textAlign="left" style={{ width: '100%' }}>
           {strings.history.details.title}
         </Typography>
-        <View
+        <Flex
           style={{
-            flexDirection: 'row',
-            justifyContent: 'space-between',
-            alignSelf: 'flex-start',
-            alignItems: 'center',
-            backgroundColor: '#2F2422',
+            backgroundColor: theme.palette.background.hash,
+            borderRadius: 4,
             paddingHorizontal: 8,
             paddingVertical: 4,
-            borderRadius: 4,
-            marginBottom: 16,
+            gap: 8,
+            width: '100%',
           }}
         >
-          <Typography type="body" textAlign="left" style={{ flex: 1 }}>
+          <Typography
+            type="body"
+            textAlign="left"
+            style={{ flex: 1 }}
+            numberOfLines={1}
+            ellipsizeMode="tail"
+          >
             {details.hash}
           </Typography>
           <Copy
-            size={10}
             onPress={() => handleCopy(details.hash as string)}
             copied={copied === details.hash}
           />
-        </View>
-        <ScrollView style={{ width: '100%' }}>
-          {typedEntries(details)
-            .slice(1)
-            .map(([key, value], i) => (
-              <Flex
-                style={[
-                  {
-                    justifyContent: 'space-between',
-                    alignItems: 'flex-start',
-                    width: '100%',
-                    paddingVertical: 6,
-                  },
-                  i !== Object.entries(transaction).length - 1
-                    ? {
-                        borderBottomWidth: 1,
-                        borderBottomColor: colors.border.secondary,
-                      }
-                    : {},
-                  key === 'sender' && { marginTop: 16 },
-                ]}
-                key={i}
-                direction={
-                  key === 'sender' || key === 'receiver' ? 'column' : 'row'
-                }
+        </Flex>
+      </View>
+      <ScrollView
+        style={{
+          paddingHorizontal: 16,
+          paddingVertical: 12,
+          width: '100%',
+        }}
+      >
+        {typedEntries(details)
+          .slice(1)
+          .map(([key, value], i) => (
+            <Flex
+              style={[
+                {
+                  justifyContent: 'space-between',
+                  alignItems: 'flex-start',
+                  width: '100%',
+                  paddingVertical: 6,
+                },
+                i !== Object.entries(transaction ?? {}).length - 1
+                  ? {
+                      borderBottomWidth: 1,
+                      borderBottomColor: colors.border.secondary,
+                    }
+                  : {},
+                key === 'sender' && { marginTop: 16 },
+              ]}
+              key={i}
+              direction={
+                key === 'sender' || key === 'receiver' ? 'column' : 'row'
+              }
+            >
+              <Typography
+                type="body"
+                color="secondary"
+                style={{ textTransform: 'capitalize', flexShrink: 0 }}
               >
-                <Typography
-                  type="body"
-                  color="secondary"
-                  style={{ textTransform: 'capitalize', flexShrink: 0 }}
-                >
-                  {key}
-                </Typography>
-                {Array.isArray(value)
-                  ? value.map((item, itemIndex: number) => (
+                {key}
+              </Typography>
+              {Array.isArray(value)
+                ? value.map((item, itemIndex: number) => (
+                    <Flex
+                      key={`${key}-${itemIndex}`}
+                      style={{
+                        width: '100%',
+                        maxWidth: '100%',
+                        paddingTop: 8,
+                        paddingBottom: itemIndex === value.length - 1 ? 8 : 0,
+                        flexDirection: 'row',
+                        alignItems: 'center',
+                      }}
+                    >
+                      <Typography
+                        type="body"
+                        ellipsizeMode="tail"
+                        numberOfLines={1}
+                        textAlign="left"
+                        color={item.tag ? 'secondary' : undefined}
+                        style={{ flex: 1 }}
+                      >
+                        {item.address}
+                      </Typography>
                       <Flex
-                        key={`${key}-${itemIndex}`}
                         style={{
-                          width: '100%',
-                          maxWidth: '100%',
-                          paddingTop: 8,
+                          marginLeft: 'auto',
                           flexDirection: 'row',
                           alignItems: 'center',
+                          gap: 8,
                         }}
                       >
-                        <Typography
-                          type="body"
-                          ellipsizeMode="tail"
-                          numberOfLines={1}
-                          textAlign="left"
-                          color={item.tag ? 'secondary' : undefined}
-                          style={{ flex: 1 }}
-                        >
-                          {item.address}
-                        </Typography>
-                        <Flex
-                          style={{
-                            marginLeft: 'auto',
-                            flexDirection: 'row',
-                            alignItems: 'center',
-                            gap: 8,
-                          }}
-                        >
-                          {item.tag && <Tag>Mine</Tag>}
-                          <Copy
-                            size={10}
-                            onPress={() => handleCopy(item.address)}
-                            copied={copied === item.address}
-                          />
-                        </Flex>
+                        {item.tag && <Tag>Mine</Tag>}
+                        <Copy
+                          size={16}
+                          onPress={() => handleCopy(item.address)}
+                          copied={copied === item.address}
+                        />
                       </Flex>
-                    ))
-                  : renderValue(key, transaction, value)}
-              </Flex>
-            ))}
-        </ScrollView>
-      </Flex>
+                    </Flex>
+                  ))
+                : renderValue(key, transaction, value)}
+            </Flex>
+          ))}
+      </ScrollView>
     </ScreenContainer>
   );
 }

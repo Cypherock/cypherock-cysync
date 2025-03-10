@@ -1,11 +1,11 @@
 import React, { ReactNode } from 'react';
 import { Pressable, View } from 'react-native';
 import { Header as StyledHeader } from '../ui';
-import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 import { router } from 'expo-router';
-import { colors } from '../ui/themes/color.styled';
 import { Icon } from '@/components/ui';
 import { Images } from '@/constants';
+import { selectNotifications, useAppSelector } from '@/store';
+import { QRIcon } from '../ui/icons/qr-icon';
 
 interface HeaderProps {
   title: string;
@@ -13,7 +13,6 @@ interface HeaderProps {
   showBack?: boolean;
   onBackPress: () => void;
   showDiscard?: boolean;
-  unreadNotifications?: boolean;
 }
 
 export function Header({
@@ -22,8 +21,9 @@ export function Header({
   showBack = true,
   onBackPress,
   showDiscard = false,
-  unreadNotifications = undefined,
 }: HeaderProps) {
+  const { unreadTransactions } = useAppSelector(selectNotifications);
+  const showNotification = unreadTransactions > 0 ? 'active' : 'default';
   return (
     <StyledHeader
       title={title}
@@ -35,20 +35,16 @@ export function Header({
           <Pressable onPress={() => router.push('/notification')}>
             <Icon
               source={{
-                default: Images.icon.notification_default,
-                disabled: Images.icon.notification_plain_default,
+                active: Images.icon.notification_default,
+                default: Images.icon.notification_plain_default,
               }}
               size={'default'}
-              state={!unreadNotifications ? 'disabled' : 'default'}
+              key={showNotification}
+              state={showNotification}
               onPress={() => router.push('/notification')}
             />
           </Pressable>
-          <MaterialCommunityIcons
-            name="qrcode"
-            onPress={() => router.push('/scan')}
-            size={18}
-            color={'#8B8682'}
-          />
+          <QRIcon onPress={() => router.push('/scan')} />
         </View>
       }
       showDiscard={showDiscard}
