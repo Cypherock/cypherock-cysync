@@ -125,6 +125,7 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-end',
     alignItems: 'center',
     paddingHorizontal: 24,
+    paddingVertical: 12,
   },
   textContainer: {
     gap: 16,

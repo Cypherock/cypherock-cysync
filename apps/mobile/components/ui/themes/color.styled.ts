@@ -16,6 +16,7 @@ export const colors = {
   background: {
     primary: '#1C1815',
     secondary: '#272320',
+    hash: '#2F2422',
     input: '#27221D',
     tableRow1: '#16120F',
     tableRow2: '#211C18',
