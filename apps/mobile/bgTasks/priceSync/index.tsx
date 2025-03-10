@@ -2,8 +2,8 @@ import React, { useEffect, useRef } from 'react';
 
 import { syncAllPriceHistories, syncAllPrices } from '@/actions';
 
-const LATEST_PRICE_AUTO_RESYNC_INTERVAL = 1 * 60 * 1000;
-const PRICE_HISTORY_AUTO_RESYNC_INTERVAL = 5 * 60 * 1000;
+const LATEST_PRICE_AUTO_RESYNC_INTERVAL = 3 * 60 * 1000;
+const PRICE_HISTORY_AUTO_RESYNC_INTERVAL = 6 * 60 * 1000;
 
 export const PriceSyncTask: React.FC = () => {
   const latestPriceTimeoutRef = useRef<NodeJS.Timeout>();
