@@ -13,6 +13,7 @@
     "scanQrCode": "扫描二维码",
     "buyCypherockX1": "购买 Cypherock X1",
     "grantPermission": "授予权限",
+    "nextOnboarding": "Next",
     "allWallets": "所有钱包"
   },
   "lockscreen": {
@@ -186,7 +187,7 @@
       "termsOfUse": "使用条款",
       "privacyPolicy": "隐私政策"
     },
-    "app": {
+    "password": {
       "heading": "应用设置",
       "addNewPassword": "添加新密码",
       "changePassword": "更改密码",
@@ -234,16 +235,13 @@
     }
   },
   "notifications": {
-    "heading": "通知",
-    "notifications": {
-      "heading": "Notifications",
-      "sendTransaction": "${amount} ${unit} ${type} to ${address}",
-      "sendTransactionMultiple": "${amount} ${unit} ${type} to multiple addresses",
-      "receiveTransaction": "${amount} ${unit} ${type} in the account ${walletName}/${accountName}",
-      "noTransactions": {
-        "title": "All caught up",
-        "subTitle": "No new transactions to show"
-      }
+    "heading": "Notifications",
+    "sendTransaction": "${amount} ${unit} ${type} to ${address}",
+    "sendTransactionMultiple": "${amount} ${unit} ${type} to multiple addresses",
+    "receiveTransaction": "${amount} ${unit} ${type} in the account ${walletName}/${accountName}",
+    "noTransactions": {
+      "title": "All caught up",
+      "subTitle": "No new transactions to show"
     }
   },
   "banner": {

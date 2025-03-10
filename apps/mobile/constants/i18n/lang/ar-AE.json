@@ -13,6 +13,7 @@
     "scanQrCode": "مسح رمز الاستجابة السريعة",
     "buyCypherockX1": "شراء Cypherock X1",
     "grantPermission": "منح الإذن",
+    "nextOnboarding": "Next",
     "allWallets": "جميع المحافظ"
   },
   "lockscreen": {
@@ -234,16 +235,13 @@
     }
   },
   "notifications": {
-    "heading": "الإشعارات",
-    "notifications": {
-      "heading": "Notifications",
-      "sendTransaction": "${amount} ${unit} ${type} to ${address}",
-      "sendTransactionMultiple": "${amount} ${unit} ${type} to multiple addresses",
-      "receiveTransaction": "${amount} ${unit} ${type} in the account ${walletName}/${accountName}",
-      "noTransactions": {
-        "title": "All caught up",
-        "subTitle": "No new transactions to show"
-      }
+    "heading": "Notifications",
+    "sendTransaction": "${amount} ${unit} ${type} to ${address}",
+    "sendTransactionMultiple": "${amount} ${unit} ${type} to multiple addresses",
+    "receiveTransaction": "${amount} ${unit} ${type} in the account ${walletName}/${accountName}",
+    "noTransactions": {
+      "title": "All caught up",
+      "subTitle": "No new transactions to show"
     }
   },
   "banner": {
