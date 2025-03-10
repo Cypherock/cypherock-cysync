@@ -216,7 +216,7 @@ export const calculatePortfolioGraphData = memoizeFunctionWithObjectArg(
     const walletId = params.selectedWallet?.__id;
 
     try {
-      const balanceHistory = await getBalanceHistory({
+      let balanceHistory = await getBalanceHistory({
         accounts: params.accounts,
         transactions: params.transactions,
         priceHistories: params.priceHistories,
@@ -228,6 +228,13 @@ export const calculatePortfolioGraphData = memoizeFunctionWithObjectArg(
         parentAssetId: params.parentAssetId,
         accountId: params.accountId,
       });
+
+      if (params.selectedRange === 'month') {
+        const msInDay = 24 * 60 * 60 * 1000;
+        balanceHistory.balanceHistory = balanceHistory.balanceHistory.filter(
+          h => h.timestamp > new Date().getTime() - 32 * msInDay,
+        );
+      }
 
       const paramsWithComputedData = {
         ...params,

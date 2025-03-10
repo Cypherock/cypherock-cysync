@@ -139,6 +139,7 @@ export const useGraph = ({ selectedRange, ...props }: UseGraphProps) => {
       parentAssetId: data.props?.parentAssetId,
       showGraphInUSD: data.showGraphInUSD,
       days: graphTimeRangeToDaysMap[data.selectedRange],
+      selectedRange: data.selectedRange,
     };
 
     try {

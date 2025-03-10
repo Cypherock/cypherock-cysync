@@ -13,7 +13,7 @@ export const graphTimeRangeToDaysMap: Record<GraphTimeRange, 1 | 7 | 30 | 365> =
   {
     day: 1,
     week: 7,
-    month: 30,
+    month: 365,
     year: 365,
   };
 
