@@ -1,7 +1,6 @@
 import { FC } from 'react';
 import styled from 'styled-components/native';
 import { Loader, Typography } from '../../atoms';
-import Octicons from '@expo/vector-icons/Octicons';
 import React from 'react';
 import { SortIcon } from '../../icons';
 import {
@@ -10,6 +9,7 @@ import {
   TouchableOpacityProps,
   View,
 } from 'react-native';
+import Entypo from '@expo/vector-icons/Entypo';
 
 interface TableHeaderDataProps extends TouchableOpacityProps {
   data: string;
@@ -98,12 +98,12 @@ export const TableHeaderData: FC<TableHeaderDataProps> = ({
       >
         {!selected ? (
           <>
-            <SortIcon />
+            <SortIcon width={12} height={12} />
           </>
         ) : ascending ? (
-          <Octicons name="triangle-up" size={16} color={'white'} />
+          <Entypo name="triangle-up" size={16} color={'white'} />
         ) : (
-          <Octicons name="triangle-down" size={16} color={'white'} />
+          <Entypo name="triangle-down" size={16} color={'white'} />
         )}
       </View>
     </TableHeaderCell>
