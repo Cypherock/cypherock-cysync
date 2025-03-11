@@ -6,10 +6,10 @@ import {
   SelectFilterSheet,
 } from '@/components/ui';
 import { useEffect } from 'react';
-import { useLocalSearchParams, useNavigation } from 'expo-router';
+import { router, useLocalSearchParams, useNavigation } from 'expo-router';
 import { CoinIcon, Graph, PortfolioHeader } from '@/components/core';
 import AllocationTable from '@/components/core/AllocationTable';
-import { usePortfolioFilters } from '@/hooks';
+import { CoinAllocationRow, usePortfolioFilters } from '@/hooks';
 import { selectLanguage, useAppSelector } from '@/store';
 import useShowAfterDelay from '@/hooks/useShowAfterDelay';
 
@@ -42,7 +42,7 @@ export default function Coins() {
         <CoinIcon
           assetId={id}
           parentAssetId={parentAssetId}
-          size={24}
+          size={20}
           subIconSize={10}
           subContainerSize={12}
           withParentIconAtBottom
@@ -51,6 +51,17 @@ export default function Coins() {
       ),
     });
   }, [parentAssetId]);
+
+  function handleAssetClick(item: CoinAllocationRow) {
+    router.push({
+      pathname: '/portfolio/accounts/[id]',
+      params: {
+        id: item.accountId ?? '',
+        parentAssetId: item.parentAssetId,
+        assetId: item.assetId,
+      },
+    });
+  }
 
   return (
     <ScreenContainer>
@@ -76,13 +87,17 @@ export default function Coins() {
           <Graph
             selectedRange={selectedRange}
             parentAssetId={parentAssetId}
+            assetId={id}
             selectedWallet={selectedWallet}
           />
         )}
       </Container>
       <AllocationTable
         parentAssetId={parentAssetId}
+        assetId={id}
         walletId={selectedWallet?.__id}
+        onItemClick={handleAssetClick}
+        withSubIconAtBottom
       />
       <SelectFilterSheet
         ref={filterRef}

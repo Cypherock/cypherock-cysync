@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import {
   AllocationTableHeaderKeys,
   CoinAllocationRow,
@@ -23,9 +23,16 @@ export interface AllocationTableProps extends UseAssetAllocationProps {
   onItemClick?: (item: CoinAllocationRow) => void;
 }
 
-export default function AllocationTable(props: AllocationTableProps) {
-  const { lang, coinAllocations, onSort, sortedBy, isAscending, isLoading } =
-    useAssetAllocations(props);
+function AllocationTable(props: AllocationTableProps) {
+  const {
+    lang,
+    coinAllocations,
+    onSort,
+    sortedBy,
+    isAscending,
+    isLoading,
+    isAccountDisplay,
+  } = useAssetAllocations(props);
   const strings = lang.strings;
 
   return (
@@ -62,7 +69,9 @@ export default function AllocationTable(props: AllocationTableProps) {
           >
             <XTableCell
               leftIcon={item.assetIcon}
-              primaryText={item.assetName}
+              primaryText={
+                isAccountDisplay ? (item.accountName ?? '') : item.assetName
+              }
               secondaryText={item.displayBalance}
             />
             <XTableCell
@@ -90,3 +99,5 @@ export default function AllocationTable(props: AllocationTableProps) {
     </Table>
   );
 }
+
+export default memo(AllocationTable);
