@@ -14,7 +14,11 @@ import { selectLanguage, useAppSelector } from '@/store';
 import useShowAfterDelay from '@/hooks/useShowAfterDelay';
 
 export default function Coins() {
-  const { id } = useLocalSearchParams() as { id: string };
+  const { parentAssetId, id, assetName } = useLocalSearchParams<{
+    parentAssetId: string;
+    id: string;
+    assetName: string;
+  }>();
   const navigation = useNavigation();
   const showGraph = useShowAfterDelay();
 
@@ -29,13 +33,22 @@ export default function Coins() {
     onShowFilter,
     onFilterReset,
   } = usePortfolioFilters();
-  const parentAssetId = id as string;
 
   useEffect(() => {
     if (!parentAssetId) return;
-    navigation.setOptions({ title: id });
+    navigation.setOptions({ title: assetName });
     navigation.setOptions({
-      headerLeft: () => <CoinIcon parentAssetId={parentAssetId} size={14} />,
+      headerLeft: () => (
+        <CoinIcon
+          assetId={id}
+          parentAssetId={parentAssetId}
+          size={24}
+          subIconSize={10}
+          subContainerSize={12}
+          withParentIconAtBottom
+          withBackground
+        />
+      ),
     });
   }, [parentAssetId]);
 
