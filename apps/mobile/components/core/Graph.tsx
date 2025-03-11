@@ -38,9 +38,9 @@ export const Graph = (props: GraphPropTypes) => {
 
   const optimizedGraphData = useMemo(() => {
     const totalValue = parseFloat(summaryDetails.totalValue);
-    let maxValue = 0;
+    let maxValue = totalValue;
     const data = graphData.map((d, i) => {
-      if (d.value > totalValue) {
+      if (d.value > maxValue) {
         maxValue = d.value;
       }
       const dataPoint: FormattedGraphData = {
@@ -89,7 +89,7 @@ export const Graph = (props: GraphPropTypes) => {
         areaChart
         spacing={Dimensions.get('screen').width / optimizedGraphData.length}
         data={optimizedGraphData}
-        maxValue={maxValue * 1.8}
+        maxValue={maxValue * 1.2}
         hideYAxisText
         color={
           props.parentAssetId

@@ -7,15 +7,20 @@ import {
 } from '@/components/ui';
 import { Graph } from '@/components/core';
 import { useEffect } from 'react';
-import { useLocalSearchParams, useNavigation } from 'expo-router';
+import { router, useLocalSearchParams, useNavigation } from 'expo-router';
 import { CoinIcon, PortfolioHeader } from '@/components/core';
-import AllocationTable from '@/components/core/AllocationTable';
 import { usePortfolioFilters } from '@/hooks';
 import { selectAccounts, selectLanguage, useAppSelector } from '@/store';
-import useShowAfterDelay from '@/hooks/useShowAfterDelay';
+import { getAssetOrUndefined } from '@cypherock/coin-support-utils';
+import TokenTable from '@/components/core/TokenTable';
 
 export default function Accounts() {
-  const { id } = useLocalSearchParams() as { id: string };
+  const { id: accountId } = useLocalSearchParams<{
+    id: string;
+    parentAssetId: string;
+    assetId: string;
+  }>();
+
   const navigation = useNavigation();
   const { accounts } = useAppSelector(selectAccounts);
   const { strings } = useAppSelector(selectLanguage);
@@ -29,19 +34,24 @@ export default function Accounts() {
     onShowFilter,
     onFilterReset,
   } = usePortfolioFilters();
-  const showGraph = useShowAfterDelay();
-  const accountId = id as string;
   const selectedAccount = accounts.find(ac => ac.__id === accountId);
 
   useEffect(() => {
-    if (!selectedAccount) return;
+    if (!selectedAccount) {
+      router.dismiss();
+      return;
+    }
     navigation.setOptions({ title: selectedAccount.name });
     navigation.setOptions({
       headerLeft: () => (
-        <CoinIcon parentAssetId={selectedAccount.assetId} size={14} />
+        <CoinIcon parentAssetId={selectedAccount.assetId} size={20} />
       ),
     });
   }, [selectedAccount]);
+
+  if (!selectedAccount) {
+    return null;
+  }
 
   return (
     <ScreenContainer>
@@ -63,15 +73,19 @@ export default function Accounts() {
             />
           </Flex>
         </Flex>
-        {showGraph ?? (
-          <Graph
-            selectedRange={selectedRange}
-            accountId={accountId}
-            selectedWallet={selectedWallet}
-          />
-        )}
+        <Graph
+          key={accountId}
+          selectedRange={selectedRange}
+          accountId={accountId}
+          selectedWallet={selectedWallet}
+        />
       </Container>
-      <AllocationTable accountId={accountId} walletId={selectedWallet?.__id} />
+      {(getAssetOrUndefined(selectedAccount.parentAssetId) as any)?.tokens &&
+      accountId ? (
+        <TokenTable accountId={accountId} />
+      ) : (
+        <TokenTable noData />
+      )}
       <SelectFilterSheet
         ref={filterRef}
         title={'Select Option'}

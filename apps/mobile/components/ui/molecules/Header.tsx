@@ -19,8 +19,8 @@ interface HeaderProps {
 
 const IconContainer = styled(View)`
   display: flex;
-  width: 20px;
-  height: 20px;
+  width: 24px;
+  height: 24px;
   flex-direction: column;
   justify-content: center;
   align-items: center;
@@ -52,7 +52,7 @@ export function Header({
         />
       )}
       {leftIcon && <IconContainer>{leftIcon}</IconContainer>}
-      <Typography type="h1" style={styles.title}>
+      <Typography type="h1" style={styles.title} numberOfLines={1}>
         {title}
       </Typography>
       {!showDiscard && rightIcons}
