@@ -224,8 +224,8 @@ export const useAssetAllocations = ({
               parentAssetId={r.parentAssetId}
               assetId={r.assetId}
               size={24}
-              subIconSize={12}
-              subContainerSize={16}
+              subIconSize={10}
+              subContainerSize={12}
               withParentIconAtBottom={withParentIconAtBottom}
               withSubIconAtBottom={withSubIconAtBottom}
               withBackground

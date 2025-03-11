@@ -86,12 +86,12 @@ export const CoinIcon: React.FC<CoinIconProps> = ({
   };
 
   const iconSize = {
-    width: withBackground ? size - 6 : size,
-    height: withBackground ? size - 6 : size,
+    width: size,
+    height: size,
   };
 
-  const defaultSubIconSize = 20;
-  const defaultSubContainerSize = 21;
+  const defaultSubIconSize = 10;
+  const defaultSubContainerSize = 14;
 
   const subContainerStyle = {
     ...styles.subContainer,
@@ -193,6 +193,7 @@ const styles = StyleSheet.create({
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
+    overflow: 'hidden',
   },
   icon: {
     position: 'absolute',
@@ -203,10 +204,12 @@ const styles = StyleSheet.create({
     right: 0,
     borderRadius: 50,
     backgroundColor: '#27221D',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    overflow: 'hidden',
   },
   subIcon: {
     position: 'absolute',
-    top: 0,
-    left: 0,
   },
 });
