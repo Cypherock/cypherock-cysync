@@ -8,7 +8,7 @@ import {
 import { Graph, PortfolioHeader } from '@/components/core';
 import { router, useNavigation } from 'expo-router';
 import NoDataScreen from '@/components/ui/molecules/NoDataScreen';
-import { usePortfolioFilters } from '@/hooks';
+import { CoinAllocationRow, usePortfolioFilters } from '@/hooks';
 import { selectLanguage, selectWallets, useAppSelector } from '@/store';
 import AllocationTable from '@/components/core/AllocationTable';
 import useShowAfterDelay from '@/hooks/useShowAfterDelay';
@@ -37,6 +37,17 @@ export default function Portfolio() {
       }
     });
   }, []);
+
+  function handleAssetClick(item: CoinAllocationRow) {
+    router.push({
+      pathname: '/portfolio/coins/[id]',
+      params: {
+        id: item.assetId,
+        parentAssetId: item.parentAssetId,
+        assetName: item.assetName,
+      },
+    });
+  }
 
   if (wallets.length === 0) {
     return (
@@ -77,7 +88,11 @@ export default function Portfolio() {
           />
         )}
       </Container>
-      <AllocationTable isMain walletId={selectedWallet?.__id} />
+      <AllocationTable
+        onItemClick={handleAssetClick}
+        walletId={selectedWallet?.__id}
+        withParentIconAtBottom
+      />
       <SelectFilterSheet
         ref={filterRef}
         title={'Select Option'}
