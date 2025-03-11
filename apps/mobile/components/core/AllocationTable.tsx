@@ -20,7 +20,7 @@ import {
 import { colors } from '../ui/themes/color.styled';
 
 export interface AllocationTableProps extends UseAssetAllocationProps {
-  isMain?: boolean;
+  onItemClick?: (item: CoinAllocationRow) => void;
 }
 
 export default function AllocationTable(props: AllocationTableProps) {
@@ -57,8 +57,7 @@ export default function AllocationTable(props: AllocationTableProps) {
           <TableRowData
             index={index}
             onPress={() => {
-              props.isMain &&
-                router.push(`/portfolio/coins/${item.parentAssetId}`);
+              props.onItemClick && props.onItemClick(item);
             }}
           >
             <XTableCell
