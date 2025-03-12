@@ -22,6 +22,7 @@ import {
   IAccount,
   ITransaction,
   IWallet,
+  TransactionStatus,
   TransactionTypeMap,
 } from '@cypherock/db-interfaces';
 import { getDisplayTransactionType } from '@/utils/transactions';
@@ -30,6 +31,19 @@ import { format as formatDate } from 'date-fns';
 import lodash from 'lodash';
 import { getDefaultUnit, getParsedAmount } from '@cypherock/coin-support-utils';
 import { useNavigation } from 'expo-router';
+
+interface INotification {
+  id: string;
+  icon: React.JSX.Element;
+  title: any;
+  status: TransactionStatus;
+  time: string;
+  txn: ITransaction & {
+    isClicked?: boolean;
+  };
+  type: string;
+  info: string;
+}
 
 const selector = createSelector(
   [selectLanguage, selectNotifications, selectWallets, selectUnHiddenAccounts],
@@ -104,7 +118,7 @@ export default function Notification() {
   };
 
   const displayTransactions = useMemo(() => {
-    const formattedTxns = transactions.map(
+    const formattedTxns: INotification[] = transactions.map(
       t => ({
         id: t.__id ?? '',
         icon: (
@@ -168,12 +182,15 @@ export default function Notification() {
             overflow: 'hidden',
           }}
           sections={displayTransactions}
-          renderItem={({ item }) => (
+          renderItem={({ item }: { item: INotification }) => (
             <NotificationItem
-              {...item}
               isClicked={item.txn?.isClicked}
               type={item.type as any}
               onPress={() => onNotificationClick(item.txn)}
+              status={item.status}
+              icon={item.icon}
+              info={item.info}
+              time={item.time}
             />
           )}
           renderSectionHeader={({ section: { title } }) => (
@@ -181,7 +198,6 @@ export default function Notification() {
               <Typography type="para">{title}</Typography>
             </Card>
           )}
-          contentContainerStyle={{ paddingBottom: 16 }}
         />
       )}
     </ScreenContainer>
