@@ -20,13 +20,13 @@ export type BgColor =
   | 'warning'
   | 'dialog'
   | 'popup'
-  | 'warning'
   | 'calendar'
   | 'container'
   | 'slate'
   | 'slateDark'
   | 'headlineLight'
   | 'error'
+  | 'warningGreenBg'
   | 'disabled'
   | 'message'
   | 'videoError'
@@ -161,6 +161,13 @@ ${props =>
     css`
       background: ${({ theme }) => theme.palette.background.error};
     `}
+    
+    ${props =>
+    props.$bgColor === 'warningGreenBg' &&
+    css`
+      background: ${({ theme }) => theme.palette.background.warningGreenBg};
+    `}
+
     ${props =>
     props.$bgColor === 'disabled' &&
     css`

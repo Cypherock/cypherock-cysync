@@ -27,6 +27,7 @@ export type BorderColor =
   | 'list'
   | 'topbar'
   | 'danger'
+  | 'warningGreen'
   | 'success';
 type BorderRadius = number | 'full' | string;
 type BorderStyle = 'dotted' | 'dashed' | 'solid' | 'double' | 'none';

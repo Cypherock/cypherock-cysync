@@ -1309,9 +1309,10 @@
                   "info": "Make sure that the wallet name is unique to other wallet names on the device"
                 },
                 {
-                  "warning": "Wallet name once set cannot be modified. Please set the name accordingly"
+                  "warningGreen": "Wallet name once set cannot be modified. Please set the name accordingly"
                 }
-              ]
+              ],
+              "footerWarning": "this is just a test"
             },
             {
               "title": "Confirm the wallet name on the X1 Vault"
