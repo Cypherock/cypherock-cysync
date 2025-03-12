@@ -46,7 +46,6 @@ export default function Coins() {
           subIconSize={10}
           subContainerSize={12}
           withParentIconAtBottom
-          withBackground
         />
       ),
     });

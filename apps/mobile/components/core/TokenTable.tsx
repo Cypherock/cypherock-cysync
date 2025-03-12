@@ -33,8 +33,6 @@ function TokenTable(props: TokenTableProps) {
   const lang = useAppSelector(selectLanguage);
   const strings = lang.strings;
 
-  console.log({ coinAllocations: subAccounts });
-
   const [sortedBy, setSortedBy] =
     React.useState<AllocationTableHeaderKeys>('amount');
   const [isAscending, setIsAscending] = useState(false);

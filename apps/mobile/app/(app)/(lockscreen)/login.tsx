@@ -12,7 +12,7 @@ import { useAppSelector } from '@/store';
 import { selectLanguage } from '@/store/lang';
 import { useLockscreen } from '@/contexts/useLockscreenContext';
 import { useRouter } from 'expo-router';
-import { View } from 'react-native';
+import { KeyboardAvoidingView, Platform, View } from 'react-native';
 
 export default function Login() {
   const [password, setPassword] = useState('');
@@ -43,46 +43,51 @@ export default function Login() {
         paddingBottom: 24,
       }}
     >
-      <Container
-        style={{
-          justifyContent: 'center',
-          alignItems: 'center',
-        }}
+      <KeyboardAvoidingView
+        style={{ flex: 1, width: '100%' }}
+        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
       >
-        <View
+        <Container
           style={{
             justifyContent: 'center',
             alignItems: 'center',
-            paddingVertical: 24,
-            gap: 16,
           }}
         >
           <View
             style={{
               justifyContent: 'center',
               alignItems: 'center',
-              gap: 21,
+              paddingVertical: 24,
+              gap: 16,
             }}
           >
-            <CypherockLockedIcon />
-            <LogotypeIcon />
+            <View
+              style={{
+                justifyContent: 'center',
+                alignItems: 'center',
+                gap: 21,
+              }}
+            >
+              <CypherockLockedIcon />
+              <LogotypeIcon />
+            </View>
+            <Typography type="body" color="secondary">
+              {strings.lockscreen.login.tagline}
+            </Typography>
           </View>
-          <Typography type="body" color="secondary">
-            {strings.lockscreen.login.tagline}
-          </Typography>
-        </View>
-        <Input
-          label={strings.lockscreen.login.input.label}
-          value={password}
-          onChangeText={setPassword}
-          secureTextEntry
-          placeholderTextColor="#AAA"
-          actionText={strings.lockscreen.login.input.action}
-          onAction={() => router.push('/(app)/(lockscreen)/reset')}
-          error={error}
-          containerStyle={{ paddingVertical: 32 }}
-        />
-      </Container>
+          <Input
+            label={strings.lockscreen.login.input.label}
+            value={password}
+            onChangeText={setPassword}
+            secureTextEntry
+            placeholderTextColor="#AAA"
+            actionText={strings.lockscreen.login.input.action}
+            onAction={() => router.push('/(app)/(lockscreen)/reset')}
+            error={error}
+            containerStyle={{ paddingVertical: 32 }}
+          />
+        </Container>
+      </KeyboardAvoidingView>
       <Button
         title="Continue"
         onPress={handleUnlock}
