@@ -56,7 +56,13 @@ export default function Account() {
           {strings.receive.chooseAccount.title}
         </Typography>
         <Search onChange={v => setSearch(v)} value={search} />
-        <Card style={{ paddingHorizontal: 0, paddingVertical: 0 }}>
+        <Card
+          style={{
+            flex: 1,
+            paddingHorizontal: 0,
+            paddingVertical: 0,
+          }}
+        >
           {filteredAccounts.length > 0 ? (
             <FlatList
               style={{ width: '100%' }}
