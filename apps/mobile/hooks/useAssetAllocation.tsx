@@ -276,9 +276,7 @@ export const useAssetAllocations = ({
   }, [lang, walletId, assetId, parentAssetId, accountId]);
 
   useEffect(() => {
-    if (coinAllocations.length > 0) {
-      setSortedCoinAllocations(getSortedData(coinAllocations));
-    }
+    setSortedCoinAllocations(getSortedData(coinAllocations));
   }, [coinAllocations, sortedBy, isAscending]);
 
   const isAccountDisplay = useMemo(() => !!parentAssetId, [parentAssetId]);
