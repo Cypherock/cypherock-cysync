@@ -3,6 +3,7 @@ import {
   Flex,
   HistoryTableAmountCell,
   HistoryTableTimeCell,
+  Loader,
   LoaderScreen,
   ScreenContainer,
   Seperator,
@@ -15,7 +16,7 @@ import {
 } from '@/components/ui';
 import NoDataScreen from '@/components/ui/molecules/NoDataScreen';
 import { colors } from '@/components/ui/themes/color.styled';
-import { useAppSelector } from '@/store';
+import { selectNetwork, useAppSelector } from '@/store';
 import { selectLanguage } from '@/store/lang';
 import { router } from 'expo-router';
 import React from 'react';
@@ -29,9 +30,10 @@ import { useHistoryContext } from '@/contexts/useHistoryContext';
 
 export default function History() {
   const { strings } = useAppSelector(selectLanguage);
-  const { isAscending, onSort, displayedData, sortedBy, noData } =
+  const { isAscending, onSort, displayedData, sortedBy, noData, syncState } =
     useTransactions();
   const { setSelectedTransaction } = useHistoryContext();
+  const { active } = useAppSelector(selectNetwork);
 
   if (noData) {
     return (
@@ -44,7 +46,7 @@ export default function History() {
     );
   }
 
-  if (displayedData.length === 0) {
+  if (displayedData.length === 0 && syncState === 'syncing') {
     return (
       <LoaderScreen loaderSize={80} title={strings.scan.loading.description} />
     );
@@ -52,6 +54,20 @@ export default function History() {
 
   return (
     <ScreenContainer>
+      {!active && (
+        <Typography
+          type="h5"
+          color="secondary"
+          textAlign="center"
+          style={{
+            paddingHorizontal: 16,
+            paddingVertical: 12,
+            width: '100%',
+          }}
+        >
+          Internet connection required!
+        </Typography>
+      )}
       <Flex
         style={{
           backgroundColor: colors.black,
@@ -63,6 +79,7 @@ export default function History() {
         <Typography type="h5" color="secondary" textAlign="left">
           {strings.history.history.title}
         </Typography>
+        {syncState === 'syncing' && <Loader />}
       </Flex>
       <Table>
         <TableHeader>
@@ -80,6 +97,15 @@ export default function History() {
             />
           ))}
         </TableHeader>
+        {displayedData.length === 0 && (
+          <Typography
+            type="h5"
+            color="secondary"
+            style={{ paddingVertical: 24 }}
+          >
+            No Transactions Found!
+          </Typography>
+        )}
         <TableBody
           type="section"
           data={displayedData}
