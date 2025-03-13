@@ -58,7 +58,7 @@ export default function Account() {
         <Search onChange={v => setSearch(v)} value={search} />
         <Card
           style={{
-            flex: 1,
+            flex: filteredAccounts.length > 7 ? 1 : 0,
             paddingHorizontal: 0,
             paddingVertical: 0,
           }}
