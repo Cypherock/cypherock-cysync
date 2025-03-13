@@ -710,6 +710,7 @@ interface LangValidation {
 interface LangGuidedFlows {
   createWallet: {
     title: string;
+    skipPinSetup?: string;
     tabs: {
       asideTitle: string;
       pages: {
