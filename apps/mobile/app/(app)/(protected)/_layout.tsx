@@ -3,6 +3,7 @@ import { Stack } from 'expo-router';
 import { keyValueStore } from '@/db';
 import { useEffect, useState } from 'react';
 import { SplashScreen } from 'expo-router';
+import { NetworkPingTask } from '@/bgTasks/networkTask';
 
 export default function Layout() {
   const [onBoaridngCompleted, setOnBoardingCompleted] = useState(false);
@@ -34,16 +35,19 @@ export default function Layout() {
   }
 
   return (
-    <Stack
-      screenOptions={{
-        headerShown: false,
-        contentStyle: { backgroundColor: theme.palette.background.primary },
-      }}
-    >
-      <Stack.Screen name="(onboarding)" redirect={onBoaridngCompleted} />
-      <Stack.Screen name="(tabs)" />
-      <Stack.Screen name="permission" />
-      <Stack.Screen name="scan" />
-    </Stack>
+    <>
+      <Stack
+        screenOptions={{
+          headerShown: false,
+          contentStyle: { backgroundColor: theme.palette.background.primary },
+        }}
+      >
+        <Stack.Screen name="(onboarding)" redirect={onBoaridngCompleted} />
+        <Stack.Screen name="(tabs)" />
+        <Stack.Screen name="permission" />
+        <Stack.Screen name="scan" />
+      </Stack>
+      <NetworkPingTask />
+    </>
   );
 }
