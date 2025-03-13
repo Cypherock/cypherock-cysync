@@ -28,7 +28,7 @@ interface SelectFilterSheetProps {
 
 export const SelectFilterSheet = forwardRef(
   (
-    { onHide, data, title, onSelect, onReset }: SelectFilterSheetProps,
+    { onHide, data, title, onSelect }: SelectFilterSheetProps,
     ref: React.ForwardedRef<BottomSheetModal<any>> | undefined,
   ) => {
     return (
@@ -44,7 +44,6 @@ export const SelectFilterSheet = forwardRef(
               size={14}
               color={colors.text.secondary}
               onPress={() => {
-                onReset();
                 onHide();
               }}
             />

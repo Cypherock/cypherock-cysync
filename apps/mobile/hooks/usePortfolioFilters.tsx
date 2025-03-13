@@ -46,7 +46,7 @@ export const usePortfolioFilters = (): IPortfolioFilters => {
       setFilters(rangeList);
       filterRef.current?.present();
     } else if (key === 'wallets') {
-      setFilters(formatedWalletList);
+      setFilters([{ text: 'All Wallets', id: '' }, ...formatedWalletList]);
       filterRef.current?.present();
     } else {
       throw Error('Invalid filter selected');
@@ -62,6 +62,10 @@ export const usePortfolioFilters = (): IPortfolioFilters => {
       setSelectedRange(GraphTimeRangeMap[id as keyof typeof GraphTimeRangeMap]);
     },
     wallets: (id: string) => {
+      if (!id) {
+        setSelectedWallet(undefined);
+        return;
+      }
       const wallet = wallets.find(w => w.__id === id);
       setSelectedWallet(wallet);
     },
