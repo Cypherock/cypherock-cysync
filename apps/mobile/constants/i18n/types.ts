@@ -106,6 +106,12 @@ export interface LangOnboarding {
         description: string;
       };
     };
+    validation: {
+      minLength: string;
+      minDigit: string;
+      minUppercase: string;
+      minSpecialChar: string;
+    };
     success: {
       title: string;
       subTitle: string;
@@ -234,6 +240,12 @@ export interface LangSettings {
         description: string;
       };
     };
+    validation: {
+      minLength: string;
+      minDigit: string;
+      minUppercase: string;
+      minSpecialChar: string;
+    };
   };
   changePassword: {
     title: string;
@@ -249,6 +261,12 @@ export interface LangSettings {
         placeholder: string;
         description: string;
       };
+    };
+    validation: {
+      minLength: string;
+      minDigit: string;
+      minUppercase: string;
+      minSpecialChar: string;
     };
   };
   newPasswordAdded: {
@@ -295,7 +313,6 @@ export interface LangTransactions {
     receive: { failed: string; pending: string; success: string };
   };
 }
-
 export interface LangGraph {
   totalBalance: string;
   timeRange: { day: string; week: string; month: string; year: string };
