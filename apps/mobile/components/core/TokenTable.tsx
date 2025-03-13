@@ -93,7 +93,7 @@ function TokenTable(props: TokenTableProps) {
         ))}
       </TableHeader>
       {props.noData ? (
-        <Typography type="para" style={{ paddingVertical: 24 }}>
+        <Typography type="h5" color="secondary" style={{ paddingVertical: 24 }}>
           No tokens!!
         </Typography>
       ) : (

@@ -50,6 +50,11 @@ function AllocationTable(props: AllocationTableProps) {
           />
         ))}
       </TableHeader>
+      {coinAllocations.length === 0 && !isLoading && (
+        <Typography type="h5" color="secondary" style={{ paddingVertical: 24 }}>
+          No Accounts Found!
+        </Typography>
+      )}
       <TableBody
         type="flat"
         isLoading={isLoading}

@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback, useMemo } from 'react';
-import { selectPriceInfos, useAppSelector } from '@/store';
+import { selectAccountSync, selectPriceInfos, useAppSelector } from '@/store';
 import { selectWallets, selectUnHiddenAccounts } from '@/store';
 import { ILangState, selectLanguage } from '@/store/lang';
 import {
@@ -251,6 +251,7 @@ export const useTransactions = () => {
   const { priceInfos } = useAppSelector(selectPriceInfos);
   const { wallets } = useAppSelector(selectWallets);
   const { accounts } = useAppSelector(selectUnHiddenAccounts);
+  const { syncState } = useAppSelector(selectAccountSync);
   const lang = useAppSelector(selectLanguage);
 
   const [searchTerm, setSearchTerm] = useState('');
@@ -335,7 +336,8 @@ export const useTransactions = () => {
       displayedData,
       sortedBy,
       noData: wallets.length === 0 || accounts.length === 0,
+      syncState,
     }),
-    [searchTerm, isAscending, displayedData, sortedBy],
+    [searchTerm, isAscending, displayedData, sortedBy, syncState],
   );
 };
