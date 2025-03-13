@@ -9,102 +9,107 @@ import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { colors } from '@/components/ui/themes/color.styled';
 import { useAppSelector } from '@/store';
 import { selectLanguage } from '@/store/lang';
-import { HistoryIcon, ReceiveIcon } from '@/components/ui/icons';  
+import { HistoryIcon, ReceiveIcon } from '@/components/ui/icons';
+import React from 'react';
+import { BackgroundTasks } from '@/bgTasks';
 
 export default function Layout() {
   const { strings } = useAppSelector(selectLanguage);
   return (
-    <GestureHandlerRootView>
-      <BottomSheetModalProvider>
-        <Tabs
-          screenOptions={{
-            header: ({ navigation, route, options }) => (
-              <Header
-                onBackPress={() =>
-                  navigation.canGoBack() && navigation.goBack()
-                }
-                title={route.name}
-                showBack={false}
-                {...options}
-              />
-            ),
-            tabBarStyle: styles.tabBar,
-            tabBarActiveTintColor: '#FEDD8F',
-            sceneStyle: { backgroundColor: colors.background.primary },
-          }}
-        >
-          <Tabs.Screen
-            name="portfolio"
-            options={{
-              title: strings.portfolio.heading,
-              tabBarLabel: strings.bottomTabs.portfolio,
-              headerShown: false,
-              tabBarIcon: props => (
-                <MaterialCommunityIcons
-                  name="chart-box-outline"
-                  size={20}
-                  color={props.color}
+    <>
+      <GestureHandlerRootView>
+        <BottomSheetModalProvider>
+          <Tabs
+            screenOptions={{
+              header: ({ navigation, route, options }) => (
+                <Header
+                  onBackPress={() =>
+                    navigation.canGoBack() && navigation.goBack()
+                  }
+                  title={route.name}
+                  showBack={false}
+                  {...options}
                 />
               ),
+              tabBarStyle: styles.tabBar,
+              tabBarActiveTintColor: '#FEDD8F',
+              sceneStyle: { backgroundColor: colors.background.primary },
             }}
-          />
-          <Tabs.Screen
-            name="history"
-            options={{
-              title: strings.history.heading,
-              tabBarLabel: strings.bottomTabs.history,
-              headerShown: false,
-              tabBarIcon: props => (
-                <HistoryIcon size={20} color={props.color} />  
-              ),
-            }}
-          />
-          <Tabs.Screen
-            name="receive"
-            options={{
-              title: strings.receive.heading,
-              tabBarLabel: strings.bottomTabs.receive,
-              headerShown: false,
-              tabBarIcon: props => (
-                <ReceiveIcon size={20} color={props.color} />  
-              ),
-            }}
-          />
-          <Tabs.Screen
-            name="support"
-            options={{
-              title: strings.support.heading,
-              tabBarLabel: strings.bottomTabs.support,
-              tabBarIcon: props => (
-                <Feather name="life-buoy" size={20} color={props.color} />
-              ),
-            }}
-          />
-          <Tabs.Screen
-            name="settings"
-            options={{
-              title: strings.settings.heading,
-              tabBarLabel: strings.bottomTabs.settings,
-              headerShown: false,
-              tabBarIcon: props => (
-                <Ionicons
-                  name="settings-outline"
-                  size={20}
-                  color={props.color}
-                />
-              ),
-            }}
-          />
-          <Tabs.Screen
-            name="notification"
-            options={{
-              title: strings.notifications.heading,
-              href: null,
-            }}
-          />
-        </Tabs>
-      </BottomSheetModalProvider>
-    </GestureHandlerRootView>
+          >
+            <Tabs.Screen
+              name="portfolio"
+              options={{
+                title: strings.portfolio.heading,
+                tabBarLabel: strings.bottomTabs.portfolio,
+                headerShown: false,
+                tabBarIcon: props => (
+                  <MaterialCommunityIcons
+                    name="chart-box-outline"
+                    size={20}
+                    color={props.color}
+                  />
+                ),
+              }}
+            />
+            <Tabs.Screen
+              name="history"
+              options={{
+                title: strings.history.heading,
+                tabBarLabel: strings.bottomTabs.history,
+                headerShown: false,
+                tabBarIcon: props => (
+                  <HistoryIcon size={20} color={props.color} />
+                ),
+              }}
+            />
+            <Tabs.Screen
+              name="receive"
+              options={{
+                title: strings.receive.heading,
+                tabBarLabel: strings.bottomTabs.receive,
+                headerShown: false,
+                tabBarIcon: props => (
+                  <ReceiveIcon size={20} color={props.color} />
+                ),
+              }}
+            />
+            <Tabs.Screen
+              name="support"
+              options={{
+                title: strings.support.heading,
+                tabBarLabel: strings.bottomTabs.support,
+                tabBarIcon: props => (
+                  <Feather name="life-buoy" size={20} color={props.color} />
+                ),
+              }}
+            />
+            <Tabs.Screen
+              name="settings"
+              options={{
+                title: strings.settings.heading,
+                tabBarLabel: strings.bottomTabs.settings,
+                headerShown: false,
+                tabBarIcon: props => (
+                  <Ionicons
+                    name="settings-outline"
+                    size={20}
+                    color={props.color}
+                  />
+                ),
+              }}
+            />
+            <Tabs.Screen
+              name="notification"
+              options={{
+                title: strings.notifications.heading,
+                href: null,
+              }}
+            />
+          </Tabs>
+        </BottomSheetModalProvider>
+      </GestureHandlerRootView>
+      <BackgroundTasks />
+    </>
   );
 }
 

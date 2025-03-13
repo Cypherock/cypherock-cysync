@@ -6,22 +6,25 @@ import {
   SelectFilterSheet,
 } from '@/components/ui';
 import { useEffect } from 'react';
-import { useLocalSearchParams, useNavigation } from 'expo-router';
+import { router, useLocalSearchParams, useNavigation } from 'expo-router';
 import { CoinIcon, Graph, PortfolioHeader } from '@/components/core';
 import AllocationTable from '@/components/core/AllocationTable';
-import { usePortfolioFilters } from '@/hooks';
+import { CoinAllocationRow, usePortfolioFilters } from '@/hooks';
 import { selectLanguage, useAppSelector } from '@/store';
 import useShowAfterDelay from '@/hooks/useShowAfterDelay';
 
 export default function Coins() {
-  const { id } = useLocalSearchParams() as { id: string };
+  const { parentAssetId, id, assetName } = useLocalSearchParams<{
+    parentAssetId: string;
+    id: string;
+    assetName: string;
+  }>();
   const navigation = useNavigation();
   const showGraph = useShowAfterDelay();
 
   const { strings } = useAppSelector(selectLanguage);
   const {
     filters,
-    selectedFilter,
     filterRef,
     onFilterSelect,
     onHideFilter,
@@ -30,15 +33,34 @@ export default function Coins() {
     onShowFilter,
     onFilterReset,
   } = usePortfolioFilters();
-  const parentAssetId = id as string;
 
   useEffect(() => {
     if (!parentAssetId) return;
-    navigation.setOptions({ title: id });
+    navigation.setOptions({ title: assetName });
     navigation.setOptions({
-      headerLeft: () => <CoinIcon parentAssetId={parentAssetId} size={14} />,
+      headerLeft: () => (
+        <CoinIcon
+          assetId={id}
+          parentAssetId={parentAssetId}
+          size={20}
+          subIconSize={10}
+          subContainerSize={12}
+          withParentIconAtBottom
+        />
+      ),
     });
   }, [parentAssetId]);
+
+  function handleAssetClick(item: CoinAllocationRow) {
+    router.push({
+      pathname: '/portfolio/accounts/[id]',
+      params: {
+        id: item.accountId ?? '',
+        parentAssetId: item.parentAssetId,
+        assetId: item.assetId,
+      },
+    });
+  }
 
   return (
     <ScreenContainer>
@@ -64,24 +86,26 @@ export default function Coins() {
           <Graph
             selectedRange={selectedRange}
             parentAssetId={parentAssetId}
+            assetId={id}
             selectedWallet={selectedWallet}
           />
         )}
       </Container>
       <AllocationTable
         parentAssetId={parentAssetId}
+        assetId={id}
         walletId={selectedWallet?.__id}
+        onItemClick={handleAssetClick}
+        withSubIconAtBottom
       />
-      {filters.length > 0 && selectedFilter && (
-        <SelectFilterSheet
-          ref={filterRef}
-          title={'Select Option'}
-          onSelect={onFilterSelect}
-          data={filters}
-          onHide={onHideFilter}
-          onReset={onFilterReset}
-        />
-      )}
+      <SelectFilterSheet
+        ref={filterRef}
+        title={'Select Option'}
+        onSelect={onFilterSelect}
+        data={filters}
+        onHide={onHideFilter}
+        onReset={onFilterReset}
+      />
     </ScreenContainer>
   );
 }

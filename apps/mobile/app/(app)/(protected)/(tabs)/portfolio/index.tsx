@@ -6,19 +6,19 @@ import {
   SelectFilterSheet,
 } from '@/components/ui';
 import { Graph, PortfolioHeader } from '@/components/core';
-import { router } from 'expo-router';
+import { router, useNavigation } from 'expo-router';
 import NoDataScreen from '@/components/ui/molecules/NoDataScreen';
-import { usePortfolioFilters } from '@/hooks';
+import { CoinAllocationRow, usePortfolioFilters } from '@/hooks';
 import { selectLanguage, selectWallets, useAppSelector } from '@/store';
 import AllocationTable from '@/components/core/AllocationTable';
 import useShowAfterDelay from '@/hooks/useShowAfterDelay';
+import { useEffect } from 'react';
 
 export default function Portfolio() {
   const { strings } = useAppSelector(selectLanguage);
   const { wallets } = useAppSelector(selectWallets);
   const {
     filters,
-    selectedFilter,
     filterRef,
     onFilterSelect,
     onHideFilter,
@@ -28,6 +28,26 @@ export default function Portfolio() {
     onFilterReset,
   } = usePortfolioFilters();
   const showGraph = useShowAfterDelay();
+  const navigation = useNavigation();
+
+  useEffect(() => {
+    navigation.addListener('beforeRemove', e => {
+      if (e.data.action.type === 'GO_BACK') {
+        e.preventDefault();
+      }
+    });
+  }, []);
+
+  function handleAssetClick(item: CoinAllocationRow) {
+    router.push({
+      pathname: '/portfolio/coins/[id]',
+      params: {
+        id: item.assetId,
+        parentAssetId: item.parentAssetId,
+        assetName: item.assetName,
+      },
+    });
+  }
 
   if (wallets.length === 0) {
     return (
@@ -62,22 +82,25 @@ export default function Portfolio() {
         </Flex>
         {showGraph && (
           <Graph
+            key={selectedRange}
             selectedRange={selectedRange}
             selectedWallet={selectedWallet}
           />
         )}
       </Container>
-      <AllocationTable isMain walletId={selectedWallet?.__id} />
-      {filters.length > 0 && selectedFilter && (
-        <SelectFilterSheet
-          ref={filterRef}
-          title={'Select Option'}
-          onSelect={onFilterSelect}
-          data={filters}
-          onHide={onHideFilter}
-          onReset={onFilterReset}
-        />
-      )}
+      <AllocationTable
+        onItemClick={handleAssetClick}
+        walletId={selectedWallet?.__id}
+        withParentIconAtBottom
+      />
+      <SelectFilterSheet
+        ref={filterRef}
+        title={'Select Option'}
+        onSelect={onFilterSelect}
+        data={filters}
+        onHide={onHideFilter}
+        onReset={onFilterReset}
+      />
     </ScreenContainer>
   );
 }

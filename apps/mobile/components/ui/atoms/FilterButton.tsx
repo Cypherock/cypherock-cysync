@@ -51,7 +51,7 @@ export function FilterButton({
           {placeholder}
         </PlaceholderText>
       )}
-      <Entypo name="triangle-down" size={5} color="white" />
+      <Entypo name="triangle-down" size={16} color="white" />
     </ButtonContainer>
   );
 }

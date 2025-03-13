@@ -3,13 +3,13 @@ import { Text } from 'react-native';
 
 export interface LangDisplayProps {
   text: string;
-  variables?: { [key: string]: React.ReactNode | string };
+  variables?: { [key: string]: React.JSX.Element | string | undefined };
   $noPreWrap?: boolean;
 }
 
 export const parseLangTemplate = (
   templateStr: string,
-  variables: { [key: string]: React.ReactNode | string } = {},
+  variables: { [key: string]: React.JSX.Element | string | undefined } = {},
 ) => {
   const parts = templateStr.split(/\${(.*?)}/g).map((part, index) => {
     if (index % 2 === 1) {

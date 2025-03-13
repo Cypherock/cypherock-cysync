@@ -3,7 +3,7 @@ import {
   getDefaultUnit,
   getParsedAmount,
 } from '@cypherock/coin-support-utils';
-import { getBalanceHistory } from '@cypherock/cysync-core-services';
+import { getBalanceHistory } from './getBalanceHistory';
 import { BigNumber } from '@cypherock/cysync-utils';
 import { IAccount } from '@cypherock/db-interfaces';
 import { format as formatDate } from 'date-fns';
@@ -13,6 +13,7 @@ import {
   CalculatePortfolioGraphDataParamsWithComputedData,
   CalculatePortfolioGraphDataParams,
 } from './types';
+import { memoizeFunctionWithObjectArg } from '../memoize';
 
 export * from './types';
 
@@ -210,40 +211,47 @@ const formatPortfolioGraphData = (
   });
 };
 
-export const calculatePortfolioGraphData = async (
-  params: CalculatePortfolioGraphDataParams,
-) => {
-  const walletId = params.selectedWallet?.__id;
+export const calculatePortfolioGraphData = memoizeFunctionWithObjectArg(
+  async (params: CalculatePortfolioGraphDataParams) => {
+    const walletId = params.selectedWallet?.__id;
 
-  try {
-    const balanceHistory = await getBalanceHistory({
-      accounts: params.accounts,
-      transactions: params.transactions,
-      priceHistories: params.priceHistories,
-      priceInfos: params.priceInfos,
-      currency: 'usd',
-      days: params.days,
-      walletId,
-      assetId: params.assetId,
-      parentAssetId: params.parentAssetId,
-      accountId: params.accountId,
-    });
+    try {
+      let balanceHistory = await getBalanceHistory({
+        accounts: params.accounts,
+        transactions: params.transactions,
+        priceHistories: params.priceHistories,
+        priceInfos: params.priceInfos,
+        currency: 'usd',
+        days: params.days,
+        walletId,
+        assetId: params.assetId,
+        parentAssetId: params.parentAssetId,
+        accountId: params.accountId,
+      });
 
-    const paramsWithComputedData = {
-      ...params,
-      computedData: balanceHistory,
-    };
+      if (params.selectedRange === 'month') {
+        const msInDay = 24 * 60 * 60 * 1000;
+        balanceHistory.balanceHistory = balanceHistory.balanceHistory.filter(
+          h => h.timestamp > new Date().getTime() - 32 * msInDay,
+        );
+      }
 
-    const summary = calculatePortfolioGraphSummary(paramsWithComputedData);
-    const graphData = formatPortfolioGraphData(paramsWithComputedData);
+      const paramsWithComputedData = {
+        ...params,
+        computedData: balanceHistory,
+      };
 
-    return { balanceHistory, summary, graphData };
-  } catch (error) {
-    console.error('Error in calculatePortfolioGraphData:', error);
-  }
+      const summary = calculatePortfolioGraphSummary(paramsWithComputedData);
+      const graphData = formatPortfolioGraphData(paramsWithComputedData);
 
-  return undefined;
-};
+      return { balanceHistory, summary, graphData };
+    } catch (error) {
+      console.error('Error in calculatePortfolioGraphData:', error);
+    }
+
+    return undefined;
+  },
+);
 
 export type CalculatePortfolioGraphDataType =
   typeof calculatePortfolioGraphData;

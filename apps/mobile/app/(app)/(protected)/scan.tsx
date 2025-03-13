@@ -7,13 +7,12 @@ import IonIcon from '@expo/vector-icons/Ionicons';
 import { Images } from '@/constants/images';
 import { router } from 'expo-router';
 import { ScanningResult } from 'expo-camera';
-import { useAppDispatch, useAppSelector } from '@/store';
+import { useAppSelector } from '@/store';
 import { selectLanguage } from '@/store/lang';
 import { IAccount, IWallet } from '@cypherock/db-interfaces';
 import { getDB } from '@/utils';
 import { inflate } from 'pako';
 import { colors } from '@/components/ui/themes/color.styled';
-import { syncAllDb } from '@/bgTasks/dbSync/helper';
 
 interface CysyncData {
   wallets: IWallet[];
@@ -22,7 +21,6 @@ interface CysyncData {
 
 export default function Scan() {
   const { strings } = useAppSelector(selectLanguage);
-  const dispatch = useAppDispatch();
   const scannedData = useRef<Record<number, string>>({});
   const [decodedData, setDecodedData] = useState<CysyncData>();
   const [totalChunks, setTotalChunks] = useState(0);
@@ -30,7 +28,11 @@ export default function Scan() {
   const progress = useSharedValue(0);
 
   function navigateToNext() {
-    router.dismissTo('/info');
+    router.dismissTo('/loading');
+  }
+
+  function handleDismiss() {
+    router.canDismiss() ? router.dismiss() : router.dismissTo('/info');
   }
 
   function onQrScanned(qr: ScanningResult) {
@@ -76,7 +78,6 @@ export default function Scan() {
     if (decodedData) {
       saveDataToDb(decodedData);
       navigateToNext();
-      syncAllDb(true);
     }
 
     return () => {
@@ -95,7 +96,7 @@ export default function Scan() {
             default: Images.icon.close_default,
             disabled: Images.icon.close_disabed,
           }}
-          onPress={navigateToNext}
+          onPress={handleDismiss}
           size="small"
         />
       </View>
@@ -124,6 +125,7 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-end',
     alignItems: 'center',
     paddingHorizontal: 24,
+    paddingVertical: 12,
   },
   textContainer: {
     gap: 16,

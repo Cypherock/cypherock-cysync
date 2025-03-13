@@ -224,8 +224,8 @@ export const useAssetAllocations = ({
               parentAssetId={r.parentAssetId}
               assetId={r.assetId}
               size={24}
-              subIconSize={12}
-              subContainerSize={16}
+              subIconSize={10}
+              subContainerSize={12}
               withParentIconAtBottom={withParentIconAtBottom}
               withSubIconAtBottom={withSubIconAtBottom}
               withBackground
@@ -276,9 +276,7 @@ export const useAssetAllocations = ({
   }, [lang, walletId, assetId, parentAssetId, accountId]);
 
   useEffect(() => {
-    if (coinAllocations.length > 0) {
-      setSortedCoinAllocations(getSortedData(coinAllocations));
-    }
+    setSortedCoinAllocations(getSortedData(coinAllocations));
   }, [coinAllocations, sortedBy, isAscending]);
 
   const isAccountDisplay = useMemo(() => !!parentAssetId, [parentAssetId]);

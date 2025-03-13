@@ -31,9 +31,8 @@ import {
 import {
   calculatePortfolioGraphData,
   CalculatePortfolioGraphDataType,
-} from '@/utils/workers';
+} from '@/utils';
 import Entypo from '@expo/vector-icons/Entypo';
-import { InteractionManager } from 'react-native';
 
 export interface UseGraphProps {
   assetId?: string;
@@ -140,6 +139,7 @@ export const useGraph = ({ selectedRange, ...props }: UseGraphProps) => {
       parentAssetId: data.props?.parentAssetId,
       showGraphInUSD: data.showGraphInUSD,
       days: graphTimeRangeToDaysMap[data.selectedRange],
+      selectedRange: data.selectedRange,
     };
 
     try {
@@ -153,7 +153,7 @@ export const useGraph = ({ selectedRange, ...props }: UseGraphProps) => {
         result.summary.changeIcon = (
           <Entypo
             name={result.summary.isIncreased ? 'triangle-up' : 'triangle-down'}
-            size={8}
+            size={16}
             color={changeIconColor}
           />
         );
@@ -218,7 +218,13 @@ export const useGraph = ({ selectedRange, ...props }: UseGraphProps) => {
   };
 
   const formatTooltipValue = useCallback(
-    ({ value, timestamp }) => [
+    ({
+      value,
+      timestamp,
+    }: {
+      value: string | number;
+      timestamp: number | Date;
+    }) => [
       formatGraphAmountDisplay(value, undefined, true),
       `${formatDate(timestamp, 'hh:mm')} Hrs, ${formatDate(timestamp, 'MMM d')}`,
     ],
@@ -226,7 +232,7 @@ export const useGraph = ({ selectedRange, ...props }: UseGraphProps) => {
   );
 
   const formatTimestamp = useCallback(
-    timestamp =>
+    (timestamp: number | Date) =>
       formatDate(
         timestamp,
         selectedRange === GraphTimeRangeMap.year ? 'MMM yyyy' : 'MMM d',
@@ -235,7 +241,7 @@ export const useGraph = ({ selectedRange, ...props }: UseGraphProps) => {
   );
 
   const formatYAxisTick = useCallback(
-    value => formatGraphAmountDisplay(value, undefined),
+    (value: string | number) => formatGraphAmountDisplay(value, undefined),
     [showGraphInUSD, props?.accountId, props?.assetId, props?.parentAssetId],
   );
 

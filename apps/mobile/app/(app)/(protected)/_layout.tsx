@@ -1,9 +1,9 @@
 import { LottieSplash, useTheme } from '@/components/ui';
 import { Stack } from 'expo-router';
 import { keyValueStore } from '@/db';
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { SplashScreen } from 'expo-router';
-import { BackgroundTasks } from '@/bgTasks';
+import { NetworkPingTask } from '@/bgTasks/networkTask';
 
 export default function Layout() {
   const [onBoaridngCompleted, setOnBoardingCompleted] = useState(false);
@@ -47,7 +47,7 @@ export default function Layout() {
         <Stack.Screen name="permission" />
         <Stack.Screen name="scan" />
       </Stack>
-      <BackgroundTasks />
+      <NetworkPingTask />
     </>
   );
 }

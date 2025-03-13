@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import {
   AllocationTableHeaderKeys,
   CoinAllocationRow,
@@ -20,12 +20,19 @@ import {
 import { colors } from '../ui/themes/color.styled';
 
 export interface AllocationTableProps extends UseAssetAllocationProps {
-  isMain?: boolean;
+  onItemClick?: (item: CoinAllocationRow) => void;
 }
 
-export default function AllocationTable(props: AllocationTableProps) {
-  const { lang, coinAllocations, onSort, sortedBy, isAscending, isLoading } =
-    useAssetAllocations(props);
+function AllocationTable(props: AllocationTableProps) {
+  const {
+    lang,
+    coinAllocations,
+    onSort,
+    sortedBy,
+    isAscending,
+    isLoading,
+    isAccountDisplay,
+  } = useAssetAllocations(props);
   const strings = lang.strings;
 
   return (
@@ -43,6 +50,11 @@ export default function AllocationTable(props: AllocationTableProps) {
           />
         ))}
       </TableHeader>
+      {coinAllocations.length === 0 && !isLoading && (
+        <Typography type="h5" color="secondary" style={{ paddingVertical: 24 }}>
+          No Accounts Found!
+        </Typography>
+      )}
       <TableBody
         type="flat"
         isLoading={isLoading}
@@ -57,13 +69,14 @@ export default function AllocationTable(props: AllocationTableProps) {
           <TableRowData
             index={index}
             onPress={() => {
-              props.isMain &&
-                router.push(`/portfolio/coins/${item.parentAssetId}`);
+              props.onItemClick && props.onItemClick(item);
             }}
           >
             <XTableCell
               leftIcon={item.assetIcon}
-              primaryText={item.assetName}
+              primaryText={
+                isAccountDisplay ? (item.accountName ?? '') : item.assetName
+              }
               secondaryText={item.displayBalance}
             />
             <XTableCell
@@ -91,3 +104,5 @@ export default function AllocationTable(props: AllocationTableProps) {
     </Table>
   );
 }
+
+export default memo(AllocationTable);
