@@ -4,11 +4,15 @@ import { setNetworkState, useAppDispatch } from '@/store';
 
 export const NetworkPingTask: React.FC = () => {
   const dispatch = useAppDispatch();
-  const networkState = useNetworkState();
+  const { isConnected, isInternetReachable } = useNetworkState();
 
   useEffect(() => {
-    dispatch(setNetworkState(networkState.isConnected ?? false));
-  }, [networkState]);
+    if (isConnected && isInternetReachable) {
+      dispatch(setNetworkState(isConnected && isInternetReachable));
+    } else {
+      dispatch(setNetworkState(false));
+    }
+  }, [isConnected, isInternetReachable]);
 
   return null;
 };
