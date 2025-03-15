@@ -32,7 +32,7 @@ export default function History() {
   const { strings } = useAppSelector(selectLanguage);
   const { isAscending, onSort, displayedData, sortedBy, noData, syncState } =
     useTransactions();
-  const { setSelectedTransaction } = useHistoryContext();
+  const { setSelectedTransaction, setFrom } = useHistoryContext();
   const { active } = useAppSelector(selectNetwork);
 
   if (noData) {
@@ -120,6 +120,7 @@ export default function History() {
               index={index}
               onPress={() => {
                 setSelectedTransaction(item);
+                setFrom('/history');
               }}
             >
               <HistoryTableTimeCell
