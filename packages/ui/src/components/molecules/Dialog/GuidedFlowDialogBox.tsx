@@ -18,7 +18,7 @@ const InnerContainer = styled.div`
   padding-top: 32px;
   padding-left: 40px;
   padding-right: 40px;
-  max-height: 58vh;
+  max-height: 52vh;
   overflow-y: auto;
 `;
 
@@ -67,12 +67,12 @@ export const GuidedFlowDialogBox: FC<GuidedFlowDialogBoxProps> = ({
     <InnerContainer>
       <DialogBoxBody p={0} gap={0}>
         <Flex
-          gap={{ def: 12, lg: 32 }}
+          gap={{ def: 6, lg: 16 }}
           align="center"
           justify="center"
           width="inherit"
           direction="column"
-          pb={4}
+          pb={2}
         >
           {image}
           <Flex direction="column" align="center" gap={4}>
@@ -100,12 +100,12 @@ export const GuidedFlowDialogBox: FC<GuidedFlowDialogBoxProps> = ({
           </Flex>
         )}
         {bulletList && (
-          <Flex direction="column" gap={8} pt={2} pb={4} width="full">
+          <Flex direction="column" gap={4} pt={1} pb={2} width="full">
             <BulletList items={bulletList} />
           </Flex>
         )}
         {messageBoxList && (
-          <Flex direction="column" gap={8} pt={2} pb={4} width="full">
+          <Flex direction="column" gap={4} pt={1} pb={2} width="full">
             {messageBoxList.map((messageBox, index) => {
               const key = Object.keys(messageBox)[0];
               const args = key.split('-');

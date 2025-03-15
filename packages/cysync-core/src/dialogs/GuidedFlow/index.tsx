@@ -10,6 +10,7 @@ import {
   BackButton,
   ConfettiBlast,
   MessageBox,
+  Flex,
 } from '@cypherock/cysync-ui';
 import React, { FC } from 'react';
 
@@ -95,12 +96,21 @@ export const GuidedFlowDialog: FC = () => {
                     onClick={backToWalletActions}
                   />
                 }
-                rightComponent={
-                  <MessageBox
-                    type="warning"
-                    text={lang.strings.guidedFlows.createWallet.title}
-                  />
+                position="bottom"
+                useLightPadding
+              />
+            )}
+            {currentTab === 0 && currentDialog === 2 && (
+              <DialogBoxBackgroundBar
+                middleComponent={
+                  <Flex width="full" justify="center">
+                    <MessageBox
+                      type="warning"
+                      text={lang.strings.guidedFlows.createWallet.skipPinSetup}
+                    />
+                  </Flex>
                 }
+                rightComponent={null}
                 position="bottom"
                 useLightPadding
               />

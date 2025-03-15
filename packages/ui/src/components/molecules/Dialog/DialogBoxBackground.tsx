@@ -4,32 +4,52 @@ import { Flex, Container } from '../../atoms';
 
 export interface DialogBoxBackgroundBarProps {
   leftComponent?: React.ReactNode;
+  middleComponent?: React.ReactNode;
   rightComponent?: React.ReactNode;
   useLightPadding?: boolean;
 }
+
 export const DialogBoxBackgroundBar: React.FC<
   DialogBoxBackgroundBarProps & { position: 'top' | 'bottom' }
-> = ({ leftComponent, rightComponent, position, useLightPadding }) => {
+> = ({
+  leftComponent,
+  middleComponent,
+  rightComponent,
+  position,
+  useLightPadding,
+}) => {
   const positionProps = position === 'top' ? { top: 0 } : { bottom: 0 };
+
   return (
     <Flex
       position="absolute"
       {...positionProps}
       width="full"
       justify="space-between"
+      align="center"
       p={{
         def: 1,
         lg: useLightPadding ? '20' : 5,
       }}
     >
-      <Container>{leftComponent}</Container>
-      <Container>{rightComponent}</Container>
+      <Flex width="auto" justify="flex-start">
+        <Container>{leftComponent}</Container>
+      </Flex>
+
+      <Flex width="auto" justify="center">
+        <Container>{middleComponent}</Container>
+      </Flex>
+
+      <Flex width="auto" justify="flex-end">
+        <Container>{rightComponent}</Container>
+      </Flex>
     </Flex>
   );
 };
 
 DialogBoxBackgroundBar.defaultProps = {
   leftComponent: undefined,
+  middleComponent: undefined,
   rightComponent: undefined,
   useLightPadding: undefined,
 };

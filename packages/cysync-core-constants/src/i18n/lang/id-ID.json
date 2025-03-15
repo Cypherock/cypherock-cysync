@@ -1296,6 +1296,7 @@
   "guidedFlows": {
     "createWallet": {
       "title": "Buat Dompet Baru",
+      "skipPinSetup": "Lewati langkah ini jika Anda tidak mengatur PIN",
       "tabs": [
         {
           "asideTitle": "X1 Vault",

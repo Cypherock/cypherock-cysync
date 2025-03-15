@@ -1297,6 +1297,7 @@
   "guidedFlows": {
     "createWallet": {
       "title": "Neue Wallet erstellen",
+      "skipPinSetup": "Überspringen Sie diesen Schritt, wenn Sie keine PIN einrichten.",
       "tabs": [
         {
           "asideTitle": "X1 Vault",

@@ -1300,6 +1300,7 @@
   "guidedFlows": {
     "createWallet": {
       "title": "إنشاء محفظة جديدة",
+      "skipPinSetup": "تخط هذه الخطوة إذا كنت لا تقوم بإعداد رقم تعريف شخصي",
       "tabs": [
         {
           "asideTitle": "X1 Vault",
