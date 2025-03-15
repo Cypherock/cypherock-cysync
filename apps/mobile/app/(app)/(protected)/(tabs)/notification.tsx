@@ -109,8 +109,7 @@ const getNotificationText = (params: {
 };
 
 export default function Notification() {
-  const { transactions, lang, wallets, accounts, unreadTransactions } =
-    useAppSelector(selector);
+  const { transactions, lang, wallets, accounts } = useAppSelector(selector);
   const navigation = useNavigation();
 
   const onNotificationClick = (t: ITransaction) => {
