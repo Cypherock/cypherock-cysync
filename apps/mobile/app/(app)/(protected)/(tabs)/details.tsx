@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { View, ScrollView } from 'react-native';
-import { useNavigation } from 'expo-router';
+import { router, useLocalSearchParams, useNavigation } from 'expo-router';
 import {
   Copy,
   Flex,
+  LoaderScreen,
   ScreenContainer,
   StatusToColorHex,
   Tag,
@@ -14,15 +15,18 @@ import {
 } from '@/components/ui';
 import { colors } from '@/components/ui/themes/color.styled';
 import * as Clipboard from 'expo-clipboard';
-import NoDataScreen from '@/components/ui/molecules/NoDataScreen';
 import { useHistoryContext } from '@/contexts/useHistoryContext';
 import { selectLanguage, useAppSelector } from '@/store';
 import { typedEntries } from '@/utils';
 import { TransactionRowData } from '@/hooks';
 
 export default function Index() {
+  const { from } = useLocalSearchParams<{
+    id: string;
+    from: '/history' | '/notification';
+  }>();
   const { strings } = useAppSelector(selectLanguage);
-  const { transaction, details } = useHistoryContext();
+  const { transaction, details, setSelectedTransaction } = useHistoryContext();
   const navigation = useNavigation();
   const [copied, setCopied] = useState<string | null>(null);
   const theme = useTheme();
@@ -36,7 +40,12 @@ export default function Index() {
           transaction.status,
         ),
       showDiscard: true,
+      onDiscard: () => router.replace(from),
     });
+
+    return () => {
+      setSelectedTransaction(undefined);
+    };
   }, [transaction]);
 
   const handleCopy = async (text: string) => {
@@ -48,7 +57,7 @@ export default function Index() {
   };
 
   if (!details) {
-    return <NoDataScreen title="Loading Data!" />;
+    return null;
   }
 
   function renderValue(

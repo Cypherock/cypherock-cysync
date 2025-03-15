@@ -22,28 +22,14 @@ import {
   IAccount,
   ITransaction,
   IWallet,
-  TransactionStatus,
   TransactionTypeMap,
 } from '@cypherock/db-interfaces';
 import { getDisplayTransactionType } from '@/utils/transactions';
-import { CoinIcon } from '@/components/core';
-import { format as formatDate } from 'date-fns';
-import lodash from 'lodash';
 import { getDefaultUnit, getParsedAmount } from '@cypherock/coin-support-utils';
 import { useNavigation } from 'expo-router';
-
-interface INotification {
-  id: string;
-  icon: React.JSX.Element;
-  title: any;
-  status: TransactionStatus;
-  time: string;
-  txn: ITransaction & {
-    isClicked?: boolean;
-  };
-  type: string;
-  info: string;
-}
+import { useHistoryContext } from '@/contexts/useHistoryContext';
+import { TransactionRowData, useTransactions } from '@/hooks';
+import { router } from 'expo-router';
 
 const selector = createSelector(
   [selectLanguage, selectNotifications, selectWallets, selectUnHiddenAccounts],
@@ -60,7 +46,7 @@ const getNotificationText = (params: {
   wallets: IWallet[];
   accounts: IAccount[];
   lang: ILangState;
-}) => {
+}): string => {
   const { txn, wallets, accounts, lang } = params;
 
   const { amount, unit } = getParsedAmount({
@@ -90,16 +76,19 @@ const getNotificationText = (params: {
       return parseLangTemplate(
         lang.strings.notifications.sendTransactionMultiple,
         vars,
-      );
+      ) as string;
     }
 
-    return parseLangTemplate(lang.strings.notifications.sendTransaction, vars);
+    return parseLangTemplate(
+      lang.strings.notifications.sendTransaction,
+      vars,
+    ) as string;
   }
 
   const receiveStr = parseLangTemplate(
     lang.strings.notifications.receiveTransaction,
     vars,
-  );
+  ) as string;
 
   if (account?.derivationScheme) {
     return `${receiveStr} [${account.derivationScheme.toUpperCase()}]`;
@@ -109,54 +98,16 @@ const getNotificationText = (params: {
 };
 
 export default function Notification() {
-  const { transactions, lang, wallets, accounts } = useAppSelector(selector);
+  const { lang, wallets, accounts } = useAppSelector(selector);
+  const { displayedData: transactions } = useTransactions();
+  const { setSelectedTransaction, setFrom } = useHistoryContext();
   const navigation = useNavigation();
 
-  const onNotificationClick = (t: ITransaction) => {
-    markTransactionNotificationClicked(t);
+  const onNotificationClick = (t: TransactionRowData) => {
+    setSelectedTransaction(t);
+    setFrom('/notification');
+    markTransactionNotificationClicked(t.txn);
   };
-
-  const displayTransactions = useMemo(() => {
-    const formattedTxns: INotification[] = transactions.map(
-      t => ({
-        id: t.__id ?? '',
-        icon: (
-          <CoinIcon
-            parentAssetId={t.parentAssetId}
-            assetId={t.assetId}
-            size={12}
-          />
-        ),
-        title: getDisplayTransactionType(t, lang.strings),
-        status: t.status,
-        time: formatDate(t.timestamp, 'h:mm a'),
-        txn: t,
-        type: t.type,
-        info: getNotificationText({
-          txn: t,
-          lang,
-          wallets,
-          accounts,
-        }) as string,
-      }),
-      [transactions],
-    );
-
-    const newList: {
-      title: string;
-      data: (typeof formattedTxns)[0][];
-    }[] = [];
-
-    const groupedList = lodash.groupBy(formattedTxns, t =>
-      formatDate(t.txn.timestamp, 'eeee, MMMM d yyyy'),
-    );
-
-    for (const [date, groupItems] of Object.entries(groupedList)) {
-      newList.push({ title: date, data: [...groupItems] });
-    }
-
-    return newList;
-  }, [transactions]);
 
   useEffect(() => {
     navigation.setOptions({
@@ -164,9 +115,28 @@ export default function Notification() {
     });
   }, []);
 
+  const renderNotification = (item: TransactionRowData) => {
+    return (
+      <NotificationItem
+        isClicked={(item.txn as any).isClicked}
+        type={item.type as any}
+        onPress={() => onNotificationClick(item)}
+        status={item.status}
+        icon={<item.assetIcon size={12} />}
+        info={getNotificationText({
+          txn: item.txn,
+          lang,
+          accounts,
+          wallets,
+        })}
+        time={item.time}
+      />
+    );
+  };
+
   return (
     <ScreenContainer>
-      {displayTransactions.length === 0 ? (
+      {transactions.length === 0 ? (
         <NoDataScreen
           title={lang.strings.notifications.noTransactions.title}
           description={lang.strings.notifications.noTransactions.subTitle}
@@ -180,18 +150,10 @@ export default function Notification() {
             paddingBottom: 16,
             overflow: 'hidden',
           }}
-          sections={displayTransactions}
-          renderItem={({ item }: { item: INotification }) => (
-            <NotificationItem
-              isClicked={item.txn?.isClicked}
-              type={item.type as any}
-              onPress={() => onNotificationClick(item.txn)}
-              status={item.status}
-              icon={item.icon}
-              info={item.info}
-              time={item.time}
-            />
-          )}
+          sections={transactions}
+          renderItem={({ item }: { item: TransactionRowData }) =>
+            renderNotification(item)
+          }
           renderSectionHeader={({ section: { title } }) => (
             <Card style={{ marginTop: 16, paddingVertical: 4 }}>
               <Typography type="para">{title}</Typography>
