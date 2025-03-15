@@ -13,6 +13,7 @@ interface HeaderProps {
   showBack?: boolean;
   onBackPress: () => void;
   showDiscard?: boolean;
+  onDiscard: () => void;
 }
 
 export function Header({
@@ -21,6 +22,7 @@ export function Header({
   showBack = true,
   onBackPress,
   showDiscard = false,
+  onDiscard = () => (router.canDismiss() ? router.dismiss() : router.back()),
 }: HeaderProps) {
   const { unreadTransactions } = useAppSelector(selectNotifications);
   const showNotification = unreadTransactions > 0 ? 'active' : 'default';
@@ -48,7 +50,7 @@ export function Header({
         </View>
       }
       showDiscard={showDiscard}
-      onDiscard={() => router.back()}
+      onDiscard={onDiscard}
     />
   );
 }

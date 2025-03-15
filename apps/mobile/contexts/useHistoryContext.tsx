@@ -4,6 +4,8 @@ import React, {
   useState,
   useEffect,
   PropsWithChildren,
+  Dispatch,
+  SetStateAction,
 } from 'react';
 import { ITransactionInputOutput } from '@cypherock/db-interfaces';
 import { TransactionRowData } from '@/hooks/useTransactions';
@@ -31,7 +33,8 @@ interface IDetails {
 interface HistoryContextProps {
   transaction: TransactionRowData | undefined;
   details: IDetails | undefined;
-  setSelectedTransaction: (transaction: TransactionRowData) => void;
+  setSelectedTransaction: (transaction: TransactionRowData | undefined) => void;
+  setFrom: Dispatch<SetStateAction<'/history' | '/notification'>>;
 }
 
 const HistoryContext = createContext<HistoryContextProps | undefined>(
@@ -43,6 +46,7 @@ export const HistoryProvider: React.FC<PropsWithChildren> = ({ children }) => {
   const [selectedTransaction, setSelectedTransaction] = useState<
     TransactionRowData | undefined
   >();
+  const [from, setFrom] = useState<'/history' | '/notification'>('/history');
 
   useEffect(() => {
     if (selectedTransaction) {
@@ -75,9 +79,12 @@ export const HistoryProvider: React.FC<PropsWithChildren> = ({ children }) => {
 
   useEffect(() => {
     if (details) {
-      router.push(`/history/details/${details.hash}`);
+      router.push({
+        pathname: '/details',
+        params: { id: details.hash, from: from },
+      });
     }
-  }, [details]);
+  }, [details, from]);
 
   return (
     <HistoryContext.Provider
@@ -85,6 +92,7 @@ export const HistoryProvider: React.FC<PropsWithChildren> = ({ children }) => {
         transaction: selectedTransaction,
         details,
         setSelectedTransaction,
+        setFrom,
       }}
     >
       {children}
