@@ -1,5 +1,5 @@
-import { Dimensions, View } from 'react-native';
-import React, { useMemo, useState } from 'react';
+import { LayoutChangeEvent, View } from 'react-native';
+import React, { useMemo, useRef, useState } from 'react';
 import {
   DataPointLabel,
   DisplayGraph,
@@ -13,14 +13,12 @@ import { useGraph, UseGraphProps } from '@/hooks';
 
 export interface GraphPropTypes extends UseGraphProps {}
 
-interface FormattedGraphData {
+export interface FormattedGraphData {
   label?: string;
   value: number;
-  dataPointLabelComponent: () => React.JSX.Element;
+  dataPointLabelContent: string[];
   yAxisLabelTexts: string;
 }
-
-const MAX_GRAPH_POINTS = 200;
 
 export const Graph = (props: GraphPropTypes) => {
   const {
@@ -32,9 +30,27 @@ export const Graph = (props: GraphPropTypes) => {
     formatYAxisTick,
     isLoading,
   } = useGraph(props);
-  const [maxValue, setMaxValue] = useState(
-    parseFloat(summaryDetails.totalValue),
-  );
+  const maxValueRef = useRef(parseFloat(summaryDetails.totalValue));
+  const [width, setWidth] = useState(300);
+
+  function getLastPointOffset() {
+    switch (props.selectedRange) {
+      case 'day':
+        return 3;
+
+      case 'week':
+        return 15;
+
+      case 'month':
+        return 3;
+
+      case 'year':
+        return 40;
+
+      default:
+        return 0;
+    }
+  }
 
   const optimizedGraphData = useMemo(() => {
     const totalValue = parseFloat(summaryDetails.totalValue);
@@ -43,21 +59,42 @@ export const Graph = (props: GraphPropTypes) => {
       if (d.value > maxValue) {
         maxValue = d.value;
       }
+
       const dataPoint: FormattedGraphData = {
         value: d.value,
-        dataPointLabelComponent: () => (
-          <DataPointLabel>{formatTooltipValue(d)}</DataPointLabel>
-        ),
+        dataPointLabelContent: formatTooltipValue(d),
         yAxisLabelTexts: formatYAxisTick(d.value),
       };
-      if (i == 0 || i == graphData.length - 1) {
-        dataPoint.label = formatTimestamp(d.timestamp);
+
+      const interval = Math.floor(graphData.length / 3);
+      if (graphData.length > 0) {
+        const LAST_POINT_OFFSET = getLastPointOffset();
+        const isFirstPoint = i === 0;
+        const isLastPoint = i === graphData.length - LAST_POINT_OFFSET;
+        const isQuarterPoint = i === Math.floor(interval);
+        const isMiddlePoint = i === Math.floor(interval * 2);
+
+        if (isFirstPoint || isLastPoint || isQuarterPoint || isMiddlePoint) {
+          dataPoint.label = formatTimestamp(
+            isLastPoint
+              ? graphData[graphData.length - 1].timestamp
+              : d.timestamp,
+          );
+        }
       }
       return dataPoint;
     });
-    setMaxValue(maxValue);
+    maxValueRef.current = maxValue;
     return data;
   }, [graphData, formatTimestamp, formatTooltipValue, formatYAxisTick]);
+
+  const handleLayout = ({
+    nativeEvent: {
+      layout: { width },
+    },
+  }: LayoutChangeEvent) => {
+    setWidth(width);
+  };
 
   if (isLoading) {
     return (
@@ -84,19 +121,20 @@ export const Graph = (props: GraphPropTypes) => {
           </Typography>
         </Flex>
       </Flex>
-
-      <DisplayGraph
-        areaChart
-        spacing={Dimensions.get('screen').width / optimizedGraphData.length}
-        data={optimizedGraphData}
-        maxValue={maxValue * 1.2}
-        hideYAxisText
-        color={
-          props.parentAssetId
-            ? coinList[props.parentAssetId].color
-            : coinList[BtcIdMap.bitcoin].color
-        }
-      />
+      <View onLayout={handleLayout} style={{ width: '100%', height: 170 }}>
+        <DisplayGraph
+          data={optimizedGraphData}
+          maxValue={maxValueRef.current * 1.2}
+          height={170}
+          width={width - 40}
+          formatYLabel={formatYAxisTick}
+          color={
+            props.parentAssetId
+              ? coinList[props.parentAssetId].color
+              : coinList[BtcIdMap.bitcoin].color
+          }
+        />
+      </View>
     </>
   );
 };
