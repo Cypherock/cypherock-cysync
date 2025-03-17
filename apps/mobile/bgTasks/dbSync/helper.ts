@@ -36,7 +36,7 @@ const syncWalletsDb = createFuncWithErrorHandler('syncWalletsDb', async () => {
   store.dispatch(setWallets(wallets));
 });
 
-const syncAccountsDb = createFuncWithErrorHandler(
+export const syncAccountsDb = createFuncWithErrorHandler(
   'syncAccountsDb',
   async isFirst => {
     const db = getDB();
@@ -82,8 +82,8 @@ const syncPriceHistoriesDb = createFuncWithErrorHandler(
   },
 );
 
-export const syncAllDb = async (isFirst: boolean) => {
-  await syncAccountsDb(isFirst);
+export const syncAllDb = async () => {
+  await syncAccountsDb();
   await syncWalletsDb();
   await syncTransactionsDb();
   await syncPriceInfosDb();

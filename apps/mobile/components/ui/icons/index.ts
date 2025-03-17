@@ -31,3 +31,4 @@ export * from './cypherock-locked';
 export * from './logotype';
 export * from './history-icon';
 export * from './receive-icon';
+export * from './sync-icon';
