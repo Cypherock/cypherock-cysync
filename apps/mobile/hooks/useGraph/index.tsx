@@ -241,8 +241,16 @@ export const useGraph = ({ selectedRange, ...props }: UseGraphProps) => {
   );
 
   const formatYAxisTick = useCallback(
-    (value: string | number) => formatGraphAmountDisplay(value, undefined),
-    [showGraphInUSD, props?.accountId, props?.assetId, props?.parentAssetId],
+    (value: string | number) => {
+      const price = new BigNumber(value);
+
+      if (price.isGreaterThanOrEqualTo(1000)) {
+        return `$${formatDisplayPrice(price.dividedBy(1000))}k`;
+      } else {
+        return `$${formatDisplayPrice(price)}`;
+      }
+    },
+    [showGraphInUSD],
   );
 
   const onGraphSwitch = () => {
