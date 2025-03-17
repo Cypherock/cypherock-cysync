@@ -1,7 +1,5 @@
 import React, { useEffect } from 'react';
-import { AccountSyncTask } from './accountsSync';
 import { DatabaseListener } from './dbSync';
-import { PriceSyncTask } from './priceSync';
 import { NotificationSyncTask } from './notificationSync';
 
 let render = 1;
@@ -11,9 +9,7 @@ export const BackgroundTasks = () => {
   }, []);
   return (
     <>
-      <AccountSyncTask />
       <DatabaseListener />
-      <PriceSyncTask />
       <NotificationSyncTask />
     </>
   );

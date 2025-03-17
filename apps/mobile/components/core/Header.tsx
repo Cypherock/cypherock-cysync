@@ -1,10 +1,14 @@
 import React, { ReactNode } from 'react';
 import { Pressable, View } from 'react-native';
-import { Header as StyledHeader } from '../ui';
+import { Header as StyledHeader, SyncIcon, useTheme } from '../ui';
 import { router } from 'expo-router';
 import { Icon } from '@/components/ui';
 import { Images } from '@/constants';
-import { selectNotifications, useAppSelector } from '@/store';
+import {
+  selectAccountSync,
+  selectNotifications,
+  useAppSelector,
+} from '@/store';
 import { QRIcon } from '../ui/icons/qr-icon';
 
 interface HeaderProps {
@@ -24,7 +28,9 @@ export function Header({
   showDiscard = false,
   onDiscard = () => (router.canDismiss() ? router.dismiss() : router.back()),
 }: HeaderProps) {
+  const theme = useTheme();
   const { unreadTransactions } = useAppSelector(selectNotifications);
+  const { syncState } = useAppSelector(selectAccountSync);
   const showNotification = unreadTransactions > 0 ? 'active' : 'default';
   return (
     <StyledHeader
@@ -34,6 +40,14 @@ export function Header({
       onBackPress={onBackPress}
       rightIcons={
         <View style={{ flexDirection: 'row', alignItems: 'center', gap: 16 }}>
+          <SyncIcon
+            fill={
+              syncState === 'synced' || syncState === 'syncing'
+                ? theme.palette.success
+                : theme.palette.error
+            }
+            onPress={() => router.dismissTo('/loading')}
+          />
           <Icon
             source={{
               active: Images.icon.notification_default,
