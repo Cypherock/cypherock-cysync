@@ -47,6 +47,7 @@ export function Header({
         <AntDesign
           name="arrowleft"
           size={18}
+          style={{ paddingVertical: 8 }}
           onPress={onBackPress}
           color={'white'}
         />
