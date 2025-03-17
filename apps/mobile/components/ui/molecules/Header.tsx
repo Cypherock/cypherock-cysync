@@ -60,6 +60,7 @@ export function Header({
         <Feather
           name="x"
           size={18}
+          style={{ padding: 8 }}
           color={colors.text.primary}
           onPress={onDiscard}
         />

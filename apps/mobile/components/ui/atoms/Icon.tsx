@@ -17,7 +17,7 @@ export function Icon({
   ...props
 }: IconProps) {
   return (
-    <Pressable {...props}>
+    <Pressable style={{ padding: 8 }} {...props}>
       {state === 'active' && (
         <Image source={props.source.active} style={styles[size]} />
       )}
