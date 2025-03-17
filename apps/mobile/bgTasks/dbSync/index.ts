@@ -4,7 +4,7 @@ import { syncAllDb, addListeners, removeListeners } from './helper';
 
 export const DatabaseListener: React.FC = () => {
   useEffect(() => {
-    syncAllDb(true);
+    syncAllDb();
     addListeners();
 
     return removeListeners;
