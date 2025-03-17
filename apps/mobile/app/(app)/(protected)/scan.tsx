@@ -13,6 +13,7 @@ import { IAccount, IWallet } from '@cypherock/db-interfaces';
 import { getDB } from '@/utils';
 import { inflate } from 'pako';
 import { colors } from '@/components/ui/themes/color.styled';
+import Feather from '@expo/vector-icons/Feather';
 
 interface CysyncData {
   wallets: IWallet[];
@@ -91,13 +92,12 @@ export default function Scan() {
   return (
     <ScreenContainer>
       <View style={styles.top}>
-        <Icon
-          source={{
-            default: Images.icon.close_default,
-            disabled: Images.icon.close_disabed,
-          }}
+        <Feather
+          name="x"
+          size={18}
+          style={{ padding: 12 }}
+          color={colors.text.primary}
           onPress={handleDismiss}
-          size="small"
         />
       </View>
       <Scanner onQrScanned={onQrScanned} progress={progress} />
@@ -124,7 +124,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'flex-end',
     alignItems: 'center',
-    paddingHorizontal: 24,
     paddingVertical: 12,
   },
   textContainer: {
