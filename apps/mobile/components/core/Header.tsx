@@ -34,19 +34,16 @@ export function Header({
       onBackPress={onBackPress}
       rightIcons={
         <View style={{ flexDirection: 'row', alignItems: 'center', gap: 16 }}>
-          <Pressable onPress={() => router.push('/notification')}>
-            <Icon
-              source={{
-                active: Images.icon.notification_default,
-                default: Images.icon.notification_plain_default,
-              }}
-              size={'default'}
-              key={showNotification}
-              state={showNotification}
-              onPress={() => router.push('/notification')}
-            />
-          </Pressable>
-          <QRIcon onPress={() => router.push('/scan')} />
+          <Icon
+            source={{
+              active: Images.icon.notification_default,
+              default: Images.icon.notification_plain_default,
+            }}
+            key={showNotification}
+            state={showNotification}
+            onPress={() => router.push('/notification')}
+          />
+          <QRIcon onPress={() => router.push('/scan')} style={{ padding: 8 }} />
         </View>
       }
       showDiscard={showDiscard}
