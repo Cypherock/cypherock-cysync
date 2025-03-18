@@ -12,6 +12,7 @@ import AllocationTable from '@/components/core/AllocationTable';
 import { CoinAllocationRow, usePortfolioFilters } from '@/hooks';
 import { selectLanguage, useAppSelector } from '@/store';
 import useShowAfterDelay from '@/hooks/useShowAfterDelay';
+import { View } from 'react-native';
 
 export default function Coins() {
   const { parentAssetId, id, assetName } = useLocalSearchParams<{
@@ -65,7 +66,9 @@ export default function Coins() {
   return (
     <ScreenContainer>
       <PortfolioHeader />
-      <Container style={{ paddingHorizontal: 12, gap: 24 }}>
+      <View
+        style={{ width: '100%', height: 324, paddingHorizontal: 12, gap: 24 }}
+      >
         <Flex justifyContent="space-between">
           <Flex gap={4} style={{ flex: 1 }}>
             <FilterButton
@@ -90,7 +93,7 @@ export default function Coins() {
             selectedWallet={selectedWallet}
           />
         )}
-      </Container>
+      </View>
       <AllocationTable
         parentAssetId={parentAssetId}
         assetId={id}
