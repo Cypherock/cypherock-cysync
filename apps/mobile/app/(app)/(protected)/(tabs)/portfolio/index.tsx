@@ -1,5 +1,4 @@
 import {
-  Container,
   FilterButton,
   Flex,
   ScreenContainer,
@@ -13,6 +12,7 @@ import { selectLanguage, selectWallets, useAppSelector } from '@/store';
 import AllocationTable from '@/components/core/AllocationTable';
 import useShowAfterDelay from '@/hooks/useShowAfterDelay';
 import { useEffect } from 'react';
+import { View } from 'react-native';
 
 export default function Portfolio() {
   const { strings } = useAppSelector(selectLanguage);
@@ -63,7 +63,14 @@ export default function Portfolio() {
   return (
     <ScreenContainer>
       <PortfolioHeader />
-      <Container style={{ paddingHorizontal: 12, gap: 24 }}>
+      <View
+        style={{
+          width: '100%',
+          height: 324,
+          paddingHorizontal: 12,
+          gap: 24,
+        }}
+      >
         <Flex justifyContent="space-between">
           <Flex gap={4} style={{ flex: 1 }}>
             <FilterButton
@@ -87,7 +94,7 @@ export default function Portfolio() {
             selectedWallet={selectedWallet}
           />
         )}
-      </Container>
+      </View>
       <AllocationTable
         onItemClick={handleAssetClick}
         walletId={selectedWallet?.__id}
