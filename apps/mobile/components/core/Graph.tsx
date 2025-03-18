@@ -1,5 +1,5 @@
-import { LayoutChangeEvent, View } from 'react-native';
-import React, { useMemo, useRef, useState } from 'react';
+import { Dimensions, LayoutChangeEvent, View } from 'react-native';
+import React, { useMemo, useRef } from 'react';
 import {
   DataPointLabel,
   DisplayGraph,
@@ -20,6 +20,8 @@ export interface FormattedGraphData {
   yAxisLabelTexts: string;
 }
 
+const width = Dimensions.get('window').width;
+
 export const Graph = (props: GraphPropTypes) => {
   const {
     summaryDetails,
@@ -31,7 +33,7 @@ export const Graph = (props: GraphPropTypes) => {
     isLoading,
   } = useGraph(props);
   const maxValueRef = useRef(parseFloat(summaryDetails.totalValue));
-  const [width, setWidth] = useState(300);
+  const widthRef = useRef(width - 24);
 
   function getLastPointOffset() {
     switch (props.selectedRange) {
@@ -88,14 +90,6 @@ export const Graph = (props: GraphPropTypes) => {
     return data;
   }, [graphData, formatTimestamp, formatTooltipValue, formatYAxisTick]);
 
-  const handleLayout = ({
-    nativeEvent: {
-      layout: { width },
-    },
-  }: LayoutChangeEvent) => {
-    setWidth(width);
-  };
-
   if (isLoading) {
     return (
       <View style={{ justifyContent: 'center', flex: 1 }}>
@@ -121,20 +115,18 @@ export const Graph = (props: GraphPropTypes) => {
           </Typography>
         </Flex>
       </Flex>
-      <View onLayout={handleLayout} style={{ width: '100%', height: 170 }}>
-        <DisplayGraph
-          data={optimizedGraphData}
-          maxValue={maxValueRef.current * 1.2}
-          height={170}
-          width={width - 40}
-          formatYLabel={formatYAxisTick}
-          color={
-            props.parentAssetId
-              ? coinList[props.parentAssetId].color
-              : coinList[BtcIdMap.bitcoin].color
-          }
-        />
-      </View>
+      <DisplayGraph
+        data={optimizedGraphData}
+        maxValue={maxValueRef.current * 1.2}
+        height={170}
+        width={widthRef.current - 40}
+        formatYLabel={formatYAxisTick}
+        color={
+          props.parentAssetId
+            ? coinList[props.parentAssetId].color
+            : coinList[BtcIdMap.bitcoin].color
+        }
+      />
     </>
   );
 };
