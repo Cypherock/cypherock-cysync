@@ -100,13 +100,15 @@ export const GuidedFlowDialog: FC = () => {
                 useLightPadding
               />
             )}
-            {currentTab === 0 && currentDialog === 2 && (
+            {currentTab === 0 && [5, 6].includes(currentDialog) && (
               <DialogBoxBackgroundBar
                 middleComponent={
                   <Flex width="full" justify="center">
                     <MessageBox
                       type="warning"
                       text={lang.strings.guidedFlows.createWallet.skipPinSetup}
+                      $width="600px"
+                      $textAlign="center"
                     />
                   </Flex>
                 }

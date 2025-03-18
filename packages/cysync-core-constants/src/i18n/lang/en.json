@@ -1310,10 +1310,9 @@
                   "info": "Make sure that the wallet name is unique to other wallet names on the device"
                 },
                 {
-                  "warningGreen": "Wallet name once set cannot be modified. Please set the name accordingly"
+                  "warning": "Wallet name once set cannot be modified. Please set the name accordingly"
                 }
-              ],
-              "footerWarning": "this is just a test"
+              ]
             },
             {
               "title": "Confirm the wallet name on the X1 Vault"
@@ -1337,7 +1336,7 @@
                   "warning": "Make sure you make a backup of your PIN. If you lose it , you lose access to your funds"
                 },
                 {
-                  "warning-white": "Skip this step if you are not setting up a PIN"
+                  "warningGreen": "You can set up the Cypherock Cover PIN Recovery Service to securely recover your wallet PIN —without exposing your seed phrase"
                 }
               ]
             },
@@ -1345,13 +1344,10 @@
               "title": "Confirm the entered PIN on the X1 Vault",
               "messageBoxList": [
                 {
-                  "warning": "Remember your PIN, if you lose it, you lose access to your funds. Even Cypherock won't be able to help you recover your assets"
+                  "warning": "Make sure you make a backup of your PIN. If you lose it , you lose access to your funds"
                 },
                 {
-                  "warning": "Back it up in a safe place"
-                },
-                {
-                  "warning-white": "Skip this step if you are not setting up a PIN"
+                  "warningGreen": "You can set up the Cypherock Cover PIN Recovery Service to securely recover your wallet PIN —without exposing your seed phrase"
                 }
               ]
             }

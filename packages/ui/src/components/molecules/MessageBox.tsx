@@ -35,6 +35,8 @@ export const MessageBox: FC<{
   showIcon?: boolean;
   showQuestionmark?: boolean;
   actionButton?: React.ReactNode;
+  $width?: string;
+  $textAlign?: 'left' | 'right' | 'center';
 }> = ({
   text,
   altText,
@@ -46,6 +48,8 @@ export const MessageBox: FC<{
   icon,
   showQuestionmark,
   actionButton,
+  $width,
+  $textAlign,
 }) => {
   const theme = useTheme();
   const iconFillMap: Record<MessageBoxType, string> = {
@@ -66,6 +70,7 @@ export const MessageBox: FC<{
       px={2}
       justify="flex-start"
       $alignSelf="stretch"
+      {...($width ? { $width } : {})}
     >
       {showIcon && (
         <Container>
@@ -73,7 +78,11 @@ export const MessageBox: FC<{
         </Container>
       )}
       <Flex direction="column" $flex={1}>
-        <Typography variant="fineprint" color={textColor ?? 'muted'}>
+        <Typography
+          variant="fineprint"
+          color={textColor ?? 'muted'}
+          $textAlign={$textAlign ?? 'left'}
+        >
           <LangDisplay text={text} variables={variables} />
           {!altText && rightImage && rightImage}
           {showQuestionmark && <GoldQuestionMark ml={1} />}
@@ -101,4 +110,6 @@ MessageBox.defaultProps = {
   showQuestionmark: false,
   actionButton: undefined,
   icon: undefined,
+  $width: undefined,
+  $textAlign: undefined,
 };
