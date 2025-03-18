@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Dimensions, KeyboardAvoidingView, Platform, View } from 'react-native';
+import { KeyboardAvoidingView, Platform, View } from 'react-native';
 import { router } from 'expo-router';
 import {
   Button,
@@ -9,7 +9,6 @@ import {
   ScreenContainer,
   Typography,
 } from '@/components/ui';
-import { useTheme } from 'styled-components/native';
 import { useAppSelector } from '@/store';
 import { selectLanguage } from '@/store/lang';
 import { useLockscreen } from '@/contexts/useLockscreenContext';
@@ -67,10 +66,6 @@ export default function PasswordPage() {
         router.replace('/onboarding-scan');
       }, 2000);
     }
-  };
-
-  const handleSkip = () => {
-    router.replace('/onboarding-scan');
   };
 
   if (showSuccess) {
@@ -164,11 +159,6 @@ export default function PasswordPage() {
         </Container>
         <View style={{ gap: 8, width: '100%' }}>
           <Button title={strings.buttons.continue} onPress={handleContinue} />
-          <Button
-            title={strings.buttons.skip}
-            onPress={handleSkip}
-            type="secondary"
-          />
         </View>
       </KeyboardAvoidingView>
     </ScreenContainer>
