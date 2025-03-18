@@ -13,6 +13,7 @@ import { usePortfolioFilters } from '@/hooks';
 import { selectAccounts, selectLanguage, useAppSelector } from '@/store';
 import { getAssetOrUndefined } from '@cypherock/coin-support-utils';
 import TokenTable from '@/components/core/TokenTable';
+import { View } from 'react-native';
 
 export default function Accounts() {
   const { id: accountId } = useLocalSearchParams<{
@@ -56,7 +57,9 @@ export default function Accounts() {
   return (
     <ScreenContainer>
       <PortfolioHeader />
-      <Container style={{ paddingHorizontal: 12, gap: 24 }}>
+      <View
+        style={{ width: '100%', height: 324, paddingHorizontal: 12, gap: 24 }}
+      >
         <Flex justifyContent="space-between">
           <Flex gap={4} style={{ flex: 1 }}>
             <FilterButton
@@ -79,7 +82,7 @@ export default function Accounts() {
           accountId={accountId}
           selectedWallet={selectedWallet}
         />
-      </Container>
+      </View>
       {(getAssetOrUndefined(selectedAccount.parentAssetId) as any)?.tokens &&
       accountId ? (
         <TokenTable accountId={accountId} />
