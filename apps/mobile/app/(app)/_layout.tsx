@@ -16,6 +16,7 @@ export default function Layout() {
   return (
     <Stack
       screenOptions={{
+        navigationBarColor: theme.palette.black,
         headerShown: false,
         contentStyle: { backgroundColor: theme.palette.background.primary },
       }}
