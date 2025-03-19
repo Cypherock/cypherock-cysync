@@ -91,11 +91,8 @@ export interface UseAssetAllocationProps {
   withSubIconAtBottom?: boolean;
 }
 
-export const allocationComparatorMap: Record<
-  AllocationTableHeaderKeys,
-  string
-> = {
-  asset: 'assetName',
+const comparatorMap = {
+  asset: 'assetAbbr',
   amount: 'balance',
 };
 
@@ -140,11 +137,9 @@ export const useAssetAllocations = ({
 
   const getSortedData = useCallback(
     (data: CoinAllocationRow[]) => {
-      const sorted = lodash.orderBy(
-        data,
-        [allocationComparatorMap[sortedBy]],
-        [isAscending ? 'asc' : 'desc'],
-      );
+      const sorted = lodash.orderBy(data, comparatorMap[sortedBy], [
+        isAscending ? 'asc' : 'desc',
+      ]);
       setIsLoading(false);
       return sorted;
     },
