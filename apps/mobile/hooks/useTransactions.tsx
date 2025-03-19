@@ -334,6 +334,7 @@ export const useTransactions = () => {
       isAscending,
       onSort,
       displayedData,
+      transactions: allTransactions,
       sortedBy,
       noData: wallets.length === 0 || accounts.length === 0,
       syncState,
