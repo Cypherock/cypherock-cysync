@@ -1,17 +1,12 @@
-import { Dimensions, LayoutChangeEvent, View } from 'react-native';
+import { Dimensions, View } from 'react-native';
 import React, { useMemo, useRef } from 'react';
-import {
-  DataPointLabel,
-  DisplayGraph,
-  Flex,
-  Loader,
-  Seperator,
-  Typography,
-} from '../ui';
+import { DisplayGraph, Flex, Loader, Seperator, Typography } from '../ui';
 import { BtcIdMap, coinList } from '@cypherock/coins';
 import { useGraph, UseGraphProps } from '@/hooks';
 
-export interface GraphPropTypes extends UseGraphProps {}
+export interface GraphPropTypes extends UseGraphProps {
+  color?: string;
+}
 
 export interface FormattedGraphData {
   label?: string;
@@ -121,11 +116,7 @@ export const Graph = (props: GraphPropTypes) => {
         height={170}
         width={widthRef.current - 40}
         formatYLabel={formatYAxisTick}
-        color={
-          props.parentAssetId
-            ? coinList[props.parentAssetId].color
-            : coinList[BtcIdMap.bitcoin].color
-        }
+        color={props.color ?? coinList[BtcIdMap.bitcoin].color}
       />
     </>
   );

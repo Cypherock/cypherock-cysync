@@ -1,6 +1,5 @@
-import { View, StyleSheet } from 'react-native';
 import React, { ReactNode } from 'react';
-import { HeaderContainer, Typography } from '../atoms';
+import { Typography } from '../atoms';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import AntDesign from '@expo/vector-icons/AntDesign';
 import styled from 'styled-components/native';
@@ -17,7 +16,16 @@ interface HeaderProps {
   onDiscard?: () => void;
 }
 
-const IconContainer = styled(View)`
+const HeaderContainer = styled.View`
+  flex-direction: row;
+  background: ${({ theme }) => theme.palette.background.primary};
+  padding-horizontal: 16px;
+  padding-vertical: 12px;
+  align-items: center;
+  gap: 8px;
+`;
+
+const IconContainer = styled.View`
   display: flex;
   width: 24px;
   height: 24px;
@@ -47,13 +55,18 @@ export function Header({
         <AntDesign
           name="arrowleft"
           size={18}
-          style={{ paddingVertical: 8 }}
+          style={{ paddingVertical: 8, paddingHorizontal: 4 }}
           onPress={onBackPress}
           color={'white'}
         />
       )}
       {leftIcon && <IconContainer>{leftIcon}</IconContainer>}
-      <Typography type="h1" style={styles.title} numberOfLines={1}>
+      <Typography
+        type="h3"
+        textAlign="left"
+        style={{ flex: 1, textTransform: 'capitalize' }}
+        numberOfLines={1}
+      >
         {title}
       </Typography>
       {!showDiscard && rightIcons}
@@ -69,26 +82,3 @@ export function Header({
     </HeaderContainer>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flexDirection: 'row',
-    backgroundColor: '#1C1815',
-    paddingHorizontal: 16,
-    paddingBottom: 16,
-    alignItems: 'baseline',
-    gap: 16,
-  },
-  title: {
-    textAlign: 'left',
-    fontWeight: 600,
-    textTransform: 'capitalize',
-    fontSize: 20,
-    flex: 1,
-  },
-  rightIcons: {
-    gap: 24,
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-});
