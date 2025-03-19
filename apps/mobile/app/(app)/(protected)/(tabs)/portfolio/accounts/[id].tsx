@@ -6,14 +6,21 @@ import {
   SelectFilterSheet,
 } from '@/components/ui';
 import { Graph } from '@/components/core';
-import { useEffect } from 'react';
+import { useEffect, useMemo } from 'react';
 import { router, useLocalSearchParams, useNavigation } from 'expo-router';
 import { CoinIcon, PortfolioHeader } from '@/components/core';
 import { usePortfolioFilters } from '@/hooks';
-import { selectAccounts, selectLanguage, useAppSelector } from '@/store';
-import { getAssetOrUndefined } from '@cypherock/coin-support-utils';
+import {
+  selectAccounts,
+  selectLanguage,
+  selectWallets,
+  useAppSelector,
+} from '@/store';
+import { getAsset, getAssetOrUndefined } from '@cypherock/coin-support-utils';
 import TokenTable from '@/components/core/TokenTable';
 import { View } from 'react-native';
+import { IAccount, IWallet } from '@cypherock/db-interfaces';
+import { ICoinInfo } from '@cypherock/coins';
 
 export default function Accounts() {
   const { id: accountId } = useLocalSearchParams<{
@@ -24,6 +31,7 @@ export default function Accounts() {
 
   const navigation = useNavigation();
   const { accounts } = useAppSelector(selectAccounts);
+  const { wallets } = useAppSelector(selectWallets);
   const { strings } = useAppSelector(selectLanguage);
   const {
     filters,
@@ -35,7 +43,42 @@ export default function Accounts() {
     onShowFilter,
     onFilterReset,
   } = usePortfolioFilters();
-  const selectedAccount = accounts.find(ac => ac.__id === accountId);
+
+  const selectedAccount = useMemo<
+    | (IAccount & {
+        asset?: ICoinInfo;
+        parentAccount?: IAccount;
+        wallet?: IWallet;
+      })
+    | undefined
+  >(() => {
+    const account = accounts.find(a => a.__id === accountId);
+
+    if (account) {
+      const wallet = wallets.find(a => a.__id === account.walletId);
+
+      const result: IAccount & {
+        asset?: ICoinInfo;
+        parentAccount?: IAccount;
+        wallet?: IWallet;
+      } = { ...account, wallet };
+
+      const asset = getAsset(account.parentAssetId, account.assetId);
+      result.asset = asset;
+
+      if (account.parentAccountId) {
+        const parentAccount = accounts.find(
+          a => a.__id === account.parentAccountId,
+        );
+
+        result.parentAccount = parentAccount;
+      }
+
+      return result;
+    }
+
+    return undefined;
+  }, [accountId, accounts]);
 
   useEffect(() => {
     if (!selectedAccount) {
@@ -81,6 +124,7 @@ export default function Accounts() {
           selectedRange={selectedRange}
           accountId={accountId}
           selectedWallet={selectedWallet}
+          color={selectedAccount.asset?.color}
         />
       </View>
       {(getAssetOrUndefined(selectedAccount.parentAssetId) as any)?.tokens &&

@@ -1,5 +1,5 @@
-import React, { ReactNode } from 'react';
-import { Pressable, View } from 'react-native';
+import React, { ReactNode, useEffect, useState } from 'react';
+import { View } from 'react-native';
 import { Header as StyledHeader, SyncIcon, useTheme } from '../ui';
 import { router } from 'expo-router';
 import { Icon } from '@/components/ui';
@@ -31,7 +31,12 @@ export function Header({
   const theme = useTheme();
   const { unreadTransactions } = useAppSelector(selectNotifications);
   const { syncState } = useAppSelector(selectAccountSync);
-  const showNotification = unreadTransactions > 0 ? 'active' : 'default';
+  const [showNotification, setShowNotification] = useState('default');
+
+  useEffect(() => {
+    setShowNotification(unreadTransactions > 0 ? 'active' : 'default');
+  }, [unreadTransactions]);
+
   return (
     <StyledHeader
       title={title}

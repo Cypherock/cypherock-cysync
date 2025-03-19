@@ -17,7 +17,10 @@ import {
   useAppSelector,
 } from '@/store';
 import { createSelector } from '@reduxjs/toolkit';
-import { markTransactionNotificationClicked } from '@/actions';
+import {
+  markAllTransactionNotificationRead,
+  markTransactionNotificationClicked,
+} from '@/actions';
 import {
   IAccount,
   ITransaction,
@@ -99,9 +102,13 @@ const getNotificationText = (params: {
 
 export default function Notification() {
   const { lang, wallets, accounts } = useAppSelector(selector);
-  const { displayedData: transactions } = useTransactions();
+  const { displayedData, transactions } = useTransactions();
   const { setSelectedTransaction, setFrom } = useHistoryContext();
   const navigation = useNavigation();
+
+  const onClose = () => {
+    markAllTransactionNotificationRead(transactions);
+  };
 
   const onNotificationClick = (t: TransactionRowData) => {
     setSelectedTransaction(t);
@@ -114,6 +121,11 @@ export default function Notification() {
       showDiscard: true,
     });
   }, []);
+
+  useEffect(() => {
+    const unsubscribe = navigation.addListener('blur', onClose);
+    return unsubscribe;
+  }, [navigation, transactions]);
 
   const renderNotification = (item: TransactionRowData) => {
     return (
@@ -150,7 +162,7 @@ export default function Notification() {
             paddingBottom: 16,
             overflow: 'hidden',
           }}
-          sections={transactions}
+          sections={displayedData}
           renderItem={({ item }: { item: TransactionRowData }) =>
             renderNotification(item)
           }

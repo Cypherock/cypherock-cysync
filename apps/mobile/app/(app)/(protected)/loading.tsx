@@ -1,7 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { LoaderScreen } from '@/components/ui';
 import {
-  selectAccounts,
   selectAccountSync,
   selectLanguage,
   selectNetwork,
@@ -16,9 +15,11 @@ export default function Loading() {
   const lang = useAppSelector(selectLanguage);
   const [status, setStatus] = useState(false);
   const { active } = useAppSelector(selectNetwork);
-  const { accounts } = useAppSelector(selectAccounts);
   const { syncState, syncError, accountSyncMap } =
     useAppSelector(selectAccountSync);
+
+  /** Can be used to show sync progress */
+  const accountSyncProgress = useRef(0);
 
   async function loadData() {
     try {
@@ -32,7 +33,12 @@ export default function Loading() {
   }
 
   useEffect(() => {
-    console.log({ accountSyncMap, accounts });
+    const syncMapValues = Object.values(accountSyncMap);
+    accountSyncProgress.current = Math.round(
+      (syncMapValues.filter(a => a?.syncState === 'synced').length /
+        syncMapValues.length) *
+        100,
+    );
   }, [accountSyncMap]);
 
   useEffect(() => {
