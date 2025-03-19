@@ -1,5 +1,5 @@
 import React, { ReactNode } from 'react';
-import { Pressable, View } from 'react-native';
+import { View } from 'react-native';
 import { Header as StyledHeader, SyncIcon, useTheme } from '../ui';
 import { router } from 'expo-router';
 import { Icon } from '@/components/ui';
