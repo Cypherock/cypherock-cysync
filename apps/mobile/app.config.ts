@@ -11,7 +11,7 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
     bundleIdentifier:
       process.env.APP_ENV === 'production'
         ? 'com.cypherock.cysync'
-        : 'com.cypherock.cysync_dev',
+        : 'com.cypherock.cysync-dev',
   },
   android: {
     ...config.android,
