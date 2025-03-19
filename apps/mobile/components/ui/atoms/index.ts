@@ -8,7 +8,6 @@ export * from './Tag';
 export * from './Container';
 export * from './InteractiveItem';
 export * from './MessageBox';
-export * from './HeaderContainer';
 export * from './Search';
 export * from './Copy';
 export * from './Seperator';

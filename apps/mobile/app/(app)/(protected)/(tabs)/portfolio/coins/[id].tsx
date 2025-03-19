@@ -13,6 +13,7 @@ import { CoinAllocationRow, usePortfolioFilters } from '@/hooks';
 import { selectLanguage, useAppSelector } from '@/store';
 import useShowAfterDelay from '@/hooks/useShowAfterDelay';
 import { View } from 'react-native';
+import { coinList } from '@cypherock/coins';
 
 export default function Coins() {
   const { parentAssetId, id, assetName } = useLocalSearchParams<{
@@ -91,6 +92,7 @@ export default function Coins() {
             parentAssetId={parentAssetId}
             assetId={id}
             selectedWallet={selectedWallet}
+            color={coinList[parentAssetId].color}
           />
         )}
       </View>
