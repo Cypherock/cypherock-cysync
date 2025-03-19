@@ -26,7 +26,7 @@ export const NotificationSyncTask: React.FC = () => {
   const { transactions, accounts } = useAppSelector(selector);
 
   const debounceParseTransactionList = useCallback(
-    lodash.throttle(() => dispatch(syncTransactionNotifications()), 200, {
+    lodash.throttle(() => dispatch(syncTransactionNotifications()), 1000, {
       leading: true,
     }),
     [dispatch],
