@@ -43,6 +43,7 @@ import { SignMessageDialog } from './SignMessage';
 import { WalletActionsDialogBox } from './WalletActions';
 import { WalletConnectDialog } from './WalletConnect';
 import { WalletSyncError } from './WalletSyncError';
+import { MobileAppSyncDialog } from './MobileAppSync';
 
 export const dialogs: Record<DialogName, ReactComponentLike> = {
   walletSyncError: WalletSyncError,
@@ -81,4 +82,5 @@ export const dialogs: Record<DialogName, ReactComponentLike> = {
   inheritanceGoldPlanPurchase: InheritanceGoldPlanPurchaseDialog,
   inheritanceEditEncryptedMessage: InheritanceEditEncryptedMessageDialog,
   inheritanceEstateRecovery: InheritanceEstateRecoveryDialog,
+  mobileAppSyncDialog: MobileAppSyncDialog,
 };
