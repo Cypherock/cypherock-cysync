@@ -9,7 +9,7 @@ import React, {
   useState,
 } from 'react';
 
-import { ITabs, useTabsAndDialogs } from '~/hooks';
+import { ITabs, useMemoReturn, useTabsAndDialogs } from '~/hooks';
 import {
   closeDialog,
   selectLanguage,
@@ -109,32 +109,18 @@ export const MobileAppSyncDialogProvider: FC<
     dialogName: 'mobileAppSyncDialog',
   });
 
-  const ctx = useMemo(
-    () => ({
-      isDeviceRequired,
-      currentTab,
-      currentDialog,
-      tabs,
-      onNext,
-      goTo,
-      onPrevious,
-      onClose,
-      getSyncData,
-      isLoading,
-    }),
-    [
-      isDeviceRequired,
-      currentTab,
-      currentDialog,
-      tabs,
-      onNext,
-      goTo,
-      onPrevious,
-      onClose,
-      getSyncData,
-      isLoading,
-    ],
-  );
+  const ctx = useMemoReturn({
+    isDeviceRequired,
+    currentTab,
+    currentDialog,
+    tabs,
+    onNext,
+    goTo,
+    onPrevious,
+    onClose,
+    getSyncData,
+    isLoading,
+  });
 
   return (
     <MobileAppSyncDialogContext.Provider value={ctx}>

@@ -11,6 +11,9 @@ import { useMobileAppSyncDialog } from '../context';
 import { LoaderDialog } from '~/components';
 import { QrCode } from '../components/QrCode';
 import { selectLanguage, useAppSelector } from '~/store';
+import logger from '~/utils/logger';
+
+const QR_CODE_FRAME_DELAY = 500;
 
 export const ShowQrCode: React.FC = () => {
   const [data, setData] = useState<string[]>([]);
@@ -24,18 +27,19 @@ export const ShowQrCode: React.FC = () => {
         const syncData = await getSyncData();
         setData(syncData);
       } catch (error) {
-        console.log(error);
+        logger.error('Failed to retrieve sync data');
+        logger.error(error);
       }
     })();
-  }, [getSyncData]);
+  }, []);
 
   useEffect(() => {
     setChunkIndex(0);
     let interval: NodeJS.Timer | undefined;
     if (data.length > 0) {
       interval = setInterval(() => {
-        setChunkIndex(p => (p < data.length - 1 ? p + 1 : 0));
-      }, 500);
+        setChunkIndex(p => (p + 1) % data.length);
+      }, QR_CODE_FRAME_DELAY);
     }
     return () => {
       if (interval) clearInterval(interval);
