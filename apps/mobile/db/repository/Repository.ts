@@ -171,7 +171,7 @@ export class Repository<T extends IEntity> implements IRepository<T> {
         .map(f =>
           Object.entries(f)
             .map(([key, value]) => {
-              if (value === null) return `${key} == null`;
+              if (!value) return `${key} == null`;
               if (typeof value === 'string') return `${key} == "${value}"`;
               if (typeof value === 'boolean') return `${key} == ${value}`;
               return `${key} == ${value}`;
