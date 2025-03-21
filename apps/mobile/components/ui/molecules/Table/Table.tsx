@@ -44,6 +44,7 @@ export const TableHeader = styled.View`
 export const TableRowData = styled.Pressable<TableDataRowProps>`
   width: 100%;
   flex-direction: row;
+  gap: 16px;
   background: ${({ theme, index }) =>
     index % 2
       ? theme.palette.background.tableRow2
