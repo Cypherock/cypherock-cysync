@@ -79,6 +79,7 @@ export const XTableCell: FC<XTableCellProps> = ({
               color={primaryTextColor}
               textType={primaryTextType}
               style={{ flexGrow: 1 }}
+              numberOfLines={1}
             >
               {primaryText}
             </XTablePrimaryText>
@@ -90,6 +91,7 @@ export const XTableCell: FC<XTableCellProps> = ({
               color="secondary"
               textAlign={secondaryTextAlign}
               style={{ flexGrow: 1 }}
+              numberOfLines={1}
             >
               {secondaryText}
             </Typography>
