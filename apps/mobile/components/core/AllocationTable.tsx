@@ -81,9 +81,9 @@ function AllocationTable(props: AllocationTableProps) {
             />
             <XTableCell
               primaryTextAlign="right"
-              primaryText={item.displayPrice}
+              primaryText={item.displayValue}
               secondaryTextAlign="right"
-              secondaryText={item.displayValue}
+              secondaryText={`${item.displayPrice} | ${item.allocation.toFixed(2)}%`}
               justifyContent="flex-end"
             />
           </TableRowData>

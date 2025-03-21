@@ -33,7 +33,7 @@ export const DataPointLabel = styled.Text`
   white-space: nowrap;
   word-break: keep-all;
 
-  width: 130px;
+  width: 148px;
 
   gap: 8px;
 
@@ -59,7 +59,7 @@ export const DisplayGraph: FC<LineChartPropsType> = ({ ...props }) => {
 
   const handleFocus = (x: number) => {
     if (!props.data) return;
-    const shiftAmount = 125;
+    const shiftAmount = 140;
     if (x > props.data?.length / 2.4) {
       setLabelShift(-shiftAmount);
     } else {
