@@ -15,6 +15,8 @@ export const LoaderScreen = ({ title, loaderSize = 200 }: ILoaderProps) => {
         style={{
           justifyContent: 'center',
           alignItems: 'center',
+          paddingHorizontal: 16,
+          paddingVertical: 12,
         }}
       >
         <LottieView
