@@ -1,12 +1,17 @@
 import coinList from './coins';
+import { getIcrcTokens, IIcpIcrcToken } from './token';
 
 import { ICoinInfo, coinFamiliesMap } from '../types';
+
+export * from './token';
 
 type IcpFamily = typeof coinFamiliesMap.icp;
 
 export interface IIcpCoinInfo extends ICoinInfo {
   family: IcpFamily;
   network: string;
+  tokens: Record<string, IIcpIcrcToken>;
+  tokensByContract: Record<string, IIcpIcrcToken>;
 }
 
 export const IcpIdMap = {
@@ -32,6 +37,7 @@ export const icpCoinList: Record<string, IIcpCoinInfo> = coinList.reduce<
       network: coin.network,
       units: coin.units,
       color: coin.color,
+      ...getIcrcTokens(coin.id, { color: coin.color }),
     },
   }),
   {},

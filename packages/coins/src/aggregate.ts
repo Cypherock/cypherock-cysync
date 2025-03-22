@@ -5,7 +5,7 @@ import { solanaCoinList, SolanaId } from './solana';
 import { tronCoinList, ITronTrc20Token } from './tron';
 import { xrpCoinList, XrpId } from './xrp';
 import { starknetCoinList, StarknetId } from './starknet';
-import { icpCoinList, IcpId } from './icp';
+import { icpCoinList, IcpId, IIcpIcrcToken } from './icp';
 import { ICoinInfo } from './types';
 
 export const coinList: Record<
@@ -30,4 +30,4 @@ export type CoinTypes =
   | XrpId
   | StarknetId
   | IcpId;
-export type TokenTypes = IEvmErc20Token | ITronTrc20Token;
+export type TokenTypes = IEvmErc20Token | ITronTrc20Token | IIcpIcrcToken;
