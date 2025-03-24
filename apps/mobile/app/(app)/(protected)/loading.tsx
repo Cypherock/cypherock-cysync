@@ -10,6 +10,7 @@ import { syncAllPriceHistories, syncAllPrices } from '@/actions';
 import { Redirect } from 'expo-router';
 import NoDataScreen from '@/components/ui/molecules/NoDataScreen';
 import { syncAccountsDb } from '@/bgTasks/dbSync/helper';
+import { debounce } from 'lodash';
 
 export default function Loading() {
   const lang = useAppSelector(selectLanguage);
@@ -42,7 +43,15 @@ export default function Loading() {
   }, [accountSyncMap]);
 
   useEffect(() => {
-    loadData();
+    const debouncedLoadData = debounce(() => {
+      loadData();
+    }, 300);
+
+    debouncedLoadData();
+
+    return () => {
+      debouncedLoadData.cancel();
+    };
   }, []);
 
   if (!active || syncError)
