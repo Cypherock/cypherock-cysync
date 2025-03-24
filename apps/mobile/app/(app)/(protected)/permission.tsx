@@ -5,11 +5,21 @@ import { Image } from 'expo-image';
 import { useCameraPermissions } from 'expo-camera';
 import { useAppSelector } from '@/store';
 import { selectLanguage } from '@/store/lang';
-import { Redirect } from 'expo-router';
+import { Redirect, router } from 'expo-router';
 
 export default function Permission() {
   const { strings } = useAppSelector(selectLanguage);
   const [permission, requestPermission] = useCameraPermissions();
+
+  function handleRequestPermission() {
+    if (!permission) return;
+
+    if (permission.status === 'denied') {
+      return router.replace('/portfolio');
+    }
+
+    requestPermission();
+  }
 
   if (permission?.granted) {
     return <Redirect href={'/scan'} />;
@@ -32,7 +42,7 @@ export default function Permission() {
         actions={{
           primary: {
             title: strings.buttons.continue,
-            onPress: requestPermission,
+            onPress: handleRequestPermission,
           },
         }}
       />
