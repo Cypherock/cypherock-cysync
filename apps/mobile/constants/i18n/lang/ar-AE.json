@@ -59,7 +59,7 @@
     },
     "permission": {
       "title": "إذن الكاميرا مطلوب",
-      "description": "يرجى توفير الوصول إلى الكاميرا. بدون الوصول إلى الكاميرا، لن تتمكن من مسح رمز الاستجابة السريعة المطلوب للمزامنة مع سطح مكتب cySync الخاص بك"
+      "description": "Camera access is required to scan the QR code and sync with your cySync desktop app. Without this access, the sync process will not work"
     },
     "info": {
       "title": "يجب مزامنة تطبيقات سطح المكتب والهاتف المحمول يدويًا",
