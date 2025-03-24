@@ -1,10 +1,9 @@
 import { View, StyleSheet } from 'react-native';
 import React, { useEffect, useRef, useState } from 'react';
 import { useSharedValue, withSpring } from 'react-native-reanimated';
-import { Icon, MessageBox, ScreenContainer } from '@/components/ui';
+import { MessageBox, ScreenContainer } from '@/components/ui';
 import { Scanner } from '@/components/core';
 import IonIcon from '@expo/vector-icons/Ionicons';
-import { Images } from '@/constants/images';
 import { router } from 'expo-router';
 import { ScanningResult } from 'expo-camera';
 import { useAppSelector } from '@/store';
@@ -38,6 +37,7 @@ export default function Scan() {
 
   function onQrScanned(qr: ScanningResult) {
     const data = qr.data.split('|');
+    if (data[0] !== 'CHUNK' && data.length !== 4) return;
     const chunkIndex = Number(data[1]);
     const dataLength = Number(data[2]);
     const chunkData = data[3];
