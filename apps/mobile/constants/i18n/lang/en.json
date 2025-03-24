@@ -59,7 +59,7 @@
     },
     "permission": {
       "title": "Camera permission required",
-      "description": "Please provide camera access. Without the camera access you will not be able to scan the QR required to sync with your cySync desktop"
+      "description": "Camera access is required to scan the QR code and sync with your cySync desktop app. Without this access, the sync process will not work"
     },
     "info": {
       "title": "Your Desktop and Mobile Apps must be synced manually",

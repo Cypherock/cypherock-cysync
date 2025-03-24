@@ -1,16 +1,25 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Card, OnboardingItem, ScreenContainer } from '@/components/ui';
 import { Images } from '@/constants';
 import { Image } from 'expo-image';
 import { useCameraPermissions } from 'expo-camera';
-import { keyValueStore } from '@/db';
 import { useAppSelector } from '@/store';
 import { selectLanguage } from '@/store/lang';
-import { Redirect } from 'expo-router';
+import { Redirect, router } from 'expo-router';
 
 export default function Permission() {
   const { strings } = useAppSelector(selectLanguage);
   const [permission, requestPermission] = useCameraPermissions();
+
+  function handleRequestPermission() {
+    if (!permission) return;
+
+    if (permission.status === 'denied') {
+      return router.replace('/portfolio');
+    }
+
+    requestPermission();
+  }
 
   if (permission?.granted) {
     return <Redirect href={'/scan'} />;
@@ -32,8 +41,8 @@ export default function Permission() {
         subtitle={strings.onboarding.permission.description}
         actions={{
           primary: {
-            title: strings.buttons.grantPermission,
-            onPress: requestPermission,
+            title: strings.buttons.continue,
+            onPress: handleRequestPermission,
           },
         }}
       />
