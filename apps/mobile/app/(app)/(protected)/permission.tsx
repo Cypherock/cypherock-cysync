@@ -1,9 +1,8 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Card, OnboardingItem, ScreenContainer } from '@/components/ui';
 import { Images } from '@/constants';
 import { Image } from 'expo-image';
 import { useCameraPermissions } from 'expo-camera';
-import { keyValueStore } from '@/db';
 import { useAppSelector } from '@/store';
 import { selectLanguage } from '@/store/lang';
 import { Redirect } from 'expo-router';
@@ -32,7 +31,7 @@ export default function Permission() {
         subtitle={strings.onboarding.permission.description}
         actions={{
           primary: {
-            title: strings.buttons.grantPermission,
+            title: strings.buttons.continue,
             onPress: requestPermission,
           },
         }}
