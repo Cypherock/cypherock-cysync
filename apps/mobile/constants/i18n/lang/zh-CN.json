@@ -59,7 +59,7 @@
     },
     "permission": {
       "title": "需要相机权限",
-      "description": "请提供相机访问权限。如果没有相机访问权限，您将无法扫描与 cySync 桌面同步所需的二维码"
+      "description": "Camera access is required to scan the QR code and sync with your cySync desktop app. Without this access, the sync process will not work"
     },
     "info": {
       "title": "您的桌面和移动应用程序必须手动同步",

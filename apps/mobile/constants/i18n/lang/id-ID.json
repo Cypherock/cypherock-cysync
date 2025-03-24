@@ -59,7 +59,7 @@
     },
     "permission": {
       "title": "Izin kamera diperlukan",
-      "description": "Harap berikan akses kamera. Tanpa akses kamera, Anda tidak akan dapat memindai QR yang diperlukan untuk menyinkronkan dengan desktop cySync Anda"
+      "description": "Camera access is required to scan the QR code and sync with your cySync desktop app. Without this access, the sync process will not work"
     },
     "info": {
       "title": "Aplikasi Desktop dan Seluler Anda harus disinkronkan secara manual",
