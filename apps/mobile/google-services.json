@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "884783058373",
+    "firebase_url": "https://cypherock-website.firebaseio.com",
+    "project_id": "cypherock-website",
+    "storage_bucket": "cypherock-website.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:884783058373:android:b21886d1def0afa1464fac",
+        "android_client_info": {
+          "package_name": "com.cypherock.cysync"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDE54HAKg7fX1PHqXUwg1ahXLhOj7CGXiA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
