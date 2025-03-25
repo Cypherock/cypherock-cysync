@@ -1,12 +1,12 @@
-import React, { useEffect, useMemo } from 'react';
+import React, { useEffect } from 'react';
 import {
   Card,
+  Container,
   NotificationItem,
   parseLangTemplate,
   ScreenContainer,
   Typography,
 } from '@/components/ui';
-import { SectionList } from 'react-native';
 import NoDataScreen from '@/components/ui/molecules/NoDataScreen';
 import {
   ILangState,
@@ -29,10 +29,11 @@ import {
 } from '@cypherock/db-interfaces';
 import { getDisplayTransactionType } from '@/utils/transactions';
 import { getDefaultUnit, getParsedAmount } from '@cypherock/coin-support-utils';
-import { useNavigation } from 'expo-router';
+import { router, useNavigation } from 'expo-router';
 import { useHistoryContext } from '@/contexts/useHistoryContext';
 import { TransactionRowData, useTransactions } from '@/hooks';
-import { router } from 'expo-router';
+import { FlashList } from '@shopify/flash-list';
+import { TouchableOpacity } from 'react-native';
 
 const selector = createSelector(
   [selectLanguage, selectNotifications, selectWallets, selectUnHiddenAccounts],
@@ -100,9 +101,12 @@ const getNotificationText = (params: {
   return receiveStr;
 };
 
+const MAX_NOTIFICATIONS_TO_SHOW = 15;
+
 export default function Notification() {
-  const { lang, wallets, accounts } = useAppSelector(selector);
-  const { displayedData, transactions } = useTransactions();
+  const { lang, wallets, accounts, transactions, unreadTransactions } =
+    useAppSelector(selector);
+  const { displayedData } = useTransactions();
   const { setSelectedTransaction, setFrom } = useHistoryContext();
   const navigation = useNavigation();
 
@@ -128,6 +132,14 @@ export default function Notification() {
   }, [navigation, transactions]);
 
   const renderNotification = (item: TransactionRowData) => {
+    if (item.isGroupHeader) {
+      return (
+        <Card style={{ marginTop: 16, paddingVertical: 4 }}>
+          <Typography type="para">{item.groupText}</Typography>
+        </Card>
+      );
+    }
+
     return (
       <NotificationItem
         isClicked={(item.txn as any).isClicked}
@@ -148,13 +160,13 @@ export default function Notification() {
 
   return (
     <ScreenContainer>
-      {transactions.length === 0 ? (
+      {transactions.length === 0 || displayedData.length === 0 ? (
         <NoDataScreen
           title={lang.strings.notifications.noTransactions.title}
           description={lang.strings.notifications.noTransactions.subTitle}
         />
       ) : (
-        <SectionList
+        <Container
           style={{
             flex: 1,
             width: '100%',
@@ -162,16 +174,31 @@ export default function Notification() {
             paddingBottom: 16,
             overflow: 'hidden',
           }}
-          sections={displayedData}
-          renderItem={({ item }: { item: TransactionRowData }) =>
-            renderNotification(item)
-          }
-          renderSectionHeader={({ section: { title } }) => (
-            <Card style={{ marginTop: 16, paddingVertical: 4 }}>
-              <Typography type="para">{title}</Typography>
-            </Card>
+        >
+          <FlashList
+            estimatedItemSize={51}
+            data={displayedData.slice(0, MAX_NOTIFICATIONS_TO_SHOW)}
+            renderItem={({ item }: { item: TransactionRowData }) =>
+              renderNotification(item)
+            }
+            getItemType={item => {
+              return item.isGroupHeader ? 'sectionHeader' : 'row';
+            }}
+          />
+          {unreadTransactions < MAX_NOTIFICATIONS_TO_SHOW && (
+            <TouchableOpacity
+              onPress={() => {
+                router.push('/history');
+              }}
+            >
+              <Card>
+                <Typography type="h4" color="secondary">
+                  Show More
+                </Typography>
+              </Card>
+            </TouchableOpacity>
           )}
-        />
+        </Container>
       )}
     </ScreenContainer>
   );

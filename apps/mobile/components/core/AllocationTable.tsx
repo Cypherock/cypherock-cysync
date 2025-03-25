@@ -5,7 +5,6 @@ import {
   UseAssetAllocationProps,
   useAssetAllocations,
 } from '@/hooks';
-import { router } from 'expo-router';
 import {
   Table,
   TableHeader,
@@ -13,7 +12,6 @@ import {
   TableBody,
   TableRowData,
   XTableCell,
-  Container,
   Typography,
   Seperator,
 } from '../ui';
@@ -56,7 +54,6 @@ function AllocationTable(props: AllocationTableProps) {
         </Typography>
       )}
       <TableBody
-        type="flat"
         isLoading={isLoading}
         data={coinAllocations}
         renderItem={({
@@ -88,16 +85,7 @@ function AllocationTable(props: AllocationTableProps) {
             />
           </TableRowData>
         )}
-        renderSectionHeader={({ section: { title } }) => (
-          <Container
-            style={{ backgroundColor: colors.black, paddingVertical: 10 }}
-          >
-            <Typography type="para" color="primary">
-              {title}
-            </Typography>
-          </Container>
-        )}
-        seperator={() => (
+        separator={() => (
           <Seperator style={{ backgroundColor: colors.black }} />
         )}
       />
