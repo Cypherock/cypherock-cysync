@@ -68,15 +68,12 @@ export interface TransactionRowData {
   value: number;
   explorerLink: string;
   txn: ITransaction;
+  isGroupHeader: boolean;
+  groupText?: string;
   groupIcon?: React.FC<{ width: string; height: string }>;
   remarks: string[];
   network: string;
   destinationTag?: number;
-}
-
-export interface GroupedTransactionRowData {
-  title: string;
-  data: TransactionRowData[];
 }
 
 export const transactionComparatorMap: Record<
@@ -243,6 +240,7 @@ export const mapTransactionForDisplay = (params: {
     remarks,
     network: networkName,
     destinationTag,
+    isGroupHeader: false,
   };
 };
 
@@ -255,18 +253,14 @@ export const useTransactions = () => {
   const lang = useAppSelector(selectLanguage);
 
   const [searchTerm, setSearchTerm] = useState('');
-  const [displayedData, setDisplayedData] = useState<
-    GroupedTransactionRowData[]
-  >([]);
+  const [displayedData, setDisplayedData] = useState<TransactionRowData[]>([]);
   const [transactionList, setTransactionList] = useState<TransactionRowData[]>(
     [],
   );
   const [sortedBy, setSortedBy] = useState<TransactionTableHeaderKeys>('time');
   const [isAscending, setIsAscending] = useState(false);
 
-  const getDisplayDataList = (
-    list: TransactionRowData[],
-  ): GroupedTransactionRowData[] => {
+  const getDisplayDataList = (list: TransactionRowData[]): any[] => {
     const sortedList = lodash.orderBy(
       list,
       [transactionComparatorMap[sortedBy]],
@@ -274,20 +268,22 @@ export const useTransactions = () => {
     );
 
     if (sortedBy === 'time') {
-      const newList: GroupedTransactionRowData[] = [];
+      const newList: TransactionRowData[] = [];
       const groupedList = lodash.groupBy(sortedList, t => t.dateHeader);
       for (const [date, groupItems] of Object.entries(groupedList)) {
-        newList.push({ title: date, data: [...groupItems] });
+        newList.push({
+          isGroupHeader: true,
+          groupText: date,
+          id: date,
+        } as any);
+        newList.push(...groupItems);
       }
 
       return newList;
     }
 
-    const groupedByDate = lodash.groupBy(sortedList, t => t.dateHeader);
-    return Object.keys(groupedByDate).map(date => ({
-      title: date,
-      data: groupedByDate[date],
-    }));
+    // Only show date on rows when not grouping by date
+    return sortedList.map(t => ({ ...t, time: t.date }));
   };
 
   const parseTransactionsList = () => {
