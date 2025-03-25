@@ -8,10 +8,10 @@ export interface IIcpIcrcToken extends ICoinInfo {
   parentId: string;
   address: string;
   decimals: number;
+  dashboardRoute: string;
   canisters: {
     ledger: string;
     index: string;
-    root: string;
   };
 }
 
@@ -50,7 +50,11 @@ export const getIcrcTokens = (
     if (token.symbol.length <= 16 && token.platforms[parentId]) {
       if (
         !token.platforms[parentId].contract_address ||
-        [null, undefined].includes(token.platforms[parentId].decimal_place)
+        [null, undefined].includes(token.platforms[parentId].decimal_place) ||
+        !token.platforms[parentId].dashboard_route ||
+        !token.platforms[parentId].canisters ||
+        !token.platforms[parentId].canisters.ledger ||
+        !token.platforms[parentId].canisters.index
       ) {
         throw new Error('Missing token data');
       }
@@ -69,6 +73,7 @@ export const getIcrcTokens = (
         address: token.platforms[parentId].contract_address,
         canisters: token.platforms[parentId].canisters,
         decimals: token.platforms[parentId].decimal_place,
+        dashboardRoute: token.platforms[parentId].dashboard_route,
         coinIndex: '',
         feesUnit: token.symbol.toUpperCase(),
         family: coinFamiliesMap.icp,
