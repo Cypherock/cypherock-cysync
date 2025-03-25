@@ -110,8 +110,9 @@ export default function Notification() {
   const { setSelectedTransaction, setFrom } = useHistoryContext();
   const navigation = useNavigation();
 
-  const onClose = () => {
+  const handleShowMore = () => {
     markAllTransactionNotificationRead(transactions);
+    router.push('/history');
   };
 
   const onNotificationClick = (t: TransactionRowData) => {
@@ -125,11 +126,6 @@ export default function Notification() {
       showDiscard: true,
     });
   }, []);
-
-  useEffect(() => {
-    const unsubscribe = navigation.addListener('blur', onClose);
-    return unsubscribe;
-  }, [navigation, transactions]);
 
   const renderNotification = (item: TransactionRowData) => {
     if (item.isGroupHeader) {
@@ -160,7 +156,9 @@ export default function Notification() {
 
   return (
     <ScreenContainer>
-      {transactions.length === 0 || displayedData.length === 0 ? (
+      {transactions.length === 0 ||
+      displayedData.length === 0 ||
+      unreadTransactions === 0 ? (
         <NoDataScreen
           title={lang.strings.notifications.noTransactions.title}
           description={lang.strings.notifications.noTransactions.subTitle}
@@ -185,12 +183,8 @@ export default function Notification() {
               return item.isGroupHeader ? 'sectionHeader' : 'row';
             }}
           />
-          {unreadTransactions < MAX_NOTIFICATIONS_TO_SHOW && (
-            <TouchableOpacity
-              onPress={() => {
-                router.push('/history');
-              }}
-            >
+          {unreadTransactions > MAX_NOTIFICATIONS_TO_SHOW && (
+            <TouchableOpacity onPress={handleShowMore}>
               <Card>
                 <Typography type="h4" color="secondary">
                   Show More
