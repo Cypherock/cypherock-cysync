@@ -9,6 +9,7 @@ import {
   TokenTypes,
   coinFamiliesMap,
   evmCoinList,
+  icpCoinList,
   solanaCoinList,
   tronCoinList,
 } from '@cypherock/coins';
@@ -155,6 +156,7 @@ export const AddTokenDialogProvider: FC<AddTokenDialogContextProviderProps> = ({
               ...Object.values(evmCoinList),
               ...Object.values(tronCoinList),
               ...Object.values(solanaCoinList),
+              ...Object.values(icpCoinList),
             ]
               .filter(
                 c =>
@@ -212,7 +214,10 @@ export const AddTokenDialogProvider: FC<AddTokenDialogContextProviderProps> = ({
       leftImage: <CoinIcon assetId={token.id} parentAssetId={token.parentId} />,
       shortForm: `(${token.abbr.toUpperCase()})`,
       rightText:
-        token.parentId[0].toUpperCase() + token.parentId.slice(1).toLowerCase(),
+        token.parentId === coinFamiliesMap.icp
+          ? token.parentId.toUpperCase()
+          : token.parentId[0].toUpperCase() +
+            token.parentId.slice(1).toLowerCase(),
       text: token.name,
       disabled: selectedChain !== undefined && selectedChain !== token.parentId,
     }));
