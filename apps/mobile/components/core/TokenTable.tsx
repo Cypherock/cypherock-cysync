@@ -1,6 +1,5 @@
 import React, { memo, useMemo, useState } from 'react';
 import { CoinAllocationRow, AllocationTableHeaderKeys } from '@/hooks';
-import { router } from 'expo-router';
 import {
   Table,
   TableHeader,
@@ -8,7 +7,6 @@ import {
   TableBody,
   TableRowData,
   XTableCell,
-  Container,
   Typography,
   Seperator,
 } from '../ui';
@@ -98,19 +96,9 @@ function TokenTable(props: TokenTableProps) {
         </Typography>
       ) : (
         <TableBody
-          type="flat"
           data={subAccounts}
           renderItem={rowRenderer}
-          renderSectionHeader={({ section: { title } }) => (
-            <Container
-              style={{ backgroundColor: colors.black, paddingVertical: 10 }}
-            >
-              <Typography type="para" color="primary">
-                {title}
-              </Typography>
-            </Container>
-          )}
-          seperator={() => (
+          separator={() => (
             <Seperator style={{ backgroundColor: colors.black }} />
           )}
         />
