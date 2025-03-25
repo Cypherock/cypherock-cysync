@@ -1021,7 +1021,10 @@ importers:
         version: 2.3.0(@dfinity/principal@2.3.0)
       '@dfinity/ledger-icp':
         specifier: ^2.6.9
-        version: 2.6.9(@dfinity/agent@2.3.0)(@dfinity/candid@2.3.0)(@dfinity/principal@2.3.0)(@dfinity/utils@2.10.1)
+        version: 2.6.9(@dfinity/agent@2.3.0)(@dfinity/candid@2.3.0)(@dfinity/principal@2.3.0)(@dfinity/utils@2.11.0)
+      '@dfinity/ledger-icrc':
+        specifier: ^2.7.6
+        version: 2.7.6(@dfinity/agent@2.3.0)(@dfinity/candid@2.3.0)(@dfinity/principal@2.3.0)(@dfinity/utils@2.11.0)
       '@dfinity/principal':
         specifier: ^2.3.0
         version: 2.3.0
@@ -1968,7 +1971,10 @@ importers:
         version: 2.3.0(@dfinity/principal@2.3.0)
       '@dfinity/ledger-icp':
         specifier: ^2.6.9
-        version: 2.6.9(@dfinity/agent@2.3.0)(@dfinity/candid@2.3.0)(@dfinity/principal@2.3.0)(@dfinity/utils@2.10.1)
+        version: 2.6.9(@dfinity/agent@2.3.0)(@dfinity/candid@2.3.0)(@dfinity/principal@2.3.0)(@dfinity/utils@2.11.0)
+      '@dfinity/ledger-icrc':
+        specifier: ^2.7.6
+        version: 2.7.6(@dfinity/agent@2.3.0)(@dfinity/candid@2.3.0)(@dfinity/principal@2.3.0)(@dfinity/utils@2.11.0)
       '@dfinity/principal':
         specifier: ^2.3.0
         version: 2.3.0
@@ -6534,7 +6540,7 @@ packages:
     dependencies:
       '@dfinity/principal': 2.3.0
 
-  /@dfinity/ledger-icp@2.6.9(@dfinity/agent@2.3.0)(@dfinity/candid@2.3.0)(@dfinity/principal@2.3.0)(@dfinity/utils@2.10.1):
+  /@dfinity/ledger-icp@2.6.9(@dfinity/agent@2.3.0)(@dfinity/candid@2.3.0)(@dfinity/principal@2.3.0)(@dfinity/utils@2.11.0):
     resolution: {integrity: sha512-vnbsD2NdTeiKv2ILBmr5jeIhgbYK8NOujP+8+KL67q+dBnuqoqynDIBLVPEr/dMJq+WebUiJQ1T7lo/8taXLpw==}
     peerDependencies:
       '@dfinity/agent': ^2.0.0
@@ -6545,15 +6551,28 @@ packages:
       '@dfinity/agent': 2.3.0(@dfinity/candid@2.3.0)(@dfinity/principal@2.3.0)
       '@dfinity/candid': 2.3.0(@dfinity/principal@2.3.0)
       '@dfinity/principal': 2.3.0
-      '@dfinity/utils': 2.10.1(@dfinity/agent@2.3.0)(@dfinity/candid@2.3.0)(@dfinity/principal@2.3.0)
+      '@dfinity/utils': 2.11.0(@dfinity/agent@2.3.0)(@dfinity/candid@2.3.0)(@dfinity/principal@2.3.0)
+
+  /@dfinity/ledger-icrc@2.7.6(@dfinity/agent@2.3.0)(@dfinity/candid@2.3.0)(@dfinity/principal@2.3.0)(@dfinity/utils@2.11.0):
+    resolution: {integrity: sha512-MjAlVwgWYpIbwoRVdbWsYTlJoJsvRT2ynnoiK5kvkXL3CrHVN3gs99r5hOrKZTXnzjR4P/VzNMPXrUSXU9eJqA==}
+    peerDependencies:
+      '@dfinity/agent': ^2.0.0
+      '@dfinity/candid': ^2.0.0
+      '@dfinity/principal': ^2.0.0
+      '@dfinity/utils': ^2.11.0
+    dependencies:
+      '@dfinity/agent': 2.3.0(@dfinity/candid@2.3.0)(@dfinity/principal@2.3.0)
+      '@dfinity/candid': 2.3.0(@dfinity/principal@2.3.0)
+      '@dfinity/principal': 2.3.0
+      '@dfinity/utils': 2.11.0(@dfinity/agent@2.3.0)(@dfinity/candid@2.3.0)(@dfinity/principal@2.3.0)
 
   /@dfinity/principal@2.3.0:
     resolution: {integrity: sha512-rb3TsxR3L/Vq2GWV/GGIMXPbzDDqxNohPbNW8nJKhpcm8Ds00tCVEmPUDqrn735xJW0Pmzog/6/S1L9jG2UT9g==}
     dependencies:
       '@noble/hashes': 1.7.0
 
-  /@dfinity/utils@2.10.1(@dfinity/agent@2.3.0)(@dfinity/candid@2.3.0)(@dfinity/principal@2.3.0):
-    resolution: {integrity: sha512-ycsaWrmv02Moh2hTRJzqNzPPi88qDj3koUiaqKSUbcSwmPM/xQ73VPNz/tSj3pxCynmBgwUzyPHr5Cb5muBZrw==}
+  /@dfinity/utils@2.11.0(@dfinity/agent@2.3.0)(@dfinity/candid@2.3.0)(@dfinity/principal@2.3.0):
+    resolution: {integrity: sha512-meQSoCO/r0oEndAQ0LtWUnDXUHbju9K8UP18tDTMaoEMcMus5qQgZqxeKm7zs5XIpCiymqKSketJKvlhdkdsYQ==}
     peerDependencies:
       '@dfinity/agent': ^2.0.0
       '@dfinity/candid': ^2.0.0
@@ -20981,7 +21000,7 @@ packages:
       pretty-format: 29.7.0
       slash: 3.0.0
       strip-json-comments: 3.1.1
-      ts-node: 10.9.1(@types/node@18.15.11)(typescript@4.9.5)
+      ts-node: 10.9.1(@types/node@20.5.1)(typescript@4.9.5)
     transitivePeerDependencies:
       - babel-plugin-macros
       - supports-color
@@ -21022,7 +21041,7 @@ packages:
       pretty-format: 29.7.0
       slash: 3.0.0
       strip-json-comments: 3.1.1
-      ts-node: 10.9.1(@types/node@18.15.11)(typescript@4.9.5)
+      ts-node: 10.9.1(@types/node@20.5.1)(typescript@4.9.5)
     transitivePeerDependencies:
       - babel-plugin-macros
       - supports-color
