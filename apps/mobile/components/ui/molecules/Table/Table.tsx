@@ -3,13 +3,9 @@ import styled from 'styled-components/native';
 import { Loader, Typography } from '../../atoms';
 import React from 'react';
 import { SortIcon } from '../../icons';
-import {
-  PressableProps,
-  SectionBase,
-  TouchableOpacityProps,
-  View,
-} from 'react-native';
+import { PressableProps, TouchableOpacityProps, View } from 'react-native';
 import Entypo from '@expo/vector-icons/Entypo';
+import { FlashList, FlashListProps } from '@shopify/flash-list';
 
 interface TableHeaderDataProps extends TouchableOpacityProps {
   data: string;
@@ -21,12 +17,10 @@ interface TableDataRowProps extends PressableProps {
   index: number;
 }
 
-interface TableBodyProps {
-  type: 'section' | 'flat';
-  data?: any[] | readonly SectionBase<unknown, unknown>[];
-  renderItem: (item: any) => JSX.Element;
-  renderSectionHeader?: (section: any) => JSX.Element;
-  seperator?: (item: any) => JSX.Element;
+interface TableBodyProps<T> {
+  data: T[];
+  renderItem: FlashListProps<T>['renderItem'];
+  separator?: FlashListProps<T>['ItemSeparatorComponent'];
   isLoading?: boolean;
 }
 
@@ -71,16 +65,6 @@ export const TableHeaderCell = styled.TouchableOpacity`
   align-items: flex-start;
 `;
 
-const TableFlatListBody = styled.FlatList`
-  flex: 1;
-  width: 100%;
-`;
-
-const TableSectionListBody = styled.SectionList`
-  flex: 1;
-  width: 100%;
-`;
-
 export const TableHeaderData: FC<TableHeaderDataProps> = ({
   data,
   selected,
@@ -111,14 +95,13 @@ export const TableHeaderData: FC<TableHeaderDataProps> = ({
   );
 };
 
-export const TableBody: FC<TableBodyProps> = ({
-  type,
+export const TableBody = <T,>({
   data,
   renderItem,
-  renderSectionHeader,
-  seperator,
+  separator,
   isLoading,
-}) => {
+  ...props
+}: TableBodyProps<T> & FlashListProps<T>): JSX.Element | null => {
   if (!data) return null;
   if (isLoading)
     return (
@@ -127,20 +110,13 @@ export const TableBody: FC<TableBodyProps> = ({
       </View>
     );
 
-  return type === 'section' ? (
-    <TableSectionListBody
-      sections={data}
-      renderItem={renderItem}
-      renderSectionHeader={renderSectionHeader}
-      keyExtractor={(item, index) => index.toString()}
-      ItemSeparatorComponent={seperator}
-    />
-  ) : (
-    <TableFlatListBody
+  return (
+    <FlashList
       data={data}
       renderItem={renderItem}
-      keyExtractor={(item, index) => index.toString()}
-      ItemSeparatorComponent={seperator}
+      ItemSeparatorComponent={separator}
+      estimatedItemSize={74}
+      {...props}
     />
   );
 };

@@ -107,7 +107,6 @@ export default function History() {
           </Typography>
         )}
         <TableBody
-          type="section"
           data={displayedData}
           renderItem={({
             item,
@@ -115,37 +114,38 @@ export default function History() {
           }: {
             item: TransactionRowData;
             index: number;
-          }) => (
-            <TableRowData
-              index={index}
-              onPress={() => {
-                setSelectedTransaction(item);
-                setFrom('/history');
-              }}
-            >
-              <HistoryTableTimeCell
-                transactionType={item.type}
-                transactionTypeText={item.typeText}
-                transactionStatus={item.status}
-                transactionTime={item.time}
-              />
-              <HistoryTableAmountCell
-                icon={<item.assetIcon />}
-                cryptoAmount={item.displayAmount}
-                fiatAmount={item.displayValue}
-              />
-            </TableRowData>
-          )}
-          renderSectionHeader={({ section: { title } }) => (
-            <Container
-              style={{ backgroundColor: colors.black, paddingVertical: 10 }}
-            >
-              <Typography type="para" color="primary">
-                {title}
-              </Typography>
-            </Container>
-          )}
-          seperator={() => (
+          }) =>
+            item.isGroupHeader ? (
+              <Container
+                style={{ backgroundColor: colors.black, paddingVertical: 10 }}
+              >
+                <Typography type="para" color="primary">
+                  {item.groupText}
+                </Typography>
+              </Container>
+            ) : (
+              <TableRowData
+                index={index}
+                onPress={() => {
+                  setSelectedTransaction(item);
+                  setFrom('/history');
+                }}
+              >
+                <HistoryTableTimeCell
+                  transactionType={item.type}
+                  transactionTypeText={item.typeText}
+                  transactionStatus={item.status}
+                  transactionTime={item.time}
+                />
+                <HistoryTableAmountCell
+                  icon={<item.assetIcon />}
+                  cryptoAmount={item.displayAmount}
+                  fiatAmount={item.displayValue}
+                />
+              </TableRowData>
+            )
+          }
+          separator={() => (
             <Seperator style={{ backgroundColor: colors.black }} />
           )}
         />
