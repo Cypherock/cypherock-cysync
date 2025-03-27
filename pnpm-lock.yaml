@@ -536,8 +536,8 @@ importers:
         specifier: ~14.0.3
         version: 14.0.3(expo@52.0.32)(react-native@0.76.7)(react@18.3.1)
       expo-camera:
-        specifier: ~16.0.16
-        version: 16.0.16(expo@52.0.32)(react-native-web@0.19.13)(react-native@0.76.7)(react@18.3.1)
+        specifier: ^16.0.18
+        version: 16.0.18(expo@52.0.32)(react-native-web@0.19.13)(react-native@0.76.7)(react@18.3.1)
       expo-clipboard:
         specifier: ^7.0.1
         version: 7.0.1(expo@52.0.32)(react-native@0.76.7)(react@18.3.1)
@@ -21966,8 +21966,8 @@ packages:
       react-native: 0.76.7(@babel/core@7.27.4)(@babel/preset-env@7.27.2)(@types/react@18.3.12)(react@18.3.1)
     dev: false
 
-  /expo-camera@16.0.16(expo@52.0.32)(react-native-web@0.19.13)(react-native@0.76.7)(react@18.3.1):
-    resolution: {integrity: sha512-igGPVHVEkvJBqzfz7tPFHC3DNnjltXguxH3X+35G22v3yYpYmwEWG4aVDOPasUl9my6Z/DdjGZsdCodX+hXQTw==}
+  /expo-camera@16.0.18(expo@52.0.32)(react-native-web@0.19.13)(react-native@0.76.7)(react@18.3.1):
+    resolution: {integrity: sha512-NP5u2yyc+wZc9GdUXH+jcEytyXZwBnHxItMwXoZQQxi4wgltwvs4XfSWjBtRZe1LngnhpBfPyPJV0aShjWlLDg==}
     peerDependencies:
       expo: '*'
       react: '*'
