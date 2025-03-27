@@ -104,7 +104,7 @@
       "warning": "Note: There can be more than one QR code to scan"
     },
     "loading": {
-      "description": "Please wait while we are fetching your details"
+      "description": "Syncing in progress... Please stay on this screen and keep your display on until the process is complete"
     }
   },
   "portfolio": {
