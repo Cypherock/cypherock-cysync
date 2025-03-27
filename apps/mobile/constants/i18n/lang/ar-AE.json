@@ -104,7 +104,7 @@
       "warning": "ملاحظة: يمكن أن يكون هناك أكثر من رمز QR واحد للمسح الضوئي"
     },
     "loading": {
-      "description": "يرجى الانتظار بينما نقوم بجلب التفاصيل الخاصة بك"
+      "description": "Syncing in progress... Please stay on this screen and keep your display on until the process is complete"
     }
   },
   "portfolio": {
