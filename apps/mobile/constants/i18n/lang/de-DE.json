@@ -104,7 +104,7 @@
       "warning": "Hinweis: Es kann mehr als ein QR-Code zu scannen sein"
     },
     "loading": {
-      "description": "Bitte warten Sie, während wir Ihre Daten abrufen"
+      "description": "Syncing in progress... Please stay on this screen and keep your display on until the process is complete"
     }
   },
   "portfolio": {
