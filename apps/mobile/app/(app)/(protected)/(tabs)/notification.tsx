@@ -1,10 +1,11 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import {
   Card,
   Container,
   NotificationItem,
   parseLangTemplate,
   ScreenContainer,
+  TransactionType,
   Typography,
 } from '@/components/ui';
 import NoDataScreen from '@/components/ui/molecules/NoDataScreen';
@@ -25,15 +26,19 @@ import {
   IAccount,
   ITransaction,
   IWallet,
+  TransactionStatus,
   TransactionTypeMap,
 } from '@cypherock/db-interfaces';
 import { getDisplayTransactionType } from '@/utils/transactions';
 import { getDefaultUnit, getParsedAmount } from '@cypherock/coin-support-utils';
 import { router, useNavigation } from 'expo-router';
 import { useHistoryContext } from '@/contexts/useHistoryContext';
-import { TransactionRowData, useTransactions } from '@/hooks';
+import { useTransactions } from '@/hooks';
 import { FlashList } from '@shopify/flash-list';
 import { TouchableOpacity } from 'react-native';
+import { format as formatDate } from 'date-fns';
+import lodash from 'lodash';
+import { CoinIcon } from '@/components/core';
 
 const selector = createSelector(
   [selectLanguage, selectNotifications, selectWallets, selectUnHiddenAccounts],
@@ -101,6 +106,17 @@ const getNotificationText = (params: {
   return receiveStr;
 };
 
+interface NotificationRowData {
+  isGroupHeader?: boolean;
+  groupText?: string;
+  id: string;
+  type: TransactionType;
+  status: TransactionStatus;
+  time: string;
+  txn: ITransaction;
+  assetIcon: React.JSX.Element;
+}
+
 const MAX_NOTIFICATIONS_TO_SHOW = 15;
 
 export default function Notification() {
@@ -109,25 +125,71 @@ export default function Notification() {
   const { displayedData } = useTransactions();
   const { setSelectedTransaction, setFrom } = useHistoryContext();
   const navigation = useNavigation();
+  const [notificationClicked, setNotificationClicked] = useState(false);
 
   const handleShowMore = () => {
-    markAllTransactionNotificationRead(transactions);
     router.push('/history');
   };
 
-  const onNotificationClick = (t: TransactionRowData) => {
-    setSelectedTransaction(t);
+  const onClose = () => {
+    if (notificationClicked || unreadTransactions == 0) return;
+    markAllTransactionNotificationRead(transactions);
+  };
+
+  const onNotificationClick = (t: NotificationRowData) => {
+    const transaction = displayedData.find(p => p.id === t.id);
+    setSelectedTransaction(transaction);
     setFrom('/notification');
+    setNotificationClicked(true);
     markTransactionNotificationClicked(t.txn);
   };
 
+  const displayTransactions = useMemo(() => {
+    const formattedTxns = transactions
+      .slice(0, Math.min(unreadTransactions, MAX_NOTIFICATIONS_TO_SHOW))
+      .map(t => ({
+        id: t.__id ?? '',
+        type: t.type as TransactionType,
+        title: getDisplayTransactionType(t, lang.strings),
+        status: t.status,
+        assetIcon: (
+          <CoinIcon
+            parentAssetId={t.parentAssetId}
+            assetId={t.assetId}
+            size={12}
+          />
+        ),
+        description: getNotificationText({ txn: t, lang, wallets, accounts }),
+        time: formatDate(t.timestamp, 'h:mm a'),
+        txn: t,
+      }));
+
+    const groupedList = lodash.groupBy(formattedTxns, t =>
+      formatDate(t.txn.timestamp, 'eeee, MMMM d yyyy'),
+    );
+
+    const newList: ((typeof formattedTxns)[0] & {
+      isGroupHeader?: boolean;
+      groupText?: string;
+      id: string;
+    })[] = [];
+
+    for (const [date, groupItems] of Object.entries(groupedList)) {
+      newList.push({ isGroupHeader: true, groupText: date, id: date } as any);
+      newList.push(...groupItems);
+    }
+
+    return newList;
+  }, [transactions]);
+
   useEffect(() => {
+    setNotificationClicked(false);
     navigation.setOptions({
       showDiscard: true,
     });
   }, []);
 
-  const renderNotification = (item: TransactionRowData) => {
+  const renderNotification = (item: NotificationRowData) => {
     if (item.isGroupHeader) {
       return (
         <Card style={{ marginTop: 16, paddingVertical: 4 }}>
@@ -139,10 +201,10 @@ export default function Notification() {
     return (
       <NotificationItem
         isClicked={(item.txn as any).isClicked}
-        type={item.type as any}
+        type={item.type}
         onPress={() => onNotificationClick(item)}
         status={item.status}
-        icon={<item.assetIcon size={12} />}
+        icon={item.assetIcon}
         info={getNotificationText({
           txn: item.txn,
           lang,
@@ -153,6 +215,11 @@ export default function Notification() {
       />
     );
   };
+
+  useEffect(() => {
+    const unsubscribe = navigation.addListener('blur', onClose);
+    return unsubscribe;
+  }, [navigation, notificationClicked, transactions]);
 
   return (
     <ScreenContainer>
@@ -168,30 +235,33 @@ export default function Notification() {
           style={{
             flex: 1,
             width: '100%',
-            paddingHorizontal: 16,
-            paddingBottom: 16,
             overflow: 'hidden',
           }}
         >
           <FlashList
+            contentContainerStyle={{
+              paddingHorizontal: 16,
+              paddingBottom: 16,
+            }}
             estimatedItemSize={51}
-            data={displayedData.slice(0, MAX_NOTIFICATIONS_TO_SHOW)}
-            renderItem={({ item }: { item: TransactionRowData }) =>
-              renderNotification(item)
-            }
+            data={displayTransactions}
+            renderItem={({ item }) => renderNotification(item)}
             getItemType={item => {
               return item.isGroupHeader ? 'sectionHeader' : 'row';
             }}
+            ListFooterComponent={
+              <TouchableOpacity
+                onPress={handleShowMore}
+                style={{ marginTop: 16 }}
+              >
+                <Card>
+                  <Typography type="h4" color="secondary">
+                    Show More
+                  </Typography>
+                </Card>
+              </TouchableOpacity>
+            }
           />
-          {unreadTransactions > MAX_NOTIFICATIONS_TO_SHOW && (
-            <TouchableOpacity onPress={handleShowMore}>
-              <Card>
-                <Typography type="h4" color="secondary">
-                  Show More
-                </Typography>
-              </Card>
-            </TouchableOpacity>
-          )}
         </Container>
       )}
     </ScreenContainer>

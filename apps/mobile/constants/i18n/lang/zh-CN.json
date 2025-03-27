@@ -104,7 +104,7 @@
       "warning": "注意：可能需要扫描多个二维码"
     },
     "loading": {
-      "description": "请稍候，我们正在获取您的详细信息"
+      "description": "Syncing in progress... Please stay on this screen and keep your display on until the process is complete"
     }
   },
   "portfolio": {

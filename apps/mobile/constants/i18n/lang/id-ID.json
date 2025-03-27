@@ -104,7 +104,7 @@
       "warning": "Catatan: Mungkin ada lebih dari satu kode QR untuk dipindai"
     },
     "loading": {
-      "description": "Harap tunggu selagi kami mengambil detail Anda"
+      "description": "Syncing in progress... Please stay on this screen and keep your display on until the process is complete"
     }
   },
   "portfolio": {
