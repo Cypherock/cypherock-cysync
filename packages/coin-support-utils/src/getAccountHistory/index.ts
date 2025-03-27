@@ -14,6 +14,7 @@ import {
   TransactionStatusMap,
   TransactionTypeMap,
 } from '@cypherock/db-interfaces';
+import { coinFamiliesMap } from '@cypherock/coins';
 import lodash from 'lodash';
 
 import { ICreateGetAccountHistoryParams } from './types';
@@ -276,7 +277,11 @@ export async function createGetAccountHistory(
           transaction.type === TransactionTypeMap.hidden
         ) {
           curBalance = curBalance.plus(new BigNumber(transaction.amount));
-          if (account.type === AccountTypeMap.account) {
+          // In case of ICP, token txns incur fees from token account only
+          if (
+            account.type === AccountTypeMap.account ||
+            account.familyId === coinFamiliesMap.icp
+          ) {
             curBalance = curBalance.plus(new BigNumber(transaction.fees));
           }
         } else if (transaction.type === TransactionTypeMap.receive) {

@@ -8,6 +8,7 @@ import {
   getParsedAmount,
   getZeroUnit,
 } from '@cypherock/coin-support-utils';
+import { coinFamiliesMap } from '@cypherock/coins';
 import {
   SvgProps,
   TransactionTableHeaderName,
@@ -167,7 +168,17 @@ export const mapTransactionForDisplay = (params: {
 
   const { amount: fee, unit: feeUnit } = getParsedAmount({
     coinId: transaction.parentAssetId,
-    unitAbbr: getDefaultUnit(transaction.parentAssetId).abbr,
+    assetId:
+      transaction.familyId === coinFamiliesMap.icp
+        ? transaction.assetId
+        : undefined,
+    // in case of ICP, token txn incur fees from token account only, hence fee unit is also token unit
+    unitAbbr: getDefaultUnit(
+      transaction.parentAssetId,
+      transaction.familyId === coinFamiliesMap.icp
+        ? transaction.assetId
+        : undefined,
+    ).abbr,
     amount: transaction.fees,
   });
 
