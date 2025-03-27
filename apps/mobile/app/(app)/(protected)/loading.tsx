@@ -24,9 +24,9 @@ export default function Loading() {
 
   async function loadData() {
     try {
-      await syncAllPriceHistories();
-      await syncAllPrices();
       await syncAccountsDb(true);
+      await syncAllPrices();
+      await syncAllPriceHistories();
       setStatus(true);
     } catch {
       setStatus(false);

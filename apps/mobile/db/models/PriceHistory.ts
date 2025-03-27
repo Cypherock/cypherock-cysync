@@ -17,7 +17,7 @@ export class PriceHistory extends Realm.Object {
 
   __id!: string;
   days!: number;
-  history!: IPriceSnapshot;
+  history!: IPriceSnapshot[];
   assetId!: string;
   currency!: string;
   meta?: ObjectLiteral;
