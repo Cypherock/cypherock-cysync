@@ -3,6 +3,7 @@ import {
   getLatestTransactionHash,
   IGetAddressDetails,
 } from '@cypherock/coin-support-utils';
+import { icpCoinList } from '@cypherock/coins';
 import {
   AccountTypeMap,
   IAccount,
@@ -10,7 +11,6 @@ import {
   TransactionStatusMap,
   TransactionTypeMap,
 } from '@cypherock/db-interfaces';
-import { icpCoinList } from '@cypherock/coins';
 import { uint8ArrayToHex } from '@cypherock/sdk-utils';
 import type { TransactionWithId } from '@dfinity/ledger-icp';
 import type { IcrcTransactionWithId } from '@dfinity/ledger-icrc';
@@ -25,11 +25,12 @@ const PER_PAGE_TXN_LIMIT = 100;
 
 const createTransaction = (
   account: IAccount,
+  myAddress: string,
+  operation: string,
   txnId: bigint,
   timestamp: number,
   fees: string,
   amount: string,
-  myAddress: string,
   fromAddress?: string,
   toAddress?: string,
   memo?: string,
@@ -71,6 +72,7 @@ const createTransaction = (
     : [],
   extraData: {
     memo,
+    operation,
   },
 });
 
@@ -81,54 +83,76 @@ const parseTransaction = (
 ): ITransaction | undefined => {
   let transaction: ITransaction | undefined;
 
-  if ('Transfer' in txn.transaction.operation) {
-    const myAddress = address;
-    const fromAddress = txn.transaction.operation.Transfer.from;
-    const toAddress = txn.transaction.operation.Transfer.to;
-    const fees = txn.transaction.operation.Transfer.fee.e8s.toString();
-    const amount = txn.transaction.operation.Transfer.amount.e8s.toString();
+  const myAddress = address;
 
-    transaction = {
-      accountId: account.__id ?? '',
-      walletId: account.walletId,
-      assetId: account.assetId,
-      familyId: account.familyId,
-      parentAssetId: account.parentAssetId,
-      hash: txn.id.toString(), // tx hash not present, using txn id instead for now
-      confirmations: 1,
-      fees,
-      amount,
-      status: TransactionStatusMap.success,
-      type:
-        myAddress === fromAddress
-          ? TransactionTypeMap.send
-          : TransactionTypeMap.receive,
-      timestamp: new Date(
-        Number(
-          // converting timestamp_nanos to millis
-          BigInt(txn.transaction.timestamp[0]?.timestamp_nanos ?? 0) /
-            BigInt(1e6),
-        ),
-      ).getTime(),
-      blockHeight: Number(txn.id),
-      inputs: [
-        {
-          address: fromAddress,
-          amount,
-          isMine: myAddress === fromAddress,
-        },
-      ],
-      outputs: [
-        {
-          address: toAddress,
-          amount,
-          isMine: myAddress === toAddress,
-        },
-      ],
-      extraData: {
-        memo: txn.transaction.memo.toString(),
-      },
-    };
+  const txnId = txn.id;
+  const timestamp = new Date(
+    Number(
+      // converting timestamp_nanos to millis
+      BigInt(txn.transaction.timestamp[0]?.timestamp_nanos ?? 0) / BigInt(1e6),
+    ),
+  ).getTime();
+
+  if ('Transfer' in txn.transaction.operation) {
+    const transferTxn = txn.transaction.operation.Transfer;
+
+    transaction = createTransaction(
+      account,
+      myAddress,
+      'transfer',
+      txnId,
+      timestamp,
+      transferTxn.fee.e8s.toString(),
+      transferTxn.amount.e8s.toString(),
+      transferTxn.from,
+      transferTxn.to,
+      txn.transaction.memo.toString(),
+    );
+  } else if ('Approve' in txn.transaction.operation) {
+    const approveTxn = txn.transaction.operation.Approve;
+
+    transaction = createTransaction(
+      account,
+      myAddress,
+      'approve',
+      txnId,
+      timestamp,
+      approveTxn.fee.e8s.toString(),
+      approveTxn.allowance.e8s.toString(),
+      approveTxn.from,
+      approveTxn.spender,
+      txn.transaction.memo.toString(),
+    );
+  } else if ('Burn' in txn.transaction.operation) {
+    const burnTxn = txn.transaction.operation.Burn;
+
+    transaction = createTransaction(
+      account,
+      myAddress,
+      'burn',
+      txnId,
+      timestamp,
+      '0',
+      burnTxn.amount.e8s.toString(),
+      burnTxn.from,
+      undefined,
+      txn.transaction.memo.toString(),
+    );
+  } else if ('Mint' in txn.transaction.operation) {
+    const mintTxn = txn.transaction.operation.Mint;
+
+    transaction = createTransaction(
+      account,
+      myAddress,
+      'mint',
+      txnId,
+      timestamp,
+      '0',
+      mintTxn.amount.e8s.toString(),
+      undefined,
+      mintTxn.to,
+      txn.transaction.memo.toString(),
+    );
   }
 
   return transaction;
@@ -160,11 +184,12 @@ const parseTokenTransaction = (
 
     transaction = createTransaction(
       account,
+      myAddress,
+      'transfer',
       txnId,
       timestamp,
       transferTxn.fee[0]?.toString() ?? '0',
       transferTxn.amount.toString(),
-      myAddress,
       transferTxn.from.owner.toText(),
       transferTxn.to.owner.toText(),
       transferTxn.memo[0]
@@ -179,11 +204,12 @@ const parseTokenTransaction = (
 
     transaction = createTransaction(
       account,
+      myAddress,
+      'approve',
       txnId,
       timestamp,
       approveTxn.fee[0]?.toString() ?? '0',
       approveTxn.amount.toString(),
-      myAddress,
       approveTxn.from.owner.toText(),
       approveTxn.spender.owner.toText(),
       approveTxn.memo[0]
@@ -198,11 +224,12 @@ const parseTokenTransaction = (
 
     transaction = createTransaction(
       account,
+      myAddress,
+      'burn',
       txnId,
       timestamp,
       '0',
       burnTxn.amount.toString(),
-      myAddress,
       burnTxn.from.owner.toText(),
       undefined,
       burnTxn.memo[0]
@@ -217,11 +244,12 @@ const parseTokenTransaction = (
 
     transaction = createTransaction(
       account,
+      myAddress,
+      'mint',
       txnId,
       timestamp,
       '0',
       mintTxn.amount.toString(),
-      myAddress,
       undefined,
       mintTxn.to.owner.toText(),
       mintTxn.memo[0]
