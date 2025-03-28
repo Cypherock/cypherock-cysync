@@ -152,3 +152,14 @@ export const getTokenTransactions = async (
     throw new Error('Error fetching ICP token account transaction history');
   }
 };
+
+export const getTokenTransactionFee = async (canisterId: string) => {
+  const { agent, icrc, principal } = getCoinSupportDfinityLib();
+
+  const icrcLedger = icrc.IcrcLedgerCanister.create({
+    agent: await agent.HttpAgent.create({ host: HOST }),
+    canisterId: principal.Principal.from(canisterId),
+  });
+
+  return icrcLedger.transactionFee({});
+};
