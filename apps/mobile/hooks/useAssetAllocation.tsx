@@ -93,7 +93,7 @@ export interface UseAssetAllocationProps {
 
 const comparatorMap = {
   asset: 'assetAbbr',
-  amount: 'balance',
+  amount: 'value',
 };
 
 export const useAssetAllocations = ({
@@ -131,7 +131,7 @@ export const useAssetAllocations = ({
   const [sortedCoinAllocations, setSortedCoinAllocations] = useState<
     CoinAllocationRow[]
   >([]);
-  const [sortedBy, setSortedBy] = useState<AllocationTableHeaderKeys>('asset');
+  const [sortedBy, setSortedBy] = useState<AllocationTableHeaderKeys>('amount');
   const [isAscending, setIsAscending] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
