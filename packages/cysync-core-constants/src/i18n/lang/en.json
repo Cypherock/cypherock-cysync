@@ -327,6 +327,7 @@
       "button": "Check transactions",
       "title": "Transaction Sent",
       "hashLabel": "Transaction Hash",
+      "idLabel": "Transaction ID",
       "messageBox": {
         "warning": "Your account balance will be updated when the blockchain confirms the transaction"
       }

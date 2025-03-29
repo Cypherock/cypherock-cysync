@@ -16,6 +16,7 @@ import {
 } from '@cypherock/coins';
 import { Container, MessageBox } from '@cypherock/cysync-ui';
 import { BigNumber } from '@cypherock/cysync-utils';
+import { AccountTypeMap } from '@cypherock/db-interfaces';
 import lodash from 'lodash';
 import React, { useCallback, useState } from 'react';
 
@@ -256,25 +257,39 @@ export const FeeSection: React.FC<FeeSectionProps> = ({ showErrors }) => {
       transaction,
     );
 
+    const isIcpToken =
+      account.familyId === coinFamiliesMap.icp &&
+      account.type === AccountTypeMap.subAccount;
     const { amount: _amount, unit } = getParsedAmount({
       coinId: account.parentAssetId,
-      unitAbbr: getDefaultUnit(account.parentAssetId).abbr,
+      assetId: isIcpToken ? account.assetId : undefined,
+      unitAbbr: getDefaultUnit(
+        account.parentAssetId,
+        isIcpToken ? account.assetId : undefined,
+      ).abbr,
       amount: computedFee,
     });
     result.fee = `${_amount} ${unit.abbr}`;
 
     const coinPrice = priceInfos.find(
       p =>
-        p.assetId === account.parentAssetId &&
+        p.assetId === (isIcpToken ? account.assetId : account.parentAssetId) &&
         p.currency.toLowerCase() === 'usd',
     );
 
     if (coinPrice) {
       const feesInDefaultUnit = convertToUnit({
         amount: computedFee,
-        fromUnitAbbr: getZeroUnit(account.parentAssetId).abbr,
+        fromUnitAbbr: getZeroUnit(
+          account.parentAssetId,
+          isIcpToken ? account.assetId : undefined,
+        ).abbr,
         coinId: account.parentAssetId,
-        toUnitAbbr: getDefaultUnit(account.parentAssetId).abbr,
+        assetId: isIcpToken ? account.assetId : undefined,
+        toUnitAbbr: getDefaultUnit(
+          account.parentAssetId,
+          isIcpToken ? account.assetId : undefined,
+        ).abbr,
       });
       const feeValue = new BigNumber(feesInDefaultUnit.amount).multipliedBy(
         coinPrice.latestPrice,

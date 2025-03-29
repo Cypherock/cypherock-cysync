@@ -328,6 +328,7 @@ interface LangSend {
     button: string;
     title: string;
     hashLabel: string;
+    idLabel: string;
     messageBox: { warning: string };
   };
   aside: {

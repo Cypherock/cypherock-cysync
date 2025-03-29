@@ -1,44 +1,9 @@
 import type { RequestId } from '@dfinity/agent';
 import type { IDL as IDLType } from '@dfinity/candid';
 
-import { getCoinSupportDfinityLib } from '../../utils';
+import { decodeReturnValue, getCoinSupportDfinityLib } from '../../utils';
 import logger from '../../utils/logger';
-
-const ICP_LEDGER_CANISTER_ID = 'ryjl3-tyaaa-aaaaa-aaaba-cai';
-const HOST = 'https://icp-api.io';
-
-const decodeReturnValue = (types: IDLType.Type[], msg: ArrayBuffer) => {
-  const { candid } = getCoinSupportDfinityLib();
-  const returnValues = candid.IDL.decode(types, Buffer.from(msg));
-  switch (returnValues.length) {
-    case 0:
-      return undefined;
-    case 1:
-      return returnValues[0];
-    default:
-      return returnValues;
-  }
-};
-
-const getTransferResultArgs = () => {
-  const { candid } = getCoinSupportDfinityLib();
-
-  const { IDL } = candid;
-  const Tokens = IDL.Record({ e8s: IDL.Nat64 });
-  const BlockIndex = IDL.Nat64;
-  const TransferError = IDL.Variant({
-    TxTooOld: IDL.Record({ allowed_window_nanos: IDL.Nat64 }),
-    BadFee: IDL.Record({ expected_fee: Tokens }),
-    TxDuplicate: IDL.Record({ duplicate_of: BlockIndex }),
-    TxCreatedInFuture: IDL.Null,
-    InsufficientFunds: IDL.Record({ balance: Tokens }),
-  });
-
-  return IDL.Variant({
-    Ok: BlockIndex,
-    Err: TransferError,
-  });
-};
+import { HOST } from '../../constants';
 
 export const getTransactionFee = async () => {
   const { agent, icp } = getCoinSupportDfinityLib();
@@ -73,14 +38,18 @@ export const getTransactions = async (
   }
 };
 
-export const broadcastTransactionToBlockchain = async (transaction: {
-  serializedTransferRequest: ArrayBuffer;
-  signedReadStateRequest: object;
-  transferRequestId: RequestId;
-}) => {
+export const broadcastTransactionToBlockchain = async (
+  transaction: {
+    serializedTransferRequest: ArrayBuffer;
+    signedReadStateRequest: object;
+    transferRequestId: RequestId;
+  },
+  ledgerCanisterId: string,
+  transferResultArgs: IDLType.VariantClass,
+) => {
   try {
     const response = await fetch(
-      `${HOST}/api/v2/canister/${ICP_LEDGER_CANISTER_ID}/call`,
+      `${HOST}/api/v2/canister/${ledgerCanisterId}/call`,
       {
         method: 'POST',
         headers: { 'Content-Type': 'application/cbor' },
@@ -101,13 +70,13 @@ export const broadcastTransactionToBlockchain = async (transaction: {
       const { agent, principal } = getCoinSupportDfinityLib();
       const { reply } = await agent.pollForResponse(
         await agent.HttpAgent.create({ host: HOST }),
-        principal.Principal.from(ICP_LEDGER_CANISTER_ID),
+        principal.Principal.from(ledgerCanisterId),
         transaction.transferRequestId,
         agent.defaultStrategy(),
         readStateRequest,
       );
 
-      const responseData = decodeReturnValue([getTransferResultArgs()], reply);
+      const responseData = decodeReturnValue([transferResultArgs], reply);
 
       if (typeof responseData === 'object' && 'Ok' in responseData) {
         return responseData.Ok.toString();
