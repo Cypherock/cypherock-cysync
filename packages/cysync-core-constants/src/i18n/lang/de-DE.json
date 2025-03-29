@@ -266,6 +266,18 @@
         "error": "Ungültige Adresse",
         "ownAddress": "Empfängeradresse ist dieselbe wie die Absenderadresse"
       },
+      "icpAccountIdRecipient": {
+        "label": "Recipient Account ID",
+        "placeholder": "Enter account id",
+        "error": "Invalid account id",
+        "ownAddress": "Recipient account id is the same as sender account id"
+      },
+      "icpPrincipalIdRecipient": {
+        "label": "Recipient Principal ID",
+        "placeholder": "Enter principal id",
+        "error": "Invalid principal id",
+        "ownAddress": "Recipient principal id is the same as sender principal id"
+      },
       "tabs": {
         "single": "Einzeltransaktion",
         "batch": "Batch-Transaktion"
@@ -428,13 +440,15 @@
       "receiver": "Empfänger",
       "mine": "Meine",
       "transactionHash": "Transaktions-Hash",
+      "transactionId": "Transaction ID",
       "description": "Beschreibung",
       "feePrefix": {
         "optimism": "L2 "
       },
       "remarks": "Persönliche Notiz",
       "destinationTag": "Ziel-Tag",
-      "memo": "Memo"
+      "memo": "Memo",
+      "operation": "Operation"
     },
     "noData": {
       "text": "Noch keine Transaktionen",

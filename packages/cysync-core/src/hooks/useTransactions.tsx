@@ -86,6 +86,7 @@ export interface TransactionRowData {
   network: string;
   destinationTag?: number;
   memo?: string;
+  operation?: string;
 }
 
 export const transactionComparatorMap: Record<
@@ -269,6 +270,11 @@ export const mapTransactionForDisplay = (params: {
 
   const destinationTag = transaction.extraData?.destinationTag;
   const memo = transaction.extraData?.memo;
+  let operation = transaction.extraData?.operation;
+  if (operation) {
+    operation =
+      operation.charAt(0).toUpperCase() + operation.slice(1).toLowerCase();
+  }
 
   return {
     id: transaction.__id ?? '',
@@ -327,6 +333,7 @@ export const mapTransactionForDisplay = (params: {
     network: networkName,
     destinationTag,
     memo,
+    operation,
   };
 };
 
