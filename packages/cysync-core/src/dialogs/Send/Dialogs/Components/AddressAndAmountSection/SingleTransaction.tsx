@@ -47,6 +47,14 @@ export const SingleTransaction: React.FC<SingleTransactionProps> = ({
     getMemoError,
   } = useSendDialog();
 
+  let recipientDisplayText = displayText.recipient;
+  if (selectedAccount?.familyId === coinFamiliesMap.icp) {
+    const isIcpToken = selectedAccount.type === AccountTypeMap.subAccount;
+    recipientDisplayText = isIcpToken
+      ? displayText.icpPrincipalIdRecipient
+      : displayText.icpAccountIdRecipient;
+  }
+
   useEffect(() => {
     updateUserInputs(1);
     if (!transaction) return;
@@ -189,8 +197,8 @@ export const SingleTransaction: React.FC<SingleTransactionProps> = ({
     <Container display="flex" direction="column" gap={16} width="full">
       <Container display="flex" direction="column" gap={8} width="full">
         <AddressInput
-          label={displayText.recipient.label}
-          placeholder={displayText.recipient.placeholder}
+          label={recipientDisplayText.label}
+          placeholder={recipientDisplayText.placeholder}
           initialValue={transaction?.userInputs.outputs[0]?.address}
           error={getOutputError(0)}
           onChange={prepareAddressChanged}
