@@ -1,18 +1,26 @@
 import { getAccountAndCoin } from '@cypherock/coin-support-utils';
 import { icpCoinList, ICoinInfo } from '@cypherock/coins';
 import { assert, BigNumber } from '@cypherock/cysync-utils';
+import { AccountTypeMap } from '@cypherock/db-interfaces';
 
 import { IPrepareIcpTransactionParams } from './types';
 
-import { getIngressExpiry, getNonce } from '../../utils';
+import {
+  derivePrincipal,
+  getCoinSupportDfinityLib,
+  getIngressExpiry,
+  getNonce,
+} from '../../utils';
 import { IPreparedIcpTransaction } from '../transaction';
-import { validateAddress } from '../validateAddress';
+import { IIcpAccount } from '../types';
+import { validateAddress, validatePrincipalId } from '../validateAddress';
 
 const MAX_UINT64 = new BigNumber('0xffffffffffffffff');
 
 const validateAddresses = (
   params: IPrepareIcpTransactionParams,
   coin: ICoinInfo,
+  isTokenAccount: boolean,
 ) => {
   const outputAddressValidation: boolean[] = [];
 
@@ -23,11 +31,10 @@ const validateAddresses = (
      * We allow empty string in the validation (error prompt should not
      * appear for empty string). And validate only non-empty strings.
      */
-    if (
-      output.address &&
-      !validateAddress({ address: output.address, coinId: coin.id })
-    ) {
-      isValid = false;
+    if (output.address) {
+      isValid = isTokenAccount
+        ? validatePrincipalId(output.address)
+        : validateAddress({ address: output.address, coinId: coin.id });
     }
 
     outputAddressValidation.push(isValid);
@@ -47,7 +54,9 @@ export const prepareTransaction = async (
     new Error('Icp transaction requires exactly 1 output'),
   );
 
-  const outputsValidation = validateAddresses(params, coin);
+  const isTokenAccount = account.type === AccountTypeMap.subAccount;
+
+  const outputsValidation = validateAddresses(params, coin, isTokenAccount);
 
   const output = { ...txn.userInputs.outputs[0] };
 
@@ -55,7 +64,13 @@ export const prepareTransaction = async (
   output.amount = new BigNumber(output.amount).toFixed(0);
   let sendAmount = new BigNumber(output.amount);
 
-  const myAddress = account.xpubOrAddress;
+  let myAddress = account.xpubOrAddress;
+  if (isTokenAccount) {
+    const { principal } = getCoinSupportDfinityLib();
+    myAddress = principal.Principal.from(
+      derivePrincipal((account as IIcpAccount).extraData.publicKey),
+    ).toText();
+  }
   const isOwnOutputAddress = output.address === myAddress;
 
   const { fees } = txn.staticData;
@@ -85,9 +100,9 @@ export const prepareTransaction = async (
     new BigNumber(txn.userInputs.outputs[0].amount).isNaN() || hasEnoughBalance;
 
   const isInvalidMemo =
-    output.memo !== undefined
-      ? new BigNumber(output.memo).isGreaterThanOrEqualTo(MAX_UINT64)
-      : false;
+    output.memo !== undefined &&
+    (isTokenAccount ||
+      new BigNumber(output.memo).isGreaterThanOrEqualTo(MAX_UINT64));
 
   return {
     ...txn,

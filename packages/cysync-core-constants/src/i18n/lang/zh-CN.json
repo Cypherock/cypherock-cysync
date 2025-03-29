@@ -327,6 +327,7 @@
       "button": "查看交易",
       "title": "交易已发送",
       "hashLabel": "交易哈希",
+      "idLabel": "Transaction ID",
       "messageBox": {
         "warning": "当 blockchain 确认交易后，您的账户余额将被更新"
       }

@@ -4,6 +4,8 @@ import {
   mapDerivationPath,
   SignTransactionFromDevice,
 } from '@cypherock/coin-support-utils';
+import { icpCoinList } from '@cypherock/coins';
+import { AccountTypeMap } from '@cypherock/db-interfaces';
 import { IcpApp, ISignTxnData, ISignTxnResult } from '@cypherock/sdk-app-icp';
 import { assert, hexToUint8Array } from '@cypherock/sdk-utils';
 import { Observable } from 'rxjs';
@@ -14,7 +16,11 @@ import {
   signIcpToDeviceEventMap,
 } from './types';
 
-import { createApp, prepareTransferRequest } from '../../utils';
+import {
+  createApp,
+  prepareTokenTransferRequest,
+  prepareTransferRequest,
+} from '../../utils';
 import { IPreparedIcpTransaction } from '../transaction';
 import { IIcpAccount } from '../types';
 
@@ -22,10 +28,19 @@ const prepareUnsignedTransaction = (
   transaction: IPreparedIcpTransaction,
   account: IIcpAccount,
 ): ISignTxnData => {
-  const transferRequest = prepareTransferRequest(
-    transaction.computedData,
-    account.extraData.publicKey,
-  );
+  const isTokenAccount = account.type === AccountTypeMap.subAccount;
+
+  const transferRequest = isTokenAccount
+    ? prepareTokenTransferRequest(
+        transaction.computedData,
+        account.extraData.publicKey,
+        icpCoinList[account.parentAssetId].tokens[account.assetId].canisters
+          .ledger,
+      )
+    : prepareTransferRequest(
+        transaction.computedData,
+        account.extraData.publicKey,
+      );
 
   return {
     icpTransferReq: {

@@ -4,7 +4,7 @@ import {
   formatDisplayPrice,
   getAsset,
 } from '@cypherock/coin-support-utils';
-import { CoinFamily } from '@cypherock/coins';
+import { coinFamiliesMap, CoinFamily } from '@cypherock/coins';
 import {
   LangDisplay,
   DialogBox,
@@ -160,16 +160,24 @@ export const SummaryDialog: React.FC = () => {
   const getFeeDetails = () => {
     const details = [];
     const account = selectedAccount;
+    const isIcpToken =
+      account?.familyId === coinFamiliesMap.icp &&
+      account.type === AccountTypeMap.subAccount;
+
     const coinPrice = priceInfos.find(
       p =>
-        p.assetId === account?.parentAssetId &&
+        p.assetId === (isIcpToken ? account.assetId : account?.parentAssetId) &&
         p.currency.toLowerCase() === 'usd',
     );
     if (!account || !coinPrice) return [];
     const { amount, unit } = getParsedAmount({
       coinId: account.parentAssetId,
+      assetId: isIcpToken ? account.assetId : undefined,
       amount: getComputedFee(account.familyId as CoinFamily, transaction),
-      unitAbbr: getDefaultUnit(account.parentAssetId).abbr,
+      unitAbbr: getDefaultUnit(
+        account.parentAssetId,
+        isIcpToken ? account.assetId : undefined,
+      ).abbr,
     });
 
     const value = formatDisplayPrice(

@@ -1,15 +1,31 @@
 import { IInitializeTransactionParams } from '@cypherock/coin-support-interfaces';
+import { getAccountAndCoin } from '@cypherock/coin-support-utils';
+import { icpCoinList } from '@cypherock/coins';
+import { AccountTypeMap } from '@cypherock/db-interfaces';
 
-import { getTransactionFee } from '../../services';
+import { getTokenTransactionFee, getTransactionFee } from '../../services';
 import { getIngressExpiry, getNonce } from '../../utils';
 import { IPreparedIcpTransaction } from '../transaction';
 
 export const initializeTransaction = async (
   params: IInitializeTransactionParams,
 ): Promise<IPreparedIcpTransaction> => {
-  const { accountId } = params;
+  const { accountId, db } = params;
+  const { account } = await getAccountAndCoin(db, icpCoinList, accountId);
 
-  const fees = (await getTransactionFee()).toString();
+  let fees = '0';
+
+  const isTokenAccount = account.type === AccountTypeMap.subAccount;
+  if (isTokenAccount) {
+    const tokenDetails =
+      icpCoinList[account.parentAssetId].tokens[account.assetId];
+
+    fees = (
+      await getTokenTransactionFee(tokenDetails.canisters.ledger)
+    ).toString();
+  } else {
+    fees = (await getTransactionFee()).toString();
+  }
 
   return {
     accountId,

@@ -327,6 +327,7 @@
       "button": "Transaktionen überprüfen",
       "title": "Transaktion gesendet",
       "hashLabel": "Transaktions-Hash",
+      "idLabel": "Transaktions-ID",
       "messageBox": {
         "warning": "Ihr Kontostand wird aktualisiert, wenn die blockchain die Transaktion bestätigt"
       }

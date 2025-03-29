@@ -4,7 +4,7 @@ import { IPreparedXrpTransaction } from '@cypherock/coin-support-xrp';
 import { IPreparedIcpTransaction } from '@cypherock/coin-support-icp';
 import { IPreparedTransaction } from '@cypherock/coin-support-interfaces';
 import { getDefaultUnit, getParsedAmount } from '@cypherock/coin-support-utils';
-import { CoinFamily } from '@cypherock/coins';
+import { coinFamiliesMap, CoinFamily } from '@cypherock/coins';
 import { Container } from '@cypherock/cysync-ui';
 import { AccountTypeMap } from '@cypherock/db-interfaces';
 import React, { useEffect, useState } from 'react';
@@ -150,6 +150,11 @@ export const SingleTransaction: React.FC<SingleTransactionProps> = ({
   const getMemoInputComponent = () => {
     if (!selectedAccount) return null;
     const coinFamily = selectedAccount.familyId as CoinFamily;
+
+    const isIcpToken =
+      coinFamily === coinFamiliesMap.icp &&
+      selectedAccount.type === AccountTypeMap.subAccount;
+    if (isIcpToken) return null;
 
     const Component = memoInputMap[coinFamily];
     if (!Component) return null;
