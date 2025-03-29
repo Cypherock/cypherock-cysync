@@ -1,13 +1,28 @@
 import { IGetExplorerLink } from '@cypherock/coin-support-interfaces';
-import { icpCoinList, IcpIdMap } from '@cypherock/coins';
+import { icpCoinList } from '@cypherock/coins';
+import { assert } from '@cypherock/cysync-utils';
+
+const BASE_DASHBOARD_URL = 'https://dashboard.internetcomputer.org';
 
 export const getExplorerLink = (params: IGetExplorerLink) => {
   const { transaction } = params;
+  const { assetId, parentAssetId } = transaction;
 
-  if (transaction.assetId === IcpIdMap.icp) {
-    return `https://dashboard.internetcomputer.org/transaction/${transaction.hash}`;
+  const coin = icpCoinList[assetId] ?? icpCoinList[parentAssetId];
+
+  assert(coin, new Error('No coin found'));
+
+  let explorerLink = `${BASE_DASHBOARD_URL}/transaction/${transaction.hash}`;
+
+  if (assetId && parentAssetId && assetId !== parentAssetId) {
+    const token = coin.tokens[assetId];
+    assert(
+      token,
+      new Error(`No token found for coin ${parentAssetId}:${assetId}`),
+    );
+
+    explorerLink = `${BASE_DASHBOARD_URL}/${token.dashboardRoute}/transaction/${transaction.hash}`;
   }
-  const tokenDetails =
-    icpCoinList[transaction.parentAssetId].tokens[transaction.assetId];
-  return `https://dashboard.internetcomputer.org/${tokenDetails.dashboardRoute}/transaction/${transaction.hash}`;
+
+  return explorerLink;
 };
