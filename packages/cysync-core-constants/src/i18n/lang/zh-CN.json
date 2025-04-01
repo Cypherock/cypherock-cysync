@@ -1294,6 +1294,7 @@
   "guidedFlows": {
     "createWallet": {
       "title": "创建新钱包",
+      "skipPinSetup": "Skip this step if you are not setting up a PIN",
       "tabs": [
         {
           "asideTitle": "X1 Vault",
@@ -1335,7 +1336,7 @@
                   "warning": "确保备份您的PIN码。如果丢失，您将失去对资金的访问权限"
                 },
                 {
-                  "warning-white": "如果不设置PIN码，请跳过此步骤"
+                  "infoGreen": "您可以设置 Cypherock Cover PIN 码恢复服务来安全地恢复您的钱包 PIN 码 — 无需暴露您的助记词"
                 }
               ]
             },
@@ -1343,13 +1344,10 @@
               "title": "在X1 Vault上确认输入的PIN码",
               "messageBoxList": [
                 {
-                  "warning": "记住您的PIN码，如果丢失，您将失去对资金的访问权限。即使Cypherock也无法帮助您恢复资产"
+                  "warning": "确保备份您的PIN码。如果丢失，您将失去对资金的访问权限"
                 },
                 {
-                  "warning": "在安全的地方备份"
-                },
-                {
-                  "warning-white": "如果不设置PIN码，请跳过此步骤"
+                  "infoGreen": "您可以设置 Cypherock Cover PIN 码恢复服务来安全地恢复您的钱包 PIN 码 — 无需暴露您的助记词"
                 }
               ]
             }
@@ -1447,7 +1445,7 @@
                   "warning": "确保备份您的PIN码。如果丢失，您将失去对资金的访问权限"
                 },
                 {
-                  "warning-white": "如果不设置PIN码，请跳过此步骤"
+                  "infoGreen": "您可以设置 Cypherock Cover PIN 码恢复服务来安全地恢复您的钱包 PIN 码 — 无需暴露您的助记词"
                 }
               ]
             },
@@ -1458,10 +1456,7 @@
                   "warning": "记住您的PIN码，如果丢失，您将失去对资金的访问权限。即使Cypherock也无法帮助您恢复资产"
                 },
                 {
-                  "warning": "在安全的地方备份"
-                },
-                {
-                  "warning-white": "如果不设置PIN码，请跳过此步骤"
+                  "infoGreen": "您可以设置 Cypherock Cover PIN 码恢复服务来安全地恢复您的钱包 PIN 码 — 无需暴露您的助记词"
                 }
               ]
             }

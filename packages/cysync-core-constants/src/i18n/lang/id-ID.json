@@ -1296,6 +1296,7 @@
   "guidedFlows": {
     "createWallet": {
       "title": "Buat Dompet Baru",
+      "skipPinSetup": "Lewati langkah ini jika Anda tidak mengatur PIN",
       "tabs": [
         {
           "asideTitle": "X1 Vault",
@@ -1343,7 +1344,7 @@
                   "warning": "Pastikan Anda membuat cadangan PIN Anda. Jika Anda kehilangannya, Anda kehilangan akses ke dana Anda"
                 },
                 {
-                  "warning-white": "Lewati langkah ini jika Anda tidak mengatur PIN"
+                  "infoGreen": "Anda dapat mengatur Layanan Pemulihan PIN Cypherock Cover untuk memulihkan PIN dompet Anda dengan aman — tanpa memaparkan seed phrase Anda"
                 }
               ]
             },
@@ -1351,13 +1352,10 @@
               "title": "Konfirmasi PIN yang dimasukkan di X1 Vault",
               "messageBoxList": [
                 {
-                  "warning": "Ingat PIN Anda, jika Anda kehilangannya, Anda kehilangan akses ke dana Anda. Bahkan Cypherock tidak akan dapat membantu Anda memulihkan aset Anda"
+                  "warning": "Pastikan Anda membuat cadangan PIN Anda. Jika Anda kehilangannya, Anda kehilangan akses ke dana Anda"
                 },
                 {
-                  "warning": "Cadangkan di tempat yang aman"
-                },
-                {
-                  "warning-white": "Lewati langkah ini jika Anda tidak mengatur PIN"
+                  "infoGreen": "Anda dapat mengatur Layanan Pemulihan PIN Cypherock Cover untuk memulihkan PIN dompet Anda dengan aman — tanpa memaparkan seed phrase Anda"
                 }
               ]
             }
@@ -1461,7 +1459,7 @@
                   "warning": "Pastikan Anda membuat cadangan PIN Anda. Jika Anda kehilangannya, Anda kehilangan akses ke dana Anda"
                 },
                 {
-                  "warning-white": "Lewati langkah ini jika Anda tidak mengatur PIN"
+                  "infoGreen": "Anda dapat mengatur Layanan Pemulihan PIN Cypherock Cover untuk memulihkan PIN dompet Anda dengan aman — tanpa mengekspos seed phrase Anda"
                 }
               ]
             },
@@ -1472,10 +1470,7 @@
                   "warning": "Ingat PIN Anda, jika Anda kehilangannya, Anda kehilangan akses ke dana Anda. Bahkan Cypherock tidak akan dapat membantu Anda memulihkan aset Anda"
                 },
                 {
-                  "warning": "Cadangkan di tempat yang aman"
-                },
-                {
-                  "warning-white": "Lewati langkah ini jika Anda tidak mengatur PIN"
+                  "infoGreen": "Anda dapat mengatur Layanan Pemulihan PIN Cypherock Cover untuk memulihkan PIN dompet Anda dengan aman — tanpa mengekspos seed phrase Anda"
                 }
               ]
             }

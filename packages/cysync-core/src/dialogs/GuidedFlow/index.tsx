@@ -9,6 +9,8 @@ import {
   DialogBoxBackgroundBar,
   BackButton,
   ConfettiBlast,
+  MessageBox,
+  Flex,
 } from '@cypherock/cysync-ui';
 import React, { FC } from 'react';
 
@@ -94,6 +96,23 @@ export const GuidedFlowDialog: FC = () => {
                     onClick={backToWalletActions}
                   />
                 }
+                position="bottom"
+                useLightPadding
+              />
+            )}
+            {currentTab === 0 && [5, 6].includes(currentDialog) && (
+              <DialogBoxBackgroundBar
+                middleComponent={
+                  <Flex width="full" justify="center">
+                    <MessageBox
+                      type="warning"
+                      text={lang.strings.guidedFlows.createWallet.skipPinSetup}
+                      $width="600px"
+                      $textAlign="center"
+                    />
+                  </Flex>
+                }
+                rightComponent={null}
                 position="bottom"
                 useLightPadding
               />

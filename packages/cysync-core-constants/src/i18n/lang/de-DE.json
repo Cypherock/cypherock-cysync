@@ -1297,6 +1297,7 @@
   "guidedFlows": {
     "createWallet": {
       "title": "Neue Wallet erstellen",
+      "skipPinSetup": "Überspringen Sie diesen Schritt, wenn Sie keine PIN einrichten.",
       "tabs": [
         {
           "asideTitle": "X1 Vault",
@@ -1344,7 +1345,7 @@
                   "warning": "Stellen Sie sicher, dass Sie eine Sicherungskopie Ihres PINs machen. Wenn Sie ihn verlieren, verlieren Sie den Zugriff auf Ihre Gelder"
                 },
                 {
-                  "warning-white": "Überspringen Sie diesen Schritt, wenn Sie keinen PIN einrichten"
+                  "infoGreen": "Sie können den Cypherock Cover PIN-Wiederherstellungsdienst einrichten, um Ihre Wallet-PIN sicher wiederherzustellen — ohne Ihre Seed-Phrase preiszugeben"
                 }
               ]
             },
@@ -1352,13 +1353,10 @@
               "title": "Bestätigen Sie den eingegebenen PIN auf dem X1 Vault",
               "messageBoxList": [
                 {
-                  "warning": "Merken Sie sich Ihren PIN, wenn Sie ihn verlieren, verlieren Sie den Zugriff auf Ihre Gelder. Selbst Cypherock wird Ihnen nicht helfen können, Ihre Vermögenswerte wiederherzustellen"
+                  "warning": "Stellen Sie sicher, dass Sie eine Sicherungskopie Ihres PINs machen. Wenn Sie ihn verlieren, verlieren Sie den Zugriff auf Ihre Gelder"
                 },
                 {
-                  "warning": "Sichern Sie ihn an einem sicheren Ort"
-                },
-                {
-                  "warning-white": "Überspringen Sie diesen Schritt, wenn Sie keinen PIN einrichten"
+                  "infoGreen": "Sie können den Cypherock Cover PIN-Wiederherstellungsdienst einrichten, um Ihre Wallet-PIN sicher wiederherzustellen — ohne Ihre Seed-Phrase preiszugeben"
                 }
               ]
             }
@@ -1462,7 +1460,7 @@
                   "warning": "Stellen Sie sicher, dass Sie eine Sicherungskopie Ihres PINs machen. Wenn Sie ihn verlieren, verlieren Sie den Zugriff auf Ihre Gelder"
                 },
                 {
-                  "warning-white": "Überspringen Sie diesen Schritt, wenn Sie keinen PIN einrichten"
+                  "infoGreen": "Sie können den Cypherock Cover PIN-Wiederherstellungsdienst einrichten, um Ihre Wallet-PIN sicher wiederherzustellen — ohne Ihre Seed-Phrase preiszugeben"
                 }
               ]
             },
@@ -1473,10 +1471,7 @@
                   "warning": "Merken Sie sich Ihren PIN, wenn Sie ihn verlieren, verlieren Sie den Zugriff auf Ihre Gelder. Selbst Cypherock wird Ihnen nicht helfen können, Ihre Vermögenswerte wiederherzustellen"
                 },
                 {
-                  "warning": "Sichern Sie ihn an einem sicheren Ort"
-                },
-                {
-                  "warning-white": "Überspringen Sie diesen Schritt, wenn Sie keinen PIN einrichten"
+                  "infoGreen": "Sie können den Cypherock Cover PIN-Wiederherstellungsdienst einrichten, um Ihre Wallet-PIN sicher wiederherzustellen — ohne Ihre Seed-Phrase preiszugeben"
                 }
               ]
             }
