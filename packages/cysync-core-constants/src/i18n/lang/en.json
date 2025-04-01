@@ -1336,7 +1336,7 @@
                   "warning": "Make sure you make a backup of your PIN. If you lose it , you lose access to your funds"
                 },
                 {
-                  "infoGreen": "You can set up the Cypherock Cover PIN Recovery Service to securely recover your wallet PIN —without exposing your seed phrase"
+                  "infoGreen": "You can set up the Cypherock Cover PIN Recovery Service to securely recover your wallet PIN without exposing your seed phrase"
                 }
               ]
             },
@@ -1451,7 +1451,7 @@
                   "warning": "Make sure you make a backup of your PIN. If you lose it , you lose access to your funds"
                 },
                 {
-                  "infoGreen": "You can set up the Cypherock Cover PIN Recovery Service to securely recover your wallet PIN —without exposing your seed phrase"
+                  "infoGreen": "You can set up the Cypherock Cover PIN Recovery Service to securely recover your wallet PIN without exposing your seed phrase"
                 }
               ]
             },

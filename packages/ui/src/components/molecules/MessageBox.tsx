@@ -92,7 +92,7 @@ export const MessageBox: FC<{
             <Typography variant="fineprint">
               <LangDisplay text={altText} variables={variables} />
             </Typography>
-            {rightImage && rightImage}
+            {rightImage}
           </Container>
         )}
       </Flex>
