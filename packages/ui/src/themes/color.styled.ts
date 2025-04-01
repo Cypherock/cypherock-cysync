@@ -98,7 +98,7 @@ export const colors = {
     muted: '#8B8682',
     separatorSecondary: '#272320',
     gold: '#E9B873',
-    warningGreenBg: '#1F271D',
+    infoGreenBg: '#1F271D',
     dropdownHover: '#191715',
     black: '#000000',
     container: '#1B1812',
@@ -165,7 +165,7 @@ export const colors = {
     card: '#534A44',
     selected: '#e0bb74',
     success: '#51C61A',
-    warningGreen: '#143E01',
+    infoGreen: '#143E01',
   },
   shadow: {
     dropdown: '#0f0d0b',

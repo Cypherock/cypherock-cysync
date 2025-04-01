@@ -26,7 +26,7 @@ export type BgColor =
   | 'slateDark'
   | 'headlineLight'
   | 'error'
-  | 'warningGreenBg'
+  | 'infoGreenBg'
   | 'disabled'
   | 'message'
   | 'videoError'
@@ -163,9 +163,9 @@ ${props =>
     `}
     
     ${props =>
-    props.$bgColor === 'warningGreenBg' &&
+    props.$bgColor === 'infoGreenBg' &&
     css`
-      background: ${({ theme }) => theme.palette.background.warningGreenBg};
+      background: ${({ theme }) => theme.palette.background.infoGreenBg};
     `}
 
     ${props =>
