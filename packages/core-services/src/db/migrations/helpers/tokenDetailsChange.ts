@@ -1,5 +1,9 @@
 import { getAssetOrUndefined } from '@cypherock/coin-support-utils';
-import { coinFamiliesMap, createErc20AssetId } from '@cypherock/coins';
+import {
+  coinFamiliesMap,
+  CoinFamily,
+  createErc20AssetId,
+} from '@cypherock/coins';
 import { AccountTypeMap, IDatabase } from '@cypherock/db-interfaces';
 
 export interface TokenDetailsChangeItem {
@@ -27,9 +31,10 @@ const createTokenChangeMap = (coinChanges: TokenDetailsChangeItem[]) => {
 export const migrateTokenDetailsChangeInDb = async (
   db: IDatabase,
   changedCoins: TokenDetailsChangeItem[],
+  familyId: CoinFamily = coinFamiliesMap.evm,
 ) => {
   const allItems = await db.account.getAll({
-    familyId: coinFamiliesMap.evm,
+    familyId,
     type: AccountTypeMap.subAccount,
   });
   const changedCoinsMap = createTokenChangeMap(changedCoins);
