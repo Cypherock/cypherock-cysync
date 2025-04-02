@@ -1,5 +1,11 @@
 # @cypherock/cysync-core
 
+## 0.4.0
+
+### Minor Changes
+
+- [#683](https://github.com/Cypherock/cypherock-cysync/pull/683) [`2da72c71`](https://github.com/Cypherock/cypherock-cysync/commit/2da72c71dbdbc6447665b33c0058c50cd52e8a92) Thanks [@AryanCypherock](https://github.com/AryanCypherock)! - Qr Scanner for mobile app added
+
 ## 0.4.0-pre.0
 
 ### Minor Changes
