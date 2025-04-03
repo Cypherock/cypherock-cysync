@@ -30,6 +30,7 @@ export type Page =
   | 'settings'
   | 'help'
   | 'tutorial'
+  | 'swap'
   | 'buysell';
 
 export interface SidebarContextInterface {

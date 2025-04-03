@@ -33,6 +33,7 @@ const DeviceConnectionWrapper: React.FC<{
 export interface ReceiveDialogProps {
   walletId?: string;
   accountId?: string;
+  skipSelection?: boolean;
 }
 
 export const Receive: FC = () => {

@@ -34,6 +34,10 @@ const rootRoutes = {
     name: 'buy-sell',
     path: '/buy-sell',
   },
+  swap: {
+    name: 'swap',
+    path: '/swap',
+  },
 } as const;
 
 export const routes = {

@@ -78,12 +78,14 @@ export interface ReceiveDialogContextProviderProps {
   children: ReactNode;
   walletId?: string;
   accountId?: string;
+  skipSelection?: boolean;
 }
 
 export const ReceiveDialogProvider: FC<ReceiveDialogContextProviderProps> = ({
   children,
   walletId: defaultWalletId,
   accountId: defaultAccountId,
+  skipSelection,
 }) => {
   const lang = useAppSelector(selectLanguage);
   const dispatch = useAppDispatch();
@@ -253,6 +255,12 @@ export const ReceiveDialogProvider: FC<ReceiveDialogContextProviderProps> = ({
       goTo(3, 0);
     }
   }, [isStartedWithoutDevice, derivedAddress]);
+
+  useEffect(() => {
+    if (skipSelection && defaultWalletId && defaultAccountId) {
+      onNext();
+    }
+  }, []);
 
   const {
     onNext,
