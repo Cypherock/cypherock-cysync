@@ -29,6 +29,7 @@ import { Observable } from 'rxjs';
 import * as operations from './operations';
 import {
   IBroadcastIcpTransactionParams,
+  IIcpGetAddressDetailsFromPublickKeyParams,
   IPrepareIcpTransactionParams,
 } from './operations/types';
 import { DfinityLib, setCoinSupportDfinityLib } from './utils';
@@ -121,5 +122,11 @@ export class IcpSupport implements CoinSupport {
 
   public async getAccountAddress(params: IGetAccountAddressParams) {
     return (await operations.getExternalAddress(params)).address;
+  }
+
+  public getAddressDetailsFromPublicKey(
+    params: IIcpGetAddressDetailsFromPublickKeyParams,
+  ) {
+    return operations.getAddressDetailsFromPublicKey(params);
   }
 }
