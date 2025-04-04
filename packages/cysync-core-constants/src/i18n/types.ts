@@ -230,17 +230,35 @@ interface LangReceive {
     };
   };
   receive: {
-    title: { prefix: string; suffix: string };
+    title: {
+      prefix: string;
+      accountIdPrefix: string;
+      principalIdPrefix: string;
+      suffix: string;
+    };
     addressLabel: string;
-    actions: { verify: string };
-    messageBox: { warning: string };
+    accountIdLabel: string;
+    principalIdLabel: string;
+    actions: {
+      verify: string;
+      verifyAccountId: string;
+      verifyPrincipalId: string;
+    };
+    messageBox: {
+      warning: string;
+      accountIdWarning: string;
+      principalIdWarning: string;
+    };
     waitMessageBox: { warning: string };
   };
-  congrats: { title: string };
+  congrats: { title: string; accountAndPrincipalIdTitle: string };
   finalButtons: {
     secondary: string;
     secondaryUnverified: string;
+    secondaryUnverifiedAccountId: string;
+    secondaryUnverifiedPrincipalId: string;
     primary: string;
+    continue: string;
   };
   aside: { tabs: { source: string; device: string; receive: string } };
 }

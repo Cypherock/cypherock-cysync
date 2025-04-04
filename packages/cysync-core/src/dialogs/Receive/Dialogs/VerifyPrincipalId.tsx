@@ -1,5 +1,4 @@
-import { ReceiveDeviceEvent } from '@cypherock/coin-support-interfaces';
-import { coinFamiliesMap } from '@cypherock/coins';
+import { IcpReceiveDeviceEvent } from '@cypherock/coin-support-icp';
 import {
   DialogBox,
   DialogBoxBody,
@@ -10,7 +9,6 @@ import {
   LeanBox,
   Throbber,
   ScrollableContainer,
-  MessageBox,
 } from '@cypherock/cysync-ui';
 import React, { useEffect } from 'react';
 
@@ -20,15 +18,9 @@ import { AddressDisplay } from './Components';
 
 import { useReceiveDialog } from '../context';
 
-export const VerifyAddress: React.FC = () => {
-  const {
-    onRetry,
-    deviceEvents,
-    isFlowCompleted,
-    selectedAccount,
-    derivedAddress,
-    goTo,
-  } = useReceiveDialog();
+export const VerifyPrincipalId: React.FC = () => {
+  const { onNext, onRetry, deviceEvents, isFlowCompleted, derivedPrincipalId } =
+    useReceiveDialog();
   const lang = useAppSelector(selectLanguage);
   const texts = lang.strings.receive.receive;
 
@@ -39,8 +31,11 @@ export const VerifyAddress: React.FC = () => {
   }, []);
 
   useEffect(() => {
-    if (!isFlowCompleted && deviceEvents[ReceiveDeviceEvent.VERIFIED]) {
-      goTo(3);
+    if (
+      !isFlowCompleted &&
+      deviceEvents[IcpReceiveDeviceEvent.PRINCIPAL_ID_VERIFIED]
+    ) {
+      onNext();
     }
   }, [deviceEvents]);
 
@@ -50,18 +45,10 @@ export const VerifyAddress: React.FC = () => {
       leftImage: (
         <Image src={arrowGoldenForward} alt="arrowGoldenForward icon" />
       ),
-      text: texts.actions.verify,
+      text: lang.strings.receive.receive.actions.verifyPrincipalId,
       rightImage: <Throbber size={15} strokeWidth={2} />,
     },
   ];
-
-  let waitMessage: string | undefined;
-  if (
-    selectedAccount &&
-    selectedAccount.familyId === coinFamiliesMap.starknet
-  ) {
-    waitMessage = texts.waitMessageBox.warning;
-  }
 
   return (
     <DialogBox width={600}>
@@ -70,10 +57,10 @@ export const VerifyAddress: React.FC = () => {
         <ScrollableContainer $maxHeight={{ def: '50vh', lg: '65vh' }}>
           <DialogBoxBody p={0} px={4} pb={5}>
             <AddressDisplay
-              titlePrefix={texts.title.prefix}
+              titlePrefix={texts.title.principalIdPrefix}
               titleSuffix={texts.title.suffix}
-              addressLabel={texts.addressLabel}
-              address={derivedAddress ?? ''}
+              addressLabel={texts.principalIdLabel}
+              address={derivedPrincipalId ?? ''}
             />
             <LeanBoxContainer>
               {dataArray.map(data => (
@@ -87,7 +74,6 @@ export const VerifyAddress: React.FC = () => {
                 />
               ))}
             </LeanBoxContainer>
-            {waitMessage && <MessageBox type="warning" text={waitMessage} />}
           </DialogBoxBody>
         </ScrollableContainer>
       </DialogBoxBody>

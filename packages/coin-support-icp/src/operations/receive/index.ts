@@ -1,8 +1,4 @@
 import {
-  IReceiveEvent,
-  ReceiveDeviceEvent,
-} from '@cypherock/coin-support-interfaces';
-import {
   makeReceiveObservable,
   IGenerateReceiveAddressParams,
   IReceiveAddressInfo,
@@ -13,17 +9,27 @@ import { IcpApp, GetPublicKeysEvent } from '@cypherock/sdk-app-icp';
 import { hexToUint8Array } from '@cypherock/sdk-utils';
 import { Observable } from 'rxjs';
 
-import { IIcpReceiveEvent, IIcpReceiveParams, statusMap } from './types';
+import {
+  IcpReceiveDeviceEvent,
+  IIcpReceiveEvent,
+  IIcpReceiveParams,
+  statusMap,
+} from './types';
 
 import { createApp, deriveAddress } from '../../utils';
+import { IIcpAccount } from '../types';
 
 export const getExternalAddress = async (
   params: IGenerateReceiveAddressParams,
 ): Promise<IReceiveAddressInfo> => {
-  const { xpubOrAddress, derivationPath } = params.account;
+  const {
+    xpubOrAddress,
+    derivationPath,
+    extraData: { publicKey },
+  } = params.account as IIcpAccount;
 
   return {
-    address: xpubOrAddress,
+    address: publicKey,
     derivationPath,
     expectedFromDevice: xpubOrAddress,
   };
@@ -34,7 +40,7 @@ const getReceiveAddressFromDevice = async (
 ): Promise<string> => {
   const { app, derivationPath, walletId, observer } = params;
 
-  const events: Record<ReceiveDeviceEvent, boolean | undefined> = {} as any;
+  const events: Record<IcpReceiveDeviceEvent, boolean | undefined> = {} as any;
 
   const { publicKey } = await app.getUserVerifiedPublicKey({
     walletId: hexToUint8Array(walletId),
@@ -50,7 +56,9 @@ const getReceiveAddressFromDevice = async (
   return deriveAddress(publicKey);
 };
 
-export const receive = (params: IIcpReceiveParams): Observable<IReceiveEvent> =>
+export const receive = (
+  params: IIcpReceiveParams,
+): Observable<IIcpReceiveEvent> =>
   makeReceiveObservable({
     ...params,
     createApp,

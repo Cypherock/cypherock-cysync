@@ -171,26 +171,38 @@
     "receive": {
       "title": {
         "prefix": "Adresse für ",
+        "accountIdPrefix": "Kontokennung für ",
+        "principalIdPrefix": "Principal-Kennung für ",
         "suffix": "in ${walletName}"
       },
       "addressLabel": "Adresse",
+      "accountIdLabel": "Konto-ID",
+      "principalIdLabel": "Haupt-ID",
       "actions": {
-        "verify": "Überprüfen Sie, dass die Adresse auf dem X1 Vault genau mit der oben angezeigten Adresse übereinstimmt"
+        "verify": "Überprüfen Sie, dass die Adresse auf dem X1 Vault genau mit der oben angezeigten Adresse übereinstimmt",
+        "verifyAccountId": "Überprüfen Sie, ob die Kontonummer auf der X1 Vault genau mit der oben angezeigten Kontonummer übereinstimmt",
+        "verifyPrincipalId": "Überprüfen Sie, ob die Haupt-ID auf der X1 Vault genau mit der oben angezeigten Haupt-ID übereinstimmt"
       },
       "messageBox": {
-        "warning": "Diese Empfangsadresse wurde NICHT vom Gerät VERIFIZIERT. Verwenden Sie sie auf eigenes Risiko"
+        "warning": "Diese Empfangsadresse wurde NICHT vom Gerät VERIFIZIERT. Verwenden Sie sie auf eigenes Risiko",
+        "accountIdWarning": "Diese Empfangskonto-ID wurde NICHT vom Gerät VERIFIZIERT. Verwenden Sie sie auf eigenes Risiko",
+        "principalIdWarning": "Diese Empfangs-Prinzipal-ID wurde NICHT vom Gerät VERIFIZIERT. Verwenden Sie sie auf eigenes Risiko"
       },
       "waitMessageBox": {
         "warning": "Dieser Vorgang kann ungefähr eine Minute dauern. Bitte haben Sie Geduld"
       }
     },
     "congrats": {
-      "title": "Adresse erfolgreich verifiziert"
+      "title": "Adresse erfolgreich verifiziert",
+      "accountAndPrincipalIdTitle": "Konto-ID und Principal ID erfolgreich verifiziert"
     },
     "finalButtons": {
       "secondary": "Erneut überprüfen",
       "secondaryUnverified": "Adresse verifizieren",
-      "primary": "Fertig"
+      "primary": "Fertig",
+      "secondaryUnverifiedAccountId": "Konto-ID überprüfen",
+      "secondaryUnverifiedPrincipalId": "Haupt-ID überprüfen",
+      "continue": "Fortfahren"
     },
     "aside": {
       "tabs": {
