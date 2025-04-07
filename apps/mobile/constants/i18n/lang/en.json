@@ -8,11 +8,13 @@
     "confirm": "Confirm",
     "reset": "Reset",
     "cancel": "Cancel",
+    "retry": "Retry",
     "login": "Login",
     "getStarted": "Get Started",
     "scanQrCode": "Scan QrCode",
     "buyCypherockX1": "Buy Cypherock X1",
     "grantPermission": "Grant Permission",
+    "openSettings": "Open Settings",
     "nextOnboarding": "Next",
     "allWallets": "All Wallets"
   },
@@ -59,7 +61,11 @@
     },
     "permission": {
       "title": "Camera permission required",
-      "description": "Camera access is required to scan the QR code and sync with your cySync desktop app. Without this access, the sync process will not work"
+      "description": "Camera access is required to scan the QR code and sync with your cySync desktop app. Without this access, the sync process will not work",
+      "alert": {
+        "title": "Camera Access Required",
+        "description": "This feature requires camera access. You can enable it from your device settings."
+      }
     },
     "info": {
       "title": "Your Desktop and Mobile Apps must be synced manually",
