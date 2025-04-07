@@ -1,20 +1,23 @@
-import { Container } from '@cypherock/cysync-ui';
-import React, { useMemo, useState } from 'react';
+import React, { useMemo } from 'react';
 
-import { ErrorHandlerDialog, LoaderDialog } from '~/components';
+import { SwapPage, useSwap } from '~/context';
 
 import { MainAppLayout } from '../Layout';
 import { SwapDetailsInput } from './Pages/SwapDetailsInput';
+import { SwapSummary } from './Pages/SwapSummary';
 
-const componentMap = [<SwapDetailsInput />, <LoaderDialog />, <LoaderDialog />];
+const pageMap: Record<SwapPage, React.JSX.Element> = {
+  [SwapPage.DETAILS]: <SwapDetailsInput />,
+  [SwapPage.SUMMARY]: <SwapSummary />,
+  [SwapPage.RECEIVE]: <div></div>,
+  [SwapPage.SEND]: <div></div>,
+  [SwapPage.STATUS]: <div></div>,
+};
 
 export const Swap = () => {
-  const [currentIndex] = useState(0);
+  const { currentPage } = useSwap();
 
-  const currentComponent = useMemo(
-    () => componentMap[currentIndex],
-    [currentIndex],
-  );
+  const currentComponent = useMemo(() => pageMap[currentPage], [currentPage]);
 
   return (
     <MainAppLayout topbar={{ title: 'Swap' }}>{currentComponent}</MainAppLayout>

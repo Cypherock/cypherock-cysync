@@ -1,23 +1,13 @@
 import { getDefaultUnit, getParsedAmount } from '@cypherock/coin-support-utils';
 import {
-  BinanceConnet,
-  cysyncLogoSmall,
-  DashedLineEndCircled,
-  DialogBox,
-  DialogBoxBody,
   Container,
   LangDisplay,
-  DialogBoxFooter,
   Button,
   Flex,
   Image,
   Dropdown,
-  DropDownItemProps,
   Input,
-  InputLabel,
   Typography,
-  addKeyboardEvents,
-  Divider,
   GraphSwitchIcon,
   CustomInputSend,
   Throbber,
@@ -26,43 +16,16 @@ import {
 import { BigNumber } from '@cypherock/cysync-utils';
 import { IAccount } from '@cypherock/db-interfaces';
 import { sleep } from '@cypherock/sdk-utils';
-import lodash, { lt } from 'lodash';
-import React, {
-  useCallback,
-  useEffect,
-  useMemo,
-  useRef,
-  useState,
-} from 'react';
-import { openReceiveDialog, openSendDialog } from '~/actions';
-import { LoaderDialog } from '~/components';
+import lodash from 'lodash';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import { IQuote, useSwap } from '~/context';
 import { useAccountDropdown, useWalletDropdown } from '~/hooks';
 import { getQuotes } from '~/services/swapService';
 
-import {
-  useAppSelector,
-  selectLanguage,
-  useAppDispatch,
-  selectUnHiddenAccounts,
-  selectPriceInfos,
-} from '~/store';
+import { useAppSelector, selectLanguage } from '~/store';
+import logger from '~/utils/logger';
 
 const throbber: JSX.Element = <Throbber size={15} strokeWidth={2} />;
-
-export interface IProviderDetails {
-  id: string;
-  name: string;
-  imageUrl: string;
-}
-
-export interface IQuote {
-  id: string;
-  provider: IProviderDetails;
-  validUntil: number;
-  fee: string;
-  fromAmount: string;
-  toAmount: string;
-}
 
 const AmountInput: React.FC<any> = ({
   placeholder,
@@ -257,43 +220,8 @@ const OfferBox: React.FC<any> = ({
 };
 
 export const SwapDetailsInput = () => {
-  const { accounts } = useAppSelector(selectUnHiddenAccounts);
-  const { accountDropdownList } = useAccountDropdown({
-    selectedWallet: undefined,
-  });
-  const [selectedFromAccount, setSelectedFromAccount] =
-    useState<DropDownItemProps>();
-  const [selectedToAccount, setSelectedToAccount] =
-    useState<DropDownItemProps>();
-  const [inputAmount, setInputAmount] = useState(0);
-  const outputAmount = useMemo(() => inputAmount * 0.89, [inputAmount]);
-  const providerAmount = useMemo(
-    () => Math.floor(inputAmount) % 5,
-    [inputAmount],
-  );
-
-  const [isLoading, setIsLoading] = useState(false);
-  const timeoutId = useRef<any>();
-
+  const { toNextPage, fillDetails } = useSwap();
   const [selectedOfferIndex, setSelectedOfferIndex] = useState(undefined);
-  const offers = [];
-
-  const dispatch = useAppDispatch();
-  const [isFlowOver, setIsFlowOver] = useState(false);
-
-  const openSend = useCallback(() => {
-    const obj = {
-      walletId:
-        'aa8d9298a7fa34993d8ca650cb80048ebe86f1b47dd8a5bb89a03dc9c37c674e',
-      accountId: 'ad844c98-5fa5-4469-ad39-46d57928989e',
-    };
-    dispatch(openSendDialog({ ...obj, skipAccountSelection: true }));
-  }, [dispatch, selectedFromAccount, accounts]);
-
-  addKeyboardEvents({
-    x: openSend,
-  });
-
   const fromWallet = useWalletDropdown();
   const fromAccount = useAccountDropdown({
     selectedWallet: fromWallet.selectedWallet,
@@ -305,8 +233,6 @@ export const SwapDetailsInput = () => {
   const toAccount = useAccountDropdown({
     selectedWallet: toWallet.selectedWallet,
   });
-
-  if (isFlowOver) return <LoaderDialog />;
 
   const hasEnoughBalance = useMemo(() => {
     if (fromAccount.selectedAccount === undefined || fromAmount === '')
@@ -342,17 +268,21 @@ export const SwapDetailsInput = () => {
   const fetchQuotes = async (from: IAccount, to: IAccount, amount: string) => {
     await sleep(2000);
 
-    const result = await getQuotes({
-      fromCurrency: from.assetId,
-      fromNetwork: from.parentAssetId,
-      toCurrency: to.assetId,
-      toNetwork: to.parentAssetId,
-      amount: amount,
-    });
-
     let quotes = [];
-    if (result.status === 200) {
-      quotes = result.data.data;
+    try {
+      const result = await getQuotes({
+        fromCurrency: from.assetId,
+        fromNetwork: from.parentAssetId,
+        toCurrency: to.assetId,
+        toNetwork: to.parentAssetId,
+        amount: amount,
+      });
+
+      if (result.status === 200) {
+        quotes = result.data.data;
+      }
+    } catch (e) {
+      logger.error(e);
     }
 
     setQuotes(quotes);
@@ -471,8 +401,15 @@ export const SwapDetailsInput = () => {
               <span>Updates in</span>
             </Typography>
             {quotes.map((quote, index) => {
-              const fromUnit = fromAccount.selectedAccount?.unit ?? '';
-              const toUnit = toAccount.selectedAccount?.unit ?? '';
+              const fromUnit = getDefaultUnit(
+                fromAccount.selectedAccount?.parentAssetId ?? '',
+                fromAccount.selectedAccount?.assetId,
+              ).abbr;
+
+              const toUnit = getDefaultUnit(
+                toAccount.selectedAccount?.parentAssetId ?? '',
+                toAccount.selectedAccount?.assetId,
+              ).abbr;
 
               const rate = new BigNumber(quote.toAmount)
                 .dividedBy(quote.fromAmount)
@@ -503,7 +440,23 @@ export const SwapDetailsInput = () => {
                 selectedOfferIndex === undefined ||
                 selectedOfferIndex >= quotes.length
               }
-              onClick={() => {}}
+              onClick={() => {
+                if (
+                  !fromAccount.selectedAccount ||
+                  !toAccount.selectedAccount ||
+                  (selectedOfferIndex ?? 0) >= quotes.length
+                ) {
+                  return;
+                }
+                const quote = quotes[selectedOfferIndex ?? 0];
+                console.log({ quote });
+                fillDetails({
+                  from: fromAccount.selectedAccount,
+                  to: toAccount.selectedAccount,
+                  quote,
+                });
+                toNextPage();
+              }}
               display="inline-block"
             >
               <LangDisplay text={'Continue'} />
