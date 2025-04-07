@@ -6,9 +6,16 @@ import { Container, ScreenContainer, Typography } from '../atoms';
 interface ILoaderProps {
   title?: string;
   loaderSize?: number;
+  progress?: number;
+  showProgress?: boolean;
 }
 
-export const LoaderScreen = ({ title, loaderSize = 200 }: ILoaderProps) => {
+export const LoaderScreen = ({
+  title,
+  loaderSize = 200,
+  progress = 0,
+  showProgress = false,
+}: ILoaderProps) => {
   return (
     <ScreenContainer>
       <Container
@@ -29,6 +36,13 @@ export const LoaderScreen = ({ title, loaderSize = 200 }: ILoaderProps) => {
           <Typography type="para" color="primary">
             {title}
           </Typography>
+        )}
+        {showProgress && (
+          <View style={{ marginTop: 16 }}>
+            <Typography type="para" color="secondary" textAlign="center">
+              {`${Math.round(progress)}% completed`}
+            </Typography>
+          </View>
         )}
       </Container>
     </ScreenContainer>
