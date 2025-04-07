@@ -17,6 +17,9 @@ export default function Loading() {
   const [status, setStatus] = useState(false);
   const [syncProgress, setSyncProgress] = useState(0);
   const [error, setError] = useState<string | null>(null);
+  const [isPriceSyncComplete, setIsPriceSyncComplete] = useState(false);
+  const [isPriceHistorySyncComplete, setIsPriceHistorySyncComplete] =
+    useState(false);
   const { active } = useAppSelector(selectNetwork);
   const { syncState, syncError, accountSyncMap } =
     useAppSelector(selectAccountSync);
@@ -30,7 +33,9 @@ export default function Loading() {
     try {
       await syncAccountsDb(true);
       await syncAllPrices();
+      setIsPriceSyncComplete(true);
       await syncAllPriceHistories();
+      setIsPriceHistorySyncComplete(true);
       setStatus(true);
     } catch (err) {
       setError(
@@ -46,16 +51,25 @@ export default function Loading() {
       return;
     }
     const syncMapValues = Object.values(accountSyncMap);
+    let progress = 0;
     if (syncMapValues.length > 0) {
-      const progress = Math.round(
+      const accountProgress = Math.round(
         (syncMapValues.filter(a => a?.syncState === 'synced').length /
           syncMapValues.length) *
-          100,
+          94,
       );
-      accountSyncProgress.current = progress;
-      setSyncProgress(progress);
+      progress += accountProgress;
     }
-  }, [accountSyncMap]);
+    if (isPriceSyncComplete) progress += 3;
+    if (isPriceHistorySyncComplete) progress += 3;
+    accountSyncProgress.current = progress;
+    setSyncProgress(progress);
+  }, [
+    accountSyncMap,
+    isPriceSyncComplete,
+    isPriceHistorySyncComplete,
+    isFirst,
+  ]);
 
   useEffect(() => {
     const debouncedLoadData = debounce(() => {
