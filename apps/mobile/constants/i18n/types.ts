@@ -27,6 +27,7 @@ export interface LangButtons {
   login: string;
   reset: string;
   cancel: string;
+  retry: string;
 
   // Onboarding
   getStarted: string;
@@ -34,6 +35,7 @@ export interface LangButtons {
   buyCypherockX1: string;
   grantPermission: string;
   nextOnboarding: string;
+  openSettings: string;
 
   // Portfolio
   allWallets: string;
@@ -81,6 +83,10 @@ export interface LangOnboarding {
   permission: {
     title: string;
     description: string;
+    alert: {
+      title: string;
+      description: string;
+    };
   };
   allSet: {
     title: string;

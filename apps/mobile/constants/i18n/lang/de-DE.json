@@ -14,7 +14,9 @@
     "buyCypherockX1": "Cypherock X1 kaufen",
     "grantPermission": "Berechtigung erteilen",
     "nextOnboarding": "Weiter",
-    "allWallets": "Alle Wallets"
+    "allWallets": "Alle Wallets",
+    "retry": "Erneut versuchen",
+    "openSettings": "Einstellungen öffnen"
   },
   "lockscreen": {
     "login": {
@@ -59,7 +61,11 @@
     },
     "permission": {
       "title": "Kameraberechtigung erforderlich",
-      "description": "Camera access is required to scan the QR code and sync with your cySync desktop app. Without this access, the sync process will not work"
+      "description": "Camera access is required to scan the QR code and sync with your cySync desktop app. Without this access, the sync process will not work",
+      "alert": {
+        "title": "Kamerazugriff erforderlich",
+        "description": "Diese Funktion erfordert Kamerazugriff. Sie können dies in den Geräteeinstellungen aktivieren."
+      }
     },
     "info": {
       "title": "Ihre Desktop- und Mobil-Apps müssen manuell synchronisiert werden",
