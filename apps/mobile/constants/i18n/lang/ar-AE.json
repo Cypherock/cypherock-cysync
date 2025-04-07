@@ -14,7 +14,9 @@
     "buyCypherockX1": "شراء Cypherock X1",
     "grantPermission": "منح الإذن",
     "nextOnboarding": "التالي",
-    "allWallets": "جميع المحافظ"
+    "allWallets": "جميع المحافظ",
+    "retry": "إعادة المحاولة",
+    "openSettings": "افتح الإعدادات"
   },
   "lockscreen": {
     "login": {
@@ -59,7 +61,11 @@
     },
     "permission": {
       "title": "إذن الكاميرا مطلوب",
-      "description": "Camera access is required to scan the QR code and sync with your cySync desktop app. Without this access, the sync process will not work"
+      "description": "Camera access is required to scan the QR code and sync with your cySync desktop app. Without this access, the sync process will not work",
+      "alert": {
+        "title": "مطلوب الوصول إلى الكاميرا",
+        "description": "تتطلب هذه الميزة الوصول إلى الكاميرا. يمكنك تمكينها من إعدادات جهازك."
+      }
     },
     "info": {
       "title": "يجب مزامنة تطبيقات سطح المكتب والهاتف المحمول يدويًا",
