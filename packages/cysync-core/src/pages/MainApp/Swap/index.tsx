@@ -17,12 +17,6 @@ export const Swap = () => {
   );
 
   return (
-    <MainAppLayout topbar={{ title: 'Swap' }}>
-      <Container width="full" height="full">
-        <ErrorHandlerDialog onClose={() => {}} onRetry={() => {}} noDelay>
-          {currentComponent}
-        </ErrorHandlerDialog>
-      </Container>
-    </MainAppLayout>
+    <MainAppLayout topbar={{ title: 'Swap' }}>{currentComponent}</MainAppLayout>
   );
 };
