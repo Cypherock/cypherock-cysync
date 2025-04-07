@@ -15,31 +15,46 @@ import { debounce } from 'lodash';
 export default function Loading() {
   const lang = useAppSelector(selectLanguage);
   const [status, setStatus] = useState(false);
+  const [syncProgress, setSyncProgress] = useState(0);
+  const [error, setError] = useState<string | null>(null);
   const { active } = useAppSelector(selectNetwork);
   const { syncState, syncError, accountSyncMap } =
     useAppSelector(selectAccountSync);
+  const [isFirst, setIsFirst] = useState(true);
 
   /** Can be used to show sync progress */
   const accountSyncProgress = useRef(0);
 
   async function loadData() {
+    setError(null);
     try {
       await syncAccountsDb(true);
       await syncAllPrices();
       await syncAllPriceHistories();
       setStatus(true);
-    } catch {
+    } catch (err) {
+      setError(
+        err instanceof Error ? err.message : 'An error occurred during sync',
+      );
       setStatus(false);
     }
   }
 
   useEffect(() => {
+    if (isFirst) {
+      setIsFirst(false);
+      return;
+    }
     const syncMapValues = Object.values(accountSyncMap);
-    accountSyncProgress.current = Math.round(
-      (syncMapValues.filter(a => a?.syncState === 'synced').length /
-        syncMapValues.length) *
-        100,
-    );
+    if (syncMapValues.length > 0) {
+      const progress = Math.round(
+        (syncMapValues.filter(a => a?.syncState === 'synced').length /
+          syncMapValues.length) *
+          100,
+      );
+      accountSyncProgress.current = progress;
+      setSyncProgress(progress);
+    }
   }, [accountSyncMap]);
 
   useEffect(() => {
@@ -54,18 +69,35 @@ export default function Loading() {
     };
   }, []);
 
-  if (!active || syncError)
+  if (!active) {
     return (
       <NoDataScreen
-        title={syncError ?? 'Please connect to the internet to continue!'}
+        title={'Please connect to the internet to continue!'}
         actionText={'Retry'}
         onAction={loadData}
       />
     );
+  }
+
+  if (syncError || error) {
+    return (
+      <NoDataScreen
+        title={syncError || error || 'Sync failed. Please try again.'}
+        actionText={'Retry'}
+        onAction={loadData}
+      />
+    );
+  }
 
   if (status && syncState === 'synced') {
     return <Redirect href={'/info'} />;
   }
 
-  return <LoaderScreen title={lang.strings.scan.loading.description} />;
+  return (
+    <LoaderScreen
+      title={lang.strings.scan.loading.description}
+      progress={syncProgress}
+      showProgress={true}
+    />
+  );
 }
