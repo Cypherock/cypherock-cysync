@@ -6,6 +6,8 @@ import { useCameraPermissions } from 'expo-camera';
 import { useAppSelector } from '@/store';
 import { selectLanguage } from '@/store/lang';
 import { Redirect, router } from 'expo-router';
+import { Alert } from 'react-native';
+import { openSettings } from 'expo-linking';
 
 export default function Permission() {
   const { strings } = useAppSelector(selectLanguage);
@@ -14,11 +16,30 @@ export default function Permission() {
   function handleRequestPermission() {
     if (!permission) return;
 
-    if (permission.status === 'denied') {
-      return router.replace('/portfolio');
+    if (permission.canAskAgain) {
+      requestPermission();
+    } else {
+      Alert.alert(
+        strings.onboarding.permission.alert.title,
+        strings.onboarding.permission.alert.description,
+        [
+          {
+            text: strings.buttons.openSettings,
+            onPress: () => {
+              openSettings();
+              router.replace('/portfolio');
+            },
+          },
+          {
+            text: strings.buttons.cancel,
+            style: 'cancel',
+          },
+        ],
+        {
+          cancelable: true,
+        },
+      );
     }
-
-    requestPermission();
   }
 
   if (permission?.granted) {

@@ -14,7 +14,9 @@
     "buyCypherockX1": "Beli Cypherock X1",
     "grantPermission": "Berikan Izin",
     "nextOnboarding": "Next",
-    "allWallets": "Semua Dompet"
+    "allWallets": "Semua Dompet",
+    "retry": "Coba Lagi",
+    "openSettings": "Buka Pengaturan"
   },
   "lockscreen": {
     "login": {
@@ -59,7 +61,11 @@
     },
     "permission": {
       "title": "Izin kamera diperlukan",
-      "description": "Camera access is required to scan the QR code and sync with your cySync desktop app. Without this access, the sync process will not work"
+      "description": "Camera access is required to scan the QR code and sync with your cySync desktop app. Without this access, the sync process will not work",
+      "alert": {
+        "title": "Akses Kamera Diperlukan",
+        "description": "Fitur ini memerlukan akses kamera. Anda dapat mengaktifkannya dari pengaturan perangkat Anda."
+      }
     },
     "info": {
       "title": "Aplikasi Desktop dan Seluler Anda harus disinkronkan secara manual",
