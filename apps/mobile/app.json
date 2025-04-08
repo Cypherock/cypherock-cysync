@@ -14,8 +14,8 @@
     "android": {
       "googleServicesFile": "./google-services.json",
       "adaptiveIcon": {
-        "foregroundImage": "./assets/images/adaptive-icon.png",
-        "backgroundColor": "#1C1815"
+        "foregroundImage": "./assets/images/foreground.png",
+        "backgroundImage": "./assets/images/background.png"
       },
       "package": "com.cypherock.cysync",
       "permissions": [
