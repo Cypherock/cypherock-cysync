@@ -13,13 +13,12 @@ import {
   Throbber,
   Tag,
 } from '@cypherock/cysync-ui';
-import { BigNumber } from '@cypherock/cysync-utils';
+import { BigNumber, formatSecondsToMinutes } from '@cypherock/cysync-utils';
 import { IAccount } from '@cypherock/db-interfaces';
-import { sleep } from '@cypherock/sdk-utils';
 import lodash from 'lodash';
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { IQuote, useSwap } from '~/context';
-import { useAccountDropdown, useWalletDropdown } from '~/hooks';
+import { useAccountDropdown, useCountdown, useWalletDropdown } from '~/hooks';
 import { getQuotes } from '~/services/swapService';
 
 import { useAppSelector, selectLanguage } from '~/store';
@@ -191,8 +190,8 @@ const OfferBox: React.FC<any> = ({
           <Image
             src={offerData?.provider?.imageUrl ?? ''}
             alt="Logo"
-            $width={50}
-            $height={50}
+            $width={32}
+            $height={32}
           />
           <Typography $fontSize={14}>{offerData.provider.name}</Typography>
         </Flex>
@@ -219,9 +218,131 @@ const OfferBox: React.FC<any> = ({
   );
 };
 
-export const SwapDetailsInput = () => {
+export const SwapQuotesHeader: React.FC<{
+  size: number;
+  onTimeEnd: () => void;
+}> = ({ size, onTimeEnd }) => {
+  const [seconds, setSeconds] = useState(30);
+
+  useEffect(() => {
+    const interval = setInterval(
+      () => setSeconds(s => Math.max(s - 1, 0)),
+      1000,
+    );
+    return () => clearInterval(interval);
+  }, []);
+
+  useEffect(() => {
+    if (seconds <= 1) onTimeEnd();
+  }, [seconds]);
+
+  const remainingTime = useMemo(
+    () => formatSecondsToMinutes(seconds),
+    [seconds],
+  );
+
+  return (
+    <Typography
+      color="muted"
+      justify="space-between"
+      display="flex"
+      $allowOverflow
+    >
+      <span>{size} quotes found</span>
+      <span>Updates in {remainingTime}</span>
+    </Typography>
+  );
+};
+
+export const SwapQuotes: React.FC<{
+  quotes: IQuote[];
+  setSelectedOfferIndex: (val: number) => void;
+  selectedOfferIndex?: number;
+  toAccount?: IAccount;
+  fromAccount?: IAccount;
+  findNewQuotes: () => void;
+}> = ({
+  quotes,
+  setSelectedOfferIndex,
+  selectedOfferIndex,
+  toAccount,
+  fromAccount,
+  findNewQuotes,
+}) => {
   const { toNextPage, fillDetails } = useSwap();
-  const [selectedOfferIndex, setSelectedOfferIndex] = useState(undefined);
+
+  return (
+    <>
+      <SwapQuotesHeader size={quotes.length} onTimeEnd={findNewQuotes} />
+      {quotes.map((quote, index) => {
+        const fromUnit = getDefaultUnit(
+          fromAccount?.parentAssetId ?? '',
+          fromAccount?.assetId,
+        ).abbr;
+
+        const toUnit = getDefaultUnit(
+          toAccount?.parentAssetId ?? '',
+          toAccount?.assetId,
+        ).abbr;
+
+        const rate = new BigNumber(quote.toAmount)
+          .dividedBy(quote.fromAmount)
+          .toFixed(6);
+
+        return (
+          <OfferBox
+            offerData={{
+              index,
+              data: [
+                {
+                  title: 'Fixed Rate',
+                  value: [`1 ${fromUnit} =`, `${rate} ${toUnit}`],
+                },
+              ],
+              isBest: index === 0,
+              provider: quote.provider,
+            }}
+            setSelectedIndex={setSelectedOfferIndex}
+            selectedIndex={selectedOfferIndex}
+          />
+        );
+      })}
+      {quotes.length === 0 && 'No quotes found'}
+      <Button
+        variant="primary"
+        disabled={
+          selectedOfferIndex === undefined ||
+          selectedOfferIndex >= quotes.length
+        }
+        onClick={() => {
+          if (
+            !fromAccount ||
+            !toAccount ||
+            (selectedOfferIndex ?? 0) >= quotes.length
+          ) {
+            return;
+          }
+          const quote = quotes[selectedOfferIndex ?? 0];
+          console.log({ quote });
+          fillDetails({
+            from: fromAccount,
+            to: toAccount,
+            quote,
+          });
+          toNextPage();
+        }}
+        display="inline-block"
+      >
+        <LangDisplay text={'Continue'} />
+      </Button>
+    </>
+  );
+};
+
+export const SwapDetailsInput = () => {
+  const [selectedOfferIndex, setSelectedOfferIndex] = useState<
+    number | undefined
+  >();
   const fromWallet = useWalletDropdown();
   const fromAccount = useAccountDropdown({
     selectedWallet: fromWallet.selectedWallet,
@@ -263,12 +384,37 @@ export const SwapDetailsInput = () => {
     }
     return quotes[selectedOfferIndex ?? 0].toAmount;
   }, [quotes, selectedOfferIndex]);
+
+  useEffect(() => {
+    if (quotes.length === 0) {
+      setSelectedOfferIndex(undefined);
+      return;
+    }
+    setSelectedOfferIndex(0);
+  }, [quotes]);
+
   const [isFetchingQuotes, setIsFetchingQuotes] = useState(false);
 
-  const fetchQuotes = async (from: IAccount, to: IAccount, amount: string) => {
-    await sleep(2000);
+  const fetchQuotes = async (
+    from: IAccount,
+    to: IAccount,
+    amount: string,
+    isValid: boolean,
+  ) => {
+    let quotes: IQuote[] = [];
+    if (
+      !(
+        isValid &&
+        fromAccount !== undefined &&
+        !new BigNumber(amount).isNaN() &&
+        toAccount !== undefined
+      )
+    ) {
+      setQuotes(quotes);
+      setIsFetchingQuotes(false);
+      return;
+    }
 
-    let quotes = [];
     try {
       const result = await getQuotes({
         fromCurrency: from.assetId,
@@ -289,10 +435,7 @@ export const SwapDetailsInput = () => {
     setIsFetchingQuotes(false);
   };
 
-  const debouncedGetQuotes = useCallback(
-    lodash.debounce(fetchQuotes, 1000),
-    [],
-  );
+  const debouncedGetQuotes = useCallback(lodash.debounce(fetchQuotes, 500), []);
 
   useEffect(() => {
     if (
@@ -303,24 +446,21 @@ export const SwapDetailsInput = () => {
     }
   }, [fromWallet.selectedWallet, fromAccount.selectedAccount]);
 
-  useEffect(() => {
-    if (
-      hasEnoughBalance &&
-      fromAccount.selectedAccount !== undefined &&
-      !new BigNumber(fromAmount).isNaN() &&
-      toAccount.selectedAccount !== undefined
-    ) {
-      console.log('isFetchingQuotes');
-      setIsFetchingQuotes(true);
-      debouncedGetQuotes(
-        fromAccount.selectedAccount,
-        toAccount.selectedAccount,
-        fromAmount,
-      );
-    } else {
-      setQuotes([]);
-    }
-  }, [fromAccount.selectedAccount, fromAmount, toAccount.selectedAccount]);
+  const findNewQuotes = () => {
+    setIsFetchingQuotes(true);
+    debouncedGetQuotes(
+      fromAccount.selectedAccount!,
+      toAccount.selectedAccount!,
+      fromAmount,
+      hasEnoughBalance,
+    );
+  };
+
+  useEffect(findNewQuotes, [
+    fromAccount.selectedAccount,
+    fromAmount,
+    toAccount.selectedAccount,
+  ]);
 
   return (
     <Container
@@ -381,87 +521,45 @@ export const SwapDetailsInput = () => {
         $overflow="auto"
       >
         {isFetchingQuotes ? (
-          <Typography
-            color="muted"
-            justify="space-between"
-            display="flex"
-            $allowOverflow
-          >
-            Fetching
-          </Typography>
-        ) : (
-          <>
+          <Flex mt={4} justify="center" gap={16} align="center">
+            {throbber}
             <Typography
               color="muted"
               justify="space-between"
               display="flex"
               $allowOverflow
             >
-              <span>{quotes.length} quotes found</span>
-              <span>Updates in</span>
+              Searching for your best offer
             </Typography>
-            {quotes.map((quote, index) => {
-              const fromUnit = getDefaultUnit(
-                fromAccount.selectedAccount?.parentAssetId ?? '',
-                fromAccount.selectedAccount?.assetId,
-              ).abbr;
-
-              const toUnit = getDefaultUnit(
-                toAccount.selectedAccount?.parentAssetId ?? '',
-                toAccount.selectedAccount?.assetId,
-              ).abbr;
-
-              const rate = new BigNumber(quote.toAmount)
-                .dividedBy(quote.fromAmount)
-                .toFixed(6);
-
-              return (
-                <OfferBox
-                  offerData={{
-                    index,
-                    data: [
-                      {
-                        title: 'Fixed Rate',
-                        value: [`1 ${fromUnit} =`, `${rate} ${toUnit}`],
-                      },
-                    ],
-                    isBest: index === 0,
-                    provider: quote.provider,
-                  }}
-                  setSelectedIndex={setSelectedOfferIndex}
-                  selectedIndex={selectedOfferIndex}
-                />
-              );
-            })}
-            {quotes.length === 0 && 'No quotes found'}
-            <Button
-              variant="primary"
-              disabled={
-                selectedOfferIndex === undefined ||
-                selectedOfferIndex >= quotes.length
-              }
-              onClick={() => {
-                if (
-                  !fromAccount.selectedAccount ||
-                  !toAccount.selectedAccount ||
-                  (selectedOfferIndex ?? 0) >= quotes.length
-                ) {
-                  return;
-                }
-                const quote = quotes[selectedOfferIndex ?? 0];
-                console.log({ quote });
-                fillDetails({
-                  from: fromAccount.selectedAccount,
-                  to: toAccount.selectedAccount,
-                  quote,
-                });
-                toNextPage();
-              }}
-              display="inline-block"
+          </Flex>
+        ) : quotes.length > 0 ? (
+          <SwapQuotes
+            quotes={quotes}
+            setSelectedOfferIndex={setSelectedOfferIndex}
+            selectedOfferIndex={selectedOfferIndex}
+            toAccount={toAccount.selectedAccount}
+            fromAccount={fromAccount.selectedAccount}
+            findNewQuotes={findNewQuotes}
+          />
+        ) : (
+          <Flex mt={4} justify="center" direction="column" align="center">
+            <Typography
+              color="muted"
+              justify="space-between"
+              display="flex"
+              $allowOverflow
             >
-              <LangDisplay text={'Continue'} />
-            </Button>
-          </>
+              No offers available for your request
+            </Typography>
+            <Typography
+              color="muted"
+              justify="space-between"
+              display="flex"
+              $allowOverflow
+            >
+              Change amount or currency
+            </Typography>
+          </Flex>
         )}
       </Flex>
     </Container>

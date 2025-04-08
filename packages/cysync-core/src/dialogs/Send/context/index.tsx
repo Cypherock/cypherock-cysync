@@ -132,10 +132,16 @@ export interface SendDialogContextInterface {
 export const SendDialogContext: Context<SendDialogContextInterface> =
   createContext<SendDialogContextInterface>({} as SendDialogContextInterface);
 
+export interface ToDetails {
+  address: string;
+  amount: string;
+}
+
 export interface SendDialogProps {
   walletId?: string;
   accountId?: string;
   txnData?: Record<string, string>;
+  prefillDetails?: Partial<ToDetails>;
   disableAccountSelection?: boolean;
   isWalletConnectRequest?: boolean;
   skipAccountSelection?: boolean;
@@ -150,6 +156,7 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
   walletId: defaultWalletId,
   accountId: defaultAccountId,
   txnData,
+  prefillDetails,
   disableAccountSelection,
   isWalletConnectRequest,
   skipAccountSelection,
@@ -357,6 +364,34 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
           db: getDB(),
           accountId: selectedAccount?.__id ?? '',
         });
+      if (prefillDetails) {
+        initTransaction.userInputs.outputs.push({
+          address: '',
+          amount: '',
+          remarks: '',
+        });
+        if (prefillDetails.address)
+          initTransaction.userInputs.outputs[0].address =
+            prefillDetails.address;
+        if (prefillDetails.amount && selectedAccount) {
+          const convertedAmount = convertToUnit({
+            amount: prefillDetails.amount,
+            coinId: selectedAccount.parentAssetId,
+            assetId: selectedAccount.assetId,
+            fromUnitAbbr:
+              selectedAccount.unit ??
+              getDefaultUnit(
+                selectedAccount.parentAssetId,
+                selectedAccount.assetId,
+              ).abbr,
+            toUnitAbbr: getZeroUnit(
+              selectedAccount.parentAssetId,
+              selectedAccount.assetId,
+            ).abbr,
+          });
+          initTransaction.userInputs.outputs[0].amount = convertedAmount.amount;
+        }
+      }
       setTransaction(initTransaction);
 
       if (txnData) {

@@ -79,6 +79,7 @@ export interface ReceiveDialogContextProviderProps {
   walletId?: string;
   accountId?: string;
   skipSelection?: boolean;
+  storeReceiveAddress?: (address: string) => void;
 }
 
 export const ReceiveDialogProvider: FC<ReceiveDialogContextProviderProps> = ({
@@ -86,6 +87,7 @@ export const ReceiveDialogProvider: FC<ReceiveDialogContextProviderProps> = ({
   walletId: defaultWalletId,
   accountId: defaultAccountId,
   skipSelection,
+  storeReceiveAddress,
 }) => {
   const lang = useAppSelector(selectLanguage);
   const dispatch = useAppDispatch();
@@ -161,6 +163,8 @@ export const ReceiveDialogProvider: FC<ReceiveDialogContextProviderProps> = ({
   const onClose = () => {
     cleanUp();
     dispatch(closeDialog('receive'));
+    if (storeReceiveAddress && derivedAddress)
+      storeReceiveAddress(derivedAddress);
   };
 
   const onSkip = () => {

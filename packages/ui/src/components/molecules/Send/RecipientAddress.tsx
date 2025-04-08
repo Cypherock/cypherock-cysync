@@ -122,7 +122,7 @@ export const RecipientAddress: React.FC<RecipientAddressProps> = ({
           $noBorder
           postfixIcon={isThrobberActive ? throbber : <PasteIcon />}
           onPostfixIconClick={
-            isThrobberActive ? undefined : handleCopyFromClipboard
+            isThrobberActive || isDisabled ? undefined : handleCopyFromClipboard
           }
         />
       </CustomInputSend>

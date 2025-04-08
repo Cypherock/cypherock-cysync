@@ -1,6 +1,8 @@
 import { IAccount } from '@cypherock/db-interfaces';
 import React, { useEffect, useState } from 'react';
 import { useMemoReturn } from '~/hooks';
+import { createExchange } from '~/services/swapService';
+import logger from '~/utils/logger';
 
 export enum SwapPage {
   DETAILS = 0,
@@ -31,6 +33,11 @@ export interface IFillDetailsParams {
   quote: IQuote;
 }
 
+export interface IExchangeDetails {
+  id: string;
+  address: string;
+}
+
 export interface SwapContextInterface {
   currentPage: SwapPage;
   toNextPage: () => void;
@@ -40,6 +47,8 @@ export interface SwapContextInterface {
   toAccount?: IAccount;
   quote?: IQuote;
   fillDetails: (params: IFillDetailsParams) => void;
+  exchangeDetails?: IExchangeDetails;
+  initiateExchange: (address: string) => Promise<void>;
 }
 
 export const SwapContext: React.Context<SwapContextInterface> =
@@ -70,6 +79,9 @@ export const SwapProvider: React.FC<SwapProviderProps> = ({ children }) => {
   const [fromAccount, setFromAccount] = useState<IAccount | undefined>();
   const [toAccount, setToAccount] = useState<IAccount | undefined>();
   const [quote, setQuote] = useState<IQuote | undefined>();
+  const [exchangeDetails, setExchangeDetails] = useState<
+    IExchangeDetails | undefined
+  >();
 
   const fillDetails = ({ from, to, quote }: IFillDetailsParams) => {
     setFromAccount(from);
@@ -85,8 +97,40 @@ export const SwapProvider: React.FC<SwapProviderProps> = ({ children }) => {
   //give details to exchange app (init)
   //start receive flow
   //get details from exchange app (receive signature)
-  //give details to server
-  //get details from server
+  const initiateExchange = async (address: string) => {
+    if (
+      quote === undefined ||
+      toAccount === undefined ||
+      fromAccount === undefined
+    )
+      return;
+
+    try {
+      //give details to server
+      const result = await createExchange({
+        id: quote.id,
+        providerId: quote.provider.id,
+        fromCurrency: fromAccount.assetId,
+        toCurrency: toAccount.assetId,
+        amount: quote.fromAmount,
+        receiverAddress: address,
+        receiverAddressSignature: 'sig', //TODO: use actual signature
+        fromNetwork: fromAccount.parentAssetId,
+        toNetwork: toAccount.parentAssetId,
+        deviceSerial: 'ser', //TODO: use actual serial
+      });
+
+      if (result.status === 200) {
+        //get details from server
+        setExchangeDetails({
+          id: result.data.id,
+          address: result.data.exchangeAddress,
+        });
+      }
+    } catch (error) {
+      logger.error(error);
+    }
+  };
   //give details to exchange app (send signature)
   //start send flow
   //get status from server (poll)
@@ -100,6 +144,8 @@ export const SwapProvider: React.FC<SwapProviderProps> = ({ children }) => {
     toAccount,
     quote,
     fillDetails,
+    exchangeDetails,
+    initiateExchange,
   });
   return <SwapContext.Provider value={ctx}>{children}</SwapContext.Provider>;
 };
