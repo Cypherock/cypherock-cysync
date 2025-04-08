@@ -35,6 +35,7 @@ export interface ReceiveDialogProps {
   accountId?: string;
   skipSelection?: boolean;
   storeReceiveAddress?: (address: string) => void;
+  onClose?: () => void;
 }
 
 export const Receive: FC = () => {

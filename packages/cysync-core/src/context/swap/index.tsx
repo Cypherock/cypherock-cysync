@@ -1,5 +1,5 @@
 import { IAccount } from '@cypherock/db-interfaces';
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { useMemoReturn } from '~/hooks';
 import { createExchange } from '~/services/swapService';
 import logger from '~/utils/logger';
@@ -43,6 +43,8 @@ export interface SwapContextInterface {
   toNextPage: () => void;
   toPreviousPage: () => void;
   reset: () => void;
+  error: Error;
+  retryCurrentPage: () => void;
   fromAccount?: IAccount;
   toAccount?: IAccount;
   quote?: IQuote;
@@ -60,6 +62,7 @@ export interface SwapProviderProps {
 
 export const SwapProvider: React.FC<SwapProviderProps> = ({ children }) => {
   const [currentPage, setCurrentPage] = useState(SwapPage.DETAILS);
+  const [globalError, setGlobalError] = useState<any>();
 
   const toNextPage = () => {
     setCurrentPage(p => Math.min(SwapPage.STATUS, p + 1));
@@ -69,12 +72,26 @@ export const SwapProvider: React.FC<SwapProviderProps> = ({ children }) => {
   };
 
   const reset = () => {
+    setGlobalError(undefined);
+
     setCurrentPage(SwapPage.DETAILS);
 
     setFromAccount(undefined);
     setToAccount(undefined);
     setQuote(undefined);
   };
+
+  const retryMap: Record<SwapPage, () => void> = {
+    [SwapPage.DETAILS]: reset,
+    [SwapPage.SUMMARY]: reset,
+    [SwapPage.RECEIVE]: reset,
+    [SwapPage.SEND]: reset,
+    [SwapPage.STATUS]: reset,
+  };
+
+  const retryPage = useCallback(() => {
+    retryMap[currentPage]();
+  }, [currentPage]);
 
   const [fromAccount, setFromAccount] = useState<IAccount | undefined>();
   const [toAccount, setToAccount] = useState<IAccount | undefined>();
@@ -98,14 +115,14 @@ export const SwapProvider: React.FC<SwapProviderProps> = ({ children }) => {
   //start receive flow
   //get details from exchange app (receive signature)
   const initiateExchange = async (address: string) => {
-    if (
-      quote === undefined ||
-      toAccount === undefined ||
-      fromAccount === undefined
-    )
-      return;
-
     try {
+      if (
+        quote === undefined ||
+        toAccount === undefined ||
+        fromAccount === undefined
+      )
+        throw new Error('Invalid prerequisite data');
+
       //give details to server
       const result = await createExchange({
         id: quote.id,
@@ -129,6 +146,7 @@ export const SwapProvider: React.FC<SwapProviderProps> = ({ children }) => {
       }
     } catch (error) {
       logger.error(error);
+      setGlobalError(error);
     }
   };
   //give details to exchange app (send signature)
@@ -140,6 +158,8 @@ export const SwapProvider: React.FC<SwapProviderProps> = ({ children }) => {
     toNextPage,
     toPreviousPage,
     reset,
+    error: globalError,
+    retryCurrentPage: retryPage,
     fromAccount,
     toAccount,
     quote,

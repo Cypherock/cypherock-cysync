@@ -80,6 +80,7 @@ export interface ReceiveDialogContextProviderProps {
   accountId?: string;
   skipSelection?: boolean;
   storeReceiveAddress?: (address: string) => void;
+  onClose?: () => void;
 }
 
 export const ReceiveDialogProvider: FC<ReceiveDialogContextProviderProps> = ({
@@ -88,6 +89,7 @@ export const ReceiveDialogProvider: FC<ReceiveDialogContextProviderProps> = ({
   accountId: defaultAccountId,
   skipSelection,
   storeReceiveAddress,
+  onClose: onCloseInjected,
 }) => {
   const lang = useAppSelector(selectLanguage);
   const dispatch = useAppDispatch();
@@ -160,11 +162,16 @@ export const ReceiveDialogProvider: FC<ReceiveDialogContextProviderProps> = ({
     [lang],
   );
 
+  if (storeReceiveAddress) {
+    useEffect(() => {
+      if (derivedAddress) storeReceiveAddress(derivedAddress);
+    }, [derivedAddress]);
+  }
+
   const onClose = () => {
     cleanUp();
     dispatch(closeDialog('receive'));
-    if (storeReceiveAddress && derivedAddress)
-      storeReceiveAddress(derivedAddress);
+    if (onCloseInjected) onCloseInjected();
   };
 
   const onSkip = () => {
