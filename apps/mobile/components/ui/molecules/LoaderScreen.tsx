@@ -26,23 +26,32 @@ export const LoaderScreen = ({
           paddingVertical: 12,
         }}
       >
-        <LottieView
-          autoPlay
-          loop
-          source={require('@/assets/lottie/loader.json')}
-          style={{ width: loaderSize, height: loaderSize }}
-        />
+        <Container
+          style={{
+            justifyContent: 'center',
+            alignItems: 'center',
+            maxWidth: loaderSize,
+            maxHeight: loaderSize,
+          }}
+        >
+          <LottieView
+            autoPlay
+            loop
+            source={require('@/assets/lottie/loader.json')}
+            style={{ width: loaderSize, height: loaderSize }}
+          />
+          {showProgress && (
+            <View style={{ position: 'absolute' }}>
+              <Typography type="h3" textAlign="center">
+                {`${Math.round(progress)}%`}
+              </Typography>
+            </View>
+          )}
+        </Container>
         {title && (
           <Typography type="para" color="primary">
             {title}
           </Typography>
-        )}
-        {showProgress && (
-          <View style={{ marginTop: 16 }}>
-            <Typography type="para" color="secondary" textAlign="center">
-              {`${Math.round(progress)}% completed`}
-            </Typography>
-          </View>
         )}
       </Container>
     </ScreenContainer>
