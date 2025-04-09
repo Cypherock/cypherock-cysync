@@ -99,11 +99,13 @@ export default function PasswordPage() {
   }
 
   return (
-    <ScreenContainer
-      style={{ paddingVertical: 12, paddingHorizontal: 16, paddingBottom: 24 }}
-    >
+    <ScreenContainer>
       <KeyboardAvoidingView
-        style={{ flex: 1, width: '100%' }}
+        style={{
+          flex: 1,
+          width: '100%',
+          paddingHorizontal: 16,
+        }}
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
       >
         <Container style={{ gap: 16 }}>
@@ -157,10 +159,14 @@ export default function PasswordPage() {
               )}
           </Container>
         </Container>
-        <View style={{ gap: 8, width: '100%' }}>
-          <Button title={strings.buttons.continue} onPress={handleContinue} />
-        </View>
       </KeyboardAvoidingView>
+      <Container style={{ justifyContent: 'flex-end' }}>
+        <Button
+          title={strings.buttons.continue}
+          style={{ marginHorizontal: 16, marginVertical: 12 }}
+          onPress={handleContinue}
+        />
+      </Container>
     </ScreenContainer>
   );
 }
