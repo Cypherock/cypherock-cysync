@@ -37,14 +37,15 @@ export default function Login() {
   }, [isLocked]);
 
   return (
-    <ScreenContainer
-      style={{
-        paddingHorizontal: 16,
-        paddingBottom: 24,
-      }}
-    >
+    <ScreenContainer>
       <KeyboardAvoidingView
-        style={{ flex: 1, width: '100%' }}
+        style={{
+          flex: 1,
+          flexGrow: 5,
+          width: '100%',
+          paddingVertical: 12,
+          paddingHorizontal: 16,
+        }}
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
       >
         <Container
@@ -88,11 +89,13 @@ export default function Login() {
           />
         </Container>
       </KeyboardAvoidingView>
-      <Button
-        title="Continue"
-        onPress={handleUnlock}
-        style={{ width: '100%' }}
-      />
+      <Container style={{ justifyContent: 'flex-end' }}>
+        <Button
+          title="Continue"
+          onPress={handleUnlock}
+          style={{ marginHorizontal: 16, marginVertical: 12 }}
+        />
+      </Container>
     </ScreenContainer>
   );
 }
