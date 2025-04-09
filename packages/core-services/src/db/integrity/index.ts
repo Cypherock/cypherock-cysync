@@ -1,7 +1,8 @@
 import { IDatabase } from '@cypherock/db-interfaces';
 
-import logger from '../../utils/logger';
 import { checkAccountIntegrity } from './account';
+
+import logger from '../../utils/logger';
 
 export const checkIntegrity = async (db: IDatabase) => {
   logger.info('Checking Database integrity...');

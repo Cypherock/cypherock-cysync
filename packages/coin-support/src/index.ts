@@ -3,9 +3,9 @@ import { EvmSupport } from '@cypherock/coin-support-evm';
 import { CoinSupport } from '@cypherock/coin-support-interfaces';
 import { NearSupport } from '@cypherock/coin-support-near';
 import { SolanaSupport } from '@cypherock/coin-support-solana';
+import { StarknetSupport } from '@cypherock/coin-support-starknet';
 import { TronSupport } from '@cypherock/coin-support-tron';
 import { XrpSupport } from '@cypherock/coin-support-xrp';
-import { StarknetSupport } from '@cypherock/coin-support-starknet';
 import { coinFamiliesMap, CoinFamily } from '@cypherock/coins';
 
 const coinSupportMap: Record<CoinFamily, CoinSupport> = {

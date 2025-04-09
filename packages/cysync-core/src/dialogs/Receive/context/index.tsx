@@ -361,4 +361,7 @@ export function useReceiveDialog(): ReceiveDialogContextInterface {
 ReceiveDialogProvider.defaultProps = {
   walletId: undefined,
   accountId: undefined,
+  skipSelection: undefined,
+  storeReceiveAddress: undefined,
+  onClose: undefined,
 };

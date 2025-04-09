@@ -1,6 +1,7 @@
 import { IPreparedBtcTransaction } from '@cypherock/coin-support-btc';
 import { IPreparedEvmTransaction } from '@cypherock/coin-support-evm';
-import { IPreparedXrpTransaction } from '@cypherock/coin-support-xrp';
+import { IPreparedSolanaTransaction } from '@cypherock/coin-support-solana';
+import { IPreparedTronTransaction } from '@cypherock/coin-support-tron';
 import {
   convertToUnit,
   getDefaultUnit,
@@ -8,6 +9,7 @@ import {
   getZeroUnit,
   formatDisplayPrice,
 } from '@cypherock/coin-support-utils';
+import { IPreparedXrpTransaction } from '@cypherock/coin-support-xrp';
 import {
   CoinFamily,
   EvmIdMap,
@@ -26,14 +28,12 @@ import { selectLanguage, selectPriceInfos, useAppSelector } from '~/store';
 
 import { BitcoinInput } from './BitcoinInput';
 import { EthereumInput } from './EthereumInput';
-import { XrpInput } from './XrpInput';
 import { FeesDisplay } from './FeesDisplay';
 import { FeesHeader } from './FeesHeader';
 import { OptimismFeesHeader } from './OptimismFeesHeader';
+import { XrpInput } from './XrpInput';
 
 import { useSendDialog } from '../../../context';
-import { IPreparedSolanaTransaction } from '@cypherock/coin-support-solana';
-import { IPreparedTronTransaction } from '@cypherock/coin-support-tron';
 
 const feeInputMap: Partial<Record<CoinFamily, React.FC<any>>> = {
   bitcoin: BitcoinInput,

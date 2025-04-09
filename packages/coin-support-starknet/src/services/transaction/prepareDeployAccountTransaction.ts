@@ -1,10 +1,12 @@
 import { starknetCoinList } from '@cypherock/coins';
-import { getCoinSupportStarknetLib } from '../../utils';
+
 import {
   StarknetDeployAccountTransaction,
   StarknetPrepareDeployTransactionParams,
   StarknetTransactionTypes,
 } from './types';
+
+import { getCoinSupportStarknetLib } from '../../utils';
 
 export const getConstructorCalldata = (pubKey: string) => {
   const { CallData } = getCoinSupportStarknetLib();

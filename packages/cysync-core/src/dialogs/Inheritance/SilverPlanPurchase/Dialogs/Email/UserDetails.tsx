@@ -1,10 +1,10 @@
 import { Button, LangDisplay } from '@cypherock/cysync-ui';
 import React, { useEffect, useMemo, useState } from 'react';
-import { UserDetailsForm } from '../../../components';
 
 import { WalletAuthLoginStep } from '~/dialogs/Inheritance/hooks';
 import { selectLanguage, useAppSelector } from '~/store';
 
+import { UserDetailsForm } from '../../../components';
 import { useInheritanceSilverPlanPurchaseDialog } from '../../context';
 import { Layout } from '../../Layout';
 

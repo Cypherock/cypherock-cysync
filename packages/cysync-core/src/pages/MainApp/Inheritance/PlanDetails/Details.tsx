@@ -1,6 +1,12 @@
 import { format as formatDate } from 'date-fns';
 import React, { FC, useCallback, useMemo } from 'react';
 
+import {
+  openInheritanceEditEncryptedMessageDialog,
+  openInheritanceEditExecutorMessageDialog,
+  openInheritanceEditReminderTimeDialog,
+  openInheritanceEditUserDetailsDialog,
+} from '~/actions';
 import { selectLanguage, useAppDispatch, useAppSelector } from '~/store';
 
 import { InheritancePlanDetailsSectionProps } from './types';
@@ -11,12 +17,6 @@ import {
   InheritancePlanDetailsLayout,
   UserDetails,
 } from '../components';
-import {
-  openInheritanceEditEncryptedMessageDialog,
-  openInheritanceEditExecutorMessageDialog,
-  openInheritanceEditReminderTimeDialog,
-  openInheritanceEditUserDetailsDialog,
-} from '~/actions';
 
 const planDetailsObjectKeyMapper = (obj: {
   name: string;

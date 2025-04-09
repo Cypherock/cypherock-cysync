@@ -1,8 +1,8 @@
 import { IPreparedBtcTransaction } from '@cypherock/coin-support-btc';
 import { IPreparedEvmTransaction } from '@cypherock/coin-support-evm';
-import { IPreparedXrpTransaction } from '@cypherock/coin-support-xrp';
 import { IPreparedTransaction } from '@cypherock/coin-support-interfaces';
 import { getDefaultUnit, getParsedAmount } from '@cypherock/coin-support-utils';
+import { IPreparedXrpTransaction } from '@cypherock/coin-support-xrp';
 import { CoinFamily } from '@cypherock/coins';
 import { Container } from '@cypherock/cysync-ui';
 import { AccountTypeMap } from '@cypherock/db-interfaces';
@@ -12,10 +12,10 @@ import { selectLanguage, useAppSelector } from '~/store';
 
 import { AddressInput } from './AddressInput';
 import { AmountInput } from './AmountInput';
+import { DestinationTagInput } from './DestinationTagInput';
 import { NotesInput } from './NotesInput';
 
 import { useSendDialog } from '../../../context';
-import { DestinationTagInput } from './DestinationTagInput';
 
 interface SingleTransactionProps {
   disableInputs?: boolean;
@@ -81,7 +81,7 @@ export const SingleTransaction: React.FC<SingleTransactionProps> = ({
     return {
       label: displayText.destinationTag.label,
       placeholder: displayText.destinationTag.placeholder,
-      initialValue: txn?.userInputs.outputs[0]?.destinationTag,
+      initialValue: txn.userInputs.outputs[0]?.destinationTag,
       onChange: prepareDestinationTag,
       error: getDestinationTagError(),
     };

@@ -2,12 +2,13 @@ import React, { useMemo } from 'react';
 
 import { SwapPage, useSwap } from '~/context';
 
-import { MainAppLayout } from '../Layout';
 import { SwapDetailsInput } from './Pages/SwapDetailsInput';
 import { SwapReceive } from './Pages/SwapReceive';
 import { SwapSend } from './Pages/SwapSend';
 import { SwapStatus } from './Pages/SwapStatus';
 import { SwapSummary } from './Pages/SwapSummary';
+
+import { MainAppLayout } from '../Layout';
 
 const pageMap: Record<SwapPage, React.JSX.Element> = {
   [SwapPage.DETAILS]: <SwapDetailsInput />,

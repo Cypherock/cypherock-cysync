@@ -111,4 +111,7 @@ export const ReceiveDialog: FC<ReceiveDialogProps> = props => (
 ReceiveDialog.defaultProps = {
   walletId: undefined,
   accountId: undefined,
+  skipSelection: undefined,
+  storeReceiveAddress: undefined,
+  onClose: undefined,
 };

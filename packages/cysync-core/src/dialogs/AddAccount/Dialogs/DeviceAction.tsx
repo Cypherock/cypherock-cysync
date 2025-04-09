@@ -1,4 +1,5 @@
 import { CreateAccountDeviceEvent } from '@cypherock/coin-support-interfaces';
+import { coinFamiliesMap } from '@cypherock/coins';
 import {
   Check,
   LeanBoxProps,
@@ -14,7 +15,6 @@ import {
   ArrowRightIcon,
   Throbber,
 } from '@cypherock/cysync-ui';
-import { coinFamiliesMap } from '@cypherock/coins';
 import React, { useEffect, useMemo } from 'react';
 
 import { LoaderDialog } from '~/components';

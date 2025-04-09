@@ -198,7 +198,7 @@ export const InheritanceGoldPlanPurchaseDialogProvider: FC<
 
     if (result.result.emailConfig?.frequency)
       setReminderPeriod(
-        (result.result.emailConfig?.frequency as ReminderPeriod) ?? 'monthly',
+        (result.result.emailConfig.frequency as ReminderPeriod) ?? 'monthly',
       );
     setIsFetchingDetails(false);
   };
@@ -350,7 +350,7 @@ export const InheritanceGoldPlanPurchaseDialogProvider: FC<
         if (result.result.planType !== 'GOLD')
           throw { isForDifferentPlan: true };
 
-        setCouponDuration(result.result?.duration ?? '');
+        setCouponDuration(result.result.duration ?? '');
         setCoupon(_coupon);
       } catch (error: any) {
         setApplyingCouponError({
@@ -496,7 +496,7 @@ export const InheritanceGoldPlanPurchaseDialogProvider: FC<
   );
 
   useEffect(() => {
-    if (haveExecutor === false && authTokenConfig !== undefined) {
+    if (!haveExecutor && authTokenConfig !== undefined) {
       inheritanceLoginService.clearMetaData({
         resetExecutor: true,
         authTokenConfig,

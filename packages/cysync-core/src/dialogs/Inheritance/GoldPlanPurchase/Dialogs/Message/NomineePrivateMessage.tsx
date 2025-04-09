@@ -9,15 +9,15 @@ import {
   Tooltip,
   Typography,
 } from '@cypherock/cysync-ui';
+import { debounce } from 'lodash';
 import React, { useEffect, useMemo, useState } from 'react';
 
 import { selectLanguage, useAppSelector } from '~/store';
+import { validateInputLanguage } from '~/utils';
 
 import { useInheritanceGoldPlanPurchaseDialog } from '../../context';
 import { tabIndicies } from '../../context/useDialogHandler';
 import { Layout } from '../../Layout';
-import { validateInputLanguage } from '~/utils';
-import { debounce } from 'lodash';
 
 export const NomineePrivateMessageInput = () => {
   const lang = useAppSelector(selectLanguage);

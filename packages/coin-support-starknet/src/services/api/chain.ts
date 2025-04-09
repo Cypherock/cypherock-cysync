@@ -1,6 +1,7 @@
-import { makePostRequest } from '@cypherock/cysync-utils';
-import { config } from '../../config';
 import { starknetCoinList } from '@cypherock/coins';
+import { makePostRequest } from '@cypherock/cysync-utils';
+
+import { config } from '../../config';
 
 const baseUrl = `${config.API_CYPHEROCK}/starknet/chain`;
 

@@ -1,4 +1,8 @@
-import React from 'react';
+import {
+  formatDisplayPrice,
+  getAsset,
+  getDefaultUnit,
+} from '@cypherock/coin-support-utils';
 import {
   Container,
   DialogBox,
@@ -13,6 +17,11 @@ import {
   DialogBoxFooter,
   Button,
 } from '@cypherock/cysync-ui';
+import { BigNumber } from '@cypherock/cysync-utils';
+import { AccountTypeMap, IAccount } from '@cypherock/db-interfaces';
+import React from 'react';
+
+import { CoinIcon } from '~/components';
 import { useSwap } from '~/context';
 import {
   selectAccounts,
@@ -21,14 +30,6 @@ import {
   selectWallets,
   useAppSelector,
 } from '~/store';
-import { CoinIcon } from '~/components';
-import { AccountTypeMap, IAccount } from '@cypherock/db-interfaces';
-import {
-  formatDisplayPrice,
-  getAsset,
-  getDefaultUnit,
-} from '@cypherock/coin-support-utils';
-import { BigNumber } from '@cypherock/cysync-utils';
 
 export const SwapSummary = () => {
   const displayText = {
@@ -55,20 +56,20 @@ export const SwapSummary = () => {
     const accountDetails = [
       {
         id: 'wallet',
-        name: wallets.find(w => w.__id === account?.walletId)?.name ?? '',
+        name: wallets.find(w => w.__id === account.walletId)?.name ?? '',
         muted: true,
       },
       {
         id: 'account',
         name:
-          accounts.find(a => a.__id === account?.parentAccountId)?.name ??
-          account?.name ??
+          accounts.find(a => a.__id === account.parentAccountId)?.name ??
+          account.name ??
           '',
         muted: false,
-        icon: <CoinIcon parentAssetId={account?.parentAssetId ?? ''} />,
+        icon: <CoinIcon parentAssetId={account.parentAssetId ?? ''} />,
       },
     ];
-    if (account?.type === AccountTypeMap.subAccount) {
+    if (account.type === AccountTypeMap.subAccount) {
       const token = getAsset(account.parentAssetId, account.assetId);
 
       accountDetails.push({
@@ -221,7 +222,7 @@ export const SwapSummary = () => {
                         muted: false,
                         icon: (
                           <Image
-                            src={quote?.provider?.imageUrl ?? ''}
+                            src={quote?.provider.imageUrl ?? ''}
                             alt="Logo"
                             $width={25}
                             $height={25}

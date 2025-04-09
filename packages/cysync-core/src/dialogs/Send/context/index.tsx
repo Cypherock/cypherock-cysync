@@ -14,7 +14,6 @@ import {
   StarknetSupport,
 } from '@cypherock/coin-support-starknet';
 import { IPreparedTronTransaction } from '@cypherock/coin-support-tron';
-import { IPreparedXrpTransaction } from '@cypherock/coin-support-xrp';
 import {
   convertToUnit,
   formatDisplayAmount,
@@ -23,7 +22,9 @@ import {
   getParsedAmount,
   getZeroUnit,
 } from '@cypherock/coin-support-utils';
+import { IPreparedXrpTransaction } from '@cypherock/coin-support-xrp';
 import { coinFamiliesMap, CoinFamily } from '@cypherock/coins';
+import { ServerError, ServerErrorType } from '@cypherock/cysync-core-constants';
 import { DropDownItemProps, parseLangTemplate } from '@cypherock/cysync-ui';
 import { BigNumber } from '@cypherock/cysync-utils';
 import { IAccount, ITransaction, IWallet } from '@cypherock/db-interfaces';
@@ -74,7 +75,6 @@ import {
   SelectionDialog,
   DeviceAction,
 } from '../Dialogs';
-import { ServerError, ServerErrorType } from '@cypherock/cysync-core-constants';
 
 export interface SendDialogContextInterface {
   tabs: ITabs;

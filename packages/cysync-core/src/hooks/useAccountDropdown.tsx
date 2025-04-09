@@ -65,7 +65,7 @@ export const useAccountDropdown = (props: UseAccountDropdownProps) => {
     const mainAccounts = accounts.filter(
       account =>
         (props.selectedWallet
-          ? account.walletId === props.selectedWallet?.__id
+          ? account.walletId === props.selectedWallet.__id
           : true) &&
         account.type === AccountTypeMap.account &&
         (props.assetFilter

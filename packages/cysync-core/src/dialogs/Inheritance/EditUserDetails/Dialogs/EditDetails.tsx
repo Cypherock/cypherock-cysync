@@ -1,3 +1,4 @@
+import { constants } from '@cypherock/cysync-core-constants';
 import {
   Button,
   CloseButton,
@@ -17,7 +18,6 @@ import { useAppSelector } from '~/store';
 import { selectLanguage } from '~/store/lang';
 
 import { useInheritanceEditUserDetailsDialog } from '../context';
-import { constants } from '@cypherock/cysync-core-constants';
 
 export const EditDetails = () => {
   const lang = useAppSelector(selectLanguage);

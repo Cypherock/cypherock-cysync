@@ -1,5 +1,6 @@
 import { IAccount } from '@cypherock/db-interfaces';
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useState } from 'react';
+
 import { useMemoReturn } from '~/hooks';
 import { createExchange } from '~/services/swapService';
 import logger from '~/utils/logger';
@@ -100,20 +101,15 @@ export const SwapProvider: React.FC<SwapProviderProps> = ({ children }) => {
     IExchangeDetails | undefined
   >();
 
-  const fillDetails = ({ from, to, quote }: IFillDetailsParams) => {
+  const fillDetails = ({ from, to, quote: newQuote }: IFillDetailsParams) => {
     setFromAccount(from);
     setToAccount(to);
-    setQuote(quote);
-    console.log({ quotefilled: quote });
+    setQuote(newQuote);
   };
 
-  useEffect(() => {
-    console.log({ quoteupdated: quote });
-  }, [quote]);
-
-  //give details to exchange app (init)
-  //start receive flow
-  //get details from exchange app (receive signature)
+  // give details to exchange app (init)
+  // start receive flow
+  // get details from exchange app (receive signature)
   const initiateExchange = async (address: string) => {
     try {
       if (
@@ -123,7 +119,7 @@ export const SwapProvider: React.FC<SwapProviderProps> = ({ children }) => {
       )
         throw new Error('Invalid prerequisite data');
 
-      //give details to server
+      // give details to server
       const result = await createExchange({
         id: quote.id,
         providerId: quote.provider.id,
@@ -131,14 +127,14 @@ export const SwapProvider: React.FC<SwapProviderProps> = ({ children }) => {
         toCurrency: toAccount.assetId,
         amount: quote.fromAmount,
         receiverAddress: address,
-        receiverAddressSignature: 'sig', //TODO: use actual signature
+        receiverAddressSignature: 'sig', // TODO: use actual signature
         fromNetwork: fromAccount.parentAssetId,
         toNetwork: toAccount.parentAssetId,
-        deviceSerial: 'ser', //TODO: use actual serial
+        deviceSerial: 'ser', // TODO: use actual serial
       });
 
       if (result.status === 200) {
-        //get details from server
+        // get details from server
         setExchangeDetails({
           id: result.data.id,
           address: result.data.exchangeAddress,
@@ -149,9 +145,9 @@ export const SwapProvider: React.FC<SwapProviderProps> = ({ children }) => {
       setGlobalError(error);
     }
   };
-  //give details to exchange app (send signature)
-  //start send flow
-  //get status from server (poll)
+  // give details to exchange app (send signature)
+  // start send flow
+  // get status from server (poll)
 
   const ctx = useMemoReturn({
     currentPage,

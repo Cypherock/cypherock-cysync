@@ -1,4 +1,5 @@
 import { ReceiveDeviceEvent } from '@cypherock/coin-support-interfaces';
+import { coinFamiliesMap } from '@cypherock/coins';
 import {
   DialogBox,
   DialogBoxBody,
@@ -11,7 +12,6 @@ import {
   ScrollableContainer,
   MessageBox,
 } from '@cypherock/cysync-ui';
-import { coinFamiliesMap } from '@cypherock/coins';
 import React, { useEffect } from 'react';
 
 import { selectLanguage, useAppSelector } from '~/store';

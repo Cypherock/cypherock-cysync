@@ -15,10 +15,10 @@ import {
   reminderPeriodStringToNumMap,
   useAppDispatch,
 } from '~/store';
+
 import { useAuthTokenConfig } from '../../hooks/useAuthConfig';
 import { useCaptureUnhandledErrors } from '../../hooks/useCatpureUnhandledErrors';
 import { useUpdatePlanDetails } from '../../hooks/useUpdatePlanDetails';
-
 import { FetchData, ReminderSetup, Success } from '../Dialogs';
 
 export interface InheritanceEditReminderTimeDialogContextInterface {
@@ -110,7 +110,7 @@ export const InheritanceEditReminderTimeDialogProvider: FC<
 
     const reminderValue =
       reminderPeriodStringToNumMap[
-        result?.result?.emailConfig?.frequency ?? ''
+        result.result?.emailConfig?.frequency ?? ''
       ] ?? 1;
 
     setReminder(reminderValue);

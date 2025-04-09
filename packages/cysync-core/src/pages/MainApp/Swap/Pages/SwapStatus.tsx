@@ -1,4 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import {
+  formatDisplayPrice,
+  getAsset,
+  getDefaultUnit,
+} from '@cypherock/coin-support-utils';
 import {
   Container,
   DialogBox,
@@ -15,22 +19,19 @@ import {
   successIcon,
   warningIcon,
 } from '@cypherock/cysync-ui';
+import { BigNumber } from '@cypherock/cysync-utils';
+import { AccountTypeMap, IAccount } from '@cypherock/db-interfaces';
+import React, { useEffect, useState } from 'react';
+
+import { CoinIcon } from '~/components';
 import { useSwap } from '~/context';
+import { getExchangeStatus } from '~/services/swapService';
 import {
   selectAccounts,
   selectPriceInfos,
   selectWallets,
   useAppSelector,
 } from '~/store';
-import { CoinIcon } from '~/components';
-import { AccountTypeMap, IAccount } from '@cypherock/db-interfaces';
-import {
-  formatDisplayPrice,
-  getAsset,
-  getDefaultUnit,
-} from '@cypherock/coin-support-utils';
-import { BigNumber } from '@cypherock/cysync-utils';
-import { getExchangeStatus } from '~/services/swapService';
 import logger from '~/utils/logger';
 
 enum SwapStates {
@@ -62,7 +63,7 @@ export const SwapStatus = () => {
     if (state !== SwapStates.Pending) return;
     try {
       const result = await getExchangeStatus({
-        providerId: quote?.provider?.id ?? '',
+        providerId: quote?.provider.id ?? '',
         exchangeId: exchangeDetails?.id ?? '',
       });
       if (result.status === 200) {
@@ -90,20 +91,20 @@ export const SwapStatus = () => {
     const accountDetails = [
       {
         id: 'wallet',
-        name: wallets.find(w => w.__id === account?.walletId)?.name ?? '',
+        name: wallets.find(w => w.__id === account.walletId)?.name ?? '',
         muted: true,
       },
       {
         id: 'account',
         name:
-          accounts.find(a => a.__id === account?.parentAccountId)?.name ??
-          account?.name ??
+          accounts.find(a => a.__id === account.parentAccountId)?.name ??
+          account.name ??
           '',
         muted: false,
-        icon: <CoinIcon parentAssetId={account?.parentAssetId ?? ''} />,
+        icon: <CoinIcon parentAssetId={account.parentAssetId ?? ''} />,
       },
     ];
-    if (account?.type === AccountTypeMap.subAccount) {
+    if (account.type === AccountTypeMap.subAccount) {
       const token = getAsset(account.parentAssetId, account.assetId);
 
       accountDetails.push({
@@ -127,7 +128,7 @@ export const SwapStatus = () => {
     amount: string,
   ) => {
     const coinPrice = priceInfos.find(
-      p => p.assetId === account?.assetId && p.currency.toLowerCase() === 'usd',
+      p => p.assetId === account.assetId && p.currency.toLowerCase() === 'usd',
     );
     if (!account || !coinPrice) return [];
 
@@ -211,7 +212,7 @@ export const SwapStatus = () => {
                         muted: false,
                         icon: (
                           <Image
-                            src={quote?.provider?.imageUrl ?? ''}
+                            src={quote?.provider.imageUrl ?? ''}
                             alt="Logo"
                             $width={25}
                             $height={25}

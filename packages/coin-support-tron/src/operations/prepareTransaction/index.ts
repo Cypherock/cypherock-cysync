@@ -3,6 +3,7 @@ import { tronCoinList, ICoinInfo, ITronTrc20Token } from '@cypherock/coins';
 import { assert, BigNumber } from '@cypherock/cysync-utils';
 import { IAccount } from '@cypherock/db-interfaces';
 import { IUnsignedTransaction } from '@cypherock/sdk-app-tron';
+import { logger } from '@cypherock/sdk-app-tron/dist/utils';
 
 import { IPrepareTronTransactionParams } from './types';
 
@@ -10,7 +11,6 @@ import { getAccountDetailsByAddress } from '../../services';
 import { estimateBandwidth, prepareUnsignedSendTxn } from '../../utils';
 import { IPreparedTronTransaction } from '../transaction';
 import { validateAddress } from '../validateAddress';
-import { logger } from '@cypherock/sdk-app-tron/dist/utils';
 
 const validateAddresses = (
   params: IPrepareTronTransactionParams,

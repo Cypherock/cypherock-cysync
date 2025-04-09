@@ -176,7 +176,7 @@ const SideBarComponent: FC<{ collapseWallets?: boolean }> = () => {
             onClick={() => navigate('buysell')}
           />
           <SideBarItem
-            text={'Swap'}
+            text="Swap"
             Icon={DollarIcon}
             state={wallets.length === 0 ? State.disabled : getState('buysell')}
             onClick={() => navigate('swap')}

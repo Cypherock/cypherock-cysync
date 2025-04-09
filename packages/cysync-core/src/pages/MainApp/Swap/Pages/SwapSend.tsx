@@ -1,9 +1,10 @@
-import React, { useEffect, useRef, useState } from 'react';
 import { Container } from '@cypherock/cysync-ui';
-import { ErrorHandlerDialog, LoaderDialog } from '~/components';
-import { useAppDispatch } from '~/store';
+import React, { useEffect, useRef, useState } from 'react';
+
 import { openSendDialog } from '~/actions';
+import { ErrorHandlerDialog, LoaderDialog } from '~/components';
 import { useSwap } from '~/context';
+import { useAppDispatch } from '~/store';
 
 export const SwapSend = () => {
   const dispatch = useAppDispatch();
@@ -44,11 +45,11 @@ export const SwapSend = () => {
 
     dispatch(
       openSendDialog({
-        walletId: fromAccount?.walletId,
-        accountId: fromAccount?.__id,
+        walletId: fromAccount.walletId,
+        accountId: fromAccount.__id,
         prefillDetails: {
-          address: exchangeDetails?.address,
-          amount: quote?.fromAmount,
+          address: exchangeDetails.address,
+          amount: quote.fromAmount,
         },
         skipAccountSelection: true,
         disableAccountSelection: true,

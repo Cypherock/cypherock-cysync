@@ -1,9 +1,10 @@
-import React, { useEffect, useRef, useState } from 'react';
 import { Container } from '@cypherock/cysync-ui';
-import { ErrorHandlerDialog, LoaderDialog } from '~/components';
-import { useAppDispatch } from '~/store';
+import React, { useEffect, useRef, useState } from 'react';
+
 import { openReceiveDialog } from '~/actions';
+import { ErrorHandlerDialog, LoaderDialog } from '~/components';
 import { useSwap } from '~/context';
+import { useAppDispatch } from '~/store';
 
 export const SwapReceive = () => {
   const dispatch = useAppDispatch();
@@ -39,8 +40,8 @@ export const SwapReceive = () => {
     }
     dispatch(
       openReceiveDialog({
-        walletId: toAccount?.walletId,
-        accountId: toAccount?.__id,
+        walletId: toAccount.walletId,
+        accountId: toAccount.__id,
         skipSelection: true,
         storeReceiveAddress: getReceiveAddress,
         onClose: onReceiveFlowClosed,

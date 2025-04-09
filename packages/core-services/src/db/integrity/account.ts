@@ -1,5 +1,6 @@
 import { coinFamiliesMap, coinList } from '@cypherock/coins';
 import { IAccount, IDatabase } from '@cypherock/db-interfaces';
+
 import { deleteAccount } from '../../account';
 import logger from '../../utils/logger';
 

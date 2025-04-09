@@ -5,6 +5,7 @@ import {
   makeCreateAccountsObservable,
 } from '@cypherock/coin-support-utils';
 import { solanaCoinList } from '@cypherock/coins';
+import { BigNumber } from '@cypherock/cysync-utils';
 import { AccountTypeMap } from '@cypherock/db-interfaces';
 import { GetPublicKeysEvent, SolanaApp } from '@cypherock/sdk-app-solana';
 import { IDeviceConnection } from '@cypherock/sdk-interfaces';
@@ -19,7 +20,6 @@ import {
 } from './types';
 
 import * as services from '../../services';
-import { BigNumber } from '@cypherock/cysync-utils';
 
 const DERIVATION_PATH_LIMIT = 30;
 

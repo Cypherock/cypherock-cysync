@@ -17,10 +17,9 @@ import {
 } from '@cypherock/cysync-core';
 import { FallbackRenderer, GlobalStyles } from '@cypherock/cysync-ui';
 import React from 'react';
+import { ErrorBoundary } from 'react-error-boundary';
 
 import { AppRouter } from './Router';
-
-import { ErrorBoundary } from 'react-error-boundary';
 import logger from './utils/logger';
 
 const theme = getDefaultTheme();
