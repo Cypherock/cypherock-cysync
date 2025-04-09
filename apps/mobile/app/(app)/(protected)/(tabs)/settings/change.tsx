@@ -72,11 +72,15 @@ export default function ChangePassword() {
   }
 
   return (
-    <ScreenContainer
-      style={{ paddingVertical: 12, paddingHorizontal: 16, paddingBottom: 24 }}
-    >
+    <ScreenContainer>
       <KeyboardAvoidingView
-        style={{ flex: 1, width: '100%', gap: 16 }}
+        style={{
+          flex: 1,
+          width: '100%',
+          gap: 16,
+          paddingHorizontal: 16,
+          paddingVertical: 12,
+        }}
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
       >
         <Typography type="h3" textAlign="left">
@@ -140,8 +144,14 @@ export default function ChangePassword() {
             </Typography>
           )}
         </Container>
-        <Button title={strings.buttons.continue} onPress={handleContinue} />
       </KeyboardAvoidingView>
+      <Container style={{ justifyContent: 'flex-end' }}>
+        <Button
+          title={strings.buttons.continue}
+          style={{ marginVertical: 12, marginHorizontal: 16 }}
+          onPress={handleContinue}
+        />
+      </Container>
     </ScreenContainer>
   );
 }
