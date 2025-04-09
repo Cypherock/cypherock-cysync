@@ -8,11 +8,10 @@ export const getQuotes = async (params: {
   amount: string;
   fromNetwork: string;
   toNetwork: string;
-}) => {
-  return await axios.post(`${config.API_CYPHEROCK}/swap/get-quotes`, {
+}) =>
+  axios.post(`${config.API_CYPHEROCK}/swap/get-quotes`, {
     ...params,
   });
-};
 
 export const createExchange = async (params: {
   id: string;
@@ -25,8 +24,15 @@ export const createExchange = async (params: {
   fromNetwork: string;
   toNetwork: string;
   deviceSerial: string;
-}) => {
-  return await axios.post(`${config.API_CYPHEROCK}/swap/create-exchange`, {
+}) =>
+  axios.post(`${config.API_CYPHEROCK}/swap/create-exchange`, {
     ...params,
   });
-};
+
+export const getExchangeStatus = async (params: {
+  providerId: string;
+  exchangeId: string;
+}) =>
+  axios.post(`${config.API_CYPHEROCK}/swap/get-exchange-status`, {
+    ...params,
+  });

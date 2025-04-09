@@ -145,6 +145,8 @@ export interface SendDialogProps {
   disableAccountSelection?: boolean;
   isWalletConnectRequest?: boolean;
   skipAccountSelection?: boolean;
+  storeTransactionId?: (id: string) => void;
+  onClose?: () => void;
 }
 
 export interface SendDialogContextProviderProps extends SendDialogProps {
@@ -160,6 +162,8 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
   disableAccountSelection,
   isWalletConnectRequest,
   skipAccountSelection,
+  storeTransactionId,
+  onClose: injectedOnClose,
 }) => {
   const lang = useAppSelector(selectLanguage);
   const dispatch = useAppDispatch();
@@ -249,6 +253,14 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
     if (disableAccountSelection || skipAccountSelection) goTo(1, 0);
   }, []);
 
+  if (storeTransactionId) {
+    useEffect(() => {
+      if (storedTransaction?.__id) {
+        storeTransactionId(storedTransaction.__id);
+      }
+    }, [storedTransaction]);
+  }
+
   useEffect(() => {
     if (signedTransaction) {
       if (
@@ -296,6 +308,7 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
   const onClose = async (skipRejection?: boolean) => {
     cleanUp();
     if (!skipRejection && isWalletConnectRequest) rejectCallRequest();
+    if (injectedOnClose) injectedOnClose();
     dispatch(closeDialog('sendDialog'));
   };
 
@@ -951,4 +964,7 @@ SendDialogProvider.defaultProps = {
   disableAccountSelection: undefined,
   isWalletConnectRequest: undefined,
   skipAccountSelection: undefined,
+  prefillDetails: undefined,
+  storeTransactionId: undefined,
+  onClose: undefined,
 };

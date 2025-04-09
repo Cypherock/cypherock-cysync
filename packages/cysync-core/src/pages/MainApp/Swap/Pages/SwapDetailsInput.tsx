@@ -1,3 +1,5 @@
+/* eslint-disable */
+// TODO: refactor this file into multiple components
 import { getDefaultUnit, getParsedAmount } from '@cypherock/coin-support-utils';
 import {
   Container,
@@ -18,7 +20,7 @@ import { IAccount } from '@cypherock/db-interfaces';
 import lodash from 'lodash';
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { IQuote, useSwap } from '~/context';
-import { useAccountDropdown, useCountdown, useWalletDropdown } from '~/hooks';
+import { useAccountDropdown, useWalletDropdown } from '~/hooks';
 import { getQuotes } from '~/services/swapService';
 
 import { useAppSelector, selectLanguage } from '~/store';
@@ -200,7 +202,7 @@ const OfferBox: React.FC<any> = ({
       <Flex direction="column">
         {offerData?.data?.map((data: any) => {
           return (
-            <Flex justify="space-between" align="center">
+            <Flex justify="space-between" align="center" key={data.title}>
               <Flex gap={8} align="center">
                 <Typography $fontSize={14}>{data.title}</Typography>
               </Flex>
@@ -304,6 +306,7 @@ export const SwapQuotes: React.FC<{
             }}
             setSelectedIndex={setSelectedOfferIndex}
             selectedIndex={selectedOfferIndex}
+            key={quote.id}
           />
         );
       })}
@@ -337,6 +340,12 @@ export const SwapQuotes: React.FC<{
       </Button>
     </>
   );
+};
+
+SwapQuotes.defaultProps = {
+  selectedOfferIndex: undefined,
+  toAccount: undefined,
+  fromAccount: undefined,
 };
 
 export const SwapDetailsInput = () => {
@@ -394,6 +403,7 @@ export const SwapDetailsInput = () => {
   }, [quotes]);
 
   const [isFetchingQuotes, setIsFetchingQuotes] = useState(false);
+  const [range, setRange] = useState<{ min: string; max: string }>();
 
   const fetchQuotes = async (
     from: IAccount,
@@ -401,7 +411,8 @@ export const SwapDetailsInput = () => {
     amount: string,
     isValid: boolean,
   ) => {
-    let quotes: IQuote[] = [];
+    let newQuotes: IQuote[] = [];
+    let newRange = undefined;
     if (
       !(
         isValid &&
@@ -410,7 +421,8 @@ export const SwapDetailsInput = () => {
         toAccount !== undefined
       )
     ) {
-      setQuotes(quotes);
+      setQuotes(newQuotes);
+      setRange(undefined);
       setIsFetchingQuotes(false);
       return;
     }
@@ -425,13 +437,15 @@ export const SwapDetailsInput = () => {
       });
 
       if (result.status === 200) {
-        quotes = result.data.data;
+        newQuotes = result.data.data;
+        newRange = result.data?.metadata?.range;
       }
     } catch (e) {
       logger.error(e);
     }
 
-    setQuotes(quotes);
+    setRange(newRange);
+    setQuotes(newQuotes);
     setIsFetchingQuotes(false);
   };
 
@@ -557,7 +571,9 @@ export const SwapDetailsInput = () => {
               display="flex"
               $allowOverflow
             >
-              Change amount or currency
+              {range
+                ? `Amount should be between ${range.min} and ${range.max}`
+                : 'Currency not supported'}
             </Typography>
           </Flex>
         )}

@@ -6,6 +6,7 @@ import { MainAppLayout } from '../Layout';
 import { SwapDetailsInput } from './Pages/SwapDetailsInput';
 import { SwapReceive } from './Pages/SwapReceive';
 import { SwapSend } from './Pages/SwapSend';
+import { SwapStatus } from './Pages/SwapStatus';
 import { SwapSummary } from './Pages/SwapSummary';
 
 const pageMap: Record<SwapPage, React.JSX.Element> = {
@@ -13,7 +14,7 @@ const pageMap: Record<SwapPage, React.JSX.Element> = {
   [SwapPage.SUMMARY]: <SwapSummary />,
   [SwapPage.RECEIVE]: <SwapReceive />,
   [SwapPage.SEND]: <SwapSend />,
-  [SwapPage.STATUS]: <div></div>,
+  [SwapPage.STATUS]: <SwapStatus />,
 };
 
 export const Swap = () => {

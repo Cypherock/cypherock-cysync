@@ -15,9 +15,9 @@ export const SwapReceive = () => {
     reset,
     retryCurrentPage,
   } = useSwap();
+  const [pageError, setPageError] = useState<any>();
 
   const receiversAddress = useRef<string>();
-  const [pageError, setPageError] = useState<any>();
 
   const getReceiveAddress = (address: string) => {
     receiversAddress.current = address;
@@ -33,6 +33,10 @@ export const SwapReceive = () => {
   };
 
   useEffect(() => {
+    if (toAccount === undefined) {
+      setPageError(new Error('Account not selected'));
+      return;
+    }
     dispatch(
       openReceiveDialog({
         walletId: toAccount?.walletId,
