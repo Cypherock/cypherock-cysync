@@ -1,17 +1,29 @@
+import { makePostRequest } from '@cypherock/cysync-utils';
 import type { RequestId } from '@dfinity/agent';
 import type { IDL as IDLType } from '@dfinity/candid';
 
+import { config } from '../../config';
+import { HOST, ICP_LEDGER_CANISTER_ID } from '../../constants';
 import { decodeReturnValue, getCoinSupportDfinityLib } from '../../utils';
 import logger from '../../utils/logger';
-import { HOST } from '../../constants';
+
+const baseURL = `${config.API_CYPHEROCK}/icp/transaction`;
 
 export const getTransactionFee = async () => {
-  const { agent, icp } = getCoinSupportDfinityLib();
-  const ledger = icp.LedgerCanister.create({
-    agent: await agent.HttpAgent.create({ host: HOST }),
+  const url = `${baseURL}/fees`;
+
+  const response = await makePostRequest(url, {
+    canisterId: ICP_LEDGER_CANISTER_ID,
   });
 
-  return ledger.transactionFee();
+  let fees = response.data?.fees ?? '10000';
+
+  if (typeof fees === 'number') fees = fees.toString();
+
+  if (typeof fees !== 'string')
+    throw new Error('Invalid icp txn fees returned from server');
+
+  return fees;
 };
 
 export const getTransactions = async (
@@ -123,12 +135,16 @@ export const getTokenTransactions = async (
 };
 
 export const getTokenTransactionFee = async (canisterId: string) => {
-  const { agent, icrc, principal } = getCoinSupportDfinityLib();
+  const url = `${baseURL}/token/fees`;
 
-  const icrcLedger = icrc.IcrcLedgerCanister.create({
-    agent: await agent.HttpAgent.create({ host: HOST }),
-    canisterId: principal.Principal.from(canisterId),
-  });
+  const response = await makePostRequest(url, { canisterId });
 
-  return icrcLedger.transactionFee({});
+  let fees = response.data?.fees ?? '200000';
+
+  if (typeof fees === 'number') fees = fees.toString();
+
+  if (typeof fees !== 'string')
+    throw new Error('Invalid icp token txn fees returned from server');
+
+  return fees;
 };

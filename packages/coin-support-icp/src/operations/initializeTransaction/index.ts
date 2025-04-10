@@ -20,11 +20,9 @@ export const initializeTransaction = async (
     const tokenDetails =
       icpCoinList[account.parentAssetId].tokens[account.assetId];
 
-    fees = (
-      await getTokenTransactionFee(tokenDetails.canisters.ledger)
-    ).toString();
+    fees = await getTokenTransactionFee(tokenDetails.canisters.ledger);
   } else {
-    fees = (await getTransactionFee()).toString();
+    fees = await getTransactionFee();
   }
 
   return {
