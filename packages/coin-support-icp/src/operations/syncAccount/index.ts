@@ -18,7 +18,11 @@ import type { IcrcTransactionWithId } from '@dfinity/ledger-icrc';
 import { ISyncIcpAccountsParams } from './types';
 
 import * as services from '../../services';
-import { derivePrincipal, getCoinSupportDfinityLib } from '../../utils';
+import {
+  derivePrincipal,
+  derivePrincipalIdFromPrincipal,
+  getCoinSupportDfinityLib,
+} from '../../utils';
 import { IIcpAccount } from '../types';
 
 const PER_PAGE_TXN_LIMIT = 100;
@@ -391,7 +395,7 @@ const getAddressDetails: IGetAddressDetails<{
       icpCoinList[account.parentAssetId].tokens[account.assetId];
 
     updatedBalance ??= await services.getTokenBalance(
-      principalId,
+      derivePrincipalIdFromPrincipal(principalId),
       tokenDetails.canisters.ledger,
     );
 
