@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { StatusBar } from 'react-native';
+import { StatusBar, View } from 'react-native';
 import { SafeAreaViewProps } from 'react-native-safe-area-context';
 import styled from 'styled-components/native';
 

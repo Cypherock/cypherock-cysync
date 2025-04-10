@@ -1,5 +1,5 @@
 import { Dimensions, StyleSheet, View } from 'react-native';
-import React, { ReactNode } from 'react';
+import React, { ReactNode, useEffect, useState } from 'react';
 import { Typography, Button, TypographyProps } from '../atoms';
 import { Image } from 'expo-image';
 
@@ -26,8 +26,17 @@ export interface IOnboardingItem {
 }
 
 export function OnboardingItem(props: IOnboardingItem) {
+  const [screenWidth, setScreenWidth] = useState(width);
+
+  useEffect(() => {
+    const subscription = Dimensions.addEventListener('change', ({ window }) => {
+      setScreenWidth(window.width);
+    });
+    return () => subscription?.remove();
+  }, []);
+
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, { width: screenWidth }]}>
       <View style={styles.imageContainer}>
         {props.image && (
           <Image
@@ -79,7 +88,6 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     flex: 1,
-    width: width,
   },
   imageContainer: {
     justifyContent: 'center',
