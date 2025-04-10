@@ -23,7 +23,6 @@ export default function Layout() {
         console.warn(e);
       } finally {
         setAppIsReady(true);
-        SplashScreen.hide();
       }
     }
 
