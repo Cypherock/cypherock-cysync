@@ -1,42 +1,43 @@
-import { HOST, ICP_LEDGER_CANISTER_ID } from '../../constants';
-import { getCoinSupportDfinityLib } from '../../utils';
+import { makePostRequest } from '@cypherock/cysync-utils';
+
+import { config } from '../../config';
+import { ICP_LEDGER_CANISTER_ID } from '../../constants';
+
+const baseURL = `${config.API_CYPHEROCK}/icp/wallet`;
 
 export const getBalance = async (accountId: string) => {
-  try {
-    const { agent, icp, principal } = getCoinSupportDfinityLib();
-    const ledger = icp.LedgerCanister.create({
-      agent: await agent.HttpAgent.create({ host: HOST }),
-      canisterId: principal.Principal.fromText(ICP_LEDGER_CANISTER_ID),
-    });
+  const url = `${baseURL}/balance`;
+  const response = await makePostRequest(url, {
+    accountId,
+    canisterId: ICP_LEDGER_CANISTER_ID,
+  });
 
-    const balance = await ledger.accountBalance({
-      accountIdentifier: accountId,
-    });
+  let balance = response.data?.balance ?? '0';
 
-    return balance.toString();
-  } catch (error) {
-    throw new Error('Error fetching ICP account balance');
-  }
+  if (typeof balance === 'number') balance = balance.toString();
+
+  if (typeof balance !== 'string')
+    throw new Error('Invalid icp balance returned from server');
+
+  return balance;
 };
 
 export const getTokenBalance = async (
-  principalID: Uint8Array,
+  principalId: string,
   tokenLedgerCanisterId: string,
 ) => {
-  try {
-    const { agent, icrc, principal } = getCoinSupportDfinityLib();
+  const url = `${baseURL}/token/balance`;
+  const response = await makePostRequest(url, {
+    principalId,
+    canisterId: tokenLedgerCanisterId,
+  });
 
-    const icrcLedger = icrc.IcrcLedgerCanister.create({
-      agent: await agent.HttpAgent.create({ host: HOST }),
-      canisterId: principal.Principal.from(tokenLedgerCanisterId),
-    });
+  let balance = response.data?.balance ?? '0';
 
-    const balance = await icrcLedger.balance({
-      owner: principal.Principal.from(principalID),
-    });
+  if (typeof balance === 'number') balance = balance.toString();
 
-    return balance.toString();
-  } catch (error) {
-    throw new Error('Error fetching ICP token account balance');
-  }
+  if (typeof balance !== 'string')
+    throw new Error('Invalid icp token balance returned from server');
+
+  return balance;
 };
