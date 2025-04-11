@@ -266,6 +266,18 @@
         "error": "Alamat tidak valid",
         "ownAddress": "Alamat penerima sama dengan alamat pengirim"
       },
+      "icpAccountIdRecipient": {
+        "label": "Recipient Account ID",
+        "placeholder": "Enter account id",
+        "error": "Invalid account id",
+        "ownAddress": "Recipient account id is the same as sender account id"
+      },
+      "icpPrincipalIdRecipient": {
+        "label": "Recipient Principal ID",
+        "placeholder": "Enter principal id",
+        "error": "Invalid principal id",
+        "ownAddress": "Recipient principal id is the same as sender principal id"
+      },
       "tabs": {
         "single": "Transaksi Tunggal",
         "batch": "Transaksi Batch"
@@ -327,6 +339,7 @@
       "button": "Periksa transaksi",
       "title": "Transaksi Terkirim",
       "hashLabel": "Hash Transaksi",
+      "idLabel": "ID Transaksi",
       "messageBox": {
         "warning": "Saldo akun Anda akan diperbarui saat blockchain mengonfirmasi transaksi"
       }
@@ -427,13 +440,15 @@
       "receiver": "Penerima",
       "mine": "Tambang",
       "transactionHash": "Hash Transaksi",
+      "transactionId": "Transaction ID",
       "description": "Deskripsi",
       "feePrefix": {
         "optimism": "L2 "
       },
       "remarks": "Catatan Pribadi",
       "destinationTag": "Tag Tujuan",
-      "memo": "Memo"
+      "memo": "Memo",
+      "operation": "Operation"
     },
     "noData": {
       "text": "Belum ada transaksi",

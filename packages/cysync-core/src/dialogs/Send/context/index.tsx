@@ -27,7 +27,12 @@ import {
 import { coinFamiliesMap, CoinFamily } from '@cypherock/coins';
 import { DropDownItemProps, parseLangTemplate } from '@cypherock/cysync-ui';
 import { BigNumber } from '@cypherock/cysync-utils';
-import { IAccount, ITransaction, IWallet } from '@cypherock/db-interfaces';
+import {
+  AccountTypeMap,
+  IAccount,
+  ITransaction,
+  IWallet,
+} from '@cypherock/db-interfaces';
 import lodash from 'lodash';
 import React, {
   Context,
@@ -698,11 +703,30 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
   const getOutputError = useCallback(
     (index: number) => {
       if (transaction?.validation.outputs[index] === false) {
-        return lang.strings.send.recipient.recipient.error;
+        let { error: validationError } = lang.strings.send.recipient.recipient;
+
+        if (selectedAccount?.familyId === coinFamiliesMap.icp) {
+          const isIcpToken = selectedAccount.type === AccountTypeMap.subAccount;
+          validationError = isIcpToken
+            ? lang.strings.send.recipient.icpPrincipalIdRecipient.error
+            : lang.strings.send.recipient.icpAccountIdRecipient.error;
+        }
+
+        return validationError;
       }
 
       if (transaction?.validation.ownOutputAddressNotAllowed[index]) {
-        return lang.strings.send.recipient.recipient.ownAddress;
+        let { ownAddress: ownAddressError } =
+          lang.strings.send.recipient.recipient;
+
+        if (selectedAccount?.familyId === coinFamiliesMap.icp) {
+          const isIcpToken = selectedAccount.type === AccountTypeMap.subAccount;
+          ownAddressError = isIcpToken
+            ? lang.strings.send.recipient.icpPrincipalIdRecipient.ownAddress
+            : lang.strings.send.recipient.icpAccountIdRecipient.ownAddress;
+        }
+
+        return ownAddressError;
       }
 
       return '';

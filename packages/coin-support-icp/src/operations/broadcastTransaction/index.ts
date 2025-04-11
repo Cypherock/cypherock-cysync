@@ -5,6 +5,7 @@ import {
 import { icpCoinList } from '@cypherock/coins';
 import { BigNumber } from '@cypherock/cysync-utils';
 import {
+  AccountTypeMap,
   ITransaction,
   TransactionStatusMap,
   TransactionTypeMap,
@@ -14,11 +15,16 @@ import { hexToUint8Array } from '@cypherock/sdk-utils';
 
 import { IBroadcastIcpTransactionParams } from './types';
 
+import { ICP_LEDGER_CANISTER_ID } from '../../constants';
 import { broadcastTransactionToBlockchain } from '../../services';
 import {
+  derivePrincipal,
   getCoinSupportDfinityLib,
   getDerEncodedPublicKey,
+  getTokenTransferResultArgs,
+  getTransferResultArgs,
   prepareReadStateRequest,
+  prepareTokenTransferRequest,
   prepareTransferRequest,
 } from '../../utils';
 import { IPreparedIcpTransaction } from '../transaction';
@@ -29,10 +35,19 @@ const prepareSignedTxn = (
   account: IIcpAccount,
   signature: ISignTxnResult,
 ) => {
-  const transferRequest = prepareTransferRequest(
-    (transaction as IPreparedIcpTransaction).computedData,
-    (account as IIcpAccount).extraData.publicKey,
-  );
+  const isTokenAccount = account.type === AccountTypeMap.subAccount;
+
+  const transferRequest = isTokenAccount
+    ? prepareTokenTransferRequest(
+        transaction.computedData,
+        account.extraData.publicKey,
+        icpCoinList[account.parentAssetId].tokens[account.assetId].canisters
+          .ledger,
+      )
+    : prepareTransferRequest(
+        transaction.computedData,
+        account.extraData.publicKey,
+      );
 
   const { readStateRequest, transferRequestId } =
     prepareReadStateRequest(transferRequest);
@@ -71,12 +86,32 @@ export const broadcastTransaction = async (
     transaction.accountId,
   );
 
-  const myAddress = account.xpubOrAddress;
+  const isTokenAccount = account.type === AccountTypeMap.subAccount;
+
+  let myAddress = account.xpubOrAddress;
+  if (isTokenAccount) {
+    const { principal } = getCoinSupportDfinityLib();
+    myAddress = principal.Principal.from(
+      derivePrincipal((account as IIcpAccount).extraData.publicKey),
+    ).toText();
+  }
   const isMine = params.transaction.computedData.output.address === myAddress;
 
   const txn = prepareSignedTxn(transaction, account as IIcpAccount, signature);
 
-  const result = await broadcastTransactionToBlockchain(txn);
+  const result = await broadcastTransactionToBlockchain(
+    txn,
+    isTokenAccount
+      ? icpCoinList[account.parentAssetId].tokens[account.assetId].canisters
+          .ledger
+      : ICP_LEDGER_CANISTER_ID,
+    isTokenAccount ? getTokenTransferResultArgs() : getTransferResultArgs(),
+  );
+
+  let memo: string | undefined;
+  if (!isTokenAccount) {
+    memo = transaction.computedData.output.memo ?? '0';
+  }
 
   const parsedTransaction: ITransaction = {
     hash: result,
@@ -108,7 +143,8 @@ export const broadcastTransaction = async (
     parentAccountId: account.parentAccountId,
     remarks: [transaction.userInputs.outputs[0].remarks ?? ''],
     extraData: {
-      memo: transaction.computedData.output.memo ?? '0',
+      memo,
+      operation: 'transfer',
     },
   };
 

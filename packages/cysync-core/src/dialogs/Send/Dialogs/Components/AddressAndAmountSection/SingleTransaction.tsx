@@ -4,7 +4,7 @@ import { IPreparedXrpTransaction } from '@cypherock/coin-support-xrp';
 import { IPreparedIcpTransaction } from '@cypherock/coin-support-icp';
 import { IPreparedTransaction } from '@cypherock/coin-support-interfaces';
 import { getDefaultUnit, getParsedAmount } from '@cypherock/coin-support-utils';
-import { CoinFamily } from '@cypherock/coins';
+import { coinFamiliesMap, CoinFamily } from '@cypherock/coins';
 import { Container } from '@cypherock/cysync-ui';
 import { AccountTypeMap } from '@cypherock/db-interfaces';
 import React, { useEffect, useState } from 'react';
@@ -46,6 +46,14 @@ export const SingleTransaction: React.FC<SingleTransactionProps> = ({
     getDestinationTagError,
     getMemoError,
   } = useSendDialog();
+
+  let recipientDisplayText = displayText.recipient;
+  if (selectedAccount?.familyId === coinFamiliesMap.icp) {
+    const isIcpToken = selectedAccount.type === AccountTypeMap.subAccount;
+    recipientDisplayText = isIcpToken
+      ? displayText.icpPrincipalIdRecipient
+      : displayText.icpAccountIdRecipient;
+  }
 
   useEffect(() => {
     updateUserInputs(1);
@@ -151,6 +159,11 @@ export const SingleTransaction: React.FC<SingleTransactionProps> = ({
     if (!selectedAccount) return null;
     const coinFamily = selectedAccount.familyId as CoinFamily;
 
+    const isIcpToken =
+      coinFamily === coinFamiliesMap.icp &&
+      selectedAccount.type === AccountTypeMap.subAccount;
+    if (isIcpToken) return null;
+
     const Component = memoInputMap[coinFamily];
     if (!Component) return null;
 
@@ -184,8 +197,8 @@ export const SingleTransaction: React.FC<SingleTransactionProps> = ({
     <Container display="flex" direction="column" gap={16} width="full">
       <Container display="flex" direction="column" gap={8} width="full">
         <AddressInput
-          label={displayText.recipient.label}
-          placeholder={displayText.recipient.placeholder}
+          label={recipientDisplayText.label}
+          placeholder={recipientDisplayText.placeholder}
           initialValue={transaction?.userInputs.outputs[0]?.address}
           error={getOutputError(0)}
           onChange={prepareAddressChanged}

@@ -280,6 +280,18 @@ interface LangSend {
       error: string;
       ownAddress: string;
     };
+    icpAccountIdRecipient: {
+      label: string;
+      placeholder: string;
+      error: string;
+      ownAddress: string;
+    };
+    icpPrincipalIdRecipient: {
+      label: string;
+      placeholder: string;
+      error: string;
+      ownAddress: string;
+    };
     tabs: { single: string; batch: string };
     amount: {
       label: string;
@@ -328,6 +340,7 @@ interface LangSend {
     button: string;
     title: string;
     hashLabel: string;
+    idLabel: string;
     messageBox: { warning: string };
   };
   aside: {
@@ -413,11 +426,13 @@ interface LangHistory {
     receiver: string;
     mine: string;
     transactionHash: string;
+    transactionId: string;
     description: string;
     feePrefix: { optimism: string };
     remarks: string;
     destinationTag: string;
     memo: string;
+    operation: string;
   };
   noData: { text: string; subText: string; buttonText: string };
   search: { placeholder: string; notFound: { text: string; subText: string } };

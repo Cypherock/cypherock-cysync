@@ -266,6 +266,18 @@
         "error": "无效地址",
         "ownAddress": "收件人地址与发件人地址相同"
       },
+      "icpAccountIdRecipient": {
+        "label": "Recipient Account ID",
+        "placeholder": "Enter account id",
+        "error": "Invalid account id",
+        "ownAddress": "Recipient account id is the same as sender account id"
+      },
+      "icpPrincipalIdRecipient": {
+        "label": "Recipient Principal ID",
+        "placeholder": "Enter principal id",
+        "error": "Invalid principal id",
+        "ownAddress": "Recipient principal id is the same as sender principal id"
+      },
       "tabs": {
         "single": "单笔交易",
         "batch": "批量交易"
@@ -327,6 +339,7 @@
       "button": "查看交易",
       "title": "交易已发送",
       "hashLabel": "交易哈希",
+      "idLabel": "Transaction ID",
       "messageBox": {
         "warning": "当 blockchain 确认交易后，您的账户余额将被更新"
       }
@@ -427,13 +440,15 @@
       "receiver": "接收者",
       "mine": "我",
       "transactionHash": "交易哈希",
+      "transactionId": "Transaction ID",
       "description": "描述",
       "feePrefix": {
         "optimism": "L2 "
       },
       "remarks": "个人备注",
       "destinationTag": "目标标签",
-      "memo": "备忘录"
+      "memo": "备忘录",
+      "operation": "Operation"
     },
     "noData": {
       "text": "尚无交易",

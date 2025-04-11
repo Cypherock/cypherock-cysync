@@ -266,6 +266,18 @@
         "error": "Invalid address",
         "ownAddress": "Recipient address is the same as sender address"
       },
+      "icpAccountIdRecipient": {
+        "label": "Recipient Account ID",
+        "placeholder": "Enter account id",
+        "error": "Invalid account id",
+        "ownAddress": "Recipient account id is the same as sender account id"
+      },
+      "icpPrincipalIdRecipient": {
+        "label": "Recipient Principal ID",
+        "placeholder": "Enter principal id",
+        "error": "Invalid principal id",
+        "ownAddress": "Recipient principal id is the same as sender principal id"
+      },
       "tabs": {
         "single": "Single Transaction",
         "batch": "Batch Transaction"
@@ -327,6 +339,7 @@
       "button": "Check transactions",
       "title": "Transaction Sent",
       "hashLabel": "Transaction Hash",
+      "idLabel": "Transaction ID",
       "messageBox": {
         "warning": "Your account balance will be updated when the blockchain confirms the transaction"
       }
@@ -427,13 +440,15 @@
       "receiver": "Receiver",
       "mine": "Mine",
       "transactionHash": "Transaction Hash",
+      "transactionId": "Transaction ID",
       "description": "Description",
       "feePrefix": {
         "optimism": "L2 "
       },
       "remarks": "Personal Note",
       "destinationTag": "Destination Tag",
-      "memo": "Memo"
+      "memo": "Memo",
+      "operation": "Operation"
     },
     "noData": {
       "text": "No transactions yet",

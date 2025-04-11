@@ -1,7 +1,5 @@
+import { HOST, ICP_LEDGER_CANISTER_ID } from '../../constants';
 import { getCoinSupportDfinityLib } from '../../utils';
-
-const ICP_LEDGER_CANISTER_ID = 'ryjl3-tyaaa-aaaaa-aaaba-cai';
-const HOST = 'https://icp-api.io';
 
 export const getBalance = async (accountId: string) => {
   try {

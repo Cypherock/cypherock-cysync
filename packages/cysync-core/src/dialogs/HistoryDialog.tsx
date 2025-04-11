@@ -1,3 +1,4 @@
+import { coinFamiliesMap } from '@cypherock/coins';
 import { formatAddress } from '@cypherock/cysync-core-services';
 import {
   BlurOverlay,
@@ -432,7 +433,26 @@ export const HistoryDialog: FC<IHistoryDialogProps> = ({ txn: _txn }) => {
                   </Container>
                 </HistoryItem>
               )}
-              <HistoryItem leftText={keys.transactionHash}>
+              {displayTransaction.operation !== undefined && (
+                <HistoryItem leftText={keys.operation}>
+                  <Container direction="row" gap={8}>
+                    <Typography
+                      variant="span"
+                      $maxWidth="400"
+                      $textOverflow="ellipsis"
+                    >
+                      {displayTransaction.operation}
+                    </Typography>
+                  </Container>
+                </HistoryItem>
+              )}
+              <HistoryItem
+                leftText={
+                  displayTransaction.txn.familyId === coinFamiliesMap.icp
+                    ? keys.transactionId
+                    : keys.transactionHash
+                }
+              >
                 <Container direction="row" gap={8}>
                   <Typography
                     variant="span"
