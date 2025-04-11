@@ -126,3 +126,29 @@ export const broadcastTransactionToBlockchain = async (transaction: {
     throw new Error('Transaction broadcast failed');
   }
 };
+
+export const getTokenTransactions = async (
+  principalID: Uint8Array,
+  tokenIndexCanisterId: string,
+  limit: bigint,
+  start?: bigint,
+) => {
+  try {
+    const { agent, icrc, principal } = getCoinSupportDfinityLib();
+
+    const icrcIndex = icrc.IcrcIndexCanister.create({
+      agent: await agent.HttpAgent.create({ host: HOST }),
+      canisterId: principal.Principal.from(tokenIndexCanisterId),
+    });
+
+    const response = await icrcIndex.getTransactions({
+      account: { owner: principal.Principal.from(principalID) },
+      max_results: limit,
+      start,
+    });
+
+    return response.transactions;
+  } catch (error) {
+    throw new Error('Error fetching ICP token account transaction history');
+  }
+};

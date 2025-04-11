@@ -1,5 +1,6 @@
 // The ReactNodes won't be rendered as list so key is not required
 /* eslint-disable react/jsx-key */
+import { IIcpAccount } from '@cypherock/coin-support-icp';
 import {
   getAsset,
   unhideOrInsertAccountIfNotExists,
@@ -271,6 +272,9 @@ export const AddTokenDialogProvider: FC<AddTokenDialogContextProviderProps> = ({
             balance: '0',
             isHidden: false,
             extraData: {
+              ...(account.familyId === coinFamiliesMap.icp
+                ? { publicKey: (account as IIcpAccount).extraData.publicKey }
+                : {}),
               contractAddress: token.address,
             },
           });
