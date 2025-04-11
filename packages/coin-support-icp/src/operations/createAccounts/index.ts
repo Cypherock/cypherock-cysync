@@ -95,7 +95,7 @@ const getBalanceAndTxnCount = async (publicKey: string) => {
   const address = deriveAddress(publicKey);
   return {
     balance: await services.getBalance(address),
-    txnCount: (await services.getTransactions(address, BigInt(1))).length,
+    txnCount: (await services.getTransactions(address, 1)).count,
   };
 };
 

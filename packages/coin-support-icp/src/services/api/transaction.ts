@@ -2,8 +2,14 @@ import { makePostRequest } from '@cypherock/cysync-utils';
 import type { RequestId } from '@dfinity/agent';
 import type { IDL as IDLType } from '@dfinity/candid';
 
+import { IIcpTransactionHistoryResponse } from './types';
+
 import { config } from '../../config';
-import { HOST, ICP_LEDGER_CANISTER_ID } from '../../constants';
+import {
+  HOST,
+  ICP_INDEX_CANISTER_ID,
+  ICP_LEDGER_CANISTER_ID,
+} from '../../constants';
 import { decodeReturnValue, getCoinSupportDfinityLib } from '../../utils';
 import logger from '../../utils/logger';
 
@@ -28,26 +34,27 @@ export const getTransactionFee = async () => {
 
 export const getTransactions = async (
   accountId: string,
-  limit: bigint,
-  start?: bigint,
-) => {
-  try {
-    const { agent, icp } = getCoinSupportDfinityLib();
+  limit: number,
+  before?: string,
+  after?: string,
+): Promise<IIcpTransactionHistoryResponse> => {
+  const url = `${baseURL}/history`;
 
-    const index = icp.IndexCanister.create({
-      agent: await agent.HttpAgent.create({ host: HOST }),
-    });
+  const query: Record<string, any> = {
+    accountId,
+    limit,
+    before,
+    after,
+    canisterId: ICP_INDEX_CANISTER_ID,
+  };
 
-    const response = await index.getTransactions({
-      accountIdentifier: accountId,
-      maxResults: limit,
-      start,
-    });
+  const response = await makePostRequest(url, query);
 
-    return response.transactions;
-  } catch (err) {
-    throw new Error('Error fetching ICP account transaction history');
+  if (typeof response.data.transactions !== 'object') {
+    throw new Error('Invalid transaction history response from server');
   }
+
+  return response.data;
 };
 
 export const broadcastTransactionToBlockchain = async (
@@ -109,29 +116,29 @@ export const broadcastTransactionToBlockchain = async (
 };
 
 export const getTokenTransactions = async (
-  principalID: Uint8Array,
+  principalId: string,
   tokenIndexCanisterId: string,
-  limit: bigint,
-  start?: bigint,
-) => {
-  try {
-    const { agent, icrc, principal } = getCoinSupportDfinityLib();
+  limit: number,
+  before?: string,
+  after?: string,
+): Promise<IIcpTransactionHistoryResponse> => {
+  const url = `${baseURL}/token/history`;
 
-    const icrcIndex = icrc.IcrcIndexCanister.create({
-      agent: await agent.HttpAgent.create({ host: HOST }),
-      canisterId: principal.Principal.from(tokenIndexCanisterId),
-    });
+  const query: Record<string, any> = {
+    principalId,
+    limit,
+    before,
+    after,
+    canisterId: tokenIndexCanisterId,
+  };
 
-    const response = await icrcIndex.getTransactions({
-      account: { owner: principal.Principal.from(principalID) },
-      max_results: limit,
-      start,
-    });
+  const response = await makePostRequest(url, query);
 
-    return response.transactions;
-  } catch (error) {
-    throw new Error('Error fetching ICP token account transaction history');
+  if (typeof response.data.transactions !== 'object') {
+    throw new Error('Invalid token transaction history response from server');
   }
+
+  return response.data;
 };
 
 export const getTokenTransactionFee = async (canisterId: string) => {
