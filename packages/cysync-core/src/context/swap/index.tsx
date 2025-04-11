@@ -37,6 +37,7 @@ export interface IFillDetailsParams {
 export interface IExchangeDetails {
   id: string;
   address: string;
+  additionalData?: string;
 }
 
 export interface SwapContextInterface {
@@ -138,6 +139,7 @@ export const SwapProvider: React.FC<SwapProviderProps> = ({ children }) => {
         setExchangeDetails({
           id: result.data.id,
           address: result.data.exchangeAddress,
+          additionalData: result.data.exchangeAddressAdditionalData,
         });
       }
     } catch (error) {

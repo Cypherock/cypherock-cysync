@@ -135,6 +135,7 @@ export const SendDialogContext: Context<SendDialogContextInterface> =
 export interface ToDetails {
   address: string;
   amount: string;
+  extraInput?: string;
 }
 
 export interface SendDialogProps {
@@ -403,6 +404,13 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
             ).abbr,
           });
           initTransaction.userInputs.outputs[0].amount = convertedAmount.amount;
+        }
+        if (prefillDetails.extraInput) {
+          initTransaction.userInputs = fillExtraInput(
+            selectedAccount?.familyId as CoinFamily,
+            initTransaction,
+            prefillDetails.extraInput ?? '',
+          );
         }
       }
       setTransaction(initTransaction);
@@ -696,6 +704,18 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
 
   const getComputedFee = (coinFamily: CoinFamily, txn?: IPreparedTransaction) =>
     computedFeeMap[coinFamily](txn);
+
+  const fillExtraInput = (
+    familyId: CoinFamily,
+    initTransaction: IPreparedTransaction,
+    data: string,
+  ) => {
+    const { userInputs } = initTransaction;
+    if (familyId === 'xrp') {
+      (userInputs.outputs[0] as any).destinationTag = parseInt(data, 10);
+    }
+    return userInputs;
+  };
 
   const {
     onNext,

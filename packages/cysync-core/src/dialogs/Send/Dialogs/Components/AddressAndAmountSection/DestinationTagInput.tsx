@@ -16,6 +16,7 @@ interface DestinationTagInputProps {
   initialValue?: number;
   onChange: (value: number) => Promise<void>;
   error?: string;
+  isDisabled?: boolean;
 }
 
 export const DestinationTagInput: React.FC<DestinationTagInputProps> = ({
@@ -24,6 +25,7 @@ export const DestinationTagInput: React.FC<DestinationTagInputProps> = ({
   initialValue,
   onChange,
   error,
+  isDisabled,
 }) => {
   const [value, setValue] = useState<string>(initialValue?.toString() ?? '');
 
@@ -58,6 +60,7 @@ export const DestinationTagInput: React.FC<DestinationTagInputProps> = ({
           name="destinationTag"
           placeholder={placeholder}
           onChange={handleValueChange}
+          disabled={isDisabled}
           value={value}
           $textColor="white"
           $noBorder
@@ -80,4 +83,5 @@ export const DestinationTagInput: React.FC<DestinationTagInputProps> = ({
 DestinationTagInput.defaultProps = {
   initialValue: undefined,
   error: '',
+  isDisabled: undefined,
 };

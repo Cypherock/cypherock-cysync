@@ -82,6 +82,7 @@ export const SingleTransaction: React.FC<SingleTransactionProps> = ({
       label: displayText.destinationTag.label,
       placeholder: displayText.destinationTag.placeholder,
       initialValue: txn.userInputs.outputs[0]?.destinationTag,
+      isDisabled: disableInputs,
       onChange: prepareDestinationTag,
       error: getDestinationTagError(),
     };

@@ -50,6 +50,7 @@ export const SwapSend = () => {
         prefillDetails: {
           address: exchangeDetails.address,
           amount: quote.fromAmount,
+          extraInput: exchangeDetails.additionalData,
         },
         skipAccountSelection: true,
         disableAccountSelection: true,
