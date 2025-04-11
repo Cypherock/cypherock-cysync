@@ -355,6 +355,7 @@ export const SwapDetailsInput = () => {
   const fromWallet = useWalletDropdown();
   const fromAccount = useAccountDropdown({
     selectedWallet: fromWallet.selectedWallet,
+    includeSubAccounts: true,
   });
 
   const [fromAmount, setFromAmount] = useState('');
@@ -362,6 +363,7 @@ export const SwapDetailsInput = () => {
   const toWallet = useWalletDropdown();
   const toAccount = useAccountDropdown({
     selectedWallet: toWallet.selectedWallet,
+    includeSubAccounts: true,
   });
 
   const hasEnoughBalance = useMemo(() => {
@@ -476,6 +478,20 @@ export const SwapDetailsInput = () => {
     toAccount.selectedAccount,
   ]);
 
+  const swapToAndFrom = () => {
+    const intermediateWalletId = toWallet.selectedWallet?.__id;
+    const intermediateAccountId = toAccount.selectedAccount?.__id;
+    const intermediateAmount = calculatedAmount;
+
+    toWallet.handleWalletChange(fromWallet.selectedWallet?.__id);
+    toAccount.handleAccountChange(fromAccount.selectedAccount?.__id);
+    findNewQuotes();
+
+    fromWallet.handleWalletChange(intermediateWalletId);
+    fromAccount.handleAccountChange(intermediateAccountId);
+    setFromAmount(intermediateAmount);
+  };
+
   return (
     <Container
       m={{ def: 2, lg: '20' }}
@@ -505,9 +521,8 @@ export const SwapDetailsInput = () => {
           <Button
             variant="icon"
             onClick={() => {
-              console.log('someday maybe');
+              swapToAndFrom();
             }}
-            disabled={true}
           >
             <GraphSwitchIcon />
           </Button>

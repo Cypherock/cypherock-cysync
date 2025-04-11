@@ -23,6 +23,7 @@ import {
   DollarIcon,
   WalletInfoIcon,
   parseLangTemplate,
+  GraphSwitchSmallIcon,
 } from '@cypherock/cysync-ui';
 import { IWallet } from '@cypherock/db-interfaces';
 import React, { FC } from 'react';
@@ -177,8 +178,8 @@ const SideBarComponent: FC<{ collapseWallets?: boolean }> = () => {
           />
           <SideBarItem
             text="Swap"
-            Icon={DollarIcon}
-            state={wallets.length === 0 ? State.disabled : getState('buysell')}
+            Icon={GraphSwitchSmallIcon}
+            state={wallets.length === 0 ? State.disabled : getState('swap')}
             onClick={() => navigate('swap')}
           />
           <SideBarItem

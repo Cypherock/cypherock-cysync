@@ -18,6 +18,7 @@ import {
   Button,
   successIcon,
   warningIcon,
+  GoldExternalLink,
 } from '@cypherock/cysync-ui';
 import { BigNumber } from '@cypherock/cysync-utils';
 import { AccountTypeMap, IAccount } from '@cypherock/db-interfaces';
@@ -53,11 +54,13 @@ export const SwapStatus = () => {
     network: 'Netork Fee',
     debit: 'Total to debit',
     provider: 'Provider',
+    exchangeId: 'Transaction ID',
   };
 
   const [state, setState] = useState(SwapStates.Pending);
 
   const { fromAccount, quote, toAccount, reset, exchangeDetails } = useSwap();
+  const [providerUrl, setProviderUrl] = useState<string>();
 
   const updateState = async () => {
     if (state !== SwapStates.Pending) return;
@@ -67,6 +70,8 @@ export const SwapStatus = () => {
         exchangeId: exchangeDetails?.id ?? '',
       });
       if (result.status === 200) {
+        setProviderUrl(result?.data?.data?.providerUrl);
+
         if (result.data.data.status === 'finished')
           setState(SwapStates.Success);
         else if (result.data.data.status === 'failed')
@@ -78,6 +83,7 @@ export const SwapStatus = () => {
   };
 
   useEffect(() => {
+    updateState();
     // update every minute
     const interval = setInterval(updateState, 1000 * 60);
     return () => clearInterval(interval);
@@ -221,6 +227,31 @@ export const SwapStatus = () => {
                       },
                     ],
                   },
+                  ...(providerUrl
+                    ? [
+                        {
+                          id: 'exchange-id',
+                          leftText: displayText.exchangeId,
+                          rightComponent: [
+                            {
+                              id: 'exchange-link',
+                              name: exchangeDetails?.id ?? '',
+                              muted: false,
+                              icon: (
+                                <a
+                                  href={providerUrl}
+                                  target="_blank"
+                                  style={{ textDecoration: 'none' }}
+                                  rel="noreferrer"
+                                >
+                                  <GoldExternalLink height={12} width={12} />
+                                </a>
+                              ),
+                            },
+                          ],
+                        },
+                      ]
+                    : []),
                 ]}
               />
             </DialogBoxBody>
