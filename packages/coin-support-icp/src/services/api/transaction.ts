@@ -1,17 +1,9 @@
 import { makePostRequest } from '@cypherock/cysync-utils';
-import type { RequestId } from '@dfinity/agent';
-import type { IDL as IDLType } from '@dfinity/candid';
 
 import { IIcpTransactionHistoryResponse } from './types';
 
 import { config } from '../../config';
-import {
-  HOST,
-  ICP_INDEX_CANISTER_ID,
-  ICP_LEDGER_CANISTER_ID,
-} from '../../constants';
-import { decodeReturnValue, getCoinSupportDfinityLib } from '../../utils';
-import logger from '../../utils/logger';
+import { ICP_INDEX_CANISTER_ID, ICP_LEDGER_CANISTER_ID } from '../../constants';
 
 const baseURL = `${config.API_CYPHEROCK}/icp/transaction`;
 
@@ -58,61 +50,25 @@ export const getTransactions = async (
 };
 
 export const broadcastTransactionToBlockchain = async (
-  transaction: {
-    serializedTransferRequest: ArrayBuffer;
-    signedReadStateRequest: object;
-    transferRequestId: RequestId;
-  },
-  ledgerCanisterId: string,
-  transferResultArgs: IDLType.VariantClass,
-) => {
-  try {
-    const response = await fetch(
-      `${HOST}/api/v2/canister/${ledgerCanisterId}/call`,
-      {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/cbor' },
-        body: transaction.serializedTransferRequest,
-      },
-    );
+  transaction: string,
+  isTokenTransaction: boolean,
+  canisterId: string,
+): Promise<{ txnId: string }> => {
+  const url = `${baseURL}/broadcast`;
 
-    if (response.ok) {
-      const readStateRequest = {
-        request: {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/cbor' },
-        },
-        endpoint: 'read_state',
-        body: transaction.signedReadStateRequest,
-      };
+  const query: Record<string, any> = {
+    transaction,
+    isTokenTransaction,
+    canisterId,
+  };
 
-      const { agent, principal } = getCoinSupportDfinityLib();
-      const { reply } = await agent.pollForResponse(
-        await agent.HttpAgent.create({ host: HOST }),
-        principal.Principal.from(ledgerCanisterId),
-        transaction.transferRequestId,
-        agent.defaultStrategy(),
-        readStateRequest,
-      );
+  const response = await makePostRequest(url, query);
 
-      const responseData = decodeReturnValue([transferResultArgs], reply);
-
-      if (typeof responseData === 'object' && 'Ok' in responseData) {
-        return responseData.Ok.toString();
-      }
-
-      if (typeof responseData === 'object' && 'Err' in responseData) {
-        throw responseData.Err;
-      } else {
-        throw new Error('Unknown response');
-      }
-    } else {
-      throw new Error('Transaction broadcast failed');
-    }
-  } catch (e) {
-    logger.warn(e);
-    throw new Error('Transaction broadcast failed');
+  if (response.data.txnId === undefined) {
+    throw new Error('Invalid transaction broadcast response from server');
   }
+
+  return response.data;
 };
 
 export const getTokenTransactions = async (
