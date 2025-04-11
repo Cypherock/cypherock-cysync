@@ -1,13 +1,11 @@
 import type { CallRequest, Nonce, RequestId } from '@dfinity/agent';
-import type { IDL as IDLType } from '@dfinity/candid';
 import * as cbor from 'simple-cbor';
 
 import { derivePrincipal } from './deriveAddress';
 import { getCoinSupportDfinityLib } from './dfinityLib';
 
+import { ICP_LEDGER_CANISTER_ID } from '../constants';
 import { IPreparedIcpTransaction } from '../operations/transaction';
-
-const ICP_LEDGER_CANISTER_ID = 'ryjl3-tyaaa-aaaaa-aaaba-cai';
 
 const MINUTE_TO_MSECS = 60 * 1000;
 const maxIngressExpiryInMinutes = 5;
@@ -85,67 +83,6 @@ const getTokenTransferArgs = () => {
     from_subaccount: IDL.Opt(SubAccount),
     created_at_time: IDL.Opt(TimeStamp),
   });
-};
-
-export const getTransferResultArgs = () => {
-  const { candid } = getCoinSupportDfinityLib();
-
-  const { IDL } = candid;
-  const Tokens = IDL.Record({ e8s: IDL.Nat64 });
-  const BlockIndex = IDL.Nat64;
-  const TransferError = IDL.Variant({
-    TxTooOld: IDL.Record({ allowed_window_nanos: IDL.Nat64 }),
-    BadFee: IDL.Record({ expected_fee: Tokens }),
-    TxDuplicate: IDL.Record({ duplicate_of: BlockIndex }),
-    TxCreatedInFuture: IDL.Null,
-    InsufficientFunds: IDL.Record({ balance: Tokens }),
-  });
-
-  return IDL.Variant({
-    Ok: BlockIndex,
-    Err: TransferError,
-  });
-};
-
-export const getTokenTransferResultArgs = () => {
-  const { candid } = getCoinSupportDfinityLib();
-
-  const { IDL } = candid;
-  const Tokens = IDL.Nat;
-  const Timestamp = IDL.Nat64;
-  const BlockIndex = IDL.Nat;
-
-  const TransferError = IDL.Variant({
-    GenericError: IDL.Record({
-      message: IDL.Text,
-      error_code: IDL.Nat,
-    }),
-    TemporarilyUnavailable: IDL.Null,
-    BadBurn: IDL.Record({ min_burn_amount: Tokens }),
-    Duplicate: IDL.Record({ duplicate_of: BlockIndex }),
-    BadFee: IDL.Record({ expected_fee: Tokens }),
-    CreatedInFuture: IDL.Record({ ledger_time: Timestamp }),
-    TooOld: IDL.Null,
-    InsufficientFunds: IDL.Record({ balance: Tokens }),
-  });
-
-  return IDL.Variant({
-    Ok: BlockIndex,
-    Err: TransferError,
-  });
-};
-
-export const decodeReturnValue = (types: IDLType.Type[], msg: ArrayBuffer) => {
-  const { candid } = getCoinSupportDfinityLib();
-  const returnValues = candid.IDL.decode(types, Buffer.from(msg));
-  switch (returnValues.length) {
-    case 0:
-      return undefined;
-    case 1:
-      return returnValues[0];
-    default:
-      return returnValues;
-  }
 };
 
 type CallRequestStrict = Omit<
@@ -235,7 +172,7 @@ export const prepareReadStateRequest = (transferRequest: CallRequestStrict) => {
       request_type: 'read_state',
       paths: [path],
       sender: transferRequest.sender,
-      ingress_expiry: transferRequest.ingress_expiry,
+      ingress_expiry: transferRequest.ingress_expiry.getValue(),
     },
   };
 };

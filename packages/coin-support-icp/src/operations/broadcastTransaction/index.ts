@@ -21,8 +21,6 @@ import {
   derivePrincipal,
   getCoinSupportDfinityLib,
   getDerEncodedPublicKey,
-  getTokenTransferResultArgs,
-  getTransferResultArgs,
   prepareReadStateRequest,
   prepareTokenTransferRequest,
   prepareTransferRequest,
@@ -69,11 +67,13 @@ const prepareSignedTxn = (
     sender_sig: hexToUint8Array(signature.readStateRequestSignature),
   };
 
-  return {
+  const serializedTransaction = agent.Cbor.encode({
     serializedTransferRequest,
     signedReadStateRequest,
     transferRequestId,
-  };
+  });
+
+  return Buffer.from(serializedTransaction).toString('base64');
 };
 
 export const broadcastTransaction = async (
@@ -101,11 +101,11 @@ export const broadcastTransaction = async (
 
   const result = await broadcastTransactionToBlockchain(
     txn,
+    isTokenAccount,
     isTokenAccount
       ? icpCoinList[account.parentAssetId].tokens[account.assetId].canisters
           .ledger
       : ICP_LEDGER_CANISTER_ID,
-    isTokenAccount ? getTokenTransferResultArgs() : getTransferResultArgs(),
   );
 
   let memo: string | undefined;
@@ -114,7 +114,7 @@ export const broadcastTransaction = async (
   }
 
   const parsedTransaction: ITransaction = {
-    hash: result,
+    hash: result.txnId,
     fees: transaction.computedData.fees,
     amount: '0',
     status: TransactionStatusMap.pending,
