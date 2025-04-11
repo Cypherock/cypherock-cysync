@@ -14,6 +14,7 @@ globalThis.starknet = require('starknet');
 globalThis.dfinity = {
   agent: require('@dfinity/agent'),
   icp: require('@dfinity/ledger-icp'),
+  icrc: require('@dfinity/ledger-icrc'),
   candid: require('@dfinity/candid'),
   principal: require('@dfinity/principal'),
 };

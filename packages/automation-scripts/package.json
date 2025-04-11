@@ -25,6 +25,9 @@
     "spl-diff": "node dist/cjs/commands/spl/diff.js",
     "gen-spl-list": "node dist/cjs/commands/spl/createNewList.js",
     "download-spl-images": "node dist/cjs/commands/spl/downloadImages.js",
+    "icrc-diff": "node dist/cjs/commands/icrc/diff.js",
+    "gen-icrc-list": "node dist/cjs/commands/icrc/createNewList.js",
+    "download-icrc-images": "node dist/cjs/commands/icrc/downloadImages.js",
     "gen-translations": "node dist/cjs/commands/translate.js"
   },
   "devDependencies": {
