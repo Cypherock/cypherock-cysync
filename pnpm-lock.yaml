@@ -1040,6 +1040,9 @@ importers:
       '@types/node':
         specifier: 18.15.11
         version: 18.15.11
+      '@types/sha.js':
+        specifier: ^2.4.4
+        version: 2.4.4
       eslint:
         specifier: ^8.43.0
         version: 8.57.1
@@ -13136,6 +13139,12 @@ packages:
       '@types/http-errors': 2.0.4
       '@types/node': 16.18.36
       '@types/send': 0.17.4
+
+  /@types/sha.js@2.4.4:
+    resolution: {integrity: sha512-Qukd+D6S2Hm0wLVt2Vh+/eWBIoUt+wF8jWjBsG4F8EFQRwKtYvtXCPcNl2OEUQ1R+eTr3xuSaBYUyM3WD1x/Qw==}
+    dependencies:
+      '@types/node': 16.18.36
+    dev: true
 
   /@types/stack-utils@2.0.3:
     resolution: {integrity: sha512-9aEbYZ3TbYMznPdcdr3SmIrLXwC/AKZXQeCf9Pgao5CKb8CyHuEX5jzWPTkvregvhRJHcpRO6BFoGW9ycaOkYw==}
