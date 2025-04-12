@@ -971,8 +971,8 @@ importers:
         specifier: workspace:^
         version: link:../db-interfaces
       '@cypherock/sdk-app-icp':
-        specifier: ^2.0.0
-        version: 2.0.0
+        specifier: ^2.0.1
+        version: 2.0.1
       '@cypherock/sdk-interfaces':
         specifier: ^0.0.16
         version: 0.0.16
@@ -6326,8 +6326,8 @@ packages:
       - debug
     dev: false
 
-  /@cypherock/sdk-app-icp@2.0.0:
-    resolution: {integrity: sha512-luF3VOQ43iWVSHM4Dt7HMlENJm3cGQvC+bKHvWYSeGuPOVNoB0R9ybgx4u+e6BnT0nJdP6Lr4FDTi0yyTV9O9A==}
+  /@cypherock/sdk-app-icp@2.0.1:
+    resolution: {integrity: sha512-S1GnWwoVvGXmWFbafp+ay1XFE9Cc8pVdUQ4lb6K5br2XbVm9gb99yIflrtpd/Tvp9j7TfYLbm3cBGYtFq3oBDQ==}
     dependencies:
       '@cypherock/sdk-core': 0.1.0
       '@cypherock/sdk-interfaces': 0.0.16
@@ -20990,7 +20990,7 @@ packages:
       pretty-format: 29.7.0
       slash: 3.0.0
       strip-json-comments: 3.1.1
-      ts-node: 10.9.1(@types/node@20.5.1)(typescript@4.9.5)
+      ts-node: 10.9.1(@types/node@18.15.11)(typescript@4.9.5)
     transitivePeerDependencies:
       - babel-plugin-macros
       - supports-color
@@ -21031,7 +21031,7 @@ packages:
       pretty-format: 29.7.0
       slash: 3.0.0
       strip-json-comments: 3.1.1
-      ts-node: 10.9.1(@types/node@20.5.1)(typescript@4.9.5)
+      ts-node: 10.9.1(@types/node@18.15.11)(typescript@4.9.5)
     transitivePeerDependencies:
       - babel-plugin-macros
       - supports-color
