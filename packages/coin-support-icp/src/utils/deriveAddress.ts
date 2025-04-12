@@ -7,11 +7,24 @@ import { getCoinSupportDfinityLib } from './dfinityLib';
 const secp256k1 = new EC('secp256k1');
 
 const SECP256K1_OID = Array.from([
-  ...[0x30, 0x10], // SEQUENCE
-  ...[0x06, 0x07], // OID with 7 bytes
-  ...[0x2a, 0x86, 0x48, 0xce, 0x3d, 0x02, 0x01], // OID ECDSA
-  ...[0x06, 0x05], // OID with 5 bytes
-  ...[0x2b, 0x81, 0x04, 0x00, 0x0a], // OID secp256k1
+  0x30,
+  0x10, // SEQUENCE
+  0x06,
+  0x07, // OID with 7 bytes
+  0x2a,
+  0x86,
+  0x48,
+  0xce,
+  0x3d,
+  0x02,
+  0x01, // OID ECDSA
+  0x06,
+  0x05, // OID with 5 bytes
+  0x2b,
+  0x81,
+  0x04,
+  0x00,
+  0x0a, // OID secp256k1
 ]);
 
 const SELF_AUTHENTICATING_SUFFIX = 2;
@@ -27,12 +40,15 @@ export const getDerEncodedPublicKey = (publicKey: string) => {
 
   const oidPrefixedPubKey = Array.from([
     ...SECP256K1_OID,
-    ...[0x03, uncompressedPubKey.length + 1, 0x00], // Bit string tag (0x03), uncompressedPubKey.byteLength + 1, padding 0x00
+    0x03,
+    uncompressedPubKey.length + 1,
+    0x00, // Bit string tag (0x03), uncompressedPubKey.byteLength + 1, padding 0x00
     ...uncompressedPubKey,
   ]);
 
   return Uint8Array.from([
-    ...[0x30, oidPrefixedPubKey.length],
+    0x30,
+    oidPrefixedPubKey.length,
     ...oidPrefixedPubKey,
   ]);
 };
