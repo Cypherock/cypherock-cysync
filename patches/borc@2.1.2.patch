@@ -1,0 +1,68 @@
+diff --git a/src/buffer.js b/src/buffer.js
+new file mode 100644
+index 0000000000000000000000000000000000000000..e42b164a395f70322236390b282685408d510122
+--- /dev/null
++++ b/src/buffer.js
+@@ -0,0 +1 @@
++module.exports.Buffer = typeof window === 'undefined' ? globalThis.Buffer : window.Buffer;
+diff --git a/src/commented.js b/src/commented.js
+index c0b3eab5fd942075e8aa86cac8cd1c3eeb8c1d5b..eaf1c0e30a947500e55088737a7a51b149466ae5 100644
+--- a/src/commented.js
++++ b/src/commented.js
+@@ -1,7 +1,7 @@
+ /* eslint-disable */
+ 'use strict'
+
+-const { Buffer } = require('buffer')
++const { Buffer } = require('./buffer')
+ const stream = require('readable-stream')
+ const Decoder = require('./decoder')
+ const constants = require('./constants')
+diff --git a/src/decoder.js b/src/decoder.js
+index 5100dc35b96b97e68b862c9513af9009fa583e11..6ac8e60d78c84d0875a372b2f4374cfea4b0816a 100644
+--- a/src/decoder.js
++++ b/src/decoder.js
+@@ -1,6 +1,6 @@
+ 'use strict'
+
+-const { Buffer } = require('buffer')
++const { Buffer } = require('./buffer')
+ const ieee754 = require('ieee754')
+ const Bignumber = require('bignumber.js').BigNumber
+
+diff --git a/src/diagnose.js b/src/diagnose.js
+index c65abde4050422e0e587fb82e737b637f1393e73..4c75bdc4623c838f6e0f2193f425692e7bde3000 100644
+--- a/src/diagnose.js
++++ b/src/diagnose.js
+@@ -1,6 +1,6 @@
+ 'use strict'
+
+-const { Buffer } = require('buffer')
++const { Buffer } = require('./buffer')
+ const Decoder = require('./decoder')
+ const utils = require('./utils')
+
+diff --git a/src/encoder.js b/src/encoder.js
+index 4b7ef5b4edfc57fcb871befd372cc7d6f60ceebc..97f08e275581cd50faf1d2bb7529ed6f4816a9f9 100644
+--- a/src/encoder.js
++++ b/src/encoder.js
+@@ -1,6 +1,6 @@
+ 'use strict'
+
+-const { Buffer } = require('buffer')
++const { Buffer } = require('./buffer')
+ const { URL } = require('iso-url')
+ const Bignumber = require('bignumber.js').BigNumber
+
+diff --git a/src/utils.js b/src/utils.js
+index 7219bf130c79f17eebfa30bbf7229aaeabe5193a..81f09db0919f33b3a2fd191dd720d1407eb98e0d 100644
+--- a/src/utils.js
++++ b/src/utils.js
+@@ -1,6 +1,6 @@
+ 'use strict'
+
+-const { Buffer } = require('buffer')
++const { Buffer } = require('./buffer')
+ const Bignumber = require('bignumber.js').BigNumber
+
+ const constants = require('./constants')
