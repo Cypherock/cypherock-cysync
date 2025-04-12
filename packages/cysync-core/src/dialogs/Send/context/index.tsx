@@ -836,7 +836,7 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
   const getMemoError = useCallback(() => {
     if (
       (transaction?.validation as IPreparedIcpTransaction['validation'])
-        .isInvalidMemo
+        ?.isInvalidMemo
     ) {
       return lang.strings.send.recipient.memo.error;
     }
