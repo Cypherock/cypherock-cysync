@@ -103,7 +103,7 @@ pnpm start -s  # Start desktop application with short log format
 - Submodules are contains in `submodules` folder.
 - Submodules are packages which are used by `CySync` but are managed in a different
   repository. (Example: [`sdk`](https://github.com/Cypherock/sdk))
-- When you edit something in the `submodules`, you'll need to run `pnpm build:submodues`
+- When you edit something in the `submodules` and build them, you'll need to run `pnpm build:submodues`
   to see the changes on cysync apps.
 - You may have to delete the `./apps/desktop/node_modules/.vite` folder if the
   changes does not reflect on cysync apps.
