@@ -2,6 +2,8 @@ import crc32 from 'crc-32';
 import { ec as EC } from 'elliptic';
 import { sha224 as SHA224 } from 'sha.js';
 
+import { getCoinSupportDfinityLib } from './dfinityLib';
+
 const secp256k1 = new EC('secp256k1');
 
 const SECP256K1_OID = Array.from([
@@ -35,7 +37,7 @@ export const getDerEncodedPublicKey = (publicKey: string) => {
   ]);
 };
 
-const deriveAccountIdFromPrincipal = (
+export const deriveAccountIdFromPrincipal = (
   principal: Uint8Array,
   subaccountIdentifer = Buffer.alloc(32).fill(0),
 ) => {
@@ -52,6 +54,11 @@ const deriveAccountIdFromPrincipal = (
 
   return Buffer.concat([checksum, hash]).toString('hex');
 };
+
+export const derivePrincipalIdFromPrincipal = (principal: Uint8Array) =>
+  getCoinSupportDfinityLib()
+    .principal.Principal.fromUint8Array(principal)
+    .toText();
 
 export const derivePrincipal = (publicKey: string) => {
   const derEncodedPubKey = getDerEncodedPublicKey(publicKey);

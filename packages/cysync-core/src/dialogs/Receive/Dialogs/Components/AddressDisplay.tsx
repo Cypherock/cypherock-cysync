@@ -13,16 +13,23 @@ import React, { useMemo } from 'react';
 import QRCode from 'react-qr-code';
 
 import { CoinIcon } from '~/components';
-import { selectLanguage, useAppSelector } from '~/store';
 
 import { useReceiveDialog } from '../../context';
 
-export const AddressDisplay: React.FC = () => {
-  const lang = useAppSelector(selectLanguage);
-  const { selectedAccount, selectedWallet, derivedAddress } =
-    useReceiveDialog();
+interface AddressDisplayProps {
+  titlePrefix: string;
+  titleSuffix: string;
+  addressLabel: string;
+  address: string;
+}
 
-  const texts = lang.strings.receive.receive;
+export const AddressDisplay: React.FC<AddressDisplayProps> = ({
+  titlePrefix,
+  titleSuffix,
+  addressLabel,
+  address,
+}) => {
+  const { selectedAccount, selectedWallet } = useReceiveDialog();
 
   const asset = useMemo(
     () =>
@@ -35,7 +42,7 @@ export const AddressDisplay: React.FC = () => {
       <Flex gap={5} direction="column">
         <Flex gap={8} direction="row">
           <Typography variant="h5">
-            <LangDisplay text={texts.title.prefix} />
+            <LangDisplay text={titlePrefix} />
           </Typography>
           <CoinIcon
             parentAssetId={selectedAccount?.parentAssetId ?? ''}
@@ -56,13 +63,13 @@ export const AddressDisplay: React.FC = () => {
         </Flex>
         <Typography variant="h5" ml="auto" mr="auto">
           <LangDisplay
-            text={texts.title.suffix}
+            text={titleSuffix}
             variables={{ walletName: selectedWallet?.name }}
           />
         </Typography>
       </Flex>
       <Container $bgColor="white" p="12">
-        <QRCode size={228} value={derivedAddress ?? ''} />
+        <QRCode size={228} value={address} />
       </Container>
       <Container
         display="flex"
@@ -71,8 +78,8 @@ export const AddressDisplay: React.FC = () => {
         gap={5}
         justify="flex-start"
       >
-        <InputLabel mb={0}>{texts.addressLabel}</InputLabel>
-        <CopyContainer link={derivedAddress ?? ''} variant="gold" />
+        <InputLabel mb={0}>{addressLabel}</InputLabel>
+        <CopyContainer link={address} variant="gold" />
       </Container>
     </>
   );

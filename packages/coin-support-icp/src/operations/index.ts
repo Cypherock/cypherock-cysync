@@ -1,6 +1,7 @@
 export * from './broadcastTransaction';
 export * from './createAccounts';
 export * from './getAccountHistory';
+export * from './getAddressDetailsFromPublicKey';
 export * from './getExplorerLink';
 export * from './getCoinAllocations';
 export * from './initializeTransaction';

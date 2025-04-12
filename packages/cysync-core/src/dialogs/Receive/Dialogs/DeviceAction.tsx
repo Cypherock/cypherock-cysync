@@ -28,12 +28,19 @@ export const DeviceAction: React.FC = () => {
   const lang = useAppSelector(selectLanguage);
   const texts = lang.strings.receive.x1Vault;
 
-  const { onNext, deviceEvents, selectedWallet, startFlow, derivedAddress } =
-    useReceiveDialog();
+  const {
+    onDeviceActionNext,
+    deviceEvents,
+    selectedWallet,
+    startFlow,
+    derivedAddress,
+    derivedAccountId,
+    derivedPrincipalId,
+  } = useReceiveDialog();
 
   useEffect(() => {
     if (deviceEvents[ReceiveDeviceEvent.CARD_TAPPED]) {
-      onNext();
+      onDeviceActionNext();
     }
   }, [deviceEvents]);
 
@@ -105,7 +112,11 @@ export const DeviceAction: React.FC = () => {
     return actions;
   }, [deviceEvents]);
 
-  if (derivedAddress === undefined) return <LoaderDialog />;
+  if (
+    derivedAddress === undefined &&
+    (derivedAccountId === undefined || derivedPrincipalId === undefined)
+  )
+    return <LoaderDialog />;
 
   return (
     <DialogBox width={600}>
