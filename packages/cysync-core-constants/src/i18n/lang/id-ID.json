@@ -279,16 +279,16 @@
         "ownAddress": "Alamat penerima sama dengan alamat pengirim"
       },
       "icpAccountIdRecipient": {
-        "label": "Recipient Account ID",
-        "placeholder": "Enter account id",
-        "error": "Invalid account id",
-        "ownAddress": "Recipient account id is the same as sender account id"
+        "label": "ID Akun Penerima",
+        "placeholder": "Masukkan ID akun",
+        "error": "ID akun tidak valid",
+        "ownAddress": "ID akun penerima sama dengan ID akun pengirim"
       },
       "icpPrincipalIdRecipient": {
-        "label": "Recipient Principal ID",
-        "placeholder": "Enter principal id",
-        "error": "Invalid principal id",
-        "ownAddress": "Recipient principal id is the same as sender principal id"
+        "label": "ID Prinsipal Penerima",
+        "placeholder": "Masukkan id prinsipal",
+        "error": "ID prinsipal tidak valid",
+        "ownAddress": "ID prinsipal penerima sama dengan ID prinsipal pengirim"
       },
       "tabs": {
         "single": "Transaksi Tunggal",
@@ -452,7 +452,7 @@
       "receiver": "Penerima",
       "mine": "Tambang",
       "transactionHash": "Hash Transaksi",
-      "transactionId": "Transaction ID",
+      "transactionId": "ID Transaksi",
       "description": "Deskripsi",
       "feePrefix": {
         "optimism": "L2 "
@@ -460,7 +460,7 @@
       "remarks": "Catatan Pribadi",
       "destinationTag": "Tag Tujuan",
       "memo": "Memo",
-      "operation": "Operation"
+      "operation": "Operasi"
     },
     "noData": {
       "text": "Belum ada transaksi",
