@@ -995,6 +995,9 @@ importers:
       '@dfinity/ledger-icp':
         specifier: ^2.6.12
         version: 2.6.12(@dfinity/agent@2.4.1)(@dfinity/candid@2.4.1)(@dfinity/principal@2.4.1)(@dfinity/utils@2.12.0)
+      '@dfinity/ledger-icrc':
+        specifier: ^2.8.0
+        version: 2.8.0(@dfinity/agent@2.4.1)(@dfinity/candid@2.4.1)(@dfinity/principal@2.4.1)(@dfinity/utils@2.12.0)
       '@dfinity/principal':
         specifier: ^2.4.1
         version: 2.4.1
@@ -6523,7 +6526,6 @@ packages:
       '@dfinity/candid': 2.4.1(@dfinity/principal@2.4.1)
       '@dfinity/principal': 2.4.1
       '@dfinity/utils': 2.12.0(@dfinity/agent@2.4.1)(@dfinity/candid@2.4.1)(@dfinity/principal@2.4.1)
-    dev: false
 
   /@dfinity/principal@2.4.1:
     resolution: {integrity: sha512-Cz6XQVOwq0TXDBClPbcidDd4SqK1lfr1/Kn34ruDD13xVQ4iaP1iCntzS9O97+vGpY/6jwDtKd32Gn5YJ9BQNw==}
