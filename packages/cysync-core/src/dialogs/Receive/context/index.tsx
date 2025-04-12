@@ -137,8 +137,6 @@ export const ReceiveDialogProvider: FC<ReceiveDialogContextProviderProps> = ({
       () => ({
         1: [0],
         2: [0],
-        // 3: [0],
-        // 4: [0],
       }),
       [],
     );
@@ -163,19 +161,9 @@ export const ReceiveDialogProvider: FC<ReceiveDialogContextProviderProps> = ({
         dialogs: [
           <VerifyAddress />,
           <VerifyAccountId />,
-          [<VerifyPrincipalId />],
+          <VerifyPrincipalId />,
         ],
       },
-      // {
-      //   name: '',
-      //   dialogs: [<VerifyAccountId />],
-      //   dontShowOnMilestone: true,
-      // },
-      // {
-      //   name: '',
-      //   dialogs: [<VerifyPrincipalId />],
-      //   dontShowOnMilestone: true,
-      // },
       {
         name: '',
         dialogs: [<FinalMessage />],
