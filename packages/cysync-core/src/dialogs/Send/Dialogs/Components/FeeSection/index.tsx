@@ -325,7 +325,7 @@ export const FeeSection: React.FC<FeeSectionProps> = ({ showErrors }) => {
         <MessageBox type="warning" text={displayText.warning} />
       )}
       {(transaction?.validation as IPreparedTronTransaction['validation'])
-        .notEnoughEnergy && (
+        ?.notEnoughEnergy && (
         <MessageBox
           type="warning"
           text={lang.strings.send.tron.notEnoughEnergyWarning}
@@ -336,11 +336,11 @@ export const FeeSection: React.FC<FeeSectionProps> = ({ showErrors }) => {
       )}
 
       {(transaction?.validation as IPreparedXrpTransaction['validation'])
-        .isFeeBelowMin && (
+        ?.isFeeBelowMin && (
         <MessageBox type="danger" text={displayText.feeBelowMinError} />
       )}
       {(transaction?.validation as IPreparedSolanaTransaction['validation'])
-        .isRentExemptFeeRequired && (
+        ?.isRentExemptFeeRequired && (
         <MessageBox type="warning" text={displayText.rentExemptFeeWarning} />
       )}
       {showErrors && transaction?.validation.hasEnoughBalance === false && (
