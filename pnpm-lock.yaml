@@ -989,6 +989,15 @@ importers:
       '@dfinity/agent':
         specifier: ^2.4.1
         version: 2.4.1(@dfinity/candid@2.4.1)(@dfinity/principal@2.4.1)
+      '@dfinity/candid':
+        specifier: ^2.4.1
+        version: 2.4.1(@dfinity/principal@2.4.1)
+      '@dfinity/ledger-icp':
+        specifier: ^2.6.12
+        version: 2.6.12(@dfinity/agent@2.4.1)(@dfinity/candid@2.4.1)(@dfinity/principal@2.4.1)(@dfinity/utils@2.12.0)
+      '@dfinity/principal':
+        specifier: ^2.4.1
+        version: 2.4.1
       '@jest/globals':
         specifier: ^29.5.0
         version: 29.7.0
@@ -6501,7 +6510,6 @@ packages:
       '@dfinity/candid': 2.4.1(@dfinity/principal@2.4.1)
       '@dfinity/principal': 2.4.1
       '@dfinity/utils': 2.12.0(@dfinity/agent@2.4.1)(@dfinity/candid@2.4.1)(@dfinity/principal@2.4.1)
-    dev: false
 
   /@dfinity/ledger-icrc@2.8.0(@dfinity/agent@2.4.1)(@dfinity/candid@2.4.1)(@dfinity/principal@2.4.1)(@dfinity/utils@2.12.0):
     resolution: {integrity: sha512-goLu6iT2SnWWnbH76Vt0VzAOiyVuuXVnXqBhO18aF7gpf0msgv0sTSGYhcnF9w9/2LWqe0PquUKtc7CuNFZdaA==}
@@ -6532,7 +6540,6 @@ packages:
       '@dfinity/agent': 2.4.1(@dfinity/candid@2.4.1)(@dfinity/principal@2.4.1)
       '@dfinity/candid': 2.4.1(@dfinity/principal@2.4.1)
       '@dfinity/principal': 2.4.1
-    dev: false
 
   /@discoveryjs/json-ext@0.5.7:
     resolution: {integrity: sha512-dBVuXR082gk3jsFp7Rd/JI4kytwGHecnCoTtXFb7DB6CNHp4rg5k1bhg0nWdLGLnOV71lmDzGQaLMy8iPLY0pw==}
