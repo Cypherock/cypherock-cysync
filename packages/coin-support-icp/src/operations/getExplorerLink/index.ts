@@ -2,17 +2,19 @@ import { IGetExplorerLink } from '@cypherock/coin-support-interfaces';
 import { icpCoinList } from '@cypherock/coins';
 import { assert } from '@cypherock/cysync-utils';
 
-const BASE_DASHBOARD_URL = 'https://dashboard.internetcomputer.org';
+import { config } from '../../config';
 
 export const getExplorerLink = (params: IGetExplorerLink) => {
   const { transaction } = params;
-  const { assetId, parentAssetId } = transaction;
+  const { assetId, parentAssetId, hash } = transaction;
+
+  const queryParams: { txHash: string; dashboardRoute?: string } = {
+    txHash: hash,
+  };
 
   const coin = icpCoinList[assetId] ?? icpCoinList[parentAssetId];
 
   assert(coin, new Error('No coin found'));
-
-  let explorerLink = `${BASE_DASHBOARD_URL}/transaction/${transaction.hash}`;
 
   if (assetId && parentAssetId && assetId !== parentAssetId) {
     const token = coin.tokens[assetId];
@@ -21,8 +23,13 @@ export const getExplorerLink = (params: IGetExplorerLink) => {
       new Error(`No token found for coin ${parentAssetId}:${assetId}`),
     );
 
-    explorerLink = `${BASE_DASHBOARD_URL}/${token.dashboardRoute}/transaction/${transaction.hash}`;
+    queryParams.dashboardRoute = token.dashboardRoute;
   }
 
-  return explorerLink;
+  const query = new URLSearchParams('');
+  for (const [key, value] of Object.entries(queryParams)) {
+    query.append(key, value.toString());
+  }
+
+  return `${config.API_CYPHEROCK}/icp/transaction/open-txn?${query.toString()}`;
 };
