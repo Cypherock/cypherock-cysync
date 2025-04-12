@@ -1824,6 +1824,9 @@ importers:
       '@dfinity/candid':
         specifier: ^2.4.1
         version: 2.4.1(@dfinity/principal@2.4.1)
+      '@dfinity/ledger-icp':
+        specifier: ^2.6.12
+        version: 2.6.12(@dfinity/agent@2.4.1)(@dfinity/candid@2.4.1)(@dfinity/principal@2.4.1)(@dfinity/utils@2.12.0)
       '@dfinity/principal':
         specifier: ^2.4.1
         version: 2.4.1
@@ -6574,10 +6577,36 @@ packages:
       '@dfinity/principal': 2.4.1
     dev: false
 
+  /@dfinity/ledger-icp@2.6.12(@dfinity/agent@2.4.1)(@dfinity/candid@2.4.1)(@dfinity/principal@2.4.1)(@dfinity/utils@2.12.0):
+    resolution: {integrity: sha512-9ireK6hbx6FcIgcbQ+y7CgG9Y5HSY/Bq68Y1adMW5fUcMXXvPlPY7U7MXLjSRMabg8S+sAcMkpCZT3IjW85MVQ==}
+    peerDependencies:
+      '@dfinity/agent': ^2.0.0
+      '@dfinity/candid': ^2.0.0
+      '@dfinity/principal': ^2.0.0
+      '@dfinity/utils': ^2.12.0
+    dependencies:
+      '@dfinity/agent': 2.4.1(@dfinity/candid@2.4.1)(@dfinity/principal@2.4.1)
+      '@dfinity/candid': 2.4.1(@dfinity/principal@2.4.1)
+      '@dfinity/principal': 2.4.1
+      '@dfinity/utils': 2.12.0(@dfinity/agent@2.4.1)(@dfinity/candid@2.4.1)(@dfinity/principal@2.4.1)
+    dev: false
+
   /@dfinity/principal@2.4.1:
     resolution: {integrity: sha512-Cz6XQVOwq0TXDBClPbcidDd4SqK1lfr1/Kn34ruDD13xVQ4iaP1iCntzS9O97+vGpY/6jwDtKd32Gn5YJ9BQNw==}
     dependencies:
       '@noble/hashes': 1.7.0
+    dev: false
+
+  /@dfinity/utils@2.12.0(@dfinity/agent@2.4.1)(@dfinity/candid@2.4.1)(@dfinity/principal@2.4.1):
+    resolution: {integrity: sha512-k/qXa41sFbzOMcm7mk9gV4/w0C0owmVfWmX9LrPdmsM0Jjnwc76Uo5i9Mca7A2/mHw/F5sw4GM0LEmImtLW6Kw==}
+    peerDependencies:
+      '@dfinity/agent': ^2.0.0
+      '@dfinity/candid': ^2.0.0
+      '@dfinity/principal': ^2.0.0
+    dependencies:
+      '@dfinity/agent': 2.4.1(@dfinity/candid@2.4.1)(@dfinity/principal@2.4.1)
+      '@dfinity/candid': 2.4.1(@dfinity/principal@2.4.1)
+      '@dfinity/principal': 2.4.1
     dev: false
 
   /@discoveryjs/json-ext@0.5.7:
