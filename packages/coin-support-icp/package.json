@@ -55,9 +55,12 @@
     "@cypherock/sdk-interfaces": "^0.0.16",
     "@cypherock/sdk-utils": "^0.0.19",
     "crc-32": "^1.2.2",
+    "elliptic": "^6.6.1",
     "lodash": "^4.17.21",
     "multicoin-address-validator": "^0.5.12",
-    "rxjs": "^7.8.1"
+    "rxjs": "^7.8.1",
+    "sha.js": "^2.4.11",
+    "simple-cbor": "^0.4.1"
   },
   "lint-staged": {
     "*.{ts,tsx}": [
