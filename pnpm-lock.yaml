@@ -1858,6 +1858,9 @@ importers:
       '@cypherock/coin-support-evm':
         specifier: workspace:^
         version: link:../coin-support-evm
+      '@cypherock/coin-support-icp':
+        specifier: ^1.1.3
+        version: link:../coin-support-icp
       '@cypherock/coin-support-interfaces':
         specifier: workspace:^
         version: link:../coin-support-interfaces

@@ -88,6 +88,7 @@
     "@cypherock/db-interfaces": "workspace:^",
     "@cypherock/sdk-app-btc": "^0.0.37",
     "@cypherock/sdk-app-evm": "^0.0.33",
+    "@cypherock/coin-support-icp": "^1.1.3",
     "@cypherock/sdk-app-manager": "^0.0.32",
     "@cypherock/sdk-app-near": "^0.0.31",
     "@cypherock/sdk-app-solana": "^0.0.7",
