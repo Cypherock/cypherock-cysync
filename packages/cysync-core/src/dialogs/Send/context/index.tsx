@@ -734,22 +734,7 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
     [transaction, lang],
   );
 
-  const getAmountError = useCallback(() => {
-    if (transaction?.validation.zeroAmountNotAllowed) {
-      return lang.strings.send.recipient.amount.zeroAmount;
-    }
-
-    if (
-      (transaction?.validation as IPreparedBtcTransaction['validation'])
-        ?.isNotOverDustThreshold
-    ) {
-      return lang.strings.send.recipient.amount.notOverDustThreshold;
-    }
-
-    if (transaction?.validation.hasEnoughBalance === false) {
-      return lang.strings.send.recipient.amount.error;
-    }
-
+  const getXrpAmountError = useCallback(() => {
     const xrpValidation =
       transaction?.validation as IPreparedXrpTransaction['validation'];
 
@@ -796,6 +781,10 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
       );
     }
 
+    return '';
+  }, [transaction, lang, selectedAccount]);
+
+  const getSolanaAmountError = useCallback(() => {
     const solanaValidation =
       transaction?.validation as IPreparedSolanaTransaction['validation'];
 
@@ -821,6 +810,35 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
 
     return '';
   }, [transaction, lang, selectedAccount]);
+
+  const getAmountError = useCallback(() => {
+    if (transaction?.validation.zeroAmountNotAllowed) {
+      return lang.strings.send.recipient.amount.zeroAmount;
+    }
+
+    if (
+      (transaction?.validation as IPreparedBtcTransaction['validation'])
+        ?.isNotOverDustThreshold
+    ) {
+      return lang.strings.send.recipient.amount.notOverDustThreshold;
+    }
+
+    if (transaction?.validation.hasEnoughBalance === false) {
+      return lang.strings.send.recipient.amount.error;
+    }
+
+    const xrpAmountError = getXrpAmountError();
+    if (xrpAmountError !== '') {
+      return xrpAmountError;
+    }
+
+    const solanaAmountError = getSolanaAmountError();
+    if (solanaAmountError !== '') {
+      return solanaAmountError;
+    }
+
+    return '';
+  }, [transaction, lang, getXrpAmountError, getSolanaAmountError]);
 
   const getDestinationTagError = useCallback(() => {
     if (
