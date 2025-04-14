@@ -148,6 +148,85 @@ const selector = createSelector(
   }),
 );
 
+const getDisplayAmountValues = (
+  transaction: ITransaction,
+  priceInfos: IPriceInfo[],
+) => {
+  let displayValue = '$0.00';
+  let value = '0.00';
+  let displayFeeValue = '$0.00';
+  const coinPrice = priceInfos.find(
+    p =>
+      p.assetId === transaction.parentAssetId &&
+      p.currency.toLowerCase() === 'usd',
+  );
+  const assetPrice = priceInfos.find(
+    p =>
+      p.assetId === transaction.assetId && p.currency.toLowerCase() === 'usd',
+  );
+
+  if (coinPrice) {
+    const feeInDefaultUnit = convertToUnit({
+      amount: transaction.fees,
+      fromUnitAbbr: getZeroUnit(transaction.parentAssetId).abbr,
+      coinId: transaction.parentAssetId,
+      toUnitAbbr: getDefaultUnit(transaction.parentAssetId).abbr,
+    });
+    const feeValue = new BigNumber(feeInDefaultUnit.amount).multipliedBy(
+      coinPrice.latestPrice,
+    );
+    displayFeeValue = `$${formatDisplayPrice(feeValue)}`;
+  }
+
+  if (assetPrice) {
+    const amountInDefaultUnit = convertToUnit({
+      amount: transaction.amount,
+      fromUnitAbbr: getZeroUnit(transaction.parentAssetId, transaction.assetId)
+        .abbr,
+      coinId: transaction.parentAssetId,
+      assetId: transaction.assetId,
+      toUnitAbbr: getDefaultUnit(transaction.parentAssetId, transaction.assetId)
+        .abbr,
+    });
+    const formattedValue = formatDisplayPrice(
+      new BigNumber(amountInDefaultUnit.amount).multipliedBy(
+        assetPrice.latestPrice,
+      ),
+      2,
+    );
+    value = formattedValue;
+    displayValue = `$${formattedValue}`;
+  }
+
+  return { value, displayValue, displayFeeValue };
+};
+
+const getExtraInfo = (transaction: ITransaction) => {
+  const remarks: string[] = [];
+  if (transaction.remarks) {
+    for (let i = 0; i < transaction.remarks.length; i += 1) {
+      const remark = transaction.remarks[i].trim();
+      if (remark) {
+        if (transaction.remarks.length === 1) {
+          remarks.push(remark);
+        } else {
+          remarks.push(`${i + 1}. ${remark}`);
+        }
+      }
+    }
+  }
+
+  const destinationTag = transaction.extraData?.destinationTag;
+  const memo = transaction.extraData?.memo;
+  let operation = transaction.extraData?.operation;
+  if (operation) {
+    operation =
+      operation.charAt(0).toUpperCase() + operation.slice(1).toLowerCase();
+  }
+
+  return { remarks, destinationTag, memo, operation };
+};
+
 export const mapTransactionForDisplay = (params: {
   transaction: ITransaction;
   priceInfos: IPriceInfo[];
@@ -183,55 +262,15 @@ export const mapTransactionForDisplay = (params: {
     amount: transaction.fees,
   });
 
-  let displayValue = '$0.00';
-  let value = '0.00';
-  let displayFeeValue = '$0.00';
-  const coinPrice = priceInfos.find(
-    p =>
-      p.assetId === transaction.parentAssetId &&
-      p.currency.toLowerCase() === 'usd',
+  const { value, displayValue, displayFeeValue } = getDisplayAmountValues(
+    transaction,
+    priceInfos,
   );
-  const assetPrice = priceInfos.find(
-    p =>
-      p.assetId === transaction.assetId && p.currency.toLowerCase() === 'usd',
-  );
+
   const wallet = wallets.find(w => w.__id === transaction.walletId);
   let account = accounts.find(a => a.__id === transaction.parentAccountId);
   if (!account) {
     account = accounts.find(a => a.__id === transaction.accountId);
-  }
-
-  if (coinPrice) {
-    const feeInDefaultUnit = convertToUnit({
-      amount: transaction.fees,
-      fromUnitAbbr: getZeroUnit(transaction.parentAssetId).abbr,
-      coinId: transaction.parentAssetId,
-      toUnitAbbr: getDefaultUnit(transaction.parentAssetId).abbr,
-    });
-    const feeValue = new BigNumber(feeInDefaultUnit.amount).multipliedBy(
-      coinPrice.latestPrice,
-    );
-    displayFeeValue = `$${formatDisplayPrice(feeValue)}`;
-  }
-
-  if (assetPrice) {
-    const amountInDefaultUnit = convertToUnit({
-      amount: transaction.amount,
-      fromUnitAbbr: getZeroUnit(transaction.parentAssetId, transaction.assetId)
-        .abbr,
-      coinId: transaction.parentAssetId,
-      assetId: transaction.assetId,
-      toUnitAbbr: getDefaultUnit(transaction.parentAssetId, transaction.assetId)
-        .abbr,
-    });
-    const formattedValue = formatDisplayPrice(
-      new BigNumber(amountInDefaultUnit.amount).multipliedBy(
-        assetPrice.latestPrice,
-      ),
-      2,
-    );
-    value = formattedValue;
-    displayValue = `$${formattedValue}`;
   }
 
   const timestamp = new Date(transaction.timestamp);
@@ -254,27 +293,8 @@ export const mapTransactionForDisplay = (params: {
     ? undefined
     : `${formattedAmount.complete} ${unit.abbr}`;
 
-  const remarks: string[] = [];
-  if (transaction.remarks) {
-    for (let i = 0; i < transaction.remarks.length; i += 1) {
-      const remark = transaction.remarks[i].trim();
-      if (remark) {
-        if (transaction.remarks.length === 1) {
-          remarks.push(remark);
-        } else {
-          remarks.push(`${i + 1}. ${remark}`);
-        }
-      }
-    }
-  }
-
-  const destinationTag = transaction.extraData?.destinationTag;
-  const memo = transaction.extraData?.memo;
-  let operation = transaction.extraData?.operation;
-  if (operation) {
-    operation =
-      operation.charAt(0).toUpperCase() + operation.slice(1).toLowerCase();
-  }
+  const { remarks, destinationTag, memo, operation } =
+    getExtraInfo(transaction);
 
   return {
     id: transaction.__id ?? '',
