@@ -216,42 +216,45 @@ function calcValue(params: {
     .toString();
 }
 
-export async function createGetAccountHistory(
-  params: ICreateGetAccountHistoryParams,
-): Promise<IGetAccountHistoryResult> {
-  const {
-    db,
-    accountId,
-    priceHistories: allPriceHistories,
-    priceInfos: allPriceInfos,
-    transactions: allTransactions,
-    account: accountInParams,
-    currency,
-    days,
-  } = params;
+const getUpdatedBalance = (
+  account: IAccount,
+  transaction: ITransaction,
+  balance: BigNumber,
+) => {
+  let curBalance = balance;
 
-  const account = accountInParams ?? (await getAccount(db, accountId));
-  const transactions = await getTransactions(allTransactions, account, db);
-  const priceHistory = await getPriceHistory(
-    allPriceHistories,
-    account,
-    currency,
-    days,
-    db,
-  );
-  const latestPrice = await getLatestPrice(
-    allPriceInfos,
-    account,
-    currency,
-    db,
-  );
-  let curBalance = new BigNumber(account.balance);
+  if (
+    transaction.type === TransactionTypeMap.send ||
+    transaction.type === TransactionTypeMap.hidden
+  ) {
+    curBalance = curBalance.plus(new BigNumber(transaction.amount));
+    // In case of ICP, token txns incur fees from token account only
+    if (
+      account.type === AccountTypeMap.account ||
+      account.familyId === coinFamiliesMap.icp
+    ) {
+      curBalance = curBalance.plus(new BigNumber(transaction.fees));
+    }
+  } else if (transaction.type === TransactionTypeMap.receive) {
+    curBalance = curBalance.minus(new BigNumber(transaction.amount));
+  }
 
+  return curBalance;
+};
+
+const getAccountBalanceHistory = (
+  account: IAccount,
+  transactions: ITransaction[],
+  priceHistory: IPriceSnapshot[],
+  latestPrice?: string,
+) => {
   const accountBalanceHistory: IBalanceHistory[] = priceHistory.map(e => ({
     balance: '0',
     value: '0',
     timestamp: e.timestamp,
   }));
+
+  let curBalance = new BigNumber(account.balance);
 
   for (
     let tIndex = transactions.length - 1, pIndex = priceHistory.length - 1;
@@ -272,21 +275,7 @@ export async function createGetAccountHistory(
           transactionTime >= thisPricePoint) ||
         (isFirst && transactionTime >= thisPricePoint)
       ) {
-        if (
-          transaction.type === TransactionTypeMap.send ||
-          transaction.type === TransactionTypeMap.hidden
-        ) {
-          curBalance = curBalance.plus(new BigNumber(transaction.amount));
-          // In case of ICP, token txns incur fees from token account only
-          if (
-            account.type === AccountTypeMap.account ||
-            account.familyId === coinFamiliesMap.icp
-          ) {
-            curBalance = curBalance.plus(new BigNumber(transaction.fees));
-          }
-        } else if (transaction.type === TransactionTypeMap.receive) {
-          curBalance = curBalance.minus(new BigNumber(transaction.amount));
-        }
+        curBalance = getUpdatedBalance(account, transaction, curBalance);
         tIndex -= 1;
         isTxnAdded = true;
       }
@@ -321,6 +310,46 @@ export async function createGetAccountHistory(
     assetId: account.assetId,
     price: latestPrice ?? priceHistory[priceHistory.length - 1].price ?? 0,
   });
+
+  return accountBalanceHistory;
+};
+
+export async function createGetAccountHistory(
+  params: ICreateGetAccountHistoryParams,
+): Promise<IGetAccountHistoryResult> {
+  const {
+    db,
+    accountId,
+    priceHistories: allPriceHistories,
+    priceInfos: allPriceInfos,
+    transactions: allTransactions,
+    account: accountInParams,
+    currency,
+    days,
+  } = params;
+
+  const account = accountInParams ?? (await getAccount(db, accountId));
+  const transactions = await getTransactions(allTransactions, account, db);
+  const priceHistory = await getPriceHistory(
+    allPriceHistories,
+    account,
+    currency,
+    days,
+    db,
+  );
+  const latestPrice = await getLatestPrice(
+    allPriceInfos,
+    account,
+    currency,
+    db,
+  );
+
+  const accountBalanceHistory = getAccountBalanceHistory(
+    account,
+    transactions,
+    priceHistory,
+    latestPrice,
+  );
 
   const currentValue = calcValue({
     amount: account.balance,
