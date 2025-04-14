@@ -23,7 +23,12 @@ import React, { useCallback, useState } from 'react';
 import { CoinIcon } from '~/components';
 import { useLabelSuffix } from '~/dialogs/Send/hooks';
 import { useStateToRef } from '~/hooks';
-import { selectLanguage, selectPriceInfos, useAppSelector } from '~/store';
+import {
+  ILangState,
+  selectLanguage,
+  selectPriceInfos,
+  useAppSelector,
+} from '~/store';
 
 import { BitcoinInput } from './BitcoinInput';
 import { EthereumInput } from './EthereumInput';
@@ -35,6 +40,7 @@ import { OptimismFeesHeader } from './OptimismFeesHeader';
 import { useSendDialog } from '../../../context';
 import { IPreparedSolanaTransaction } from '@cypherock/coin-support-solana';
 import { IPreparedTronTransaction } from '@cypherock/coin-support-tron';
+import { IPreparedTransaction } from '@cypherock/coin-support-interfaces';
 
 const feeInputMap: Partial<Record<CoinFamily, React.FC<any>>> = {
   bitcoin: BitcoinInput,
@@ -53,6 +59,48 @@ const feeHeaderMap: Partial<
   bitcoin: getDefaultHeader,
   evm: getEvmHeader,
   xrp: getDefaultHeader,
+};
+
+const getErrorAndWarningComponents = (
+  txnValidation: IPreparedTransaction['validation'],
+  isFeeLow: boolean,
+  lang: ILangState,
+  showErrors?: boolean,
+) => {
+  const tronTxnValidation =
+    txnValidation as IPreparedTronTransaction['validation'];
+  const xrpTxnValidation =
+    txnValidation as IPreparedXrpTransaction['validation'];
+  const solanaTxnValidation =
+    txnValidation as IPreparedSolanaTransaction['validation'];
+
+  const displayText = lang.strings.send.recipient;
+
+  return (
+    <>
+      {isFeeLow && txnValidation?.isValidFee && (
+        <MessageBox type="warning" text={displayText.warning} />
+      )}
+      {tronTxnValidation?.notEnoughEnergy && (
+        <MessageBox
+          type="warning"
+          text={lang.strings.send.tron.notEnoughEnergyWarning}
+        />
+      )}
+      {!txnValidation?.isValidFee && (
+        <MessageBox type="danger" text={displayText.feeError} />
+      )}
+      {xrpTxnValidation?.isFeeBelowMin && (
+        <MessageBox type="danger" text={displayText.feeBelowMinError} />
+      )}
+      {solanaTxnValidation?.isRentExemptFeeRequired && (
+        <MessageBox type="warning" text={displayText.rentExemptFeeWarning} />
+      )}
+      {showErrors && txnValidation?.hasEnoughBalance === false && (
+        <MessageBox type="danger" text={displayText.notEnoughBalance} />
+      )}
+    </>
+  );
 };
 
 export interface FeeSectionProps {
@@ -300,6 +348,8 @@ export const FeeSection: React.FC<FeeSectionProps> = ({ showErrors }) => {
     return result;
   };
 
+  const txnValidation = transaction?.validation;
+
   return (
     <Container
       display="flex"
@@ -310,9 +360,7 @@ export const FeeSection: React.FC<FeeSectionProps> = ({ showErrors }) => {
       width="full"
     >
       {getFeeHeaderComponent()}
-
       {getFeeInputComponent()}
-
       <FeesDisplay
         label={displayText.fees.label + getLabelSuffix(selectedAccount)}
         isLoading={isFeeLoading}
@@ -321,31 +369,9 @@ export const FeeSection: React.FC<FeeSectionProps> = ({ showErrors }) => {
         }
         {...getFeeDetails()}
       />
-      {isFeeLow && transaction?.validation.isValidFee && (
-        <MessageBox type="warning" text={displayText.warning} />
-      )}
-      {(transaction?.validation as IPreparedTronTransaction['validation'])
-        ?.notEnoughEnergy && (
-        <MessageBox
-          type="warning"
-          text={lang.strings.send.tron.notEnoughEnergyWarning}
-        />
-      )}
-      {!transaction?.validation.isValidFee && (
-        <MessageBox type="danger" text={displayText.feeError} />
-      )}
-
-      {(transaction?.validation as IPreparedXrpTransaction['validation'])
-        ?.isFeeBelowMin && (
-        <MessageBox type="danger" text={displayText.feeBelowMinError} />
-      )}
-      {(transaction?.validation as IPreparedSolanaTransaction['validation'])
-        ?.isRentExemptFeeRequired && (
-        <MessageBox type="warning" text={displayText.rentExemptFeeWarning} />
-      )}
-      {showErrors && transaction?.validation.hasEnoughBalance === false && (
-        <MessageBox type="danger" text={displayText.notEnoughBalance} />
-      )}
+      ...
+      {txnValidation &&
+        getErrorAndWarningComponents(txnValidation, isFeeLow, lang, showErrors)}
     </Container>
   );
 };
