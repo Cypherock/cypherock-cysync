@@ -13,28 +13,24 @@ import {
 } from '@cypherock/cysync-ui';
 import React, { useState } from 'react';
 
-import { selectLanguage, useAppSelector } from '~/store';
+import { ILangState, selectLanguage, useAppSelector } from '~/store';
 
 import { AddressDisplay } from './Components';
 
 import { useReceiveDialog } from '../context';
 
-export const FinalMessage: React.FC = () => {
-  const lang = useAppSelector(selectLanguage);
+const getDisplayTexts = (
+  lang: ILangState,
+  isIcpAccount: boolean,
+  showAccountId: boolean,
+  isAddressVerified: boolean,
+  derivedAddress?: string,
+  derivedAccountId?: string,
+  derivedPrincipalId?: string,
+) => {
   const texts = lang.strings.receive.receive;
-
   const buttons = lang.strings.receive.finalButtons;
-  const {
-    onRetry,
-    onClose,
-    isAddressVerified,
-    selectedAccount,
-    derivedAddress,
-    derivedAccountId,
-    derivedPrincipalId,
-  } = useReceiveDialog();
 
-  const isIcpAccount = selectedAccount?.familyId === coinFamiliesMap.icp;
   const congratsTitle = isIcpAccount
     ? lang.strings.receive.congrats.accountAndPrincipalIdTitle
     : lang.strings.receive.congrats.title;
@@ -53,9 +49,6 @@ export const FinalMessage: React.FC = () => {
   let addressLabel = isIcpAccount ? texts.principalIdLabel : texts.addressLabel;
   let address = isIcpAccount ? derivedPrincipalId : derivedAddress;
 
-  const [showAccountId, setShowAccountId] = useState<boolean>(
-    isIcpAccount && !isAddressVerified,
-  );
   if (showAccountId) {
     messageBoxWarining =
       lang.strings.receive.receive.messageBox.accountIdWarning;
@@ -65,6 +58,50 @@ export const FinalMessage: React.FC = () => {
     address = derivedAccountId;
   }
 
+  return {
+    congratsTitle,
+    messageBoxWarining,
+    secondaryBtnUnverifedText,
+    addressLabel,
+    titlePrefix,
+    titleSuffix: texts.title.suffix,
+    primaryBtnText: buttons.primary,
+    continueBtnText: buttons.continue,
+    secondaryBtnText: isAddressVerified
+      ? buttons.secondary
+      : secondaryBtnUnverifedText,
+    address: address ?? '',
+  };
+};
+
+export const FinalMessage: React.FC = () => {
+  const lang = useAppSelector(selectLanguage);
+
+  const {
+    onRetry,
+    onClose,
+    isAddressVerified,
+    selectedAccount,
+    derivedAddress,
+    derivedAccountId,
+    derivedPrincipalId,
+  } = useReceiveDialog();
+
+  const isIcpAccount = selectedAccount?.familyId === coinFamiliesMap.icp;
+  const [showAccountId, setShowAccountId] = useState<boolean>(
+    isIcpAccount && !isAddressVerified,
+  );
+
+  const displayTexts = getDisplayTexts(
+    lang,
+    isIcpAccount,
+    showAccountId,
+    isAddressVerified,
+    derivedAddress,
+    derivedAccountId,
+    derivedPrincipalId,
+  );
+
   return (
     <DialogBox width={600}>
       <DialogBoxBody p={0} pt={5}>
@@ -73,17 +110,20 @@ export const FinalMessage: React.FC = () => {
           <DialogBoxBody p={0} px={4} pb={5}>
             {isAddressVerified ? (
               <Typography variant="h5" $textAlign="center">
-                <LangDisplay text={congratsTitle} />
+                <LangDisplay text={displayTexts.congratsTitle} />
               </Typography>
             ) : (
               <>
                 <AddressDisplay
-                  titlePrefix={titlePrefix}
-                  titleSuffix={texts.title.suffix}
-                  addressLabel={addressLabel}
-                  address={address ?? ''}
+                  titlePrefix={displayTexts.titlePrefix}
+                  titleSuffix={displayTexts.titleSuffix}
+                  addressLabel={displayTexts.addressLabel}
+                  address={displayTexts.address}
                 />
-                <MessageBox text={messageBoxWarining} type="danger" />
+                <MessageBox
+                  text={displayTexts.messageBoxWarining}
+                  type="danger"
+                />
               </>
             )}
           </DialogBoxBody>
@@ -91,16 +131,16 @@ export const FinalMessage: React.FC = () => {
       </DialogBoxBody>
       <DialogBoxFooter>
         <Button variant="secondary" onClick={onRetry}>
-          {isAddressVerified ? buttons.secondary : secondaryBtnUnverifedText}
+          {displayTexts.secondaryBtnText}
         </Button>
         {(!showAccountId || isAddressVerified) && (
           <Button variant="primary" onClick={onClose}>
-            {buttons.primary}
+            {displayTexts.primaryBtnText}
           </Button>
         )}
         {showAccountId && !isAddressVerified && (
           <Button variant="primary" onClick={() => setShowAccountId(false)}>
-            {buttons.continue}
+            {displayTexts.continueBtnText}
           </Button>
         )}
       </DialogBoxFooter>
