@@ -308,13 +308,6 @@ const findAccount = (
   accounts.find(a => a.__id === parentAccountId) ??
   accounts.find(a => a.__id === accountId);
 
-const getWalletName = (wallet?: IWallet) => wallet?.name ?? '';
-
-const getAccountName = (account?: IAccount) => account?.name ?? '';
-
-const getAccountTag = (account?: IAccount) =>
-  lodash.upperCase(account?.derivationScheme ?? '');
-
 const getWalletAndAccount = (wallet?: IWallet, account?: IAccount) =>
   `${wallet?.name ?? ''} ${account?.name ?? ''} ${
     account?.derivationScheme ?? ''
@@ -342,9 +335,9 @@ export const mapTransactionForDisplay = (params: {
     id: transaction.__id ?? '',
     xpubOrAddress: account?.xpubOrAddress ?? '',
     walletAndAccount: getWalletAndAccount(wallet, account),
-    accountName: getAccountName(account),
-    accountTag: getAccountTag(account),
-    walletName: getWalletName(wallet),
+    accountName: account?.name ?? '',
+    accountTag: lodash.upperCase(account?.derivationScheme ?? ''),
+    walletName: wallet?.name ?? '',
     type: getDisplayTransactionType(transaction, params.lang.strings),
     explorerLink: getCoinSupport(transaction.familyId).getExplorerLink({
       transaction,
