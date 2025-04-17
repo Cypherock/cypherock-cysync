@@ -3,3 +3,5 @@ import { IDeviceConnection } from '@cypherock/sdk-interfaces';
 
 export const createApp = (connection: IDeviceConnection) =>
   NearApp.create(connection);
+
+export const getAppletId = () => NearApp.APPLET_ID;

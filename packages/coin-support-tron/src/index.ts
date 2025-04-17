@@ -29,7 +29,7 @@ import {
   ISignTronTransactionParams,
   ISyncTronAccountsParams,
 } from './operations/types';
-import { setCoinSupportTronWeb } from './utils';
+import { getAppletId, setCoinSupportTronWeb } from './utils';
 
 export * from './operations/types';
 export * from './services';
@@ -114,5 +114,9 @@ export class TronSupport implements CoinSupport {
 
   public async getAccountAddress(params: IGetAccountAddressParams) {
     return (await operations.getExternalAddress(params)).address;
+  }
+
+  public getAppId() {
+    return getAppletId();
   }
 }

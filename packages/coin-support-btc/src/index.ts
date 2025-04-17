@@ -24,6 +24,7 @@ import {
   ISignBtcTransactionParams,
   ISyncBtcAccountsParams,
 } from './operations/types';
+import { getAppletId } from './utils';
 
 export * from './operations/types';
 export * from './services';
@@ -98,5 +99,9 @@ export class BtcSupport implements CoinSupport {
 
   public async getAccountAddress(params: IGetAccountAddressParams) {
     return (await operations.getFirstUnusedExternalAddress(params)).address;
+  }
+
+  public getAppId() {
+    return getAppletId();
   }
 }

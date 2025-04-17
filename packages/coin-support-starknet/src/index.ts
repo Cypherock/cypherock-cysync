@@ -39,7 +39,11 @@ import {
   ISignStarknetTransactionEvent,
   ISignStarknetTransactionParams,
 } from './operations/types';
-import { setCoinSupportStarknetLib, StarknetLibType } from './utils';
+import {
+  getAppletId,
+  setCoinSupportStarknetLib,
+  StarknetLibType,
+} from './utils';
 
 export * from './operations/types';
 export { updateLogger } from './utils/logger';
@@ -152,5 +156,9 @@ export class StarknetSupport implements CoinSupport {
 
   public async getAccountAddress(params: IGetAccountAddressParams) {
     return (await operations.getExternalAddress(params)).address;
+  }
+
+  public getAppId() {
+    return getAppletId();
   }
 }

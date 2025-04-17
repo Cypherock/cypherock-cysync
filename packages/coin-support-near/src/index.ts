@@ -19,6 +19,7 @@ import { Observable } from 'rxjs';
 
 import * as operations from './operations';
 import { ICreateNearAccountParams } from './operations/types';
+import { getAppletId } from './utils';
 
 export * from './operations/types';
 export * from './services';
@@ -92,5 +93,9 @@ export class NearSupport implements CoinSupport {
 
   public async getAccountAddress(params: IGetAccountAddressParams) {
     return (await operations.getExternalAddress(params)).address;
+  }
+
+  public getAppId() {
+    return getAppletId();
   }
 }

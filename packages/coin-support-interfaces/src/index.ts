@@ -79,4 +79,5 @@ export interface CoinSupport {
   getExplorerLink(params: IGetExplorerLink): string;
   formatAddress(params: IFormatAddressParams): string;
   getAccountAddress(params: IGetAccountAddressParams): Promise<string>;
+  getAppId(): number;
 }

@@ -31,6 +31,7 @@ import {
   ICreateSolanaAccountParams,
 } from './operations/types';
 import {
+  getAppletId,
   setCoinSupportWeb3Lib,
   setTokenSupportSplTokenLib,
   splTokenLibType,
@@ -121,5 +122,9 @@ export class SolanaSupport implements CoinSupport {
 
   public async getAccountAddress(params: IGetAccountAddressParams) {
     return (await operations.getExternalAddress(params)).address;
+  }
+
+  public getAppId() {
+    return getAppletId();
   }
 }

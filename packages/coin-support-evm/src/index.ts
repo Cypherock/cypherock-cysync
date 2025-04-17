@@ -33,7 +33,7 @@ import {
   IBroadcastEvmTransactionParams,
   ISignEvmTransactionEvent,
 } from './operations/types';
-import { setCoinSupportEthersLib } from './utils';
+import { getAppletId, setCoinSupportEthersLib } from './utils';
 import { setCoinSupportWeb3Lib } from './utils/web3';
 
 export * from './operations/types';
@@ -127,5 +127,9 @@ export class EvmSupport implements CoinSupport {
 
   public async getAccountAddress(params: IGetAccountAddressParams) {
     return (await operations.getExternalAddress(params)).address;
+  }
+
+  public getAppId() {
+    return getAppletId();
   }
 }
