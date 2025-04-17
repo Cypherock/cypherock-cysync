@@ -104,6 +104,10 @@ export const prepareTransaction = async (
     (isTokenAccount ||
       new BigNumber(output.memo).isGreaterThanOrEqualTo(MAX_UINT64));
 
+  if (isInvalidMemo) {
+    output.memo = undefined;
+  }
+
   return {
     ...txn,
     validation: {
@@ -112,7 +116,6 @@ export const prepareTransaction = async (
       isValidFee: true,
       ownOutputAddressNotAllowed: [isOwnOutputAddress],
       zeroAmountNotAllowed: sendAmount.isZero(),
-      isInvalidMemo,
     },
     computedData: {
       fees,

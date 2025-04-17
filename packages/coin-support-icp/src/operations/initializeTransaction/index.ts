@@ -33,7 +33,6 @@ export const initializeTransaction = async (
       isValidFee: true,
       ownOutputAddressNotAllowed: [],
       zeroAmountNotAllowed: false,
-      isInvalidMemo: false,
     },
     userInputs: {
       outputs: [],

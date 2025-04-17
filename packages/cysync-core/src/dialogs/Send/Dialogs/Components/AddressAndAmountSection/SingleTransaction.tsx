@@ -6,6 +6,7 @@ import { IPreparedTransaction } from '@cypherock/coin-support-interfaces';
 import { getDefaultUnit, getParsedAmount } from '@cypherock/coin-support-utils';
 import { coinFamiliesMap, CoinFamily } from '@cypherock/coins';
 import { Container } from '@cypherock/cysync-ui';
+import { BigNumber } from '@cypherock/cysync-utils';
 import { AccountTypeMap } from '@cypherock/db-interfaces';
 import React, { useEffect, useState } from 'react';
 
@@ -18,6 +19,8 @@ import { NotesInput } from './NotesInput';
 import { useSendDialog } from '../../../context';
 import { DestinationTagInput } from './DestinationTagInput';
 import { MemoInput } from './MemoInput';
+
+const MAX_UINT64 = new BigNumber('0xffffffffffffffff');
 
 interface SingleTransactionProps {
   disableInputs?: boolean;
@@ -44,7 +47,6 @@ export const SingleTransaction: React.FC<SingleTransactionProps> = ({
     getOutputError,
     getAmountError,
     getDestinationTagError,
-    getMemoError,
   } = useSendDialog();
 
   let recipientDisplayText = displayText.recipient;
@@ -136,7 +138,7 @@ export const SingleTransaction: React.FC<SingleTransactionProps> = ({
       placeholder: displayText.memo.placeholder,
       initialValue: txn?.userInputs.outputs[0]?.memo,
       onChange: prepareMemo,
-      error: getMemoError(),
+      limit: MAX_UINT64,
     };
   };
 

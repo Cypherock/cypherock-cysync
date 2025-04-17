@@ -14,14 +14,6 @@ export interface IPreparedIcpTransaction extends IPreparedTransaction {
     outputs: IPreparedIcpTransactionOutput[];
     isSendAll: boolean;
   };
-  validation: {
-    outputs: boolean[];
-    hasEnoughBalance: boolean;
-    isValidFee: boolean;
-    ownOutputAddressNotAllowed: boolean[];
-    zeroAmountNotAllowed: boolean;
-    isInvalidMemo: boolean;
-  };
   staticData: {
     fees: string;
   };
