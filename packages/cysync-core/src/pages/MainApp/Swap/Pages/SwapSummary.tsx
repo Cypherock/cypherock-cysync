@@ -1,4 +1,5 @@
 import {
+  formatDisplayAmount,
   formatDisplayPrice,
   getAsset,
   getDefaultUnit,
@@ -122,12 +123,14 @@ export const SwapSummary = () => {
         p.currency.toLowerCase() === 'usd',
     );
     if (!account || !coinPrice) return [];
-    const amount = quote?.fee ?? '0';
+
+    const fee = quote?.fee ?? '0';
+    const amount = formatDisplayAmount(
+      new BigNumber(fee).dividedBy(coinPrice.latestPrice),
+    ).fixed;
     const unit = getDefaultUnit(account.parentAssetId).abbr;
 
-    const value = formatDisplayPrice(
-      new BigNumber(amount).multipliedBy(coinPrice.latestPrice),
-    );
+    const value = formatDisplayPrice(new BigNumber(fee));
 
     details.push({
       id: 'fee-details',
@@ -157,11 +160,8 @@ export const SwapSummary = () => {
     );
 
     const feeAmount = quote?.fee ?? '0';
-    const feeValue = new BigNumber(feeAmount).multipliedBy(
-      parentAssetPrice.latestPrice,
-    );
 
-    const totalValue = formatDisplayPrice(amountValue.plus(feeValue));
+    const totalValue = formatDisplayPrice(amountValue.plus(feeAmount));
 
     return [
       {
