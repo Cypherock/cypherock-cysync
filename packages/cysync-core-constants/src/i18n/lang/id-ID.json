@@ -329,8 +329,8 @@
         "error": "Nilai terlalu tinggi"
       },
       "memo": {
-        "label": "Memo",
-        "placeholder": "Opsional",
+        "label": "Memo (Opsional)",
+        "placeholder": "Masukkan memo numerik",
         "error": "Nilai terlalu tinggi"
       },
       "feeBelowMinError": "Transaksi dengan biaya lebih rendah dari minimum akan gagal",
