@@ -81,6 +81,7 @@ export const SwapProvider: React.FC<SwapProviderProps> = ({ children }) => {
     setFromAccount(undefined);
     setToAccount(undefined);
     setQuote(undefined);
+    setExchangeDetails(undefined);
   };
 
   const retryMap: Record<SwapPage, () => void> = {

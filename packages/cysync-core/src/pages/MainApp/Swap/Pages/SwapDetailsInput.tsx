@@ -1,6 +1,10 @@
-/* eslint-disable */
 // TODO: refactor this file into multiple components
-import { getDefaultUnit, getParsedAmount } from '@cypherock/coin-support-utils';
+import {
+  formatDisplayPrice,
+  getParsedAmount,
+  getDefaultUnit,
+} from '@cypherock/coin-support-utils';
+import { ServerErrorType } from '@cypherock/cysync-core-constants';
 import {
   Container,
   LangDisplay,
@@ -23,7 +27,8 @@ import { IQuote, useSwap } from '~/context';
 import { useAccountDropdown, useWalletDropdown } from '~/hooks';
 import { getQuotes } from '~/services/swapService';
 
-import { useAppSelector, selectLanguage } from '~/store';
+import { useAppSelector, selectLanguage, selectPriceInfos } from '~/store';
+import { createServerErrorFromError } from '~/utils';
 import logger from '~/utils/logger';
 
 const throbber: JSX.Element = <Throbber size={15} strokeWidth={2} />;
@@ -117,12 +122,42 @@ const AmountAndAccountSelection: React.FC<any> = ({
   const lang = useAppSelector(selectLanguage);
   const dialogText = lang.strings.send.source;
 
-  useEffect(() => {
-    console.log({ selectedWallet, selectedAccount });
-  }, [selectedWallet]);
+  const { priceInfos } = useAppSelector(selectPriceInfos);
+
+  const coinUnit = useMemo(() => {
+    const account = selectedAccount;
+
+    if (!account) return '';
+
+    const unit =
+      account.unit ??
+      getDefaultUnit(account.parentAssetId, account.assetId).abbr;
+    return unit;
+  }, [selectedAccount]);
+
+  const coinValue = useMemo(() => {
+    const account = selectedAccount;
+    if (!account) return '';
+
+    const assetPrice = priceInfos.find(
+      p => p.assetId === account?.assetId && p.currency.toLowerCase() === 'usd',
+    );
+
+    if (!assetPrice) return '';
+
+    const validAmount = amount ?? '0';
+    console.log({ assetPrice, validAmount });
+    const amountValue = new BigNumber(validAmount).multipliedBy(
+      assetPrice.latestPrice,
+    );
+
+    const value = formatDisplayPrice(amountValue);
+
+    return `$${value}`;
+  }, [selectedAccount, amount]);
 
   return (
-    <Flex direction="column" gap={16}>
+    <Flex direction="column" gap={16} $minWidth="420px">
       <Flex direction="column" gap={8}>
         <Typography $fontSize={12} color="muted">
           {selectionLabel}
@@ -145,24 +180,21 @@ const AmountAndAccountSelection: React.FC<any> = ({
         />
       </Flex>
       <Flex direction="column" gap={8}>
-        <Typography $fontSize={12} color="muted">
-          {amountLabel}
-        </Typography>
+        <Flex align="center" justify="space-between">
+          <Typography $fontSize={12} color="muted">
+            {amountLabel}
+          </Typography>
+          <Typography $fontSize={14} color="muted">
+            {coinValue}
+          </Typography>
+        </Flex>
         <AmountInput
           placeholder="0"
           amount={amount}
           setAmount={setAmount}
           isDisabled={!selectedAccount || isAmountDisabled}
           error={amountError}
-          coinUnit={
-            selectedAccount
-              ? selectedAccount.unit ??
-                getDefaultUnit(
-                  selectedAccount.parentAssetId,
-                  selectedAccount.assetId,
-                ).abbr
-              : ''
-          }
+          coinUnit={coinUnit}
         />
       </Flex>
     </Flex>
@@ -173,52 +205,48 @@ const OfferBox: React.FC<any> = ({
   selectedIndex,
   setSelectedIndex,
   offerData,
-}) => {
-  return (
-    <Flex
-      p="20px"
-      px={2}
-      gap={16}
-      direction="column"
-      $borderRadius={8}
-      $borderColor={selectedIndex === offerData.index ? 'gold' : 'card'}
-      $borderWidth={1}
-      onClick={() => {
-        setSelectedIndex(offerData.index);
-      }}
-    >
-      <Flex justify="space-between" align="center">
-        <Flex gap={8} align="center">
-          <Image
-            src={offerData?.provider?.imageUrl ?? ''}
-            alt="Logo"
-            $width={32}
-            $height={32}
-          />
-          <Typography $fontSize={14}>{offerData.provider.name}</Typography>
-        </Flex>
-        {offerData.isBest && <Tag type="gold">Best Offer</Tag>}
+}) => (
+  <Flex
+    p="20px"
+    px={2}
+    gap={16}
+    direction="column"
+    $borderRadius={8}
+    $borderColor={selectedIndex === offerData.index ? 'gold' : 'card'}
+    $borderWidth={1}
+    onClick={() => {
+      setSelectedIndex(offerData.index);
+    }}
+  >
+    <Flex justify="space-between" align="center">
+      <Flex gap={8} align="center">
+        <Image
+          src={offerData?.provider?.imageUrl ?? ''}
+          alt="Logo"
+          $width={32}
+          $height={32}
+        />
+        <Typography $fontSize={14}>{offerData.provider.name}</Typography>
       </Flex>
-      <Flex direction="column">
-        {offerData?.data?.map((data: any) => {
-          return (
-            <Flex justify="space-between" align="center" key={data.title}>
-              <Flex gap={8} align="center">
-                <Typography $fontSize={14}>{data.title}</Typography>
-              </Flex>
-              <Flex gap={8} align="center">
-                <Typography $fontSize={14}>{data.value[0]}</Typography>
-                <Typography $fontSize={12} color="muted">
-                  {data.value[1]}
-                </Typography>
-              </Flex>
-            </Flex>
-          );
-        })}
-      </Flex>
+      {offerData.isBest && <Tag type="gold">Best Offer</Tag>}
     </Flex>
-  );
-};
+    <Flex direction="column">
+      {offerData?.data?.map((data: any) => (
+        <Flex justify="space-between" align="center" key={data.title}>
+          <Flex gap={8} align="center">
+            <Typography $fontSize={14}>{data.title}</Typography>
+          </Flex>
+          <Flex gap={8} align="center">
+            <Typography $fontSize={14}>{data.value[0]}</Typography>
+            <Typography $fontSize={12} color="muted">
+              {data.value[1]}
+            </Typography>
+          </Flex>
+        </Flex>
+      ))}
+    </Flex>
+  </Flex>
+);
 
 export const SwapQuotesHeader: React.FC<{
   size: number;
@@ -263,6 +291,7 @@ export const SwapQuotes: React.FC<{
   toAccount?: IAccount;
   fromAccount?: IAccount;
   findNewQuotes: () => void;
+  hasEnoughBalance: boolean;
 }> = ({
   quotes,
   setSelectedOfferIndex,
@@ -270,6 +299,7 @@ export const SwapQuotes: React.FC<{
   toAccount,
   fromAccount,
   findNewQuotes,
+  hasEnoughBalance,
 }) => {
   const { toNextPage, fillDetails } = useSwap();
 
@@ -315,7 +345,8 @@ export const SwapQuotes: React.FC<{
         variant="primary"
         disabled={
           selectedOfferIndex === undefined ||
-          selectedOfferIndex >= quotes.length
+          selectedOfferIndex >= quotes.length ||
+          !hasEnoughBalance
         }
         onClick={() => {
           if (
@@ -326,7 +357,6 @@ export const SwapQuotes: React.FC<{
             return;
           }
           const quote = quotes[selectedOfferIndex ?? 0];
-          console.log({ quote });
           fillDetails({
             from: fromAccount,
             to: toAccount,
@@ -336,7 +366,7 @@ export const SwapQuotes: React.FC<{
         }}
         display="inline-block"
       >
-        <LangDisplay text={'Continue'} />
+        <LangDisplay text="Continue" />
       </Button>
     </>
   );
@@ -358,7 +388,7 @@ export const SwapDetailsInput = () => {
     includeSubAccounts: true,
   });
 
-  const [fromAmount, setFromAmount] = useState('');
+  const [fromAmount, setFromAmount] = useState('0');
 
   const toWallet = useWalletDropdown();
   const toAccount = useAccountDropdown({
@@ -389,6 +419,7 @@ export const SwapDetailsInput = () => {
   }, [fromAccount.selectedAccount, fromAmount]);
 
   const [quotes, setQuotes] = useState<IQuote[]>([]);
+  const [message, setMessage] = useState<string>();
   const calculatedAmount = useMemo(() => {
     if (quotes.length <= (selectedOfferIndex ?? 0)) {
       return '0';
@@ -407,17 +438,11 @@ export const SwapDetailsInput = () => {
   const [isFetchingQuotes, setIsFetchingQuotes] = useState(false);
   const [range, setRange] = useState<{ min: string; max: string }>();
 
-  const fetchQuotes = async (
-    from: IAccount,
-    to: IAccount,
-    amount: string,
-    isValid: boolean,
-  ) => {
+  const fetchQuotes = async (from: IAccount, to: IAccount, amount: string) => {
     let newQuotes: IQuote[] = [];
-    let newRange = undefined;
+    let newRange;
     if (
       !(
-        isValid &&
         fromAccount !== undefined &&
         !new BigNumber(amount).isNaN() &&
         toAccount !== undefined
@@ -435,7 +460,7 @@ export const SwapDetailsInput = () => {
         fromNetwork: from.parentAssetId,
         toCurrency: to.assetId,
         toNetwork: to.parentAssetId,
-        amount: amount,
+        amount,
       });
 
       if (result.status === 200) {
@@ -443,6 +468,10 @@ export const SwapDetailsInput = () => {
         newRange = result.data?.metadata?.range;
       }
     } catch (e) {
+      const serverError = createServerErrorFromError(e);
+      if (serverError?.code === ServerErrorType.CONNOT_CONNECT) {
+        setMessage('No internet connection');
+      }
       logger.error(e);
     }
 
@@ -458,17 +487,17 @@ export const SwapDetailsInput = () => {
       fromWallet.selectedWallet === undefined ||
       fromAccount.selectedAccount === undefined
     ) {
-      setFromAmount('');
+      setFromAmount('0');
     }
   }, [fromWallet.selectedWallet, fromAccount.selectedAccount]);
 
   const findNewQuotes = () => {
     setIsFetchingQuotes(true);
+    setMessage(undefined);
     debouncedGetQuotes(
       fromAccount.selectedAccount!,
       toAccount.selectedAccount!,
       fromAmount,
-      hasEnoughBalance,
     );
   };
 
@@ -491,6 +520,89 @@ export const SwapDetailsInput = () => {
     fromAccount.handleAccountChange(intermediateAccountId);
     setFromAmount(intermediateAmount);
   };
+
+  const sideComponent = useMemo(() => {
+    if (isFetchingQuotes) {
+      return (
+        <Flex mt={4} justify="center" gap={16} align="center">
+          {throbber}
+          <Typography
+            color="muted"
+            justify="space-between"
+            display="flex"
+            $allowOverflow
+          >
+            Searching for your best offer
+          </Typography>
+        </Flex>
+      );
+    }
+    if (quotes.length > 0) {
+      return (
+        <SwapQuotes
+          quotes={quotes}
+          setSelectedOfferIndex={setSelectedOfferIndex}
+          selectedOfferIndex={selectedOfferIndex}
+          toAccount={toAccount.selectedAccount}
+          fromAccount={fromAccount.selectedAccount}
+          findNewQuotes={findNewQuotes}
+          hasEnoughBalance={hasEnoughBalance}
+        />
+      );
+    }
+
+    const getText = () => {
+      if (
+        fromAccount.selectedAccount === undefined ||
+        toAccount.selectedAccount === undefined
+      ) {
+        return ['Select accounts'];
+      }
+
+      if (
+        fromAccount.selectedAccount.assetId ===
+        toAccount.selectedAccount.assetId
+      ) {
+        return ['Cannot swap same asset'];
+      }
+
+      if (message) {
+        return [message];
+      }
+
+      return [
+        'No offers available for your request',
+        range
+          ? `Amount should be between ${range.min} and ${range.max}`
+          : 'Currency not supported',
+      ];
+    };
+
+    return (
+      <Flex mt={4} justify="center" direction="column" align="center">
+        {getText().map((t, index) => (
+          <Typography
+            key={`${index + 1}`}
+            color="muted"
+            justify="space-between"
+            display="flex"
+            $allowOverflow
+          >
+            {t}
+          </Typography>
+        ))}
+      </Flex>
+    );
+  }, [
+    range,
+    quotes,
+    setSelectedOfferIndex,
+    selectedOfferIndex,
+    toAccount,
+    fromAccount,
+    findNewQuotes,
+    isFetchingQuotes,
+  ]);
 
   return (
     <Container
@@ -537,7 +649,7 @@ export const SwapDetailsInput = () => {
           handleAccountChange={toAccount.handleAccountChange}
           accountDropdownList={toAccount.accountDropdownList}
           amount={calculatedAmount}
-          isAmountDisabled={true}
+          isAmountDisabled
         />
       </Flex>
       <Flex
@@ -549,49 +661,7 @@ export const SwapDetailsInput = () => {
         direction="column"
         $overflow="auto"
       >
-        {isFetchingQuotes ? (
-          <Flex mt={4} justify="center" gap={16} align="center">
-            {throbber}
-            <Typography
-              color="muted"
-              justify="space-between"
-              display="flex"
-              $allowOverflow
-            >
-              Searching for your best offer
-            </Typography>
-          </Flex>
-        ) : quotes.length > 0 ? (
-          <SwapQuotes
-            quotes={quotes}
-            setSelectedOfferIndex={setSelectedOfferIndex}
-            selectedOfferIndex={selectedOfferIndex}
-            toAccount={toAccount.selectedAccount}
-            fromAccount={fromAccount.selectedAccount}
-            findNewQuotes={findNewQuotes}
-          />
-        ) : (
-          <Flex mt={4} justify="center" direction="column" align="center">
-            <Typography
-              color="muted"
-              justify="space-between"
-              display="flex"
-              $allowOverflow
-            >
-              No offers available for your request
-            </Typography>
-            <Typography
-              color="muted"
-              justify="space-between"
-              display="flex"
-              $allowOverflow
-            >
-              {range
-                ? `Amount should be between ${range.min} and ${range.max}`
-                : 'Currency not supported'}
-            </Typography>
-          </Flex>
-        )}
+        {sideComponent}
       </Flex>
     </Container>
   );
