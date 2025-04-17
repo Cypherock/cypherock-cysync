@@ -1,9 +1,8 @@
-import { Container } from '@cypherock/cysync-ui';
 import React, { useEffect, useRef, useState } from 'react';
 
 import { openSendDialog } from '~/actions';
 import { ErrorHandlerDialog, LoaderDialog } from '~/components';
-import { useSwap } from '~/context';
+import { createCustomError, useSwap } from '~/context';
 import { useAppDispatch } from '~/store';
 
 export const SwapSend = () => {
@@ -27,7 +26,7 @@ export const SwapSend = () => {
 
   const onSendFlowClose = () => {
     if (transactionId.current === undefined) {
-      setPageError(new Error('Failed to send transaction'));
+      setPageError(createCustomError('Send flow was not successful'));
       return;
     }
     toNextPage();
@@ -39,7 +38,12 @@ export const SwapSend = () => {
       exchangeDetails === undefined ||
       quote === undefined
     ) {
-      setPageError(new Error('invalid prerequisite for swap send'));
+      setPageError(
+        createCustomError(
+          'Cannot start send flow',
+          'invalid prerequisite for swap send',
+        ),
+      );
       return;
     }
 
@@ -61,15 +65,13 @@ export const SwapSend = () => {
   }, []);
 
   return (
-    <Container width="full" height="full">
-      <ErrorHandlerDialog
-        error={pageError ?? error}
-        onClose={reset}
-        onRetry={retryCurrentPage}
-        noDelay
-      >
-        <LoaderDialog />
-      </ErrorHandlerDialog>
-    </Container>
+    <ErrorHandlerDialog
+      error={pageError ?? error}
+      onClose={reset}
+      onRetry={retryCurrentPage}
+      noDelay
+    >
+      <LoaderDialog />
+    </ErrorHandlerDialog>
   );
 };

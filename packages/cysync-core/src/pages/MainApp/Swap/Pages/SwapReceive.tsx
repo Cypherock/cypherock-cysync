@@ -1,9 +1,8 @@
-import { Container } from '@cypherock/cysync-ui';
 import React, { useEffect, useRef, useState } from 'react';
 
 import { openReceiveDialog } from '~/actions';
 import { ErrorHandlerDialog, LoaderDialog } from '~/components';
-import { useSwap } from '~/context';
+import { createCustomError, useSwap } from '~/context';
 import { useAppDispatch } from '~/store';
 
 export const SwapReceive = () => {
@@ -26,7 +25,7 @@ export const SwapReceive = () => {
 
   const onReceiveFlowClosed = async () => {
     if (receiversAddress.current === undefined) {
-      setPageError(new Error('Receiver address not available'));
+      setPageError(createCustomError('Receive flow was not successful'));
       return;
     }
     await initiateExchange(receiversAddress.current);
@@ -35,7 +34,7 @@ export const SwapReceive = () => {
 
   useEffect(() => {
     if (toAccount === undefined) {
-      setPageError(new Error('Account not selected'));
+      setPageError(createCustomError('Account not selected'));
       return;
     }
     dispatch(
@@ -50,15 +49,13 @@ export const SwapReceive = () => {
   }, []);
 
   return (
-    <Container width="full" height="full">
-      <ErrorHandlerDialog
-        error={pageError ?? error}
-        onClose={reset}
-        onRetry={retryCurrentPage}
-        noDelay
-      >
-        <LoaderDialog />
-      </ErrorHandlerDialog>
-    </Container>
+    <ErrorHandlerDialog
+      error={pageError ?? error}
+      onClose={reset}
+      onRetry={retryCurrentPage}
+      noDelay
+    >
+      <LoaderDialog />
+    </ErrorHandlerDialog>
   );
 };

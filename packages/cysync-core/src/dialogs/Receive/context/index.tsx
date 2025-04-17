@@ -164,8 +164,9 @@ export const ReceiveDialogProvider: FC<ReceiveDialogContextProviderProps> = ({
 
   if (storeReceiveAddress) {
     useEffect(() => {
-      if (derivedAddress) storeReceiveAddress(derivedAddress);
-    }, [derivedAddress]);
+      if (derivedAddress && isAddressVerified)
+        storeReceiveAddress(derivedAddress);
+    }, [derivedAddress, isAddressVerified]);
   }
 
   const onClose = () => {

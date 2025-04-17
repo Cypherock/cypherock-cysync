@@ -1,5 +1,6 @@
 import { IAccount } from '@cypherock/db-interfaces';
 import React, { useCallback, useState } from 'react';
+import { ErrorActionMap, ErrorIconNameMap } from '~/constants/errors';
 
 import { useMemoReturn } from '~/hooks';
 import { createExchange } from '~/services/swapService';
@@ -61,6 +62,20 @@ export const SwapContext: React.Context<SwapContextInterface> =
 export interface SwapProviderProps {
   children: React.ReactNode;
 }
+
+export const createCustomError = (heading: string, subtext?: string) => ({
+  custom: {
+    heading,
+    subtext,
+    details: {
+      iconName: ErrorIconNameMap.default,
+      action: {
+        name: ErrorActionMap.retry,
+      },
+    },
+  },
+  isCustomError: true,
+});
 
 export const SwapProvider: React.FC<SwapProviderProps> = ({ children }) => {
   const [currentPage, setCurrentPage] = useState(SwapPage.DETAILS);
