@@ -1,8 +1,14 @@
 import { IAccount } from '@cypherock/db-interfaces';
-import React, { useCallback, useState } from 'react';
+import {
+  ExchangeApp,
+  IGetSignatureResultResponse,
+} from '@cypherock/sdk-app-exchange';
+import { ManagerApp } from '@cypherock/sdk-app-manager';
+import { hexToUint8Array } from '@cypherock/sdk-utils';
+import React, { useCallback, useRef, useState } from 'react';
 import { ErrorActionMap, ErrorIconNameMap } from '~/constants/errors';
 
-import { useMemoReturn } from '~/hooks';
+import { DeviceTask, useDeviceTask, useMemoReturn } from '~/hooks';
 import { createExchange } from '~/services/swapService';
 import logger from '~/utils/logger';
 
@@ -127,8 +133,52 @@ export const SwapProvider: React.FC<SwapProviderProps> = ({ children }) => {
   // give details to exchange app (init)
   // start receive flow
   // get details from exchange app (receive signature)
+
+  const getSignatureTask: DeviceTask<
+    IGetSignatureResultResponse & { serial: Uint8Array }
+  > = async connection => {
+    const manager = await ManagerApp.create(connection);
+    const deviceInfo = await manager.getDeviceInfo();
+
+    const app = await ExchangeApp.create(connection);
+
+    const data = await app.getSignature();
+
+    return { serial: deviceInfo.deviceSerial, ...data };
+  };
+
+  const getSignature = useDeviceTask(getSignatureTask, {
+    dontExecuteTask: true,
+  });
+
+  const exchangeSignatureRef = useRef<string>();
+
+  const storeSignatureTask: DeviceTask<void> = useCallback(
+    async connection => {
+      console.log({ ref: exchangeSignatureRef.current });
+      if (exchangeSignatureRef.current === undefined)
+        throw createCustomError('Invalid signature received from server');
+
+      const app = await ExchangeApp.create(connection);
+
+      await app.storeSignature({
+        signature: hexToUint8Array(exchangeSignatureRef.current),
+      });
+    },
+    [exchangeSignatureRef],
+  );
+
+  const storeSignature = useDeviceTask(storeSignatureTask, {
+    dontExecuteTask: true,
+  });
+
   const initiateExchange = async (address: string) => {
     try {
+      const sig = await getSignature.run();
+
+      if (sig.error || sig.result === undefined)
+        throw createCustomError('Error while fetching signature from device');
+
       if (
         quote === undefined ||
         toAccount === undefined ||
@@ -144,10 +194,13 @@ export const SwapProvider: React.FC<SwapProviderProps> = ({ children }) => {
         toCurrency: toAccount.assetId,
         amount: quote.fromAmount,
         receiverAddress: address,
-        receiverAddressSignature: 'sig', // TODO: use actual signature
+        receiverAddressSignature: Buffer.from(sig.result.signature).toString(
+          'hex',
+        ),
+        index: sig.result.index,
         fromNetwork: fromAccount.parentAssetId,
         toNetwork: toAccount.parentAssetId,
-        deviceSerial: 'ser', // TODO: use actual serial
+        deviceSerial: Buffer.from(sig.result.serial).toString('hex'),
       });
 
       if (result.status === 200) {
@@ -157,6 +210,12 @@ export const SwapProvider: React.FC<SwapProviderProps> = ({ children }) => {
           address: result.data.exchangeAddress,
           additionalData: result.data.exchangeAddressAdditionalData,
         });
+
+        exchangeSignatureRef.current = result.data.exchangeAddressSignature;
+
+        console.log({ result, ref: exchangeSignatureRef.current });
+        const storeSignatureResult = await storeSignature.run();
+        if (storeSignatureResult.error) throw storeSignatureResult.error;
       }
     } catch (error) {
       logger.error(error);

@@ -24,6 +24,7 @@ export const createExchange = async (params: {
   fromNetwork: string;
   toNetwork: string;
   deviceSerial: string;
+  index: number;
 }) =>
   axios.post(`${config.API_CYPHEROCK}/swap/create-exchange`, {
     ...params,
