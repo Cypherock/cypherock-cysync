@@ -3,6 +3,7 @@
 import { getCoinSupport } from '@cypherock/coin-support';
 import { IPreparedBtcTransaction } from '@cypherock/coin-support-btc';
 import { IPreparedEvmTransaction } from '@cypherock/coin-support-evm';
+import { IPreparedIcpTransaction } from '@cypherock/coin-support-icp';
 import {
   CoinSupport,
   IPreparedTransaction,
@@ -15,7 +16,6 @@ import {
 } from '@cypherock/coin-support-starknet';
 import { IPreparedTronTransaction } from '@cypherock/coin-support-tron';
 import { IPreparedXrpTransaction } from '@cypherock/coin-support-xrp';
-import { IPreparedIcpTransaction } from '@cypherock/coin-support-icp';
 import {
   convertToUnit,
   formatDisplayAmount,
@@ -25,6 +25,7 @@ import {
   getZeroUnit,
 } from '@cypherock/coin-support-utils';
 import { coinFamiliesMap, CoinFamily } from '@cypherock/coins';
+import { ServerError, ServerErrorType } from '@cypherock/cysync-core-constants';
 import { DropDownItemProps, parseLangTemplate } from '@cypherock/cysync-ui';
 import { BigNumber } from '@cypherock/cysync-utils';
 import {
@@ -80,7 +81,6 @@ import {
   SelectionDialog,
   DeviceAction,
 } from '../Dialogs';
-import { ServerError, ServerErrorType } from '@cypherock/cysync-core-constants';
 
 export interface SendDialogContextInterface {
   tabs: ITabs;
@@ -133,7 +133,6 @@ export interface SendDialogContextInterface {
   getOutputError: (index: number) => string;
   getAmountError: () => string;
   getDestinationTagError: () => string;
-  getMemoError: () => string;
   isPreparingTxn: boolean;
 }
 
@@ -568,14 +567,14 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
     await prepare(txn);
   };
 
-  const prepareMemo = async (tag: string) => {
+  const prepareMemo = async (memo: string) => {
     if (!selectedAccount) return;
 
     if (selectedAccount.familyId === coinFamiliesMap.icp) {
       const txn = transactionRef.current as IPreparedIcpTransaction;
       if (!txn) return;
 
-      const valueToSet = new BigNumber(tag).isLessThan(0) ? undefined : tag;
+      const valueToSet = new BigNumber(memo).isLessThan(0) ? undefined : memo;
       if (txn.userInputs.outputs.length > 0) {
         txn.userInputs.outputs[0].memo = valueToSet;
       } else {
@@ -851,17 +850,6 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
     return '';
   }, [transaction, lang]);
 
-  const getMemoError = useCallback(() => {
-    if (
-      (transaction?.validation as IPreparedIcpTransaction['validation'])
-        ?.isInvalidMemo
-    ) {
-      return lang.strings.send.recipient.memo.error;
-    }
-
-    return '';
-  }, [transaction, lang]);
-
   const onSelectionDialogNext = useCallback(async () => {
     if (
       selectedAccount &&
@@ -934,7 +922,6 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
       getOutputError,
       getAmountError,
       getDestinationTagError,
-      getMemoError,
       isPreparingTxn,
     }),
     [

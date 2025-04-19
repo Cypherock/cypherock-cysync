@@ -1,8 +1,8 @@
-import { getDefaultUnit, getParsedAmount } from '@cypherock/coin-support-utils';
 import { IPreparedBtcTransaction } from '@cypherock/coin-support-btc';
+import { IPreparedTransaction } from '@cypherock/coin-support-interfaces';
 import { IPreparedSolanaTransaction } from '@cypherock/coin-support-solana';
+import { getDefaultUnit, getParsedAmount } from '@cypherock/coin-support-utils';
 import { IPreparedXrpTransaction } from '@cypherock/coin-support-xrp';
-import { IPreparedIcpTransaction } from '@cypherock/coin-support-icp';
 import {
   BlockchainIcon,
   Button,
@@ -27,7 +27,6 @@ import logger from '~/utils/logger';
 import { AddressAndAmountSection, FeeSection } from './Components';
 
 import { useSendDialog } from '../context';
-import { IPreparedTransaction } from '@cypherock/coin-support-interfaces';
 
 export const Recipient: React.FC = () => {
   const {
@@ -93,10 +92,6 @@ export const Recipient: React.FC = () => {
       validation: IPreparedSolanaTransaction['validation'],
     ): boolean => !validation.isAmountBelowRentExempt;
 
-    const isIcpValid = (
-      validation: IPreparedIcpTransaction['validation'],
-    ): boolean => !validation.isInvalidMemo;
-
     const isTransactionValid = (): boolean => {
       if (!transaction) return false;
 
@@ -108,8 +103,7 @@ export const Recipient: React.FC = () => {
         areUserOutputsValid(v) &&
         isBtcValid(v as IPreparedBtcTransaction['validation']) &&
         isXrpValid(v as IPreparedXrpTransaction['validation']) &&
-        isSolanaValid(v as IPreparedSolanaTransaction['validation']) &&
-        isIcpValid(v as IPreparedIcpTransaction['validation'])
+        isSolanaValid(v as IPreparedSolanaTransaction['validation'])
       );
     };
 

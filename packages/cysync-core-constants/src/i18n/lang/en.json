@@ -329,8 +329,8 @@
         "error": "Value too high"
       },
       "memo": {
-        "label": "Memo",
-        "placeholder": "Optional",
+        "label": "Memo (Optional)",
+        "placeholder": "Enter a numeric memo",
         "error": "Value too high"
       },
       "feeBelowMinError": "Transaction with fee lesser than minimum will fail",

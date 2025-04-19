@@ -329,8 +329,8 @@
         "error": "值过高"
       },
       "memo": {
-        "label": "备忘录",
-        "placeholder": "可选",
+        "label": "备忘录（可选)",
+        "placeholder": "输入数字备注",
         "error": "值过高"
       },
       "feeBelowMinError": "低于最低 fee 的交易将失败",

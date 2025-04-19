@@ -10,12 +10,14 @@ import { BigNumber } from '@cypherock/cysync-utils';
 import lodash from 'lodash';
 import React, { useCallback, useState } from 'react';
 
+import { selectLanguage, useAppSelector } from '~/store';
+
 interface MemoInputProps {
   label: string;
   placeholder: string;
   initialValue?: string;
   onChange: (value: string) => Promise<void>;
-  error?: string;
+  limit: BigNumber;
 }
 
 export const MemoInput: React.FC<MemoInputProps> = ({
@@ -23,9 +25,12 @@ export const MemoInput: React.FC<MemoInputProps> = ({
   placeholder,
   initialValue,
   onChange,
-  error,
+  limit,
 }) => {
+  const lang = useAppSelector(selectLanguage);
+
   const [value, setValue] = useState<string>(initialValue ?? '');
+  const [error, setError] = useState('');
 
   const debouncedOnValueChange = useCallback(
     lodash.debounce(onChange, 300),
@@ -39,6 +44,17 @@ export const MemoInput: React.FC<MemoInputProps> = ({
     if (bigNum.isNaN()) {
       filteredValue = '';
       bigNum = new BigNumber(-1);
+    }
+
+    if (bigNum.isGreaterThanOrEqualTo(limit)) {
+      setError(lang.strings.send.recipient.memo.error);
+    } else {
+      setError('');
+    }
+
+    while (filteredValue.length > 0 && bigNum.isGreaterThanOrEqualTo(limit)) {
+      filteredValue = filteredValue.slice(0, filteredValue.length - 1);
+      bigNum = new BigNumber(filteredValue);
     }
 
     setValue(filteredValue);
@@ -79,5 +95,4 @@ export const MemoInput: React.FC<MemoInputProps> = ({
 
 MemoInput.defaultProps = {
   initialValue: undefined,
-  error: '',
 };
