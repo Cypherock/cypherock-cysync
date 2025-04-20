@@ -52,7 +52,7 @@ import goldLoaderIcon from './loader-gold.svg';
 import loaderGrayIcon from './loader-grey.svg';
 import loaderIcon from './loader.png';
 import cysyncLogoBig from './logo-big.svg';
-import cysyncLogoSmall from './logo-small.png';
+import cysyncLogoSmallImage from './logo-small.png';
 import LogoOutlinedAsideImage from './LogoOutlineAside.png';
 import manyInManyBgImage from './mim-bg.svg';
 import manyInManyHoverBgImage from './mim-hover-bg.svg';
@@ -97,6 +97,11 @@ import WalletHoverSilverBgIcon from './wallet-silver-hover-bg.svg';
 import walletIcon from './wallet.svg';
 import warningIcon from './warning.svg';
 import cantonIcon from './canton.png';
+
+const cysyncLogoSmall =
+  (window as any).cysyncEnv.VENDOR === 'odix' // Vendor specific image example
+    ? silverTickIcon
+    : cysyncLogoSmallImage;
 
 export {
   WalletDefaultExpiredIcon,

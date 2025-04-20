@@ -1,5 +1,5 @@
 {
-  "x1Card": "X1 Card",
+  "x1Card": "-=CARD_NAME=-",
   "help": "Help",
   "back": "Back",
   "allWallets": "All Wallets",
@@ -64,23 +64,23 @@
   },
   "deviceAuthentication": {
     "success": {
-      "title": "Your X1 Vault is authenticated successfully"
+      "title": "Your -=DEVICE_NAME=- is authenticated successfully"
     },
     "loading": {
-      "title": "Please wait while your X1 Vault is being authenticated",
-      "subtitle": "Do not disconnect your X1 Vault while the operation is being done"
+      "title": "Please wait while your -=DEVICE_NAME=- is being authenticated",
+      "subtitle": "Do not disconnect your -=DEVICE_NAME=- while the operation is being done"
     }
   },
   "lockscreen": {
     "title": "Your Gateway to Self-Sovereignty",
-    "passwordLabel": "Enter Password to unlock cySync",
+    "passwordLabel": "Enter Password to unlock -=APP_NAME=-",
     "forgotPassword": "Forgot password?",
     "incorrectPassword": "Incorrect password",
     "sameOldAndNewPassword": "New password cannot be same as old password",
     "button": "Unlock",
     "forgotPasswordDialog": {
-      "title": "Resetting password will reset your cySync app do you want to proceed?",
-      "subtext": "This will erase all your data on your cySync app. Note this will not result in loss of assets"
+      "title": "Resetting password will reset your -=APP_NAME=- app do you want to proceed?",
+      "subtext": "This will erase all your data on your -=APP_NAME=- app. Note this will not result in loss of assets"
     }
   },
   "permissionSetup": {
@@ -97,7 +97,7 @@
       "coinPlaceholder": "Choose a coin"
     },
     "deviceActions": {
-      "header": "Follow instructions on the X1 Vault",
+      "header": "Follow instructions on the -=DEVICE_NAME=-",
       "subtext": "Add a coin/account to wallet",
       "walletName": "${walletName}",
       "actions": {
@@ -168,7 +168,7 @@
     "aside": {
       "tabs": {
         "asset": "Asset",
-        "device": "X1 Vault",
+        "device": "-=DEVICE_NAME=-",
         "confirmation": "Confirmation"
       }
     }
@@ -200,7 +200,7 @@
       "accountPlaceholder": "Account to credit"
     },
     "x1Vault": {
-      "title": "Follow instructions on the X1 Vault",
+      "title": "Follow instructions on the -=DEVICE_NAME=-",
       "subtitle": "Confirm the operation on your device to finalize",
       "actions": {
         "verifyCoin": "Verify the asset and wallet name on the device",
@@ -222,10 +222,10 @@
       "principalIdLabel": "Principal ID",
       "partyIdLabel": "Party ID",
       "actions": {
-        "verify": "Verify the address on X1 Vault exactly matches the address displayed above",
-        "verifyAccountId": "Verify the Account ID on X1 Vault exactly matches the Account ID displayed above",
-        "verifyPrincipalId": "Verify the Principal ID on X1 Vault exactly matches the Principal ID displayed above",
-        "verifyPartyId": "Verify the Party ID on X1 Vault exactly matches the Party ID displayed above"
+        "verify": "Verify the address on -=DEVICE_NAME=- exactly matches the address displayed above",
+        "verifyAccountId": "Verify the Account ID on -=DEVICE_NAME=- exactly matches the Account ID displayed above",
+        "verifyPrincipalId": "Verify the Principal ID on -=DEVICE_NAME=- exactly matches the Principal ID displayed above",
+        "verifyPartyId": "Verify the Party ID on -=DEVICE_NAME=- exactly matches the Party ID displayed above"
       },
       "messageBox": {
         "warning": "This Receive Address was NOT VERIFIED by the device. Use it at your own risk",
@@ -254,7 +254,7 @@
     "aside": {
       "tabs": {
         "source": "Source",
-        "device": "X1 Vault",
+        "device": "-=DEVICE_NAME=-",
         "receive": "Receive"
       }
     }
@@ -301,7 +301,7 @@
       "accountPlaceholder": "Account to debit"
     },
     "x1Vault": {
-      "title": "Follow instructions on the X1 Vault",
+      "title": "Follow instructions on the -=DEVICE_NAME=-",
       "actions": {
         "verifyCoin": "Verify",
         "verifyDetails": "Verify transaction details on device",
@@ -457,7 +457,7 @@
         "source": "Source",
         "recipient": "Recipient",
         "summary": "Summary",
-        "x1vault": "X1 Vault",
+        "x1vault": "-=DEVICE_NAME=-",
         "confirm": "Confirmation"
       },
       "timer": {
@@ -479,7 +479,7 @@
   "deployAccount": {
     "title": "Account Deployment",
     "x1Vault": {
-      "title": "Follow instructions on the X1 Vault",
+      "title": "Follow instructions on the -=DEVICE_NAME=-",
       "actions": {
         "verifyCoin": "Verify",
         "verifyDetails": "Verify account deployment details on device",
@@ -512,7 +512,7 @@
     "aside": {
       "tabs": {
         "summary": "Summary",
-        "x1vault": "X1 Vault",
+        "x1vault": "-=DEVICE_NAME=-",
         "confirm": "Confirmation"
       }
     }
@@ -589,7 +589,7 @@
   "onboarding": {
     "info": {
       "aside": {
-        "title": "Welcome to cySync app",
+        "title": "Welcome to -=APP_NAME=- app",
         "subTitle": "Your Gateway to Self-Sovereignty"
       },
       "dialogBox": {
@@ -599,19 +599,19 @@
           "You have at least 10-15 minutes to setup your wallet",
           "You have an active internet connection",
           "The tamper-proof seal of the package is intact",
-          "Cypherock will never ask you for your seed phrase nor will it ever ask you to sign a transaction",
-          "Cypherock will only email you from cypherock.com. Do not trust any email from any other website domain"
+          "-=PRODUCT_NAME=- will never ask you for your seed phrase nor will it ever ask you to sign a transaction",
+          "-=PRODUCT_NAME=- will only email you from -=PRODUCT_NAME=-.com. Do not trust any email from any other website domain"
         ]
       }
     },
     "usage": {
       "userNew": {
-        "title": "I am using Cypherock X1 for the first time",
-        "note": "Choose this if you have never used Cypherock X1 before"
+        "title": "I am using -=PRODUCT_NAME=- X1 for the first time",
+        "note": "Choose this if you have never used -=PRODUCT_NAME=- X1 before"
       },
       "userExpert": {
-        "title": "I have already used a Cypherock X1",
-        "note": "Choose this if you want to migrate your wallets to a new Cypherock X1. This might be required in case you lost your X1 Vault and one or more of the X1 Cards"
+        "title": "I have already used a -=PRODUCT_NAME=- X1",
+        "note": "Choose this if you want to migrate your wallets to a new -=PRODUCT_NAME=- X1. This might be required in case you lost your -=DEVICE_NAME=- and one or more of the -=CARD_NAME=-s"
       }
     },
     "terms": {
@@ -625,9 +625,9 @@
     },
     "setPassword": {
       "heading": "Set Password",
-      "title": "Set your cySync password ",
+      "title": "Set your -=APP_NAME=- password ",
       "subtitle": "We do not store your password on our servers",
-      "success": "Your cySync password has been successfully set",
+      "success": "Your -=APP_NAME=- password has been successfully set",
       "newPasswordLabel": "New Password",
       "confirmPasswordLabel": "Confirm Password",
       "hint": "Use 8 or more characters with a mix of letters, numbers & symbols"
@@ -636,80 +636,80 @@
       "heading": "Email Auth",
       "title": "You are recommended to enter an email ID as a 2FA to get authenticity results ",
       "subtitle": "We do not store this email ID permanently on our servers ",
-      "success": "Your cySync password has been successfully set",
+      "success": "Your -=APP_NAME=- password has been successfully set",
       "enterEmailLabel": "Email",
       "placeholder": "Email"
     },
     "deviceDetection": {
       "heading": "Device Connection",
-      "title": "Connect your X1 Vault to your PC to proceed",
+      "title": "Connect your -=DEVICE_NAME=- to your PC to proceed",
       "unavailable": {
-        "title": "Your X1 Vault is unable to communicate",
+        "title": "Your -=DEVICE_NAME=- is unable to communicate",
         "subtext": "Try reconnecting the device"
       }
     },
     "deviceAuth": {
       "heading": "Device Authentication",
-      "title": "Your X1 Vault will now be authenticated\nthrough Cypherock server to check its\nauthenticity ",
+      "title": "Your -=DEVICE_NAME=- will now be authenticated\nthrough -=PRODUCT_NAME=- server to check its\nauthenticity ",
       "subtext": "Do not disconnect your device while the operation is being done",
       "success": {
-        "title": "Your X1 Vault is successfully authenticated",
+        "title": "Your -=DEVICE_NAME=- is successfully authenticated",
         "subtext": "Wait while we take you to the next screen"
       },
-      "error": "X1 Vault authentication has failed"
+      "error": "-=DEVICE_NAME=- authentication has failed"
     },
     "joystickTraining": {
       "heading": "Joystick Instructions",
-      "subtext": "X1 Vault provides 4 way joystick for screen navigation",
+      "subtext": "-=DEVICE_NAME=- provides 4 way joystick for screen navigation",
       "upTitle": "Toggle Up",
       "rightTitle": "Toggle Right",
       "downTitle": "Toggle Down",
       "leftTitle": "Toggle Left",
       "centerTitle": "Center click the joystick to proceed",
-      "centerSubtext": "X1 Vault has a center button to perform click",
+      "centerSubtext": "-=DEVICE_NAME=- has a center button to perform click",
       "footer": "Follow the instructions on the device",
       "success": "Joystick instructions completed",
       "error": "Joystick instructions has failed"
     },
     "cardTraining": {
       "heading": "Card Tapping Instructions",
-      "title": "Tap any X1 Card below the X1 Vault to test card tapping",
+      "title": "Tap any -=CARD_NAME=- below the -=DEVICE_NAME=- to test card tapping",
       "subtext": "Your cards communicate with the device through encrypted NFC. Make sure you keep it tapped until you hear a beep sound",
       "error": "Card Tapping has failed"
     },
     "cardAuth": {
       "heading": "Card Authentication",
-      "title": "Tap X1 Cards one by one below the \nX1 Vault till you hear 3 beep sounds",
+      "title": "Tap -=CARD_NAME=-s one by one below the \n-=DEVICE_NAME=- till you hear 3 beep sounds",
       "subtext": "Lift your card after 3 beep sounds"
     },
     "walletActionsDialogBox": {
-      "title": "Let's create a wallet before we proceed. Make sure you have all the 4 X1 Cards with you",
-      "subTitle": "The following tutorials are just there to guide you on your device. You can create a wallet even without these tutorials independently on your Cypherock X1",
+      "title": "Let's create a wallet before we proceed. Make sure you have all the 4 -=CARD_NAME=-s with you",
+      "subTitle": "The following tutorials are just there to guide you on your device. You can create a wallet even without these tutorials independently on your -=PRODUCT_NAME=- X1",
       "createWallet": {
         "title": "Create a new wallet",
         "list": [
-          "If you have bought a brand new Cypherock X1 and want to setup a new wallet"
+          "If you have bought a brand new -=PRODUCT_NAME=- X1 and want to setup a new wallet"
         ]
       },
       "importWallet": {
         "title": "Import your wallet from a seed phrase",
         "list": [
-          "You want to use Cypherock X1 as a backup of your other wallets ",
-          "You want to transfer your assets from your other wallets into Cypherock X1 ",
-          "You want to manage and track portfolio of your other wallets through Cypherock X1 "
+          "You want to use -=PRODUCT_NAME=- X1 as a backup of your other wallets ",
+          "You want to transfer your assets from your other wallets into -=PRODUCT_NAME=- X1 ",
+          "You want to manage and track portfolio of your other wallets through -=PRODUCT_NAME=- X1 "
         ]
       }
     },
     "success": {
       "title": "Congratulations",
-      "subtext": "Cypherock X1 is now ready to use"
+      "subtext": "-=PRODUCT_NAME=- X1 is now ready to use"
     },
     "appUpdate": {
       "heading": "App Update",
       "dialogs": {
         "checking": {
           "heading": "App Update",
-          "title": "Please wait while we check for Cypherock CySync updates"
+          "title": "Please wait while we check for -=PRODUCT_NAME=- -=APP_NAME=- updates"
         },
         "checkingFailed": {
           "heading": "App Update",
@@ -718,30 +718,30 @@
         },
         "confirmation": {
           "heading": "App Update",
-          "title": "A new update is available for your cySync app. Update the app to v${version} to continue",
-          "subtext": "Your X1 Vault seems to be incompatible with the current cySync app. Update your desktop app to v${version} to continue"
+          "title": "A new update is available for your -=APP_NAME=- app. Update the app to v${version} to continue",
+          "subtext": "Your -=DEVICE_NAME=- seems to be incompatible with the current -=APP_NAME=- app. Update your desktop app to v${version} to continue"
         },
         "downloading": {
           "heading": "Updating...",
-          "subtext": "Please wait while we update your cySync app",
+          "subtext": "Please wait while we update your -=APP_NAME=- app",
           "version": "Version ${version}"
         },
         "updateSuccessful": {
-          "heading": "cySync app updated successfully",
+          "heading": "-=APP_NAME=- app updated successfully",
           "subtext": "Please wait while we restart the app to apply the latest update",
           "bubbleText": "In case, the app does not restart itself, manually start it again"
         },
         "updateFailed": {
-          "heading": "cySync update to version ${version} failed",
+          "heading": "-=APP_NAME=- update to version ${version} failed",
           "subtext": "Something went wrong, try updating again or contact support",
           "buttons": {
             "retry": "Retry"
           }
         },
         "updateFailedFallback": {
-          "heading": "cySync app update to version ${version} failed",
+          "heading": "-=APP_NAME=- app update to version ${version} failed",
           "subtext": "Download and reinstall the desktop app from the link below",
-          "alertText": "Close this app before reinstalling the latest cySync app"
+          "alertText": "Close this app before reinstalling the latest -=APP_NAME=- app"
         }
       }
     },
@@ -750,23 +750,23 @@
       "version": "Version ${version}",
       "dialogs": {
         "checking": {
-          "title": "Please wait while we check for X1 Vault updates"
+          "title": "Please wait while we check for -=DEVICE_NAME=- updates"
         },
         "confirmation": {
           "heading": "Device Update",
-          "title": "A new update is available for your X1 Vault. Update the device to v${version} to continue",
+          "title": "A new update is available for your -=DEVICE_NAME=-. Update the device to v${version} to continue",
           "subtext": "Follow the instructions on the device"
         },
         "loading": {
-          "text": "Please wait while we check for X1 Vault updates"
+          "text": "Please wait while we check for -=DEVICE_NAME=- updates"
         },
         "updating": {
           "heading": "Updating...",
-          "subtext": "Please wait while we update your X1 Vault"
+          "subtext": "Please wait while we update your -=DEVICE_NAME=-"
         },
         "updateSuccessful": {
-          "heading": "X1 Vault updated successfully",
-          "headingWithVersion": "X1 Vault updated to v${version} successfully",
+          "heading": "-=DEVICE_NAME=- updated successfully",
+          "headingWithVersion": "-=DEVICE_NAME=- updated to v${version} successfully",
           "subtext": "Your device is now operating on the latest firmware"
         },
         "updateFailed": {
@@ -777,10 +777,10 @@
     }
   },
   "appUpdateBar": {
-    "confirmation": "Update to cySync version ${version} is available",
-    "downloading": "Downloading cySync version ${version}",
-    "error": "Error downloading cySync update",
-    "successful": "cySync update downloaded, it will install automatically when you close the app",
+    "confirmation": "Update to -=APP_NAME=- version ${version} is available",
+    "downloading": "Downloading -=APP_NAME=- version ${version}",
+    "error": "Error downloading -=APP_NAME=- update",
+    "successful": "-=APP_NAME=- update downloaded, it will install automatically when you close the app",
     "buttons": {
       "download": "Download",
       "tryAgain": "Try Again",
@@ -792,7 +792,7 @@
     "button": "Download"
   },
   "betaNotificationBar": {
-    "message": "CySync v2.0.0 is available!",
+    "message": "-=APP_NAME=- v2.0.0 is available!",
     "button": "Learn More"
   },
   "topbar": {
@@ -834,19 +834,21 @@
     "help": "Help",
     "new": "New",
     "tooltip": {
-      "walletDeleted": "${walletName} has been deleted from your Cypherock X1 Vault"
-    }
+      "walletDeleted": "${walletName} has been deleted from your -=PRODUCT_NAME=- -=DEVICE_NAME=-"
+    },
+    "cypherockCover": "-=PRODUCT_NAME=- Cover",
+    "new": "New"
   },
   "walletSync": {
     "deletedOne": {
-      "title": "Seems like you have deleted the wallet ${walletName} from the X1 Vault. Do you want to delete it on cySync as well?"
+      "title": "Seems like you have deleted the wallet ${walletName} from the -=DEVICE_NAME=-. Do you want to delete it on -=APP_NAME=- as well?"
     },
     "deletedMany": {
-      "title": "Seems like you have deleted wallets from the X1 Vault. Do you want to delete them from cySync as well?",
+      "title": "Seems like you have deleted wallets from the -=DEVICE_NAME=-. Do you want to delete them from -=APP_NAME=- as well?",
       "subTitle": "You can choose which ones to keep and which ones to delete"
     },
     "freshOneCreated": {
-      "title": "Seems like you have deleted wallets from the X1 Vault while creating new ones by the same name. Do you want to delete the old wallets on cySync?",
+      "title": "Seems like you have deleted wallets from the -=DEVICE_NAME=- while creating new ones by the same name. Do you want to delete the old wallets on -=APP_NAME=-?",
       "subTitle": "You can choose which one to keep and which one to delete",
       "checkboxText": "Don't show this again"
     },
@@ -960,7 +962,7 @@
     "walletMissing": {
       "text": "Wallets Missing",
       "subText": "Create a new wallet or import from seed phrase to get started",
-      "subText2": "If you have already created wallets in the device, simply sync them with cySync"
+      "subText2": "If you have already created wallets in the device, simply sync them with -=APP_NAME=-"
     },
     "accountMissing": {
       "text": "Accounts Missing",
@@ -1004,291 +1006,291 @@
   "errors": {
     "deviceErrors": {
       "CON_0100": {
-        "heading": "Connect the X1 Vault to your PC to proceed"
+        "heading": "Connect the -=DEVICE_NAME=- to your PC to proceed"
       },
       "CON_0101": {
-        "heading": "Connect the X1 Vault to your PC to proceed"
+        "heading": "Connect the -=DEVICE_NAME=- to your PC to proceed"
       },
       "CON_0102": {
-        "heading": "Your X1 Vault is unable to connect",
+        "heading": "Your -=DEVICE_NAME=- is unable to connect",
         "subtext": "Reconnect the device and try again"
       },
       "COM_0000": {
-        "heading": "Your X1 Vault is in safe mode",
+        "heading": "Your -=DEVICE_NAME=- is in safe mode",
         "subtext": "Update your device to proceed"
       },
       "COM_0104": {
-        "heading": "Your X1 Vault is facing some communication issues",
+        "heading": "Your -=DEVICE_NAME=- is facing some communication issues",
         "subtext": "Reconnect the device and try again"
       },
       "COM_0101": {
-        "heading": "Your X1 Vault is facing some communication issues",
+        "heading": "Your -=DEVICE_NAME=- is facing some communication issues",
         "subtext": "Reconnect the device and try again"
       },
       "COM_0102": {
-        "heading": "Your X1 Vault is facing some communication issues",
+        "heading": "Your -=DEVICE_NAME=- is facing some communication issues",
         "subtext": "Reconnect the device and try again"
       },
       "COM_0103": {
-        "heading": "Your X1 Vault is facing some communication issues",
+        "heading": "Your -=DEVICE_NAME=- is facing some communication issues",
         "subtext": "Reconnect the device and try again"
       },
       "COM_0100": {
-        "heading": "Your X1 Vault is facing some communication issues",
+        "heading": "Your -=DEVICE_NAME=- is facing some communication issues",
         "subtext": "Reconnect the device and try again"
       },
       "COM_0200": {
-        "heading": "Your X1 Vault does not support this operation",
-        "subtext": "Update the cySync app and the device to the latest version"
+        "heading": "Your -=DEVICE_NAME=- does not support this operation",
+        "subtext": "Update the -=APP_NAME=- app and the device to the latest version"
       },
       "COM_0201": {
-        "heading": "Your X1 Vault is not compatible with the cySync app",
-        "subtext": "Update the cySync app and the device to the latest version"
+        "heading": "Your -=DEVICE_NAME=- is not compatible with the -=APP_NAME=- app",
+        "subtext": "Update the -=APP_NAME=- app and the device to the latest version"
       },
       "BTL_0000": {
-        "heading": "Operation failed on the X1 Vault",
+        "heading": "Operation failed on the -=DEVICE_NAME=-",
         "subtext": "Reconnect the device and try again"
       },
       "BTL_0100": {
-        "heading": "Your X1 Vault does not support this firmware",
-        "subtext": "Contact Cypherock support for assistance"
+        "heading": "Your -=DEVICE_NAME=- does not support this firmware",
+        "subtext": "Contact -=PRODUCT_NAME=- support for assistance"
       },
       "BTL_0101": {
-        "heading": "Your X1 Vault does not support this firmware",
-        "subtext": "Contact Cypherock support for assistance"
+        "heading": "Your -=DEVICE_NAME=- does not support this firmware",
+        "subtext": "Contact -=PRODUCT_NAME=- support for assistance"
       },
       "BTL_0102": {
-        "heading": "Your X1 Vault does not support this firmware",
-        "subtext": "Contact Cypherock support for assistance"
+        "heading": "Your -=DEVICE_NAME=- does not support this firmware",
+        "subtext": "Contact -=PRODUCT_NAME=- support for assistance"
       },
       "BTL_0103": {
-        "heading": "Your X1 Vault's firmware is not authentic",
-        "subtext": "It usually happens when you are trying to install a firmware not developed by Cypherock"
+        "heading": "Your -=DEVICE_NAME=-'s firmware is not authentic",
+        "subtext": "It usually happens when you are trying to install a firmware not developed by -=PRODUCT_NAME=-"
       },
       "BTL_0104": {
-        "heading": "Your X1 Vault cannot be updated to a lower firmware version",
+        "heading": "Your -=DEVICE_NAME=- cannot be updated to a lower firmware version",
         "subtext": "The device only supports updating the firmware to a higher version"
       },
       "BTL_0106": {
-        "heading": "X1 Vault update failed",
-        "subtext": "Reconnect the device, try again and if the problem persists, contact Cypherock support for assistance"
+        "heading": "-=DEVICE_NAME=- update failed",
+        "subtext": "Reconnect the device, try again and if the problem persists, contact -=PRODUCT_NAME=- support for assistance"
       },
       "BTL_0107": {
-        "heading": "Your X1 Vault does not support this firmware",
-        "subtext": "Contact Cypherock support for assistance"
+        "heading": "Your -=DEVICE_NAME=- does not support this firmware",
+        "subtext": "Contact -=PRODUCT_NAME=- support for assistance"
       },
       "BTL_0108": {
-        "heading": "Your X1 Vault is facing some communication issues",
-        "subtext": "Reconnect the device, try again and if the problem persists, contact Cypherock support for assistance"
+        "heading": "Your -=DEVICE_NAME=- is facing some communication issues",
+        "subtext": "Reconnect the device, try again and if the problem persists, contact -=PRODUCT_NAME=- support for assistance"
       },
       "BTL_0109": {
         "heading": "Something went wrong",
-        "subtext": "Reconnect the device, try again and if the problem persists, contact Cypherock support for assistance"
+        "subtext": "Reconnect the device, try again and if the problem persists, contact -=PRODUCT_NAME=- support for assistance"
       },
       "BTL_0105": {
-        "heading": "Your X1 Vault is facing communication issues",
-        "subtext": "Reconnect the device, try again and if the problem persists, contact Cypherock support for assistance"
+        "heading": "Your -=DEVICE_NAME=- is facing communication issues",
+        "subtext": "Reconnect the device, try again and if the problem persists, contact -=PRODUCT_NAME=- support for assistance"
       },
       "APP_0000": {
         "heading": "Something went wrong",
-        "subtext": "Reconnect the device, try again and if the problem persists, contact Cypherock support for assistance"
+        "subtext": "Reconnect the device, try again and if the problem persists, contact -=PRODUCT_NAME=- support for assistance"
       },
       "APP_0101": {
-        "heading": "Your X1 Vault is currently busy",
+        "heading": "Your -=DEVICE_NAME=- is currently busy",
         "subtext": "Navigate to main menu in device and try again"
       },
       "APP_0102": {
-        "heading": "Your X1 Vault aborted this operation",
+        "heading": "Your -=DEVICE_NAME=- aborted this operation",
         "subtext": "You can resume it from where you last left"
       },
       "APP_0103": {
-        "heading": "Your X1 Vault aborted this operation",
-        "subtext": "Reconnect the device try again and if the problem persists, contact Cypherock support for assistance"
+        "heading": "Your -=DEVICE_NAME=- aborted this operation",
+        "subtext": "Reconnect the device try again and if the problem persists, contact -=PRODUCT_NAME=- support for assistance"
       },
       "APP_0200": {
-        "heading": "Your X1 Vault is facing communication issues",
-        "subtext": "Reconnect the device, try again and if the problem persists contact Cypherock support for assistance"
+        "heading": "Your -=DEVICE_NAME=- is facing communication issues",
+        "subtext": "Reconnect the device, try again and if the problem persists contact -=PRODUCT_NAME=- support for assistance"
       },
       "APP_0201": {
-        "heading": "Your X1 Vault is facing communication issues",
-        "subtext": "Reconnect the device, try again and if the problem persists contact Cypherock support for assistance"
+        "heading": "Your -=DEVICE_NAME=- is facing communication issues",
+        "subtext": "Reconnect the device, try again and if the problem persists contact -=PRODUCT_NAME=- support for assistance"
       },
       "APP_0202": {
-        "heading": "Your X1 Vault is facing communication issues",
-        "subtext": "Reconnect the device, try again and if the problem persists contact Cypherock support for assistance"
+        "heading": "Your -=DEVICE_NAME=- is facing communication issues",
+        "subtext": "Reconnect the device, try again and if the problem persists contact -=PRODUCT_NAME=- support for assistance"
       },
       "APP_0203": {
         "heading": "The app does not exist on device"
       },
       "APP_0204": {
-        "heading": "Your X1 Vault is currently busy",
+        "heading": "Your -=DEVICE_NAME=- is currently busy",
         "subtext": "Try again after sometime, if problem persists then reconnect device."
       },
       "APP_0205": {
-        "heading": "Your X1 Vault is currently not setup properly",
+        "heading": "Your -=DEVICE_NAME=- is currently not setup properly",
         "subtext": "Press continue to start the setup"
       },
       "APP_0300": {
-        "heading": "You have deleted the wallet ${walletName} from the X1 Vault. Do you want to delete it from the cySync app as well?"
+        "heading": "You have deleted the wallet ${walletName} from the -=DEVICE_NAME=-. Do you want to delete it from the -=APP_NAME=- app as well?"
       },
       "APP_0301": {
-        "heading": "Your wallet ${walletName} is currently misconfigured on your X1 Vault",
+        "heading": "Your wallet ${walletName} is currently misconfigured on your -=DEVICE_NAME=-",
         "subtext": "Go to wallet ${walletName} from the main menu on your device to resolve the issue"
       },
       "APP_0206": {
-        "heading": "Your X1 Vault has timed-out",
+        "heading": "Your -=DEVICE_NAME=- has timed-out",
         "subtext": "Navigate to the main menu on the device and try again"
       },
       "APP_0400": {
-        "heading": "Unknown X1 Card error",
+        "heading": "Unknown -=CARD_NAME=- error",
         "subtext": "Retry or click Help to find a solution"
       },
       "APP_0501": {
-        "heading": "You canceled this operation on your X1 Vault"
+        "heading": "You canceled this operation on your -=DEVICE_NAME=-"
       },
       "APP_0600": {
-        "heading": "Your X1 Vault is facing communication issues",
-        "subtext": "Retry or contact Cypherock support for assistance"
+        "heading": "Your -=DEVICE_NAME=- is facing communication issues",
+        "subtext": "Retry or contact -=PRODUCT_NAME=- support for assistance"
       },
       "APP_0700": {
-        "heading": "Device seems to be Compromised. Contact Cypherock support immediately"
+        "heading": "Device seems to be Compromised. Contact -=PRODUCT_NAME=- support immediately"
       },
       "APP_0701": {
-        "heading": "Card seems to be Compromised. Contact Cypherock support immediately"
+        "heading": "Card seems to be Compromised. Contact -=PRODUCT_NAME=- support immediately"
       },
       "APP_0400_001": {
-        "heading": "Unknown X1 Card error",
-        "subtext": "Retry and if the problem persists, contact Cypherock support for assistance "
+        "heading": "Unknown -=CARD_NAME=- error",
+        "subtext": "Retry and if the problem persists, contact -=PRODUCT_NAME=- support for assistance "
       },
       "APP_0400_002": {
-        "heading": "Your X1 Card is currently not paired with your X1 Vault",
+        "heading": "Your -=CARD_NAME=- is currently not paired with your -=DEVICE_NAME=-",
         "subtext": "Pair your card by going to settings from the main menu on your device before performing an operation",
         "deviceNavigationText": "Main menu > Settings > Pair Card"
       },
       "APP_0400_003": {
-        "heading": "Your X1 Card authentication failed",
-        "subtext": "Try a different card and if the problem persists, contact Cypherock support for assistance"
+        "heading": "Your -=CARD_NAME=- authentication failed",
+        "subtext": "Try a different card and if the problem persists, contact -=PRODUCT_NAME=- support for assistance"
       },
       "APP_0400_004": {
-        "heading": "Your X1 Card has malfunctioned",
+        "heading": "Your -=CARD_NAME=- has malfunctioned",
         "subtext": "Retry or click Help to find a solution"
       },
       "APP_0400_005": {
-        "heading": "Your X1 Card is facing some communication issues",
+        "heading": "Your -=CARD_NAME=- is facing some communication issues",
         "subtext": "Retry or click Help to find a solution"
       },
       "APP_0400_006": {
-        "heading": "You tapped an incorrect X1 Card",
+        "heading": "You tapped an incorrect -=CARD_NAME=-",
         "subtext": "Make sure your card belongs to the same set"
       },
       "APP_0400_007": {
-        "heading": "Your X1 Card is facing some communication issues",
-        "subtext": "Retry and if the problem persists, contact Cypherock support for assistance "
+        "heading": "Your -=CARD_NAME=- is facing some communication issues",
+        "subtext": "Retry and if the problem persists, contact -=PRODUCT_NAME=- support for assistance "
       },
       "APP_0400_008": {
-        "heading": "You tapped an incorrect X1 Card",
+        "heading": "You tapped an incorrect -=CARD_NAME=-",
         "subtext": "Please tap the cards in the correct sequence"
       },
       "APP_0400_009": {
-        "heading": "Your X1 Card is facing some communication issues",
-        "subtext": "Retry and if the problem persists, contact Cypherock support for assistance "
+        "heading": "Your -=CARD_NAME=- is facing some communication issues",
+        "subtext": "Retry and if the problem persists, contact -=PRODUCT_NAME=- support for assistance "
       },
       "APP_0400_010": {
-        "heading": "Your X1 Card is facing some communication issues",
-        "subtext": "Contact Cypherock support for assistance"
+        "heading": "Your -=CARD_NAME=- is facing some communication issues",
+        "subtext": "Contact -=PRODUCT_NAME=- support for assistance"
       },
       "APP_0400_011": {
-        "heading": "Your X1 Card is out of sync with your X1 Vault",
+        "heading": "Your -=CARD_NAME=- is out of sync with your -=DEVICE_NAME=-",
         "subtext": "Resync your card by going to wallet ${walletName} from the main menu on your device before performing an operation"
       },
       "APP_0400_012": {
-        "heading": "Your X1 Card's memory is full",
-        "subtext": "You can delete a wallet to add a new one or buy another Cypherock X1"
+        "heading": "Your -=CARD_NAME=-'s memory is full",
+        "subtext": "You can delete a wallet to add a new one or buy another -=PRODUCT_NAME=- X1"
       },
       "APP_0400_013": {
         "heading": "You entered an incorrect PIN",
         "subtext": "Enter the correct PIN before the card gets locked"
       },
       "APP_0400_014": {
-        "heading": "Your X1 Card is facing some communication issues",
-        "subtext": "Contact Cypherock support for assistance"
+        "heading": "Your -=CARD_NAME=- is facing some communication issues",
+        "subtext": "Contact -=PRODUCT_NAME=- support for assistance"
       },
       "APP_0400_015": {
-        "heading": "Your X1 Card needs to be paired with your X1 Vault",
+        "heading": "Your -=CARD_NAME=- needs to be paired with your -=DEVICE_NAME=-",
         "subtext": "You can start card pairing from settings in the device or you can use a different set of cards"
       },
       "APP_0400_016": {
-        "heading": "Your X1 Card is facing some communication issues",
-        "subtext": "Contact Cypherock support for assistance"
+        "heading": "Your -=CARD_NAME=- is facing some communication issues",
+        "subtext": "Contact -=PRODUCT_NAME=- support for assistance"
       },
       "APP_0400_017": {
-        "heading": "The wallet ${walletName} is currently locked on your X1 Vault",
+        "heading": "The wallet ${walletName} is currently locked on your -=DEVICE_NAME=-",
         "subtext": "Unlock the wallet first before trying again",
         "deviceNavigationText": "Main Menu > ${walletName}"
       },
       "APP_0400_018": {
-        "heading": "Your X1 Card has malfunctioned",
+        "heading": "Your -=CARD_NAME=- has malfunctioned",
         "subtext": "Click Help to find a solution"
       },
       "APP_0400_019": {
-        "heading": "Your X1 Card has malfunctioned",
+        "heading": "Your -=CARD_NAME=- has malfunctioned",
         "subtext": "Retry or click Help to find a solution"
       },
       "APP_0400_000": {
-        "heading": "Unknown X1 Card error",
+        "heading": "Unknown -=CARD_NAME=- error",
         "subtext": "Retry or click Help to find a solution"
       },
       "MGA_GL_0000": {
-        "heading": "Logs are disabled on X1 Vault",
-        "subtext": "Enable logs on X1 Vault settings and try again"
+        "heading": "Logs are disabled on -=DEVICE_NAME=-",
+        "subtext": "Enable logs on -=DEVICE_NAME=- settings and try again"
       },
       "APP_0207": {
         "heading": "Could not establish session on device"
       }
     },
     "databaseError": {
-      "heading": "Your cySync app is facing some internal issue",
-      "subtext": "Try again and if the problem persists, contact Cypherock support for assistance"
+      "heading": "Your -=APP_NAME=- app is facing some internal issue",
+      "subtext": "Try again and if the problem persists, contact -=PRODUCT_NAME=- support for assistance"
     },
     "serverErrors": {
       "SER_0000": {
-        "heading": "Your cySync app is facing some connectivity issue",
-        "subtext": "Try again and if the problem persists, contact Cypherock support for assistance"
+        "heading": "Your -=APP_NAME=- app is facing some connectivity issue",
+        "subtext": "Try again and if the problem persists, contact -=PRODUCT_NAME=- support for assistance"
       },
       "SER_0001": {
         "heading": "Please connect to the internet to continue"
       },
       "SER_1001": {
         "heading": "OTP verification failed",
-        "subtext": "Try again and if the problem persists, contact Cypherock support for assistance"
+        "subtext": "Try again and if the problem persists, contact -=PRODUCT_NAME=- support for assistance"
       },
       "SER_1003": {
         "heading": "Login Failed",
-        "subtext": "Unable to log in. Verify your credentials and try again. If the problem persists, contact Cypherock support for assistance"
+        "subtext": "Unable to log in. Verify your credentials and try again. If the problem persists, contact -=PRODUCT_NAME=- support for assistance"
       },
       "SER_1004": {
         "heading": "Signature Verification Failed",
-        "subtext": "The signature could not be verified. Try again and if the problem persists, contact Cypherock support for assistance"
+        "subtext": "The signature could not be verified. Try again and if the problem persists, contact -=PRODUCT_NAME=- support for assistance"
       },
       "SER_1005": {
         "heading": "Invalid Request",
-        "subtext": "The request could not be processed. Check the input and try again. If the problem persists, contact Cypherock support for assistance"
+        "subtext": "The request could not be processed. Check the input and try again. If the problem persists, contact -=PRODUCT_NAME=- support for assistance"
       },
       "SER_1006": {
         "heading": "Unauthorized Access",
-        "subtext": "You do not have permission to perform this action. Contact Cypherock support for assistance"
+        "subtext": "You do not have permission to perform this action. Contact -=PRODUCT_NAME=- support for assistance"
       },
       "SER_1007": {
         "heading": "Resource Not Found",
-        "subtext": "The requested resource could not be located. Try again and if the problem persists, contact Cypherock support for assistance"
+        "subtext": "The requested resource could not be located. Try again and if the problem persists, contact -=PRODUCT_NAME=- support for assistance"
       },
       "SER_1008": {
         "heading": "Internal Server Error",
-        "subtext": "An unexpected error occurred. Try again and if the problem persists, contact Cypherock support for assistance"
+        "subtext": "An unexpected error occurred. Try again and if the problem persists, contact -=PRODUCT_NAME=- support for assistance"
       },
       "SER_1009": {
         "heading": "Request Timed Out",
-        "subtext": "The request took too long to process. Try again and if the problem persists, contact Cypherock support for assistance"
+        "subtext": "The request took too long to process. Try again and if the problem persists, contact -=PRODUCT_NAME=- support for assistance"
       },
       "SER_1010": {
         "heading": "OTP Expired",
@@ -1296,35 +1298,35 @@
       },
       "SER_1011": {
         "heading": "Payload Validation Failed",
-        "subtext": "The input data is invalid. Verify and try again. If the problem persists, contact Cypherock support for assistance"
+        "subtext": "The input data is invalid. Verify and try again. If the problem persists, contact -=PRODUCT_NAME=- support for assistance"
       },
       "SER_1012": {
         "heading": "Maximum Retry Attempts Reached",
-        "subtext": "You've reached the retry limit. Please try again later. If the problem persists, contact Cypherock support for assistance"
+        "subtext": "You've reached the retry limit. Please try again later. If the problem persists, contact -=PRODUCT_NAME=- support for assistance"
       },
       "SER_1013": {
         "heading": "Account Locked",
-        "subtext": "Your account has been temporarily locked. Contact Cypherock support for assistance"
+        "subtext": "Your account has been temporarily locked. Contact -=PRODUCT_NAME=- support for assistance"
       },
       "SER_1014": {
         "heading": "Service Unavailable",
-        "subtext": "The service is currently unavailable. Please try again later. If the problem persists, contact Cypherock support for assistance"
+        "subtext": "The service is currently unavailable. Please try again later. If the problem persists, contact -=PRODUCT_NAME=- support for assistance"
       },
       "SER_1015": {
         "heading": "Request Conflict",
-        "subtext": "A conflicting request was made. Review and try again. If the problem persists, contact Cypherock support for assistance"
+        "subtext": "A conflicting request was made. Review and try again. If the problem persists, contact -=PRODUCT_NAME=- support for assistance"
       },
       "SER_1016": {
         "heading": "Validation Error",
-        "subtext": "The input does not meet validation criteria. Review and try again. If the problem persists, contact Cypherock support for assistance"
+        "subtext": "The input does not meet validation criteria. Review and try again. If the problem persists, contact -=PRODUCT_NAME=- support for assistance"
       },
       "SER_1017": {
         "heading": "Wallet Not Found",
-        "subtext": "No wallet was found for this operation. Review and try again. If the problem persists, contact Cypherock support for assistance"
+        "subtext": "No wallet was found for this operation. Review and try again. If the problem persists, contact -=PRODUCT_NAME=- support for assistance"
       },
       "SER_1018": {
         "heading": "User Not Found",
-        "subtext": "No user data was found. Review and try again. If the problem persists, contact Cypherock support for assistance"
+        "subtext": "No user data was found. Review and try again. If the problem persists, contact -=PRODUCT_NAME=- support for assistance"
       },
       "SER_1019": {
         "heading": "Nominee Missing",
@@ -1336,23 +1338,23 @@
       },
       "SER_1021": {
         "heading": "Session Not Found",
-        "subtext": "The session data is missing. Try again and if the problem persists, contact Cypherock support for assistance"
+        "subtext": "The session data is missing. Try again and if the problem persists, contact -=PRODUCT_NAME=- support for assistance"
       },
       "SER_1022": {
         "heading": "Invalid Coupon",
-        "subtext": "The coupon code entered is invalid. Verify and try again. If the problem persists, contact Cypherock support for assistance"
+        "subtext": "The coupon code entered is invalid. Verify and try again. If the problem persists, contact -=PRODUCT_NAME=- support for assistance"
       },
       "SER_1023": {
         "heading": "Invalid Session",
-        "subtext": "The session is invalid or expired. Try again and if the problem persists, contact Cypherock support for assistance"
+        "subtext": "The session is invalid or expired. Try again and if the problem persists, contact -=PRODUCT_NAME=- support for assistance"
       },
       "SER_1024": {
         "heading": "Invalid Device",
-        "subtext": "Try again and if the problem persists, contact Cypherock support for assistance"
+        "subtext": "Try again and if the problem persists, contact -=PRODUCT_NAME=- support for assistance"
       },
       "SER_1025": {
         "heading": "Invalid Key",
-        "subtext": "Try again and if the problem persists, contact Cypherock support for assistance"
+        "subtext": "Try again and if the problem persists, contact -=PRODUCT_NAME=- support for assistance"
       },
       "SER_1026": {
         "heading": "Active Plan Already Found",
@@ -1360,11 +1362,23 @@
       },
       "SER_1027": {
         "heading": "OTP Resend Limit Reached",
-        "subtext": "You've reached the maximum number of OTP resend attempts. Please try again later or contact Cypherock support for assistance"
+        "subtext": "You've reached the maximum number of OTP resend attempts. Please try again later or contact -=PRODUCT_NAME=- support for assistance"
       },
       "SER_1028": {
         "heading": "Email Already Exists",
-        "subtext": "An account with this email address already exists. Please use a different email address or contact Cypherock support for assistance"
+        "subtext": "An account with this email address already exists. Please use a different email address or contact -=PRODUCT_NAME=- support for assistance"
+      },
+      "SER_1100": {
+        "heading": "Max Daily User Registrations Exceeded",
+        "subtext": "We've reached the maximum number of user registrations for today. Please try again tomorrow."
+      },
+      "SER_1101": {
+        "heading": "Max Parties Per User Exceeded",
+        "subtext": "You've reached the maximum number of parties for your account. Please contact Cypherock support for assistance"
+      },
+      "SER_1102": {
+        "heading": "User Not Eligible For Party Creation",
+        "subtext": "You are not eligible to create a party. Please contact Cypherock support for assistance"
       },
       "SER_1100": {
         "heading": "Max Daily User Registrations Exceeded",
@@ -1386,39 +1400,39 @@
     "binanceErrors": {
       "BIN_0000": {
         "heading": "System Error",
-        "subtext": "Try again and if the problem persists, contact Cypherock support for assistance"
+        "subtext": "Try again and if the problem persists, contact -=PRODUCT_NAME=- support for assistance"
       },
       "BIN_0001": {
         "heading": "System Busy",
-        "subtext": "Try again and if the problem persists, contact Cypherock support for assistance"
+        "subtext": "Try again and if the problem persists, contact -=PRODUCT_NAME=- support for assistance"
       },
       "BIN_0002": {
         "heading": "Invalid Parameters",
-        "subtext": "Try again and if the problem persists, contact Cypherock support for assistance"
+        "subtext": "Try again and if the problem persists, contact -=PRODUCT_NAME=- support for assistance"
       },
       "BIN_0003": {
         "heading": "Missing Client ID",
-        "subtext": "Contact Cypherock support for assistance"
+        "subtext": "Contact -=PRODUCT_NAME=- support for assistance"
       },
       "BIN_0004": {
         "heading": "Parameter Disabled",
-        "subtext": "Contact Cypherock support for assistance"
+        "subtext": "Contact -=PRODUCT_NAME=- support for assistance"
       },
       "BIN_0005": {
         "heading": "Order Not Found",
-        "subtext": "Try again and if the problem persists, contact Cypherock support for assistance"
+        "subtext": "Try again and if the problem persists, contact -=PRODUCT_NAME=- support for assistance"
       },
       "BIN_0006": {
         "heading": "Unsupported Order Type",
-        "subtext": "Contact Cypherock support for assistance"
+        "subtext": "Contact -=PRODUCT_NAME=- support for assistance"
       },
       "BIN_0007": {
         "heading": "Parameter Not Found",
-        "subtext": "Contact Cypherock support for assistance"
+        "subtext": "Contact -=PRODUCT_NAME=- support for assistance"
       },
       "BIN_0008": {
         "heading": "Payment Method Not Supported",
-        "subtext": "Contact Cypherock support for assistance"
+        "subtext": "Contact -=PRODUCT_NAME=- support for assistance"
       }
     },
     "default": "Some internal error occurred",
@@ -1426,7 +1440,7 @@
       "default": {
         "DEF_0000": {
           "heading": "Something went wrong",
-          "subtext": "Try again and if the problem persists, contact Cypherock support for assistance"
+          "subtext": "Try again and if the problem persists, contact -=PRODUCT_NAME=- support for assistance"
         }
       }
     },
@@ -1458,16 +1472,16 @@
       "skipPinSetup": "Skip this step if you are not setting up a PIN",
       "tabs": [
         {
-          "asideTitle": "X1 Vault",
+          "asideTitle": "-=DEVICE_NAME=-",
           "pages": [
             {
-              "title": "From the Main Menu of your X1 Vault, click on \"Create Wallet\""
+              "title": "From the Main Menu of your -=DEVICE_NAME=-, click on \"Create Wallet\""
             },
             {
-              "title": "Click \"Generate New Wallet\" on your X1 Vault"
+              "title": "Click \"Generate New Wallet\" on your -=DEVICE_NAME=-"
             },
             {
-              "title": "Enter a wallet name on your X1 Vault",
+              "title": "Enter a wallet name on your -=DEVICE_NAME=-",
               "bulletList": [
                 "Upto 15 characters allowed",
                 "It can be alphanumeric"
@@ -1482,7 +1496,7 @@
               ]
             },
             {
-              "title": "Confirm the wallet name on the X1 Vault"
+              "title": "Confirm the wallet name on the -=DEVICE_NAME=-"
             },
             {
               "title": "Do you want to setup a PIN for your wallet?",
@@ -1493,7 +1507,7 @@
               ]
             },
             {
-              "title": "Setup a PIN on the X1 Vault",
+              "title": "Setup a PIN on the -=DEVICE_NAME=-",
               "bulletList": [
                 "Use between 4 and 8 characters",
                 "The PIN can be alphanumeric"
@@ -1503,35 +1517,35 @@
                   "warning": "Make sure you make a backup of your PIN. If you lose it , you lose access to your funds"
                 },
                 {
-                  "infoGreen": "You can set up the Cypherock Cover PIN Recovery Service to securely recover your wallet PIN without exposing your seed phrase"
+                  "infoGreen": "You can set up the -=PRODUCT_NAME=- Cover PIN Recovery Service to securely recover your wallet PIN without exposing your seed phrase"
                 }
               ]
             },
             {
-              "title": "Confirm the entered PIN on the X1 Vault",
+              "title": "Confirm the entered PIN on the -=DEVICE_NAME=-",
               "messageBoxList": [
                 {
                   "warning": "Make sure you make a backup of your PIN. If you lose it , you lose access to your funds"
                 },
                 {
-                  "infoGreen": "You can set up the Cypherock Cover PIN Recovery Service to securely recover your wallet PIN without exposing your seed phrase"
+                  "infoGreen": "You can set up the -=PRODUCT_NAME=- Cover PIN Recovery Service to securely recover your wallet PIN without exposing your seed phrase"
                 }
               ]
             }
           ]
         },
         {
-          "asideTitle": "Sync X1 Cards",
+          "asideTitle": "Sync -=CARD_NAME=-s",
           "pages": [
             {
-              "title": "Tap X1 Cards one by one below the X1 Vault",
+              "title": "Tap -=CARD_NAME=-s one by one below the -=DEVICE_NAME=-",
               "subtitle": "Do not lift until you hear a beep sound",
               "messageBoxList": [
                 {
-                  "info": "Make sure your X1 Cards belong to the same family"
+                  "info": "Make sure your -=CARD_NAME=-s belong to the same family"
                 },
                 {
-                  "info": "Make sure you tap the X1 Cards in the correct order"
+                  "info": "Make sure you tap the -=CARD_NAME=-s in the correct order"
                 }
               ]
             }
@@ -1544,21 +1558,21 @@
               "title": "Congratulations, your wallet is now successfully created"
             },
             {
-              "title": "The next time you need to make a transaction, you just need to fetch any one X1 Card along with the X1 Vault"
+              "title": "The next time you need to make a transaction, you just need to fetch any one -=CARD_NAME=- along with the -=DEVICE_NAME=-"
             },
             {
-              "title": "In case you lose your X1 Vault, you can buy a new X1 Vault separately and use it with your old X1 Cards"
+              "title": "In case you lose your -=DEVICE_NAME=-, you can buy a new -=DEVICE_NAME=- separately and use it with your old -=CARD_NAME=-s"
             },
             {
               "title": "Important Note",
               "messageBoxList": [
                 {
-                  "warning": "In case you need to add another wallet, you will need to fetch all of the 4 cards together. In case you want to import your other wallets into Cypherock X1, now is the best time to avoid the future hassle"
+                  "warning": "In case you need to add another wallet, you will need to fetch all of the 4 cards together. In case you want to import your other wallets into -=PRODUCT_NAME=- X1, now is the best time to avoid the future hassle"
                 }
               ]
             },
             {
-              "title": "As a next step, keep your X1 Cards safely inside the card sleeves and distribute them into different places. Some examples of the places could be: ",
+              "title": "As a next step, keep your -=CARD_NAME=-s safely inside the card sleeves and distribute them into different places. Some examples of the places could be: ",
               "bulletList": [
                 "Homes of your family members or your friends",
                 "Secret hideout",
@@ -1573,16 +1587,16 @@
       "title": "Import Wallet",
       "tabs": [
         {
-          "asideTitle": "X1 Vault",
+          "asideTitle": "-=DEVICE_NAME=-",
           "pages": [
             {
-              "title": "From the Main Menu of your X1 Vault, click on \"Create Wallet\""
+              "title": "From the Main Menu of your -=DEVICE_NAME=-, click on \"Create Wallet\""
             },
             {
-              "title": "Click \"Restore from Seed Phrase\" on your X1 Vault"
+              "title": "Click \"Restore from Seed Phrase\" on your -=DEVICE_NAME=-"
             },
             {
-              "title": "Enter a wallet name on your X1 Vault",
+              "title": "Enter a wallet name on your -=DEVICE_NAME=-",
               "bulletList": [
                 "Upto 15 characters allowed",
                 "It can be alphanumeric"
@@ -1597,7 +1611,7 @@
               ]
             },
             {
-              "title": "Confirm the wallet name on the X1 Vault"
+              "title": "Confirm the wallet name on the -=DEVICE_NAME=-"
             },
             {
               "title": "Do you want to setup a PIN for your wallet?",
@@ -1608,7 +1622,7 @@
               ]
             },
             {
-              "title": "Setup a PIN on the X1 Vault",
+              "title": "Setup a PIN on the -=DEVICE_NAME=-",
               "bulletList": [
                 "Use between 4 and 8 characters",
                 "The PIN can be alphanumeric"
@@ -1618,31 +1632,31 @@
                   "warning": "Make sure you make a backup of your PIN. If you lose it , you lose access to your funds"
                 },
                 {
-                  "infoGreen": "You can set up the Cypherock Cover PIN Recovery Service to securely recover your wallet PIN without exposing your seed phrase"
+                  "infoGreen": "You can set up the -=PRODUCT_NAME=- Cover PIN Recovery Service to securely recover your wallet PIN without exposing your seed phrase"
                 }
               ]
             },
             {
-              "title": "Confirm the entered PIN on the X1 Vault",
+              "title": "Confirm the entered PIN on the -=DEVICE_NAME=-",
               "messageBoxList": [
                 {
-                  "warning": "Remember your PIN, if you lose it, you lose access to your funds. Even Cypherock won't be able to help you recover your assets"
+                  "warning": "Remember your PIN, if you lose it, you lose access to your funds. Even -=PRODUCT_NAME=- won't be able to help you recover your assets"
                 },
                 {
-                  "infoGreen": "You can set up the Cypherock Cover PIN Recovery Service to securely recover your wallet PIN without exposing your seed phrase"
+                  "infoGreen": "You can set up the -=PRODUCT_NAME=- Cover PIN Recovery Service to securely recover your wallet PIN without exposing your seed phrase"
                 }
               ]
             }
           ]
         },
         {
-          "asideTitle": "Sync X1 Cards",
+          "asideTitle": "Sync -=CARD_NAME=-s",
           "pages": [
             {
-              "title": "Count the number of words of the seed phrase which you are importing and select it on the X1 Vault"
+              "title": "Count the number of words of the seed phrase which you are importing and select it on the -=DEVICE_NAME=-"
             },
             {
-              "title": "Enter the seed phrase on the X1 Vault",
+              "title": "Enter the seed phrase on the -=DEVICE_NAME=-",
               "messageBoxList": [
                 {
                   "warning": "Make sure you do not make spelling mistakes while entering the words on the device. Words like \"west\" & \"nest\" are often confusing while reading and needs to be entered correctly"
@@ -1650,18 +1664,18 @@
               ]
             },
             {
-              "title": "Verify the seed phrase that you entered on the X1 Vault",
+              "title": "Verify the seed phrase that you entered on the -=DEVICE_NAME=-",
               "subtitle": "Match each and every to successfully import the correct wallet"
             },
             {
-              "title": "Tap X1 Cards one by one below the X1 Vault",
+              "title": "Tap -=CARD_NAME=-s one by one below the -=DEVICE_NAME=-",
               "subtitle": "Do not lift until you hear a beep sound",
               "messageBoxList": [
                 {
-                  "info": "Make sure your X1 Cards belong to the same family"
+                  "info": "Make sure your -=CARD_NAME=-s belong to the same family"
                 },
                 {
-                  "info": "Make sure you tap the X1 Cards in the correct order"
+                  "info": "Make sure you tap the -=CARD_NAME=-s in the correct order"
                 }
               ]
             }
@@ -1674,21 +1688,21 @@
               "title": "Congratulations, your wallet is now successfully created"
             },
             {
-              "title": "The next time you need to make a transaction, you just need to fetch any one X1 Card along with the X1 Vault"
+              "title": "The next time you need to make a transaction, you just need to fetch any one -=CARD_NAME=- along with the -=DEVICE_NAME=-"
             },
             {
-              "title": "In case you lose your X1 Vault, you can buy a new X1 Vault separately and use it with your old X1 Cards"
+              "title": "In case you lose your -=DEVICE_NAME=-, you can buy a new -=DEVICE_NAME=- separately and use it with your old -=CARD_NAME=-s"
             },
             {
               "title": "Important Note",
               "messageBoxList": [
                 {
-                  "warning": "In case you need to add another wallet, you will need to fetch all of the 4 cards together. In case you want to import your other wallets into Cypherock X1, now is the best time to avoid the future hassle"
+                  "warning": "In case you need to add another wallet, you will need to fetch all of the 4 cards together. In case you want to import your other wallets into -=PRODUCT_NAME=- X1, now is the best time to avoid the future hassle"
                 }
               ]
             },
             {
-              "title": "As a next step, keep your X1 Cards safely inside the card sleeves and distribute them into different places. Some examples of the places could be: ",
+              "title": "As a next step, keep your -=CARD_NAME=-s safely inside the card sleeves and distribute them into different places. Some examples of the places could be: ",
               "bulletList": [
                 "Homes of your family members or your friends",
                 "Secret hideout",
@@ -1700,7 +1714,7 @@
       ]
     },
     "finalMessage": {
-      "title": "To add coins and tokens in wallet, you have to add an account first. Make sure you have the X1 Vault and an X1 Card handy with you",
+      "title": "To add coins and tokens in wallet, you have to add an account first. Make sure you have the -=DEVICE_NAME=- and an -=CARD_NAME=- handy with you",
       "buttons": {
         "secondary": "Skip",
         "primary": "Add Account"
@@ -1729,15 +1743,15 @@
     },
     "reset": {
       "confim": {
-        "title": "Are you sure you want to reset the cySync app?",
-        "subTitle": "This will erase all your data on your cySync app. Note this will not result in loss of assets"
+        "title": "Are you sure you want to reset the -=APP_NAME=- app?",
+        "subTitle": "This will erase all your data on your -=APP_NAME=- app. Note this will not result in loss of assets"
       }
     },
     "releaseNote": {
       "title": "Release Notes"
     },
     "auth": {
-      "title": "Follow instructions on the X1 Vault",
+      "title": "Follow instructions on the -=DEVICE_NAME=-",
       "email2fa": {
         "title": "You are recommended to enter an email ID as a 2FA to get authenticity results",
         "emailInput": "Email"
@@ -1748,10 +1762,10 @@
         "steps": {
           "confirm": "Confirm authentication on device"
         },
-        "success": "Your X1 Vault is authenticated successfully",
+        "success": "Your -=DEVICE_NAME=- is authenticated successfully",
         "authenticating": {
-          "title": "Please wait while your X1 Vault is being authenticated",
-          "description": "Do not disconnect your X1 Vault while the operation is being done"
+          "title": "Please wait while your -=DEVICE_NAME=- is being authenticated",
+          "description": "Do not disconnect your -=DEVICE_NAME=- while the operation is being done"
         }
       },
       "authX1Card": {
@@ -1761,7 +1775,7 @@
           "confirm": "Confirm card authentication on device",
           "tapCard": "Tap any card below the device"
         },
-        "success": "Your X1 Card is authenticated successfully"
+        "success": "Your -=CARD_NAME=- is authenticated successfully"
       }
     },
     "password": {
@@ -1789,7 +1803,7 @@
         "subTitle": "Provide password to proceed"
       },
       "createNewPassword": {
-        "title": "Set your cySync password",
+        "title": "Set your -=APP_NAME=- password",
         "subTitle": "We do not store your password on our servers"
       }
     },
@@ -1829,8 +1843,8 @@
       }
     },
     "betaNotification": {
-      "title": "CySync Update v2.0.0",
-      "description": "We have done a major overhaul to the CySync app.\nThe new CySync comes with all your favorite features and much more.\nDownload from <a href=\"https://cypherock.com/get-started\">https://cypherock.com/get-started</a>\n\n**Important**\n\n* You won’t lose your funds\n* After update, you will have to import your accounts again\n* No new updates to CySync v1 except security update\n"
+      "title": "-=APP_NAME=- Update v2.0.0",
+      "description": "We have done a major overhaul to the -=APP_NAME=- app.\nThe new -=APP_NAME=- comes with all your favorite features and much more.\nDownload from <a href=\"https://-=PRODUCT_NAME=-.com/get-started\">https://-=PRODUCT_NAME=-.com/get-started</a>\n\n**Important**\n\n* You won’t lose your funds\n* After update, you will have to import your accounts again\n* No new updates to -=APP_NAME=- v1 except security update\n"
     },
     "editAccount": {
       "header": "Edit Account",
@@ -1874,7 +1888,7 @@
     },
     "inheritancePlanLogin": {
       "walletAuth": {
-        "title": "Follow instructions on the X1 Vault to authenticate the selected wallet",
+        "title": "Follow instructions on the -=DEVICE_NAME=- to authenticate the selected wallet",
         "subTitle": "Authenticating the wallet ",
         "actions": {
           "confirm": "Confirm wallet authentication on device",
@@ -1924,7 +1938,7 @@
         "title": "Reminder setup",
         "reminderInfo": {
           "subtitle": "What is reminder time?",
-          "subtext": "Reminder Time is the interval at which you'll receive a confirmation email from Cypherock to verify your continued well-being. If no response is received within two months of the initial email, the inheritance process will commence and your Nominee will receive the recovery instruction email from Cypherock"
+          "subtext": "Reminder Time is the interval at which you'll receive a confirmation email from -=PRODUCT_NAME=- to verify your continued well-being. If no response is received within two months of the initial email, the inheritance process will commence and your Nominee will receive the recovery instruction email from -=PRODUCT_NAME=-"
         },
         "form": {
           "reminderField": {
@@ -1970,7 +1984,7 @@
       "sync": {
         "name": "Syncing",
         "walletAuth": {
-          "title": "Follow instructions on the X1 Vault to authenticate the selected wallet",
+          "title": "Follow instructions on the -=DEVICE_NAME=- to authenticate the selected wallet",
           "subTitle": "Authenticating the wallet ",
           "actions": {
             "confirmAuth": "Confirm wallet authentication on device",
@@ -1990,7 +2004,7 @@
       },
       "decryptPin": {
         "name": "Decryption",
-        "title": "Follow instructions on the X1 Vault",
+        "title": "Follow instructions on the -=DEVICE_NAME=-",
         "actions": {
           "confirmOnDevice": "Confirm decryption on device",
           "tapCard": "Tap any one card"
@@ -2005,7 +2019,7 @@
       },
       "viewPin": {
         "name": "View PIN",
-        "title": "Follow instructions on the X1 Vault",
+        "title": "Follow instructions on the -=DEVICE_NAME=-",
         "subTitle": "PIN for wallet ",
         "actions": {
           "viewDevice": "View the PIN on your device and confirm"
@@ -2027,13 +2041,13 @@
       },
       "decryption": {
         "wallet": {
-          "title": "Follow instructions on the X1 Vault",
+          "title": "Follow instructions on the -=DEVICE_NAME=-",
           "actions": {
             "confirm": "Confirm decryption on device",
             "tapCard": "Tap any card"
           },
           "messageBox": {
-            "warning": "The message will be decrypted by the X1 card"
+            "warning": "The message will be decrypted by the -=CARD_NAME=-"
           },
           "decryption": {
             "title": "Please wait while we decrypt the data",
@@ -2061,18 +2075,18 @@
         }
       },
       "confirmMessage": {
-        "title": "Follow instructions on the X1 Vault to verify the Nominee message",
+        "title": "Follow instructions on the -=DEVICE_NAME=- to verify the Nominee message",
         "subTitle": "You can encrypt the message in the next step",
         "actions": {
           "confirmOnDevice": "Confirm on device",
           "verifyLocation": "Verify Card location in your device"
         },
         "messageBox": {
-          "danger": "Read through the whole text and verify that the message shown in the device is same as you entered in cySync"
+          "danger": "Read through the whole text and verify that the message shown in the device is same as you entered in -=APP_NAME=-"
         }
       },
       "encryption": {
-        "title": "Follow instructions on the X1 Vault to encrypt the Nominee message",
+        "title": "Follow instructions on the -=DEVICE_NAME=- to encrypt the Nominee message",
         "subTitle": "Lift your card after 2 beep sounds",
         "tooltip": "",
         "actions": {
@@ -2096,20 +2110,20 @@
         "name": "Clear Device Data",
         "dialogs": {
           "settings": {
-            "title": "From the Main Menu of your X1 Vault, click \"Settings\""
+            "title": "From the Main Menu of your -=DEVICE_NAME=-, click \"Settings\""
           },
           "clearData": {
-            "title": "Click \"Clear Device Data\" on your X1 Vault"
+            "title": "Click \"Clear Device Data\" on your -=DEVICE_NAME=-"
           },
           "confirmClearData": {
-            "title": "Confirm \"Clear device data\" on the X1 Vault"
+            "title": "Confirm \"Clear device data\" on the -=DEVICE_NAME=-"
           },
           "tapCards": {
-            "title": "Tap any 2 old X1 Cards below the X1 Vault",
+            "title": "Tap any 2 old -=CARD_NAME=-s below the -=DEVICE_NAME=-",
             "subTitle": "Do not lift until you hear a beep sound",
             "messageBoxList": [
               {
-                "warning": "Tap the cards you used during the initial Cypherock setup process, not the cards given by the wallet Owner"
+                "warning": "Tap the cards you used during the initial -=PRODUCT_NAME=- setup process, not the cards given by the wallet Owner"
               },
               {
                 "warning": "Your device will restart after this process"
@@ -2120,7 +2134,7 @@
       },
       "wallet": {
         "name": "Wallet",
-        "title": "Follow instructions on the X1 Vault to authenticate the selected wallet",
+        "title": "Follow instructions on the -=DEVICE_NAME=- to authenticate the selected wallet",
         "subTitle": "Authenticating the wallet ",
         "actions": {
           "confirm": "Confirm wallet authentication on device",
@@ -2140,7 +2154,7 @@
       "decryption": {
         "name": "Decryption",
         "device": {
-          "title": "Follow instructions on the X1 Vault",
+          "title": "Follow instructions on the -=DEVICE_NAME=-",
           "subTitle": "Do not lift the card till you hear a beep sound",
           "actions": {
             "confirm": "Confirm decryption on device",
@@ -2157,7 +2171,7 @@
       },
       "viewPin": {
         "name": "View PIN",
-        "title": "Follow instructions on the X1 Vault",
+        "title": "Follow instructions on the -=DEVICE_NAME=-",
         "subTitle": "PIN for wallet ",
         "actions": {
           "view": "View & copy the PIN displayed on your device and then confirm"
@@ -2169,7 +2183,7 @@
       "viewMessage": {
         "name": "View Message",
         "title": "Message from ${name}",
-        "tooltip": "These messages were written by the wallet Owner for you. They contain important information about how to recover their crypto assets stored on the Cypherock X1. \nNote- Make sure you keep these messages safe and private. ",
+        "tooltip": "These messages were written by the wallet Owner for you. They contain important information about how to recover their crypto assets stored on the -=PRODUCT_NAME=- X1. \nNote- Make sure you keep these messages safe and private. ",
         "form": {
           "cardLocationField": {
             "label": "Card location",
@@ -2310,8 +2324,8 @@
         "title": "General",
         "item": {
           "syncMobile": {
-            "title": "Sync cySync Mobile App",
-            "description": "Sync your Accounts with cySync Mobile App through QR code"
+            "title": "Sync -=APP_NAME=- Mobile App",
+            "description": "Sync your Accounts with -=APP_NAME=- Mobile App through QR code"
           },
           "editAccount": {
             "title": "Edit Accounts",
@@ -2327,7 +2341,7 @@
           },
           "language": {
             "title": "Display Language",
-            "description": "Set the language for the cySync App"
+            "description": "Set the language for the -=APP_NAME=- App"
           },
           "region": {
             "title": "Region",
@@ -2340,19 +2354,19 @@
         "item": {
           "password": {
             "title": "Password",
-            "description": "Change or turn off/on password for your cySync App"
+            "description": "Change or turn off/on password for your -=APP_NAME=- App"
           },
           "anayticsAndBugReport": {
             "title": "Analytics & Bug Report",
-            "description": "Enable analytics & bug reports to help Cypherock improve user experience & to help resolve your issues faster"
+            "description": "Enable analytics & bug reports to help -=PRODUCT_NAME=- improve user experience & to help resolve your issues faster"
           },
           "reset": {
-            "title": "Reset cySync",
-            "description": "Erase all cysync data stored on your PC, including your accounts, transaction histories and settings. Note that this will not result in loss of assets"
+            "title": "Reset -=APP_NAME=-",
+            "description": "Erase all -=APP_NAME=- data stored on your PC, including your accounts, transaction histories and settings. Note that this will not result in loss of assets"
           },
           "update": {
-            "title": "cySync Update",
-            "description": "Automatically download cysync update when available"
+            "title": "-=APP_NAME=- Update",
+            "description": "Automatically download -=APP_NAME=- update when available"
           },
           "usb": {
             "title": "USB Diagnostics",
@@ -2364,16 +2378,16 @@
         "title": "Device Settings",
         "item": {
           "x1VaultAuth": {
-            "title": "X1 Vault Authentication",
+            "title": "-=DEVICE_NAME=- Authentication",
             "description": "Authenticate your device"
           },
           "x1CardAuth": {
-            "title": "X1 Card Authentication",
+            "title": "-=CARD_NAME=- Authentication",
             "description": "Authenticate your card"
           },
           "transferWallet": {
             "title": "Transfer Wallet",
-            "description": "If you ever had a Cypherock X1 and want to transfer your wallets using your cards in case you lost it or any reason whatsoever"
+            "description": "If you ever had a -=PRODUCT_NAME=- X1 and want to transfer your wallets using your cards in case you lost it or any reason whatsoever"
           }
         }
       },
@@ -2381,12 +2395,12 @@
         "title": "About",
         "item": {
           "cySyncVersion": {
-            "title": "cySync Version",
+            "title": "-=APP_NAME=- Version",
             "description": "Version ${version}"
           },
           "termsOfUse": {
             "title": "Terms of Use",
-            "description": "By using cySync you agree to our Terms of Use"
+            "description": "By using -=APP_NAME=- you agree to our Terms of Use"
           },
           "privacyPolicy": {
             "title": "Privacy Policy",
@@ -2476,7 +2490,7 @@
       "silver": "Silver",
       "gold": "Gold",
       "hours": "Hours",
-      "setupCover": "Setup Cypherock Cover"
+      "setupCover": "Setup -=PRODUCT_NAME=- Cover"
     }
   },
   "otp": {
@@ -2497,7 +2511,7 @@
     }
   },
   "inheritance": {
-    "title": "Cypherock Cover",
+    "title": "-=PRODUCT_NAME=- Cover",
     "plans": {
       "silver": {
         "title": "Silver",
@@ -2535,16 +2549,16 @@
       },
       "setup": {
         "setupCover": {
-          "title": "Setup Cypherock Cover",
+          "title": "Setup -=PRODUCT_NAME=- Cover",
           "subTitle": "Protect your crypto assets and ensure smooth transfer to your beneficiaries in unforeseen circumstances"
         },
         "syncFromMail": {
           "title": "Sync from Email",
-          "subTitle": "If you're already part of a Cypherock Cover plan, either as the plan Owner or a beneficiary"
+          "subTitle": "If you're already part of a -=PRODUCT_NAME=- Cover plan, either as the plan Owner or a beneficiary"
         },
         "learnMore": {
-          "title": "What is Cypherock Cover?",
-          "subTitle": "Learn how Cypherock Cover secures your crypto assets and ensures their seamless transfer to your loved ones"
+          "title": "What is -=PRODUCT_NAME=- Cover?",
+          "subTitle": "Learn how -=PRODUCT_NAME=- Cover secures your crypto assets and ensures their seamless transfer to your loved ones"
         }
       }
     },
@@ -2646,8 +2660,8 @@
         }
       },
       "payment": {
-        "heading": "Buy the plan on the Cypherock website",
-        "subtext": "You have to purchase the plan on the Cypherock website and then apply the generated coupon code in the 'Coupon Code' section below to complete your purchase",
+        "heading": "Buy the plan on the -=PRODUCT_NAME=- website",
+        "subtext": "You have to purchase the plan on the -=PRODUCT_NAME=- website and then apply the generated coupon code in the 'Coupon Code' section below to complete your purchase",
         "form": {
           "promoField": {
             "label": "Promo code / coupon",
@@ -2669,7 +2683,7 @@
       }
     },
     "banner": {
-      "title": "Secure your crypto legacy with Cypherock Cover - Ensure your assets reach your loved ones",
+      "title": "Secure your crypto legacy with -=PRODUCT_NAME=- Cover - Ensure your assets reach your loved ones",
       "buttons": {
         "knowMore": "Know More"
       }
@@ -2703,7 +2717,7 @@
         }
       },
       "walletAuth": {
-        "title": "Follow instructions on the X1 Vault to authenticate the selected wallet",
+        "title": "Follow instructions on the -=DEVICE_NAME=- to authenticate the selected wallet",
         "subTitle": "Authenticating the wallet ",
         "actions": {
           "confirm": "Confirm wallet authentication on device",
@@ -2727,15 +2741,15 @@
     "encryption": {
       "heading": "Encryption",
       "device": {
-        "title": "Follow instructions on the X1 Vault to encrypt the PIN",
+        "title": "Follow instructions on the -=DEVICE_NAME=- to encrypt the PIN",
         "subTitle": "Lift your card after 2 beep sounds",
-        "tooltip": "Tap any one X1 card below the X1 device to encrypt the message and do not remove the card until you hear 2 beep sounds",
+        "tooltip": "Tap any one -=CARD_NAME=- below the X1 device to encrypt the message and do not remove the card until you hear 2 beep sounds",
         "actions": {
           "confirm": "Confirm encryption on device",
           "tapCard": "Enter PIN and tap any one card"
         },
         "messageBox": {
-          "warning": "The PIN will be encrypted by the X1 card"
+          "warning": "The PIN will be encrypted by the -=CARD_NAME=-"
         }
       },
       "loading": {
@@ -2751,7 +2765,7 @@
       "heading": "Checkout",
       "payment": {
         "title": "Complete your payment",
-        "subtext": "You have to purchase the plan on the Cypherock website and then apply the generated coupon code in the 'Coupon Code' section below to complete your purchase"
+        "subtext": "You have to purchase the plan on the -=PRODUCT_NAME=- website and then apply the generated coupon code in the 'Coupon Code' section below to complete your purchase"
       },
       "success": {
         "title": "Thank you!",
@@ -2789,7 +2803,7 @@
       },
       "walletAuth": {
         "heading": "Wallet Authentication",
-        "title": "Follow instructions on the X1 Vault to authenticate the selected wallet",
+        "title": "Follow instructions on the -=DEVICE_NAME=- to authenticate the selected wallet",
         "subTitle": "Authenticating the wallet ",
         "actions": {
           "confirmOnDevice": "Confirm wallet authentication on device",
@@ -2802,7 +2816,7 @@
           "title": "Wallet Authentication failed",
           "subtext": "We could not authenticate the selected wallet",
           "messageBox": {
-            "warning": "This usually happens when the wallets in the Cysync and the device are not in sync. Sync the wallets between the Cysync and the device or choose a different wallet"
+            "warning": "This usually happens when the wallets in the -=APP_NAME=- and the device are not in sync. Sync the wallets between the -=APP_NAME=- and the device or choose a different wallet"
           }
         }
       }
@@ -2835,7 +2849,7 @@
       "select": {
         "title": "Press run the following command on your terminal to allow the application to access usb port",
         "subtitle": "You can have up to two Nominees for this Will",
-        "tooltip": "In case if you select two Nominees then the 2nd Nominee will receive the recovery email three months after the 1st Nominee receives it\nNote - Both Nominees will receive the same recovery email and same message written by you on the CySync App",
+        "tooltip": "In case if you select two Nominees then the 2nd Nominee will receive the recovery email three months after the 1st Nominee receives it\nNote - Both Nominees will receive the same recovery email and same message written by you on the -=APP_NAME=- App",
         "options": {
           "descOne": "Select if you want to have only one Nominee",
           "descTwo": "Select if you want to have two Nominees"
@@ -2854,7 +2868,7 @@
         "confirm": {
           "title": "Do you want to verify Nominee emails?",
           "subtext": "An OTP will be sent to the provided emails. If you do not want to inform the Nominee about this plan, you can skip verification of emails.",
-          "warning": "If you do not verify the Nominee email then Cypherock emails may land in spam folder"
+          "warning": "If you do not verify the Nominee email then -=PRODUCT_NAME=- emails may land in spam folder"
         }
       },
       "executor": {
@@ -2898,7 +2912,7 @@
       "nominee": {
         "title": "Draft the final message for the Nominee",
         "subtitle": "The Nominee messages will be end-to-end encrypted",
-        "tooltip": "End-to-end encryption keeps your messages between you and the Nominee you choose. Not even Cypherock can read them",
+        "tooltip": "End-to-end encryption keeps your messages between you and the Nominee you choose. Not even -=PRODUCT_NAME=- can read them",
         "form": {
           "locationField": {
             "label": "Card Location & Passphrase",
@@ -2998,26 +3012,26 @@
     "encryption": {
       "heading": "Encryption",
       "confirm": {
-        "title": "Follow instructions on the X1 Vault to verify the Nominee message",
+        "title": "Follow instructions on the -=DEVICE_NAME=- to verify the Nominee message",
         "subtext": "You can encrypt the message in the next step",
         "actions": {
           "confirmOnDevice": "Confirm message verification on device",
           "verifyLocation": "Verify Card Location in your device"
         },
         "messageBox": {
-          "danger": "Read through the whole text and verify that the message shown in the device is same as you entered in cySync"
+          "danger": "Read through the whole text and verify that the message shown in the device is same as you entered in -=APP_NAME=-"
         }
       },
       "device": {
-        "title": "Follow instructions on the X1 Vault to encrypt the wallet PIN",
+        "title": "Follow instructions on the -=DEVICE_NAME=- to encrypt the wallet PIN",
         "subtext": "Lift your card after 2 beep sounds ",
-        "tooltip": "Tap any one X1 card below the X1 device to encrypt the message and do not remove the card until you hear 2 beep sounds",
+        "tooltip": "Tap any one -=CARD_NAME=- below the X1 device to encrypt the message and do not remove the card until you hear 2 beep sounds",
         "actions": {
           "confirmOnDevice": "Confirm encryption on device",
           "tapCard": "Enter PIN and tap any one card"
         },
         "messageBox": {
-          "warning": "The PIN will be encrypted by the X1 card"
+          "warning": "The PIN will be encrypted by the -=CARD_NAME=-"
         }
       },
       "loading": {
@@ -3033,7 +3047,7 @@
       "heading": "Checkout",
       "payment": {
         "title": "Complete your payment",
-        "subtext": "You have to purchase the plan on the Cypherock website and then apply the generated coupon code in the 'Coupon Code' section below to complete your purchase"
+        "subtext": "You have to purchase the plan on the -=PRODUCT_NAME=- website and then apply the generated coupon code in the 'Coupon Code' section below to complete your purchase"
       },
       "greeting": {
         "title": "Thank you!",

@@ -9,6 +9,7 @@ import {
 
 import featureFlags from '../featureFlags';
 import { ipcConfig } from '../main/ipc/helpers/config';
+import { ICysyncEnv } from '@cypherock/cysync-interfaces';
 
 const exportedFunctions = [
   {
@@ -224,11 +225,22 @@ for (const func of exportedListeners) {
   (electronAPI as any)[func.name] = createProxyListener(func);
 }
 
-const cysyncEnv: any = {};
+const cysyncEnv: ICysyncEnv = {} as any;
 for (const env of ipcConfig.env) {
-  cysyncEnv[env] = process.env[env];
+  (cysyncEnv as any)[env] = process.env[env];
 }
+const vendorSpecificFeatureFlags = (() => {
+  const modifiedFeatureFlags = featureFlags;
+  if (cysyncEnv.VENDOR === 'odix') {
+    modifiedFeatureFlags.COVER = false;
+    modifiedFeatureFlags.DEEPLINK = false;
+  }
+  return modifiedFeatureFlags;
+})();
 
 contextBridge.exposeInMainWorld('electronAPI', electronAPI);
 contextBridge.exposeInMainWorld('cysyncEnv', cysyncEnv);
-contextBridge.exposeInMainWorld('cysyncFeatureFlags', featureFlags);
+contextBridge.exposeInMainWorld(
+  'cysyncFeatureFlags',
+  vendorSpecificFeatureFlags,
+);

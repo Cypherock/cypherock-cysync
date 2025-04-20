@@ -39,6 +39,9 @@ export default {
    */
   CHANNEL: 'latest',
 
+  VENDOR: 'default',
+  // VENDOR: 'odix',
+
   /**
    * Mixpanel token
    */

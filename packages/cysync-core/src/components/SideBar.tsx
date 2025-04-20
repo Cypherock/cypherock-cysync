@@ -19,10 +19,10 @@ import {
   WalletIcon,
   DollarIcon,
   WalletInfoIcon,
-  AffiliateIcon,
   parseLangTemplate,
-  GraphSwitchSmallIcon,
   SidebarHandle,
+  GraphSwitchSmallIcon,
+  AffiliateIcon,
 } from '@cypherock/cysync-ui';
 import { IWallet } from '@cypherock/db-interfaces';
 import React, { FC } from 'react';
@@ -200,37 +200,45 @@ const SideBarComponent: FC = () => {
                 </Chip>
               }
             />
-            <SideBarItem
-              text="Swap"
-              Icon={GraphSwitchSmallIcon}
-              state={wallets.length === 0 ? State.disabled : getState('swap')}
-              onClick={() => navigate('swap')}
-              extraRight={
-                <Chip $gradient="silver">
-                  <Typography
-                    $fontSize={10}
-                    $fontWeight="semibold"
-                    color="black"
-                  >
-                    {strings.new}
-                  </Typography>
-                </Chip>
-              }
-            />
-            <SideBarItem
-              text={strings.cypherockCover}
-              Icon={CypherockCoverIcon}
-              state={
-                wallets.length === 0 ? State.disabled : getState('inheritance')
-              }
-              onClick={() => navigate('inheritance')}
-            />
-            <SideBarItem
-              text={strings.referAndEarn}
-              Icon={AffiliateIcon}
-              state={getState('referAndEarn')}
-              onClick={onReferEarnClick}
-            />
+            {window.cysyncFeatureFlags.SWAP && (
+              <SideBarItem
+                text="Swap"
+                Icon={GraphSwitchSmallIcon}
+                state={wallets.length === 0 ? State.disabled : getState('swap')}
+                onClick={() => navigate('swap')}
+                extraRight={
+                  <Chip $gradient="silver">
+                    <Typography
+                      $fontSize={10}
+                      $fontWeight="semibold"
+                      color="black"
+                    >
+                      {strings.new}
+                    </Typography>
+                  </Chip>
+                }
+              />
+            )}
+            {window.cysyncFeatureFlags.COVER && (
+              <SideBarItem
+                text={strings.cypherockCover}
+                Icon={CypherockCoverIcon}
+                state={
+                  wallets.length === 0
+                    ? State.disabled
+                    : getState('inheritance')
+                }
+                onClick={() => navigate('inheritance')}
+              />
+            )}
+            {window.cysyncFeatureFlags.AFFILIATE && (
+              <SideBarItem
+                text={strings.referAndEarn}
+                Icon={AffiliateIcon}
+                state={getState('referAndEarn')}
+                onClick={onReferEarnClick}
+              />
+            )}
           </Flex>
         </Flex>
       </SideBarWrapper>
