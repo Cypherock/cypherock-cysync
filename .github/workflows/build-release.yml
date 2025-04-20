@@ -6,6 +6,11 @@ on:
       ref:
         description: the branch to release from
         required: true
+      vendor:
+        description: vendor for the build
+        default: 'default'
+        type: string
+        required: true
 
 env:
   NODE_OPTIONS: '--max-old-space-size=8192'
@@ -13,6 +18,7 @@ env:
   MIXPANEL_TOKEN_PROD: ${{ secrets.MIXPANEL_TOKEN_PROD }}
   APP_NAME: '@cypherock/cysync-desktop'
   CHANNEL: 'latest'
+  VENDOR: ${{ inputs.vendor }}
 
 jobs:
   integrity-check:
