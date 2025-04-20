@@ -39,6 +39,7 @@ export const ipcConfig = {
     'ALLOW_PRERELEASE',
     'VERSION',
     'CHANNEL',
+    'VENDOR',
     'RELEASE_NOTES',
     'OS',
   ],

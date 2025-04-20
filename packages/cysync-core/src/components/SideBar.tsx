@@ -175,21 +175,27 @@ const SideBarComponent: FC<{ collapseWallets?: boolean }> = () => {
             state={wallets.length === 0 ? State.disabled : getState('buysell')}
             onClick={() => navigate('buysell')}
           />
-          <SideBarItem
-            text={strings.cypherockCover}
-            Icon={CypherockCoverIcon}
-            state={
-              wallets.length === 0 ? State.disabled : getState('inheritance')
-            }
-            extraRight={
-              <Chip $gradient>
-                <Typography $fontSize={10} $fontWeight="semibold" color="black">
-                  {strings.new}
-                </Typography>
-              </Chip>
-            }
-            onClick={() => navigate('inheritance')}
-          />
+          {window.cysyncFeatureFlags.COVER && (
+            <SideBarItem
+              text={strings.cypherockCover}
+              Icon={CypherockCoverIcon}
+              state={
+                wallets.length === 0 ? State.disabled : getState('inheritance')
+              }
+              extraRight={
+                <Chip $gradient>
+                  <Typography
+                    $fontSize={10}
+                    $fontWeight="semibold"
+                    color="black"
+                  >
+                    {strings.new}
+                  </Typography>
+                </Chip>
+              }
+              onClick={() => navigate('inheritance')}
+            />
+          )}
         </Flex>
         <Flex direction="column" gap={0}>
           <SideBarItem

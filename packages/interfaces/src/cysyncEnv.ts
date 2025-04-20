@@ -10,5 +10,6 @@ export interface ICysyncEnv {
   VERSION: string;
   CHANNEL: string;
   RELEASE_NOTES: string;
+  VENDOR: 'default' | 'odix';
   OS: 'darwin' | 'win32' | 'linux' | string;
 }

@@ -283,13 +283,16 @@ export const WalletConnectProvider: FC<{ children?: ReactNode }> = ({
     const uri = await getInitWCUriMethod()();
     if (uri) onExternalLink(uri);
   };
-  useEffect(() => {
-    getAddExternalLinkListenerMethod()(onExternalLink);
-    getInitialUri();
-    return () => {
-      getRemoveExternalLinkListenerMethod()();
-    };
-  }, []);
+
+  if (!window.cysyncFeatureFlags.DEEPLINK) {
+    useEffect(() => {
+      getAddExternalLinkListenerMethod()(onExternalLink);
+      getInitialUri();
+      return () => {
+        getRemoveExternalLinkListenerMethod()();
+      };
+    }, []);
+  }
 
   useEffect(() => {
     if (
