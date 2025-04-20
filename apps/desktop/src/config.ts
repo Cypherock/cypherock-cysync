@@ -43,4 +43,7 @@ export default {
    * Mixpanel token
    */
   MIXPANEL_TOKEN: 'your-mixpanel-token',
+
+  VENDOR: 'default',
+  // VENDOR: 'odix',
 };
