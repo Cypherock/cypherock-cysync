@@ -6,12 +6,18 @@ on:
       ref:
         description: the branch to release from
         required: true
+      vendor:
+        description: vendor for the build
+        default: 'default'
+        type: string
+        required: true
 
 env:
   NODE_OPTIONS: '--max-old-space-size=8192'
   TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
   APP_NAME: '@cypherock/cysync-desktop'
   CHANNEL: 'latest'
+  VENDOR: ${{ inputs.vendor }}
 
 jobs:
   integrity-check:

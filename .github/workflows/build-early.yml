@@ -11,12 +11,24 @@ on:
         default: 'dev'
         type: string
         required: true
+      vendor:
+        description: vendor for the build
+        default: 'default'
+        type: string
+        required: false
+      api:
+        description: api endpoint for the application
+        default: 'https://dev-api.cypherock.com'
+        type: string
+        required: true
 
 env:
   NODE_OPTIONS: '--max-old-space-size=8192'
   TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
   APP_NAME: '@cypherock/cysync-desktop'
   CHANNEL: ${{ inputs.channel }}
+  API: ${{ inputs.api }}
+  VENDOR: ${{ inputs.vendor }}
   DO_UPDATE_APP_VERSION: 'true'
 
 jobs:

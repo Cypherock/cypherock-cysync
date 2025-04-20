@@ -38,4 +38,7 @@ export default {
    * Auto update channel
    */
   CHANNEL: 'latest',
+
+  VENDOR: 'default',
+  // VENDOR: 'odix',
 };

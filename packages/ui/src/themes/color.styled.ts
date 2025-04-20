@@ -1,4 +1,4 @@
-export const colors = {
+const cysyncColors = {
   bullet: {
     white: '#ffffff',
   },
@@ -171,3 +171,185 @@ export const colors = {
     dropdown: '#0f0d0b',
   },
 };
+
+const demoOdixColors = {
+  bullet: {
+    white: '#000000',
+  },
+  gradients: {
+    primary:
+      'linear-gradient(102.78deg, #f5f5f5 0%, #e9e9e9 59.38%, #dadada 100%)',
+    secondary:
+      'linear-gradient(90deg, #f3f1f2 1.67%, #bcc3c9 35.99%, #a2adb3 66.2%, #909aa0 100%)',
+    content: 'linear-gradient(89.76deg, #ffffff 0.23%, #f0f0f0 99.82%)',
+    sideBar:
+      'linear-gradient(102.78deg, #f5f5f5 0%, #e9e9e9 59.38%, #dadada 100%)',
+    golden:
+      'linear-gradient(90deg, #B78D51 0.19%, #FEDD8F 37.17%, #E9B873 100.19%)',
+    highlight:
+      'linear-gradient(269.94deg, #eeeae5 0.05%, rgba(255, 255, 255, 0) 51.82%)',
+    silver:
+      'linear-gradient(180deg, #DCDFE4 -2.08%, #BCC3C9 34.27%, #F3F1F2 66.28%, #A2ADB3 102.08%)',
+    stripe: 'linear-gradient(90deg, #f5f5f5 1.69%, #e6e6e6 100%)',
+    goldenhint:
+      'linear-gradient(263deg, rgba(255, 213, 151, 0.14) 5.24%, rgba(255, 255, 255, 0) 55.22%), #fdf9f4',
+    silverhint:
+      'linear-gradient(263deg, rgba(194, 194, 194, 0.14) 5.24%, rgba(255, 255, 255, 0) 55.22%), #f9f9f9',
+    conicGradient: {
+      default:
+        'conic-gradient(from 0deg, transparent,90deg, transparent, 90deg, #E9B873 ,180deg, #FEDD8F, 270deg, #B78D51, 360deg ,transparent, 360deg, transparent)',
+      secondary:
+        'conic-gradient(from 0deg, #DCDFE4 ,33deg, #BCC3C9, 67deg, #F3F1F2, 101deg, #A2ADB3,135deg ,transparent, 135deg, transparent)',
+      expirig:
+        'conic-gradient(from 0deg, #FF624C ,270deg, #FF624C,270deg ,transparent, 270deg, transparent)',
+      golden:
+        'conic-gradient(from 0deg, #B78D51 ,30deg, #FEDD8F, 60deg, #E9B873, 90deg ,transparent, 90deg, transparent)',
+      silver:
+        'conic-gradient(from 0deg, transparent,135deg, transparent, 135deg, #DCDFE4 ,191deg, #BCC3C9, 247deg, #F3F1F2, 304deg, #A2ADB3, 360deg ,transparent, 360deg, transparent)',
+      notExpiring:
+        'conic-gradient(from 0deg, transparent, 270deg, transparent, 270deg, #B78D51 ,300deg, #FEDD8F, 330deg, #E9B873, 360deg ,transparent, 360deg, transparent)',
+    },
+    cardDefault:
+      'linear-gradient(300deg, rgba(223, 196, 165, 0.2) 0%, rgba(255, 255, 255, 0) 57.81%), #f7f7f7',
+    cardSelected:
+      'linear-gradient(285deg, rgba(223, 196, 165, 0.2) 0%, rgba(255, 255, 255, 0) 60.65%), #f7f7f7',
+    cardHover:
+      'linear-gradient(105deg, rgba(223, 196, 165, 0.2) 0%, rgba(255, 255, 255, 0) 60.65%), #ffffff',
+    title:
+      'linear-gradient(90deg,#B78D51 0.19%,#FEDD8F 37.17%,#E9B873 100.19%)',
+    plan: 'linear-gradient(90deg, rgba(224, 187, 117, 0.1) 0%, rgba(255, 255, 255, 0.00) 100%), #f9f9f9',
+  },
+  info: {
+    main: '#F1AE4A',
+  },
+  warning: {
+    main: '#FF624C',
+  },
+  success: {
+    main: '#51C61A',
+    secondary: '#88B77B',
+  },
+  disabled: {
+    background: '#E0E0E0',
+    text: '#A0A0A0',
+  },
+  text: {
+    gold: 'linear-gradient(90deg, #B78D51 0.19%, #FEDD8F 37.17%, #E9B873 100.19%)',
+    silver:
+      'linear-gradient(90deg,#dcdfe4 1.67%,#bcc3c9 35.99%,#f3f1f2 66.2%,#a2adb3 100%)',
+    heading: '#000000',
+    list: '#5C5C5C',
+    muted: '#7E7E7E',
+    warn: '#F1AE4A',
+    message: '#000000',
+    error: '#FF624C',
+    errorDark: '#B71C1C',
+    success: '#51C61A',
+    black: '#000000',
+    white: '#ffffff',
+    goldenrod: '#daa520',
+    disabled: '#A8A8A8',
+    normal: '#3C3C3C',
+    divider: '#CCCCCC',
+    dialog: '#f2f2f2',
+    separator: '#e6e6e6',
+    greenStroke: '#00FF75',
+    redStroke: '#FF0202',
+  },
+  boxShadow: {
+    selected: '#d0d0d0',
+    timer: {
+      main: '#e6e6e6',
+      text: '#cccccc',
+    },
+  },
+  background: {
+    progressBar: '#e0e0e0',
+    input: '#f5f5f5',
+    inputSecondary: '#eeeeee',
+    blur: 'rgba(240, 240, 240, 0.4)',
+    separator: '#e6e6e6',
+    bar: '#dcdcdc',
+    muted: '#7E7E7E',
+    separatorSecondary: '#f0f0f0',
+    gold: '#E9B873',
+    infoGreenBg: '#e9f7e9',
+    dropdownHover: '#f0f0f0',
+    black: '#ffffff',
+    container: '#ffffff',
+    containerSecondary: '#f5f5f5',
+    toggleOff: '#d4d4d4',
+    list: '#fafafa',
+    info: '#FFF4E5',
+    lightBlack: '#f7f7f7',
+    sidebar: '#f5f5f5',
+    slider: '#eaeaea',
+    warning: '#FFF4F0',
+    message: '#F1F9F1',
+    messageSecondary: '#FFF4E5',
+    breadcrumbSeparator: '#CCCCCC',
+    batchTransactionBody: '#ffffff',
+    danger: '#FF624C',
+    error: '#FFD2D2',
+    filterItem: '#f5f5f5',
+    calendar: '#ffffff',
+    calendarHeader: '#f5f5f5',
+    timer: {
+      main: '#eeeeee',
+      default: '#e6e6e6',
+      silver: '#f0f0f0',
+      expiring: '#ffe8e1',
+      secondary: '#f2f2f2',
+    },
+    silver: '#bcc3c9',
+    slate: '#f0f0f0',
+    cardDisabled: '#f4f4f4',
+    cardSelected: '#f7f7f7',
+    slateDark: '#cccccc',
+    slateLight: '#e0e0e0',
+    headlineLight: '#a59d8f',
+    cardActive: '#e8e8e8',
+    videoError: '#fafafa',
+    featureBanner: '#f9f9f9',
+  },
+  border: {
+    darkSlate: '#f0f0f0',
+    popup: '#eaeaea',
+    list: '#fafafa',
+    input: '#eeeeee',
+    separator: '#e6e6e6',
+    message: '#cdeac0',
+    messageSecondary: '#ffe6cc',
+    warning: '#ffccbc',
+    error: '#FF624C',
+    danger: '#d32f2f',
+    bar: '#cccccc',
+    table: {
+      title: '#f0f0f0',
+      row: '#f9f9f9',
+      stripe: '#ffffff',
+    },
+    muted: '#7E7E7E',
+    white: '#000000',
+    separatorSecondary: '#f0f0f0',
+    gold: '#E9B873',
+    infoBox: '#e0e0e0',
+    infoBoxOrange: '#ffe6cc',
+    subMenuLeft: '#dcdcdc',
+    topbar: '#f7f7f7',
+    card: '#eaeaea',
+    selected: '#B78D51',
+    success: '#51C61A',
+    infoGreen: '#cdeac0',
+  },
+  shadow: {
+    dropdown: '#d0d0d0',
+  },
+};
+
+const colors =
+  (window as any).cysyncEnv.VENDOR === 'odix' // Vendor specific color example
+    ? demoOdixColors
+    : cysyncColors;
+
+export { colors };
