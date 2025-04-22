@@ -56,7 +56,7 @@
       "title": "Sync QR from Desktop App",
       "description": [
         "Make sure you have bought a Cypherock X1 and have it already setup before scanning",
-        "On your cySync desktop app, Go to Settings > General > Export with mobile and scan the QR Code"
+        "On your cySync desktop app, Go to Settings > General > Sync cySync with Mobile App"
       ]
     },
     "permission": {
