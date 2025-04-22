@@ -1,17 +1,17 @@
-import {
+const {
   formatDisplayAmount,
   formatDisplayPrice,
   getAsset,
   getDefaultUnit,
   getParsedAmount,
-} from '@cypherock/coin-support-utils';
-import { coinList } from '@cypherock/coins';
-import {
+} = require('@cypherock/coin-support-utils');
+const { coinList } = require('@cypherock/coins');
+const {
   IAccountAllocation,
   ICoinAllocationWithPercentage,
   getAccountAllocations,
   getCoinAllocations,
-} from '@cypherock/cysync-core-services';
+} = require('@cypherock/cysync-core-services');
 import { BigNumber } from '@cypherock/cysync-utils';
 import { IAccount } from '@cypherock/db-interfaces';
 import { createSelector } from '@reduxjs/toolkit';

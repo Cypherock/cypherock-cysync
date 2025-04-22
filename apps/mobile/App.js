@@ -34,6 +34,4 @@ globalThis.solanaSplToken = require('@solana/spl-token');
 globalThis.xrpl = require('xrpl');
 globalThis.starknet = require('starknet');
 
-setGlobalDependencies();
-
 import 'expo-router/entry';

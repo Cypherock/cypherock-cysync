@@ -1,8 +1,8 @@
-import {
+const {
   formatDisplayAmount,
   getDefaultUnit,
   getParsedAmount,
-} from '@cypherock/coin-support-utils';
+} = require('@cypherock/coin-support-utils');
 import { IAccount } from '@cypherock/db-interfaces';
 import { useEffect, useMemo, useState } from 'react';
 import { useAppSelector } from '@/store';
