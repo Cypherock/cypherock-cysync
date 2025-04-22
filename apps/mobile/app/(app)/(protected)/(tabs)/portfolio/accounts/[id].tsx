@@ -16,7 +16,6 @@ import {
   selectWallets,
   useAppSelector,
 } from '@/store';
-import { getAsset, getAssetOrUndefined } from '@cypherock/coin-support-utils';
 import TokenTable from '@/components/core/TokenTable';
 import { View } from 'react-native';
 import { IAccount, IWallet } from '@cypherock/db-interfaces';
@@ -56,6 +55,7 @@ export default function Accounts() {
 
     if (account) {
       const wallet = wallets.find(a => a.__id === account.walletId);
+      const { getAsset } = require('@cypherock/coin-support-utils');
 
       const result: IAccount & {
         asset?: ICoinInfo;
@@ -127,12 +127,17 @@ export default function Accounts() {
           color={selectedAccount.asset?.color}
         />
       </View>
-      {(getAssetOrUndefined(selectedAccount.parentAssetId) as any)?.tokens &&
-      accountId ? (
-        <TokenTable accountId={accountId} />
-      ) : (
-        <TokenTable noData />
-      )}
+      {(() => {
+        const {
+          getAssetOrUndefined,
+        } = require('@cypherock/coin-support-utils');
+        return (getAssetOrUndefined(selectedAccount.parentAssetId) as any)
+          ?.tokens && accountId ? (
+          <TokenTable accountId={accountId} />
+        ) : (
+          <TokenTable noData />
+        );
+      })()}
       <SelectFilterSheet
         ref={filterRef}
         title={'Select Option'}

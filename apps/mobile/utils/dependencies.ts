@@ -1,12 +1,12 @@
-import { BtcSupport } from '@cypherock/coin-support-btc';
-import { EvmSupport } from '@cypherock/coin-support-evm';
-import { NearSupport } from '@cypherock/coin-support-near';
-import { SolanaSupport } from '@cypherock/coin-support-solana';
-import { StarknetSupport } from '@cypherock/coin-support-starknet';
-import { TronSupport } from '@cypherock/coin-support-tron';
-import { XrpSupport } from '@cypherock/coin-support-xrp';
+const { BtcSupport } = require('@cypherock/coin-support-btc');
+const { EvmSupport } = require('@cypherock/coin-support-evm');
+const { NearSupport } = require('@cypherock/coin-support-near');
+const { SolanaSupport } = require('@cypherock/coin-support-solana');
+const { StarknetSupport } = require('@cypherock/coin-support-starknet');
+const { TronSupport } = require('@cypherock/coin-support-tron');
+const { XrpSupport } = require('@cypherock/coin-support-xrp');
 
-export const setGlobalDependencies = () => {
+export const setGlobalDependencies = async () => {
   BtcSupport.setBitcoinLibrary((globalThis as any).BitcoinJsLib);
   NearSupport.setNearApiJs((globalThis as any).NearApiJs);
   EvmSupport.setEthersLibrary((globalThis as any).ethers);

@@ -9,8 +9,7 @@ import {
   FlashMode,
   ScanningResult,
 } from 'expo-camera';
-import { useAppSelector } from '@/store';
-import { selectLanguage } from '@/store/lang';
+import { useAppSelector, selectLanguage } from '@/store';
 import { Redirect } from 'expo-router';
 import Animated, {
   SharedValue,

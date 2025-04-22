@@ -1,13 +1,13 @@
 import React from 'react';
 import { Image, View, StyleSheet } from 'react-native';
-import {
+const {
   BtcIdMap,
   EvmIdMap,
   SolanaIdMap,
   NearIdMap,
   XrpIdMap,
-} from '@cypherock/coins';
-import { getAsset } from '@cypherock/coin-support-utils';
+} = require('@cypherock/coins');
+const { getAsset } = require('@cypherock/coin-support-utils');
 import {
   BitcoinIcon,
   DashIcon,
