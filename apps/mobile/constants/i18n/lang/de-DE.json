@@ -56,7 +56,7 @@
       "title": "QR von der Desktop-App synchronisieren",
       "description": [
         "Stellen Sie sicher, dass Sie einen Cypherock X1 gekauft und bereits eingerichtet haben, bevor Sie scannen",
-        "Gehen Sie in Ihrer cySync-Desktop-App zu Einstellungen > Allgemein > Mit Mobilgerät exportieren und scannen Sie den QR-Code"
+        "Gehen Sie in Ihrer cySync-Desktop-App zu Einstellungen > Allgemein > cySync mit mobiler App synchronisieren"
       ]
     },
     "permission": {
