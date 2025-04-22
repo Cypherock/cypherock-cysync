@@ -1,4 +1,5 @@
 import { ReceiveDeviceEvent } from '@cypherock/coin-support-interfaces';
+import { coinFamiliesMap } from '@cypherock/coins';
 import {
   DialogBox,
   DialogBoxBody,
@@ -11,7 +12,6 @@ import {
   ScrollableContainer,
   MessageBox,
 } from '@cypherock/cysync-ui';
-import { coinFamiliesMap } from '@cypherock/coins';
 import React, { useEffect } from 'react';
 
 import { selectLanguage, useAppSelector } from '~/store';
@@ -21,9 +21,16 @@ import { AddressDisplay } from './Components';
 import { useReceiveDialog } from '../context';
 
 export const VerifyAddress: React.FC = () => {
-  const { onNext, onRetry, deviceEvents, isFlowCompleted, selectedAccount } =
-    useReceiveDialog();
+  const {
+    onRetry,
+    deviceEvents,
+    isFlowCompleted,
+    selectedAccount,
+    derivedAddress,
+    goTo,
+  } = useReceiveDialog();
   const lang = useAppSelector(selectLanguage);
+  const texts = lang.strings.receive.receive;
 
   useEffect(() => {
     if (isFlowCompleted) {
@@ -33,7 +40,7 @@ export const VerifyAddress: React.FC = () => {
 
   useEffect(() => {
     if (!isFlowCompleted && deviceEvents[ReceiveDeviceEvent.VERIFIED]) {
-      onNext();
+      goTo(3);
     }
   }, [deviceEvents]);
 
@@ -43,7 +50,7 @@ export const VerifyAddress: React.FC = () => {
       leftImage: (
         <Image src={arrowGoldenForward} alt="arrowGoldenForward icon" />
       ),
-      text: lang.strings.receive.receive.actions.verify,
+      text: texts.actions.verify,
       rightImage: <Throbber size={15} strokeWidth={2} />,
     },
   ];
@@ -53,7 +60,7 @@ export const VerifyAddress: React.FC = () => {
     selectedAccount &&
     selectedAccount.familyId === coinFamiliesMap.starknet
   ) {
-    waitMessage = lang.strings.receive.receive.waitMessageBox.warning;
+    waitMessage = texts.waitMessageBox.warning;
   }
 
   return (
@@ -62,7 +69,12 @@ export const VerifyAddress: React.FC = () => {
         <GenericConfirmDeviceGraphics />
         <ScrollableContainer $maxHeight={{ def: '50vh', lg: '65vh' }}>
           <DialogBoxBody p={0} px={4} pb={5}>
-            <AddressDisplay />
+            <AddressDisplay
+              titlePrefix={texts.title.prefix}
+              titleSuffix={texts.title.suffix}
+              addressLabel={texts.addressLabel}
+              address={derivedAddress ?? ''}
+            />
             <LeanBoxContainer>
               {dataArray.map(data => (
                 <LeanBox

@@ -35,6 +35,7 @@
     "@cypherock/coin-support-near": "workspace:^",
     "@cypherock/coin-support-solana": "workspace:^",
     "@cypherock/coin-support-starknet": "workspace:^",
+    "@cypherock/coin-support-icp": "workspace:^",
     "@cypherock/coin-support-utils": "workspace:^",
     "@cypherock/coin-support-xrp": "workspace:^",
     "@cypherock/coins": "workspace:^",

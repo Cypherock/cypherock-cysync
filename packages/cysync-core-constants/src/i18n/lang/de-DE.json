@@ -171,26 +171,38 @@
     "receive": {
       "title": {
         "prefix": "Adresse für ",
+        "accountIdPrefix": "Kontokennung für ",
+        "principalIdPrefix": "Principal-Kennung für ",
         "suffix": "in ${walletName}"
       },
       "addressLabel": "Adresse",
+      "accountIdLabel": "Konto-ID",
+      "principalIdLabel": "Haupt-ID",
       "actions": {
-        "verify": "Überprüfen Sie, dass die Adresse auf dem X1 Vault genau mit der oben angezeigten Adresse übereinstimmt"
+        "verify": "Überprüfen Sie, dass die Adresse auf dem X1 Vault genau mit der oben angezeigten Adresse übereinstimmt",
+        "verifyAccountId": "Überprüfen Sie, ob die Kontonummer auf der X1 Vault genau mit der oben angezeigten Kontonummer übereinstimmt",
+        "verifyPrincipalId": "Überprüfen Sie, ob die Haupt-ID auf der X1 Vault genau mit der oben angezeigten Haupt-ID übereinstimmt"
       },
       "messageBox": {
-        "warning": "Diese Empfangsadresse wurde NICHT vom Gerät VERIFIZIERT. Verwenden Sie sie auf eigenes Risiko"
+        "warning": "Diese Empfangsadresse wurde NICHT vom Gerät VERIFIZIERT. Verwenden Sie sie auf eigenes Risiko",
+        "accountIdWarning": "Diese Empfangskonto-ID wurde NICHT vom Gerät VERIFIZIERT. Verwenden Sie sie auf eigenes Risiko",
+        "principalIdWarning": "Diese Empfangs-Prinzipal-ID wurde NICHT vom Gerät VERIFIZIERT. Verwenden Sie sie auf eigenes Risiko"
       },
       "waitMessageBox": {
         "warning": "Dieser Vorgang kann ungefähr eine Minute dauern. Bitte haben Sie Geduld"
       }
     },
     "congrats": {
-      "title": "Adresse erfolgreich verifiziert"
+      "title": "Adresse erfolgreich verifiziert",
+      "accountAndPrincipalIdTitle": "Konto-ID und Principal ID erfolgreich verifiziert"
     },
     "finalButtons": {
       "secondary": "Erneut überprüfen",
       "secondaryUnverified": "Adresse verifizieren",
-      "primary": "Fertig"
+      "primary": "Fertig",
+      "secondaryUnverifiedAccountId": "Konto-ID überprüfen",
+      "secondaryUnverifiedPrincipalId": "Haupt-ID überprüfen",
+      "continue": "Fortfahren"
     },
     "aside": {
       "tabs": {
@@ -266,6 +278,18 @@
         "error": "Ungültige Adresse",
         "ownAddress": "Empfängeradresse ist dieselbe wie die Absenderadresse"
       },
+      "icpAccountIdRecipient": {
+        "label": "Empfänger-Konto-ID",
+        "placeholder": "Kontoinformationen eingeben",
+        "error": "Ungültige Konto-ID",
+        "ownAddress": "Empfänger-Konto-ID ist identisch mit Absender-Konto-ID"
+      },
+      "icpPrincipalIdRecipient": {
+        "label": "Empfänger-Principal-ID",
+        "placeholder": "Geben Sie die Principal-ID ein",
+        "error": "Ungültige Principal-ID",
+        "ownAddress": "Die Empfänger-Principal-ID ist dieselbe wie die Absender-Principal-ID"
+      },
       "tabs": {
         "single": "Einzeltransaktion",
         "batch": "Batch-Transaktion"
@@ -304,6 +328,11 @@
         "placeholder": "Optional",
         "error": "Wert zu hoch"
       },
+      "memo": {
+        "label": "Memo (Optional)",
+        "placeholder": "Geben Sie ein numerisches Memo ein",
+        "error": "Wert zu hoch"
+      },
       "feeBelowMinError": "Transaktion mit fee unter dem Minimum wird fehlschlagen",
       "rentExemptFeeWarning": "Das erstmalige Empfangen eines Tokens auf Solana zieht Mietbefreiungsgebühren nach sich, die in den Gesamtgebühren enthalten sind."
     },
@@ -315,12 +344,14 @@
       "network": "Netzwerkgebühr",
       "debit": "Gesamtsumme zum Abbuchen",
       "remarks": "Persönliche Notiz",
-      "destinationTag": "Ziel-Tag"
+      "destinationTag": "Ziel-Tag",
+      "memo": "Memo"
     },
     "finalMessage": {
       "button": "Transaktionen überprüfen",
       "title": "Transaktion gesendet",
       "hashLabel": "Transaktions-Hash",
+      "idLabel": "Transaktions-ID",
       "messageBox": {
         "warning": "Ihr Kontostand wird aktualisiert, wenn die blockchain die Transaktion bestätigt"
       }
@@ -421,12 +452,15 @@
       "receiver": "Empfänger",
       "mine": "Meine",
       "transactionHash": "Transaktions-Hash",
+      "transactionId": "Transaktions-ID",
       "description": "Beschreibung",
       "feePrefix": {
         "optimism": "L2 "
       },
       "remarks": "Persönliche Notiz",
-      "destinationTag": "Ziel-Tag"
+      "destinationTag": "Ziel-Tag",
+      "memo": "Memo",
+      "operation": "Betrieb"
     },
     "noData": {
       "text": "Noch keine Transaktionen",

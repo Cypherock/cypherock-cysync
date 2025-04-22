@@ -8,6 +8,7 @@ import {
   getParsedAmount,
   getZeroUnit,
 } from '@cypherock/coin-support-utils';
+import { coinFamiliesMap } from '@cypherock/coins';
 import {
   SvgProps,
   TransactionTableHeaderName,
@@ -84,6 +85,8 @@ export interface TransactionRowData {
   remarks: string[];
   network: string;
   destinationTag?: number;
+  memo?: string;
+  operation?: string;
 }
 
 export const transactionComparatorMap: Record<
@@ -145,31 +148,37 @@ const selector = createSelector(
   }),
 );
 
-export const mapTransactionForDisplay = (params: {
-  transaction: ITransaction;
-  priceInfos: IPriceInfo[];
-  wallets: IWallet[];
-  accounts: IAccount[];
-  lang: ILangState;
-  isDiscreetMode: boolean;
-}): TransactionRowData => {
-  const { transaction, priceInfos, wallets, accounts, lang, isDiscreetMode } =
-    params;
+const getExtraInfo = (transaction: ITransaction) => {
+  const remarks: string[] = [];
+  if (transaction.remarks) {
+    for (let i = 0; i < transaction.remarks.length; i += 1) {
+      const remark = transaction.remarks[i].trim();
+      if (remark) {
+        if (transaction.remarks.length === 1) {
+          remarks.push(remark);
+        } else {
+          remarks.push(`${i + 1}. ${remark}`);
+        }
+      }
+    }
+  }
 
-  const { amount, unit } = getParsedAmount({
-    coinId: transaction.parentAssetId,
-    assetId: transaction.assetId,
-    unitAbbr: getDefaultUnit(transaction.parentAssetId, transaction.assetId)
-      .abbr,
-    amount: transaction.amount,
-  });
+  const destinationTag = transaction.extraData?.destinationTag;
+  const memo = transaction.extraData?.memo;
+  let operation = transaction.extraData?.operation;
+  if (operation) {
+    operation =
+      operation.charAt(0).toUpperCase() + operation.slice(1).toLowerCase();
+  }
 
-  const { amount: fee, unit: feeUnit } = getParsedAmount({
-    coinId: transaction.parentAssetId,
-    unitAbbr: getDefaultUnit(transaction.parentAssetId).abbr,
-    amount: transaction.fees,
-  });
+  return { remarks, destinationTag, memo, operation };
+};
 
+const getDisplayValues = (
+  transaction: ITransaction,
+  priceInfos: IPriceInfo[],
+  isDiscreetMode: boolean,
+) => {
   let displayValue = '$0.00';
   let value = '0.00';
   let displayFeeValue = '$0.00';
@@ -182,11 +191,6 @@ export const mapTransactionForDisplay = (params: {
     p =>
       p.assetId === transaction.assetId && p.currency.toLowerCase() === 'usd',
   );
-  const wallet = wallets.find(w => w.__id === transaction.walletId);
-  let account = accounts.find(a => a.__id === transaction.parentAccountId);
-  if (!account) {
-    account = accounts.find(a => a.__id === transaction.accountId);
-  }
 
   if (coinPrice) {
     const feeInDefaultUnit = convertToUnit({
@@ -221,70 +225,37 @@ export const mapTransactionForDisplay = (params: {
     displayValue = `$${formattedValue}`;
   }
 
+  const { amount, unit } = getParsedAmount({
+    coinId: transaction.parentAssetId,
+    assetId: transaction.assetId,
+    unitAbbr: getDefaultUnit(transaction.parentAssetId, transaction.assetId)
+      .abbr,
+    amount: transaction.amount,
+  });
+
+  const { amount: fee, unit: feeUnit } = getParsedAmount({
+    coinId: transaction.parentAssetId,
+    assetId:
+      transaction.familyId === coinFamiliesMap.icp
+        ? transaction.assetId
+        : undefined,
+    // in case of ICP, token txn incur fees from token account only, hence fee unit is also token unit
+    unitAbbr: getDefaultUnit(
+      transaction.parentAssetId,
+      transaction.familyId === coinFamiliesMap.icp
+        ? transaction.assetId
+        : undefined,
+    ).abbr,
+    amount: transaction.fees,
+  });
+
   const timestamp = new Date(transaction.timestamp);
-  const timeString = formatDate(timestamp, 'h:mm a');
-  const dateString = formatDate(timestamp, 'd/M/yy');
-  const dateTime = formatDate(timestamp, 'eeee, MMMM d yyyy h:mm a');
-  const dateHeader = formatDate(timestamp, 'eeee, MMMM d yyyy');
-  const assetName = getAsset(
-    transaction.parentAssetId,
-    transaction.assetId,
-  ).name;
-  const networkName = getAsset(transaction.parentAssetId).name;
   const formattedAmount = formatDisplayAmount(amount, 8);
-  const displayAmount = `${isDiscreetMode ? '****' : formattedAmount.fixed} ${
-    unit.abbr
-  }`;
-  const displayAmountWithoutUnit = formattedAmount.fixed;
-  const displayAmountUnit = unit.abbr;
-  const amountTooltip = isDiscreetMode
-    ? undefined
-    : `${formattedAmount.complete} ${unit.abbr}`;
-
-  const remarks: string[] = [];
-  if (transaction.remarks) {
-    for (let i = 0; i < transaction.remarks.length; i += 1) {
-      const remark = transaction.remarks[i].trim();
-      if (remark) {
-        if (transaction.remarks.length === 1) {
-          remarks.push(remark);
-        } else {
-          remarks.push(`${i + 1}. ${remark}`);
-        }
-      }
-    }
-  }
-
-  const destinationTag = transaction.extraData?.destinationTag;
 
   return {
-    id: transaction.__id ?? '',
-    xpubOrAddress: account?.xpubOrAddress ?? '',
+    ...getExtraInfo(transaction),
     hash: transaction.hash,
     timestamp: transaction.timestamp,
-    time: timeString,
-    date: dateString,
-    dateHeader,
-    dateTime,
-    walletAndAccount: `${wallet?.name ?? ''} ${account?.name ?? ''} ${
-      account?.derivationScheme ?? ''
-    }`,
-    assetName,
-    accountName: account?.name ?? '',
-    accountTag: lodash.upperCase(account?.derivationScheme ?? ''),
-    displayAmount,
-    amountTooltip,
-    displayValue: isDiscreetMode ? '$****' : displayValue,
-    displayValueWithoutUnit: value,
-    displayValueUnit: 'USD',
-    displayFee: `${isDiscreetMode ? '****' : fee} ${feeUnit.abbr}`,
-    displayFeeValue: isDiscreetMode ? '$****' : displayFeeValue,
-    amount: parseFloat(amount),
-    displayFeeWithoutUnit: fee,
-    displayFeeUnit: feeUnit.abbr,
-    displayAmountWithoutUnit,
-    displayAmountUnit,
-    value: parseFloat(value),
     accountIcon: ({ width, height }: any) => (
       <CoinIcon
         parentAssetId={transaction.parentAssetId}
@@ -300,19 +271,79 @@ export const mapTransactionForDisplay = (params: {
         height={height}
       />
     ),
+    icon: transactionIconMap[transaction.type],
     status: transaction.status,
     statusText: lodash.capitalize(transaction.status),
+    displayValueWithoutUnit: value,
+    displayValue: isDiscreetMode ? '$****' : displayValue,
+    displayValueUnit: 'USD',
+    displayFeeValue: isDiscreetMode ? '$****' : displayFeeValue,
+    displayFee: `${isDiscreetMode ? '****' : fee} ${feeUnit.abbr}`,
+    amount: parseFloat(amount),
+    displayFeeWithoutUnit: fee,
+    displayFeeUnit: feeUnit.abbr,
+    value: parseFloat(value),
+    time: formatDate(timestamp, 'h:mm a'),
+    date: formatDate(timestamp, 'd/M/yy'),
+    dateTime: formatDate(timestamp, 'eeee, MMMM d yyyy h:mm a'),
+    dateHeader: formatDate(timestamp, 'eeee, MMMM d yyyy'),
+    assetName: getAsset(transaction.parentAssetId, transaction.assetId).name,
+    network: getAsset(transaction.parentAssetId).name,
+    displayAmount: `${isDiscreetMode ? '****' : formattedAmount.fixed} ${
+      unit.abbr
+    }`,
+    displayAmountWithoutUnit: formattedAmount.fixed,
+    displayAmountUnit: unit.abbr,
+    amountTooltip: isDiscreetMode
+      ? undefined
+      : `${formattedAmount.complete} ${unit.abbr}`,
+  };
+};
+
+const findAccount = (
+  accounts: IAccount[],
+  parentAccountId?: string,
+  accountId?: string,
+): IAccount | undefined =>
+  accounts.find(a => a.__id === parentAccountId) ??
+  accounts.find(a => a.__id === accountId);
+
+const getWalletAndAccount = (wallet?: IWallet, account?: IAccount) =>
+  `${wallet?.name ?? ''} ${account?.name ?? ''} ${
+    account?.derivationScheme ?? ''
+  }`;
+
+export const mapTransactionForDisplay = (params: {
+  transaction: ITransaction;
+  priceInfos: IPriceInfo[];
+  wallets: IWallet[];
+  accounts: IAccount[];
+  lang: ILangState;
+  isDiscreetMode: boolean;
+}): TransactionRowData => {
+  const { transaction } = params;
+
+  const wallet = params.wallets.find(w => w.__id === transaction.walletId);
+  const account = findAccount(
+    params.accounts,
+    transaction.parentAccountId,
+    transaction.accountId,
+  );
+
+  return {
+    ...getDisplayValues(transaction, params.priceInfos, params.isDiscreetMode),
+    id: transaction.__id ?? '',
+    xpubOrAddress: account?.xpubOrAddress ?? '',
+    walletAndAccount: getWalletAndAccount(wallet, account),
+    accountName: account?.name ?? '',
+    accountTag: lodash.upperCase(account?.derivationScheme ?? ''),
     walletName: wallet?.name ?? '',
-    type: getDisplayTransactionType(transaction, lang.strings),
-    icon: transactionIconMap[transaction.type],
+    type: getDisplayTransactionType(transaction, params.lang.strings),
     explorerLink: getCoinSupport(transaction.familyId).getExplorerLink({
       transaction,
     }),
     txn: transaction,
     isGroupHeader: false,
-    remarks,
-    network: networkName,
-    destinationTag,
   };
 };
 

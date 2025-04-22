@@ -3,6 +3,7 @@
 import { getCoinSupport } from '@cypherock/coin-support';
 import { IPreparedBtcTransaction } from '@cypherock/coin-support-btc';
 import { IPreparedEvmTransaction } from '@cypherock/coin-support-evm';
+import { IPreparedIcpTransaction } from '@cypherock/coin-support-icp';
 import {
   CoinSupport,
   IPreparedTransaction,
@@ -24,9 +25,15 @@ import {
   getZeroUnit,
 } from '@cypherock/coin-support-utils';
 import { coinFamiliesMap, CoinFamily } from '@cypherock/coins';
+import { ServerError, ServerErrorType } from '@cypherock/cysync-core-constants';
 import { DropDownItemProps, parseLangTemplate } from '@cypherock/cysync-ui';
 import { BigNumber } from '@cypherock/cysync-utils';
-import { IAccount, ITransaction, IWallet } from '@cypherock/db-interfaces';
+import {
+  AccountTypeMap,
+  IAccount,
+  ITransaction,
+  IWallet,
+} from '@cypherock/db-interfaces';
 import lodash from 'lodash';
 import React, {
   Context,
@@ -74,7 +81,6 @@ import {
   SelectionDialog,
   DeviceAction,
 } from '../Dialogs';
-import { ServerError, ServerErrorType } from '@cypherock/cysync-core-constants';
 
 export interface SendDialogContextInterface {
   tabs: ITabs;
@@ -113,6 +119,7 @@ export interface SendDialogContextInterface {
   prepareTransactionRemarks: (val: string) => Promise<void>;
   prepareSendMax: (state: boolean) => Promise<string>;
   prepareDestinationTag: (tag: number) => Promise<void>;
+  prepareMemo: (memo: string) => Promise<void>;
   priceConverter: (val: string, inverse?: boolean) => string;
   updateUserInputs: (count: number) => void;
   isAccountSelectionDisabled: boolean | undefined;
@@ -560,6 +567,29 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
     await prepare(txn);
   };
 
+  const prepareMemo = async (memo: string) => {
+    if (!selectedAccount) return;
+
+    if (selectedAccount.familyId === coinFamiliesMap.icp) {
+      const txn = transactionRef.current as IPreparedIcpTransaction;
+      if (!txn) return;
+
+      const valueToSet = new BigNumber(memo).isLessThan(0) ? undefined : memo;
+      if (txn.userInputs.outputs.length > 0) {
+        txn.userInputs.outputs[0].memo = valueToSet;
+      } else {
+        txn.userInputs.outputs = [
+          {
+            address: '',
+            amount: '',
+            memo: valueToSet,
+          },
+        ];
+      }
+      await prepare(txn);
+    }
+  };
+
   const priceConverter = (val: string, invert?: boolean) => {
     const coinPrice = priceInfos.find(
       p =>
@@ -633,6 +663,12 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
     return computedData.feeData.suggestedMaxFee || '0';
   };
 
+  const getIcpFeeAmount = (txn: IPreparedTransaction | undefined) => {
+    if (!txn) return '0';
+    const { computedData } = txn as IPreparedIcpTransaction;
+    return computedData.fees || '0';
+  };
+
   const computedFeeMap: Record<
     CoinFamily,
     (txn: IPreparedTransaction | undefined) => string
@@ -644,6 +680,7 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
     tron: getTronFeeAmount,
     xrp: getXrpFeeAmount,
     starknet: getStarknetFeeAmount,
+    icp: getIcpFeeAmount,
   };
 
   const getComputedFee = (coinFamily: CoinFamily, txn?: IPreparedTransaction) =>
@@ -665,11 +702,30 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
   const getOutputError = useCallback(
     (index: number) => {
       if (transaction?.validation.outputs[index] === false) {
-        return lang.strings.send.recipient.recipient.error;
+        let { error: validationError } = lang.strings.send.recipient.recipient;
+
+        if (selectedAccount?.familyId === coinFamiliesMap.icp) {
+          const isIcpToken = selectedAccount.type === AccountTypeMap.subAccount;
+          validationError = isIcpToken
+            ? lang.strings.send.recipient.icpPrincipalIdRecipient.error
+            : lang.strings.send.recipient.icpAccountIdRecipient.error;
+        }
+
+        return validationError;
       }
 
       if (transaction?.validation.ownOutputAddressNotAllowed[index]) {
-        return lang.strings.send.recipient.recipient.ownAddress;
+        let { ownAddress: ownAddressError } =
+          lang.strings.send.recipient.recipient;
+
+        if (selectedAccount?.familyId === coinFamiliesMap.icp) {
+          const isIcpToken = selectedAccount.type === AccountTypeMap.subAccount;
+          ownAddressError = isIcpToken
+            ? lang.strings.send.recipient.icpPrincipalIdRecipient.ownAddress
+            : lang.strings.send.recipient.icpAccountIdRecipient.ownAddress;
+        }
+
+        return ownAddressError;
       }
 
       return '';
@@ -677,22 +733,7 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
     [transaction, lang],
   );
 
-  const getAmountError = useCallback(() => {
-    if (transaction?.validation.zeroAmountNotAllowed) {
-      return lang.strings.send.recipient.amount.zeroAmount;
-    }
-
-    if (
-      (transaction?.validation as IPreparedBtcTransaction['validation'])
-        .isNotOverDustThreshold
-    ) {
-      return lang.strings.send.recipient.amount.notOverDustThreshold;
-    }
-
-    if (transaction?.validation.hasEnoughBalance === false) {
-      return lang.strings.send.recipient.amount.error;
-    }
-
+  const getXrpAmountError = useCallback(() => {
     const xrpValidation =
       transaction?.validation as IPreparedXrpTransaction['validation'];
 
@@ -739,6 +780,10 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
       );
     }
 
+    return '';
+  }, [transaction, lang, selectedAccount]);
+
+  const getSolanaAmountError = useCallback(() => {
     const solanaValidation =
       transaction?.validation as IPreparedSolanaTransaction['validation'];
 
@@ -765,10 +810,39 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
     return '';
   }, [transaction, lang, selectedAccount]);
 
+  const getAmountError = useCallback(() => {
+    if (transaction?.validation.zeroAmountNotAllowed) {
+      return lang.strings.send.recipient.amount.zeroAmount;
+    }
+
+    if (
+      (transaction?.validation as IPreparedBtcTransaction['validation'])
+        ?.isNotOverDustThreshold
+    ) {
+      return lang.strings.send.recipient.amount.notOverDustThreshold;
+    }
+
+    if (transaction?.validation.hasEnoughBalance === false) {
+      return lang.strings.send.recipient.amount.error;
+    }
+
+    const xrpAmountError = getXrpAmountError();
+    if (xrpAmountError !== '') {
+      return xrpAmountError;
+    }
+
+    const solanaAmountError = getSolanaAmountError();
+    if (solanaAmountError !== '') {
+      return solanaAmountError;
+    }
+
+    return '';
+  }, [transaction, lang, getXrpAmountError, getSolanaAmountError]);
+
   const getDestinationTagError = useCallback(() => {
     if (
       (transaction?.validation as IPreparedXrpTransaction['validation'])
-        .isInvalidDestinationTag
+        ?.isInvalidDestinationTag
     ) {
       return lang.strings.send.recipient.destinationTag.error;
     }
@@ -839,6 +913,7 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
       prepareTransactionRemarks,
       prepareSendMax,
       prepareDestinationTag,
+      prepareMemo,
       priceConverter,
       updateUserInputs,
       isAccountSelectionDisabled: disableAccountSelection,

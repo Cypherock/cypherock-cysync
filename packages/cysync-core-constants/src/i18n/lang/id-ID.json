@@ -171,26 +171,38 @@
     "receive": {
       "title": {
         "prefix": "Alamat untuk ",
+        "accountIdPrefix": "ID Akun untuk ",
+        "principalIdPrefix": "ID Utama untuk ",
         "suffix": "di ${walletName}"
       },
       "addressLabel": "Alamat",
+      "accountIdLabel": "ID Akun",
+      "principalIdLabel": "ID Utama",
       "actions": {
-        "verify": "Verifikasi apakah alamat pada X1 Vault sesuai dengan alamat yang ditampilkan di atas"
+        "verify": "Verifikasi apakah alamat pada X1 Vault sesuai dengan alamat yang ditampilkan di atas",
+        "verifyAccountId": "Verifikasi ID Akun di X1 Vault cocok persis dengan ID Akun yang ditampilkan di atas",
+        "verifyPrincipalId": "Verifikasi ID Principal di X1 Vault cocok persis dengan ID Principal yang ditampilkan di atas"
       },
       "messageBox": {
-        "warning": "Alamat Penerimaan ini TIDAK DIVERIFIKASI oleh perangkat. Gunakan dengan risiko Anda sendiri"
+        "warning": "Alamat Penerimaan ini TIDAK DIVERIFIKASI oleh perangkat. Gunakan dengan risiko Anda sendiri",
+        "accountIdWarning": "ID Akun Penerima ini TIDAK DIVERIFIKASI oleh perangkat. Gunakan dengan risiko Anda sendiri",
+        "principalIdWarning": "ID Utama Penerima ini TIDAK DIVERIFIKASI oleh perangkat. Gunakan dengan risiko Anda sendiri"
       },
       "waitMessageBox": {
         "warning": "Proses ini mungkin memakan waktu sekitar satu menit. Mohon bersabar"
       }
     },
     "congrats": {
-      "title": "Alamat berhasil diverifikasi"
+      "title": "Alamat berhasil diverifikasi",
+      "accountAndPrincipalIdTitle": "ID Akun dan ID Utama berhasil diverifikasi"
     },
     "finalButtons": {
       "secondary": "Verifikasi Lagi",
       "secondaryUnverified": "Verifikasi Alamat",
-      "primary": "Selesai"
+      "secondaryUnverifiedAccountId": "Verifikasi ID Akun",
+      "secondaryUnverifiedPrincipalId": "Verifikasi ID Principal",
+      "primary": "Selesai",
+      "continue": "Lanjutkan"
     },
     "aside": {
       "tabs": {
@@ -266,6 +278,18 @@
         "error": "Alamat tidak valid",
         "ownAddress": "Alamat penerima sama dengan alamat pengirim"
       },
+      "icpAccountIdRecipient": {
+        "label": "ID Akun Penerima",
+        "placeholder": "Masukkan ID akun",
+        "error": "ID akun tidak valid",
+        "ownAddress": "ID akun penerima sama dengan ID akun pengirim"
+      },
+      "icpPrincipalIdRecipient": {
+        "label": "ID Prinsipal Penerima",
+        "placeholder": "Masukkan id prinsipal",
+        "error": "ID prinsipal tidak valid",
+        "ownAddress": "ID prinsipal penerima sama dengan ID prinsipal pengirim"
+      },
       "tabs": {
         "single": "Transaksi Tunggal",
         "batch": "Transaksi Batch"
@@ -304,6 +328,11 @@
         "placeholder": "Opsional",
         "error": "Nilai terlalu tinggi"
       },
+      "memo": {
+        "label": "Memo (Opsional)",
+        "placeholder": "Masukkan memo numerik",
+        "error": "Nilai terlalu tinggi"
+      },
       "feeBelowMinError": "Transaksi dengan biaya lebih rendah dari minimum akan gagal",
       "rentExemptFeeWarning": "Menerima token di Solana untuk pertama kali akan dikenakan biaya pembebasan sewa, yang termasuk dalam total biaya."
     },
@@ -315,12 +344,14 @@
       "network": "Biaya Jaringan",
       "debit": "Total yang didebet",
       "remarks": "Catatan Pribadi",
-      "destinationTag": "Tag Tujuan"
+      "destinationTag": "Tag Tujuan",
+      "memo": "Memo"
     },
     "finalMessage": {
       "button": "Periksa transaksi",
       "title": "Transaksi Terkirim",
       "hashLabel": "Hash Transaksi",
+      "idLabel": "ID Transaksi",
       "messageBox": {
         "warning": "Saldo akun Anda akan diperbarui saat blockchain mengonfirmasi transaksi"
       }
@@ -421,12 +452,15 @@
       "receiver": "Penerima",
       "mine": "Tambang",
       "transactionHash": "Hash Transaksi",
+      "transactionId": "ID Transaksi",
       "description": "Deskripsi",
       "feePrefix": {
         "optimism": "L2 "
       },
       "remarks": "Catatan Pribadi",
-      "destinationTag": "Tag Tujuan"
+      "destinationTag": "Tag Tujuan",
+      "memo": "Memo",
+      "operation": "Operasi"
     },
     "noData": {
       "text": "Belum ada transaksi",

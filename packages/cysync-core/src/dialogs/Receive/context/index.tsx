@@ -1,7 +1,9 @@
 // The ReactNodes won't be rendered as list so key is not required
 /* eslint-disable react/jsx-key */
 import { getCoinSupport } from '@cypherock/coin-support';
+import { IcpSupport } from '@cypherock/coin-support-icp';
 import { IReceiveEvent } from '@cypherock/coin-support-interfaces';
+import { coinFamiliesMap } from '@cypherock/coins';
 import { DropDownItemProps } from '@cypherock/cysync-ui';
 import { IAccount, IWallet } from '@cypherock/db-interfaces';
 import lodash from 'lodash';
@@ -35,6 +37,8 @@ import {
   DeviceAction,
   VerifyAddress,
   FinalMessage,
+  VerifyAccountId,
+  VerifyPrincipalId,
 } from '../Dialogs';
 
 export interface ReceiveDialogContextInterface {
@@ -47,6 +51,7 @@ export interface ReceiveDialogContextInterface {
   isDeviceRequired: boolean;
   onClose: () => void;
   onSkip: () => void;
+  onDeviceActionNext: () => void;
   onRetry: () => void;
   error: any | undefined;
   selectedWallet: IWallet | undefined;
@@ -56,6 +61,8 @@ export interface ReceiveDialogContextInterface {
     React.SetStateAction<IAccount | undefined>
   >;
   derivedAddress: string | undefined;
+  derivedAccountId: string | undefined;
+  derivedPrincipalId: string | undefined;
   isAddressVerified: boolean;
   deviceEvents: Record<number, boolean | undefined>;
   startFlow: () => Promise<void>;
@@ -110,6 +117,12 @@ export const ReceiveDialogProvider: FC<ReceiveDialogContextProviderProps> = ({
   });
 
   const [derivedAddress, setDerivedAddress] = useState<string | undefined>();
+  const [derivedAccountId, setDerivedAccountId] = useState<
+    string | undefined
+  >();
+  const [derivedPrincipalId, setDerivedPrincipalId] = useState<
+    string | undefined
+  >();
   const [isAddressVerified, setIsAddressVerified] = useState(false);
   const [isFlowCompleted, setIsFlowCompleted] = useState(false);
   const [deviceEvents, setDeviceEvents] = useState<
@@ -145,7 +158,11 @@ export const ReceiveDialogProvider: FC<ReceiveDialogContextProviderProps> = ({
       },
       {
         name: lang.strings.receive.aside.tabs.receive,
-        dialogs: [<VerifyAddress />],
+        dialogs: [
+          <VerifyAddress />,
+          <VerifyAccountId />,
+          <VerifyPrincipalId />,
+        ],
       },
       {
         name: '',
@@ -166,9 +183,20 @@ export const ReceiveDialogProvider: FC<ReceiveDialogContextProviderProps> = ({
     goTo(1, 0);
   };
 
+  const onDeviceActionNext = () => {
+    const isIcpAccount = selectedAccount?.familyId === coinFamiliesMap.icp;
+    if (isIcpAccount) {
+      goTo(2, 1);
+    } else {
+      onNext();
+    }
+  };
+
   const resetStates = (forFlow?: boolean) => {
     setDeviceEvents({});
     setDerivedAddress(undefined);
+    setDerivedAccountId(undefined);
+    setDerivedPrincipalId(undefined);
     setIsAddressVerified(false);
     setIsFlowCompleted(false);
     setError(undefined);
@@ -194,7 +222,20 @@ export const ReceiveDialogProvider: FC<ReceiveDialogContextProviderProps> = ({
       }
 
       if (payload.address) {
-        setDerivedAddress(payload.address);
+        if (selectedAccount?.familyId === coinFamiliesMap.icp) {
+          const IcpCoinSupport = getCoinSupport(
+            selectedAccount.familyId,
+          ) as IcpSupport;
+          const { accountId, principalId } =
+            IcpCoinSupport.getAddressDetailsFromPublicKey({
+              pubKey: payload.address,
+            });
+
+          setDerivedAccountId(accountId);
+          setDerivedPrincipalId(principalId);
+        } else {
+          setDerivedAddress(payload.address);
+        }
       }
 
       if (payload.didAddressMatched !== undefined) {
@@ -249,10 +290,18 @@ export const ReceiveDialogProvider: FC<ReceiveDialogContextProviderProps> = ({
   };
 
   useEffect(() => {
-    if (isStartedWithoutDevice && derivedAddress) {
+    if (
+      isStartedWithoutDevice &&
+      (derivedAddress || (derivedAccountId && derivedPrincipalId))
+    ) {
       goTo(3, 0);
     }
-  }, [isStartedWithoutDevice, derivedAddress]);
+  }, [
+    isStartedWithoutDevice,
+    derivedAddress,
+    derivedAccountId,
+    derivedPrincipalId,
+  ]);
 
   const {
     onNext,
@@ -282,11 +331,14 @@ export const ReceiveDialogProvider: FC<ReceiveDialogContextProviderProps> = ({
       error,
       onRetry,
       onSkip,
+      onDeviceActionNext,
       selectedWallet,
       setSelectedWallet,
       selectedAccount,
       setSelectedAccount,
       derivedAddress,
+      derivedAccountId,
+      derivedPrincipalId,
       isAddressVerified,
       deviceEvents,
       startFlow,
@@ -311,11 +363,14 @@ export const ReceiveDialogProvider: FC<ReceiveDialogContextProviderProps> = ({
       error,
       onRetry,
       onSkip,
+      onDeviceActionNext,
       selectedWallet,
       setSelectedWallet,
       selectedAccount,
       setSelectedAccount,
       derivedAddress,
+      derivedAccountId,
+      derivedPrincipalId,
       isAddressVerified,
       deviceEvents,
       startFlow,

@@ -1,0 +1,366 @@
+[
+  {
+    "description": {
+      "en": ""
+    },
+    "id": "chain-key-bitcoin",
+    "image": {
+      "large": "https://coin-images.coingecko.com/coins/images/33818/large/01_ckBTC_Token_HEX__4x.png?1703046026",
+      "small": "https://coin-images.coingecko.com/coins/images/33818/small/01_ckBTC_Token_HEX__4x.png?1703046026",
+      "thumb": "https://coin-images.coingecko.com/coins/images/33818/thumb/01_ckBTC_Token_HEX__4x.png?1703046026"
+    },
+    "last_updated_at": "2025-03-22T17:09:15.833Z",
+    "market_cap": 22419737,
+    "name": "Chain-key Bitcoin",
+    "platforms": {
+      "icp": {
+        "contract_address": "mxzaz-hqaaa-aaaar-qaada-cai",
+        "decimal_place": 8,
+        "dashboard_route": "bitcoin",
+        "canisters": {
+          "ledger": "mxzaz-hqaaa-aaaar-qaada-cai",
+          "index": "n5wcd-faaaa-aaaar-qaaea-cai"
+        }
+      }
+    },
+    "symbol": "ckbtc"
+  },
+  {
+    "description": {
+      "en": "ORIGYN token (henceforth OGY) is the native token of the ORIGYN platform. OGY is the principal mechanism for the creation of ORIGYN certificates of authenticity and are required to interact with the platform. The OGY token is a Utility Token by the standards put forward by the Swiss Regulators (FINMA) regarding token classification and will be publicly traded. Specifically, the OGY token provides the utility 1 of access to a platform where ORIGYN Certificates are minted, referenced, and transacted. The ORIGYN Certificate is a Non-Fungible Token (NFT), referring to a Unique Item. The ORIGYN Certificate is a Digital Twin of the unique item, and every new luxury object (e.g., watch, bag, artwork, etc.) is paired with a digital twin (NFT) during the minting process."
+    },
+    "id": "origyn-foundation",
+    "image": {
+      "large": "https://coin-images.coingecko.com/coins/images/25788/large/Asset_19.png?1703173153",
+      "small": "https://coin-images.coingecko.com/coins/images/25788/small/Asset_19.png?1703173153",
+      "thumb": "https://coin-images.coingecko.com/coins/images/25788/thumb/Asset_19.png?1703173153"
+    },
+    "last_updated_at": "2025-03-22T17:09:17.070Z",
+    "market_cap": 21238177,
+    "name": "ORIGYN",
+    "platforms": {
+      "icp": {
+        "contract_address": "lkwrt-vyaaa-aaaaq-aadhq-cai",
+        "decimal_place": 8,
+        "dashboard_route": "sns/leu43-oiaaa-aaaaq-aadgq-cai",
+        "canisters": {
+          "ledger": "lkwrt-vyaaa-aaaaq-aadhq-cai",
+          "index": "jqkzp-liaaa-aaaaq-aadiq-cai"
+        }
+      }
+    },
+    "symbol": "ogy"
+  },
+  {
+    "description": {
+      "en": "Gold DAO is a real-world asset (RWA) project that tokenizes physical gold bars into Gold tokens and gold-backed stablecoins.\r\n\r\nGold DAO is a decentralized autonomous organization (DAO) that combines the traditional value of gold with blockchain technology, specifically through the Internet Computer Protocol (ICP). It utilizes GLD NFTs to tokenize real, high-quality gold bars stored in Switzerland, ensuring ownership of physical gold is transparent, secure, and easily transferable. These GLD NFTs, built on the ORIGYN protocol (https://www.origyn.com/), are triply audited by KPMG for utmost transparency and reliability. This system bypasses traditional financial intermediaries, making gold investment globally accessible and democratizing it for all, without geographic barriers.\r\n\r\nGold DAO was initiated by DAO.Link (https://dao.link/), a company in Switzerland that launches and enables DAOs.\r\nGold DAO transitioned to community governance via an SNS-DAO on the Internet Computer Protocol (ICP), allowing GLDGov token holders to steer its direction, granting holders voting rights and participation in decision-making to direct the project's future. The DAO voted through a proposal to give control for project development and daily operations to the team at DAO.Link. \r\n\r\nParticipants in the governance process holding GLDGov tokens receive rewards and are incentivized for their active community involvement. An overview and all details to the tokenomics of the governance token GLDGov can be found on the Gold DAO Dashboard (https://dashboard.gold-dao.org/).\r\n\r\n\r\n\r\n"
+    },
+    "id": "gold-dao",
+    "image": {
+      "large": "https://coin-images.coingecko.com/coins/images/37649/large/Gold_DAO.png?1729576894",
+      "small": "https://coin-images.coingecko.com/coins/images/37649/small/Gold_DAO.png?1729576894",
+      "thumb": "https://coin-images.coingecko.com/coins/images/37649/thumb/Gold_DAO.png?1729576894"
+    },
+    "last_updated_at": "2025-03-22T17:09:14.074Z",
+    "market_cap": 11867333,
+    "name": "GOLDAO",
+    "platforms": {
+      "icp": {
+        "contract_address": "tyyy3-4aaaa-aaaaq-aab7a-cai",
+        "decimal_place": 8,
+        "dashboard_route": "sns/tw2vt-hqaaa-aaaaq-aab6a-cai",
+        "canisters": {
+          "ledger": "tyyy3-4aaaa-aaaaq-aab7a-cai",
+          "index": "efv5g-kqaaa-aaaaq-aacaa-cai"
+        }
+      }
+    },
+    "symbol": "goldao"
+  },
+  {
+    "description": {
+      "en": "WaterNeuron is a liquid staking protocol designed for the Internet Computer (ICP) network. It allows users to stake their ICP tokens in a capital-efficient manner by issuing nICP tokens They represent the staked ICP and can be used within the DeFi ecosystem on the Internet Computer. This enables users to benefit from both the staking rewards of ICP and the yields from DeFi applications without locking up their tokens."
+    },
+    "id": "waterneuron",
+    "image": {
+      "large": "https://coin-images.coingecko.com/coins/images/39647/large/logo.png?1723427101",
+      "small": "https://coin-images.coingecko.com/coins/images/39647/small/logo.png?1723427101",
+      "thumb": "https://coin-images.coingecko.com/coins/images/39647/thumb/logo.png?1723427101"
+    },
+    "last_updated_at": "2025-03-22T17:09:16.250Z",
+    "market_cap": 7753222,
+    "name": "WaterNeuron",
+    "platforms": {
+      "icp": {
+        "contract_address": "jcmow-hyaaa-aaaaq-aadlq-cai",
+        "decimal_place": 8,
+        "dashboard_route": "sns/jmod6-4iaaa-aaaaq-aadkq-cai",
+        "canisters": {
+          "ledger": "jcmow-hyaaa-aaaaq-aadlq-cai",
+          "index": "iidmm-fiaaa-aaaaq-aadmq-cai"
+        }
+      }
+    },
+    "symbol": "wtn"
+  },
+  {
+    "description": {
+      "en": "Modclub is a comprehensive content moderation platform that addresses the challenges of managing user-generated content. The platform offers customizable moderation rules, real-time notifications, and powerful analytics to ensure high-quality content and community safety."
+    },
+    "id": "modclub",
+    "image": {
+      "large": "https://coin-images.coingecko.com/coins/images/34364/large/DecideAI_logo_-_Round.png?1721836472",
+      "small": "https://coin-images.coingecko.com/coins/images/34364/small/DecideAI_logo_-_Round.png?1721836472",
+      "thumb": "https://coin-images.coingecko.com/coins/images/34364/thumb/DecideAI_logo_-_Round.png?1721836472"
+    },
+    "last_updated_at": "2025-03-22T17:09:16.083Z",
+    "market_cap": 6462898,
+    "name": "DecideAI",
+    "platforms": {
+      "icp": {
+        "contract_address": "xsi2v-cyaaa-aaaaq-aabfq-cai",
+        "decimal_place": 8,
+        "dashboard_route": "sns/x4kx5-ziaaa-aaaaq-aabeq-cai",
+        "canisters": {
+          "ledger": "xsi2v-cyaaa-aaaaq-aabfq-cai",
+          "index": "xaonm-oiaaa-aaaaq-aabgq-cai"
+        }
+      }
+    },
+    "symbol": "dcd"
+  },
+  {
+    "description": {
+      "en": "Dragginz is a free-to-play, 100% on-chain 3D MMO, funded by the sale of non-game-breaking in-game items and customisations. The player hatches and raises baby Dragginz to accompany them on adventures, harnessing the planet’s latent magic to explore, battle and master Trade Skills such as Alchemy, Gardening and Cooking.\r\n\r\nDragginz also provides world-building facilities so that users can 'check out' part of the world to make changes or build entirely new locations. Changes are voted on by the Dragginz team and the community, and successful proposals are integrated into the live Dragginz universe.\r\n\r\nDragginz runs and is hosted entirely on the Internet Computer; this includes the back-end data model, all static and dynamic gameplay data, all 3D, 2D audio and other game assets as well as all API endpoints and the Website. There is no Web2 technology employed anywhere in the Dragginz ecosystem.\r\n\r\nPlayer authentication is via Internet Identity, which provides a secure, trustless mechanism for authenticating user sessions without needing to collect any personally identifiable information; Dragginz has no sign-up form.\r\n\r\nDragginz is a hybrid DAO with centralised creative control and decentralised community control facilitated by our SNS and governed by our native DKP (Draggin Karma Points) token. The community can influence the roadmap, game contents and features by raising and voting on proposals with their DKP.\r\n\r\nThe Dragginz corporate entity is a Swiss-based Foundation (Dragginz Stiftung), which legally enshrines the founding principles that the project is not for profit and exists to promote the development of the Dragginz 3D MMO and its community of players.\r\n"
+    },
+    "id": "draggin-karma-points",
+    "image": {
+      "large": "https://coin-images.coingecko.com/coins/images/39646/large/dragginz-coingecko-logo-200px.png?1723426658",
+      "small": "https://coin-images.coingecko.com/coins/images/39646/small/dragginz-coingecko-logo-200px.png?1723426658",
+      "thumb": "https://coin-images.coingecko.com/coins/images/39646/thumb/dragginz-coingecko-logo-200px.png?1723426658"
+    },
+    "last_updated_at": "2025-03-22T17:09:15.115Z",
+    "market_cap": 5732919,
+    "name": "Draggin Karma Points",
+    "platforms": {
+      "icp": {
+        "contract_address": "zfcdd-tqaaa-aaaaq-aaaga-cai",
+        "decimal_place": 8,
+        "dashboard_route": "sns/zxeu2-7aaaa-aaaaq-aaafa-cai",
+        "canisters": {
+          "ledger": "zfcdd-tqaaa-aaaaq-aaaga-cai",
+          "index": "zlaol-iaaaa-aaaaq-aaaha-cai"
+        }
+      }
+    },
+    "symbol": "dkp"
+  },
+  {
+    "description": {
+      "en": ""
+    },
+    "id": "chain-key-ethereum",
+    "image": {
+      "large": "https://coin-images.coingecko.com/coins/images/33819/large/01_ckETH_Token_HEX__4x.png?1703046389",
+      "small": "https://coin-images.coingecko.com/coins/images/33819/small/01_ckETH_Token_HEX__4x.png?1703046389",
+      "thumb": "https://coin-images.coingecko.com/coins/images/33819/thumb/01_ckETH_Token_HEX__4x.png?1703046389"
+    },
+    "last_updated_at": "2025-03-22T17:09:16.000Z",
+    "market_cap": 2093294,
+    "name": "Chain-key Ethereum",
+    "platforms": {
+      "icp": {
+        "contract_address": "ss2fx-dyaaa-aaaar-qacoq-cai",
+        "decimal_place": 18,
+        "dashboard_route": "ethereum",
+        "canisters": {
+          "ledger": "ss2fx-dyaaa-aaaar-qacoq-cai",
+          "index": "s3zol-vqaaa-aaaar-qacpa-cai"
+        }
+      }
+    },
+    "symbol": "cketh"
+  },
+  {
+    "description": {
+      "en": "A decentralized Panda meme brand built on the Internet Computer."
+    },
+    "id": "icpanda-dao",
+    "image": {
+      "large": "https://coin-images.coingecko.com/coins/images/36765/large/icpanda-200x200.png?1712283814",
+      "small": "https://coin-images.coingecko.com/coins/images/36765/small/icpanda-200x200.png?1712283814",
+      "thumb": "https://coin-images.coingecko.com/coins/images/36765/thumb/icpanda-200x200.png?1712283814"
+    },
+    "last_updated_at": "2025-03-22T17:09:15.307Z",
+    "market_cap": 1456315,
+    "name": "ICPanda DAO",
+    "platforms": {
+      "icp": {
+        "contract_address": "druyg-tyaaa-aaaaq-aactq-cai",
+        "decimal_place": 8,
+        "dashboard_route": "sns/d7wvo-iiaaa-aaaaq-aacsq-cai",
+        "canisters": {
+          "ledger": "druyg-tyaaa-aaaaq-aactq-cai",
+          "index": "c3324-riaaa-aaaaq-aacuq-cai"
+        }
+      }
+    },
+    "symbol": "panda"
+  },
+  {
+    "description": {
+      "en": "ckUSDC is a digital twin of USDC that operates on the Internet Computer (ICP)."
+    },
+    "id": "chain-key-usdc",
+    "image": {
+      "large": "https://coin-images.coingecko.com/coins/images/38396/large/ckUSDC.png?1717541795",
+      "small": "https://coin-images.coingecko.com/coins/images/38396/small/ckUSDC.png?1717541795",
+      "thumb": "https://coin-images.coingecko.com/coins/images/38396/thumb/ckUSDC.png?1717541795"
+    },
+    "last_updated_at": "2025-03-22T17:09:14.965Z",
+    "market_cap": 1379239,
+    "name": "Chain-key USDC",
+    "platforms": {
+      "icp": {
+        "contract_address": "xevnm-gaaaa-aaaar-qafnq-cai",
+        "decimal_place": 6,
+        "dashboard_route": "ethereum/xevnm-gaaaa-aaaar-qafnq-cai",
+        "canisters": {
+          "ledger": "xevnm-gaaaa-aaaar-qafnq-cai",
+          "index": "xrs4b-hiaaa-aaaar-qafoa-cai"
+        }
+      }
+    },
+    "symbol": "ckusdc"
+  },
+  {
+    "description": {
+      "en": "A decentralized, Twitter-like social network where AI beings interact with each other and humans in a vibrant, ever-evolving simulation. This innovative platform allows you to create your own intelligent being, contributing to a dynamic digital ecosystem where ideas are exchanged, insights are shared, and complex challenges are collaboratively solved. Together, these beings simulate potential futures, explore creative solutions, and address real-world problems with unprecedented efficiency and collaboration. By participating in this network, you become part of a transformative digital economy that drives innovation, connects people and technology, and fosters creativity and progress, reshaping how we interact, solve problems, and imagine the future."
+    },
+    "id": "ic-x",
+    "image": {
+      "large": "https://coin-images.coingecko.com/coins/images/34227/large/3T8F8E-d_400x400.jpg?1734337767",
+      "small": "https://coin-images.coingecko.com/coins/images/34227/small/3T8F8E-d_400x400.jpg?1734337767",
+      "thumb": "https://coin-images.coingecko.com/coins/images/34227/thumb/3T8F8E-d_400x400.jpg?1734337767"
+    },
+    "last_updated_at": "2025-03-21T08:00:02.207Z",
+    "market_cap": 932140,
+    "name": "Seers",
+    "platforms": {
+      "icp": {
+        "contract_address": "rffwt-piaaa-aaaaq-aabqq-cai",
+        "decimal_place": 8,
+        "dashboard_route": "sns/u67kc-jyaaa-aaaaq-aabpq-cai",
+        "canisters": {
+          "ledger": "rffwt-piaaa-aaaaq-aabqq-cai",
+          "index": "rlh33-uyaaa-aaaaq-aabrq-cai"
+        }
+      }
+    },
+    "symbol": "seer"
+  },
+  {
+    "description": {
+      "en": "The ALICE SNS DAO is an experimental, AI-driven decentralized autonomous organization (DAO) designed to manage and grow the Bob ecosystem, including platforms like bob.fun, launch.bob.fun, and alice.fun. Acting as both the governing brain and a strategic fund manager, ALICE uses artificial intelligence to make decisions such as buying, selling, launching, or burning tokens based on real-time market data and social sentiment. Its tokenomics focus on decentralization, rewarding loyalty, and fostering community engagement, with AI transparency maintained through active communication on social platforms. At its core, ALICE combines governance, investment, and wit to create an innovative, self-governing crypto experiment."
+    },
+    "id": "alice-2",
+    "image": {
+      "large": "https://coin-images.coingecko.com/coins/images/53853/large/alice-logo.png?1737610181",
+      "small": "https://coin-images.coingecko.com/coins/images/53853/small/alice-logo.png?1737610181",
+      "thumb": "https://coin-images.coingecko.com/coins/images/53853/thumb/alice-logo.png?1737610181"
+    },
+    "last_updated_at": "2025-03-22T17:09:16.175Z",
+    "market_cap": 0,
+    "name": "Alice",
+    "platforms": {
+      "icp": {
+        "contract_address": "oj6if-riaaa-aaaaq-aaeha-cai",
+        "decimal_place": 8,
+        "dashboard_route": "sns/oh4fn-kyaaa-aaaaq-aaega-cai",
+        "canisters": {
+          "ledger": "oj6if-riaaa-aaaaq-aaeha-cai",
+          "index": "mtcaz-pyaaa-aaaaq-aaeia-cai"
+        }
+      }
+    },
+    "symbol": "alice"
+  },
+  {
+    "description": {
+      "en": ""
+    },
+    "id": "iclighthouse-dao",
+    "image": {
+      "large": "https://coin-images.coingecko.com/coins/images/37435/large/logo1-2.png?1714887218",
+      "small": "https://coin-images.coingecko.com/coins/images/37435/small/logo1-2.png?1714887218",
+      "thumb": "https://coin-images.coingecko.com/coins/images/37435/thumb/logo1-2.png?1714887218"
+    },
+    "last_updated_at": "2025-03-22T17:01:51.445Z",
+    "market_cap": 0,
+    "name": "ICLighthouse DAO",
+    "platforms": {
+      "icp": {
+        "contract_address": "hhaaz-2aaaa-aaaaq-aacla-cai",
+        "decimal_place": 8,
+        "dashboard_route": "sns/hjcnr-bqaaa-aaaaq-aacka-cai",
+        "canisters": {
+          "ledger": "hhaaz-2aaaa-aaaaq-aacla-cai",
+          "index": "gnpcd-yqaaa-aaaaq-aacma-cai"
+        }
+      }
+    },
+    "symbol": "icl"
+  },
+  {
+    "description": {
+      "en": "ICPSwap Token (ICS) is the ICPSwap platform token. ICPSwap stands as the native, pioneering, and premier Decentralized Exchange (DEX) within the Internet Computer Protocol (ICP) ecosystem, providing an extensive array of financial and market services. And ICS tokens boast an infinite burning mechanism. All revenue generated by ICPSwap, including swap fees, Launchpad, staking pools, Farms, token minting fees, and more) will be directed to the ICS burning canister for repurchasing and burning ICS tokens."
+    },
+    "id": "icpswap-token",
+    "image": {
+      "large": "https://coin-images.coingecko.com/coins/images/37024/large/ICS_LOGO.png?1713156630",
+      "small": "https://coin-images.coingecko.com/coins/images/37024/small/ICS_LOGO.png?1713156630",
+      "thumb": "https://coin-images.coingecko.com/coins/images/37024/thumb/ICS_LOGO.png?1713156630"
+    },
+    "last_updated_at": "2025-03-22T17:09:15.891Z",
+    "market_cap": 0,
+    "name": "ICPSwap Token",
+    "platforms": {
+      "icp": {
+        "contract_address": "ca6gz-lqaaa-aaaaq-aacwa-cai",
+        "decimal_place": 8,
+        "dashboard_route": "sns/csyra-haaaa-aaaaq-aacva-cai",
+        "canisters": {
+          "ledger": "ca6gz-lqaaa-aaaaq-aacwa-cai",
+          "index": "co4lr-qaaaa-aaaaq-aacxa-cai"
+        }
+      }
+    },
+    "symbol": "ics"
+  },
+  {
+    "description": {
+      "en": ""
+    },
+    "id": "openchat",
+    "image": {
+      "large": "https://coin-images.coingecko.com/coins/images/33823/large/OpenChat.jpeg?1703060441",
+      "small": "https://coin-images.coingecko.com/coins/images/33823/small/OpenChat.jpeg?1703060441",
+      "thumb": "https://coin-images.coingecko.com/coins/images/33823/thumb/OpenChat.jpeg?1703060441"
+    },
+    "last_updated_at": "2025-03-22T17:09:15.708Z",
+    "market_cap": 0,
+    "name": "OpenChat",
+    "platforms": {
+      "icp": {
+        "contract_address": "2ouva-viaaa-aaaaq-aaamq-cai",
+        "decimal_place": 8,
+        "dashboard_route": "sns/3e3x2-xyaaa-aaaaq-aaalq-cai",
+        "canisters": {
+          "ledger": "2ouva-viaaa-aaaaq-aaamq-cai",
+          "index": "2awyi-oyaaa-aaaaq-aaanq-cai"
+        }
+      }
+    },
+    "symbol": "chat"
+  }
+]
