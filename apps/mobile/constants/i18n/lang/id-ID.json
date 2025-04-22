@@ -56,7 +56,7 @@
       "title": "Sinkronkan QR dari Aplikasi Desktop",
       "description": [
         "Pastikan Anda telah membeli Cypherock X1 dan sudah mengaturnya sebelum memindai",
-        "Di aplikasi desktop cySync Anda, buka Pengaturan > Umum > Ekspor dengan ponsel dan pindai Kode QR"
+        "Pada aplikasi desktop cySync Anda, buka Pengaturan > Umum > Sinkronkan cySync dengan Aplikasi Seluler"
       ]
     },
     "permission": {
