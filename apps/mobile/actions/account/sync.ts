@@ -1,7 +1,7 @@
-import {
+const {
   ISyncAccountsEvent,
-  syncAccounts as syncAccountsCore,
-} from '@cypherock/cysync-core-services';
+  syncAccounts: syncAccountsCore,
+} = require('@cypherock/cysync-core-services');
 import { IAccount } from '@cypherock/db-interfaces';
 import { ActionCreator, createAsyncThunk } from '@reduxjs/toolkit';
 import { Observer } from 'rxjs';

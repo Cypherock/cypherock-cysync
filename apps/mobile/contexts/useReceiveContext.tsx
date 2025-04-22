@@ -5,7 +5,6 @@ import React, {
   useEffect,
   useState,
 } from 'react';
-import { router } from 'expo-router';
 import { useAccountList } from '@/hooks/useAccountList';
 import { useDeriveAddress } from '@/hooks/useDeriveAddress';
 import { IWallet } from '@cypherock/db-interfaces';

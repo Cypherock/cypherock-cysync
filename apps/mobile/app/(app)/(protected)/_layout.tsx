@@ -2,8 +2,10 @@ import { LottieSplash, useTheme } from '@/components/ui';
 import { Stack } from 'expo-router';
 import { keyValueStore } from '@/db';
 import { useEffect, useState } from 'react';
-import { SplashScreen } from 'expo-router';
 import { NetworkPingTask } from '@/bgTasks/networkTask';
+import { setGlobalDependencies } from '@/utils';
+
+setGlobalDependencies();
 
 export default function Layout() {
   const [onBoaridngCompleted, setOnBoardingCompleted] = useState(false);

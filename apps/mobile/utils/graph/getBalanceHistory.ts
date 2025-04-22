@@ -1,4 +1,4 @@
-import { getCoinSupport } from '@cypherock/coin-support';
+const { getCoinSupport } = require('@cypherock/coin-support');
 import {
   IBalanceHistory,
   IGetAccountHistoryResult,

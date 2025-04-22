@@ -1,8 +1,8 @@
-import { coinFamiliesMap } from '@cypherock/coins';
-import {
-  syncPriceHistories as syncPriceHistoriesCore,
+const { coinFamiliesMap } = require('@cypherock/coins');
+const {
+  syncPriceHistories: syncPriceHistoriesCore,
   ISyncPriceHistoriesEvent,
-} from '@cypherock/cysync-core-services';
+} = require('@cypherock/cysync-core-services');
 import { Observer } from 'rxjs';
 
 import { getDB } from '@/utils';
@@ -26,5 +26,6 @@ export const syncPriceHistories = ({ families }: { families: string[] }) =>
     }).subscribe(observer);
   });
 
-export const syncAllPriceHistories = () =>
-  syncPriceHistories({ families: Object.values(coinFamiliesMap) });
+export const syncAllPriceHistories = async () => {
+  return syncPriceHistories({ families: Object.values(coinFamiliesMap) });
+};

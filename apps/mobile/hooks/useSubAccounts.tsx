@@ -4,13 +4,13 @@ import {
   selectUnHiddenAccounts,
   useAppSelector,
 } from '@/store';
-import {
+const {
   formatDisplayAmount,
   getAsset,
   getDefaultUnit,
   getParsedAmount,
-} from '@cypherock/coin-support-utils';
-import { formatDisplayPrice } from '@cypherock/coin-support-utils/src/unit';
+  formatDisplayPrice,
+} = require('@cypherock/coin-support-utils');
 import { BigNumber } from '@cypherock/cysync-utils';
 import { AccountTypeMap } from '@cypherock/db-interfaces';
 import { createSelector } from '@reduxjs/toolkit';

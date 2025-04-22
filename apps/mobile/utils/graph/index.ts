@@ -1,8 +1,8 @@
-import {
+const {
   formatDisplayPrice,
   getDefaultUnit,
   getParsedAmount,
-} from '@cypherock/coin-support-utils';
+} = require('@cypherock/coin-support-utils');
 import { getBalanceHistory } from './getBalanceHistory';
 import { BigNumber } from '@cypherock/cysync-utils';
 import { IAccount } from '@cypherock/db-interfaces';
