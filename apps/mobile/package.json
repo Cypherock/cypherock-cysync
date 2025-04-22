@@ -1,7 +1,7 @@
 {
   "name": "@cypherock/cysync-mobile",
   "main": "./App.js",
-  "version": "0.1.0",
+  "version": "0.1.15",
   "scripts": {
     "start": "expo start",
     "reset-project": "node ./scripts/reset-project.js",
