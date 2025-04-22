@@ -1,7 +1,6 @@
 import { Dimensions, View } from 'react-native';
 import React, { useMemo, useRef } from 'react';
 import { DisplayGraph, Flex, Loader, Seperator, Typography } from '../ui';
-import { BtcIdMap, coinList } from '@cypherock/coins';
 import { useGraph, UseGraphProps } from '@/hooks';
 
 export interface GraphPropTypes extends UseGraphProps {
@@ -27,6 +26,7 @@ export const Graph = (props: GraphPropTypes) => {
     formatYAxisTick,
     isLoading,
   } = useGraph(props);
+  const { BtcIdMap, coinList } = require('@cypherock/coins');
   const maxValueRef = useRef(parseFloat(summaryDetails.totalValue));
   const widthRef = useRef(width - 24);
 

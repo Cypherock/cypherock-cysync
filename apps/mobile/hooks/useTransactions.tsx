@@ -11,7 +11,7 @@ import {
   TransactionTypeMap,
 } from '@cypherock/db-interfaces';
 import lodash from 'lodash';
-import {
+const {
   convertToUnit,
   formatDisplayAmount,
   formatDisplayPrice,
@@ -19,9 +19,9 @@ import {
   getDefaultUnit,
   getParsedAmount,
   getZeroUnit,
-} from '@cypherock/coin-support-utils';
+} = require('@cypherock/coin-support-utils');
 import { getDisplayTransactionType } from '@/utils/transactions';
-import { getCoinSupport } from '@cypherock/coin-support';
+const { getCoinSupport } = require('@cypherock/coin-support');
 import { BigNumber } from '@cypherock/cysync-utils';
 import { format as formatDate } from 'date-fns';
 import { CoinIcon } from '@/components/core';

@@ -1,9 +1,9 @@
-import {
+const {
   formatDisplayAmount,
   formatDisplayPrice,
   getDefaultUnit,
-} from '@cypherock/coin-support-utils';
-import { ICoinUnit } from '@cypherock/coins';
+} = require('@cypherock/coin-support-utils');
+const { ICoinUnit } = require('@cypherock/coins');
 import { BigNumber } from '@cypherock/cysync-utils';
 import { createSelector } from '@reduxjs/toolkit';
 import { format as formatDate } from 'date-fns';
