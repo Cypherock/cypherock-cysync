@@ -230,7 +230,7 @@ const OfferBox: React.FC<any> = ({
         />
         <Typography $fontSize={14}>{offerData.provider.name}</Typography>
       </Flex>
-      {offerData.isBest && <Tag type="gold">Best Offer</Tag>}
+      {offerData.isBest && <Tag type="gold">{offerData.bestOfferText}</Tag>}
     </Flex>
     <Flex direction="column">
       {offerData?.data?.map((data: any) => (
@@ -256,6 +256,9 @@ export const SwapQuotesHeader: React.FC<{
 }> = ({ size, onTimeEnd }) => {
   const [seconds, setSeconds] = useState(30);
 
+  const lang = useAppSelector(selectLanguage);
+  const displayText = lang.strings.swap.detailsInput.offers;
+
   useEffect(() => {
     const interval = setInterval(
       () => setSeconds(s => Math.max(s - 1, 0)),
@@ -280,8 +283,10 @@ export const SwapQuotesHeader: React.FC<{
       display="flex"
       $allowOverflow
     >
-      <span>{size} quotes found</span>
-      <span>Updates in {remainingTime}</span>
+      <span>{parseLangTemplate(displayText.quotesFound, { num: size })}</span>
+      <span>
+        {parseLangTemplate(displayText.timerText, { time: remainingTime })}
+      </span>
     </Typography>
   );
 };
@@ -304,6 +309,8 @@ export const SwapQuotes: React.FC<{
   hasEnoughBalance,
 }) => {
   const { toNextPage, fillDetails } = useSwap();
+  const lang = useAppSelector(selectLanguage);
+  const displayText = lang.strings.swap.detailsInput.offers;
 
   return (
     <>
@@ -329,11 +336,12 @@ export const SwapQuotes: React.FC<{
               index,
               data: [
                 {
-                  title: 'Fixed Rate',
+                  title: displayText.fixedRate,
                   value: [`1 ${fromUnit} =`, `${rate} ${toUnit}`],
                 },
               ],
               isBest: index === 0,
+              bestOfferText: displayText.bestOffer,
               provider: quote.provider,
             }}
             setSelectedIndex={setSelectedOfferIndex}
@@ -342,7 +350,7 @@ export const SwapQuotes: React.FC<{
           />
         );
       })}
-      {quotes.length === 0 && 'No quotes found'}
+      {quotes.length === 0 && displayText.errors.noQuotes}
       <Button
         variant="primary"
         disabled={
@@ -368,7 +376,7 @@ export const SwapQuotes: React.FC<{
         }}
         display="inline-block"
       >
-        <LangDisplay text="Continue" />
+        <LangDisplay text={displayText.buttons.continue} />
       </Button>
     </>
   );
@@ -475,7 +483,7 @@ export const SwapDetailsInput = () => {
     } catch (e) {
       const serverError = createServerErrorFromError(e);
       if (serverError?.code === ServerErrorType.CONNOT_CONNECT) {
-        setMessage('No internet connection');
+        setMessage(displayText.offers.errors.noInternet);
       }
       logger.error(e);
     }
@@ -537,7 +545,7 @@ export const SwapDetailsInput = () => {
             display="flex"
             $allowOverflow
           >
-            Searching for your best offer
+            {displayText.offers.searchingForOffers}
           </Typography>
         </Flex>
       );

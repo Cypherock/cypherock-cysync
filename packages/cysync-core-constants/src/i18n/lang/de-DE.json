@@ -2797,7 +2797,15 @@
         "amountLabel": "You will receive"
       },
       "offers": {
-        "initialText": "Select Accounts",
+        "initialText": "Select the wallet and account to get quotes",
+        "searchingForOffers": "Searching for your best offer",
+        "bestOffer": "Best Offer",
+        "fixedRate": "Fixed rate",
+        "quotesFound": "${num} quotes found",
+        "timerText": "Updates in ${time}",
+        "buttons": {
+          "continue": "Continue"
+        },
         "errors": {
           "sameAsset": "Cannot swap same asset",
           "noOffers": "No offers available for your request",

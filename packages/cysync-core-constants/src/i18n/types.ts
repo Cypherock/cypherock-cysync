@@ -1789,6 +1789,14 @@ interface LangSwap {
     };
     offers: {
       initialText: string;
+      searchingForOffers: string;
+      bestOffer: string;
+      fixedRate: string;
+      quotesFound: string;
+      timerText: string;
+      buttons: {
+        continue: string;
+      };
       errors: {
         sameAsset: string;
         noOffers: string;
