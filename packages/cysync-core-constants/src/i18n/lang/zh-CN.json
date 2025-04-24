@@ -2751,5 +2751,35 @@
         "subtext": "您的黄金计划现已激活"
       }
     }
+  },
+  "swap": {
+    "detailsInput": {
+      "common": {
+        "searchText": "Search",
+        "walletPlaceholder": "Choose a wallet"
+      },
+      "from": {
+        "title": "From",
+        "accountPlaceholder": "Account to debit",
+        "amountLabel": "Amount to send",
+        "amountError": "Not enough balance"
+      },
+      "to": {
+        "title": "To",
+        "accountPlaceholder": "Account to credit",
+        "amountLabel": "You will receive"
+      },
+      "offers": {
+        "initialText": "Select Accounts",
+        "errors": {
+          "sameAsset": "Cannot swap same asset",
+          "noOffers": "No offers available for your request",
+          "currencyNotSupported": "Currency not supported",
+          "amountRange": "Amount should be between ${min} and ${max}",
+          "noQuotes": "No quotes found",
+          "noInternet": "No internet connection"
+        }
+      }
+    }
   }
 }

@@ -18,6 +18,7 @@ import {
   CustomInputSend,
   Throbber,
   Tag,
+  parseLangTemplate,
 } from '@cypherock/cysync-ui';
 import { BigNumber, formatSecondsToMinutes } from '@cypherock/cysync-utils';
 import { IAccount } from '@cypherock/db-interfaces';
@@ -108,6 +109,7 @@ const AmountInput: React.FC<any> = ({
 const AmountAndAccountSelection: React.FC<any> = ({
   selectionLabel,
   amountLabel,
+  accountPlaceholder,
   selectedWallet,
   handleWalletChange,
   walletDropdownList,
@@ -120,7 +122,7 @@ const AmountAndAccountSelection: React.FC<any> = ({
   amountError,
 }) => {
   const lang = useAppSelector(selectLanguage);
-  const dialogText = lang.strings.send.source;
+  const dialogText = lang.strings.swap.detailsInput.common;
 
   const { priceInfos } = useAppSelector(selectPriceInfos);
 
@@ -175,7 +177,7 @@ const AmountAndAccountSelection: React.FC<any> = ({
           selectedItem={selectedAccount?.__id}
           disabled={!selectedWallet}
           searchText={dialogText.searchText}
-          placeholderText={dialogText.accountPlaceholder}
+          placeholderText={accountPlaceholder}
           onChange={handleAccountChange}
         />
       </Flex>
@@ -396,6 +398,9 @@ export const SwapDetailsInput = () => {
     includeSubAccounts: true,
   });
 
+  const lang = useAppSelector(selectLanguage);
+  const displayText = lang.strings.swap.detailsInput;
+
   const hasEnoughBalance = useMemo(() => {
     if (fromAccount.selectedAccount === undefined || fromAmount === '')
       return true;
@@ -556,14 +561,14 @@ export const SwapDetailsInput = () => {
         fromAccount.selectedAccount === undefined ||
         toAccount.selectedAccount === undefined
       ) {
-        return ['Select accounts'];
+        return [displayText.offers.initialText];
       }
 
       if (
         fromAccount.selectedAccount.assetId ===
         toAccount.selectedAccount.assetId
       ) {
-        return ['Cannot swap same asset'];
+        return [displayText.offers.errors.sameAsset];
       }
 
       if (message) {
@@ -571,10 +576,13 @@ export const SwapDetailsInput = () => {
       }
 
       return [
-        'No offers available for your request',
+        displayText.offers.errors.noOffers,
         range
-          ? `Amount should be between ${range.min} and ${range.max}`
-          : 'Currency not supported',
+          ? parseLangTemplate(displayText.offers.errors.amountRange, {
+              min: range.min,
+              max: range.max,
+            })
+          : displayText.offers.errors.currencyNotSupported,
       ];
     };
 
@@ -617,8 +625,9 @@ export const SwapDetailsInput = () => {
     >
       <Flex gap={16} p={5} px={4} height="fit-content">
         <AmountAndAccountSelection
-          selectionLabel="From"
-          amountLabel="Amount to send"
+          selectionLabel={displayText.from.title}
+          amountLabel={displayText.from.amountLabel}
+          accountPlaceholder={displayText.from.accountPlaceholder}
           handleWalletChange={fromWallet.handleWalletChange}
           walletDropdownList={fromWallet.walletDropdownList}
           selectedWallet={fromWallet.selectedWallet}
@@ -627,7 +636,9 @@ export const SwapDetailsInput = () => {
           accountDropdownList={fromAccount.accountDropdownList}
           amount={fromAmount}
           setAmount={setFromAmount}
-          amountError={!hasEnoughBalance ? 'Not enough balance' : undefined}
+          amountError={
+            !hasEnoughBalance ? displayText.from.amountError : undefined
+          }
         />
         <div style={{ alignSelf: 'center' }}>
           <Button
@@ -640,8 +651,9 @@ export const SwapDetailsInput = () => {
           </Button>
         </div>
         <AmountAndAccountSelection
-          selectionLabel="To"
-          amountLabel="You will receive"
+          selectionLabel={displayText.to.title}
+          amountLabel={displayText.to.amountLabel}
+          accountPlaceholder={displayText.to.accountPlaceholder}
           handleWalletChange={toWallet.handleWalletChange}
           walletDropdownList={toWallet.walletDropdownList}
           selectedWallet={toWallet.selectedWallet}

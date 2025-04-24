@@ -50,6 +50,7 @@ export interface LanguageStrings {
   inheritance: LangInheritance;
   inheritanceSilverPlanPurchase: LangInheritanceSilverPlanPurchase;
   inheritanceGoldPlanPurchase: LangInheritanceGoldPlanPurchase;
+  swap: LangSwap;
 }
 
 interface LangLabels {
@@ -1765,6 +1766,37 @@ interface LangInheritanceGoldPlanPurchase {
     greeting: {
       title: string;
       subtext: string;
+    };
+  };
+}
+
+interface LangSwap {
+  detailsInput: {
+    common: {
+      searchText: string;
+      walletPlaceholder: string;
+    };
+    from: {
+      title: string;
+      accountPlaceholder: string;
+      amountLabel: string;
+      amountError: string;
+    };
+    to: {
+      title: string;
+      accountPlaceholder: string;
+      amountLabel: string;
+    };
+    offers: {
+      initialText: string;
+      errors: {
+        sameAsset: string;
+        noOffers: string;
+        currencyNotSupported: string;
+        amountRange: string;
+        noQuotes: string;
+        noInternet: string;
+      };
     };
   };
 }
