@@ -1,13 +1,13 @@
+import { getCoinSupport } from '@cypherock/coin-support';
 import { ExchangeApp } from '@cypherock/sdk-app-exchange';
-import { DeviceTask, useDeviceTask } from '~/hooks';
+import { hexToUint8Array } from '@cypherock/sdk-utils';
 import React, { useEffect, useRef, useState } from 'react';
 
 import { openReceiveDialog } from '~/actions';
 import { ErrorHandlerDialog, LoaderDialog } from '~/components';
 import { createCustomError, useSwap } from '~/context';
+import { DeviceTask, useDeviceTask } from '~/hooks';
 import { useAppDispatch } from '~/store';
-import { getCoinSupport } from '@cypherock/coin-support';
-import { hexToUint8Array } from '@cypherock/sdk-utils';
 
 export const SwapReceive = () => {
   const dispatch = useAppDispatch();
@@ -19,6 +19,7 @@ export const SwapReceive = () => {
     error,
     reset,
     retryCurrentPage,
+    closeExchange,
   } = useSwap();
   const [pageError, setPageError] = useState<any>();
 
@@ -30,6 +31,7 @@ export const SwapReceive = () => {
 
   const onReceiveFlowClosed = async () => {
     if (receiversAddress.current === undefined) {
+      await closeExchange();
       setPageError(createCustomError('Receive flow was not successful'));
       return;
     }
@@ -69,6 +71,7 @@ export const SwapReceive = () => {
     }
 
     if (toAccount === undefined) {
+      await closeExchange();
       setPageError(createCustomError('Account not selected'));
       return;
     }

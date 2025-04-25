@@ -15,17 +15,18 @@ export const SwapSend = () => {
     error,
     reset,
     retryCurrentPage,
+    closeExchange,
   } = useSwap();
   const [pageError, setPageError] = useState<any>();
   const transactionId = useRef<string>();
 
   const storeTransactionId = (id: string) => {
-    console.log({ id });
     transactionId.current = id;
   };
 
-  const onSendFlowClose = () => {
+  const onSendFlowClose = async () => {
     if (transactionId.current === undefined) {
+      await closeExchange();
       setPageError(createCustomError('Send flow was not successful'));
       return;
     }
@@ -33,17 +34,21 @@ export const SwapSend = () => {
   };
 
   useEffect(() => {
-    if (
-      fromAccount === undefined ||
-      exchangeDetails === undefined ||
-      quote === undefined
-    ) {
+    const abort = async () => {
+      await closeExchange();
       setPageError(
         createCustomError(
           'Cannot start send flow',
           'invalid prerequisite for swap send',
         ),
       );
+    };
+    if (
+      fromAccount === undefined ||
+      exchangeDetails === undefined ||
+      quote === undefined
+    ) {
+      abort();
       return;
     }
 

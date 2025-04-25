@@ -59,7 +59,14 @@ export const SwapStatus = () => {
 
   const [state, setState] = useState(SwapStates.Pending);
 
-  const { fromAccount, quote, toAccount, reset, exchangeDetails } = useSwap();
+  const {
+    fromAccount,
+    quote,
+    toAccount,
+    reset,
+    exchangeDetails,
+    closeExchange,
+  } = useSwap();
   const [providerUrl, setProviderUrl] = useState<string>();
 
   const updateState = async () => {
@@ -260,7 +267,8 @@ export const SwapStatus = () => {
         <DialogBoxFooter height={101}>
           <Button
             variant="primary"
-            onClick={() => {
+            onClick={async () => {
+              await closeExchange();
               reset();
             }}
           >

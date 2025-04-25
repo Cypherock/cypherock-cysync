@@ -60,6 +60,7 @@ export interface SwapContextInterface {
   fillDetails: (params: IFillDetailsParams) => void;
   exchangeDetails?: IExchangeDetails;
   initiateExchange: (address: string) => Promise<void>;
+  closeExchange: () => Promise<void>;
 }
 
 export const SwapContext: React.Context<SwapContextInterface> =
@@ -226,6 +227,24 @@ export const SwapProvider: React.FC<SwapProviderProps> = ({ children }) => {
   // start send flow
   // get status from server (poll)
 
+  // close exchange flow
+  const closeExchangeFlowTask: DeviceTask<void> = async connection => {
+    const app = await ExchangeApp.create(connection);
+    await app.closeFlow();
+  };
+
+  const closeExchangeFlow = useDeviceTask(closeExchangeFlowTask, {
+    dontExecuteTask: true,
+  });
+
+  const closeExchange = async () => {
+    const result = await closeExchangeFlow.run();
+
+    if (result.error) {
+      setGlobalError(result.error);
+    }
+  };
+
   const ctx = useMemoReturn({
     currentPage,
     toNextPage,
@@ -239,6 +258,7 @@ export const SwapProvider: React.FC<SwapProviderProps> = ({ children }) => {
     fillDetails,
     exchangeDetails,
     initiateExchange,
+    closeExchange,
   });
   return <SwapContext.Provider value={ctx}>{children}</SwapContext.Provider>;
 };
