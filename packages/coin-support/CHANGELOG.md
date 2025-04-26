@@ -1,5 +1,22 @@
 # @cypherock/coin-support
 
+## 0.1.4
+
+### Patch Changes
+
+- [#696](https://github.com/Cypherock/cypherock-cysync/pull/696) [`ce614de0`](https://github.com/Cypherock/cypherock-cysync/commit/ce614de041a031c44eab44cc1aba0d340a5653ad) Thanks [@muzaffarbhat07](https://github.com/muzaffarbhat07)! - Added ICP support
+
+- Updated dependencies [[`ce614de0`](https://github.com/Cypherock/cypherock-cysync/commit/ce614de041a031c44eab44cc1aba0d340a5653ad)]:
+  - @cypherock/coin-support-icp@1.0.0
+  - @cypherock/coins@0.3.1
+  - @cypherock/coin-support-btc@0.0.16
+  - @cypherock/coin-support-evm@0.0.16
+  - @cypherock/coin-support-near@0.0.16
+  - @cypherock/coin-support-solana@0.1.2
+  - @cypherock/coin-support-starknet@1.0.3
+  - @cypherock/coin-support-tron@0.0.11
+  - @cypherock/coin-support-xrp@1.1.4
+
 ## 0.1.3
 
 ### Patch Changes

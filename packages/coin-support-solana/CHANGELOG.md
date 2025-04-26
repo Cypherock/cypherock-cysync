@@ -1,5 +1,13 @@
 # @cypherock/coin-support-solana
 
+## 0.1.2
+
+### Patch Changes
+
+- Updated dependencies [[`ce614de0`](https://github.com/Cypherock/cypherock-cysync/commit/ce614de041a031c44eab44cc1aba0d340a5653ad)]:
+  - @cypherock/coins@0.3.1
+  - @cypherock/coin-support-utils@0.0.16
+
 ## 0.1.1
 
 ### Patch Changes
