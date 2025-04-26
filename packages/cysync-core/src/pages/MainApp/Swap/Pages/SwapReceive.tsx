@@ -94,8 +94,10 @@ export const SwapReceive = () => {
   return (
     <ErrorHandlerDialog
       error={initiateTask.error ?? pageError ?? error}
-      onClose={reset}
       onRetry={retryCurrentPage}
+      onClose={reset}
+      showCloseButton
+      suppressActions={false}
       noDelay
     >
       <LoaderDialog />

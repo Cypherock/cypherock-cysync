@@ -14,7 +14,7 @@ import {
   Dropdown,
   Input,
   Typography,
-  GraphSwitchIcon,
+  VectorIcon,
   CustomInputSend,
   Throbber,
   Tag,
@@ -24,10 +24,10 @@ import { BigNumber, formatSecondsToMinutes } from '@cypherock/cysync-utils';
 import { IAccount } from '@cypherock/db-interfaces';
 import lodash from 'lodash';
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
+
 import { IQuote, useSwap } from '~/context';
 import { useAccountDropdown, useWalletDropdown } from '~/hooks';
 import { getQuotes } from '~/services/swapService';
-
 import { useAppSelector, selectLanguage, selectPriceInfos } from '~/store';
 import { createServerErrorFromError } from '~/utils';
 import logger from '~/utils/logger';
@@ -148,7 +148,6 @@ const AmountAndAccountSelection: React.FC<any> = ({
     if (!assetPrice) return '';
 
     const validAmount = amount ?? '0';
-    console.log({ assetPrice, validAmount });
     const amountValue = new BigNumber(validAmount).multipliedBy(
       assetPrice.latestPrice,
     );
@@ -535,22 +534,7 @@ export const SwapDetailsInput = () => {
   };
 
   const sideComponent = useMemo(() => {
-    if (isFetchingQuotes) {
-      return (
-        <Flex mt={4} justify="center" gap={16} align="center">
-          {throbber}
-          <Typography
-            color="muted"
-            justify="space-between"
-            display="flex"
-            $allowOverflow
-          >
-            {displayText.offers.searchingForOffers}
-          </Typography>
-        </Flex>
-      );
-    }
-    if (quotes.length > 0) {
+    if (!isFetchingQuotes && quotes.length > 0) {
       return (
         <SwapQuotes
           quotes={quotes}
@@ -565,6 +549,10 @@ export const SwapDetailsInput = () => {
     }
 
     const getText = () => {
+      if (isFetchingQuotes) {
+        return [displayText.offers.searchingForOffers];
+      }
+
       if (
         fromAccount.selectedAccount === undefined ||
         toAccount.selectedAccount === undefined
@@ -595,18 +583,40 @@ export const SwapDetailsInput = () => {
     };
 
     return (
-      <Flex mt={4} justify="center" direction="column" align="center">
-        {getText().map((t, index) => (
-          <Typography
-            key={`${index + 1}`}
-            color="muted"
-            justify="space-between"
-            display="flex"
-            $allowOverflow
-          >
-            {t}
-          </Typography>
-        ))}
+      <Flex direction="column" align="flex-start" gap={24} $alignSelf="stretch">
+        <Typography
+          key="title-text"
+          color="muted"
+          display="flex"
+          $allowOverflow
+        >
+          Your best quotes
+        </Typography>
+        <Flex
+          direction="column"
+          justify="center"
+          align="center"
+          gap={16}
+          $bgColor="separator"
+          p="20px"
+          $borderRadius="8px"
+          width="full"
+        >
+          {getText().map((t, index) => (
+            <Typography
+              key={`${index + 1}`}
+              color="muted"
+              $textAlign="center"
+              width="full"
+              $allowOverflow
+            >
+              {t}
+            </Typography>
+          ))}
+        </Flex>
+        <Button variant="primary" disabled display="inline-block" width="full">
+          <LangDisplay text={displayText.offers.buttons.continue} />
+        </Button>
       </Flex>
     );
   }, [
@@ -622,16 +632,23 @@ export const SwapDetailsInput = () => {
 
   return (
     <Container
-      m={{ def: 2, lg: '20' }}
+      m="20"
       $borderRadius={24}
       shadow="popup"
-      direction={{ def: 'column', lg: 'row' }}
+      direction="row"
       align="stretch"
       $borderWidth={0}
       $overflow="hidden"
       height="full"
     >
-      <Flex gap={16} p={5} px={4} height="fit-content">
+      <Flex
+        gap={16}
+        p={5}
+        px={4}
+        height="fit-content"
+        direction="column"
+        $flex={5}
+      >
         <AmountAndAccountSelection
           selectionLabel={displayText.from.title}
           amountLabel={displayText.from.amountLabel}
@@ -655,7 +672,7 @@ export const SwapDetailsInput = () => {
               swapToAndFrom();
             }}
           >
-            <GraphSwitchIcon />
+            <VectorIcon />
           </Button>
         </div>
         <AmountAndAccountSelection
@@ -674,7 +691,7 @@ export const SwapDetailsInput = () => {
       </Flex>
       <Flex
         $bgColor="list"
-        grow={1}
+        $flex={3}
         gap={24}
         p={5}
         px={4}

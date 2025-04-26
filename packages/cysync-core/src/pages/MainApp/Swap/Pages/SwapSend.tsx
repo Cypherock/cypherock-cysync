@@ -72,8 +72,10 @@ export const SwapSend = () => {
   return (
     <ErrorHandlerDialog
       error={pageError ?? error}
-      onClose={reset}
       onRetry={retryCurrentPage}
+      onClose={reset}
+      showCloseButton
+      suppressActions={false}
       noDelay
     >
       <LoaderDialog />
