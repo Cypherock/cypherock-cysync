@@ -567,6 +567,10 @@ export const SwapDetailsInput = () => {
         return [displayText.offers.errors.sameAsset];
       }
 
+      if (new BigNumber(fromAmount).isNaN()) {
+        return ['Enter amount to get quotes'];
+      }
+
       if (message) {
         return [message];
       }
@@ -578,7 +582,7 @@ export const SwapDetailsInput = () => {
               min: range.min,
               max: range.max,
             })
-          : displayText.offers.errors.currencyNotSupported,
+          : 'Select a different coin pair',
       ];
     };
 
@@ -668,6 +672,10 @@ export const SwapDetailsInput = () => {
         <div style={{ alignSelf: 'center' }}>
           <Button
             variant="icon"
+            disabled={
+              fromAccount.selectedAccount === undefined &&
+              toAccount.selectedAccount === undefined
+            }
             onClick={() => {
               swapToAndFrom();
             }}
