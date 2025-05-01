@@ -5,6 +5,7 @@ const { SolanaSupport } = require('@cypherock/coin-support-solana');
 const { StarknetSupport } = require('@cypherock/coin-support-starknet');
 const { TronSupport } = require('@cypherock/coin-support-tron');
 const { XrpSupport } = require('@cypherock/coin-support-xrp');
+const { IcpSupport } = require('@cypherock/coin-support-icp');
 
 export const setGlobalDependencies = async () => {
   BtcSupport.setBitcoinLibrary((globalThis as any).BitcoinJsLib);
@@ -19,4 +20,5 @@ export const setGlobalDependencies = async () => {
   );
   XrpSupport.setXrpLib((globalThis as any).xrpl);
   StarknetSupport.setStarknetLib((globalThis as any).starknet);
+  IcpSupport.setDfinityLib((globalThis as any).dfinity);
 };
