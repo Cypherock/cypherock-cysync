@@ -448,6 +448,9 @@ importers:
       '@cypherock/coin-support-evm':
         specifier: workspace:^
         version: link:../../packages/coin-support-evm
+      '@cypherock/coin-support-icp':
+        specifier: workspace:^
+        version: link:../../packages/coin-support-icp
       '@cypherock/coin-support-interfaces':
         specifier: workspace:^
         version: link:../../packages/coin-support-interfaces
@@ -484,6 +487,18 @@ importers:
       '@cypherock/db-interfaces':
         specifier: workspace:^
         version: link:../../packages/db-interfaces
+      '@dfinity/agent':
+        specifier: ^2.3.0
+        version: 2.3.0(@dfinity/candid@2.3.0)(@dfinity/principal@2.3.0)
+      '@dfinity/candid':
+        specifier: ^2.3.0
+        version: 2.3.0(@dfinity/principal@2.3.0)
+      '@dfinity/ledger-icp':
+        specifier: ^2.6.9
+        version: 2.6.9(@dfinity/agent@2.3.0)(@dfinity/candid@2.3.0)(@dfinity/principal@2.3.0)(@dfinity/utils@2.13.0)
+      '@dfinity/principal':
+        specifier: ^2.3.0
+        version: 2.3.0
       '@expo/vector-icons':
         specifier: ^14.0.2
         version: 14.0.2

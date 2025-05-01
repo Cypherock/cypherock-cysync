@@ -33,5 +33,11 @@ globalThis.solanaWeb3 = require('@solana/web3.js');
 globalThis.solanaSplToken = require('@solana/spl-token');
 globalThis.xrpl = require('xrpl');
 globalThis.starknet = require('starknet');
+globalThis.dfinity = {
+  agent: require('@dfinity/agent'),
+  icp: require('@dfinity/ledger-icp'),
+  candid: require('@dfinity/candid'),
+  principal: require('@dfinity/principal'),
+};
 
 import 'expo-router/entry';
