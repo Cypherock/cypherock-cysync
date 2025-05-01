@@ -22,6 +22,7 @@
     "@cypherock/coin-support": "workspace:^",
     "@cypherock/coin-support-btc": "workspace:^",
     "@cypherock/coin-support-evm": "workspace:^",
+    "@cypherock/coin-support-icp": "workspace:^",
     "@cypherock/coin-support-interfaces": "workspace:^",
     "@cypherock/coin-support-near": "workspace:^",
     "@cypherock/coin-support-solana": "workspace:^",
@@ -32,7 +33,6 @@
     "@cypherock/coins": "workspace:^",
     "@cypherock/cysync-core-services": "workspace:^",
     "@cypherock/cysync-core-workers": "workspace:^",
-    "@cypherock/cysync-utils": "workspace:^",
     "@cypherock/cysync-utils": "workspace:^",
     "@cypherock/db-interfaces": "workspace:^",
     "@expo/vector-icons": "^14.0.2",
@@ -98,7 +98,11 @@
     "styled-components": "^6.1.13",
     "tronweb": "^5.3.2",
     "web3": "^4.1.2",
-    "xrpl": "^4.0.0"
+    "xrpl": "^4.0.0",
+    "@dfinity/agent": "^2.3.0",
+    "@dfinity/candid": "^2.3.0",
+    "@dfinity/ledger-icp": "^2.6.9",
+    "@dfinity/principal": "^2.3.0"
   },
   "devDependencies": {
     "@babel/core": "^7.25.2",
