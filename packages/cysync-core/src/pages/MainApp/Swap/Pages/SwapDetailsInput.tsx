@@ -6,9 +6,9 @@ import {
   Button,
   Flex,
   Typography,
-  VectorIcon,
   Throbber,
   parseLangTemplate,
+  SwapIcon,
 } from '@cypherock/cysync-ui';
 import { BigNumber } from '@cypherock/cysync-utils';
 import { IAccount } from '@cypherock/db-interfaces';
@@ -321,8 +321,16 @@ export const SwapDetailsInput = () => {
             onClick={() => {
               swapToAndFrom();
             }}
+            width={32}
+            height={32}
+            display="flex"
+            align="center"
+            justify="center"
+            $borderRadius="4px"
+            $borderColor="input"
+            $bgColor="separator"
           >
-            <VectorIcon />
+            <SwapIcon />
           </Button>
         </div>
         <AmountAndAccountSelection
