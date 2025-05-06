@@ -17,13 +17,20 @@ import {
   VectorIcon,
   CustomInputSend,
   Throbber,
-  Tag,
+  ClockIcon,
   parseLangTemplate,
+  Chip,
 } from '@cypherock/cysync-ui';
 import { BigNumber, formatSecondsToMinutes } from '@cypherock/cysync-utils';
 import { IAccount } from '@cypherock/db-interfaces';
 import lodash from 'lodash';
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import React, {
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from 'react';
 
 import { IQuote, useSwap } from '~/context';
 import { useAccountDropdown, useWalletDropdown } from '~/hooks';
@@ -39,10 +46,12 @@ const AmountInput: React.FC<any> = ({
   amount,
   isDisabled,
   isLoading,
+  coinValue,
   coinUnit,
   setAmount,
   error,
 }) => {
+  const inputRef = useRef<HTMLInputElement | null>(null);
   const filterNumericInput = (val: string) => {
     let filteredValue = val.replace(/[^0-9.]/g, '');
     const bigNum = new BigNumber(filteredValue);
@@ -66,6 +75,15 @@ const AmountInput: React.FC<any> = ({
     return filteredValue;
   };
 
+  const adjustInputCursor = () => {
+    if (
+      inputRef.current?.selectionEnd &&
+      inputRef.current.selectionEnd > amount.toString().length
+    ) {
+      inputRef.current.setSelectionRange(amount.length, amount.length);
+    }
+  };
+
   const handleCoinAmountChange = (val: string) => {
     const filteredValue = filterNumericInput(val);
     setAmount(filteredValue);
@@ -75,11 +93,14 @@ const AmountInput: React.FC<any> = ({
     <>
       <CustomInputSend error={error}>
         <Input
+          ref={inputRef}
           type="text"
           name="amount"
           placeholder={placeholder}
           onChange={handleCoinAmountChange}
-          value={amount}
+          value={`${amount} ${coinUnit}`}
+          onClick={adjustInputCursor}
+          onKeyDown={e => e.code === 'Backspace' && adjustInputCursor()}
           disabled={isDisabled}
           $textColor="white"
           $noBorder
@@ -87,8 +108,13 @@ const AmountInput: React.FC<any> = ({
         {isLoading ? (
           throbber
         ) : (
-          <Typography $fontSize={16} color="muted" $allowOverflow>
-            {coinUnit}
+          <Typography
+            $fontSize={16}
+            color="muted"
+            $allowOverflow
+            $whiteSpace="nowrap"
+          >
+            {coinValue}
           </Typography>
         )}
       </CustomInputSend>
@@ -154,7 +180,7 @@ const AmountAndAccountSelection: React.FC<any> = ({
 
     const value = formatDisplayPrice(amountValue);
 
-    return `$${value}`;
+    return `~${value} ${assetPrice.currency.toUpperCase()}`;
   }, [selectedAccount, amount]);
 
   return (
@@ -185,9 +211,6 @@ const AmountAndAccountSelection: React.FC<any> = ({
           <Typography $fontSize={12} color="muted">
             {amountLabel}
           </Typography>
-          <Typography $fontSize={14} color="muted">
-            {coinValue}
-          </Typography>
         </Flex>
         <AmountInput
           placeholder="0"
@@ -195,6 +218,7 @@ const AmountAndAccountSelection: React.FC<any> = ({
           setAmount={setAmount}
           isDisabled={!selectedAccount || isAmountDisabled}
           error={amountError}
+          coinValue={coinValue}
           coinUnit={coinUnit}
         />
       </Flex>
@@ -229,7 +253,17 @@ const OfferBox: React.FC<any> = ({
         />
         <Typography $fontSize={14}>{offerData.provider.name}</Typography>
       </Flex>
-      {offerData.isBest && <Tag type="gold">{offerData.bestOfferText}</Tag>}
+      {offerData.isBest && (
+        <Chip
+          $gradient="golden"
+          $fontSize={10}
+          $fontWeight="semibold"
+          px="8px"
+          py="5px"
+        >
+          {offerData.bestOfferText}
+        </Chip>
+      )}
     </Flex>
     <Flex direction="column">
       {offerData?.data?.map((data: any) => (
@@ -283,9 +317,19 @@ export const SwapQuotesHeader: React.FC<{
       $allowOverflow
     >
       <span>{parseLangTemplate(displayText.quotesFound, { num: size })}</span>
-      <span>
-        {parseLangTemplate(displayText.timerText, { time: remainingTime })}
-      </span>
+      <Typography color="muted" align="center" display="flex" gap={8}>
+        {parseLangTemplate(displayText.timerText)}
+        <Typography
+          color="white"
+          align="center"
+          display="flex"
+          gap={8}
+          $minWidth="71px"
+        >
+          <ClockIcon />
+          {remainingTime}
+        </Typography>
+      </Typography>
     </Typography>
   );
 };
@@ -613,8 +657,12 @@ export const SwapDetailsInput = () => {
               $textAlign="center"
               width="full"
               $allowOverflow
+              display="flex"
+              align="center"
+              justify="center"
+              gap={8}
             >
-              {t}
+              {isFetchingQuotes && throbber} {t}
             </Typography>
           ))}
         </Flex>
