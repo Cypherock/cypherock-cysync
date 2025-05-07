@@ -83,6 +83,7 @@ export const SwapReceive = () => {
         skipSelection: true,
         storeReceiveAddress: getReceiveAddress,
         onClose: onReceiveFlowClosed,
+        source: 'swap',
       }),
     );
   };

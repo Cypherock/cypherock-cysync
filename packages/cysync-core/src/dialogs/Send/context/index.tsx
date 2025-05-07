@@ -77,6 +77,7 @@ import {
 } from '../Dialogs';
 
 export interface SendDialogContextInterface {
+  source: SendFlowSource;
   tabs: ITabs;
   onNext: (tab?: number, dialog?: number) => void;
   onSelectionDialogNext: () => void;
@@ -138,6 +139,8 @@ export interface ToDetails {
   extraInput?: string;
 }
 
+export type SendFlowSource = 'default' | 'swap';
+
 export interface SendDialogProps {
   walletId?: string;
   accountId?: string;
@@ -148,6 +151,7 @@ export interface SendDialogProps {
   skipAccountSelection?: boolean;
   storeTransactionId?: (id: string) => void;
   onClose?: () => void;
+  source?: SendFlowSource;
 }
 
 export interface SendDialogContextProviderProps extends SendDialogProps {
@@ -165,6 +169,7 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
   skipAccountSelection,
   storeTransactionId,
   onClose: injectedOnClose,
+  source = 'default',
 }) => {
   const lang = useAppSelector(selectLanguage);
   const dispatch = useAppDispatch();
@@ -871,6 +876,7 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
 
   const ctx = useMemo(
     () => ({
+      source,
       defaultWalletId,
       defaultAccountId,
       onNext,
@@ -918,6 +924,7 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
       isPreparingTxn,
     }),
     [
+      source,
       defaultWalletId,
       defaultAccountId,
       onNext,
@@ -987,4 +994,5 @@ SendDialogProvider.defaultProps = {
   prefillDetails: undefined,
   storeTransactionId: undefined,
   onClose: undefined,
+  source: 'default',
 };

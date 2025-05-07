@@ -30,12 +30,15 @@ const DeviceConnectionWrapper: React.FC<{
   return <>{children}</>;
 };
 
+export type ReceiveFlowSource = 'default' | 'swap';
+
 export interface ReceiveDialogProps {
   walletId?: string;
   accountId?: string;
   skipSelection?: boolean;
   storeReceiveAddress?: (address: string) => void;
   onClose?: () => void;
+  source?: ReceiveFlowSource;
 }
 
 export const Receive: FC = () => {
@@ -51,6 +54,7 @@ export const Receive: FC = () => {
     isStartedWithoutDevice,
     selectedWallet,
     isAddressVerified,
+    source,
   } = useReceiveDialog();
   const lang = useAppSelector(selectLanguage);
 
@@ -64,7 +68,11 @@ export const Receive: FC = () => {
               .map(t => t.name)}
             activeTab={currentTab}
             skippedTabs={!isAddressVerified && currentTab > 2 ? [1] : []}
-            heading={lang.strings.receive.title}
+            heading={
+              source === 'swap'
+                ? lang.strings.swap.title
+                : lang.strings.receive.title
+            }
           />
           <WalletDialogMainContainer>
             <DialogBoxBody
@@ -114,4 +122,5 @@ ReceiveDialog.defaultProps = {
   skipSelection: undefined,
   storeReceiveAddress: undefined,
   onClose: undefined,
+  source: 'default',
 };

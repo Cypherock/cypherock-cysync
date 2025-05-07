@@ -54,6 +54,7 @@ export const SwapSend = () => {
 
     dispatch(
       openSendDialog({
+        source: 'swap',
         walletId: fromAccount.walletId,
         accountId: fromAccount.__id,
         prefillDetails: {

@@ -2753,6 +2753,7 @@
     }
   },
   "swap": {
+    "title": "Swap",
     "detailsInput": {
       "common": {
         "searchText": "Search",

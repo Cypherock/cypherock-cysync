@@ -36,6 +36,7 @@ export const SendFlow: FC = () => {
     error,
     onRetry,
     selectedWallet,
+    source,
   } = useSendDialog();
   const lang = useAppSelector(selectLanguage);
 
@@ -54,7 +55,11 @@ export const SendFlow: FC = () => {
               .filter(t => !t.dontShowOnMilestone)
               .map(t => t.name)}
             activeTab={currentTab}
-            heading={lang.strings.send.title}
+            heading={
+              source === 'swap'
+                ? lang.strings.swap.title
+                : lang.strings.send.title
+            }
           />
           <WalletDialogMainContainer>
             <DialogBoxBody

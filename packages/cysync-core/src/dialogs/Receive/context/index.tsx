@@ -36,8 +36,10 @@ import {
   VerifyAddress,
   FinalMessage,
 } from '../Dialogs';
+import { ReceiveFlowSource } from '..';
 
 export interface ReceiveDialogContextInterface {
+  source: ReceiveFlowSource;
   tabs: ITabs;
   onNext: (tab?: number, dialog?: number) => void;
   goTo: (tab: number, dialog?: number) => void;
@@ -81,6 +83,7 @@ export interface ReceiveDialogContextProviderProps {
   skipSelection?: boolean;
   storeReceiveAddress?: (address: string) => void;
   onClose?: () => void;
+  source?: 'default' | 'swap';
 }
 
 export const ReceiveDialogProvider: FC<ReceiveDialogContextProviderProps> = ({
@@ -90,6 +93,7 @@ export const ReceiveDialogProvider: FC<ReceiveDialogContextProviderProps> = ({
   skipSelection,
   storeReceiveAddress,
   onClose: onCloseInjected,
+  source = 'default',
 }) => {
   const lang = useAppSelector(selectLanguage);
   const dispatch = useAppDispatch();
@@ -289,6 +293,7 @@ export const ReceiveDialogProvider: FC<ReceiveDialogContextProviderProps> = ({
 
   const ctx = useMemo(
     () => ({
+      source,
       defaultWalletId,
       defaultAccountId,
       onNext,
@@ -318,6 +323,7 @@ export const ReceiveDialogProvider: FC<ReceiveDialogContextProviderProps> = ({
       isFlowCompleted,
     }),
     [
+      source,
       defaultWalletId,
       defaultAccountId,
       onNext,
@@ -365,4 +371,5 @@ ReceiveDialogProvider.defaultProps = {
   skipSelection: undefined,
   storeReceiveAddress: undefined,
   onClose: undefined,
+  source: 'default',
 };

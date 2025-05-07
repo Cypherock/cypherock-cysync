@@ -1771,6 +1771,7 @@ interface LangInheritanceGoldPlanPurchase {
 }
 
 interface LangSwap {
+  title: string;
   detailsInput: {
     common: {
       searchText: string;
