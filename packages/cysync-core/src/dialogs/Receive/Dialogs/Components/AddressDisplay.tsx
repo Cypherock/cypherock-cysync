@@ -7,6 +7,7 @@ import {
   InputLabel,
   Flex,
   Tag,
+  LeanBox,
 } from '@cypherock/cysync-ui';
 import lodash from 'lodash';
 import React, { useMemo } from 'react';
@@ -19,7 +20,7 @@ import { useReceiveDialog } from '../../context';
 
 export const AddressDisplay: React.FC = () => {
   const lang = useAppSelector(selectLanguage);
-  const { selectedAccount, selectedWallet, derivedAddress } =
+  const { selectedAccount, selectedWallet, derivedAddress, source } =
     useReceiveDialog();
 
   const texts = lang.strings.receive.receive;
@@ -61,9 +62,11 @@ export const AddressDisplay: React.FC = () => {
           />
         </Typography>
       </Flex>
-      <Container $bgColor="white" p="12">
-        <QRCode size={228} value={derivedAddress ?? ''} />
-      </Container>
+      {source === 'default' && (
+        <Container $bgColor="white" p="12">
+          <QRCode size={228} value={derivedAddress ?? ''} />
+        </Container>
+      )}
       <Container
         display="flex"
         direction="column"
@@ -72,7 +75,11 @@ export const AddressDisplay: React.FC = () => {
         justify="flex-start"
       >
         <InputLabel mb={0}>{texts.addressLabel}</InputLabel>
-        <CopyContainer link={derivedAddress ?? ''} variant="gold" />
+        {source === 'default' ? (
+          <CopyContainer link={derivedAddress ?? ''} variant="gold" />
+        ) : (
+          <LeanBox text={derivedAddress ?? ''} />
+        )}
       </Container>
     </>
   );
