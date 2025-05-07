@@ -224,8 +224,8 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
     includeSubAccounts: true,
   });
 
-  const tabs: ITabs = useMemo(
-    () => [
+  const tabs: ITabs = useMemo(() => {
+    const allTabs = [
       {
         name: lang.strings.send.aside.tabs.source,
         dialogs: [<SelectionDialog />],
@@ -251,9 +251,14 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
         dialogs: [<FinalMessage />],
         dontShowOnMilestone: true,
       },
-    ],
-    [lang],
-  );
+    ];
+    if (source === 'swap') {
+      return allTabs.filter(
+        t => t.name !== lang.strings.send.aside.tabs.summary,
+      );
+    }
+    return allTabs;
+  }, [lang]);
 
   useEffect(() => {
     if (disableAccountSelection || skipAccountSelection) goTo(1, 0);
