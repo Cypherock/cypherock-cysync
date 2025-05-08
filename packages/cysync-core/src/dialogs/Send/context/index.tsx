@@ -152,6 +152,7 @@ export interface SendDialogProps {
   storeTransactionId?: (id: string) => void;
   onClose?: () => void;
   source?: SendFlowSource;
+  onError?: (e?: any) => void;
 }
 
 export interface SendDialogContextProviderProps extends SendDialogProps {
@@ -170,6 +171,7 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
   storeTransactionId,
   onClose: injectedOnClose,
   source = 'default',
+  onError: injectedOnError,
 }) => {
   const lang = useAppSelector(selectLanguage);
   const dispatch = useAppDispatch();
@@ -331,6 +333,7 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
   const onError = (e?: any) => {
     cleanUp();
     setError(e);
+    if (injectedOnError) injectedOnError(e);
   };
 
   const getCurrentCoinSupport = () => {
@@ -1000,4 +1003,5 @@ SendDialogProvider.defaultProps = {
   storeTransactionId: undefined,
   onClose: undefined,
   source: 'default',
+  onError: undefined,
 };

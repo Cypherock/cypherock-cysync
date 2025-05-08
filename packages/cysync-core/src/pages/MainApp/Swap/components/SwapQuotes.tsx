@@ -17,6 +17,9 @@ import { IAccount, IWallet } from '@cypherock/db-interfaces';
 import { IQuote, useSwap } from '~/context';
 import { useAppSelector, selectLanguage } from '~/store';
 
+const getEarliestExpiryTime = (quotes: IQuote[]) =>
+  Math.min(...quotes.map((quote: IQuote) => quote.validUntil));
+
 export const OfferBox: React.FC<any> = ({
   selectedIndex,
   setSelectedIndex,
@@ -80,8 +83,12 @@ export const OfferBox: React.FC<any> = ({
 export const SwapQuotesHeader: React.FC<{
   size: number;
   onTimeEnd: () => void;
-}> = ({ size, onTimeEnd }) => {
-  const [seconds, setSeconds] = useState(30);
+  validUntil: number;
+}> = ({ size, onTimeEnd, validUntil }) => {
+  const totalSeconds = validUntil
+    ? Math.floor((validUntil - new Date().getTime()) / 1000)
+    : 0;
+  const [seconds, setSeconds] = useState(totalSeconds);
 
   const lang = useAppSelector(selectLanguage);
   const displayText = lang.strings.swap.detailsInput.offers;
@@ -155,7 +162,11 @@ export const SwapQuotes: React.FC<{
 
   return (
     <>
-      <SwapQuotesHeader size={quotes.length} onTimeEnd={findNewQuotes} />
+      <SwapQuotesHeader
+        size={quotes.length}
+        onTimeEnd={findNewQuotes}
+        validUntil={getEarliestExpiryTime(quotes)}
+      />
       {quotes.map((quote, index) => {
         const fromUnit = getDefaultUnit(
           fromAccount?.parentAssetId ?? '',

@@ -39,6 +39,7 @@ export interface ReceiveDialogProps {
   storeReceiveAddress?: (address: string) => void;
   onClose?: () => void;
   source?: ReceiveFlowSource;
+  onError?: (e?: any) => void;
 }
 
 export const Receive: FC = () => {
@@ -123,4 +124,5 @@ ReceiveDialog.defaultProps = {
   storeReceiveAddress: undefined,
   onClose: undefined,
   source: 'default',
+  onError: undefined,
 };

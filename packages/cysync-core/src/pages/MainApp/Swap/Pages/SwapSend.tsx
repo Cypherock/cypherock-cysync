@@ -1,9 +1,9 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef } from 'react';
 
 import { openSendDialog } from '~/actions';
-import { ErrorHandlerDialog, LoaderDialog } from '~/components';
+import { LoaderDialog } from '~/components';
 import { createCustomError, useSwap } from '~/context';
-import { useAppDispatch } from '~/store';
+import { closeDialog, useAppDispatch } from '~/store';
 
 export const SwapSend = () => {
   const dispatch = useAppDispatch();
@@ -12,12 +12,9 @@ export const SwapSend = () => {
     toNextPage,
     exchangeDetails,
     quote,
-    error,
-    reset,
-    retryCurrentPage,
+    onError,
     closeExchange,
   } = useSwap();
-  const [pageError, setPageError] = useState<any>();
   const transactionId = useRef<string>();
 
   const storeTransactionId = (id: string) => {
@@ -26,17 +23,23 @@ export const SwapSend = () => {
 
   const onSendFlowClose = async () => {
     if (transactionId.current === undefined) {
+      onError(createCustomError('Send flow was not successful'));
       await closeExchange();
-      setPageError(createCustomError('Send flow was not successful'));
       return;
     }
     toNextPage();
   };
 
+  const onSendDialogError = async (e?: any) => {
+    onError(e);
+    dispatch(closeDialog('sendDialog'));
+    await closeExchange();
+  };
+
   useEffect(() => {
     const abort = async () => {
       await closeExchange();
-      setPageError(
+      onError(
         createCustomError(
           'Cannot start send flow',
           'invalid prerequisite for swap send',
@@ -66,20 +69,10 @@ export const SwapSend = () => {
         disableAccountSelection: true,
         storeTransactionId,
         onClose: onSendFlowClose,
+        onError: onSendDialogError,
       }),
     );
   }, []);
 
-  return (
-    <ErrorHandlerDialog
-      error={pageError ?? error}
-      onRetry={retryCurrentPage}
-      onClose={reset}
-      showCloseButton
-      suppressActions={false}
-      noDelay
-    >
-      <LoaderDialog />
-    </ErrorHandlerDialog>
-  );
+  return <LoaderDialog />;
 };

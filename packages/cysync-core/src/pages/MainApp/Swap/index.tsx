@@ -1,6 +1,13 @@
-import React, { useMemo } from 'react';
+import React, { useLayoutEffect, useMemo } from 'react';
 
+import { openErrorDialog } from '~/actions';
 import { SwapPage, useSwap } from '~/context';
+import {
+  closeDialog,
+  useAppDispatch,
+  selectLanguage,
+  useAppSelector,
+} from '~/store';
 
 import { SwapDetailsInput } from './Pages/SwapDetailsInput';
 import { SwapReceive } from './Pages/SwapReceive';
@@ -17,7 +24,6 @@ import {
   Flex,
   Typography,
 } from '@cypherock/cysync-ui';
-import { selectLanguage, useAppSelector } from '~/store';
 
 const FullScreenWithConnectedDevice: React.FC<{
   children: React.ReactNode;
@@ -120,9 +126,26 @@ const pageMap: Record<
 };
 
 export const Swap = () => {
-  const { currentPage, toPreviousPage } = useSwap();
+  const { currentPage, error, retryCurrentPage, toPreviousPage } = useSwap();
+  const dispatch = useAppDispatch();
 
   const currentComponent = useMemo(() => pageMap[currentPage], [currentPage]);
+
+  useLayoutEffect(() => {
+    if (error) {
+      dispatch(
+        openErrorDialog({
+          error,
+          showCloseButton: true,
+          suppressActions: false,
+          onRetry: () => {
+            retryCurrentPage();
+            dispatch(closeDialog('errorDialog'));
+          },
+        }),
+      );
+    }
+  }, [error]);
   const handleHistoryClick = () => console.log('should open history!');
 
   return (

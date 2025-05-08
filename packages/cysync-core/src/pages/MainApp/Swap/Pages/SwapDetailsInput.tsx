@@ -125,6 +125,7 @@ export const SwapDetailsInput = () => {
         newQuotes = result.data.data;
         newRange = result.data?.metadata?.range;
       }
+      logger.info(`Received quotes result from server: ${result.data}`);
     } catch (e) {
       const serverError = createServerErrorFromError(e);
       if (serverError?.code === ServerErrorType.CONNOT_CONNECT) {
