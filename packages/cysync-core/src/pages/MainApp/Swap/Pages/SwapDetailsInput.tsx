@@ -15,7 +15,7 @@ import { IAccount } from '@cypherock/db-interfaces';
 import lodash from 'lodash';
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 
-import { IQuote } from '~/context';
+import { IQuote, useSwap } from '~/context';
 import { useAccountDropdown, useWalletDropdown } from '~/hooks';
 import { getQuotes } from '~/services/swapService';
 import { useAppSelector, selectLanguage } from '~/store';
@@ -29,18 +29,26 @@ export const SwapDetailsInput = () => {
   const [selectedOfferIndex, setSelectedOfferIndex] = useState<
     number | undefined
   >();
-  const fromWallet = useWalletDropdown();
+  const {
+    fromWallet: defaultFromWallet,
+    fromAccount: defaultFromAccount,
+    toWallet: defaultToWallet,
+    toAccount: defaultToAccount,
+  } = useSwap();
+  const fromWallet = useWalletDropdown({ walletId: defaultFromWallet?.__id });
   const fromAccount = useAccountDropdown({
     selectedWallet: fromWallet.selectedWallet,
     includeSubAccounts: true,
+    defaultAccountId: defaultFromAccount?.__id,
   });
 
   const [fromAmount, setFromAmount] = useState('0');
 
-  const toWallet = useWalletDropdown();
+  const toWallet = useWalletDropdown({ walletId: defaultToWallet?.__id });
   const toAccount = useAccountDropdown({
     selectedWallet: toWallet.selectedWallet,
     includeSubAccounts: true,
+    defaultAccountId: defaultToAccount?.__id,
   });
 
   const lang = useAppSelector(selectLanguage);
@@ -178,6 +186,8 @@ export const SwapDetailsInput = () => {
           quotes={quotes}
           setSelectedOfferIndex={setSelectedOfferIndex}
           selectedOfferIndex={selectedOfferIndex}
+          fromWallet={fromWallet.selectedWallet}
+          toWallet={toWallet.selectedWallet}
           toAccount={toAccount.selectedAccount}
           fromAccount={fromAccount.selectedAccount}
           findNewQuotes={findNewQuotes}

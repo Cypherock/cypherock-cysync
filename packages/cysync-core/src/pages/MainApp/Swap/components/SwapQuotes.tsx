@@ -13,7 +13,7 @@ import {
 } from '@cypherock/cysync-ui';
 import { getDefaultUnit } from '@cypherock/coin-support-utils';
 import { formatSecondsToMinutes, BigNumber } from '@cypherock/cysync-utils';
-import { IAccount } from '@cypherock/db-interfaces';
+import { IAccount, IWallet } from '@cypherock/db-interfaces';
 import { IQuote, useSwap } from '~/context';
 import { useAppSelector, selectLanguage } from '~/store';
 
@@ -133,7 +133,9 @@ export const SwapQuotes: React.FC<{
   setSelectedOfferIndex: (val: number) => void;
   selectedOfferIndex?: number;
   toAccount?: IAccount;
+  toWallet?: IWallet;
   fromAccount?: IAccount;
+  fromWallet?: IWallet;
   findNewQuotes: () => void;
   hasEnoughBalance: boolean;
 }> = ({
@@ -141,6 +143,8 @@ export const SwapQuotes: React.FC<{
   setSelectedOfferIndex,
   selectedOfferIndex,
   toAccount,
+  toWallet,
+  fromWallet,
   fromAccount,
   findNewQuotes,
   hasEnoughBalance,
@@ -199,15 +203,19 @@ export const SwapQuotes: React.FC<{
         onClick={() => {
           if (
             !fromAccount ||
+            !fromWallet ||
             !toAccount ||
+            !toWallet ||
             (selectedOfferIndex ?? 0) >= quotes.length
           ) {
             return;
           }
           const quote = quotes[selectedOfferIndex ?? 0];
           fillDetails({
-            from: fromAccount,
-            to: toAccount,
+            fromWallet,
+            fromAccount,
+            toAccount,
+            toWallet,
             quote,
           });
           toNextPage();
@@ -224,4 +232,6 @@ SwapQuotes.defaultProps = {
   selectedOfferIndex: undefined,
   toAccount: undefined,
   fromAccount: undefined,
+  toWallet: undefined,
+  fromWallet: undefined,
 };
