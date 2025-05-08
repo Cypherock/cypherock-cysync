@@ -55,7 +55,11 @@ const AmountInput: React.FC<any> = ({
       inputRef.current?.selectionEnd &&
       inputRef.current.selectionEnd > amount.toString().length
     ) {
-      inputRef.current.setSelectionRange(amount.length, amount.length);
+      if (amount === '0') {
+        inputRef.current.setSelectionRange(0, amount.length);
+      } else {
+        inputRef.current.setSelectionRange(amount.length, amount.length);
+      }
     }
   };
 
