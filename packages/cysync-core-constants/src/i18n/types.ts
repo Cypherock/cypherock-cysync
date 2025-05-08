@@ -1798,6 +1798,9 @@ interface LangSwap {
       searchingForOffers: string;
       bestOffer: string;
       fixedRate: string;
+      fixedRateTooltip: string;
+      networkFee: string;
+      networkFeeTooltip: string;
       quotesFound: string;
       timerText: string;
       buttons: {

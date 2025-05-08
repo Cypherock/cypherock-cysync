@@ -191,7 +191,7 @@ export const SwapQuotes: React.FC<{
               data: [
                 {
                   title: displayText.fixedRate,
-                  tooltip: '',
+                  tooltip: displayText.fixedRateTooltip,
                   value: [`1 ${fromUnit} =`, `${rate} ${toUnit}`],
                 },
               ],
