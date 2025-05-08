@@ -16,7 +16,7 @@ import QRCode from 'react-qr-code';
 import { CoinIcon } from '~/components';
 import { selectLanguage, useAppSelector } from '~/store';
 
-import { useReceiveDialog } from '../../context';
+import { useReceiveDialog, ReceiveFlowSource } from '../../context';
 
 export const AddressDisplay: React.FC = () => {
   const lang = useAppSelector(selectLanguage);
@@ -62,7 +62,7 @@ export const AddressDisplay: React.FC = () => {
           />
         </Typography>
       </Flex>
-      {source === 'default' && (
+      {source === ReceiveFlowSource.DEFAULT && (
         <Container $bgColor="white" p="12">
           <QRCode size={228} value={derivedAddress ?? ''} />
         </Container>
@@ -75,7 +75,7 @@ export const AddressDisplay: React.FC = () => {
         justify="flex-start"
       >
         <InputLabel mb={0}>{texts.addressLabel}</InputLabel>
-        {source === 'default' ? (
+        {source === ReceiveFlowSource.DEFAULT ? (
           <CopyContainer link={derivedAddress ?? ''} variant="gold" />
         ) : (
           <LeanBox text={derivedAddress ?? ''} />

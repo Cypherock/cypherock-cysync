@@ -12,7 +12,11 @@ import React, { FC } from 'react';
 import { ErrorHandlerDialog, WithConnectedDevice } from '~/components';
 import { selectLanguage, useAppSelector } from '~/store';
 
-import { ReceiveDialogProvider, useReceiveDialog } from './context';
+import {
+  ReceiveDialogProvider,
+  ReceiveFlowSource,
+  useReceiveDialog,
+} from './context';
 
 const DeviceConnectionWrapper: React.FC<{
   isDeviceRequired: boolean;
@@ -29,8 +33,6 @@ const DeviceConnectionWrapper: React.FC<{
   // eslint-disable-next-line react/jsx-no-useless-fragment
   return <>{children}</>;
 };
-
-export type ReceiveFlowSource = 'default' | 'swap';
 
 export interface ReceiveDialogProps {
   walletId?: string;
@@ -70,7 +72,7 @@ export const Receive: FC = () => {
             activeTab={currentTab}
             skippedTabs={!isAddressVerified && currentTab > 2 ? [1] : []}
             heading={
-              source === 'swap'
+              source === ReceiveFlowSource.SWAP
                 ? lang.strings.swap.title
                 : lang.strings.receive.title
             }
@@ -123,6 +125,6 @@ ReceiveDialog.defaultProps = {
   skipSelection: undefined,
   storeReceiveAddress: undefined,
   onClose: undefined,
-  source: 'default',
+  source: ReceiveFlowSource.DEFAULT,
   onError: undefined,
 };

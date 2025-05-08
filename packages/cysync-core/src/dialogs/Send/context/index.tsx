@@ -140,7 +140,10 @@ export interface ToDetails {
   extraInput?: string;
 }
 
-export type SendFlowSource = 'default' | 'swap';
+export enum SendFlowSource {
+  DEFAULT = 0,
+  SWAP,
+}
 
 export interface SendDialogProps {
   walletId?: string;
@@ -172,7 +175,7 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
   skipAccountSelection,
   storeTransactionId,
   onClose: injectedOnClose,
-  source = 'default',
+  source = SendFlowSource.DEFAULT,
   onError: injectedOnError,
   validTill,
 }) => {
@@ -257,7 +260,7 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
         dontShowOnMilestone: true,
       },
     ];
-    if (source === 'swap') {
+    if (source === SendFlowSource.SWAP) {
       return allTabs.filter(
         t => t.name !== lang.strings.send.aside.tabs.summary,
       );
@@ -1007,7 +1010,7 @@ SendDialogProvider.defaultProps = {
   prefillDetails: undefined,
   storeTransactionId: undefined,
   onClose: undefined,
-  source: 'default',
+  source: SendFlowSource.DEFAULT,
   onError: undefined,
   validTill: undefined,
 };

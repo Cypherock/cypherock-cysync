@@ -36,7 +36,11 @@ import {
   VerifyAddress,
   FinalMessage,
 } from '../Dialogs';
-import { ReceiveFlowSource } from '..';
+
+export enum ReceiveFlowSource {
+  DEFAULT = 0,
+  SWAP,
+}
 
 export interface ReceiveDialogContextInterface {
   source: ReceiveFlowSource;
@@ -83,7 +87,7 @@ export interface ReceiveDialogContextProviderProps {
   skipSelection?: boolean;
   storeReceiveAddress?: (address: string) => void;
   onClose?: () => void;
-  source?: 'default' | 'swap';
+  source?: ReceiveFlowSource;
   onError?: (e?: any) => void;
 }
 
@@ -94,7 +98,7 @@ export const ReceiveDialogProvider: FC<ReceiveDialogContextProviderProps> = ({
   skipSelection,
   storeReceiveAddress,
   onClose: onCloseInjected,
-  source = 'default',
+  source = ReceiveFlowSource.DEFAULT,
   onError: injectedOnError,
 }) => {
   const lang = useAppSelector(selectLanguage);
@@ -374,6 +378,6 @@ ReceiveDialogProvider.defaultProps = {
   skipSelection: undefined,
   storeReceiveAddress: undefined,
   onClose: undefined,
-  source: 'default',
+  source: ReceiveFlowSource.DEFAULT,
   onError: undefined,
 };

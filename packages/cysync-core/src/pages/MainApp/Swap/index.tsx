@@ -106,19 +106,13 @@ const pageMap: Record<
       <SwapSummary />
     </ComponentWithHeader>
   ),
-  [SwapPage.RECEIVE]: (onHistory, toPreviousPage) => (
-    <FullScreenWithConnectedDevice
-      onClose={toPreviousPage}
-      onHistory={onHistory}
-    >
+  [SwapPage.RECEIVE]: onHistory => (
+    <FullScreenWithConnectedDevice onHistory={onHistory}>
       <SwapReceive />
     </FullScreenWithConnectedDevice>
   ),
-  [SwapPage.SEND]: (onHistory, toPreviousPage) => (
-    <FullScreenWithConnectedDevice
-      onClose={toPreviousPage}
-      onHistory={onHistory}
-    >
+  [SwapPage.SEND]: onHistory => (
+    <FullScreenWithConnectedDevice onHistory={onHistory}>
       <SwapSend />
     </FullScreenWithConnectedDevice>
   ),

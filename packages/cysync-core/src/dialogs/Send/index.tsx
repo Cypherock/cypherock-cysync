@@ -12,7 +12,12 @@ import React, { FC, useEffect, useState } from 'react';
 import { ErrorHandlerDialog, WithConnectedDevice } from '~/components';
 import { selectLanguage, useAppSelector } from '~/store';
 
-import { SendDialogProps, SendDialogProvider, useSendDialog } from './context';
+import {
+  SendDialogProps,
+  SendDialogProvider,
+  SendFlowSource,
+  useSendDialog,
+} from './context';
 
 export type { SendDialogProps } from './context';
 
@@ -80,12 +85,12 @@ export const SendFlow: FC = () => {
               .map(t => t.name)}
             activeTab={currentTab}
             heading={
-              source === 'swap'
+              source === SendFlowSource.SWAP
                 ? lang.strings.swap.title
                 : lang.strings.send.title
             }
             timer={
-              source === 'swap' && validTill
+              source === SendFlowSource.SWAP && validTill
                 ? {
                     minutes: minutes.toString().padStart(2, '0'),
                     seconds: remainingSeconds.toString().padStart(2, '0'),

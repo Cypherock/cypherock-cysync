@@ -3,6 +3,7 @@ import React, { useEffect, useRef } from 'react';
 import { openSendDialog } from '~/actions';
 import { LoaderDialog } from '~/components';
 import { createCustomError, useSwap } from '~/context';
+import { SendFlowSource } from '~/dialogs/Send/context';
 import { closeDialog, useAppDispatch } from '~/store';
 
 export const SwapSend = () => {
@@ -57,7 +58,7 @@ export const SwapSend = () => {
 
     dispatch(
       openSendDialog({
-        source: 'swap',
+        source: SendFlowSource.SWAP,
         walletId: fromAccount.walletId,
         accountId: fromAccount.__id,
         prefillDetails: {
