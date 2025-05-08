@@ -53,6 +53,7 @@ export interface SwapContextInterface {
   toPreviousPage: () => void;
   reset: () => void;
   error: Error;
+  onError: (e?: any) => void;
   retryCurrentPage: () => void;
   fromAccount?: IAccount;
   toAccount?: IAccount;
@@ -105,6 +106,14 @@ export const SwapProvider: React.FC<SwapProviderProps> = ({ children }) => {
     setQuote(undefined);
     setExchangeDetails(undefined);
   };
+
+  const onError = useCallback(
+    (e?: any) => {
+      reset();
+      setGlobalError(e);
+    },
+    [setGlobalError, reset],
+  );
 
   const retryMap: Record<SwapPage, () => void> = {
     [SwapPage.DETAILS]: reset,
@@ -221,6 +230,7 @@ export const SwapProvider: React.FC<SwapProviderProps> = ({ children }) => {
     } catch (error) {
       logger.error(error);
       setGlobalError(error);
+      await closeExchange();
     }
   };
   // give details to exchange app (send signature)
@@ -251,6 +261,7 @@ export const SwapProvider: React.FC<SwapProviderProps> = ({ children }) => {
     toPreviousPage,
     reset,
     error: globalError,
+    onError,
     retryCurrentPage: retryPage,
     fromAccount,
     toAccount,

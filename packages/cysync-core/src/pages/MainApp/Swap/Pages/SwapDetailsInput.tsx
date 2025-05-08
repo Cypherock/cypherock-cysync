@@ -17,13 +17,13 @@ import {
   VectorIcon,
   CustomInputSend,
   Throbber,
-  Tag,
   parseLangTemplate,
 } from '@cypherock/cysync-ui';
 import { BigNumber, formatSecondsToMinutes } from '@cypherock/cysync-utils';
 import { IAccount } from '@cypherock/db-interfaces';
 import lodash from 'lodash';
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import styled from 'styled-components';
 
 import { IQuote, useSwap } from '~/context';
 import { useAccountDropdown, useWalletDropdown } from '~/hooks';
@@ -32,7 +32,19 @@ import { useAppSelector, selectLanguage, selectPriceInfos } from '~/store';
 import { createServerErrorFromError } from '~/utils';
 import logger from '~/utils/logger';
 
+const getEarliestExpiryTime = (quotes: IQuote[]) =>
+  Math.min(...quotes.map((quote: IQuote) => quote.validUntil));
+
 const throbber: JSX.Element = <Throbber size={15} strokeWidth={2} />;
+
+const BestOfferTag = styled.div`
+  background: ${({ theme }) => theme.palette.golden};
+  border-radius: 36px;
+  padding: 5px 8px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+`;
 
 const AmountInput: React.FC<any> = ({
   placeholder,
@@ -229,7 +241,20 @@ const OfferBox: React.FC<any> = ({
         />
         <Typography $fontSize={14}>{offerData.provider.name}</Typography>
       </Flex>
-      {offerData.isBest && <Tag type="gold">{offerData.bestOfferText}</Tag>}
+      {offerData.isBest && (
+        <BestOfferTag>
+          <Typography
+            $fontFamily="monospace"
+            $fontWeight="semibold"
+            $fontSize={10}
+            color="black"
+            $lineHeight="normal"
+            $allowOverflow
+          >
+            {offerData.bestOfferText}
+          </Typography>
+        </BestOfferTag>
+      )}
     </Flex>
     <Flex direction="column">
       {offerData?.data?.map((data: any) => (
@@ -251,9 +276,13 @@ const OfferBox: React.FC<any> = ({
 
 export const SwapQuotesHeader: React.FC<{
   size: number;
+  validUntil: number;
   onTimeEnd: () => void;
-}> = ({ size, onTimeEnd }) => {
-  const [seconds, setSeconds] = useState(30);
+}> = ({ size, onTimeEnd, validUntil }) => {
+  const totalSeconds = validUntil
+    ? Math.floor((validUntil - new Date().getTime()) / 1000)
+    : 0;
+  const [seconds, setSeconds] = useState(totalSeconds);
 
   const lang = useAppSelector(selectLanguage);
   const displayText = lang.strings.swap.detailsInput.offers;
@@ -313,7 +342,11 @@ export const SwapQuotes: React.FC<{
 
   return (
     <>
-      <SwapQuotesHeader size={quotes.length} onTimeEnd={findNewQuotes} />
+      <SwapQuotesHeader
+        size={quotes.length}
+        onTimeEnd={findNewQuotes}
+        validUntil={getEarliestExpiryTime(quotes)}
+      />
       {quotes.map((quote, index) => {
         const fromUnit = getDefaultUnit(
           fromAccount?.parentAssetId ?? '',
@@ -479,6 +512,7 @@ export const SwapDetailsInput = () => {
         newQuotes = result.data.data;
         newRange = result.data?.metadata?.range;
       }
+      logger.info(`Received quotes result from server: ${result.data}`);
     } catch (e) {
       const serverError = createServerErrorFromError(e);
       if (serverError?.code === ServerErrorType.CONNOT_CONNECT) {

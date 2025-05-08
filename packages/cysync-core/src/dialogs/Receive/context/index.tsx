@@ -81,6 +81,7 @@ export interface ReceiveDialogContextProviderProps {
   skipSelection?: boolean;
   storeReceiveAddress?: (address: string) => void;
   onClose?: () => void;
+  onError?: (e?: any) => void;
 }
 
 export const ReceiveDialogProvider: FC<ReceiveDialogContextProviderProps> = ({
@@ -90,6 +91,7 @@ export const ReceiveDialogProvider: FC<ReceiveDialogContextProviderProps> = ({
   skipSelection,
   storeReceiveAddress,
   onClose: onCloseInjected,
+  onError: injectedOnError,
 }) => {
   const lang = useAppSelector(selectLanguage);
   const dispatch = useAppDispatch();
@@ -199,6 +201,7 @@ export const ReceiveDialogProvider: FC<ReceiveDialogContextProviderProps> = ({
   const onError = (e?: any) => {
     cleanUp();
     setError(e);
+    if (injectedOnError) injectedOnError(e);
   };
 
   const getFlowObserver = (onEnd: () => void): Observer<IReceiveEvent> => ({
@@ -365,4 +368,5 @@ ReceiveDialogProvider.defaultProps = {
   skipSelection: undefined,
   storeReceiveAddress: undefined,
   onClose: undefined,
+  onError: undefined,
 };

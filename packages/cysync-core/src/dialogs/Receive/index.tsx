@@ -36,6 +36,7 @@ export interface ReceiveDialogProps {
   skipSelection?: boolean;
   storeReceiveAddress?: (address: string) => void;
   onClose?: () => void;
+  onError?: (e?: any) => void;
 }
 
 export const Receive: FC = () => {
@@ -114,4 +115,5 @@ ReceiveDialog.defaultProps = {
   skipSelection: undefined,
   storeReceiveAddress: undefined,
   onClose: undefined,
+  onError: undefined,
 };
