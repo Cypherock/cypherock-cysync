@@ -32,6 +32,7 @@ export const SwapDetailsInput = () => {
   const {
     fromWallet: defaultFromWallet,
     fromAccount: defaultFromAccount,
+    fromAmount: defaultFromAmount,
     toWallet: defaultToWallet,
     toAccount: defaultToAccount,
   } = useSwap();
@@ -42,7 +43,7 @@ export const SwapDetailsInput = () => {
     defaultAccountId: defaultFromAccount?.__id,
   });
 
-  const [fromAmount, setFromAmount] = useState('0');
+  const [fromAmount, setFromAmount] = useState(defaultFromAmount);
 
   const toWallet = useWalletDropdown({ walletId: defaultToWallet?.__id });
   const toAccount = useAccountDropdown({
@@ -141,15 +142,6 @@ export const SwapDetailsInput = () => {
 
   const debouncedGetQuotes = useCallback(lodash.debounce(fetchQuotes, 500), []);
 
-  useEffect(() => {
-    if (
-      fromWallet.selectedWallet === undefined ||
-      fromAccount.selectedAccount === undefined
-    ) {
-      setFromAmount('0');
-    }
-  }, [fromWallet.selectedWallet, fromAccount.selectedAccount]);
-
   const findNewQuotes = () => {
     setIsFetchingQuotes(true);
     setMessage(undefined);
@@ -191,6 +183,7 @@ export const SwapDetailsInput = () => {
           toWallet={toWallet.selectedWallet}
           toAccount={toAccount.selectedAccount}
           fromAccount={fromAccount.selectedAccount}
+          fromAmount={fromAmount}
           findNewQuotes={findNewQuotes}
           hasEnoughBalance={hasEnoughBalance}
         />

@@ -142,6 +142,7 @@ export const SwapQuotes: React.FC<{
   toAccount?: IAccount;
   toWallet?: IWallet;
   fromAccount?: IAccount;
+  fromAmount: string;
   fromWallet?: IWallet;
   findNewQuotes: () => void;
   hasEnoughBalance: boolean;
@@ -153,6 +154,7 @@ export const SwapQuotes: React.FC<{
   toWallet,
   fromWallet,
   fromAccount,
+  fromAmount,
   findNewQuotes,
   hasEnoughBalance,
 }) => {
@@ -225,6 +227,7 @@ export const SwapQuotes: React.FC<{
           fillDetails({
             fromWallet,
             fromAccount,
+            fromAmount,
             toAccount,
             toWallet,
             quote,

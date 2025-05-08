@@ -38,6 +38,7 @@ export interface IQuote {
 export interface IFillDetailsParams {
   fromWallet: IWallet;
   fromAccount: IAccount;
+  fromAmount: string;
   toWallet: IWallet;
   toAccount: IAccount;
   quote: IQuote;
@@ -59,6 +60,7 @@ export interface SwapContextInterface {
   onError: (e?: any) => void;
   retryCurrentPage: () => void;
   fromAccount?: IAccount;
+  fromAmount: string;
   fromWallet?: IWallet;
   toAccount?: IAccount;
   toWallet?: IWallet;
@@ -136,6 +138,7 @@ export const SwapProvider: React.FC<SwapProviderProps> = ({ children }) => {
 
   const [fromWallet, setFromWallet] = useState<IWallet | undefined>();
   const [fromAccount, setFromAccount] = useState<IAccount | undefined>();
+  const [fromAmount, setFromAmount] = useState<string>('0');
   const [toWallet, setToWallet] = useState<IWallet | undefined>();
   const [toAccount, setToAccount] = useState<IAccount | undefined>();
   const [quote, setQuote] = useState<IQuote | undefined>();
@@ -146,12 +149,14 @@ export const SwapProvider: React.FC<SwapProviderProps> = ({ children }) => {
   const fillDetails = ({
     fromWallet: sourceWallet,
     fromAccount: sourceAccount,
+    fromAmount: sourceAmount,
     toAccount: destinationAccount,
     toWallet: destinationWallet,
     quote: selectedQuote,
   }: IFillDetailsParams) => {
     setFromWallet(sourceWallet);
     setFromAccount(sourceAccount);
+    setFromAmount(sourceAmount);
     setToWallet(destinationWallet);
     setToAccount(destinationAccount);
     setQuote(selectedQuote);
@@ -283,6 +288,7 @@ export const SwapProvider: React.FC<SwapProviderProps> = ({ children }) => {
     retryCurrentPage: retryPage,
     fromWallet,
     fromAccount,
+    fromAmount,
     toWallet,
     toAccount,
     quote,
