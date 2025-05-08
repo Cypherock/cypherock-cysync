@@ -28,7 +28,7 @@ import {
 const FullScreenWithConnectedDevice: React.FC<{
   children: React.ReactNode;
   onClose?: () => void;
-  onHistory: () => void;
+  onHistory?: () => void;
 }> = ({ children, onClose, onHistory }) => (
   <ComponentWithHeader onBack={onClose} onHistory={onHistory}>
     <Container width="full" height="full">
@@ -39,12 +39,13 @@ const FullScreenWithConnectedDevice: React.FC<{
 
 FullScreenWithConnectedDevice.defaultProps = {
   onClose: undefined,
+  onHistory: undefined,
 };
 
 const ComponentWithHeader: React.FC<{
   children: React.ReactNode;
   onBack?: () => void;
-  onHistory: () => void;
+  onHistory?: () => void;
 }> = ({ children, onBack, onHistory }) => {
   const lang = useAppSelector(selectLanguage);
   return (
@@ -75,11 +76,13 @@ const ComponentWithHeader: React.FC<{
             </Typography>
           </Button>
         )}
-        <Button variant="text" title="History" onClick={onHistory}>
-          <Typography variant="p" color="white">
-            {lang.strings.sidebar.history}
-          </Typography>
-        </Button>
+        {onHistory && (
+          <Button variant="text" title="History" onClick={onHistory}>
+            <Typography variant="p" color="white">
+              {lang.strings.sidebar.history}
+            </Typography>
+          </Button>
+        )}
       </Flex>
       <div style={{ alignItems: 'stretch', height: '90%', width: '100%' }}>
         {children}
@@ -90,6 +93,7 @@ const ComponentWithHeader: React.FC<{
 
 ComponentWithHeader.defaultProps = {
   onBack: undefined,
+  onHistory: undefined,
 };
 
 const pageMap: Record<
@@ -106,13 +110,13 @@ const pageMap: Record<
       <SwapSummary />
     </ComponentWithHeader>
   ),
-  [SwapPage.RECEIVE]: onHistory => (
-    <FullScreenWithConnectedDevice onHistory={onHistory}>
+  [SwapPage.RECEIVE]: () => (
+    <FullScreenWithConnectedDevice>
       <SwapReceive />
     </FullScreenWithConnectedDevice>
   ),
-  [SwapPage.SEND]: onHistory => (
-    <FullScreenWithConnectedDevice onHistory={onHistory}>
+  [SwapPage.SEND]: () => (
+    <FullScreenWithConnectedDevice>
       <SwapSend />
     </FullScreenWithConnectedDevice>
   ),
