@@ -128,6 +128,7 @@ export interface SendDialogContextInterface {
   getAmountError: () => string;
   getDestinationTagError: () => string;
   isPreparingTxn: boolean;
+  validTill?: string;
 }
 
 export const SendDialogContext: Context<SendDialogContextInterface> =
@@ -153,6 +154,7 @@ export interface SendDialogProps {
   onClose?: () => void;
   source?: SendFlowSource;
   onError?: (e?: any) => void;
+  validTill?: string;
 }
 
 export interface SendDialogContextProviderProps extends SendDialogProps {
@@ -172,6 +174,7 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
   onClose: injectedOnClose,
   source = 'default',
   onError: injectedOnError,
+  validTill,
 }) => {
   const lang = useAppSelector(selectLanguage);
   const dispatch = useAppDispatch();
@@ -930,6 +933,7 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
       getAmountError,
       getDestinationTagError,
       isPreparingTxn,
+      validTill,
     }),
     [
       source,
@@ -978,6 +982,7 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
       getAmountError,
       getDestinationTagError,
       isPreparingTxn,
+      validTill,
     ],
   );
 
@@ -1004,4 +1009,5 @@ SendDialogProvider.defaultProps = {
   onClose: undefined,
   source: 'default',
   onError: undefined,
+  validTill: undefined,
 };

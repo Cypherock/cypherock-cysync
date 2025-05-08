@@ -7,7 +7,7 @@ import {
   BlurOverlay,
   DialogBoxBackgroundBar,
 } from '@cypherock/cysync-ui';
-import React, { FC } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 
 import { ErrorHandlerDialog, WithConnectedDevice } from '~/components';
 import { selectLanguage, useAppSelector } from '~/store';
@@ -37,7 +37,31 @@ export const SendFlow: FC = () => {
     onRetry,
     selectedWallet,
     source,
+    validTill,
   } = useSendDialog();
+  const getTotalSeconds = () => {
+    if (!validTill) return 0;
+    const diff = new Date(validTill).getTime() - Date.now();
+    return Math.max(0, Math.floor(diff / 1000));
+  };
+
+  const [seconds, setSeconds] = useState(getTotalSeconds());
+
+  useEffect(() => {
+    setSeconds(getTotalSeconds());
+  }, [validTill]);
+
+  useEffect(() => {
+    const interval = setInterval(
+      () => setSeconds(s => Math.max(s - 1, 0)),
+      1000,
+    );
+    return () => clearInterval(interval);
+  }, []);
+
+  const minutes = Math.floor(seconds / 60);
+  const remainingSeconds = seconds % 60;
+
   const lang = useAppSelector(selectLanguage);
 
   return (
@@ -59,6 +83,14 @@ export const SendFlow: FC = () => {
               source === 'swap'
                 ? lang.strings.swap.title
                 : lang.strings.send.title
+            }
+            timer={
+              source === 'swap' && validTill
+                ? {
+                    minutes: minutes.toString().padStart(2, '0'),
+                    seconds: remainingSeconds.toString().padStart(2, '0'),
+                  }
+                : undefined
             }
           />
           <WalletDialogMainContainer>

@@ -70,6 +70,7 @@ export const SwapSend = () => {
         storeTransactionId,
         onClose: onSendFlowClose,
         onError: onSendDialogError,
+        validTill: exchangeDetails.validTill,
       }),
     );
   }, []);
