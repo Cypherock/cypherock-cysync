@@ -332,6 +332,11 @@
         "summary": "Ringkasan",
         "x1vault": "X1 Vault",
         "confirm": "Konfirmasi"
+      },
+      "timer": {
+        "title": "Expiring in",
+        "minutes": "Minutes",
+        "seconds": "Seconds"
       }
     },
     "optimism": {

@@ -332,6 +332,11 @@
         "summary": "Zusammenfassung",
         "x1vault": "X1 Vault",
         "confirm": "Bestätigung"
+      },
+      "timer": {
+        "title": "Expiring in",
+        "minutes": "Minutes",
+        "seconds": "Seconds"
       }
     },
     "optimism": {

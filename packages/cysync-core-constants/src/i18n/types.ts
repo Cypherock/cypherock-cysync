@@ -329,6 +329,11 @@ interface LangSend {
       x1vault: string;
       confirm: string;
     };
+    timer: {
+      title: string;
+      minutes: string;
+      seconds: string;
+    };
   };
   optimism: {
     deviceAction: string;

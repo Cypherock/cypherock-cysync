@@ -92,8 +92,11 @@ export const SendFlow: FC = () => {
             timer={
               source === SendFlowSource.SWAP && validTill
                 ? {
+                    title: lang.strings.send.aside.timer.title,
+                    minutesLabel: lang.strings.send.aside.timer.minutes,
                     minutes: minutes.toString().padStart(2, '0'),
                     seconds: remainingSeconds.toString().padStart(2, '0'),
+                    secondsLabel: lang.strings.send.aside.timer.seconds,
                   }
                 : undefined
             }

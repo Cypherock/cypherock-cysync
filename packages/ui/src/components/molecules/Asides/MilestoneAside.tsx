@@ -41,8 +41,11 @@ export const MilestoneAside: FC<{
   activeTab: number;
   skippedTabs?: number[];
   timer?: {
+    title: string;
     minutes: string;
+    minutesLabel: string;
     seconds: string;
+    secondsLabel: string;
   };
 }> = ({ milestones, activeTab, heading, skippedTabs, timer }) => (
   <AsideStyle>
@@ -95,9 +98,9 @@ export const MilestoneAside: FC<{
       <Timer
         minutes={timer.minutes}
         seconds={timer.seconds}
-        secondsLabel="Seconds"
-        minutesLabel="Minutes"
-        title="Expiring In"
+        secondsLabel={timer.secondsLabel}
+        minutesLabel={timer.minutesLabel}
+        title={timer.title}
       />
     )}
   </AsideStyle>
