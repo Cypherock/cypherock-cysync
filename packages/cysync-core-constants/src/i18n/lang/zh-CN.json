@@ -332,6 +332,11 @@
         "summary": "摘要",
         "x1vault": "X1 Vault",
         "confirm": "确认"
+      },
+      "timer": {
+        "title": "Expiring in",
+        "minutes": "Minutes",
+        "seconds": "Seconds"
       }
     },
     "optimism": {
@@ -2753,6 +2758,7 @@
     }
   },
   "swap": {
+    "title": "Swap",
     "detailsInput": {
       "common": {
         "searchText": "Search",
@@ -2774,6 +2780,9 @@
         "searchingForOffers": "Searching for your best offer",
         "bestOffer": "Best Offer",
         "fixedRate": "Fixed rate",
+        "fixedRateTooltip": "A fixed rate ensures you get the quoted value without being affected by price changes.",
+        "networkFee": "Network Fee",
+        "networkFeeTooltip": "The blockchain network applies this fee to execute your swap. Only the outgoing (send) network fee is added on top of the quoted amount — the incoming (receive) fee is already covered in the quote.",
         "quotesFound": "${num} quotes found",
         "timerText": "Updates in ${time}",
         "buttons": {

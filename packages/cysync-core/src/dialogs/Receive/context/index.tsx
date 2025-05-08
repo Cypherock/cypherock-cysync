@@ -37,7 +37,13 @@ import {
   FinalMessage,
 } from '../Dialogs';
 
+export enum ReceiveFlowSource {
+  DEFAULT = 0,
+  SWAP,
+}
+
 export interface ReceiveDialogContextInterface {
+  source: ReceiveFlowSource;
   tabs: ITabs;
   onNext: (tab?: number, dialog?: number) => void;
   goTo: (tab: number, dialog?: number) => void;
@@ -81,6 +87,7 @@ export interface ReceiveDialogContextProviderProps {
   skipSelection?: boolean;
   storeReceiveAddress?: (address: string) => void;
   onClose?: () => void;
+  source?: ReceiveFlowSource;
   onError?: (e?: any) => void;
 }
 
@@ -91,6 +98,7 @@ export const ReceiveDialogProvider: FC<ReceiveDialogContextProviderProps> = ({
   skipSelection,
   storeReceiveAddress,
   onClose: onCloseInjected,
+  source = ReceiveFlowSource.DEFAULT,
   onError: injectedOnError,
 }) => {
   const lang = useAppSelector(selectLanguage);
@@ -292,6 +300,7 @@ export const ReceiveDialogProvider: FC<ReceiveDialogContextProviderProps> = ({
 
   const ctx = useMemo(
     () => ({
+      source,
       defaultWalletId,
       defaultAccountId,
       onNext,
@@ -321,6 +330,7 @@ export const ReceiveDialogProvider: FC<ReceiveDialogContextProviderProps> = ({
       isFlowCompleted,
     }),
     [
+      source,
       defaultWalletId,
       defaultAccountId,
       onNext,
@@ -368,5 +378,6 @@ ReceiveDialogProvider.defaultProps = {
   skipSelection: undefined,
   storeReceiveAddress: undefined,
   onClose: undefined,
+  source: ReceiveFlowSource.DEFAULT,
   onError: undefined,
 };

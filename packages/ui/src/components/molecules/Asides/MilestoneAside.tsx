@@ -11,6 +11,7 @@ import {
   Typography,
 } from '../../atoms';
 import { ProgressLine } from '../ProgressLine';
+import { Timer } from '../Timer';
 
 const AsideStyle = styled.div`
   display: flex;
@@ -39,7 +40,14 @@ export const MilestoneAside: FC<{
   milestones: string[];
   activeTab: number;
   skippedTabs?: number[];
-}> = ({ milestones, activeTab, heading, skippedTabs }) => (
+  timer?: {
+    title: string;
+    minutes: string;
+    minutesLabel: string;
+    seconds: string;
+    secondsLabel: string;
+  };
+}> = ({ milestones, activeTab, heading, skippedTabs, timer }) => (
   <AsideStyle>
     {heading ? (
       <Typography $fontSize={18} shrink={0}>
@@ -86,10 +94,20 @@ export const MilestoneAside: FC<{
         </Flex>
       ))}
     </Flex>
+    {timer && (
+      <Timer
+        minutes={timer.minutes}
+        seconds={timer.seconds}
+        secondsLabel={timer.secondsLabel}
+        minutesLabel={timer.minutesLabel}
+        title={timer.title}
+      />
+    )}
   </AsideStyle>
 );
 
 MilestoneAside.defaultProps = {
   heading: undefined,
   skippedTabs: undefined,
+  timer: undefined,
 };

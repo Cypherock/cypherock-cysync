@@ -6,6 +6,7 @@ import React, { useEffect, useRef } from 'react';
 import { openReceiveDialog } from '~/actions';
 import { LoaderDialog } from '~/components';
 import { createCustomError, useSwap } from '~/context';
+import { ReceiveFlowSource } from '~/dialogs/Receive/context';
 import { DeviceTask, useDeviceTask } from '~/hooks';
 import { closeDialog, useAppDispatch } from '~/store';
 
@@ -91,6 +92,7 @@ export const SwapReceive = () => {
         skipSelection: true,
         storeReceiveAddress: getReceiveAddress,
         onClose: onReceiveFlowClosed,
+        source: ReceiveFlowSource.SWAP,
         onError: onReceiveDialogError,
       }),
     );

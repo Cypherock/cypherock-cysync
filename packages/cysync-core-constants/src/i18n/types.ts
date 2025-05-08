@@ -329,6 +329,11 @@ interface LangSend {
       x1vault: string;
       confirm: string;
     };
+    timer: {
+      title: string;
+      minutes: string;
+      seconds: string;
+    };
   };
   optimism: {
     deviceAction: string;
@@ -1771,6 +1776,7 @@ interface LangInheritanceGoldPlanPurchase {
 }
 
 interface LangSwap {
+  title: string;
   detailsInput: {
     common: {
       searchText: string;
@@ -1792,6 +1798,9 @@ interface LangSwap {
       searchingForOffers: string;
       bestOffer: string;
       fixedRate: string;
+      fixedRateTooltip: string;
+      networkFee: string;
+      networkFeeTooltip: string;
       quotesFound: string;
       timerText: string;
       buttons: {

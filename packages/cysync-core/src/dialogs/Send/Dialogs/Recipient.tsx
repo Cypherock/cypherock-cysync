@@ -117,21 +117,23 @@ export const Recipient: React.FC = () => {
             <LangDisplay text={displayText.subtitle} />
           </Typography>
         </Container>
-        <LeanBox
-          leftImage={
-            <InformationIcon
-              height={16}
-              width={16}
-              fill={theme.palette.background.muted}
-            />
-          }
-          pt={2}
-          text={displayText.infoBox}
-          altText={`~${getBalanceToDisplay()}`}
-          textVariant="span"
-          fontSize={12}
-          disabledInnerFlex
-        />
+        {!isAccountSelectionDisabled && (
+          <LeanBox
+            leftImage={
+              <InformationIcon
+                height={16}
+                width={16}
+                fill={theme.palette.background.muted}
+              />
+            }
+            pt={2}
+            text={displayText.infoBox}
+            altText={`~${getBalanceToDisplay()}`}
+            textVariant="span"
+            fontSize={12}
+            disabledInnerFlex
+          />
+        )}
       </DialogBoxBody>
       <ScrollableContainer>
         <AddressAndAmountSection disableInputs={isAccountSelectionDisabled} />

@@ -77,6 +77,7 @@ import {
 } from '../Dialogs';
 
 export interface SendDialogContextInterface {
+  source: SendFlowSource;
   tabs: ITabs;
   onNext: (tab?: number, dialog?: number) => void;
   onSelectionDialogNext: () => void;
@@ -127,6 +128,7 @@ export interface SendDialogContextInterface {
   getAmountError: () => string;
   getDestinationTagError: () => string;
   isPreparingTxn: boolean;
+  validTill?: string;
 }
 
 export const SendDialogContext: Context<SendDialogContextInterface> =
@@ -136,6 +138,11 @@ export interface ToDetails {
   address: string;
   amount: string;
   extraInput?: string;
+}
+
+export enum SendFlowSource {
+  DEFAULT = 0,
+  SWAP,
 }
 
 export interface SendDialogProps {
@@ -148,7 +155,9 @@ export interface SendDialogProps {
   skipAccountSelection?: boolean;
   storeTransactionId?: (id: string) => void;
   onClose?: () => void;
+  source?: SendFlowSource;
   onError?: (e?: any) => void;
+  validTill?: string;
 }
 
 export interface SendDialogContextProviderProps extends SendDialogProps {
@@ -166,7 +175,9 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
   skipAccountSelection,
   storeTransactionId,
   onClose: injectedOnClose,
+  source = SendFlowSource.DEFAULT,
   onError: injectedOnError,
+  validTill,
 }) => {
   const lang = useAppSelector(selectLanguage);
   const dispatch = useAppDispatch();
@@ -221,8 +232,8 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
     includeSubAccounts: true,
   });
 
-  const tabs: ITabs = useMemo(
-    () => [
+  const tabs: ITabs = useMemo(() => {
+    const allTabs = [
       {
         name: lang.strings.send.aside.tabs.source,
         dialogs: [<SelectionDialog />],
@@ -248,9 +259,14 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
         dialogs: [<FinalMessage />],
         dontShowOnMilestone: true,
       },
-    ],
-    [lang],
-  );
+    ];
+    if (source === SendFlowSource.SWAP) {
+      return allTabs.filter(
+        t => t.name !== lang.strings.send.aside.tabs.summary,
+      );
+    }
+    return allTabs;
+  }, [lang]);
 
   useEffect(() => {
     if (disableAccountSelection || skipAccountSelection) goTo(1, 0);
@@ -874,6 +890,7 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
 
   const ctx = useMemo(
     () => ({
+      source,
       defaultWalletId,
       defaultAccountId,
       onNext,
@@ -919,8 +936,10 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
       getAmountError,
       getDestinationTagError,
       isPreparingTxn,
+      validTill,
     }),
     [
+      source,
       defaultWalletId,
       defaultAccountId,
       onNext,
@@ -966,6 +985,7 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
       getAmountError,
       getDestinationTagError,
       isPreparingTxn,
+      validTill,
     ],
   );
 
@@ -990,5 +1010,7 @@ SendDialogProvider.defaultProps = {
   prefillDetails: undefined,
   storeTransactionId: undefined,
   onClose: undefined,
+  source: SendFlowSource.DEFAULT,
   onError: undefined,
+  validTill: undefined,
 };

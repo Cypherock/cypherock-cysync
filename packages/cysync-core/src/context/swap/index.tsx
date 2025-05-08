@@ -1,4 +1,4 @@
-import { IAccount } from '@cypherock/db-interfaces';
+import { IAccount, IWallet } from '@cypherock/db-interfaces';
 import {
   ExchangeApp,
   IGetSignatureResultResponse,
@@ -36,8 +36,11 @@ export interface IQuote {
 }
 
 export interface IFillDetailsParams {
-  from: IAccount;
-  to: IAccount;
+  fromWallet: IWallet;
+  fromAccount: IAccount;
+  fromAmount: string;
+  toWallet: IWallet;
+  toAccount: IAccount;
   quote: IQuote;
 }
 
@@ -45,6 +48,7 @@ export interface IExchangeDetails {
   id: string;
   address: string;
   additionalData?: string;
+  validTill: string;
 }
 
 export interface SwapContextInterface {
@@ -56,7 +60,10 @@ export interface SwapContextInterface {
   onError: (e?: any) => void;
   retryCurrentPage: () => void;
   fromAccount?: IAccount;
+  fromAmount: string;
+  fromWallet?: IWallet;
   toAccount?: IAccount;
+  toWallet?: IWallet;
   quote?: IQuote;
   fillDetails: (params: IFillDetailsParams) => void;
   exchangeDetails?: IExchangeDetails;
@@ -102,7 +109,9 @@ export const SwapProvider: React.FC<SwapProviderProps> = ({ children }) => {
     setCurrentPage(SwapPage.DETAILS);
 
     setFromAccount(undefined);
+    setFromWallet(undefined);
     setToAccount(undefined);
+    setToWallet(undefined);
     setQuote(undefined);
     setExchangeDetails(undefined);
   };
@@ -127,17 +136,30 @@ export const SwapProvider: React.FC<SwapProviderProps> = ({ children }) => {
     retryMap[currentPage]();
   }, [currentPage]);
 
+  const [fromWallet, setFromWallet] = useState<IWallet | undefined>();
   const [fromAccount, setFromAccount] = useState<IAccount | undefined>();
+  const [fromAmount, setFromAmount] = useState<string>('0');
+  const [toWallet, setToWallet] = useState<IWallet | undefined>();
   const [toAccount, setToAccount] = useState<IAccount | undefined>();
   const [quote, setQuote] = useState<IQuote | undefined>();
   const [exchangeDetails, setExchangeDetails] = useState<
     IExchangeDetails | undefined
   >();
 
-  const fillDetails = ({ from, to, quote: newQuote }: IFillDetailsParams) => {
-    setFromAccount(from);
-    setToAccount(to);
-    setQuote(newQuote);
+  const fillDetails = ({
+    fromWallet: sourceWallet,
+    fromAccount: sourceAccount,
+    fromAmount: sourceAmount,
+    toAccount: destinationAccount,
+    toWallet: destinationWallet,
+    quote: selectedQuote,
+  }: IFillDetailsParams) => {
+    setFromWallet(sourceWallet);
+    setFromAccount(sourceAccount);
+    setFromAmount(sourceAmount);
+    setToWallet(destinationWallet);
+    setToAccount(destinationAccount);
+    setQuote(selectedQuote);
   };
 
   // give details to exchange app (init)
@@ -219,6 +241,7 @@ export const SwapProvider: React.FC<SwapProviderProps> = ({ children }) => {
           id: result.data.id,
           address: result.data.exchangeAddress,
           additionalData: result.data.exchangeAddressAdditionalData,
+          validTill: result.data.validTill,
         });
 
         exchangeSignatureRef.current = result.data.exchangeAddressSignature;
@@ -263,7 +286,10 @@ export const SwapProvider: React.FC<SwapProviderProps> = ({ children }) => {
     error: globalError,
     onError,
     retryCurrentPage: retryPage,
+    fromWallet,
     fromAccount,
+    fromAmount,
+    toWallet,
     toAccount,
     quote,
     fillDetails,
