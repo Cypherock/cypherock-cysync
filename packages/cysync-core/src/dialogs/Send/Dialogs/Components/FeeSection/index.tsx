@@ -18,13 +18,19 @@ import {
 } from '@cypherock/coins';
 import { Container, MessageBox } from '@cypherock/cysync-ui';
 import { BigNumber } from '@cypherock/cysync-utils';
+import { AccountTypeMap } from '@cypherock/db-interfaces';
 import lodash from 'lodash';
 import React, { useCallback, useState } from 'react';
 
 import { CoinIcon } from '~/components';
 import { useLabelSuffix } from '~/dialogs/Send/hooks';
 import { useStateToRef } from '~/hooks';
-import { selectLanguage, selectPriceInfos, useAppSelector } from '~/store';
+import {
+  ILangState,
+  selectLanguage,
+  selectPriceInfos,
+  useAppSelector,
+} from '~/store';
 
 import { BitcoinInput } from './BitcoinInput';
 import { EthereumInput } from './EthereumInput';
@@ -34,6 +40,7 @@ import { OptimismFeesHeader } from './OptimismFeesHeader';
 import { XrpInput } from './XrpInput';
 
 import { useSendDialog } from '../../../context';
+import { IPreparedTransaction } from '@cypherock/coin-support-interfaces';
 
 const feeInputMap: Partial<Record<CoinFamily, React.FC<any>>> = {
   bitcoin: BitcoinInput,
@@ -52,6 +59,48 @@ const feeHeaderMap: Partial<
   bitcoin: getDefaultHeader,
   evm: getEvmHeader,
   xrp: getDefaultHeader,
+};
+
+const getErrorAndWarningComponents = (
+  txnValidation: IPreparedTransaction['validation'],
+  isFeeLow: boolean,
+  lang: ILangState,
+  showErrors?: boolean,
+) => {
+  const tronTxnValidation =
+    txnValidation as IPreparedTronTransaction['validation'];
+  const xrpTxnValidation =
+    txnValidation as IPreparedXrpTransaction['validation'];
+  const solanaTxnValidation =
+    txnValidation as IPreparedSolanaTransaction['validation'];
+
+  const displayText = lang.strings.send.recipient;
+
+  return (
+    <>
+      {isFeeLow && txnValidation?.isValidFee && (
+        <MessageBox type="warning" text={displayText.warning} />
+      )}
+      {tronTxnValidation?.notEnoughEnergy && (
+        <MessageBox
+          type="warning"
+          text={lang.strings.send.tron.notEnoughEnergyWarning}
+        />
+      )}
+      {!txnValidation?.isValidFee && (
+        <MessageBox type="danger" text={displayText.feeError} />
+      )}
+      {xrpTxnValidation?.isFeeBelowMin && (
+        <MessageBox type="danger" text={displayText.feeBelowMinError} />
+      )}
+      {solanaTxnValidation?.isRentExemptFeeRequired && (
+        <MessageBox type="warning" text={displayText.rentExemptFeeWarning} />
+      )}
+      {showErrors && txnValidation?.hasEnoughBalance === false && (
+        <MessageBox type="danger" text={displayText.notEnoughBalance} />
+      )}
+    </>
+  );
 };
 
 export interface FeeSectionProps {
@@ -134,6 +183,7 @@ export const FeeSection: React.FC<FeeSectionProps> = ({ showErrors }) => {
     tron: () => ({}),
     xrp: getXrpProps,
     starknet: () => ({}),
+    icp: () => ({}),
   };
 
   const getFeeInputComponent = () => {
@@ -255,25 +305,39 @@ export const FeeSection: React.FC<FeeSectionProps> = ({ showErrors }) => {
       transaction,
     );
 
+    const isIcpToken =
+      account.familyId === coinFamiliesMap.icp &&
+      account.type === AccountTypeMap.subAccount;
     const { amount: _amount, unit } = getParsedAmount({
       coinId: account.parentAssetId,
-      unitAbbr: getDefaultUnit(account.parentAssetId).abbr,
+      assetId: isIcpToken ? account.assetId : undefined,
+      unitAbbr: getDefaultUnit(
+        account.parentAssetId,
+        isIcpToken ? account.assetId : undefined,
+      ).abbr,
       amount: computedFee,
     });
     result.fee = `${_amount} ${unit.abbr}`;
 
     const coinPrice = priceInfos.find(
       p =>
-        p.assetId === account.parentAssetId &&
+        p.assetId === (isIcpToken ? account.assetId : account.parentAssetId) &&
         p.currency.toLowerCase() === 'usd',
     );
 
     if (coinPrice) {
       const feesInDefaultUnit = convertToUnit({
         amount: computedFee,
-        fromUnitAbbr: getZeroUnit(account.parentAssetId).abbr,
+        fromUnitAbbr: getZeroUnit(
+          account.parentAssetId,
+          isIcpToken ? account.assetId : undefined,
+        ).abbr,
         coinId: account.parentAssetId,
-        toUnitAbbr: getDefaultUnit(account.parentAssetId).abbr,
+        assetId: isIcpToken ? account.assetId : undefined,
+        toUnitAbbr: getDefaultUnit(
+          account.parentAssetId,
+          isIcpToken ? account.assetId : undefined,
+        ).abbr,
       });
       const feeValue = new BigNumber(feesInDefaultUnit.amount).multipliedBy(
         coinPrice.latestPrice,
@@ -283,6 +347,8 @@ export const FeeSection: React.FC<FeeSectionProps> = ({ showErrors }) => {
 
     return result;
   };
+
+  const txnValidation = transaction?.validation;
 
   return (
     <Container
@@ -294,9 +360,7 @@ export const FeeSection: React.FC<FeeSectionProps> = ({ showErrors }) => {
       width="full"
     >
       {getFeeHeaderComponent()}
-
       {getFeeInputComponent()}
-
       <FeesDisplay
         label={displayText.fees.label + getLabelSuffix(selectedAccount)}
         isLoading={isFeeLoading}
@@ -305,31 +369,9 @@ export const FeeSection: React.FC<FeeSectionProps> = ({ showErrors }) => {
         }
         {...getFeeDetails()}
       />
-      {isFeeLow && transaction?.validation.isValidFee && (
-        <MessageBox type="warning" text={displayText.warning} />
-      )}
-      {(transaction?.validation as IPreparedTronTransaction['validation'])
-        .notEnoughEnergy && (
-        <MessageBox
-          type="warning"
-          text={lang.strings.send.tron.notEnoughEnergyWarning}
-        />
-      )}
-      {!transaction?.validation.isValidFee && (
-        <MessageBox type="danger" text={displayText.feeError} />
-      )}
-
-      {(transaction?.validation as IPreparedXrpTransaction['validation'])
-        .isFeeBelowMin && (
-        <MessageBox type="danger" text={displayText.feeBelowMinError} />
-      )}
-      {(transaction?.validation as IPreparedSolanaTransaction['validation'])
-        .isRentExemptFeeRequired && (
-        <MessageBox type="warning" text={displayText.rentExemptFeeWarning} />
-      )}
-      {showErrors && transaction?.validation.hasEnoughBalance === false && (
-        <MessageBox type="danger" text={displayText.notEnoughBalance} />
-      )}
+      ...
+      {txnValidation &&
+        getErrorAndWarningComponents(txnValidation, isFeeLow, lang, showErrors)}
     </Container>
   );
 };

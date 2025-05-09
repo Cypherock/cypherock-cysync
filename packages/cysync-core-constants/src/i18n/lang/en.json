@@ -171,26 +171,38 @@
     "receive": {
       "title": {
         "prefix": "Address for ",
+        "accountIdPrefix": "Account ID for ",
+        "principalIdPrefix": "Principal ID for ",
         "suffix": "in ${walletName}"
       },
       "addressLabel": "Address",
+      "accountIdLabel": "Account ID",
+      "principalIdLabel": "Principal ID",
       "actions": {
-        "verify": "Verify the address on X1 Vault exactly matches the address displayed above"
+        "verify": "Verify the address on X1 Vault exactly matches the address displayed above",
+        "verifyAccountId": "Verify the Account ID on X1 Vault exactly matches the Account ID displayed above",
+        "verifyPrincipalId": "Verify the Principal ID on X1 Vault exactly matches the Principal ID displayed above"
       },
       "messageBox": {
-        "warning": "This Receive Address was NOT VERIFIED by the device. Use it at your own risk"
+        "warning": "This Receive Address was NOT VERIFIED by the device. Use it at your own risk",
+        "accountIdWarning": "This Receive Account ID was NOT VERIFIED by the device. Use it at your own risk",
+        "principalIdWarning": "This Receive Principal ID was NOT VERIFIED by the device. Use it at your own risk"
       },
       "waitMessageBox": {
         "warning": "This process might take around a minute. Please be patient"
       }
     },
     "congrats": {
-      "title": "Address verified successfully"
+      "title": "Address verified successfully",
+      "accountAndPrincipalIdTitle": "Account ID and Principal ID verified successfully"
     },
     "finalButtons": {
       "secondary": "Verify Again",
       "secondaryUnverified": "Verify Address",
-      "primary": "Done"
+      "secondaryUnverifiedAccountId": "Verify Account ID",
+      "secondaryUnverifiedPrincipalId": "Verify Principal ID",
+      "primary": "Done",
+      "continue": "Continue"
     },
     "aside": {
       "tabs": {
@@ -266,6 +278,18 @@
         "error": "Invalid address",
         "ownAddress": "Recipient address is the same as sender address"
       },
+      "icpAccountIdRecipient": {
+        "label": "Recipient Account ID",
+        "placeholder": "Enter account id",
+        "error": "Invalid account id",
+        "ownAddress": "Recipient account id is the same as sender account id"
+      },
+      "icpPrincipalIdRecipient": {
+        "label": "Recipient Principal ID",
+        "placeholder": "Enter principal id",
+        "error": "Invalid principal id",
+        "ownAddress": "Recipient principal id is the same as sender principal id"
+      },
       "tabs": {
         "single": "Single Transaction",
         "batch": "Batch Transaction"
@@ -304,6 +328,11 @@
         "placeholder": "Optional",
         "error": "Value too high"
       },
+      "memo": {
+        "label": "Memo (Optional)",
+        "placeholder": "Enter a numeric memo",
+        "error": "Value too high"
+      },
       "feeBelowMinError": "Transaction with fee lesser than minimum will fail",
       "rentExemptFeeWarning": "Receiving a token on solana for the first time incurs rent exemption fees, included in total fees."
     },
@@ -315,12 +344,14 @@
       "network": "Network Fee",
       "debit": "Total to debit",
       "remarks": "Personal Note",
-      "destinationTag": "Destination Tag"
+      "destinationTag": "Destination Tag",
+      "memo": "Memo"
     },
     "finalMessage": {
       "button": "Check transactions",
       "title": "Transaction Sent",
       "hashLabel": "Transaction Hash",
+      "idLabel": "Transaction ID",
       "messageBox": {
         "warning": "Your account balance will be updated when the blockchain confirms the transaction"
       }
@@ -426,12 +457,15 @@
       "receiver": "Receiver",
       "mine": "Mine",
       "transactionHash": "Transaction Hash",
+      "transactionId": "Transaction ID",
       "description": "Description",
       "feePrefix": {
         "optimism": "L2 "
       },
       "remarks": "Personal Note",
-      "destinationTag": "Destination Tag"
+      "destinationTag": "Destination Tag",
+      "memo": "Memo",
+      "operation": "Operation"
     },
     "noData": {
       "text": "No transactions yet",

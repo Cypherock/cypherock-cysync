@@ -1,4 +1,5 @@
 import { IPreparedBtcTransaction } from '@cypherock/coin-support-btc';
+import { IPreparedTransaction } from '@cypherock/coin-support-interfaces';
 import { IPreparedSolanaTransaction } from '@cypherock/coin-support-solana';
 import { getDefaultUnit, getParsedAmount } from '@cypherock/coin-support-utils';
 import { IPreparedXrpTransaction } from '@cypherock/coin-support-xrp';
@@ -61,34 +62,52 @@ export const Recipient: React.FC = () => {
 
   const [btnState, handleButtonState] = useState(false);
   useEffect(() => {
-    handleButtonState(
-      !isPreparingTxn &&
-        !!transaction &&
-        transaction.validation.hasEnoughBalance &&
-        !(transaction.validation as IPreparedBtcTransaction['validation'])
-          .isNotOverDustThreshold &&
-        transaction.validation.outputs.length > 0 &&
-        transaction.validation.outputs.every(output => output) &&
-        transaction.userInputs.outputs.every(
-          output =>
-            output.address !== '' && !new BigNumber(output.amount).isNaN(),
-        ) &&
-        transaction.validation.isValidFee &&
-        transaction.validation.ownOutputAddressNotAllowed.every(
-          output => !output,
-        ) &&
-        !transaction.validation.zeroAmountNotAllowed &&
-        !(transaction.validation as IPreparedXrpTransaction['validation'])
-          .isBalanceBelowXrpReserve &&
-        !(transaction.validation as IPreparedXrpTransaction['validation'])
-          .isAmountBelowXrpReserve &&
-        !(transaction.validation as IPreparedXrpTransaction['validation'])
-          .isFeeBelowMin &&
-        !(transaction.validation as IPreparedXrpTransaction['validation'])
-          .isInvalidDestinationTag &&
-        !(transaction.validation as IPreparedSolanaTransaction['validation'])
-          .isAmountBelowRentExempt,
-    );
+    const areUserOutputsValid = (
+      validation: IPreparedTransaction['validation'],
+    ): boolean =>
+      validation.outputs.length > 0 &&
+      validation.outputs.every(output => output) &&
+      !!transaction &&
+      transaction.userInputs.outputs.every(
+        output =>
+          output.address !== '' && !new BigNumber(output.amount).isNaN(),
+      ) &&
+      transaction.validation.ownOutputAddressNotAllowed.every(
+        output => !output,
+      );
+
+    const isBtcValid = (
+      validation: IPreparedBtcTransaction['validation'],
+    ): boolean => !validation.isNotOverDustThreshold;
+
+    const isXrpValid = (
+      validation: IPreparedXrpTransaction['validation'],
+    ): boolean =>
+      !validation.isBalanceBelowXrpReserve &&
+      !validation.isAmountBelowXrpReserve &&
+      !validation.isFeeBelowMin &&
+      !validation.isInvalidDestinationTag;
+
+    const isSolanaValid = (
+      validation: IPreparedSolanaTransaction['validation'],
+    ): boolean => !validation.isAmountBelowRentExempt;
+
+    const isTransactionValid = (): boolean => {
+      if (!transaction) return false;
+
+      const v = transaction.validation;
+      return (
+        v.hasEnoughBalance &&
+        v.isValidFee &&
+        !v.zeroAmountNotAllowed &&
+        areUserOutputsValid(v) &&
+        isBtcValid(v as IPreparedBtcTransaction['validation']) &&
+        isXrpValid(v as IPreparedXrpTransaction['validation']) &&
+        isSolanaValid(v as IPreparedSolanaTransaction['validation'])
+      );
+    };
+
+    handleButtonState(!isPreparingTxn && isTransactionValid());
   }, [transaction, isPreparingTxn]);
 
   useEffect(() => {

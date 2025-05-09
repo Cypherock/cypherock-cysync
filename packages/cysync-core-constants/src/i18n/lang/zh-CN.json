@@ -171,26 +171,38 @@
     "receive": {
       "title": {
         "prefix": "在 ",
+        "accountIdPrefix": "账户 ID 为 ",
+        "principalIdPrefix": "主要 ID 为 ",
         "suffix": "${walletName}中的地址"
       },
       "addressLabel": "地址",
+      "accountIdLabel": "账户 ID",
+      "principalIdLabel": "主要ID",
       "actions": {
-        "verify": "验证X1 Vault上的地址与上面显示的地址完全匹配"
+        "verify": "验证X1 Vault上的地址与上面显示的地址完全匹配",
+        "verifyAccountId": "在X1 Vault上验证账户ID与上面显示的账户ID完全匹配",
+        "verifyPrincipalId": "在X1 Vault上验证主ID与上面显示的主ID完全匹配"
       },
       "messageBox": {
-        "warning": "此接收地址未经过设备验证。使用风险自负"
+        "warning": "此接收地址未经过设备验证。使用风险自负",
+        "accountIdWarning": "此接收账户ID未经设备验证。使用时请自担风险",
+        "principalIdWarning": "此接收主体ID未经设备验证。使用时请自担风险"
       },
       "waitMessageBox": {
         "warning": "此过程可能需要大约一分钟。请耐心等待"
       }
     },
     "congrats": {
-      "title": "地址验证成功"
+      "title": "地址验证成功",
+      "accountAndPrincipalIdTitle": "账户 ID 和主体 ID 验证成功"
     },
     "finalButtons": {
       "secondary": "再次验证",
       "secondaryUnverified": "验证地址",
-      "primary": "完成"
+      "secondaryUnverifiedAccountId": "验证账户 ID",
+      "secondaryUnverifiedPrincipalId": "验证主体 ID",
+      "primary": "完成",
+      "continue": "继续"
     },
     "aside": {
       "tabs": {
@@ -266,6 +278,18 @@
         "error": "无效地址",
         "ownAddress": "收件人地址与发件人地址相同"
       },
+      "icpAccountIdRecipient": {
+        "label": "收件人账户 ID",
+        "placeholder": "输入账户 ID",
+        "error": "无效的账户 ID",
+        "ownAddress": "收件人账户 ID 与发件人账户 ID 相同"
+      },
+      "icpPrincipalIdRecipient": {
+        "label": "收件人主体 ID",
+        "placeholder": "输入主体 ID",
+        "error": "无效的主体 ID",
+        "ownAddress": "收件人主体 ID 与发件人主体 ID 相同"
+      },
       "tabs": {
         "single": "单笔交易",
         "batch": "批量交易"
@@ -304,6 +328,11 @@
         "placeholder": "可选",
         "error": "值过高"
       },
+      "memo": {
+        "label": "备忘录（可选)",
+        "placeholder": "输入数字备注",
+        "error": "值过高"
+      },
       "feeBelowMinError": "低于最低 fee 的交易将失败",
       "rentExemptFeeWarning": "首次在 Solana 上接收代币会产生租金豁免费用，已包含在总费用中。"
     },
@@ -315,12 +344,14 @@
       "network": "网络费",
       "debit": "扣款总额",
       "remarks": "个人备注",
-      "destinationTag": "目标标签"
+      "destinationTag": "目标标签",
+      "memo": "备忘录"
     },
     "finalMessage": {
       "button": "查看交易",
       "title": "交易已发送",
       "hashLabel": "交易哈希",
+      "idLabel": "交易 ID",
       "messageBox": {
         "warning": "当 blockchain 确认交易后，您的账户余额将被更新"
       }
@@ -426,12 +457,15 @@
       "receiver": "接收者",
       "mine": "我",
       "transactionHash": "交易哈希",
+      "transactionId": "交易 ID",
       "description": "描述",
       "feePrefix": {
         "optimism": "L2 "
       },
       "remarks": "个人备注",
-      "destinationTag": "目标标签"
+      "destinationTag": "目标标签",
+      "memo": "备忘录",
+      "operation": "操作"
     },
     "noData": {
       "text": "尚无交易",

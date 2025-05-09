@@ -231,17 +231,35 @@ interface LangReceive {
     };
   };
   receive: {
-    title: { prefix: string; suffix: string };
+    title: {
+      prefix: string;
+      accountIdPrefix: string;
+      principalIdPrefix: string;
+      suffix: string;
+    };
     addressLabel: string;
-    actions: { verify: string };
-    messageBox: { warning: string };
+    accountIdLabel: string;
+    principalIdLabel: string;
+    actions: {
+      verify: string;
+      verifyAccountId: string;
+      verifyPrincipalId: string;
+    };
+    messageBox: {
+      warning: string;
+      accountIdWarning: string;
+      principalIdWarning: string;
+    };
     waitMessageBox: { warning: string };
   };
-  congrats: { title: string };
+  congrats: { title: string; accountAndPrincipalIdTitle: string };
   finalButtons: {
     secondary: string;
     secondaryUnverified: string;
+    secondaryUnverifiedAccountId: string;
+    secondaryUnverifiedPrincipalId: string;
     primary: string;
+    continue: string;
   };
   aside: { tabs: { source: string; device: string; receive: string } };
 }
@@ -281,6 +299,18 @@ interface LangSend {
       error: string;
       ownAddress: string;
     };
+    icpAccountIdRecipient: {
+      label: string;
+      placeholder: string;
+      error: string;
+      ownAddress: string;
+    };
+    icpPrincipalIdRecipient: {
+      label: string;
+      placeholder: string;
+      error: string;
+      ownAddress: string;
+    };
     tabs: { single: string; batch: string };
     amount: {
       label: string;
@@ -302,7 +332,16 @@ interface LangSend {
     infoBox: string;
     addButton: string;
     remarks: { label: string; placeholder: string; error: string };
-    destinationTag: { label: string; placeholder: string; error: string };
+    destinationTag: {
+      label: string;
+      placeholder: string;
+      error: string;
+    };
+    memo: {
+      label: string;
+      placeholder: string;
+      error: string;
+    };
     rentExemptFeeWarning: string;
   };
   summary: {
@@ -314,11 +353,13 @@ interface LangSend {
     debit: string;
     remarks: string;
     destinationTag: string;
+    memo: string;
   };
   finalMessage: {
     button: string;
     title: string;
     hashLabel: string;
+    idLabel: string;
     messageBox: { warning: string };
   };
   aside: {
@@ -409,10 +450,13 @@ interface LangHistory {
     receiver: string;
     mine: string;
     transactionHash: string;
+    transactionId: string;
     description: string;
     feePrefix: { optimism: string };
     remarks: string;
     destinationTag: string;
+    memo: string;
+    operation: string;
   };
   noData: { text: string; subText: string; buttonText: string };
   search: { placeholder: string; notFound: { text: string; subText: string } };

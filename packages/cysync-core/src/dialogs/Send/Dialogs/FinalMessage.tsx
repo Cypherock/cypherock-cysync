@@ -1,3 +1,4 @@
+import { coinFamiliesMap } from '@cypherock/coins';
 import {
   LangDisplay,
   DialogBox,
@@ -54,7 +55,13 @@ export const FinalMessage: React.FC = () => {
                 <Flex justify="space-between" align="center" width="full">
                   <Flex align="center" gap={16}>
                     <Typography variant="span" color="muted" $fontSize={14}>
-                      <LangDisplay text={displayText.hashLabel} />
+                      <LangDisplay
+                        text={
+                          storedTransaction?.familyId === coinFamiliesMap.icp
+                            ? displayText.idLabel
+                            : displayText.hashLabel
+                        }
+                      />
                     </Typography>
                   </Flex>
                   <Flex align="center" direction="row" gap={8}>
