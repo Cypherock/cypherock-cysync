@@ -50,8 +50,7 @@ export const SwapSummary = () => {
 
   const button = lang.strings.buttons;
 
-  const { fromAccount, quote, toAccount, toNextPage, toPreviousPage } =
-    useSwap();
+  const { fromAccount, quote, toAccount, toNextPage } = useSwap();
 
   const getAccountDetails = (account: IAccount) => {
     const accountDetails = [
@@ -152,7 +151,12 @@ export const SwapSummary = () => {
         p.assetId === account?.parentAssetId &&
         p.currency.toLowerCase() === 'usd',
     );
-    if (!account || !assetPrice || !parentAssetPrice) return [];
+    const coinPrice = priceInfos.find(
+      p =>
+        p.assetId === account?.parentAssetId &&
+        p.currency.toLowerCase() === 'usd',
+    );
+    if (!account || !assetPrice || !parentAssetPrice || !coinPrice) return [];
 
     const amount = quote?.fromAmount ?? '0';
     const amountValue = new BigNumber(amount).multipliedBy(
@@ -160,14 +164,22 @@ export const SwapSummary = () => {
     );
 
     const feeAmount = quote?.fee ?? '0';
+    const feeInCrypto = new BigNumber(feeAmount).dividedBy(
+      coinPrice.latestPrice,
+    );
+    const unit = getDefaultUnit(account.parentAssetId, account.assetId).abbr;
 
     const totalValue = formatDisplayPrice(amountValue.plus(feeAmount));
+    const totalAmount = formatDisplayAmount(
+      new BigNumber(amount).plus(feeInCrypto),
+    ).fixed;
 
     return [
       {
         id: 'total-amount-details',
         leftText: displayText.debit,
-        rightText: `$${totalValue}`,
+        rightText: `${totalAmount} ${unit}`,
+        rightSubText: `$${totalValue}`,
       },
     ];
   };
@@ -240,14 +252,6 @@ export const SwapSummary = () => {
           </ScrollableContainer>
         </DialogBoxBody>
         <DialogBoxFooter height={101}>
-          <Button
-            variant="secondary"
-            onClick={() => {
-              toPreviousPage();
-            }}
-          >
-            <LangDisplay text={button.back} />
-          </Button>
           <Button
             variant="primary"
             onClick={() => {

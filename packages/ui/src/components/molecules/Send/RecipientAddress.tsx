@@ -89,6 +89,12 @@ export const RecipientAddress: React.FC<RecipientAddressProps> = ({
     onChange(clipboardText);
   };
 
+  const postfixIcon = () => {
+    if (isDisabled) return null;
+    if (isThrobberActive) return throbber;
+    return <PasteIcon />;
+  };
+
   return (
     <RecipientAddressContainer>
       <Flex justify="space-between" align="center" width="full">
@@ -120,7 +126,7 @@ export const RecipientAddress: React.FC<RecipientAddressProps> = ({
           $textColor="white"
           disabled={isDisabled}
           $noBorder
-          postfixIcon={isThrobberActive ? throbber : <PasteIcon />}
+          postfixIcon={postfixIcon()}
           onPostfixIconClick={
             isThrobberActive || isDisabled ? undefined : handleCopyFromClipboard
           }

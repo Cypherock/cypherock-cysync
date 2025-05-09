@@ -50,6 +50,7 @@ export interface LanguageStrings {
   inheritance: LangInheritance;
   inheritanceSilverPlanPurchase: LangInheritanceSilverPlanPurchase;
   inheritanceGoldPlanPurchase: LangInheritanceGoldPlanPurchase;
+  swap: LangSwap;
 }
 
 interface LangLabels {
@@ -327,6 +328,11 @@ interface LangSend {
       summary: string;
       x1vault: string;
       confirm: string;
+    };
+    timer: {
+      title: string;
+      minutes: string;
+      seconds: string;
     };
   };
   optimism: {
@@ -1765,6 +1771,49 @@ interface LangInheritanceGoldPlanPurchase {
     greeting: {
       title: string;
       subtext: string;
+    };
+  };
+}
+
+interface LangSwap {
+  title: string;
+  detailsInput: {
+    common: {
+      searchText: string;
+      walletPlaceholder: string;
+    };
+    from: {
+      title: string;
+      accountPlaceholder: string;
+      amountLabel: string;
+      amountError: string;
+    };
+    to: {
+      title: string;
+      accountPlaceholder: string;
+      amountLabel: string;
+    };
+    offers: {
+      initialText: string;
+      searchingForOffers: string;
+      bestOffer: string;
+      fixedRate: string;
+      fixedRateTooltip: string;
+      networkFee: string;
+      networkFeeTooltip: string;
+      quotesFound: string;
+      timerText: string;
+      buttons: {
+        continue: string;
+      };
+      errors: {
+        sameAsset: string;
+        noOffers: string;
+        currencyNotSupported: string;
+        amountRange: string;
+        noQuotes: string;
+        noInternet: string;
+      };
     };
   };
 }

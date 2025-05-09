@@ -12,7 +12,11 @@ import React, { FC } from 'react';
 import { ErrorHandlerDialog, WithConnectedDevice } from '~/components';
 import { selectLanguage, useAppSelector } from '~/store';
 
-import { ReceiveDialogProvider, useReceiveDialog } from './context';
+import {
+  ReceiveDialogProvider,
+  ReceiveFlowSource,
+  useReceiveDialog,
+} from './context';
 
 const DeviceConnectionWrapper: React.FC<{
   isDeviceRequired: boolean;
@@ -36,6 +40,8 @@ export interface ReceiveDialogProps {
   skipSelection?: boolean;
   storeReceiveAddress?: (address: string) => void;
   onClose?: () => void;
+  source?: ReceiveFlowSource;
+  onError?: (e?: any) => void;
 }
 
 export const Receive: FC = () => {
@@ -51,6 +57,7 @@ export const Receive: FC = () => {
     isStartedWithoutDevice,
     selectedWallet,
     isAddressVerified,
+    source,
   } = useReceiveDialog();
   const lang = useAppSelector(selectLanguage);
 
@@ -64,7 +71,11 @@ export const Receive: FC = () => {
               .map(t => t.name)}
             activeTab={currentTab}
             skippedTabs={!isAddressVerified && currentTab > 2 ? [1] : []}
-            heading={lang.strings.receive.title}
+            heading={
+              source === ReceiveFlowSource.SWAP
+                ? lang.strings.swap.title
+                : lang.strings.receive.title
+            }
           />
           <WalletDialogMainContainer>
             <DialogBoxBody
@@ -114,4 +125,6 @@ ReceiveDialog.defaultProps = {
   skipSelection: undefined,
   storeReceiveAddress: undefined,
   onClose: undefined,
+  source: ReceiveFlowSource.DEFAULT,
+  onError: undefined,
 };

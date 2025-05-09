@@ -53,3 +53,4 @@ export * from './DetailsCard';
 export * from './Payment';
 export * from './Input';
 export * from './FallbackRenderer';
+export * from './Timer';

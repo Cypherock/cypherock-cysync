@@ -332,6 +332,11 @@
         "summary": "Ringkasan",
         "x1vault": "X1 Vault",
         "confirm": "Konfirmasi"
+      },
+      "timer": {
+        "title": "Expiring in",
+        "minutes": "Minutes",
+        "seconds": "Seconds"
       }
     },
     "optimism": {
@@ -2775,6 +2780,48 @@
       "greeting": {
         "title": "Terima kasih!",
         "subtext": "Rencana Emas Anda sekarang diaktifkan"
+      }
+    }
+  },
+  "swap": {
+    "title": "Swap",
+    "detailsInput": {
+      "common": {
+        "searchText": "Search",
+        "walletPlaceholder": "Choose a wallet"
+      },
+      "from": {
+        "title": "From",
+        "accountPlaceholder": "Account to debit",
+        "amountLabel": "Amount to send",
+        "amountError": "Not enough balance"
+      },
+      "to": {
+        "title": "To",
+        "accountPlaceholder": "Account to credit",
+        "amountLabel": "You will receive"
+      },
+      "offers": {
+        "initialText": "Select the wallet and account to get quotes",
+        "searchingForOffers": "Searching for your best offer",
+        "bestOffer": "Best Offer",
+        "fixedRate": "Fixed rate",
+        "fixedRateTooltip": "A fixed rate ensures you get the quoted value without being affected by price changes.",
+        "networkFee": "Network Fee",
+        "networkFeeTooltip": "The blockchain network applies this fee to execute your swap. Only the outgoing (send) network fee is added on top of the quoted amount — the incoming (receive) fee is already covered in the quote.",
+        "quotesFound": "${num} quotes found",
+        "timerText": "Updates in ${time}",
+        "buttons": {
+          "continue": "Continue"
+        },
+        "errors": {
+          "sameAsset": "Cannot swap same asset",
+          "noOffers": "No offers available for your request",
+          "currencyNotSupported": "Currency not supported",
+          "amountRange": "Amount should be between ${min} and ${max}",
+          "noQuotes": "No quotes found",
+          "noInternet": "No internet connection"
+        }
       }
     }
   }

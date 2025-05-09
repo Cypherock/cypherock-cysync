@@ -1,9 +1,10 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef } from 'react';
 
 import { openSendDialog } from '~/actions';
-import { ErrorHandlerDialog, LoaderDialog } from '~/components';
+import { LoaderDialog } from '~/components';
 import { createCustomError, useSwap } from '~/context';
-import { useAppDispatch } from '~/store';
+import { SendFlowSource } from '~/dialogs/Send/context';
+import { closeDialog, useAppDispatch } from '~/store';
 
 export const SwapSend = () => {
   const dispatch = useAppDispatch();
@@ -12,43 +13,52 @@ export const SwapSend = () => {
     toNextPage,
     exchangeDetails,
     quote,
-    error,
-    reset,
-    retryCurrentPage,
+    onError,
+    closeExchange,
   } = useSwap();
-  const [pageError, setPageError] = useState<any>();
   const transactionId = useRef<string>();
 
   const storeTransactionId = (id: string) => {
-    console.log({ id });
     transactionId.current = id;
   };
 
-  const onSendFlowClose = () => {
+  const onSendFlowClose = async () => {
     if (transactionId.current === undefined) {
-      setPageError(createCustomError('Send flow was not successful'));
+      onError(createCustomError('Send flow was not successful'));
+      await closeExchange();
       return;
     }
     toNextPage();
   };
 
+  const onSendDialogError = async (e?: any) => {
+    onError(e);
+    dispatch(closeDialog('sendDialog'));
+    await closeExchange();
+  };
+
   useEffect(() => {
-    if (
-      fromAccount === undefined ||
-      exchangeDetails === undefined ||
-      quote === undefined
-    ) {
-      setPageError(
+    const abort = async () => {
+      await closeExchange();
+      onError(
         createCustomError(
           'Cannot start send flow',
           'invalid prerequisite for swap send',
         ),
       );
+    };
+    if (
+      fromAccount === undefined ||
+      exchangeDetails === undefined ||
+      quote === undefined
+    ) {
+      abort();
       return;
     }
 
     dispatch(
       openSendDialog({
+        source: SendFlowSource.SWAP,
         walletId: fromAccount.walletId,
         accountId: fromAccount.__id,
         prefillDetails: {
@@ -60,18 +70,11 @@ export const SwapSend = () => {
         disableAccountSelection: true,
         storeTransactionId,
         onClose: onSendFlowClose,
+        onError: onSendDialogError,
+        validTill: exchangeDetails.validTill,
       }),
     );
   }, []);
 
-  return (
-    <ErrorHandlerDialog
-      error={pageError ?? error}
-      onClose={reset}
-      onRetry={retryCurrentPage}
-      noDelay
-    >
-      <LoaderDialog />
-    </ErrorHandlerDialog>
-  );
+  return <LoaderDialog />;
 };

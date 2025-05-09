@@ -68,13 +68,22 @@ export const SummaryRow: React.FC<SummaryRowProps> = ({
             const { id: _id, name, muted, icon } = from;
 
             return (
-              <Container key={_id} display="flex" direction="row" gap={12}>
-                <ImageContainer gap={8}>
+              <Container
+                key={_id}
+                display="flex"
+                direction="row"
+                gap={12}
+                $alignSelf="start"
+                align="flex-start"
+              >
+                <ImageContainer gap={8} style={{ alignItems: 'flex-start' }}>
                   {icon}
                   <Typography
                     variant="p"
                     color={muted ? 'muted' : undefined}
                     $fontSize={14}
+                    $textAlign="right"
+                    $maxWidth="100px"
                   >
                     {name}
                   </Typography>

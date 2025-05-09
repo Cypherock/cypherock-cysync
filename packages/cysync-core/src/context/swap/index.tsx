@@ -1,4 +1,4 @@
-import { IAccount } from '@cypherock/db-interfaces';
+import { IAccount, IWallet } from '@cypherock/db-interfaces';
 import {
   ExchangeApp,
   IGetSignatureResultResponse,
@@ -36,8 +36,11 @@ export interface IQuote {
 }
 
 export interface IFillDetailsParams {
-  from: IAccount;
-  to: IAccount;
+  fromWallet: IWallet;
+  fromAccount: IAccount;
+  fromAmount: string;
+  toWallet: IWallet;
+  toAccount: IAccount;
   quote: IQuote;
 }
 
@@ -45,6 +48,7 @@ export interface IExchangeDetails {
   id: string;
   address: string;
   additionalData?: string;
+  validTill: string;
 }
 
 export interface SwapContextInterface {
@@ -53,13 +57,18 @@ export interface SwapContextInterface {
   toPreviousPage: () => void;
   reset: () => void;
   error: Error;
+  onError: (e?: any) => void;
   retryCurrentPage: () => void;
   fromAccount?: IAccount;
+  fromAmount: string;
+  fromWallet?: IWallet;
   toAccount?: IAccount;
+  toWallet?: IWallet;
   quote?: IQuote;
   fillDetails: (params: IFillDetailsParams) => void;
   exchangeDetails?: IExchangeDetails;
   initiateExchange: (address: string) => Promise<void>;
+  closeExchange: () => Promise<void>;
 }
 
 export const SwapContext: React.Context<SwapContextInterface> =
@@ -100,10 +109,20 @@ export const SwapProvider: React.FC<SwapProviderProps> = ({ children }) => {
     setCurrentPage(SwapPage.DETAILS);
 
     setFromAccount(undefined);
+    setFromWallet(undefined);
     setToAccount(undefined);
+    setToWallet(undefined);
     setQuote(undefined);
     setExchangeDetails(undefined);
   };
+
+  const onError = useCallback(
+    (e?: any) => {
+      reset();
+      setGlobalError(e);
+    },
+    [setGlobalError, reset],
+  );
 
   const retryMap: Record<SwapPage, () => void> = {
     [SwapPage.DETAILS]: reset,
@@ -117,17 +136,30 @@ export const SwapProvider: React.FC<SwapProviderProps> = ({ children }) => {
     retryMap[currentPage]();
   }, [currentPage]);
 
+  const [fromWallet, setFromWallet] = useState<IWallet | undefined>();
   const [fromAccount, setFromAccount] = useState<IAccount | undefined>();
+  const [fromAmount, setFromAmount] = useState<string>('0');
+  const [toWallet, setToWallet] = useState<IWallet | undefined>();
   const [toAccount, setToAccount] = useState<IAccount | undefined>();
   const [quote, setQuote] = useState<IQuote | undefined>();
   const [exchangeDetails, setExchangeDetails] = useState<
     IExchangeDetails | undefined
   >();
 
-  const fillDetails = ({ from, to, quote: newQuote }: IFillDetailsParams) => {
-    setFromAccount(from);
-    setToAccount(to);
-    setQuote(newQuote);
+  const fillDetails = ({
+    fromWallet: sourceWallet,
+    fromAccount: sourceAccount,
+    fromAmount: sourceAmount,
+    toAccount: destinationAccount,
+    toWallet: destinationWallet,
+    quote: selectedQuote,
+  }: IFillDetailsParams) => {
+    setFromWallet(sourceWallet);
+    setFromAccount(sourceAccount);
+    setFromAmount(sourceAmount);
+    setToWallet(destinationWallet);
+    setToAccount(destinationAccount);
+    setQuote(selectedQuote);
   };
 
   // give details to exchange app (init)
@@ -209,6 +241,7 @@ export const SwapProvider: React.FC<SwapProviderProps> = ({ children }) => {
           id: result.data.id,
           address: result.data.exchangeAddress,
           additionalData: result.data.exchangeAddressAdditionalData,
+          validTill: result.data.validTill,
         });
 
         exchangeSignatureRef.current = result.data.exchangeAddressSignature;
@@ -220,11 +253,30 @@ export const SwapProvider: React.FC<SwapProviderProps> = ({ children }) => {
     } catch (error) {
       logger.error(error);
       setGlobalError(error);
+      await closeExchange();
     }
   };
   // give details to exchange app (send signature)
   // start send flow
   // get status from server (poll)
+
+  // close exchange flow
+  const closeExchangeFlowTask: DeviceTask<void> = async connection => {
+    const app = await ExchangeApp.create(connection);
+    await app.closeFlow();
+  };
+
+  const closeExchangeFlow = useDeviceTask(closeExchangeFlowTask, {
+    dontExecuteTask: true,
+  });
+
+  const closeExchange = async () => {
+    const result = await closeExchangeFlow.run();
+
+    if (result.error) {
+      setGlobalError(result.error);
+    }
+  };
 
   const ctx = useMemoReturn({
     currentPage,
@@ -232,13 +284,18 @@ export const SwapProvider: React.FC<SwapProviderProps> = ({ children }) => {
     toPreviousPage,
     reset,
     error: globalError,
+    onError,
     retryCurrentPage: retryPage,
+    fromWallet,
     fromAccount,
+    fromAmount,
+    toWallet,
     toAccount,
     quote,
     fillDetails,
     exchangeDetails,
     initiateExchange,
+    closeExchange,
   });
   return <SwapContext.Provider value={ctx}>{children}</SwapContext.Provider>;
 };

@@ -1,13 +1,14 @@
+import { getCoinSupport } from '@cypherock/coin-support';
 import { ExchangeApp } from '@cypherock/sdk-app-exchange';
-import { DeviceTask, useDeviceTask } from '~/hooks';
-import React, { useEffect, useRef, useState } from 'react';
+import { hexToUint8Array } from '@cypherock/sdk-utils';
+import React, { useEffect, useRef } from 'react';
 
 import { openReceiveDialog } from '~/actions';
-import { ErrorHandlerDialog, LoaderDialog } from '~/components';
+import { LoaderDialog } from '~/components';
 import { createCustomError, useSwap } from '~/context';
-import { useAppDispatch } from '~/store';
-import { getCoinSupport } from '@cypherock/coin-support';
-import { hexToUint8Array } from '@cypherock/sdk-utils';
+import { ReceiveFlowSource } from '~/dialogs/Receive/context';
+import { DeviceTask, useDeviceTask } from '~/hooks';
+import { closeDialog, useAppDispatch } from '~/store';
 
 export const SwapReceive = () => {
   const dispatch = useAppDispatch();
@@ -16,11 +17,9 @@ export const SwapReceive = () => {
     fromAccount,
     toNextPage,
     initiateExchange,
-    error,
-    reset,
-    retryCurrentPage,
+    onError,
+    closeExchange,
   } = useSwap();
-  const [pageError, setPageError] = useState<any>();
 
   const receiversAddress = useRef<string>();
 
@@ -30,16 +29,23 @@ export const SwapReceive = () => {
 
   const onReceiveFlowClosed = async () => {
     if (receiversAddress.current === undefined) {
-      setPageError(createCustomError('Receive flow was not successful'));
+      onError(createCustomError('Receive flow was not successful'));
+      await closeExchange();
       return;
     }
     await initiateExchange(receiversAddress.current);
     toNextPage();
   };
 
+  const onReceiveDialogError = async (e?: any) => {
+    onError(e);
+    dispatch(closeDialog('receive'));
+    await closeExchange();
+  };
+
   const initiateExchangeFlowTask: DeviceTask<void> = async connection => {
     if (fromAccount === undefined || toAccount === undefined) {
-      setPageError(createCustomError('Invalid inputs for initiating Exchange'));
+      onError(createCustomError('Invalid inputs for initiating Exchange'));
       return;
     }
 
@@ -64,12 +70,18 @@ export const SwapReceive = () => {
     const result = await initiateTask.run();
 
     if (result.error) {
-      setPageError(result.error);
+      onError(result.error);
+      return;
+    }
+
+    if (initiateTask.error) {
+      onError(initiateTask.error);
       return;
     }
 
     if (toAccount === undefined) {
-      setPageError(createCustomError('Account not selected'));
+      onError(createCustomError('Account not selected'));
+      await closeExchange();
       return;
     }
 
@@ -80,6 +92,8 @@ export const SwapReceive = () => {
         skipSelection: true,
         storeReceiveAddress: getReceiveAddress,
         onClose: onReceiveFlowClosed,
+        source: ReceiveFlowSource.SWAP,
+        onError: onReceiveDialogError,
       }),
     );
   };
@@ -89,13 +103,15 @@ export const SwapReceive = () => {
   }, []);
 
   return (
-    <ErrorHandlerDialog
-      error={initiateTask.error ?? pageError ?? error}
-      onClose={reset}
-      onRetry={retryCurrentPage}
-      noDelay
-    >
-      <LoaderDialog />
-    </ErrorHandlerDialog>
+    <LoaderDialog />
+    // <ErrorHandlerDialog
+    //   error={initiateTask.error ?? pageError}
+    //   onRetry={retryCurrentPage}
+    //   onClose={reset}
+    //   showCloseButton
+    //   suppressActions={false}
+    //   noDelay
+    // >
+    // </ErrorHandlerDialog>
   );
 };
