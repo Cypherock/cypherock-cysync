@@ -83,8 +83,8 @@ export const OfferBox: React.FC<any> = ({
 export const SwapQuotesHeader: React.FC<{
   size: number;
   onTimeEnd: () => void;
-  validUntil: number;
-}> = ({ size, onTimeEnd, validUntil }) => {
+}> = ({ size, onTimeEnd }) => {
+  const { receiveFlowValidTill: validUntil } = useSwap();
   const totalSeconds = validUntil
     ? Math.floor((validUntil - new Date().getTime()) / 1000)
     : 0;
@@ -158,17 +158,15 @@ export const SwapQuotes: React.FC<{
   findNewQuotes,
   hasEnoughBalance,
 }) => {
-  const { toNextPage, fillDetails } = useSwap();
+  const { toNextPage, fillDetails, setReceiveFlowValidTill } = useSwap();
   const lang = useAppSelector(selectLanguage);
   const displayText = lang.strings.swap.detailsInput.offers;
+  const validTill = getEarliestExpiryTime(quotes);
+  setReceiveFlowValidTill(validTill);
 
   return (
     <>
-      <SwapQuotesHeader
-        size={quotes.length}
-        onTimeEnd={findNewQuotes}
-        validUntil={getEarliestExpiryTime(quotes)}
-      />
+      <SwapQuotesHeader size={quotes.length} onTimeEnd={findNewQuotes} />
       {quotes.map((quote, index) => {
         const fromUnit = getDefaultUnit(
           fromAccount?.parentAssetId ?? '',

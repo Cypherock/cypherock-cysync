@@ -19,6 +19,7 @@ export const SwapReceive = () => {
     initiateExchange,
     onError,
     closeExchange,
+    receiveFlowValidTill,
   } = useSwap();
 
   const receiversAddress = useRef<string>();
@@ -94,6 +95,7 @@ export const SwapReceive = () => {
         onClose: onReceiveFlowClosed,
         source: ReceiveFlowSource.SWAP,
         onError: onReceiveDialogError,
+        validTill: receiveFlowValidTill,
       }),
     );
   };

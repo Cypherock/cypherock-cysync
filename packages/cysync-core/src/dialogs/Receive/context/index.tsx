@@ -21,7 +21,7 @@ import React, {
 import { Observer, Subscription } from 'rxjs';
 
 import { deviceLock, useDevice } from '~/context';
-import { useAccountDropdown, useWalletDropdown } from '~/hooks';
+import { useAccountDropdown, useMemoReturn, useWalletDropdown } from '~/hooks';
 import { ITabs, useTabsAndDialogs } from '~/hooks/useTabsAndDialogs';
 import {
   closeDialog,
@@ -80,6 +80,7 @@ export interface ReceiveDialogContextInterface {
   isFlowCompleted: boolean;
   defaultWalletId?: string;
   defaultAccountId?: string;
+  validTill?: number;
 }
 
 export const ReceiveDialogContext: Context<ReceiveDialogContextInterface> =
@@ -96,6 +97,7 @@ export interface ReceiveDialogContextProviderProps {
   onClose?: () => void;
   source?: ReceiveFlowSource;
   onError?: (e?: any) => void;
+  validTill?: number;
 }
 
 export const ReceiveDialogProvider: FC<ReceiveDialogContextProviderProps> = ({
@@ -107,6 +109,7 @@ export const ReceiveDialogProvider: FC<ReceiveDialogContextProviderProps> = ({
   onClose: onCloseInjected,
   source = ReceiveFlowSource.DEFAULT,
   onError: injectedOnError,
+  validTill,
 }) => {
   const lang = useAppSelector(selectLanguage);
   const dispatch = useAppDispatch();
@@ -347,74 +350,40 @@ export const ReceiveDialogProvider: FC<ReceiveDialogContextProviderProps> = ({
     dialogName: 'receive',
   });
 
-  const ctx = useMemo(
-    () => ({
-      source,
-      defaultWalletId,
-      defaultAccountId,
-      onNext,
-      onPrevious,
-      tabs,
-      onClose,
-      goTo,
-      currentTab,
-      currentDialog,
-      isDeviceRequired,
-      error,
-      onRetry,
-      onSkip,
-      onDeviceActionNext,
-      selectedWallet,
-      setSelectedWallet,
-      selectedAccount,
-      setSelectedAccount,
-      derivedAddress,
-      derivedAccountId,
-      derivedPrincipalId,
-      isAddressVerified,
-      deviceEvents,
-      startFlow,
-      handleAccountChange,
-      handleWalletChange,
-      accountDropdownList,
-      walletDropdownList,
-      isStartedWithoutDevice,
-      isFlowCompleted,
-    }),
-    [
-      source,
-      defaultWalletId,
-      defaultAccountId,
-      onNext,
-      onPrevious,
-      goTo,
-      onClose,
-      currentTab,
-      currentDialog,
-      isDeviceRequired,
-      tabs,
-      error,
-      onRetry,
-      onSkip,
-      onDeviceActionNext,
-      selectedWallet,
-      setSelectedWallet,
-      selectedAccount,
-      setSelectedAccount,
-      derivedAddress,
-      derivedAccountId,
-      derivedPrincipalId,
-      isAddressVerified,
-      deviceEvents,
-      startFlow,
-      handleAccountChange,
-      handleWalletChange,
-      accountDropdownList,
-      walletDropdownList,
-      isStartedWithoutDevice,
-      isFlowCompleted,
-    ],
-  );
+  const ctx = useMemoReturn({
+    source,
+    defaultWalletId,
+    defaultAccountId,
+    onNext,
+    onPrevious,
+    tabs,
+    onClose,
+    goTo,
+    currentTab,
+    currentDialog,
+    isDeviceRequired,
+    error,
+    onRetry,
+    onSkip,
+    onDeviceActionNext,
+    selectedWallet,
+    setSelectedWallet,
+    selectedAccount,
+    setSelectedAccount,
+    derivedAddress,
+    derivedAccountId,
+    derivedPrincipalId,
+    isAddressVerified,
+    deviceEvents,
+    startFlow,
+    handleAccountChange,
+    handleWalletChange,
+    accountDropdownList,
+    walletDropdownList,
+    isStartedWithoutDevice,
+    isFlowCompleted,
+    validTill,
+  });
 
   return (
     <ReceiveDialogContext.Provider value={ctx}>
@@ -435,4 +404,5 @@ ReceiveDialogProvider.defaultProps = {
   onClose: undefined,
   source: ReceiveFlowSource.DEFAULT,
   onError: undefined,
+  validTill: undefined,
 };

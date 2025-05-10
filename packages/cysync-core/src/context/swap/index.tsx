@@ -65,6 +65,8 @@ export interface SwapContextInterface {
   toAccount?: IAccount;
   toWallet?: IWallet;
   quote?: IQuote;
+  receiveFlowValidTill: number;
+  setReceiveFlowValidTill: (d: number) => void;
   fillDetails: (params: IFillDetailsParams) => void;
   exchangeDetails?: IExchangeDetails;
   initiateExchange: (address: string) => Promise<void>;
@@ -142,6 +144,7 @@ export const SwapProvider: React.FC<SwapProviderProps> = ({ children }) => {
   const [toWallet, setToWallet] = useState<IWallet | undefined>();
   const [toAccount, setToAccount] = useState<IAccount | undefined>();
   const [quote, setQuote] = useState<IQuote | undefined>();
+  const [receiveFlowValidTill, setReceiveFlowValidTill] = useState<number>(0);
   const [exchangeDetails, setExchangeDetails] = useState<
     IExchangeDetails | undefined
   >();
@@ -292,6 +295,8 @@ export const SwapProvider: React.FC<SwapProviderProps> = ({ children }) => {
     toWallet,
     toAccount,
     quote,
+    receiveFlowValidTill,
+    setReceiveFlowValidTill,
     fillDetails,
     exchangeDetails,
     initiateExchange,
