@@ -1,3 +1,17 @@
+# v2.0.20
+
+### 🚀 Features
+
+- **ICP Network Support**: Now you can seamlessly manage your ICP assets directly through the app.
+- **ICP Token Support**: Now view, send, and receive tokens on the ICP network, all within the familiar cySync interface.
+
+# v2.0.19
+
+### 🚀 Features
+
+- **Mobile Sync QR Code:** Added QR code option to easily sync accounts with the cySync mobile app.
+- **Cypherock Cover Info:** Integrated information about the Cover service into the wallet creation flow.
+
 # v2.0.18
 
 ### 🐛 Bugfixes
