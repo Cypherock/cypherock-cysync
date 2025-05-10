@@ -5,7 +5,7 @@ import { IcpSupport } from '@cypherock/coin-support-icp';
 import { IReceiveEvent } from '@cypherock/coin-support-interfaces';
 import { coinFamiliesMap } from '@cypherock/coins';
 import { DropDownItemProps } from '@cypherock/cysync-ui';
-import { IAccount, IWallet } from '@cypherock/db-interfaces';
+import { AccountTypeMap, IAccount, IWallet } from '@cypherock/db-interfaces';
 import lodash from 'lodash';
 import React, {
   Context,
@@ -194,9 +194,24 @@ export const ReceiveDialogProvider: FC<ReceiveDialogContextProviderProps> = ({
 
   if (storeReceiveAddress) {
     useEffect(() => {
-      if (derivedAddress && isAddressVerified)
-        storeReceiveAddress(derivedAddress);
-    }, [derivedAddress, isAddressVerified]);
+      if (isAddressVerified) {
+        if (selectedAccount?.familyId === coinFamiliesMap.icp) {
+          const isIcpToken = selectedAccount.type === AccountTypeMap.subAccount;
+          if (isIcpToken && derivedPrincipalId) {
+            storeReceiveAddress(derivedPrincipalId);
+          } else if (derivedAccountId) {
+            storeReceiveAddress(derivedAccountId);
+          }
+        } else if (derivedAddress) {
+          storeReceiveAddress(derivedAddress);
+        }
+      }
+    }, [
+      derivedAddress,
+      derivedPrincipalId,
+      derivedAccountId,
+      isAddressVerified,
+    ]);
   }
 
   const onClose = () => {
