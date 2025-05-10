@@ -19,8 +19,13 @@ import { AddressDisplay } from './Components';
 import { useReceiveDialog } from '../context';
 
 export const VerifyPrincipalId: React.FC = () => {
-  const { onNext, onRetry, deviceEvents, isFlowCompleted, derivedPrincipalId } =
-    useReceiveDialog();
+  const {
+    onRetry,
+    deviceEvents,
+    isFlowCompleted,
+    derivedPrincipalId,
+    onAddressVerificationNext,
+  } = useReceiveDialog();
   const lang = useAppSelector(selectLanguage);
   const texts = lang.strings.receive.receive;
 
@@ -35,7 +40,7 @@ export const VerifyPrincipalId: React.FC = () => {
       !isFlowCompleted &&
       deviceEvents[IcpReceiveDeviceEvent.PRINCIPAL_ID_VERIFIED]
     ) {
-      onNext();
+      onAddressVerificationNext();
     }
   }, [deviceEvents]);
 

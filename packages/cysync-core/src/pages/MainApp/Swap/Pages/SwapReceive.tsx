@@ -104,16 +104,5 @@ export const SwapReceive = () => {
     init();
   }, []);
 
-  return (
-    <LoaderDialog />
-    // <ErrorHandlerDialog
-    //   error={initiateTask.error ?? pageError}
-    //   onRetry={retryCurrentPage}
-    //   onClose={reset}
-    //   showCloseButton
-    //   suppressActions={false}
-    //   noDelay
-    // >
-    // </ErrorHandlerDialog>
-  );
+  return <LoaderDialog />;
 };

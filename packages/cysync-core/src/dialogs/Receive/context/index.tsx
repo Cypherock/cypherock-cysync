@@ -58,6 +58,7 @@ export interface ReceiveDialogContextInterface {
   onClose: () => void;
   onSkip: () => void;
   onDeviceActionNext: () => void;
+  onAddressVerificationNext: () => void;
   onRetry: () => void;
   error: any | undefined;
   selectedWallet: IWallet | undefined;
@@ -205,6 +206,8 @@ export const ReceiveDialogProvider: FC<ReceiveDialogContextProviderProps> = ({
         } else if (derivedAddress) {
           storeReceiveAddress(derivedAddress);
         }
+
+        if (source === ReceiveFlowSource.SWAP) onClose();
       }
     }, [
       derivedAddress,
@@ -231,6 +234,12 @@ export const ReceiveDialogProvider: FC<ReceiveDialogContextProviderProps> = ({
       goTo(2, 1);
     } else {
       onNext();
+    }
+  };
+
+  const onAddressVerificationNext = () => {
+    if (source !== ReceiveFlowSource.SWAP) {
+      goTo(3);
     }
   };
 
@@ -381,6 +390,7 @@ export const ReceiveDialogProvider: FC<ReceiveDialogContextProviderProps> = ({
     onRetry,
     onSkip,
     onDeviceActionNext,
+    onAddressVerificationNext,
     selectedWallet,
     setSelectedWallet,
     selectedAccount,
