@@ -295,18 +295,21 @@ interface LangSend {
     subtitle: string;
     recipient: {
       label: string;
+      labelSwap: string;
       placeholder: string;
       error: string;
       ownAddress: string;
     };
     icpAccountIdRecipient: {
       label: string;
+      labelSwap: string;
       placeholder: string;
       error: string;
       ownAddress: string;
     };
     icpPrincipalIdRecipient: {
       label: string;
+      labelSwap: string;
       placeholder: string;
       error: string;
       ownAddress: string;

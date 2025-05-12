@@ -274,18 +274,21 @@
       "subtitle": "Masukkan jumlah dan alamat penerima yang ingin Anda kirimi dana",
       "recipient": {
         "label": "Alamat Penerima",
+        "labelSwap": "${provider}'s Address",
         "placeholder": "Masukkan alamat",
         "error": "Alamat tidak valid",
         "ownAddress": "Alamat penerima sama dengan alamat pengirim"
       },
       "icpAccountIdRecipient": {
         "label": "ID Akun Penerima",
+        "labelSwap": "${provider}'s Account ID",
         "placeholder": "Masukkan ID akun",
         "error": "ID akun tidak valid",
         "ownAddress": "ID akun penerima sama dengan ID akun pengirim"
       },
       "icpPrincipalIdRecipient": {
         "label": "ID Prinsipal Penerima",
+        "labelSwap": "${provider}'s Prinsipal ID",
         "placeholder": "Masukkan id prinsipal",
         "error": "ID prinsipal tidak valid",
         "ownAddress": "ID prinsipal penerima sama dengan ID prinsipal pengirim"

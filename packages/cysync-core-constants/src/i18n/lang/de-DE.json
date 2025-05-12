@@ -274,18 +274,21 @@
       "subtitle": "Geben Sie den Betrag und die Adresse des Empfängers ein, an den Sie die Mittel senden möchten",
       "recipient": {
         "label": "Empfängeradresse",
+        "labelSwap": "${provider}'s Adresse",
         "placeholder": "Adresse eingeben",
         "error": "Ungültige Adresse",
         "ownAddress": "Empfängeradresse ist dieselbe wie die Absenderadresse"
       },
       "icpAccountIdRecipient": {
         "label": "Empfänger-Konto-ID",
+        "labelSwap": "${provider}'s Account ID",
         "placeholder": "Kontoinformationen eingeben",
         "error": "Ungültige Konto-ID",
         "ownAddress": "Empfänger-Konto-ID ist identisch mit Absender-Konto-ID"
       },
       "icpPrincipalIdRecipient": {
         "label": "Empfänger-Principal-ID",
+        "labelSwap": "${provider}'s Principal ID",
         "placeholder": "Geben Sie die Principal-ID ein",
         "error": "Ungültige Principal-ID",
         "ownAddress": "Die Empfänger-Principal-ID ist dieselbe wie die Absender-Principal-ID"

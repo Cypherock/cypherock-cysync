@@ -72,6 +72,7 @@ export const SwapSend = () => {
         onClose: onSendFlowClose,
         onError: onSendDialogError,
         validTill: exchangeDetails.validTill,
+        providerName: exchangeDetails.providerName,
       }),
     );
   }, []);

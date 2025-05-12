@@ -274,18 +274,21 @@
       "subtitle": "输入您要发送资金的收件人的金额和地址",
       "recipient": {
         "label": "收件人地址",
+        "labelSwap": "${provider}'s Address",
         "placeholder": "输入地址",
         "error": "无效地址",
         "ownAddress": "收件人地址与发件人地址相同"
       },
       "icpAccountIdRecipient": {
         "label": "收件人账户 ID",
+        "labelSwap": "${provider}'s Account ID",
         "placeholder": "输入账户 ID",
         "error": "无效的账户 ID",
         "ownAddress": "收件人账户 ID 与发件人账户 ID 相同"
       },
       "icpPrincipalIdRecipient": {
         "label": "收件人主体 ID",
+        "labelSwap": "${provider}'s Principal ID",
         "placeholder": "输入主体 ID",
         "error": "无效的主体 ID",
         "ownAddress": "收件人主体 ID 与发件人主体 ID 相同"

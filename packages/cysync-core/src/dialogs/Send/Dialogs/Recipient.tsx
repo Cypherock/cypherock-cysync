@@ -37,6 +37,7 @@ export const Recipient: React.FC = () => {
     selectedAccount,
     isAccountSelectionDisabled,
     isPreparingTxn,
+    providerName,
   } = useSendDialog();
   const lang = useAppSelector(selectLanguage);
   const button = lang.strings.buttons;
@@ -155,7 +156,10 @@ export const Recipient: React.FC = () => {
         )}
       </DialogBoxBody>
       <ScrollableContainer>
-        <AddressAndAmountSection disableInputs={isAccountSelectionDisabled} />
+        <AddressAndAmountSection
+          disableInputs={isAccountSelectionDisabled}
+          providerName={providerName}
+        />
         <FeeSection showErrors={isAccountSelectionDisabled} />
       </ScrollableContainer>
       <DialogBoxFooter>

@@ -274,18 +274,21 @@
       "subtitle": "Enter the amount and the address of the recipient to whom you want to send the funds",
       "recipient": {
         "label": "Recipient Address",
+        "labelSwap": "${provider}'s Address",
         "placeholder": "Enter address",
         "error": "Invalid address",
         "ownAddress": "Recipient address is the same as sender address"
       },
       "icpAccountIdRecipient": {
         "label": "Recipient Account ID",
+        "labelSwap": "${provider}'s Account ID",
         "placeholder": "Enter account id",
         "error": "Invalid account id",
         "ownAddress": "Recipient account id is the same as sender account id"
       },
       "icpPrincipalIdRecipient": {
         "label": "Recipient Principal ID",
+        "labelSwap": "${provider}'s Principal ID",
         "placeholder": "Enter principal id",
         "error": "Invalid principal id",
         "ownAddress": "Recipient principal id is the same as sender principal id"
