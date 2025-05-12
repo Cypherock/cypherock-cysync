@@ -38,7 +38,7 @@ export const SwapSummary = () => {
     from: 'From',
     to: 'To',
     amount: 'Amount',
-    network: 'Netork Fee',
+    network: 'Network Fee',
     debit: 'Total to debit',
     provider: 'Provider',
   };

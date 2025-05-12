@@ -11,11 +11,15 @@ import {
   Tooltip,
   QuestionMarkButton,
 } from '@cypherock/cysync-ui';
-import { getDefaultUnit } from '@cypherock/coin-support-utils';
+import {
+  formatDisplayAmount,
+  formatDisplayPrice,
+  getDefaultUnit,
+} from '@cypherock/coin-support-utils';
 import { formatSecondsToMinutes, BigNumber } from '@cypherock/cysync-utils';
 import { IAccount, IWallet } from '@cypherock/db-interfaces';
 import { IQuote, useSwap } from '~/context';
-import { useAppSelector, selectLanguage } from '~/store';
+import { useAppSelector, selectLanguage, selectPriceInfos } from '~/store';
 
 const getEarliestExpiryTime = (quotes: IQuote[]) =>
   Math.min(...quotes.map((quote: IQuote) => quote.validUntil));
@@ -159,40 +163,83 @@ export const SwapQuotes: React.FC<{
   hasEnoughBalance,
 }) => {
   const { toNextPage, fillDetails, setReceiveFlowValidTill } = useSwap();
+  const { priceInfos } = useAppSelector(selectPriceInfos);
   const lang = useAppSelector(selectLanguage);
   const displayText = lang.strings.swap.detailsInput.offers;
   const validTill = getEarliestExpiryTime(quotes);
   setReceiveFlowValidTill(validTill);
 
+  function getFixedRate(quote: IQuote) {
+    const fromUnit = getDefaultUnit(
+      fromAccount?.parentAssetId ?? '',
+      fromAccount?.assetId,
+    ).abbr;
+
+    const toUnit = getDefaultUnit(
+      toAccount?.parentAssetId ?? '',
+      toAccount?.assetId,
+    ).abbr;
+
+    const rate = new BigNumber(quote.toAmount)
+      .dividedBy(quote.fromAmount)
+      .toFixed(6);
+
+    return { fromUnit, toUnit, rate };
+  }
+
+  function getNetworkFee(quote: IQuote) {
+    const account = fromAccount;
+    const coinPrice = priceInfos.find(
+      p =>
+        p.assetId === account?.parentAssetId &&
+        p.currency.toLowerCase() === 'usd',
+    );
+
+    if (!account || !coinPrice) return {};
+
+    const fee = quote?.fee ?? '0';
+    const amount = formatDisplayAmount(
+      new BigNumber(fee).dividedBy(coinPrice.latestPrice),
+    ).fixed;
+    const unit = getDefaultUnit(account.parentAssetId).abbr;
+    const value = formatDisplayPrice(new BigNumber(fee));
+    const feeInCrypto = `${amount} ${unit}`;
+    const feeInFiat = `$${value}`;
+
+    return { feeInCrypto, feeInFiat };
+  }
+
   return (
     <>
       <SwapQuotesHeader size={quotes.length} onTimeEnd={findNewQuotes} />
       {quotes.map((quote, index) => {
-        const fromUnit = getDefaultUnit(
-          fromAccount?.parentAssetId ?? '',
-          fromAccount?.assetId,
-        ).abbr;
-
-        const toUnit = getDefaultUnit(
-          toAccount?.parentAssetId ?? '',
-          toAccount?.assetId,
-        ).abbr;
-
-        const rate = new BigNumber(quote.toAmount)
-          .dividedBy(quote.fromAmount)
-          .toFixed(6);
-
+        const { fromUnit, rate, toUnit } = getFixedRate(quote);
+        const { feeInCrypto, feeInFiat } = getNetworkFee(quote);
         return (
           <OfferBox
             offerData={{
               index,
-              data: [
-                {
-                  title: displayText.fixedRate,
-                  tooltip: displayText.fixedRateTooltip,
-                  value: [`1 ${fromUnit} =`, `${rate} ${toUnit}`],
-                },
-              ],
+              data:
+                feeInCrypto && feeInFiat
+                  ? [
+                      {
+                        title: displayText.networkFee,
+                        tooltip: displayText.networkFeeTooltip,
+                        value: [feeInCrypto, feeInFiat],
+                      },
+                      {
+                        title: displayText.fixedRate,
+                        tooltip: displayText.fixedRateTooltip,
+                        value: [`1 ${fromUnit} =`, `${rate} ${toUnit}`],
+                      },
+                    ]
+                  : [
+                      {
+                        title: displayText.fixedRate,
+                        tooltip: displayText.fixedRateTooltip,
+                        value: [`1 ${fromUnit} =`, `${rate} ${toUnit}`],
+                      },
+                    ],
               isBest: index === 0,
               bestOfferText: displayText.bestOffer,
               provider: quote.provider,
