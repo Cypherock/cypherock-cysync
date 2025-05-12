@@ -217,7 +217,7 @@ export const FeeSection: React.FC<FeeSectionProps> = ({
         title={displayText.fees.title}
         initialState={isTextInput}
         onChange={setIsTextInput}
-        isToggleButtonHidden={!isToggleAllowed(coinFamily)}
+        isToggleButtonHidden={!isToggleAllowed(coinFamily) || hideSlider}
       />
     );
   };
