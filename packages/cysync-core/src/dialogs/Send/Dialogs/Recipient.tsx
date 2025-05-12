@@ -160,7 +160,10 @@ export const Recipient: React.FC = () => {
           disableInputs={isAccountSelectionDisabled}
           providerName={providerName}
         />
-        <FeeSection showErrors={isAccountSelectionDisabled} />
+        <FeeSection
+          hideSlider={isAccountSelectionDisabled}
+          showErrors={isAccountSelectionDisabled}
+        />
       </ScrollableContainer>
       <DialogBoxFooter>
         {!isAccountSelectionDisabled && (
