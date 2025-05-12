@@ -244,7 +244,7 @@ export const SwapStatus = () => {
                               id: 'exchange-link',
                               name: exchangeDetails?.id ?? '',
                               muted: false,
-                              icon: (
+                              rightIcon: (
                                 <a
                                   href={providerUrl}
                                   target="_blank"
