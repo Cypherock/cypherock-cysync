@@ -42,7 +42,8 @@ const ComponentWithHeader: React.FC<{
   children: React.ReactNode;
   onBack?: () => void;
   onHistory?: () => void;
-}> = ({ children, onBack, onHistory }) => {
+  disableHistory?: boolean;
+}> = ({ children, onBack, onHistory, disableHistory }) => {
   const lang = useAppSelector(selectLanguage);
   return (
     <Container
@@ -73,8 +74,16 @@ const ComponentWithHeader: React.FC<{
           </Button>
         )}
         {onHistory && (
-          <Button variant="text" title="History" onClick={onHistory}>
-            <Typography variant="p" color="white">
+          <Button
+            variant="text"
+            title="History"
+            onClick={onHistory}
+            disabled={disableHistory}
+          >
+            <Typography
+              variant="p"
+              color={disableHistory ? 'disabled' : 'white'}
+            >
               {lang.strings.sidebar.history}
             </Typography>
           </Button>
@@ -90,36 +99,68 @@ const ComponentWithHeader: React.FC<{
 ComponentWithHeader.defaultProps = {
   onBack: undefined,
   onHistory: undefined,
+  disableHistory: undefined,
 };
+
+const SwapDetailsComponent: React.FC<{
+  onHistory: () => void;
+  disableHistory?: boolean;
+}> = ({ onHistory, disableHistory }) => (
+  <ComponentWithHeader onHistory={onHistory} disableHistory={disableHistory}>
+    <SwapDetailsInput />
+  </ComponentWithHeader>
+);
+
+SwapDetailsComponent.defaultProps = {
+  disableHistory: undefined,
+};
+
+const SwapSummaryComponent: React.FC<{
+  onHistory: () => void;
+  toPreviousPage?: () => void;
+  disableHistory?: boolean;
+}> = ({ onHistory, toPreviousPage, disableHistory }) => (
+  <ComponentWithHeader
+    onHistory={onHistory}
+    onBack={toPreviousPage}
+    disableHistory={disableHistory}
+  >
+    <SwapSummary />
+  </ComponentWithHeader>
+);
+
+SwapSummaryComponent.defaultProps = {
+  toPreviousPage: undefined,
+  disableHistory: undefined,
+};
+
+const SwapReceiveComponent: React.FC<{ onClose: () => void }> = ({
+  onClose,
+}) => (
+  <FullScreenWithConnectedDevice onClose={onClose}>
+    <SwapReceive />
+  </FullScreenWithConnectedDevice>
+);
+
+const SwapSendComponent: React.FC<{ onClose: () => void }> = ({ onClose }) => (
+  <FullScreenWithConnectedDevice onClose={onClose}>
+    <SwapSend />
+  </FullScreenWithConnectedDevice>
+);
 
 const pageMap: Record<
   SwapPage,
-  (
-    onHistory: () => void,
-    onClose: () => void,
-    toPreviousPage?: () => void,
-  ) => React.ReactNode
+  (params: {
+    onHistory: () => void;
+    onClose: () => void;
+    toPreviousPage?: () => void;
+    disableHistory?: boolean;
+  }) => React.ReactNode
 > = {
-  [SwapPage.DETAILS]: onHistory => (
-    <ComponentWithHeader onHistory={onHistory}>
-      <SwapDetailsInput />
-    </ComponentWithHeader>
-  ),
-  [SwapPage.SUMMARY]: (onHistory, _, toPreviousPage) => (
-    <ComponentWithHeader onHistory={onHistory} onBack={toPreviousPage}>
-      <SwapSummary />
-    </ComponentWithHeader>
-  ),
-  [SwapPage.RECEIVE]: (_, onClose) => (
-    <FullScreenWithConnectedDevice onClose={onClose}>
-      <SwapReceive />
-    </FullScreenWithConnectedDevice>
-  ),
-  [SwapPage.SEND]: (_, onClose) => (
-    <FullScreenWithConnectedDevice onClose={onClose}>
-      <SwapSend />
-    </FullScreenWithConnectedDevice>
-  ),
+  [SwapPage.DETAILS]: params => <SwapDetailsComponent {...params} />,
+  [SwapPage.SUMMARY]: params => <SwapSummaryComponent {...params} />,
+  [SwapPage.RECEIVE]: params => <SwapReceiveComponent {...params} />,
+  [SwapPage.SEND]: params => <SwapSendComponent {...params} />,
   [SwapPage.STATUS]: () => <SwapStatus />,
 };
 
@@ -148,11 +189,19 @@ export const Swap = () => {
       );
     }
   }, [error]);
+
+  // TODO: disable history if there are no previous swap transactions
+  const disableHistory = true;
   const handleHistoryClick = () => console.log('should open history!');
 
   return (
     <MainAppLayout topbar={{ title: 'Swap' }}>
-      {currentComponent(handleHistoryClick, reset, toPreviousPage)}
+      {currentComponent({
+        onHistory: handleHistoryClick,
+        onClose: reset,
+        toPreviousPage,
+        disableHistory,
+      })}
     </MainAppLayout>
   );
 };
