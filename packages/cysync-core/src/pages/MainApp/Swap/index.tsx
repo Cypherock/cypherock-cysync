@@ -171,7 +171,7 @@ export const Swap = () => {
 
   const currentComponent = useMemo(() => pageMap[currentPage], [currentPage]);
 
-  useEffect(() => reset, []);
+  useEffect(() => () => reset(), []);
 
   useLayoutEffect(() => {
     if (error) {

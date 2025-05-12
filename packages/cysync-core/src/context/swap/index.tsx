@@ -72,6 +72,7 @@ export interface SwapContextInterface {
   exchangeDetails?: IExchangeDetails;
   initiateExchange: (address: string) => Promise<void>;
   closeExchange: () => Promise<void>;
+  resetIndex: number;
 }
 
 export const SwapContext: React.Context<SwapContextInterface> =
@@ -124,6 +125,7 @@ export const SwapProvider: React.FC<SwapProviderProps> = ({ children }) => {
   const resetAll = () => {
     resetUserInput();
     resetState();
+    setResetIndex(prev => prev + 1);
   };
 
   const onError = useCallback(
@@ -153,6 +155,7 @@ export const SwapProvider: React.FC<SwapProviderProps> = ({ children }) => {
   const [toAccount, setToAccount] = useState<IAccount | undefined>();
   const [quote, setQuote] = useState<IQuote | undefined>();
   const [receiveFlowValidTill, setReceiveFlowValidTill] = useState<number>(0);
+  const [resetIndex, setResetIndex] = useState(1);
   const [exchangeDetails, setExchangeDetails] = useState<
     IExchangeDetails | undefined
   >();
@@ -310,6 +313,7 @@ export const SwapProvider: React.FC<SwapProviderProps> = ({ children }) => {
     exchangeDetails,
     initiateExchange,
     closeExchange,
+    resetIndex,
   });
   return <SwapContext.Provider value={ctx}>{children}</SwapContext.Provider>;
 };

@@ -13,7 +13,13 @@ import {
 import { BigNumber } from '@cypherock/cysync-utils';
 import { IAccount } from '@cypherock/db-interfaces';
 import lodash from 'lodash';
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import React, {
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from 'react';
 
 import { IQuote, useSwap } from '~/context';
 import { useAccountDropdown, useWalletDropdown } from '~/hooks';
@@ -35,15 +41,17 @@ export const SwapDetailsInput = () => {
     fromAmount: defaultFromAmount,
     toWallet: defaultToWallet,
     toAccount: defaultToAccount,
+    resetIndex,
   } = useSwap();
+
+  const [fromAmount, setFromAmount] = useState(() => defaultFromAmount);
+
   const fromWallet = useWalletDropdown({ walletId: defaultFromWallet?.__id });
   const fromAccount = useAccountDropdown({
     selectedWallet: fromWallet.selectedWallet,
     includeSubAccounts: true,
     defaultAccountId: defaultFromAccount?.__id,
   });
-
-  const [fromAmount, setFromAmount] = useState(defaultFromAmount);
 
   const toWallet = useWalletDropdown({ walletId: defaultToWallet?.__id });
   const toAccount = useAccountDropdown({
@@ -158,6 +166,29 @@ export const SwapDetailsInput = () => {
     toAccount.selectedAccount,
   ]);
 
+  function resetSwapInputDetails() {
+    setFromAmount('0');
+    fromAccount.setSelectedAccount(undefined);
+    fromWallet.setSelectedWallet(undefined);
+    toAccount.setSelectedAccount(undefined);
+    toWallet.setSelectedWallet(undefined);
+  }
+
+  const isFirstRender = useRef(true);
+  const prevResetIndex = useRef<number>(resetIndex);
+
+  useEffect(() => {
+    if (isFirstRender.current) {
+      isFirstRender.current = false;
+      prevResetIndex.current = resetIndex;
+      return;
+    }
+    if (prevResetIndex.current !== resetIndex) {
+      resetSwapInputDetails();
+      prevResetIndex.current = resetIndex;
+    }
+  }, [resetIndex]);
+
   const swapToAndFrom = () => {
     const intermediateWalletId = toWallet.selectedWallet?.__id;
     const intermediateAccountId = toAccount.selectedAccount?.__id;
@@ -173,7 +204,15 @@ export const SwapDetailsInput = () => {
   };
 
   const sideComponent = useMemo(() => {
-    if (!isFetchingQuotes && quotes.length > 0) {
+    const canShowQuotes =
+      !isFetchingQuotes &&
+      quotes.length > 0 &&
+      fromWallet.selectedWallet &&
+      toWallet.selectedWallet &&
+      fromAccount.selectedAccount &&
+      toAccount.selectedAccount;
+
+    if (canShowQuotes) {
       return (
         <SwapQuotes
           quotes={quotes}
