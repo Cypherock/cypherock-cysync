@@ -83,7 +83,7 @@ export const SummaryRow: React.FC<SummaryRowProps> = ({
                     color={muted ? 'muted' : undefined}
                     $fontSize={14}
                     $textAlign="right"
-                    $maxWidth="100px"
+                    $width="min-content"
                   >
                     {name}
                   </Typography>
