@@ -105,33 +105,40 @@ export const SwapProvider: React.FC<SwapProviderProps> = ({ children }) => {
     setCurrentPage(p => Math.max(SwapPage.DETAILS, p - 1));
   };
 
-  const reset = () => {
-    setGlobalError(undefined);
-
-    setCurrentPage(SwapPage.DETAILS);
-
+  const resetUserInput = () => {
     setFromAccount(undefined);
     setFromWallet(undefined);
+    setFromAmount('0');
     setToAccount(undefined);
     setToWallet(undefined);
+  };
+
+  const resetState = () => {
+    setGlobalError(undefined);
+    setCurrentPage(SwapPage.DETAILS);
     setQuote(undefined);
     setExchangeDetails(undefined);
   };
 
+  const resetAll = () => {
+    resetUserInput();
+    resetState();
+  };
+
   const onError = useCallback(
     (e?: any) => {
-      reset();
+      resetState();
       setGlobalError(e);
     },
-    [setGlobalError, reset],
+    [setGlobalError, resetState],
   );
 
   const retryMap: Record<SwapPage, () => void> = {
-    [SwapPage.DETAILS]: reset,
-    [SwapPage.SUMMARY]: reset,
-    [SwapPage.RECEIVE]: reset,
-    [SwapPage.SEND]: reset,
-    [SwapPage.STATUS]: reset,
+    [SwapPage.DETAILS]: resetState,
+    [SwapPage.SUMMARY]: resetState,
+    [SwapPage.RECEIVE]: resetState,
+    [SwapPage.SEND]: resetState,
+    [SwapPage.STATUS]: resetState,
   };
 
   const retryPage = useCallback(() => {
@@ -285,7 +292,7 @@ export const SwapProvider: React.FC<SwapProviderProps> = ({ children }) => {
     currentPage,
     toNextPage,
     toPreviousPage,
-    reset,
+    reset: resetAll,
     error: globalError,
     onError,
     retryCurrentPage: retryPage,
