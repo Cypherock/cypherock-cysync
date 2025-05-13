@@ -5,7 +5,7 @@ import { IcpSupport } from '@cypherock/coin-support-icp';
 import { IReceiveEvent } from '@cypherock/coin-support-interfaces';
 import { coinFamiliesMap } from '@cypherock/coins';
 import { DropDownItemProps } from '@cypherock/cysync-ui';
-import { IAccount, IWallet } from '@cypherock/db-interfaces';
+import { AccountTypeMap, IAccount, IWallet } from '@cypherock/db-interfaces';
 import lodash from 'lodash';
 import React, {
   Context,
@@ -58,6 +58,7 @@ export interface ReceiveDialogContextInterface {
   onClose: () => void;
   onSkip: () => void;
   onDeviceActionNext: () => void;
+  onAddressVerificationNext: () => void;
   onRetry: () => void;
   error: any | undefined;
   selectedWallet: IWallet | undefined;
@@ -194,9 +195,26 @@ export const ReceiveDialogProvider: FC<ReceiveDialogContextProviderProps> = ({
 
   if (storeReceiveAddress) {
     useEffect(() => {
-      if (derivedAddress && isAddressVerified)
-        storeReceiveAddress(derivedAddress);
-    }, [derivedAddress, isAddressVerified]);
+      if (isAddressVerified) {
+        if (selectedAccount?.familyId === coinFamiliesMap.icp) {
+          const isIcpToken = selectedAccount.type === AccountTypeMap.subAccount;
+          if (isIcpToken && derivedPrincipalId) {
+            storeReceiveAddress(derivedPrincipalId);
+          } else if (derivedAccountId) {
+            storeReceiveAddress(derivedAccountId);
+          }
+        } else if (derivedAddress) {
+          storeReceiveAddress(derivedAddress);
+        }
+
+        if (source === ReceiveFlowSource.SWAP) onClose();
+      }
+    }, [
+      derivedAddress,
+      derivedPrincipalId,
+      derivedAccountId,
+      isAddressVerified,
+    ]);
   }
 
   const onClose = () => {
@@ -216,6 +234,12 @@ export const ReceiveDialogProvider: FC<ReceiveDialogContextProviderProps> = ({
       goTo(2, 1);
     } else {
       onNext();
+    }
+  };
+
+  const onAddressVerificationNext = () => {
+    if (source !== ReceiveFlowSource.SWAP) {
+      goTo(3);
     }
   };
 
@@ -366,6 +390,7 @@ export const ReceiveDialogProvider: FC<ReceiveDialogContextProviderProps> = ({
     onRetry,
     onSkip,
     onDeviceActionNext,
+    onAddressVerificationNext,
     selectedWallet,
     setSelectedWallet,
     selectedAccount,

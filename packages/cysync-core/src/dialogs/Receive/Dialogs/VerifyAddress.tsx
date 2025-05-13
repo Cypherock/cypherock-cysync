@@ -27,7 +27,7 @@ export const VerifyAddress: React.FC = () => {
     isFlowCompleted,
     selectedAccount,
     derivedAddress,
-    goTo,
+    onAddressVerificationNext,
   } = useReceiveDialog();
   const lang = useAppSelector(selectLanguage);
   const texts = lang.strings.receive.receive;
@@ -40,7 +40,7 @@ export const VerifyAddress: React.FC = () => {
 
   useEffect(() => {
     if (!isFlowCompleted && deviceEvents[ReceiveDeviceEvent.VERIFIED]) {
-      goTo(3);
+      onAddressVerificationNext();
     }
   }, [deviceEvents]);
 
