@@ -249,7 +249,7 @@ export const SwapDetailsInput = () => {
       }
 
       if (new BigNumber(fromAmount).isNaN()) {
-        return ['Enter amount to get quotes'];
+        return [displayText.offers.errors.enterAmount];
       }
 
       if (message) {
@@ -263,7 +263,7 @@ export const SwapDetailsInput = () => {
               min: range.min,
               max: range.max,
             })
-          : 'Select a different coin pair',
+          : displayText.offers.errors.selectDifferentCoinPair,
       ];
     };
 
@@ -275,7 +275,7 @@ export const SwapDetailsInput = () => {
           display="flex"
           $allowOverflow
         >
-          Your best quotes
+          {displayText.offers.title}
         </Typography>
         <Flex
           direction="column"

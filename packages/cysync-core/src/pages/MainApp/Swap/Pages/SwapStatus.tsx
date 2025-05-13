@@ -29,6 +29,7 @@ import { useSwap } from '~/context';
 import { getExchangeStatus } from '~/services/swapService';
 import {
   selectAccounts,
+  selectLanguage,
   selectPriceInfos,
   selectWallets,
   useAppSelector,
@@ -42,23 +43,12 @@ enum SwapStates {
 }
 
 export const SwapStatus = () => {
-  const displayText = {
-    title: 'Swap',
-    success: 'Successful',
-    failed: 'Failed',
-    pending: 'Pending',
-    from: 'From',
-    to: 'To',
-    amountSent: 'Amount Sent',
-    amountReceived: 'Amount Received',
-    network: 'Netork Fee',
-    debit: 'Total to debit',
-    provider: 'Provider',
-    exchangeId: 'Transaction ID',
-  };
-
+  const { strings } = useAppSelector(selectLanguage);
   const [state, setState] = useState(SwapStates.Pending);
-
+  const displayText = {
+    ...strings.swap.swapSummary,
+    ...strings.swap.swapStatus,
+  };
   const {
     fromAccount,
     quote,
@@ -172,7 +162,7 @@ export const SwapStatus = () => {
             alt="Status Icon"
           />
           <Typography variant="h5" $textAlign="center">
-            <LangDisplay text={`${displayText.title} ${displayText[state]}`} />
+            <LangDisplay text={`${displayText.heading[state]}`} />
           </Typography>
 
           <ScrollableContainer $maxHeight={{ def: '40vh', lg: '65vh' }}>
@@ -238,7 +228,7 @@ export const SwapStatus = () => {
                     ? [
                         {
                           id: 'exchange-id',
-                          leftText: displayText.exchangeId,
+                          leftText: displayText.transactionID,
                           rightComponent: [
                             {
                               id: 'exchange-link',
@@ -272,7 +262,7 @@ export const SwapStatus = () => {
               reset();
             }}
           >
-            <LangDisplay text="Back to swap" />
+            <LangDisplay text={displayText.button.backToSwap} />
           </Button>
         </DialogBoxFooter>
       </DialogBox>
