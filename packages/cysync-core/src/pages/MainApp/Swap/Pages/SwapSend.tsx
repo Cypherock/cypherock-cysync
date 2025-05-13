@@ -4,7 +4,12 @@ import { openSendDialog } from '~/actions';
 import { LoaderDialog } from '~/components';
 import { createCustomError, useSwap } from '~/context';
 import { SendFlowSource } from '~/dialogs/Send/context';
-import { closeDialog, useAppDispatch } from '~/store';
+import {
+  closeDialog,
+  selectLanguage,
+  useAppDispatch,
+  useAppSelector,
+} from '~/store';
 
 export const SwapSend = () => {
   const dispatch = useAppDispatch();
@@ -16,6 +21,8 @@ export const SwapSend = () => {
     onError,
     closeExchange,
   } = useSwap();
+  const { strings } = useAppSelector(selectLanguage);
+  const displayText = strings.swap.swapSend;
   const transactionId = useRef<string>();
 
   const storeTransactionId = (id: string) => {
@@ -24,7 +31,7 @@ export const SwapSend = () => {
 
   const onSendFlowClose = async () => {
     if (transactionId.current === undefined) {
-      onError(createCustomError('Send flow was not successful'));
+      onError(createCustomError(displayText.errors.notSuccessfull));
       await closeExchange();
       return;
     }
@@ -42,8 +49,8 @@ export const SwapSend = () => {
       await closeExchange();
       onError(
         createCustomError(
-          'Cannot start send flow',
-          'invalid prerequisite for swap send',
+          displayText.errors.cannotStart,
+          displayText.errors.invalidPrerequisite,
         ),
       );
     };

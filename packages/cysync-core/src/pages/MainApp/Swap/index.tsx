@@ -168,6 +168,7 @@ export const Swap = () => {
   const { currentPage, error, retryCurrentPage, toPreviousPage, reset } =
     useSwap();
   const dispatch = useAppDispatch();
+  const { strings } = useAppSelector(selectLanguage);
 
   const currentComponent = useMemo(() => pageMap[currentPage], [currentPage]);
 
@@ -195,7 +196,7 @@ export const Swap = () => {
   const handleHistoryClick = () => console.log('should open history!');
 
   return (
-    <MainAppLayout topbar={{ title: 'Swap' }}>
+    <MainAppLayout topbar={{ title: strings.swap.title }}>
       {currentComponent({
         onHistory: handleHistoryClick,
         onClose: reset,

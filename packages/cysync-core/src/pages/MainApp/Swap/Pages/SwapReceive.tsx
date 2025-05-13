@@ -8,7 +8,12 @@ import { LoaderDialog } from '~/components';
 import { createCustomError, useSwap } from '~/context';
 import { ReceiveFlowSource } from '~/dialogs/Receive/context';
 import { DeviceTask, useDeviceTask } from '~/hooks';
-import { closeDialog, useAppDispatch } from '~/store';
+import {
+  closeDialog,
+  selectLanguage,
+  useAppDispatch,
+  useAppSelector,
+} from '~/store';
 
 export const SwapReceive = () => {
   const dispatch = useAppDispatch();
@@ -21,6 +26,8 @@ export const SwapReceive = () => {
     closeExchange,
     receiveFlowValidTill,
   } = useSwap();
+  const { strings } = useAppSelector(selectLanguage);
+  const displayText = strings.swap.swapReceive;
 
   const receiversAddress = useRef<string>();
 
@@ -30,7 +37,17 @@ export const SwapReceive = () => {
 
   const onReceiveFlowClosed = async () => {
     if (receiversAddress.current === undefined) {
-      onError(createCustomError('Receive flow was not successful'));
+      onError(createCustomError(displayText.errors.notSuccessful));
+      await closeExchange();
+      return;
+    }
+    if (Date.now() > receiveFlowValidTill) {
+      onError(
+        createCustomError(
+          strings.swap.commonErrors.timeout.title,
+          strings.swap.commonErrors.timeout.description,
+        ),
+      );
       await closeExchange();
       return;
     }
@@ -46,7 +63,7 @@ export const SwapReceive = () => {
 
   const initiateExchangeFlowTask: DeviceTask<void> = async connection => {
     if (fromAccount === undefined || toAccount === undefined) {
-      onError(createCustomError('Invalid inputs for initiating Exchange'));
+      onError(createCustomError(displayText.errors.invalidInputs));
       return;
     }
 
@@ -81,7 +98,7 @@ export const SwapReceive = () => {
     }
 
     if (toAccount === undefined) {
-      onError(createCustomError('Account not selected'));
+      onError(createCustomError(displayText.errors.accountNotSelected));
       await closeExchange();
       return;
     }
