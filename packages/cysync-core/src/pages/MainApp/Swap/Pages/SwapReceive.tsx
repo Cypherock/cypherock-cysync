@@ -41,6 +41,16 @@ export const SwapReceive = () => {
       await closeExchange();
       return;
     }
+    if (Date.now() > receiveFlowValidTill) {
+      onError(
+        createCustomError(
+          strings.swap.commonErrors.timeout.title,
+          strings.swap.commonErrors.timeout.description,
+        ),
+      );
+      await closeExchange();
+      return;
+    }
     await initiateExchange(receiversAddress.current);
     toNextPage();
   };
