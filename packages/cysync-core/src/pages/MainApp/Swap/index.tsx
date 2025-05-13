@@ -51,7 +51,6 @@ const ComponentWithHeader: React.FC<{
       width="full"
       height="full"
       justify="flex-start"
-      my={2}
     >
       <Flex
         $alignSelf="stretch"
@@ -89,7 +88,7 @@ const ComponentWithHeader: React.FC<{
           </Button>
         )}
       </Flex>
-      <div style={{ alignItems: 'stretch', height: '90%', width: '100%' }}>
+      <div style={{ alignItems: 'stretch', height: '91%', width: '100%' }}>
         {children}
       </div>
     </Container>
