@@ -15,6 +15,7 @@ import {
   useAppSelector,
 } from '~/store';
 
+const SWAP_RECEIVE_VALIDITY_CHECK_INTERVAL_MS = 5000;
 export const SwapReceive = () => {
   const dispatch = useAppDispatch();
   const {
@@ -41,16 +42,7 @@ export const SwapReceive = () => {
       await closeExchange();
       return;
     }
-    if (Date.now() > receiveFlowValidTill) {
-      onError(
-        createCustomError(
-          strings.swap.commonErrors.timeout.title,
-          strings.swap.commonErrors.timeout.description,
-        ),
-      );
-      await closeExchange();
-      return;
-    }
+
     await initiateExchange(receiversAddress.current);
     toNextPage();
   };
@@ -116,6 +108,21 @@ export const SwapReceive = () => {
       }),
     );
   };
+
+  useEffect(() => {
+    const intervalId = setInterval(() => {
+      if (Date.now() > receiveFlowValidTill) {
+        onReceiveDialogError(
+          createCustomError(
+            strings.swap.commonErrors.timeout.title,
+            strings.swap.commonErrors.timeout.description,
+          ),
+        );
+      }
+    }, SWAP_RECEIVE_VALIDITY_CHECK_INTERVAL_MS);
+
+    return () => clearInterval(intervalId);
+  }, [strings, receiveFlowValidTill]);
 
   useEffect(() => {
     init();

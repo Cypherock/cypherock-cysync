@@ -11,6 +11,8 @@ import {
   useAppSelector,
 } from '~/store';
 
+const SWAP_SEND_VALIDITY_CHECK_INTERVAL_MS = 5000;
+
 export const SwapSend = () => {
   const dispatch = useAppDispatch();
   const {
@@ -43,6 +45,24 @@ export const SwapSend = () => {
     dispatch(closeDialog('sendDialog'));
     await closeExchange();
   };
+
+  useEffect(() => {
+    if (!exchangeDetails) return undefined;
+
+    const validTill = new Date(exchangeDetails.validTill).getTime();
+    const intervalId = setInterval(() => {
+      if (Date.now() > validTill) {
+        onSendDialogError(
+          createCustomError(
+            strings.swap.commonErrors.timeout.title,
+            strings.swap.commonErrors.timeout.description,
+          ),
+        );
+      }
+    }, SWAP_SEND_VALIDITY_CHECK_INTERVAL_MS);
+
+    return () => clearInterval(intervalId);
+  }, [exchangeDetails, onSendDialogError, strings]);
 
   useEffect(() => {
     const abort = async () => {
