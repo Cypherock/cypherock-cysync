@@ -255,7 +255,7 @@ export const SwapProvider: React.FC<SwapProviderProps> = ({ children }) => {
       }
     } catch (error) {
       logger.error(error);
-      setGlobalError(error);
+      onError(error);
       await closeExchange();
     }
   };
@@ -277,7 +277,7 @@ export const SwapProvider: React.FC<SwapProviderProps> = ({ children }) => {
     const result = await closeExchangeFlow.run();
 
     if (result.error) {
-      setGlobalError(result.error);
+      logger.error(result.error);
     }
   };
 
