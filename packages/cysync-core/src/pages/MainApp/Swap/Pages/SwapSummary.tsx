@@ -33,22 +33,13 @@ import {
 } from '~/store';
 
 export const SwapSummary = () => {
-  const displayText = {
-    title: 'Swap Summary',
-    from: 'From',
-    to: 'To',
-    amount: 'Amount',
-    network: 'Netork Fee',
-    debit: 'Total to debit',
-    provider: 'Provider',
-  };
-
   const { wallets } = useAppSelector(selectWallets);
   const { accounts } = useAppSelector(selectAccounts);
   const { priceInfos } = useAppSelector(selectPriceInfos);
   const lang = useAppSelector(selectLanguage);
 
   const button = lang.strings.buttons;
+  const displayText = lang.strings.swap.swapSummary;
 
   const { fromAccount, quote, toAccount, toNextPage } = useSwap();
 
@@ -133,7 +124,7 @@ export const SwapSummary = () => {
 
     details.push({
       id: 'fee-details',
-      leftText: displayText.network,
+      leftText: displayText.networkFee,
       rightText: `${amount} ${unit}`,
       rightSubText: `$${value}`,
     });
@@ -177,7 +168,7 @@ export const SwapSummary = () => {
     return [
       {
         id: 'total-amount-details',
-        leftText: displayText.debit,
+        leftText: displayText.totalToDebit,
         rightText: `${totalAmount} ${unit}`,
         rightSubText: `$${totalValue}`,
       },
@@ -189,7 +180,7 @@ export const SwapSummary = () => {
       <DialogBox width={600}>
         <DialogBoxBody p={0} pt={5}>
           <Typography variant="h5" $textAlign="center">
-            <LangDisplay text={displayText.title} />
+            <LangDisplay text={displayText.heading} />
           </Typography>
 
           <ScrollableContainer $maxHeight={{ def: '40vh', lg: '65vh' }}>

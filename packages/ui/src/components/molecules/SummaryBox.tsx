@@ -15,6 +15,7 @@ interface FromItem {
   name: string;
   muted: boolean;
   icon?: ReactNode;
+  rightIcon?: ReactNode;
 }
 
 interface SummaryRowProps {
@@ -65,7 +66,7 @@ export const SummaryRow: React.FC<SummaryRowProps> = ({
       rightComponent ? (
         <>
           {rightComponent.map((from, idx) => {
-            const { id: _id, name, muted, icon } = from;
+            const { id: _id, name, muted, icon, rightIcon } = from;
 
             return (
               <Container
@@ -83,10 +84,11 @@ export const SummaryRow: React.FC<SummaryRowProps> = ({
                     color={muted ? 'muted' : undefined}
                     $fontSize={14}
                     $textAlign="right"
-                    $maxWidth="100px"
+                    $width="min-content"
                   >
                     {name}
                   </Typography>
+                  {rightIcon}
                 </ImageContainer>
                 {idx !== rightComponent.length - 1 && (
                   <Typography variant="p" color="muted" $fontSize={14}>

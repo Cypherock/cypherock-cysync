@@ -8,9 +8,15 @@ import { LoaderDialog } from '~/components';
 import { createCustomError, useSwap } from '~/context';
 import { ReceiveFlowSource } from '~/dialogs/Receive/context';
 import { DeviceTask, useDeviceTask } from '~/hooks';
-import { closeDialog, useAppDispatch } from '~/store';
+import {
+  closeDialog,
+  selectLanguage,
+  useAppDispatch,
+  useAppSelector,
+} from '~/store';
 import logger from '~/utils/logger';
 
+const SWAP_RECEIVE_VALIDITY_CHECK_INTERVAL_MS = 5000;
 export const SwapReceive = () => {
   const dispatch = useAppDispatch();
   const {
@@ -22,6 +28,8 @@ export const SwapReceive = () => {
     closeExchange,
     receiveFlowValidTill,
   } = useSwap();
+  const { strings } = useAppSelector(selectLanguage);
+  const displayText = strings.swap.swapReceive;
 
   const receiversAddress = useRef<string>();
 
@@ -31,10 +39,11 @@ export const SwapReceive = () => {
 
   const onReceiveFlowClosed = async () => {
     if (receiversAddress.current === undefined) {
-      onError(createCustomError('Receive flow was not successful'));
+      onError(createCustomError(displayText.errors.notSuccessful));
       await closeExchange();
       return;
     }
+
     await initiateExchange(receiversAddress.current);
     toNextPage();
   };
@@ -47,7 +56,7 @@ export const SwapReceive = () => {
 
   const initiateExchangeFlowTask: DeviceTask<void> = async connection => {
     if (fromAccount === undefined || toAccount === undefined) {
-      onError(createCustomError('Invalid inputs for initiating Exchange'));
+      onError(createCustomError(displayText.errors.invalidInputs));
       return;
     }
 
@@ -85,7 +94,7 @@ export const SwapReceive = () => {
     }
 
     if (toAccount === undefined) {
-      onError(createCustomError('Account not selected'));
+      onError(createCustomError(displayText.errors.accountNotSelected));
       await closeExchange();
       return;
     }
@@ -103,6 +112,21 @@ export const SwapReceive = () => {
       }),
     );
   };
+
+  useEffect(() => {
+    const intervalId = setInterval(() => {
+      if (Date.now() > receiveFlowValidTill) {
+        onReceiveDialogError(
+          createCustomError(
+            strings.swap.commonErrors.timeout.title,
+            strings.swap.commonErrors.timeout.description,
+          ),
+        );
+      }
+    }, SWAP_RECEIVE_VALIDITY_CHECK_INTERVAL_MS);
+
+    return () => clearInterval(intervalId);
+  }, [strings, receiveFlowValidTill]);
 
   useEffect(() => {
     init();

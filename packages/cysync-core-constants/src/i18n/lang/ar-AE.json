@@ -274,18 +274,21 @@
       "subtitle": "أدخل المبلغ وعنوان المستلم الذي تريد إرسال الأموال إليه",
       "recipient": {
         "label": "عنوان المستلم",
+        "labelSwap": "${provider}'s Address",
         "placeholder": "أدخل العنوان",
         "error": "عنوان غير صالح",
         "ownAddress": "عنوان المستلم هو نفسه عنوان المرسل"
       },
       "icpAccountIdRecipient": {
         "label": "معرف حساب المستلم",
+        "labelSwap": "${provider}'s Account ID",
         "placeholder": "أدخل معرف الحساب",
         "error": "معرف الحساب غير صالح",
         "ownAddress": "معرف حساب المستلم هو نفسه معرف حساب المرسل"
       },
       "icpPrincipalIdRecipient": {
         "label": "معرّف المستلم الرئيسي",
+        "labelSwap": "${provider}'s Principal ID",
         "placeholder": "أدخل المعرّف الرئيسي",
         "error": "معرّف رئيسي غير صالح",
         "ownAddress": "معرّف المستلم الرئيسي هو نفسه معرّف المرسل الرئيسي"
@@ -2840,6 +2843,7 @@
         "amountLabel": "You will receive"
       },
       "offers": {
+        "title": "Your best quotes",
         "initialText": "Select the wallet and account to get quotes",
         "searchingForOffers": "Searching for your best offer",
         "bestOffer": "Best Offer",
@@ -2858,8 +2862,60 @@
           "currencyNotSupported": "Currency not supported",
           "amountRange": "Amount should be between ${min} and ${max}",
           "noQuotes": "No quotes found",
-          "noInternet": "No internet connection"
+          "noInternet": "No internet connection",
+          "enterAmount": "Enter amount to get quotes",
+          "selectDifferentCoinPair": "Select a different coin pair"
         }
+      }
+    },
+    "topBar": {
+      "history": "History"
+    },
+    "swapReceive": {
+      "errors": {
+        "notSuccessful": "Receive flow was not successful",
+        "invalidInputs": "Invalid inputs for initiating Exchange",
+        "accountNotSelected": "Account not selected"
+      }
+    },
+    "swapSend": {
+      "errors": {
+        "notSuccessfull": "Send flow was not successful",
+        "cannotStart": "Cannot start send flow",
+        "invalidPrerequisite": "invalid prerequisite for swap send"
+      }
+    },
+    "swapSummary": {
+      "heading": "Swap Summary",
+      "from": "From",
+      "to": "To",
+      "amount": "Amount",
+      "provider": "Provider",
+      "networkFee": "Network Fee",
+      "totalToDebit": "Total to debit"
+    },
+    "swapStatus": {
+      "heading": {
+        "success": "Swap Successful",
+        "pending": "Swap Pending",
+        "failed": "Swap Failed"
+      },
+      "description": "",
+      "amountSent": "Amount Sent",
+      "amountReceived": "Amount Received",
+      "transactionID": "Transaction ID",
+      "messageBox": {
+        "warning": "Your account balance will be updated when the blockchain confirms the transaction",
+        "danger": "The network returned the following error:"
+      },
+      "button": {
+        "backToSwap": "Back to Swap"
+      }
+    },
+    "commonErrors": {
+      "timeout": {
+        "title": "Swap Timeout",
+        "description": "The swap request has timed out. Please try again or contact support if the issue persists."
       }
     }
   }

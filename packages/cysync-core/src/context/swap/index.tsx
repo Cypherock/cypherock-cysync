@@ -49,6 +49,7 @@ export interface IExchangeDetails {
   address: string;
   additionalData?: string;
   validTill: string;
+  providerName: string;
 }
 
 export interface SwapContextInterface {
@@ -71,6 +72,7 @@ export interface SwapContextInterface {
   exchangeDetails?: IExchangeDetails;
   initiateExchange: (address: string) => Promise<void>;
   closeExchange: () => Promise<void>;
+  resetIndex: number;
 }
 
 export const SwapContext: React.Context<SwapContextInterface> =
@@ -105,33 +107,41 @@ export const SwapProvider: React.FC<SwapProviderProps> = ({ children }) => {
     setCurrentPage(p => Math.max(SwapPage.DETAILS, p - 1));
   };
 
-  const reset = () => {
-    setGlobalError(undefined);
-
-    setCurrentPage(SwapPage.DETAILS);
-
+  const resetUserInput = () => {
     setFromAccount(undefined);
     setFromWallet(undefined);
+    setFromAmount('0');
     setToAccount(undefined);
     setToWallet(undefined);
+  };
+
+  const resetState = () => {
+    setGlobalError(undefined);
+    setCurrentPage(SwapPage.DETAILS);
     setQuote(undefined);
     setExchangeDetails(undefined);
   };
 
+  const resetAll = () => {
+    resetUserInput();
+    resetState();
+    setResetIndex(prev => prev + 1);
+  };
+
   const onError = useCallback(
     (e?: any) => {
-      reset();
+      resetState();
       setGlobalError(e);
     },
-    [setGlobalError, reset],
+    [setGlobalError, resetState],
   );
 
   const retryMap: Record<SwapPage, () => void> = {
-    [SwapPage.DETAILS]: reset,
-    [SwapPage.SUMMARY]: reset,
-    [SwapPage.RECEIVE]: reset,
-    [SwapPage.SEND]: reset,
-    [SwapPage.STATUS]: reset,
+    [SwapPage.DETAILS]: resetState,
+    [SwapPage.SUMMARY]: resetState,
+    [SwapPage.RECEIVE]: resetState,
+    [SwapPage.SEND]: resetState,
+    [SwapPage.STATUS]: resetState,
   };
 
   const retryPage = useCallback(() => {
@@ -145,6 +155,7 @@ export const SwapProvider: React.FC<SwapProviderProps> = ({ children }) => {
   const [toAccount, setToAccount] = useState<IAccount | undefined>();
   const [quote, setQuote] = useState<IQuote | undefined>();
   const [receiveFlowValidTill, setReceiveFlowValidTill] = useState<number>(0);
+  const [resetIndex, setResetIndex] = useState(1);
   const [exchangeDetails, setExchangeDetails] = useState<
     IExchangeDetails | undefined
   >();
@@ -245,6 +256,7 @@ export const SwapProvider: React.FC<SwapProviderProps> = ({ children }) => {
           address: result.data.exchangeAddress,
           additionalData: result.data.exchangeAddressAdditionalData,
           validTill: result.data.validTill,
+          providerName: quote.provider.name,
         });
 
         exchangeSignatureRef.current = result.data.exchangeAddressSignature;
@@ -293,7 +305,7 @@ export const SwapProvider: React.FC<SwapProviderProps> = ({ children }) => {
     currentPage,
     toNextPage,
     toPreviousPage,
-    reset,
+    reset: resetAll,
     error: globalError,
     onError,
     retryCurrentPage: retryPage,
@@ -309,6 +321,7 @@ export const SwapProvider: React.FC<SwapProviderProps> = ({ children }) => {
     exchangeDetails,
     initiateExchange,
     closeExchange,
+    resetIndex,
   });
   return <SwapContext.Provider value={ctx}>{children}</SwapContext.Provider>;
 };

@@ -105,8 +105,13 @@ const getErrorAndWarningComponents = (
 
 export interface FeeSectionProps {
   showErrors?: boolean;
+  hideSlider?: boolean;
 }
-export const FeeSection: React.FC<FeeSectionProps> = ({ showErrors }) => {
+
+export const FeeSection: React.FC<FeeSectionProps> = ({
+  showErrors,
+  hideSlider,
+}) => {
   const lang = useAppSelector(selectLanguage);
   const displayText = lang.strings.send.recipient;
   const { priceInfos } = useAppSelector(selectPriceInfos);
@@ -187,7 +192,7 @@ export const FeeSection: React.FC<FeeSectionProps> = ({ showErrors }) => {
   };
 
   const getFeeInputComponent = () => {
-    if (!selectedAccount) return null;
+    if (!selectedAccount || hideSlider) return null;
     const coinFamily = selectedAccount.familyId as CoinFamily;
 
     const Component = feeInputMap[coinFamily];
@@ -212,7 +217,7 @@ export const FeeSection: React.FC<FeeSectionProps> = ({ showErrors }) => {
         title={displayText.fees.title}
         initialState={isTextInput}
         onChange={setIsTextInput}
-        isToggleButtonHidden={!isToggleAllowed(coinFamily)}
+        isToggleButtonHidden={!isToggleAllowed(coinFamily) || hideSlider}
       />
     );
   };
@@ -378,4 +383,5 @@ export const FeeSection: React.FC<FeeSectionProps> = ({ showErrors }) => {
 
 FeeSection.defaultProps = {
   showErrors: undefined,
+  hideSlider: undefined,
 };

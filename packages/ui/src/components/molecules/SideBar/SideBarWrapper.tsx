@@ -22,6 +22,8 @@ const SideBarWrapperStyle = styled.div<SideBarWrapperProps>`
   flex-direction: column;
   background: ${({ theme }) => theme.palette.background.sidebar};
   overflow-y: auto;
+  border: 0 ${({ theme }) => theme.palette.border.topbar} solid;
+  border-right-width: 1px;
   ${width}
   ${height}
   ${spacing}

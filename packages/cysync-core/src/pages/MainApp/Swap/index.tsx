@@ -1,4 +1,4 @@
-import React, { useLayoutEffect, useMemo } from 'react';
+import React, { useEffect, useLayoutEffect, useMemo } from 'react';
 
 import { openErrorDialog } from '~/actions';
 import { SwapPage, useSwap } from '~/context';
@@ -28,25 +28,22 @@ import {
 const FullScreenWithConnectedDevice: React.FC<{
   children: React.ReactNode;
   onClose?: () => void;
-  onHistory?: () => void;
-}> = ({ children, onClose, onHistory }) => (
-  <ComponentWithHeader onBack={onClose} onHistory={onHistory}>
-    <Container width="full" height="full">
-      <WithConnectedDevice>{children}</WithConnectedDevice>;
-    </Container>
-  </ComponentWithHeader>
+}> = ({ children, onClose }) => (
+  <Container width="full" height="full">
+    <WithConnectedDevice onClose={onClose}>{children}</WithConnectedDevice>;
+  </Container>
 );
 
 FullScreenWithConnectedDevice.defaultProps = {
   onClose: undefined,
-  onHistory: undefined,
 };
 
 const ComponentWithHeader: React.FC<{
   children: React.ReactNode;
   onBack?: () => void;
   onHistory?: () => void;
-}> = ({ children, onBack, onHistory }) => {
+  disableHistory?: boolean;
+}> = ({ children, onBack, onHistory, disableHistory }) => {
   const lang = useAppSelector(selectLanguage);
   return (
     <Container
@@ -54,7 +51,6 @@ const ComponentWithHeader: React.FC<{
       width="full"
       height="full"
       justify="flex-start"
-      my={2}
     >
       <Flex
         $alignSelf="stretch"
@@ -77,14 +73,22 @@ const ComponentWithHeader: React.FC<{
           </Button>
         )}
         {onHistory && (
-          <Button variant="text" title="History" onClick={onHistory}>
-            <Typography variant="p" color="white">
+          <Button
+            variant="text"
+            title="History"
+            onClick={onHistory}
+            disabled={disableHistory}
+          >
+            <Typography
+              variant="p"
+              color={disableHistory ? 'disabled' : 'white'}
+            >
               {lang.strings.sidebar.history}
             </Typography>
           </Button>
         )}
       </Flex>
-      <div style={{ alignItems: 'stretch', height: '90%', width: '100%' }}>
+      <div style={{ alignItems: 'stretch', height: '91%', width: '100%' }}>
         {children}
       </div>
     </Container>
@@ -94,40 +98,80 @@ const ComponentWithHeader: React.FC<{
 ComponentWithHeader.defaultProps = {
   onBack: undefined,
   onHistory: undefined,
+  disableHistory: undefined,
 };
+
+const SwapDetailsComponent: React.FC<{
+  onHistory: () => void;
+  disableHistory?: boolean;
+}> = ({ onHistory, disableHistory }) => (
+  <ComponentWithHeader onHistory={onHistory} disableHistory={disableHistory}>
+    <SwapDetailsInput />
+  </ComponentWithHeader>
+);
+
+SwapDetailsComponent.defaultProps = {
+  disableHistory: undefined,
+};
+
+const SwapSummaryComponent: React.FC<{
+  onHistory: () => void;
+  toPreviousPage?: () => void;
+  disableHistory?: boolean;
+}> = ({ onHistory, toPreviousPage, disableHistory }) => (
+  <ComponentWithHeader
+    onHistory={onHistory}
+    onBack={toPreviousPage}
+    disableHistory={disableHistory}
+  >
+    <SwapSummary />
+  </ComponentWithHeader>
+);
+
+SwapSummaryComponent.defaultProps = {
+  toPreviousPage: undefined,
+  disableHistory: undefined,
+};
+
+const SwapReceiveComponent: React.FC<{ onClose: () => void }> = ({
+  onClose,
+}) => (
+  <FullScreenWithConnectedDevice onClose={onClose}>
+    <SwapReceive />
+  </FullScreenWithConnectedDevice>
+);
+
+const SwapSendComponent: React.FC<{ onClose: () => void }> = ({ onClose }) => (
+  <FullScreenWithConnectedDevice onClose={onClose}>
+    <SwapSend />
+  </FullScreenWithConnectedDevice>
+);
 
 const pageMap: Record<
   SwapPage,
-  (onHistory: () => void, toPreviousPage?: () => void) => React.ReactNode
+  (params: {
+    onHistory: () => void;
+    onClose: () => void;
+    toPreviousPage?: () => void;
+    disableHistory?: boolean;
+  }) => React.ReactNode
 > = {
-  [SwapPage.DETAILS]: onHistory => (
-    <ComponentWithHeader onHistory={onHistory}>
-      <SwapDetailsInput />
-    </ComponentWithHeader>
-  ),
-  [SwapPage.SUMMARY]: (onHistory, toPreviousPage) => (
-    <ComponentWithHeader onHistory={onHistory} onBack={toPreviousPage}>
-      <SwapSummary />
-    </ComponentWithHeader>
-  ),
-  [SwapPage.RECEIVE]: () => (
-    <FullScreenWithConnectedDevice>
-      <SwapReceive />
-    </FullScreenWithConnectedDevice>
-  ),
-  [SwapPage.SEND]: () => (
-    <FullScreenWithConnectedDevice>
-      <SwapSend />
-    </FullScreenWithConnectedDevice>
-  ),
+  [SwapPage.DETAILS]: params => <SwapDetailsComponent {...params} />,
+  [SwapPage.SUMMARY]: params => <SwapSummaryComponent {...params} />,
+  [SwapPage.RECEIVE]: params => <SwapReceiveComponent {...params} />,
+  [SwapPage.SEND]: params => <SwapSendComponent {...params} />,
   [SwapPage.STATUS]: () => <SwapStatus />,
 };
 
 export const Swap = () => {
-  const { currentPage, error, retryCurrentPage, toPreviousPage } = useSwap();
+  const { currentPage, error, retryCurrentPage, toPreviousPage, reset } =
+    useSwap();
   const dispatch = useAppDispatch();
+  const { strings } = useAppSelector(selectLanguage);
 
   const currentComponent = useMemo(() => pageMap[currentPage], [currentPage]);
+
+  useEffect(() => () => reset(), []);
 
   useLayoutEffect(() => {
     if (error) {
@@ -140,15 +184,24 @@ export const Swap = () => {
             retryCurrentPage();
             dispatch(closeDialog('errorDialog'));
           },
+          onClose: reset,
         }),
       );
     }
   }, [error]);
+
+  // TODO: disable history if there are no previous swap transactions
+  const disableHistory = true;
   const handleHistoryClick = () => console.log('should open history!');
 
   return (
-    <MainAppLayout topbar={{ title: 'Swap' }}>
-      {currentComponent(handleHistoryClick, toPreviousPage)}
+    <MainAppLayout topbar={{ title: strings.swap.title }}>
+      {currentComponent({
+        onHistory: handleHistoryClick,
+        onClose: reset,
+        toPreviousPage,
+        disableHistory,
+      })}
     </MainAppLayout>
   );
 };

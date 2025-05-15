@@ -10,16 +10,32 @@ import { SingleTransaction } from './SingleTransaction';
 
 interface AnaProps {
   disableInputs?: boolean;
+  providerName?: string;
 }
-const BitcoinAddressAndAmount: React.FC<AnaProps> = ({ disableInputs }) => {
+const BitcoinAddressAndAmount: React.FC<AnaProps> = ({
+  disableInputs,
+  providerName,
+}) => {
   const lang = useAppSelector(selectLanguage);
   const displayText = lang.strings.send.recipient;
+
+  if (disableInputs) {
+    return (
+      <Container px={5} py="12px">
+        <SingleTransaction
+          disableInputs={disableInputs}
+          providerName={providerName}
+        />
+      </Container>
+    );
+  }
+
   const tabs = [
     {
       label: displayText.tabs.single,
       content: (
         <TabContentContainer>
-          <SingleTransaction disableInputs={disableInputs} />
+          <SingleTransaction />
         </TabContentContainer>
       ),
     },
@@ -32,47 +48,85 @@ const BitcoinAddressAndAmount: React.FC<AnaProps> = ({ disableInputs }) => {
       ),
     },
   ];
+
   return <Tabs tabs={tabs} />;
 };
 
-const EvmAddressAndAmount: React.FC<AnaProps> = ({ disableInputs }) => (
+const EvmAddressAndAmount: React.FC<AnaProps> = ({
+  disableInputs,
+  providerName,
+}) => (
   <Container px={5} py="12px">
-    <SingleTransaction disableInputs={disableInputs} />
+    <SingleTransaction
+      disableInputs={disableInputs}
+      providerName={providerName}
+    />
   </Container>
 );
 
-const SolanaAddressAndAmount: React.FC<AnaProps> = ({ disableInputs }) => (
+const SolanaAddressAndAmount: React.FC<AnaProps> = ({
+  disableInputs,
+  providerName,
+}) => (
   <Container px={5} py="12px">
-    <SingleTransaction disableInputs={disableInputs} />
+    <SingleTransaction
+      disableInputs={disableInputs}
+      providerName={providerName}
+    />
   </Container>
 );
 
-const TronAddressAndAmount: React.FC<AnaProps> = ({ disableInputs }) => (
+const TronAddressAndAmount: React.FC<AnaProps> = ({
+  disableInputs,
+  providerName,
+}) => (
   <Container px={5} py="12px">
-    <SingleTransaction disableInputs={disableInputs} />
+    <SingleTransaction
+      disableInputs={disableInputs}
+      providerName={providerName}
+    />
   </Container>
 );
 
-const XrpAddressAndAmount: React.FC<AnaProps> = ({ disableInputs }) => (
+const XrpAddressAndAmount: React.FC<AnaProps> = ({
+  disableInputs,
+  providerName,
+}) => (
   <Container px={5} py="12px">
-    <SingleTransaction disableInputs={disableInputs} />
+    <SingleTransaction
+      disableInputs={disableInputs}
+      providerName={providerName}
+    />
   </Container>
 );
 
-const StarknetAddressAndAmount: React.FC<AnaProps> = ({ disableInputs }) => (
+const StarknetAddressAndAmount: React.FC<AnaProps> = ({
+  disableInputs,
+  providerName,
+}) => (
   <Container px={5} py="12px">
-    <SingleTransaction disableInputs={disableInputs} />
+    <SingleTransaction
+      disableInputs={disableInputs}
+      providerName={providerName}
+    />
   </Container>
 );
 
-const IcpAddressAndAmount: React.FC<AnaProps> = ({ disableInputs }) => (
+const IcpAddressAndAmount: React.FC<AnaProps> = ({
+  disableInputs,
+  providerName,
+}) => (
   <Container px={5} py="12px">
-    <SingleTransaction disableInputs={disableInputs} />
+    <SingleTransaction
+      disableInputs={disableInputs}
+      providerName={providerName}
+    />
   </Container>
 );
 
 const defaultAnaProps = {
   disableInputs: undefined,
+  providerName: undefined,
 };
 
 BitcoinAddressAndAmount.defaultProps = defaultAnaProps;

@@ -6,6 +6,7 @@ import { ErrorHandlerDialog, closeDialog, useAppDispatch } from '..';
 export interface ErrorDialogProps {
   error: Error;
   onRetry?: () => void;
+  onClose?: () => void;
   showCloseButton?: boolean;
   suppressActions?: boolean;
 }
@@ -13,12 +14,16 @@ export interface ErrorDialogProps {
 export const ErrorDialog: FC<ErrorDialogProps> = ({
   error,
   onRetry,
+  onClose,
   showCloseButton,
   suppressActions,
 }) => {
   const dispatch = useAppDispatch();
 
-  const onClose = () => {
+  const handleOnClose = () => {
+    if (onClose) {
+      onClose();
+    }
     dispatch(closeDialog('errorDialog'));
   };
 
@@ -26,7 +31,7 @@ export const ErrorDialog: FC<ErrorDialogProps> = ({
     <BlurOverlay>
       <ErrorHandlerDialog
         error={error}
-        onClose={onClose}
+        onClose={handleOnClose}
         onRetry={onRetry}
         showCloseButton={showCloseButton}
         suppressActions={suppressActions}
@@ -37,6 +42,7 @@ export const ErrorDialog: FC<ErrorDialogProps> = ({
 
 ErrorDialog.defaultProps = {
   onRetry: undefined,
+  onClose: undefined,
   showCloseButton: undefined,
   suppressActions: undefined,
 };

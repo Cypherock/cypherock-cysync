@@ -5,7 +5,7 @@ import { IPreparedIcpTransaction } from '@cypherock/coin-support-icp';
 import { IPreparedTransaction } from '@cypherock/coin-support-interfaces';
 import { getDefaultUnit, getParsedAmount } from '@cypherock/coin-support-utils';
 import { coinFamiliesMap, CoinFamily } from '@cypherock/coins';
-import { Container } from '@cypherock/cysync-ui';
+import { Container, parseLangTemplate } from '@cypherock/cysync-ui';
 import { BigNumber } from '@cypherock/cysync-utils';
 import { AccountTypeMap } from '@cypherock/db-interfaces';
 import React, { useEffect, useState } from 'react';
@@ -24,6 +24,7 @@ const MAX_UINT64 = new BigNumber('0xffffffffffffffff');
 
 interface SingleTransactionProps {
   disableInputs?: boolean;
+  providerName?: string;
 }
 export const SingleTransaction: React.FC<SingleTransactionProps> = ({
   disableInputs,
@@ -47,6 +48,7 @@ export const SingleTransaction: React.FC<SingleTransactionProps> = ({
     getOutputError,
     getAmountError,
     getDestinationTagError,
+    providerName,
   } = useSendDialog();
 
   let recipientDisplayText = displayText.recipient;
@@ -200,7 +202,13 @@ export const SingleTransaction: React.FC<SingleTransactionProps> = ({
     <Container display="flex" direction="column" gap={16} width="full">
       <Container display="flex" direction="column" gap={8} width="full">
         <AddressInput
-          label={recipientDisplayText.label}
+          label={
+            providerName
+              ? parseLangTemplate(recipientDisplayText.labelSwap, {
+                  provider: providerName,
+                })
+              : recipientDisplayText.label
+          }
           placeholder={recipientDisplayText.placeholder}
           initialValue={transaction?.userInputs.outputs[0]?.address}
           error={getOutputError(0)}
@@ -249,4 +257,5 @@ export const SingleTransaction: React.FC<SingleTransactionProps> = ({
 
 SingleTransaction.defaultProps = {
   disableInputs: undefined,
+  providerName: undefined,
 };

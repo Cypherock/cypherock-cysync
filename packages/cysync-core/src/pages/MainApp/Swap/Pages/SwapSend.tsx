@@ -4,7 +4,14 @@ import { openSendDialog } from '~/actions';
 import { LoaderDialog } from '~/components';
 import { createCustomError, useSwap } from '~/context';
 import { SendFlowSource } from '~/dialogs/Send/context';
-import { closeDialog, useAppDispatch } from '~/store';
+import {
+  closeDialog,
+  selectLanguage,
+  useAppDispatch,
+  useAppSelector,
+} from '~/store';
+
+const SWAP_SEND_VALIDITY_CHECK_INTERVAL_MS = 5000;
 
 export const SwapSend = () => {
   const dispatch = useAppDispatch();
@@ -16,6 +23,8 @@ export const SwapSend = () => {
     onError,
     closeExchange,
   } = useSwap();
+  const { strings } = useAppSelector(selectLanguage);
+  const displayText = strings.swap.swapSend;
   const transactionId = useRef<string>();
 
   const storeTransactionId = (id: string) => {
@@ -24,7 +33,7 @@ export const SwapSend = () => {
 
   const onSendFlowClose = async () => {
     if (transactionId.current === undefined) {
-      onError(createCustomError('Send flow was not successful'));
+      onError(createCustomError(displayText.errors.notSuccessfull));
     } else {
       toNextPage();
     }
@@ -38,12 +47,30 @@ export const SwapSend = () => {
   };
 
   useEffect(() => {
+    if (!exchangeDetails) return undefined;
+
+    const validTill = new Date(exchangeDetails.validTill).getTime();
+    const intervalId = setInterval(() => {
+      if (Date.now() > validTill) {
+        onSendDialogError(
+          createCustomError(
+            strings.swap.commonErrors.timeout.title,
+            strings.swap.commonErrors.timeout.description,
+          ),
+        );
+      }
+    }, SWAP_SEND_VALIDITY_CHECK_INTERVAL_MS);
+
+    return () => clearInterval(intervalId);
+  }, [exchangeDetails, onSendDialogError, strings]);
+
+  useEffect(() => {
     const abort = async () => {
       await closeExchange();
       onError(
         createCustomError(
-          'Cannot start send flow',
-          'invalid prerequisite for swap send',
+          displayText.errors.cannotStart,
+          displayText.errors.invalidPrerequisite,
         ),
       );
     };
@@ -72,6 +99,7 @@ export const SwapSend = () => {
         onClose: onSendFlowClose,
         onError: onSendDialogError,
         validTill: exchangeDetails.validTill,
+        providerName: exchangeDetails.providerName,
       }),
     );
   }, []);
