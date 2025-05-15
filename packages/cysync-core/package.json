@@ -53,7 +53,7 @@
     "jest-environment-jsdom": "^29.5.0",
     "lint-staged": "^13.2.2",
     "near-api-js": "^2.1.4",
-    "parcel": "^2.14.4",
+    "parcel": "^2.9.3",
     "prettier": "^2.8.8",
     "rimraf": "^5.0.1",
     "safe-buffer": "^5.2.1",

@@ -2160,7 +2160,7 @@ importers:
         specifier: ^2.1.4
         version: 2.1.4
       parcel:
-        specifier: ^2.14.4
+        specifier: ^2.9.3
         version: 2.14.4(typescript@4.9.5)
       prettier:
         specifier: ^2.8.8
@@ -2330,7 +2330,7 @@ importers:
         specifier: ^13.2.2
         version: 13.2.2
       parcel:
-        specifier: ^2.14.4
+        specifier: ^2.9.3
         version: 2.14.4(typescript@4.9.5)
       prettier:
         specifier: ^2.8.8
