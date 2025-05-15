@@ -25,10 +25,10 @@ export const SwapSend = () => {
   const onSendFlowClose = async () => {
     if (transactionId.current === undefined) {
       onError(createCustomError('Send flow was not successful'));
-      await closeExchange();
-      return;
+    } else {
+      toNextPage();
     }
-    toNextPage();
+    await closeExchange();
   };
 
   const onSendDialogError = async (e?: any) => {

@@ -9,6 +9,7 @@ import { createCustomError, useSwap } from '~/context';
 import { ReceiveFlowSource } from '~/dialogs/Receive/context';
 import { DeviceTask, useDeviceTask } from '~/hooks';
 import { closeDialog, useAppDispatch } from '~/store';
+import logger from '~/utils/logger';
 
 export const SwapReceive = () => {
   const dispatch = useAppDispatch();
@@ -68,6 +69,9 @@ export const SwapReceive = () => {
   });
 
   const init = async () => {
+    logger.info(
+      `Starting swap from ${fromAccount?.assetId} to ${toAccount?.assetId}`,
+    );
     const result = await initiateTask.run();
 
     if (result.error) {
