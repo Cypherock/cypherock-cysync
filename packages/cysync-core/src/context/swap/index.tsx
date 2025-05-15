@@ -267,7 +267,7 @@ export const SwapProvider: React.FC<SwapProviderProps> = ({ children }) => {
       }
     } catch (error) {
       logger.error(error);
-      setGlobalError(error);
+      onError(error);
       await closeExchange();
     }
   };
@@ -286,11 +286,19 @@ export const SwapProvider: React.FC<SwapProviderProps> = ({ children }) => {
   });
 
   const closeExchange = async () => {
-    const result = await closeExchangeFlow.run();
+    let error: Error | undefined;
+    let retries = 3;
+    do {
+      const result = await closeExchangeFlow.run();
+      error = result.error;
 
-    if (result.error) {
-      setGlobalError(result.error);
-    }
+      if (error) {
+        logger.error(error);
+      }
+      retries -= 1;
+    } while (error && retries > 0);
+
+    logger.info('Swap closed');
   };
 
   const ctx = useMemoReturn({

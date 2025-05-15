@@ -34,10 +34,10 @@ export const SwapSend = () => {
   const onSendFlowClose = async () => {
     if (transactionId.current === undefined) {
       onError(createCustomError(displayText.errors.notSuccessfull));
-      await closeExchange();
-      return;
+    } else {
+      toNextPage();
     }
-    toNextPage();
+    await closeExchange();
   };
 
   const onSendDialogError = async (e?: any) => {

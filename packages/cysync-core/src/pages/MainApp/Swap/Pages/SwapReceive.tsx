@@ -14,6 +14,7 @@ import {
   useAppDispatch,
   useAppSelector,
 } from '~/store';
+import logger from '~/utils/logger';
 
 const SWAP_RECEIVE_VALIDITY_CHECK_INTERVAL_MS = 5000;
 export const SwapReceive = () => {
@@ -77,6 +78,9 @@ export const SwapReceive = () => {
   });
 
   const init = async () => {
+    logger.info(
+      `Starting swap from ${fromAccount?.assetId} to ${toAccount?.assetId}`,
+    );
     const result = await initiateTask.run();
 
     if (result.error) {
