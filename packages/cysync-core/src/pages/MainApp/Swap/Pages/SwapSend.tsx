@@ -22,9 +22,11 @@ export const SwapSend = () => {
     quote,
     onError,
     closeExchange,
+    markTransactionAsSwap,
   } = useSwap();
   const { strings } = useAppSelector(selectLanguage);
   const displayText = strings.swap.swapSend;
+
   const transactionId = useRef<string>();
 
   const storeTransactionId = (id: string) => {
@@ -35,6 +37,7 @@ export const SwapSend = () => {
     if (transactionId.current === undefined) {
       onError(createCustomError(displayText.errors.notSuccessfull));
     } else {
+      markTransactionAsSwap(transactionId.current);
       toNextPage();
     }
     await closeExchange();

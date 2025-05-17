@@ -1,4 +1,4 @@
-import React, { useEffect, useLayoutEffect, useMemo } from 'react';
+import React, { useEffect, useLayoutEffect, useMemo, useState } from 'react';
 
 import { openErrorDialog } from '~/actions';
 import { SwapPage, useSwap } from '~/context';
@@ -24,6 +24,7 @@ import {
   Flex,
   Typography,
 } from '@cypherock/cysync-ui';
+import { SwapHistory } from './components/SwapHistory';
 
 const FullScreenWithConnectedDevice: React.FC<{
   children: React.ReactNode;
@@ -166,6 +167,8 @@ const pageMap: Record<
 export const Swap = () => {
   const { currentPage, error, retryCurrentPage, toPreviousPage, reset } =
     useSwap();
+  const [showHistory, setShowHistory] = useState(false);
+  const [topbarHeight, setTopbarHeight] = useState(0);
   const dispatch = useAppDispatch();
   const { strings } = useAppSelector(selectLanguage);
 
@@ -192,16 +195,25 @@ export const Swap = () => {
 
   // @todo: disable history if there are no previous swap transactions
   const disableHistory = true;
-  const handleHistoryClick = () => console.log('should open history!');
+  const handleHistoryClick = () => setShowHistory(true);
 
   return (
-    <MainAppLayout topbar={{ title: strings.swap.title }}>
-      {currentComponent({
-        onHistory: handleHistoryClick,
-        onClose: reset,
-        toPreviousPage,
-        disableHistory,
-      })}
+    <MainAppLayout
+      topbar={{ title: strings.swap.title }}
+      onTopbarHeightChange={setTopbarHeight}
+    >
+      {showHistory ? (
+        <ComponentWithHeader onBack={() => setShowHistory(false)}>
+          <SwapHistory topbarHeight={topbarHeight} />
+        </ComponentWithHeader>
+      ) : (
+        currentComponent({
+          onHistory: handleHistoryClick,
+          onClose: reset,
+          toPreviousPage,
+          disableHistory,
+        })
+      )}
     </MainAppLayout>
   );
 };

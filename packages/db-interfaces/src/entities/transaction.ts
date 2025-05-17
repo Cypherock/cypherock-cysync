@@ -55,6 +55,7 @@ export interface ITransaction extends IEntity {
   customId?: string;
   description?: string;
   remarks?: string[];
+  isSwap?: boolean;
 }
 
 export interface IDetailedTransaction extends ITransaction {

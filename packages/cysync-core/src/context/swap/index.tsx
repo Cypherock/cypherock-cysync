@@ -10,6 +10,7 @@ import { ErrorActionMap, ErrorIconNameMap } from '~/constants/errors';
 
 import { DeviceTask, useDeviceTask, useMemoReturn } from '~/hooks';
 import { createExchange } from '~/services/swapService';
+import { getDB } from '~/utils';
 import logger from '~/utils/logger';
 
 export enum SwapPage {
@@ -73,6 +74,7 @@ export interface SwapContextInterface {
   initiateExchange: (address: string) => Promise<void>;
   closeExchange: () => Promise<void>;
   resetIndex: number;
+  markTransactionAsSwap: (id: string) => void;
 }
 
 export const SwapContext: React.Context<SwapContextInterface> =
@@ -301,6 +303,11 @@ export const SwapProvider: React.FC<SwapProviderProps> = ({ children }) => {
     logger.info('Swap closed');
   };
 
+  const markTransactionAsSwap = (id: string) => {
+    const db = getDB();
+    db.transaction.update({ __id: id }, { isSwap: true });
+  };
+
   const ctx = useMemoReturn({
     currentPage,
     toNextPage,
@@ -321,6 +328,7 @@ export const SwapProvider: React.FC<SwapProviderProps> = ({ children }) => {
     exchangeDetails,
     initiateExchange,
     closeExchange,
+    markTransactionAsSwap,
     resetIndex,
   });
   return <SwapContext.Provider value={ctx}>{children}</SwapContext.Provider>;
