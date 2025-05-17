@@ -397,7 +397,7 @@ export const BuySellProvider: FC<BuySellContextProviderProps> = ({
       if (paymentMethodsRef.current === undefined) {
         // This api returs all payment methods regardless of amount
         // Hence the hardcoded amount values
-        // TODO: upate this when binance has fixed their api
+        // @todo: upate this when binance has fixed their api
         const result = await buySellSupport.getPaymentMethods({
           cryptoCurrency: selectedCryptoCurrencyRef.current.coin,
           fiatCurrency: selectedFiatCurrencyRef.current,

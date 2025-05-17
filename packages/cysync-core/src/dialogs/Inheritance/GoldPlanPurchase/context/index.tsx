@@ -91,13 +91,11 @@ export const InheritanceGoldPlanPurchaseDialogProvider: FC<
 
   const allWallets = useMemo<IWalletForSelection[]>(() => {
     const deletedWalletIds = deletedWallets.map(e => e.__id);
-    return [
-      ...wallets.map(e => ({
-        ...e,
-        isDeleted: deletedWalletIds.includes(e.__id),
-        isActive: plans.some(plan => e.__id && isPlanActive(plan, e.__id)),
-      })),
-    ];
+    return wallets.map(e => ({
+      ...e,
+      isDeleted: deletedWalletIds.includes(e.__id),
+      isActive: plans.some(plan => e.__id && isPlanActive(plan, e.__id)),
+    }));
   }, [wallets, deletedWallets, plans]);
 
   const [selectedWallet, setSelectedWallet] = useState<IWallet | undefined>();
