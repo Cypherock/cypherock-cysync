@@ -2821,97 +2821,97 @@
     }
   },
   "swap": {
-    "title": "Swap",
+    "title": "Pertukaran",
     "detailsInput": {
       "common": {
-        "searchText": "Search",
-        "walletPlaceholder": "Choose a wallet"
+        "searchText": "Cari",
+        "walletPlaceholder": "Pilih dompet"
       },
       "from": {
-        "title": "From",
-        "accountPlaceholder": "Account to debit",
-        "amountLabel": "Amount to send",
-        "amountError": "Not enough balance"
+        "title": "Dari",
+        "accountPlaceholder": "Akun untuk didebit",
+        "amountLabel": "Jumlah untuk dikirim",
+        "amountError": "Saldo tidak cukup"
       },
       "to": {
-        "title": "To",
-        "accountPlaceholder": "Account to credit",
-        "amountLabel": "You will receive"
+        "title": "Ke",
+        "accountPlaceholder": "Akun untuk dikredit",
+        "amountLabel": "Anda akan menerima"
       },
       "offers": {
-        "title": "Your best quotes",
-        "initialText": "Select the wallet and account to get quotes",
-        "searchingForOffers": "Searching for your best offer",
-        "bestOffer": "Best Offer",
-        "fixedRate": "Fixed rate",
-        "fixedRateTooltip": "A fixed rate ensures you get the quoted value without being affected by price changes.",
-        "networkFee": "Network Fee",
-        "networkFeeTooltip": "The blockchain network applies this fee to execute your swap. Only the outgoing (send) network fee is added on top of the quoted amount — the incoming (receive) fee is already covered in the quote.",
-        "quotesFound": "${num} quotes found",
-        "timerText": "Updates in ${time}",
+        "title": "Kutipan terbaik Anda",
+        "initialText": "Pilih dompet dan akun untuk mendapatkan kutipan",
+        "searchingForOffers": "Mencari penawaran terbaik Anda",
+        "bestOffer": "Penawaran Terbaik",
+        "fixedRate": "Tarif tetap",
+        "fixedRateTooltip": "Tarif tetap menjamin Anda mendapatkan nilai yang dikutip tanpa dipengaruhi oleh perubahan harga.",
+        "networkFee": "Biaya Jaringan",
+        "networkFeeTooltip": "Biaya ini dikenakan oleh jaringan blockchain untuk mengeksekusi pertukaran Anda. Hanya biaya jaringan keluar (kirim) yang ditambahkan di atas jumlah yang dikutip — biaya masuk (terima) sudah tercakup dalam kutipan.",
+        "quotesFound": "${num} kutipan ditemukan",
+        "timerText": "Memperbarui dalam ${time}",
         "buttons": {
-          "continue": "Continue"
+          "continue": "Lanjutkan"
         },
         "errors": {
-          "sameAsset": "Cannot swap same asset",
-          "noOffers": "No offers available for your request",
-          "currencyNotSupported": "Currency not supported",
-          "amountRange": "Amount should be between ${min} and ${max}",
-          "noQuotes": "No quotes found",
-          "noInternet": "No internet connection",
-          "enterAmount": "Enter amount to get quotes",
-          "selectDifferentCoinPair": "Select a different coin pair"
+          "sameAsset": "Tidak dapat menukar aset yang sama",
+          "noOffers": "Tidak ada tawaran yang tersedia untuk permintaan Anda",
+          "currencyNotSupported": "Mata uang tidak didukung",
+          "amountRange": "Jumlah harus antara ${min} dan ${max}",
+          "noQuotes": "Tidak ada kutipan ditemukan",
+          "noInternet": "Tidak ada koneksi internet",
+          "enterAmount": "Masukkan jumlah untuk mendapatkan kutipan",
+          "selectDifferentCoinPair": "Pilih pasangan koin yang berbeda"
         }
       }
     },
     "topBar": {
-      "history": "History"
+      "history": "Sejarah"
     },
     "swapReceive": {
       "errors": {
-        "notSuccessful": "Receive flow was not successful",
-        "invalidInputs": "Invalid inputs for initiating Exchange",
-        "accountNotSelected": "Account not selected"
+        "notSuccessful": "Alur penerimaan tidak berhasil",
+        "invalidInputs": "Input tidak valid untuk memulai Pertukaran",
+        "accountNotSelected": "Akun tidak dipilih"
       }
     },
     "swapSend": {
       "errors": {
-        "notSuccessfull": "Send flow was not successful",
-        "cannotStart": "Cannot start send flow",
-        "invalidPrerequisite": "invalid prerequisite for swap send"
+        "notSuccessfull": "Alur pengiriman tidak berhasil",
+        "cannotStart": "Tidak dapat memulai alur pengiriman",
+        "invalidPrerequisite": "prasyarat tidak valid untuk pengiriman tukar"
       }
     },
     "swapSummary": {
-      "heading": "Swap Summary",
-      "from": "From",
-      "to": "To",
-      "amount": "Amount",
-      "provider": "Provider",
-      "networkFee": "Network Fee",
-      "totalToDebit": "Total to debit"
+      "heading": "Ringkasan Pertukaran",
+      "from": "Dari",
+      "to": "Ke",
+      "amount": "Jumlah",
+      "provider": "Penyedia",
+      "networkFee": "Biaya Jaringan",
+      "totalToDebit": "Total yang harus didebit"
     },
     "swapStatus": {
       "heading": {
-        "success": "Swap Successful",
-        "pending": "Swap Pending",
-        "failed": "Swap Failed"
+        "success": "Pertukaran Berhasil",
+        "pending": "Pertukaran Tertunda",
+        "failed": "Pertukaran Gagal"
       },
       "description": "",
-      "amountSent": "Amount Sent",
-      "amountReceived": "Amount Received",
-      "transactionID": "Transaction ID",
+      "amountSent": "Jumlah Dikirim",
+      "amountReceived": "Jumlah Diterima",
+      "transactionID": "ID Transaksi",
       "messageBox": {
-        "warning": "Your account balance will be updated when the blockchain confirms the transaction",
-        "danger": "The network returned the following error:"
+        "warning": "Saldo akun Anda akan diperbarui ketika blockchain mengonfirmasi transaksi",
+        "danger": "Jaringan mengembalikan kesalahan berikut:"
       },
       "button": {
-        "backToSwap": "Back to Swap"
+        "backToSwap": "Kembali ke Pertukaran"
       }
     },
     "commonErrors": {
       "timeout": {
-        "title": "Swap Timeout",
-        "description": "The swap request has timed out. Please try again or contact support if the issue persists."
+        "title": "Waktu Pertukaran Habis",
+        "description": "Permintaan pertukaran telah habis waktu. Silakan coba lagi atau hubungi dukungan jika masalah berlanjut."
       }
     }
   }

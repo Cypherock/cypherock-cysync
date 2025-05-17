@@ -2795,97 +2795,97 @@
     }
   },
   "swap": {
-    "title": "Swap",
+    "title": "交换",
     "detailsInput": {
       "common": {
-        "searchText": "Search",
-        "walletPlaceholder": "Choose a wallet"
+        "searchText": "搜索",
+        "walletPlaceholder": "选择钱包"
       },
       "from": {
-        "title": "From",
-        "accountPlaceholder": "Account to debit",
-        "amountLabel": "Amount to send",
-        "amountError": "Not enough balance"
+        "title": "从",
+        "accountPlaceholder": "扣款账户",
+        "amountLabel": "发送金额",
+        "amountError": "余额不足"
       },
       "to": {
-        "title": "To",
-        "accountPlaceholder": "Account to credit",
-        "amountLabel": "You will receive"
+        "title": "到",
+        "accountPlaceholder": "收款账户",
+        "amountLabel": "您将收到"
       },
       "offers": {
-        "title": "Your best quotes",
-        "initialText": "Select the wallet and account to get quotes",
-        "searchingForOffers": "Searching for your best offer",
-        "bestOffer": "Best Offer",
-        "fixedRate": "Fixed rate",
-        "fixedRateTooltip": "A fixed rate ensures you get the quoted value without being affected by price changes.",
-        "networkFee": "Network Fee",
-        "networkFeeTooltip": "The blockchain network applies this fee to execute your swap. Only the outgoing (send) network fee is added on top of the quoted amount — the incoming (receive) fee is already covered in the quote.",
-        "quotesFound": "${num} quotes found",
-        "timerText": "Updates in ${time}",
+        "title": "您的最佳报价",
+        "initialText": "选择钱包和账户以获取报价",
+        "searchingForOffers": "正在搜索您的最佳报价",
+        "bestOffer": "最佳报价",
+        "fixedRate": "固定汇率",
+        "fixedRateTooltip": "固定汇率确保您获得的报价不受价格变化的影响。",
+        "networkFee": "网络费用",
+        "networkFeeTooltip": "该区块链网络将对此次交换收取费用。只有外发（发送）网络费用会加在报价金额之上——入账（接收）费用已包含在报价中。",
+        "quotesFound": "找到 ${num} 条报价",
+        "timerText": "${time} 后更新",
         "buttons": {
-          "continue": "Continue"
+          "continue": "继续"
         },
         "errors": {
-          "sameAsset": "Cannot swap same asset",
-          "noOffers": "No offers available for your request",
-          "currencyNotSupported": "Currency not supported",
-          "amountRange": "Amount should be between ${min} and ${max}",
-          "noQuotes": "No quotes found",
-          "noInternet": "No internet connection",
-          "enterAmount": "Enter amount to get quotes",
-          "selectDifferentCoinPair": "Select a different coin pair"
+          "sameAsset": "无法交换相同资产",
+          "noOffers": "没有可用的报价",
+          "currencyNotSupported": "不支持的货币",
+          "amountRange": "金额应在 ${min} 和 ${max} 之间",
+          "noQuotes": "未找到报价",
+          "noInternet": "无网络连接",
+          "enterAmount": "输入金额以获取报价",
+          "selectDifferentCoinPair": "选择不同的币对"
         }
       }
     },
     "topBar": {
-      "history": "History"
+      "history": "历史"
     },
     "swapReceive": {
       "errors": {
-        "notSuccessful": "Receive flow was not successful",
-        "invalidInputs": "Invalid inputs for initiating Exchange",
-        "accountNotSelected": "Account not selected"
+        "notSuccessful": "接收流程未成功",
+        "invalidInputs": "发起兑换的输入无效",
+        "accountNotSelected": "未选择账户"
       }
     },
     "swapSend": {
       "errors": {
-        "notSuccessfull": "Send flow was not successful",
-        "cannotStart": "Cannot start send flow",
-        "invalidPrerequisite": "invalid prerequisite for swap send"
+        "notSuccessfull": "发送流程未成功",
+        "cannotStart": "无法启动发送流程",
+        "invalidPrerequisite": "交换发送的前提条件无效"
       }
     },
     "swapSummary": {
-      "heading": "Swap Summary",
-      "from": "From",
-      "to": "To",
-      "amount": "Amount",
-      "provider": "Provider",
-      "networkFee": "Network Fee",
-      "totalToDebit": "Total to debit"
+      "heading": "交换摘要",
+      "from": "从",
+      "to": "到",
+      "amount": "金额",
+      "provider": "提供商",
+      "networkFee": "网络费用",
+      "totalToDebit": "扣除总额"
     },
     "swapStatus": {
       "heading": {
-        "success": "Swap Successful",
-        "pending": "Swap Pending",
-        "failed": "Swap Failed"
+        "success": "交换成功",
+        "pending": "交换待处理",
+        "failed": "交换失败"
       },
       "description": "",
-      "amountSent": "Amount Sent",
-      "amountReceived": "Amount Received",
-      "transactionID": "Transaction ID",
+      "amountSent": "已发送金额",
+      "amountReceived": "接收的金额",
+      "transactionID": "交易 ID",
       "messageBox": {
-        "warning": "Your account balance will be updated when the blockchain confirms the transaction",
-        "danger": "The network returned the following error:"
+        "warning": "当区块链确认交易时，您的账户余额将更新",
+        "danger": "网络返回以下错误："
       },
       "button": {
-        "backToSwap": "Back to Swap"
+        "backToSwap": "返回交换"
       }
     },
     "commonErrors": {
       "timeout": {
-        "title": "Swap Timeout",
-        "description": "The swap request has timed out. Please try again or contact support if the issue persists."
+        "title": "交换超时",
+        "description": "交换请求已超时。如果问题仍然存在，请重试或联系支持。"
       }
     }
   }

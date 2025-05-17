@@ -2825,97 +2825,97 @@
     }
   },
   "swap": {
-    "title": "Swap",
+    "title": "تبديل",
     "detailsInput": {
       "common": {
-        "searchText": "Search",
-        "walletPlaceholder": "Choose a wallet"
+        "searchText": "بحث",
+        "walletPlaceholder": "اختر محفظة"
       },
       "from": {
-        "title": "From",
-        "accountPlaceholder": "Account to debit",
-        "amountLabel": "Amount to send",
-        "amountError": "Not enough balance"
+        "title": "من",
+        "accountPlaceholder": "حساب لخصم",
+        "amountLabel": "المبلغ للإرسال",
+        "amountError": "الرصيد غير كافٍ"
       },
       "to": {
-        "title": "To",
-        "accountPlaceholder": "Account to credit",
-        "amountLabel": "You will receive"
+        "title": "إلى",
+        "accountPlaceholder": "حساب لإيداع",
+        "amountLabel": "ستتلقى"
       },
       "offers": {
-        "title": "Your best quotes",
-        "initialText": "Select the wallet and account to get quotes",
-        "searchingForOffers": "Searching for your best offer",
-        "bestOffer": "Best Offer",
-        "fixedRate": "Fixed rate",
-        "fixedRateTooltip": "A fixed rate ensures you get the quoted value without being affected by price changes.",
-        "networkFee": "Network Fee",
-        "networkFeeTooltip": "The blockchain network applies this fee to execute your swap. Only the outgoing (send) network fee is added on top of the quoted amount — the incoming (receive) fee is already covered in the quote.",
-        "quotesFound": "${num} quotes found",
-        "timerText": "Updates in ${time}",
+        "title": "أفضل العروض لك",
+        "initialText": "اختر المحفظة والحساب للحصول على عروض",
+        "searchingForOffers": "البحث عن أفضل عرض",
+        "bestOffer": "أفضل عرض",
+        "fixedRate": "معدل ثابت",
+        "fixedRateTooltip": "يضمن لك المعدل الثابت الحصول على القيمة المقتبسة دون التأثر بتغيرات الأسعار.",
+        "networkFee": "رسوم الشبكة",
+        "networkFeeTooltip": "تطبق شبكة الblockchain هذه الرسوم لتنفيذ التبديل. تضاف فقط رسوم الشبكة الصادرة (الإرسال) فوق المبلغ المقتبس - الرسوم الواردة (الاستلام) مغطاة بالفعل في العرض.",
+        "quotesFound": "${num} عروض تم العثور عليها",
+        "timerText": "تحديث في ${time}",
         "buttons": {
-          "continue": "Continue"
+          "continue": "استمرار"
         },
         "errors": {
-          "sameAsset": "Cannot swap same asset",
-          "noOffers": "No offers available for your request",
-          "currencyNotSupported": "Currency not supported",
-          "amountRange": "Amount should be between ${min} and ${max}",
-          "noQuotes": "No quotes found",
-          "noInternet": "No internet connection",
-          "enterAmount": "Enter amount to get quotes",
-          "selectDifferentCoinPair": "Select a different coin pair"
+          "sameAsset": "لا يمكن تبديل نفس الأصل",
+          "noOffers": "لا توجد عروض متاحة لطلبك",
+          "currencyNotSupported": "العملة غير مدعومة",
+          "amountRange": "يجب أن يكون المبلغ بين ${min} و ${max}",
+          "noQuotes": "لا توجد عروض",
+          "noInternet": "لا يوجد اتصال بالإنترنت",
+          "enterAmount": "أدخل المبلغ للحصول على عروض",
+          "selectDifferentCoinPair": "اختر زوج عملات مختلف"
         }
       }
     },
     "topBar": {
-      "history": "History"
+      "history": "التاريخ"
     },
     "swapReceive": {
       "errors": {
-        "notSuccessful": "Receive flow was not successful",
-        "invalidInputs": "Invalid inputs for initiating Exchange",
-        "accountNotSelected": "Account not selected"
+        "notSuccessful": "عملية الاستلام لم تكن ناجحة",
+        "invalidInputs": "إدخالات غير صالحة لبدء التبادل",
+        "accountNotSelected": "لم يتم اختيار الحساب"
       }
     },
     "swapSend": {
       "errors": {
-        "notSuccessfull": "Send flow was not successful",
-        "cannotStart": "Cannot start send flow",
-        "invalidPrerequisite": "invalid prerequisite for swap send"
+        "notSuccessfull": "عملية الإرسال لم تكن ناجحة",
+        "cannotStart": "لا يمكن بدء عملية الإرسال",
+        "invalidPrerequisite": "متطلب مبدئي غير صالح لتبديل الإرسال"
       }
     },
     "swapSummary": {
-      "heading": "Swap Summary",
-      "from": "From",
-      "to": "To",
-      "amount": "Amount",
-      "provider": "Provider",
-      "networkFee": "Network Fee",
-      "totalToDebit": "Total to debit"
+      "heading": "ملخص التبديل",
+      "from": "من",
+      "to": "إلى",
+      "amount": "المبلغ",
+      "provider": "مقدم الخدمة",
+      "networkFee": "رسوم الشبكة",
+      "totalToDebit": "الإجمالي للخصم"
     },
     "swapStatus": {
       "heading": {
-        "success": "Swap Successful",
-        "pending": "Swap Pending",
-        "failed": "Swap Failed"
+        "success": "التبديل ناجح",
+        "pending": "التبديل معلق",
+        "failed": "فشل التبديل"
       },
       "description": "",
-      "amountSent": "Amount Sent",
-      "amountReceived": "Amount Received",
-      "transactionID": "Transaction ID",
+      "amountSent": "المبلغ المرسل",
+      "amountReceived": "المبلغ المستلم",
+      "transactionID": "معرف المعاملة",
       "messageBox": {
-        "warning": "Your account balance will be updated when the blockchain confirms the transaction",
-        "danger": "The network returned the following error:"
+        "warning": "سيتم تحديث رصيد حسابك عند تأكيد المعاملة بواسطة الblockchain",
+        "danger": "أعادت الشبكة الخطأ التالي:"
       },
       "button": {
-        "backToSwap": "Back to Swap"
+        "backToSwap": "العودة إلى التبديل"
       }
     },
     "commonErrors": {
       "timeout": {
-        "title": "Swap Timeout",
-        "description": "The swap request has timed out. Please try again or contact support if the issue persists."
+        "title": "انتهاء وقت التبديل",
+        "description": "انتهت مهلة طلب التبديل. يرجى المحاولة مرة أخرى أو الاتصال بالدعم إذا استمرت المشكلة."
       }
     }
   }

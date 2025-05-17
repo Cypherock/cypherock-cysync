@@ -2822,97 +2822,97 @@
     }
   },
   "swap": {
-    "title": "Swap",
+    "title": "Tauschen",
     "detailsInput": {
       "common": {
-        "searchText": "Search",
-        "walletPlaceholder": "Choose a wallet"
+        "searchText": "Suche",
+        "walletPlaceholder": "Wähle ein Wallet"
       },
       "from": {
-        "title": "From",
-        "accountPlaceholder": "Account to debit",
-        "amountLabel": "Amount to send",
-        "amountError": "Not enough balance"
+        "title": "Von",
+        "accountPlaceholder": "Konto zur Belastung",
+        "amountLabel": "Zu sendender Betrag",
+        "amountError": "Nicht genug Guthaben"
       },
       "to": {
-        "title": "To",
-        "accountPlaceholder": "Account to credit",
-        "amountLabel": "You will receive"
+        "title": "Zu",
+        "accountPlaceholder": "Konto zur Gutschrift",
+        "amountLabel": "Sie werden erhalten"
       },
       "offers": {
-        "title": "Your best quotes",
-        "initialText": "Select the wallet and account to get quotes",
-        "searchingForOffers": "Searching for your best offer",
-        "bestOffer": "Best Offer",
-        "fixedRate": "Fixed rate",
-        "fixedRateTooltip": "A fixed rate ensures you get the quoted value without being affected by price changes.",
-        "networkFee": "Network Fee",
-        "networkFeeTooltip": "The blockchain network applies this fee to execute your swap. Only the outgoing (send) network fee is added on top of the quoted amount — the incoming (receive) fee is already covered in the quote.",
-        "quotesFound": "${num} quotes found",
-        "timerText": "Updates in ${time}",
+        "title": "Ihre besten Angebote",
+        "initialText": "Wählen Sie das Wallet und Konto, um Angebote zu erhalten",
+        "searchingForOffers": "Suche nach Ihrem besten Angebot",
+        "bestOffer": "Bestes Angebot",
+        "fixedRate": "Fester Kurs",
+        "fixedRateTooltip": "Ein fester Kurs stellt sicher, dass Sie den angegebenen Wert erhalten, ohne von Preisänderungen betroffen zu sein.",
+        "networkFee": "Netzwerkgebühr",
+        "networkFeeTooltip": "Die Blockchain erhebt diese Gebühr, um Ihren Tausch auszuführen. Nur die ausgehende (Sende-)Netzwerkgebühr wird zusätzlich zum angegebenen Betrag hinzugefügt — die eingehende (Empfangs-) Gebühr ist bereits im Angebot enthalten.",
+        "quotesFound": "${num} Angebote gefunden",
+        "timerText": "Aktualisiert in ${time}",
         "buttons": {
-          "continue": "Continue"
+          "continue": "Fortfahren"
         },
         "errors": {
-          "sameAsset": "Cannot swap same asset",
-          "noOffers": "No offers available for your request",
-          "currencyNotSupported": "Currency not supported",
-          "amountRange": "Amount should be between ${min} and ${max}",
-          "noQuotes": "No quotes found",
-          "noInternet": "No internet connection",
-          "enterAmount": "Enter amount to get quotes",
-          "selectDifferentCoinPair": "Select a different coin pair"
+          "sameAsset": "Gleiche Vermögenswerte können nicht getauscht werden",
+          "noOffers": "Keine Angebote für Ihre Anfrage verfügbar",
+          "currencyNotSupported": "Währung nicht unterstützt",
+          "amountRange": "Betrag sollte zwischen ${min} und ${max} liegen",
+          "noQuotes": "Keine Angebote gefunden",
+          "noInternet": "Keine Internetverbindung",
+          "enterAmount": "Betrag eingeben, um Angebote zu erhalten",
+          "selectDifferentCoinPair": "Wählen Sie ein anderes Münz paar"
         }
       }
     },
     "topBar": {
-      "history": "History"
+      "history": "Verlauf"
     },
     "swapReceive": {
       "errors": {
-        "notSuccessful": "Receive flow was not successful",
-        "invalidInputs": "Invalid inputs for initiating Exchange",
-        "accountNotSelected": "Account not selected"
+        "notSuccessful": "Empfangsvorgang war nicht erfolgreich",
+        "invalidInputs": "Ungültige Eingaben für den Start der Umwandlung",
+        "accountNotSelected": "Konto nicht ausgewählt"
       }
     },
     "swapSend": {
       "errors": {
-        "notSuccessfull": "Send flow was not successful",
-        "cannotStart": "Cannot start send flow",
-        "invalidPrerequisite": "invalid prerequisite for swap send"
+        "notSuccessfull": "Sendenvorgang war nicht erfolgreich",
+        "cannotStart": "Sendenvorgang kann nicht gestartet werden",
+        "invalidPrerequisite": "Ungültige Voraussetzung für den Tauschversand"
       }
     },
     "swapSummary": {
-      "heading": "Swap Summary",
-      "from": "From",
-      "to": "To",
-      "amount": "Amount",
-      "provider": "Provider",
-      "networkFee": "Network Fee",
-      "totalToDebit": "Total to debit"
+      "heading": "Tauschen Zusammenfassung",
+      "from": "Von",
+      "to": "Zu",
+      "amount": "Betrag",
+      "provider": "Anbieter",
+      "networkFee": "Netzwerkgebühr",
+      "totalToDebit": "Gesamtsumme zu belasten"
     },
     "swapStatus": {
       "heading": {
-        "success": "Swap Successful",
-        "pending": "Swap Pending",
-        "failed": "Swap Failed"
+        "success": "Tausch Erfolgreich",
+        "pending": "Tausch Ausstehend",
+        "failed": "Tausch Fehlgeschlagen"
       },
       "description": "",
-      "amountSent": "Amount Sent",
-      "amountReceived": "Amount Received",
-      "transactionID": "Transaction ID",
+      "amountSent": "Gesendeter Betrag",
+      "amountReceived": "Erhaltener Betrag",
+      "transactionID": "Transaktions-ID",
       "messageBox": {
-        "warning": "Your account balance will be updated when the blockchain confirms the transaction",
-        "danger": "The network returned the following error:"
+        "warning": "Ihr Kontostand wird aktualisiert, wenn die Blockchain die Transaktion bestätigt",
+        "danger": "Das Netzwerk hat den folgenden Fehler zurückgegeben:"
       },
       "button": {
-        "backToSwap": "Back to Swap"
+        "backToSwap": "Zurück zum Tauschen"
       }
     },
     "commonErrors": {
       "timeout": {
-        "title": "Swap Timeout",
-        "description": "The swap request has timed out. Please try again or contact support if the issue persists."
+        "title": "Tausch Timeout",
+        "description": "Die Tausch anfrage ist abgelaufen. Bitte versuchen Sie es erneut oder kontaktieren Sie den Support, wenn das Problem weiterhin besteht."
       }
     }
   }
