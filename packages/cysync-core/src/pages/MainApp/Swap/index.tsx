@@ -190,7 +190,7 @@ export const Swap = () => {
     }
   }, [error]);
 
-  // TODO: disable history if there are no previous swap transactions
+  // @todo: disable history if there are no previous swap transactions
   const disableHistory = true;
   const handleHistoryClick = () => console.log('should open history!');
 

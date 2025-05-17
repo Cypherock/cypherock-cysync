@@ -10,8 +10,6 @@ import {
   IDatabase,
 } from '@cypherock/db-interfaces';
 
-import { InstructionType, TransactionParserReturnType } from './types';
-
 import { ISolanaSplTokenAccount } from '../../operations/types';
 import {
   deriveAssociatedTokenAddress,
@@ -23,6 +21,7 @@ import {
   ISolanaInstruction,
   ISolanaTransactionItem,
 } from '../api';
+import { InstructionType, TransactionParserReturnType } from './types';
 
 const parseCoinTransaction = (
   instruction: ISolanaInstruction,
@@ -359,7 +358,7 @@ export const parseTransactionItem = async (params: {
 
   let createAccountInstructionIndex = 0;
   // Parse the createAccount transactions from inner instructions
-  for (const innerInstruction of transactionItem.meta?.innerInstructions[0]
+  for (const innerInstruction of transactionItem.meta?.innerInstructions?.[0]
     ?.instructions ?? []) {
     if (
       innerInstruction.programId ===

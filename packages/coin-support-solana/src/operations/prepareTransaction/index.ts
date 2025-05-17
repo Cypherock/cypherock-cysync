@@ -3,15 +3,6 @@ import { solanaCoinList, ICoinInfo, ISolanaSplToken } from '@cypherock/coins';
 import { assert, BigNumber } from '@cypherock/cysync-utils';
 import { AccountTypeMap } from '@cypherock/db-interfaces';
 
-import { IPrepareSolanaTransactionParams } from './types';
-
-import {
-  doesAccountExist,
-  getFees,
-  getPriorityFees,
-  getSimulationComputeUnits,
-  getTokenAccountRentExemptFees,
-} from '../../services';
 import {
   constructTransaction,
   deriveAssociatedTokenAddress,
@@ -21,9 +12,19 @@ import {
   ICustomSolanaTransferInstruction,
   InstructionType,
 } from '../../utils';
-import logger from '../../utils/logger';
+import {
+  doesAccountExist,
+  getFees,
+  getPriorityFees,
+  getSimulationComputeUnits,
+  getTokenAccountRentExemptFees,
+} from '../../services';
+
 import { IPreparedSolanaTransaction } from '../transaction';
 import { validateAddress } from '../validateAddress';
+
+import { IPrepareSolanaTransactionParams } from './types';
+import logger from '../../utils/logger';
 
 const validateAddresses = (
   params: IPrepareSolanaTransactionParams,

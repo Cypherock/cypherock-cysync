@@ -398,50 +398,57 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
     }
   };
 
+  const fillPrefillDetails = (initTransaction: IPreparedTransaction) => {
+    const prefilledTransaction = structuredClone(initTransaction);
+
+    if (
+      prefillDetails?.address &&
+      prefilledTransaction.userInputs.outputs.length > 0
+    ) {
+      prefilledTransaction.userInputs.outputs[0].address =
+        prefillDetails.address;
+    }
+    if (prefillDetails?.amount && selectedAccount) {
+      const convertedAmount = convertToUnit({
+        amount: prefillDetails.amount,
+        coinId: selectedAccount.parentAssetId,
+        assetId: selectedAccount.assetId,
+        fromUnitAbbr:
+          selectedAccount.unit ??
+          getDefaultUnit(selectedAccount.parentAssetId, selectedAccount.assetId)
+            .abbr,
+        toUnitAbbr: getZeroUnit(
+          selectedAccount.parentAssetId,
+          selectedAccount.assetId,
+        ).abbr,
+      });
+      prefilledTransaction.userInputs.outputs[0].amount =
+        convertedAmount.amount;
+    }
+    if (prefillDetails?.extraInput && selectedAccount) {
+      prefilledTransaction.userInputs = fillExtraInput(
+        selectedAccount.familyId as CoinFamily,
+        prefilledTransaction,
+        prefillDetails.extraInput ?? '',
+      );
+    }
+
+    return prefilledTransaction;
+  };
+
   const initialize = async () => {
     logger.info('Initializing send transaction');
     if (transaction !== undefined) return;
 
     try {
-      const initTransaction =
-        await getCurrentCoinSupport().initializeTransaction({
+      let initTransaction = await getCurrentCoinSupport().initializeTransaction(
+        {
           db: getDB(),
           accountId: selectedAccount?.__id ?? '',
-        });
+        },
+      );
       if (prefillDetails) {
-        initTransaction.userInputs.outputs.push({
-          address: '',
-          amount: '',
-          remarks: '',
-        });
-        if (prefillDetails.address)
-          initTransaction.userInputs.outputs[0].address =
-            prefillDetails.address;
-        if (prefillDetails.amount && selectedAccount) {
-          const convertedAmount = convertToUnit({
-            amount: prefillDetails.amount,
-            coinId: selectedAccount.parentAssetId,
-            assetId: selectedAccount.assetId,
-            fromUnitAbbr:
-              selectedAccount.unit ??
-              getDefaultUnit(
-                selectedAccount.parentAssetId,
-                selectedAccount.assetId,
-              ).abbr,
-            toUnitAbbr: getZeroUnit(
-              selectedAccount.parentAssetId,
-              selectedAccount.assetId,
-            ).abbr,
-          });
-          initTransaction.userInputs.outputs[0].amount = convertedAmount.amount;
-        }
-        if (prefillDetails.extraInput) {
-          initTransaction.userInputs = fillExtraInput(
-            selectedAccount?.familyId as CoinFamily,
-            initTransaction,
-            prefillDetails.extraInput ?? '',
-          );
-        }
+        initTransaction = fillPrefillDetails(initTransaction);
       }
       setTransaction(initTransaction);
 
