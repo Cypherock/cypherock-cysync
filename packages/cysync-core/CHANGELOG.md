@@ -1,5 +1,33 @@
 # @cypherock/cysync-core
 
+## 0.5.0
+
+### Minor Changes
+
+- [#734](https://github.com/Cypherock/cypherock-cysync/pull/734) [`8d60c96a`](https://github.com/Cypherock/cypherock-cysync/commit/8d60c96ad205a3a3bdd14cbd0f58c75b2222d72a) Thanks [@muzaffarbhat07](https://github.com/muzaffarbhat07)! - Added swaps
+
+### Patch Changes
+
+- Updated dependencies [[`8d60c96a`](https://github.com/Cypherock/cypherock-cysync/commit/8d60c96ad205a3a3bdd14cbd0f58c75b2222d72a)]:
+  - @cypherock/app-support-inheritance@1.0.4
+  - @cypherock/coin-support-interfaces@0.0.10
+  - @cypherock/coin-support-starknet@1.0.4
+  - @cypherock/cysync-core-constants@0.4.2
+  - @cypherock/coin-support-solana@0.1.3
+  - @cypherock/coin-support-near@0.0.17
+  - @cypherock/coin-support-tron@0.0.12
+  - @cypherock/coin-support-btc@0.0.17
+  - @cypherock/coin-support-evm@0.0.17
+  - @cypherock/coin-support-icp@1.0.1
+  - @cypherock/coin-support-xrp@1.1.5
+  - @cypherock/cysync-core-services@0.1.3
+  - @cypherock/coin-support@0.1.5
+  - @cypherock/coins@0.3.2
+  - @cypherock/cysync-ui@0.0.11
+  - @cypherock/coin-support-utils@0.0.17
+  - @cypherock/cysync-core-workers@0.0.19
+  - @cypherock/app-support-buy-sell@0.0.5
+
 ## 0.4.1
 
 ### Patch Changes
