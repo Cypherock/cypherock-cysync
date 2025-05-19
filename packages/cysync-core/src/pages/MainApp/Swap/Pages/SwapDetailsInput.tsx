@@ -339,6 +339,7 @@ export const SwapDetailsInput = () => {
         $flex={5}
       >
         <AmountAndAccountSelection
+          key={`from-${resetIndex}`}
           selectionLabel={displayText.from.title}
           amountLabel={displayText.from.amountLabel}
           accountPlaceholder={displayText.from.accountPlaceholder}
@@ -353,6 +354,7 @@ export const SwapDetailsInput = () => {
           amountError={
             !hasEnoughBalance ? displayText.from.amountError : undefined
           }
+          autoFocus
         />
         <div style={{ alignSelf: 'center' }}>
           <Button

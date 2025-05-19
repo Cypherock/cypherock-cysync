@@ -90,8 +90,11 @@ const AmountInput: React.FC<any> = ({
           <Typography
             $fontSize={16}
             color="muted"
-            $allowOverflow
+            $textOverflow="ellipsis"
             $whiteSpace="nowrap"
+            width="50%"
+            $maxWidth="50%"
+            $textAlign="right"
           >
             {coinValue}
           </Typography>
@@ -125,6 +128,7 @@ export const AmountAndAccountSelection: React.FC<any> = ({
   setAmount,
   isAmountDisabled,
   amountError,
+  autoFocus,
 }) => {
   const lang = useAppSelector(selectLanguage);
   const dialogText = lang.strings.swap.detailsInput.common;
@@ -175,6 +179,7 @@ export const AmountAndAccountSelection: React.FC<any> = ({
           placeholderText={dialogText.walletPlaceholder}
           onChange={handleWalletChange}
           noLeftImageInList
+          autoFocus={autoFocus}
         />
         <Dropdown
           items={accountDropdownList}
