@@ -1,11 +1,13 @@
 import { getAccountAndCoin } from '@cypherock/coin-support-utils';
-import * as services from '../../services';
+import { starknetCoinList } from '@cypherock/coins';
+import { BigNumber } from '@cypherock/cysync-utils';
+
 import {
   IPreparedStarknetDeployAccountTransaction,
   IPrepareStarknetDeployAccountTransactionParams,
 } from './types';
-import { starknetCoinList } from '@cypherock/coins';
-import { BigNumber } from '@cypherock/cysync-utils';
+
+import * as services from '../../services';
 
 export const prepareDeployAccountTransaction = async (
   params: IPrepareStarknetDeployAccountTransactionParams,

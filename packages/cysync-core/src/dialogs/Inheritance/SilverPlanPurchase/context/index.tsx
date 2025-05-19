@@ -82,13 +82,11 @@ export const InheritanceSilverPlanPurchaseDialogProvider: FC<
   const allWallets = useMemo<IWalletForSelection[]>(() => {
     const deletedWalletIds = deletedWallets.map(e => e.__id);
 
-    return [
-      ...wallets.map(e => ({
-        ...e,
-        isDeleted: deletedWalletIds.includes(e.__id),
-        isActive: plans.some(plan => e.__id && isPlanActive(plan, e.__id)),
-      })),
-    ];
+    return wallets.map(e => ({
+      ...e,
+      isDeleted: deletedWalletIds.includes(e.__id),
+      isActive: plans.some(plan => e.__id && isPlanActive(plan, e.__id)),
+    }));
   }, [wallets, deletedWallets, plans]);
 
   const [isTermsAccepted, setIsTermsAccepted] = useState(false);
@@ -235,7 +233,7 @@ export const InheritanceSilverPlanPurchaseDialogProvider: FC<
         if (result.result.planType !== 'SILVER')
           throw { isForDifferentPlan: true };
 
-        setCouponDuration(result.result?.duration ?? '');
+        setCouponDuration(result.result.duration ?? '');
         setCoupon(_coupon);
       } catch (error: any) {
         console.log({ error });

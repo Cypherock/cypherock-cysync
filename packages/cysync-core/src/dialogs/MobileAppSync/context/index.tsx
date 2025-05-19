@@ -1,3 +1,4 @@
+import pako from 'pako';
 import React, {
   Context,
   FC,
@@ -16,10 +17,9 @@ import {
   useAppDispatch,
   useAppSelector,
 } from '~/store';
+import { getDB } from '~/utils';
 
 import { ShowQrCode } from '../Dialogs';
-import { getDB } from '~/utils';
-import pako from 'pako';
 
 export interface MobileAppSyncDialogContextInterface {
   tabs: ITabs;

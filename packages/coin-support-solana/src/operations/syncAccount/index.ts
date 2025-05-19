@@ -5,6 +5,8 @@ import {
   createSyncPricesObservable,
   getLatestTransactionHash,
 } from '@cypherock/coin-support-utils';
+import { solanaCoinList } from '@cypherock/coins';
+import { BigNumber } from '@cypherock/cysync-utils';
 import {
   AccountTypeMap,
   IAccount,
@@ -12,25 +14,23 @@ import {
   ITransaction,
   TransactionStatusMap,
 } from '@cypherock/db-interfaces';
-import { solanaCoinList } from '@cypherock/coins';
 import { lastValueFrom } from 'rxjs';
 
-import logger from '../../utils/logger';
-import {
-  deriveAssociatedTokenAddress,
-  mapTokenTransactionsForDb,
-  mapTransactionsForDb,
-} from '../../utils';
+import { ISolanaSplTokenAccount, ISyncSolanaAccountsParams } from './types';
+
 import {
   getTransactions,
   getBalance,
   getTokenBalance,
   getNativeAccountRentExemptFees,
 } from '../../services';
+import {
+  deriveAssociatedTokenAddress,
+  mapTokenTransactionsForDb,
+  mapTransactionsForDb,
+} from '../../utils';
+import logger from '../../utils/logger';
 import { ISolanaAccount } from '../types';
-
-import { ISolanaSplTokenAccount, ISyncSolanaAccountsParams } from './types';
-import { BigNumber } from '@cypherock/cysync-utils';
 
 // Solana transaction are fetched via individual calls, therefore the limit is set relatively low to prevent server timeout.
 const PER_PAGE_TXN_LIMIT = 25;

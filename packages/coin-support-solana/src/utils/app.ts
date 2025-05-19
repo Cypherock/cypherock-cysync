@@ -3,3 +3,5 @@ import { IDeviceConnection } from '@cypherock/sdk-interfaces';
 
 export const createApp = (connection: IDeviceConnection) =>
   SolanaApp.create(connection);
+
+export const getAppletId = () => SolanaApp.APPLET_ID;

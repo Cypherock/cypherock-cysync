@@ -274,18 +274,21 @@
       "subtitle": "Geben Sie den Betrag und die Adresse des Empfängers ein, an den Sie die Mittel senden möchten",
       "recipient": {
         "label": "Empfängeradresse",
+        "labelSwap": "Adresse von ${provider}",
         "placeholder": "Adresse eingeben",
         "error": "Ungültige Adresse",
         "ownAddress": "Empfängeradresse ist dieselbe wie die Absenderadresse"
       },
       "icpAccountIdRecipient": {
         "label": "Empfänger-Konto-ID",
+        "labelSwap": "Konto-ID von ${provider}",
         "placeholder": "Kontoinformationen eingeben",
         "error": "Ungültige Konto-ID",
         "ownAddress": "Empfänger-Konto-ID ist identisch mit Absender-Konto-ID"
       },
       "icpPrincipalIdRecipient": {
         "label": "Empfänger-Principal-ID",
+        "labelSwap": "Principal-ID von ${provider}",
         "placeholder": "Geben Sie die Principal-ID ein",
         "error": "Ungültige Principal-ID",
         "ownAddress": "Die Empfänger-Principal-ID ist dieselbe wie die Absender-Principal-ID"
@@ -363,6 +366,11 @@
         "summary": "Zusammenfassung",
         "x1vault": "X1 Vault",
         "confirm": "Bestätigung"
+      },
+      "timer": {
+        "title": "Läuft ab in",
+        "minutes": "Minuten",
+        "seconds": "Sekunden"
       }
     },
     "optimism": {
@@ -2810,6 +2818,101 @@
       "greeting": {
         "title": "Danke!",
         "subtext": "Ihr Gold-Plan ist jetzt aktiviert"
+      }
+    }
+  },
+  "swap": {
+    "title": "Tauschen",
+    "detailsInput": {
+      "common": {
+        "searchText": "Suche",
+        "walletPlaceholder": "Wähle ein Wallet"
+      },
+      "from": {
+        "title": "Von",
+        "accountPlaceholder": "Konto zur Belastung",
+        "amountLabel": "Zu sendender Betrag",
+        "amountError": "Nicht genug Guthaben"
+      },
+      "to": {
+        "title": "Zu",
+        "accountPlaceholder": "Konto zur Gutschrift",
+        "amountLabel": "Sie werden erhalten"
+      },
+      "offers": {
+        "title": "Ihre besten Angebote",
+        "initialText": "Wählen Sie das Wallet und Konto, um Angebote zu erhalten",
+        "searchingForOffers": "Suche nach Ihrem besten Angebot",
+        "bestOffer": "Bestes Angebot",
+        "fixedRate": "Fester Kurs",
+        "fixedRateTooltip": "Ein fester Kurs stellt sicher, dass Sie den angegebenen Wert erhalten, ohne von Preisänderungen betroffen zu sein.",
+        "networkFee": "Netzwerkgebühr",
+        "networkFeeTooltip": "Die Blockchain erhebt diese Gebühr, um Ihren Tausch auszuführen. Nur die ausgehende (Sende-)Netzwerkgebühr wird zusätzlich zum angegebenen Betrag hinzugefügt — die eingehende (Empfangs-) Gebühr ist bereits im Angebot enthalten.",
+        "quotesFound": "${num} Angebote gefunden",
+        "timerText": "Aktualisiert in ${time}",
+        "buttons": {
+          "continue": "Fortfahren"
+        },
+        "errors": {
+          "sameAsset": "Gleiche Vermögenswerte können nicht getauscht werden",
+          "noOffers": "Keine Angebote für Ihre Anfrage verfügbar",
+          "currencyNotSupported": "Währung nicht unterstützt",
+          "amountRange": "Betrag sollte zwischen ${min} und ${max} liegen",
+          "noQuotes": "Keine Angebote gefunden",
+          "noInternet": "Keine Internetverbindung",
+          "enterAmount": "Betrag eingeben, um Angebote zu erhalten",
+          "selectDifferentCoinPair": "Wählen Sie ein anderes Münz paar"
+        }
+      }
+    },
+    "topBar": {
+      "history": "Verlauf"
+    },
+    "swapReceive": {
+      "errors": {
+        "notSuccessful": "Empfangsvorgang war nicht erfolgreich",
+        "invalidInputs": "Ungültige Eingaben für den Start der Umwandlung",
+        "accountNotSelected": "Konto nicht ausgewählt"
+      }
+    },
+    "swapSend": {
+      "errors": {
+        "notSuccessfull": "Sendenvorgang war nicht erfolgreich",
+        "cannotStart": "Sendenvorgang kann nicht gestartet werden",
+        "invalidPrerequisite": "Ungültige Voraussetzung für den Tauschversand"
+      }
+    },
+    "swapSummary": {
+      "heading": "Tauschen Zusammenfassung",
+      "from": "Von",
+      "to": "Zu",
+      "amount": "Betrag",
+      "provider": "Anbieter",
+      "networkFee": "Netzwerkgebühr",
+      "totalToDebit": "Gesamtsumme zu belasten"
+    },
+    "swapStatus": {
+      "heading": {
+        "success": "Tausch Erfolgreich",
+        "pending": "Tausch Ausstehend",
+        "failed": "Tausch Fehlgeschlagen"
+      },
+      "description": "",
+      "amountSent": "Gesendeter Betrag",
+      "amountReceived": "Erhaltener Betrag",
+      "transactionID": "Transaktions-ID",
+      "messageBox": {
+        "warning": "Ihr Kontostand wird aktualisiert, wenn die Blockchain die Transaktion bestätigt",
+        "danger": "Das Netzwerk hat den folgenden Fehler zurückgegeben:"
+      },
+      "button": {
+        "backToSwap": "Zurück zum Tauschen"
+      }
+    },
+    "commonErrors": {
+      "timeout": {
+        "title": "Tausch Timeout",
+        "description": "Die Tausch anfrage ist abgelaufen. Bitte versuchen Sie es erneut oder kontaktieren Sie den Support, wenn das Problem weiterhin besteht."
       }
     }
   }

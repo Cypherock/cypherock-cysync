@@ -5,7 +5,7 @@ import { IcpSupport } from '@cypherock/coin-support-icp';
 import { IReceiveEvent } from '@cypherock/coin-support-interfaces';
 import { coinFamiliesMap } from '@cypherock/coins';
 import { DropDownItemProps } from '@cypherock/cysync-ui';
-import { IAccount, IWallet } from '@cypherock/db-interfaces';
+import { AccountTypeMap, IAccount, IWallet } from '@cypherock/db-interfaces';
 import lodash from 'lodash';
 import React, {
   Context,
@@ -21,7 +21,7 @@ import React, {
 import { Observer, Subscription } from 'rxjs';
 
 import { deviceLock, useDevice } from '~/context';
-import { useAccountDropdown, useWalletDropdown } from '~/hooks';
+import { useAccountDropdown, useMemoReturn, useWalletDropdown } from '~/hooks';
 import { ITabs, useTabsAndDialogs } from '~/hooks/useTabsAndDialogs';
 import {
   closeDialog,
@@ -41,7 +41,13 @@ import {
   VerifyPrincipalId,
 } from '../Dialogs';
 
+export enum ReceiveFlowSource {
+  DEFAULT = 0,
+  SWAP,
+}
+
 export interface ReceiveDialogContextInterface {
+  source: ReceiveFlowSource;
   tabs: ITabs;
   onNext: (tab?: number, dialog?: number) => void;
   goTo: (tab: number, dialog?: number) => void;
@@ -52,6 +58,7 @@ export interface ReceiveDialogContextInterface {
   onClose: () => void;
   onSkip: () => void;
   onDeviceActionNext: () => void;
+  onAddressVerificationNext: () => void;
   onRetry: () => void;
   error: any | undefined;
   selectedWallet: IWallet | undefined;
@@ -74,6 +81,7 @@ export interface ReceiveDialogContextInterface {
   isFlowCompleted: boolean;
   defaultWalletId?: string;
   defaultAccountId?: string;
+  validTill?: number;
 }
 
 export const ReceiveDialogContext: Context<ReceiveDialogContextInterface> =
@@ -85,12 +93,24 @@ export interface ReceiveDialogContextProviderProps {
   children: ReactNode;
   walletId?: string;
   accountId?: string;
+  skipSelection?: boolean;
+  storeReceiveAddress?: (address: string) => void;
+  onClose?: () => void;
+  source?: ReceiveFlowSource;
+  onError?: (e?: any) => void;
+  validTill?: number;
 }
 
 export const ReceiveDialogProvider: FC<ReceiveDialogContextProviderProps> = ({
   children,
   walletId: defaultWalletId,
   accountId: defaultAccountId,
+  skipSelection,
+  storeReceiveAddress,
+  onClose: onCloseInjected,
+  source = ReceiveFlowSource.DEFAULT,
+  onError: injectedOnError,
+  validTill,
 }) => {
   const lang = useAppSelector(selectLanguage);
   const dispatch = useAppDispatch();
@@ -173,9 +193,34 @@ export const ReceiveDialogProvider: FC<ReceiveDialogContextProviderProps> = ({
     [lang],
   );
 
+  if (storeReceiveAddress) {
+    useEffect(() => {
+      if (isAddressVerified) {
+        if (selectedAccount?.familyId === coinFamiliesMap.icp) {
+          const isIcpToken = selectedAccount.type === AccountTypeMap.subAccount;
+          if (isIcpToken && derivedPrincipalId) {
+            storeReceiveAddress(derivedPrincipalId);
+          } else if (derivedAccountId) {
+            storeReceiveAddress(derivedAccountId);
+          }
+        } else if (derivedAddress) {
+          storeReceiveAddress(derivedAddress);
+        }
+
+        if (source === ReceiveFlowSource.SWAP) onClose();
+      }
+    }, [
+      derivedAddress,
+      derivedPrincipalId,
+      derivedAccountId,
+      isAddressVerified,
+    ]);
+  }
+
   const onClose = () => {
     cleanUp();
     dispatch(closeDialog('receive'));
+    if (onCloseInjected) onCloseInjected();
   };
 
   const onSkip = () => {
@@ -189,6 +234,12 @@ export const ReceiveDialogProvider: FC<ReceiveDialogContextProviderProps> = ({
       goTo(2, 1);
     } else {
       onNext();
+    }
+  };
+
+  const onAddressVerificationNext = () => {
+    if (source !== ReceiveFlowSource.SWAP) {
+      goTo(3);
     }
   };
 
@@ -213,6 +264,7 @@ export const ReceiveDialogProvider: FC<ReceiveDialogContextProviderProps> = ({
   const onError = (e?: any) => {
     cleanUp();
     setError(e);
+    if (injectedOnError) injectedOnError(e);
   };
 
   const getFlowObserver = (onEnd: () => void): Observer<IReceiveEvent> => ({
@@ -303,6 +355,12 @@ export const ReceiveDialogProvider: FC<ReceiveDialogContextProviderProps> = ({
     derivedPrincipalId,
   ]);
 
+  useEffect(() => {
+    if (skipSelection && defaultWalletId && defaultAccountId) {
+      onNext();
+    }
+  }, []);
+
   const {
     onNext,
     onPrevious,
@@ -316,72 +374,41 @@ export const ReceiveDialogProvider: FC<ReceiveDialogContextProviderProps> = ({
     dialogName: 'receive',
   });
 
-  const ctx = useMemo(
-    () => ({
-      defaultWalletId,
-      defaultAccountId,
-      onNext,
-      onPrevious,
-      tabs,
-      onClose,
-      goTo,
-      currentTab,
-      currentDialog,
-      isDeviceRequired,
-      error,
-      onRetry,
-      onSkip,
-      onDeviceActionNext,
-      selectedWallet,
-      setSelectedWallet,
-      selectedAccount,
-      setSelectedAccount,
-      derivedAddress,
-      derivedAccountId,
-      derivedPrincipalId,
-      isAddressVerified,
-      deviceEvents,
-      startFlow,
-      handleAccountChange,
-      handleWalletChange,
-      accountDropdownList,
-      walletDropdownList,
-      isStartedWithoutDevice,
-      isFlowCompleted,
-    }),
-    [
-      defaultWalletId,
-      defaultAccountId,
-      onNext,
-      onPrevious,
-      goTo,
-      onClose,
-      currentTab,
-      currentDialog,
-      isDeviceRequired,
-      tabs,
-      error,
-      onRetry,
-      onSkip,
-      onDeviceActionNext,
-      selectedWallet,
-      setSelectedWallet,
-      selectedAccount,
-      setSelectedAccount,
-      derivedAddress,
-      derivedAccountId,
-      derivedPrincipalId,
-      isAddressVerified,
-      deviceEvents,
-      startFlow,
-      handleAccountChange,
-      handleWalletChange,
-      accountDropdownList,
-      walletDropdownList,
-      isStartedWithoutDevice,
-      isFlowCompleted,
-    ],
-  );
+  const ctx = useMemoReturn({
+    source,
+    defaultWalletId,
+    defaultAccountId,
+    onNext,
+    onPrevious,
+    tabs,
+    onClose,
+    goTo,
+    currentTab,
+    currentDialog,
+    isDeviceRequired,
+    error,
+    onRetry,
+    onSkip,
+    onDeviceActionNext,
+    onAddressVerificationNext,
+    selectedWallet,
+    setSelectedWallet,
+    selectedAccount,
+    setSelectedAccount,
+    derivedAddress,
+    derivedAccountId,
+    derivedPrincipalId,
+    isAddressVerified,
+    deviceEvents,
+    startFlow,
+    handleAccountChange,
+    handleWalletChange,
+    accountDropdownList,
+    walletDropdownList,
+    isStartedWithoutDevice,
+    isFlowCompleted,
+    validTill,
+  });
 
   return (
     <ReceiveDialogContext.Provider value={ctx}>
@@ -397,4 +424,10 @@ export function useReceiveDialog(): ReceiveDialogContextInterface {
 ReceiveDialogProvider.defaultProps = {
   walletId: undefined,
   accountId: undefined,
+  skipSelection: undefined,
+  storeReceiveAddress: undefined,
+  onClose: undefined,
+  source: ReceiveFlowSource.DEFAULT,
+  onError: undefined,
+  validTill: undefined,
 };

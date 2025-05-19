@@ -87,7 +87,12 @@ export const getParsedError = (params: {
   let advanceText: string | undefined;
   let details = defaultErrorHandlignDetails;
 
-  if (errorToParse?.isDeviceError && errorToParse.code) {
+  if (errorToParse?.isCustomError) {
+    heading = errorToParse.custom.heading;
+    subtext = errorToParse.custom.subtext;
+
+    details = errorToParse.custom.details ?? details;
+  } else if (errorToParse?.isDeviceError && errorToParse.code) {
     heading =
       lang.strings.errors.deviceErrors[errorToParse.code as DeviceErrorCodes]
         .heading ?? heading;
@@ -136,10 +141,10 @@ export const getParsedError = (params: {
     heading =
       errorToParse.message ??
       (serverCoinErrors &&
-        serverCoinErrors[errorToParse.code as ServerCoinErrorTypes]?.heading);
+        serverCoinErrors[errorToParse.code as ServerCoinErrorTypes].heading);
     subtext =
       serverCoinErrors &&
-      serverCoinErrors[errorToParse.code as ServerCoinErrorTypes]?.subtext;
+      serverCoinErrors[errorToParse.code as ServerCoinErrorTypes].subtext;
 
     details = getServerCoinErrorHandlingDetails(errorToParse.code) ?? details;
   }

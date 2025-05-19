@@ -274,18 +274,21 @@
       "subtitle": "输入您要发送资金的收件人的金额和地址",
       "recipient": {
         "label": "收件人地址",
+        "labelSwap": "${provider}的地址",
         "placeholder": "输入地址",
         "error": "无效地址",
         "ownAddress": "收件人地址与发件人地址相同"
       },
       "icpAccountIdRecipient": {
         "label": "收件人账户 ID",
+        "labelSwap": "${provider}的账户ID",
         "placeholder": "输入账户 ID",
         "error": "无效的账户 ID",
         "ownAddress": "收件人账户 ID 与发件人账户 ID 相同"
       },
       "icpPrincipalIdRecipient": {
         "label": "收件人主体 ID",
+        "labelSwap": "${provider}的主体ID",
         "placeholder": "输入主体 ID",
         "error": "无效的主体 ID",
         "ownAddress": "收件人主体 ID 与发件人主体 ID 相同"
@@ -363,6 +366,11 @@
         "summary": "摘要",
         "x1vault": "X1 Vault",
         "confirm": "确认"
+      },
+      "timer": {
+        "title": "到期时间",
+        "minutes": "分钟",
+        "seconds": "秒"
       }
     },
     "optimism": {
@@ -2783,6 +2791,101 @@
       "greeting": {
         "title": "谢谢！",
         "subtext": "您的黄金计划现已激活"
+      }
+    }
+  },
+  "swap": {
+    "title": "交换",
+    "detailsInput": {
+      "common": {
+        "searchText": "搜索",
+        "walletPlaceholder": "选择钱包"
+      },
+      "from": {
+        "title": "从",
+        "accountPlaceholder": "扣款账户",
+        "amountLabel": "发送金额",
+        "amountError": "余额不足"
+      },
+      "to": {
+        "title": "到",
+        "accountPlaceholder": "收款账户",
+        "amountLabel": "您将收到"
+      },
+      "offers": {
+        "title": "您的最佳报价",
+        "initialText": "选择钱包和账户以获取报价",
+        "searchingForOffers": "正在搜索您的最佳报价",
+        "bestOffer": "最佳报价",
+        "fixedRate": "固定汇率",
+        "fixedRateTooltip": "固定汇率确保您获得的报价不受价格变化的影响。",
+        "networkFee": "网络费用",
+        "networkFeeTooltip": "该区块链网络将对此次交换收取费用。只有外发（发送）网络费用会加在报价金额之上——入账（接收）费用已包含在报价中。",
+        "quotesFound": "找到 ${num} 条报价",
+        "timerText": "${time} 后更新",
+        "buttons": {
+          "continue": "继续"
+        },
+        "errors": {
+          "sameAsset": "无法交换相同资产",
+          "noOffers": "没有可用的报价",
+          "currencyNotSupported": "不支持的货币",
+          "amountRange": "金额应在 ${min} 和 ${max} 之间",
+          "noQuotes": "未找到报价",
+          "noInternet": "无网络连接",
+          "enterAmount": "输入金额以获取报价",
+          "selectDifferentCoinPair": "选择不同的币对"
+        }
+      }
+    },
+    "topBar": {
+      "history": "历史"
+    },
+    "swapReceive": {
+      "errors": {
+        "notSuccessful": "接收流程未成功",
+        "invalidInputs": "发起兑换的输入无效",
+        "accountNotSelected": "未选择账户"
+      }
+    },
+    "swapSend": {
+      "errors": {
+        "notSuccessfull": "发送流程未成功",
+        "cannotStart": "无法启动发送流程",
+        "invalidPrerequisite": "交换发送的前提条件无效"
+      }
+    },
+    "swapSummary": {
+      "heading": "交换摘要",
+      "from": "从",
+      "to": "到",
+      "amount": "金额",
+      "provider": "提供商",
+      "networkFee": "网络费用",
+      "totalToDebit": "扣除总额"
+    },
+    "swapStatus": {
+      "heading": {
+        "success": "交换成功",
+        "pending": "交换待处理",
+        "failed": "交换失败"
+      },
+      "description": "",
+      "amountSent": "已发送金额",
+      "amountReceived": "接收的金额",
+      "transactionID": "交易 ID",
+      "messageBox": {
+        "warning": "当区块链确认交易时，您的账户余额将更新",
+        "danger": "网络返回以下错误："
+      },
+      "button": {
+        "backToSwap": "返回交换"
+      }
+    },
+    "commonErrors": {
+      "timeout": {
+        "title": "交换超时",
+        "description": "交换请求已超时。如果问题仍然存在，请重试或联系支持。"
       }
     }
   }

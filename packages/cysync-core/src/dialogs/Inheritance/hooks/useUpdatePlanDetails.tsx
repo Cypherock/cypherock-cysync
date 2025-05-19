@@ -1,5 +1,6 @@
 import { assert } from '@cypherock/cysync-utils';
 import { useCallback } from 'react';
+
 import { inheritancePlanService } from '~/services';
 import { AuthTokenConfig } from '~/services/utils';
 import {
@@ -44,9 +45,9 @@ export const useUpdatePlanDetails = (props: {
       ...(result.result.executor !== undefined
         ? {
             executor: {
-              name: result.result.executor?.name ?? '',
-              email: result.result.executor?.email ?? '',
-              alternateEmail: result.result.executor?.alternateEmail ?? '',
+              name: result.result.executor.name ?? '',
+              email: result.result.executor.email ?? '',
+              alternateEmail: result.result.executor.alternateEmail ?? '',
             },
           }
         : {}),

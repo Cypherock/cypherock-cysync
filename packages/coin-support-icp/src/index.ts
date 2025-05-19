@@ -32,7 +32,7 @@ import {
   IIcpGetAddressDetailsFromPublickKeyParams,
   IPrepareIcpTransactionParams,
 } from './operations/types';
-import { DfinityLib, setCoinSupportDfinityLib } from './utils';
+import { DfinityLib, getAppletId, setCoinSupportDfinityLib } from './utils';
 
 export { updateLogger } from './utils/logger';
 export * from './operations/types';
@@ -128,5 +128,9 @@ export class IcpSupport implements CoinSupport {
     params: IIcpGetAddressDetailsFromPublickKeyParams,
   ) {
     return operations.getAddressDetailsFromPublicKey(params);
+  }
+
+  public getAppId() {
+    return getAppletId();
   }
 }

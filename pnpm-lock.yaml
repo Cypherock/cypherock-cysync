@@ -71,6 +71,9 @@ importers:
       ora:
         specifier: ^6.3.1
         version: 6.3.1
+      punycode:
+        specifier: ^2.3.1
+        version: 2.3.1
       semver:
         specifier: ^7.5.3
         version: 7.5.3
@@ -129,8 +132,8 @@ importers:
         specifier: workspace:^
         version: link:../../packages/db-interfaces
       '@cypherock/sdk-app-manager':
-        specifier: ^0.0.32
-        version: 0.0.32
+        specifier: ^0.0.33
+        version: 0.0.33
       '@cypherock/sdk-hw-hid':
         specifier: ^0.0.23
         version: 0.0.23
@@ -498,8 +501,8 @@ importers:
         specifier: workspace:^
         version: link:../utils
       '@cypherock/sdk-app-inheritance':
-        specifier: ^1.0.0
-        version: 1.0.0
+        specifier: ^1.0.1
+        version: 1.0.1
       '@cypherock/sdk-interfaces':
         specifier: ^0.0.16
         version: 0.0.16
@@ -768,8 +771,8 @@ importers:
         specifier: workspace:^
         version: link:../db-interfaces
       '@cypherock/sdk-app-btc':
-        specifier: ^0.0.37
-        version: 0.0.37
+        specifier: ^0.0.38
+        version: 0.0.38
       '@cypherock/sdk-interfaces':
         specifier: ^0.0.16
         version: 0.0.16
@@ -871,8 +874,8 @@ importers:
         specifier: workspace:^
         version: link:../db-interfaces
       '@cypherock/sdk-app-evm':
-        specifier: ^0.0.33
-        version: 0.0.33
+        specifier: ^0.0.34
+        version: 0.0.34
       '@cypherock/sdk-interfaces':
         specifier: ^0.0.16
         version: 0.0.16
@@ -971,8 +974,8 @@ importers:
         specifier: workspace:^
         version: link:../db-interfaces
       '@cypherock/sdk-app-icp':
-        specifier: ^2.0.1
-        version: 2.0.1
+        specifier: ^2.0.2
+        version: 2.0.2
       '@cypherock/sdk-interfaces':
         specifier: ^0.0.16
         version: 0.0.16
@@ -1144,8 +1147,8 @@ importers:
         specifier: workspace:^
         version: link:../db-interfaces
       '@cypherock/sdk-app-near':
-        specifier: ^0.0.31
-        version: 0.0.31
+        specifier: ^0.0.32
+        version: 0.0.32
       '@cypherock/sdk-interfaces':
         specifier: ^0.0.16
         version: 0.0.16
@@ -1241,8 +1244,8 @@ importers:
         specifier: workspace:^
         version: link:../db-interfaces
       '@cypherock/sdk-app-solana':
-        specifier: ^0.1.0
-        version: 0.1.0
+        specifier: ^0.1.1
+        version: 0.1.1
       '@cypherock/sdk-interfaces':
         specifier: ^0.0.16
         version: 0.0.16
@@ -1347,8 +1350,8 @@ importers:
         specifier: workspace:^
         version: link:../db-interfaces
       '@cypherock/sdk-app-starknet':
-        specifier: ^0.1.0
-        version: 0.1.0
+        specifier: ^0.1.1
+        version: 0.1.1
       '@cypherock/sdk-interfaces':
         specifier: ^0.0.16
         version: 0.0.16
@@ -1447,8 +1450,8 @@ importers:
         specifier: workspace:^
         version: link:../db-interfaces
       '@cypherock/sdk-app-tron':
-        specifier: ^0.0.2
-        version: 0.0.2
+        specifier: ^0.0.3
+        version: 0.0.3
       '@cypherock/sdk-interfaces':
         specifier: ^0.0.16
         version: 0.0.16
@@ -1641,8 +1644,8 @@ importers:
         specifier: workspace:^
         version: link:../db-interfaces
       '@cypherock/sdk-app-xrp':
-        specifier: ^1.0.1
-        version: 1.0.1
+        specifier: ^1.0.2
+        version: 1.0.2
       '@cypherock/sdk-interfaces':
         specifier: ^0.0.16
         version: 0.0.16
@@ -1801,8 +1804,8 @@ importers:
         specifier: workspace:^
         version: link:../db-interfaces
       '@cypherock/sdk-app-manager':
-        specifier: ^0.0.32
-        version: 0.0.32
+        specifier: ^0.0.33
+        version: 0.0.33
       '@cypherock/sdk-interfaces':
         specifier: ^0.0.16
         version: 0.0.16
@@ -1937,20 +1940,23 @@ importers:
         specifier: workspace:^
         version: link:../db-interfaces
       '@cypherock/sdk-app-btc':
-        specifier: ^0.0.37
-        version: 0.0.37
+        specifier: ^0.0.38
+        version: 0.0.38
       '@cypherock/sdk-app-evm':
+        specifier: ^0.0.34
+        version: 0.0.34
+      '@cypherock/sdk-app-exchange':
+        specifier: ^1.1.0
+        version: 1.1.0
+      '@cypherock/sdk-app-manager':
         specifier: ^0.0.33
         version: 0.0.33
-      '@cypherock/sdk-app-manager':
+      '@cypherock/sdk-app-near':
         specifier: ^0.0.32
         version: 0.0.32
-      '@cypherock/sdk-app-near':
-        specifier: ^0.0.31
-        version: 0.0.31
       '@cypherock/sdk-app-solana':
-        specifier: ^0.0.7
-        version: 0.0.7
+        specifier: ^0.1.1
+        version: 0.1.1
       '@cypherock/sdk-core':
         specifier: ^0.1.0
         version: 0.1.0
@@ -2190,8 +2196,8 @@ importers:
         specifier: workspace:^
         version: link:../coins
       '@cypherock/sdk-app-manager':
-        specifier: ^0.0.32
-        version: 0.0.32
+        specifier: ^0.0.33
+        version: 0.0.33
       '@cypherock/sdk-interfaces':
         specifier: ^0.0.16
         version: 0.0.16
@@ -6487,8 +6493,8 @@ packages:
     dependencies:
       '@jridgewell/trace-mapping': 0.3.9
 
-  /@cypherock/sdk-app-btc@0.0.37:
-    resolution: {integrity: sha512-3c89gX1sU2q6DQ7X6/SZA1CFHidgZ0EMi32ckwNqX2vw1EjMfO+lATLDKizopx4Pb5UG9fkaNdQPYFZMuNxiww==}
+  /@cypherock/sdk-app-btc@0.0.38:
+    resolution: {integrity: sha512-6tLZH7B8SVP8onyDPQAGsa8c+jy4FWV4J8MLqYw2Y/NGEoD8ygmyGWRkTIFFwh1CkXstJDnCtr176vRPyY2icw==}
     dependencies:
       '@bitcoin-js/tiny-secp256k1-asmjs': 2.2.3
       '@cypherock/sdk-core': 0.1.0
@@ -6502,8 +6508,8 @@ packages:
       - debug
     dev: false
 
-  /@cypherock/sdk-app-evm@0.0.33:
-    resolution: {integrity: sha512-oz+yT38mEDV3TZfvrn1uoti341gcsH3LZ5njhP3o3PV1cuYb6nQlmwaeSH0gqP9qzKuD86CllDaVDluPbBeq8Q==}
+  /@cypherock/sdk-app-evm@0.0.34:
+    resolution: {integrity: sha512-aGLqOKi6xC2e+EvU/lxxWfG7cwTxAYyF1IYEtTRepZXc/qWJjrYSLuHgZCbM3C6Sijf9yydG3dVfo4RhuOmLBQ==}
     dependencies:
       '@cypherock/sdk-core': 0.1.0
       '@cypherock/sdk-interfaces': 0.0.16
@@ -6515,8 +6521,8 @@ packages:
       - debug
     dev: false
 
-  /@cypherock/sdk-app-icp@2.0.1:
-    resolution: {integrity: sha512-S1GnWwoVvGXmWFbafp+ay1XFE9Cc8pVdUQ4lb6K5br2XbVm9gb99yIflrtpd/Tvp9j7TfYLbm3cBGYtFq3oBDQ==}
+  /@cypherock/sdk-app-exchange@1.1.0:
+    resolution: {integrity: sha512-y41SLH74caSTmuLAaqNdxCXsfm3kn/wLnqYcLnTi5X0NhYTSZQiJOO7//PR6MIPevDzOp2SthH2yPGg5WQcTIw==}
     dependencies:
       '@cypherock/sdk-core': 0.1.0
       '@cypherock/sdk-interfaces': 0.0.16
@@ -6527,8 +6533,8 @@ packages:
       - debug
     dev: false
 
-  /@cypherock/sdk-app-inheritance@1.0.0:
-    resolution: {integrity: sha512-odpeDD7hk04SfPQmjXP13rKnE9PJnBelxEUVss34ejtos7Y+33EvlgFH2dkHx2fQ9AtEDIuSQsamGc7RcjRIHg==}
+  /@cypherock/sdk-app-icp@2.0.2:
+    resolution: {integrity: sha512-0/5hsGVI/A4wOTCWS/k+ovQ1hKF43W6AAVa9cCgaSe4NPcN9RB1d7nuXHDMWVwWJOaqa+VpzywADrcaOFN+Fuw==}
     dependencies:
       '@cypherock/sdk-core': 0.1.0
       '@cypherock/sdk-interfaces': 0.0.16
@@ -6539,8 +6545,20 @@ packages:
       - debug
     dev: false
 
-  /@cypherock/sdk-app-manager@0.0.32:
-    resolution: {integrity: sha512-9Pfz8hRrv6I4hchMEOLepSX6E9hY9p6fRT7JMv/jW1Ex0Jcs+Co4M1kZjXKP4GQlImFY8GXibRLpiZFijIwPMA==}
+  /@cypherock/sdk-app-inheritance@1.0.1:
+    resolution: {integrity: sha512-3C59CMEniGwaBXFioBOBthHhWYUVILuvDqivwPeE1+Mic49JDKIUVL25wXBLA2oaPyFHdM2B0gzPD3JMsIIUTg==}
+    dependencies:
+      '@cypherock/sdk-core': 0.1.0
+      '@cypherock/sdk-interfaces': 0.0.16
+      '@cypherock/sdk-utils': 0.0.19
+      long: 5.2.3
+      protobufjs: 7.3.2
+    transitivePeerDependencies:
+      - debug
+    dev: false
+
+  /@cypherock/sdk-app-manager@0.0.33:
+    resolution: {integrity: sha512-TN3VLSc0o/B+7LcmCYB5zg1skVva3ve3+rkAqZzyIQhffdyD5Xn7IjOtIYatgpcqaoXL1GeAJhDwN3sUWll3/A==}
     dependencies:
       '@cypherock/sdk-core': 0.1.0
       '@cypherock/sdk-interfaces': 0.0.16
@@ -6548,13 +6566,13 @@ packages:
       axios: 1.7.2
       crypto-js: 4.2.0
       protobufjs: 7.3.2
-      uuid: 9.0.0
+      uuid: 9.0.1
     transitivePeerDependencies:
       - debug
     dev: false
 
-  /@cypherock/sdk-app-near@0.0.31:
-    resolution: {integrity: sha512-jBGczwzIDvIsOoRplDDwbkeNVK3QMk10i2vjBy3pxVEXRYCIfUHqMW3f4YZ3te0T7rPRShWg4N7RvorCG8oadQ==}
+  /@cypherock/sdk-app-near@0.0.32:
+    resolution: {integrity: sha512-nz+9Dt874WiGLECSN/OAKr1Pzpyo9Ctl7Efs04AUyrDrH3SchKha2eUKWvGTukAGpcyC7FkldrZ/J6AHTXJOBA==}
     dependencies:
       '@cypherock/sdk-core': 0.1.0
       '@cypherock/sdk-interfaces': 0.0.16
@@ -6565,22 +6583,8 @@ packages:
       - debug
     dev: false
 
-  /@cypherock/sdk-app-solana@0.0.7:
-    resolution: {integrity: sha512-edc9Wj98lGl2PjKN8Xe3lQVktdYPJrZxa24w8Hte3Ta8+RuqrKhRAFeNevm2Va/l6DLscsufDLyhbaCKfXtriA==}
-    dependencies:
-      '@cypherock/sdk-core': 0.1.0
-      '@cypherock/sdk-interfaces': 0.0.16
-      '@cypherock/sdk-utils': 0.0.19
-      axios: 1.7.2
-      bs58: 5.0.0
-      long: 5.2.3
-      protobufjs: 7.3.2
-    transitivePeerDependencies:
-      - debug
-    dev: false
-
-  /@cypherock/sdk-app-solana@0.1.0:
-    resolution: {integrity: sha512-b1jzlSmn4esDZiDw4LoClTTbDWdnSf384tr3+W3KTQ/yzSg5jCFgC6xTej64MfcAhqeOJCeVNxX2EQNE9jdU3g==}
+  /@cypherock/sdk-app-solana@0.1.1:
+    resolution: {integrity: sha512-OsQrO/P9vTzcyuQyv31Kq7RG47BuzrjZX+t+XRPdjQ1AoOehD9KcV7gKQeoRhoeDoBdnslNkGD6PbBkZfUqepA==}
     dependencies:
       '@cypherock/sdk-core': 0.1.0
       '@cypherock/sdk-interfaces': 0.0.16
@@ -6593,8 +6597,8 @@ packages:
       - debug
     dev: false
 
-  /@cypherock/sdk-app-starknet@0.1.0:
-    resolution: {integrity: sha512-lPpjbL3VKP+slRFwjV7pwznViY1LeSSFAaE1y7ekZRTJgRLd/MH8CCOhx+XPU55NNm5zXkDU3Hg3ruc/DYObZg==}
+  /@cypherock/sdk-app-starknet@0.1.1:
+    resolution: {integrity: sha512-poasfrGpJT51YOhN5AcTOtssW5EhCrpSOo4M79gHjDkc/MFOfABsUzCkvqCy+4CUYa5N04ZjX4xF+UZMfi4tdg==}
     dependencies:
       '@cypherock/sdk-core': 0.1.0
       '@cypherock/sdk-interfaces': 0.0.16
@@ -6605,8 +6609,8 @@ packages:
       - debug
     dev: false
 
-  /@cypherock/sdk-app-tron@0.0.2:
-    resolution: {integrity: sha512-vKm3RxArG+JnWchkzUMNwIqx1hC5krQyYEiip4bdXzCPOtQd/CEtiuzvlFxvCwZ5PEiMZVv+RaCd+EH/4m48/w==}
+  /@cypherock/sdk-app-tron@0.0.3:
+    resolution: {integrity: sha512-Fe4SZXebZufA/AKTEwne8ZQXrnaKtOXn/P/SCWCvIIMv/vh2bDAukz0NSOc1XfnhxNMyJh6JceldTWZ3skQVDA==}
     dependencies:
       '@cypherock/sdk-core': 0.1.0
       '@cypherock/sdk-interfaces': 0.0.16
@@ -6617,8 +6621,8 @@ packages:
       - debug
     dev: false
 
-  /@cypherock/sdk-app-xrp@1.0.1:
-    resolution: {integrity: sha512-d1K4cD//JGTGdvqRvrtQhBQFhbdUR2BdssN57x5KlJKMUtIAsGPn53p3kUoc6tWO42f/toL8qxi31M2tXI9u9Q==}
+  /@cypherock/sdk-app-xrp@1.0.2:
+    resolution: {integrity: sha512-4mGFi5VovbAc2iM0g4WVVpN1CT9ssgFaaGykaJAQqxn1lR6hOFYQxXCr9qTKFxD59gxmR+s7hFy0C/wQr5ftNg==}
     dependencies:
       '@cypherock/sdk-core': 0.1.0
       '@cypherock/sdk-interfaces': 0.0.16

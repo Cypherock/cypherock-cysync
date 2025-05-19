@@ -7,11 +7,13 @@ import {
   Typography,
 } from '@cypherock/cysync-ui';
 import React, { useEffect, useState } from 'react';
-import { useMobileAppSyncDialog } from '../context';
+
 import { LoaderDialog } from '~/components';
-import { QrCode } from '../components/QrCode';
 import { selectLanguage, useAppSelector } from '~/store';
 import logger from '~/utils/logger';
+
+import { QrCode } from '../components/QrCode';
+import { useMobileAppSyncDialog } from '../context';
 
 const QR_CODE_FRAME_DELAY = 500;
 

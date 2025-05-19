@@ -165,7 +165,7 @@ export const prepareTransaction = async (
   const instructions: ICustomSolanaInstruction[] = [];
 
   let rentExemptFees = new BigNumber(0);
-  if (tokenDetails && output.address !== '' && outputsAddresses?.[0]) {
+  if (tokenDetails && output.address !== '' && outputsAddresses[0]) {
     if (output.doesExist === false) {
       rentExemptFees = new BigNumber(
         await getTokenAccountRentExemptFees(coin.id),
@@ -185,7 +185,7 @@ export const prepareTransaction = async (
   if (
     (!sendAmount.isNaN() || txn.userInputs.isSendAll) &&
     output.address !== '' &&
-    outputsAddresses?.[0]
+    outputsAddresses[0]
   ) {
     const amountToSend = sendAmount.isNaN() ? spendableBalance : sendAmount;
 

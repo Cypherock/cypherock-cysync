@@ -10,14 +10,14 @@ import {
   Tooltip,
   Typography,
 } from '@cypherock/cysync-ui';
+import { debounce } from 'lodash';
 import React, { useEffect, useMemo, useState } from 'react';
 
 import { selectLanguage, useAppSelector } from '~/store';
+import { validateInputLanguage } from '~/utils';
 
 import { useInheritanceEditEncryptedMessageDialog } from '../context';
 import { Layout } from '../Layout';
-import { validateInputLanguage } from '~/utils';
-import { debounce } from 'lodash';
 
 export const EditMessage = () => {
   const lang = useAppSelector(selectLanguage);

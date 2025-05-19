@@ -1,11 +1,11 @@
-import { IAccount } from '@cypherock/db-interfaces';
-import { starknetCoinList } from '@cypherock/coins';
 import { SignTransactionDeviceEvent } from '@cypherock/coin-support-interfaces';
 import {
   makeSignTransactionsObservable,
   mapDerivationPath,
   SignTransactionFromDevice,
 } from '@cypherock/coin-support-utils';
+import { starknetCoinList } from '@cypherock/coins';
+import { IAccount } from '@cypherock/db-interfaces';
 import { ISignTxnUnsignedTxn, StarknetApp } from '@cypherock/sdk-app-starknet';
 import { assert, hexToUint8Array } from '@cypherock/sdk-utils';
 import { Observable } from 'rxjs';

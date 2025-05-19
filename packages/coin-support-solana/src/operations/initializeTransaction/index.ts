@@ -2,11 +2,9 @@ import { IInitializeTransactionParams } from '@cypherock/coin-support-interfaces
 import { getAccountAndCoin } from '@cypherock/coin-support-utils';
 import { solanaCoinList } from '@cypherock/coins';
 import { BigNumber } from '@cypherock/cysync-utils';
+import { AccountTypeMap } from '@cypherock/db-interfaces';
 
 import { getFees, getRentExemptFees } from '../../services';
-
-import { IPreparedSolanaTransaction } from '../transaction';
-import { AccountTypeMap } from '@cypherock/db-interfaces';
 import {
   constructTransaction,
   ICustomSolanaInstruction,
@@ -14,6 +12,7 @@ import {
   ICustomSolanaTransferInstruction,
   InstructionType,
 } from '../../utils';
+import { IPreparedSolanaTransaction } from '../transaction';
 
 export const initializeTransaction = async (
   params: IInitializeTransactionParams,

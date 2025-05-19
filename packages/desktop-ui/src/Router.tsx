@@ -27,6 +27,7 @@ import {
   InheritanceHome,
   InheritanceChoosePlan,
   InheritancePlanDetails,
+  Swap,
 } from '@cypherock/cysync-core';
 import React, { memo, ReactNode } from 'react';
 import { HashRouter as Router, Route, Routes } from 'react-router-dom';
@@ -53,6 +54,7 @@ const components: Record<RouteName, ReactNode> = {
   history: <History />,
   settings: <Settings />,
   'buy-sell': <BuySell />,
+  swap: <Swap />,
   inheritance: <InheritanceHome />,
   'inheritance-choose-plan': <InheritanceChoosePlan />,
   'inheritance-plan-details': <InheritancePlanDetails />,

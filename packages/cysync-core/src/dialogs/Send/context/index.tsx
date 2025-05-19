@@ -15,7 +15,6 @@ import {
   StarknetSupport,
 } from '@cypherock/coin-support-starknet';
 import { IPreparedTronTransaction } from '@cypherock/coin-support-tron';
-import { IPreparedXrpTransaction } from '@cypherock/coin-support-xrp';
 import {
   convertToUnit,
   formatDisplayAmount,
@@ -24,6 +23,7 @@ import {
   getParsedAmount,
   getZeroUnit,
 } from '@cypherock/coin-support-utils';
+import { IPreparedXrpTransaction } from '@cypherock/coin-support-xrp';
 import { coinFamiliesMap, CoinFamily } from '@cypherock/coins';
 import { ServerError, ServerErrorType } from '@cypherock/cysync-core-constants';
 import { DropDownItemProps, parseLangTemplate } from '@cypherock/cysync-ui';
@@ -60,6 +60,7 @@ import {
 import {
   ITabs,
   useAccountDropdown,
+  useMemoReturn,
   useStateWithRef,
   useTabsAndDialogs,
   useWalletDropdown,
@@ -83,6 +84,7 @@ import {
 } from '../Dialogs';
 
 export interface SendDialogContextInterface {
+  source: SendFlowSource;
   tabs: ITabs;
   onNext: (tab?: number, dialog?: number) => void;
   onSelectionDialogNext: () => void;
@@ -134,18 +136,38 @@ export interface SendDialogContextInterface {
   getAmountError: () => string;
   getDestinationTagError: () => string;
   isPreparingTxn: boolean;
+  validTill?: string;
+  providerName?: string;
 }
 
 export const SendDialogContext: Context<SendDialogContextInterface> =
   createContext<SendDialogContextInterface>({} as SendDialogContextInterface);
 
+export interface ToDetails {
+  address: string;
+  amount: string;
+  extraInput?: string;
+}
+
+export enum SendFlowSource {
+  DEFAULT = 0,
+  SWAP,
+}
+
 export interface SendDialogProps {
   walletId?: string;
   accountId?: string;
   txnData?: Record<string, string>;
+  prefillDetails?: Partial<ToDetails>;
   disableAccountSelection?: boolean;
   isWalletConnectRequest?: boolean;
   skipAccountSelection?: boolean;
+  storeTransactionId?: (id: string) => void;
+  onClose?: () => void;
+  source?: SendFlowSource;
+  onError?: (e?: any) => void;
+  validTill?: string;
+  providerName?: string;
 }
 
 export interface SendDialogContextProviderProps extends SendDialogProps {
@@ -157,9 +179,16 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
   walletId: defaultWalletId,
   accountId: defaultAccountId,
   txnData,
+  prefillDetails,
   disableAccountSelection,
   isWalletConnectRequest,
   skipAccountSelection,
+  storeTransactionId,
+  onClose: injectedOnClose,
+  source = SendFlowSource.DEFAULT,
+  onError: injectedOnError,
+  validTill,
+  providerName,
 }) => {
   const lang = useAppSelector(selectLanguage);
   const dispatch = useAppDispatch();
@@ -214,8 +243,8 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
     includeSubAccounts: true,
   });
 
-  const tabs: ITabs = useMemo(
-    () => [
+  const tabs: ITabs = useMemo(() => {
+    const allTabs = [
       {
         name: lang.strings.send.aside.tabs.source,
         dialogs: [<SelectionDialog />],
@@ -241,13 +270,26 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
         dialogs: [<FinalMessage />],
         dontShowOnMilestone: true,
       },
-    ],
-    [lang],
-  );
+    ];
+    if (source === SendFlowSource.SWAP) {
+      return allTabs.filter(
+        t => t.name !== lang.strings.send.aside.tabs.summary,
+      );
+    }
+    return allTabs;
+  }, [lang]);
 
   useEffect(() => {
     if (disableAccountSelection || skipAccountSelection) goTo(1, 0);
   }, []);
+
+  if (storeTransactionId) {
+    useEffect(() => {
+      if (storedTransaction?.__id) {
+        storeTransactionId(storedTransaction.__id);
+      }
+    }, [storedTransaction]);
+  }
 
   useEffect(() => {
     if (signedTransaction) {
@@ -296,6 +338,7 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
   const onClose = async (skipRejection?: boolean) => {
     cleanUp();
     if (!skipRejection && isWalletConnectRequest) rejectCallRequest();
+    if (injectedOnClose) injectedOnClose();
     dispatch(closeDialog('sendDialog'));
   };
 
@@ -307,6 +350,7 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
   const onError = (e?: any) => {
     cleanUp();
     setError(e);
+    if (injectedOnError) injectedOnError(e);
   };
 
   const getCurrentCoinSupport = () => {
@@ -354,16 +398,58 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
     }
   };
 
+  const fillPrefillDetails = (initTransaction: IPreparedTransaction) => {
+    const prefilledTransaction = structuredClone(initTransaction);
+
+    if (
+      prefillDetails?.address &&
+      prefilledTransaction.userInputs.outputs.length > 0
+    ) {
+      prefilledTransaction.userInputs.outputs[0].address =
+        prefillDetails.address;
+    }
+    if (prefillDetails?.amount && selectedAccount) {
+      const convertedAmount = convertToUnit({
+        amount: prefillDetails.amount,
+        coinId: selectedAccount.parentAssetId,
+        assetId: selectedAccount.assetId,
+        fromUnitAbbr:
+          selectedAccount.unit ??
+          getDefaultUnit(selectedAccount.parentAssetId, selectedAccount.assetId)
+            .abbr,
+        toUnitAbbr: getZeroUnit(
+          selectedAccount.parentAssetId,
+          selectedAccount.assetId,
+        ).abbr,
+      });
+      prefilledTransaction.userInputs.outputs[0].amount =
+        convertedAmount.amount;
+    }
+    if (prefillDetails?.extraInput && selectedAccount) {
+      prefilledTransaction.userInputs = fillExtraInput(
+        selectedAccount.familyId as CoinFamily,
+        prefilledTransaction,
+        prefillDetails.extraInput ?? '',
+      );
+    }
+
+    return prefilledTransaction;
+  };
+
   const initialize = async () => {
     logger.info('Initializing send transaction');
     if (transaction !== undefined) return;
 
     try {
-      const initTransaction =
-        await getCurrentCoinSupport().initializeTransaction({
+      let initTransaction = await getCurrentCoinSupport().initializeTransaction(
+        {
           db: getDB(),
           accountId: selectedAccount?.__id ?? '',
-        });
+        },
+      );
+      if (prefillDetails) {
+        initTransaction = fillPrefillDetails(initTransaction);
+      }
       setTransaction(initTransaction);
 
       if (txnData) {
@@ -686,6 +772,18 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
   const getComputedFee = (coinFamily: CoinFamily, txn?: IPreparedTransaction) =>
     computedFeeMap[coinFamily](txn);
 
+  const fillExtraInput = (
+    familyId: CoinFamily,
+    initTransaction: IPreparedTransaction,
+    data: string,
+  ) => {
+    const { userInputs } = initTransaction;
+    if (familyId === 'xrp') {
+      (userInputs.outputs[0] as any).destinationTag = parseInt(data, 10);
+    }
+    return userInputs;
+  };
+
   const {
     onNext,
     onPrevious,
@@ -875,103 +973,57 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
     return onNext();
   }, [onNext, selectedAccount, txnData, isWalletConnectRequest]);
 
-  const ctx = useMemo(
-    () => ({
-      defaultWalletId,
-      defaultAccountId,
-      onNext,
-      onSelectionDialogNext,
-      onPrevious,
-      tabs,
-      goTo,
-      onClose,
-      currentTab,
-      currentDialog,
-      isDeviceRequired,
-      selectedWallet,
-      setSelectedWallet,
-      handleWalletChange,
-      walletDropdownList,
-      selectedAccount,
-      selectedAccountParent,
-      setSelectedAccount,
-      handleAccountChange,
-      accountDropdownList,
-      transaction,
-      transactionRef,
-      setTransaction,
-      initialize,
-      prepare,
-      error,
-      onRetry,
-      deviceEvents,
-      startFlow,
-      storedTransaction,
-      transactionLink,
-      prepareAddressChanged,
-      prepareAmountChanged,
-      prepareTransactionRemarks,
-      prepareSendMax,
-      prepareDestinationTag,
-      prepareMemo,
-      priceConverter,
-      updateUserInputs,
-      isAccountSelectionDisabled: disableAccountSelection,
-      getDefaultGasLimit,
-      getComputedFee,
-      getOutputError,
-      getAmountError,
-      getDestinationTagError,
-      isPreparingTxn,
-    }),
-    [
-      defaultWalletId,
-      defaultAccountId,
-      onNext,
-      onSelectionDialogNext,
-      onPrevious,
-      goTo,
-      onClose,
-      currentTab,
-      currentDialog,
-      isDeviceRequired,
-      tabs,
-      selectedWallet,
-      setSelectedWallet,
-      handleWalletChange,
-      walletDropdownList,
-      selectedAccount,
-      selectedAccountParent,
-      setSelectedAccount,
-      handleAccountChange,
-      accountDropdownList,
-      transaction,
-      transactionRef,
-      setTransaction,
-      initialize,
-      prepare,
-      error,
-      onRetry,
-      deviceEvents,
-      startFlow,
-      storedTransaction,
-      transactionLink,
-      prepareAddressChanged,
-      prepareAmountChanged,
-      prepareTransactionRemarks,
-      prepareSendMax,
-      prepareDestinationTag,
-      priceConverter,
-      updateUserInputs,
-      disableAccountSelection,
-      getDefaultGasLimit,
-      getComputedFee,
-      getOutputError,
-      getAmountError,
-      getDestinationTagError,
-      isPreparingTxn,
-    ],
-  );
+  const ctx = useMemoReturn({
+    source,
+    defaultWalletId,
+    defaultAccountId,
+    onNext,
+    onSelectionDialogNext,
+    onPrevious,
+    tabs,
+    goTo,
+    onClose,
+    currentTab,
+    currentDialog,
+    isDeviceRequired,
+    selectedWallet,
+    setSelectedWallet,
+    handleWalletChange,
+    walletDropdownList,
+    selectedAccount,
+    selectedAccountParent,
+    setSelectedAccount,
+    handleAccountChange,
+    accountDropdownList,
+    transaction,
+    transactionRef,
+    setTransaction,
+    initialize,
+    prepare,
+    error,
+    onRetry,
+    deviceEvents,
+    startFlow,
+    storedTransaction,
+    transactionLink,
+    prepareAddressChanged,
+    prepareAmountChanged,
+    prepareTransactionRemarks,
+    prepareSendMax,
+    prepareDestinationTag,
+    prepareMemo,
+    priceConverter,
+    updateUserInputs,
+    isAccountSelectionDisabled: disableAccountSelection,
+    getDefaultGasLimit,
+    getComputedFee,
+    getOutputError,
+    getAmountError,
+    getDestinationTagError,
+    isPreparingTxn,
+    validTill,
+    providerName,
+  });
 
   return (
     <SendDialogContext.Provider value={ctx}>
@@ -991,4 +1043,11 @@ SendDialogProvider.defaultProps = {
   disableAccountSelection: undefined,
   isWalletConnectRequest: undefined,
   skipAccountSelection: undefined,
+  prefillDetails: undefined,
+  storeTransactionId: undefined,
+  onClose: undefined,
+  source: SendFlowSource.DEFAULT,
+  onError: undefined,
+  validTill: undefined,
+  providerName: undefined,
 };

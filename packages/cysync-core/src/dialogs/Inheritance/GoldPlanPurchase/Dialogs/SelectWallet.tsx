@@ -13,8 +13,8 @@ import React, { useEffect, useRef, useState } from 'react';
 import { selectLanguage, useAppSelector } from '~/store';
 
 import { useInheritanceGoldPlanPurchaseDialog } from '../context';
-import { Layout } from '../Layout';
 import { IWalletForSelection } from '../context/types';
+import { Layout } from '../Layout';
 
 export const SelectWallet = () => {
   const lang = useAppSelector(selectLanguage);

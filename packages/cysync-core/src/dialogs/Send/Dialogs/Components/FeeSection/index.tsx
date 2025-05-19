@@ -1,6 +1,7 @@
 import { IPreparedBtcTransaction } from '@cypherock/coin-support-btc';
 import { IPreparedEvmTransaction } from '@cypherock/coin-support-evm';
-import { IPreparedXrpTransaction } from '@cypherock/coin-support-xrp';
+import { IPreparedSolanaTransaction } from '@cypherock/coin-support-solana';
+import { IPreparedTronTransaction } from '@cypherock/coin-support-tron';
 import {
   convertToUnit,
   getDefaultUnit,
@@ -8,6 +9,7 @@ import {
   getZeroUnit,
   formatDisplayPrice,
 } from '@cypherock/coin-support-utils';
+import { IPreparedXrpTransaction } from '@cypherock/coin-support-xrp';
 import {
   CoinFamily,
   EvmIdMap,
@@ -32,14 +34,12 @@ import {
 
 import { BitcoinInput } from './BitcoinInput';
 import { EthereumInput } from './EthereumInput';
-import { XrpInput } from './XrpInput';
 import { FeesDisplay } from './FeesDisplay';
 import { FeesHeader } from './FeesHeader';
 import { OptimismFeesHeader } from './OptimismFeesHeader';
+import { XrpInput } from './XrpInput';
 
 import { useSendDialog } from '../../../context';
-import { IPreparedSolanaTransaction } from '@cypherock/coin-support-solana';
-import { IPreparedTronTransaction } from '@cypherock/coin-support-tron';
 import { IPreparedTransaction } from '@cypherock/coin-support-interfaces';
 
 const feeInputMap: Partial<Record<CoinFamily, React.FC<any>>> = {
@@ -105,8 +105,13 @@ const getErrorAndWarningComponents = (
 
 export interface FeeSectionProps {
   showErrors?: boolean;
+  hideSlider?: boolean;
 }
-export const FeeSection: React.FC<FeeSectionProps> = ({ showErrors }) => {
+
+export const FeeSection: React.FC<FeeSectionProps> = ({
+  showErrors,
+  hideSlider,
+}) => {
   const lang = useAppSelector(selectLanguage);
   const displayText = lang.strings.send.recipient;
   const { priceInfos } = useAppSelector(selectPriceInfos);
@@ -187,7 +192,7 @@ export const FeeSection: React.FC<FeeSectionProps> = ({ showErrors }) => {
   };
 
   const getFeeInputComponent = () => {
-    if (!selectedAccount) return null;
+    if (!selectedAccount || hideSlider) return null;
     const coinFamily = selectedAccount.familyId as CoinFamily;
 
     const Component = feeInputMap[coinFamily];
@@ -212,7 +217,7 @@ export const FeeSection: React.FC<FeeSectionProps> = ({ showErrors }) => {
         title={displayText.fees.title}
         initialState={isTextInput}
         onChange={setIsTextInput}
-        isToggleButtonHidden={!isToggleAllowed(coinFamily)}
+        isToggleButtonHidden={!isToggleAllowed(coinFamily) || hideSlider}
       />
     );
   };
@@ -378,4 +383,5 @@ export const FeeSection: React.FC<FeeSectionProps> = ({ showErrors }) => {
 
 FeeSection.defaultProps = {
   showErrors: undefined,
+  hideSlider: undefined,
 };

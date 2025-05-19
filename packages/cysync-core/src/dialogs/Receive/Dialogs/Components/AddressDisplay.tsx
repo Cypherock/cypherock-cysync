@@ -7,6 +7,7 @@ import {
   InputLabel,
   Flex,
   Tag,
+  LeanBox,
 } from '@cypherock/cysync-ui';
 import lodash from 'lodash';
 import React, { useMemo } from 'react';
@@ -14,7 +15,7 @@ import QRCode from 'react-qr-code';
 
 import { CoinIcon } from '~/components';
 
-import { useReceiveDialog } from '../../context';
+import { useReceiveDialog, ReceiveFlowSource } from '../../context';
 
 interface AddressDisplayProps {
   titlePrefix: string;
@@ -29,7 +30,7 @@ export const AddressDisplay: React.FC<AddressDisplayProps> = ({
   addressLabel,
   address,
 }) => {
-  const { selectedAccount, selectedWallet } = useReceiveDialog();
+  const { selectedAccount, selectedWallet, source } = useReceiveDialog();
 
   const asset = useMemo(
     () =>
@@ -68,9 +69,11 @@ export const AddressDisplay: React.FC<AddressDisplayProps> = ({
           />
         </Typography>
       </Flex>
-      <Container $bgColor="white" p="12">
-        <QRCode size={228} value={address} />
-      </Container>
+      {source === ReceiveFlowSource.DEFAULT && (
+        <Container $bgColor="white" p="12">
+          <QRCode size={228} value={address} />
+        </Container>
+      )}
       <Container
         display="flex"
         direction="column"
@@ -79,7 +82,11 @@ export const AddressDisplay: React.FC<AddressDisplayProps> = ({
         justify="flex-start"
       >
         <InputLabel mb={0}>{addressLabel}</InputLabel>
-        <CopyContainer link={address} variant="gold" />
+        {source === ReceiveFlowSource.DEFAULT ? (
+          <CopyContainer link={address} variant="gold" />
+        ) : (
+          <LeanBox text={address} />
+        )}
       </Container>
     </>
   );

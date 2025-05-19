@@ -1,4 +1,3 @@
-import { FeeData } from '../../services';
 import {
   ISignTransactionParams,
   ISignTransactionEvent,
@@ -8,6 +7,8 @@ import {
   IBroadcastTransactionParams,
 } from '@cypherock/coin-support-interfaces';
 import { SignTxnEvent } from '@cypherock/sdk-app-starknet';
+
+import { FeeData } from '../../services';
 
 export type IPrepareStarknetDeployAccountTransactionParams =
   IInitializeTransactionParams;

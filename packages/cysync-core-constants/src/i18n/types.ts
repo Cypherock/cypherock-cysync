@@ -50,6 +50,7 @@ export interface LanguageStrings {
   inheritance: LangInheritance;
   inheritanceSilverPlanPurchase: LangInheritanceSilverPlanPurchase;
   inheritanceGoldPlanPurchase: LangInheritanceGoldPlanPurchase;
+  swap: LangSwap;
 }
 
 interface LangLabels {
@@ -294,18 +295,21 @@ interface LangSend {
     subtitle: string;
     recipient: {
       label: string;
+      labelSwap: string;
       placeholder: string;
       error: string;
       ownAddress: string;
     };
     icpAccountIdRecipient: {
       label: string;
+      labelSwap: string;
       placeholder: string;
       error: string;
       ownAddress: string;
     };
     icpPrincipalIdRecipient: {
       label: string;
+      labelSwap: string;
       placeholder: string;
       error: string;
       ownAddress: string;
@@ -368,6 +372,11 @@ interface LangSend {
       summary: string;
       x1vault: string;
       confirm: string;
+    };
+    timer: {
+      title: string;
+      minutes: string;
+      seconds: string;
     };
   };
   optimism: {
@@ -1809,6 +1818,102 @@ interface LangInheritanceGoldPlanPurchase {
     greeting: {
       title: string;
       subtext: string;
+    };
+  };
+}
+
+interface LangSwap {
+  title: string;
+  detailsInput: {
+    common: {
+      searchText: string;
+      walletPlaceholder: string;
+    };
+    from: {
+      title: string;
+      accountPlaceholder: string;
+      amountLabel: string;
+      amountError: string;
+    };
+    to: {
+      title: string;
+      accountPlaceholder: string;
+      amountLabel: string;
+    };
+    offers: {
+      title: string;
+      initialText: string;
+      searchingForOffers: string;
+      bestOffer: string;
+      fixedRate: string;
+      fixedRateTooltip: string;
+      networkFee: string;
+      networkFeeTooltip: string;
+      quotesFound: string;
+      timerText: string;
+      buttons: {
+        continue: string;
+      };
+      errors: {
+        sameAsset: string;
+        noOffers: string;
+        currencyNotSupported: string;
+        amountRange: string;
+        noQuotes: string;
+        noInternet: string;
+        enterAmount: string;
+        selectDifferentCoinPair: string;
+      };
+    };
+  };
+  topBar: {
+    history: string;
+  };
+  swapReceive: {
+    errors: {
+      notSuccessful: string;
+      invalidInputs: string;
+      accountNotSelected: string;
+    };
+  };
+  swapSend: {
+    errors: {
+      notSuccessfull: string;
+      cannotStart: string;
+      invalidPrerequisite: string;
+    };
+  };
+  swapSummary: {
+    heading: string;
+    from: string;
+    to: string;
+    amount: string;
+    provider: string;
+    networkFee: string;
+    totalToDebit: string;
+  };
+  swapStatus: {
+    heading: {
+      success: string;
+      pending: string;
+      failed: string;
+    };
+    description: string;
+    amountSent: string;
+    amountReceived: string;
+    transactionID: string;
+    messageBox: {
+      warning: string;
+      danger: string;
+    };
+    button: {
+      backToSwap: string;
+    };
+  };
+  commonErrors: {
+    timeout: {
+      title: string;
+      description: string;
     };
   };
 }

@@ -20,6 +20,8 @@ export const useCountdown = (time: number) => {
   const updateCountdown = () => {
     const countdownDate = timeRef.current;
 
+    console.log({ countdownDate, state });
+
     if (countdownDate) {
       const currentTime = new Date().getTime();
 

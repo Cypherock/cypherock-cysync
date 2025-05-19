@@ -1,4 +1,5 @@
 import { IInheritancePlan } from '@cypherock/db-interfaces';
+
 import { ReminderPeriod } from '~/services/inheritance/login/schema';
 
 export interface IWalletAuthTokens {

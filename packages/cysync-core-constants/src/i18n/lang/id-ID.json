@@ -274,18 +274,21 @@
       "subtitle": "Masukkan jumlah dan alamat penerima yang ingin Anda kirimi dana",
       "recipient": {
         "label": "Alamat Penerima",
+        "labelSwap": "Alamat ${provider}",
         "placeholder": "Masukkan alamat",
         "error": "Alamat tidak valid",
         "ownAddress": "Alamat penerima sama dengan alamat pengirim"
       },
       "icpAccountIdRecipient": {
         "label": "ID Akun Penerima",
+        "labelSwap": "ID Akun ${provider}",
         "placeholder": "Masukkan ID akun",
         "error": "ID akun tidak valid",
         "ownAddress": "ID akun penerima sama dengan ID akun pengirim"
       },
       "icpPrincipalIdRecipient": {
         "label": "ID Prinsipal Penerima",
+        "labelSwap": "ID Prinsipal ${provider}",
         "placeholder": "Masukkan id prinsipal",
         "error": "ID prinsipal tidak valid",
         "ownAddress": "ID prinsipal penerima sama dengan ID prinsipal pengirim"
@@ -363,6 +366,11 @@
         "summary": "Ringkasan",
         "x1vault": "X1 Vault",
         "confirm": "Konfirmasi"
+      },
+      "timer": {
+        "title": "Berakhir dalam",
+        "minutes": "Menit",
+        "seconds": "Detik"
       }
     },
     "optimism": {
@@ -2809,6 +2817,101 @@
       "greeting": {
         "title": "Terima kasih!",
         "subtext": "Rencana Emas Anda sekarang diaktifkan"
+      }
+    }
+  },
+  "swap": {
+    "title": "Pertukaran",
+    "detailsInput": {
+      "common": {
+        "searchText": "Cari",
+        "walletPlaceholder": "Pilih dompet"
+      },
+      "from": {
+        "title": "Dari",
+        "accountPlaceholder": "Akun untuk didebit",
+        "amountLabel": "Jumlah untuk dikirim",
+        "amountError": "Saldo tidak cukup"
+      },
+      "to": {
+        "title": "Ke",
+        "accountPlaceholder": "Akun untuk dikredit",
+        "amountLabel": "Anda akan menerima"
+      },
+      "offers": {
+        "title": "Kutipan terbaik Anda",
+        "initialText": "Pilih dompet dan akun untuk mendapatkan kutipan",
+        "searchingForOffers": "Mencari penawaran terbaik Anda",
+        "bestOffer": "Penawaran Terbaik",
+        "fixedRate": "Tarif tetap",
+        "fixedRateTooltip": "Tarif tetap menjamin Anda mendapatkan nilai yang dikutip tanpa dipengaruhi oleh perubahan harga.",
+        "networkFee": "Biaya Jaringan",
+        "networkFeeTooltip": "Biaya ini dikenakan oleh jaringan blockchain untuk mengeksekusi pertukaran Anda. Hanya biaya jaringan keluar (kirim) yang ditambahkan di atas jumlah yang dikutip — biaya masuk (terima) sudah tercakup dalam kutipan.",
+        "quotesFound": "${num} kutipan ditemukan",
+        "timerText": "Memperbarui dalam ${time}",
+        "buttons": {
+          "continue": "Lanjutkan"
+        },
+        "errors": {
+          "sameAsset": "Tidak dapat menukar aset yang sama",
+          "noOffers": "Tidak ada tawaran yang tersedia untuk permintaan Anda",
+          "currencyNotSupported": "Mata uang tidak didukung",
+          "amountRange": "Jumlah harus antara ${min} dan ${max}",
+          "noQuotes": "Tidak ada kutipan ditemukan",
+          "noInternet": "Tidak ada koneksi internet",
+          "enterAmount": "Masukkan jumlah untuk mendapatkan kutipan",
+          "selectDifferentCoinPair": "Pilih pasangan koin yang berbeda"
+        }
+      }
+    },
+    "topBar": {
+      "history": "Sejarah"
+    },
+    "swapReceive": {
+      "errors": {
+        "notSuccessful": "Alur penerimaan tidak berhasil",
+        "invalidInputs": "Input tidak valid untuk memulai Pertukaran",
+        "accountNotSelected": "Akun tidak dipilih"
+      }
+    },
+    "swapSend": {
+      "errors": {
+        "notSuccessfull": "Alur pengiriman tidak berhasil",
+        "cannotStart": "Tidak dapat memulai alur pengiriman",
+        "invalidPrerequisite": "prasyarat tidak valid untuk pengiriman tukar"
+      }
+    },
+    "swapSummary": {
+      "heading": "Ringkasan Pertukaran",
+      "from": "Dari",
+      "to": "Ke",
+      "amount": "Jumlah",
+      "provider": "Penyedia",
+      "networkFee": "Biaya Jaringan",
+      "totalToDebit": "Total yang harus didebit"
+    },
+    "swapStatus": {
+      "heading": {
+        "success": "Pertukaran Berhasil",
+        "pending": "Pertukaran Tertunda",
+        "failed": "Pertukaran Gagal"
+      },
+      "description": "",
+      "amountSent": "Jumlah Dikirim",
+      "amountReceived": "Jumlah Diterima",
+      "transactionID": "ID Transaksi",
+      "messageBox": {
+        "warning": "Saldo akun Anda akan diperbarui ketika blockchain mengonfirmasi transaksi",
+        "danger": "Jaringan mengembalikan kesalahan berikut:"
+      },
+      "button": {
+        "backToSwap": "Kembali ke Pertukaran"
+      }
+    },
+    "commonErrors": {
+      "timeout": {
+        "title": "Waktu Pertukaran Habis",
+        "description": "Permintaan pertukaran telah habis waktu. Silakan coba lagi atau hubungi dukungan jika masalah berlanjut."
       }
     }
   }

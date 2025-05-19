@@ -4,6 +4,7 @@ import {
   formatDisplayPrice,
   getAsset,
 } from '@cypherock/coin-support-utils';
+import { IPreparedXrpTransaction } from '@cypherock/coin-support-xrp';
 import { coinFamiliesMap, CoinFamily } from '@cypherock/coins';
 import {
   LangDisplay,
@@ -28,7 +29,6 @@ import { selectLanguage, selectPriceInfos, useAppSelector } from '~/store';
 
 import { useSendDialog } from '../context';
 import { useLabelSuffix } from '../hooks';
-import { IPreparedXrpTransaction } from '@cypherock/coin-support-xrp';
 import { IPreparedIcpTransaction } from '@cypherock/coin-support-icp';
 
 export const SummaryDialog: React.FC = () => {

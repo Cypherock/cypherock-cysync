@@ -5,3 +5,4 @@ export * from './sidebar';
 export * from './appUpdate';
 export * from './latestDeviceVersion';
 export * from './buySell';
+export * from './swap';

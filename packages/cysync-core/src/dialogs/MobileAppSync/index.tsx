@@ -1,5 +1,6 @@
 import { BlurOverlay } from '@cypherock/cysync-ui';
 import React, { FC } from 'react';
+
 import { MobileAppSyncDialogProvider, useMobileAppSyncDialog } from './context';
 
 const MobileAppSync: FC = () => {

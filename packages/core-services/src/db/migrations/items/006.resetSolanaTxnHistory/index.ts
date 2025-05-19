@@ -1,5 +1,6 @@
-import { IMigrationItem } from '../../types';
 import { coinFamiliesMap } from '@cypherock/coins';
+
+import { IMigrationItem } from '../../types';
 
 /**
  * Reset solana transaction history migration

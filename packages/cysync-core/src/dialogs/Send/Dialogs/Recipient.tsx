@@ -37,6 +37,7 @@ export const Recipient: React.FC = () => {
     selectedAccount,
     isAccountSelectionDisabled,
     isPreparingTxn,
+    providerName,
   } = useSendDialog();
   const lang = useAppSelector(selectLanguage);
   const button = lang.strings.buttons;
@@ -136,25 +137,33 @@ export const Recipient: React.FC = () => {
             <LangDisplay text={displayText.subtitle} />
           </Typography>
         </Container>
-        <LeanBox
-          leftImage={
-            <InformationIcon
-              height={16}
-              width={16}
-              fill={theme.palette.background.muted}
-            />
-          }
-          pt={2}
-          text={displayText.infoBox}
-          altText={`~${getBalanceToDisplay()}`}
-          textVariant="span"
-          fontSize={12}
-          disabledInnerFlex
-        />
+        {!isAccountSelectionDisabled && (
+          <LeanBox
+            leftImage={
+              <InformationIcon
+                height={16}
+                width={16}
+                fill={theme.palette.background.muted}
+              />
+            }
+            pt={2}
+            text={displayText.infoBox}
+            altText={`~${getBalanceToDisplay()}`}
+            textVariant="span"
+            fontSize={12}
+            disabledInnerFlex
+          />
+        )}
       </DialogBoxBody>
       <ScrollableContainer>
-        <AddressAndAmountSection disableInputs={isAccountSelectionDisabled} />
-        <FeeSection showErrors={isAccountSelectionDisabled} />
+        <AddressAndAmountSection
+          disableInputs={isAccountSelectionDisabled}
+          providerName={providerName}
+        />
+        <FeeSection
+          hideSlider={isAccountSelectionDisabled}
+          showErrors={isAccountSelectionDisabled}
+        />
       </ScrollableContainer>
       <DialogBoxFooter>
         {!isAccountSelectionDisabled && (

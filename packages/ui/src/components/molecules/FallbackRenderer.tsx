@@ -1,7 +1,8 @@
 import React from 'react';
 
-import { Flex } from '../atoms';
 import { ErrorDialog } from './Dialog';
+
+import { Flex } from '../atoms';
 
 const SUPPORT_EMAIL = 'support@cypherock.com';
 

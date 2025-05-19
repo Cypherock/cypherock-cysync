@@ -2,9 +2,9 @@ import { solanaCoinList } from '@cypherock/coins';
 import { assert, makePostRequest } from '@cypherock/cysync-utils';
 
 import { ISolanaTransactionResult } from './types';
+import { getAccountDataLength } from './wallet';
 
 import { config } from '../../config';
-import { getAccountDataLength } from './wallet';
 
 const baseURL = `${config.API_CYPHEROCK}/solana/transaction`;
 

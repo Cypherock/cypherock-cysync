@@ -32,7 +32,7 @@ import {
   IPrepareXrpTransactionParams,
   ISignXrpTransactionEvent,
 } from './operations/types';
-import { setCoinSupportXrpLib, XrpLibType } from './utils';
+import { getAppletId, setCoinSupportXrpLib, XrpLibType } from './utils';
 
 export * from './operations/types';
 export { updateLogger } from './utils/logger';
@@ -123,5 +123,9 @@ export class XrpSupport implements CoinSupport {
 
   public async getAccountAddress(params: IGetAccountAddressParams) {
     return (await operations.getExternalAddress(params)).address;
+  }
+
+  public getAppId() {
+    return getAppletId();
   }
 }

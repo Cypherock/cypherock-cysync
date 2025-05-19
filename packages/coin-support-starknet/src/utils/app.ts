@@ -3,3 +3,5 @@ import { IDeviceConnection } from '@cypherock/sdk-interfaces';
 
 export const createApp = (connection: IDeviceConnection) =>
   StarknetApp.create(connection);
+
+export const getAppletId = () => StarknetApp.APPLET_ID;

@@ -12,14 +12,14 @@ import {
   AppUpdateProvider,
   LatestDeviceVersionProvider,
   BuySellProvider,
+  SwapProvider,
   SnackBarManager,
 } from '@cypherock/cysync-core';
 import { FallbackRenderer, GlobalStyles } from '@cypherock/cysync-ui';
 import React from 'react';
+import { ErrorBoundary } from 'react-error-boundary';
 
 import { AppRouter } from './Router';
-
-import { ErrorBoundary } from 'react-error-boundary';
 import logger from './utils/logger';
 
 const theme = getDefaultTheme();
@@ -48,13 +48,15 @@ const App = () => (
               <AppUpdateProvider>
                 <LatestDeviceVersionProvider>
                   <WalletConnectProvider>
-                    <BuySellProvider>
-                      <AppRouter>
-                        <SnackBarManager />
-                        <DialogManager />
-                        <BackgroundTasks />
-                      </AppRouter>
-                    </BuySellProvider>
+                    <SwapProvider>
+                      <BuySellProvider>
+                        <AppRouter>
+                          <SnackBarManager />
+                          <DialogManager />
+                          <BackgroundTasks />
+                        </AppRouter>
+                      </BuySellProvider>
+                    </SwapProvider>
                   </WalletConnectProvider>
                 </LatestDeviceVersionProvider>
               </AppUpdateProvider>

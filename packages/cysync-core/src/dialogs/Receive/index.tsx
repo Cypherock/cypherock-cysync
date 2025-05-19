@@ -7,12 +7,16 @@ import {
   BlurOverlay,
   DialogBoxBackgroundBar,
 } from '@cypherock/cysync-ui';
-import React, { FC } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 
 import { ErrorHandlerDialog, WithConnectedDevice } from '~/components';
 import { selectLanguage, useAppSelector } from '~/store';
 
-import { ReceiveDialogProvider, useReceiveDialog } from './context';
+import {
+  ReceiveDialogProvider,
+  ReceiveFlowSource,
+  useReceiveDialog,
+} from './context';
 
 const DeviceConnectionWrapper: React.FC<{
   isDeviceRequired: boolean;
@@ -33,6 +37,12 @@ const DeviceConnectionWrapper: React.FC<{
 export interface ReceiveDialogProps {
   walletId?: string;
   accountId?: string;
+  skipSelection?: boolean;
+  storeReceiveAddress?: (address: string) => void;
+  onClose?: () => void;
+  source?: ReceiveFlowSource;
+  onError?: (e?: any) => void;
+  validTill?: number;
 }
 
 export const Receive: FC = () => {
@@ -48,7 +58,31 @@ export const Receive: FC = () => {
     isStartedWithoutDevice,
     selectedWallet,
     isAddressVerified,
+    source,
+    validTill,
   } = useReceiveDialog();
+  const getTotalSeconds = () => {
+    if (!validTill) return 0;
+    const diff = new Date(validTill).getTime() - Date.now();
+    return Math.max(0, Math.floor(diff / 1000));
+  };
+
+  const [seconds, setSeconds] = useState(getTotalSeconds());
+
+  useEffect(() => {
+    setSeconds(getTotalSeconds());
+  }, [validTill]);
+
+  useEffect(() => {
+    const interval = setInterval(
+      () => setSeconds(s => Math.max(s - 1, 0)),
+      1000,
+    );
+    return () => clearInterval(interval);
+  }, []);
+
+  const minutes = Math.floor(seconds / 60);
+  const remainingSeconds = seconds % 60;
   const lang = useAppSelector(selectLanguage);
 
   return (
@@ -61,7 +95,22 @@ export const Receive: FC = () => {
               .map(t => t.name)}
             activeTab={currentTab}
             skippedTabs={!isAddressVerified && currentTab > 2 ? [1] : []}
-            heading={lang.strings.receive.title}
+            heading={
+              source === ReceiveFlowSource.SWAP
+                ? lang.strings.swap.title
+                : lang.strings.receive.title
+            }
+            timer={
+              source === ReceiveFlowSource.SWAP && validTill
+                ? {
+                    title: lang.strings.send.aside.timer.title,
+                    minutesLabel: lang.strings.send.aside.timer.minutes,
+                    minutes: minutes.toString().padStart(2, '0'),
+                    seconds: remainingSeconds.toString().padStart(2, '0'),
+                    secondsLabel: lang.strings.send.aside.timer.seconds,
+                  }
+                : undefined
+            }
           />
           <WalletDialogMainContainer>
             <DialogBoxBody
@@ -108,4 +157,10 @@ export const ReceiveDialog: FC<ReceiveDialogProps> = props => (
 ReceiveDialog.defaultProps = {
   walletId: undefined,
   accountId: undefined,
+  skipSelection: undefined,
+  storeReceiveAddress: undefined,
+  onClose: undefined,
+  source: ReceiveFlowSource.DEFAULT,
+  onError: undefined,
+  validTill: undefined,
 };

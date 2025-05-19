@@ -20,6 +20,7 @@ import {
 } from './types';
 
 import { useWalletAuth, WalletAuthLoginStep } from '../../hooks';
+import { useUpdatePlanDetails } from '../../hooks/useUpdatePlanDetails';
 import {
   WalletAuth,
   VerifyEmail,
@@ -27,7 +28,6 @@ import {
   FetchRequestId,
   ValidateSignature,
 } from '../Dialogs';
-import { useUpdatePlanDetails } from '../../hooks/useUpdatePlanDetails';
 
 export const InheritancePlanLoginDialogContext: Context<InheritancePlanLoginDialogContextInterface> =
   createContext<InheritancePlanLoginDialogContextInterface>(

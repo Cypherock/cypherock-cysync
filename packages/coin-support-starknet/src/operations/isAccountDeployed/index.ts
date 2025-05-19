@@ -1,6 +1,8 @@
-import { assert } from '@cypherock/cysync-utils';
-import { IIsAccountDeployedParams } from './types';
 import { starknetCoinList } from '@cypherock/coins';
+import { assert } from '@cypherock/cysync-utils';
+
+import { IIsAccountDeployedParams } from './types';
+
 import { getIsAccountDeployed } from '../../services';
 
 export const isAccountDeployed = async (

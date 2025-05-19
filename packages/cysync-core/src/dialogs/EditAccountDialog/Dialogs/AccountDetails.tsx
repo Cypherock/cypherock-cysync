@@ -60,7 +60,7 @@ export const AccountDetails: React.FC = () => {
     () => ({
       derivationPath: selectedAccount?.derivationPath,
       ...(selectedAccount?.derivationScheme
-        ? { derivationScheme: selectedAccount?.derivationScheme }
+        ? { derivationScheme: selectedAccount.derivationScheme }
         : {}),
       xpubOrAddress: selectedAccount?.xpubOrAddress,
     }),
