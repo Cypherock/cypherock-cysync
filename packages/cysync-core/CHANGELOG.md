@@ -1,5 +1,11 @@
 # @cypherock/cysync-core
 
+## 0.5.1
+
+### Patch Changes
+
+- [#746](https://github.com/Cypherock/cypherock-cysync/pull/746) [`aef473a7`](https://github.com/Cypherock/cypherock-cysync/commit/aef473a7c6a44560e761035ca1db0d4c17611e67) Thanks [@muzaffarbhat07](https://github.com/muzaffarbhat07)! - fixed init txn issue in swap
+
 ## 0.5.0
 
 ### Minor Changes
