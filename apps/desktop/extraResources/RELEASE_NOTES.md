@@ -1,3 +1,9 @@
+# v2.0.22
+
+### 🐛 Bugfix
+
+- Fixed **Some internal error occurred** issue in swap send flow.
+
 # v2.0.21
 
 ### 🚀 Features
