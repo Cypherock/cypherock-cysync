@@ -91,7 +91,7 @@ export const SideBarItem: FC<SideBarItemProps> = ({
       width="full"
       $cursor={state === SideBarState.disabled ? 'not-allowed' : undefined}
     >
-      <Flex gap={int(theme.spacing.two.spacing)} width="full">
+      <Flex gap={int(theme.spacing.two.spacing)} width="full" $minWidth="">
         {child && (
           <svg
             width={theme.spacing.two.spacing}
@@ -126,12 +126,11 @@ export const SideBarItem: FC<SideBarItemProps> = ({
             $overflowX="hidden"
           >
             {Icon && (
-              <Flex align="center">
-                {' '}
+              <Flex align="center" width="25px" justify="center">
                 <Icon
                   fill={svgStroke ? 'none' : svgColor}
                   stroke={svgStroke ? svgColor : 'none'}
-                />{' '}
+                />
               </Flex>
             )}
             <Typography

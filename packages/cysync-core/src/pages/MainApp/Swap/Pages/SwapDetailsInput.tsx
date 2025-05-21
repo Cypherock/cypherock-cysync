@@ -337,6 +337,7 @@ export const SwapDetailsInput = () => {
         height="fit-content"
         direction="column"
         $flex={5}
+        $minWidth="0"
       >
         <AmountAndAccountSelection
           key={`from-${resetIndex}`}

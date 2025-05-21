@@ -181,19 +181,19 @@ const SideBarComponent: FC<{ collapseWallets?: boolean }> = () => {
             Icon={GraphSwitchSmallIcon}
             state={wallets.length === 0 ? State.disabled : getState('swap')}
             onClick={() => navigate('swap')}
-          />
-          <SideBarItem
-            text={strings.cypherockCover}
-            Icon={CypherockCoverIcon}
-            state={
-              wallets.length === 0 ? State.disabled : getState('inheritance')
-            }
             extraRight={
               <Chip $gradient="silver">
                 <Typography $fontSize={10} $fontWeight="semibold" color="black">
                   {strings.new}
                 </Typography>
               </Chip>
+            }
+          />
+          <SideBarItem
+            text={strings.cypherockCover}
+            Icon={CypherockCoverIcon}
+            state={
+              wallets.length === 0 ? State.disabled : getState('inheritance')
             }
             onClick={() => navigate('inheritance')}
           />
