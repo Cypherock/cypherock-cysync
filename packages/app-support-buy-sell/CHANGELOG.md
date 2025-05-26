@@ -1,5 +1,12 @@
 # @cypherock/app-support-buy-sell
 
+## 0.0.5
+
+### Patch Changes
+
+- Updated dependencies [[`8d60c96a`](https://github.com/Cypherock/cypherock-cysync/commit/8d60c96ad205a3a3bdd14cbd0f58c75b2222d72a)]:
+  - @cypherock/coins@0.3.2
+
 ## 0.0.4
 
 ### Patch Changes

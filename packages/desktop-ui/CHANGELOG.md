@@ -1,5 +1,22 @@
 # @cypherock/cysync-desktop-ui
 
+## 0.0.22
+
+### Patch Changes
+
+- Updated dependencies [[`aef473a7`](https://github.com/Cypherock/cypherock-cysync/commit/aef473a7c6a44560e761035ca1db0d4c17611e67)]:
+  - @cypherock/cysync-core@0.5.1
+
+## 0.0.21
+
+### Patch Changes
+
+- [#734](https://github.com/Cypherock/cypherock-cysync/pull/734) [`8d60c96a`](https://github.com/Cypherock/cypherock-cysync/commit/8d60c96ad205a3a3bdd14cbd0f58c75b2222d72a) Thanks [@muzaffarbhat07](https://github.com/muzaffarbhat07)! - Added swaps
+
+- Updated dependencies [[`8d60c96a`](https://github.com/Cypherock/cypherock-cysync/commit/8d60c96ad205a3a3bdd14cbd0f58c75b2222d72a)]:
+  - @cypherock/cysync-core@0.5.0
+  - @cypherock/cysync-ui@0.0.11
+
 ## 0.0.20
 
 ### Patch Changes

@@ -1,5 +1,11 @@
 # @cypherock/coins
 
+## 0.3.2
+
+### Patch Changes
+
+- [#734](https://github.com/Cypherock/cypherock-cysync/pull/734) [`8d60c96a`](https://github.com/Cypherock/cypherock-cysync/commit/8d60c96ad205a3a3bdd14cbd0f58c75b2222d72a) Thanks [@muzaffarbhat07](https://github.com/muzaffarbhat07)! - Added swaps
+
 ## 0.3.1
 
 ### Patch Changes
