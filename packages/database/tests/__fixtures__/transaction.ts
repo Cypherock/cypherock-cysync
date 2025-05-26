@@ -308,6 +308,7 @@ class TransactionData implements ITestClass<ITransaction> {
       customId: 'test',
       description: 'Desc',
       remarks: ['test'],
+      isSwap: false,
     },
     {
       hash: 'hash',
@@ -332,6 +333,7 @@ class TransactionData implements ITestClass<ITransaction> {
       customId: 'test',
       description: 'Desc',
       remarks: ['test'],
+      isSwap: false,
     },
     {
       hash: 'hash',
@@ -356,6 +358,7 @@ class TransactionData implements ITestClass<ITransaction> {
       customId: 'test',
       description: 'Desc',
       remarks: ['test'],
+      isSwap: false,
     },
     {
       hash: 'hash',
@@ -380,6 +383,7 @@ class TransactionData implements ITestClass<ITransaction> {
       customId: 'test',
       description: 'Desc',
       remarks: ['test'],
+      isSwap: false,
     },
   ];
 
