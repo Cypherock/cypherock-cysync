@@ -1,3 +1,15 @@
+# v2.0.22
+
+### 🐛 Bugfix
+
+- Fixed **Some internal error occurred** issue in swap send flow.
+
+# v2.0.21
+
+### 🚀 Features
+
+- **Introducing Crypto Swaps:** Seamlessly exchange tokens across chains directly within the cySync app—secure, private, and fully non-custodial.
+
 # v2.0.20
 
 ### 🚀 Features

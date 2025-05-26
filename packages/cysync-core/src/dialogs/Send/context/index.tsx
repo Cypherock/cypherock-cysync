@@ -401,6 +401,12 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
   const fillPrefillDetails = (initTransaction: IPreparedTransaction) => {
     const prefilledTransaction = structuredClone(initTransaction);
 
+    prefilledTransaction.userInputs.outputs.push({
+      address: '',
+      amount: '',
+      remarks: '',
+    });
+
     if (
       prefillDetails?.address &&
       prefilledTransaction.userInputs.outputs.length > 0
