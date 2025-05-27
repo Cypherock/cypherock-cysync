@@ -47,23 +47,13 @@ const MainAppLayoutComponent: FC<MainAppLayoutProps> = ({
   }, []);
 
   return (
-    <Flex width="full" height="full" gap={2.5} $bgColor="black">
+    <Flex width="full" height="full" $bgColor="black">
       <SideBar />
-      <span
-        style={{
-          width: '1px',
-          height: '24px',
-          margin: 'auto',
-          borderRadius: '2px',
-          background: '#cbc4b9',
-        }}
-      />
       <Flex
         $flex={1}
         direction="column"
         $bgColor="contentGradient"
-        $borderWidthL={1}
-        $borderColor="topbar"
+        $minWidth="0"
       >
         <Flex ref={topbarRef} direction="column">
           <Flex direction="column" gap={8} px={2} py={2} hideIfEmpty>

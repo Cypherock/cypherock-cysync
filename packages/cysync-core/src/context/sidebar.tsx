@@ -4,11 +4,11 @@ import {
   useTheme,
 } from '@cypherock/cysync-ui';
 import { IWallet } from '@cypherock/db-interfaces';
-import React, { useEffect, useMemo } from 'react';
+import React, { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 
 import { openContactSupportDialog } from '~/actions';
-import { useNavigateTo, useQuery, useWalletSync } from '~/hooks';
+import { useMemoReturn, useNavigateTo, useQuery, useWalletSync } from '~/hooks';
 import logger from '~/utils/logger';
 
 import {
@@ -48,6 +48,9 @@ export interface SidebarContextInterface {
   onWalletSync: (e: any) => void;
   dispatch: AppDispatch;
   isWalletPage: boolean;
+  width: number;
+  startDrag: () => void;
+  isDragging: boolean;
 }
 
 export const SidebarContext: React.Context<SidebarContextInterface> =
@@ -56,6 +59,9 @@ export const SidebarContext: React.Context<SidebarContextInterface> =
 export interface SidebarProviderProps {
   children: React.ReactNode;
 }
+
+const DEFAULT_SIDEBAR_WIDTH = 312;
+const MIN_SIDEBAR_WIDTH = 190;
 
 export const SidebarProvider: React.FC<SidebarProviderProps> = ({
   children,
@@ -71,6 +77,37 @@ export const SidebarProvider: React.FC<SidebarProviderProps> = ({
   const { onWalletSync } = useWalletSync();
 
   const [isWalletCollapsed, setIsWalletCollapsed] = React.useState(false);
+  const [width, setWidth] = React.useState(DEFAULT_SIDEBAR_WIDTH);
+  const [isDragging, setIsDragging] = React.useState(false);
+
+  const minWidth = MIN_SIDEBAR_WIDTH;
+  const maxWidth = DEFAULT_SIDEBAR_WIDTH;
+
+  const startDrag = () => {
+    setIsDragging(true);
+  };
+
+  useEffect(() => {
+    if (!isDragging) return undefined;
+
+    const onMouseMove = (event: MouseEvent) => {
+      const mouseX = event.clientX;
+      const newWidth = Math.min(Math.max(mouseX, minWidth), maxWidth);
+      setWidth(newWidth);
+    };
+
+    const onMouseUp = () => {
+      setIsDragging(false);
+    };
+
+    window.addEventListener('mousemove', onMouseMove);
+    window.addEventListener('mouseup', onMouseUp);
+
+    return () => {
+      window.removeEventListener('mousemove', onMouseMove);
+      window.removeEventListener('mouseup', onMouseUp);
+    };
+  }, [isDragging]);
 
   useEffect(() => {
     logger.info('Route Change', location);
@@ -126,40 +163,25 @@ export const SidebarProvider: React.FC<SidebarProviderProps> = ({
     }
   }, [location.pathname]);
 
-  const ctx = useMemo(
-    () => ({
-      strings,
-      getState,
-      navigate,
-      theme,
-      isWalletCollapsed,
-      setIsWalletCollapsed,
-      syncWalletStatus,
-      wallets,
-      onWalletSync,
-      deletedWallets,
-      navigateWallet,
-      getWalletState,
-      dispatch,
-      isWalletPage: location.pathname === routes.wallet.path,
-    }),
-    [
-      strings,
-      getState,
-      navigate,
-      theme,
-      isWalletCollapsed,
-      setIsWalletCollapsed,
-      syncWalletStatus,
-      wallets,
-      onWalletSync,
-      deletedWallets,
-      navigateWallet,
-      getWalletState,
-      dispatch,
-      location.pathname,
-    ],
-  );
+  const ctx = useMemoReturn({
+    strings,
+    getState,
+    navigate,
+    theme,
+    isWalletCollapsed,
+    setIsWalletCollapsed,
+    syncWalletStatus,
+    wallets,
+    onWalletSync,
+    deletedWallets,
+    navigateWallet,
+    getWalletState,
+    dispatch,
+    isWalletPage: location.pathname === routes.wallet.path,
+    width,
+    startDrag,
+    isDragging,
+  });
 
   return (
     <SidebarContext.Provider value={ctx}>{children}</SidebarContext.Provider>
