@@ -121,6 +121,9 @@ export const SwapHistory = ({ topbarHeight }: { topbarHeight: number }) => {
           countervalueAmount: t.displayValueWithoutUnit,
           remarks: t.remarks.join('\n'),
           network: t.network,
+          provider: t.txn?.swapData?.providerId,
+          exchangeId: t.txn?.swapData?.exchangeId,
+          payoutTxnHash: t.txn?.swapData?.payoutTxnHash,
         })),
     );
 

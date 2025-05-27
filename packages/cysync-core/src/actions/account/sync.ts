@@ -52,7 +52,7 @@ const updateSwapReceiveTransactions = async () => {
 
     await db.transaction.update(
       { __id: txn.__id },
-      { swapData: { ...txn.swapData, isReceiveUpdated: true } },
+      { swapData: { ...txn.swapData, payoutTxnHash, isReceiveUpdated: true } },
     );
   }
 };
