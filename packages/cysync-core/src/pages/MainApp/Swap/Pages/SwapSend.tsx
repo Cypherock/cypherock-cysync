@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect } from 'react';
 
 import { openSendDialog } from '~/actions';
 import { LoaderDialog } from '~/components';
@@ -23,11 +23,10 @@ export const SwapSend = () => {
     onError,
     closeExchange,
     markTransactionAsSwap,
+    transactionId,
   } = useSwap();
   const { strings } = useAppSelector(selectLanguage);
   const displayText = strings.swap.swapSend;
-
-  const transactionId = useRef<string>();
 
   const storeTransactionId = (id: string) => {
     transactionId.current = id;

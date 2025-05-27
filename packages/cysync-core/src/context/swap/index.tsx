@@ -1,4 +1,4 @@
-import { IAccount, IWallet } from '@cypherock/db-interfaces';
+import { IAccount, IWallet, ISwapData } from '@cypherock/db-interfaces';
 import {
   ExchangeApp,
   IGetSignatureResultResponse,
@@ -75,6 +75,8 @@ export interface SwapContextInterface {
   closeExchange: () => Promise<void>;
   resetIndex: number;
   markTransactionAsSwap: (id: string) => void;
+  updateTransactionSwapData: (id: string, swapData: ISwapData) => void;
+  transactionId: React.MutableRefObject<string | undefined>;
 }
 
 export const SwapContext: React.Context<SwapContextInterface> =
@@ -308,6 +310,13 @@ export const SwapProvider: React.FC<SwapProviderProps> = ({ children }) => {
     db.transaction.update({ __id: id }, { isSwap: true });
   };
 
+  const updateTransactionSwapData = (id: string, swapData: ISwapData) => {
+    const db = getDB();
+    db.transaction.update({ __id: id }, { swapData });
+  };
+
+  const transactionId = useRef<string>();
+
   const ctx = useMemoReturn({
     currentPage,
     toNextPage,
@@ -329,6 +338,8 @@ export const SwapProvider: React.FC<SwapProviderProps> = ({ children }) => {
     initiateExchange,
     closeExchange,
     markTransactionAsSwap,
+    updateTransactionSwapData,
+    transactionId,
     resetIndex,
   });
   return <SwapContext.Provider value={ctx}>{children}</SwapContext.Provider>;

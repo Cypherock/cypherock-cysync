@@ -27,6 +27,13 @@ export interface ITransactionInputOutput {
   isMine: boolean;
 }
 
+export interface ISwapData {
+  providerId: string;
+  exchangeId: string;
+  payoutTxnHash?: string;
+  isReceiveUpdated: boolean;
+}
+
 export interface ITransaction extends IEntity {
   hash: string;
   fees: string;
@@ -56,6 +63,7 @@ export interface ITransaction extends IEntity {
   description?: string;
   remarks?: string[];
   isSwap?: boolean;
+  swapData?: ISwapData;
 }
 
 export interface IDetailedTransaction extends ITransaction {

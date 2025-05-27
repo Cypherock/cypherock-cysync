@@ -2,10 +2,15 @@ import {
   ISyncAccountsEvent,
   syncAccounts as syncAccountsCore,
 } from '@cypherock/cysync-core-services';
-import { IAccount } from '@cypherock/db-interfaces';
+import {
+  IAccount,
+  TransactionStatusMap,
+  TransactionTypeMap,
+} from '@cypherock/db-interfaces';
 import { ActionCreator, createAsyncThunk } from '@reduxjs/toolkit';
 import { Observer } from 'rxjs';
 
+import { getPayoutTxnHash } from '~/services/swapService';
 import {
   AccountSyncStateMap,
   RootState,
@@ -15,6 +20,42 @@ import {
   updateAccountSyncMap,
 } from '~/store';
 import { getDB } from '~/utils';
+
+const updateSwapReceiveTransactions = async () => {
+  const db = getDB();
+  const swapSendTransactions = await db.transaction.getAll({
+    isSwap: true,
+    type: TransactionTypeMap.send,
+    status: TransactionStatusMap.success,
+  });
+  for (const txn of swapSendTransactions) {
+    if (!txn.swapData) continue;
+
+    const { providerId, exchangeId, isReceiveUpdated } = txn.swapData;
+
+    if (isReceiveUpdated) continue;
+
+    let { payoutTxnHash } = txn.swapData;
+
+    if (!payoutTxnHash) {
+      if (!providerId || !exchangeId) continue;
+
+      payoutTxnHash = await getPayoutTxnHash({ providerId, exchangeId });
+    }
+
+    if (!payoutTxnHash) continue;
+
+    await db.transaction.update(
+      { hash: payoutTxnHash, type: TransactionTypeMap.receive },
+      { isSwap: true },
+    );
+
+    await db.transaction.update(
+      { __id: txn.__id },
+      { swapData: { ...txn.swapData, isReceiveUpdated: true } },
+    );
+  }
+};
 
 export const syncAccounts = createAsyncThunk<
   void,
@@ -81,6 +122,7 @@ export const syncAccounts = createAsyncThunk<
           }
 
           dispatch(setAccountSyncState(AccountSyncStateMap.synced));
+          updateSwapReceiveTransactions();
           resolve();
         },
       };

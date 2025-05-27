@@ -14,11 +14,12 @@ import {
   useTheme,
 } from '@cypherock/cysync-ui';
 import React, { useEffect, useRef, useMemo } from 'react';
+import * as Virtualize from 'react-virtualized/dist/umd/react-virtualized';
+
 import { openReceiveDialog } from '~/actions';
 import { useTransactions, useWindowSize } from '~/hooks';
 import { useAppSelector, selectLanguage, openSnackBar } from '~/store';
 import { downloadCSVToDesktop } from '~/utils';
-import * as Virtualize from 'react-virtualized/dist/umd/react-virtualized';
 
 export const SwapHistory = ({ topbarHeight }: { topbarHeight: number }) => {
   const {

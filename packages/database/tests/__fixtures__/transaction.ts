@@ -309,6 +309,13 @@ class TransactionData implements ITestClass<ITransaction> {
       description: 'Desc',
       remarks: ['test'],
       isSwap: false,
+      swapData: {
+        providerId: 'changenow',
+        exchangeId: '828681b52b4a73',
+        payoutTxnHash:
+          '0x72e51ecc13aae8f6d36723130576c00e27b919c04525b4a120cc33dbe711fd7e',
+        isReceiveUpdated: false,
+      },
     },
     {
       hash: 'hash',
@@ -333,7 +340,14 @@ class TransactionData implements ITestClass<ITransaction> {
       customId: 'test',
       description: 'Desc',
       remarks: ['test'],
-      isSwap: false,
+      isSwap: true,
+      swapData: {
+        providerId: 'changenow',
+        exchangeId: '828681b52b4a73',
+        payoutTxnHash:
+          '0x72e51ecc13aae8f6d36723130576c00e27b919c04525b4a120cc33dbe711fd7e',
+        isReceiveUpdated: false,
+      },
     },
     {
       hash: 'hash',
@@ -359,6 +373,13 @@ class TransactionData implements ITestClass<ITransaction> {
       description: 'Desc',
       remarks: ['test'],
       isSwap: false,
+      swapData: {
+        providerId: 'changenow',
+        exchangeId: '828681b52b4a73',
+        payoutTxnHash:
+          '0x72e51ecc13aae8f6d36723130576c00e27b919c04525b4a120cc33dbe711fd7e',
+        isReceiveUpdated: false,
+      },
     },
     {
       hash: 'hash',
@@ -384,6 +405,13 @@ class TransactionData implements ITestClass<ITransaction> {
       description: 'Desc',
       remarks: ['test'],
       isSwap: false,
+      swapData: {
+        providerId: 'changenow',
+        exchangeId: '828681b52b4a73',
+        payoutTxnHash:
+          '0x72e51ecc13aae8f6d36723130576c00e27b919c04525b4a120cc33dbe711fd7e',
+        isReceiveUpdated: false,
+      },
     },
   ];
 

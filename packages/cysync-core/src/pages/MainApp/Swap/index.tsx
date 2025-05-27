@@ -1,6 +1,14 @@
+import {
+  ArrowBackGoldenIcon,
+  Button,
+  Container,
+  Flex,
+  Typography,
+} from '@cypherock/cysync-ui';
 import React, { useEffect, useLayoutEffect, useMemo, useState } from 'react';
 
 import { openErrorDialog } from '~/actions';
+import { WithConnectedDevice } from '~/components';
 import { SwapPage, useSwap } from '~/context';
 import {
   closeDialog,
@@ -9,6 +17,7 @@ import {
   useAppSelector,
 } from '~/store';
 
+import { SwapHistory } from './components/SwapHistory';
 import { SwapDetailsInput } from './Pages/SwapDetailsInput';
 import { SwapReceive } from './Pages/SwapReceive';
 import { SwapSend } from './Pages/SwapSend';
@@ -16,15 +25,6 @@ import { SwapStatus } from './Pages/SwapStatus';
 import { SwapSummary } from './Pages/SwapSummary';
 
 import { MainAppLayout } from '../Layout';
-import { WithConnectedDevice } from '~/components';
-import {
-  ArrowBackGoldenIcon,
-  Button,
-  Container,
-  Flex,
-  Typography,
-} from '@cypherock/cysync-ui';
-import { SwapHistory } from './components/SwapHistory';
 
 const FullScreenWithConnectedDevice: React.FC<{
   children: React.ReactNode;
@@ -42,7 +42,9 @@ FullScreenWithConnectedDevice.defaultProps = {
 const ComponentWithHeader: React.FC<{
   children: React.ReactNode;
   onBack?: () => void;
-}> = ({ children, onBack }) => {
+  onHistory?: () => void;
+  disableHistory?: boolean;
+}> = ({ children, onBack, onHistory, disableHistory }) => {
   const lang = useAppSelector(selectLanguage);
   return (
     <Container
@@ -71,7 +73,7 @@ const ComponentWithHeader: React.FC<{
             </Typography>
           </Button>
         )}
-        {/* {onHistory && (
+        {onHistory && (
           <Button
             variant="text"
             title="History"
@@ -85,7 +87,7 @@ const ComponentWithHeader: React.FC<{
               {lang.strings.sidebar.history}
             </Typography>
           </Button>
-        )} */}
+        )}
       </Flex>
       <div style={{ alignItems: 'stretch', height: '91%', width: '100%' }}>
         {children}
@@ -96,24 +98,42 @@ const ComponentWithHeader: React.FC<{
 
 ComponentWithHeader.defaultProps = {
   onBack: undefined,
+  onHistory: undefined,
+  disableHistory: false,
 };
 
-const SwapDetailsComponent: React.FC = () => (
-  <ComponentWithHeader>
+const SwapDetailsComponent: React.FC<{
+  onHistory?: () => void;
+  disableHistory?: boolean;
+}> = ({ onHistory, disableHistory }) => (
+  <ComponentWithHeader onHistory={onHistory} disableHistory={disableHistory}>
     <SwapDetailsInput />
   </ComponentWithHeader>
 );
 
+SwapDetailsComponent.defaultProps = {
+  onHistory: undefined,
+  disableHistory: false,
+};
+
 const SwapSummaryComponent: React.FC<{
   toPreviousPage?: () => void;
-}> = ({ toPreviousPage }) => (
-  <ComponentWithHeader onBack={toPreviousPage}>
+  onHistory?: () => void;
+  disableHistory?: boolean;
+}> = ({ toPreviousPage, onHistory, disableHistory }) => (
+  <ComponentWithHeader
+    onBack={toPreviousPage}
+    onHistory={onHistory}
+    disableHistory={disableHistory}
+  >
     <SwapSummary />
   </ComponentWithHeader>
 );
 
 SwapSummaryComponent.defaultProps = {
   toPreviousPage: undefined,
+  onHistory: undefined,
+  disableHistory: false,
 };
 
 const SwapReceiveComponent: React.FC<{ onClose: () => void }> = ({
@@ -139,7 +159,7 @@ const pageMap: Record<
     disableHistory?: boolean;
   }) => React.ReactNode
 > = {
-  [SwapPage.DETAILS]: () => <SwapDetailsComponent />,
+  [SwapPage.DETAILS]: params => <SwapDetailsComponent {...params} />,
   [SwapPage.SUMMARY]: params => <SwapSummaryComponent {...params} />,
   [SwapPage.RECEIVE]: params => <SwapReceiveComponent {...params} />,
   [SwapPage.SEND]: params => <SwapSendComponent {...params} />,
@@ -176,8 +196,12 @@ export const Swap = () => {
   }, [error]);
 
   // @todo: disable history if there are no previous swap transactions
-  const disableHistory = true;
   const handleHistoryClick = () => setShowHistory(true);
+
+  const onHistoryBack = () => {
+    retryCurrentPage();
+    setShowHistory(false);
+  };
 
   return (
     <MainAppLayout
@@ -185,7 +209,7 @@ export const Swap = () => {
       onTopbarHeightChange={setTopbarHeight}
     >
       {showHistory ? (
-        <ComponentWithHeader onBack={() => setShowHistory(false)}>
+        <ComponentWithHeader onBack={onHistoryBack}>
           <SwapHistory topbarHeight={topbarHeight} />
         </ComponentWithHeader>
       ) : (
@@ -193,7 +217,6 @@ export const Swap = () => {
           onHistory: handleHistoryClick,
           onClose: reset,
           toPreviousPage,
-          disableHistory,
         })
       )}
     </MainAppLayout>
