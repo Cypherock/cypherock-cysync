@@ -19,6 +19,9 @@ export const createCSVFromTransactions = (
     countervalueAmount: string;
     remarks: string;
     network: string;
+    provider?: string;
+    exchangeId?: string;
+    payoutTxnHash?: string;
   }[],
 ) =>
   createCSVFromObject({
@@ -37,6 +40,9 @@ export const createCSVFromTransactions = (
       { name: 'Countervalue Currency', key: 'countervalueCurrency' },
       { name: 'Countervalue at CSV Export', key: 'countervalueAmount' },
       { name: 'Remarks', key: 'remarks' },
+      { name: 'Provider', key: 'provider' },
+      { name: 'ExchangeId', key: 'exchangeId' },
+      { name: 'PayoutTxnHash', key: 'payoutTxnHash' },
     ],
     rows: transactions.map(t => ({
       date: formatDateToUTCString(t.date),
@@ -53,5 +59,8 @@ export const createCSVFromTransactions = (
       countervalueAmount: t.countervalueAmount,
       remarks: t.remarks,
       network: t.network,
+      provider: t.provider,
+      exchangeId: t.exchangeId,
+      payoutTxnHash: t.payoutTxnHash,
     })),
   });

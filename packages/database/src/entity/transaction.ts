@@ -27,5 +27,7 @@ export const Transaction: ITableDetails<Omit<ITransaction, BaseFields>> = {
     customId: { type: 'string', isOptional: true },
     description: { type: 'string', isOptional: true },
     remarks: { type: 'array', isOptional: true },
+    isSwap: { type: 'boolean', isOptional: true },
+    swapData: { type: 'object', isOptional: true },
   },
 };

@@ -56,6 +56,8 @@ export const SwapStatus = () => {
     reset,
     exchangeDetails,
     closeExchange,
+    updateTransactionSwapData,
+    transactionId,
   } = useSwap();
   const [providerUrl, setProviderUrl] = useState<string>();
 
@@ -69,6 +71,14 @@ export const SwapStatus = () => {
       if (result.status === 200) {
         setProviderUrl(result?.data?.data?.providerUrl);
 
+        if (transactionId.current) {
+          updateTransactionSwapData(transactionId.current, {
+            providerId: quote?.provider.id ?? '',
+            exchangeId: exchangeDetails?.id ?? '',
+            payoutTxnHash: result.data.data.payoutHash,
+            isReceiveUpdated: false,
+          });
+        }
         if (result.data.data.status === 'finished')
           setState(SwapStates.Success);
         else if (result.data.data.status === 'failed')

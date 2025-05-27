@@ -1,9 +1,9 @@
-const createCSVRow = (row: (string | number)[]) => {
+const createCSVRow = (row: (string | number | undefined)[]) => {
   let finalVal = '';
 
   for (let j = 0; j < row.length; j += 1) {
-    const innerValue =
-      row[j] === null || row[j] === undefined ? '' : row[j].toString();
+    const val = row[j];
+    const innerValue = val === null || val === undefined ? '' : val.toString();
 
     let result = innerValue.replace(/"/g, '""');
     if (result.search(/("|,|\n)/g) >= 0) result = `"${result}"`;
@@ -15,7 +15,10 @@ const createCSVRow = (row: (string | number)[]) => {
   return `${finalVal}\n`;
 };
 
-const createCSV = (headers: string[], rows: (string | number)[][]) => {
+const createCSV = (
+  headers: string[],
+  rows: (string | number | undefined)[][],
+) => {
   let csvFile = createCSVRow(headers);
 
   for (let i = 0; i < rows.length; i += 1) {
@@ -27,7 +30,7 @@ const createCSV = (headers: string[], rows: (string | number)[][]) => {
 
 export interface CreateCSVFromObjectParams {
   headers: { name: string; key: string }[];
-  rows: Record<string, string | number>[];
+  rows: Record<string, string | number | undefined>[];
 }
 
 export const createCSVFromObject = ({

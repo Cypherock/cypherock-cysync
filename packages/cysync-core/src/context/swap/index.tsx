@@ -1,4 +1,4 @@
-import { IAccount, IWallet } from '@cypherock/db-interfaces';
+import { IAccount, IWallet, ISwapData } from '@cypherock/db-interfaces';
 import {
   ExchangeApp,
   IGetSignatureResultResponse,
@@ -10,6 +10,7 @@ import { ErrorActionMap, ErrorIconNameMap } from '~/constants/errors';
 
 import { DeviceTask, useDeviceTask, useMemoReturn } from '~/hooks';
 import { createExchange } from '~/services/swapService';
+import { getDB } from '~/utils';
 import logger from '~/utils/logger';
 
 export enum SwapPage {
@@ -73,6 +74,9 @@ export interface SwapContextInterface {
   initiateExchange: (address: string) => Promise<void>;
   closeExchange: () => Promise<void>;
   resetIndex: number;
+  markTransactionAsSwap: (id: string) => void;
+  updateTransactionSwapData: (id: string, swapData: ISwapData) => void;
+  transactionId: React.MutableRefObject<string | undefined>;
 }
 
 export const SwapContext: React.Context<SwapContextInterface> =
@@ -301,6 +305,18 @@ export const SwapProvider: React.FC<SwapProviderProps> = ({ children }) => {
     logger.info('Swap closed');
   };
 
+  const markTransactionAsSwap = (id: string) => {
+    const db = getDB();
+    db.transaction.update({ __id: id }, { isSwap: true });
+  };
+
+  const updateTransactionSwapData = (id: string, swapData: ISwapData) => {
+    const db = getDB();
+    db.transaction.update({ __id: id }, { swapData });
+  };
+
+  const transactionId = useRef<string>();
+
   const ctx = useMemoReturn({
     currentPage,
     toNextPage,
@@ -321,6 +337,9 @@ export const SwapProvider: React.FC<SwapProviderProps> = ({ children }) => {
     exchangeDetails,
     initiateExchange,
     closeExchange,
+    markTransactionAsSwap,
+    updateTransactionSwapData,
+    transactionId,
     resetIndex,
   });
   return <SwapContext.Provider value={ctx}>{children}</SwapContext.Provider>;

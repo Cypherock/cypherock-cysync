@@ -37,3 +37,8 @@ export const getExchangeStatus = async (params: {
   axios.post(`${config.API_CYPHEROCK}/swap/get-exchange-status`, {
     ...params,
   });
+
+export const getPayoutTxnHash = async (params: {
+  providerId: string;
+  exchangeId: string;
+}): Promise<string> => (await getExchangeStatus(params)).data.data.payoutHash;
