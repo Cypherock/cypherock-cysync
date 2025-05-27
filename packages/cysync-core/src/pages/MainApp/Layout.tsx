@@ -1,4 +1,4 @@
-import { Flex, MainAppBody, SidebarHandle } from '@cypherock/cysync-ui';
+import { Flex, MainAppBody } from '@cypherock/cysync-ui';
 import React, { FC, ReactNode, useEffect, useRef, useState } from 'react';
 
 import {
@@ -49,7 +49,6 @@ const MainAppLayoutComponent: FC<MainAppLayoutProps> = ({
   return (
     <Flex width="full" height="full" $bgColor="black">
       <SideBar />
-      <SidebarHandle />
       <Flex
         $flex={1}
         direction="column"

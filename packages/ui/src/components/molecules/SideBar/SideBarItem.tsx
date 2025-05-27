@@ -126,7 +126,12 @@ export const SideBarItem: FC<SideBarItemProps> = ({
             $overflowX="hidden"
           >
             {Icon && (
-              <Flex align="center" width="25px" justify="center">
+              <Flex
+                align="center"
+                $minWidth="25px"
+                width="25px"
+                justify="center"
+              >
                 <Icon
                   fill={svgStroke ? 'none' : svgColor}
                   stroke={svgStroke ? svgColor : 'none'}

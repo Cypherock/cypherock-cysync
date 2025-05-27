@@ -24,6 +24,7 @@ import {
   WalletInfoIcon,
   parseLangTemplate,
   GraphSwitchSmallIcon,
+  SidebarHandle,
 } from '@cypherock/cysync-ui';
 import { IWallet } from '@cypherock/db-interfaces';
 import React, { FC } from 'react';
@@ -39,7 +40,7 @@ export interface SideBarWalletSubMenuProps {
   wallets: IWallet[];
 }
 
-const SideBarComponent: FC<{ collapseWallets?: boolean }> = () => {
+const SideBarComponent: FC = () => {
   const {
     getState,
     isWalletCollapsed,
@@ -55,6 +56,9 @@ const SideBarComponent: FC<{ collapseWallets?: boolean }> = () => {
     getWalletState,
     dispatch,
     isWalletPage,
+    isDragging,
+    startDrag,
+    width,
   } = useSidebar();
   const { deviceHandlingState } = useDevice();
 
@@ -88,139 +92,152 @@ const SideBarComponent: FC<{ collapseWallets?: boolean }> = () => {
   );
 
   return (
-    <SideBarWrapper title="cySync" width={312} height="screen">
-      <Flex direction="column" gap={8} justify="space-between" height="full">
-        <Flex direction="column" gap={0}>
-          <SideBarItem
-            text={strings.portfolio}
-            Icon={PortfolioIcon}
-            state={getState('portfolio')}
-            onClick={() => navigate('portfolio')}
-          />
-          <FloatingMenu
-            items={walletsSubMenuOptions}
-            onChange={id => id && navigateWallet(id)}
-            selectedItem={selectedWallet?.__id}
-            maxVisibleItemCount={8}
-            placement="right-start"
-            noLeftImageInList
-            width={200}
-            offset={{ mainAxis: 32, crossAxis: 12 }}
-            disabled={wallets.length === 0}
-          >
+    <>
+      <SideBarWrapper title="cySync" width={width} height="screen">
+        <Flex direction="column" gap={8} justify="space-between" height="full">
+          <Flex direction="column" gap={0}>
             <SideBarItem
-              text={strings.wallets}
-              extraRight={<AngleRight />}
-              extraLeft={
-                <Button
-                  variant="text"
-                  align="center"
-                  title="Sync Wallets"
-                  pr={1}
-                  disabled={deviceHandlingState !== DeviceHandlingState.USABLE}
-                  onClick={onWalletSync}
-                >
-                  <Synchronizing
-                    fill={theme.palette.muted.main}
-                    opacity={
-                      deviceHandlingState !== DeviceHandlingState.USABLE
-                        ? 0.5
-                        : 1
-                    }
-                    animate={
-                      syncWalletStatus === 'loading' ? 'spin' : undefined
-                    }
-                  />
-                </Button>
-              }
-              isCollapsed={isWalletCollapsed}
-              setIsCollapsed={setIsWalletCollapsed}
-              state={isWalletPage ? State.selected : undefined}
-              Icon={WalletIcon}
+              text={strings.portfolio}
+              Icon={PortfolioIcon}
+              state={getState('portfolio')}
+              onClick={() => navigate('portfolio')}
             />
-          </FloatingMenu>
+            <FloatingMenu
+              items={walletsSubMenuOptions}
+              onChange={id => id && navigateWallet(id)}
+              selectedItem={selectedWallet?.__id}
+              maxVisibleItemCount={8}
+              placement="right-start"
+              noLeftImageInList
+              width={200}
+              offset={{ mainAxis: 32, crossAxis: 12 }}
+              disabled={wallets.length === 0}
+            >
+              <SideBarItem
+                text={strings.wallets}
+                extraRight={<AngleRight />}
+                extraLeft={
+                  <Button
+                    variant="text"
+                    align="center"
+                    title="Sync Wallets"
+                    pr={1}
+                    disabled={
+                      deviceHandlingState !== DeviceHandlingState.USABLE
+                    }
+                    onClick={onWalletSync}
+                  >
+                    <Synchronizing
+                      fill={theme.palette.muted.main}
+                      opacity={
+                        deviceHandlingState !== DeviceHandlingState.USABLE
+                          ? 0.5
+                          : 1
+                      }
+                      animate={
+                        syncWalletStatus === 'loading' ? 'spin' : undefined
+                      }
+                    />
+                  </Button>
+                }
+                isCollapsed={isWalletCollapsed}
+                setIsCollapsed={setIsWalletCollapsed}
+                state={isWalletPage ? State.selected : undefined}
+                Icon={WalletIcon}
+              />
+            </FloatingMenu>
 
-          <SideBarItem
-            text={strings.sendCrypto}
-            Icon={ArrowSentIcon}
-            state={wallets.length === 0 ? State.disabled : undefined}
-            onClick={() => {
-              dispatch(openSendDialog());
-            }}
-          />
-          <SideBarItem
-            text={strings.receiveCrypto}
-            Icon={ArrowReceivedIcon}
-            state={wallets.length === 0 ? State.disabled : undefined}
-            onClick={() => {
-              dispatch(openReceiveDialog());
-            }}
-          />
-          <SideBarItem
-            text={strings.history}
-            Icon={HistoryIcon}
-            state={wallets.length === 0 ? State.disabled : getState('history')}
-            onClick={() => navigate('history')}
-          />
-          <SideBarItem
-            text={strings.walletConnect}
-            Icon={WalletConnectWhiteIcon}
-            state={wallets.length === 0 ? State.disabled : undefined}
-            onClick={() => {
-              dispatch(openWalletConnectDialog());
-            }}
-          />
-          <SideBarItem
-            text={strings.buysell}
-            Icon={DollarIcon}
-            state={wallets.length === 0 ? State.disabled : getState('buysell')}
-            onClick={() => navigate('buysell')}
-          />
-          <SideBarItem
-            text="Swap"
-            Icon={GraphSwitchSmallIcon}
-            state={wallets.length === 0 ? State.disabled : getState('swap')}
-            onClick={() => navigate('swap')}
-            extraRight={
-              <Chip $gradient="silver">
-                <Typography $fontSize={10} $fontWeight="semibold" color="black">
-                  {strings.new}
-                </Typography>
-              </Chip>
-            }
-          />
-          <SideBarItem
-            text={strings.cypherockCover}
-            Icon={CypherockCoverIcon}
-            state={
-              wallets.length === 0 ? State.disabled : getState('inheritance')
-            }
-            onClick={() => navigate('inheritance')}
-          />
+            <SideBarItem
+              text={strings.sendCrypto}
+              Icon={ArrowSentIcon}
+              state={wallets.length === 0 ? State.disabled : undefined}
+              onClick={() => {
+                dispatch(openSendDialog());
+              }}
+            />
+            <SideBarItem
+              text={strings.receiveCrypto}
+              Icon={ArrowReceivedIcon}
+              state={wallets.length === 0 ? State.disabled : undefined}
+              onClick={() => {
+                dispatch(openReceiveDialog());
+              }}
+            />
+            <SideBarItem
+              text={strings.history}
+              Icon={HistoryIcon}
+              state={
+                wallets.length === 0 ? State.disabled : getState('history')
+              }
+              onClick={() => navigate('history')}
+            />
+            <SideBarItem
+              text={strings.walletConnect}
+              Icon={WalletConnectWhiteIcon}
+              state={wallets.length === 0 ? State.disabled : undefined}
+              onClick={() => {
+                dispatch(openWalletConnectDialog());
+              }}
+            />
+            <SideBarItem
+              text={strings.buysell}
+              Icon={DollarIcon}
+              state={
+                wallets.length === 0 ? State.disabled : getState('buysell')
+              }
+              onClick={() => navigate('buysell')}
+            />
+            <SideBarItem
+              text="Swap"
+              Icon={GraphSwitchSmallIcon}
+              state={wallets.length === 0 ? State.disabled : getState('swap')}
+              onClick={() => navigate('swap')}
+              extraRight={
+                <Chip $gradient="silver">
+                  <Typography
+                    $fontSize={10}
+                    $fontWeight="semibold"
+                    color="black"
+                  >
+                    {strings.new}
+                  </Typography>
+                </Chip>
+              }
+            />
+            <SideBarItem
+              text={strings.cypherockCover}
+              Icon={CypherockCoverIcon}
+              state={
+                wallets.length === 0 ? State.disabled : getState('inheritance')
+              }
+              onClick={() => navigate('inheritance')}
+            />
+          </Flex>
+          <Flex direction="column" gap={0}>
+            <SideBarItem
+              text={strings.tutorial}
+              Icon={TutorialIcon}
+              state={getState('tutorial')}
+              onClick={() => navigate('tutorial')}
+            />
+            <SideBarItem
+              text={strings.settings}
+              Icon={SettingsIcon}
+              state={getState('settings')}
+              onClick={() => navigate('settings')}
+            />
+            <SideBarItem
+              text={strings.help}
+              Icon={SupportIcon}
+              svgStroke
+              state={getState('help')}
+              onClick={() => navigate('help')}
+            />
+          </Flex>
         </Flex>
-        <Flex direction="column" gap={0}>
-          <SideBarItem
-            text={strings.tutorial}
-            Icon={TutorialIcon}
-            state={getState('tutorial')}
-            onClick={() => navigate('tutorial')}
-          />
-          <SideBarItem
-            text={strings.settings}
-            Icon={SettingsIcon}
-            state={getState('settings')}
-            onClick={() => navigate('settings')}
-          />
-          <SideBarItem
-            text={strings.help}
-            Icon={SupportIcon}
-            svgStroke
-            state={getState('help')}
-            onClick={() => navigate('help')}
-          />
-        </Flex>
-      </Flex>
-    </SideBarWrapper>
+      </SideBarWrapper>
+      <SidebarHandle isDragging={isDragging} onMouseDown={startDrag} />
+    </>
   );
 };
 
