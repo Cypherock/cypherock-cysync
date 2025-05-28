@@ -50,7 +50,6 @@ export interface SidebarContextInterface {
   isWalletPage: boolean;
   width: number;
   startDrag: () => void;
-  isDragging: boolean;
 }
 
 export const SidebarContext: React.Context<SidebarContextInterface> =
@@ -88,7 +87,12 @@ export const SidebarProvider: React.FC<SidebarProviderProps> = ({
   };
 
   useEffect(() => {
-    if (!isDragging) return undefined;
+    if (!isDragging) {
+      document.body.style.cursor = '';
+      return undefined;
+    }
+
+    document.body.style.cursor = 'ew-resize';
 
     const onMouseMove = (event: MouseEvent) => {
       const mouseX = event.clientX;
@@ -106,6 +110,7 @@ export const SidebarProvider: React.FC<SidebarProviderProps> = ({
     return () => {
       window.removeEventListener('mousemove', onMouseMove);
       window.removeEventListener('mouseup', onMouseUp);
+      document.body.style.cursor = '';
     };
   }, [isDragging]);
 
@@ -180,7 +185,6 @@ export const SidebarProvider: React.FC<SidebarProviderProps> = ({
     isWalletPage: location.pathname === routes.wallet.path,
     width,
     startDrag,
-    isDragging,
   });
 
   return (

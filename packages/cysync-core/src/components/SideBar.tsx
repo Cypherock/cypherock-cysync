@@ -56,7 +56,6 @@ const SideBarComponent: FC = () => {
     getWalletState,
     dispatch,
     isWalletPage,
-    isDragging,
     startDrag,
     width,
   } = useSidebar();
@@ -236,7 +235,7 @@ const SideBarComponent: FC = () => {
           </Flex>
         </Flex>
       </SideBarWrapper>
-      <SidebarHandle isDragging={isDragging} onMouseDown={startDrag} />
+      <SidebarHandle onMouseDown={startDrag} />
     </>
   );
 };
