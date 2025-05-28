@@ -2,13 +2,15 @@ import {
   ConnectionStatusType,
   SyncStatusType,
   Topbar as TopbarUI,
-  TopbarProps as TopbarUIProps,
+  // TopbarProps as TopbarUIProps, // Not strictly needed if props are aligned
 } from '@cypherock/cysync-ui';
 import { createSelector } from '@reduxjs/toolkit';
-import React, { FC, useMemo } from 'react';
+import React, { FC, ReactNode, useMemo, useCallback } from 'react';
 
-import { syncAllAccounts } from '~/actions';
+import { openContactSupportDialog, syncAllAccounts } from '~/actions';
+import { routes } from '~/constants';
 import { DeviceConnectionStatus, useDevice, useLockscreen } from '~/context';
+import { useNavigateTo } from '~/hooks';
 import {
   AccountSyncState,
   AccountSyncStateMap,
@@ -22,6 +24,7 @@ import {
   useAppSelector,
 } from '~/store';
 
+// ... selector and maps ...
 const selector = createSelector(
   [selectLanguage, selectDiscreetMode, selectAccountSync, selectNotifications],
   (a, b, c, { isOpen, unreadTransactions }) => ({
@@ -50,19 +53,28 @@ const accountSyncMap: Record<AccountSyncState, SyncStatusType> = {
 };
 
 export interface TopbarProps {
-  title: TopbarUIProps['title'];
-  subTitle?: TopbarUIProps['subTitle'];
-  icon?: TopbarUIProps['icon'];
-  tag?: TopbarUIProps['tag'];
+  // This is the interface used by TopbarComponent
+  title: string;
+  subTitle?: string;
+  icon?: ReactNode;
+  tag?: string;
+  showIcon?: boolean;
+  onIconClick?: () => void;
+  // ** Add the missing props here **
+  // These props will be passed to the TopbarUI from cysync-ui
+  // and are defined in cysync-ui/src/components/molecules/Topbar.tsx
+  // but also need to be accepted by this wrapper component.
 }
 
 const TopbarComponent: FC<TopbarProps> = props => {
   const dispatch = useAppDispatch();
+  const navigateTo = useNavigateTo();
   const { lang, discreetMode, accountSync, unreadTransactions } =
     useAppSelector(selector);
   const { connection } = useDevice();
   const { isLocked, isPasswordSet, lock, isLockscreenLoading } =
     useLockscreen();
+
   const syncState = useMemo<SyncStatusType>(
     () => accountSyncMap[accountSync.syncState],
     [accountSync.syncState],
@@ -74,17 +86,29 @@ const TopbarComponent: FC<TopbarProps> = props => {
     [connection],
   );
 
-  const onSyncClick = () => {
+  const onSyncClick = useCallback(() => {
     dispatch(syncAllAccounts());
-  };
+  }, [dispatch]);
 
-  const onNotificationClick = () => {
+  const onNotificationClick = useCallback(() => {
     dispatch(toggleNotification());
-  };
+  }, [dispatch]);
+
+  const handleSettingsClick = useCallback(() => {
+    navigateTo(routes.settings.path);
+  }, [navigateTo]);
+
+  const handleHelpClick = useCallback(() => {
+    dispatch(openContactSupportDialog());
+  }, [dispatch]);
+
+  const handleToggleDiscreetMode = useCallback(() => {
+    dispatch(toggleDiscreetMode());
+  }, [dispatch]);
 
   return (
     <TopbarUI
-      {...props}
+      {...props} // Passes title, subTitle, icon, tag, showIcon, onIconClick
       statusTexts={lang.strings.topbar.statusTexts}
       lock={lock}
       isLocked={isLocked}
@@ -95,9 +119,12 @@ const TopbarComponent: FC<TopbarProps> = props => {
       onNotificationClick={onNotificationClick}
       isDiscreetMode={discreetMode.active}
       isLockscreenLoading={isLockscreenLoading}
-      toggleDiscreetMode={() => dispatch(toggleDiscreetMode())}
+      toggleDiscreetMode={handleToggleDiscreetMode}
       onSyncClick={onSyncClick}
       tooltipText={accountSync.syncError}
+      // --- Pass new handlers ---
+      onHelpClick={handleHelpClick}
+      onSettingsClick={handleSettingsClick}
     />
   );
 };
@@ -106,6 +133,8 @@ TopbarComponent.defaultProps = {
   icon: undefined,
   subTitle: undefined,
   tag: undefined,
+  showIcon: false,
+  onIconClick: undefined,
 };
 
 export const Topbar = React.memo(TopbarComponent);

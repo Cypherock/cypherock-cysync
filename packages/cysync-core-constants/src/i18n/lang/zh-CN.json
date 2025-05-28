@@ -733,7 +733,6 @@
     "receiveCrypto": "接收加密货币",
     "history": "历史记录",
     "walletConnect": "Wallet Connect",
-    "tutorial": "教程",
     "settings": "设置",
     "help": "帮助",
     "buysell": "Buy",
@@ -741,6 +740,7 @@
       "walletDeleted": "${walletName} 已从您的 Cypherock X1 Vault 中删除"
     },
     "cypherockCover": "Cypherock Cover",
+    "referAndEarn": "Refer & Earn",
     "new": "新建"
   },
   "walletSync": {
@@ -2174,6 +2174,10 @@
           "privacyPolicy": {
             "title": "隐私政策",
             "description": "查看我们的隐私政策以了解我们收集哪些个人数据、原因及如何使用"
+          },
+          "appTutorials": {
+            "title": "应用教程",
+            "description": "观看关于如何使用 cySync 和 Cypherock X1 的分步视频指南"
           }
         }
       }

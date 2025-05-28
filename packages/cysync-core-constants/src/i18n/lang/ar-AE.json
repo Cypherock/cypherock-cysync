@@ -734,7 +734,6 @@
     "receiveCrypto": "استقبال العملة المشفرة",
     "history": "السجل",
     "walletConnect": "Wallet Connect",
-    "tutorial": "دليل تعليمي",
     "settings": "الإعدادات",
     "help": "مساعدة",
     "buysell": "Buy",
@@ -742,6 +741,7 @@
       "walletDeleted": "تم حذف ${walletName} من Cypherock X1 Vault الخاص بك"
     },
     "cypherockCover": "Cypherock Cover",
+    "referAndEarn": "Refer & Earn",
     "new": "جديد"
   },
   "walletSync": {
@@ -2195,6 +2195,10 @@
           "privacyPolicy": {
             "title": "سياسة الخصوصية",
             "description": "راجع سياسة الخصوصية الخاصة بنا لمعرفة البيانات الشخصية التي نجمعها، ولماذا وكيف نستخدمها"
+          },
+          "appTutorials": {
+            "title": "دروس التطبيق",
+            "description": "شاهد أدلة فيديو خطوة بخطوة حول كيفية استخدام cySync و Cypherock X1"
           }
         }
       }

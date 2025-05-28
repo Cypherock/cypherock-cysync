@@ -4,7 +4,15 @@ import {
   useTheme,
 } from '@cypherock/cysync-ui';
 import { IWallet } from '@cypherock/db-interfaces';
-import React, { useEffect } from 'react';
+import React, {
+  Context,
+  createContext,
+  FC,
+  ReactNode,
+  useContext,
+  useEffect,
+  useMemo,
+} from 'react';
 import { useLocation } from 'react-router-dom';
 
 import { openContactSupportDialog } from '~/actions';
@@ -14,7 +22,6 @@ import logger from '~/utils/logger';
 import {
   AppDispatch,
   ILangState,
-  constants,
   routes,
   selectLanguage,
   selectWallets,
@@ -29,7 +36,7 @@ export type Page =
   | 'history'
   | 'settings'
   | 'help'
-  | 'tutorial'
+  | 'referAndEarn'
   | 'swap'
   | 'buysell';
 
@@ -52,19 +59,17 @@ export interface SidebarContextInterface {
   startDrag: () => void;
 }
 
-export const SidebarContext: React.Context<SidebarContextInterface> =
-  React.createContext<SidebarContextInterface>({} as SidebarContextInterface);
+export const SidebarContext: Context<SidebarContextInterface> =
+  createContext<SidebarContextInterface>({} as SidebarContextInterface);
 
 export interface SidebarProviderProps {
-  children: React.ReactNode;
+  children: ReactNode;
 }
 
 const DEFAULT_SIDEBAR_WIDTH = 312;
 const MIN_SIDEBAR_WIDTH = 190;
 
-export const SidebarProvider: React.FC<SidebarProviderProps> = ({
-  children,
-}) => {
+export const SidebarProvider: FC<SidebarProviderProps> = ({ children }) => {
   const location = useLocation();
   const query = useQuery();
   const dispatch = useAppDispatch();
@@ -119,16 +124,17 @@ export const SidebarProvider: React.FC<SidebarProviderProps> = ({
   }, [location.pathname, location.search, location.hash]);
 
   const navigate = (page: Page) => {
-    if (page === 'tutorial') {
-      window.open(constants.tutorialLink, '_blank', 'noopener,noreferrer');
-      return;
-    }
     if (page === 'help') {
       dispatch(openContactSupportDialog());
       return;
     }
     if (page === 'inheritance') {
       navigateTo(routes[page].home.path);
+      return;
+    }
+
+    if (page === 'referAndEarn') {
+      navigateTo(routes.referAndEarn.path);
       return;
     }
     navigateTo(routes[page].path);
@@ -140,13 +146,23 @@ export const SidebarProvider: React.FC<SidebarProviderProps> = ({
   };
 
   const getState = (page: Page): State => {
-    if (page === 'help') return State.normal;
-    if (page === 'tutorial') return State.normal;
-    const path =
-      page === 'inheritance' ? routes[page].home.path : routes[page].path;
+    if (page === 'help') {
+      return State.normal;
+    }
 
-    if (location.pathname.startsWith(path)) return State.selected;
-    return State.normal;
+    let path: string;
+    switch (page) {
+      case 'inheritance':
+        path = routes.inheritance.home.path;
+        break;
+      case 'referAndEarn':
+        path = routes.referAndEarn.path;
+        break;
+      default:
+        path = routes[page].path;
+    }
+
+    return location.pathname.startsWith(path) ? State.selected : State.normal;
   };
 
   const getWalletState = (id: string | undefined): State => {
@@ -193,5 +209,5 @@ export const SidebarProvider: React.FC<SidebarProviderProps> = ({
 };
 
 export function useSidebar(): SidebarContextInterface {
-  return React.useContext(SidebarContext);
+  return useContext(SidebarContext);
 }
