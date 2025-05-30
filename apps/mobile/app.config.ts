@@ -18,6 +18,6 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
     package:
       process.env.APP_ENV === 'production'
         ? 'com.cypherock.cysync'
-        : 'com.cypherock.cysync_dev',
+        : 'com.cypherock.cysync',
   },
 });

@@ -102,7 +102,10 @@
     "@dfinity/agent": "^2.3.0",
     "@dfinity/candid": "^2.3.0",
     "@dfinity/ledger-icp": "^2.6.9",
-    "@dfinity/principal": "^2.3.0"
+    "@dfinity/principal": "^2.3.0",
+    "@react-native-firebase/app": "~22.2.0",
+    "@react-native-firebase/crashlytics": "~22.2.0",
+    "expo-build-properties": "~0.14.6"
   },
   "devDependencies": {
     "@babel/core": "^7.25.2",
