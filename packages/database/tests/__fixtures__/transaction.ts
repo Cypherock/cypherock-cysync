@@ -310,6 +310,7 @@ class TransactionData implements ITestClass<ITransaction> {
       remarks: ['test'],
       isSwap: false,
       swapData: {
+        providerUrl: 'https://changenow.io/exchange/txs/828681b52b4a73',
         providerId: 'changenow',
         exchangeId: '828681b52b4a73',
         payoutTxnHash:
@@ -342,6 +343,7 @@ class TransactionData implements ITestClass<ITransaction> {
       remarks: ['test'],
       isSwap: true,
       swapData: {
+        providerUrl: 'https://changenow.io/exchange/txs/828681b52b4a73',
         providerId: 'changenow',
         exchangeId: '828681b52b4a73',
         payoutTxnHash:
@@ -374,6 +376,7 @@ class TransactionData implements ITestClass<ITransaction> {
       remarks: ['test'],
       isSwap: false,
       swapData: {
+        providerUrl: 'https://changenow.io/exchange/txs/828681b52b4a73',
         providerId: 'changenow',
         exchangeId: '828681b52b4a73',
         payoutTxnHash:
@@ -406,6 +409,7 @@ class TransactionData implements ITestClass<ITransaction> {
       remarks: ['test'],
       isSwap: false,
       swapData: {
+        providerUrl: 'https://changenow.io/exchange/txs/828681b52b4a73',
         providerId: 'changenow',
         exchangeId: '828681b52b4a73',
         payoutTxnHash:
