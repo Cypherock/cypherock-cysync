@@ -47,7 +47,10 @@ const updateSwapReceiveTransactions = async () => {
 
     await db.transaction.update(
       { hash: payoutTxnHash, type: TransactionTypeMap.receive },
-      { isSwap: true },
+      {
+        isSwap: true,
+        swapData: { ...txn.swapData, payoutTxnHash, isReceiveUpdated: true },
+      },
     );
 
     await db.transaction.update(

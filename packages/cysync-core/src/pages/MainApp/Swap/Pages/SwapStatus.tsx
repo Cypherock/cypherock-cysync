@@ -42,6 +42,8 @@ enum SwapStates {
   Success = 'success',
 }
 
+const SWAP_STATUS_UPDATE_DURATION = 1000 * 60;
+
 export const SwapStatus = () => {
   const { strings } = useAppSelector(selectLanguage);
   const [state, setState] = useState(SwapStates.Pending);
@@ -69,10 +71,12 @@ export const SwapStatus = () => {
         exchangeId: exchangeDetails?.id ?? '',
       });
       if (result.status === 200) {
-        setProviderUrl(result?.data?.data?.providerUrl);
+        const url = result?.data?.data?.providerUrl;
+        setProviderUrl(url);
 
         if (transactionId.current) {
           updateTransactionSwapData(transactionId.current, {
+            providerUrl: url,
             providerId: quote?.provider.id ?? '',
             exchangeId: exchangeDetails?.id ?? '',
             payoutTxnHash: result.data.data.payoutHash,
@@ -92,7 +96,7 @@ export const SwapStatus = () => {
   useEffect(() => {
     updateState();
     // update every minute
-    const interval = setInterval(updateState, 1000 * 60);
+    const interval = setInterval(updateState, SWAP_STATUS_UPDATE_DURATION);
     return () => clearInterval(interval);
   }, []);
 

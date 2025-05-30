@@ -468,6 +468,16 @@ export const HistoryDialog: FC<IHistoryDialogProps> = ({ txn: _txn }) => {
                     size="sm"
                     onCopy={handleTransactionHashCopy}
                   />
+                  {displayTransaction.providerUrl && (
+                    <a
+                      href={displayTransaction.providerUrl}
+                      target="_blank"
+                      style={{ textDecoration: 'none' }}
+                      rel="noreferrer"
+                    >
+                      <GoldExternalLink height={12} width={12} />
+                    </a>
+                  )}
                 </Container>
               </HistoryItem>
               {displayTransaction.remarks.length > 0 && (

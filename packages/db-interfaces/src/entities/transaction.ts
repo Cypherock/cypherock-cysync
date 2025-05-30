@@ -28,6 +28,7 @@ export interface ITransactionInputOutput {
 }
 
 export interface ISwapData {
+  providerUrl: string;
   providerId: string;
   exchangeId: string;
   payoutTxnHash?: string;

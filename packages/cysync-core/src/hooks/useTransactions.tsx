@@ -87,6 +87,7 @@ export interface TransactionRowData {
   destinationTag?: number;
   memo?: string;
   operation?: string;
+  providerUrl?: string;
 }
 
 export const transactionComparatorMap: Record<
@@ -344,6 +345,7 @@ export const mapTransactionForDisplay = (params: {
     }),
     txn: transaction,
     isGroupHeader: false,
+    providerUrl: transaction.swapData?.providerUrl ?? '',
   };
 };
 
