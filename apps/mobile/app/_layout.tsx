@@ -18,12 +18,39 @@ import {
 } from '@/contexts/useLockscreenContext';
 import { CustomRealmProvider } from '@/db';
 import { NavigationLogger } from '@/components/core';
+import '../utils/firebase';
+import {
+  log,
+  getCrashlytics,
+  setCrashlyticsCollectionEnabled,
+  isCrashlyticsCollectionEnabled,
+  setUserId,
+} from '@react-native-firebase/crashlytics';
 
 SplashScreen.preventAutoHideAsync();
 SystemUI.setBackgroundColorAsync(colors.background.primary);
 
 export default function RootLayout() {
   const [currentTheme, setCurrentTheme] = useState(getDefaultTheme());
+  const crashlytics = getCrashlytics();
+
+  useEffect(() => {
+    // THIS IS THE KEY LINE:
+    setCrashlyticsCollectionEnabled(crashlytics, true);
+
+    // You can also check the current state (optional)
+    const isEnabled = isCrashlyticsCollectionEnabled(crashlytics);
+    console.log('Crashlytics collection enabled:', isEnabled); // Should log 'true' now
+
+    // Add your existing crashlytics setup here:
+    log(crashlytics, 'App started. Crashlytics should be active.');
+    setUserId(crashlytics, 'your-test-user-id');
+  }, []);
+
+  useEffect(() => {
+    log(crashlytics, 'app mounted!');
+  }, []);
+
   return (
     <StoreProvider store={store}>
       <ThemeProvider theme={currentTheme}>
