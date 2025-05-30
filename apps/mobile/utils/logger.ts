@@ -31,6 +31,12 @@ const {
   updateLogger: updateLoggerSolana,
 } = require('@cypherock/sdk-app-solana');
 const { updateLogger: updateLoggerCore } = require('@cypherock/sdk-core');
+import {
+  getCrashlytics,
+  log,
+  recordError,
+  setAttribute,
+} from '@react-native-firebase/crashlytics';
 
 export const serviceName = 'cysync-app';
 
@@ -59,22 +65,59 @@ export const updateLogger = (createLogger: LogCreator) => {
 
 export const createServiceLogger = (serviceName: string): ILogger => {
   const consoleLogger = createDefaultConsoleLogger(serviceName);
+  const crashlytics = getCrashlytics();
+
+  const logToCrashlytics = (
+    level: string,
+    message: string | object,
+    meta?: object,
+  ) => {
+    if (!crashlytics) return;
+    let formattedMessage =
+      typeof message === 'object' ? JSON.stringify(message) : message;
+    let logMessage = `[${serviceName}] [${level}] ${formattedMessage}`;
+    if (meta) {
+      try {
+        logMessage += ` | meta: ${JSON.stringify(meta)}`;
+      } catch {
+        logMessage += ' | meta: [unserializable]';
+      }
+      Object.entries(meta).forEach(([k, v]) => {
+        if (
+          typeof v === 'string' ||
+          typeof v === 'number' ||
+          typeof v === 'boolean'
+        ) {
+          setAttribute(crashlytics, `${serviceName}_${k}`, String(v));
+        }
+      });
+    }
+    log(crashlytics, logMessage);
+    if (level === 'error' || level === 'warn') {
+      recordError(crashlytics, new Error(logMessage));
+    }
+  };
 
   return {
     info: (message, meta) => {
       consoleLogger.info(message, meta);
+      logToCrashlytics('info', message, meta);
     },
     debug: (message, meta) => {
       consoleLogger.debug(message, meta);
+      logToCrashlytics('debug', message, meta);
     },
     verbose: (message, meta) => {
       consoleLogger.verbose(message, meta);
+      logToCrashlytics('verbose', message, meta);
     },
     warn: (message, meta) => {
       consoleLogger.warn(message, meta);
+      logToCrashlytics('warn', message, meta);
     },
     error: (message, meta) => {
       consoleLogger.error(message, meta);
+      logToCrashlytics('error', message, meta);
     },
   };
 };
