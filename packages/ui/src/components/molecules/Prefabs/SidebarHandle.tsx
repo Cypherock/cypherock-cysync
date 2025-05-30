@@ -2,12 +2,10 @@ import React, { forwardRef } from 'react';
 import { Flex } from '../../atoms';
 
 type SidebarHandleProps = React.ComponentProps<typeof Flex> &
-  Pick<React.HTMLAttributes<HTMLSpanElement>, 'onMouseDown'> & {
-    isDragging: boolean;
-  };
+  Pick<React.HTMLAttributes<HTMLSpanElement>, 'onMouseDown'>;
 
 export const SidebarHandle = forwardRef<HTMLSpanElement, SidebarHandleProps>(
-  ({ onMouseDown, isDragging, ...props }, ref) => (
+  ({ onMouseDown, ...props }, ref) => (
     <Flex
       $borderColor="topbar"
       $borderWidthX={1}
@@ -21,16 +19,22 @@ export const SidebarHandle = forwardRef<HTMLSpanElement, SidebarHandleProps>(
         onMouseDown={onMouseDown}
         ref={ref}
         style={{
-          width: '1px',
-          height: '24px',
-          borderRadius: '2px',
-          background: '#cbc4b9',
-          padding: 1,
-          cursor: isDragging ? 'ew-resize' : 'pointer',
+          padding: 2.5,
+          cursor: 'ew-resize',
         }}
-        aria-label="Sidebar drag handle"
-        aria-disabled="true"
-      />
+      >
+        <span
+          style={{
+            width: '1px',
+            height: '24px',
+            borderRadius: '2px',
+            background: '#cbc4b9',
+            padding: 1,
+          }}
+          aria-label="Sidebar drag handle"
+          aria-disabled="true"
+        />
+      </span>
     </Flex>
   ),
 );
