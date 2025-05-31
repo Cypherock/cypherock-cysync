@@ -3,6 +3,7 @@ import { IInteractiveItemListItem } from '@/components/ui';
 export * from './db';
 export * from './dependencies';
 export * from './graph';
+export * from './logger';
 
 export const findSelectedItem = (
   menuItems: IInteractiveItemListItem[],
