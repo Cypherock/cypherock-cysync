@@ -1,3 +1,5 @@
+import { createServiceLogger, updateLogger } from './logger';
+
 const { BtcSupport } = require('@cypherock/coin-support-btc');
 const { EvmSupport } = require('@cypherock/coin-support-evm');
 const { NearSupport } = require('@cypherock/coin-support-near');
@@ -21,4 +23,8 @@ export const setGlobalDependencies = async () => {
   XrpSupport.setXrpLib((globalThis as any).xrpl);
   StarknetSupport.setStarknetLib((globalThis as any).starknet);
   IcpSupport.setDfinityLib((globalThis as any).dfinity);
+};
+
+export const setCoreDependencies = async () => {
+  updateLogger(createServiceLogger);
 };

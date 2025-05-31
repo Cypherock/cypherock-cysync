@@ -481,6 +481,9 @@ importers:
       '@cypherock/cysync-core-workers':
         specifier: workspace:^
         version: link:../../packages/cysync-core-workers
+      '@cypherock/cysync-interfaces':
+        specifier: workspace:^
+        version: link:../../packages/interfaces
       '@cypherock/cysync-utils':
         specifier: workspace:^
         version: link:../../packages/utils
