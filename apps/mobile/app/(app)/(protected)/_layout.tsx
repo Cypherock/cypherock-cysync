@@ -3,8 +3,9 @@ import { Stack } from 'expo-router';
 import { keyValueStore } from '@/db';
 import { useEffect, useState } from 'react';
 import { NetworkPingTask } from '@/bgTasks/networkTask';
-import { setGlobalDependencies } from '@/utils';
+import { setCoreDependencies, setGlobalDependencies } from '@/utils';
 
+setCoreDependencies();
 setGlobalDependencies();
 
 export default function Layout() {

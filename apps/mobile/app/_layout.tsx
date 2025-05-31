@@ -17,6 +17,7 @@ import {
   useLockscreen,
 } from '@/contexts/useLockscreenContext';
 import { CustomRealmProvider } from '@/db';
+import { NavigationLogger } from '@/components/core';
 
 SplashScreen.preventAutoHideAsync();
 SystemUI.setBackgroundColorAsync(colors.background.primary);
@@ -28,6 +29,7 @@ export default function RootLayout() {
       <ThemeProvider theme={currentTheme}>
         <CustomRealmProvider>
           <LockscreenProvider>
+            <NavigationLogger />
             <AnimatedSplashScreen setTheme={setCurrentTheme}>
               <Slot />
             </AnimatedSplashScreen>
