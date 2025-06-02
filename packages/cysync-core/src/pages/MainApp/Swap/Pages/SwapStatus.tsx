@@ -21,7 +21,11 @@ import {
   GoldExternalLink,
 } from '@cypherock/cysync-ui';
 import { BigNumber } from '@cypherock/cysync-utils';
-import { AccountTypeMap, IAccount } from '@cypherock/db-interfaces';
+import {
+  SwapStatus as SwapStates,
+  AccountTypeMap,
+  IAccount,
+} from '@cypherock/db-interfaces';
 import React, { useEffect, useState } from 'react';
 
 import { CoinIcon } from '~/components';
@@ -35,12 +39,6 @@ import {
   useAppSelector,
 } from '~/store';
 import logger from '~/utils/logger';
-
-enum SwapStates {
-  Pending = 'pending',
-  Failed = 'failed',
-  Success = 'success',
-}
 
 const SWAP_STATUS_UPDATE_DURATION = 1000 * 60;
 
@@ -74,13 +72,39 @@ export const SwapStatus = () => {
         const url = result?.data?.data?.providerUrl;
         setProviderUrl(url);
 
-        if (transactionId.current) {
+        if (
+          transactionId.current &&
+          fromAccount &&
+          toAccount &&
+          quote &&
+          exchangeDetails
+        ) {
+          const fromUnit = getDefaultUnit(
+            fromAccount.parentAssetId,
+            fromAccount.assetId,
+          ).abbr;
+          const toUnit = getDefaultUnit(
+            toAccount.parentAssetId,
+            toAccount.assetId,
+          ).abbr;
           updateTransactionSwapData(transactionId.current, {
             providerUrl: url,
-            providerId: quote?.provider.id ?? '',
-            exchangeId: exchangeDetails?.id ?? '',
+            providerId: quote.provider.id,
+            exchangeId: exchangeDetails.id,
             payoutTxnHash: result.data.data.payoutHash,
+            swapStatus: SwapStates.Pending,
             isReceiveUpdated: false,
+            swapId: exchangeDetails.id,
+            sourceAccountId: fromAccount.__id ?? '',
+            sourceWalletId: fromAccount.walletId,
+            sourceAddress: fromAccount.xpubOrAddress ?? '',
+            destinationWalletId: toAccount.walletId,
+            destinationAccountId: toAccount.__id ?? '',
+            destinationAddress: toAccount.xpubOrAddress ?? '',
+            sentAmount: quote.fromAmount,
+            sentDisplayAmount: `${quote.fromAmount} ${fromUnit}`,
+            receiveAmount: quote.toAmount,
+            receiveDisplayAmount: `${quote.toAmount} ${toUnit}`,
           });
         }
         if (result.data.data.status === 'finished')
@@ -95,7 +119,6 @@ export const SwapStatus = () => {
 
   useEffect(() => {
     updateState();
-    // update every minute
     const interval = setInterval(updateState, SWAP_STATUS_UPDATE_DURATION);
     return () => clearInterval(interval);
   }, []);

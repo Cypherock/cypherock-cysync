@@ -18,6 +18,12 @@ export const TransactionTypeMap = {
   hidden: 'hidden',
 };
 
+export enum SwapStatus {
+  Pending = 'pending',
+  Failed = 'failed',
+  Success = 'success',
+}
+
 export type TransactionType =
   (typeof TransactionTypeMap)[keyof typeof TransactionTypeMap];
 
@@ -33,6 +39,18 @@ export interface ISwapData {
   exchangeId: string;
   payoutTxnHash?: string;
   isReceiveUpdated: boolean;
+  swapId: string;
+  swapStatus: SwapStatus;
+  sourceAccountId: string;
+  sourceWalletId: string;
+  sourceAddress: string;
+  destinationWalletId: string;
+  destinationAccountId: string;
+  destinationAddress: string;
+  sentAmount: string;
+  sentDisplayAmount: string;
+  receiveAmount: string;
+  receiveDisplayAmount: string;
 }
 
 export interface ITransaction extends IEntity {
