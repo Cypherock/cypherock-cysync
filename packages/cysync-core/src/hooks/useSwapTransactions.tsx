@@ -61,6 +61,8 @@ export interface SwapTransactionRowData {
   receivedDisplayAmount: string;
   sentDisplayAmount: string;
   swapStatus: SwapStatus;
+  sentTransactionHash: string;
+  receiveTransactionHash?: string;
   isGroupHeader: boolean;
   groupText?: string;
   groupIcon?: React.FC<{ width: string; height: string }>;
@@ -284,6 +286,8 @@ export const mapSwapTransactionForDisplay = (params: {
     destinationAccountIcon,
     destinationAssetName: destinationAsset.name,
     destinationAssetIcon,
+    sentTransactionHash: sentTransaction.hash,
+    receiveTransactionHash: params.receiveTransaction?.hash ?? '',
     destinationXpubOrAddress: destinationAccount?.xpubOrAddress ?? '',
     receivedDisplayAmount,
     sentDisplayAmount,

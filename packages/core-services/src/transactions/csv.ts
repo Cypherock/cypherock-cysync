@@ -64,3 +64,60 @@ export const createCSVFromTransactions = (
       payoutTxnHash: t.payoutTxnHash,
     })),
   });
+
+export const createCSVFromSwap = (
+  transactions: {
+    date: number;
+    provider: string;
+    providerUrl: string;
+    assetFrom: string;
+    assetFromAmount: string;
+    assetTo: string;
+    assetToAmount: string;
+    hash?: string;
+    status: string;
+    walletFrom: string;
+    accountFrom: string;
+    walletTo: string;
+    accountTo: string;
+    exchangeId?: string;
+    sentTransactionHash: string;
+    receiveTransactionHash?: string;
+  }[],
+) =>
+  createCSVFromObject({
+    headers: [
+      { name: 'Date (UTC)', key: 'date' },
+      { name: 'Provider', key: 'provider' },
+      { name: 'Provider URL', key: 'providerUrl' },
+      { name: 'Asset From', key: 'assetFrom' },
+      { name: 'Amount From', key: 'assetFromAmount' },
+      { name: 'Asset To', key: 'assetTo' },
+      { name: 'Amount To', key: 'assetToAmount' },
+      { name: 'Status', key: 'status' },
+      { name: 'Wallet From', key: 'walletFrom' },
+      { name: 'Account From', key: 'accountFrom' },
+      { name: 'Wallet To', key: 'walletTo' },
+      { name: 'Account To', key: 'accountTo' },
+      { name: 'ExchangeId', key: 'exchangeId' },
+      { name: 'Sent Transaction Hash', key: 'sentTransactionHash' },
+      { name: 'Receive Transaction Hash', key: 'receiveTransactionHash' },
+    ],
+    rows: transactions.map(t => ({
+      date: formatDateToUTCString(t.date),
+      provider: t.provider,
+      providerUrl: t.providerUrl,
+      assetFrom: t.assetFrom,
+      assetFromAmount: t.assetFromAmount,
+      assetTo: t.assetTo,
+      assetToAmount: t.assetToAmount,
+      status: t.status,
+      walletFrom: t.walletFrom,
+      accountFrom: t.accountFrom,
+      walletTo: t.walletTo,
+      accountTo: t.accountTo,
+      exchangeId: t.exchangeId,
+      sentTransactionHash: t.sentTransactionHash,
+      receiveTransactionHash: t.receiveTransactionHash,
+    })),
+  });

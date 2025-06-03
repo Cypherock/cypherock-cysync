@@ -1,3 +1,4 @@
+import { createCSVFromSwap } from '@cypherock/cysync-core-services';
 import {
   TableGroupRow,
   NoAccountWrapper,
@@ -19,6 +20,7 @@ import * as Virtualize from 'react-virtualized/dist/umd/react-virtualized';
 import { openReceiveDialog } from '~/actions';
 import { useSwapTransactions, useWindowSize } from '~/hooks';
 import { useAppSelector, selectLanguage } from '~/store';
+import { downloadCSVToDesktop } from '~/utils';
 
 export const SwapHistory = ({ topbarHeight }: { topbarHeight: number }) => {
   const {
@@ -85,7 +87,28 @@ export const SwapHistory = ({ topbarHeight }: { topbarHeight: number }) => {
   };
 
   const handleDownloadCSV = () => {
-    // TODO: implement this
+    const csvFile = createCSVFromSwap(
+      displayedData
+        .filter(t => !t.isGroupHeader)
+        .map(t => ({
+          date: t.timestamp,
+          provider: t.providerName,
+          providerUrl: t.providerUrl,
+          assetFrom: t.sourceAssetName,
+          assetFromAmount: t.sentDisplayAmount,
+          assetTo: t.destinationAssetName,
+          assetToAmount: t.receivedDisplayAmount,
+          status: t.swapStatus,
+          walletFrom: t.sourceWalletName,
+          accountFrom: t.sourceAccountName,
+          walletTo: t.destinationWalletName,
+          accountTo: t.destinationAccountName,
+          exchangeId: t.swapId,
+          sentTransactionHash: t.sentTransactionHash,
+          receiveTransactionHash: t.receiveTransactionHash,
+        })),
+    );
+    downloadCSVToDesktop('CySync Swap History.csv', csvFile);
   };
 
   const getMainContent = () => {
