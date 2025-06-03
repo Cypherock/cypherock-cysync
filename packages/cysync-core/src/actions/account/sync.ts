@@ -4,13 +4,14 @@ import {
 } from '@cypherock/cysync-core-services';
 import {
   IAccount,
+  SwapStatus,
   TransactionStatusMap,
   TransactionTypeMap,
 } from '@cypherock/db-interfaces';
 import { ActionCreator, createAsyncThunk } from '@reduxjs/toolkit';
 import { Observer } from 'rxjs';
 
-import { getPayoutTxnHash } from '~/services/swapService';
+import { getExchangeStatus, getPayoutTxnHash } from '~/services/swapService';
 import {
   AccountSyncStateMap,
   RootState,
@@ -35,7 +36,7 @@ const updateSwapReceiveTransactions = async () => {
 
     if (isReceiveUpdated) continue;
 
-    let { payoutTxnHash } = txn.swapData;
+    let { payoutTxnHash, swapStatus } = txn.swapData;
 
     if (!payoutTxnHash) {
       if (!providerId || !exchangeId) continue;
@@ -45,17 +46,40 @@ const updateSwapReceiveTransactions = async () => {
 
     if (!payoutTxnHash) continue;
 
+    if (swapStatus === SwapStatus.Pending) {
+      const result = await getExchangeStatus({ providerId, exchangeId });
+      if (result.status === 200) {
+        if (result.data.data.status === 'finished') {
+          swapStatus = SwapStatus.Success;
+        } else if (result.data.data.status === 'failed') {
+          swapStatus = SwapStatus.Failed;
+        }
+      }
+    }
+
     await db.transaction.update(
       { hash: payoutTxnHash, type: TransactionTypeMap.receive },
       {
         isSwap: true,
-        swapData: { ...txn.swapData, payoutTxnHash, isReceiveUpdated: true },
+        swapData: {
+          ...txn.swapData,
+          swapStatus,
+          payoutTxnHash,
+          isReceiveUpdated: true,
+        },
       },
     );
 
     await db.transaction.update(
       { __id: txn.__id },
-      { swapData: { ...txn.swapData, payoutTxnHash, isReceiveUpdated: true } },
+      {
+        swapData: {
+          ...txn.swapData,
+          swapStatus,
+          payoutTxnHash,
+          isReceiveUpdated: true,
+        },
+      },
     );
   }
 };

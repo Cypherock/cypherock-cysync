@@ -71,6 +71,7 @@ export const SwapStatus = () => {
       if (result.status === 200) {
         const url = result?.data?.data?.providerUrl;
         setProviderUrl(url);
+        let swapData;
 
         if (
           transactionId.current &&
@@ -87,7 +88,8 @@ export const SwapStatus = () => {
             toAccount.parentAssetId,
             toAccount.assetId,
           ).abbr;
-          updateTransactionSwapData(transactionId.current, {
+
+          swapData = {
             providerUrl: url,
             providerId: quote.provider.id,
             exchangeId: exchangeDetails.id,
@@ -105,12 +107,24 @@ export const SwapStatus = () => {
             sentDisplayAmount: `${quote.fromAmount} ${fromUnit}`,
             receiveAmount: quote.toAmount,
             receiveDisplayAmount: `${quote.toAmount} ${toUnit}`,
-          });
+          };
+
+          updateTransactionSwapData(transactionId.current, swapData);
+
+          if (result.data.data.status === 'finished') {
+            setState(SwapStates.Success);
+            updateTransactionSwapData(transactionId.current, {
+              ...swapData,
+              swapStatus: SwapStates.Success,
+            });
+          } else if (result.data.data.status === 'failed') {
+            setState(SwapStates.Failed);
+            updateTransactionSwapData(transactionId.current, {
+              ...swapData,
+              swapStatus: SwapStates.Failed,
+            });
+          }
         }
-        if (result.data.data.status === 'finished')
-          setState(SwapStates.Success);
-        else if (result.data.data.status === 'failed')
-          setState(SwapStates.Failed);
       }
     } catch (e) {
       logger.error(e);
