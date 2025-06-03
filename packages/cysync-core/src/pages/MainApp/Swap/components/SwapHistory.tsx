@@ -1,57 +1,47 @@
-import { createCSVFromTransactions } from '@cypherock/cysync-core-services';
 import {
   TableGroupRow,
-  TransactionTableRow,
   NoAccountWrapper,
   SkeletonLoader,
   ArrowReceivedIcon,
   TableStructure,
   TableSearchFilter,
-  TransactionTableHeader,
   NoSearchResult,
   NotFound,
   Container,
   useTheme,
+  SwapTableRow,
+  SwapTableHeader,
+  GraphSwitchSmallIcon,
 } from '@cypherock/cysync-ui';
-import React, { useEffect, useRef, useMemo } from 'react';
+import React, { useEffect, useRef } from 'react';
 import * as Virtualize from 'react-virtualized/dist/umd/react-virtualized';
 
 import { openReceiveDialog } from '~/actions';
-import { useTransactions, useWindowSize } from '~/hooks';
-import { useAppSelector, selectLanguage, openSnackBar } from '~/store';
-import { downloadCSVToDesktop } from '~/utils';
+import { useSwapTransactions, useWindowSize } from '~/hooks';
+import { useAppSelector, selectLanguage } from '~/store';
 
 export const SwapHistory = ({ topbarHeight }: { topbarHeight: number }) => {
   const {
     strings,
-    displayedData: allData,
     dispatch,
     searchTerm,
     setSearchTerm,
     transactionList,
-    handleTransactionTableRow,
     isAscending,
     sortedBy,
     onSort,
-    isSmallScreen,
-    expandedRowIds,
-    onRowExpand,
-  } = useTransactions();
+    displayedData,
+  } = useSwapTransactions();
   const theme = useTheme();
   const { windowHeight } = useWindowSize();
   const listRef = useRef<any>(null);
   const lang = useAppSelector(selectLanguage);
 
-  const displayedData = useMemo(
-    () => (allData || []).filter(t => t?.txn?.isSwap === true),
-    [allData],
-  );
-
   useEffect(() => {
     if (listRef.current?.recomputeRowHeights) {
       listRef.current.recomputeRowHeights();
     }
-  }, [expandedRowIds, isSmallScreen, displayedData]);
+  }, [displayedData]);
 
   const rowRenderer = ({ key, index, style }: any) => {
     const row = displayedData[index];
@@ -63,31 +53,25 @@ export const SwapHistory = ({ topbarHeight }: { topbarHeight: number }) => {
     }
 
     return (
-      <TransactionTableRow
-        style={style}
-        key={key}
-        id={row.id}
-        icon={row.icon}
-        assetIcon={<row.assetIcon width="24px" height="24px" />}
-        accountIcon={<row.accountIcon width="16px" height="16px" />}
-        type={row.type}
-        status={row.status}
+      <SwapTableRow
+        id={row.swapId}
+        providerName={row.providerName}
+        providerImageUrl={row.providerImageUrl}
+        providerUrl={row.providerUrl}
+        sourceAssetName={row.sourceAssetName}
+        sourceAssetIcon={<row.sourceAssetIcon />}
+        destinationAssetName={row.destinationAssetName}
+        destinationAssetIcon={<row.destinationAssetIcon />}
+        receivedDisplayAmount={row.receivedDisplayAmount}
+        sentDisplayAmount={row.sentDisplayAmount}
+        status={row.swapStatus}
         time={row.time}
-        asset={row.assetName}
-        wallet={row.walletName}
-        account={row.accountName}
-        accountTag={row.accountTag}
-        amount={row.displayAmount}
-        amountTooltip={row.amountTooltip}
-        value={row.displayValue}
-        $isLast={index === displayedData.length - 1}
         $rowIndex={index}
-        onClick={() => handleTransactionTableRow(row)}
-        isSmallScreen={isSmallScreen}
-        accountHeader={strings.history.tableHeader.account}
-        valueHeader={strings.history.tableHeader.value}
-        isExpanded={expandedRowIds[row.id]}
-        setIsExpanded={value => onRowExpand(row, value)}
+        onClick={() => {
+          console.log('okay');
+        }}
+        $isLast={index === displayedData.length - 1}
+        icon={GraphSwitchSmallIcon}
       />
     );
   };
@@ -97,44 +81,11 @@ export const SwapHistory = ({ topbarHeight }: { topbarHeight: number }) => {
       return 57;
     }
 
-    return expandedRowIds[displayedData[index].id] && isSmallScreen ? 198 : 82;
+    return 82;
   };
 
   const handleDownloadCSV = () => {
-    const csvFile = createCSVFromTransactions(
-      displayedData
-        .filter(t => !t.isGroupHeader)
-        .map(t => ({
-          date: t.timestamp,
-          type: t.type,
-          currency: t.displayAmountUnit,
-          amount: t.displayAmountWithoutUnit,
-          feeCurrency: t.displayFeeUnit,
-          feeAmount: t.displayFeeWithoutUnit,
-          hash: t.hash,
-          walletName: t.walletName,
-          accountName: `${t.accountName}${
-            t.accountTag ? ` [${t.accountTag}]` : ''
-          }`,
-          xpub: t.xpubOrAddress,
-          countervalueCurrency: t.displayValueUnit,
-          countervalueAmount: t.displayValueWithoutUnit,
-          remarks: t.remarks.join('\n'),
-          network: t.network,
-          provider: t.txn?.swapData?.providerId,
-          exchangeId: t.txn?.swapData?.exchangeId,
-          payoutTxnHash: t.txn?.swapData?.payoutTxnHash,
-        })),
-    );
-
-    downloadCSVToDesktop('CySync Swap History.csv', csvFile);
-
-    dispatch(
-      openSnackBar({
-        icon: 'check',
-        text: lang.strings.snackbar.downloadCSV,
-      }),
-    );
+    // TODO: implement this
   };
 
   const getMainContent = () => {
@@ -162,18 +113,15 @@ export const SwapHistory = ({ topbarHeight }: { topbarHeight: number }) => {
         />
         {displayedData.length > 0 ? (
           <>
-            <TransactionTableHeader
-              time={strings.history.tableHeader.time}
-              account={strings.history.tableHeader.account}
-              wallet={strings.history.tableHeader.wallet}
-              walletAndAccount={strings.history.tableHeader.walletAndAccount}
-              asset={strings.history.tableHeader.asset}
-              value={strings.history.tableHeader.value}
-              amount={strings.history.tableHeader.amount}
-              $ascending={isAscending}
-              selected={sortedBy}
+            <SwapTableHeader
+              provider="Provider"
+              assetFrom="Asset From"
+              assetTo="Asset To"
+              received="Received"
+              sent="Sent"
               onSort={onSort}
-              isSmallScreen={isSmallScreen}
+              selected={sortedBy}
+              $ascending={isAscending}
             />
             <Virtualize.AutoSizer>
               {({ width }: any) => (
