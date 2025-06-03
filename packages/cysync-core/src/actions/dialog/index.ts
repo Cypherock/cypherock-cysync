@@ -17,6 +17,7 @@ import { InheritanceEditExecutorMessageDialogProps } from '~/dialogs/Inheritance
 import { InheritanceEditReminderTimeDialogProps } from '~/dialogs/Inheritance/EditReminderTime/context';
 import { ReceiveDialogProps } from '~/dialogs/Receive';
 import { SendDialogProps } from '~/dialogs/Send/';
+import { ISwapDialogProps } from '~/dialogs/SwapDialog';
 import { GuidedFlowType, openDialog } from '~/store';
 
 export const openWalletSyncErrorDialog = () =>
@@ -72,6 +73,9 @@ export const openReleaseNotesDialog = () =>
 
 export const openHistoryDialog = (props?: IHistoryDialogProps) =>
   openDialog({ name: 'historyDialog', data: props });
+
+export const openSwapHistoryDialog = (props?: ISwapDialogProps) =>
+  openDialog({ name: 'swapDialog', data: props });
 
 export const openDeviceUpdateDialog = () =>
   openDialog({ name: 'deviceUpdateDialog', data: undefined });

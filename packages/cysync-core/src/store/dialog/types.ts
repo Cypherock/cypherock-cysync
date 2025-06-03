@@ -11,6 +11,7 @@ import {
 } from '~/dialogs/Inheritance';
 import { InheritanceEditExecutorMessageDialogProps } from '~/dialogs/Inheritance/EditExecutorMessage/context';
 import { SendDialogProps } from '~/dialogs/Send';
+import { ISwapDialogProps } from '~/dialogs/SwapDialog';
 
 export interface IDialogState {
   deviceAuthenticationDialog: {
@@ -106,6 +107,11 @@ export interface IDialogState {
   historyDialog: {
     isOpen: boolean;
     data?: IHistoryDialogProps;
+  };
+
+  swapDialog: {
+    isOpen: boolean;
+    data?: ISwapDialogProps;
   };
 
   walletActions: {

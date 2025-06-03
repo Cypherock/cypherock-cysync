@@ -33,6 +33,7 @@ export const SwapHistory = ({ topbarHeight }: { topbarHeight: number }) => {
     sortedBy,
     onSort,
     displayedData,
+    handleTransactionTableRow,
   } = useSwapTransactions();
   const theme = useTheme();
   const { windowHeight } = useWindowSize();
@@ -68,10 +69,9 @@ export const SwapHistory = ({ topbarHeight }: { topbarHeight: number }) => {
         sentDisplayAmount={row.sentDisplayAmount}
         status={row.swapStatus}
         time={row.time}
+        date={row.date}
         $rowIndex={index}
-        onClick={() => {
-          console.log('okay');
-        }}
+        onClick={() => handleTransactionTableRow(row)}
         $isLast={index === displayedData.length - 1}
         icon={GraphSwitchSmallIcon}
       />

@@ -18,6 +18,7 @@ import { createSelector } from '@reduxjs/toolkit';
 import { format as formatDate } from 'date-fns';
 import lodash from 'lodash';
 import React, { useCallback, useEffect, useState } from 'react';
+import { openSwapHistoryDialog } from '~/actions';
 
 import { CoinIcon } from '~/components';
 import { providerImageUrlMap } from '~/constants';
@@ -48,7 +49,7 @@ export interface SwapTransactionRowData {
   dateHeader: string;
   sourceWalletName: string;
   sourceAccountName: string;
-  souurceAccountIcon: React.FC<SvgProps>;
+  sourceAccountIcon: React.FC<SvgProps>;
   sourceAssetName: string;
   sourceAssetIcon: React.FC<SvgProps>;
   sourceXpubOrAddress: string;
@@ -272,12 +273,12 @@ export const mapSwapTransactionForDisplay = (params: {
     providerUrl,
     time: formatDate(dateObj, 'h:mm a'),
     timestamp,
-    dateTime: formatDate(dateObj, 'd/M/yy h:mm a'),
+    dateTime: formatDate(dateObj, 'eeee, MMMM d yyyy h:mm a'),
     date: formatDate(dateObj, 'd/M/yy'),
     dateHeader: formatDate(dateObj, 'eeee, MMMM d yyyy'),
     sourceWalletName: sourceWallet?.name ?? '',
     sourceAccountName: sourceAccount?.name ?? '',
-    souurceAccountIcon: sourceAccountIcon,
+    sourceAccountIcon,
     sourceAssetName: sourceAsset.name,
     sourceAssetIcon,
     sourceXpubOrAddress: sourceAccount?.xpubOrAddress ?? '',
@@ -337,7 +338,7 @@ export const useSwapTransactions = () => {
       [isAscending ? 'asc' : 'desc'],
     );
 
-    return sortedList.map(t => ({ ...t, time: t.dateTime }));
+    return sortedList.map(t => ({ ...t }));
   };
 
   const parseTransactionsList = () => {
@@ -407,7 +408,7 @@ export const useSwapTransactions = () => {
 
   const handleTransactionTableRow = useCallback(
     (txn: SwapTransactionRowData) => {
-      console.log('handle swap open', { txn });
+      dispatch(openSwapHistoryDialog({ swap: txn }));
     },
     [dispatch],
   );

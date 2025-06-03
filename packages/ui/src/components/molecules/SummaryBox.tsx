@@ -77,7 +77,7 @@ export const SummaryRow: React.FC<SummaryRowProps> = ({
                 $alignSelf="start"
                 align="flex-start"
               >
-                <ImageContainer gap={8} style={{ alignItems: 'flex-start' }}>
+                <ImageContainer gap={8} style={{ alignItems: 'flex-center' }}>
                   {icon}
                   <Typography
                     variant="p"

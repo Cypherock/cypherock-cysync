@@ -24,13 +24,14 @@ export interface SwapTableRowProps {
   sentDisplayAmount: string;
   status: SwapStatus;
   time: string;
+  date: string;
   $rowIndex: number;
   $isLast?: boolean;
   onClick: () => void;
   style?: any;
 }
 
-const getTransactionFillFromStatus = (status: SwapStatus, theme: ThemeType) => {
+export const getSwapFillFromStatus = (status: SwapStatus, theme: ThemeType) => {
   const map: Record<SwapStatus, string> = {
     success: theme.palette.text.success,
     pending: theme.palette.text.warn,
@@ -91,9 +92,9 @@ export const SwapTableRow: React.FC<SwapTableRowProps> = props => {
             $icon={row.icon}
             width={{ def: '20%' }}
             p={{ def: 2 }}
-            fill={getTransactionFillFromStatus(row.status, theme)}
+            fill={getSwapFillFromStatus(row.status, theme)}
             variant="success"
-            subtitle={row.time}
+            subtitle={`${row.date} ${row.time}`}
           />
           <HistoryAssetBox
             $assetName={sourceAssetName}
