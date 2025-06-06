@@ -19,7 +19,12 @@ import {
 } from '@cypherock/cysync-ui';
 import React, { FC } from 'react';
 import { SwapTransactionRowData } from '~/hooks';
-import { closeDialog, useAppDispatch } from '~/store';
+import {
+  closeDialog,
+  selectLanguage,
+  useAppDispatch,
+  useAppSelector,
+} from '~/store';
 
 export interface ISwapDialogProps {
   swap: SwapTransactionRowData;
@@ -31,10 +36,13 @@ export const SwapDialog: FC<ISwapDialogProps> = ({ swap }) => {
 
   const onClose = () => dispatch(closeDialog('swapDialog'));
 
+  const lang = useAppSelector(selectLanguage);
+  const strings = lang.strings.dialogs.swapDialog;
+
   const summaryItems: SummaryItemType = [
     {
       id: 'provider',
-      leftText: 'Provider',
+      leftText: strings.provider,
       rightComponent: [
         {
           id: 'provider-info',
@@ -58,7 +66,7 @@ export const SwapDialog: FC<ISwapDialogProps> = ({ swap }) => {
     { isDivider: true, id: 'divider-1' },
     {
       id: 'swap-id',
-      leftText: 'Swap Id',
+      leftText: strings.swapId,
       rightComponent: [
         {
           id: 'swap-id-info',
@@ -73,17 +81,17 @@ export const SwapDialog: FC<ISwapDialogProps> = ({ swap }) => {
     { isDivider: true, id: 'divider-2' },
     {
       id: 'status',
-      leftText: 'Status',
+      leftText: strings.status,
       rightText: swap.swapStatus,
     },
     { isDivider: true, id: 'divider-3' },
     {
       id: 'from-title',
-      leftText: 'From',
+      leftText: strings.fromTitle,
     },
     {
       id: 'from-wallet',
-      leftText: 'Wallet',
+      leftText: strings.fromWallet,
       rightComponent: [
         {
           id: 'from-wallet-id',
@@ -94,7 +102,7 @@ export const SwapDialog: FC<ISwapDialogProps> = ({ swap }) => {
     },
     {
       id: 'from-account',
-      leftText: 'Account',
+      leftText: strings.fromAccount,
       rightComponent: [
         {
           id: 'from-account-id',
@@ -106,7 +114,7 @@ export const SwapDialog: FC<ISwapDialogProps> = ({ swap }) => {
     },
     {
       id: 'from-asset',
-      leftText: 'Asset',
+      leftText: strings.fromAsset,
       rightComponent: [
         {
           id: 'from-asset-id',
@@ -118,12 +126,12 @@ export const SwapDialog: FC<ISwapDialogProps> = ({ swap }) => {
     },
     {
       id: 'from-amount',
-      leftText: 'Amount Sent',
+      leftText: strings.fromAmount,
       rightText: swap.sentDisplayAmount,
     },
     {
       id: 'from-sender',
-      leftText: 'Sender',
+      leftText: strings.fromSender,
       rightComponent: [
         {
           id: 'from-sender-info',
@@ -142,20 +150,20 @@ export const SwapDialog: FC<ISwapDialogProps> = ({ swap }) => {
     { isDivider: true, id: 'divider-4' },
     {
       id: 'to-title',
-      leftText: 'To',
+      leftText: strings.toTitle,
     },
     {
       id: 'to-wallet',
-      leftText: 'Wallet',
+      leftText: strings.toWallet,
       rightText: swap.destinationWalletName,
     },
     {
       id: 'to-account',
-      leftText: 'Account',
+      leftText: strings.toAccount,
       rightComponent: [
         {
           id: 'to-account-id',
-          name: swap.destinationAccountName ?? 'Unkown',
+          name: swap.destinationAccountName ?? 'Unknown',
           muted: false,
           icon: <swap.destinationAccountIcon />,
         },
@@ -163,7 +171,7 @@ export const SwapDialog: FC<ISwapDialogProps> = ({ swap }) => {
     },
     {
       id: 'to-asset',
-      leftText: 'Asset',
+      leftText: strings.toAsset,
       rightComponent: [
         {
           id: 'to-asset-id',
@@ -175,12 +183,12 @@ export const SwapDialog: FC<ISwapDialogProps> = ({ swap }) => {
     },
     {
       id: 'to-amount',
-      leftText: 'Amount Received',
+      leftText: strings.toAmount,
       rightText: swap.receivedDisplayAmount,
     },
     {
       id: 'to-receiver',
-      leftText: 'Receiver',
+      leftText: strings.toReceiver,
       rightComponent: [
         {
           id: 'to-receiver-info',

@@ -2077,6 +2077,23 @@
           "subTitle": "Sehen Sie sich das Video an, um die nächsten Schritte zu verstehen"
         }
       }
+    },
+    "swapDialog": {
+      "provider": "Provider",
+      "swapId": "Swap Id",
+      "status": "Status",
+      "fromTitle": "From",
+      "fromWallet": "Wallet",
+      "fromAccount": "Account",
+      "fromAsset": "Asset",
+      "fromAmount": "Amount Sent",
+      "fromSender": "Sender",
+      "toTitle": "To",
+      "toWallet": "Wallet",
+      "toAccount": "Account",
+      "toAsset": "Asset",
+      "toAmount": "Amount Received",
+      "toReceiver": "Receiver"
     }
   },
   "toggle": {

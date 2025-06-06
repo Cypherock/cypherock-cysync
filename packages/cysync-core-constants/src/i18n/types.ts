@@ -1208,6 +1208,23 @@ interface LangDialogs {
       };
     };
   };
+  swapDialog: {
+    provider: string;
+    swapId: string;
+    status: string;
+    fromTitle: string;
+    fromWallet: string;
+    fromAccount: string;
+    fromAsset: string;
+    fromAmount: string;
+    fromSender: string;
+    toTitle: string;
+    toWallet: string;
+    toAccount: string;
+    toAsset: string;
+    toAmount: string;
+    toReceiver: string;
+  };
 }
 
 interface LangToggle {
