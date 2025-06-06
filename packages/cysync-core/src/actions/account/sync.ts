@@ -52,7 +52,7 @@ const updateSwapReceiveTransactions = async () => {
           swapStatus = SwapStatus.Failed;
         }
       }
-    }
+    } else if (swapStatus === SwapStatus.Failed) continue;
 
     let swapData = {
       ...txn.swapData,
