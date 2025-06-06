@@ -17,6 +17,7 @@ import {
   Typography,
   useTheme,
 } from '@cypherock/cysync-ui';
+import { SwapStatus } from '@cypherock/db-interfaces';
 import React, { FC } from 'react';
 import { SwapTransactionRowData } from '~/hooks';
 import {
@@ -29,6 +30,12 @@ import {
 export interface ISwapDialogProps {
   swap: SwapTransactionRowData;
 }
+
+const textColorMap: Record<SwapStatus, any> = {
+  success: 'success',
+  failed: 'error',
+  pending: 'warn',
+};
 
 export const SwapDialog: FC<ISwapDialogProps> = ({ swap }) => {
   const theme = useTheme();
@@ -82,7 +89,8 @@ export const SwapDialog: FC<ISwapDialogProps> = ({ swap }) => {
     {
       id: 'status',
       leftText: strings.status,
-      rightText: swap.swapStatus,
+      rightTextColor: textColorMap[swap.swapStatus],
+      rightText: swap.displaySwapStatus,
     },
     { isDivider: true, id: 'divider-3' },
     {

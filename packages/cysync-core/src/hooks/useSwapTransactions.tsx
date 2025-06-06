@@ -10,6 +10,7 @@ import { SvgProps, SwapTableHeaderName } from '@cypherock/cysync-ui';
 import {
   IAccount,
   IPriceInfo,
+  ISwapData,
   ITransaction,
   IWallet,
   SwapStatus,
@@ -63,6 +64,7 @@ export interface SwapTransactionRowData {
   receivedDisplayAmount: string;
   sentDisplayAmount: string;
   swapStatus: SwapStatus;
+  displaySwapStatus: string;
   sentTransactionHash: string;
   receiveTransactionHash?: string;
   isGroupHeader: boolean;
@@ -134,8 +136,15 @@ const selector = createSelector(
 
 const findAccount = (
   accounts: IAccount[],
-  accountId?: string,
-): IAccount | undefined => accounts.find(a => a.__id === accountId);
+  account?: Partial<IAccount>,
+): IAccount | undefined => {
+  if (!account) return undefined;
+  return accounts.find(a =>
+    Object.entries(account).every(
+      ([key, value]) => a[key as keyof IAccount] === value,
+    ),
+  );
+};
 
 const findWallet = (
   wallets: IWallet[],
@@ -176,9 +185,11 @@ const getSourceAccountAndAsset = (
   accounts: IAccount[],
   wallets: IWallet[],
   sentTransaction: ITransaction,
-  swapData: any,
+  swapData: ISwapData,
 ) => {
-  const sourceAccount = findAccount(accounts, swapData.sourceAccountId);
+  const sourceAccount = findAccount(accounts, {
+    __id: swapData.sourceAccountId,
+  });
   const sourceWallet = findWallet(wallets, swapData.sourceWalletId);
   const sourceAsset = getAsset(
     sourceAccount?.parentAssetId ?? sentTransaction.parentAssetId,
@@ -190,13 +201,17 @@ const getSourceAccountAndAsset = (
 const getDestinationAccountAndAsset = (
   accounts: IAccount[],
   wallets: IWallet[],
-  swapData: any,
+  swapData: ISwapData,
 ) => {
-  const destinationAccount = findAccount(
-    accounts,
-    swapData.destinationAccountId,
-  );
+  const destinationAccount =
+    findAccount(accounts, { __id: swapData.destinationAccountId }) ??
+    findAccount(accounts, {
+      xpubOrAddress: swapData.destinationAddress,
+      assetId: swapData.destinationAssetId,
+      parentAssetId: swapData.destinationParentAssetId,
+    });
   const destinationWallet = findWallet(wallets, swapData.destinationWalletId);
+
   const destinationAsset = destinationAccount
     ? getAssetOrUndefined(
         destinationAccount.parentAssetId,
@@ -279,15 +294,14 @@ export const mapSwapTransactionForDisplay = (params: {
     isDiscreetMode,
     alreadyDisplayUnit: true,
   });
-  const receivedDisplayAmount = destinationAccount
-    ? getSwapDisplayAmount({
-        amount: swapData.receiveAmount,
-        parentAssetId: destinationAccount?.parentAssetId ?? '',
-        assetId: destinationAccount?.assetId ?? '',
-        isDiscreetMode,
-        alreadyDisplayUnit: true,
-      })
-    : swapData.receiveDisplayAmount;
+  const receivedDisplayAmount = getSwapDisplayAmount({
+    amount: swapData.receiveAmount,
+    parentAssetId:
+      destinationAccount?.parentAssetId ?? swapData.destinationParentAssetId,
+    assetId: destinationAccount?.assetId ?? swapData.destinationAssetId,
+    isDiscreetMode,
+    alreadyDisplayUnit: true,
+  });
 
   const providerName = swapData.providerId;
   const providerImageUrl = providerImageUrlMap[swapData.providerId];
@@ -321,6 +335,7 @@ export const mapSwapTransactionForDisplay = (params: {
     receivedDisplayAmount,
     sentDisplayAmount,
     swapStatus,
+    displaySwapStatus: lodash.capitalize(swapStatus),
     isGroupHeader: false,
   };
 };

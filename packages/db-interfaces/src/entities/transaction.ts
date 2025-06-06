@@ -45,6 +45,8 @@ export interface ISwapData {
   sourceAddress: string;
   destinationWalletId: string;
   destinationAccountId: string;
+  destinationAssetId: string;
+  destinationParentAssetId: string;
   destinationAddress: string;
   sentAmount: string;
   sentDisplayAmount: string;

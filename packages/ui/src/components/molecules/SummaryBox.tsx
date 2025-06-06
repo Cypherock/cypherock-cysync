@@ -8,6 +8,7 @@ import {
   NestedContainer,
   ScrollContainer,
   Container,
+  TypographyColor,
 } from '../..';
 
 interface FromItem {
@@ -22,6 +23,7 @@ interface SummaryRowProps {
   leftText?: string;
   leftIcon?: ReactNode;
   rightText?: string;
+  rightTextColor?: TypographyColor;
   bottomText?: string;
   rightComponent?: FromItem[];
   rightSubText?: string;
@@ -33,6 +35,7 @@ export const SummaryRow: React.FC<SummaryRowProps> = ({
   leftText,
   leftIcon,
   rightText,
+  rightTextColor,
   bottomText,
   rightSubText,
   rightComponent,
@@ -106,6 +109,7 @@ export const SummaryRow: React.FC<SummaryRowProps> = ({
             $fontSize={14}
             $textAlign="right"
             $wordBreak="break-word"
+            color={rightTextColor ?? 'normal'}
           >
             {rightText}
           </Typography>
@@ -124,6 +128,7 @@ export const SummaryRow: React.FC<SummaryRowProps> = ({
 SummaryRow.defaultProps = {
   leftText: undefined,
   rightText: undefined,
+  rightTextColor: undefined,
   bottomText: undefined,
   rightComponent: undefined,
   margin: undefined,
