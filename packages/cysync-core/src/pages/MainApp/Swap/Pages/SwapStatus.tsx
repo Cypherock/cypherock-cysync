@@ -21,7 +21,11 @@ import {
   GoldExternalLink,
 } from '@cypherock/cysync-ui';
 import { BigNumber } from '@cypherock/cysync-utils';
-import { AccountTypeMap, IAccount } from '@cypherock/db-interfaces';
+import {
+  SwapStatus as SwapStates,
+  AccountTypeMap,
+  IAccount,
+} from '@cypherock/db-interfaces';
 import React, { useEffect, useState } from 'react';
 
 import { CoinIcon } from '~/components';
@@ -36,11 +40,7 @@ import {
 } from '~/store';
 import logger from '~/utils/logger';
 
-enum SwapStates {
-  Pending = 'pending',
-  Failed = 'failed',
-  Success = 'success',
-}
+const SWAP_STATUS_UPDATE_DURATION = 1000 * 60;
 
 export const SwapStatus = () => {
   const { strings } = useAppSelector(selectLanguage);
@@ -69,20 +69,63 @@ export const SwapStatus = () => {
         exchangeId: exchangeDetails?.id ?? '',
       });
       if (result.status === 200) {
-        setProviderUrl(result?.data?.data?.providerUrl);
+        const url = result?.data?.data?.providerUrl;
+        setProviderUrl(url);
+        let swapData;
 
-        if (transactionId.current) {
-          updateTransactionSwapData(transactionId.current, {
-            providerId: quote?.provider.id ?? '',
-            exchangeId: exchangeDetails?.id ?? '',
+        if (
+          transactionId.current &&
+          fromAccount &&
+          toAccount &&
+          quote &&
+          exchangeDetails
+        ) {
+          const fromUnit = getDefaultUnit(
+            fromAccount.parentAssetId,
+            fromAccount.assetId,
+          ).abbr;
+          const toUnit = getDefaultUnit(
+            toAccount.parentAssetId,
+            toAccount.assetId,
+          ).abbr;
+
+          swapData = {
+            swapId: exchangeDetails.id,
+            providerUrl: url,
+            providerId: quote.provider.id,
             payoutTxnHash: result.data.data.payoutHash,
+            swapStatus: SwapStates.Pending,
             isReceiveUpdated: false,
-          });
+            sourceAccountId: fromAccount.__id ?? '',
+            sourceWalletId: fromAccount.walletId,
+            sourceAddress: fromAccount.xpubOrAddress,
+            destinationWalletId: toAccount.walletId,
+            destinationAccountId: toAccount.__id ?? '',
+            destinationAssetId: toAccount.assetId,
+            destinationParentAssetId: toAccount.parentAssetId,
+            destinationAddress: toAccount.xpubOrAddress,
+            sentAmount: quote.fromAmount,
+            sentDisplayAmount: `${quote.fromAmount} ${fromUnit}`,
+            receiveAmount: quote.toAmount,
+            receiveDisplayAmount: `${quote.toAmount} ${toUnit}`,
+          };
+
+          if (result.data.data.status === 'finished') {
+            setState(SwapStates.Success);
+            swapData = {
+              ...swapData,
+              swapStatus: SwapStates.Success,
+            };
+          } else if (result.data.data.status === 'failed') {
+            setState(SwapStates.Failed);
+            swapData = {
+              ...swapData,
+              swapStatus: SwapStates.Failed,
+            };
+          }
+
+          updateTransactionSwapData(transactionId.current, swapData);
         }
-        if (result.data.data.status === 'finished')
-          setState(SwapStates.Success);
-        else if (result.data.data.status === 'failed')
-          setState(SwapStates.Failed);
       }
     } catch (e) {
       logger.error(e);
@@ -91,8 +134,7 @@ export const SwapStatus = () => {
 
   useEffect(() => {
     updateState();
-    // update every minute
-    const interval = setInterval(updateState, 1000 * 60);
+    const interval = setInterval(updateState, SWAP_STATUS_UPDATE_DURATION);
     return () => clearInterval(interval);
   }, []);
 

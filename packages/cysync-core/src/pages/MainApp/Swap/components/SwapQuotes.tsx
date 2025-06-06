@@ -20,6 +20,7 @@ import { formatSecondsToMinutes, BigNumber } from '@cypherock/cysync-utils';
 import { IAccount, IWallet } from '@cypherock/db-interfaces';
 import { IQuote, useSwap } from '~/context';
 import { useAppSelector, selectLanguage, selectPriceInfos } from '~/store';
+import { providerImageUrlMap } from '~/constants';
 
 const getEarliestExpiryTime = (quotes: IQuote[]) =>
   Math.min(...quotes.map((quote: IQuote) => quote.validUntil));
@@ -44,7 +45,7 @@ export const OfferBox: React.FC<any> = ({
     <Flex justify="space-between" align="center">
       <Flex gap={8} align="center">
         <Image
-          src={offerData?.provider?.imageUrl ?? ''}
+          src={providerImageUrlMap[offerData.provider.id] ?? ''}
           alt="Logo"
           $width={32}
           $height={32}

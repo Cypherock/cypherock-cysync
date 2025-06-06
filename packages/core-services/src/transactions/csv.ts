@@ -19,9 +19,6 @@ export const createCSVFromTransactions = (
     countervalueAmount: string;
     remarks: string;
     network: string;
-    provider?: string;
-    exchangeId?: string;
-    payoutTxnHash?: string;
   }[],
 ) =>
   createCSVFromObject({
@@ -40,9 +37,6 @@ export const createCSVFromTransactions = (
       { name: 'Countervalue Currency', key: 'countervalueCurrency' },
       { name: 'Countervalue at CSV Export', key: 'countervalueAmount' },
       { name: 'Remarks', key: 'remarks' },
-      { name: 'Provider', key: 'provider' },
-      { name: 'ExchangeId', key: 'exchangeId' },
-      { name: 'PayoutTxnHash', key: 'payoutTxnHash' },
     ],
     rows: transactions.map(t => ({
       date: formatDateToUTCString(t.date),
@@ -59,8 +53,61 @@ export const createCSVFromTransactions = (
       countervalueAmount: t.countervalueAmount,
       remarks: t.remarks,
       network: t.network,
+    })),
+  });
+
+export const createCSVFromSwap = (
+  transactions: {
+    date: number;
+    provider: string;
+    providerUrl: string;
+    assetFrom: string;
+    assetFromAmount: string;
+    assetTo: string;
+    assetToAmount: string;
+    status: string;
+    walletFrom: string;
+    accountFrom: string;
+    walletTo: string;
+    accountTo: string;
+    swapId: string;
+    sentTransactionHash: string;
+    receiveTransactionHash?: string;
+  }[],
+) =>
+  createCSVFromObject({
+    headers: [
+      { name: 'Date (UTC)', key: 'date' },
+      { name: 'Provider', key: 'provider' },
+      { name: 'Provider URL', key: 'providerUrl' },
+      { name: 'Asset From', key: 'assetFrom' },
+      { name: 'Amount From', key: 'assetFromAmount' },
+      { name: 'Asset To', key: 'assetTo' },
+      { name: 'Amount To', key: 'assetToAmount' },
+      { name: 'Status', key: 'status' },
+      { name: 'Wallet From', key: 'walletFrom' },
+      { name: 'Account From', key: 'accountFrom' },
+      { name: 'Wallet To', key: 'walletTo' },
+      { name: 'Account To', key: 'accountTo' },
+      { name: 'ExchangeId', key: 'exchangeId' },
+      { name: 'Sent Transaction Hash', key: 'sentTransactionHash' },
+      { name: 'Receive Transaction Hash', key: 'receiveTransactionHash' },
+    ],
+    rows: transactions.map(t => ({
+      date: formatDateToUTCString(t.date),
       provider: t.provider,
-      exchangeId: t.exchangeId,
-      payoutTxnHash: t.payoutTxnHash,
+      providerUrl: t.providerUrl,
+      assetFrom: t.assetFrom,
+      assetFromAmount: t.assetFromAmount,
+      assetTo: t.assetTo,
+      assetToAmount: t.assetToAmount,
+      status: t.status,
+      walletFrom: t.walletFrom,
+      accountFrom: t.accountFrom,
+      walletTo: t.walletTo,
+      accountTo: t.accountTo,
+      exchangeId: t.swapId,
+      sentTransactionHash: t.sentTransactionHash,
+      receiveTransactionHash: t.receiveTransactionHash,
     })),
   });

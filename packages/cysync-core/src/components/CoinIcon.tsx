@@ -42,6 +42,7 @@ export interface CoinIconProps {
   withSubIconAtBottom?: boolean;
   withParentIconAtBottom?: boolean;
   containerProps?: UtilsProps;
+  showFallback?: boolean;
 }
 
 type IconProps = UtilsProps;
@@ -91,6 +92,7 @@ export const CoinIcon: React.FC<CoinIconProps> = ({
   subIconSize,
   subContainerSize,
   containerProps: containerUtilsProps,
+  showFallback,
 }) => {
   const Icon = getCoinIcon(parentAssetId);
 
@@ -140,38 +142,48 @@ export const CoinIcon: React.FC<CoinIconProps> = ({
     $minHeight: subIconSize ?? defaultSubIconSize,
   };
 
-  if (
+  const getErc20Image = () => {
+    const asset = getAsset(parentAssetId, assetId);
+    return {
+      src: requestErc20ImageFile(asset.coinGeckoId),
+      alt: asset.name,
+    };
+  };
+
+  if (showFallback) {
+    return (
+      <Container {...containerProps}>
+        <Image src={fallbackIcon} alt="fallback" {...iconProps} />
+      </Container>
+    );
+  }
+
+  const shouldRenderErc20 =
     !Icon ||
     (assetId &&
       assetId !== parentAssetId &&
       !withSubIconAtBottom &&
-      !withParentIconAtBottom)
-  ) {
-    const asset = getAsset(parentAssetId, assetId);
+      !withParentIconAtBottom);
 
+  if (shouldRenderErc20) {
+    const { src, alt } = getErc20Image();
     return (
       <Container {...containerProps}>
-        <Image
-          src={requestErc20ImageFile(asset.coinGeckoId)}
-          fallbackSrc={fallbackIcon}
-          alt={asset.name}
-          {...iconProps}
-        />
+        <Image src={src} fallbackSrc={fallbackIcon} alt={alt} {...iconProps} />
       </Container>
     );
   }
 
   if (withSubIconAtBottom && parentAssetId !== assetId) {
+    const { src, alt } = getErc20Image();
     return (
       <Container {...containerProps}>
         <Icon {...iconProps} />
         <Container {...subContainerProps}>
           <Image
-            src={requestErc20ImageFile(
-              getAsset(parentAssetId, assetId).coinGeckoId,
-            )}
+            src={src}
             fallbackSrc={fallbackIcon}
-            alt={getAsset(parentAssetId, assetId).name}
+            alt={alt}
             {...subIconProps}
           />
         </Container>
@@ -180,16 +192,10 @@ export const CoinIcon: React.FC<CoinIconProps> = ({
   }
 
   if (withParentIconAtBottom && parentAssetId !== assetId) {
+    const { src, alt } = getErc20Image();
     return (
       <Container {...containerProps}>
-        <Image
-          src={requestErc20ImageFile(
-            getAsset(parentAssetId, assetId).coinGeckoId,
-          )}
-          fallbackSrc={fallbackIcon}
-          alt={getAsset(parentAssetId, assetId).name}
-          {...iconProps}
-        />
+        <Image src={src} fallbackSrc={fallbackIcon} alt={alt} {...iconProps} />
         <Container {...subContainerProps}>
           <Icon {...subIconProps} />
         </Container>
@@ -216,4 +222,5 @@ CoinIcon.defaultProps = {
   withParentIconAtBottom: undefined,
   subIconSize: undefined,
   containerProps: undefined,
+  showFallback: undefined,
 };

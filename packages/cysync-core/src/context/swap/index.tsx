@@ -50,7 +50,7 @@ export interface IExchangeDetails {
   address: string;
   additionalData?: string;
   validTill: string;
-  providerName: string;
+  provider: IProviderDetails;
 }
 
 export interface SwapContextInterface {
@@ -260,7 +260,7 @@ export const SwapProvider: React.FC<SwapProviderProps> = ({ children }) => {
           address: result.data.exchangeAddress,
           additionalData: result.data.exchangeAddressAdditionalData,
           validTill: result.data.validTill,
-          providerName: quote.provider.name,
+          provider: quote.provider,
         });
 
         exchangeSignatureRef.current = result.data.exchangeAddressSignature;

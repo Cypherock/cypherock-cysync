@@ -83,6 +83,9 @@ const initialState: IDialogState = {
   historyDialog: {
     isOpen: false,
   },
+  swapDialog: {
+    isOpen: false,
+  },
   deleteAccount: {
     isOpen: false,
   },
