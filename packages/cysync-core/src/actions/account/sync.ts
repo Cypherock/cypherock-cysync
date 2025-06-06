@@ -11,7 +11,7 @@ import {
 import { ActionCreator, createAsyncThunk } from '@reduxjs/toolkit';
 import { Observer } from 'rxjs';
 
-import { getExchangeStatus, getPayoutTxnHash } from '~/services/swapService';
+import { getExchangeStatus } from '~/services/swapService';
 import {
   AccountSyncStateMap,
   RootState,
@@ -32,53 +32,51 @@ const updateSwapReceiveTransactions = async () => {
   for (const txn of swapSendTransactions) {
     if (!txn.swapData) continue;
 
-    const { providerId, exchangeId, isReceiveUpdated } = txn.swapData;
+    const { providerId, swapId: exchangeId, isReceiveUpdated } = txn.swapData;
 
     if (isReceiveUpdated) continue;
 
     let { payoutTxnHash, swapStatus } = txn.swapData;
 
-    if (!payoutTxnHash) {
-      if (!providerId || !exchangeId) continue;
-
-      payoutTxnHash = await getPayoutTxnHash({ providerId, exchangeId });
-    }
-
-    if (!payoutTxnHash) continue;
-
     if (swapStatus === SwapStatus.Pending) {
-      const result = await getExchangeStatus({ providerId, exchangeId });
-      if (result.status === 200) {
-        if (result.data.data.status === 'finished') {
+      const { status, data } = await getExchangeStatus({
+        providerId,
+        exchangeId,
+      });
+      if (status === 200) {
+        const exchangeStatus = data.data.status;
+        if (exchangeStatus === 'finished') {
           swapStatus = SwapStatus.Success;
-        } else if (result.data.data.status === 'failed') {
+          payoutTxnHash = payoutTxnHash ?? data.data.payoutHash;
+        } else if (exchangeStatus === 'failed') {
           swapStatus = SwapStatus.Failed;
         }
       }
     }
 
-    await db.transaction.update(
-      { hash: payoutTxnHash, type: TransactionTypeMap.receive },
-      {
-        isSwap: true,
-        swapData: {
-          ...txn.swapData,
-          swapStatus,
-          payoutTxnHash,
-          isReceiveUpdated: true,
+    let swapData = {
+      ...txn.swapData,
+      swapStatus,
+      payoutTxnHash,
+    };
+
+    if (payoutTxnHash) {
+      swapData = { ...swapData, isReceiveUpdated: true };
+      await db.transaction.update(
+        { hash: payoutTxnHash, type: TransactionTypeMap.receive },
+        {
+          isSwap: true,
+          swapData: {
+            ...swapData,
+          },
         },
-      },
-    );
+      );
+    }
 
     await db.transaction.update(
       { __id: txn.__id },
       {
-        swapData: {
-          ...txn.swapData,
-          swapStatus,
-          payoutTxnHash,
-          isReceiveUpdated: true,
-        },
+        swapData,
       },
     );
   }

@@ -34,12 +34,11 @@ export interface ITransactionInputOutput {
 }
 
 export interface ISwapData {
+  swapId: string;
   providerUrl: string;
   providerId: string;
-  exchangeId: string;
   payoutTxnHash?: string;
   isReceiveUpdated: boolean;
-  swapId: string;
   swapStatus: SwapStatus;
   sourceAccountId: string;
   sourceWalletId: string;

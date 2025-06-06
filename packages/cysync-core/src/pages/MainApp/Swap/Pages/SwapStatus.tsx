@@ -90,13 +90,12 @@ export const SwapStatus = () => {
           ).abbr;
 
           swapData = {
+            swapId: exchangeDetails.id,
             providerUrl: url,
             providerId: quote.provider.id,
-            exchangeId: exchangeDetails.id,
             payoutTxnHash: result.data.data.payoutHash,
             swapStatus: SwapStates.Pending,
             isReceiveUpdated: false,
-            swapId: exchangeDetails.id,
             sourceAccountId: fromAccount.__id ?? '',
             sourceWalletId: fromAccount.walletId,
             sourceAddress: fromAccount.xpubOrAddress ?? '',
@@ -109,21 +108,21 @@ export const SwapStatus = () => {
             receiveDisplayAmount: `${quote.toAmount} ${toUnit}`,
           };
 
-          updateTransactionSwapData(transactionId.current, swapData);
-
           if (result.data.data.status === 'finished') {
             setState(SwapStates.Success);
-            updateTransactionSwapData(transactionId.current, {
+            swapData = {
               ...swapData,
               swapStatus: SwapStates.Success,
-            });
+            };
           } else if (result.data.data.status === 'failed') {
             setState(SwapStates.Failed);
-            updateTransactionSwapData(transactionId.current, {
+            swapData = {
               ...swapData,
               swapStatus: SwapStates.Failed,
-            });
+            };
           }
+
+          updateTransactionSwapData(transactionId.current, swapData);
         }
       }
     } catch (e) {
