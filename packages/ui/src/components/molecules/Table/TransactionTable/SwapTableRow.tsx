@@ -90,7 +90,7 @@ export const SwapTableRow: React.FC<SwapTableRowProps> = props => {
           <HistoryNameBox
             title={providerName}
             $icon={row.icon}
-            width={{ def: '20%' }}
+            width={{ def: '25%' }}
             p={{ def: 2 }}
             fill={getSwapFillFromStatus(row.status, theme)}
             variant="success"

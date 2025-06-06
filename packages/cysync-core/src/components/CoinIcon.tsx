@@ -42,6 +42,7 @@ export interface CoinIconProps {
   withSubIconAtBottom?: boolean;
   withParentIconAtBottom?: boolean;
   containerProps?: UtilsProps;
+  showFallback?: boolean;
 }
 
 type IconProps = UtilsProps;
@@ -91,6 +92,7 @@ export const CoinIcon: React.FC<CoinIconProps> = ({
   subIconSize,
   subContainerSize,
   containerProps: containerUtilsProps,
+  showFallback,
 }) => {
   const Icon = getCoinIcon(parentAssetId);
 
@@ -118,6 +120,14 @@ export const CoinIcon: React.FC<CoinIconProps> = ({
     $minWidth: parsedWidth,
     $minHeight: parsedHeight,
   };
+
+  if (showFallback) {
+    return (
+      <Container {...containerProps}>
+        <Image src={fallbackIcon} alt="fallback" {...iconProps} />
+      </Container>
+    );
+  }
 
   const defaultSubIconSize = '20px';
   const defaultSubContainerSize = '21px';
@@ -216,4 +226,5 @@ CoinIcon.defaultProps = {
   withParentIconAtBottom: undefined,
   subIconSize: undefined,
   containerProps: undefined,
+  showFallback: undefined,
 };

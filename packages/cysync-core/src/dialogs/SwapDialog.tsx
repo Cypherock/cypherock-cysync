@@ -14,44 +14,15 @@ import {
   ScrollableContainer,
   SummaryBox,
   SummaryItemType,
-  SvgProps,
   Typography,
   useTheme,
 } from '@cypherock/cysync-ui';
-import { SwapStatus } from '@cypherock/db-interfaces';
 import React, { FC } from 'react';
+import { SwapTransactionRowData } from '~/hooks';
 import { closeDialog, useAppDispatch } from '~/store';
 
 export interface ISwapDialogProps {
-  swap: {
-    swapId: string;
-    icon: React.FC<SvgProps>;
-    providerName: string;
-    providerImageUrl: string;
-    providerUrl: string;
-    time: string;
-    timestamp: number;
-    dateTime: string;
-    date: string;
-    dateHeader: string;
-    sourceWalletName: string;
-    sourceAccountName: string;
-    sourceAccountIcon: React.FC<SvgProps>;
-    sourceAssetName: string;
-    sourceAssetIcon: React.FC<SvgProps>;
-    sourceXpubOrAddress: string;
-    destinationWalletName: string;
-    destinationAccountName: string;
-    destinationAccountIcon: React.FC<SvgProps>;
-    destinationAssetName: string;
-    destinationAssetIcon: React.FC<SvgProps>;
-    destinationXpubOrAddress: string;
-    receivedDisplayAmount: string;
-    sentDisplayAmount: string;
-    swapStatus: SwapStatus;
-    sentTransactionHash: string;
-    receiveTransactionHash?: string;
-  };
+  swap: SwapTransactionRowData;
 }
 
 export const SwapDialog: FC<ISwapDialogProps> = ({ swap }) => {
@@ -184,7 +155,7 @@ export const SwapDialog: FC<ISwapDialogProps> = ({ swap }) => {
       rightComponent: [
         {
           id: 'to-account-id',
-          name: swap.destinationAccountName,
+          name: swap.destinationAccountName ?? 'Unkown',
           muted: false,
           icon: <swap.destinationAccountIcon />,
         },
@@ -196,7 +167,7 @@ export const SwapDialog: FC<ISwapDialogProps> = ({ swap }) => {
       rightComponent: [
         {
           id: 'to-asset-id',
-          name: swap.destinationAssetName,
+          name: swap.destinationAssetName ?? 'Unknown',
           muted: false,
           icon: <swap.destinationAssetIcon />,
         },

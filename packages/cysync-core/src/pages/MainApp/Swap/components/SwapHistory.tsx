@@ -63,7 +63,7 @@ export const SwapHistory = ({ topbarHeight }: { topbarHeight: number }) => {
         providerUrl={row.providerUrl}
         sourceAssetName={row.sourceAssetName}
         sourceAssetIcon={<row.sourceAssetIcon />}
-        destinationAssetName={row.destinationAssetName}
+        destinationAssetName={row.destinationAssetName ?? 'Unknown'}
         destinationAssetIcon={<row.destinationAssetIcon />}
         receivedDisplayAmount={row.receivedDisplayAmount}
         sentDisplayAmount={row.sentDisplayAmount}
@@ -96,14 +96,14 @@ export const SwapHistory = ({ topbarHeight }: { topbarHeight: number }) => {
           providerUrl: t.providerUrl,
           assetFrom: t.sourceAssetName,
           assetFromAmount: t.sentDisplayAmount,
-          assetTo: t.destinationAssetName,
+          assetTo: t.destinationAssetName ?? '',
           assetToAmount: t.receivedDisplayAmount,
           status: t.swapStatus,
           walletFrom: t.sourceWalletName,
           accountFrom: t.sourceAccountName,
-          walletTo: t.destinationWalletName,
-          accountTo: t.destinationAccountName,
-          exchangeId: t.swapId,
+          walletTo: t.destinationWalletName ?? '',
+          accountTo: t.destinationAccountName ?? '',
+          swapId: t.swapId,
           sentTransactionHash: t.sentTransactionHash,
           receiveTransactionHash: t.receiveTransactionHash,
         })),

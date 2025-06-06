@@ -4,6 +4,7 @@ import {
   getDefaultUnit,
   convertToUnit,
   getZeroUnit,
+  getAssetOrUndefined,
 } from '@cypherock/coin-support-utils';
 import { SvgProps, SwapTableHeaderName } from '@cypherock/cysync-ui';
 import {
@@ -53,10 +54,10 @@ export interface SwapTransactionRowData {
   sourceAssetName: string;
   sourceAssetIcon: React.FC<SvgProps>;
   sourceXpubOrAddress: string;
-  destinationWalletName: string;
-  destinationAccountName: string;
+  destinationWalletName?: string;
+  destinationAccountName?: string;
   destinationAccountIcon: React.FC<SvgProps>;
-  destinationAssetName: string;
+  destinationAssetName?: string;
   destinationAssetIcon: React.FC<SvgProps>;
   destinationXpubOrAddress: string;
   receivedDisplayAmount: string;
@@ -194,11 +195,15 @@ export const mapSwapTransactionForDisplay = (params: {
     accounts,
     swapData.destinationAccountId,
   );
+
   const destinationWallet = findWallet(wallets, swapData.destinationWalletId);
-  const destinationAsset = getAsset(
-    destinationAccount?.parentAssetId ?? sentTransaction.parentAssetId,
-    destinationAccount?.assetId ?? sentTransaction.assetId,
-  );
+
+  const destinationAsset = destinationAccount
+    ? getAssetOrUndefined(
+        destinationAccount.parentAssetId,
+        destinationAccount.assetId,
+      )
+    : undefined;
 
   const { timestamp } = sentTransaction;
   const dateObj = new Date(timestamp);
@@ -222,25 +227,32 @@ export const mapSwapTransactionForDisplay = (params: {
       height={height}
     />
   );
+
+  const destinationAccountName = destinationAccount
+    ? destinationAccount.name
+    : undefined;
   const destinationAccountIcon = ({ width, height }: any) => (
     <CoinIcon
-      parentAssetId={
-        destinationAccount?.parentAssetId ?? sentTransaction.parentAssetId
-      }
+      parentAssetId={destinationAccount?.parentAssetId ?? ''}
+      showFallback={!destinationAccount}
       width={width}
       height={height}
     />
   );
+  const destinationAssetName = destinationAsset
+    ? destinationAsset.name
+    : undefined;
   const destinationAssetIcon = ({ width, height }: any) => (
     <CoinIcon
-      parentAssetId={
-        destinationAccount?.parentAssetId ?? sentTransaction.parentAssetId
-      }
-      assetId={destinationAccount?.assetId ?? sentTransaction.assetId}
+      parentAssetId={destinationAccount?.parentAssetId ?? ''}
+      showFallback={!destinationAccount}
       width={width}
       height={height}
     />
   );
+  const destinationXpubOrAddress = destinationAccount
+    ? destinationAccount.xpubOrAddress
+    : swapData.destinationAddress;
 
   const sentDisplayAmount = getSwapDisplayAmount({
     amount: swapData.sentAmount,
@@ -250,14 +262,15 @@ export const mapSwapTransactionForDisplay = (params: {
     isDiscreetMode,
     alreadyDisplayUnit: true,
   });
-  const receivedDisplayAmount = getSwapDisplayAmount({
-    amount: swapData.receiveAmount,
-    parentAssetId:
-      destinationAccount?.parentAssetId ?? sentTransaction.parentAssetId,
-    assetId: destinationAccount?.assetId ?? sentTransaction.assetId,
-    isDiscreetMode,
-    alreadyDisplayUnit: true,
-  });
+  const receivedDisplayAmount = destinationAccount
+    ? getSwapDisplayAmount({
+        amount: swapData.receiveAmount,
+        parentAssetId: destinationAccount?.parentAssetId ?? '',
+        assetId: destinationAccount?.assetId ?? '',
+        isDiscreetMode,
+        alreadyDisplayUnit: true,
+      })
+    : swapData.receiveDisplayAmount;
 
   const providerName = swapData.providerId;
   const providerImageUrl = providerImageUrlMap[swapData.providerId];
@@ -283,13 +296,13 @@ export const mapSwapTransactionForDisplay = (params: {
     sourceAssetIcon,
     sourceXpubOrAddress: sourceAccount?.xpubOrAddress ?? '',
     destinationWalletName: destinationWallet?.name ?? '',
-    destinationAccountName: destinationAccount?.name ?? '',
+    destinationAccountName,
     destinationAccountIcon,
-    destinationAssetName: destinationAsset.name,
+    destinationAssetName,
     destinationAssetIcon,
     sentTransactionHash: sentTransaction.hash,
     receiveTransactionHash: params.receiveTransaction?.hash ?? '',
-    destinationXpubOrAddress: destinationAccount?.xpubOrAddress ?? '',
+    destinationXpubOrAddress,
     receivedDisplayAmount,
     sentDisplayAmount,
     swapStatus,
