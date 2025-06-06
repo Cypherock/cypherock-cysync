@@ -172,6 +172,40 @@ const getSwapDisplayAmount = ({
   return `${isDiscreetMode ? '****' : formattedAmount.fixed} ${unit}`;
 };
 
+const getSourceAccountAndAsset = (
+  accounts: IAccount[],
+  wallets: IWallet[],
+  sentTransaction: ITransaction,
+  swapData: any,
+) => {
+  const sourceAccount = findAccount(accounts, swapData.sourceAccountId);
+  const sourceWallet = findWallet(wallets, swapData.sourceWalletId);
+  const sourceAsset = getAsset(
+    sourceAccount?.parentAssetId ?? sentTransaction.parentAssetId,
+    sourceAccount?.assetId ?? sentTransaction.assetId,
+  );
+  return { sourceAccount, sourceWallet, sourceAsset };
+};
+
+const getDestinationAccountAndAsset = (
+  accounts: IAccount[],
+  wallets: IWallet[],
+  swapData: any,
+) => {
+  const destinationAccount = findAccount(
+    accounts,
+    swapData.destinationAccountId,
+  );
+  const destinationWallet = findWallet(wallets, swapData.destinationWalletId);
+  const destinationAsset = destinationAccount
+    ? getAssetOrUndefined(
+        destinationAccount.parentAssetId,
+        destinationAccount.assetId,
+      )
+    : undefined;
+  return { destinationAccount, destinationWallet, destinationAsset };
+};
+
 export const mapSwapTransactionForDisplay = (params: {
   receiveTransaction: ITransaction | undefined;
   sentTransaction: ITransaction;
@@ -184,70 +218,53 @@ export const mapSwapTransactionForDisplay = (params: {
   const { sentTransaction, wallets, accounts, isDiscreetMode } = params;
   const swapData = sentTransaction.swapData!;
 
-  const sourceAccount = findAccount(accounts, swapData.sourceAccountId);
-  const sourceWallet = findWallet(wallets, swapData.sourceWalletId);
-  const sourceAsset = getAsset(
-    sourceAccount?.parentAssetId ?? sentTransaction.parentAssetId,
-    sourceAccount?.assetId ?? sentTransaction.assetId,
-  );
-
-  const destinationAccount = findAccount(
+  const { sourceAccount, sourceWallet, sourceAsset } = getSourceAccountAndAsset(
     accounts,
-    swapData.destinationAccountId,
+    wallets,
+    sentTransaction,
+    swapData,
   );
-
-  const destinationWallet = findWallet(wallets, swapData.destinationWalletId);
-
-  const destinationAsset = destinationAccount
-    ? getAssetOrUndefined(
-        destinationAccount.parentAssetId,
-        destinationAccount.assetId,
-      )
-    : undefined;
+  const { destinationAccount, destinationWallet, destinationAsset } =
+    getDestinationAccountAndAsset(accounts, wallets, swapData);
 
   const { timestamp } = sentTransaction;
   const dateObj = new Date(timestamp);
 
-  const sourceAccountIcon = ({ width, height }: any) => (
+  const sourceAccountIcon = (props: any) => (
     <CoinIcon
       parentAssetId={
         sourceAccount?.parentAssetId ?? sentTransaction.parentAssetId
       }
-      width={width}
-      height={height}
+      assetId={undefined}
+      {...props}
     />
   );
-  const sourceAssetIcon = ({ width, height }: any) => (
+  const sourceAssetIcon = (props: any) => (
     <CoinIcon
       parentAssetId={
         sourceAccount?.parentAssetId ?? sentTransaction.parentAssetId
       }
       assetId={sourceAccount?.assetId ?? sentTransaction.assetId}
-      width={width}
-      height={height}
+      {...props}
     />
   );
 
-  const destinationAccountName = destinationAccount
-    ? destinationAccount.name
-    : undefined;
-  const destinationAccountIcon = ({ width, height }: any) => (
+  const destinationAccountName = destinationAccount?.name;
+  const destinationAccountIcon = (props: any) => (
     <CoinIcon
       parentAssetId={destinationAccount?.parentAssetId ?? ''}
+      assetId={destinationAccount?.assetId}
       showFallback={!destinationAccount}
-      width={width}
-      height={height}
+      {...props}
     />
   );
-  const destinationAssetName = destinationAsset
-    ? destinationAsset.name
-    : undefined;
-  const destinationAssetIcon = ({ width, height }: any) => (
+  const destinationAssetName = destinationAsset?.name;
+  const destinationAssetIcon = (props: any) => (
     <CoinIcon
       parentAssetId={destinationAccount?.parentAssetId ?? ''}
+      assetId={destinationAccount?.assetId}
       showFallback={!destinationAccount}
-      width={width}
-      height={height}
+      {...props}
     />
   );
   const destinationXpubOrAddress = destinationAccount
@@ -274,9 +291,7 @@ export const mapSwapTransactionForDisplay = (params: {
 
   const providerName = swapData.providerId;
   const providerImageUrl = providerImageUrlMap[swapData.providerId];
-  const { providerUrl } = swapData;
-
-  const { swapStatus } = swapData;
+  const { providerUrl, swapStatus } = swapData;
 
   return {
     swapId: swapData.swapId,
