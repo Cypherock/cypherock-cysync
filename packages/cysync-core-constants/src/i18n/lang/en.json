@@ -732,6 +732,7 @@
   },
   "sidebar": {
     "portfolio": "Portfolio",
+    "securedBy": "Secured by Cypherock",
     "wallets": "Wallets",
     "sendCrypto": "Send Crypto",
     "receiveCrypto": "Receive Crypto",

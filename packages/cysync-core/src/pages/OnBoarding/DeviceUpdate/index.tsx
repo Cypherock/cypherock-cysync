@@ -1,4 +1,4 @@
-import { LogoOutlinedAsideImage } from '@cypherock/cysync-ui';
+import { LogoOutlinedAside } from '@cypherock/cysync-ui';
 import React from 'react';
 
 import { OnboardingPageLayout } from '~/pages/OnBoarding/OnboardingPageLayout';
@@ -11,7 +11,7 @@ export const DeviceUpdate = () => {
 
   return (
     <OnboardingPageLayout
-      img={LogoOutlinedAsideImage}
+      img={LogoOutlinedAside}
       text={lang.strings.onboarding.deviceUpdate.heading}
       currentState={3}
       totalState={8}
