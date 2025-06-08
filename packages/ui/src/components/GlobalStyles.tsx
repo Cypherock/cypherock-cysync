@@ -8,6 +8,7 @@ import { SvgStyle } from '../assets';
 export const svgGradients = {
   gold: 'gold-gradient',
   silver: 'silver-gradient',
+  odixPrimary: 'odix-primary-svg-gradient',
 };
 
 export const CssClassNames = {
@@ -50,6 +51,12 @@ export const GlobalStyles: React.FC = () => (
           <stop stopColor="#E9B873" />
           <stop offset="0.369792" stopColor="#FEDD8F" />
           <stop offset="1" stopColor="#B78D51" />
+        </linearGradient>
+
+        <linearGradient id={svgGradients.odixPrimary}>
+          <stop stopColor="#E1A68C" offset="0%" />
+          <stop stopColor="#FFC8AF" offset="37%" />
+          <stop stopColor="#B37D65" offset="100%" />
         </linearGradient>
 
         <linearGradient id={svgGradients.silver}>

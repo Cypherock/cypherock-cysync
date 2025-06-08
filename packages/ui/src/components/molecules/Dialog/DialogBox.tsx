@@ -3,21 +3,22 @@ import styled, { css } from 'styled-components';
 
 import { addKeyboardEvents } from '../../../hooks';
 import {
-  BgColorProps,
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  BgColorProps, // No longer needed for DialogBoxStyle background
   DisplayProps,
   FlexProps,
   HeightProps,
   PositionProps,
   SpacingProps,
   WidthProps,
-  bgColor,
+  bgColor, // No longer needed for DialogBoxStyle background
   display,
   flex,
   height,
   position,
   spacing,
   width,
-} from '../../utils';
+} from '../../utils'; // Assuming bgColor utility handles other $bgColor props correctly
 
 export interface DialogBoxUtilityProps
   extends WidthProps,
@@ -26,8 +27,8 @@ export interface DialogBoxUtilityProps
     DisplayProps,
     SpacingProps,
     PositionProps,
-    DisplayProps,
-    BgColorProps {
+    // BgColorProps, // Can be removed if DialogBoxStyle no longer uses $bgColor directly for its main background
+    DisplayProps {
   children?: ReactNode;
   overflowY?: string;
 }
@@ -67,9 +68,25 @@ const DialogBoxStyle = styled.section<DialogBoxProps>`
   border-style: solid;
   border-radius: 16px;
   /* overflow-y: scroll; */
-  background-image: ${({ theme }) => theme.palette.background.primary};
-  box-shadow: ${({ theme }) => theme.shadow.popup};
-  border-color: ${({ theme }) => theme.palette.border.popup};
+
+  /* MODIFICATION: Conditional background */
+  background: ${() =>
+    (window as any).cysyncEnv?.VENDOR === 'odix'
+      ? '#141414' // Odix solid dark grey
+      : ({ theme }) => theme.palette.background.primary}; // Default from theme
+
+  /* Conditional border color if it should also change for Odix */
+  border-color: ${() =>
+    (window as any).cysyncEnv?.VENDOR === 'odix'
+      ? '#141414' // Odix border to match background
+      : ({ theme }) => theme.palette.border.popup}; // Default from theme
+
+  /* Conditional shadow if it should also change for Odix */
+  box-shadow: ${() =>
+    (window as any).cysyncEnv?.VENDOR === 'odix'
+      ? '4px 4px 32px 4px rgba(15, 13, 11, 1)' // Odix shadow
+      : ({ theme }) => theme.shadow.popup}; // Default from theme
+
   text-align: center;
   ${props => props.$isModal && modalCss}
   ${flex}
@@ -77,8 +94,7 @@ const DialogBoxStyle = styled.section<DialogBoxProps>`
   ${width}
   ${height}
   ${spacing}
-  ${position}
-  ${bgColor}
+  ${position} /* ${bgColor} // Removed if $bgColor prop on DialogBox is not meant to override this conditional logic */
 `;
 
 const DialogBoxHeaderBarStyle = styled.div<DialogBoxUtilityProps>`
@@ -88,13 +104,17 @@ const DialogBoxHeaderBarStyle = styled.div<DialogBoxUtilityProps>`
   display: flex;
   position: relative;
   justify-content: center;
-  position: relative;
+  /* position: relative; // Duplicate */
   width: 100%;
   border-top: 0;
   border-left: 0;
   border-right: 0;
   border-style: solid;
-  border-color: ${({ theme }) => theme.palette.border.popup};
+  /* Conditional border color for header if needed, or keep it consistent with dialog border */
+  border-color: ${() =>
+    (window as any).cysyncEnv?.VENDOR === 'odix'
+      ? '#141414' // Odix border for header
+      : ({ theme }) => theme.palette.border.popup}; // Default from theme
   padding-top: ${({ theme }) => theme.spacing.two.spacing};
   padding-bottom: ${({ theme }) => theme.spacing.two.spacing};
   color: ${({ theme }) => theme.palette.text.muted};
@@ -124,14 +144,15 @@ const DialogBoxBodyStyle = styled.div<DialogBoxUtilityProps>`
     css`
       overflow-y: ${overflowY};
     `}
-  padding-bottom: ${({ theme }) => theme.spacing.two.spacing};
+  /* padding-bottom: ${({ theme }) =>
+    theme.spacing.two
+      .spacing}; // This might be redundant with overall padding */
   position: relative;
 
   ${flex}
   ${width}
   ${height}
-  ${spacing}
-  ${bgColor}
+  ${spacing} // ${bgColor} // If DialogBoxBody can have its own $bgColor prop
 `;
 
 const DialogBoxFooterStyle = styled.div<DialogBoxUtilityProps>`
@@ -146,7 +167,11 @@ const DialogBoxFooterStyle = styled.div<DialogBoxUtilityProps>`
   border-left: 0;
   border-right: 0;
   border-style: solid;
-  border-color: ${({ theme }) => theme.palette.border.popup};
+  /* Conditional border color for footer if needed */
+  border-color: ${() =>
+    (window as any).cysyncEnv?.VENDOR === 'odix'
+      ? '#141414' // Odix border for footer
+      : ({ theme }) => theme.palette.border.popup}; // Default from theme
   gap: ${({ theme }) => theme.spacing.two.spacing};
   ${flex}
   ${width}

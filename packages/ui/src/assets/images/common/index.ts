@@ -5,6 +5,8 @@ import arrowGoldenForward from './arrow-golden-forward.svg';
 import arrowWhiteBackward from './arrow-white-backward.svg';
 import asideIcon from './aside.svg';
 import backIcon from './back.svg';
+import odixbackIcon from './odix-back.svg';
+import odixUsbIcon from './odix-usb.svg';
 import bgClockIcon from './bgClockIcon.svg';
 import binanceIcon from './binance.svg';
 import bitcoinIcon from './bitcoin-icon.svg';
@@ -41,7 +43,9 @@ import goldHoverWalletIcon from './gold-hover-wallet-icon.svg';
 import goldSendIcon from './gold-send.svg';
 import goldTick from './gold-tick.svg';
 import goldFail from './gold_fail.svg';
+import odixCreateWalletGraphics from './odix-create-wallet-graphics.png';
 import greenTick from './green-tick.svg';
+import odixRedTick from './odix-red-tick.svg';
 import halfLoaderGold from './half-loader-gold.svg';
 import importWalletIcon from './import-wallet.png';
 import informationWhiteIcon from './information-icon.svg';
@@ -53,11 +57,14 @@ import loaderGrayIcon from './loader-grey.svg';
 import loaderIcon from './loader.png';
 import cysyncLogoBig from './logo-big.svg';
 import cysyncLogoSmallImage from './logo-small.png';
+import odixLogoSmall from './odix-logo-small.png';
 import LogoOutlinedAsideImage from './LogoOutlineAside.png';
+import OdixLogoOutlinedAsideImage from './odix-LogoOutlineAside.png';
 import manyInManyBgImage from './mim-bg.svg';
 import manyInManyHoverBgImage from './mim-hover-bg.svg';
 import oneInMany1Default from './oneInmany1Default.svg';
 import oneInMany1Hover from './oneInmany1Hover.svg';
+import odixLogoBig from './odix-logo-big.svg';
 import oneInMany2Default from './oneInMany2Default.svg';
 import oneInMany2Hover from './oneInMany2Hover.svg';
 import openExternalLink from './open-external-link.svg';
@@ -67,6 +74,7 @@ import questionMarkGoldIcon from './question-gold.svg';
 import questionMarkEllipseIcon from './question-mark-ellipse-icon.svg';
 import questionMarkIcon from './question-mark.svg';
 import recoverWalletFromSeedphraseGraphics from './recover-wallet-from-seedphrase-graphics.png';
+import odixrecoverWalletFromSeedphraseGraphics from './odix-recover-wallet-from-seedphrase-graphics.png';
 import recoverWalletIcon from './recover-wallet.png';
 import redDisconnectedIcon from './red-disconnected.svg';
 import searchIcon from './search-icon.svg';
@@ -80,6 +88,7 @@ import solanaIcon from './solana.svg';
 import spinnerGoldIcon from './spinner-gold.svg';
 import successIcon from './success.svg';
 import syncIcon from './sync-icon.svg';
+import odixDeviceAuthAsideImage from './odix-DeviceAuthAside.png';
 import tetherIcon from './tether.svg';
 import triangleInverseIcon from './triangle-inverse-icon.svg';
 import triangleGreyIcon from './triangleGrey.svg';
@@ -100,8 +109,48 @@ import cantonIcon from './canton.png';
 
 const cysyncLogoSmall =
   (window as any).cysyncEnv.VENDOR === 'odix' // Vendor specific image example
-    ? silverTickIcon
+    ? odixLogoSmall
     : cysyncLogoSmallImage;
+
+const LogoOutlinedAside =
+  (window as any).cysyncEnv.VENDOR === 'odix' // Vendor specific image example
+    ? OdixLogoOutlinedAsideImage
+    : LogoOutlinedAsideImage;
+
+const DeviceAuthAside =
+  (window as any).cysyncEnv.VENDOR === 'odix' // Vendor specific image example
+    ? odixDeviceAuthAsideImage
+    : deviceAuthAsideImage;
+
+const greenTickImage =
+  (window as any).cysyncEnv.VENDOR === 'odix' // Vendor specific image example
+    ? odixRedTick
+    : greenTick;
+
+const cysynclogobigImage =
+  (window as any).cysyncEnv.VENDOR === 'odix' // Vendor specific image example
+    ? odixLogoBig
+    : cysyncLogoBig;
+
+const backIconImage =
+  (window as any).cysyncEnv.VENDOR === 'odix' // Vendor specific image example
+    ? odixbackIcon
+    : backIcon;
+
+const usbIconImage =
+  (window as any).cysyncEnv.VENDOR === 'odix' // Vendor specific image example
+    ? odixUsbIcon
+    : usbIcon;
+
+const createWalletGraphicsImage =
+  (window as any).cysyncEnv.VENDOR === 'odix' // Vendor specific image example
+    ? odixCreateWalletGraphics
+    : createWalletGraphics;
+
+const recoverWalletFromSeedphraseGraphicsImage =
+  (window as any).cysyncEnv.VENDOR === 'odix' // Vendor specific image example
+    ? odixrecoverWalletFromSeedphraseGraphics
+    : recoverWalletFromSeedphraseGraphics;
 
 export {
   WalletDefaultExpiredIcon,
@@ -140,8 +189,13 @@ export {
   closeIcon,
   solanaIcon,
   cysyncLogoBig,
+  cysyncLogoSmallImage,
   cysyncLogoSmall,
+  odixLogoSmall,
+  recoverWalletFromSeedphraseGraphicsImage,
+  DeviceAuthAside,
   importWalletIcon,
+  backIconImage,
   recoverWalletIcon,
   deviceAuthAsideImage,
   emailIcon,
@@ -150,10 +204,14 @@ export {
   disconnectedIcon,
   successIcon,
   shieldAlert,
+  createWalletGraphicsImage,
+  usbIconImage,
   cardTapAsideImage,
-  LogoOutlinedAsideImage,
+  LogoOutlinedAside,
+  OdixLogoOutlinedAsideImage,
   joystickTrainingAsideImage,
   loaderIcon,
+  cysynclogobigImage,
   goldLoaderIcon,
   openExternalLink,
   informationIcon,
@@ -163,7 +221,7 @@ export {
   emailIconOutlined,
   cysyncLockedLogo,
   errorIcon,
-  usbIcon,
+  greenTickImage,
   copyIcon,
   checkIcon,
   DeviceUpdateIcon,

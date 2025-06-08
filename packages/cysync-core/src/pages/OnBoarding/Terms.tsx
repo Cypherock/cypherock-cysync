@@ -7,7 +7,7 @@ import {
   DialogBoxFooter,
   Flex,
   LangDisplay,
-  LogoOutlinedAsideImage,
+  LogoOutlinedAside,
   TermsOfUseGraphics,
   Typography,
   ExternalLink,
@@ -124,7 +124,7 @@ export const Terms: FC = () => {
 
   return (
     <OnboardingPageLayout
-      img={LogoOutlinedAsideImage}
+      img={LogoOutlinedAside}
       text={lang.strings.onboarding.terms.title}
       currentState={1}
       totalState={8}
