@@ -30,6 +30,7 @@ import {
 } from '~/store';
 import { getDB } from '~/utils';
 
+// ... selector and maps ...
 const selector = createSelector(
   [selectLanguage, selectDiscreetMode, selectAccountSync, selectNotifications],
   (a, b, c, { isOpen, unreadTransactions }) => ({
@@ -112,7 +113,7 @@ const TopbarComponent: FC<TopbarProps> = props => {
 
   return (
     <TopbarUI
-      {...props}
+      {...props} // Passes title, subTitle, icon, tag, showIcon, onIconClick
       statusTexts={lang.strings.topbar.statusTexts}
       lock={lock}
       isLocked={isLocked}

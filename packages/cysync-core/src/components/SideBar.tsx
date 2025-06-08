@@ -1,14 +1,17 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import {
   AngleRight,
   ArrowReceivedIcon,
   ArrowSentIcon,
   Button,
   Chip,
+  cysyncLogoSmall,
   CypherockCoverIcon,
   DropDownItemProps,
   Flex,
   FloatingMenu,
   HistoryIcon,
+  Image,
   PortfolioIcon,
   SideBarItem,
   SideBarWrapper,
@@ -24,6 +27,7 @@ import {
   GraphSwitchSmallIcon,
   AffiliateIcon,
 } from '@cypherock/cysync-ui';
+import { cysyncLogoSmallImage } from '@cypherock/cysync-ui/src/assets/images/common';
 import { IWallet } from '@cypherock/db-interfaces';
 import React, { FC } from 'react';
 
@@ -240,6 +244,30 @@ const SideBarComponent: FC = () => {
               />
             )}
           </Flex>
+        </Flex>
+        <Flex
+          align="center"
+          justify="flex-start"
+          gap={2}
+          $borderWidthT={1}
+          $borderColor="separator"
+          pt="16px"
+          mt="16px"
+        >
+          <Image
+            src={cysyncLogoSmallImage}
+            alt="Cypherock"
+            $height={20}
+            $width={20}
+          />
+          <Typography
+            variant="h6"
+            color="muted"
+            $fontSize={14}
+            $fontWeight="medium"
+          >
+            {strings.securedBy}
+          </Typography>
         </Flex>
       </SideBarWrapper>
       <SidebarHandle onMouseDown={startDrag} />

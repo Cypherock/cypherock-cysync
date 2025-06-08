@@ -173,6 +173,7 @@ export const Topbar: FC<TopbarProps> = ({
             </Button>
           </div>
         </Tooltip>
+
         <DividingLine />
         <Tooltip
           text={statusTexts.connection[connectionStatus]}

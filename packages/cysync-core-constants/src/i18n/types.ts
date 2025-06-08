@@ -736,6 +736,7 @@ interface LangTopbar {
 
 interface LangSidebar {
   portfolio: string;
+  securedBy: string;
   wallets: string;
   sendCrypto: string;
   receiveCrypto: string;
