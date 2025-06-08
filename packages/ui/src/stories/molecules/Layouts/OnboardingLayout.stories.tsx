@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import React from 'react';
 
-import { LogoOutlinedAsideImage } from '../../../assets';
+import { LogoOutlinedAside } from '../../../assets';
 import { OnboardingLayout } from '../../../components';
 
 const meta: Meta<typeof OnboardingLayout> = {
@@ -15,7 +15,7 @@ type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   args: {
-    img: LogoOutlinedAsideImage,
+    img: LogoOutlinedAside,
     currentState: 2,
     totalState: 5,
     version: '1.0.0',

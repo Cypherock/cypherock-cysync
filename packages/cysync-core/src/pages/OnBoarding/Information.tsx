@@ -6,7 +6,7 @@ import {
   ListItem,
   ListContainer,
   Typography,
-  cysyncLogoBig,
+  cysynclogobigImage,
   DialogBoxFooter,
   Button,
 } from '@cypherock/cysync-ui';
@@ -74,7 +74,7 @@ export const Information: React.FC = () => {
 
   return (
     <OnboardingPageLayout
-      img={cysyncLogoBig}
+      img={cysynclogobigImage}
       text={lang.strings.onboarding.deviceDetection.heading}
       title={lang.strings.onboarding.info.aside.title}
       subTitle={lang.strings.onboarding.info.aside.subTitle}

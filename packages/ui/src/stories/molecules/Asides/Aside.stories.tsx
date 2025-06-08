@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
-import { LogoOutlinedAsideImage } from '../../../assets';
+import { LogoOutlinedAside } from '../../../assets';
 import { Aside } from '../../../components';
 
 const meta: Meta<typeof Aside> = {
@@ -16,7 +16,7 @@ export const Default: Story = {
   args: {
     currentState: 3,
     totalState: 6,
-    img: LogoOutlinedAsideImage,
+    img: LogoOutlinedAside,
     text: 'Aside Text',
   },
 };

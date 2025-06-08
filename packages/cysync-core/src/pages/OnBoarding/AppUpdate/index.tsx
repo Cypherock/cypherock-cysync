@@ -1,4 +1,4 @@
-import { LogoOutlinedAsideImage } from '@cypherock/cysync-ui';
+import { LogoOutlinedAside } from '@cypherock/cysync-ui';
 import React, { FC } from 'react';
 
 import { selectLanguage, useAppSelector } from '~/store';
@@ -12,7 +12,7 @@ export const AppUpdate: FC = () => {
 
   return (
     <OnboardingPageLayout
-      img={LogoOutlinedAsideImage}
+      img={LogoOutlinedAside}
       text={lang.strings.onboarding.appUpdate.heading}
       currentState={3}
       totalState={8}

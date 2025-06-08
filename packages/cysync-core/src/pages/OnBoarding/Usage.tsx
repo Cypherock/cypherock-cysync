@@ -9,7 +9,7 @@ import {
   Typography,
   UserExpertGraphics,
   UserFirstTimeGraphics,
-  cysyncLogoBig,
+  cysynclogobigImage,
 } from '@cypherock/cysync-ui';
 import React, { useState } from 'react';
 
@@ -81,7 +81,7 @@ export const Usage: React.FC = () => {
 
   return (
     <OnboardingPageLayout
-      img={cysyncLogoBig}
+      img={cysynclogobigImage}
       text={lang.strings.onboarding.deviceDetection.heading}
       title={lang.strings.onboarding.info.aside.title}
       subTitle={lang.strings.onboarding.info.aside.subTitle}

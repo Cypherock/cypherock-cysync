@@ -1,4 +1,4 @@
-import { LogoOutlinedAsideImage } from '@cypherock/cysync-ui';
+import { LogoOutlinedAside } from '@cypherock/cysync-ui';
 import React from 'react';
 
 import { EmailForm } from './Dialogs/EmailForm';
@@ -11,7 +11,7 @@ export const EmailAuth: React.FC = () => {
 
   return (
     <OnboardingPageLayout
-      img={LogoOutlinedAsideImage}
+      img={LogoOutlinedAside}
       text={lang.strings.onboarding.emailAuth.heading}
       currentState={3}
       totalState={8}

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { backIcon } from '../../..';
+import { backIconImage } from '../../..';
 import { Flex, Typography, Button, LangDisplay, Image } from '../../atoms';
 
 export interface BackButtonProps {
@@ -11,7 +11,7 @@ export interface BackButtonProps {
 export const BackButton: React.FC<BackButtonProps> = ({ text, onClick }) => (
   <Button variant="none" onClick={onClick}>
     <Flex gap={8}>
-      <Image src={backIcon} alt="Back" />
+      <Image src={backIconImage} alt="Back" />
       <Typography color="muted" $fontSize={14}>
         <LangDisplay text={text} />
       </Typography>

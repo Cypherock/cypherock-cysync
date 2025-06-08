@@ -1,4 +1,4 @@
-import { LogoOutlinedAsideImage, SuccessDialog } from '@cypherock/cysync-ui';
+import { LogoOutlinedAside, SuccessDialog } from '@cypherock/cysync-ui';
 import React from 'react';
 
 import { routes } from '~/constants';
@@ -14,7 +14,7 @@ export const SetPassword: React.FC = () => {
 
   return (
     <OnboardingPageLayout
-      img={LogoOutlinedAsideImage}
+      img={LogoOutlinedAside}
       text={lang.strings.onboarding.setPassword.heading}
       currentState={2}
       totalState={8}

@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 import { styled } from 'styled-components';
 
-import { cysyncLogoSmall, greenTick } from '../../../assets';
+import { cysyncLogoSmall, greenTickImage } from '../../../assets';
 import {
   Bullet,
   Container,
@@ -83,7 +83,7 @@ export const MilestoneAside: FC<{
             </Flex>
             {!skippedTabs?.includes(index) &&
               (activeTab > index ? (
-                <Image src={greenTick} alt="greenTick" />
+                <Image src={greenTickImage} alt="greenTick" />
               ) : (
                 <Bullet
                   size="sm"
