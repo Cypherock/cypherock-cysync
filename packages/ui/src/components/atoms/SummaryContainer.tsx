@@ -22,7 +22,8 @@ export const LeftContainer = styled.div`
 `;
 
 export const RightContainer = styled.div`
-  margin-left: auto;
+  flex: 1;
+  justify-content: flex-end;
   ${commonContainerStyles};
 `;
 export const BottomContainer = styled.div`
@@ -38,6 +39,7 @@ export const NestedContainer = styled.div`
   margin-left: auto;
   display: flex;
   align-items: flex-end;
+  justify-content: flex-end;
   flex-direction: column;
 `;
 

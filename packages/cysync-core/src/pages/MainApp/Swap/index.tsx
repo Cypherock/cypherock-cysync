@@ -25,6 +25,7 @@ import { SwapStatus } from './Pages/SwapStatus';
 import { SwapSummary } from './Pages/SwapSummary';
 
 import { MainAppLayout } from '../Layout';
+import { useSwapTransactions } from '~/hooks';
 
 const FullScreenWithConnectedDevice: React.FC<{
   children: React.ReactNode;
@@ -169,6 +170,7 @@ const pageMap: Record<
 export const Swap = () => {
   const { currentPage, error, retryCurrentPage, toPreviousPage, reset } =
     useSwap();
+  const { displayedData } = useSwapTransactions();
   const [showHistory, setShowHistory] = useState(false);
   const [topbarHeight, setTopbarHeight] = useState(0);
   const dispatch = useAppDispatch();
@@ -195,8 +197,11 @@ export const Swap = () => {
     }
   }, [error]);
 
-  // @todo: disable history if there are no previous swap transactions
-  const handleHistoryClick = () => setShowHistory(true);
+  const handleHistoryClick = () => {
+    if (displayedData.length > 0) {
+      setShowHistory(true);
+    }
+  };
 
   const onHistoryBack = () => {
     retryCurrentPage();
@@ -215,6 +220,7 @@ export const Swap = () => {
       ) : (
         currentComponent({
           onHistory: handleHistoryClick,
+          disableHistory: displayedData.length === 0,
           onClose: reset,
           toPreviousPage,
         })
