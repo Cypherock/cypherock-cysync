@@ -1,3 +1,10 @@
+# v2.0.23
+
+### 🐛 Bugfixes
+
+- **Swap History**: Easily track your past and current swap transactions in the new Swaps History tab.
+- **Better UX**: Faster, smoother, and more intuitive swapping experience.
+
 # v2.0.22
 
 ### 🐛 Bugfix
