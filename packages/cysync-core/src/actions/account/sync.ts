@@ -54,21 +54,19 @@ const updateSwapReceiveTransactions = async () => {
       }
     } else if (swapStatus === SwapStatus.Failed) continue;
 
-    let swapData = {
+    const swapData = {
       ...txn.swapData,
       swapStatus,
       payoutTxnHash,
+      isReceiveUpdated: !!payoutTxnHash,
     };
 
     if (payoutTxnHash) {
-      swapData = { ...swapData, isReceiveUpdated: true };
       await db.transaction.update(
         { hash: payoutTxnHash, type: TransactionTypeMap.receive },
         {
           isSwap: true,
-          swapData: {
-            ...swapData,
-          },
+          swapData,
         },
       );
     }

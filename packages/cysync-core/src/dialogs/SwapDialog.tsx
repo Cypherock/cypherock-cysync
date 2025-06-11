@@ -18,8 +18,8 @@ import {
   useTheme,
 } from '@cypherock/cysync-ui';
 import { SwapStatus } from '@cypherock/db-interfaces';
-import React, { FC } from 'react';
-import { SwapTransactionRowData } from '~/hooks';
+import React, { FC, useMemo } from 'react';
+import { SwapTransactionRowData, useSwapTransactions } from '~/hooks';
 import {
   closeDialog,
   selectLanguage,
@@ -37,182 +37,190 @@ const textColorMap: Record<SwapStatus, any> = {
   pending: 'warn',
 };
 
-export const SwapDialog: FC<ISwapDialogProps> = ({ swap }) => {
+export const SwapDialog: FC<ISwapDialogProps> = ({ swap: swapSource }) => {
   const theme = useTheme();
   const dispatch = useAppDispatch();
-
+  const { displayedData } = useSwapTransactions();
   const onClose = () => dispatch(closeDialog('swapDialog'));
 
   const lang = useAppSelector(selectLanguage);
   const strings = lang.strings.dialogs.swapDialog;
 
-  const summaryItems: SummaryItemType = [
-    {
-      id: 'provider',
-      leftText: strings.provider,
-      rightComponent: [
-        {
-          id: 'provider-info',
-          name: swap.providerName,
-          muted: false,
-          icon: (
-            <Image
-              src={swap.providerImageUrl}
-              alt="provider image"
-              $maxHeight="20px"
-            />
-          ),
-          rightIcon: swap.providerUrl ? (
-            <a href={swap.providerUrl} target="_blank" rel="noreferrer">
-              <GoldExternalLink width={15} height={12} />
-            </a>
-          ) : undefined,
-        },
-      ],
-    },
-    { isDivider: true, id: 'divider-1' },
-    {
-      id: 'swap-id',
-      leftText: strings.swapId,
-      rightComponent: [
-        {
-          id: 'swap-id-info',
-          name: swap.swapId,
-          muted: false,
-          rightIcon: (
-            <Clipboard content={swap.swapId} size="sm" variant="gold" />
-          ),
-        },
-      ],
-    },
-    { isDivider: true, id: 'divider-2' },
-    {
-      id: 'status',
-      leftText: strings.status,
-      rightTextColor: textColorMap[swap.swapStatus],
-      rightText: swap.displaySwapStatus,
-    },
-    { isDivider: true, id: 'divider-3' },
-    {
-      id: 'from-title',
-      leftText: strings.fromTitle,
-    },
-    {
-      id: 'from-wallet',
-      leftText: strings.fromWallet,
-      rightComponent: [
-        {
-          id: 'from-wallet-id',
-          name: swap.sourceWalletName,
-          muted: false,
-        },
-      ],
-    },
-    {
-      id: 'from-account',
-      leftText: strings.fromAccount,
-      rightComponent: [
-        {
-          id: 'from-account-id',
-          name: swap.sourceAccountName,
-          muted: false,
-          icon: <swap.sourceAccountIcon />,
-        },
-      ],
-    },
-    {
-      id: 'from-asset',
-      leftText: strings.fromAsset,
-      rightComponent: [
-        {
-          id: 'from-asset-id',
-          name: swap.sourceAssetName,
-          muted: false,
-          icon: <swap.sourceAssetIcon />,
-        },
-      ],
-    },
-    {
-      id: 'from-amount',
-      leftText: strings.fromAmount,
-      rightText: swap.sentDisplayAmount,
-    },
-    {
-      id: 'from-sender',
-      leftText: strings.fromSender,
-      rightComponent: [
-        {
-          id: 'from-sender-info',
-          name: swap.sourceXpubOrAddress,
-          muted: true,
-          rightIcon: (
-            <Clipboard
-              content={swap.sourceXpubOrAddress}
-              size="sm"
-              variant="gold"
-            />
-          ),
-        },
-      ],
-    },
-    { isDivider: true, id: 'divider-4' },
-    {
-      id: 'to-title',
-      leftText: strings.toTitle,
-    },
-    {
-      id: 'to-wallet',
-      leftText: strings.toWallet,
-      rightText: swap.destinationWalletName,
-    },
-    {
-      id: 'to-account',
-      leftText: strings.toAccount,
-      rightComponent: [
-        {
-          id: 'to-account-id',
-          name: swap.destinationAccountName ?? 'Unknown',
-          muted: false,
-          icon: <swap.destinationAccountIcon />,
-        },
-      ],
-    },
-    {
-      id: 'to-asset',
-      leftText: strings.toAsset,
-      rightComponent: [
-        {
-          id: 'to-asset-id',
-          name: swap.destinationAssetName ?? 'Unknown',
-          muted: false,
-          icon: <swap.destinationAssetIcon />,
-        },
-      ],
-    },
-    {
-      id: 'to-amount',
-      leftText: strings.toAmount,
-      rightText: swap.receivedDisplayAmount,
-    },
-    {
-      id: 'to-receiver',
-      leftText: strings.toReceiver,
-      rightComponent: [
-        {
-          id: 'to-receiver-info',
-          name: swap.destinationXpubOrAddress,
-          muted: true,
-          rightIcon: (
-            <Clipboard
-              content={swap.destinationXpubOrAddress}
-              size="sm"
-              variant="gold"
-            />
-          ),
-        },
-      ],
-    },
-  ];
+  const swap = useMemo(
+    () => displayedData.find(d => d.swapId === swapSource.swapId) ?? swapSource,
+    [displayedData, swapSource.swapId],
+  );
+
+  const summaryItems: SummaryItemType = useMemo(
+    () => [
+      {
+        id: 'provider',
+        leftText: strings.provider,
+        rightComponent: [
+          {
+            id: 'provider-info',
+            name: swap.providerName,
+            muted: false,
+            icon: (
+              <Image
+                src={swap.providerImageUrl}
+                alt="provider image"
+                $maxHeight="20px"
+              />
+            ),
+            rightIcon: swap.providerUrl ? (
+              <a href={swap.providerUrl} target="_blank" rel="noreferrer">
+                <GoldExternalLink width={15} height={12} />
+              </a>
+            ) : undefined,
+          },
+        ],
+      },
+      { isDivider: true, id: 'divider-1' },
+      {
+        id: 'swap-id',
+        leftText: strings.swapId,
+        rightComponent: [
+          {
+            id: 'swap-id-info',
+            name: swap.swapId,
+            muted: false,
+            rightIcon: (
+              <Clipboard content={swap.swapId} size="sm" variant="gold" />
+            ),
+          },
+        ],
+      },
+      { isDivider: true, id: 'divider-2' },
+      {
+        id: 'status',
+        leftText: strings.status,
+        rightTextColor: textColorMap[swap.swapStatus],
+        rightText: swap.displaySwapStatus,
+      },
+      { isDivider: true, id: 'divider-3' },
+      {
+        id: 'from-title',
+        leftText: strings.fromTitle,
+      },
+      {
+        id: 'from-wallet',
+        leftText: strings.fromWallet,
+        rightComponent: [
+          {
+            id: 'from-wallet-id',
+            name: swap.sourceWalletName,
+            muted: false,
+          },
+        ],
+      },
+      {
+        id: 'from-account',
+        leftText: strings.fromAccount,
+        rightComponent: [
+          {
+            id: 'from-account-id',
+            name: swap.sourceAccountName,
+            muted: false,
+            icon: <swap.sourceAccountIcon />,
+          },
+        ],
+      },
+      {
+        id: 'from-asset',
+        leftText: strings.fromAsset,
+        rightComponent: [
+          {
+            id: 'from-asset-id',
+            name: swap.sourceAssetName,
+            muted: false,
+            icon: <swap.sourceAssetIcon />,
+          },
+        ],
+      },
+      {
+        id: 'from-amount',
+        leftText: strings.fromAmount,
+        rightText: swap.sentDisplayAmount,
+      },
+      {
+        id: 'from-sender',
+        leftText: strings.fromSender,
+        rightComponent: [
+          {
+            id: 'from-sender-info',
+            name: swap.sourceXpubOrAddress,
+            muted: true,
+            rightIcon: (
+              <Clipboard
+                content={swap.sourceXpubOrAddress}
+                size="sm"
+                variant="gold"
+              />
+            ),
+          },
+        ],
+      },
+      { isDivider: true, id: 'divider-4' },
+      {
+        id: 'to-title',
+        leftText: strings.toTitle,
+      },
+      {
+        id: 'to-wallet',
+        leftText: strings.toWallet,
+        rightText: swap.destinationWalletName,
+      },
+      {
+        id: 'to-account',
+        leftText: strings.toAccount,
+        rightComponent: [
+          {
+            id: 'to-account-id',
+            name: swap.destinationAccountName ?? 'Unknown',
+            muted: false,
+            icon: <swap.destinationAccountIcon />,
+          },
+        ],
+      },
+      {
+        id: 'to-asset',
+        leftText: strings.toAsset,
+        rightComponent: [
+          {
+            id: 'to-asset-id',
+            name: swap.destinationAssetName ?? 'Unknown',
+            muted: false,
+            icon: <swap.destinationAssetIcon />,
+          },
+        ],
+      },
+      {
+        id: 'to-amount',
+        leftText: strings.toAmount,
+        rightText: swap.receivedDisplayAmount,
+      },
+      {
+        id: 'to-receiver',
+        leftText: strings.toReceiver,
+        rightComponent: [
+          {
+            id: 'to-receiver-info',
+            name: swap.destinationXpubOrAddress,
+            muted: true,
+            rightIcon: (
+              <Clipboard
+                content={swap.destinationXpubOrAddress}
+                size="sm"
+                variant="gold"
+              />
+            ),
+          },
+        ],
+      },
+    ],
+    [swap, strings],
+  );
 
   return (
     <BlurOverlay>
