@@ -1,3 +1,9 @@
+# v2.0.24
+
+### 🐛 Bugfix
+
+- Fixed **Nominee Page Crash** in Cypherock Cover setup flow.
+
 # v2.0.23
 
 ### 🐛 Bugfixes
