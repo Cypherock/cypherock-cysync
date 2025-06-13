@@ -19,17 +19,9 @@ import {
 import { CustomRealmProvider } from '@/db';
 import { NavigationLogger } from '@/components/core';
 import '../utils/firebase';
-import logger from '@/utils/logger';
 
 SplashScreen.preventAutoHideAsync();
 SystemUI.setBackgroundColorAsync(colors.background.primary);
-
-export function ErrorBoundary({ error }: ErrorBoundaryProps) {
-  useEffect(() => {
-    logger.error(error.message, error);
-  }, [error]);
-  return null;
-}
 
 export default function RootLayout() {
   const [currentTheme, setCurrentTheme] = useState(getDefaultTheme());
