@@ -4,6 +4,7 @@ import { keyValueStore } from '@/db';
 import { useEffect, useState } from 'react';
 import { NetworkPingTask } from '@/bgTasks/networkTask';
 import { setCoreDependencies, setGlobalDependencies } from '@/utils';
+import logger from '@/utils/logger';
 
 setCoreDependencies();
 setGlobalDependencies();
@@ -23,7 +24,7 @@ export default function Layout() {
       try {
         await getOnboardingStatus();
       } catch (e) {
-        console.warn(e);
+        logger.warn(e);
       } finally {
         setAppIsReady(true);
       }

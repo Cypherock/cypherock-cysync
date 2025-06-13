@@ -39,6 +39,7 @@ import {
 } from '@/store';
 import { CoinIcon } from '@/components/core';
 import { LanguageStrings } from '@/constants';
+import logger from '@/utils/logger';
 
 export interface CoinAllocationRow {
   id: string;
@@ -150,7 +151,10 @@ export const useAssetAllocations = ({
     try {
       const data = refData.current;
       setIsLoading(true);
-      let result: (IAccountAllocation | ICoinAllocationWithPercentage)[] = [];
+      let result: (
+        | typeof IAccountAllocation
+        | typeof ICoinAllocationWithPercentage
+      )[] = [];
       if (data.parentAssetId) {
         result = await getAccountAllocations({
           db: getDB(),
@@ -183,9 +187,9 @@ export const useAssetAllocations = ({
 
         if ((r as any).account) {
           let account: IAccount | undefined;
-          account = (r as IAccountAllocation).account;
+          account = (r as typeof IAccountAllocation).account;
 
-          if (account.parentAccountId) {
+          if (account?.parentAccountId) {
             account = data.accounts.find(
               a => a.__id === account?.parentAccountId,
             );
@@ -239,7 +243,7 @@ export const useAssetAllocations = ({
 
       setCoinAllocations(mappedResult);
     } catch (error) {
-      console.error('Error in calculating portfolio allocation share');
+      logger.error('Error in calculating portfolio allocation share');
     }
   };
 

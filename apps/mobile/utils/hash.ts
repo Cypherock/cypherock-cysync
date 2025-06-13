@@ -12,12 +12,10 @@ export interface VerifyHashParams {
 
 const hashFunctions = {
   async hash(value: string, salt: string | number): Promise<string> {
-    console.log('hash here');
     const digest = await crypto.digestStringAsync(
       crypto.CryptoDigestAlgorithm.SHA256,
       `${value}${salt}`,
     );
-    console.log('nothing here');
     return `${salt}:${digest}`;
   },
 
