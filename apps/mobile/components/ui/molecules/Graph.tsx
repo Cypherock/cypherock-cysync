@@ -5,6 +5,7 @@ import styled from 'styled-components/native';
 import { DataPointIcon } from '../icons';
 import { FormattedGraphData } from '@/components/core';
 import { useTheme } from '../themes';
+import { runOnJS } from 'react-native-reanimated';
 
 export const DataPointCircle = styled.View`
   width: 6px;
@@ -61,66 +62,67 @@ export const DisplayGraph: FC<LineChartPropsType> = ({ ...props }) => {
     if (!props.data) return;
     const shiftAmount = 140;
     if (x > props.data?.length / 2.4) {
-      setLabelShift(-shiftAmount);
+      runOnJS(setLabelShift)(-shiftAmount);
     } else {
-      setLabelShift(20);
+      runOnJS(setLabelShift)(20);
     }
   };
 
-  return (
-    <LineChart
-      {...props}
-      areaChart
-      hideOrigin
-      initialSpacing={5}
-      endSpacing={5}
-      curved
-      pointerConfig={{
-        pointerStripColor: theme.palette.accent,
-        showPointerStrip: true,
-        strokeDashArray: [5, 6],
-        dynamicLegendContainerStyle: () => {},
-        pointerComponent: () => <DataPointIcon />,
-        shiftPointerLabelX: labelShift,
-        pointerLabelComponent: (
-          items: FormattedGraphData[],
-          _: any,
-          pointerIndex: number,
-        ) => {
-          handleFocus(pointerIndex);
-          return (
-            <DataPointLabel>
-              <DataPointCircle /> {items[0].dataPointLabelContent[0]}
-              {`\n`}
-              <DataPointCircle /> {items[0].dataPointLabelContent[1]}
-            </DataPointLabel>
-          );
-        },
-      }}
-      width={props.width}
-      adjustToWidth
-      height={props.height}
-      rulesColor={colors.text.secondary}
-      xAxisColor={colors.text.secondary}
-      yAxisColor={'transparent'}
-      hideDataPoints
-      color1={props.color}
-      startFillColor={`rgba(${colorRgb.r}, ${colorRgb.g}, ${colorRgb.b}, 1)`}
-      startOpacity={1}
-      endFillColor={`rgba(${colorRgb.r}, ${colorRgb.g}, ${colorRgb.b}, 0)`}
-      endOpacity={0}
-      noOfSections={5}
-      yAxisTextStyle={{
-        color: colors.text.secondary,
-        fontSize: theme.typography.fontSize.xs,
-      }}
-      xAxisLabelTextStyle={{
-        width: 40,
-        color: colors.text.secondary,
-        fontSize: theme.typography.fontSize.xs,
-        textAlign: 'left',
-      }}
-      disableScroll
-    />
-  );
+  const pointerConfig: LineChartPropsType['pointerConfig'] = {
+    pointerStripColor: theme.palette.accent,
+    showPointerStrip: true,
+    strokeDashArray: [5, 6],
+    dynamicLegendContainerStyle: () => {},
+    pointerComponent: () => <DataPointIcon />,
+    shiftPointerLabelX: labelShift,
+    pointerLabelComponent: (
+      items: FormattedGraphData[],
+      _: any,
+      pointerIndex: number,
+    ) => {
+      handleFocus(pointerIndex);
+      return (
+        <DataPointLabel>
+          <DataPointCircle /> {items[0].dataPointLabelContent[0]}
+          {`\n`}
+          <DataPointCircle /> {items[0].dataPointLabelContent[1]}
+        </DataPointLabel>
+      );
+    },
+  };
+
+  const chartProps: LineChartPropsType = {
+    areaChart: true,
+    hideOrigin: true,
+    initialSpacing: 5,
+    endSpacing: 5,
+    curved: true,
+    pointerConfig: pointerConfig,
+    width: props.width,
+    adjustToWidth: true,
+    height: props.height,
+    rulesColor: colors.text.secondary,
+    xAxisColor: colors.text.secondary,
+    yAxisColor: 'transparent',
+    hideDataPoints: true,
+    color1: props.color,
+    startFillColor: `rgba(${colorRgb.r}, ${colorRgb.g}, ${colorRgb.b}, 1)`,
+    startOpacity: 1,
+    endFillColor: `rgba(${colorRgb.r}, ${colorRgb.g}, ${colorRgb.b}, 0)`,
+    endOpacity: 0,
+    noOfSections: 5,
+    yAxisTextStyle: {
+      color: colors.text.secondary,
+      fontSize: theme.typography.fontSize.xs,
+    },
+    xAxisLabelTextStyle: {
+      width: 40,
+      color: colors.text.secondary,
+      fontSize: theme.typography.fontSize.xs,
+      textAlign: 'left',
+    },
+    disableScroll: true,
+  };
+
+  return <LineChart {...props} {...chartProps} />;
 };
