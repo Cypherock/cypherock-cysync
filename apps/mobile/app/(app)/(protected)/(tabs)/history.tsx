@@ -19,7 +19,7 @@ import { colors } from '@/components/ui/themes/color.styled';
 import { selectNetwork, useAppSelector } from '@/store';
 import { selectLanguage } from '@/store/lang';
 import { router } from 'expo-router';
-import React, { useEffect } from 'react';
+import React from 'react';
 import {
   TransactionTableHeaderKeys,
   transactionComparatorMap,
@@ -27,7 +27,6 @@ import {
   useTransactions,
 } from '@/hooks/useTransactions';
 import { useHistoryContext } from '@/contexts/useHistoryContext';
-import { crash, getCrashlytics } from '@react-native-firebase/crashlytics';
 
 export default function History() {
   const { strings } = useAppSelector(selectLanguage);
@@ -35,14 +34,8 @@ export default function History() {
     useTransactions();
   const { setSelectedTransaction, setFrom } = useHistoryContext();
   const { active } = useAppSelector(selectNetwork);
-  const crashlytics = getCrashlytics();
-
-  useEffect(() => {
-    crash(crashlytics);
-  }, []);
 
   if (noData) {
-    crash(crashlytics);
     return (
       <NoDataScreen
         title={strings.portfolio.noAccount.title}
