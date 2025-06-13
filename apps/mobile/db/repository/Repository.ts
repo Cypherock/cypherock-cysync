@@ -116,33 +116,30 @@ export class Repository<T extends IEntity> implements IRepository<T> {
     options?: IGetOptions<T>,
   ): Promise<(T & Required<IEntity>)[]> {
     try {
-      let results = await this.findObjects(filter);
+      let result;
+
+      if (!filter || (Array.isArray(filter) && filter.length === 0)) {
+        result = this.realm.objects<T & Realm.Object>(this.name);
+      } else {
+        result = await this.findObjects(filter);
+      }
 
       if (options?.sortBy) {
-        results = results.sorted(
-          options.sortBy.key as string,
-          options.sortBy.descending,
-        );
-      }
-      if (options?.sortBy) {
-        results = results.sorted(
-          options.sortBy.key as string,
-          options.sortBy.descending,
-        );
+        const { key, descending } = options.sortBy;
+        result.sorted(key.toString(), descending);
       }
 
       if (options?.limit) {
-        results = results.slice(0, options.limit) as unknown as Realm.Results<
-          T & Realm.Object
-        >;
+        return Array.from(
+          result
+            .slice(0, options.limit)
+            .map(o => o.toJSON() as unknown as T & Required<IEntity>),
+        );
       }
 
-      return Array.from(results).map(result => ({
-        ...result,
-        __id: result.__id || uuidv4(),
-        __version: result.__version ?? 0,
-        meta: result.meta ?? { created: undefined },
-      }));
+      return Array.from(
+        result.map(o => o.toJSON() as unknown as T & Required<IEntity>),
+      );
     } catch (error: any) {
       throw new DatabaseError(
         DatabaseErrorType.GET_FAILED,
@@ -162,27 +159,39 @@ export class Repository<T extends IEntity> implements IRepository<T> {
   private async findObjects(
     filter?: Partial<T> | Partial<T>[],
   ): Promise<Realm.Results<T & Realm.Object>> {
-    let query = '';
-
-    if (filter) {
-      const filters = Array.isArray(filter) ? filter : [filter];
-
-      query = filters
-        .map(f =>
-          Object.entries(f)
-            .map(([key, value]) => {
-              if (!value) return `${key} == null`;
-              if (typeof value === 'string') return `${key} == "${value}"`;
-              if (typeof value === 'boolean') return `${key} == ${value}`;
-              return `${key} == ${value}`;
-            })
-            .join(' AND '),
-        )
-        .join(' OR ');
+    if (!filter || (Array.isArray(filter) && filter.length === 0)) {
+      return this.realm
+        .objects<T>(this.name)
+        .filtered('FALSEPREDICATE') as unknown as Realm.Results<
+        T & Realm.Object
+      >;
     }
 
+    const filters = Array.isArray(filter) ? filter : [filter];
+
+    const query = filters
+      .map(f => {
+        if (Object.keys(f).length === 0) {
+          return null;
+        }
+        return Object.entries(f)
+          .map(([key, value]) => {
+            if (value === null || value === undefined) {
+              return `${key} == null`;
+            }
+            if (typeof value === 'string') return `${key} == "${value}"`;
+            if (typeof value === 'boolean') return `${key} == ${value}`;
+            return `${key} == ${value}`;
+          })
+          .join(' AND ');
+      })
+      .filter(q => q != null)
+      .join(' OR ');
+
     if (!query.trim()) {
-      return this.realm.objects(this.name) as unknown as Realm.Results<
+      return this.realm
+        .objects<T>(this.name)
+        .filtered('FALSEPREDICATE') as unknown as Realm.Results<
         T & Realm.Object
       >;
     }
