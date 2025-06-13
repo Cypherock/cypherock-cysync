@@ -11,6 +11,7 @@ import {
   IPriceHistory,
   IPriceInfo,
 } from '@cypherock/db-interfaces';
+import logger from '../logger';
 
 const getClosestTimestamps = (
   sortedBalanceHistory: IGetAccountHistoryResult['history'],
@@ -128,7 +129,7 @@ export const getBalanceHistory = async (params: {
       balanceHistoryList.push(result);
     },
     onError: error => {
-      console.error(error);
+      logger.error(error);
     },
     onComplete: () => {},
   });
