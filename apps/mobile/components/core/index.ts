@@ -6,3 +6,4 @@ export * from './Graph';
 export * from './AllocationTable';
 export * from './PortfolioHeader';
 export * from './NavigationLogger';
+export * from './ErrorScreen';
