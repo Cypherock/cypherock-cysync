@@ -9,7 +9,7 @@ import { getDB } from '@/utils';
 
 export const syncPriceHistories = ({ families }: { families: string[] }) =>
   new Promise<void>(resolve => {
-    const observer: Observer<ISyncPriceHistoriesEvent> = {
+    const observer: Observer<typeof ISyncPriceHistoriesEvent> = {
       error: () => {
         resolve();
       },
