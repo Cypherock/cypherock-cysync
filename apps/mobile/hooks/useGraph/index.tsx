@@ -33,6 +33,7 @@ import {
   CalculatePortfolioGraphDataType,
 } from '@/utils';
 import Entypo from '@expo/vector-icons/Entypo';
+import logger from '@/utils/logger';
 
 export interface UseGraphProps {
   assetId?: string;
@@ -161,7 +162,7 @@ export const useGraph = ({ selectedRange, ...props }: UseGraphProps) => {
 
       if (result) setCalculatedData(result);
     } catch (error) {
-      console.error('Error in calculatePortfolioData:', error);
+      logger.error('Error in calculatePortfolioData:', error as any);
     }
 
     setIsLoading(false);
@@ -200,7 +201,7 @@ export const useGraph = ({ selectedRange, ...props }: UseGraphProps) => {
     const { parentAssetId, assetId } = getAssetDetailsFromProps();
     if (new BigNumber(value).isNaN()) return '';
     const showUnitInUSD = showInUSD ?? showGraphInUSD;
-    let unit: ICoinUnit | undefined;
+    let unit: typeof ICoinUnit | undefined;
 
     if (parentAssetId) {
       unit = getDefaultUnit(parentAssetId, assetId);

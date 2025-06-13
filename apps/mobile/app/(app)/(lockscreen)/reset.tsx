@@ -7,6 +7,8 @@ import Feather from '@expo/vector-icons/Feather';
 import { getDB } from '@/utils';
 import { keyDb } from '@/db';
 import { useLockscreen } from '@/contexts/useLockscreenContext';
+import logger from '@/utils/logger';
+import { reloadAppAsync } from 'expo';
 
 export default function Reset() {
   const { strings } = useAppSelector(selectLanguage);
@@ -15,11 +17,11 @@ export default function Reset() {
   const db = getDB();
 
   const reset = async () => {
-    console.log('Reset Cysync');
+    logger.info('Reset Cysync');
     await db.clear();
     await keyDb.clear();
     await removePassword();
-    router.dismissAll();
+    reloadAppAsync();
   };
 
   return (

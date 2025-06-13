@@ -82,7 +82,6 @@ export class Repository<T extends IEntity> implements IRepository<T> {
 
       return Array.from(objects);
     } catch (error: any) {
-      console.log(error);
       throw new DatabaseError(
         DatabaseErrorType.UPDATE_FAILED,
         `Failed to update: ${error.message}`,

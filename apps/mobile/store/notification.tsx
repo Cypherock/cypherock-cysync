@@ -9,6 +9,7 @@ export interface INotificationState {
 }
 
 import type { RootState } from '.';
+import logger from '@/utils/logger';
 
 const initialState: INotificationState = {
   unreadTransactions: 0,
@@ -22,7 +23,7 @@ export const notificationSlice = createSlice({
   reducers: {
     toggleNotification: state => {
       state.isOpen = !state.isOpen;
-      console.info('Toggle Notification', { isOpen: state.isOpen });
+      logger.info('Toggle Notification', { isOpen: state.isOpen });
     },
     setTransactionNotifications: (
       state,
