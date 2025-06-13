@@ -10,6 +10,7 @@ import {
 } from '@/store';
 import { setTransactions } from '@/store/transaction';
 import { getDB } from '@/utils';
+import logger from '@/utils/logger';
 import { throttle } from 'lodash';
 
 const createFuncWithErrorHandler =
@@ -20,9 +21,7 @@ const createFuncWithErrorHandler =
 
       return true;
     } catch (error) {
-      console.log(`Error in ${name}`);
-      console.log(error);
-
+      logger.error(`Error in ${name}`, error as any);
       return false;
     }
   };

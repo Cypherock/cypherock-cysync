@@ -14,6 +14,7 @@ import {
   CalculatePortfolioGraphDataParams,
 } from './types';
 import { memoizeFunctionWithObjectArg } from '../memoize';
+import logger from '../logger';
 
 export * from './types';
 
@@ -246,7 +247,7 @@ export const calculatePortfolioGraphData = memoizeFunctionWithObjectArg(
 
       return { balanceHistory, summary, graphData };
     } catch (error) {
-      console.error('Error in calculatePortfolioGraphData:', error);
+      logger.error('Error in calculatePortfolioGraphData:', error as any);
     }
 
     return undefined;

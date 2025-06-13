@@ -13,6 +13,7 @@ import { getDB } from '@/utils';
 import { inflate } from 'pako';
 import { colors } from '@/components/ui/themes/color.styled';
 import Feather from '@expo/vector-icons/Feather';
+import logger from '@/utils/logger';
 
 interface CysyncData {
   wallets: IWallet[];
@@ -71,7 +72,7 @@ export default function Scan() {
       await db.wallet.insert(data.wallets);
       await db.account.insert(data.accounts);
     } catch (error) {
-      console.error('Error saving data to DB:', error);
+      logger.error('Error saving data to DB:', error as any);
     }
   }
 

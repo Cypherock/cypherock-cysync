@@ -8,6 +8,7 @@ import React, {
 
 import { getDB } from '@/utils';
 import * as passwordUtils from '@/utils/password';
+import logger from '@/utils/logger';
 
 export interface LockscreenContextInterface {
   isLocked: boolean;
@@ -48,7 +49,7 @@ export const LockscreenProvider: React.FC<LockscreenProviderProps> = ({
       await loadDB();
     }
 
-    console.info('Application lock status', { hasPassword });
+    logger.info('Application lock status', { hasPassword });
 
     setIsLocked(hasPassword);
     setIsPasswordSet(hasPassword);
@@ -70,7 +71,7 @@ export const LockscreenProvider: React.FC<LockscreenProviderProps> = ({
     const isPasswordCorrect = await passwordUtils.verifyPassword(password);
 
     if (!isPasswordCorrect) {
-      console.info('Incorrect password entered while unlocking');
+      logger.info('Incorrect password entered while unlocking');
       return false;
     }
 
@@ -86,7 +87,7 @@ export const LockscreenProvider: React.FC<LockscreenProviderProps> = ({
       await passwordUtils.verifyPassword(existingPassword);
 
     if (!isPasswordCorrect) {
-      console.info('Incorrect password entered while changing password');
+      logger.info('Incorrect password entered while changing password');
       return false;
     }
 
@@ -97,11 +98,11 @@ export const LockscreenProvider: React.FC<LockscreenProviderProps> = ({
       const encryptionKey = await passwordUtils.getEncryptionKey(password);
       await db.changeEncryptionKey(encryptionKey);
       setIsPasswordSet(true);
-      console.info('Password successfully changed');
+      logger.info('Password successfully changed');
     } else {
       await db.changeEncryptionKey(undefined);
       setIsPasswordSet(false);
-      console.info('Password removed');
+      logger.info('Password removed');
     }
 
     return true;
@@ -127,7 +128,7 @@ export const LockscreenProvider: React.FC<LockscreenProviderProps> = ({
     await db.changeEncryptionKey(undefined);
     setIsPasswordSet(false);
     setIsLocked(false);
-    console.info('Password removed');
+    logger.info('Password removed');
     return true;
   };
 

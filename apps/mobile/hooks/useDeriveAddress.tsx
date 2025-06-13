@@ -4,6 +4,7 @@ const { getCoinSupport } = require('@cypherock/coin-support');
 import { IReceiveEvent } from '@cypherock/coin-support-interfaces';
 import { getDB } from '@/utils';
 import { IAccount } from '@cypherock/db-interfaces';
+import logger from '@/utils/logger';
 
 interface UseDeriveAddressProps {
   selectedAccount?: IAccount;
@@ -57,8 +58,7 @@ export const useDeriveAddress = ({
         .subscribe(getFlowObserver());
       flowSubscription.current = subscription;
     } catch (error) {
-      console.log(error);
-      console.log('Failed to derive address');
+      logger.error('Failed to derive address', error as any);
     }
   }, [selectedAccount]);
 
