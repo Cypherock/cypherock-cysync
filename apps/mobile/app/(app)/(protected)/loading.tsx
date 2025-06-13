@@ -64,6 +64,10 @@ export default function Loading() {
     if (isPriceHistorySyncComplete) progress += 3;
     accountSyncProgress.current = progress;
     setSyncProgress(progress);
+
+    return () => {
+      accountSyncProgress.current = 0;
+    };
   }, [
     accountSyncMap,
     isPriceSyncComplete,

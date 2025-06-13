@@ -202,11 +202,11 @@ export class Repository<T extends IEntity> implements IRepository<T> {
   }
 
   addListener(type: 'change', listener: (...args: any[]) => void): void {
-    this.realm.addListener(type, listener);
+    this.realm.objects(this.name).addListener(listener);
   }
 
   removeListener(type: 'change', listener: (...args: any[]) => void): void {
-    this.realm.removeListener(type, listener);
+    this.realm.objects(this.name).removeListener(listener);
   }
 
   removeAllListener(type?: 'change'): void {
