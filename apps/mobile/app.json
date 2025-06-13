@@ -9,7 +9,8 @@
     "newArchEnabled": true,
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.cypherock.cysync"
+      "bundleIdentifier": "com.cypherock.cysync",
+      "googleServicesFile": "./GoogleService-Info.plist"
     },
     "android": {
       "googleServicesFile": "./google-services.json",

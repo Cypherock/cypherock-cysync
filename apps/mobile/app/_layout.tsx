@@ -4,7 +4,7 @@ import {
   LottieSplash,
   ThemeType,
 } from '@/components/ui';
-import { Slot } from 'expo-router';
+import { ErrorBoundaryProps, Slot } from 'expo-router';
 import { ThemeProvider } from 'styled-components/native';
 import * as SystemUI from 'expo-system-ui';
 import { colors } from '@/components/ui/themes/color.styled';
@@ -19,31 +19,20 @@ import {
 import { CustomRealmProvider } from '@/db';
 import { NavigationLogger } from '@/components/core';
 import '../utils/firebase';
-import {
-  log,
-  getCrashlytics,
-  setCrashlyticsCollectionEnabled,
-} from '@react-native-firebase/crashlytics';
+import logger from '@/utils/logger';
 
 SplashScreen.preventAutoHideAsync();
 SystemUI.setBackgroundColorAsync(colors.background.primary);
 
+export function ErrorBoundary({ error }: ErrorBoundaryProps) {
+  useEffect(() => {
+    logger.error(error.message, error);
+  }, [error]);
+  return null;
+}
+
 export default function RootLayout() {
   const [currentTheme, setCurrentTheme] = useState(getDefaultTheme());
-  const crashlytics = getCrashlytics();
-
-  useEffect(() => {
-    setCrashlyticsCollectionEnabled(crashlytics, true);
-    console.log({
-      isCrashlyticsCollectionEnabled:
-        crashlytics.isCrashlyticsCollectionEnabled,
-    });
-    log(crashlytics, 'App started. Crashlytics should be active.');
-  }, []);
-
-  useEffect(() => {
-    log(crashlytics, 'app mounted!');
-  }, []);
 
   return (
     <StoreProvider store={store}>
