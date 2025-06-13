@@ -64,15 +64,14 @@ export const updateLogger = (createLogger: LogCreator) => {
 };
 
 export const createServiceLogger = (serviceName: string): ILogger => {
-  const consoleLogger = createDefaultConsoleLogger(serviceName);
   const crashlytics = getCrashlytics();
+  const consoleLogger = createDefaultConsoleLogger(serviceName);
 
   const logToCrashlytics = (
     level: string,
     message: string | object,
     meta?: object,
   ) => {
-    if (!crashlytics) return;
     let formattedMessage =
       typeof message === 'object' ? JSON.stringify(message) : message;
     let logMessage = `[${serviceName}] [${level}] ${formattedMessage}`;
