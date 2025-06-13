@@ -1,5 +1,11 @@
 # @cypherock/cysync-ui
 
+## 0.0.12
+
+### Patch Changes
+
+- [#752](https://github.com/Cypherock/cypherock-cysync/pull/752) [`d139423b`](https://github.com/Cypherock/cypherock-cysync/commit/d139423bf51d3f2c478de87bad4ccef877ea1238) Thanks [@AryanCypherock](https://github.com/AryanCypherock)! - swap feature added
+
 ## 0.0.11
 
 ### Patch Changes
