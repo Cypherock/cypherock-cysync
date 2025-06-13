@@ -1,5 +1,11 @@
 # @cypherock/coin-support-tron
 
+## 0.0.13-pre.0
+
+### Patch Changes
+
+- [#754](https://github.com/Cypherock/cypherock-cysync/pull/754) [`e556620b`](https://github.com/Cypherock/cypherock-cysync/commit/e556620b7819ec9e166c587345fc446710e512c0) Thanks [@muzaffarbhat07](https://github.com/muzaffarbhat07)! - reverted incorrect lint fixes to fix crashes
+
 ## 0.0.12
 
 ### Patch Changes
