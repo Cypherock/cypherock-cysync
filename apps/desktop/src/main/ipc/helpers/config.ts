@@ -4,6 +4,7 @@ export const ipcConfig = {
     getDevices: 'device:list',
     connectDevice: 'device:connect',
     connectedDeviceMethodCall: 'device:method:call',
+    updateDeviceFirmware: 'device:firmware:update',
     dbMethodCall: 'db:method:call',
     dbMethodList: 'db:method:list',
     keyDbMethodCall: 'keydb:method:call',
@@ -26,6 +27,8 @@ export const ipcConfig = {
     dbListenerPrefix: 'db:listener',
     wcConnection: 'wc:connection',
     usbConnectionChange: 'usb:connection:change',
+    updateDeviceFirmwareProgress: 'device:firmware:update:progress',
+    updateDeviceFirmwareStatus: 'device:firmware:update:status',
   },
   // Environment variables to inject in renderer
   env: [

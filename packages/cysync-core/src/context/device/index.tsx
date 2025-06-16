@@ -3,19 +3,17 @@ import {
   GetDevices,
   AddUsbChangeListener,
   RemoveUsbChangeListener,
+  UpdateDeviceFirmware,
+  AddUpdateDeviceFirmwareProgressListener,
+  AddUpdateDeviceFirmwareStatusListener,
+  RemoveUpdateDeviceFirmwareListeners,
 } from '@cypherock/cysync-interfaces';
 import { createLoggerWithPrefix } from '@cypherock/cysync-utils';
 import { OnboardingStep } from '@cypherock/sdk-app-manager';
 import { IDevice, IDeviceConnection } from '@cypherock/sdk-interfaces';
 import lodash from 'lodash';
 import PropTypes from 'prop-types';
-import React, {
-  useCallback,
-  useEffect,
-  useMemo,
-  useRef,
-  useState,
-} from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 
 import { keyValueStore } from '~/utils';
 
@@ -33,7 +31,7 @@ import {
   IDeviceConnectionRetry,
 } from './types';
 
-import { useStateWithRef } from '../../hooks';
+import { useMemoReturn, useStateWithRef } from '../../hooks';
 import baseLogger from '../../utils/logger';
 
 export * from './types';
@@ -48,6 +46,10 @@ export interface DeviceContextInterface {
   reconnectDevice: () => void;
   deviceHandlingState: DeviceHandlingState;
   getDeviceHandlingState: () => DeviceHandlingState;
+  updateDeviceFirmware: UpdateDeviceFirmware;
+  addUpdateDeviceFirmwareProgressListener: AddUpdateDeviceFirmwareProgressListener;
+  addUpdateDeviceFirmwareStatusListener: AddUpdateDeviceFirmwareStatusListener;
+  removeUpdateDeviceFirmwareListeners: RemoveUpdateDeviceFirmwareListeners;
 }
 
 export const DeviceContext: React.Context<DeviceContextInterface> =
@@ -59,6 +61,10 @@ export interface DeviceProviderProps {
   connectDevice: ConnectDevice;
   addUsbChangeListener: AddUsbChangeListener;
   removeUsbChangeListener: RemoveUsbChangeListener;
+  updateDeviceFirmware: UpdateDeviceFirmware;
+  addUpdateDeviceFirmwareProgressListener: AddUpdateDeviceFirmwareProgressListener;
+  addUpdateDeviceFirmwareStatusListener: AddUpdateDeviceFirmwareStatusListener;
+  removeUpdateDeviceFirmwareListeners: RemoveUpdateDeviceFirmwareListeners;
 }
 
 /**
@@ -72,6 +78,7 @@ export const DeviceProvider: React.FC<DeviceProviderProps> = ({
   connectDevice,
   addUsbChangeListener,
   removeUsbChangeListener,
+  ...updateDeviceFirmwareFunctions
 }) => {
   const [connectionInfo, setConnectionInfo, connectionInfoRef] =
     useStateWithRef<IDeviceConnectionInfo | undefined>(undefined);
@@ -239,23 +246,15 @@ export const DeviceProvider: React.FC<DeviceProviderProps> = ({
     };
   }, []);
 
-  const ctx = useMemo(
-    () => ({
-      connection: connectionInfo,
-      connectDevice,
-      getDevices,
-      reconnectDevice,
-      deviceHandlingState,
-      getDeviceHandlingState,
-    }),
-    [
-      connectionInfo,
-      connectDevice,
-      getDevices,
-      reconnectDevice,
-      deviceHandlingState,
-    ],
-  );
+  const ctx = useMemoReturn({
+    connection: connectionInfo,
+    connectDevice,
+    getDevices,
+    reconnectDevice,
+    deviceHandlingState,
+    getDeviceHandlingState,
+    ...updateDeviceFirmwareFunctions,
+  });
 
   return (
     <DeviceContext.Provider value={ctx}>{children}</DeviceContext.Provider>

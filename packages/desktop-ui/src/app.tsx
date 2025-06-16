@@ -44,6 +44,16 @@ const App = () => (
               removeUsbChangeListener={
                 window.electronAPI.removeUsbChangeListener
               }
+              updateDeviceFirmware={window.electronAPI.updateDeviceFirmware}
+              addUpdateDeviceFirmwareProgressListener={
+                window.electronAPI.addUpdateDeviceFirmwareProgressListener
+              }
+              addUpdateDeviceFirmwareStatusListener={
+                window.electronAPI.addUpdateDeviceFirmwareStatusListener
+              }
+              removeUpdateDeviceFirmwareListeners={
+                window.electronAPI.removeUpdateDeviceFirmwareListeners
+              }
             >
               <AppUpdateProvider>
                 <LatestDeviceVersionProvider>

@@ -1,4 +1,5 @@
 import { GetDevices } from '@cypherock/cysync-interfaces';
+import { ManagerApp } from '@cypherock/sdk-app-manager';
 import { DeviceConnection as DeviceConnectionHID } from '@cypherock/sdk-hw-hid';
 import { DeviceConnection as DeviceConnectionSerialPort } from '@cypherock/sdk-hw-serialport';
 import {
@@ -13,6 +14,8 @@ import { ipcConfig } from './helpers/config';
 import { callMethodOnObject, getMethodListFromObject } from './helpers/utils';
 
 import * as deviceUtils from '../utils/device';
+
+let firmwareWebContents: WebContents | undefined;
 
 const getDevices: GetDevices = async () => {
   const hidDevices = await DeviceConnectionHID.list();
@@ -54,7 +57,54 @@ const connectedDeviceMethodCall = async (
   return res;
 };
 
+const updateDeviceFirmware = async ({
+  firmware,
+  version,
+  allowPrerelease,
+}: {
+  firmware: Uint8Array;
+  version: { major: number; minor: number; patch: number };
+  allowPrerelease?: boolean;
+}) => {
+  const connected = deviceUtils.getConnectedDevice();
+
+  if (!connected) {
+    throw new DeviceConnectionError(DeviceConnectionErrorType.NOT_CONNECTED);
+  }
+
+  const { connection } = connected;
+
+  const app = await ManagerApp.create(connection);
+
+  await app.updateFirmware({
+    firmware,
+    version,
+    allowPrerelease,
+    getDevices,
+    createConnection: async (device: IDevice) =>
+      (
+        await deviceUtils.connectDevice(device)
+      ).connection,
+    onEvent: status => {
+      firmwareWebContents?.send(
+        ipcConfig.listeners.updateDeviceFirmwareStatus,
+        status,
+      );
+    },
+    onProgress: progress => {
+      firmwareWebContents?.send(
+        ipcConfig.listeners.updateDeviceFirmwareProgress,
+        progress,
+      );
+    },
+  });
+
+  return true;
+};
+
 export const setupDeviceListeners = async (webContents: WebContents) => {
+  firmwareWebContents = webContents;
+
   const onChange = () => {
     if (!webContents.isDestroyed()) {
       webContents.send(`${ipcConfig.listeners.usbConnectionChange}`);
@@ -81,5 +131,9 @@ export const getDeviceIPCHandlers = () => [
   {
     name: ipcConfig.methods.connectedDeviceMethodCall,
     func: connectedDeviceMethodCall,
+  },
+  {
+    name: ipcConfig.methods.updateDeviceFirmware,
+    func: updateDeviceFirmware,
   },
 ];
