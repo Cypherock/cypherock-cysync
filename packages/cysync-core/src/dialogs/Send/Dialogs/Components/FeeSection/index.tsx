@@ -242,7 +242,7 @@ export const FeeSection: React.FC<FeeSectionProps> = ({
   }) => {
     setIsFeeLoading(true);
     const txn = transactionRef.current.transaction as IPreparedEvmTransaction;
-    const gasPrice = param.gasPrice?.toString(10)
+    let gasPrice = param.gasPrice?.toString(10)
       ? convertToUnit({
           amount: param.gasPrice,
           coinId: selectedAccount?.parentAssetId ?? '',
@@ -250,6 +250,8 @@ export const FeeSection: React.FC<FeeSectionProps> = ({
           toUnitAbbr: getZeroUnit(selectedAccount?.parentAssetId ?? '').abbr,
         }).amount
       : txn.userInputs.gasPrice;
+    if (gasPrice) gasPrice = new BigNumber(gasPrice).toFixed(0);
+
     const gasLimit = param.gasLimit ?? Number(txn.computedData.gasLimit);
 
     // the gas price check for 2/3 of the average is same as bitcoin
