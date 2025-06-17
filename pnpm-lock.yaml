@@ -270,6 +270,9 @@ importers:
       '@cypherock/db-interfaces':
         specifier: workspace:^
         version: link:../../packages/db-interfaces
+      '@cypherock/sdk-app-manager':
+        specifier: ^0.0.33
+        version: 0.0.33
       '@cypherock/sdk-core':
         specifier: ^0.1.0
         version: 0.1.0

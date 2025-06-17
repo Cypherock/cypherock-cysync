@@ -20,6 +20,10 @@ const exportedFunctions = [
     key: ipcConfig.methods.getDevices,
   },
   {
+    name: 'updateDeviceFirmware',
+    key: ipcConfig.methods.updateDeviceFirmware,
+  },
+  {
     name: 'resetCySync',
     key: ipcConfig.methods.resetCySync,
   },
@@ -97,6 +101,21 @@ const exportedListeners = [
   {
     name: 'removeUsbChangeListener',
     remove: [ipcConfig.listeners.usbConnectionChange],
+  },
+  {
+    name: 'addUpdateDeviceFirmwareProgressListener',
+    key: ipcConfig.listeners.updateDeviceFirmwareProgress,
+  },
+  {
+    name: 'addUpdateDeviceFirmwareStatusListener',
+    key: ipcConfig.listeners.updateDeviceFirmwareStatus,
+  },
+  {
+    name: 'removeUpdateDeviceFirmwareListeners',
+    remove: [
+      ipcConfig.listeners.updateDeviceFirmwareProgress,
+      ipcConfig.listeners.updateDeviceFirmwareStatus,
+    ],
   },
 ];
 

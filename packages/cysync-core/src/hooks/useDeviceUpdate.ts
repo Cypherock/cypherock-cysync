@@ -20,7 +20,13 @@ enum InternalState {
 }
 
 export const useDeviceUpdate = () => {
-  const { connection, connectDevice, getDevices } = useDevice();
+  const {
+    connection,
+    updateDeviceFirmware,
+    addUpdateDeviceFirmwareStatusListener,
+    addUpdateDeviceFirmwareProgressListener,
+    removeUpdateDeviceFirmwareListeners,
+  } = useDevice();
   const [state, setState] = useState(DeviceUpdateState.Checking);
   const [downloadProgress, setDownloadProgress] = useState(0);
   const [internalState, setInternalState] = useState(InternalState.Checking);
@@ -29,11 +35,31 @@ export const useDeviceUpdate = () => {
   );
   const firmwareRef = useRef<Uint8Array | undefined>(undefined);
   const [errorToShow, setErrorToShow] = useState<Error | undefined>();
-
   const connectionRef = useRef<IDeviceConnectionInfo | undefined>(connection);
 
   useEffect(() => {
     connectionRef.current = connection;
+  }, [connection]);
+
+  useEffect(() => {
+    const onProgress = (progress: number) => {
+      setDownloadProgress(progress);
+    };
+
+    const onStatus = (status: UpdateFirmwareStatus) => {
+      if (
+        status === UpdateFirmwareStatus.UPDATE_FIRMWARE_STATUS_USER_CONFIRMED
+      ) {
+        setState(DeviceUpdateState.Updating);
+      }
+    };
+
+    addUpdateDeviceFirmwareProgressListener(onProgress);
+    addUpdateDeviceFirmwareStatusListener(onStatus);
+
+    return () => {
+      removeUpdateDeviceFirmwareListeners();
+    };
   }, []);
 
   const setStateWithResetError = (s: DeviceUpdateState) => {
@@ -41,27 +67,25 @@ export const useDeviceUpdate = () => {
     setState(s);
   };
 
-  const updateFirmwareTask: DeviceTask<void> = async con => {
-    const app = await ManagerApp.create(con);
+  const updateFirmwareTask: DeviceTask<void> = async () => {
     const versionArr = versionRef.current?.split('.') ?? [];
 
-    await app.updateFirmware({
-      firmware: firmwareRef.current,
-      version: {
-        major: parseInt(versionArr[0], 10),
-        minor: parseInt(versionArr[1], 10),
-        patch: parseInt(versionArr[2], 10),
-      },
-      getDevices,
-      createConnection: connectDevice,
-      onProgress: setDownloadProgress,
+    const versionObj = {
+      major: parseInt(versionArr[0], 10),
+      minor: parseInt(versionArr[1], 10),
+      patch: parseInt(versionArr[2], 10),
+    };
+
+    const firmware = firmwareRef.current;
+    if (!firmware) throw new Error('Firmware not available');
+
+    const res = await updateDeviceFirmware({
+      firmware,
+      version: versionObj,
       allowPrerelease: window.cysyncEnv.ALLOW_PRERELEASE === 'true',
-      onEvent: e => {
-        if (e === UpdateFirmwareStatus.UPDATE_FIRMWARE_STATUS_USER_CONFIRMED) {
-          setState(DeviceUpdateState.Updating);
-        }
-      },
     });
+
+    if (!res) throw new Error('Firmware update failed');
   };
 
   const task = useDeviceTask(updateFirmwareTask, { dontExecuteTask: true });

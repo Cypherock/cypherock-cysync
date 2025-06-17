@@ -30,6 +30,14 @@ export type RemoveExternalLinkListener = () => Promise<void>;
 export type AddUsbChangeListener = (listener: () => void) => void;
 export type RemoveUsbChangeListener = () => Promise<void>;
 export type GetSystemInfo = () => Promise<any>;
+export type UpdateDeviceFirmware = (params: any) => Promise<boolean>;
+export type AddUpdateDeviceFirmwareProgressListener = (
+  listener: (progress: number) => void,
+) => void;
+export type AddUpdateDeviceFirmwareStatusListener = (
+  listener: (status: any) => void,
+) => void;
+export type RemoveUpdateDeviceFirmwareListeners = () => Promise<void>;
 
 export interface IElectronAPI {
   logWithServiceAndLevel: LogWithServiceAndMethod;
@@ -55,4 +63,8 @@ export interface IElectronAPI {
   getSystemInfo: GetSystemInfo;
   addUsbChangeListener: AddUsbChangeListener;
   removeUsbChangeListener: RemoveUsbChangeListener;
+  updateDeviceFirmware: UpdateDeviceFirmware;
+  addUpdateDeviceFirmwareProgressListener: AddUpdateDeviceFirmwareProgressListener;
+  addUpdateDeviceFirmwareStatusListener: AddUpdateDeviceFirmwareStatusListener;
+  removeUpdateDeviceFirmwareListeners: RemoveUpdateDeviceFirmwareListeners;
 }
