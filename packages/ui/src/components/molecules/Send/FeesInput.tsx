@@ -63,7 +63,7 @@ export const FeesInput: React.FC<FeesInputProps> = ({
 
       if (Number.isNaN(numberValue)) return;
 
-      setValueInternal(val);
+      setValueInternal(numberValue.toString());
       onChangeProxy(numberValue);
     },
     [valueType, onChangeProxy, parseNumber],
