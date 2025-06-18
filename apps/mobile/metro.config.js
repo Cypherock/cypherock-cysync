@@ -5,16 +5,27 @@ const projectRoot = __dirname;
 const monorepoRoot = path.resolve(projectRoot, '../..');
 
 const config = getDefaultConfig(projectRoot);
-
 config.watchFolders = [monorepoRoot];
+
 config.resolver.extraNodeModules = {
-  ...require('node-libs-react-native'),
-  crypto: require.resolve('react-native-crypto'),
+  ...config.resolver.extraNodeModules,
+  crypto: require.resolve('react-native-quick-crypto'),
+  buffer: require.resolve('buffer'),
+  assert: require.resolve('assert'),
+  http: require.resolve('stream-http'),
+  https: require.resolve('https-browserify'),
+  os: require.resolve('os-browserify/browser'),
+  path: require.resolve('path-browserify'),
+  stream: require.resolve('readable-stream'),
+  url: require.resolve('url'),
+  vm: require.resolve('vm-browserify'),
 };
+
 config.resolver.nodeModulesPaths = [
   path.resolve(projectRoot, 'node_modules'),
   path.resolve(monorepoRoot, 'node_modules'),
 ];
+
 config.transformer.getTransformOptions = () => ({
   transform: {
     inlineRequires: true,
