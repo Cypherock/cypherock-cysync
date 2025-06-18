@@ -1,8 +1,8 @@
 import 'react-native-get-random-values';
-import 'node-libs-react-native/globals';
-import { randomBytes } from 'react-native-randombytes';
+import 'react-native-gesture-handler';
 import structuredClone from '@ungap/structured-clone';
-import { setGlobalDependencies } from './utils';
+import { Buffer } from 'buffer';
+import 'expo-router/entry';
 
 if (__DEV__) {
   process.env = { ...process.env, NODE_ENV: 'development' };
@@ -10,16 +10,13 @@ if (__DEV__) {
   process.env = { ...process.env, NODE_ENV: 'production' };
 }
 
-// polyfill for random bytes
-if (!global.crypto) {
-  global.crypto = {
-    getRandomValues: buffer => randomBytes(buffer.length).copy(buffer),
-  };
-}
-
 // plyfill for structuredClone (required in core services)
 if (!('structuredClone' in globalThis)) {
   globalThis.structuredClone = structuredClone;
+}
+
+if (typeof global.Buffer === 'undefined') {
+  global.Buffer = Buffer;
 }
 
 // polyfills for coin support
@@ -39,5 +36,3 @@ globalThis.dfinity = {
   candid: require('@dfinity/candid'),
   principal: require('@dfinity/principal'),
 };
-
-import 'expo-router/entry';
