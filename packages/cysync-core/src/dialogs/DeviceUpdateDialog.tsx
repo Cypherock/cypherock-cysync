@@ -62,7 +62,11 @@ export const DeviceUpdateDialog: FC = () => {
 
   useEffect(() => {
     if (state === DeviceUpdateState.Successful) {
-      timeoutRef.current = setTimeout(startAuthentication, 10000);
+      timeoutRef.current = setTimeout(() => {
+        if (connection?.status === DeviceConnectionStatus.CONNECTED) {
+          startAuthentication();
+        }
+      }, 10000);
     }
     if (state === DeviceUpdateState.NotRequired) onClose();
     return () => {

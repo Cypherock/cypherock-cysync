@@ -38,6 +38,10 @@ export type AddUpdateDeviceFirmwareStatusListener = (
   listener: (status: any) => void,
 ) => void;
 export type RemoveUpdateDeviceFirmwareListeners = () => Promise<void>;
+export type AuthenticateDevice = (
+  email?: string,
+  cysyncVersion?: string,
+) => Promise<boolean>;
 
 export interface IElectronAPI {
   logWithServiceAndLevel: LogWithServiceAndMethod;
@@ -67,4 +71,5 @@ export interface IElectronAPI {
   addUpdateDeviceFirmwareProgressListener: AddUpdateDeviceFirmwareProgressListener;
   addUpdateDeviceFirmwareStatusListener: AddUpdateDeviceFirmwareStatusListener;
   removeUpdateDeviceFirmwareListeners: RemoveUpdateDeviceFirmwareListeners;
+  authenticateDevice: AuthenticateDevice;
 }

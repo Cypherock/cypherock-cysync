@@ -7,6 +7,7 @@ import {
   AddUpdateDeviceFirmwareProgressListener,
   AddUpdateDeviceFirmwareStatusListener,
   RemoveUpdateDeviceFirmwareListeners,
+  AuthenticateDevice,
 } from '@cypherock/cysync-interfaces';
 import { createLoggerWithPrefix } from '@cypherock/cysync-utils';
 import { OnboardingStep } from '@cypherock/sdk-app-manager';
@@ -50,6 +51,7 @@ export interface DeviceContextInterface {
   addUpdateDeviceFirmwareProgressListener: AddUpdateDeviceFirmwareProgressListener;
   addUpdateDeviceFirmwareStatusListener: AddUpdateDeviceFirmwareStatusListener;
   removeUpdateDeviceFirmwareListeners: RemoveUpdateDeviceFirmwareListeners;
+  authenticateDevice: AuthenticateDevice;
 }
 
 export const DeviceContext: React.Context<DeviceContextInterface> =
@@ -65,6 +67,7 @@ export interface DeviceProviderProps {
   addUpdateDeviceFirmwareProgressListener: AddUpdateDeviceFirmwareProgressListener;
   addUpdateDeviceFirmwareStatusListener: AddUpdateDeviceFirmwareStatusListener;
   removeUpdateDeviceFirmwareListeners: RemoveUpdateDeviceFirmwareListeners;
+  authenticateDevice: AuthenticateDevice;
 }
 
 /**
@@ -78,6 +81,7 @@ export const DeviceProvider: React.FC<DeviceProviderProps> = ({
   connectDevice,
   addUsbChangeListener,
   removeUsbChangeListener,
+  authenticateDevice,
   ...updateDeviceFirmwareFunctions
 }) => {
   const [connectionInfo, setConnectionInfo, connectionInfoRef] =
@@ -253,6 +257,7 @@ export const DeviceProvider: React.FC<DeviceProviderProps> = ({
     reconnectDevice,
     deviceHandlingState,
     getDeviceHandlingState,
+    authenticateDevice,
     ...updateDeviceFirmwareFunctions,
   });
 
