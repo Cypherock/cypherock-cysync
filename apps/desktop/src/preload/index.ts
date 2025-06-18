@@ -24,6 +24,10 @@ const exportedFunctions = [
     key: ipcConfig.methods.updateDeviceFirmware,
   },
   {
+    name: 'authenticateDevice',
+    key: ipcConfig.methods.authenticateDevice,
+  },
+  {
     name: 'resetCySync',
     key: ipcConfig.methods.resetCySync,
   },

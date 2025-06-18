@@ -5,6 +5,7 @@ export const ipcConfig = {
     connectDevice: 'device:connect',
     connectedDeviceMethodCall: 'device:method:call',
     updateDeviceFirmware: 'device:firmware:update',
+    authenticateDevice: 'device:auth',
     dbMethodCall: 'db:method:call',
     dbMethodList: 'db:method:list',
     keyDbMethodCall: 'keydb:method:call',

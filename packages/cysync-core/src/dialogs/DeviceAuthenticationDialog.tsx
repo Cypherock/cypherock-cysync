@@ -5,7 +5,6 @@ import {
   loaderIcon,
   BlurOverlay,
 } from '@cypherock/cysync-ui';
-import { ManagerApp } from '@cypherock/sdk-app-manager';
 import React, { FC } from 'react';
 
 import { DeviceTask, useDeviceTask } from '~/hooks';
@@ -30,16 +29,13 @@ export const DeviceAuthenticationDialog: FC<
 > = ({ successDescription, successTitle }) => {
   const lang = useAppSelector(selectLanguage);
   const dispatch = useAppDispatch();
-  const { reconnectDevice } = useDevice();
+  const { reconnectDevice, authenticateDevice } = useDevice();
 
-  const deviceAuth: DeviceTask<boolean> = async connection => {
-    const app = await ManagerApp.create(connection);
-    await app.authDevice({
-      email: (await keyValueStore.email.get()) ?? undefined,
-      cysyncVersion: window.cysyncEnv.VERSION,
-    });
-    return true;
-  };
+  const deviceAuth: DeviceTask<boolean> = async () =>
+    authenticateDevice(
+      (await keyValueStore.email.get()) ?? undefined,
+      window.cysyncEnv.VERSION,
+    );
 
   const task = useDeviceTask(deviceAuth);
 

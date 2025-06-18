@@ -54,6 +54,7 @@ const App = () => (
               removeUpdateDeviceFirmwareListeners={
                 window.electronAPI.removeUpdateDeviceFirmwareListeners
               }
+              authenticateDevice={window.electronAPI.authenticateDevice}
             >
               <AppUpdateProvider>
                 <LatestDeviceVersionProvider>

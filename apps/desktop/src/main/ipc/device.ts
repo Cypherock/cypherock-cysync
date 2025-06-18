@@ -6,6 +6,7 @@ import {
   DeviceConnectionError,
   DeviceConnectionErrorType,
   IDevice,
+  IDeviceConnection,
 } from '@cypherock/sdk-interfaces';
 import { WebContents } from 'electron';
 import { usb } from 'usb';
@@ -102,6 +103,59 @@ const updateDeviceFirmware = async ({
   return true;
 };
 
+export const checkIfSameDevice = (a: IDevice, b: IDevice) =>
+  a.path === b.path &&
+  a.serial === b.serial &&
+  a.type === b.type &&
+  a.vendorId === b.vendorId &&
+  a.productId === b.productId;
+
+export const checkIfDeviceInList = (list: IDevice[], device: IDevice) =>
+  list.findIndex(e => checkIfSameDevice(e, device)) !== -1;
+
+const authenticateDevice = async (email?: string, cysyncVersion?: string) => {
+  let connection: IDeviceConnection;
+
+  const connected = deviceUtils.getConnectedDevice();
+
+  const devices = await getDevices();
+
+  if (devices.length <= 0) {
+    throw new DeviceConnectionError(DeviceConnectionErrorType.NOT_CONNECTED);
+  }
+
+  // in certain cases, the existing connection is old (cached), hence checking and/or reconnecting
+  if (connected) {
+    const { device: existingDevice } = connected;
+
+    if (checkIfDeviceInList(devices, existingDevice)) {
+      connection = connected.connection;
+    } else {
+      const freshDevice = devices.find(
+        device =>
+          device.productId === existingDevice.productId &&
+          device.serial === existingDevice.serial,
+      );
+      connection = (await deviceUtils.connectDevice(freshDevice ?? devices[0]))
+        .connection;
+    }
+  } else {
+    connection = (await deviceUtils.connectDevice(devices[0])).connection;
+  }
+
+  if (!connection) {
+    throw new DeviceConnectionError(
+      DeviceConnectionErrorType.FAILED_TO_CONNECT,
+    );
+  }
+
+  const app = await ManagerApp.create(connection);
+
+  await app.authDevice({ email, cysyncVersion });
+
+  return true;
+};
+
 export const setupDeviceListeners = async (webContents: WebContents) => {
   firmwareWebContents = webContents;
 
@@ -135,5 +189,9 @@ export const getDeviceIPCHandlers = () => [
   {
     name: ipcConfig.methods.updateDeviceFirmware,
     func: updateDeviceFirmware,
+  },
+  {
+    name: ipcConfig.methods.authenticateDevice,
+    func: authenticateDevice,
   },
 ];
