@@ -86,6 +86,7 @@ export default function Scan() {
   async function saveDataToDb(data: CysyncData) {
     try {
       const db = getDB();
+      await db.clear();
       await Promise.all([
         db.wallet.insert(data.wallets),
         db.account.insert(data.accounts),
