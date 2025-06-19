@@ -1,5 +1,11 @@
 # @cypherock/cysync-interfaces
 
+## 0.0.9
+
+### Patch Changes
+
+- [#759](https://github.com/Cypherock/cypherock-cysync/pull/759) [`3eee0955`](https://github.com/Cypherock/cypherock-cysync/commit/3eee095548f0d39f8ad50205b84834495eacd29d) Thanks [@muzaffarbhat07](https://github.com/muzaffarbhat07)! - Moved firmware update to ipc main process
+
 ## 0.0.8
 
 ### Patch Changes

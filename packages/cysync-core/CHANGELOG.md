@@ -1,5 +1,32 @@
 # @cypherock/cysync-core
 
+## 0.6.2
+
+### Patch Changes
+
+- [#759](https://github.com/Cypherock/cypherock-cysync/pull/759) [`3eee0955`](https://github.com/Cypherock/cypherock-cysync/commit/3eee095548f0d39f8ad50205b84834495eacd29d) Thanks [@muzaffarbhat07](https://github.com/muzaffarbhat07)! - Moved firmware update to ipc main process
+
+- [#758](https://github.com/Cypherock/cypherock-cysync/pull/758) [`596f348a`](https://github.com/Cypherock/cypherock-cysync/commit/596f348a953752173005e0310cf5bafe6f3c635f) Thanks [@muzaffarbhat07](https://github.com/muzaffarbhat07)! - Fixed invalid argument issue on eth gas price input
+
+- Updated dependencies [[`3eee0955`](https://github.com/Cypherock/cypherock-cysync/commit/3eee095548f0d39f8ad50205b84834495eacd29d), [`596f348a`](https://github.com/Cypherock/cypherock-cysync/commit/596f348a953752173005e0310cf5bafe6f3c635f)]:
+  - @cypherock/cysync-interfaces@0.0.9
+  - @cypherock/cysync-ui@0.0.13
+  - @cypherock/app-support-buy-sell@0.0.6
+  - @cypherock/app-support-inheritance@1.0.5
+  - @cypherock/coin-support-btc@0.0.18
+  - @cypherock/coin-support-evm@0.0.18
+  - @cypherock/coin-support-icp@1.0.2
+  - @cypherock/coin-support-near@0.0.18
+  - @cypherock/coin-support-solana@0.1.4
+  - @cypherock/coin-support-starknet@1.0.5
+  - @cypherock/coin-support-tron@0.0.14
+  - @cypherock/coin-support-utils@0.0.18
+  - @cypherock/coin-support-xrp@1.1.6
+  - @cypherock/cysync-core-services@0.1.5
+  - @cypherock/cysync-utils@0.0.11
+  - @cypherock/coin-support@0.1.7
+  - @cypherock/cysync-core-workers@0.0.21
+
 ## 0.6.1
 
 ### Patch Changes

@@ -1,5 +1,19 @@
 # @cypherock/cysync-desktop
 
+## 2.1.0
+
+### Minor Changes
+
+- [#759](https://github.com/Cypherock/cypherock-cysync/pull/759) [`3eee0955`](https://github.com/Cypherock/cypherock-cysync/commit/3eee095548f0d39f8ad50205b84834495eacd29d) Thanks [@muzaffarbhat07](https://github.com/muzaffarbhat07)! - Moved firmware update to ipc main process
+
+### Patch Changes
+
+- Updated dependencies [[`3eee0955`](https://github.com/Cypherock/cypherock-cysync/commit/3eee095548f0d39f8ad50205b84834495eacd29d)]:
+  - @cypherock/cysync-desktop-ui@0.0.25
+  - @cypherock/cysync-interfaces@0.0.9
+  - @cypherock/database@0.1.3
+  - @cypherock/cysync-utils@0.0.11
+
 ## 2.0.24
 
 ### Patch Changes
