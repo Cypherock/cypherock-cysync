@@ -20,6 +20,8 @@ import TokenTable from '@/components/core/TokenTable';
 import { View } from 'react-native';
 import { IAccount, IWallet } from '@cypherock/db-interfaces';
 import { ICoinInfo } from '@cypherock/coins';
+import { useIsFocused } from '@react-navigation/native';
+const { getAssetOrUndefined } = require('@cypherock/coin-support-utils');
 
 export default function Accounts() {
   const { id: accountId } = useLocalSearchParams<{
@@ -42,6 +44,7 @@ export default function Accounts() {
     onShowFilter,
     onFilterReset,
   } = usePortfolioFilters();
+  const isFocused = useIsFocused();
 
   const selectedAccount = useMemo<
     | (IAccount & {
@@ -119,25 +122,23 @@ export default function Accounts() {
             />
           </Flex>
         </Flex>
-        <Graph
-          key={accountId}
-          selectedRange={selectedRange}
-          accountId={accountId}
-          selectedWallet={selectedWallet}
-          color={selectedAccount.asset?.color}
-        />
+        {isFocused && (
+          <Graph
+            key={accountId}
+            selectedRange={selectedRange}
+            accountId={accountId}
+            selectedWallet={selectedWallet}
+            color={selectedAccount.asset?.color}
+          />
+        )}
       </View>
-      {(() => {
-        const {
-          getAssetOrUndefined,
-        } = require('@cypherock/coin-support-utils');
-        return (getAssetOrUndefined(selectedAccount.parentAssetId) as any)
-          ?.tokens && accountId ? (
-          <TokenTable accountId={accountId} />
-        ) : (
-          <TokenTable noData />
-        );
-      })()}
+      {(getAssetOrUndefined(selectedAccount.parentAssetId) as any)?.tokens &&
+      accountId &&
+      isFocused ? (
+        <TokenTable accountId={accountId} />
+      ) : (
+        <TokenTable noData />
+      )}
       <SelectFilterSheet
         ref={filterRef}
         title={'Select Option'}

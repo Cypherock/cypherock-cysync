@@ -2,7 +2,7 @@ import { View, StyleSheet, Dimensions } from 'react-native';
 import React, { useState } from 'react';
 import { ImageBackground } from 'expo-image';
 import { Images } from '@/constants/images';
-import { Icon, Typography } from '../ui/atoms';
+import { Typography } from '../ui/atoms';
 import {
   CameraView,
   useCameraPermissions,
@@ -57,15 +57,6 @@ export function Scanner({ onQrScanned, progress }: ScannerProps) {
 
   return (
     <View style={styles.container}>
-      <Icon
-        source={{
-          default: Images.icon.thunder_default,
-          disabled: Images.icon.thunder_disabed,
-        }}
-        size="big"
-        state={flashMode === 'on' ? 'default' : 'disabled'}
-        onPress={toggleFlashMode}
-      />
       <ImageBackground
         source={Images.onboarding.qr_frame}
         style={styles.scanner}
