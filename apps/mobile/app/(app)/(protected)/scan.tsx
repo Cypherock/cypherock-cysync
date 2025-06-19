@@ -84,6 +84,14 @@ export default function Scan() {
   }, [chunksReceived, totalChunks]);
 
   async function saveDataToDb(data: CysyncData) {
+    data.accounts = data.accounts.map(acc => {
+      if (acc.extraData) {
+        if (acc.familyId === 'solana') {
+          acc.extraData.latestTransactionHash = undefined;
+        }
+      }
+      return acc;
+    });
     try {
       const db = getDB();
       await db.clear();
