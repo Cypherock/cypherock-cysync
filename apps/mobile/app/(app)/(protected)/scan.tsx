@@ -1,10 +1,10 @@
 import { View, StyleSheet } from 'react-native';
-import React, { useEffect, useRef, useState } from 'react';
-import { useSharedValue, withSpring } from 'react-native-reanimated';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
+import { runOnJS, useSharedValue, withSpring } from 'react-native-reanimated';
 import { MessageBox, ScreenContainer } from '@/components/ui';
 import { Scanner } from '@/components/core';
 import IonIcon from '@expo/vector-icons/Ionicons';
-import { router } from 'expo-router';
+import { router, useFocusEffect } from 'expo-router';
 import { ScanningResult } from 'expo-camera';
 import { useAppSelector } from '@/store';
 import { selectLanguage } from '@/store/lang';
@@ -47,15 +47,32 @@ export default function Scan() {
     setTotalChunks(dataLength);
     setChunksReceived(Object.keys(scannedData.current).length);
     if (Object.keys(scannedData.current).length === dataLength) {
-      const sortedChunks = Object.keys(scannedData.current)
+      runOnJS(processQrData)(scannedData.current);
+    }
+  }
+
+  const reset = () => {
+    setDecodedData(undefined);
+    scannedData.current = {};
+    setChunksReceived(0);
+    setTotalChunks(0);
+  };
+
+  async function processQrData(qrData: Record<number, string>) {
+    try {
+      const sortedChunks = Object.keys(qrData)
         .sort((a, b) => Number(a) - Number(b))
-        .map(key => scannedData.current[Number(key)]);
+        .map(key => qrData[Number(key)]);
 
       const completeData = sortedChunks.join('');
       const buffer = Buffer.from(completeData, 'base64');
       const decompressedData = inflate(new Uint8Array(buffer));
       const decodedData = Buffer.from(decompressedData).toString();
-      setDecodedData(JSON.parse(decodedData) as CysyncData);
+      const parsedData = JSON.parse(decodedData) as CysyncData;
+      setDecodedData(parsedData);
+    } catch (error) {
+      logger.error('Error processing QR Code', error as any);
+      reset();
     }
   }
 
@@ -69,8 +86,10 @@ export default function Scan() {
   async function saveDataToDb(data: CysyncData) {
     try {
       const db = getDB();
-      await db.wallet.insert(data.wallets);
-      await db.account.insert(data.accounts);
+      await Promise.all([
+        db.wallet.insert(data.wallets),
+        db.account.insert(data.accounts),
+      ]);
     } catch (error) {
       logger.error('Error saving data to DB:', error as any);
     }
@@ -82,13 +101,10 @@ export default function Scan() {
       navigateToNext();
     }
 
-    return () => {
-      setDecodedData(undefined);
-      scannedData.current = {};
-      setChunksReceived(0);
-      setTotalChunks(0);
-    };
+    return reset;
   }, [decodedData]);
+
+  useFocusEffect(useCallback(() => reset, []));
 
   return (
     <ScreenContainer>

@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { LoaderScreen } from '@/components/ui';
 import {
   selectAccountSync,
@@ -7,7 +7,7 @@ import {
   useAppSelector,
 } from '@/store';
 import { syncAllPriceHistories, syncAllPrices } from '@/actions';
-import { Redirect } from 'expo-router';
+import { Redirect, useFocusEffect } from 'expo-router';
 import NoDataScreen from '@/components/ui/molecules/NoDataScreen';
 import { syncAccountsDb } from '@/bgTasks/dbSync/helper';
 import { debounce } from 'lodash';
@@ -45,6 +45,16 @@ export default function Loading() {
     }
   }
 
+  const reset = () => {
+    setStatus(false);
+    setSyncProgress(0);
+    setError(null);
+    setIsPriceSyncComplete(false);
+    setIsPriceHistorySyncComplete(false);
+    setIsFirst(true);
+    accountSyncProgress.current = 0;
+  };
+
   useEffect(() => {
     if (isFirst) {
       setIsFirst(false);
@@ -64,10 +74,6 @@ export default function Loading() {
     if (isPriceHistorySyncComplete) progress += 3;
     accountSyncProgress.current = progress;
     setSyncProgress(progress);
-
-    return () => {
-      accountSyncProgress.current = 0;
-    };
   }, [
     accountSyncMap,
     isPriceSyncComplete,
@@ -86,6 +92,8 @@ export default function Loading() {
       debouncedLoadData.cancel();
     };
   }, []);
+
+  useFocusEffect(useCallback(() => reset, []));
 
   if (!active) {
     return (

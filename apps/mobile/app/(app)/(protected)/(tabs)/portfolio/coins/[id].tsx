@@ -14,6 +14,7 @@ import { selectLanguage, useAppSelector } from '@/store';
 import useShowAfterDelay from '@/hooks/useShowAfterDelay';
 import { View } from 'react-native';
 import { coinList } from '@cypherock/coins';
+import { useIsFocused } from '@react-navigation/native';
 
 export default function Coins() {
   const { parentAssetId, id, assetName } = useLocalSearchParams<{
@@ -22,6 +23,7 @@ export default function Coins() {
     assetName: string;
   }>();
   const navigation = useNavigation();
+  const isFocused = useIsFocused();
   const showGraph = useShowAfterDelay();
 
   const { strings } = useAppSelector(selectLanguage);
@@ -86,7 +88,7 @@ export default function Coins() {
             />
           </Flex>
         </Flex>
-        {showGraph && (
+        {showGraph && isFocused && (
           <Graph
             selectedRange={selectedRange}
             parentAssetId={parentAssetId}
@@ -96,13 +98,15 @@ export default function Coins() {
           />
         )}
       </View>
-      <AllocationTable
-        parentAssetId={parentAssetId}
-        assetId={id}
-        walletId={selectedWallet?.__id}
-        onItemClick={handleAssetClick}
-        withSubIconAtBottom
-      />
+      {isFocused && (
+        <AllocationTable
+          parentAssetId={parentAssetId}
+          assetId={id}
+          walletId={selectedWallet?.__id}
+          onItemClick={handleAssetClick}
+          withSubIconAtBottom
+        />
+      )}
       <SelectFilterSheet
         ref={filterRef}
         title={'Select Option'}

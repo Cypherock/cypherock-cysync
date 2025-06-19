@@ -1,14 +1,19 @@
-import React, { useEffect } from 'react';
+import React, { useCallback } from 'react';
 
 import { syncAllDb, addListeners, removeListeners } from './helper';
+import { useFocusEffect } from 'expo-router';
 
 export const DatabaseListener: React.FC = () => {
-  useEffect(() => {
-    syncAllDb();
-    addListeners();
+  useFocusEffect(
+    useCallback(() => {
+      syncAllDb();
+      addListeners();
 
-    return removeListeners;
-  }, []);
+      return () => {
+        removeListeners();
+      };
+    }, []),
+  );
 
   return null;
 };
