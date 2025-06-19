@@ -13,6 +13,7 @@ import AllocationTable from '@/components/core/AllocationTable';
 import useShowAfterDelay from '@/hooks/useShowAfterDelay';
 import { useEffect } from 'react';
 import { View } from 'react-native';
+import { useIsFocused } from '@react-navigation/native';
 
 export default function Portfolio() {
   const { strings } = useAppSelector(selectLanguage);
@@ -28,6 +29,7 @@ export default function Portfolio() {
     onFilterReset,
   } = usePortfolioFilters();
   const showGraph = useShowAfterDelay();
+  const isFocused = useIsFocused();
   const navigation = useNavigation();
 
   useEffect(() => {
@@ -87,7 +89,7 @@ export default function Portfolio() {
             />
           </Flex>
         </Flex>
-        {showGraph && (
+        {showGraph && isFocused && (
           <Graph
             key={selectedRange}
             selectedRange={selectedRange}
@@ -95,11 +97,13 @@ export default function Portfolio() {
           />
         )}
       </View>
-      <AllocationTable
-        onItemClick={handleAssetClick}
-        walletId={selectedWallet?.__id}
-        withParentIconAtBottom
-      />
+      {isFocused && (
+        <AllocationTable
+          onItemClick={handleAssetClick}
+          walletId={selectedWallet?.__id}
+          withParentIconAtBottom
+        />
+      )}
       <SelectFilterSheet
         ref={filterRef}
         title={'Select Option'}
