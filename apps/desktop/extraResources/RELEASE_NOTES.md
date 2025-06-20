@@ -1,3 +1,13 @@
+# v2.1.0
+
+### 🚀 Feature
+
+- **Improved Firmware Update Process:** Now firmware update will run smoothly even if cysync app is running in background.
+
+### 🐛 Bugfix
+
+- Fixed **Invalid Argument** issue in evm send flow.
+
 # v2.0.24
 
 ### 🐛 Bugfix

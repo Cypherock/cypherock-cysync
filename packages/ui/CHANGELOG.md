@@ -1,5 +1,11 @@
 # @cypherock/cysync-ui
 
+## 0.0.13
+
+### Patch Changes
+
+- [#758](https://github.com/Cypherock/cypherock-cysync/pull/758) [`596f348a`](https://github.com/Cypherock/cypherock-cysync/commit/596f348a953752173005e0310cf5bafe6f3c635f) Thanks [@muzaffarbhat07](https://github.com/muzaffarbhat07)! - Fixed invalid argument issue on eth gas price input
+
 ## 0.0.12
 
 ### Patch Changes
