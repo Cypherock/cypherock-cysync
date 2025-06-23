@@ -285,20 +285,20 @@ export const ReferAndEarn: FC = () => {
       logger.info('WebView Action: Refresh requested by user.');
       setLoadError(null);
       setShowLoader(true);
-      listenersAttachedRef.current = false; // Reset to allow re-attaching listeners
-      domReadyFiredRef.current = false; // Reset to allow dom-ready logic to re-run
+      listenersAttachedRef.current = false;
+      domReadyFiredRef.current = false;
 
       try {
         logger.info(
           'Attempting forceful reset: setting src to about:blank then back to REFERRAL_URL',
         );
-        setWebviewSrc('about:blank'); // Trigger re-render with blank
+        setWebviewSrc('about:blank');
 
         setTimeout(() => {
           if (isMountedRef.current) {
-            setWebviewSrc(REFERRAL_URL); // Trigger re-render with original URL
+            setWebviewSrc(REFERRAL_URL);
           }
-        }, 50); // Short delay
+        }, 50);
       } catch (e) {
         logger.error('Error during onRefresh forceful reset:', {
           error: e instanceof Error ? e.message : String(e),
@@ -315,8 +315,8 @@ export const ReferAndEarn: FC = () => {
 
   useEffect(() => {
     isMountedRef.current = true;
-    listenersAttachedRef.current = false; // Reset on each effect run related to webviewSrc
-    domReadyFiredRef.current = false; // Reset on each effect run related to webviewSrc
+    listenersAttachedRef.current = false;
+    domReadyFiredRef.current = false;
     let webview: any | null = null;
 
     const findAndSetupWebview = () => {
@@ -324,12 +324,11 @@ export const ReferAndEarn: FC = () => {
       webview = document.getElementById('referral-webview');
 
       if (webview) {
-        webviewRef.current = webview; // Set ref immediately
+        webviewRef.current = webview;
         logger.info(
           'Referral WebView Element found/re-found due to src change.',
         );
 
-        // Clean up potential old listeners before adding new ones
         webview.removeEventListener('dom-ready', handleDomReady);
         webview.removeEventListener('did-start-loading', handleDidStartLoading);
         webview.removeEventListener('did-stop-loading', handleDidStopLoading);
@@ -338,18 +337,15 @@ export const ReferAndEarn: FC = () => {
 
         webview.addEventListener('dom-ready', handleDomReady, { once: true });
         logger.info('Attached dom-ready listener.');
-        // Main listeners are attached by handleDomReady or the edge case check below
 
         try {
           if (typeof webview.getURL === 'function') {
-            // Ensure method exists
             logger.info('Webview has getURL method.');
             if (!domReadyFiredRef.current) {
-              // Only if dom-ready hasn't already handled it
               logger.warn(
                 'Webview seems ready before dom-ready event (or src changed), checking loading state and attaching main listeners.',
               );
-              attachMainListeners(); // Attach main listeners
+              attachMainListeners();
               if (!webview.isLoading()) {
                 handleDidStopLoading();
               } else {
@@ -358,14 +354,14 @@ export const ReferAndEarn: FC = () => {
             }
           } else {
             logger.warn('Webview getURL method not found on initial check.');
-            if (isMountedRef.current && !showLoader) setShowLoader(true); // Default to loading
+            if (isMountedRef.current && !showLoader) setShowLoader(true);
           }
         } catch (error: unknown) {
           logger.error(
             `Error during initial webview state check in useEffect`,
             { error: error instanceof Error ? error.message : String(error) },
           );
-          if (isMountedRef.current) setShowLoader(true); // Default to loading
+          if (isMountedRef.current) setShowLoader(true);
         }
       } else {
         logger.error('Referral WebView Element could not be found.');
@@ -419,7 +415,6 @@ export const ReferAndEarn: FC = () => {
         $width="full"
         $bgColor="contentGradient"
       >
-        {/* Custom Navigation Bar */}
         <Flex
           height={58}
           width="100%"
@@ -514,10 +509,10 @@ export const ReferAndEarn: FC = () => {
             <LoaderDialog />
           </div>
 
-          {(!loadError || showLoader) && ( // Render webview if no error OR if loading (even if there was a previous error)
+          {(!loadError || showLoader) && (
             <webview
               id="referral-webview"
-              src={webviewSrc} // Use state for src
+              src={webviewSrc}
               style={{
                 display: 'inline-flex',
                 flexGrow: 1,
@@ -534,33 +529,32 @@ export const ReferAndEarn: FC = () => {
             />
           )}
 
-          {loadError &&
-            !showLoader && ( // Show error only if NOT loading
-              <DialogBox width={500} $zIndex={2}>
-                <DialogBoxBody py={4} px={5} gap={32}>
-                  <FailIcon />
-                  <Container display="flex" direction="column" gap={4}>
-                    <Typography variant="h5" $textAlign="center">
-                      {`${lang.strings.errors.serverErrors.SER_0001.heading} (SER_0001)`}
-                    </Typography>
-                    <Typography variant="p" $textAlign="center" color="muted">
-                      {loadError}
-                    </Typography>
-                  </Container>
-                </DialogBoxBody>
-                <DialogBoxFooter>
-                  <Button
-                    variant="secondary"
-                    onClick={() => dispatch(openContactSupportDialog())}
-                  >
-                    {lang.strings.buttons.help}
-                  </Button>
-                  <Button variant="primary" onClick={onRefresh}>
-                    {lang.strings.buttons.retry}
-                  </Button>
-                </DialogBoxFooter>
-              </DialogBox>
-            )}
+          {loadError && !showLoader && (
+            <DialogBox width={500} $zIndex={2}>
+              <DialogBoxBody py={4} px={5} gap={32}>
+                <FailIcon />
+                <Container display="flex" direction="column" gap={4}>
+                  <Typography variant="h5" $textAlign="center">
+                    {`${lang.strings.errors.serverErrors.SER_0001.heading} (SER_0001)`}
+                  </Typography>
+                  <Typography variant="p" $textAlign="center" color="muted">
+                    {loadError}
+                  </Typography>
+                </Container>
+              </DialogBoxBody>
+              <DialogBoxFooter>
+                <Button
+                  variant="secondary"
+                  onClick={() => dispatch(openContactSupportDialog())}
+                >
+                  {lang.strings.buttons.help}
+                </Button>
+                <Button variant="primary" onClick={onRefresh}>
+                  {lang.strings.buttons.retry}
+                </Button>
+              </DialogBoxFooter>
+            </DialogBox>
+          )}
         </Flex>
       </Flex>
     </MainAppLayout>

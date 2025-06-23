@@ -138,12 +138,33 @@ export const Topbar: FC<TopbarProps> = ({
       justify="space-between"
       shadow="popup"
     >
-      <TitleStyle>{/* ... Title and Subtitle ... */}</TitleStyle>
+      <TitleStyle>
+        <Container direction="row">
+          {icon ?? null}
+          <Container direction="column" ml={icon ? 2 : 0} align="flex-start">
+            <Typography variant="h4" $fontWeight="semibold" color="silver">
+              <LangDisplay text={title} />
+            </Typography>
+            {(subTitle || tag) && (
+              <Container direction="row">
+                {subTitle && (
+                  <Typography
+                    $fontWeight="semibold"
+                    $fontSize={14}
+                    color="muted"
+                    mr={1}
+                  >
+                    <LangDisplay text={subTitle} />
+                  </Typography>
+                )}
+                {tag && <Tag>{tag}</Tag>}
+              </Container>
+            )}
+          </Container>
+        </Container>
+      </TitleStyle>
       <Flex align="center">
-        {/* ... Sync Status ... */}
-        {/* ... Connection Status ... */}
         <Tooltip text={tooltipText} tooltipPlacement="bottom">
-          {/* Fix for TS2746: Wrap Button in a div for Tooltip child */}
           <div>
             <Button variant="none" onClick={onSyncClick}>
               <Flex pr={2} align="center" gap={16}>
@@ -167,11 +188,9 @@ export const Topbar: FC<TopbarProps> = ({
         </Flex>
         <DividingLine />
 
-        {/* --- Add Settings Button --- */}
         {onSettingsClick && (
           <>
             <Tooltip text="Settings" tooltipPlacement="bottom">
-              {/* Fix for TS2746: Wrap Button in a div */}
               <div>
                 <Button variant="icon" onClick={onSettingsClick}>
                   <Flex px={2} py="3" height="full" align="center">
@@ -183,17 +202,13 @@ export const Topbar: FC<TopbarProps> = ({
             <DividingLine />
           </>
         )}
-        {/* --- End Settings Button --- */}
 
-        {/* --- Add Help Button --- */}
         {onHelpClick && (
           <>
             <Tooltip text="Help" tooltipPlacement="bottom">
-              {/* Fix for TS2746: Wrap Button in a div */}
               <div>
                 <Button variant="icon" onClick={onHelpClick}>
                   <Flex px={2} py="3" height="full" align="center">
-                    {/* Fix for TS2322: Apply stroke and fill directly */}
                     <SupportIcon
                       stroke={theme?.palette.text.muted}
                       fill="none"
@@ -205,7 +220,6 @@ export const Topbar: FC<TopbarProps> = ({
             <DividingLine />
           </>
         )}
-        {/* --- End Help Button --- */}
 
         <Button variant="icon" onClick={onNotificationClick}>
           <Flex px={2} py="3" height="full" align="center" gap={16}>

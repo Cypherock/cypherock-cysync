@@ -2,7 +2,6 @@ import {
   ConnectionStatusType,
   SyncStatusType,
   Topbar as TopbarUI,
-  // TopbarProps as TopbarUIProps, // Not strictly needed if props are aligned
 } from '@cypherock/cysync-ui';
 import { createSelector } from '@reduxjs/toolkit';
 import React, { FC, ReactNode, useMemo, useCallback } from 'react';
@@ -24,7 +23,6 @@ import {
   useAppSelector,
 } from '~/store';
 
-// ... selector and maps ...
 const selector = createSelector(
   [selectLanguage, selectDiscreetMode, selectAccountSync, selectNotifications],
   (a, b, c, { isOpen, unreadTransactions }) => ({
@@ -53,17 +51,12 @@ const accountSyncMap: Record<AccountSyncState, SyncStatusType> = {
 };
 
 export interface TopbarProps {
-  // This is the interface used by TopbarComponent
   title: string;
   subTitle?: string;
   icon?: ReactNode;
   tag?: string;
   showIcon?: boolean;
   onIconClick?: () => void;
-  // ** Add the missing props here **
-  // These props will be passed to the TopbarUI from cysync-ui
-  // and are defined in cysync-ui/src/components/molecules/Topbar.tsx
-  // but also need to be accepted by this wrapper component.
 }
 
 const TopbarComponent: FC<TopbarProps> = props => {
@@ -108,7 +101,7 @@ const TopbarComponent: FC<TopbarProps> = props => {
 
   return (
     <TopbarUI
-      {...props} // Passes title, subTitle, icon, tag, showIcon, onIconClick
+      {...props}
       statusTexts={lang.strings.topbar.statusTexts}
       lock={lock}
       isLocked={isLocked}
@@ -122,7 +115,6 @@ const TopbarComponent: FC<TopbarProps> = props => {
       toggleDiscreetMode={handleToggleDiscreetMode}
       onSyncClick={onSyncClick}
       tooltipText={accountSync.syncError}
-      // --- Pass new handlers ---
       onHelpClick={handleHelpClick}
       onSettingsClick={handleSettingsClick}
     />

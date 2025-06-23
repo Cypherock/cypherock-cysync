@@ -33,19 +33,12 @@ export const About: React.FC = () => {
         </SettingsButton>
       </SettingsStandardItem>
 
-      {/* Add App Tutorials Section */}
       <SettingsStandardItem
         title={{ text: item.appTutorials.title }}
         description={{ text: item.appTutorials.description }}
       >
-        <SettingsButton
-          onClick={openTutorialLink}
-          variant="primary"
-          // You can add an icon to the button if desired:
-          // icon={<TutorialIcon fill={theme.palette.text.black} />} // Example
-        >
+        <SettingsButton onClick={openTutorialLink} variant="primary">
           <LangDisplay text={strings.buttons.learnMore} />
-          {/* Or a more specific button text like "Watch Tutorials" */}
         </SettingsButton>
       </SettingsStandardItem>
 
