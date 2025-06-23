@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react';
 import { NetworkPingTask } from '@/bgTasks/networkTask';
 import { setCoreDependencies, setGlobalDependencies } from '@/utils';
 import logger from '@/utils/logger';
+import { runPreflightChecks } from '@/utils/preflight';
 
 setCoreDependencies();
 setGlobalDependencies();
@@ -23,6 +24,7 @@ export default function Layout() {
     async function prepare() {
       try {
         await getOnboardingStatus();
+        await runPreflightChecks();
       } catch (e) {
         logger.warn(e);
       } finally {
