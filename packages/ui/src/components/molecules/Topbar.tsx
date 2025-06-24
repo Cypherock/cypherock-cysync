@@ -164,7 +164,7 @@ export const Topbar: FC<TopbarProps> = ({
         </Container>
       </TitleStyle>
       <Flex align="center">
-        <Tooltip text={tooltipText} tooltipPlacement="bottom">
+        <Tooltip text={statusTexts.sync[syncStatus]} tooltipPlacement="bottom">
           <div>
             <Button variant="none" onClick={onSyncClick}>
               <Flex pr={2} align="center" gap={16}>
@@ -180,28 +180,27 @@ export const Topbar: FC<TopbarProps> = ({
           </div>
         </Tooltip>
         <DividingLine />
-        <Flex px={2} align="center" gap={16}>
-          {connectionStatusMap[connectionStatus]}
-          <Typography display={{ def: 'none', mdlg: 'block' }} color="muted">
-            <LangDisplay text={statusTexts.connection[connectionStatus]} />
-          </Typography>
-        </Flex>
+        <Tooltip
+          text={statusTexts.connection[connectionStatus]}
+          tooltipPlacement="bottom"
+        >
+          <Flex px={2} align="center" gap={16}>
+            {connectionStatusMap[connectionStatus]}
+          </Flex>
+        </Tooltip>
         <DividingLine />
-
-        {onSettingsClick && (
-          <>
-            <Tooltip text="Settings" tooltipPlacement="bottom">
-              <div>
-                <Button variant="icon" onClick={onSettingsClick}>
-                  <Flex px={2} py="3" height="full" align="center">
-                    <SettingsIcon />
-                  </Flex>
-                </Button>
-              </div>
-            </Tooltip>
-            <DividingLine />
-          </>
-        )}
+        <Button variant="icon" onClick={onNotificationClick}>
+          <Flex px={2} py="3" height="full" align="center" gap={16}>
+            {haveNotifications ? <Notifications /> : <NoNotifications />}
+          </Flex>
+        </Button>
+        <DividingLine />
+        <Button variant="icon" onClick={debouncedToggleDiscreteMode}>
+          <Flex px={2} py="3" align="center" gap={16}>
+            {isDiscreetMode ? <VisibilityHide /> : <Visibility />}
+          </Flex>
+        </Button>
+        <DividingLine />
 
         {onHelpClick && (
           <>
@@ -221,17 +220,18 @@ export const Topbar: FC<TopbarProps> = ({
           </>
         )}
 
-        <Button variant="icon" onClick={onNotificationClick}>
-          <Flex px={2} py="3" height="full" align="center" gap={16}>
-            {haveNotifications ? <Notifications /> : <NoNotifications />}
-          </Flex>
-        </Button>
-        <DividingLine />
-        <Button variant="icon" onClick={debouncedToggleDiscreteMode}>
-          <Flex px={2} py="3" align="center" gap={16}>
-            {isDiscreetMode ? <VisibilityHide /> : <Visibility />}
-          </Flex>
-        </Button>
+        {onSettingsClick && (
+          <Tooltip text="Settings" tooltipPlacement="bottom">
+            <div>
+              <Button variant="icon" onClick={onSettingsClick}>
+                <Flex px={2} py="3" height="full" align="center">
+                  <SettingsIcon />
+                </Flex>
+              </Button>
+            </div>
+          </Tooltip>
+        )}
+
         {isPasswordSet && !isLockscreenLoading && (
           <>
             <DividingLine />
