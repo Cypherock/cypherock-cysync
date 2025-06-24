@@ -1,4 +1,5 @@
 import React, { FC } from 'react';
+
 import { Container, Flex, Typography } from '../atoms';
 
 export interface TimerProps {

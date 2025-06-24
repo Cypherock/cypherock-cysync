@@ -17,8 +17,8 @@ import React, { FC, useRef } from 'react';
 
 import { LoaderDialog } from '~/components';
 
-import { MainAppLayout } from '../Layout';
 import { useReferAndEarn } from '../hooks';
+import { MainAppLayout } from '../Layout';
 
 const TopBar: FC<{
   canGoBack: boolean;

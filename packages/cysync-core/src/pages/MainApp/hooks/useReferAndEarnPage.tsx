@@ -1,5 +1,6 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { useTheme } from 'styled-components';
+
 import { openContactSupportDialog } from '~/actions';
 import { useAppSelector, selectLanguage, useAppDispatch } from '~/store';
 import logger from '~/utils/logger';

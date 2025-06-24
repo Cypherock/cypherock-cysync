@@ -1,3 +1,3 @@
-export const providerImageUrlMap: { [key: string]: string } = {
+export const providerImageUrlMap: Record<string, string> = {
   changenow: 'https://changenow.io/favicon.ico',
 };

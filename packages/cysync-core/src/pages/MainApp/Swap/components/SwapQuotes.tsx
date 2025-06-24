@@ -1,4 +1,8 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import {
+  formatDisplayAmount,
+  formatDisplayPrice,
+  getDefaultUnit,
+} from '@cypherock/coin-support-utils';
 import {
   Flex,
   Typography,
@@ -11,16 +15,13 @@ import {
   Tooltip,
   QuestionMarkButton,
 } from '@cypherock/cysync-ui';
-import {
-  formatDisplayAmount,
-  formatDisplayPrice,
-  getDefaultUnit,
-} from '@cypherock/coin-support-utils';
 import { formatSecondsToMinutes, BigNumber } from '@cypherock/cysync-utils';
 import { IAccount, IWallet } from '@cypherock/db-interfaces';
+import React, { useEffect, useMemo, useState } from 'react';
+
+import { providerImageUrlMap } from '~/constants';
 import { IQuote, useSwap } from '~/context';
 import { useAppSelector, selectLanguage, selectPriceInfos } from '~/store';
-import { providerImageUrlMap } from '~/constants';
 
 const getEarliestExpiryTime = (quotes: IQuote[]) =>
   Math.min(...quotes.map((quote: IQuote) => quote.validUntil));
@@ -198,7 +199,7 @@ export const SwapQuotes: React.FC<{
 
     if (!account || !coinPrice) return {};
 
-    const fee = quote?.fee ?? '0';
+    const fee = quote.fee ?? '0';
     const amount = formatDisplayAmount(
       new BigNumber(fee).dividedBy(coinPrice.latestPrice),
     ).fixed;

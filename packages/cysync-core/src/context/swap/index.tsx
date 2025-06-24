@@ -6,8 +6,8 @@ import {
 import { ManagerApp } from '@cypherock/sdk-app-manager';
 import { hexToUint8Array } from '@cypherock/sdk-utils';
 import React, { useCallback, useRef, useState } from 'react';
-import { ErrorActionMap, ErrorIconNameMap } from '~/constants/errors';
 
+import { ErrorActionMap, ErrorIconNameMap } from '~/constants/errors';
 import { DeviceTask, useDeviceTask, useMemoReturn } from '~/hooks';
 import { createExchange } from '~/services/swapService';
 import { getDB } from '~/utils';
