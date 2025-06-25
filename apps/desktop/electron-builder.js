@@ -64,7 +64,7 @@ const config = {
   afterSign: 'scripts/notarize.js',
   publish: {
     provider: 'generic',
-    url: 'https://updater.cypherock.com/cysync-desktop',
+    url: 'https://cypherock-updater-v2.s3-accelerate.amazonaws.com/cysync-desktop',
   },
 };
 
