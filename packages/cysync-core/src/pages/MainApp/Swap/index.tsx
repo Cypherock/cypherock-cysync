@@ -10,6 +10,7 @@ import React, { useEffect, useLayoutEffect, useMemo, useState } from 'react';
 import { openErrorDialog } from '~/actions';
 import { WithConnectedDevice } from '~/components';
 import { SwapPage, useSwap } from '~/context';
+import { useSwapTransactions } from '~/hooks';
 import {
   closeDialog,
   useAppDispatch,
@@ -25,7 +26,6 @@ import { SwapStatus } from './Pages/SwapStatus';
 import { SwapSummary } from './Pages/SwapSummary';
 
 import { MainAppLayout } from '../Layout';
-import { useSwapTransactions } from '~/hooks';
 
 const FullScreenWithConnectedDevice: React.FC<{
   children: React.ReactNode;

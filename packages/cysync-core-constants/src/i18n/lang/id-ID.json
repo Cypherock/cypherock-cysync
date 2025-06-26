@@ -731,7 +731,6 @@
     "receiveCrypto": "Terima Kripto",
     "history": "Riwayat",
     "walletConnect": "Wallet Connect",
-    "tutorial": "Tutorial",
     "settings": "Pengaturan",
     "help": "Help",
     "buysell": "Buy",
@@ -739,6 +738,7 @@
       "walletDeleted": "${walletName} telah dihapus dari X1 Vault Anda"
     },
     "cypherockCover": "Cypherock Cover",
+    "referAndEarn": "Refer & Earn",
     "new": "Baru"
   },
   "walletSync": {
@@ -2191,6 +2191,10 @@
           "privacyPolicy": {
             "title": "Kebijakan Privasi",
             "description": "Lihat Kebijakan Privasi kami untuk mempelajari data pribadi apa yang kami kumpulkan, mengapa, dan bagaimana kami menggunakannya"
+          },
+          "appTutorials": {
+            "title": "Tutorial Aplikasi",
+            "description": "Tonton panduan video langkah demi langkah tentang cara menggunakan cySync dan Cypherock X1"
           }
         }
       }

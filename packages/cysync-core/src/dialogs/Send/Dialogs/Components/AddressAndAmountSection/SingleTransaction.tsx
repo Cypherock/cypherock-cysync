@@ -1,9 +1,9 @@
 import { IPreparedBtcTransaction } from '@cypherock/coin-support-btc';
 import { IPreparedEvmTransaction } from '@cypherock/coin-support-evm';
-import { IPreparedXrpTransaction } from '@cypherock/coin-support-xrp';
 import { IPreparedIcpTransaction } from '@cypherock/coin-support-icp';
 import { IPreparedTransaction } from '@cypherock/coin-support-interfaces';
 import { getDefaultUnit, getParsedAmount } from '@cypherock/coin-support-utils';
+import { IPreparedXrpTransaction } from '@cypherock/coin-support-xrp';
 import { coinFamiliesMap, CoinFamily } from '@cypherock/coins';
 import { Container, parseLangTemplate } from '@cypherock/cysync-ui';
 import { BigNumber } from '@cypherock/cysync-utils';
@@ -15,10 +15,10 @@ import { selectLanguage, useAppSelector } from '~/store';
 import { AddressInput } from './AddressInput';
 import { AmountInput } from './AmountInput';
 import { DestinationTagInput } from './DestinationTagInput';
+import { MemoInput } from './MemoInput';
 import { NotesInput } from './NotesInput';
 
 import { useSendDialog } from '../../../context';
-import { MemoInput } from './MemoInput';
 
 const MAX_UINT64 = new BigNumber('0xffffffffffffffff');
 
@@ -98,7 +98,7 @@ export const SingleTransaction: React.FC<SingleTransactionProps> = ({
     return {
       label: displayText.destinationTag.label,
       placeholder: displayText.destinationTag.placeholder,
-      initialValue: txn?.userInputs.outputs[0]?.destinationTag,
+      initialValue: txn.userInputs.outputs[0]?.destinationTag,
       isDisabled: disableInputs,
       onChange: prepareDestinationTag,
       error: getDestinationTagError(),
@@ -139,7 +139,7 @@ export const SingleTransaction: React.FC<SingleTransactionProps> = ({
     return {
       label: displayText.memo.label,
       placeholder: displayText.memo.placeholder,
-      initialValue: txn?.userInputs.outputs[0]?.memo,
+      initialValue: txn.userInputs.outputs[0]?.memo,
       onChange: prepareMemo,
       limit: MAX_UINT64,
     };

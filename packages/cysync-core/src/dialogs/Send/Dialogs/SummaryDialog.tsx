@@ -1,3 +1,4 @@
+import { IPreparedIcpTransaction } from '@cypherock/coin-support-icp';
 import {
   getDefaultUnit,
   getParsedAmount,
@@ -29,7 +30,6 @@ import { selectLanguage, selectPriceInfos, useAppSelector } from '~/store';
 
 import { useSendDialog } from '../context';
 import { useLabelSuffix } from '../hooks';
-import { IPreparedIcpTransaction } from '@cypherock/coin-support-icp';
 
 export const SummaryDialog: React.FC = () => {
   const {

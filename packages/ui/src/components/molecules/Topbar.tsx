@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import lodash from 'lodash';
 import React, { FC, ReactNode, useCallback } from 'react';
 import styled, { useTheme } from 'styled-components';
@@ -16,6 +17,8 @@ import {
   NoNotifications,
   Notifications,
   PushpinBold,
+  SettingsIcon,
+  SupportIcon,
 } from '../../assets';
 import {
   Button,
@@ -62,6 +65,8 @@ export interface TopbarProps {
   tooltipText?: string;
   showIcon?: boolean;
   onIconClick?: () => void;
+  onSettingsClick?: () => void;
+  onHelpClick?: () => void;
 }
 
 const DividingLine = styled.div`
@@ -97,6 +102,8 @@ export const Topbar: FC<TopbarProps> = ({
   showIcon,
   onIconClick,
   onNotificationClick,
+  onSettingsClick,
+  onHelpClick,
 }) => {
   const theme = useTheme();
 
@@ -155,46 +162,74 @@ export const Topbar: FC<TopbarProps> = ({
             )}
           </Container>
         </Container>
-
-        {showIcon && (
-          <Button variant="icon" onClick={onIconClick} pl={5}>
-            <PushpinBold />
-          </Button>
-        )}
       </TitleStyle>
       <Flex align="center">
-        <Tooltip text={tooltipText} tooltipPlacement="bottom">
-          <Button variant="none" onClick={onSyncClick}>
-            <Flex pr={2} align="center" gap={16}>
-              {syncStatusMap[syncStatus]}
-              <Typography
-                display={{ def: 'none', mdlg: 'block' }}
-                color="muted"
-              >
-                <LangDisplay text={statusTexts.sync[syncStatus]} />
-              </Typography>
-            </Flex>
-          </Button>
+        <Tooltip text={statusTexts.sync[syncStatus]} tooltipPlacement="bottom">
+          <div>
+            <Button variant="none" onClick={onSyncClick}>
+              <Flex pr={2} align="center" gap={16}>
+                {syncStatusMap[syncStatus]}
+              </Flex>
+            </Button>
+          </div>
         </Tooltip>
         <DividingLine />
-        <Flex px={2} align="center" gap={16}>
-          {connectionStatusMap[connectionStatus]}
-          <Typography display={{ def: 'none', mdlg: 'block' }} color="muted">
-            <LangDisplay text={statusTexts.connection[connectionStatus]} />
-          </Typography>
-        </Flex>
+        <Tooltip
+          text={statusTexts.connection[connectionStatus]}
+          tooltipPlacement="bottom"
+        >
+          <Flex px={2} align="center" gap={16}>
+            {connectionStatusMap[connectionStatus]}
+          </Flex>
+        </Tooltip>
         <DividingLine />
         <Button variant="icon" onClick={onNotificationClick}>
-          <Flex px={2} py="3" height="full" align="center" gap={16}>
-            {haveNotifications ? <Notifications /> : <NoNotifications />}
-          </Flex>
+          <Tooltip text="Notifications" tooltipPlacement="bottom">
+            <Flex px={2} py="3" height="full" align="center" gap={16}>
+              {haveNotifications ? <Notifications /> : <NoNotifications />}
+            </Flex>
+          </Tooltip>
         </Button>
         <DividingLine />
         <Button variant="icon" onClick={debouncedToggleDiscreteMode}>
-          <Flex px={2} py="3" align="center" gap={16}>
-            {isDiscreetMode ? <VisibilityHide /> : <Visibility />}
-          </Flex>
+          <Tooltip text="Discreet Mode" tooltipPlacement="bottom">
+            <Flex px={2} py="3" align="center" gap={16}>
+              {isDiscreetMode ? <VisibilityHide /> : <Visibility />}
+            </Flex>
+          </Tooltip>
         </Button>
+        <DividingLine />
+
+        {onHelpClick && (
+          <>
+            <Tooltip text="Help" tooltipPlacement="bottom">
+              <div>
+                <Button variant="icon" onClick={onHelpClick}>
+                  <Flex px={2} py="3" height="full" align="center">
+                    <SupportIcon
+                      stroke={theme?.palette.text.muted}
+                      fill="none"
+                    />
+                  </Flex>
+                </Button>
+              </div>
+            </Tooltip>
+            <DividingLine />
+          </>
+        )}
+
+        {onSettingsClick && (
+          <Tooltip text="Settings" tooltipPlacement="bottom">
+            <div>
+              <Button variant="icon" onClick={onSettingsClick}>
+                <Flex px={2} py="3" height="full" align="center">
+                  <SettingsIcon />
+                </Flex>
+              </Button>
+            </div>
+          </Tooltip>
+        )}
+
         {isPasswordSet && !isLockscreenLoading && (
           <>
             <DividingLine />
@@ -217,4 +252,6 @@ Topbar.defaultProps = {
   subTitle: undefined,
   tag: undefined,
   tooltipText: undefined,
+  onSettingsClick: undefined,
+  onHelpClick: undefined,
 };

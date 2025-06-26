@@ -12,6 +12,7 @@ import {
 } from '@cypherock/cysync-ui';
 import { BigNumber } from '@cypherock/cysync-utils';
 import React, { useMemo, useRef } from 'react';
+
 import { useAppSelector, selectLanguage, selectPriceInfos } from '~/store';
 
 const throbber: JSX.Element = <Throbber size={15} strokeWidth={2} />;

@@ -27,6 +27,7 @@ import {
   InheritanceHome,
   InheritanceChoosePlan,
   InheritancePlanDetails,
+  ReferAndEarn,
   Swap,
 } from '@cypherock/cysync-core';
 import React, { memo, ReactNode } from 'react';
@@ -58,6 +59,7 @@ const components: Record<RouteName, ReactNode> = {
   inheritance: <InheritanceHome />,
   'inheritance-choose-plan': <InheritanceChoosePlan />,
   'inheritance-plan-details': <InheritancePlanDetails />,
+  'refer-and-earn': <ReferAndEarn />,
 };
 
 export type InternalRoute = Record<string, IRoute>;
@@ -76,7 +78,7 @@ const getPaths = (route: IRoute | InternalRoute): IRoute[] => {
   return [route as IRoute];
 };
 
-const getRoute = (parseRoutes: IRoutes) => {
+const getRoute = (parseRoutes: IRoutes): IRoute[] => {
   const allRoutes: IRoute[] = [];
   for (const route in parseRoutes) {
     if (parseRoutes[route]) allRoutes.push(...getPaths(parseRoutes[route]));

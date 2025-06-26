@@ -41,10 +41,10 @@ import {
 import { ReceiveDialog } from './Receive';
 import { SendDialog } from './Send';
 import { SignMessageDialog } from './SignMessage';
+import { SwapDialog } from './SwapDialog';
 import { WalletActionsDialogBox } from './WalletActions';
 import { WalletConnectDialog } from './WalletConnect';
 import { WalletSyncError } from './WalletSyncError';
-import { SwapDialog } from './SwapDialog';
 
 export const dialogs: Record<DialogName, ReactComponentLike> = {
   walletSyncError: WalletSyncError,

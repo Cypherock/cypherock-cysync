@@ -1,5 +1,6 @@
 import { IPreparedBtcTransaction } from '@cypherock/coin-support-btc';
 import { IPreparedEvmTransaction } from '@cypherock/coin-support-evm';
+import { IPreparedTransaction } from '@cypherock/coin-support-interfaces';
 import { IPreparedSolanaTransaction } from '@cypherock/coin-support-solana';
 import { IPreparedTronTransaction } from '@cypherock/coin-support-tron';
 import {
@@ -40,7 +41,6 @@ import { OptimismFeesHeader } from './OptimismFeesHeader';
 import { XrpInput } from './XrpInput';
 
 import { useSendDialog } from '../../../context';
-import { IPreparedTransaction } from '@cypherock/coin-support-interfaces';
 
 const feeInputMap: Partial<Record<CoinFamily, React.FC<any>>> = {
   bitcoin: BitcoinInput,
@@ -78,25 +78,25 @@ const getErrorAndWarningComponents = (
 
   return (
     <>
-      {isFeeLow && txnValidation?.isValidFee && (
+      {isFeeLow && txnValidation.isValidFee && (
         <MessageBox type="warning" text={displayText.warning} />
       )}
-      {tronTxnValidation?.notEnoughEnergy && (
+      {tronTxnValidation.notEnoughEnergy && (
         <MessageBox
           type="warning"
           text={lang.strings.send.tron.notEnoughEnergyWarning}
         />
       )}
-      {!txnValidation?.isValidFee && (
+      {!txnValidation.isValidFee && (
         <MessageBox type="danger" text={displayText.feeError} />
       )}
-      {xrpTxnValidation?.isFeeBelowMin && (
+      {xrpTxnValidation.isFeeBelowMin && (
         <MessageBox type="danger" text={displayText.feeBelowMinError} />
       )}
-      {solanaTxnValidation?.isRentExemptFeeRequired && (
+      {solanaTxnValidation.isRentExemptFeeRequired && (
         <MessageBox type="warning" text={displayText.rentExemptFeeWarning} />
       )}
-      {showErrors && txnValidation?.hasEnoughBalance === false && (
+      {showErrors && !txnValidation.hasEnoughBalance && (
         <MessageBox type="danger" text={displayText.notEnoughBalance} />
       )}
     </>

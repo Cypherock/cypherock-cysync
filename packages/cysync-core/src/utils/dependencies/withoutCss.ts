@@ -1,12 +1,12 @@
 import '../../generated';
 import { BtcSupport } from '@cypherock/coin-support-btc';
 import { EvmSupport } from '@cypherock/coin-support-evm';
+import { IcpSupport } from '@cypherock/coin-support-icp';
 import { NearSupport } from '@cypherock/coin-support-near';
 import { SolanaSupport } from '@cypherock/coin-support-solana';
 import { StarknetSupport } from '@cypherock/coin-support-starknet';
 import { TronSupport } from '@cypherock/coin-support-tron';
 import { XrpSupport } from '@cypherock/coin-support-xrp';
-import { IcpSupport } from '@cypherock/coin-support-icp';
 
 import { setWalletConnect, setWalletConnectCore } from '../walletConnect';
 

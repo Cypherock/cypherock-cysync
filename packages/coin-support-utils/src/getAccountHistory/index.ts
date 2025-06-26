@@ -2,6 +2,7 @@ import {
   IBalanceHistory,
   IGetAccountHistoryResult,
 } from '@cypherock/coin-support-interfaces';
+import { coinFamiliesMap } from '@cypherock/coins';
 import { assert, BigNumber } from '@cypherock/cysync-utils';
 import {
   AccountTypeMap,
@@ -14,7 +15,6 @@ import {
   TransactionStatusMap,
   TransactionTypeMap,
 } from '@cypherock/db-interfaces';
-import { coinFamiliesMap } from '@cypherock/coins';
 import lodash from 'lodash';
 
 import { ICreateGetAccountHistoryParams } from './types';

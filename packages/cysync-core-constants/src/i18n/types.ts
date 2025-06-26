@@ -627,7 +627,7 @@ interface LangSidebar {
   history: string;
   walletConnect: string;
   cypherockCover: string;
-  tutorial: string;
+  referAndEarn: string;
   settings: string;
   help: string;
   buysell: string;
@@ -1275,6 +1275,7 @@ interface LangSettings {
         cySyncVersion: { title: string; description: string };
         termsOfUse: { title: string; description: string };
         privacyPolicy: { title: string; description: string };
+        appTutorials: { title: string; description: string };
       };
     };
   };

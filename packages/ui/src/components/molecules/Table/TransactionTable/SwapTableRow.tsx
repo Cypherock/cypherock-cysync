@@ -1,12 +1,12 @@
 import React, { ReactNode, useEffect, useRef, useState } from 'react';
 
+import { SvgProps } from '../../../../assets';
+import { ThemeType, useTheme } from '../../../../themes';
 import { Flex } from '../../../atoms';
 import { HistoryAssetBox } from '../HistoryAssetBox';
 import { HistoryNameBox } from '../HistoryNameBox';
 import { TableNameBox } from '../TableNameBox';
 import { RowWrapper, RowContainer } from '../TableStyles';
-import { SvgProps } from '../../../../assets';
-import { ThemeType, useTheme } from '../../../../themes';
 
 type SwapStatus = 'success' | 'pending' | 'failed';
 

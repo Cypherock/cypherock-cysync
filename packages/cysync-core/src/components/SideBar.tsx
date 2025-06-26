@@ -10,18 +10,16 @@ import {
   FloatingMenu,
   HistoryIcon,
   PortfolioIcon,
-  SettingsIcon,
   SideBarItem,
   SideBarWrapper,
   SideBarState as State,
-  SupportIcon,
   Synchronizing,
-  TutorialIcon,
   Typography,
   WalletConnectWhiteIcon,
   WalletIcon,
   DollarIcon,
   WalletInfoIcon,
+  AffiliateIcon,
   parseLangTemplate,
   GraphSwitchSmallIcon,
   SidebarHandle,
@@ -35,6 +33,7 @@ import {
   openWalletConnectDialog,
 } from '~/actions';
 import { DeviceHandlingState, useDevice, useSidebar } from '~/context';
+import logger from '~/utils/logger';
 
 export interface SideBarWalletSubMenuProps {
   wallets: IWallet[];
@@ -60,6 +59,10 @@ const SideBarComponent: FC = () => {
     width,
   } = useSidebar();
   const { deviceHandlingState } = useDevice();
+  const onReferEarnClick = () => {
+    logger.info('Sidebar Click: Refer & Earn');
+    navigate('referAndEarn');
+  };
 
   const walletsSubMenuOptions: DropDownItemProps[] = wallets.map(wallet => {
     const deleted = deletedWallets.some(
@@ -211,26 +214,11 @@ const SideBarComponent: FC = () => {
               }
               onClick={() => navigate('inheritance')}
             />
-          </Flex>
-          <Flex direction="column" gap={0}>
             <SideBarItem
-              text={strings.tutorial}
-              Icon={TutorialIcon}
-              state={getState('tutorial')}
-              onClick={() => navigate('tutorial')}
-            />
-            <SideBarItem
-              text={strings.settings}
-              Icon={SettingsIcon}
-              state={getState('settings')}
-              onClick={() => navigate('settings')}
-            />
-            <SideBarItem
-              text={strings.help}
-              Icon={SupportIcon}
-              svgStroke
-              state={getState('help')}
-              onClick={() => navigate('help')}
+              text={strings.referAndEarn}
+              Icon={AffiliateIcon}
+              state={getState('referAndEarn')}
+              onClick={onReferEarnClick}
             />
           </Flex>
         </Flex>

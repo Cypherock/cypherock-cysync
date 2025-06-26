@@ -38,6 +38,10 @@ const rootRoutes = {
     name: 'swap',
     path: '/swap',
   },
+  referAndEarn: {
+    name: 'refer-and-earn',
+    path: '/refer-and-earn',
+  },
 } as const;
 
 export const routes = {
