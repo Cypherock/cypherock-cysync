@@ -28,7 +28,6 @@
     "pretty:check": "prettier --check \"{src,tests,renderer}/**/*.{{ts,js}?(x),json,md}\"",
     "test": "jest",
     "pre-commit": "lint-staged",
-    "postinstall": "cross-env electron-builder install-app-deps",
     "dev:setup": "node scripts/setupDevTools.js"
   },
   "keywords": [],
