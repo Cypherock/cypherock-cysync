@@ -169,12 +169,6 @@ export const Topbar: FC<TopbarProps> = ({
             <Button variant="none" onClick={onSyncClick}>
               <Flex pr={2} align="center" gap={16}>
                 {syncStatusMap[syncStatus]}
-                <Typography
-                  display={{ def: 'none', mdlg: 'block' }}
-                  color="muted"
-                >
-                  <LangDisplay text={statusTexts.sync[syncStatus]} />
-                </Typography>
               </Flex>
             </Button>
           </div>
@@ -190,15 +184,19 @@ export const Topbar: FC<TopbarProps> = ({
         </Tooltip>
         <DividingLine />
         <Button variant="icon" onClick={onNotificationClick}>
-          <Flex px={2} py="3" height="full" align="center" gap={16}>
-            {haveNotifications ? <Notifications /> : <NoNotifications />}
-          </Flex>
+          <Tooltip text="Notifications" tooltipPlacement="bottom">
+            <Flex px={2} py="3" height="full" align="center" gap={16}>
+              {haveNotifications ? <Notifications /> : <NoNotifications />}
+            </Flex>
+          </Tooltip>
         </Button>
         <DividingLine />
         <Button variant="icon" onClick={debouncedToggleDiscreteMode}>
-          <Flex px={2} py="3" align="center" gap={16}>
-            {isDiscreetMode ? <VisibilityHide /> : <Visibility />}
-          </Flex>
+          <Tooltip text="Discreet Mode" tooltipPlacement="bottom">
+            <Flex px={2} py="3" align="center" gap={16}>
+              {isDiscreetMode ? <VisibilityHide /> : <Visibility />}
+            </Flex>
+          </Tooltip>
         </Button>
         <DividingLine />
 
