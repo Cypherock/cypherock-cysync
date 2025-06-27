@@ -1,0 +1,31 @@
+diff --git a/index.js b/index.js
+new file mode 100644
+index 0000000000000000000000000000000000000000..eb735016e8aba5cfad422db63ad9b3bf9e6492f5
+--- /dev/null
++++ b/index.js
+@@ -0,0 +1,12 @@
++export * from "./abs.js";
++export * from "./isInteger.js";
++export * from "./isNegativeZero.js";
++export * from "./min.js";
++export * from "./pow.js";
++export * from "./sign.js";
++export * from "./floor.js";
++export * from "./isFinite.js";
++export * from "./isNaN.js";
++export * from "./max.js";
++export * from "./mod.js";
++export * from "./round.js";
+diff --git a/package.json b/package.json
+index 067627354b768e180e286f8c2efdb0c35a188e52..c214a9728bf186958372b63d729702272d6c9f91 100644
+--- a/package.json
++++ b/package.json
+@@ -2,7 +2,7 @@
+ 	"name": "math-intrinsics",
+ 	"version": "1.1.0",
+ 	"description": "ES Math-related intrinsics and helpers, robustly cached.",
+-	"main": false,
++	"main": "index.js",
+ 	"exports": {
+ 		"./abs": "./abs.js",
+ 		"./floor": "./floor.js",

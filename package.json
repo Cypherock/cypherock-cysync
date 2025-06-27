@@ -57,6 +57,7 @@
     "punycode": "^2.3.1",
     "semver": "^7.5.3",
     "turbo": "^1.13.4",
+    "url": "^0.11.0",
     "watch": "^1.0.2"
   },
   "engines": {
@@ -73,7 +74,9 @@
       "@solana/web3.js@1.87.6": "patches/@solana__web3.js@1.87.6.patch",
       "borc@2.1.2": "patches/borc@2.1.2.patch",
       "sha.js@2.4.11": "patches/sha.js@2.4.11.patch",
-      "base-x@3.0.11": "patches/base-x@3.0.11.patch"
+      "base-x@3.0.11": "patches/base-x@3.0.11.patch",
+      "math-intrinsics@1.1.0": "patches/math-intrinsics@1.1.0.patch",
+      "dunder-proto@1.0.1": "patches/dunder-proto@1.0.1.patch"
     },
     "overrides": {
       "write-file-atomic": "5.0.1",

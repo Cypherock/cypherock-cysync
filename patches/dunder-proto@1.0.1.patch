@@ -1,0 +1,21 @@
+diff --git a/index.js b/index.js
+new file mode 100644
+index 0000000000000000000000000000000000000000..48b3d8b47aa1533ef00eea3737cfd1dba84c642e
+--- /dev/null
++++ b/index.js
+@@ -0,0 +1,2 @@
++export * from "./get.js";
++export * from "./set.js";
+diff --git a/package.json b/package.json
+index 04a40367751ee4c064ac88045e79b17ba4aab0a6..4ba0afffb0d2a1771f44b05e8271dae4b2988815 100644
+--- a/package.json
++++ b/package.json
+@@ -2,7 +2,7 @@
+ 	"name": "dunder-proto",
+ 	"version": "1.0.1",
+ 	"description": "If available, the `Object.prototype.__proto__` accessor and mutator, call-bound",
+-	"main": false,
++	"main": "index.js",
+ 	"exports": {
+ 		"./get": "./get.js",
+ 		"./set": "./set.js",
