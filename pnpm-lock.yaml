@@ -774,8 +774,8 @@ importers:
         specifier: workspace:^
         version: link:../db-interfaces
       '@cypherock/sdk-app-btc':
-        specifier: ^0.0.38
-        version: 0.0.38
+        specifier: ^0.1.0
+        version: 0.1.0
       '@cypherock/sdk-interfaces':
         specifier: ^0.0.16
         version: 0.0.16
@@ -1943,8 +1943,8 @@ importers:
         specifier: workspace:^
         version: link:../db-interfaces
       '@cypherock/sdk-app-btc':
-        specifier: ^0.0.38
-        version: 0.0.38
+        specifier: ^0.1.0
+        version: 0.1.0
       '@cypherock/sdk-app-evm':
         specifier: ^0.0.34
         version: 0.0.34
@@ -6496,8 +6496,8 @@ packages:
     dependencies:
       '@jridgewell/trace-mapping': 0.3.9
 
-  /@cypherock/sdk-app-btc@0.0.38:
-    resolution: {integrity: sha512-6tLZH7B8SVP8onyDPQAGsa8c+jy4FWV4J8MLqYw2Y/NGEoD8ygmyGWRkTIFFwh1CkXstJDnCtr176vRPyY2icw==}
+  /@cypherock/sdk-app-btc@0.1.0:
+    resolution: {integrity: sha512-3TEBiLEvekx0urE+9qQw8F6P4HlREQKbeDJPWtKZyIy6PIfh3ZhcKOWpYVjcek7PxfOVIpj6TBJKaO8DnHmKTw==}
     dependencies:
       '@bitcoin-js/tiny-secp256k1-asmjs': 2.2.3
       '@cypherock/sdk-core': 0.1.0
@@ -6647,7 +6647,7 @@ packages:
       axios: 1.7.2
       compare-versions: 6.0.0-rc.1
       protobufjs: 7.3.2
-      uuid: 9.0.0
+      uuid: 9.0.1
     transitivePeerDependencies:
       - debug
     dev: false
