@@ -1,3 +1,10 @@
+# v2.1.1
+
+### 🚀 Feature
+
+- **UI Upgrade**: Sidebar redesigned; main buttons moved to topbar for smoother navigation.
+- **Refer & Earn**: New in-app affiliate feature – invite friends and earn rewards!
+
 # v2.1.0
 
 ### 🚀 Feature
