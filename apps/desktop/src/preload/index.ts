@@ -233,6 +233,8 @@ const vendorSpecificFeatureFlags = (() => {
   if (cysyncEnv.VENDOR === 'odix') {
     modifiedFeatureFlags.COVER = false;
     modifiedFeatureFlags.DEEPLINK = false;
+    modifiedFeatureFlags.SWAP = false;
+    modifiedFeatureFlags.AFFILIATE = false;
   }
   return modifiedFeatureFlags;
 })();
