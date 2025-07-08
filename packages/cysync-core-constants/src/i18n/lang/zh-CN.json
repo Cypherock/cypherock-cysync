@@ -2,6 +2,7 @@
   "x1Card": "-=CARD_NAME=-",
   "help": "Help",
   "back": "返回",
+  "appName": "-=APP_NAME=-",
   "allWallets": "所有钱包",
   "buttons": {
     "addWallet": "添加钱包",
@@ -2398,7 +2399,7 @@
           },
           "appTutorials": {
             "title": "应用教程",
-            "description": "观看关于如何使用 cySync 和 Cypherock X1 的分步视频指南"
+            "description": "观看关于如何使用 -=APP_NAME=- 和 -=DEVICE_NAME=- 的分步视频指南"
           }
         }
       }

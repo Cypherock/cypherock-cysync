@@ -3,6 +3,7 @@
   "help": "Help",
   "back": "Back",
   "allWallets": "All Wallets",
+  "appName": "-=APP_NAME=-",
   "buttons": {
     "addWallet": "Add Wallet",
     "addAccount": "Add Account",
@@ -829,11 +830,9 @@
     "history": "History",
     "walletConnect": "Wallet Connect",
     "buysell": "Buy Crypto",
-    "cypherockCover": "Cypherock Cover",
     "referAndEarn": "Refer & Earn",
     "settings": "Settings",
     "help": "Help",
-    "new": "New",
     "tooltip": {
       "walletDeleted": "${walletName} has been deleted from your -=PRODUCT_NAME=- -=DEVICE_NAME=-"
     },
@@ -2409,7 +2408,7 @@
           },
           "appTutorials": {
             "title": "App Tutorials",
-            "description": "Watch step-by-step video guides on how to use cySync and Cypherock X1"
+            "description": "Watch step-by-step video guides on how to use -=APP_NAME=- and -=DEVICE_NAME=-"
           }
         }
       }
