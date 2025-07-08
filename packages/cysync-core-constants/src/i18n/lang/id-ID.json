@@ -2,6 +2,7 @@
   "x1Card": "-=CARD_NAME=-",
   "help": "Bantuan",
   "back": "Kembali",
+  "appName": "-=APP_NAME=-",
   "allWallets": "Semua Wallets",
   "buttons": {
     "addWallet": "Tambahkan Dompet",
@@ -2208,7 +2209,7 @@
           },
           "appTutorials": {
             "title": "Tutorial Aplikasi",
-            "description": "Tonton panduan video langkah demi langkah tentang cara menggunakan cySync dan Cypherock X1"
+            "description": "Tonton panduan video langkah demi langkah tentang cara menggunakan -=APP_NAME=- dan -=DEVICE_NAME=-"
           }
         }
       }
