@@ -2,6 +2,7 @@
   "x1Card": "-=CARD_NAME=-",
   "help": "Help",
   "back": "Zurück",
+  "appName": "-=APP_NAME=-",
   "allWallets": "Alle Wallets",
   "buttons": {
     "addWallet": "Wallet hinzufügen",
@@ -2413,7 +2414,7 @@
           },
           "appTutorials": {
             "title": "App-Anleitungen",
-            "description": "Sehen Sie sich schrittweise Videoanleitungen an, um zu erfahren, wie Sie cySync und Cypherock X1 verwenden"
+            "description": "Sehen Sie sich schrittweise Videoanleitungen an, um zu erfahren, wie Sie -=APP_NAME=- und -=DEVICE_NAME=- verwenden"
           }
         }
       }

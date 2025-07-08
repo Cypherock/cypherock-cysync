@@ -3,6 +3,7 @@
   "help": "مساعدة",
   "back": "عودة",
   "allWallets": "جميع المحافظ",
+  "appName": "-=APP_NAME=-",
   "buttons": {
     "addWallet": "إضافة محفظة",
     "addAccount": "إضافة حساب",
@@ -2416,7 +2417,7 @@
           },
           "appTutorials": {
             "title": "دروس التطبيق",
-            "description": "شاهد أدلة فيديو خطوة بخطوة حول كيفية استخدام cySync و Cypherock X1"
+            "description": "شاهد أدلة فيديو خطوة بخطوة حول كيفية استخدام -=APP_NAME=- و -=DEVICE_NAME=-"
           }
         }
       }
