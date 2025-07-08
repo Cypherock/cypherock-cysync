@@ -12,6 +12,7 @@ export interface LanguageStrings {
   help: string;
   back: string;
   allWallets: string;
+  appName: string;
   labels: LangLabels;
   buttons: LangButtons;
   dashboard: LangDashboard;
