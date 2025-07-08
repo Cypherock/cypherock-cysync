@@ -40,6 +40,7 @@ export type Page =
   | 'buysell';
 
 export interface SidebarContextInterface {
+  lang: ILangState;
   strings: ILangState['strings']['sidebar'];
   getState: (page: Page) => State;
   navigate: (page: Page) => void;
@@ -72,7 +73,8 @@ export const SidebarProvider: FC<SidebarProviderProps> = ({ children }) => {
   const location = useLocation();
   const query = useQuery();
   const dispatch = useAppDispatch();
-  const strings = useAppSelector(selectLanguage).strings.sidebar;
+  const lang = useAppSelector(selectLanguage);
+  const strings = lang.strings.sidebar;
   const { wallets, deletedWallets, syncWalletStatus } =
     useAppSelector(selectWallets);
   const theme = useTheme();
@@ -185,6 +187,7 @@ export const SidebarProvider: FC<SidebarProviderProps> = ({ children }) => {
 
   const ctx = useMemoReturn({
     strings,
+    lang,
     getState,
     navigate,
     theme,

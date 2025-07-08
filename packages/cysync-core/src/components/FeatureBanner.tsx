@@ -38,12 +38,7 @@ export const FeatureBanner: FC = () => {
         $borderRadius={16}
         gap={16}
       >
-        <Image
-          src={cysyncLogoSmall}
-          alt="cypherock logo"
-          $width={24}
-          $height={30}
-        />
+        <Image src={cysyncLogoSmall} alt="cypherock logo" $height={30} />
         <Typography $fontSize={16} width="100%">
           {lang.strings.inheritance.banner.title}
         </Typography>

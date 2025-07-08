@@ -5,7 +5,6 @@ import {
   ArrowSentIcon,
   Button,
   Chip,
-  cysyncLogoSmall,
   CypherockCoverIcon,
   DropDownItemProps,
   Flex,
@@ -49,6 +48,7 @@ const SideBarComponent: FC = () => {
     isWalletCollapsed,
     navigate,
     setIsWalletCollapsed,
+    lang,
     strings,
     theme,
     syncWalletStatus,
@@ -99,7 +99,11 @@ const SideBarComponent: FC = () => {
 
   return (
     <>
-      <SideBarWrapper title="cySync" width={width} height="screen">
+      <SideBarWrapper
+        title={lang.strings.appName}
+        width={width}
+        height="screen"
+      >
         <Flex direction="column" gap={8} justify="space-between" height="full">
           <Flex direction="column" gap={0}>
             <SideBarItem
@@ -237,18 +241,13 @@ const SideBarComponent: FC = () => {
         <Flex
           align="center"
           justify="flex-start"
-          gap={2}
+          gap={8}
           $borderWidthT={1}
           $borderColor="separator"
           pt="16px"
           mt="16px"
         >
-          <Image
-            src={cysyncLogoSmallImage}
-            alt="Cypherock"
-            $height={20}
-            $width={20}
-          />
+          <Image src={cysyncLogoSmallImage} alt="Cypherock" $height={20} />
           <Typography
             variant="h6"
             color="muted"
