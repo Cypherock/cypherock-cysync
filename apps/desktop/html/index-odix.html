@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+    <link href="/fonts/index.css" rel="preload stylesheet" as="style" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="script-src 'self' 'unsafe-inline' https://www.youtube.com data:;"
+    />
+    <title>Odix Pay</title>
+  </head>
+  <body style="user-select: none; overflow: hidden">
+    <div id="root"></div>
+    <script>
+      window.global = window;
+    </script>
+    <script type="module">
+      import { Buffer } from 'buffer/'; // <-- no typo here ("/")
+
+      window.Buffer = Buffer;
+    </script>
+    <script type="module" src="/renderer/index.tsx"></script>
+  </body>
+</html>
