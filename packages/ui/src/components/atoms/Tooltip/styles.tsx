@@ -95,7 +95,7 @@ export const TooltipStyles = createGlobalStyle`
   color: #fff;
   text-align: left;
   text-decoration: none;
-  background: #2c2520;
+  background: ${({ theme }) => theme.palette.border.popup};
   box-shadow: 4px 4px 32px 4px #000;
   min-height: 34px;
   border-radius: 8px;
