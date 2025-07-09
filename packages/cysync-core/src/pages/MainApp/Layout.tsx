@@ -59,7 +59,7 @@ const MainAppLayoutComponent: FC<MainAppLayoutProps> = ({
           <Flex direction="column" gap={8} px={2} py={2} hideIfEmpty>
             <AppUpdateBar />
             <DeviceUpdateBar />
-            <FeatureBanner />
+            {window.cysyncFeatureFlags.COVER && <FeatureBanner />}
           </Flex>
           <Topbar {...topbar} />
         </Flex>

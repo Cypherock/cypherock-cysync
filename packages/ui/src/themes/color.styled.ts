@@ -175,7 +175,7 @@ const cysyncColors = {
   },
 };
 
-const demoOdixColors = {
+const odixColors = {
   bullet: {
     white: '#FFFFFF',
   },
@@ -184,35 +184,30 @@ const demoOdixColors = {
     primary: '#141414',
     secondary:
       '-webkit-linear-gradient( 90deg,#a2adb3 1.67%,#f3f1f2 35.99%,#bcc3c9 66.2%,#dcdfe4 100%)',
-    content: 'linear-gradient(90deg, #141414 0%, #141414 59%, #141414 100%)',
+    content: 'linear-gradient(90deg,  #000 0.23%, #151515 99.82%)',
     sideBar: '#1a1a1a',
     golden: 'linear-gradient(90deg, #E1A68C 0%, #FFC8AF 37%, #B37D65 100%)',
     highlight:
       'linear-gradient(269.94deg, #262626 0.05%, rgba(26, 26, 26, 0) 51.82%)',
     silver:
       'linear-gradient(180deg, #626262 -2.08%, #808080 34.27%, #A0A0A0 66.28%, #B8B8B8 102.08%)',
-    stripe: 'linear-gradient(90deg, #000000 1.69%, #272320 100%)',
-
+    stripe: 'linear-gradient(90deg, #16120F 0.23%, #1F1915) 99.82%)',
     goldenhint:
-      'linear-gradient(263deg, rgba(192, 142, 109, 0.14) 5.24%, rgba(38, 34, 31, 0.00) 55.22%), #272320', // Adjusted goldenhint to use new base
+      'linear-gradient(263deg, rgba(192, 142, 109, 0.14) 5.24%, rgba(38, 34, 31, 0.00) 55.22%), #272320',
     silverhint:
       'linear-gradient(263deg, rgba(130, 130, 130, 0.14) 5.24%, rgba(0, 0, 0, 0) 55.22%), #1C1C1C',
 
     conicGradient: {
       default:
-        'conic-gradient(from 0deg, #B37D65,90deg, #B37D65, 90deg, #E1A68C ,180deg, #FFC8AF, 270deg, #B37D65, 360deg ,#B37D65, 360deg, #B37D65)', // Updated Conic Default
-      // This is the one used for the loader ring
+        'conic-gradient(from 0deg, #B37D65,90deg, #B37D65, 90deg, #E1A68C ,180deg, #FFC8AF, 270deg, #B37D65, 360deg ,#B37D65, 360deg, #B37D65)',
       secondary:
         'conic-gradient(from 0deg, #A2ADB3 ,33deg, #F3F1F2, 67deg, #BCC3C9, 101deg, #DCDFE4,135deg ,#FFC8AF, 135deg, #FFC8AF)',
-      // Note: Typo 'expiring'?
       expirig:
         'conic-gradient(from 0deg, #FF624C ,270deg, #FF624C,270deg ,#16120F, 270deg, #16120F)',
-      // Updated Conic Golden
       golden:
         'conic-gradient(from 0deg, #E1A68C ,30deg, #FFC8AF, 60deg, #B37D65, 90deg ,#16120F, 90deg, #16120F)',
       silver:
         'conic-gradient(from 0deg, #16120F,135deg, #16120F, 135deg, #A2ADB3 ,191deg, #F3F1F2, 247deg, #BCC3C9, 304deg, #DCDFE4, 360deg ,#16120F, 360deg, #16120F)',
-      // Updated Conic notExpiring (assuming this should also use the new golden gradient)
       notExpiring:
         'conic-gradient(from 0deg, #16120F, 270deg, #16120F, 270deg, #E1A68C ,300deg, #FFC8AF, 330deg, #B37D65, 360deg ,#16120F, 360deg, #16120F)',
     },
@@ -276,14 +271,14 @@ const demoOdixColors = {
     progressBar: '#242424',
     input: '#242424',
     inputSecondary: '#FFFF',
-    content: '#1a1a1a',
+    content: '#000',
 
     blur: 'rgba(0, 0, 0, 0.4)',
 
     separator: '#262626',
     bar: '#262626',
     muted: '#626262',
-    separatorSecondary: '#272320',
+    separatorSecondary: '#242424',
 
     gold: '#B37D65',
     infoGreenBg: '#1F271D',
@@ -361,7 +356,7 @@ const demoOdixColors = {
 
     table: {
       title: '#242424',
-      row: '#141414',
+      row: '#242424',
       stripe: '#000000',
     },
 
@@ -379,22 +374,17 @@ const demoOdixColors = {
     topbar: '#1C1C1C',
     card: '#242424',
 
-    selected: '#e0bb74', // Kept previous gold for selected, can be changed to new gold if desired
-    success: '#51C61A', // Using success.main color
-    infoGreen: '#143E01', // Kept from original
+    selected: '#e0bb74',
+    success: '#51C61A',
+    infoGreen: '#143E01',
   },
 
   shadow: {
     dropdown: '#0F0D0B',
   },
 };
-/* ─────────────────────────────────────────────────────────────── */
-
-// export { demoOdixColors as colors };
 
 const colors =
-  (window as any).cysyncEnv.VENDOR === 'odix' // Vendor specific color example
-    ? demoOdixColors
-    : cysyncColors;
+  (window as any).cysyncEnv.VENDOR === 'odix' ? odixColors : cysyncColors;
 
 export { colors };
