@@ -3,6 +3,7 @@ import styled from 'styled-components';
 
 import { CloseButton } from './CloseButton';
 import { Container } from './Container';
+
 // No longer need to import SearchIcon from generated assets
 // import SearchIcon from '../../assets/icons/generated/SearchIcon';
 import { svgGradients } from '../GlobalStyles'; // Keep this for gradient IDs

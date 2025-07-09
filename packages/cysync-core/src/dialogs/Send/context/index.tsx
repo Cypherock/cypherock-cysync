@@ -921,7 +921,7 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
 
     if (
       (transaction?.validation as IPreparedBtcTransaction['validation'])
-        ?.isNotOverDustThreshold
+        .isNotOverDustThreshold
     ) {
       return lang.strings.send.recipient.amount.notOverDustThreshold;
     }
@@ -946,7 +946,7 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
   const getDestinationTagError = useCallback(() => {
     if (
       (transaction?.validation as IPreparedXrpTransaction['validation'])
-        ?.isInvalidDestinationTag
+        .isInvalidDestinationTag
     ) {
       return lang.strings.send.recipient.destinationTag.error;
     }

@@ -1,3 +1,4 @@
+import { ICysyncEnv } from '@cypherock/cysync-interfaces';
 import { IDevice } from '@cypherock/sdk-interfaces';
 import { contextBridge, ipcRenderer } from 'electron';
 
@@ -9,7 +10,6 @@ import {
 
 import featureFlags from '../featureFlags';
 import { ipcConfig } from '../main/ipc/helpers/config';
-import { ICysyncEnv } from '@cypherock/cysync-interfaces';
 
 const exportedFunctions = [
   {
