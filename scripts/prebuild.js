@@ -50,7 +50,7 @@ const setDesktopAppVersion = async params => {
   if (config.VENDOR !== 'default') {
     // TODO: add a vendorm productname map here
     params.pkgJson.productName = config.VENDOR;
-    config.CHANNEL = `${config.VENDOR}-${config.CHANNEL}`;
+    // config.CHANNEL = `${config.VENDOR}-${config.CHANNEL}`;
   }
 
   if (config.CHANNEL !== config.RELEASE_CHANNEL) {

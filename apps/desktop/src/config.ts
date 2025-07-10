@@ -39,6 +39,6 @@ export default {
    */
   CHANNEL: 'latest',
 
-  // VENDOR: 'default',
-  VENDOR: 'odix',
+  VENDOR: 'default',
+  // VENDOR: 'odix',
 };
