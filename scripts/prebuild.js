@@ -47,10 +47,10 @@ const getUpdateChannel = () => {
 };
 
 const setDesktopAppVersion = async params => {
-  if(config.VENDOR !== 'default'){
-      // TODO: add a vendorm productname map here
-      params.pkgJson.productName = config.VENDOR;
-      config.CHANNEL = `${config.VENDOR}-${config.CHANNEL}`
+  if (config.VENDOR !== 'default') {
+    // TODO: add a vendorm productname map here
+    params.pkgJson.productName = config.VENDOR;
+    // config.CHANNEL = `${config.VENDOR}-${config.CHANNEL}`;
   }
 
   if (config.CHANNEL !== config.RELEASE_CHANNEL) {
@@ -107,13 +107,13 @@ const setDesktopAppConfig = async params => {
     CHANNEL: getUpdateChannel(),
   };
 
- if(config.CYPHEROCK_API){
-     configJson.API_CYPHEROCK = config.CYPHEROCK_API
- }
+  if (config.CYPHEROCK_API) {
+    configJson.API_CYPHEROCK = config.CYPHEROCK_API;
+  }
 
- if(config.VENDOR){
-     configJson.VENDOR = config.VENDOR
- }
+  if (config.VENDOR) {
+    configJson.VENDOR = config.VENDOR;
+  }
 
   let configStr = '{\n';
   configStr += Object.entries(configJson).reduce((str, [key, value]) => {
