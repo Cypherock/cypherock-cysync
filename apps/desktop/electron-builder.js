@@ -1,5 +1,7 @@
-const productName = 'Cypherock CySync';
-const productNameInArtifact = 'cypherock-cysync';
+const pkg = require('./package.json');
+
+const productName = pkg.productName;
+const productNameInArtifact = pkg.productName.toLowerCase().replace(' ', '-');
 
 const getArtifactName = (withoutArch = false) => {
   if (withoutArch) {
@@ -10,6 +12,7 @@ const getArtifactName = (withoutArch = false) => {
 };
 
 const config = {
+  // TODO: Needs to be updated according to the vendor
   appId: 'com.hodl.cypherock',
   productName,
   asar: true,
