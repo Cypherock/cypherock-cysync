@@ -5,3 +5,7 @@ declare module 'coinselect' {
 declare module 'coinselect/split' {
   export default any;
 }
+
+declare module 'coinselect/utils' {
+  export default any;
+}

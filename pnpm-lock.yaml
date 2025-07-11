@@ -25,7 +25,7 @@ patchedDependencies:
     hash: t42q4b6bcxlezmf7kdeypnpad4
     path: patches/borc@2.1.2.patch
   coinselect@3.1.13:
-    hash: w7ctbdrdl4sctyxj3zcjqsoscm
+    hash: tr6tyyptbnbki3vcduqhrar4ou
     path: patches/coinselect@3.1.13.patch
   crc@3.8.0:
     hash: 2elhtkirubv6k56zon6hryqaqe
@@ -787,7 +787,7 @@ importers:
         version: 1.4.0
       coinselect:
         specifier: ^3.1.13
-        version: 3.1.13(patch_hash=w7ctbdrdl4sctyxj3zcjqsoscm)
+        version: 3.1.13(patch_hash=tr6tyyptbnbki3vcduqhrar4ou)
       lodash:
         specifier: ^4.17.21
         version: 4.17.21
@@ -16278,7 +16278,7 @@ packages:
     engines: {node: '>=0.10.0'}
     dev: true
 
-  /coinselect@3.1.13(patch_hash=w7ctbdrdl4sctyxj3zcjqsoscm):
+  /coinselect@3.1.13(patch_hash=tr6tyyptbnbki3vcduqhrar4ou):
     resolution: {integrity: sha512-iJOrKH/7N9gX0jRkxgOHuGjvzvoxUMSeylDhH1sHn+CjLjdin5R0Hz2WEBu/jrZV5OrHcm+6DMzxwu9zb5mSZg==}
     dev: false
     patched: true

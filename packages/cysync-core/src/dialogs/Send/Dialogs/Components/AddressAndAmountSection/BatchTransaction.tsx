@@ -189,7 +189,7 @@ export const BatchTransaction: React.FC = () => {
                       : ''
                   }
                   priceUnit={displayText.amount.dollar}
-                  error={getAmountError()}
+                  error={getAmountError(i)}
                   placeholder={displayText.amount.placeholder}
                   initialAmount={getConvertedAmount(output.amount)}
                   onChange={async val => {

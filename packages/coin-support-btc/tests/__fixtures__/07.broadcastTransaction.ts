@@ -70,7 +70,7 @@ export const valid: IPrepareTransactionTestCases[] = [
         hasEnoughBalance: true,
         outputs: [true],
         isValidFee: true,
-        isNotOverDustThreshold: false,
+        isNotOverDustThreshold: [],
         ownOutputAddressNotAllowed: [],
         zeroAmountNotAllowed: false,
       },

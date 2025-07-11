@@ -22,7 +22,7 @@ export const initializeTransaction = async (
       outputs: [],
       hasEnoughBalance: true,
       isValidFee: true,
-      isNotOverDustThreshold: false,
+      isNotOverDustThreshold: [],
       ownOutputAddressNotAllowed: [],
       zeroAmountNotAllowed: false,
     },

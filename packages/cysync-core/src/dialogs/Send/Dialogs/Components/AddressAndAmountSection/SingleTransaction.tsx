@@ -229,7 +229,7 @@ export const SingleTransaction: React.FC<SingleTransactionProps> = ({
           toggleLabel={disableInputs ? '' : displayText.amount.toggle}
           initialToggle={transaction?.userInputs.isSendAll !== false}
           priceUnit={displayText.amount.dollar}
-          error={getAmountError()}
+          error={getAmountError(0)}
           placeholder={displayText.amount.placeholder}
           initialAmount={getConvertedAmount(
             transaction?.userInputs.outputs[0]?.amount,

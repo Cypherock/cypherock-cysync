@@ -16,7 +16,7 @@ export const valid: IPrepareTransactionTestCases[] = [
     txn: {
       accountId: '1',
       userInputs: {
-        outputs: [{ address: 'kajshd', amount: '' }],
+        outputs: [{ address: 'kajshd', amount: '49741984' }],
         feeRate: 150,
         isSendAll: false,
       },
@@ -43,7 +43,7 @@ export const valid: IPrepareTransactionTestCases[] = [
         hasEnoughBalance: true,
         outputs: [],
         isValidFee: true,
-        isNotOverDustThreshold: false,
+        isNotOverDustThreshold: [],
         ownOutputAddressNotAllowed: [],
         zeroAmountNotAllowed: false,
       },
@@ -62,7 +62,7 @@ export const valid: IPrepareTransactionTestCases[] = [
     output: {
       accountId: '1',
       userInputs: {
-        outputs: [{ address: 'kajshd', amount: '' }],
+        outputs: [{ address: 'kajshd', amount: '49741984' }],
         feeRate: 150,
         isSendAll: false,
       },
@@ -81,7 +81,7 @@ export const valid: IPrepareTransactionTestCases[] = [
         ],
       },
       computedData: {
-        fee: 33900,
+        fee: 35250,
         inputs: [
           {
             address: 'LYzVffwKeuwnqeuwVikH59gk3iLvVaeZUN',
@@ -96,12 +96,12 @@ export const valid: IPrepareTransactionTestCases[] = [
         outputs: [
           {
             address: 'kajshd',
-            value: 0,
+            value: 49741984,
           },
           {
             address: 'LLFJKN7dsxc35PKuhn9WxKvaXr82isuKLN',
             derivationPath: "m/44'/1'/0'/1/2",
-            value: 49808984,
+            value: 65650,
           },
         ],
       },
@@ -109,7 +109,7 @@ export const valid: IPrepareTransactionTestCases[] = [
         hasEnoughBalance: true,
         outputs: [false],
         isValidFee: true,
-        isNotOverDustThreshold: false,
+        isNotOverDustThreshold: [false],
         ownOutputAddressNotAllowed: [],
         zeroAmountNotAllowed: false,
       },
