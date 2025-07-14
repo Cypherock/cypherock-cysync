@@ -1,3 +1,13 @@
+# v2.1.2
+
+### 🚀 Feature
+
+- **SegWit Support:** Send and receive BTC with SegWit for lower fees and faster confirmations.
+
+### 🐛 Bugfix
+
+- **Dust Limit Fix:** Fixed the SER_2000 broadcast failed error when sending small Bitcoin amounts.
+
 # v2.1.1
 
 ### 🚀 Feature
