@@ -79,7 +79,7 @@ export const Recipient: React.FC = () => {
 
     const isBtcValid = (
       validation: IPreparedBtcTransaction['validation'],
-    ): boolean => !validation.isNotOverDustThreshold;
+    ): boolean => validation.isNotOverDustThreshold.every(value => !value);
 
     const isXrpValid = (
       validation: IPreparedXrpTransaction['validation'],

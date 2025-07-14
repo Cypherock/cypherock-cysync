@@ -41,9 +41,9 @@
   "dependencies": {
     "@cypherock/cysync-interfaces": "workspace:^",
     "@cypherock/cysync-utils": "workspace:^",
-    "@cypherock/sdk-app-inheritance": "^1.0.1",
+    "@cypherock/sdk-app-inheritance": "^1.0.2",
     "@cypherock/sdk-interfaces": "^0.0.16",
-    "@cypherock/sdk-utils": "^0.0.19",
+    "@cypherock/sdk-utils": "^0.0.20",
     "lodash": "^4.17.21",
     "rxjs": "^7.8.1"
   },
