@@ -1,5 +1,9 @@
 import { coinList, BtcIdMap } from '@cypherock/coins';
-import { DisplayGraph, DropDownItemProps } from '@cypherock/cysync-ui';
+import {
+  DisplayGraph,
+  DropDownItemProps,
+  useTheme,
+} from '@cypherock/cysync-ui';
 import React, { useMemo } from 'react';
 
 import { useGraph, UseGraphProps } from '~/hooks';
@@ -20,6 +24,7 @@ export const Graph: React.FC<GraphProps> = ({
   parentAssetId,
   color,
 }) => {
+  const theme = useTheme();
   const {
     lang,
     rangeList,
@@ -82,7 +87,11 @@ export const Graph: React.FC<GraphProps> = ({
       formatTooltipValue={formatTooltipValue}
       formatTimestamp={formatTimestamp}
       formatYAxisTick={formatYAxisTick}
-      color={color ?? coinList[BtcIdMap.bitcoin].color ?? ''}
+      color={
+        color ?? window.cysyncEnv.VENDOR === 'odix'
+          ? theme.palette.bullet.white
+          : coinList[BtcIdMap.bitcoin].color ?? ''
+      }
       onSwitch={
         assetId || parentAssetId || accountId ? onGraphSwitch : undefined
       }

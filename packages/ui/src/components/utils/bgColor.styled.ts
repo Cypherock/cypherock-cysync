@@ -43,23 +43,15 @@ export const bgColor = css<BgColorProps>`
   ${props =>
     props.$bgColor === 'contentGradient' &&
     css`
-      background-image: ${({ theme }) => theme.palette.background.content};
+      background-image: ${({ theme }) =>
+        (window as any).cysyncEnv?.VENDOR === 'odix'
+          ? theme.palette.background.black
+          : theme.palette.background.content};
     `}
   ${props =>
     props.$bgColor === 'primary' &&
     css`
-      /* This will now be picked from theme.palette.background.primary,
-         which itself should be conditional if DialogBox background needs to change per vendor.
-         Alternatively, if 'primary' specifically means dialog background here, make it conditional:
-      */
-      background: ${
-        () =>
-          typeof window !== 'undefined' &&
-          (window as any).cysyncEnv?.VENDOR === 'odix'
-            ? '#141414' /* Odix Dialog BG */
-            : ({ theme }) =>
-                theme.palette.background.primary /* Default Dialog BG */
-      };
+      background: ${({ theme }) => theme.palette.background.primary};
     `}
   ${props =>
     props.$bgColor === 'secondary' &&

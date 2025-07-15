@@ -34,7 +34,12 @@ export const SideBarWrapper: FC<SideBarWrapperProps> = ({
 }) => (
   <SideBarWrapperStyle pt={4} pb={4} pl={4} pr={3} {...props}>
     <Flex gap={16} mb={4} pb={2}>
-      <Image src={cysyncLogoSmall} alt="cysynclogo" $height={20} my="auto" />
+      <Image
+        src={cysyncLogoSmall}
+        alt="cysynclogo"
+        $height={(window as any).cysyncEnv.VENDOR === 'odix' ? 40 : 20}
+        my="auto"
+      />
       <Typography
         variant="h4"
         color="muted"

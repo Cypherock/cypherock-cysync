@@ -238,15 +238,7 @@ const SideBarComponent: FC = () => {
             )}
           </Flex>
         </Flex>
-        <Flex
-          align="center"
-          justify="flex-start"
-          gap={8}
-          $borderWidthT={1}
-          $borderColor="separator"
-          pt="16px"
-          mt="16px"
-        >
+        <Flex align="center" justify="flex-start" gap={8} pt="16px" mt="16px">
           <Image src={cysyncLogoSmallImage} alt="Cypherock" $height={20} />
           <Typography
             variant="h6"
@@ -258,7 +250,9 @@ const SideBarComponent: FC = () => {
           </Typography>
         </Flex>
       </SideBarWrapper>
-      <SidebarHandle onMouseDown={startDrag} />
+      {window.cysyncEnv.VENDOR === 'default' && (
+        <SidebarHandle onMouseDown={startDrag} />
+      )}
     </>
   );
 };

@@ -26,7 +26,7 @@ const ClickableFlex = styled(Flex)<
   `
       : `
       &:hover {
-        filter: brightness(150%);
+        filter: brightness(120%);
       }
     `}
 `;

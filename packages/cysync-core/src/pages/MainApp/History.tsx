@@ -95,7 +95,7 @@ export const History: FC = () => {
       return 57;
     }
 
-    return expandedRowIds[displayedData[index].id] && isSmallScreen ? 198 : 82;
+    return expandedRowIds[displayedData[index].id] && isSmallScreen ? 198 : 84;
   };
 
   const handleDownloadCSV = () => {

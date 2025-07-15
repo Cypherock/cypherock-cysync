@@ -132,11 +132,11 @@ export const Topbar: FC<TopbarProps> = ({
       pt={{ def: '8', mdlg: 3 }}
       pb={{ def: '8', mdlg: '10' }}
       $bgColor="contentGradient"
-      $borderWidthB={1}
+      $borderWidthB={(window as any).cysyncEnv.VENDOR === 'odix' ? 0 : 1}
       $borderColor="topbar"
       width="full"
       justify="space-between"
-      shadow="popup"
+      shadow={(window as any).cysyncEnv.VENDOR === 'odix' ? undefined : 'popup'}
     >
       <TitleStyle>
         <Container direction="row">

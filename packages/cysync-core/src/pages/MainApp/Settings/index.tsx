@@ -45,7 +45,8 @@ export const Settings: FC = () => {
       <Container
         m={{ def: 2, lg: '20' }}
         $borderRadius={24}
-        shadow="popup"
+        shadow={window.cysyncEnv.VENDOR === 'default' ? 'popup' : undefined}
+        $bgColor="container"
         direction="column"
         align="stretch"
         $borderWidth={0}
