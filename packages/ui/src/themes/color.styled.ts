@@ -183,15 +183,15 @@ const odixColors = {
   gradients: {
     primary: '#141414',
     secondary:
-      '-webkit-linear-gradient( 90deg,#a2adb3 1.67%,#f3f1f2 35.99%,#bcc3c9 66.2%,#dcdfe4 100%)',
-    content: 'linear-gradient(90deg,  #000 0.23%, #151515 99.82%)',
+      'linear-gradient( 90deg,#a2adb3 1.67%,#f3f1f2 35.99%,#bcc3c9 66.2%,#dcdfe4 100%)',
+    content: '#141414',
     sideBar: '#1a1a1a',
     golden: 'linear-gradient(90deg, #E1A68C 0%, #FFC8AF 37%, #B37D65 100%)',
     highlight:
       'linear-gradient(269.94deg, #262626 0.05%, rgba(26, 26, 26, 0) 51.82%)',
     silver:
       'linear-gradient(180deg, #626262 -2.08%, #808080 34.27%, #A0A0A0 66.28%, #B8B8B8 102.08%)',
-    stripe: 'linear-gradient(90deg, #16120F 0.23%, #1F1915) 99.82%)',
+    stripe: '#141414',
     goldenhint:
       'linear-gradient(263deg, rgba(192, 142, 109, 0.14) 5.24%, rgba(38, 34, 31, 0.00) 55.22%), #272320',
     silverhint:
@@ -234,7 +234,7 @@ const odixColors = {
 
   text: {
     gold: 'linear-gradient(90deg, #E1A68C 0%, #FFC8AF 37%, #B37D65 100%)',
-    silver: 'linear-gradient(90deg,#808080 1.67%,#626262 66.2%,#4C4C4C 100%)',
+    silver: '#FFFFFF',
 
     heading: '#FFFFFF',
     list: '#808080',
@@ -285,10 +285,10 @@ const odixColors = {
 
     dropdownHover: '#1C1C1C',
     golden:
-      'linear-gradient(103deg, var(--Web-Bacground-Gradient-Primary-0, #211C18) 0%, var(--Web-Bacground-Gradient-Primary-59, #211A16) 59.37%, var(--Web-Bacground-Gradient-Primary-100, #252219) 100%)',
+      'linear-gradient(103deg,  #211C18 0%,  #211A16 59.37%,  #252219 100%)',
 
     black: '#000000',
-    container: '#000000',
+    container: '#141414',
     containerSecondary: '#141414',
 
     toggleOff: '#262626',
@@ -296,7 +296,7 @@ const odixColors = {
 
     info: '#4A2D00',
     lightBlack: '#1C1C1C',
-    sidebar: '#1a1a1a',
+    sidebar: '#000',
     sendsidebar: 'linear-gradient(45deg, black, #191818)',
 
     slider: '#1C1C1C',
@@ -355,9 +355,9 @@ const odixColors = {
     bar: '#474747',
 
     table: {
-      title: '#242424',
+      title: '#141414',
       row: '#242424',
-      stripe: '#000000',
+      stripe: '#242424',
     },
 
     muted: '#626262',
