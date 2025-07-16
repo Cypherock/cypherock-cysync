@@ -842,7 +842,7 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
       const btcValidation =
         transaction?.validation as IPreparedBtcTransaction['validation'];
 
-      return btcValidation?.isNotOverDustThreshold[index]
+      return btcValidation?.isNotOverDustThreshold?.[index]
         ? lang.strings.send.recipient.amount.notOverDustThreshold
         : '';
     },
