@@ -118,6 +118,8 @@ export const prepareTransaction = async (
         },
       ];
       isNotOverDustThreshold.push(true);
+    } else if (result.outputs !== undefined) {
+      isNotOverDustThreshold.push(false);
     }
   } else {
     isNotOverDustThreshold = validateOutputAmountsForDustThreshold(
