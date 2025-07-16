@@ -1,5 +1,13 @@
 # @cypherock/coin-support-btc
 
+## 0.0.19
+
+### Patch Changes
+
+- [#765](https://github.com/Cypherock/cypherock-cysync/pull/765) [`a4247c5e`](https://github.com/Cypherock/cypherock-cysync/commit/a4247c5e5eda7239616c5a211179dc725736a0f7) Thanks [@muzaffarbhat07](https://github.com/muzaffarbhat07)! - Fixed bitcoin dust threshold and fee calculation issue
+
+- [#765](https://github.com/Cypherock/cypherock-cysync/pull/765) [`e7840d17`](https://github.com/Cypherock/cypherock-cysync/commit/e7840d1711483ab6efa3be2d1488b4ab17ccd863) Thanks [@muzaffarbhat07](https://github.com/muzaffarbhat07)! - Enabled nested segwit support in btc app
+
 ## 0.0.18
 
 ### Patch Changes

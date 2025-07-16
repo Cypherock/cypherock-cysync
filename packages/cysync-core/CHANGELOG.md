@@ -1,5 +1,17 @@
 # @cypherock/cysync-core
 
+## 0.6.4
+
+### Patch Changes
+
+- [#765](https://github.com/Cypherock/cypherock-cysync/pull/765) [`a4247c5e`](https://github.com/Cypherock/cypherock-cysync/commit/a4247c5e5eda7239616c5a211179dc725736a0f7) Thanks [@muzaffarbhat07](https://github.com/muzaffarbhat07)! - Fixed bitcoin dust threshold and fee calculation issue
+
+- Updated dependencies [[`a4247c5e`](https://github.com/Cypherock/cypherock-cysync/commit/a4247c5e5eda7239616c5a211179dc725736a0f7), [`e7840d17`](https://github.com/Cypherock/cypherock-cysync/commit/e7840d1711483ab6efa3be2d1488b4ab17ccd863)]:
+  - @cypherock/coin-support-btc@0.0.19
+  - @cypherock/coin-support@0.1.8
+  - @cypherock/cysync-core-services@0.1.6
+  - @cypherock/cysync-core-workers@0.0.22
+
 ## 0.6.3
 
 ### Patch Changes
