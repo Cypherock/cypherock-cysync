@@ -29,7 +29,7 @@ import {
 } from '~/actions';
 import { CoinIcon } from '~/components';
 import { routes } from '~/constants';
-import { useNavigateTo, useQuery } from '~/hooks';
+import { useAccounts, useNavigateTo, useQuery } from '~/hooks';
 import {
   AccountSyncState,
   AccountSyncStateMap,
@@ -37,7 +37,6 @@ import {
   selectDiscreetMode,
   selectLanguage,
   selectPriceInfos,
-  selectUnHiddenAccounts,
   selectWallets,
   useAppDispatch,
   useAppSelector,
@@ -196,7 +195,6 @@ const selector = createSelector(
   [
     selectLanguage,
     selectWallets,
-    selectUnHiddenAccounts,
     selectPriceInfos,
     selectAccountSync,
     selectDiscreetMode,
@@ -204,14 +202,12 @@ const selector = createSelector(
   (
     lang,
     { wallets },
-    { accounts },
     { priceInfos },
     { accountSyncMap },
     { active: isDiscreetMode },
   ) => ({
     lang,
     wallets,
-    accounts,
     priceInfos,
     accountSyncMap,
     isDiscreetMode,
@@ -219,14 +215,9 @@ const selector = createSelector(
 );
 
 export const useWalletPage = () => {
-  const {
-    wallets,
-    lang,
-    accounts: allAccounts,
-    priceInfos,
-    accountSyncMap,
-    isDiscreetMode,
-  } = useAppSelector(selector);
+  const { wallets, lang, priceInfos, accountSyncMap, isDiscreetMode } =
+    useAppSelector(selector);
+  const allAccounts = useAccounts();
   const dispatch = useAppDispatch();
   const navigateTo = useNavigateTo();
   const query = useQuery();

@@ -14,25 +14,25 @@ import {
   CoinIcon,
   selectDiscreetMode,
   selectPriceInfos,
-  selectUnHiddenAccounts,
   useAppSelector,
 } from '..';
+import { useAccounts } from './useAccounts';
 
 export interface UseSubAccountsProps {
   accountId: string;
 }
 
 const selector = createSelector(
-  [selectUnHiddenAccounts, selectPriceInfos, selectDiscreetMode],
-  ({ accounts }, { priceInfos }, { active }) => ({
-    accounts,
+  [selectPriceInfos, selectDiscreetMode],
+  ({ priceInfos }, { active }) => ({
     priceInfos,
     isDiscreetMode: active,
   }),
 );
 
 export const useSubAccounts = ({ accountId }: UseSubAccountsProps) => {
-  const { accounts, priceInfos, isDiscreetMode } = useAppSelector(selector);
+  const { priceInfos, isDiscreetMode } = useAppSelector(selector);
+  const accounts = useAccounts();
 
   const subAccounts = useMemo(
     () =>

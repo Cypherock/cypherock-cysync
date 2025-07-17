@@ -31,12 +31,16 @@ import React, {
 
 import { syncAccounts, syncPriceHistories, syncPrices } from '~/actions';
 import { CoinIcon } from '~/components';
-import { ITabs, useAccountDropdown, useTabsAndDialogs } from '~/hooks';
+import {
+  ITabs,
+  useAccountDropdown,
+  useAccounts,
+  useTabsAndDialogs,
+} from '~/hooks';
 import { useWalletDropdown } from '~/hooks/useWalletDropdown';
 import {
   closeDialog,
   selectLanguage,
-  selectUnHiddenAccounts,
   useAppDispatch,
   useAppSelector,
 } from '~/store';
@@ -171,7 +175,7 @@ export const AddTokenDialogProvider: FC<AddTokenDialogContextProviderProps> = ({
     [],
   );
 
-  const { accounts } = useAppSelector(selectUnHiddenAccounts);
+  const accounts = useAccounts();
   const accountList: Record<string, IAccount> = useMemo(
     () => Object.fromEntries(accounts.map(a => [a.__id, a])),
     [accounts],

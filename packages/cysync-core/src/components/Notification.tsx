@@ -29,7 +29,7 @@ import {
   markTransactionNotificationClicked,
   openHistoryDialog,
 } from '~/actions';
-import { useNavigateTo } from '~/hooks';
+import { useAccounts, useNavigateTo } from '~/hooks';
 import { getDisplayTransactionType, transactionIconMap } from '~/utils';
 import logger from '~/utils/logger';
 
@@ -39,7 +39,6 @@ import {
   routes,
   selectLanguage,
   selectNotifications,
-  selectUnHiddenAccounts,
   selectWallets,
   toggleNotification,
   useAppDispatch,
@@ -51,11 +50,10 @@ export interface NotificationProps {
 }
 
 const selector = createSelector(
-  [selectLanguage, selectNotifications, selectWallets, selectUnHiddenAccounts],
-  (lang, notifications, { wallets }, { accounts }) => ({
+  [selectLanguage, selectNotifications, selectWallets],
+  (lang, notifications, { wallets }) => ({
     lang,
     wallets,
-    accounts,
     ...notifications,
   }),
 );
@@ -120,8 +118,9 @@ export const NotificationDisplay: React.FC<NotificationProps> = ({ top }) => {
   const dispatch = useAppDispatch();
   const theme = useTheme();
   const navigate = useNavigateTo();
-  const { transactions, lang, wallets, accounts, unreadTransactions } =
+  const { transactions, lang, wallets, unreadTransactions } =
     useAppSelector(selector);
+  const accounts = useAccounts();
 
   const onClose = () => {
     markAllTransactionNotificationRead(transactions);

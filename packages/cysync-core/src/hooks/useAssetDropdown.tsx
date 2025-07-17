@@ -3,13 +3,14 @@ import { BreadcrumbDropdownItem } from '@cypherock/cysync-ui';
 import lodash from 'lodash';
 import React, { useMemo } from 'react';
 
+import { useAccounts } from './useAccounts';
 import { useNavigateTo } from './useNavigateTo';
 
-import { CoinIcon, routes, selectUnHiddenAccounts, useAppSelector } from '..';
+import { CoinIcon, routes } from '..';
 
 export const useAssetDropdown = () => {
   const navigateTo = useNavigateTo();
-  const { accounts } = useAppSelector(selectUnHiddenAccounts);
+  const accounts = useAccounts();
 
   const assetDropdownList: BreadcrumbDropdownItem[] = useMemo(
     () =>
