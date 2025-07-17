@@ -1,3 +1,4 @@
+import { BtcIdMap } from '@cypherock/coins';
 import { getDefaultUnit, getParsedAmount } from '@cypherock/coin-support-utils';
 import {
   Button,
@@ -38,6 +39,7 @@ import {
   ILangState,
   routes,
   selectLanguage,
+  selectLastConnectedFirmware,
   selectNotifications,
   selectWallets,
   toggleNotification,
@@ -50,10 +52,16 @@ export interface NotificationProps {
 }
 
 const selector = createSelector(
-  [selectLanguage, selectNotifications, selectWallets],
-  (lang, notifications, { wallets }) => ({
+  [
+    selectLanguage,
+    selectNotifications,
+    selectWallets,
+    selectLastConnectedFirmware,
+  ],
+  (lang, notifications, { wallets }, { isFirmwareBtcOnly }) => ({
     lang,
     wallets,
+    isFirmwareBtcOnly,
     ...notifications,
   }),
 );
@@ -118,9 +126,22 @@ export const NotificationDisplay: React.FC<NotificationProps> = ({ top }) => {
   const dispatch = useAppDispatch();
   const theme = useTheme();
   const navigate = useNavigateTo();
-  const { transactions, lang, wallets, unreadTransactions } =
-    useAppSelector(selector);
+  const {
+    transactions: allTransactions,
+    lang,
+    wallets,
+    unreadTransactions,
+    isFirmwareBtcOnly,
+  } = useAppSelector(selector);
   const accounts = useAccounts();
+
+  const transactions = useMemo(
+    () =>
+      isFirmwareBtcOnly
+        ? allTransactions.filter(t => t.assetId === BtcIdMap.bitcoin)
+        : allTransactions,
+    [allTransactions, isFirmwareBtcOnly],
+  );
 
   const onClose = () => {
     markAllTransactionNotificationRead(transactions);
