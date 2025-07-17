@@ -131,7 +131,11 @@ export const Topbar: FC<TopbarProps> = ({
       px={{ def: 4, mdlg: 5 }}
       pt={{ def: '8', mdlg: 3 }}
       pb={{ def: '8', mdlg: '10' }}
-      $bgColor="contentGradient"
+      $bgColor={
+        (window as any).cysyncEnv.VENDOR === 'odix'
+          ? 'black'
+          : 'contentGradient'
+      }
       $borderWidthB={(window as any).cysyncEnv.VENDOR === 'odix' ? 0 : 1}
       $borderColor="topbar"
       width="full"
