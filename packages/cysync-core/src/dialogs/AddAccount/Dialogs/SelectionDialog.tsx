@@ -25,8 +25,7 @@ const getCoinDropDownList = (isFirmwareBtcOnly: boolean): DropDownItemProps[] =>
     .filter(
       c =>
         (window.cysyncEnv.IS_PRODUCTION === 'false' || !c.isUnderDevelopment) &&
-        isFirmwareBtcOnly &&
-        c.id === BtcIdMap.bitcoin,
+        (!isFirmwareBtcOnly || c.id === BtcIdMap.bitcoin),
     )
     .map(coin => ({
       id: coin.id,
