@@ -43,10 +43,7 @@ export const bgColor = css<BgColorProps>`
   ${props =>
     props.$bgColor === 'contentGradient' &&
     css`
-      background-image: ${({ theme }) =>
-        (window as any).cysyncEnv?.VENDOR === 'odix'
-          ? theme.palette.background.black
-          : theme.palette.background.content};
+      background-image: ${({ theme }) => theme.palette.background.content};
     `}
   ${props =>
     props.$bgColor === 'primary' &&
@@ -67,8 +64,7 @@ export const bgColor = css<BgColorProps>`
     props.$bgColor === 'input' &&
     css`
       background: ${({ theme }) => theme.palette.background.input};
-      /* Assuming border should remain consistent or be handled by border utility */
-      /* border: 1px solid ${({ theme }) => theme.palette.border.input}; */
+      border: 1px solid ${({ theme }) => theme.palette.border.input};
     `}
   ${props =>
     props.$bgColor === 'separator' &&
@@ -98,7 +94,6 @@ export const bgColor = css<BgColorProps>`
   ${props =>
     props.$bgColor === 'golden' &&
     css`
-      /* This 'golden' background should use the vendor-aware gradient for buttons/text */
       background: ${({ theme }) => theme.palette.golden};
     `}
   ${props =>
@@ -114,19 +109,10 @@ export const bgColor = css<BgColorProps>`
   ${props =>
     props.$bgColor === 'popup' &&
     css`
-      /* If 'popup' refers to the dialog background */
-      background: ${
-        () =>
-          typeof window !== 'undefined' &&
-          (window as any).cysyncEnv?.VENDOR === 'odix'
-            ? '#141414' /* Odix Dialog BG */
-            : ({ theme }) =>
-                theme.palette.background
-                  .primary /* Default Dialog BG, or specific popup BG from theme */
-      };
+      background: ${({ theme }) => theme.palette.background.primary};
     `}
   ${props =>
-    props.$bgColor === 'list' && // MODIFIED: Conditional list background
+    props.$bgColor === 'list' &&
     css`
       background-color: ${() =>
         typeof window !== 'undefined' &&
@@ -160,16 +146,11 @@ export const bgColor = css<BgColorProps>`
       background: ${({ theme }) => theme.palette.background.warning};
     `}
   ${props =>
-    props.$bgColor === 'dialog' && // If 'dialog' is used as an alternative to 'primary' or 'popup' for dialogs
+    props.$bgColor === 'dialog' &&
     css`
-      background: ${
-        () =>
-          typeof window !== 'undefined' &&
-          (window as any).cysyncEnv?.VENDOR === 'odix'
-            ? '#141414' /* Odix Dialog BG */
-            : ({ theme }) =>
-                theme.palette.background.primary /* Default Dialog BG */
-      };
+      background: ${() =>
+        ({ theme }) =>
+          theme.palette.background.primary};
     `}
   ${props =>
     props.$bgColor === 'calendar' &&
