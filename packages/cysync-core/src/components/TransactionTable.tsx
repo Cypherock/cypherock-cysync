@@ -12,7 +12,7 @@ import {
 import React from 'react';
 
 import { routes } from '~/constants';
-import { useNavigateTo, useTransactions } from '~/hooks';
+import { useNavigateTo, useDisplayTransactions } from '~/hooks';
 
 export interface TransactionTableProps {
   walletId?: string;
@@ -41,7 +41,7 @@ export const TransactionTable: React.FC<TransactionTableProps> = ({
     isSmallScreen,
     expandedRowIds,
     onRowExpand,
-  } = useTransactions({ walletId, assetId, parentAssetId, accountId });
+  } = useDisplayTransactions({ walletId, assetId, parentAssetId, accountId });
 
   const navigateTo = useNavigateTo();
 

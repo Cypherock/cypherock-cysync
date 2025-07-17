@@ -352,7 +352,7 @@ export interface UseTransactionsProps {
   accountId?: string;
 }
 
-export const useTransactions = ({
+export const useDisplayTransactions = ({
   walletId,
   assetId,
   parentAssetId,
