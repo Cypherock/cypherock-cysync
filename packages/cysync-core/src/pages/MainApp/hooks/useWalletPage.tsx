@@ -36,6 +36,7 @@ import {
   selectAccountSync,
   selectDiscreetMode,
   selectLanguage,
+  selectLastConnectedFirmware,
   selectPriceInfos,
   selectWallets,
   useAppDispatch,
@@ -198,6 +199,7 @@ const selector = createSelector(
     selectPriceInfos,
     selectAccountSync,
     selectDiscreetMode,
+    selectLastConnectedFirmware,
   ],
   (
     lang,
@@ -205,18 +207,26 @@ const selector = createSelector(
     { priceInfos },
     { accountSyncMap },
     { active: isDiscreetMode },
+    { isFirmwareBtcOnly },
   ) => ({
     lang,
     wallets,
     priceInfos,
     accountSyncMap,
     isDiscreetMode,
+    isFirmwareBtcOnly,
   }),
 );
 
 export const useWalletPage = () => {
-  const { wallets, lang, priceInfos, accountSyncMap, isDiscreetMode } =
-    useAppSelector(selector);
+  const {
+    wallets,
+    lang,
+    priceInfos,
+    accountSyncMap,
+    isDiscreetMode,
+    isFirmwareBtcOnly,
+  } = useAppSelector(selector);
   const allAccounts = useAccounts();
   const dispatch = useAppDispatch();
   const navigateTo = useNavigateTo();
@@ -404,5 +414,6 @@ export const useWalletPage = () => {
     walletName,
     onWalletChange,
     dropDownData,
+    isFirmwareBtcOnly,
   };
 };

@@ -4,6 +4,7 @@ import {
   useTheme,
 } from '@cypherock/cysync-ui';
 import { IWallet } from '@cypherock/db-interfaces';
+import { createSelector } from '@reduxjs/toolkit';
 import React, {
   Context,
   createContext,
@@ -23,6 +24,7 @@ import {
   ILangState,
   routes,
   selectLanguage,
+  selectLastConnectedFirmware,
   selectWallets,
   useAppDispatch,
   useAppSelector,
@@ -56,7 +58,23 @@ export interface SidebarContextInterface {
   isWalletPage: boolean;
   width: number;
   startDrag: () => void;
+  isFirmwareBtcOnly: boolean;
 }
+
+const selector = createSelector(
+  [selectLanguage, selectWallets, selectLastConnectedFirmware],
+  (
+    lang,
+    { wallets, deletedWallets, syncWalletStatus },
+    { isFirmwareBtcOnly },
+  ) => ({
+    lang,
+    wallets,
+    deletedWallets,
+    syncWalletStatus,
+    isFirmwareBtcOnly,
+  }),
+);
 
 export const SidebarContext: Context<SidebarContextInterface> =
   createContext<SidebarContextInterface>({} as SidebarContextInterface);
@@ -72,9 +90,9 @@ export const SidebarProvider: FC<SidebarProviderProps> = ({ children }) => {
   const location = useLocation();
   const query = useQuery();
   const dispatch = useAppDispatch();
-  const strings = useAppSelector(selectLanguage).strings.sidebar;
-  const { wallets, deletedWallets, syncWalletStatus } =
-    useAppSelector(selectWallets);
+  const { lang, wallets, deletedWallets, syncWalletStatus, isFirmwareBtcOnly } =
+    useAppSelector(selector);
+  const strings = lang.strings.sidebar;
   const theme = useTheme();
   const navigateTo = useNavigateTo();
   const { onWalletSync } = useWalletSync();
@@ -200,6 +218,7 @@ export const SidebarProvider: FC<SidebarProviderProps> = ({ children }) => {
     isWalletPage: location.pathname === routes.wallet.path,
     width,
     startDrag,
+    isFirmwareBtcOnly,
   });
 
   return (

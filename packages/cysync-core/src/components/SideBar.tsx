@@ -57,6 +57,7 @@ const SideBarComponent: FC = () => {
     isWalletPage,
     startDrag,
     width,
+    isFirmwareBtcOnly,
   } = useSidebar();
   const { deviceHandlingState } = useDevice();
   const onReferEarnClick = () => {
@@ -173,14 +174,16 @@ const SideBarComponent: FC = () => {
               }
               onClick={() => navigate('history')}
             />
-            <SideBarItem
-              text={strings.walletConnect}
-              Icon={WalletConnectWhiteIcon}
-              state={wallets.length === 0 ? State.disabled : undefined}
-              onClick={() => {
-                dispatch(openWalletConnectDialog());
-              }}
-            />
+            {!isFirmwareBtcOnly && (
+              <SideBarItem
+                text={strings.walletConnect}
+                Icon={WalletConnectWhiteIcon}
+                state={wallets.length === 0 ? State.disabled : undefined}
+                onClick={() => {
+                  dispatch(openWalletConnectDialog());
+                }}
+              />
+            )}
             <SideBarItem
               text={strings.buysell}
               Icon={DollarIcon}
@@ -189,23 +192,25 @@ const SideBarComponent: FC = () => {
               }
               onClick={() => navigate('buysell')}
             />
-            <SideBarItem
-              text="Swap"
-              Icon={GraphSwitchSmallIcon}
-              state={wallets.length === 0 ? State.disabled : getState('swap')}
-              onClick={() => navigate('swap')}
-              extraRight={
-                <Chip $gradient="silver">
-                  <Typography
-                    $fontSize={10}
-                    $fontWeight="semibold"
-                    color="black"
-                  >
-                    {strings.new}
-                  </Typography>
-                </Chip>
-              }
-            />
+            {!isFirmwareBtcOnly && (
+              <SideBarItem
+                text="Swap"
+                Icon={GraphSwitchSmallIcon}
+                state={wallets.length === 0 ? State.disabled : getState('swap')}
+                onClick={() => navigate('swap')}
+                extraRight={
+                  <Chip $gradient="silver">
+                    <Typography
+                      $fontSize={10}
+                      $fontWeight="semibold"
+                      color="black"
+                    >
+                      {strings.new}
+                    </Typography>
+                  </Chip>
+                }
+              />
+            )}
             <SideBarItem
               text={strings.cypherockCover}
               Icon={CypherockCoverIcon}
