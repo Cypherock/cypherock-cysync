@@ -33,6 +33,7 @@ export const Wallet: FC = () => {
     dropDownData,
     handleStatusClick,
     displayedData,
+    isFirmwareBtcOnly,
   } = useWalletPage();
   const [topbarHeight, setTopbarHeight] = useState(0);
 
@@ -122,18 +123,20 @@ export const Wallet: FC = () => {
               {lang.strings.buttons.addAccount}
             </Button>
           )}
-          {hasAccounts && window.cysyncFeatureFlags.ADD_TOKEN && (
-            <Button
-              variant="primary"
-              onClick={getHandlerProxy(
-                'Add Token',
-                'TopBar',
-                handleAddTokenClick,
-              )}
-            >
-              {lang.strings.buttons.addToken}
-            </Button>
-          )}
+          {hasAccounts &&
+            window.cysyncFeatureFlags.ADD_TOKEN &&
+            !isFirmwareBtcOnly && (
+              <Button
+                variant="primary"
+                onClick={getHandlerProxy(
+                  'Add Token',
+                  'TopBar',
+                  handleAddTokenClick,
+                )}
+              >
+                {lang.strings.buttons.addToken}
+              </Button>
+            )}
         </Flex>
       </Flex>
       {getMainContent()}
