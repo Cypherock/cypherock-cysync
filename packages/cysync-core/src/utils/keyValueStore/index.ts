@@ -31,4 +31,7 @@ export const keyValueStore = {
   cysyncVersion: createStringValueStore('cysyncVersion'),
   uuid: createStringValueStore('uuid'),
   appLanguage: createStringValueStore('appLanguage'),
+  isLastConnectedFirmwareBtcOnly: createBooleanValueStore(
+    'isLastConnectedFirmwareBtcOnly',
+  ),
 };
