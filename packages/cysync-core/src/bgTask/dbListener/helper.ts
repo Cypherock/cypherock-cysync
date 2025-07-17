@@ -5,6 +5,7 @@ import {
   setAccounts,
   setDevices,
   setInheritancePlans,
+  setIsFirmwareBtcOnly,
   setLanguage,
   setPriceHistories,
   setPriceInfos,
@@ -117,6 +118,11 @@ export const syncAllDb = async (isFirst: boolean) => {
   await syncInheritancePlanDb();
 
   store.dispatch(setLanguage((await keyValueStore.appLanguage.get()) as any));
+  store.dispatch(
+    setIsFirmwareBtcOnly(
+      await keyValueStore.isLastConnectedFirmwareBtcOnly.get(),
+    ),
+  );
 };
 
 const throttleDbFunction = (func: any) =>
