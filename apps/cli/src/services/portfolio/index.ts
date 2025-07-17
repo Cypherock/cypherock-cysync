@@ -1,11 +1,11 @@
 import { getDefaultUnit, getParsedAmount } from '@cypherock/coin-support-utils';
-import { coinList } from '@cypherock/coins';
+import { coinFamiliesMap, coinList } from '@cypherock/coins';
 import { getCoinAllocations } from '@cypherock/cysync-core-services';
 import { BigNumber } from '@cypherock/cysync-utils';
 import { IDatabase } from '@cypherock/db-interfaces';
 
 export const showPortfolio = async (db: IDatabase) => {
-  const allocations = await getCoinAllocations({ db });
+  const allocations = await getCoinAllocations({ db, coinFamilies: Object.keys(coinFamiliesMap) });
 
   const displayTable = allocations
     .sort((a, b) => b.percentage - a.percentage)

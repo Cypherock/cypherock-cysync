@@ -5,7 +5,7 @@ import {
   getDefaultUnit,
   getParsedAmount,
 } from '@cypherock/coin-support-utils';
-import { coinList } from '@cypherock/coins';
+import { coinFamiliesMap, coinList } from '@cypherock/coins';
 import {
   IAccountAllocation,
   ICoinAllocationWithPercentage,
@@ -35,6 +35,7 @@ import {
   CoinIcon,
   selectDiscreetMode,
   selectLanguage,
+  selectLastConnectedFirmware,
   selectPriceInfos,
   selectWallets,
   useAppDispatch,
@@ -64,12 +65,25 @@ export interface CoinAllocationRow {
 }
 
 const selector = createSelector(
-  [selectLanguage, selectWallets, selectPriceInfos, selectDiscreetMode],
-  (lang, { wallets }, { priceInfos }, { active: isDiscreetMode }) => ({
+  [
+    selectLanguage,
+    selectWallets,
+    selectPriceInfos,
+    selectDiscreetMode,
+    selectLastConnectedFirmware,
+  ],
+  (
+    lang,
+    { wallets },
+    { priceInfos },
+    { active: isDiscreetMode },
+    { isFirmwareBtcOnly },
+  ) => ({
     lang,
     wallets,
     priceInfos,
     isDiscreetMode,
+    isFirmwareBtcOnly,
   }),
 );
 
@@ -90,7 +104,7 @@ export const useAssetAllocations = ({
   withParentIconAtBottom,
   withSubIconAtBottom,
 }: UseAssetAllocationProps = {}) => {
-  const { lang, wallets, priceInfos, isDiscreetMode } =
+  const { lang, wallets, priceInfos, isDiscreetMode, isFirmwareBtcOnly } =
     useAppSelector(selector);
   const accounts = useAccounts();
   const allTransactions = useTransactions();
@@ -105,6 +119,7 @@ export const useAssetAllocations = ({
     assetId,
     parentAssetId,
     accountId,
+    isFirmwareBtcOnly,
   });
 
   const dispatch = useAppDispatch();
@@ -132,6 +147,9 @@ export const useAssetAllocations = ({
         result = await getCoinAllocations({
           db: getDB(),
           walletId: data.walletId,
+          coinFamilies: data.isFirmwareBtcOnly
+            ? [coinFamiliesMap.bitcoin]
+            : Object.keys(coinFamiliesMap),
         });
       }
 
