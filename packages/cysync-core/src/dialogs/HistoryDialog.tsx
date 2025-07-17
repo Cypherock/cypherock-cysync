@@ -28,7 +28,7 @@ import {
 import { createSelector } from '@reduxjs/toolkit';
 import React, { FC, useMemo } from 'react';
 
-import { mapTransactionForDisplay } from '~/hooks';
+import { mapTransactionForDisplay, useAccounts } from '~/hooks';
 import {
   closeDialog,
   openSnackBar,
@@ -36,7 +36,6 @@ import {
   selectLanguage,
   selectPriceInfos,
   selectTransactionById,
-  selectUnHiddenAccounts,
   selectWallets,
   useAppDispatch,
   useAppSelector,
@@ -85,31 +84,19 @@ const getFillFromStatus = (status: TransactionStatus, theme: ThemeType) => {
 };
 
 const selector = createSelector(
-  [
-    selectLanguage,
-    selectWallets,
-    selectUnHiddenAccounts,
-    selectPriceInfos,
-    selectDiscreetMode,
-  ],
-  (
-    lang,
-    { wallets },
-    { accounts },
-    { priceInfos },
-    { active: isDiscreetMode },
-  ) => ({
+  [selectLanguage, selectWallets, selectPriceInfos, selectDiscreetMode],
+  (lang, { wallets }, { priceInfos }, { active: isDiscreetMode }) => ({
     lang,
     wallets,
-    accounts,
     priceInfos,
     isDiscreetMode,
   }),
 );
 
 export const HistoryDialog: FC<IHistoryDialogProps> = ({ txn: _txn }) => {
-  const { lang, wallets, accounts, priceInfos, isDiscreetMode } =
+  const { lang, wallets, priceInfos, isDiscreetMode } =
     useAppSelector(selector);
+  const accounts = useAccounts();
   const keys = lang.strings.history.dialogBox;
   const dispatch = useAppDispatch();
   const theme = useTheme();

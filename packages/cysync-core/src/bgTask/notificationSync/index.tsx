@@ -3,10 +3,10 @@ import lodash from 'lodash';
 import React, { useCallback, useEffect } from 'react';
 
 import { syncTransactionNotifications } from '~/actions';
+import { useAccounts } from '~/hooks';
 import {
   selectDiscreetMode,
   selectTransactions,
-  selectUnHiddenAccounts,
   selectWallets,
   useAppDispatch,
   useAppSelector,
@@ -14,20 +14,9 @@ import {
 import { getDB } from '~/utils';
 
 const selector = createSelector(
-  [
-    selectWallets,
-    selectUnHiddenAccounts,
-    selectTransactions,
-    selectDiscreetMode,
-  ],
-  (
-    { wallets },
-    { accounts },
-    { transactions },
-    { active: isDiscreetMode },
-  ) => ({
+  [selectWallets, selectTransactions, selectDiscreetMode],
+  ({ wallets }, { transactions }, { active: isDiscreetMode }) => ({
     wallets,
-    accounts,
     transactions,
     isDiscreetMode,
   }),
@@ -35,7 +24,8 @@ const selector = createSelector(
 
 export const NotificationSyncTask: React.FC = () => {
   const dispatch = useAppDispatch();
-  const { transactions, accounts, isDiscreetMode } = useAppSelector(selector);
+  const { transactions, isDiscreetMode } = useAppSelector(selector);
+  const accounts = useAccounts();
 
   const debounceParseTransactionList = useCallback(
     lodash.throttle(() => dispatch(syncTransactionNotifications()), 1000, {

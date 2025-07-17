@@ -16,6 +16,7 @@ import { openAddAccountDialog } from '~/actions';
 import {
   GraphTimeRangeMap,
   graphTimeRangeToDaysMap,
+  useAccounts,
   useGraphTimeRange,
   useStateToRef,
 } from '~/hooks';
@@ -25,7 +26,6 @@ import {
   selectPriceHistories,
   selectPriceInfos,
   selectTransactions,
-  selectUnHiddenAccounts,
   selectWallets,
   useAppDispatch,
   useAppSelector,
@@ -41,7 +41,6 @@ const selector = createSelector(
   [
     selectLanguage,
     selectWallets,
-    selectUnHiddenAccounts,
     selectPriceHistories,
     selectPriceInfos,
     selectTransactions,
@@ -50,7 +49,6 @@ const selector = createSelector(
   (
     lang,
     { wallets },
-    { accounts },
     { priceHistories },
     { priceInfos },
     { transactions },
@@ -58,7 +56,6 @@ const selector = createSelector(
   ) => ({
     lang,
     wallets,
-    accounts,
     priceHistories,
     priceInfos,
     transactions,
@@ -71,13 +68,13 @@ export const useGraph = (props?: UseGraphProps) => {
   const dispatch = useAppDispatch();
   const {
     lang,
-    accounts,
     wallets,
     transactions,
     priceHistories,
     priceInfos,
     isDiscreetMode,
   } = useAppSelector(selector);
+  const accounts = useAccounts();
 
   const { rangeList, selectedRange, setSelectedRange } = useGraphTimeRange();
 

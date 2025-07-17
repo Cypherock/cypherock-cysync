@@ -35,16 +35,13 @@ import React, {
 import { CoinIcon } from '~/components';
 import {
   useAccountDropdown,
+  useAccounts,
   useAsync,
   useMemoReturn,
   useStateWithRef,
   useWalletDropdown,
 } from '~/hooks';
-import {
-  useAppSelector,
-  selectUnHiddenAccounts,
-  selectLanguage,
-} from '~/store';
+import { useAppSelector, selectLanguage } from '~/store';
 import { buySellSupport } from '~/utils/buysell';
 
 import baseLogger from '../../utils/logger';
@@ -168,7 +165,7 @@ export const BuySellProvider: FC<BuySellContextProviderProps> = ({
     IPreorderResult | undefined
   >();
 
-  const { accounts } = useAppSelector(selectUnHiddenAccounts);
+  const accounts = useAccounts();
 
   useEffect(() => {
     setSelectedAccount(undefined);

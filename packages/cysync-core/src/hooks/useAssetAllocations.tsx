@@ -27,6 +27,7 @@ import React, {
 import { getDB } from '~/utils';
 import logger from '~/utils/logger';
 
+import { useAccounts } from './useAccounts';
 import { useStateToRef } from './useStateToRef';
 
 import {
@@ -35,7 +36,6 @@ import {
   selectLanguage,
   selectPriceInfos,
   selectTransactions,
-  selectUnHiddenAccounts,
   selectWallets,
   useAppDispatch,
   useAppSelector,
@@ -67,7 +67,6 @@ const selector = createSelector(
   [
     selectLanguage,
     selectWallets,
-    selectUnHiddenAccounts,
     selectTransactions,
     selectPriceInfos,
     selectDiscreetMode,
@@ -75,14 +74,12 @@ const selector = createSelector(
   (
     lang,
     { wallets },
-    { accounts },
     { transactions },
     { priceInfos },
     { active: isDiscreetMode },
   ) => ({
     lang,
     wallets,
-    accounts,
     transactions,
     priceInfos,
     isDiscreetMode,
@@ -109,11 +106,11 @@ export const useAssetAllocations = ({
   const {
     lang,
     wallets,
-    accounts,
     transactions: allTransactions,
     priceInfos,
     isDiscreetMode,
   } = useAppSelector(selector);
+  const accounts = useAccounts();
   const refData = useStateToRef({
     lang,
     wallets,
