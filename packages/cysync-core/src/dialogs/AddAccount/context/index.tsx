@@ -9,6 +9,7 @@ import { insertAccountIfNotExists } from '@cypherock/coin-support-utils';
 import { ICoinInfo, coinList } from '@cypherock/coins';
 import { DropDownItemProps } from '@cypherock/cysync-ui';
 import { IAccount, IWallet } from '@cypherock/db-interfaces';
+import { createSelector } from '@reduxjs/toolkit';
 import lodash from 'lodash';
 import React, {
   Context,
@@ -25,11 +26,12 @@ import { Observer, Subscription } from 'rxjs';
 
 import { syncAccounts, syncPriceHistories, syncPrices } from '~/actions';
 import { deviceLock, useDevice } from '~/context';
-import { ITabs, useTabsAndDialogs } from '~/hooks';
+import { ITabs, useMemoReturn, useTabsAndDialogs } from '~/hooks';
 import { useWalletDropdown } from '~/hooks/useWalletDropdown';
 import {
   closeDialog,
   selectLanguage,
+  selectLastConnectedFirmware,
   useAppDispatch,
   useAppSelector,
 } from '~/store';
@@ -42,6 +44,14 @@ import {
   AddAccountSelectionDialog,
   AddAccountSyncDialog,
 } from '../Dialogs';
+
+const selector = createSelector(
+  [selectLanguage, selectLastConnectedFirmware],
+  (lang, { isFirmwareBtcOnly }) => ({
+    lang,
+    isFirmwareBtcOnly,
+  }),
+);
 
 export type AddAccountStatus = 'idle' | 'device' | 'sync' | 'done';
 
@@ -75,6 +85,7 @@ export interface AddAccountDialogContextInterface {
   walletDropdownList: DropDownItemProps[];
   handleWalletChange: (id?: string) => void;
   defaultWalletId?: string;
+  isFirmwareBtcOnly: boolean;
 }
 
 export const AddAccountDialogContext: Context<AddAccountDialogContextInterface> =
@@ -91,7 +102,7 @@ export interface AddAccountDialogContextProviderProps {
 export const AddAccountDialogProvider: FC<
   AddAccountDialogContextProviderProps
 > = ({ children, walletId: defaultWalletId, coinId: defaultCoinId }) => {
-  const lang = useAppSelector(selectLanguage);
+  const { lang, isFirmwareBtcOnly } = useAppSelector(selector);
   const dispatch = useAppDispatch();
   const { connection } = useDevice();
 
@@ -319,70 +330,38 @@ export const AddAccountDialogProvider: FC<
     [],
   );
 
-  const ctx = useMemo(
-    () => ({
-      defaultWalletId,
-      isDeviceRequired,
-      currentTab,
-      currentDialog,
-      tabs,
-      onNext,
-      goTo,
-      onPrevious,
-      onClose,
-      selectedCoin,
-      selectedWallet,
-      selectedAccounts,
-      setSelectedAccounts,
-      setSelectedCoin,
-      setSelectedWallet,
-      startAddAccounts,
-      addSelectedAccounts,
-      newAccounts,
-      setNewSelectedAccounts,
-      newSelectedAccounts,
-      isStopped,
-      onStop,
-      onRetry,
-      accounts,
-      deviceEvents,
-      addAccountStatus,
-      error,
-      handleWalletChange,
-      walletDropdownList,
-    }),
-    [
-      defaultWalletId,
-      isDeviceRequired,
-      currentTab,
-      currentDialog,
-      tabs,
-      onNext,
-      goTo,
-      onPrevious,
-      onClose,
-      selectedCoin,
-      selectedWallet,
-      selectedAccounts,
-      setSelectedAccounts,
-      setSelectedCoin,
-      setSelectedWallet,
-      startAddAccounts,
-      addSelectedAccounts,
-      newAccounts,
-      setNewSelectedAccounts,
-      newSelectedAccounts,
-      isStopped,
-      onStop,
-      onRetry,
-      accounts,
-      deviceEvents,
-      addAccountStatus,
-      error,
-      handleWalletChange,
-      walletDropdownList,
-    ],
-  );
+  const ctx = useMemoReturn({
+    defaultWalletId,
+    isDeviceRequired,
+    currentTab,
+    currentDialog,
+    tabs,
+    onNext,
+    goTo,
+    onPrevious,
+    onClose,
+    selectedCoin,
+    selectedWallet,
+    selectedAccounts,
+    setSelectedAccounts,
+    setSelectedCoin,
+    setSelectedWallet,
+    startAddAccounts,
+    addSelectedAccounts,
+    newAccounts,
+    setNewSelectedAccounts,
+    newSelectedAccounts,
+    isStopped,
+    onStop,
+    onRetry,
+    accounts,
+    deviceEvents,
+    addAccountStatus,
+    error,
+    handleWalletChange,
+    walletDropdownList,
+    isFirmwareBtcOnly,
+  });
 
   return (
     <AddAccountDialogContext.Provider value={ctx}>

@@ -1,4 +1,4 @@
-import { coinList } from '@cypherock/coins';
+import { BtcIdMap, coinList } from '@cypherock/coins';
 import {
   Button,
   Container,
@@ -20,17 +20,21 @@ import logger from '~/utils/logger';
 
 import { useAddAccountDialog } from '../context';
 
-const coinDropDownList: DropDownItemProps[] = Object.values(coinList)
-  .filter(
-    c => window.cysyncEnv.IS_PRODUCTION === 'false' || !c.isUnderDevelopment,
-  )
-  .map(coin => ({
-    id: coin.id,
-    leftImage: <CoinIcon parentAssetId={coin.id} />,
-    shortForm: `(${coin.abbr.toUpperCase()})`,
-    text: coin.name,
-    checkType: 'radio',
-  }));
+const getCoinDropDownList = (isFirmwareBtcOnly: boolean): DropDownItemProps[] =>
+  Object.values(coinList)
+    .filter(
+      c =>
+        (window.cysyncEnv.IS_PRODUCTION === 'false' || !c.isUnderDevelopment) &&
+        isFirmwareBtcOnly &&
+        c.id === BtcIdMap.bitcoin,
+    )
+    .map(coin => ({
+      id: coin.id,
+      leftImage: <CoinIcon parentAssetId={coin.id} />,
+      shortForm: `(${coin.abbr.toUpperCase()})`,
+      text: coin.name,
+      checkType: 'radio',
+    }));
 
 export const AddAccountSelectionDialog: React.FC = () => {
   const lang = useAppSelector(selectLanguage);
@@ -42,6 +46,7 @@ export const AddAccountSelectionDialog: React.FC = () => {
     handleWalletChange,
     walletDropdownList,
     defaultWalletId,
+    isFirmwareBtcOnly,
   } = useAddAccountDialog();
 
   const strings = lang.strings.addAccount.select;
@@ -90,7 +95,7 @@ export const AddAccountSelectionDialog: React.FC = () => {
             autoFocus={!defaultWalletId}
           />
           <Dropdown
-            items={coinDropDownList}
+            items={getCoinDropDownList(isFirmwareBtcOnly)}
             selectedItem={selectedCoin?.id}
             disabled={!selectedWallet}
             searchText={strings.searchText}
