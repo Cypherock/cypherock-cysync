@@ -5,7 +5,10 @@ import { BigNumber } from '@cypherock/cysync-utils';
 import { IDatabase } from '@cypherock/db-interfaces';
 
 export const showPortfolio = async (db: IDatabase) => {
-  const allocations = await getCoinAllocations({ db, coinFamilies: Object.keys(coinFamiliesMap) });
+  const allocations = await getCoinAllocations({
+    db,
+    coinFamilies: Object.keys(coinFamiliesMap),
+  });
 
   const displayTable = allocations
     .sort((a, b) => b.percentage - a.percentage)
