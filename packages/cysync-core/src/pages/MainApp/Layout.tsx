@@ -52,7 +52,9 @@ const MainAppLayoutComponent: FC<MainAppLayoutProps> = ({
       <Flex
         $flex={1}
         direction="column"
-        $bgColor="contentGradient"
+        $bgColor={
+          window.cysyncEnv.VENDOR === 'odix' ? 'black' : 'contentGradient'
+        }
         $minWidth="0"
       >
         <Flex ref={topbarRef} direction="column">

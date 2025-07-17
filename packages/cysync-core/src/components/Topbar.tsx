@@ -108,7 +108,7 @@ const TopbarComponent: FC<TopbarProps> = props => {
 
   return (
     <TopbarUI
-      {...props} // Passes title, subTitle, icon, tag, showIcon, onIconClick
+      {...props}
       statusTexts={lang.strings.topbar.statusTexts}
       lock={lock}
       isLocked={isLocked}
