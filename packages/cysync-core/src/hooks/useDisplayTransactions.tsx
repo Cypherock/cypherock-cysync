@@ -30,12 +30,16 @@ import React, { useCallback, useEffect, useState } from 'react';
 
 import { openHistoryDialog } from '~/actions';
 import { CoinIcon } from '~/components';
-import { useAccounts, useStateToRef, useWindowSize } from '~/hooks';
+import {
+  useAccounts,
+  useStateToRef,
+  useTransactions,
+  useWindowSize,
+} from '~/hooks';
 import {
   selectDiscreetMode,
   selectLanguage,
   selectPriceInfos,
-  selectTransactions,
   selectWallets,
   useAppDispatch,
   useAppSelector,
@@ -123,23 +127,10 @@ const searchFilter = (
 };
 
 const selector = createSelector(
-  [
-    selectLanguage,
-    selectWallets,
-    selectTransactions,
-    selectPriceInfos,
-    selectDiscreetMode,
-  ],
-  (
-    lang,
-    { wallets },
-    { transactions },
-    { priceInfos },
-    { active: isDiscreetMode },
-  ) => ({
+  [selectLanguage, selectWallets, selectPriceInfos, selectDiscreetMode],
+  (lang, { wallets }, { priceInfos }, { active: isDiscreetMode }) => ({
     lang,
     wallets,
-    transactions,
     priceInfos,
     isDiscreetMode,
   }),
@@ -352,20 +343,16 @@ export interface UseTransactionsProps {
   accountId?: string;
 }
 
-export const useTransactions = ({
+export const useDisplayTransactions = ({
   walletId,
   assetId,
   parentAssetId,
   accountId,
 }: UseTransactionsProps = {}) => {
-  const {
-    lang,
-    wallets,
-    transactions: allTransactions,
-    priceInfos,
-    isDiscreetMode,
-  } = useAppSelector(selector);
+  const { lang, wallets, priceInfos, isDiscreetMode } =
+    useAppSelector(selector);
   const accounts = useAccounts();
+  const allTransactions = useTransactions();
   const refData = useStateToRef({
     lang,
     wallets,

@@ -19,13 +19,13 @@ import {
   useAccounts,
   useGraphTimeRange,
   useStateToRef,
+  useTransactions,
 } from '~/hooks';
 import {
   selectDiscreetMode,
   selectLanguage,
   selectPriceHistories,
   selectPriceInfos,
-  selectTransactions,
   selectWallets,
   useAppDispatch,
   useAppSelector,
@@ -43,7 +43,6 @@ const selector = createSelector(
     selectWallets,
     selectPriceHistories,
     selectPriceInfos,
-    selectTransactions,
     selectDiscreetMode,
   ],
   (
@@ -51,14 +50,12 @@ const selector = createSelector(
     { wallets },
     { priceHistories },
     { priceInfos },
-    { transactions },
     { active: isDiscreetMode },
   ) => ({
     lang,
     wallets,
     priceHistories,
     priceInfos,
-    transactions,
     isDiscreetMode,
   }),
 );
@@ -66,15 +63,10 @@ const selector = createSelector(
 export const useGraph = (props?: UseGraphProps) => {
   const theme = useTheme();
   const dispatch = useAppDispatch();
-  const {
-    lang,
-    wallets,
-    transactions,
-    priceHistories,
-    priceInfos,
-    isDiscreetMode,
-  } = useAppSelector(selector);
+  const { lang, wallets, priceHistories, priceInfos, isDiscreetMode } =
+    useAppSelector(selector);
   const accounts = useAccounts();
+  const transactions = useTransactions();
 
   const { rangeList, selectedRange, setSelectedRange } = useGraphTimeRange();
 

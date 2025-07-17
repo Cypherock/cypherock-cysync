@@ -29,13 +29,13 @@ import logger from '~/utils/logger';
 
 import { useAccounts } from './useAccounts';
 import { useStateToRef } from './useStateToRef';
+import { useTransactions } from './useTransactions';
 
 import {
   CoinIcon,
   selectDiscreetMode,
   selectLanguage,
   selectPriceInfos,
-  selectTransactions,
   selectWallets,
   useAppDispatch,
   useAppSelector,
@@ -64,23 +64,10 @@ export interface CoinAllocationRow {
 }
 
 const selector = createSelector(
-  [
-    selectLanguage,
-    selectWallets,
-    selectTransactions,
-    selectPriceInfos,
-    selectDiscreetMode,
-  ],
-  (
-    lang,
-    { wallets },
-    { transactions },
-    { priceInfos },
-    { active: isDiscreetMode },
-  ) => ({
+  [selectLanguage, selectWallets, selectPriceInfos, selectDiscreetMode],
+  (lang, { wallets }, { priceInfos }, { active: isDiscreetMode }) => ({
     lang,
     wallets,
-    transactions,
     priceInfos,
     isDiscreetMode,
   }),
@@ -103,14 +90,10 @@ export const useAssetAllocations = ({
   withParentIconAtBottom,
   withSubIconAtBottom,
 }: UseAssetAllocationProps = {}) => {
-  const {
-    lang,
-    wallets,
-    transactions: allTransactions,
-    priceInfos,
-    isDiscreetMode,
-  } = useAppSelector(selector);
+  const { lang, wallets, priceInfos, isDiscreetMode } =
+    useAppSelector(selector);
   const accounts = useAccounts();
+  const allTransactions = useTransactions();
   const refData = useStateToRef({
     lang,
     wallets,
