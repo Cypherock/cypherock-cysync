@@ -24,12 +24,11 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { openSwapHistoryDialog } from '~/actions';
 import { CoinIcon } from '~/components';
 import { providerImageUrlMap } from '~/constants';
-import { useAccounts, useStateToRef } from '~/hooks';
+import { useAccounts, useStateToRef, useTransactions } from '~/hooks';
 import {
   selectDiscreetMode,
   selectLanguage,
   selectPriceInfos,
-  selectTransactions,
   selectWallets,
   useAppDispatch,
   useAppSelector,
@@ -108,23 +107,10 @@ const searchFilter = (
 };
 
 const selector = createSelector(
-  [
-    selectLanguage,
-    selectWallets,
-    selectTransactions,
-    selectPriceInfos,
-    selectDiscreetMode,
-  ],
-  (
-    lang,
-    { wallets },
-    { transactions },
-    { priceInfos },
-    { active: isDiscreetMode },
-  ) => ({
+  [selectLanguage, selectWallets, selectPriceInfos, selectDiscreetMode],
+  (lang, { wallets }, { priceInfos }, { active: isDiscreetMode }) => ({
     lang,
     wallets,
-    transactions,
     priceInfos,
     isDiscreetMode,
   }),
@@ -337,14 +323,10 @@ export const mapSwapTransactionForDisplay = (params: {
 };
 
 export const useSwapTransactions = () => {
-  const {
-    lang,
-    wallets,
-    transactions: allTransactions,
-    priceInfos,
-    isDiscreetMode,
-  } = useAppSelector(selector);
+  const { lang, wallets, priceInfos, isDiscreetMode } =
+    useAppSelector(selector);
   const accounts = useAccounts();
+  const allTransactions = useTransactions();
   const refData = useStateToRef({
     lang,
     wallets,
