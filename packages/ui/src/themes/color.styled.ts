@@ -1,38 +1,93 @@
+const colorPrimitives = {
+  gold0: '#e9b873',
+  gold37: '#fedd8f',
+  gold100: '#b78d51',
+  silver0: '#a2adb3',
+  silver35: '#f3f1f2',
+  silver66: '#bcc3c9',
+  silver100: '#dcdfe4',
+  primary0: '#211c18',
+  primary59: '#211a16',
+  primary100: '#252219',
+  black: '#000000',
+  white: '#ffffff',
+  success: '#51c61a',
+  warning: '#f1ae4a',
+  error: '#ff624c',
+  paragraph: '#8b8682',
+  border: '#2c2520',
+  sidebar0: '#211c18',
+  sidebar59: '#211a16',
+  sidebar100: '#252219',
+  input: '#27221d',
+  separator: '#39322c',
+  separator2: '#3a3531',
+  sidebarSolid: '#1e1a15',
+  actionHover: '#ccc4be',
+  input2: '#272320',
+  border2: '#363535',
+  disabled: '#332e29',
+  inputWarning: '#2c2418',
+  borderWarning: '#4a2d00',
+};
+
+const colorPrimitivesOdix = {
+  gold0: '#e1a68c',
+  gold37: '#ffc8af',
+  gold100: '#b37d65',
+  silver0: '#a2adb3',
+  silver35: '#f3f1f2',
+  silver66: '#bcc3c9',
+  silver100: '#dcdfe4',
+  primary0: '#141414',
+  primary59: '#141414',
+  primary100: '#141414',
+  black: '#000000',
+  white: '#ffffff',
+  success: '#51c61a',
+  warning: '#f1ae4a',
+  error: '#ff624c',
+  paragraph: '#808080',
+  border: '#141414',
+  sidebar0: '#1d1d1d',
+  sidebar59: '#1c1c1c',
+  sidebar100: '#1f1f1f',
+  input: '#242424',
+  separator: '#333333',
+  separator2: '#363636',
+  sidebarSolid: '#1a1a1a',
+  actionHover: '#c5c5c5',
+  input2: '#242424',
+  border2: '#363636',
+  disabled: '#2e2e2e',
+  inputWarning: '#2c2418',
+  borderWarning: '#4a2d00',
+};
+
 const cysyncColors = {
   bullet: {
-    white: '#ffffff',
+    white: colorPrimitives.white,
   },
   gradients: {
-    primary:
-      'linear-gradient(102.78deg, #211C18 0%, #211A16 59.38%, #252219 100%)',
-    secondary:
-      '-webkit-linear-gradient( 90deg,#a2adb3 1.67%,#f3f1f2 35.99%,#bcc3c9 66.2%,#dcdfe4 100%)',
+    primary: `linear-gradient(102.78deg, ${colorPrimitives.primary0} 0%, ${colorPrimitives.primary59} 59.38%, ${colorPrimitives.primary100} 100%)`,
+    secondary: `-webkit-linear-gradient( 90deg,${colorPrimitives.silver0} 1.67%,${colorPrimitives.silver35} 35.99%,${colorPrimitives.silver66} 66.2%,${colorPrimitives.silver100} 100%)`,
     content: 'linear-gradient(89.76deg, #16120F 0.23%, #1F1915 99.82%)',
-    sideBar:
-      'linear-gradient(102.78deg, #211C18 0%, #211A16 59.38%, #252219 100%)',
-    golden: 'linear-gradient(90deg, #E1A68C 0%, #FFC8AF 37%, #B37D65 100%)',
-    highlight:
-      'linear-gradient(269.94deg, #312B26 0.05%, rgba(26, 22, 18, 0) 51.82%)',
-    silver:
-      'linear-gradient(180deg, #A2ADB3 -2.08%, #F3F1F2 34.27%, #BCC3C9 66.28%, #DCDFE4 102.08%)',
-    stripe: 'linear-gradient(90deg, #211C18 1.69%, #242018 100%)',
+    sideBar: `linear-gradient(102.78deg, ${colorPrimitives.sidebar0} 0%, ${colorPrimitives.sidebar59} 59.38%, ${colorPrimitives.sidebar100} 100%)`,
+    golden: `linear-gradient(90deg, ${colorPrimitives.gold0} 0%, ${colorPrimitives.gold37} 37%, ${colorPrimitives.gold100} 100%)`,
+    highlight: 'linear-gradient(269.94deg, #312B26 0.05%, #1a161200 51.82%)',
+    silver: `linear-gradient(180deg, ${colorPrimitives.silver0} -2.08%, ${colorPrimitives.silver35} 34.27%, ${colorPrimitives.silver66} 66.28%, ${colorPrimitives.silver100} 102.08%)`,
+    stripe: `linear-gradient(90deg, ${colorPrimitives.primary0} 1.69%, #242018 100%)`,
     goldenhint:
-      'linear-gradient(263deg, rgba(139, 100, 41, 0.14) 5.24%, rgba(38, 34, 31, 0.00) 55.22%), #272320',
+      'linear-gradient(263deg, #8b642322 5.24%, #26221f00 55.22%), #272320',
     silverhint:
-      'linear-gradient(263deg, rgba(194, 194, 194, 0.14) 5.24%, rgba(38, 34, 31, 0.00) 55.22%), #272320',
+      'linear-gradient(263deg, #c2c2c222 5.24%, #26221f00 55.22%), #272320',
     conicGradient: {
-      default:
-        'conic-gradient(from 0deg, transparent,90deg, transparent, 90deg, #E9B873 ,180deg, #FEDD8F, 270deg, #B78D51, 360deg ,transparent, 360deg, transparent)',
-      secondary:
-        'conic-gradient(from 0deg, #A2ADB3 ,33deg, #F3F1F2, 67deg, #BCC3C9, 101deg, #DCDFE4,135deg ,transparent, 135deg, transparent)',
-      expirig:
-        'conic-gradient(from 0deg, #FF624C ,270deg, #FF624C,270deg ,transparent, 270deg, transparent)',
-      golden:
-        'conic-gradient(from 0deg, #E9B873 ,30deg, #FEDD8F, 60deg, #B78D51, 90deg ,transparent, 90deg, transparent)',
-      silver:
-        'conic-gradient(from 0deg, transparent,135deg, transparent, 135deg, #A2ADB3 ,191deg, #F3F1F2, 247deg, #BCC3C9, 304deg, #DCDFE4, 360deg ,transparent, 360deg, transparent)',
-      notExpiring:
-        'conic-gradient(from 0deg, transparent, 270deg, transparent, 270deg, #E9B873 ,300deg, #FEDD8F, 330deg, #B78D51, 360deg ,transparent, 360deg, transparent)',
+      default: `conic-gradient(from 0deg, transparent,90deg, transparent, 90deg, ${colorPrimitives.gold0} ,180deg, ${colorPrimitives.gold37}, 270deg, ${colorPrimitives.gold100}, 360deg ,transparent, 360deg, transparent)`,
+      secondary: `conic-gradient(from 0deg, ${colorPrimitives.silver0} ,33deg, ${colorPrimitives.silver35}, 67deg, ${colorPrimitives.silver66}, 101deg, ${colorPrimitives.silver100},135deg ,transparent, 135deg, transparent)`,
+      expirig: `conic-gradient(from 0deg, ${colorPrimitives.error} ,270deg, ${colorPrimitives.error},270deg ,transparent, 270deg, transparent)`,
+      golden: `conic-gradient(from 0deg, ${colorPrimitives.gold0} ,30deg, ${colorPrimitives.gold37}, 60deg, ${colorPrimitives.gold100}, 90deg ,transparent, 90deg, transparent)`,
+      silver: `conic-gradient(from 0deg, transparent,135deg, transparent, 135deg, ${colorPrimitives.silver0} ,191deg, ${colorPrimitives.silver35}, 247deg, ${colorPrimitives.silver66}, 304deg, ${colorPrimitives.silver100}, 360deg ,transparent, 360deg, transparent)`,
+      notExpiring: `conic-gradient(from 0deg, transparent, 270deg, transparent, 270deg, ${colorPrimitives.gold0} ,300deg, ${colorPrimitives.gold37}, 330deg, ${colorPrimitives.gold100}, 360deg ,transparent, 360deg, transparent)`,
     },
     cardDefault:
       'linear-gradient(300deg, rgba(96, 58, 23, 0.20) 0%, rgba(0, 0, 0, 0.00) 57.81%, rgba(0, 0, 0, 0.00) 100%), #2A2827',
@@ -40,43 +95,42 @@ const cysyncColors = {
       'linear-gradient(285deg, rgba(96, 58, 23, 0.20) 0%, rgba(0, 0, 0, 0.00) 60.65%), #2A2827',
     cardHover:
       'linear-gradient(105deg, rgba(96, 58, 23, 0.20) 0%, rgba(0, 0, 0, 0.00) 60.65%), #332F2D',
-    title: `linear-gradient(90deg,#e9b873 0.19%,#fedd8f 37.17%,#b78d51 100.19%)`,
+    title: `linear-gradient(90deg,${colorPrimitives.gold0} 0.19%,${colorPrimitives.gold37} 37.17%,${colorPrimitives.gold100} 100.19%)`,
     plan: 'linear-gradient(90deg, rgba(224, 187, 117, 0.10) 0%, rgba(39, 35, 32, 0.00) 100%), #272320',
   },
   info: {
-    main: '#F1AE4A',
+    main: colorPrimitives.warning,
   },
   warning: {
-    main: '#FF624C',
+    main: colorPrimitives.error,
   },
   success: {
-    main: '#51C61A',
+    main: colorPrimitives.success,
     secondary: '#3A5E2A',
   },
   disabled: {
-    background: '#332E29',
+    background: colorPrimitives.disabled,
     text: '#544D47',
   },
   text: {
-    gold: 'linear-gradient(90deg, #E9B873 0.19%, #FEDD8F 37.17%, #B78D51 100.19%)',
-    silver:
-      '-webkit-linear-gradient( 90deg,#a2adb3 1.67%,#f3f1f2 35.99%,#bcc3c9 66.2%,#dcdfe4 100%)',
+    gold: `linear-gradient(90deg, ${colorPrimitives.gold0} 0.19%, ${colorPrimitives.gold37} 37.17%, ${colorPrimitives.gold100} 100.19%)`,
+    silver: `-webkit-linear-gradient( 90deg,${colorPrimitives.silver0} 1.67%,${colorPrimitives.silver35} 35.99%,${colorPrimitives.silver66} 66.2%,${colorPrimitives.silver100} 100%)`,
     heading: '#FFFFFF',
     list: '#827B77',
-    muted: '#8B8682',
-    warn: '#F1AE4A',
+    muted: colorPrimitives.paragraph,
+    warn: colorPrimitives.warning,
     message: '#FFFFFF',
-    error: '#FF624C',
+    error: colorPrimitives.error,
     errorDark: '#74271C',
-    success: '#51C61A',
-    black: '#000000',
-    white: '#ffffff',
+    success: colorPrimitives.success,
+    black: colorPrimitives.black,
+    white: colorPrimitives.white,
     goldenrod: '#daa520',
     disabled: '#423D39',
-    normal: '#CCC4BE',
+    normal: colorPrimitives.actionHover,
     divider: '#333130',
     dialog: '#2B2420',
-    separator: '#39322C',
+    separator: colorPrimitives.separator,
     greenStroke: '#00FF75',
     redStroke: '#FF0202',
   },
@@ -89,35 +143,35 @@ const cysyncColors = {
   },
   background: {
     progressBar: '#1F1915',
-    input: '#27221D',
+    input: colorPrimitives.input,
     inputSecondary: '#3C3937',
     blur: 'rgba(29, 25, 23, 0.4)',
-    separator: '#39322C',
-    bar: '#3A3937',
-    muted: '#8B8682',
-    separatorSecondary: '#272320',
-    gold: '#E9B873',
+    separator: colorPrimitives.separator,
+    bar: colorPrimitives.separator2,
+    muted: colorPrimitives.paragraph,
+    separatorSecondary: colorPrimitives.input2,
+    gold: colorPrimitives.gold0,
     infoGreenBg: '#1F271D',
     dropdownHover: '#191715',
-    black: '#000000',
+    black: colorPrimitives.black,
     container: '#1B1812',
-    containerSecondary: '#3a3531',
+    containerSecondary: colorPrimitives.separator2,
     toggleOff: '#544D43',
     list: '#2C2824',
-    info: '#4A2D00',
+    info: colorPrimitives.borderWarning,
     lightBlack: '#1B1712',
-    sidebar: '#1E1A15',
-    slider: '#3A3531',
-    warning: '#2C2418',
+    sidebar: colorPrimitives.sidebarSolid,
+    slider: colorPrimitives.separator2,
+    warning: colorPrimitives.inputWarning,
     message: '#1F271D',
-    messageSecondary: '#2C2418',
+    messageSecondary: colorPrimitives.inputWarning,
     breadcrumbSeparator: '#333130',
     batchTransactionBody: '#1b1812',
-    danger: '#FF624C',
+    danger: colorPrimitives.error,
     error: '#271D1D',
     filterItem: `#1F1C19`,
     calendar: '#342F2C',
-    calendarHeader: '#211C18',
+    calendarHeader: colorPrimitives.primary0,
     timer: {
       main: '#3e3a38',
       default: '#261f17',
@@ -125,7 +179,7 @@ const cysyncColors = {
       expiring: '#271a15',
       secondary: '#2a2827',
     },
-    silver: '#a2adb3',
+    silver: colorPrimitives.silver0,
     slate: '#312d2a',
     cardDisabled: '#282522',
     cardSelected: '#2A2827',
@@ -142,32 +196,32 @@ const cysyncColors = {
   },
   border: {
     darkSlate: '#030303',
-    popup: '#2C2520',
+    popup: colorPrimitives.border,
     list: '#2C2824',
     input: '#3C3937',
-    separator: '#39322C',
+    separator: colorPrimitives.separator,
     message: '#143E01',
-    messageSecondary: '#4A2D00',
-    warning: '#4A2D00',
-    error: '#FF624C',
+    messageSecondary: colorPrimitives.borderWarning,
+    warning: colorPrimitives.borderWarning,
+    error: colorPrimitives.error,
     danger: '#4A0900',
     bar: '#474747',
     table: {
-      title: '#363535',
+      title: colorPrimitives.border2,
       row: '#2C2929',
       stripe: '#16120F',
     },
-    muted: '#8B8682',
-    white: '#ffffff',
-    separatorSecondary: '#272320',
-    gold: '#E9B873',
+    muted: colorPrimitives.paragraph,
+    white: colorPrimitives.white,
+    separatorSecondary: colorPrimitives.input2,
+    gold: colorPrimitives.gold0,
     infoBox: '#3c3c3c',
-    infoBoxOrange: '#4A2D00',
+    infoBoxOrange: colorPrimitives.borderWarning,
     subMenuLeft: '#534B44',
     topbar: '#342C26',
     card: '#534A44',
     selected: '#e0bb74',
-    success: '#51C61A',
+    success: colorPrimitives.success,
     infoGreen: '#143E01',
   },
   shadow: {
@@ -177,208 +231,151 @@ const cysyncColors = {
 
 const odixColors = {
   bullet: {
-    white: '#FFFFFF',
+    white: colorPrimitivesOdix.white,
   },
-
   gradients: {
-    primary: '#141414',
-    secondary:
-      'linear-gradient( 90deg,#a2adb3 1.67%,#f3f1f2 35.99%,#bcc3c9 66.2%,#dcdfe4 100%)',
-    content: '#141414',
-    sideBar: '#1a1a1a',
-    golden: 'linear-gradient(90deg, #E1A68C 0%, #FFC8AF 37%, #B37D65 100%)',
-    highlight:
-      'linear-gradient(269.94deg, #262626 0.05%, rgba(26, 26, 26, 0) 51.82%)',
-    silver:
-      'linear-gradient(180deg, #626262 -2.08%, #808080 34.27%, #A0A0A0 66.28%, #B8B8B8 102.08%)',
-    stripe: '#141414',
+    primary: `linear-gradient(102.78deg, ${colorPrimitivesOdix.primary0} 0%, ${colorPrimitivesOdix.primary59} 59.38%, ${colorPrimitivesOdix.primary100} 100%)`,
+    secondary: `linear-gradient(90deg, ${colorPrimitivesOdix.silver0} 1.67%, ${colorPrimitivesOdix.silver35} 35.99%, ${colorPrimitivesOdix.silver66} 66.2%, ${colorPrimitivesOdix.silver100} 100%)`,
+    content: `linear-gradient(0deg, ${colorPrimitivesOdix.primary0} 0%, ${colorPrimitivesOdix.primary0} 100%)`,
+    sideBar: `linear-gradient(0deg, ${colorPrimitivesOdix.sidebarSolid} 0%, ${colorPrimitivesOdix.sidebarSolid} 100%)`,
+    golden: `linear-gradient(90deg, ${colorPrimitivesOdix.gold0} 0%, ${colorPrimitivesOdix.gold37} 37%, ${colorPrimitivesOdix.gold100} 100%)`,
+    highlight: 'linear-gradient(269.94deg, #262626 0.05%, #1a1a1a00 51.82%)',
+    silver: `linear-gradient(180deg, #626262 -2.08%, #808080 34.27%, #A0A0A0 66.28%, #B8B8B8 102.08%)`,
+    stripe: colorPrimitivesOdix.primary0,
     goldenhint:
-      'linear-gradient(263deg, rgba(192, 142, 109, 0.14) 5.24%, rgba(38, 34, 31, 0.00) 55.22%), #272320',
+      'linear-gradient(263deg, #c08e6d22 5.24%, #26221f00 55.22%), #272320',
     silverhint:
-      'linear-gradient(263deg, rgba(130, 130, 130, 0.14) 5.24%, rgba(0, 0, 0, 0) 55.22%), #1C1C1C',
-
+      'linear-gradient(263deg, #82828222 5.24%, #00000000 55.22%), #1C1C1C',
     conicGradient: {
-      default:
-        'conic-gradient(from 0deg, #B37D65,90deg, #B37D65, 90deg, #E1A68C ,180deg, #FFC8AF, 270deg, #B37D65, 360deg ,#B37D65, 360deg, #B37D65)',
-      secondary:
-        'conic-gradient(from 0deg, #A2ADB3 ,33deg, #F3F1F2, 67deg, #BCC3C9, 101deg, #DCDFE4,135deg ,#FFC8AF, 135deg, #FFC8AF)',
-      expirig:
-        'conic-gradient(from 0deg, #FF624C ,270deg, #FF624C,270deg ,#16120F, 270deg, #16120F)',
-      golden:
-        'conic-gradient(from 0deg, #E1A68C ,30deg, #FFC8AF, 60deg, #B37D65, 90deg ,#16120F, 90deg, #16120F)',
-      silver:
-        'conic-gradient(from 0deg, #16120F,135deg, #16120F, 135deg, #A2ADB3 ,191deg, #F3F1F2, 247deg, #BCC3C9, 304deg, #DCDFE4, 360deg ,#16120F, 360deg, #16120F)',
-      notExpiring:
-        'conic-gradient(from 0deg, #16120F, 270deg, #16120F, 270deg, #E1A68C ,300deg, #FFC8AF, 330deg, #B37D65, 360deg ,#16120F, 360deg, #16120F)',
+      default: `conic-gradient(from 0deg, ${colorPrimitivesOdix.gold100},90deg, ${colorPrimitivesOdix.gold100}, 90deg, ${colorPrimitivesOdix.gold0} ,180deg, ${colorPrimitivesOdix.gold37}, 270deg, ${colorPrimitivesOdix.gold100}, 360deg ,${colorPrimitivesOdix.gold100}, 360deg, ${colorPrimitivesOdix.gold100})`,
+      secondary: `conic-gradient(from 0deg, ${colorPrimitivesOdix.silver0} ,33deg, ${colorPrimitivesOdix.silver35}, 67deg, ${colorPrimitivesOdix.silver66}, 101deg, ${colorPrimitivesOdix.silver100},135deg ,${colorPrimitivesOdix.gold37}, 135deg, ${colorPrimitivesOdix.gold37})`,
+      expirig: `conic-gradient(from 0deg, ${colorPrimitivesOdix.error} ,270deg, ${colorPrimitivesOdix.error},270deg ,#16120F, 270deg, #16120F)`,
+      golden: `conic-gradient(from 0deg, ${colorPrimitivesOdix.gold0} ,30deg, ${colorPrimitivesOdix.gold37}, 60deg, ${colorPrimitivesOdix.gold100}, 90deg ,#16120F, 90deg, #16120F)`,
+      silver: `conic-gradient(from 0deg, #16120F,135deg, #16120F, 135deg, ${colorPrimitivesOdix.silver0} ,191deg, ${colorPrimitivesOdix.silver35}, 247deg, ${colorPrimitivesOdix.silver66}, 304deg, ${colorPrimitivesOdix.silver100}, 360deg ,#16120F, 360deg, #16120F)`,
+      notExpiring: `conic-gradient(from 0deg, #16120F, 270deg, #16120F, 270deg, ${colorPrimitivesOdix.gold0} ,300deg, ${colorPrimitivesOdix.gold37}, 330deg, ${colorPrimitivesOdix.gold100}, 360deg ,#16120F, 360deg, #16120F)`,
     },
-    cardDefault:
-      'linear-gradient(300deg, rgba(179, 125, 101, 0.20) 0%, rgba(0, 0, 0, 0.00) 57.81%), #141414',
-    cardSelected:
-      'linear-gradient(285deg, rgba(179, 125, 101, 0.20) 0%, rgba(0, 0, 0, 0.00) 60.65%), #141414',
-    cardHover:
-      'linear-gradient(105deg, rgba(179, 125, 101, 0.20) 0%, rgba(0, 0, 0, 0.00) 60.65%), #1C1C1C',
-
-    title: `linear-gradient(90deg, #E1A68C 0%, #FFC8AF 37%, #B37D65 100%)`,
-    plan: 'linear-gradient(90deg, rgba(179, 125, 101, 0.10) 0%, rgba(0, 0, 0, 0) 100%), #1C1C1C',
+    cardDefault: `linear-gradient(300deg, #b37d651a 0%, #00000000 57.81%), ${colorPrimitivesOdix.primary0}`,
+    cardSelected: `linear-gradient(285deg, #b37d651a 0%, #00000000 60.65%), ${colorPrimitivesOdix.primary0}`,
+    cardHover: `linear-gradient(105deg, #b37d651a 0%, #00000000 60.65%), #1C1C1C`,
+    title: `linear-gradient(90deg, ${colorPrimitivesOdix.gold0} 0%, ${colorPrimitivesOdix.gold37} 37%, ${colorPrimitivesOdix.gold100} 100%)`,
+    plan: `linear-gradient(90deg, #b37d651a 0%, #00000000 100%), ${colorPrimitivesOdix.primary0}`,
   },
-
-  info: { main: '#F1AE4A' },
-  warning: { main: '#FF624C' },
+  info: { main: colorPrimitivesOdix.warning },
+  warning: { main: colorPrimitivesOdix.error },
   warn: { main: '#e02835' },
-  success: { main: '#51C61A', secondary: '#3A5E2A' },
-
+  success: { main: colorPrimitivesOdix.success, secondary: '#3A5E2A' },
   disabled: {
-    background: '#262626',
+    background: colorPrimitivesOdix.disabled,
     text: '#626262',
   },
-
   text: {
-    gold: 'linear-gradient(90deg, #E1A68C 0%, #FFC8AF 37%, #B37D65 100%)',
-    silver: '#FFFFFF',
-
-    heading: '#FFFFFF',
-    list: '#808080',
+    gold: `linear-gradient(90deg, ${colorPrimitivesOdix.gold0} 0%, ${colorPrimitivesOdix.gold37} 37%, ${colorPrimitivesOdix.gold100} 100%)`,
+    silver: colorPrimitivesOdix.white,
+    heading: colorPrimitivesOdix.white,
+    list: colorPrimitivesOdix.paragraph,
     muted: '#626262',
-
-    warn: '#F1AE4A',
-    message: '#FFFFFF',
-
-    error: '#FF624C',
+    warn: colorPrimitivesOdix.warning,
+    message: colorPrimitivesOdix.white,
+    error: colorPrimitivesOdix.error,
     errorDark: '#74271C',
-    success: '#51C61A',
-
-    black: '#000000',
-    white: '#ffffff',
-    goldenrod: '#B37D65',
-
+    success: colorPrimitivesOdix.success,
+    black: colorPrimitivesOdix.black,
+    white: colorPrimitivesOdix.white,
+    goldenrod: colorPrimitivesOdix.gold100,
     disabled: '#423D39',
     normal: '#CCC4BE',
-
     divider: '#262626',
     dialog: '#1C1C1C',
     separator: '#2A2A2A',
-
     greenStroke: '#00FF75',
     redStroke: '#FF0202',
   },
-
   boxShadow: {
     selected: '#1C1C1C',
     timer: { main: '#262626', text: '#1C1C1C' },
   },
-
   background: {
     progressBar: '#242424',
-    input: '#242424',
+    input: colorPrimitivesOdix.input,
     inputSecondary: '#FFFF',
-    content: '#000',
-
-    blur: 'rgba(0, 0, 0, 0.4)',
-
+    content: colorPrimitivesOdix.black,
+    blur: '#00000066',
     separator: '#262626',
     bar: '#262626',
     muted: '#626262',
-    separatorSecondary: '#242424',
-
-    gold: '#B37D65',
+    separatorSecondary: colorPrimitivesOdix.input2,
+    gold: colorPrimitivesOdix.gold100,
     infoGreenBg: '#1F271D',
-
     dropdownHover: '#1C1C1C',
-    golden:
-      'linear-gradient(103deg,  #211C18 0%,  #211A16 59.37%,  #252219 100%)',
-
-    black: '#000000',
-    container: '#141414',
-    containerSecondary: '#141414',
-
+    golden: `linear-gradient(103deg,  #211C18 0%,  #211A16 59.37%,  #252219 100%)`,
+    black: colorPrimitivesOdix.black,
+    container: colorPrimitivesOdix.primary0,
+    containerSecondary: colorPrimitivesOdix.primary0,
     toggleOff: '#262626',
-    list: '#141414',
-
-    info: '#4A2D00',
+    list: colorPrimitivesOdix.primary0,
+    info: colorPrimitivesOdix.borderWarning,
     lightBlack: '#1C1C1C',
-    sidebar: '#000',
+    sidebar: colorPrimitivesOdix.black,
     sendsidebar: 'linear-gradient(45deg, black, #191818)',
-
     slider: '#1C1C1C',
-
-    warning: '#2C2418',
+    warning: colorPrimitivesOdix.inputWarning,
     message: '#1F271D',
-    messageSecondary: '#2C2418',
-
+    messageSecondary: colorPrimitivesOdix.inputWarning,
     breadcrumbSeparator: '#262626',
-    batchTransactionBody: '#000000',
-
-    danger: '#FF624C',
+    batchTransactionBody: colorPrimitivesOdix.black,
+    danger: colorPrimitivesOdix.error,
     error: '#271D1D',
-
     filterItem: '#1C1C1C',
-
-    calendar: '#242424',
-    calendarHeader: '#141414',
-
+    calendar: colorPrimitivesOdix.input,
+    calendarHeader: colorPrimitivesOdix.primary0,
     timer: {
       main: '#262626',
       default: '#1C1C1C',
       silver: '#626262',
       expiring: '#271A15',
-      secondary: '#141414',
+      secondary: colorPrimitivesOdix.primary0,
     },
-
-    silver:
-      'linear-gradient(180deg, #A2ADB3 -2.08%, #F3F1F2 34.27%, #BCC3C9 66.28%, #DCDFE4 102.08%)',
+    silver: `linear-gradient(180deg, ${colorPrimitivesOdix.silver0} -2.08%, ${colorPrimitivesOdix.silver35} 34.27%, ${colorPrimitivesOdix.silver66} 66.28%, ${colorPrimitivesOdix.silver100} 102.08%)`,
     slate: '#262626',
     cardDisabled: '#1C1C1C',
-    cardSelected: '#141414',
+    cardSelected: colorPrimitivesOdix.primary0,
     slateDark: '#1C1C1C',
     slateLight: '#262626',
-    headlineLight: '#808080',
+    headlineLight: colorPrimitivesOdix.paragraph,
     cardActive: '#1C1C1C',
-
     videoError: '#141110',
     featureBanner: '#282828',
   },
-
   border: {
     darkSlate: '#030303',
-    popup: '#1C1C1C',
-    list: '#141414',
-    input: '#242424',
-
+    popup: colorPrimitivesOdix.border,
+    list: colorPrimitivesOdix.primary0,
+    input: colorPrimitivesOdix.input,
     separator: '#262626',
     message: '#143E01',
-    messageSecondary: '#4A2D00',
-
-    warning: '#4A2D00',
-    error: '#FF624C',
+    messageSecondary: colorPrimitivesOdix.borderWarning,
+    warning: colorPrimitivesOdix.borderWarning,
+    error: colorPrimitivesOdix.error,
     danger: '#4A0900',
-
     bar: '#474747',
-
     table: {
-      title: '#141414',
-      row: '#242424',
-      stripe: '#242424',
+      title: colorPrimitivesOdix.border2,
+      row: colorPrimitivesOdix.input,
+      stripe: colorPrimitivesOdix.input,
     },
-
-    muted: '#626262',
-    white: '#FFFFFF',
-
+    muted: colorPrimitivesOdix.paragraph,
+    white: colorPrimitivesOdix.white,
     separatorSecondary: '#1C1C1C',
-
-    gold: '#E1A68C',
-
+    gold: colorPrimitivesOdix.gold0,
     infoBox: '#3C3C3C',
-    infoBoxOrange: '#4A2D00',
-
+    infoBoxOrange: colorPrimitivesOdix.borderWarning,
     subMenuLeft: '#534B44',
     topbar: '#1C1C1C',
-    card: '#242424',
-
+    card: colorPrimitivesOdix.input,
     selected: '#e0bb74',
-    success: '#51C61A',
+    success: colorPrimitivesOdix.success,
     infoGreen: '#143E01',
   },
-
   shadow: {
     dropdown: '#0F0D0B',
   },
