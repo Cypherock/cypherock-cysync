@@ -125,6 +125,9 @@ const initialState: IDialogState = {
   mobileAppSyncDialog: {
     isOpen: false,
   },
+  switchFirmwareDialog: {
+    isOpen: false,
+  },
 };
 
 export const dialogSlice = createSlice({

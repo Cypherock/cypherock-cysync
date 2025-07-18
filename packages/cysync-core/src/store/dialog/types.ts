@@ -205,6 +205,11 @@ export interface IDialogState {
     isOpen: boolean;
     data?: undefined;
   };
+
+  switchFirmwareDialog: {
+    isOpen: boolean;
+    data?: undefined;
+  };
 }
 
 export const GuidedFlowMap = {
