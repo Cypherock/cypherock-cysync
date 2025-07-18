@@ -11,6 +11,10 @@ const getArtifactName = (withoutArch = false) => {
   return `${productNameInArtifact}-\${version}-\${platform}-\${arch}.\${ext}`;
 };
 
+const BUILD_RESOURCES_PATH = process.env.VENDOR
+  ? 'build/' + process.env.VENDOR
+  : 'build/default';
+
 const config = {
   // TODO: Needs to be updated according to the vendor
   appId: 'com.hodl.cypherock',
@@ -18,7 +22,7 @@ const config = {
   asar: true,
   directories: {
     output: 'release/${version}',
-    buildResources: 'build',
+    buildResources: BUILD_RESOURCES_PATH,
   },
   files: ['dist-electron', 'dist'],
   extraResources: ['extraResources/RELEASE_NOTES.md'],
@@ -55,7 +59,7 @@ const config = {
   linux: {
     target: ['AppImage'],
     category: 'Utility',
-    executableName: 'Cypherock CySync',
+    executableName: productName,
     artifactName: getArtifactName(),
   },
   nsis: {
