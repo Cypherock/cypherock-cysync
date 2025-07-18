@@ -1225,6 +1225,13 @@ interface LangDialogs {
     toAmount: string;
     toReceiver: string;
   };
+  switchFirmwareDialog: {
+    title: string;
+    subtext: string;
+    messageBox: { text: string };
+    checkbox: { label: string };
+    primaryBtn: { label: string };
+  };
 }
 
 interface LangToggle {

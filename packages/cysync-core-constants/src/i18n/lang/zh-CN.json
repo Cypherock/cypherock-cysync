@@ -2076,6 +2076,15 @@
       "toAsset": "Asset",
       "toAmount": "Amount Received",
       "toReceiver": "Receiver"
+    },
+    "switchFirmwareDialog": {
+      "title": "Switch firmware to Bitcoin-only",
+      "subtext": "Bitcoin-only firmware only works with Bitcoin transactions. If you want to access and manage all of your coins other than Bitcoin also then you'll not be able to do that",
+      "messageBox": {
+        "text": "Once you install the Bitcoin-only firmware, you cannot switch back to the Multi-coin firmware."
+      },
+      "checkbox": { "label": "I have read and understood" },
+      "primaryBtn": { "label": "Install Firmware" }
     }
   },
   "toggle": {
