@@ -109,6 +109,7 @@ interface LangButtons {
   saveChanges: string;
   edit: string;
   tryAgain: string;
+  switchFirmware: string;
 }
 
 interface LangDashboard {
@@ -1271,6 +1272,7 @@ interface LangSettings {
     device: {
       title: string;
       item: {
+        switchFirmware: { title: string; description: string };
         x1VaultAuth: { title: string; description: string };
         x1CardAuth: { title: string; description: string };
         transferWallet: { title: string; description: string };

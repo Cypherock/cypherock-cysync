@@ -32,16 +32,14 @@ export const DeviceSettings: React.FC = () => {
     <>
       {!isFirmwareBtcOnly && (
         <SettingsStandardItem
-          title={{ text: 'Switch firmware to Bitcoin-only' }}
-          description={{
-            text: 'Bitcoin-only firmware only works with Bitcoin transactions.\nOnce switched to Bicoin-only firmware, you can nt switch back to multi-coin firmware',
-          }}
+          title={{ text: item.switchFirmware.title }}
+          description={{ text: item.switchFirmware.description }}
         >
           <SettingsButton
             onClick={() => dispatch(openSwitchFirmwareDialog())}
             variant="primary"
           >
-            <LangDisplay text="Switch firmware" />
+            <LangDisplay text={strings.buttons.switchFirmware} />
           </SettingsButton>
         </SettingsStandardItem>
       )}

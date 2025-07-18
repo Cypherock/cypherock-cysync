@@ -53,7 +53,8 @@
     "exitWithoutSaving": "الخروج بدون حفظ",
     "saveChanges": "حفظ التغييرات",
     "edit": "تحرير",
-    "tryAgain": "حاول مرة أخرى"
+    "tryAgain": "حاول مرة أخرى",
+    "switchFirmware": "Switch Firmware"
   },
   "tooltips": {
     "downloadCsv": "تصدير بصيغة CSV"
@@ -2176,6 +2177,10 @@
       "device": {
         "title": "إعدادات الجهاز",
         "item": {
+          "switchFirmware": {
+            "title": "Switch firmware to Bitcoin-only",
+            "description": "Bitcoin-only firmware only works with Bitcoin transactions.\nOnce switched to Bicoin-only firmware, you can not switch back to multi-coin firmware"
+          },
           "x1VaultAuth": {
             "title": "مصادقة X1 Vault",
             "description": "قم بمصادقة جهازك"

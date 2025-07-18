@@ -53,7 +53,8 @@
     "exitWithoutSaving": "不保存退出",
     "saveChanges": "保存更改",
     "edit": "编辑",
-    "tryAgain": "再试一次"
+    "tryAgain": "再试一次",
+    "switchFirmware": "Switch Firmware"
   },
   "tooltips": {
     "downloadCsv": "导出为CSV"
@@ -2155,6 +2156,10 @@
       "device": {
         "title": "设备设置",
         "item": {
+          "switchFirmware": {
+            "title": "Switch firmware to Bitcoin-only",
+            "description": "Bitcoin-only firmware only works with Bitcoin transactions.\nOnce switched to Bicoin-only firmware, you can not switch back to multi-coin firmware"
+          },
           "x1VaultAuth": {
             "title": "X1 Vault 身份验证",
             "description": "验证您的设备"
