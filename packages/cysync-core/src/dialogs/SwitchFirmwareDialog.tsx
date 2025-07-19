@@ -8,7 +8,10 @@ import {
   MessageBox,
 } from '@cypherock/cysync-ui';
 import React, { FC, useCallback, useRef, useState } from 'react';
+import { useTheme } from 'styled-components';
 
+import { setIsLastConnectedFirmwareBtcOnly } from '~/actions/lastConnectedFirmware';
+import { openDeviceUpdateDialog } from '~/actions';
 import { useCountdown } from '~/hooks';
 import {
   closeDialog,
@@ -16,7 +19,6 @@ import {
   useAppDispatch,
   useAppSelector,
 } from '~/store';
-import { useTheme } from 'styled-components';
 
 export const SwitchFirmwareDialog: FC = () => {
   const dispatch = useAppDispatch();
@@ -25,12 +27,21 @@ export const SwitchFirmwareDialog: FC = () => {
   const startTimeRef = useRef(new Date().getTime() + 12 * 1000);
   const { seconds: remainingSeconds } = useCountdown(startTimeRef.current);
   const [isChecked, setIsChecked] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const texts = lang.strings.dialogs.switchFirmwareDialog;
 
   const onClose = useCallback(() => {
     dispatch(closeDialog('switchFirmwareDialog'));
   }, [dispatch]);
+
+  const onInstallFirmware = useCallback(() => {
+    setLoading(true);
+    dispatch(setIsLastConnectedFirmwareBtcOnly(true));
+    dispatch(openDeviceUpdateDialog());
+    setLoading(false);
+    onClose();
+  }, [dispatch, onClose, setLoading]);
 
   return (
     <BlurOverlay>
@@ -61,9 +72,9 @@ export const SwitchFirmwareDialog: FC = () => {
         }
         footerComponent={
           <Button
-            onClick={onClose}
+            onClick={onInstallFirmware}
             variant="primary"
-            disabled={!isChecked || remainingSeconds > 0}
+            disabled={!isChecked || loading || remainingSeconds > 0}
           >
             {texts.primaryBtn.label}
             {remainingSeconds > 0 && ` ${remainingSeconds}s`}
