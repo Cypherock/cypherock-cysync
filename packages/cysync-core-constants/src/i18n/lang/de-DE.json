@@ -612,12 +612,12 @@
     },
     "usage": {
       "userNew": {
-        "title": "Ich benutze -=PRODUCT_NAME=- X1 zum ersten Mal",
-        "note": "Wählen Sie dies aus, wenn Sie -=PRODUCT_NAME=- X1 noch nie zuvor verwendet haben"
+        "title": "Ich benutze -=PRODUCT_NAME=- zum ersten Mal",
+        "note": "Wählen Sie dies aus, wenn Sie -=PRODUCT_NAME=- noch nie zuvor verwendet haben"
       },
       "userExpert": {
-        "title": "Ich habe bereits ein -=PRODUCT_NAME=- X1 verwendet",
-        "note": "Wählen Sie dies aus, wenn Sie Ihre Wallets auf ein neues -=PRODUCT_NAME=- X1 migrieren möchten. Dies könnte erforderlich sein, wenn Sie Ihr -=DEVICE_NAME=- und eine oder mehrere der -=CARD_NAME=-s verloren haben"
+        "title": "Ich habe bereits ein -=PRODUCT_NAME=- verwendet",
+        "note": "Wählen Sie dies aus, wenn Sie Ihre Wallets auf ein neues -=PRODUCT_NAME=- migrieren möchten. Dies könnte erforderlich sein, wenn Sie Ihr -=DEVICE_NAME=- und eine oder mehrere der -=CARD_NAME=-s verloren haben"
       }
     },
     "terms": {
@@ -690,27 +690,27 @@
     },
     "walletActionsDialogBox": {
       "title": "Lassen Sie uns eine Wallet erstellen, bevor wir fortfahren. Stellen Sie sicher, dass Sie alle 4 -=CARD_NAME=-s bei sich haben",
-      "subTitle": "Die folgenden Tutorials dienen lediglich als Anleitung für Ihr Gerät. Sie können eine Wallet auch ohne diese Tutorials eigenständig auf Ihrem -=PRODUCT_NAME=- X1 erstellen",
+      "subTitle": "Die folgenden Tutorials dienen lediglich als Anleitung für Ihr Gerät. Sie können eine Wallet auch ohne diese Tutorials eigenständig auf Ihrem -=PRODUCT_NAME=- erstellen",
       "createWallet": {
         "title": "Eine neue Wallet erstellen",
         "list": [
-          "Wenn Sie ein brandneues -=PRODUCT_NAME=- X1 gekauft haben und ein neues Wallet einrichten möchten",
-          "Wenn Sie ein brandneues -=PRODUCT_NAME=- X1 gekauft haben und eine neue Wallet einrichten möchten"
+          "Wenn Sie ein brandneues -=PRODUCT_NAME=- gekauft haben und ein neues Wallet einrichten möchten",
+          "Wenn Sie ein brandneues -=PRODUCT_NAME=- gekauft haben und eine neue Wallet einrichten möchten"
         ]
       },
       "importWallet": {
         "title": "Importieren Sie Ihre Wallet aus einer Seed-Phrase",
         "list": [
-          "Sie möchten -=PRODUCT_NAME=- X1 als Backup Ihrer anderen Wallets verwenden",
-          "Sie möchten Ihre Assets von Ihren anderen Wallets auf -=PRODUCT_NAME=- X1 übertragen",
-          "Sie möchten das Portfolio Ihrer anderen Wallets über -=PRODUCT_NAME=- X1 verwalten und verfolgen",
-          "Sie möchten Ihre Vermögenswerte von Ihren anderen Wallets auf -=PRODUCT_NAME=- X1 übertragen"
+          "Sie möchten -=PRODUCT_NAME=- als Backup Ihrer anderen Wallets verwenden",
+          "Sie möchten Ihre Assets von Ihren anderen Wallets auf -=PRODUCT_NAME=- übertragen",
+          "Sie möchten das Portfolio Ihrer anderen Wallets über -=PRODUCT_NAME=- verwalten und verfolgen",
+          "Sie möchten Ihre Vermögenswerte von Ihren anderen Wallets auf -=PRODUCT_NAME=- übertragen"
         ]
       }
     },
     "success": {
       "title": "Herzlichen Glückwunsch",
-      "subtext": "-=PRODUCT_NAME=- X1 ist jetzt einsatzbereit"
+      "subtext": "-=PRODUCT_NAME=- ist jetzt einsatzbereit"
     },
     "appUpdate": {
       "heading": "App-Update",
@@ -1214,7 +1214,7 @@
       },
       "APP_0400_012": {
         "heading": "Der Speicher Ihrer -=CARD_NAME=- ist voll",
-        "subtext": "Sie können eine Wallet löschen, um eine neue hinzuzufügen, oder eine weitere -=PRODUCT_NAME=- X1 kaufen"
+        "subtext": "Sie können eine Wallet löschen, um eine neue hinzuzufügen, oder eine weitere -=PRODUCT_NAME=- kaufen"
       },
       "APP_0400_013": {
         "heading": "Sie haben eine falsche PIN eingegeben",
@@ -1576,7 +1576,7 @@
               "title": "Wichtiger Hinweis",
               "messageBoxList": [
                 {
-                  "warning": "Falls Sie ein weiteres Wallet hinzufügen müssen, müssen Sie alle 4 Karten zusammenholen. Falls Sie Ihre anderen Wallets in -=PRODUCT_NAME=- X1 importieren möchten, ist jetzt der beste Zeitpunkt, um zukünftigen Ärger zu vermeiden"
+                  "warning": "Falls Sie ein weiteres Wallet hinzufügen müssen, müssen Sie alle 4 Karten zusammenholen. Falls Sie Ihre anderen Wallets in -=PRODUCT_NAME=- importieren möchten, ist jetzt der beste Zeitpunkt, um zukünftigen Ärger zu vermeiden"
                 }
               ]
             },
@@ -1706,7 +1706,7 @@
               "title": "Wichtiger Hinweis",
               "messageBoxList": [
                 {
-                  "warning": "Falls Sie ein weiteres Wallet hinzufügen müssen, müssen Sie alle 4 Karten zusammenholen. Falls Sie Ihre anderen Wallets in -=PRODUCT_NAME=- X1 importieren möchten, ist jetzt der beste Zeitpunkt, um zukünftigen Ärger zu vermeiden"
+                  "warning": "Falls Sie ein weiteres Wallet hinzufügen müssen, müssen Sie alle 4 Karten zusammenholen. Falls Sie Ihre anderen Wallets in -=PRODUCT_NAME=- importieren möchten, ist jetzt der beste Zeitpunkt, um zukünftigen Ärger zu vermeiden"
                 }
               ]
             },
@@ -2192,7 +2192,7 @@
       "viewMessage": {
         "name": "Nachricht anzeigen",
         "title": "Nachricht von ${name}",
-        "tooltip": "Diese Nachrichten wurden vom Wallet-Eigentümer für Sie verfasst. Sie enthalten wichtige Informationen darüber, wie Sie ihre auf dem -=PRODUCT_NAME=- X1 gespeicherten Krypto-Vermögenswerte wiederherstellen können.\nHinweis - Stellen Sie sicher, dass Sie diese Nachrichten sicher und privat aufbewahren.",
+        "tooltip": "Diese Nachrichten wurden vom Wallet-Eigentümer für Sie verfasst. Sie enthalten wichtige Informationen darüber, wie Sie ihre auf dem -=PRODUCT_NAME=- gespeicherten Krypto-Vermögenswerte wiederherstellen können.\nHinweis - Stellen Sie sicher, dass Sie diese Nachrichten sicher und privat aufbewahren.",
         "form": {
           "cardLocationField": {
             "label": "Kartenstandort",
@@ -2396,7 +2396,7 @@
           },
           "transferWallet": {
             "title": "Wallet übertragen",
-            "description": "Falls Sie jemals einen -=PRODUCT_NAME=- X1 hatten und Ihre Wallets mit Ihren Karten übertragen möchten, falls Sie ihn verloren haben oder aus irgendeinem Grund"
+            "description": "Falls Sie jemals einen -=PRODUCT_NAME=- hatten und Ihre Wallets mit Ihren Karten übertragen möchten, falls Sie ihn verloren haben oder aus irgendeinem Grund"
           }
         }
       },
