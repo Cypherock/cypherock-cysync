@@ -13,7 +13,7 @@ import bitcoinIcon from './bitcoin-icon.svg';
 import blockIcon from './Block-unselectedsvg.svg';
 import blockSelectedIcon from './Block.svg';
 import bnbChainIcon from './bnb-chain.svg';
-import cardTapAsideImage from './CardTapAsideImage.png';
+import cardTapAside from './CardTapAsideImage.png';
 import checkIcon from './check.svg';
 import circledCheckIcon from './circled-check-icon.svg';
 import clearDeviceData from './clear-device-data.png';
@@ -51,7 +51,7 @@ import importWalletIcon from './import-wallet.png';
 import informationWhiteIcon from './information-icon.svg';
 import informationOrangeIcon from './information-orange-icon.svg';
 import informationIcon from './information.svg';
-import joystickTrainingAsideImage from './JoystickTrainingAside.png';
+import joystickTrainingAside from './JoystickTrainingAside.png';
 import goldLoaderIcon from './loader-gold.svg';
 import loaderGrayIcon from './loader-grey.svg';
 import loaderIcon from './loader.png';
@@ -88,7 +88,7 @@ import solanaIcon from './solana.svg';
 import spinnerGoldIcon from './spinner-gold.svg';
 import successIcon from './success.svg';
 import syncIcon from './sync-icon.svg';
-import odixDeviceAuthAsideImage from './odix-DeviceAuthAside.png';
+import odixDeviceAuthAsideImage from './odix-device-auth-aside.png';
 import tetherIcon from './tether.svg';
 import triangleInverseIcon from './triangle-inverse-icon.svg';
 import triangleGreyIcon from './triangleGrey.svg';
@@ -105,51 +105,53 @@ import WalletHoverPendingIcon from './wallet-hover-pending.svg';
 import WalletHoverSilverBgIcon from './wallet-silver-hover-bg.svg';
 import walletIcon from './wallet.svg';
 import warningIcon from './warning.svg';
+import odixJoystickTrainingAside from './odix-joystick-training-aside.png';
+import odixCardTapAside from './odix-card-tap-aside.png';
 
 const cysyncLogoSmall =
-  (window as any).cysyncEnv.VENDOR === 'odix' // Vendor specific image example
+  (window as any).cysyncEnv.VENDOR === 'odix'
     ? odixLogoSmall
     : cysyncLogoSmallImage;
 
 const LogoOutlinedAside =
-  (window as any).cysyncEnv.VENDOR === 'odix' // Vendor specific image example
+  (window as any).cysyncEnv.VENDOR === 'odix'
     ? OdixLogoOutlinedAsideImage
     : LogoOutlinedAsideImage;
 
 const DeviceAuthAside =
-  (window as any).cysyncEnv.VENDOR === 'odix' // Vendor specific image example
+  (window as any).cysyncEnv.VENDOR === 'odix'
     ? odixDeviceAuthAsideImage
     : deviceAuthAsideImage;
 
 const greenTickImage =
-  (window as any).cysyncEnv.VENDOR === 'odix' // Vendor specific image example
-    ? odixRedTick
-    : greenTick;
+  (window as any).cysyncEnv.VENDOR === 'odix' ? odixRedTick : greenTick;
 
 const cysynclogobigImage =
-  (window as any).cysyncEnv.VENDOR === 'odix' // Vendor specific image example
-    ? odixLogoBig
-    : cysyncLogoBig;
+  (window as any).cysyncEnv.VENDOR === 'odix' ? odixLogoBig : cysyncLogoBig;
 
 const backIconImage =
-  (window as any).cysyncEnv.VENDOR === 'odix' // Vendor specific image example
-    ? odixbackIcon
-    : backIcon;
+  (window as any).cysyncEnv.VENDOR === 'odix' ? odixbackIcon : backIcon;
 
 const usbIconImage =
-  (window as any).cysyncEnv.VENDOR === 'odix' // Vendor specific image example
-    ? odixUsbIcon
-    : usbIcon;
+  (window as any).cysyncEnv.VENDOR === 'odix' ? odixUsbIcon : usbIcon;
 
 const createWalletGraphicsImage =
-  (window as any).cysyncEnv.VENDOR === 'odix' // Vendor specific image example
+  (window as any).cysyncEnv.VENDOR === 'odix'
     ? odixCreateWalletGraphics
     : createWalletGraphics;
 
 const recoverWalletFromSeedphraseGraphicsImage =
-  (window as any).cysyncEnv.VENDOR === 'odix' // Vendor specific image example
+  (window as any).cysyncEnv.VENDOR === 'odix'
     ? odixrecoverWalletFromSeedphraseGraphics
     : recoverWalletFromSeedphraseGraphics;
+
+const joystickTrainingAsideImage =
+  (window as any).cysyncEnv.VENDOR === 'odix'
+    ? odixJoystickTrainingAside
+    : joystickTrainingAside;
+
+const cardTapAsideImage =
+  (window as any).cysyncEnv.VENDOR === 'odix' ? odixCardTapAside : cardTapAside;
 
 export {
   WalletDefaultExpiredIcon,
