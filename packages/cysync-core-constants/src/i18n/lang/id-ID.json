@@ -608,12 +608,12 @@
     },
     "usage": {
       "userNew": {
-        "title": "Saya menggunakan -=PRODUCT_NAME=- X1 untuk pertama kali",
-        "note": "Pilih ini jika Anda belum pernah menggunakan -=PRODUCT_NAME=- X1 sebelumnya"
+        "title": "Saya menggunakan -=PRODUCT_NAME=- untuk pertama kali",
+        "note": "Pilih ini jika Anda belum pernah menggunakan -=PRODUCT_NAME=- sebelumnya"
       },
       "userExpert": {
-        "title": "Saya sudah menggunakan -=PRODUCT_NAME=- X1",
-        "note": "Pilih ini jika Anda ingin memigrasi wallet Anda ke -=PRODUCT_NAME=- X1 baru. Ini mungkin diperlukan jika Anda kehilangan -=DEVICE_NAME=- dan satu atau lebih dari -=CARD_NAME=-s"
+        "title": "Saya sudah menggunakan -=PRODUCT_NAME=-",
+        "note": "Pilih ini jika Anda ingin memigrasi wallet Anda ke -=PRODUCT_NAME=- baru. Ini mungkin diperlukan jika Anda kehilangan -=DEVICE_NAME=- dan satu atau lebih dari -=CARD_NAME=-s"
       }
     },
     "terms": {
@@ -686,28 +686,28 @@
     },
     "walletActionsDialogBox": {
       "title": "Mari buat dompet sebelum kita melanjutkan. Pastikan Anda memiliki semua 4 -=CARD_NAME=-s dengan Anda",
-      "subTitle": "Tutorial berikut hanya ada di sana untuk membimbing Anda pada perangkat Anda. Anda dapat membuat dompet bahkan tanpa tutorial ini secara mandiri pada -=PRODUCT_NAME=- X1 Anda",
+      "subTitle": "Tutorial berikut hanya ada di sana untuk membimbing Anda pada perangkat Anda. Anda dapat membuat dompet bahkan tanpa tutorial ini secara mandiri pada -=PRODUCT_NAME=- Anda",
       "createWallet": {
         "title": "Buat dompet baru",
         "list": [
-          "Jika Anda telah membeli -=PRODUCT_NAME=- X1 baru dan ingin menyiapkan dompet baru"
+          "Jika Anda telah membeli -=PRODUCT_NAME=- baru dan ingin menyiapkan dompet baru"
         ]
       },
       "importWallet": {
         "title": "Impor dompet Anda dari frasa seed",
         "list": [
-          "Anda ingin menggunakan -=PRODUCT_NAME=- X1 sebagai cadangan dari dompet Anda yang lain",
-          "Anda ingin mentransfer aset Anda dari dompet lain ke -=PRODUCT_NAME=- X1",
-          "Anda ingin mengelola dan melacak portofolio dari dompet lain melalui -=PRODUCT_NAME=- X1",
-          "Anda ingin menggunakan -=PRODUCT_NAME=- X1 sebagai cadangan dari dompet lain Anda",
-          "Anda ingin mentransfer aset Anda dari dompet lain Anda ke -=PRODUCT_NAME=- X1",
-          "Anda ingin mengelola dan melacak portofolio dompet lain Anda melalui -=PRODUCT_NAME=- X1"
+          "Anda ingin menggunakan -=PRODUCT_NAME=- sebagai cadangan dari dompet Anda yang lain",
+          "Anda ingin mentransfer aset Anda dari dompet lain ke -=PRODUCT_NAME=-",
+          "Anda ingin mengelola dan melacak portofolio dari dompet lain melalui -=PRODUCT_NAME=-",
+          "Anda ingin menggunakan -=PRODUCT_NAME=- sebagai cadangan dari dompet lain Anda",
+          "Anda ingin mentransfer aset Anda dari dompet lain Anda ke -=PRODUCT_NAME=-",
+          "Anda ingin mengelola dan melacak portofolio dompet lain Anda melalui -=PRODUCT_NAME=-"
         ]
       }
     },
     "success": {
       "title": "Selamat",
-      "subtext": "-=PRODUCT_NAME=- X1 sekarang siap digunakan"
+      "subtext": "-=PRODUCT_NAME=- sekarang siap digunakan"
     },
     "appUpdate": {
       "heading": "Pembaruan Aplikasi",
@@ -1210,7 +1210,7 @@
       },
       "APP_0400_012": {
         "heading": "Memory -=CARD_NAME=- Anda penuh",
-        "subtext": "Anda dapat menghapus dompet untuk menambahkan yang baru atau membeli -=PRODUCT_NAME=- X1 lain"
+        "subtext": "Anda dapat menghapus dompet untuk menambahkan yang baru atau membeli -=PRODUCT_NAME=- lain"
       },
       "APP_0400_013": {
         "heading": "Anda memasukkan PIN yang salah",
@@ -1572,7 +1572,7 @@
               "title": "Catatan Penting",
               "messageBoxList": [
                 {
-                  "warning": "Jika Anda perlu menambahkan dompet lain, Anda harus mengambil semua 4 kartu bersama-sama. Jika Anda ingin mengimpor dompet lain ke dalam -=PRODUCT_NAME=- X1, sekarang adalah waktu terbaik untuk menghindari kesulitan di masa depan"
+                  "warning": "Jika Anda perlu menambahkan dompet lain, Anda harus mengambil semua 4 kartu bersama-sama. Jika Anda ingin mengimpor dompet lain ke dalam -=PRODUCT_NAME=-, sekarang adalah waktu terbaik untuk menghindari kesulitan di masa depan"
                 }
               ]
             },
@@ -1702,7 +1702,7 @@
               "title": "Catatan Penting",
               "messageBoxList": [
                 {
-                  "warning": "Jika Anda perlu menambahkan dompet lain, Anda harus mengambil semua 4 kartu bersama-sama. Jika Anda ingin mengimpor dompet lain ke dalam -=PRODUCT_NAME=- X1, sekarang adalah waktu terbaik untuk menghindari kesulitan di masa depan"
+                  "warning": "Jika Anda perlu menambahkan dompet lain, Anda harus mengambil semua 4 kartu bersama-sama. Jika Anda ingin mengimpor dompet lain ke dalam -=PRODUCT_NAME=-, sekarang adalah waktu terbaik untuk menghindari kesulitan di masa depan"
                 }
               ]
             },
@@ -2188,7 +2188,7 @@
       "viewMessage": {
         "name": "Lihat Pesan",
         "title": "Pesan dari ${name}",
-        "tooltip": "Pesan-pesan ini ditulis oleh pemilik dompet untuk Anda. Mereka berisi informasi penting tentang cara memulihkan aset kripto mereka yang disimpan di -=PRODUCT_NAME=- X1. \nCatatan- Pastikan Anda menjaga pesan ini tetap aman dan pribadi.",
+        "tooltip": "Pesan-pesan ini ditulis oleh pemilik dompet untuk Anda. Mereka berisi informasi penting tentang cara memulihkan aset kripto mereka yang disimpan di -=PRODUCT_NAME=-. \nCatatan- Pastikan Anda menjaga pesan ini tetap aman dan pribadi.",
         "form": {
           "cardLocationField": {
             "label": "Lokasi Kartu",
@@ -2392,7 +2392,7 @@
           },
           "transferWallet": {
             "title": "Transfer Dompet",
-            "description": "Jika Anda pernah memiliki -=PRODUCT_NAME=- X1 dan ingin mentransfer dompet Anda menggunakan kartu Anda jika Anda kehilangannya atau alasan apapun"
+            "description": "Jika Anda pernah memiliki -=PRODUCT_NAME=- dan ingin mentransfer dompet Anda menggunakan kartu Anda jika Anda kehilangannya atau alasan apapun"
           }
         }
       },
