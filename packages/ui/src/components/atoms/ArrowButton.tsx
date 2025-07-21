@@ -23,12 +23,14 @@ const ArrowButtonStyle = styled.button<ArrowButtonProps>`
   font-weight: 500;
   transition: all 0.4s ease-out;
   &:hover {
-    background: linear-gradient(
+    ${(window as any).cysyncEnv.VENDOR === 'odix'
+      ? `filter: brightness(115%);`
+      : `background: linear-gradient(
       180deg,
       #e9b873 0.19%,
       #fedd8f 37.17%,
       #b78d51 100.19%
-    );
+    );`}
   }
   &:disabled {
     cursor: not-allowed;
