@@ -238,17 +238,20 @@ const SideBarComponent: FC = () => {
             )}
           </Flex>
         </Flex>
-        <Flex align="center" justify="flex-start" gap={8} pt="16px" mt="16px">
-          <Image src={cysyncLogoSmallImage} alt="Cypherock" $height={20} />
-          <Typography
-            variant="h6"
-            color="muted"
-            $fontSize={14}
-            $fontWeight="medium"
-          >
-            {strings.securedBy}
-          </Typography>
-        </Flex>
+
+        {window.cysyncEnv.VENDOR !== 'default' && (
+          <Flex align="center" justify="flex-start" gap={8} pt="16px" mt="16px">
+            <Image src={cysyncLogoSmallImage} alt="Cypherock" $height={20} />
+            <Typography
+              variant="h6"
+              color="muted"
+              $fontSize={14}
+              $fontWeight="medium"
+            >
+              {strings.securedBy}
+            </Typography>
+          </Flex>
+        )}
       </SideBarWrapper>
       {window.cysyncEnv.VENDOR === 'default' && (
         <SidebarHandle onMouseDown={startDrag} />
