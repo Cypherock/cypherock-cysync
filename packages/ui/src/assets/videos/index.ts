@@ -1,13 +1,30 @@
 import cysyncDeviceConnectionAnimation2DVideo from './device-connection-animation-2d.webm';
-import distributeToLocationsAnimationVideo from './distribute-to-locations-animation.webm';
+import cysyncDistributeToLocationsAnimationVideo from './distribute-to-locations-animation.webm';
+import cysyncTapAllCardDeviceAnimation2DVideo from './tap-all-card-device-animation-2d.webm';
+import cysyncTapAnyCardDeviceAnimation2DVideo from './tap-any-card-device-animation-2d.webm';
+
+import odixDeviceConnectionAnimation2DVideo from './odix-device-connection-animation.png';
+import odixDistributeToLocationsAnimationVideo from './odix-distribute-to-locations-animation.png';
+import odixTapAllCardDeviceAnimation2DVideo from './odix-tap-card-device-animation.png';
+
 import enterSeedphraseAnimationVideo from './enter-seedphrase-animation.webm';
-import tapAllCardDeviceAnimation2DVideo from './tap-all-card-device-animation-2d.webm';
-import tapAnyCardDeviceAnimation2DVideo from './tap-any-card-device-animation-2d.webm';
 
 const deviceConnectionAnimation2DVideo =
   (window as any).cysyncEnv.VENDOR === 'odix'
-    ? distributeToLocationsAnimationVideo // Example of changing videos according to vendor
+    ? odixDeviceConnectionAnimation2DVideo
     : cysyncDeviceConnectionAnimation2DVideo;
+const distributeToLocationsAnimationVideo =
+  (window as any).cysyncEnv.VENDOR === 'odix'
+    ? odixDistributeToLocationsAnimationVideo
+    : cysyncDistributeToLocationsAnimationVideo;
+const tapAllCardDeviceAnimation2DVideo =
+  (window as any).cysyncEnv.VENDOR === 'odix'
+    ? odixTapAllCardDeviceAnimation2DVideo
+    : cysyncTapAllCardDeviceAnimation2DVideo;
+const tapAnyCardDeviceAnimation2DVideo =
+  (window as any).cysyncEnv.VENDOR === 'odix'
+    ? odixTapAllCardDeviceAnimation2DVideo
+    : cysyncTapAnyCardDeviceAnimation2DVideo;
 
 export {
   deviceConnectionAnimation2DVideo,
