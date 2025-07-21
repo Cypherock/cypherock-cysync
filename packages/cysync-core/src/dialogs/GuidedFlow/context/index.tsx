@@ -84,13 +84,21 @@ const dialogsImages: Record<GuidedFlowType, React.ReactElement[][]> = {
       <VerifyPinDeviceGraphics />,
     ],
     [
-      <Video
-        src={tapAllCardDeviceAnimation2DVideo}
-        autoPlay
-        loop
-        $width="full"
-        $aspectRatio="16/9"
-      />,
+      window.cysyncEnv.VENDOR === 'odix' ? (
+        <Image
+          src={tapAllCardDeviceAnimation2DVideo}
+          alt="card image"
+          $width={335}
+        />
+      ) : (
+        <Video
+          src={tapAllCardDeviceAnimation2DVideo}
+          autoPlay
+          loop
+          $width="full"
+          $aspectRatio="16/9"
+        />
+      ),
     ],
     [
       successIconReactElement,
@@ -103,13 +111,21 @@ const dialogsImages: Record<GuidedFlowType, React.ReactElement[][]> = {
         $width="full"
         $aspectRatio="16/9"
       />,
-      <Video
-        src={distributeToLocationsAnimationVideo}
-        autoPlay
-        loop
-        $width="full"
-        $aspectRatio="16/9"
-      />,
+      window.cysyncEnv.VENDOR === 'odix' ? (
+        <Image
+          src={distributeToLocationsAnimationVideo}
+          alt="card image"
+          $width={335}
+        />
+      ) : (
+        <Video
+          src={distributeToLocationsAnimationVideo}
+          autoPlay
+          loop
+          $width="full"
+          $aspectRatio="16/9"
+        />
+      ),
     ],
   ],
   importWallet: [
@@ -126,13 +142,21 @@ const dialogsImages: Record<GuidedFlowType, React.ReactElement[][]> = {
       <SelectSeedphraseWordCountDeviceGraphics />,
       <EnterSeedphraseDeviceGraphics />,
       <VerifySeedphraseDeviceGraphics />,
-      <Video
-        src={tapAllCardDeviceAnimation2DVideo}
-        autoPlay
-        loop
-        $width="full"
-        $aspectRatio="16/9"
-      />,
+      window.cysyncEnv.VENDOR === 'odix' ? (
+        <Image
+          src={tapAllCardDeviceAnimation2DVideo}
+          alt="card image"
+          $width={335}
+        />
+      ) : (
+        <Video
+          src={tapAllCardDeviceAnimation2DVideo}
+          autoPlay
+          loop
+          $width="full"
+          $aspectRatio="16/9"
+        />
+      ),
     ],
     [
       successIconReactElement,
@@ -145,13 +169,21 @@ const dialogsImages: Record<GuidedFlowType, React.ReactElement[][]> = {
         $width="full"
         $aspectRatio="16/9"
       />,
-      <Video
-        src={distributeToLocationsAnimationVideo}
-        autoPlay
-        loop
-        $width="full"
-        $aspectRatio="16/9"
-      />,
+      window.cysyncEnv.VENDOR === 'odix' ? (
+        <Image
+          src={distributeToLocationsAnimationVideo}
+          alt="card image"
+          $width={335}
+        />
+      ) : (
+        <Video
+          src={distributeToLocationsAnimationVideo}
+          autoPlay
+          loop
+          $width="full"
+          $aspectRatio="16/9"
+        />
+      ),
     ],
   ],
 };
