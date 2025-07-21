@@ -15,7 +15,7 @@ let keyDb: IKeyValueStore | undefined;
 
 const DB_PATH =
   config.VENDOR === 'default' ? 'cysync-data' : `${config.VENDOR}-data`;
-const packageJsonPath = path.resolve(__dirname, '../../../package.json');
+const packageJsonPath = path.resolve(__dirname, '../../package.json');
 const { productName: APP_NAME } = JSON.parse(
   fs.readFileSync(packageJsonPath, 'utf-8'),
 );
