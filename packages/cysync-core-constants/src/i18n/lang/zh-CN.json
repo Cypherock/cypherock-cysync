@@ -609,12 +609,12 @@
     },
     "usage": {
       "userNew": {
-        "title": "我第一次使用 -=PRODUCT_NAME=- X1",
-        "note": "如果你以前从未使用过 -=PRODUCT_NAME=- X1，请选择此选项"
+        "title": "我第一次使用 -=PRODUCT_NAME=-",
+        "note": "如果你以前从未使用过 -=PRODUCT_NAME=-，请选择此选项"
       },
       "userExpert": {
-        "title": "我已经使用过 -=PRODUCT_NAME=- X1",
-        "note": "如果你想将钱包迁移到新的 -=PRODUCT_NAME=- X1，请选择此选项。在你丢失 -=DEVICE_NAME=- 和一个或多个 -=CARD_NAME=-s 的情况下可能需要这样做"
+        "title": "我已经使用过 -=PRODUCT_NAME=-",
+        "note": "如果你想将钱包迁移到新的 -=PRODUCT_NAME=-，请选择此选项。在你丢失 -=DEVICE_NAME=- 和一个或多个 -=CARD_NAME=-s 的情况下可能需要这样做"
       }
     },
     "terms": {
@@ -687,29 +687,29 @@
     },
     "walletActionsDialogBox": {
       "title": "在我们继续之前，让我们创建一个钱包。确保你有所有4张 -=CARD_NAME=-s",
-      "subTitle": "以下教程仅用于指导你在设备上的操作。即使没有这些教程，你也可以在你的 -=PRODUCT_NAME=- X1 上独立创建一个钱包",
+      "subTitle": "以下教程仅用于指导你在设备上的操作。即使没有这些教程，你也可以在你的 -=PRODUCT_NAME=- 上独立创建一个钱包",
       "createWallet": {
         "title": "创建一个新的钱包",
         "list": [
-          "如果你购买了一台全新的 -=PRODUCT_NAME=- X1 并希望设置一个新钱包",
-          "如果你购买了全新的 -=PRODUCT_NAME=- X1 并想设置一个新的钱包"
+          "如果你购买了一台全新的 -=PRODUCT_NAME=- 并希望设置一个新钱包",
+          "如果你购买了全新的 -=PRODUCT_NAME=- 并想设置一个新的钱包"
         ]
       },
       "importWallet": {
         "title": "从种子短语导入你的钱包",
         "list": [
-          "你希望将 -=PRODUCT_NAME=- X1 作为你其他钱包的备份",
-          "你希望将你的资产从其他钱包转移到 -=PRODUCT_NAME=- X1",
-          "你希望通过 -=PRODUCT_NAME=- X1 管理和追踪你其他钱包的投资组合",
-          "你想将 -=PRODUCT_NAME=- X1 用作其他钱包的备份",
-          "你想将资产从其他钱包转移到 -=PRODUCT_NAME=- X1 ",
-          "你想通过 -=PRODUCT_NAME=- X1 管理和跟踪其他钱包的资产组合"
+          "你希望将 -=PRODUCT_NAME=- 作为你其他钱包的备份",
+          "你希望将你的资产从其他钱包转移到 -=PRODUCT_NAME=-",
+          "你希望通过 -=PRODUCT_NAME=- 管理和追踪你其他钱包的投资组合",
+          "你想将 -=PRODUCT_NAME=- 用作其他钱包的备份",
+          "你想将资产从其他钱包转移到 -=PRODUCT_NAME=- ",
+          "你想通过 -=PRODUCT_NAME=- 管理和跟踪其他钱包的资产组合"
         ]
       }
     },
     "success": {
       "title": "恭喜",
-      "subtext": "-=PRODUCT_NAME=- X1 现在可以使用了"
+      "subtext": "-=PRODUCT_NAME=- 现在可以使用了"
     },
     "appUpdate": {
       "heading": "应用更新",
@@ -1208,7 +1208,7 @@
       },
       "APP_0400_012": {
         "heading": "您的 -=CARD_NAME=- 内存已满",
-        "subtext": "您可以删除钱包以添加新钱包或购买另一张 -=PRODUCT_NAME=- X1"
+        "subtext": "您可以删除钱包以添加新钱包或购买另一张 -=PRODUCT_NAME=-"
       },
       "APP_0400_013": {
         "heading": "您输入了错误的 PIN",
@@ -1552,7 +1552,7 @@
               "title": "重要提示",
               "messageBoxList": [
                 {
-                  "warning": "如果您需要添加另一个钱包，需要一起获取所有4张卡片。如果您想将其他钱包导入到-=PRODUCT_NAME=- X1，现在是避免未来麻烦的最佳时机"
+                  "warning": "如果您需要添加另一个钱包，需要一起获取所有4张卡片。如果您想将其他钱包导入到-=PRODUCT_NAME=-，现在是避免未来麻烦的最佳时机"
                 }
               ]
             },
@@ -1673,7 +1673,7 @@
               "title": "重要提示",
               "messageBoxList": [
                 {
-                  "warning": "如果您需要添加另一个钱包，需要一起获取所有4张卡片。如果您想将其他钱包导入到-=PRODUCT_NAME=- X1，现在是避免未来麻烦的最佳时机"
+                  "warning": "如果您需要添加另一个钱包，需要一起获取所有4张卡片。如果您想将其他钱包导入到-=PRODUCT_NAME=-，现在是避免未来麻烦的最佳时机"
                 }
               ]
             },
@@ -2159,7 +2159,7 @@
       "viewMessage": {
         "name": "查看消息",
         "title": "来自${name}的消息",
-        "tooltip": "这些消息是钱包持有人为您撰写的。其中包含有关如何恢复存储在-=PRODUCT_NAME=- X1上的加密资产的重要信息。\n注意-确保您将这些消息保密并安全保管。",
+        "tooltip": "这些消息是钱包持有人为您撰写的。其中包含有关如何恢复存储在-=PRODUCT_NAME=-上的加密资产的重要信息。\n注意-确保您将这些消息保密并安全保管。",
         "form": {
           "cardLocationField": {
             "label": "卡片位置",
@@ -2363,7 +2363,7 @@
           },
           "transferWallet": {
             "title": "转移钱包",
-            "description": "如果您曾经拥有 -=PRODUCT_NAME=- X1，并且想要在丢失的情况下通过您的卡转移钱包，或任何其他原因"
+            "description": "如果您曾经拥有 -=PRODUCT_NAME=-，并且想要在丢失的情况下通过您的卡转移钱包，或任何其他原因"
           }
         }
       },
