@@ -110,7 +110,7 @@ export const InheritanceEditReminderTimeDialogProvider: FC<
 
     const reminderValue =
       reminderPeriodStringToNumMap[
-        result.result?.emailConfig?.frequency ?? ''
+        result?.result?.emailConfig?.frequency ?? ''
       ] ?? 1;
 
     setReminder(reminderValue);

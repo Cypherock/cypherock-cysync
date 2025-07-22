@@ -141,10 +141,10 @@ export const getParsedError = (params: {
     heading =
       errorToParse.message ??
       (serverCoinErrors &&
-        serverCoinErrors[errorToParse.code as ServerCoinErrorTypes].heading);
+        serverCoinErrors[errorToParse.code as ServerCoinErrorTypes]?.heading);
     subtext =
       serverCoinErrors &&
-      serverCoinErrors[errorToParse.code as ServerCoinErrorTypes].subtext;
+      serverCoinErrors[errorToParse.code as ServerCoinErrorTypes]?.subtext;
 
     details = getServerCoinErrorHandlingDetails(errorToParse.code) ?? details;
   }

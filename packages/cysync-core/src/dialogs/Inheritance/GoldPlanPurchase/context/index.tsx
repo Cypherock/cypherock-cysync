@@ -348,7 +348,7 @@ export const InheritanceGoldPlanPurchaseDialogProvider: FC<
         if (result.result.planType !== 'GOLD')
           throw { isForDifferentPlan: true };
 
-        setCouponDuration(result.result.duration ?? '');
+        setCouponDuration(result.result?.duration ?? '');
         setCoupon(_coupon);
       } catch (error: any) {
         setApplyingCouponError({
