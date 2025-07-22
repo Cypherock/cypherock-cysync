@@ -139,7 +139,7 @@ export const SingleTransaction: React.FC<SingleTransactionProps> = ({
     return {
       label: displayText.memo.label,
       placeholder: displayText.memo.placeholder,
-      initialValue: txn.userInputs.outputs[0]?.memo,
+      initialValue: txn?.userInputs.outputs[0]?.memo,
       onChange: prepareMemo,
       limit: MAX_UINT64,
     };

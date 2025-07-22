@@ -20,7 +20,6 @@ import { createSelector } from '@reduxjs/toolkit';
 import { format as formatDate } from 'date-fns';
 import lodash from 'lodash';
 import React, { useCallback, useEffect, useState } from 'react';
-
 import { openSwapHistoryDialog } from '~/actions';
 import { CoinIcon } from '~/components';
 import { providerImageUrlMap } from '~/constants';
@@ -91,10 +90,10 @@ const searchFilter = (
 
   return data.filter(
     row =>
-      row.providerName.toLowerCase().includes(searchTerm.toLowerCase()) ??
-      row.sourceWalletName.toLowerCase().includes(searchTerm.toLowerCase()) ??
-      row.sourceAccountName.toLowerCase().includes(searchTerm.toLowerCase()) ??
-      row.sourceAssetName.toLowerCase().includes(searchTerm.toLowerCase()) ??
+      row.providerName?.toLowerCase().includes(searchTerm.toLowerCase()) ??
+      row.sourceWalletName?.toLowerCase().includes(searchTerm.toLowerCase()) ??
+      row.sourceAccountName?.toLowerCase().includes(searchTerm.toLowerCase()) ??
+      row.sourceAssetName?.toLowerCase().includes(searchTerm.toLowerCase()) ??
       row.destinationWalletName
         ?.toLowerCase()
         .includes(searchTerm.toLowerCase()) ??
@@ -104,7 +103,7 @@ const searchFilter = (
       row.destinationAssetName
         ?.toLowerCase()
         .includes(searchTerm.toLowerCase()) ??
-      row.swapId.toLowerCase().includes(searchTerm.toLowerCase()),
+      row.swapId?.toLowerCase().includes(searchTerm.toLowerCase()),
   );
 };
 
