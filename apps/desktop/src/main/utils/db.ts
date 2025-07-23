@@ -6,6 +6,7 @@ import { IDatabase, IKeyValueStore } from '@cypherock/db-interfaces';
 
 import { config } from './config';
 import { logger } from './logger';
+import pkgJson from '../../../package.json';
 
 import channelMigrations from '../../migrations/channel.json';
 
@@ -15,10 +16,7 @@ let keyDb: IKeyValueStore | undefined;
 
 const DB_PATH =
   config.VENDOR === 'default' ? 'cysync-data' : `${config.VENDOR}-data`;
-const packageJsonPath = path.resolve(__dirname, '../../package.json');
-const { productName: APP_NAME } = JSON.parse(
-  fs.readFileSync(packageJsonPath, 'utf-8'),
-);
+const { productName: APP_NAME } = pkgJson;
 
 export const migrateDbBetweenChannels = async () => {
   for (const migrationItem of channelMigrations) {
