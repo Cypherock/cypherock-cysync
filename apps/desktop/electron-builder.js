@@ -13,11 +13,18 @@ const config = {
   appId: 'com.hodl.cypherock',
   productName,
   asar: true,
+  asarUnpack: ['!**/*.node'],
   directories: {
     output: 'release/${version}',
     buildResources: 'build',
   },
-  files: ['dist-electron', 'dist'],
+  files: [
+    'dist-electron',
+    'dist',
+    '!node_modules/@cypherock/*/src/**',
+    '!node_modules/@cypherock/*/.turbo/**',
+    '!node_modules/@cypherock/*/scripts/**',
+  ],
   extraResources: ['extraResources/RELEASE_NOTES.md'],
   releaseInfo: {
     releaseNotesFile: './extraResources/RELEASE_NOTES.md',
@@ -26,6 +33,7 @@ const config = {
     artifactName: getArtifactName(),
     entitlements: 'entitlements.plist',
     entitlementsInherit: 'entitlements.plist',
+    mergeASARs: false,
     target: [
       {
         target: 'dmg',
