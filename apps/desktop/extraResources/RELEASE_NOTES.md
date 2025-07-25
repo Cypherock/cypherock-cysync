@@ -1,3 +1,13 @@
+# v2.1.3
+
+### 🚀 Feature
+
+- **French Support:** Added French language support in the cySync app.
+
+### 🐛 Bugfix
+
+- Fixed issues with **Cypherock Cover** plan setup for a smoother experience.
+
 # v2.1.2
 
 ### 🚀 Feature
