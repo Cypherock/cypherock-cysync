@@ -3,12 +3,11 @@ import de from './lang/de-DE.json';
 import en from './lang/en.json';
 import id from './lang/id-ID.json';
 import zh from './lang/zh-CN.json';
-import fr from './lang/fr-FR.json';
 import { LanguageStrings } from './types';
 
 export type { LanguageStrings } from './types';
 
-export type Language = 'en' | 'de-DE' | 'ar-AE' | 'zh-CN' | 'id-ID' | 'fr-FR';
+export type Language = 'en' | 'de-DE' | 'ar-AE' | 'zh-CN' | 'id-ID';
 
 export const LanguageList = [
   {
@@ -31,10 +30,6 @@ export const LanguageList = [
     id: 'id-ID',
     name: 'Bahasa Indonesia',
   },
-  {
-    id: 'fr-FR',
-    name: 'French',
-  },
 ];
 
 const langs: Record<Language, LanguageStrings> = {
@@ -43,7 +38,6 @@ const langs: Record<Language, LanguageStrings> = {
   'ar-AE': ar,
   'zh-CN': zh,
   'id-ID': id,
-  'fr-FR': fr,
 };
 
 const defaultLang: Language = 'en';
