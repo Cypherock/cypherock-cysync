@@ -1,3 +1,9 @@
+# v2.1.3
+
+### 🐛 Bugfix
+
+- Fixed issues with **Cypherock Cover** plan setup for a smoother experience.
+
 # v2.1.2
 
 ### 🚀 Feature
