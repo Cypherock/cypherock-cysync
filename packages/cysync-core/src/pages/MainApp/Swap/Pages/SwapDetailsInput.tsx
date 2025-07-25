@@ -71,8 +71,8 @@ export const SwapDetailsInput = () => {
       coinId: fromAccount.selectedAccount.parentAssetId,
       assetId: fromAccount.selectedAccount.assetId,
       amount: new BigNumber(
-        fromAccount.selectedAccount.spendableBalance ??
-          fromAccount.selectedAccount.balance ??
+        fromAccount.selectedAccount?.spendableBalance ??
+          fromAccount.selectedAccount?.balance ??
           '0',
       ).toString(),
       unitAbbr:
