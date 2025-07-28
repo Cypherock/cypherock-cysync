@@ -1,3 +1,9 @@
+# v2.1.4
+
+### 🚀 Feature
+
+- Added French language support in the cySync app.
+
 # v2.1.3
 
 ### 🐛 Bugfix
