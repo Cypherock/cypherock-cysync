@@ -77,7 +77,8 @@ const config = {
 };
 
 if (process.env.WINDOWS_CERT_SUBJECT) {
-  config.win.certificateSubjectName = process.env.WINDOWS_CERT_SUBJECT;
+  config.win.signtoolOptions.certificateSubjectName =
+    process.env.WINDOWS_CERT_SUBJECT;
 }
 
 module.exports = config;
