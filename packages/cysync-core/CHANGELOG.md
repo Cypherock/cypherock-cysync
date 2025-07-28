@@ -1,5 +1,17 @@
 # @cypherock/cysync-core
 
+## 0.6.5
+
+### Patch Changes
+
+- [#780](https://github.com/Cypherock/cypherock-cysync/pull/780) [`53762659`](https://github.com/Cypherock/cypherock-cysync/commit/53762659bf2542008fcce997af13b81342b47a96) Thanks [@AryanCypherock](https://github.com/AryanCypherock)! - reverted lint changes
+
+- Updated dependencies [[`53762659`](https://github.com/Cypherock/cypherock-cysync/commit/53762659bf2542008fcce997af13b81342b47a96)]:
+  - @cypherock/coin-support-tron@0.0.15
+  - @cypherock/coin-support@0.1.9
+  - @cypherock/cysync-core-services@0.1.7
+  - @cypherock/cysync-core-workers@0.0.23
+
 ## 0.6.5-pre.0
 
 ### Patch Changes

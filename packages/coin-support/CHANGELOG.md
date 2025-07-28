@@ -1,5 +1,12 @@
 # @cypherock/coin-support
 
+## 0.1.9
+
+### Patch Changes
+
+- Updated dependencies [[`53762659`](https://github.com/Cypherock/cypherock-cysync/commit/53762659bf2542008fcce997af13b81342b47a96)]:
+  - @cypherock/coin-support-tron@0.0.15
+
 ## 0.1.9-pre.0
 
 ### Patch Changes
