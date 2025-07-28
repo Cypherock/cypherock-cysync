@@ -511,18 +511,18 @@
           "You have an active internet connection",
           "The tamper-proof seal of the package is intact",
           "-=PRODUCT_NAME=- will never ask you for your seed phrase nor will it ever ask you to sign a transaction",
-          "-=PRODUCT_NAME=- will only email you from -=PRODUCT_NAME=-.com. Do not trust any email from any other website domain"
+          "-=PRODUCT_NAME=- will only email you from -=WEBSITE_NAME=-. Do not trust any email from any other website domain"
         ]
       }
     },
     "usage": {
       "userNew": {
-        "title": "I am using -=PRODUCT_NAME=- for the first time",
-        "note": "Choose this if you have never used -=PRODUCT_NAME=- before"
+        "title": "I am using -=WALLET_NAME=- for the first time",
+        "note": "Choose this if you have never used -=WALLET_NAME=- before"
       },
       "userExpert": {
-        "title": "I have already used a -=PRODUCT_NAME=-",
-        "note": "Choose this if you want to migrate your wallets to a new -=PRODUCT_NAME=-. This might be required in case you lost your -=DEVICE_NAME=- and one or more of the -=CARD_NAME=-s"
+        "title": "I have already used a -=WALLET_NAME=-",
+        "note": "Choose this if you want to migrate your wallets to a new -=WALLET_NAME=-. This might be required in case you lost your -=DEVICE_NAME=- and one or more of the -=CARD_NAME=-s"
       }
     },
     "terms": {
@@ -595,25 +595,25 @@
     },
     "walletActionsDialogBox": {
       "title": "Let's create a wallet before we proceed. Make sure you have all the 4 -=CARD_NAME=-s with you",
-      "subTitle": "The following tutorials are just there to guide you on your device. You can create a wallet even without these tutorials independently on your -=PRODUCT_NAME=-",
+      "subTitle": "The following tutorials are just there to guide you on your device. You can create a wallet even without these tutorials independently on your -=WALLET_NAME=-",
       "createWallet": {
         "title": "Create a new wallet",
         "list": [
-          "If you have bought a brand new -=PRODUCT_NAME=- and want to setup a new wallet"
+          "If you have bought a brand new -=WALLET_NAME=- and want to setup a new wallet"
         ]
       },
       "importWallet": {
         "title": "Import your wallet from a seed phrase",
         "list": [
-          "You want to use -=PRODUCT_NAME=- as a backup of your other wallets ",
-          "You want to transfer your assets from your other wallets into -=PRODUCT_NAME=- ",
-          "You want to manage and track portfolio of your other wallets through -=PRODUCT_NAME=- "
+          "You want to use -=WALLET_NAME=- as a backup of your other wallets ",
+          "You want to transfer your assets from your other wallets into -=WALLET_NAME=- ",
+          "You want to manage and track portfolio of your other wallets through -=WALLET_NAME=- "
         ]
       }
     },
     "success": {
       "title": "Congratulations",
-      "subtext": "-=PRODUCT_NAME=- is now ready to use"
+      "subtext": "-=WALLET_NAME=- is now ready to use"
     },
     "appUpdate": {
       "heading": "App Update",
@@ -1105,7 +1105,7 @@
       },
       "APP_0400_012": {
         "heading": "Your -=CARD_NAME=-'s memory is full",
-        "subtext": "You can delete a wallet to add a new one or buy another -=PRODUCT_NAME=-"
+        "subtext": "You can delete a wallet to add a new one or buy another -=WALLET_NAME=-"
       },
       "APP_0400_013": {
         "heading": "You entered an incorrect PIN",
@@ -1443,7 +1443,7 @@
               "title": "Important Note",
               "messageBoxList": [
                 {
-                  "warning": "In case you need to add another wallet, you will need to fetch all of the 4 cards together. In case you want to import your other wallets into -=PRODUCT_NAME=-, now is the best time to avoid the future hassle"
+                  "warning": "In case you need to add another wallet, you will need to fetch all of the 4 cards together. In case you want to import your other wallets into -=WALLET_NAME=-, now is the best time to avoid the future hassle"
                 }
               ]
             },
@@ -1573,7 +1573,7 @@
               "title": "Important Note",
               "messageBoxList": [
                 {
-                  "warning": "In case you need to add another wallet, you will need to fetch all of the 4 cards together. In case you want to import your other wallets into -=PRODUCT_NAME=-, now is the best time to avoid the future hassle"
+                  "warning": "In case you need to add another wallet, you will need to fetch all of the 4 cards together. In case you want to import your other wallets into -=WALLET_NAME=-, now is the best time to avoid the future hassle"
                 }
               ]
             },
@@ -2059,7 +2059,7 @@
       "viewMessage": {
         "name": "View Message",
         "title": "Message from ${name}",
-        "tooltip": "These messages were written by the wallet Owner for you. They contain important information about how to recover their crypto assets stored on the -=PRODUCT_NAME=-. \nNote- Make sure you keep these messages safe and private. ",
+        "tooltip": "These messages were written by the wallet Owner for you. They contain important information about how to recover their crypto assets stored on the -=WALLET_NAME=-. \nNote- Make sure you keep these messages safe and private. ",
         "form": {
           "cardLocationField": {
             "label": "Card location",
@@ -2180,7 +2180,7 @@
           },
           "transferWallet": {
             "title": "Transfer Wallet",
-            "description": "If you ever had a -=PRODUCT_NAME=- and want to transfer your wallets using your cards in case you lost it or any reason whatsoever"
+            "description": "If you ever had a -=WALLET_NAME=- and want to transfer your wallets using your cards in case you lost it or any reason whatsoever"
           }
         }
       },

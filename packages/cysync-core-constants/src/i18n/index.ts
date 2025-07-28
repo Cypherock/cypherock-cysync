@@ -39,9 +39,11 @@ export const LanguageList = [
 
 const defaultVendorDetails = {
   APP_NAME: 'cySync',
+  WALLET_NAME: 'Cypherock X1',
   PRODUCT_NAME: 'Cypherock',
   DEVICE_NAME: 'X1 Vault',
   CARD_NAME: 'X1 Card',
+  WEBSITE_NAME: 'cypherock.com',
 };
 
 const replaceVendorDetails = (
@@ -61,9 +63,11 @@ const injectVendorStrings = (data: LanguageStrings) => {
     return JSON.parse(
       replaceVendorDetails(text, {
         APP_NAME: 'Odix',
+        WALLET_NAME: 'Odix Wallet',
         PRODUCT_NAME: 'Odix Pay',
         DEVICE_NAME: 'Odix Vault',
         CARD_NAME: 'Odix Card',
+        WEBSITE_NAME: 'odixpay.com',
       }),
     ) as LanguageStrings;
   }
