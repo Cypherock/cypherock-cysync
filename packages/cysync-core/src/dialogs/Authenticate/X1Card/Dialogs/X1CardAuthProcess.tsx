@@ -7,6 +7,7 @@ import {
   DialogBoxBody,
   Divider,
   Flex,
+  Image,
   LangDisplay,
   LeanBox,
   LeanBoxContainer,
@@ -121,13 +122,21 @@ const X1CardAuthProcess: React.FC = () => {
               direction="column"
               align="center"
             >
-              <Video
-                src={tapAnyCardDeviceAnimation2DVideo}
-                autoPlay
-                loop
-                $width="full"
-                $aspectRatio="16/9"
-              />
+              {window.cysyncEnv.VENDOR === 'odix' ? (
+                <Image
+                  src={tapAnyCardDeviceAnimation2DVideo}
+                  alt="card tap image"
+                  $width={335}
+                />
+              ) : (
+                <Video
+                  src={tapAnyCardDeviceAnimation2DVideo}
+                  autoPlay
+                  loop
+                  $width="full"
+                  $aspectRatio="16/9"
+                />
+              )}
               <Flex direction="column" gap={4} align="center">
                 <Typography color="white" $fontSize={20} $textAlign="center">
                   <LangDisplay text={title} />

@@ -180,6 +180,24 @@ export const WithConnectedDevice: React.FC<WithConnectedDeviceProps> = ({
   }
   const showFooter =
     !deviceUnavailable && props.buttonLabel && props.buttonOnClick;
+
+  const animationComponent =
+    window.cysyncEnv.VENDOR === 'odix' ? (
+      <Image
+        src={deviceConnectionAnimation2DVideo}
+        alt="device image"
+        $width={335}
+      />
+    ) : (
+      <Video
+        src={deviceConnectionAnimation2DVideo}
+        autoPlay
+        loop
+        $width="full"
+        $aspectRatio="16/9"
+      />
+    );
+
   return (
     <DialogBox width={500} align="stretch" onClose={onClose}>
       {onClose && (
@@ -192,13 +210,7 @@ export const WithConnectedDevice: React.FC<WithConnectedDeviceProps> = ({
       )}
       <DialogBoxBody pb={showFooter ? 4 : 8}>
         {showAnimation ? (
-          <Video
-            src={deviceConnectionAnimation2DVideo}
-            autoPlay
-            loop
-            $width="full"
-            $aspectRatio="16/9"
-          />
+          animationComponent
         ) : (
           <Image src={disconnectedIcon} alt="Device not connected" />
         )}
