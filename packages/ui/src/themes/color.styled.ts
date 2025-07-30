@@ -311,7 +311,7 @@ const odixColors = {
     black: colorPrimitivesOdix.black,
     container: colorPrimitivesOdix.primary0,
     containerSecondary: colorPrimitivesOdix.primary0,
-    toggleOff: '#262626',
+    toggleOff: colorPrimitivesOdix.border2,
     list: colorPrimitivesOdix.primary0,
     info: colorPrimitivesOdix.borderWarning,
     lightBlack: '#1C1C1C',
