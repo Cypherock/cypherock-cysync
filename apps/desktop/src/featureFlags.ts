@@ -4,4 +4,6 @@ export default {
   DEEPLINK: true,
   SWAP: true,
   AFFILIATE: true,
+  WALLET_CONNECT: true,
+  ONRAMP: true,
 };

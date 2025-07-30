@@ -235,6 +235,7 @@ const vendorSpecificFeatureFlags = (() => {
     modifiedFeatureFlags.DEEPLINK = false;
     modifiedFeatureFlags.SWAP = false;
     modifiedFeatureFlags.AFFILIATE = false;
+    modifiedFeatureFlags.ONRAMP = false;
   }
   return modifiedFeatureFlags;
 })();
