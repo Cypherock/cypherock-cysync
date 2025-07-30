@@ -181,33 +181,37 @@ const SideBarComponent: FC = () => {
               }
               onClick={() => navigate('history')}
             />
-            <SideBarItem
-              text={strings.walletConnect}
-              Icon={WalletConnectWhiteIcon}
-              state={wallets.length === 0 ? State.disabled : undefined}
-              onClick={() => {
-                dispatch(openWalletConnectDialog());
-              }}
-            />
-            <SideBarItem
-              text={strings.buysell}
-              Icon={DollarIcon}
-              state={
-                wallets.length === 0 ? State.disabled : getState('buysell2')
-              }
-              onClick={() => navigate('buysell2')}
-              extraRight={
-                <Chip $gradient="silver">
-                  <Typography
-                    $fontSize={10}
-                    $fontWeight="semibold"
-                    color="black"
-                  >
-                    {strings.new}
-                  </Typography>
-                </Chip>
-              }
-            />
+            {window.cysyncFeatureFlags.WALLET_CONNECT && (
+              <SideBarItem
+                text={strings.walletConnect}
+                Icon={WalletConnectWhiteIcon}
+                state={wallets.length === 0 ? State.disabled : undefined}
+                onClick={() => {
+                  dispatch(openWalletConnectDialog());
+                }}
+              />
+            )}
+            {window.cysyncFeatureFlags.ONRAMP && (
+              <SideBarItem
+                text={strings.buysell}
+                Icon={DollarIcon}
+                state={
+                  wallets.length === 0 ? State.disabled : getState('buysell2')
+                }
+                onClick={() => navigate('buysell2')}
+                extraRight={
+                  <Chip $gradient="silver">
+                    <Typography
+                      $fontSize={10}
+                      $fontWeight="semibold"
+                      color="black"
+                    >
+                      {strings.new}
+                    </Typography>
+                  </Chip>
+                }
+              />
+            )}
             {window.cysyncFeatureFlags.SWAP && (
               <SideBarItem
                 text="Swap"
