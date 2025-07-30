@@ -76,17 +76,19 @@ export const GeneralSettings: React.FC = () => {
           />
         </Flex>
       </SettingsStandardItem>
-      <SettingsStandardItem
-        title={{ text: item.syncMobile.title }}
-        description={{ text: item.syncMobile.description }}
-      >
-        <SettingsButton
-          variant="primary"
-          onClick={() => dispatch(openMobileAppSyncDialog())}
+      {window.cysyncEnv.VENDOR === 'default' && (
+        <SettingsStandardItem
+          title={{ text: item.syncMobile.title }}
+          description={{ text: item.syncMobile.description }}
         >
-          <LangDisplay text={strings.buttons.showQRCode} />
-        </SettingsButton>
-      </SettingsStandardItem>
+          <SettingsButton
+            variant="primary"
+            onClick={() => dispatch(openMobileAppSyncDialog())}
+          >
+            <LangDisplay text={strings.buttons.showQRCode} />
+          </SettingsButton>
+        </SettingsStandardItem>
+      )}
       {/* <SettingsStandardItem
         title={{ text: item.region.title }}
         description={{ text: item.region.description }}
