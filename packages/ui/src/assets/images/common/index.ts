@@ -1,7 +1,8 @@
 import addAccountIcon from './add-account.svg';
 import addWalletIcon from './add-wallet.png';
 import arrowBlackBackward from './arrow-black-backward.svg';
-import arrowGoldenForward from './arrow-golden-forward.svg';
+import arrowGoldenForwardIcon from './arrow-golden-forward.svg';
+import odixArrowGoldenForwardIcon from './odix-arrow-golden-forward.svg';
 import arrowWhiteBackward from './arrow-white-backward.svg';
 import asideIcon from './aside.svg';
 import backIcon from './back.svg';
@@ -11,7 +12,7 @@ import bgClockIcon from './bgClockIcon.svg';
 import binanceIcon from './binance.svg';
 import bitcoinIcon from './bitcoin-icon.svg';
 import blockIcon from './Block-unselectedsvg.svg';
-import blockSelectedIcon from './Block.svg';
+import defaultBlockSelectedIcon from './Block.svg';
 import bnbChainIcon from './bnb-chain.svg';
 import cardTapAside from './CardTapAsideImage.png';
 import checkIcon from './check.svg';
@@ -21,12 +22,13 @@ import closeIcon from './close.svg';
 import confirmDeviceSettings from './confirm-device-settings.png';
 import confirmOnDevice from './confirm-on-device.png';
 import confirmIcon from './confirm.svg';
-import goldCopyIcon from './copy-gold.svg';
+import defaultGoldCopyIcon from './copy-gold.svg';
+import odixGoldCopyIcon from './odix-copy-gold.svg';
 import copyIcon from './copy.png';
 import createWalletGraphics from './create-wallet-graphics.png';
 import cypherockCoverIcon from './cypherock-cover-icon.svg';
 import cypherockRedIcon from './cypherock-red.svg';
-import cysyncLockedLogo from './cysync-locked.svg';
+import cysyncLocked from './cysync-locked.svg';
 import dashWalletDefaultBgIcon from './dash-wallet-default-bg-icon.svg';
 import dashWalletHoverBgIcon from './dash-wallet-hover-bg-icon.svg';
 import deviceAuthAsideImage from './DeviceAuthAside.png';
@@ -39,20 +41,26 @@ import ethereumIcon from './ethereum-icon.svg';
 import etheriumBlueIcon from './etherium-blue.svg';
 import expireHoverWalletIcon from './expire-hover-wallet-icon.svg';
 import { FailIcon } from './FailIcon';
-import goldHoverWalletIcon from './gold-hover-wallet-icon.svg';
-import goldSendIcon from './gold-send.svg';
-import goldTick from './gold-tick.svg';
-import goldFail from './gold_fail.svg';
-import odixCreateWalletGraphics from './odix-create-wallet-graphics.png';
+import defaultGoldHoverWalletIcon from './gold-hover-wallet-icon.svg';
+import odixGoldHoverWalletIcon from './odix-gold-hover-wallet-icon.svg';
+import defaultGoldSendIcon from './gold-send.svg';
+import odixGoldSendIcon from './odix-gold-send.svg';
+import defaultGoldTick from './gold-tick.svg';
+import odixGoldTick from './odix-gold-tick.svg';
+import defaultGoldFail from './gold_fail.svg';
+import odixGoldFail from './odix-gold_fail.svg';
 import greenTick from './green-tick.svg';
-import odixRedTick from './odix-red-tick.svg';
-import halfLoaderGold from './half-loader-gold.svg';
+import defaultHalfLoaderGold from './half-loader-gold.svg';
+import odixHalfLoaderGold from './odix-half-loader-gold.svg';
 import importWalletIcon from './import-wallet.png';
 import informationWhiteIcon from './information-icon.svg';
 import informationOrangeIcon from './information-orange-icon.svg';
 import informationIcon from './information.svg';
 import joystickTrainingAside from './JoystickTrainingAside.png';
-import goldLoaderIcon from './loader-gold.svg';
+import defaultGoldLoaderIcon from './loader-gold.svg';
+import odixGoldLoaderIcon from './odix-loader-gold.svg';
+import odixCreateWalletGraphics from './odix-create-wallet-graphics.png';
+import odixRedTick from './odix-red-tick.svg';
 import loaderGrayIcon from './loader-grey.svg';
 import loaderIcon from './loader.png';
 import cysyncLogoBig from './logo-big.svg';
@@ -70,7 +78,8 @@ import oneInMany2Hover from './oneInMany2Hover.svg';
 import openExternalLink from './open-external-link.svg';
 import qrImage from './qr.png';
 import qrcodeIcon from './qrcode.svg';
-import questionMarkGoldIcon from './question-gold.svg';
+import defaultQuestionMarkGoldIcon from './question-gold.svg';
+import odixQuestionMarkGoldIcon from './odix-question-gold.svg';
 import questionMarkEllipseIcon from './question-mark-ellipse-icon.svg';
 import questionMarkIcon from './question-mark.svg';
 import recoverWalletFromSeedphraseGraphics from './recover-wallet-from-seedphrase-graphics.png';
@@ -83,9 +92,10 @@ import settingsIcon from './settings.svg';
 import { SettingsWrongIcon } from './SettingsWrongIcon';
 import shieldAlert from './shield-alert.svg';
 import silverTickIcon from './silver-tick-icon.png';
-import sliderThumbIcon from './slider-thumb.svg';
+import sliderThumb from './slider-thumb.svg';
 import solanaIcon from './solana.svg';
-import spinnerGoldIcon from './spinner-gold.svg';
+import defaultSpinnerGoldIcon from './spinner-gold.svg';
+import odixSpinnerGoldIcon from './odix-spinner-gold.svg';
 import successIcon from './success.svg';
 import syncIcon from './sync-icon.svg';
 import odixDeviceAuthAsideImage from './odix-device-auth-aside.png';
@@ -107,6 +117,22 @@ import walletIcon from './wallet.svg';
 import warningIcon from './warning.svg';
 import odixJoystickTrainingAside from './odix-joystick-training-aside.png';
 import odixCardTapAside from './odix-card-tap-aside.png';
+import odixBlockSelectedIcon from './odix-block.svg';
+import odixSliderThumb from './odix-slider-thumb.svg';
+import odixLocked from './odix-locked.svg';
+
+const sliderThumbIcon =
+  (window as any).cysyncEnv.VENDOR === 'odix' ? odixSliderThumb : sliderThumb;
+
+const arrowGoldenForward =
+  (window as any).cysyncEnv.VENDOR === 'odix'
+    ? odixArrowGoldenForwardIcon
+    : arrowGoldenForwardIcon;
+
+const blockSelectedIcon =
+  (window as any).cysyncEnv.VENDOR === 'odix'
+    ? odixBlockSelectedIcon
+    : defaultBlockSelectedIcon;
 
 const cysyncLogoSmall =
   (window as any).cysyncEnv.VENDOR === 'odix'
@@ -152,6 +178,50 @@ const joystickTrainingAsideImage =
 
 const cardTapAsideImage =
   (window as any).cysyncEnv.VENDOR === 'odix' ? odixCardTapAside : cardTapAside;
+
+const spinnerGoldIcon =
+  (window as any).cysyncEnv.VENDOR === 'odix'
+    ? odixSpinnerGoldIcon
+    : defaultSpinnerGoldIcon;
+
+const goldSendIcon =
+  (window as any).cysyncEnv.VENDOR === 'odix'
+    ? odixGoldSendIcon
+    : defaultGoldSendIcon;
+
+const goldTick =
+  (window as any).cysyncEnv.VENDOR === 'odix' ? odixGoldTick : defaultGoldTick;
+
+const goldFail =
+  (window as any).cysyncEnv.VENDOR === 'odix' ? odixGoldFail : defaultGoldFail;
+
+const questionMarkGoldIcon =
+  (window as any).cysyncEnv.VENDOR === 'odix'
+    ? odixQuestionMarkGoldIcon
+    : defaultQuestionMarkGoldIcon;
+
+const goldCopyIcon =
+  (window as any).cysyncEnv.VENDOR === 'odix'
+    ? odixGoldCopyIcon
+    : defaultGoldCopyIcon;
+
+const halfLoaderGold =
+  (window as any).cysyncEnv.VENDOR === 'odix'
+    ? odixHalfLoaderGold
+    : defaultHalfLoaderGold;
+
+const goldLoaderIcon =
+  (window as any).cysyncEnv.VENDOR === 'odix'
+    ? odixGoldLoaderIcon
+    : defaultGoldLoaderIcon;
+
+const goldHoverWalletIcon =
+  (window as any).cysyncEnv.VENDOR === 'odix'
+    ? odixGoldHoverWalletIcon
+    : defaultGoldHoverWalletIcon;
+
+const cysyncLockedLogo =
+  (window as any).cysyncEnv.VENDOR === 'odix' ? odixLocked : cysyncLocked;
 
 export {
   WalletDefaultExpiredIcon,
