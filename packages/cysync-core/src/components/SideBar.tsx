@@ -181,22 +181,26 @@ const SideBarComponent: FC = () => {
               }
               onClick={() => navigate('history')}
             />
-            <SideBarItem
-              text={strings.walletConnect}
-              Icon={WalletConnectWhiteIcon}
-              state={wallets.length === 0 ? State.disabled : undefined}
-              onClick={() => {
-                dispatch(openWalletConnectDialog());
-              }}
-            />
-            <SideBarItem
-              text={strings.buysell}
-              Icon={DollarIcon}
-              state={
-                wallets.length === 0 ? State.disabled : getState('buysell')
-              }
-              onClick={() => navigate('buysell')}
-            />
+            {window.cysyncFeatureFlags.WALLET_CONNECT && (
+              <SideBarItem
+                text={strings.walletConnect}
+                Icon={WalletConnectWhiteIcon}
+                state={wallets.length === 0 ? State.disabled : undefined}
+                onClick={() => {
+                  dispatch(openWalletConnectDialog());
+                }}
+              />
+            )}
+            {window.cysyncFeatureFlags.ONRAMP && (
+              <SideBarItem
+                text={strings.buysell}
+                Icon={DollarIcon}
+                state={
+                  wallets.length === 0 ? State.disabled : getState('buysell')
+                }
+                onClick={() => navigate('buysell')}
+              />
+            )}
             {window.cysyncFeatureFlags.SWAP && (
               <SideBarItem
                 text="Swap"
