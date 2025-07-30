@@ -75,10 +75,7 @@ export const SideBarItem: FC<SideBarItemProps> = ({
     [SideBarState.disabled]: theme.palette.text.disabled,
     [SideBarState.normal]: theme.palette.text.normal,
     [SideBarState.active]: theme.palette.text.heading,
-    [SideBarState.selected]:
-      (window as any).cysyncEnv?.VENDOR === 'odix'
-        ? `url(#${svgGradients.odixPrimary})`
-        : `url(#${svgGradients.gold})`,
+    [SideBarState.selected]: `url(#${svgGradients.gold})`,
     [SideBarState.error]: theme.palette.warn.main,
   }[state!];
 

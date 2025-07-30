@@ -7,10 +7,10 @@ import {
   DialogBoxFooter,
   Button,
   Dropdown,
-  svgGradients, // This object should have 'gold' and 'odixPrimary' keys
+  svgGradients,
   ArrowSentIcon,
 } from '@cypherock/cysync-ui';
-import React, { useCallback, useState, useMemo } from 'react'; // Added useMemo
+import React, { useCallback, useState } from 'react';
 
 import { selectAccounts, selectLanguage, useAppSelector } from '~/store';
 import logger from '~/utils/logger';
@@ -67,21 +67,13 @@ export const SelectionDialog: React.FC = () => {
     onSelectionDialogNext();
   }, [onSelectionDialogNext, setIsLoading]);
 
-  // Determine the icon fill based on the vendor
-  const iconFillGradientId = useMemo(() => {
-    const isOdix =
-      typeof window !== 'undefined' &&
-      (window as any).cysyncEnv?.VENDOR === 'odix';
-    return isOdix ? svgGradients.odixPrimary : svgGradients.gold;
-  }, []); // Empty dependency array as VENDOR is unlikely to change during component lifecycle
-
   return (
     <DialogBox width={500}>
       <DialogBoxBody pt={4} pr={5} pb={4} pl={5}>
         <ArrowSentIcon
           height={48}
           width={56}
-          fill={`url(#${iconFillGradientId})`} // Use the conditional gradient ID
+          fill={`url(#${svgGradients.gold})`}
         />
         <Container display="flex" direction="column" gap={20} width="full">
           <Typography variant="h5" $textAlign="center">
