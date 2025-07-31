@@ -11,13 +11,25 @@ const getArtifactName = (withoutArch = false) => {
   return `${productNameInArtifact}-\${version}-\${platform}-\${arch}.\${ext}`;
 };
 
+function getAppID() {
+  const vendor = process.env.VENDOR;
+  switch (vendor) {
+    case 'odix':
+      return 'com.odix.odixpay';
+    default:
+      return 'com.hodl.cypherock';
+  }
+}
+
 const BUILD_RESOURCES_PATH = process.env.VENDOR
   ? 'build/' + process.env.VENDOR
   : 'build/default';
 
+const APP_ID = getAppID();
+
+console.log({ APP_ID });
 const config = {
-  // TODO: Needs to be updated according to the vendor
-  appId: 'com.hodl.cypherock',
+  appId: APP_ID,
   productName,
   asar: true,
   asarUnpack: ['!**/*.node'],
