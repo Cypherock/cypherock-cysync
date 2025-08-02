@@ -32,9 +32,9 @@ export const IconDialogBox: FC<IconDialogBoxProps> = ({
   onClose,
   ...props
 }) => (
-  <DialogBox width={500} {...props} onClose={onClose}>
+  <DialogBox width={props.width ?? 500} {...props} onClose={onClose}>
     {(header || onClose) && (
-      <DialogBoxHeader height={56} width={500} px={3}>
+      <DialogBoxHeader height={56} width={props.width ?? 500} px={3}>
         <Flex position="relative" width="full" justify="center" align="center">
           {header && (
             <Typography variant="fineprint" color="muted" $fontWeight="medium">

@@ -140,3 +140,6 @@ export const openInheritanceEstateRecoveryDialog = (
 
 export const openMobileAppSyncDialog = () =>
   openDialog({ name: 'mobileAppSyncDialog', data: undefined });
+
+export const openSwitchFirmwareDialog = () =>
+  openDialog({ name: 'switchFirmwareDialog', data: undefined });

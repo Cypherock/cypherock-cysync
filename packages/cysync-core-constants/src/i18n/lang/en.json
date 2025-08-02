@@ -53,7 +53,8 @@
     "exitWithoutSaving": "Exit without saving",
     "saveChanges": "Save changes",
     "edit": "Edit",
-    "tryAgain": "Try Again"
+    "tryAgain": "Try Again",
+    "switchFirmware": "Switch Firmware"
   },
   "tooltips": {
     "downloadCsv": "Export as CSV"
@@ -2085,6 +2086,15 @@
       "toAsset": "Asset",
       "toAmount": "Amount Received",
       "toReceiver": "Receiver"
+    },
+    "switchFirmwareDialog": {
+      "title": "Switch firmware to Bitcoin-only",
+      "subtext": "Bitcoin-only firmware only works with Bitcoin transactions. If you want to access and manage all of your coins other than Bitcoin also then you'll not be able to do that",
+      "messageBox": {
+        "text": "Once you install the Bitcoin-only firmware, you cannot switch back to the Multi-coin firmware."
+      },
+      "checkbox": { "label": "I have read and understood" },
+      "primaryBtn": { "label": "Install Firmware" }
     }
   },
   "toggle": {
@@ -2155,6 +2165,10 @@
       "device": {
         "title": "Device Settings",
         "item": {
+          "switchFirmware": {
+            "title": "Switch firmware to Bitcoin-only",
+            "description": "Bitcoin-only firmware only works with Bitcoin transactions.\nOnce switched to Bicoin-only firmware, you can not switch back to multi-coin firmware"
+          },
           "x1VaultAuth": {
             "title": "X1 Vault Authentication",
             "description": "Authenticate your device"

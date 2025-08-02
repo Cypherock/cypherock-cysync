@@ -42,6 +42,7 @@ import { ReceiveDialog } from './Receive';
 import { SendDialog } from './Send';
 import { SignMessageDialog } from './SignMessage';
 import { SwapDialog } from './SwapDialog';
+import { SwitchFirmwareDialog } from './SwitchFirmwareDialog';
 import { WalletActionsDialogBox } from './WalletActions';
 import { WalletConnectDialog } from './WalletConnect';
 import { WalletSyncError } from './WalletSyncError';
@@ -85,4 +86,5 @@ export const dialogs: Record<DialogName, ReactComponentLike> = {
   inheritanceEstateRecovery: InheritanceEstateRecoveryDialog,
   mobileAppSyncDialog: MobileAppSyncDialog,
   swapDialog: SwapDialog,
+  switchFirmwareDialog: SwitchFirmwareDialog,
 };
