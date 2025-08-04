@@ -2166,8 +2166,14 @@
         "title": "Device Settings",
         "item": {
           "switchFirmware": {
-            "title": "Switch firmware to Bitcoin-only",
-            "description": "Bitcoin-only firmware only works with Bitcoin transactions.\nOnce switched to Bicoin-only firmware, you can not switch back to multi-coin firmware"
+            "btcOnly": {
+              "title": "Switch firmware to Bitcoin-only",
+              "description": "Bitcoin-only firmware only works with Bitcoin transactions."
+            },
+            "multiCoin": {
+              "title": "Switch firmware to Multi-coin",
+              "description": "Multi-coin firmware works with all coin transactions supported on Cypherock X1"
+            }
           },
           "x1VaultAuth": {
             "title": "X1 Vault Authentication",

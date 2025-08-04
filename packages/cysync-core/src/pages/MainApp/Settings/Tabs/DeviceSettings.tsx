@@ -25,24 +25,25 @@ const selector = createSelector(
 );
 
 export const DeviceSettings: React.FC = () => {
+  const dispatch = useAppDispatch();
   const { strings, isFirmwareBtcOnly } = useAppSelector(selector);
   const { item } = strings.settings.tabs.device;
-  const dispatch = useAppDispatch();
+  const switchFirmwareText = isFirmwareBtcOnly
+    ? item.switchFirmware.multiCoin
+    : item.switchFirmware.btcOnly;
   return (
     <>
-      {!isFirmwareBtcOnly && (
-        <SettingsStandardItem
-          title={{ text: item.switchFirmware.title }}
-          description={{ text: item.switchFirmware.description }}
+      <SettingsStandardItem
+        title={{ text: switchFirmwareText.title }}
+        description={{ text: switchFirmwareText.description }}
+      >
+        <SettingsButton
+          onClick={() => dispatch(openSwitchFirmwareDialog())}
+          variant="primary"
         >
-          <SettingsButton
-            onClick={() => dispatch(openSwitchFirmwareDialog())}
-            variant="primary"
-          >
-            <LangDisplay text={strings.buttons.switchFirmware} />
-          </SettingsButton>
-        </SettingsStandardItem>
-      )}
+          <LangDisplay text={strings.buttons.switchFirmware} />
+        </SettingsButton>
+      </SettingsStandardItem>
       <SettingsStandardItem
         title={{ text: item.x1VaultAuth.title }}
         description={{ text: item.x1VaultAuth.description }}
