@@ -1227,9 +1227,14 @@ interface LangDialogs {
     toReceiver: string;
   };
   switchFirmwareDialog: {
-    title: string;
-    subtext: string;
-    messageBox: { text: string };
+    btcOnly: {
+      title: string;
+      subtext: string;
+    };
+    multiCoin: {
+      title: string;
+      subtext: string;
+    };
     checkbox: { label: string };
     primaryBtn: { label: string };
   };
