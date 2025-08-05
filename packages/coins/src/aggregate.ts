@@ -7,9 +7,10 @@ import { starknetCoinList, StarknetId } from './starknet';
 import { tronCoinList, ITronTrc20Token } from './tron';
 import { ICoinInfo } from './types';
 import { xrpCoinList, XrpId } from './xrp';
+import { stellarCoinList, StellarId } from './stellar';
 
 export const coinList: Record<
-  BtcId | EvmId | SolanaId | NearId | XrpId | StarknetId | IcpId,
+  BtcId | EvmId | SolanaId | NearId | XrpId | StarknetId | IcpId | StellarId,
   ICoinInfo
 > = {
   ...btcCoinList,
@@ -20,6 +21,7 @@ export const coinList: Record<
   ...xrpCoinList,
   ...starknetCoinList,
   ...icpCoinList,
+  ...stellarCoinList,
 };
 
 export type CoinTypes =
@@ -29,5 +31,6 @@ export type CoinTypes =
   | NearId
   | XrpId
   | StarknetId
-  | IcpId;
+  | IcpId
+  | StellarId;
 export type TokenTypes = IEvmErc20Token | ITronTrc20Token | IIcpIcrcToken;

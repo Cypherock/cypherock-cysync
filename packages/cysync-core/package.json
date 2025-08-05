@@ -62,7 +62,8 @@
     "tsc-alias": "^1.8.6",
     "typescript": "^4.9.5",
     "web3": "^4.1.2",
-    "xrpl": "^4.0.0"
+    "xrpl": "^4.0.0",
+    "stellar-sdk": "^13.3.0"
   },
   "dependencies": {
     "@aws-crypto/sha256-browser": "^4.0.0",
@@ -79,6 +80,7 @@
     "@cypherock/coin-support-tron": "workspace:^",
     "@cypherock/coin-support-utils": "workspace:^",
     "@cypherock/coin-support-xrp": "workspace:^",
+    "@cypherock/coin-support-stellar": "workspace:^",
     "@cypherock/coins": "workspace:^",
     "@cypherock/cysync-core-constants": "workspace:^",
     "@cypherock/cysync-core-services": "workspace:^",

@@ -13,6 +13,7 @@ export const coinFamiliesMap = {
   xrp: 'xrp',
   starknet: 'starknet',
   icp: 'icp',
+  stellar: 'stellar',
 } as const;
 
 export type CoinFamily = (typeof coinFamiliesMap)[keyof typeof coinFamiliesMap];

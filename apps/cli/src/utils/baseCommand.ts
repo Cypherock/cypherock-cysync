@@ -5,6 +5,7 @@ import { NearSupport } from '@cypherock/coin-support-near';
 import { SolanaSupport } from '@cypherock/coin-support-solana';
 import { StarknetSupport } from '@cypherock/coin-support-starknet';
 import { XrpSupport } from '@cypherock/coin-support-xrp';
+import { StellarSupport } from '@cypherock/coin-support-stellar';
 import { IDatabase, IKeyValueStore } from '@cypherock/db-interfaces';
 import { IDeviceConnection } from '@cypherock/sdk-interfaces';
 import { Command, Flags, Interfaces } from '@oclif/core';
@@ -15,6 +16,7 @@ import { ethers } from 'ethers';
 import * as nearApiJs from 'near-api-js';
 import starknet from 'starknet';
 import * as xrpl from 'xrpl';
+import * as StellarSdk from 'stellar-sdk';
 
 import { initializeAndGetDb } from './db';
 import { cleanUpDeviceConnection, createConnection } from './device';
@@ -99,6 +101,7 @@ export abstract class BaseCommand<T extends typeof Command> extends Command {
     NearSupport.setNearApiJs(nearApiJs);
     SolanaSupport.setWeb3Library(solanaWeb3);
     XrpSupport.setXrpLib(xrpl);
+    StellarSupport.setStellarLib(StellarSdk);
     StarknetSupport.setStarknetLib(starknet);
   }
 
