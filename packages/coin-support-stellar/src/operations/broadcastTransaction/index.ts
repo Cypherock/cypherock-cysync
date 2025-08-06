@@ -27,7 +27,7 @@ const formatMemoForStorage = (memo?: {
 
   return {
     type: memo.type,
-    value: memo.value || '',
+    value: memo.value ?? '',
   };
 };
 
@@ -43,7 +43,7 @@ export const broadcastTransaction = async (
 
   const myAddress = deriveAddress(account.xpubOrAddress);
   const isMine = params.transaction.computedData.output.address === myAddress;
-  const {isCreateAccount} = params.transaction.computedData.output;
+  const { isCreateAccount } = params.transaction.computedData.output;
 
   const result = await broadcastTransactionToBlockchain(
     signedTransaction,
@@ -61,7 +61,7 @@ export const broadcastTransaction = async (
     inputs: [
       {
         address: myAddress,
-        amount: '0', 
+        amount: '0',
         isMine: true,
       },
     ],

@@ -2,6 +2,7 @@ import { stellarCoinList } from '@cypherock/coins';
 import { makePostRequest } from '@cypherock/cysync-utils';
 
 import { config } from '../../config';
+
 const baseURL = `${config.API_CYPHEROCK}/stellar/chain`;
 
 export const getReserveBalance = async (

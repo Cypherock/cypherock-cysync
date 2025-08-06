@@ -19,7 +19,7 @@ import {
 } from './types';
 
 import * as services from '../../services';
-import { createApp, deriveAddress } from '../../utils';
+import { createApp } from '../../utils';
 
 // Number of derivation paths to check
 const DERIVATION_PATH_LIMIT = 30;

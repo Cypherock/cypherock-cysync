@@ -6,13 +6,8 @@ import { IPrepareStellarTransactionParams } from './types';
 
 import { getIsAccountActivated } from '../../services';
 import { deriveAddress } from '../../utils';
-import {
-  IPreparedStellarTransaction,
-  IPreparedStellarTransactionOutput,
-  StellarMemoType,
-} from '../transaction';
+import { IPreparedStellarTransaction, StellarMemoType } from '../transaction';
 import { validateAddress } from '../validateAddress';
-
 
 // Constants for Stellar-specific validations
 const MAX_TEXT_MEMO_BYTES = 28;
@@ -21,7 +16,8 @@ const HASH_MEMO_HEX_LENGTH = 64; // 32 bytes as hex
 
 const getByteLength = (str: string): number => Buffer.byteLength(str, 'utf8');
 
-const isValidHex = (str: string, expectedLength: number): boolean => /^[0-9a-fA-F]+$/.test(str) && str.length === expectedLength;
+const isValidHex = (str: string, expectedLength: number): boolean =>
+  /^[0-9a-fA-F]+$/.test(str) && str.length === expectedLength;
 
 const validateAddresses = (
   params: IPrepareStellarTransactionParams,
@@ -103,10 +99,7 @@ export const prepareTransaction = async (
 
   const output = { ...txn.userInputs.outputs[0], isActivated };
 
-  if (
-    output.address &&
-    outputsValidation[0]
-  ) {
+  if (output.address && outputsValidation[0]) {
     output.isActivated = await getIsAccountActivated(
       output.address,
       account.assetId,
@@ -116,8 +109,8 @@ export const prepareTransaction = async (
 
     if (!output.isActivated) {
       isCreateAccount = true;
-    } 
-  } 
+    }
+  }
 
   output.amount = new BigNumber(output.amount).toFixed(0);
   let sendAmount = new BigNumber(output.amount);
