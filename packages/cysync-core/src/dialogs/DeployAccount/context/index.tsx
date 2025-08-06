@@ -333,6 +333,7 @@ export const DeployAccountDialogProvider: FC<
     xrp: () => '0',
     starknet: getStarknetFeeAmount,
     icp: () => '0',
+    stellar: () => '0',
   };
 
   const getComputedFee = (coinFamily: CoinFamily, txn?: IPreparedTransaction) =>

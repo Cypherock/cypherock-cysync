@@ -20,6 +20,7 @@ export const useLabelSuffix = () => {
     xrp: getDefaultSuffix,
     starknet: getDefaultSuffix,
     icp: getDefaultSuffix,
+    stellar: getDefaultSuffix,
   };
   const getFeeLabelSuffix = (selectedAccount?: IAccount) => {
     if (!selectedAccount) return '';

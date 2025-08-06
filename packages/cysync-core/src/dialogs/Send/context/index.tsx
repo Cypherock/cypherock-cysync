@@ -24,6 +24,7 @@ import {
   getZeroUnit,
 } from '@cypherock/coin-support-utils';
 import { IPreparedXrpTransaction } from '@cypherock/coin-support-xrp';
+import { IPreparedStellarTransaction, StellarMemoType } from '@cypherock/coin-support-stellar';
 import { coinFamiliesMap, CoinFamily } from '@cypherock/coins';
 import { ServerError, ServerErrorType } from '@cypherock/cysync-core-constants';
 import { DropDownItemProps, parseLangTemplate } from '@cypherock/cysync-ui';
@@ -122,6 +123,7 @@ export interface SendDialogContextInterface {
   prepareSendMax: (state: boolean) => Promise<string>;
   prepareDestinationTag: (tag: number) => Promise<void>;
   prepareMemo: (memo: string) => Promise<void>;
+  prepareStellarMemo: (type: StellarMemoType, value?: string) => Promise<void>;
   priceConverter: (val: string, inverse?: boolean) => string;
   updateUserInputs: (count: number) => void;
   isAccountSelectionDisabled: boolean | undefined;
@@ -682,6 +684,30 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
     }
   };
 
+  const prepareStellarMemo = async (type: StellarMemoType, value?: string) => {
+  const txn = transactionRef.current as IPreparedStellarTransaction;
+  if (!txn) return;
+
+  if (txn.userInputs.outputs.length > 0) {
+    txn.userInputs.outputs[0].memo = {
+      type,
+      value: type === StellarMemoType.NONE ? undefined : value
+    };
+  } else {
+    txn.userInputs.outputs = [
+      {
+        address: '',
+        amount: '',
+        memo: {
+          type,
+          value: type === StellarMemoType.NONE ? undefined : value
+        }
+      },
+    ];
+  }
+  await prepare(txn);
+};
+
   const priceConverter = (val: string, invert?: boolean) => {
     const coinPrice = priceInfos.find(
       p =>
@@ -761,6 +787,12 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
     return computedData.fees || '0';
   };
 
+  const getStellarFeeAmount = (txn: IPreparedTransaction | undefined) => {
+    if (!txn) return '0';
+    const { computedData } = txn as IPreparedStellarTransaction;
+    return computedData.fees || '0';
+  };
+
   const computedFeeMap: Record<
     CoinFamily,
     (txn: IPreparedTransaction | undefined) => string
@@ -773,6 +805,7 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
     xrp: getXrpFeeAmount,
     starknet: getStarknetFeeAmount,
     icp: getIcpFeeAmount,
+    stellar: getStellarFeeAmount,
   };
 
   const getComputedFee = (coinFamily: CoinFamily, txn?: IPreparedTransaction) =>
@@ -1018,6 +1051,7 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
     prepareSendMax,
     prepareDestinationTag,
     prepareMemo,
+    prepareStellarMemo,
     priceConverter,
     updateUserInputs,
     isAccountSelectionDisabled: disableAccountSelection,

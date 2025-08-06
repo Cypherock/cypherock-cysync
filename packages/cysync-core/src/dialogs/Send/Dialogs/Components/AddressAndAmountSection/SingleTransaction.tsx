@@ -4,6 +4,7 @@ import { IPreparedIcpTransaction } from '@cypherock/coin-support-icp';
 import { IPreparedTransaction } from '@cypherock/coin-support-interfaces';
 import { getDefaultUnit, getParsedAmount } from '@cypherock/coin-support-utils';
 import { IPreparedXrpTransaction } from '@cypherock/coin-support-xrp';
+import { IPreparedStellarTransaction, StellarMemoType } from '@cypherock/coin-support-stellar';
 import { coinFamiliesMap, CoinFamily } from '@cypherock/coins';
 import { Container, parseLangTemplate } from '@cypherock/cysync-ui';
 import { BigNumber } from '@cypherock/cysync-utils';
@@ -17,6 +18,7 @@ import { AmountInput } from './AmountInput';
 import { DestinationTagInput } from './DestinationTagInput';
 import { MemoInput } from './MemoInput';
 import { NotesInput } from './NotesInput';
+import { StellarMemoInput } from './StellarMemoInput';
 
 import { useSendDialog } from '../../../context';
 
@@ -42,6 +44,7 @@ export const SingleTransaction: React.FC<SingleTransactionProps> = ({
     prepareSendMax,
     prepareDestinationTag,
     prepareMemo,
+    prepareStellarMemo,
     priceConverter,
     updateUserInputs,
     prepare,
@@ -50,6 +53,17 @@ export const SingleTransaction: React.FC<SingleTransactionProps> = ({
     getDestinationTagError,
     providerName,
   } = useSendDialog();
+
+  const getInvalidMemoError = () => {
+    if (
+      (transaction?.validation as IPreparedStellarTransaction['validation'])
+        ?.isInvalidMemo
+    ) {
+      return displayText.memo.error;
+    }
+    return '';
+  };
+
 
   let recipientDisplayText = displayText.recipient;
   if (selectedAccount?.familyId === coinFamiliesMap.icp) {
@@ -79,6 +93,12 @@ export const SingleTransaction: React.FC<SingleTransactionProps> = ({
     return computedData.output.amount;
   };
 
+  const getStellarMaxSendAmount = (txn: IPreparedTransaction) => {
+    const { computedData } = txn as IPreparedStellarTransaction;
+    return computedData.output.amount || '';
+  };
+
+
   const computedAmountMap: Record<
     CoinFamily,
     (txn: IPreparedTransaction) => string
@@ -91,6 +111,7 @@ export const SingleTransaction: React.FC<SingleTransactionProps> = ({
     xrp: () => '',
     starknet: () => '',
     icp: () => '',
+    stellar: getStellarMaxSendAmount,
   };
 
   const getXrpDestinationTagInputProps = () => {
@@ -117,6 +138,7 @@ export const SingleTransaction: React.FC<SingleTransactionProps> = ({
     xrp: getXrpDestinationTagInputProps,
     starknet: () => ({}),
     icp: () => ({}),
+    stellar: () => ({}),
   };
 
   const destinationTagInputMap: Partial<Record<CoinFamily, React.FC<any>>> = {
@@ -145,6 +167,25 @@ export const SingleTransaction: React.FC<SingleTransactionProps> = ({
     };
   };
 
+  const getStellarMemoInputProps = () => {
+    const txn = transaction as IPreparedStellarTransaction;
+    return {
+      label: displayText.memo.label,
+      placeholder: displayText.memo.placeholder,
+      initialValue: txn.userInputs.outputs[0]?.memo?.value,
+      initialType: txn.userInputs.outputs[0]?.memo?.type || StellarMemoType.NONE,
+      onChange: prepareStellarMemo,
+      memoTypes: [
+        { value: StellarMemoType.NONE, label: 'None' },
+        { value: StellarMemoType.TEXT, label: 'Text' },
+        { value: StellarMemoType.ID, label: 'ID' },
+        { value: StellarMemoType.HASH, label: 'Hash' },
+        { value: StellarMemoType.RETURN, label: 'Return' }
+      ],
+      error: getInvalidMemoError(),
+    };
+  };
+
   const memoInputPropsMap: Record<CoinFamily, () => Record<string, any>> = {
     bitcoin: () => ({}),
     evm: () => ({}),
@@ -154,10 +195,12 @@ export const SingleTransaction: React.FC<SingleTransactionProps> = ({
     xrp: () => ({}),
     starknet: () => ({}),
     icp: getIcpMemoInputProps,
+    stellar: getStellarMemoInputProps,
   };
 
   const memoInputMap: Partial<Record<CoinFamily, React.FC<any>>> = {
     icp: MemoInput,
+    stellar: StellarMemoInput,
   };
 
   const getMemoInputComponent = () => {
