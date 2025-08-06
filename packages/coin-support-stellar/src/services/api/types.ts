@@ -2,9 +2,7 @@ export interface IStellarTransactionParams {
   address: string;
   assetId: string;
   limit?: number;
-  forward?: boolean;
-  binary?: boolean;
-  ledgerIndexMin?: number;
+  cursor?: string;
 }
 
 export enum StellarMemoType {
