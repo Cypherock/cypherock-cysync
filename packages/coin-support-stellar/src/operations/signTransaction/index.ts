@@ -34,18 +34,12 @@ const prepareUnsignedTxn = async (
   const stellarLib = getCoinSupportStellarLib();
   const myAddress = deriveAddress(account.xpubOrAddress);
 
-  console.log('DEBUG - ADDRESSES:', {
-    'sender (myAddress)': myAddress,
-    destination: transaction.computedData.output.address,
-    'isCreateAccount flag': transaction.computedData.output.isCreateAccount,
-  });
-
   const networkPassphrase =
     coin.network === 'testnet'
       ? stellarLib.Networks.TESTNET
       : stellarLib.Networks.PUBLIC;
 
-  const { minTime, maxTime } = await getTimeBounds(account.assetId);
+  const { minTime, maxTime } = await getTimeBounds();
 
   let sequence: number;
   try {
@@ -94,7 +88,7 @@ const prepareUnsignedTxn = async (
     );
   }
 
-  const {memo} = transaction.computedData.output;
+  const { memo } = transaction.computedData.output;
   if (memo && memo.type !== StellarMemoType.NONE) {
     try {
       switch (memo.type) {
