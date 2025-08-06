@@ -2097,10 +2097,13 @@
       "toReceiver": "Receiver"
     },
     "switchFirmwareDialog": {
-      "title": "Switch firmware to Bitcoin-only",
-      "subtext": "Bitcoin-only firmware only works with Bitcoin transactions. If you want to access and manage all of your coins other than Bitcoin also then you'll not be able to do that",
-      "messageBox": {
-        "text": "Once you install the Bitcoin-only firmware, you cannot switch back to the Multi-coin firmware."
+      "btcOnly": {
+        "title": "Switch firmware to Bitcoin-only",
+        "subtext": "Bitcoin-only firmware only works with Bitcoin transactions. If you want to access and manage all of your coins other than Bitcoin also then you'll not be able to do that"
+      },
+      "multiCoin": {
+        "title": "Switch firmware to Multi-coin",
+        "subtext": "Multi-coin firmware works with all coin transactions supported on Cypherock X1. If you want to access and manage all of your coins other than Bitcoin also then you'll be able to do that"
       },
       "checkbox": { "label": "I have read and understood" },
       "primaryBtn": { "label": "Install Firmware" }
@@ -2175,8 +2178,14 @@
         "title": "Geräteeinstellungen",
         "item": {
           "switchFirmware": {
-            "title": "Switch firmware to Bitcoin-only",
-            "description": "Bitcoin-only firmware only works with Bitcoin transactions.\nOnce switched to Bicoin-only firmware, you can not switch back to multi-coin firmware"
+            "btcOnly": {
+              "title": "Switch firmware to Bitcoin-only",
+              "description": "Bitcoin-only firmware only works with Bitcoin transactions."
+            },
+            "multiCoin": {
+              "title": "Switch firmware to Multi-coin",
+              "description": "Multi-coin firmware works with all coin transactions supported on Cypherock X1"
+            }
           },
           "x1VaultAuth": {
             "title": "X1 Vault-Authentifizierung",

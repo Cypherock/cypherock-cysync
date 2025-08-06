@@ -5,9 +5,9 @@ import {
   Flex,
   IconDialogBox,
   InfoItalicsIcon,
-  MessageBox,
 } from '@cypherock/cysync-ui';
 import React, { FC, useCallback, useRef, useState } from 'react';
+import { createSelector } from '@reduxjs/toolkit';
 import { useTheme } from 'styled-components';
 
 import { setIsLastConnectedFirmwareBtcOnly } from '~/actions/lastConnectedFirmware';
@@ -16,20 +16,33 @@ import { useCountdown } from '~/hooks';
 import {
   closeDialog,
   selectLanguage,
+  selectLastConnectedFirmware,
   useAppDispatch,
   useAppSelector,
 } from '~/store';
 
+const selector = createSelector(
+  [selectLanguage, selectLastConnectedFirmware],
+  ({ strings }, { isFirmwareBtcOnly }) => ({
+    strings,
+    isFirmwareBtcOnly,
+  }),
+);
+
 export const SwitchFirmwareDialog: FC = () => {
   const dispatch = useAppDispatch();
   const theme = useTheme();
-  const lang = useAppSelector(selectLanguage);
+  const { strings, isFirmwareBtcOnly } = useAppSelector(selector);
+
   const startTimeRef = useRef(new Date().getTime() + 12 * 1000);
   const { seconds: remainingSeconds } = useCountdown(startTimeRef.current);
   const [isChecked, setIsChecked] = useState(false);
   const [loading, setLoading] = useState(false);
 
-  const texts = lang.strings.dialogs.switchFirmwareDialog;
+  const texts = strings.dialogs.switchFirmwareDialog;
+  const { title, subtext } = isFirmwareBtcOnly
+    ? texts.multiCoin
+    : texts.btcOnly;
 
   const onClose = useCallback(() => {
     dispatch(closeDialog('switchFirmwareDialog'));
@@ -37,11 +50,11 @@ export const SwitchFirmwareDialog: FC = () => {
 
   const onInstallFirmware = useCallback(() => {
     setLoading(true);
-    dispatch(setIsLastConnectedFirmwareBtcOnly(true));
+    dispatch(setIsLastConnectedFirmwareBtcOnly(!isFirmwareBtcOnly));
     dispatch(openDeviceUpdateDialog());
     setLoading(false);
     onClose();
-  }, [dispatch, onClose, setLoading]);
+  }, [dispatch, onClose, setLoading, isFirmwareBtcOnly]);
 
   return (
     <BlurOverlay>
@@ -55,20 +68,17 @@ export const SwitchFirmwareDialog: FC = () => {
             fill={theme?.palette.background.danger}
           />
         }
-        title={texts.title}
-        subtext={texts.subtext}
+        title={title}
+        subtext={subtext}
         afterTextComponent={
-          <>
-            <MessageBox text={texts.messageBox.text} type="danger" />
-            <Flex direction="row" justify="center">
-              <CheckBox
-                checked={isChecked}
-                id="switch_firmware_confirmed"
-                onChange={() => setIsChecked(!isChecked)}
-                label={texts.checkbox.label}
-              />
-            </Flex>
-          </>
+          <Flex direction="row" justify="center">
+            <CheckBox
+              checked={isChecked}
+              id="switch_firmware_confirmed"
+              onChange={() => setIsChecked(!isChecked)}
+              label={texts.checkbox.label}
+            />
+          </Flex>
         }
         footerComponent={
           <Button

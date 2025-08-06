@@ -1227,9 +1227,14 @@ interface LangDialogs {
     toReceiver: string;
   };
   switchFirmwareDialog: {
-    title: string;
-    subtext: string;
-    messageBox: { text: string };
+    btcOnly: {
+      title: string;
+      subtext: string;
+    };
+    multiCoin: {
+      title: string;
+      subtext: string;
+    };
     checkbox: { label: string };
     primaryBtn: { label: string };
   };
@@ -1272,7 +1277,10 @@ interface LangSettings {
     device: {
       title: string;
       item: {
-        switchFirmware: { title: string; description: string };
+        switchFirmware: {
+          btcOnly: { title: string; description: string };
+          multiCoin: { title: string; description: string };
+        };
         x1VaultAuth: { title: string; description: string };
         x1CardAuth: { title: string; description: string };
         transferWallet: { title: string; description: string };
