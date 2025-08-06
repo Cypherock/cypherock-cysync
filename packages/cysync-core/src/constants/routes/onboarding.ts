@@ -23,6 +23,10 @@ export const onboarding = {
     name: 'onboarding-device-detection',
     path: '/onboarding/device-detection',
   },
+  chooseFirmware: {
+    name: 'onboarding-choose-firmware',
+    path: '/onboarding/choose-firmware',
+  },
   deviceAuthentication: {
     name: 'onboarding-device-authentication',
     path: '/onboarding/device-authentication',
