@@ -99,30 +99,16 @@ const createAccountFromAddress: IMakeCreateAccountsObservableParams<StellarApp>[
 const getBalanceAndTxnCount = async (
   address: string,
   params: ICreateStellarAccountParams,
-) => {
-  const isActivated = await services.getIsAccountActivated(
-    address,
-    params.coinId,
-  );
-
-  if (!isActivated) {
-    return {
-      balance: '0',
-      txnCount: 0,
-    };
-  }
-
-  return {
-    balance: await services.getBalance(address, params.coinId),
-    txnCount: (
-      await services.getTransactions({
-        address,
-        assetId: params.coinId,
-        limit: 1,
-      })
-    ).transactions.length,
-  };
-};
+) => ({
+  balance: await services.getBalance(address, params.coinId),
+  txnCount: (
+    await services.getTransactions({
+      address,
+      assetId: params.coinId,
+      limit: 1,
+    })
+  ).transactions.length,
+});
 
 export const createAccounts = (
   params: ICreateStellarAccountParams,
