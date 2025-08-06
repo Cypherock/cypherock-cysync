@@ -12,6 +12,7 @@ export const getAccountInfo = async (
   assetId: string,
 ): Promise<any> => {
   const url = `${baseURL}/account-info`;
+
   const response = await makePostRequest(url, {
     address,
     network: stellarCoinList[assetId].network,
@@ -25,7 +26,9 @@ export const getBalance = async (
   assetId: string,
 ): Promise<string> => {
   const accountInfo = await getAccountInfo(address, assetId);
+
   let balance = accountInfo?.balances?.[0]?.balance ?? '0';
+
   if (typeof balance === 'number') balance = balance.toString();
 
   if (typeof balance !== 'string')
@@ -63,6 +66,7 @@ export const getIsAccountActivated = async (
     accountInfo?.balances?.[0]?.balance &&
       accountInfo.balances[0].balance !== '0',
   );
+
   return isActivated;
 };
 
@@ -79,11 +83,11 @@ export const getAccountReserveBalance = async (
   const ownerCount = accountInfo?.subentry_count ?? 0;
 
   let reserveBalance = new BigNumber(reserveBaseBalance);
+
   if (ownerCount)
     reserveBalance = reserveBalance.plus(
       new BigNumber(reserveIncBalance).multipliedBy(ownerCount),
     );
 
-  const finalReserve = reserveBalance.toString();
-  return finalReserve;
+  return reserveBalance.toString();
 };

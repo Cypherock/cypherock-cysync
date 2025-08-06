@@ -121,14 +121,12 @@ const fetchAndParseTransactions = async (params: {
   limit: number;
   ledgerIndexMin: number;
 }) => {
-  const { address, account, limit, ledgerIndexMin } = params;
+  const { address, account, limit } = params;
 
   const response = await services.getTransactions({
     address,
     assetId: account.assetId,
     limit,
-    forward: true,
-    ledgerIndexMin,
   });
 
   const transactions: ITransaction[] = [];
