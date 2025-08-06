@@ -19,18 +19,17 @@ import {
   statusMap,
 } from './types';
 
-import { createApp, deriveAddress } from '../../utils';
+import { createApp } from '../../utils';
 
 export const getExternalAddress = async (
   params: IGenerateReceiveAddressParams,
 ): Promise<IReceiveAddressInfo> => {
   const { xpubOrAddress, derivationPath } = params.account;
-  const address = deriveAddress(xpubOrAddress);
 
   return {
-    address,
+    address: xpubOrAddress,
     derivationPath,
-    expectedFromDevice: address,
+    expectedFromDevice: xpubOrAddress,
   };
 };
 
@@ -41,7 +40,7 @@ const getReceiveAddressFromDevice = async (
 
   const events: Record<ReceiveDeviceEvent, boolean | undefined> = {} as any;
 
-  const result = await app.getUserVerifiedPublicKey({
+  const { address } = await app.getUserVerifiedPublicKey({
     walletId: hexToUint8Array(walletId),
     derivationPath: mapDerivationPath(derivationPath),
     onEvent: (event: GetPublicKeysEvent) => {
@@ -52,14 +51,14 @@ const getReceiveAddressFromDevice = async (
   });
 
   observer.next({ type: 'Device', device: { isDone: true, events } });
-  const { address } = result;
 
   return address;
 };
 
 export const receive = (
   params: IStellarReceiveParams,
-): Observable<IReceiveEvent> => makeReceiveObservable({
+): Observable<IReceiveEvent> =>
+  makeReceiveObservable({
     ...params,
     createApp,
     generateReceiveAddress: getExternalAddress,
