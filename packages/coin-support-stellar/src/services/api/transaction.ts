@@ -1,7 +1,10 @@
 import { stellarCoinList } from '@cypherock/coins';
 import { assert, makePostRequest } from '@cypherock/cysync-utils';
 
-import { IStellarTransactionParams, IStellarTransactionResult } from './types';
+import {
+  IStellarTransactionParams,
+  IStellarTransactionHistoryResponse,
+} from './types';
 
 import { config } from '../../config';
 
@@ -9,7 +12,7 @@ const baseURL = `${config.API_CYPHEROCK}/stellar/transaction`;
 
 export const getTransactions = async (
   params: IStellarTransactionParams,
-): Promise<IStellarTransactionResult> => {
+): Promise<IStellarTransactionHistoryResponse> => {
   const url = `${baseURL}/history`;
 
   const query: Record<string, any> = {
