@@ -13,43 +13,34 @@ export enum StellarMemoType {
   RETURN = 'return',
 }
 
-export interface IStellarMemo {
-  type: StellarMemoType;
-  value?: string; // Will store text, ID (as string), or hash (as hex string)
+export interface IStellarOperationResponse {
+  type: string;
+  sourceAccount?: string;
+  destination: string;
+  amount: string;
 }
 
-interface IStellarResponseTransaction {
+export interface IStellarTransactionResponse {
   hash: string;
-  source_account: string;
-  fee_charged: string;
   ledger: number;
-  memo_type?: string;
-  memo?: string;
-  operations: {
-    type: string;
-    from: string;
-    to: string;
-    amount: string;
-  }[];
-  sequence: number;
-  date: number;
+  createdAt: string;
+  successful: boolean;
+  sourceAccount: string;
+  sourceAccountSequence: string;
+  feeAccount: string;
+  feeCharged: string;
+  maxFee: string;
+  memoType: string;
+  memo: string;
+  preconditions: any;
+  pagingToken: string;
+  envelopeXdr: string;
+  operationCount: number;
+  operations: IStellarOperationResponse[];
 }
 
-export interface IDetailedStellarResponseTransaction {
-  memo_type?: string;
-  memo?: string;
-  meta: {
-    TransactionResult: string;
-    delivered_amount: string;
-  };
-  tx: IStellarResponseTransaction;
-}
-
-export interface IStellarTransactionResult {
-  account: string;
-  transactions: IDetailedStellarResponseTransaction[];
-  limit: number;
-  marker: {
-    ledger: number;
-  };
+export interface IStellarTransactionHistoryResponse {
+  count: number;
+  hasMore: boolean;
+  transactions: IStellarTransactionResponse[];
 }

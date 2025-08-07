@@ -1,13 +1,12 @@
 import {
   createSyncAccountsObservable,
-  getLatestTransactionBlock,
   IGetAddressDetails,
 } from '@cypherock/coin-support-utils';
 import { BigNumber } from '@cypherock/cysync-utils';
 import {
   IAccount,
+  IDatabase,
   ITransaction,
-  TransactionStatus,
   TransactionStatusMap,
   TransactionTypeMap,
 } from '@cypherock/db-interfaces';
@@ -15,181 +14,190 @@ import {
 import { ISyncStellarAccountsParams } from './types';
 
 import * as services from '../../services';
-import { deriveAddress } from '../../utils';
 import { IStellarAccount } from '../types';
 
 const PER_PAGE_TXN_LIMIT = 100;
 
-const parseTransaction = (
-  address: string,
+const parseTransactionOperation = (
+  operation: services.IStellarOperationResponse,
   account: IAccount,
-  txn: services.IDetailedStellarResponseTransaction,
-): ITransaction => {
-  const myAddress = address;
+  txn: services.IStellarTransactionResponse,
+  fees: string,
+  operationIndex: number,
+): ITransaction | undefined => {
+  const myAddress = account.xpubOrAddress;
+  const fromAddr = operation.sourceAccount ?? txn.sourceAccount;
+  const { amount, destination: toAddr, type: operationType } = operation;
 
-  const transaction = txn.tx || (txn as any);
+  if (fromAddr !== myAddress && toAddr !== myAddress) return undefined;
 
-  const fromAddress =
-    transaction.operations[0]?.from || transaction.source_account;
-  const toAddress = transaction.operations[0]?.to || '';
-  const fees = transaction.fee_charged || '100';
-  const amount = transaction.operations[0]?.amount || '0';
+  const selfTransfer = fromAddr === toAddr;
 
-  if (!fromAddress || !toAddress || !fees || !amount) {
-    throw new Error(`Missing required transaction fields`);
-  }
+  const isSend = fromAddr === myAddress;
 
-  let status: TransactionStatus = TransactionStatusMap.success;
-  if ((transaction as any).successful === false) {
-    status = TransactionStatusMap.failed;
-  }
-
-  const isCreateAccount = transaction.operations[0]?.type === 'create_account';
-  const isSend = myAddress === fromAddress;
-
-  let timestamp: number;
-  if (transaction.date) {
-    timestamp = transaction.date;
-  } else if ((transaction as any).created_at) {
-    timestamp = Math.floor(
-      new Date((transaction as any).created_at).getTime() / 1000,
-    );
-  } else {
-    timestamp = Math.floor(Date.now() / 1000);
-  }
-
-  let sequence: number;
-  if (transaction.sequence) {
-    sequence = transaction.sequence;
-  } else if ((transaction as any).source_account_sequence) {
-    sequence = Number((transaction as any).source_account_sequence);
-  } else {
-    sequence = 0;
-  }
-
-  const parsedTransaction: ITransaction = {
+  const transaction: ITransaction = {
+    hash: txn.hash,
     accountId: account.__id ?? '',
     walletId: account.walletId,
-    assetId: account.assetId,
-    familyId: account.familyId,
+    assetId: account.parentAssetId,
     parentAssetId: account.parentAssetId,
-    hash: transaction.hash || '',
+    familyId: account.familyId,
+    amount: selfTransfer ? '0' : amount,
+    fees: isSend && txn.feeAccount !== myAddress ? '0' : fees, // fee account might be different
     confirmations: 1,
-    fees: String(fees),
-    amount: String(amount),
-    status,
+    status: txn.successful
+      ? TransactionStatusMap.success
+      : TransactionStatusMap.failed,
     type: isSend ? TransactionTypeMap.send : TransactionTypeMap.receive,
-    timestamp,
-    blockHeight: transaction.ledger || 0,
+    timestamp: new Date(txn.createdAt).getTime(),
+    blockHeight: txn.ledger,
     inputs: [
       {
-        address: String(fromAddress),
-        amount: String(amount),
-        isMine: isSend,
+        address: fromAddr,
+        amount,
+        isMine: myAddress === fromAddr,
       },
     ],
     outputs: [
       {
-        address: String(toAddress),
-        amount: String(amount),
-        isMine: !isSend,
+        address: toAddr,
+        amount,
+        isMine: myAddress === toAddr,
       },
     ],
+    customId: `id-${operationIndex}`,
     extraData: {
-      memo:
-        (transaction as any).memo_type &&
-        (transaction as any).memo_type !== 'none'
-          ? `${(transaction as any).memo_type}: ${
-              (transaction as any).memo || ''
-            }`
-          : undefined,
-      isCreateAccount,
-      sequence,
+      operationType,
+      memoType: txn.memoType,
+      memo: txn.memo,
+      timeBounds: txn.preconditions?.timeBounds,
+      pagingToken: txn.pagingToken,
     },
   };
 
-  if (!parsedTransaction.hash || !parsedTransaction.accountId) {
-    throw new Error(`Invalid transaction data: missing hash or accountId`);
+  return transaction;
+};
+
+export const parseTransaction = (
+  account: IAccount,
+  txn: services.IStellarTransactionResponse,
+): ITransaction[] => {
+  const transactions: ITransaction[] = [];
+
+  const fees = txn.feeCharged;
+
+  // We show the fees only for the first operation to prevent double counting
+  let isFeesAlreadyIncluded = false;
+
+  let operationIndex = 0; // For txn custom id to generate a unique txn id in the db
+
+  for (const operation of txn.operations) {
+    const transaction = parseTransactionOperation(
+      operation,
+      account,
+      txn,
+      isFeesAlreadyIncluded ? '0' : fees,
+      operationIndex,
+    );
+
+    if (transaction) {
+      transactions.push(transaction);
+      isFeesAlreadyIncluded = true;
+      operationIndex += 1;
+    }
   }
 
-  return parsedTransaction;
+  // Include a fees txn if not already included and feeAccount is current account
+  if (
+    !isFeesAlreadyIncluded &&
+    txn.feeAccount === account.xpubOrAddress &&
+    fees !== '0'
+  ) {
+    transactions.push({
+      hash: txn.hash,
+      accountId: account.__id ?? '',
+      walletId: account.walletId,
+      assetId: account.assetId,
+      parentAssetId: account.parentAssetId,
+      familyId: account.familyId,
+      amount: '0',
+      fees: fees.toString(),
+      confirmations: 1,
+      status: TransactionStatusMap.success,
+      type: TransactionTypeMap.hidden,
+      timestamp: new Date(txn.createdAt).getTime(),
+      blockHeight: txn.ledger,
+      inputs: [],
+      outputs: [],
+      subType: 'feeDeduction',
+      extraData: {
+        memoType: txn.memoType,
+        memo: txn.memo,
+        timeBounds: txn.preconditions?.timeBounds,
+        pagingToken: txn.pagingToken,
+      },
+    });
+  }
+
+  return transactions;
 };
 
 const fetchAndParseTransactions = async (params: {
-  address: string;
   account: IAccount;
   limit: number;
-  ledgerIndexMin: number;
+  latestPagingToken?: string;
 }) => {
-  const { address, account, limit } = params;
+  const { account, limit, latestPagingToken } = params;
 
   const response = await services.getTransactions({
-    address,
+    address: account.xpubOrAddress,
     assetId: account.assetId,
     limit,
+    cursor: latestPagingToken,
   });
 
   const transactions: ITransaction[] = [];
 
-  for (const rawTransaction of response.transactions) {
-    const transactionToCheck = rawTransaction.tx || rawTransaction;
-
-    if (
-      !transactionToCheck.operations[0] ||
-      !['payment', 'create_account'].includes(
-        transactionToCheck.operations[0].type,
-      ) ||
-      typeof transactionToCheck.operations[0].amount !== 'string'
-    ) {
-      continue;
-    }
-
-    const transaction = parseTransaction(address, account, rawTransaction);
-    transactions.push({ ...transaction });
+  for (const txn of response.transactions) {
+    const txns = parseTransaction(account, txn);
+    transactions.push(...txns);
   }
-
-  const responseAny = response as any;
-  const hasMore =
-    response.transactions.length >= limit && !!responseAny.next?.cursor;
-  const nextLedgerIndexMin = hasMore ? Number(responseAny.next.cursor) : -1;
 
   return {
     transactions,
-    hasMore,
-    nextLedgerIndexMin,
+    hasMore: response.hasMore,
+    nextPagingToken:
+      response.transactions[response.transactions.length - 1]?.pagingToken,
   };
+};
+
+const getLatestTransactionPagingToken = async (
+  db: IDatabase,
+  query: Partial<ITransaction>,
+) => {
+  const res = await db.transaction.getOne(
+    { ...query, status: TransactionStatusMap.success },
+    {
+      sortBy: {
+        key: 'blockHeight',
+        descending: true,
+      },
+      limit: 1,
+    },
+  );
+
+  if (!res) return undefined;
+
+  return res.extraData?.pagingToken || undefined;
 };
 
 const getAddressDetails: IGetAddressDetails<{
   perPage: number;
-  afterBlock?: number;
+  latestPagingToken?: string;
   updatedBalance?: string;
   updatedSpendableBalance?: string;
 }> = async ({ db, account, iterationContext }) => {
-  const address = deriveAddress(account.xpubOrAddress);
-
-  const isActivated = await services.getIsAccountActivated(
-    address,
-    account.assetId,
-  );
-
-  if (!isActivated) {
-    return {
-      hasMore: false,
-      nextIterationContext: {
-        ...iterationContext,
-        perPage: iterationContext?.perPage ?? PER_PAGE_TXN_LIMIT,
-        afterBlock: iterationContext?.afterBlock ?? -1,
-        updatedBalance: '0',
-        updatedSpendableBalance: '0',
-      },
-      transactions: [],
-      updatedAccountInfo: {
-        balance: '0',
-        spendableBalance: '0',
-      },
-    };
-  }
+  const address = account.xpubOrAddress;
 
   const updatedBalance =
     iterationContext?.updatedBalance ??
@@ -204,43 +212,37 @@ const getAddressDetails: IGetAddressDetails<{
       ),
     ).toString();
 
-  const afterBlock =
-    iterationContext?.afterBlock ??
-    (await getLatestTransactionBlock(db, {
+  const latestPagingToken =
+    iterationContext?.latestPagingToken ??
+    (await getLatestTransactionPagingToken(db, {
       accountId: account.__id,
-    })) ??
-    -1;
+    }));
 
   const perPage = iterationContext?.perPage ?? PER_PAGE_TXN_LIMIT;
 
-  const transactionDetails = await fetchAndParseTransactions({
-    address,
-    account,
-    limit: perPage,
-    ledgerIndexMin: afterBlock,
-  });
+  const { transactions, hasMore, nextPagingToken } =
+    await fetchAndParseTransactions({
+      account,
+      limit: perPage,
+      latestPagingToken,
+    });
 
   const updatedAccountInfo: Partial<IStellarAccount> = {
     balance: updatedBalance,
     spendableBalance: updatedSpendableBalance,
   };
 
-  const result = {
-    hasMore: transactionDetails.hasMore,
+  return {
+    hasMore,
     nextIterationContext: {
       perPage,
-      afterBlock:
-        transactionDetails.nextLedgerIndexMin !== -1
-          ? transactionDetails.nextLedgerIndexMin
-          : afterBlock,
+      latestPagingToken: nextPagingToken,
       updatedBalance,
       updatedSpendableBalance,
     },
-    transactions: transactionDetails.transactions,
+    transactions,
     updatedAccountInfo,
   };
-
-  return result;
 };
 
 export const syncAccount = (params: ISyncStellarAccountsParams) =>
