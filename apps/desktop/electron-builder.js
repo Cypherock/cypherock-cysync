@@ -44,6 +44,7 @@ const config = {
         arch: ['universal'],
       },
     ],
+    notarize: false,
   },
   dmg: {
     writeUpdateInfo: false,
