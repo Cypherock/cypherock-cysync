@@ -78,7 +78,10 @@ const config = {
 };
 
 if (process.env.WINDOWS_CERT_SUBJECT) {
-  config.win.signtoolOptions.certificateSubjectName =
+ if (!config.win.signtoolOptions) { 
+    config.win.signtoolOptions = {}; 
+ } 
+ config.win.signtoolOptions.certificateSubjectName =
     process.env.WINDOWS_CERT_SUBJECT;
 }
 
