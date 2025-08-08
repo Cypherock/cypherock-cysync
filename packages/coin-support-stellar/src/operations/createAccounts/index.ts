@@ -19,9 +19,8 @@ import {
 } from './types';
 
 import * as services from '../../services';
-import { createApp, deriveAddress } from '../../utils';
+import { createApp } from '../../utils';
 
-// Number of derivation paths to check
 const DERIVATION_PATH_LIMIT = 30;
 
 const getAddressesFromDevice: GetAddressesFromDevice<
@@ -100,33 +99,16 @@ const createAccountFromAddress: IMakeCreateAccountsObservableParams<StellarApp>[
 const getBalanceAndTxnCount = async (
   address: string,
   params: ICreateStellarAccountParams,
-) => {
-  // Check if account exists before getting balance
-  const isActivated = await services.getIsAccountActivated(
-    address,
-    params.coinId,
-  );
-
-  if (!isActivated) {
-    // If account isn't activated, return zero balance and transactions
-    return {
-      balance: '0',
-      txnCount: 0,
-    };
-  }
-
-  return {
-    balance: await services.getBalance(address, params.coinId),
-    txnCount: (
-      await services.getTransactions({
-        address,
-        assetId: params.coinId,
-        limit: 1,
-        binary: true,
-      })
-    ).transactions.length,
-  };
-};
+) => ({
+  balance: await services.getBalance(address, params.coinId),
+  txnCount: (
+    await services.getTransactions({
+      address,
+      assetId: params.coinId,
+      limit: 1,
+    })
+  ).transactions.length,
+});
 
 export const createAccounts = (
   params: ICreateStellarAccountParams,

@@ -1,11 +1,12 @@
 import { SignTransactionDeviceEvent } from '@cypherock/coin-support-interfaces';
 import {
+  getDefaultUnit,
+  getParsedAmount,
   makeSignTransactionsObservable,
   mapDerivationPath,
   SignTransactionFromDevice,
 } from '@cypherock/coin-support-utils';
 import { IStellarCoinInfo } from '@cypherock/coins';
-import { BigNumber } from '@cypherock/cysync-utils';
 import { IAccount } from '@cypherock/db-interfaces';
 import { StellarApp, IUnsignedTransaction } from '@cypherock/sdk-app-stellar';
 import { assert, hexToUint8Array } from '@cypherock/sdk-utils';
@@ -17,14 +18,10 @@ import {
   signStellarToDeviceEventMap,
 } from './types';
 
-import { getSequence, getTimeBounds } from '../../services';
-import {
-  createApp,
-  getCoinSupportStellarLib,
-  deriveAddress,
-} from '../../utils';
+import { getSequence } from '../../services';
+import { createApp, getCoinSupportStellarLib } from '../../utils';
 import logger from '../../utils/logger';
-import { IPreparedStellarTransaction, StellarMemoType } from '../transaction';
+import { IPreparedStellarTransaction, IStellarMemoType } from '../transaction';
 
 const prepareUnsignedTxn = async (
   transaction: IPreparedStellarTransaction,
@@ -32,104 +29,67 @@ const prepareUnsignedTxn = async (
   account: IAccount,
 ): Promise<IUnsignedTransaction> => {
   const stellarLib = getCoinSupportStellarLib();
-  const myAddress = deriveAddress(account.xpubOrAddress);
+  const myAddress = account.xpubOrAddress;
 
-  console.log('DEBUG - ADDRESSES:', {
-    'sender (myAddress)': myAddress,
-    destination: transaction.computedData.output.address,
-    'isCreateAccount flag': transaction.computedData.output.isCreateAccount,
-  });
+  const { fees, output } = transaction.computedData;
+  const { address: destination, isActivated, memo } = output;
 
   const networkPassphrase =
     coin.network === 'testnet'
       ? stellarLib.Networks.TESTNET
       : stellarLib.Networks.PUBLIC;
 
-  const { minTime, maxTime } = await getTimeBounds(account.assetId);
-
-  let sequence: number;
-  try {
-    sequence = await getSequence(myAddress, account.assetId);
-  } catch (error) {
-    // For non-activated accounts or API failures, start with sequence 0
-    logger.warn('Could not get sequence, using 0 for new account:', { error });
-    sequence = 0;
-  }
+  const sequence = await getSequence(myAddress, account.assetId);
 
   const sourceAccount = new stellarLib.Account(myAddress, sequence.toString());
 
   const txBuilder = new stellarLib.TransactionBuilder(sourceAccount, {
-    fee: transaction.computedData.fees,
+    fee: fees,
     networkPassphrase,
     timebounds: {
-      minTime: minTime || 0,
-      maxTime: maxTime || 0,
+      minTime: 0,
+      maxTime: 0,
     },
   });
 
-  if (transaction.computedData.output.isCreateAccount) {
-    // Create Account operation
+  const { amount } = getParsedAmount({
+    coinId: coin.id,
+    unitAbbr: getDefaultUnit(coin.id).abbr,
+    amount: transaction.computedData.output.amount,
+  });
+
+  if (!isActivated) {
     txBuilder.addOperation(
       stellarLib.Operation.createAccount({
-        destination: transaction.computedData.output.address,
-        startingBalance:
-          // Convert stroops to XLM for the operation
-          new BigNumber(transaction.computedData.output.amount)
-            .dividedBy(10000000)
-            .toString(),
+        destination,
+        startingBalance: amount,
       }),
     );
   } else {
-    // Payment operation
     txBuilder.addOperation(
       stellarLib.Operation.payment({
-        destination: transaction.computedData.output.address,
+        destination,
         asset: stellarLib.Asset.native(),
-        amount:
-          // Convert stroops to XLM
-          new BigNumber(transaction.computedData.output.amount)
-            .dividedBy(10000000)
-            .toString(),
+        amount,
       }),
     );
   }
 
-  const {memo} = transaction.computedData.output;
-  if (memo && memo.type !== StellarMemoType.NONE) {
+  if (memo && memo.type !== IStellarMemoType.NONE && memo.value) {
     try {
       switch (memo.type) {
-        case StellarMemoType.TEXT:
-          if (memo.value) {
-            txBuilder.addMemo(stellarLib.Memo.text(memo.value));
-          }
+        case IStellarMemoType.TEXT:
+          txBuilder.addMemo(stellarLib.Memo.text(memo.value));
           break;
-
-        case StellarMemoType.ID:
-          if (memo.value && /^\d+$/.test(memo.value)) {
-            txBuilder.addMemo(stellarLib.Memo.id(memo.value));
-          }
+        case IStellarMemoType.ID:
+          txBuilder.addMemo(stellarLib.Memo.id(memo.value));
           break;
-
-        case StellarMemoType.HASH:
-          if (
-            memo.value &&
-            memo.value.length === 64 &&
-            /^[0-9a-fA-F]+$/.test(memo.value)
-          ) {
-            txBuilder.addMemo(stellarLib.Memo.hash(memo.value));
-          }
+        case IStellarMemoType.HASH:
+          txBuilder.addMemo(stellarLib.Memo.hash(memo.value));
           break;
-
-        case StellarMemoType.RETURN:
-          if (
-            memo.value &&
-            memo.value.length === 64 &&
-            /^[0-9a-fA-F]+$/.test(memo.value)
-          ) {
-            txBuilder.addMemo(stellarLib.Memo.return(memo.value));
-          }
+        case IStellarMemoType.RETURN:
+          txBuilder.addMemo(stellarLib.Memo.return(memo.value));
           break;
-
         default:
           logger.warn('Unknown memo type, skipping:', { type: memo.type });
       }
@@ -155,7 +115,6 @@ const signTransactionFromDevice: SignTransactionFromDevice<
   string
 > = async params => {
   const { app, observer, transaction, account, coin } = params;
-  logger.info({ transaction });
 
   const events: Record<SignTransactionDeviceEvent, boolean | undefined> =
     {} as any;

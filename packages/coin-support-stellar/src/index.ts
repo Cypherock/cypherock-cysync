@@ -39,7 +39,6 @@ export { updateLogger } from './utils/logger';
 
 export class StellarSupport implements CoinSupport {
   public static setStellarLib(stellarSdkLib: StellarLibType): void {
-    // Set the library for SDK and our internal usage
     setStellarLib(stellarSdkLib);
     setCoinSupportStellarLib(stellarSdkLib);
   }

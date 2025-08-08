@@ -172,5 +172,3 @@ export const AddressAndAmountSection: React.FC<AnaProps> = props => {
 
   return getAnaComponent(selectedAccount?.familyId as any, props);
 };
-
-export { StellarMemoInput } from './StellarMemoInput';

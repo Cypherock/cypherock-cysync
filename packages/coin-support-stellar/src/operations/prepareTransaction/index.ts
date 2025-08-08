@@ -5,14 +5,12 @@ import { assert, BigNumber } from '@cypherock/cysync-utils';
 import { IPrepareStellarTransactionParams } from './types';
 
 import { getIsAccountActivated } from '../../services';
-import { deriveAddress } from '../../utils';
 import {
   IPreparedStellarTransaction,
-  IPreparedStellarTransactionOutput,
-  StellarMemoType,
+  IStellarMemo,
+  IStellarMemoType,
 } from '../transaction';
 import { validateAddress } from '../validateAddress';
-
 
 // Constants for Stellar-specific validations
 const MAX_TEXT_MEMO_BYTES = 28;
@@ -21,7 +19,8 @@ const HASH_MEMO_HEX_LENGTH = 64; // 32 bytes as hex
 
 const getByteLength = (str: string): number => Buffer.byteLength(str, 'utf8');
 
-const isValidHex = (str: string, expectedLength: number): boolean => /^[0-9a-fA-F]+$/.test(str) && str.length === expectedLength;
+const isValidHex = (str: string, expectedLength: number): boolean =>
+  /^[0-9a-fA-F]+$/.test(str) && str.length === expectedLength;
 
 const validateAddresses = (
   params: IPrepareStellarTransactionParams,
@@ -45,11 +44,8 @@ const validateAddresses = (
   return outputAddressValidation;
 };
 
-const validateMemo = (memo?: {
-  type: StellarMemoType;
-  value?: string;
-}): boolean => {
-  if (!memo || memo.type === StellarMemoType.NONE) {
+const validateMemo = (memo?: IStellarMemo): boolean => {
+  if (!memo || memo.type === IStellarMemoType.NONE) {
     return true;
   }
 
@@ -58,21 +54,18 @@ const validateMemo = (memo?: {
   }
 
   switch (memo.type) {
-    case StellarMemoType.TEXT:
+    case IStellarMemoType.TEXT:
       return getByteLength(memo.value) <= MAX_TEXT_MEMO_BYTES;
-
-    case StellarMemoType.ID:
+    case IStellarMemoType.ID:
       try {
         const idValue = BigInt(memo.value);
         return idValue >= BigInt(0) && idValue <= MAX_MEMO_ID_VALUE;
       } catch {
         return false;
       }
-
-    case StellarMemoType.HASH:
-    case StellarMemoType.RETURN:
+    case IStellarMemoType.HASH:
+    case IStellarMemoType.RETURN:
       return isValidHex(memo.value, HASH_MEMO_HEX_LENGTH);
-
     default:
       return false;
   }
@@ -95,7 +88,6 @@ export const prepareTransaction = async (
 
   const outputsValidation = validateAddresses(params, coin);
   let isActivated: boolean | undefined;
-  let isCreateAccount = false;
 
   if (txn.userInputs.outputs[0].address === txn.computedData.output.address) {
     isActivated = txn.computedData.output.isActivated;
@@ -105,7 +97,8 @@ export const prepareTransaction = async (
 
   if (
     output.address &&
-    outputsValidation[0]
+    outputsValidation[0] &&
+    output.isActivated === undefined
   ) {
     output.isActivated = await getIsAccountActivated(
       output.address,
@@ -113,17 +106,10 @@ export const prepareTransaction = async (
     );
 
     txn.computedData.output.isActivated = output.isActivated;
-
-    if (!output.isActivated) {
-      isCreateAccount = true;
-    } 
-  } 
+  }
 
   output.amount = new BigNumber(output.amount).toFixed(0);
   let sendAmount = new BigNumber(output.amount);
-
-  const myAddress = deriveAddress(account.xpubOrAddress);
-  const isOwnOutputAddress = output.address === myAddress;
 
   const { fees } = txn.userInputs;
 
@@ -155,16 +141,15 @@ export const prepareTransaction = async (
 
   let isBalanceBelowStellarReserve = false;
   if (hasEnoughBalance) {
-    const remainingBalance = new BigNumber(account.balance)
-      .minus(sendAmount)
-      .minus(fees);
-
-    isBalanceBelowStellarReserve = remainingBalance.isLessThan(
-      txn.staticData.reserveBaseBalance,
+    isBalanceBelowStellarReserve = !(
+      sendAmount.isNaN() ||
+      new BigNumber(
+        account.spendableBalance ?? account.balance,
+      ).isGreaterThanOrEqualTo(sendAmount.plus(fees))
     );
   }
 
-  let isAmountBelowStellarReserve = isCreateAccount;
+  let isAmountBelowStellarReserve = !output.isActivated;
   if (isAmountBelowStellarReserve) {
     isAmountBelowStellarReserve = sendAmount.isLessThan(
       txn.staticData.reserveBaseBalance,
@@ -173,12 +158,9 @@ export const prepareTransaction = async (
 
   const isValidFee = new BigNumber(fees).isGreaterThan(0);
   const isFeeBelowMin =
-    isValidFee && new BigNumber(fees).isLessThan(txn.staticData.fees);
+    isValidFee && new BigNumber(fees).isLessThan(txn.staticData.fees.baseFee);
 
   const isInvalidMemo = !validateMemo(output.memo);
-
-  output.isCreateAccount = isCreateAccount;
-  txn.computedData.output.isCreateAccount = isCreateAccount;
 
   return {
     ...txn,
@@ -187,7 +169,7 @@ export const prepareTransaction = async (
       hasEnoughBalance,
       isValidFee,
       isFeeBelowMin,
-      ownOutputAddressNotAllowed: [isOwnOutputAddress],
+      ownOutputAddressNotAllowed: [],
       zeroAmountNotAllowed: sendAmount.isZero(),
       isAmountBelowStellarReserve,
       isBalanceBelowStellarReserve,
