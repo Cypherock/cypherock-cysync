@@ -1461,6 +1461,9 @@ importers:
       '@cypherock/db-interfaces':
         specifier: workspace:^
         version: link:../db-interfaces
+      '@cypherock/sdk-app-stellar':
+        specifier: ^1.0.2
+        version: 1.0.2
       '@cypherock/sdk-interfaces':
         specifier: ^0.0.16
         version: 0.0.16
@@ -6401,6 +6404,18 @@ packages:
       - debug
     dev: false
 
+  /@cypherock/sdk-app-stellar@1.0.2:
+    resolution: {integrity: sha512-LeV855MipSR8+lI8EUznyVmDYBl+AQ4UL/Gv8PTrDGz8pnZY4j0Bj3v+QYGoAVpkzNauvlWgAhlKvzPJf8mYEg==}
+    dependencies:
+      '@cypherock/sdk-core': 0.1.0
+      '@cypherock/sdk-interfaces': 0.0.16
+      '@cypherock/sdk-utils': 0.0.20
+      long: 5.2.3
+      protobufjs: 7.3.2
+    transitivePeerDependencies:
+      - debug
+    dev: false
+
   /@cypherock/sdk-app-tron@0.0.3:
     resolution: {integrity: sha512-Fe4SZXebZufA/AKTEwne8ZQXrnaKtOXn/P/SCWCvIIMv/vh2bDAukz0NSOc1XfnhxNMyJh6JceldTWZ3skQVDA==}
     dependencies:
@@ -6472,6 +6487,17 @@ packages:
 
   /@cypherock/sdk-utils@0.0.19:
     resolution: {integrity: sha512-uTEsPLjN0jy/sDdE3VLDqiByAagjsjqy1yIxFLxK+Ct8v+FHMpK4XCl8nIBqNuS5sXiHmAY+HWUyrZgH7/zzjg==}
+    dependencies:
+      '@aws-crypto/sha256-browser': 4.0.0
+      '@cypherock/sdk-interfaces': 0.0.16
+      compare-versions: 6.0.0-rc.1
+      protobufjs: 7.3.2
+      semver: 7.6.2
+      uuid: 9.0.1
+    dev: false
+
+  /@cypherock/sdk-utils@0.0.20:
+    resolution: {integrity: sha512-WeIU8vlzeIhYi+bK9nbFqt68Pk33bJGMmY7o53SB2oeeR0OYKa6oZWsLxfO0OkUbtCVa+Cqb6OFht6z5sm7azw==}
     dependencies:
       '@aws-crypto/sha256-browser': 4.0.0
       '@cypherock/sdk-interfaces': 0.0.16
