@@ -5,14 +5,6 @@ export interface IStellarTransactionParams {
   cursor?: string;
 }
 
-export enum StellarMemoType {
-  NONE = 'none',
-  TEXT = 'text',
-  ID = 'id',
-  HASH = 'hash',
-  RETURN = 'return',
-}
-
 export interface IStellarOperationResponse {
   type: string;
   sourceAccount?: string;
@@ -42,5 +34,6 @@ export interface IStellarTransactionResponse {
 export interface IStellarTransactionHistoryResponse {
   count: number;
   hasMore: boolean;
+  next?: { cursor: string };
   transactions: IStellarTransactionResponse[];
 }

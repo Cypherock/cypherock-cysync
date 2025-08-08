@@ -3,8 +3,7 @@ import {
   IPreparedTransactionOutput,
 } from '@cypherock/coin-support-interfaces';
 
-// Define the possible memo types
-export enum StellarMemoType {
+export enum IStellarMemoType {
   NONE = 'none',
   TEXT = 'text',
   ID = 'id',
@@ -12,13 +11,14 @@ export enum StellarMemoType {
   RETURN = 'return',
 }
 
+export interface IStellarMemo {
+  type: IStellarMemoType;
+  value?: string;
+}
+
 export interface IPreparedStellarTransactionOutput
   extends IPreparedTransactionOutput {
-  memo?: {
-    type: StellarMemoType;
-    value?: string;
-  };
-  isCreateAccount?: boolean;
+  memo?: IStellarMemo;
 }
 
 export interface IPreparedStellarTransaction extends IPreparedTransaction {
@@ -39,7 +39,7 @@ export interface IPreparedStellarTransaction extends IPreparedTransaction {
     isInvalidMemo: boolean;
   };
   staticData: {
-    fees: string;
+    fees: { baseFee: string; recommendedFee: string };
     reserveBaseBalance: string;
   };
   computedData: {

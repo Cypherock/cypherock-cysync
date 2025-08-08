@@ -13,23 +13,6 @@ import {
 import { IBroadcastStellarTransactionParams } from './types';
 
 import { broadcastTransactionToBlockchain } from '../../services';
-import { deriveAddress } from '../../utils';
-import { StellarMemoType } from '../transaction';
-
-// Helper to ensure memo is in a serializable format
-const formatMemoForStorage = (memo?: {
-  type: StellarMemoType;
-  value?: string;
-}) => {
-  if (!memo || memo.type === StellarMemoType.NONE) {
-    return undefined;
-  }
-
-  return {
-    type: memo.type,
-    value: memo.value ?? '',
-  };
-};
 
 export const broadcastTransaction = async (
   params: IBroadcastStellarTransactionParams,
@@ -41,17 +24,20 @@ export const broadcastTransaction = async (
     transaction.accountId,
   );
 
-  const myAddress = deriveAddress(account.xpubOrAddress);
-  const isMine = params.transaction.computedData.output.address === myAddress;
-  const { isCreateAccount } = params.transaction.computedData.output;
-
   const result = await broadcastTransactionToBlockchain(
     signedTransaction,
     coin.id,
   );
 
+  const myAddress = account.xpubOrAddress;
+  const {
+    address: outputAddress,
+    memo,
+    isActivated,
+  } = transaction.computedData.output;
+
   const parsedTransaction: ITransaction = {
-    hash: result.hash || '',
+    hash: result.hash,
     fees: transaction.computedData.fees,
     amount: '0',
     status: TransactionStatusMap.pending,
@@ -68,7 +54,7 @@ export const broadcastTransaction = async (
     outputs: [
       {
         ...params.transaction.userInputs.outputs[0],
-        isMine,
+        isMine: outputAddress === myAddress,
       },
     ],
     confirmations: 0,
@@ -79,14 +65,11 @@ export const broadcastTransaction = async (
     familyId: account.familyId,
     parentAccountId: account.parentAccountId,
     remarks: [transaction.userInputs.outputs[0].remarks ?? ''],
+    customId: `id-0`, // 0 is index, since we have single transaction operation
     extraData: {
-      isCreateAccount,
-      memo: formatMemoForStorage(transaction.computedData.output.memo),
-      ledger: result.ledger,
-      resultXdr: result.result_xdr,
-      resultCodes: result.result_codes,
-      operationType: isCreateAccount ? 'createAccount' : 'payment',
-      description: isCreateAccount ? 'Account Creation' : 'Payment',
+      operation: isActivated ? 'payment' : 'createAccount',
+      memoType: memo?.type,
+      memo: memo?.value,
     },
   };
 

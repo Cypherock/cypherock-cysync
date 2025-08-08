@@ -40,20 +40,19 @@ export const getBalance = async (
 export const getSequence = async (
   address: string,
   assetId: string,
-): Promise<number> => {
+): Promise<string> => {
   const accountInfo = await getAccountInfo(address, assetId);
 
-  if (!accountInfo)
-    throw new Error('Failed to fetch stellar account info from server');
+  let sequence = accountInfo?.sequence ?? '0';
+  if (typeof sequence === 'number') sequence = sequence.toString();
 
-  // Fix: Use correct field from actual API response
-  const sequence = accountInfo?.sequence;
-
-  if (sequence === undefined || sequence === null)
+  if (typeof sequence !== 'string')
     throw new Error('Invalid stellar sequence returned from server');
 
-  const parsedSequence = Number(sequence);
-  return parsedSequence;
+  if (new BigNumber(sequence).isNaN())
+    throw new Error('Invalid stellar sequence returned from server');
+
+  return sequence;
 };
 
 export const getIsAccountActivated = async (

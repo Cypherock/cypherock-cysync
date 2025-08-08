@@ -3,7 +3,7 @@ import { getAccountAndCoin } from '@cypherock/coin-support-utils';
 import { stellarCoinList } from '@cypherock/coins';
 
 import { getFees, getReserveBalance } from '../../services';
-import { IPreparedStellarTransaction, StellarMemoType } from '../transaction';
+import { IPreparedStellarTransaction, IStellarMemoType } from '../transaction';
 
 export const initializeTransaction = async (
   params: IInitializeTransactionParams,
@@ -30,7 +30,7 @@ export const initializeTransaction = async (
     userInputs: {
       outputs: [],
       isSendAll: false,
-      fees,
+      fees: fees.recommendedFee,
     },
     staticData: {
       fees,
@@ -40,11 +40,7 @@ export const initializeTransaction = async (
       output: {
         address: '',
         amount: '0',
-        memo: {
-          type: StellarMemoType.NONE,
-        },
-        isActivated: true, 
-        isCreateAccount: false, 
+        memo: { type: IStellarMemoType.NONE },
       },
       fees: '0',
     },

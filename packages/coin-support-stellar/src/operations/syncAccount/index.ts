@@ -67,7 +67,7 @@ const parseTransactionOperation = (
     ],
     customId: `id-${operationIndex}`,
     extraData: {
-      operationType,
+      operation: operationType,
       memoType: txn.memoType,
       memo: txn.memo,
       timeBounds: txn.preconditions?.timeBounds,
@@ -166,8 +166,7 @@ const fetchAndParseTransactions = async (params: {
   return {
     transactions,
     hasMore: response.hasMore,
-    nextPagingToken:
-      response.transactions[response.transactions.length - 1]?.pagingToken,
+    nextPagingToken: response.next?.cursor,
   };
 };
 
