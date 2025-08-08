@@ -8,7 +8,7 @@ import {
   xrpCoinList,
   starknetCoinList,
   icpCoinList,
-  stellarCoinList
+  stellarCoinList,
 } from '../src';
 
 describe('01. All ids should be unique', () => {

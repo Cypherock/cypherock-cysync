@@ -7,14 +7,14 @@ export default [
     coinGeckoId: 'stellar',
     coinIndex: '80000094', // SLIP-0044 index for Stellar
     feesUnit: 'XLM',
-    color: '#FFFFFF', 
+    color: '#FFFFFF',
     family: 'stellar',
     network: 'mainnet',
     units: [
       {
         name: 'stellar',
         abbr: 'XLM',
-        magnitude: 7, 
+        magnitude: 7,
       },
       {
         name: 'stroop',

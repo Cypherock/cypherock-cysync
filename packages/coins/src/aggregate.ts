@@ -4,10 +4,10 @@ import { icpCoinList, IcpId, IIcpIcrcToken } from './icp';
 import { nearCoinList, NearId } from './near';
 import { solanaCoinList, SolanaId } from './solana';
 import { starknetCoinList, StarknetId } from './starknet';
+import { stellarCoinList, StellarId } from './stellar';
 import { tronCoinList, ITronTrc20Token } from './tron';
 import { ICoinInfo } from './types';
 import { xrpCoinList, XrpId } from './xrp';
-import { stellarCoinList, StellarId } from './stellar';
 
 export const coinList: Record<
   BtcId | EvmId | SolanaId | NearId | XrpId | StarknetId | IcpId | StellarId,
