@@ -27,6 +27,7 @@ import logger from '~/utils/logger';
 import { AddressAndAmountSection, FeeSection } from './Components';
 
 import { useSendDialog } from '../context';
+import { IPreparedStellarTransaction } from '@cypherock/coin-support-stellar';
 
 export const Recipient: React.FC = () => {
   const {
@@ -89,6 +90,14 @@ export const Recipient: React.FC = () => {
       !validation.isFeeBelowMin &&
       !validation.isInvalidDestinationTag;
 
+    const isStellarValid = (
+      validation: IPreparedStellarTransaction['validation'],
+    ): boolean =>
+      !validation.isBalanceBelowStellarReserve &&
+      !validation.isAmountBelowStellarReserve &&
+      !validation.isFeeBelowMin &&
+      !validation.isInvalidMemo;
+
     const isSolanaValid = (
       validation: IPreparedSolanaTransaction['validation'],
     ): boolean => !validation.isAmountBelowRentExempt;
@@ -104,6 +113,7 @@ export const Recipient: React.FC = () => {
         areUserOutputsValid(v) &&
         isBtcValid(v as IPreparedBtcTransaction['validation']) &&
         isXrpValid(v as IPreparedXrpTransaction['validation']) &&
+        isStellarValid(v as IPreparedStellarTransaction['validation']) &&
         isSolanaValid(v as IPreparedSolanaTransaction['validation'])
       );
     };

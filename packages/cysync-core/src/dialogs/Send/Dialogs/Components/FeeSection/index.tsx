@@ -2,8 +2,8 @@ import { IPreparedBtcTransaction } from '@cypherock/coin-support-btc';
 import { IPreparedEvmTransaction } from '@cypherock/coin-support-evm';
 import { IPreparedTransaction } from '@cypherock/coin-support-interfaces';
 import { IPreparedSolanaTransaction } from '@cypherock/coin-support-solana';
-import { IPreparedTronTransaction } from '@cypherock/coin-support-tron';
 import { IPreparedStellarTransaction } from '@cypherock/coin-support-stellar';
+import { IPreparedTronTransaction } from '@cypherock/coin-support-tron';
 import {
   convertToUnit,
   getDefaultUnit,
@@ -72,8 +72,9 @@ const getErrorAndWarningComponents = (
 ) => {
   const tronTxnValidation =
     txnValidation as IPreparedTronTransaction['validation'];
-  const xrpTxnValidation =
-    txnValidation as IPreparedXrpTransaction['validation'];
+  const xrpOrStellarTxnValidation = txnValidation as
+    | IPreparedXrpTransaction['validation']
+    | IPreparedStellarTransaction['validation'];
   const solanaTxnValidation =
     txnValidation as IPreparedSolanaTransaction['validation'];
 
@@ -93,7 +94,7 @@ const getErrorAndWarningComponents = (
       {!txnValidation.isValidFee && (
         <MessageBox type="danger" text={displayText.feeError} />
       )}
-      {xrpTxnValidation.isFeeBelowMin && (
+      {xrpOrStellarTxnValidation.isFeeBelowMin && (
         <MessageBox type="danger" text={displayText.feeBelowMinError} />
       )}
       {solanaTxnValidation.isRentExemptFeeRequired && (
@@ -186,11 +187,11 @@ export const FeeSection: React.FC<FeeSectionProps> = ({
   const getStellarProps = () => {
     let { feesUnit } = coinList[selectedAccount?.assetId ?? ''];
     const txn = transaction as IPreparedStellarTransaction;
-    let { fees } = txn.staticData;
+    let fees = txn.staticData.fees.recommendedFee;
 
     if (selectedAccount) {
       const { amount: convertedFees, unit } = convertToUnit({
-        amount: txn.staticData.fees,
+        amount: txn.staticData.fees.recommendedFee,
         fromUnitAbbr: getZeroUnit(selectedAccount.parentAssetId).abbr,
         coinId: selectedAccount.parentAssetId,
         toUnitAbbr: getDefaultUnit(selectedAccount.parentAssetId).abbr,
@@ -230,7 +231,8 @@ export const FeeSection: React.FC<FeeSectionProps> = ({
   };
 
   const isToggleAllowed = (coinFamily: CoinFamily) =>
-    coinFamily !== coinFamiliesMap.xrp;
+    coinFamily !== coinFamiliesMap.xrp &&
+    coinFamily !== coinFamiliesMap.stellar;
 
   const getFeeHeaderComponent = () => {
     if (!selectedAccount) return null;
@@ -331,7 +333,8 @@ export const FeeSection: React.FC<FeeSectionProps> = ({
 
   const stellarPrepareFeeChanged = async (value: number) => {
     setIsFeeLoading(true);
-    const txn = transactionRef.current.transaction as IPreparedStellarTransaction;
+    const txn = transactionRef.current
+      .transaction as IPreparedStellarTransaction;
     let fees = value.toString();
 
     if (selectedAccount) {

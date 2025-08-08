@@ -40,20 +40,20 @@ export const getFees = async (assetId: string) => {
 
   const response = await makePostRequest(url, query);
 
-  let fees = response.data?.fees?.minimum_fee ?? '100';
+  let { baseFee = '100', recommendedFee = '100' } = response.data?.fees ?? {};
 
-  if (typeof fees === 'number') fees = fees.toString();
+  if (typeof baseFee === 'number') baseFee = baseFee.toString();
+  if (typeof recommendedFee === 'number')
+    recommendedFee = recommendedFee.toString();
 
-  if (typeof fees !== 'string')
-    throw new Error('Invalid stellar fees returned from server');
+  if (typeof baseFee !== 'string')
+    throw new Error('Invalid stellar baseFee returned from server');
 
-  return fees;
+  if (typeof recommendedFee !== 'string')
+    throw new Error('Invalid stellar recommendedFee returned from server');
+
+  return { baseFee, recommendedFee };
 };
-
-export const getTimeBounds = async () => ({
-  minTime: 0,
-  maxTime: 0,
-});
 
 export const broadcastTransactionToBlockchain = async (
   transaction: string,
@@ -72,7 +72,7 @@ export const broadcastTransactionToBlockchain = async (
   );
 
   assert(
-    !response.data.error,
+    !response.data.error || response.data.hash,
     new Error('Server: Invalid txn hash from server'),
   );
 

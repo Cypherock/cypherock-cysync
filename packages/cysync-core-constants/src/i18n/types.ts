@@ -345,6 +345,17 @@ interface LangSend {
       placeholder: string;
       error: string;
     };
+    stellarMemo: {
+      label: string;
+      placeholder: {
+        none: string;
+        text: string;
+        id: string;
+        hash: string;
+        return: string;
+      };
+      error: string;
+    };
     rentExemptFeeWarning: string;
   };
   summary: {
