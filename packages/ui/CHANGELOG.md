@@ -1,5 +1,11 @@
 # @cypherock/cysync-ui
 
+## 0.0.14
+
+### Patch Changes
+
+- [#766](https://github.com/Cypherock/cypherock-cysync/pull/766) [`fb604652`](https://github.com/Cypherock/cypherock-cysync/commit/fb6046521f39f2742a564d99cf25c4c340424f70) Thanks [@AryanCypherock](https://github.com/AryanCypherock)! - Affiliate section added and sidebar updated
+
 ## 0.0.13
 
 ### Patch Changes

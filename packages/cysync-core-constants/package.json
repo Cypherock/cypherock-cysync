@@ -1,6 +1,6 @@
 {
   "name": "@cypherock/cysync-core-constants",
-  "version": "0.4.2",
+  "version": "0.5.0",
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
   "types": "dist/esm/index.d.ts",
@@ -47,7 +47,7 @@
   },
   "dependencies": {
     "@cypherock/coins": "workspace:^",
-    "@cypherock/sdk-app-manager": "^0.0.33",
+    "@cypherock/sdk-app-manager": "^0.0.34",
     "@cypherock/sdk-interfaces": "^0.0.16"
   }
 }

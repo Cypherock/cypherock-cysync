@@ -1,5 +1,14 @@
 # @cypherock/cysync-automation-scripts
 
+## 0.1.4
+
+### Patch Changes
+
+- [#787](https://github.com/Cypherock/cypherock-cysync/pull/787) [`66476ac5`](https://github.com/Cypherock/cypherock-cysync/commit/66476ac55b6e334b459bb252612a45d4dcb56e50) Thanks [@AryanCypherock](https://github.com/AryanCypherock)! - French language support added
+
+- Updated dependencies [[`66476ac5`](https://github.com/Cypherock/cypherock-cysync/commit/66476ac55b6e334b459bb252612a45d4dcb56e50)]:
+  - @cypherock/cysync-core-constants@0.5.0
+
 ## 0.1.3
 
 ### Patch Changes

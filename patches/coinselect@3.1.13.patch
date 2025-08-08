@@ -1,8 +1,111 @@
+diff --git a/accumulative.js b/accumulative.js
+index 42fd28f40534ac57eea56035033f13b1c906ee00..54a6c09e9805c24ff5648b7a4959f9fc4e37b07f 100644
+--- a/accumulative.js
++++ b/accumulative.js
+@@ -2,7 +2,7 @@ var utils = require('./utils')
+ 
+ // add inputs until we reach or surpass the target value (or deplete)
+ // worst-case: O(n)
+-module.exports = function accumulative (utxos, outputs, feeRate) {
++module.exports = function accumulative (utxos, outputs, feeRate, feeRateForDust, changeAddress) {
+   if (!isFinite(utils.uintOrNaN(feeRate))) return {}
+   var bytesAccum = utils.transactionBytes([], outputs)
+ 
+@@ -31,7 +31,7 @@ module.exports = function accumulative (utxos, outputs, feeRate) {
+     // go again?
+     if (inAccum < outAccum + fee) continue
+ 
+-    return utils.finalize(inputs, outputs, feeRate)
++    return utils.finalize(inputs, outputs, feeRate, feeRateForDust, changeAddress)
+   }
+ 
+   return { fee: feeRate * bytesAccum }
+diff --git a/blackjack.js b/blackjack.js
+index 316568b4d430071a172320b6be2b02d887651c83..51ed2bd357b9da48f1ca9053624846c90e3368c8 100644
+--- a/blackjack.js
++++ b/blackjack.js
+@@ -2,7 +2,7 @@ var utils = require('./utils')
+ 
+ // only add inputs if they don't bust the target value (aka, exact match)
+ // worst-case: O(n)
+-module.exports = function blackjack (utxos, outputs, feeRate) {
++module.exports = function blackjack (utxos, outputs, feeRate, feeRateForDust, changeAddress) {
+   if (!isFinite(utils.uintOrNaN(feeRate))) return {}
+ 
+   var bytesAccum = utils.transactionBytes([], outputs)
+@@ -10,7 +10,7 @@ module.exports = function blackjack (utxos, outputs, feeRate) {
+   var inAccum = 0
+   var inputs = []
+   var outAccum = utils.sumOrNaN(outputs)
+-  var threshold = utils.dustThreshold({}, feeRate)
++  var threshold = utils.dustThreshold({ address: changeAddress }, feeRateForDust ?? feeRate)
+ 
+   for (var i = 0; i < utxos.length; ++i) {
+     var input = utxos[i]
+@@ -28,7 +28,7 @@ module.exports = function blackjack (utxos, outputs, feeRate) {
+     // go again?
+     if (inAccum < outAccum + fee) continue
+ 
+-    return utils.finalize(inputs, outputs, feeRate)
++    return utils.finalize(inputs, outputs, feeRate, feeRateForDust, changeAddress)
+   }
+ 
+   return { fee: feeRate * bytesAccum }
+diff --git a/break.js b/break.js
+index 91dd72c69ffa627337244334b8549f806e1f1b77..88d077c9ac0f00aa9f391a84810993bfc69a8442 100644
+--- a/break.js
++++ b/break.js
+@@ -1,7 +1,7 @@
+ var utils = require('./utils')
+ 
+ // break utxos into the maximum number of 'output' possible
+-module.exports = function broken (utxos, output, feeRate) {
++module.exports = function broken (utxos, output, feeRate, feeRateForDust, changeAddress) {
+   if (!isFinite(utils.uintOrNaN(feeRate))) return {}
+ 
+   var bytesAccum = utils.transactionBytes(utxos, [])
+@@ -30,5 +30,5 @@ module.exports = function broken (utxos, output, feeRate) {
+     outputs.push(output)
+   }
+ 
+-  return utils.finalize(utxos, outputs, feeRate)
++  return utils.finalize(utxos, outputs, feeRate, feeRateForDust, changeAddress)
+ }
+diff --git a/index.js b/index.js
+index 19aa48470c177b1ef9bffa6589b544382e1bbb87..7cfa27d168f92c7235558e092038ff8e9b033b23 100644
+--- a/index.js
++++ b/index.js
+@@ -7,15 +7,22 @@ function utxoScore (x, feeRate) {
+   return x.value - (feeRate * utils.inputBytes(x))
+ }
+ 
+-module.exports = function coinSelect (utxos, outputs, feeRate) {
++module.exports = function coinSelect (utxos, outputs, feeRate, feeRateForDust, changeAddress) {
++  // ensure every output is over the threshold
++  if (!outputs.every(function (x) { 
++    return x.value >= utils.dustThreshold(x, feeRateForDust ?? feeRate) 
++  })) {
++    return { fee: feeRate * utils.transactionBytes([], outputs), isNotOverDustThreshold: true }
++  }
++  
+   utxos = utxos.concat().sort(function (a, b) {
+     return utxoScore(b, feeRate) - utxoScore(a, feeRate)
+   })
+ 
+   // attempt to use the blackjack strategy first (no change output)
+-  var base = blackjack(utxos, outputs, feeRate)
++  var base = blackjack(utxos, outputs, feeRate, feeRateForDust, changeAddress)
+   if (base.inputs) return base
+ 
+   // else, try the accumulative strategy
+-  return accumulative(utxos, outputs, feeRate)
++  return accumulative(utxos, outputs, feeRate, feeRateForDust, changeAddress)
+ }
 diff --git a/split.js b/split.js
-index 65ccdf439e2de46dbf12e7e01e1505ec94527d9b..590358f82921c602f246566f2e668c9984448244 100644
+index 65ccdf439e2de46dbf12e7e01e1505ec94527d9b..20239675754dadc9fa41a2635b05ff9e4d1a6c46 100644
 --- a/split.js
 +++ b/split.js
-@@ -1,17 +1,21 @@
+@@ -1,23 +1,27 @@
  var utils = require('./utils')
  
  // split utxos between each output, ignores outputs with .value defined
@@ -27,16 +130,126 @@ index 65ccdf439e2de46dbf12e7e01e1505ec94527d9b..590358f82921c602f246566f2e668c99
  
    var unspecified = outputs.reduce(function (a, x) {
      return a + !isFinite(x.value)
+   }, 0)
+ 
+-  if (remaining === 0 && unspecified === 0) return utils.finalize(utxos, outputs, feeRate)
++  if (remaining === 0 && unspecified === 0) return utils.finalize(utxos, outputs, feeRate, feeRateForDust)
+ 
+   var splitOutputsCount = outputs.reduce(function (a, x) {
+     if (x.value !== undefined) return a
 @@ -27,8 +31,10 @@ module.exports = function split (utxos, outputs, feeRate) {
  
    // ensure every output is either user defined, or over the threshold
    if (!outputs.every(function (x) {
 -    return x.value !== undefined || (splitValue > utils.dustThreshold(x, feeRate))
 -  })) return { fee: fee }
-+    return x.value !== undefined || (splitValue > utils.dustThreshold(x, feeRateForDust ?? feeRate))
++    return x.value !== undefined || (splitValue >= utils.dustThreshold(x, feeRateForDust ?? feeRate))
 +  })) {
 +    return { fee: fee, isNotOverDustThreshold: true }
 +  }
  
    // assign splitValue to outputs not user defined
    outputs = outputs.map(function (x) {
+@@ -41,5 +47,5 @@ module.exports = function split (utxos, outputs, feeRate) {
+     return y
+   })
+ 
+-  return utils.finalize(utxos, outputs, feeRate)
++  return utils.finalize(utxos, outputs, feeRate, feeRateForDust)
+ }
+diff --git a/utils.js b/utils.js
+index 687fe669a295c1297b5f7a8b374f379a7db3fcbd..8ee0b83c1ae532755b84e3ad5d9c5985b250c2af 100644
+--- a/utils.js
++++ b/utils.js
+@@ -5,17 +5,67 @@ var TX_INPUT_PUBKEYHASH = 107
+ var TX_OUTPUT_BASE = 8 + 1
+ var TX_OUTPUT_PUBKEYHASH = 25
+ 
++// Size of scriptSig/witness for different input types
++var INPUT_SIZES = {
++  P2PKH: 148,
++  P2SH: 91,
++  P2WPKH: 68,
++  P2WSH: 104,  // base tx size for wrapped segwit input
++  UNKNOWN: 148,
++};
++
++// Size of scriptPubKey for outputs
++var OUTPUT_SIZES = {
++  P2PKH: 34,
++  P2SH: 32,
++  P2WPKH: 31,
++  P2WSH: 43,
++  UNKNOWN: 43,
++};
++
++function classifyAddress(address) {
++  // Bitcoin (BTC)
++  if (address.startsWith('1')) return 'P2PKH';
++  if (address.startsWith('3')) return 'P2SH';
++  if (address.startsWith('bc1q')) return 'P2WPKH';
++  if (address.startsWith('bc1p')) return 'P2WSH';
++
++  // Litecoin (LTC)
++  if (address.startsWith('L')) return 'P2PKH';
++  if (address.startsWith('3') || address.startsWith('M')) return 'P2SH';
++  if (address.startsWith('ltc1q')) return 'P2WPKH';
++  if (address.startsWith('ltc1p')) return 'P2WSH';
++
++  // Dogecoin (DOGE)
++  if (address.startsWith('D')) return 'P2PKH';
++  if (address.startsWith('9')) return 'P2SH';
++  if (address.startsWith('doge1')) return 'P2WPKH';     // Bech32 (rare but some wallets support it)
++
++  // Dash (DASH)
++  if (address.startsWith('X')) return 'P2PKH';
++  if (address.startsWith('7')) return 'P2SH';
++  if (address.startsWith('dash1')) return 'P2WPKH';     // Dash Bech32 address prefix
++
++  // Dash testnet
++  if (address.startsWith('y')) return 'P2PKH';
++  if (address.startsWith('8')) return 'P2SH';
++
++  return 'UNKNOWN';
++}
++
+ function inputBytes (input) {
+-  return TX_INPUT_BASE + (input.script ? input.script.length : TX_INPUT_PUBKEYHASH)
++  var type = input.address ? classifyAddress(input.address) : 'UNKNOWN';
++  return INPUT_SIZES[type];
+ }
+ 
+ function outputBytes (output) {
+-  return TX_OUTPUT_BASE + (output.script ? output.script.length : TX_OUTPUT_PUBKEYHASH)
++  var type = output.address ? classifyAddress(output.address) : 'UNKNOWN';
++  return OUTPUT_SIZES[type];
+ }
+ 
+-function dustThreshold (output, feeRate) {
++function dustThreshold (output, feeRateForDust) {
+   /* ... classify the output for input estimate  */
+-  return inputBytes({}) * feeRate
++  return (inputBytes(output) + outputBytes(output)) * feeRateForDust;
+ }
+ 
+ function transactionBytes (inputs, outputs) {
+@@ -40,15 +90,14 @@ function sumOrNaN (range) {
+   return range.reduce(function (a, x) { return a + uintOrNaN(x.value) }, 0)
+ }
+ 
+-var BLANK_OUTPUT = outputBytes({})
+-
+-function finalize (inputs, outputs, feeRate) {
++function finalize (inputs, outputs, feeRate, feeRateForDust, changeAddress) {
+   var bytesAccum = transactionBytes(inputs, outputs)
+-  var feeAfterExtraOutput = feeRate * (bytesAccum + BLANK_OUTPUT)
++  var blankChangeOutputBytes = outputBytes({ address: changeAddress });
++  var feeAfterExtraOutput = feeRate * (bytesAccum + blankChangeOutputBytes)
+   var remainderAfterExtraOutput = sumOrNaN(inputs) - (sumOrNaN(outputs) + feeAfterExtraOutput)
+ 
+   // is it worth a change output?
+-  if (remainderAfterExtraOutput > dustThreshold({}, feeRate)) {
++  if (remainderAfterExtraOutput > dustThreshold({ address: changeAddress }, feeRateForDust ?? feeRate)) {
+     outputs = outputs.concat({ value: remainderAfterExtraOutput })
+   }
+ 

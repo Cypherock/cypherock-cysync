@@ -1,5 +1,42 @@
 # @cypherock/cysync-desktop
 
+## 2.1.4
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @cypherock/cysync-desktop-ui@0.0.29
+
+## 2.1.3
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @cypherock/cysync-desktop-ui@0.0.28
+
+## 2.1.3-pre.0
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @cypherock/cysync-desktop-ui@0.0.28-pre.0
+
+## 2.1.2
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @cypherock/cysync-desktop-ui@0.0.27
+
+## 2.1.1
+
+### Patch Changes
+
+- [#764](https://github.com/Cypherock/cypherock-cysync/pull/764) [`103cbac7`](https://github.com/Cypherock/cypherock-cysync/commit/103cbac76acb06c4520c7b6879f351832313b811) Thanks [@muzaffarbhat07](https://github.com/muzaffarbhat07)! - Updated s3 bucket url for app update
+
+- Updated dependencies []:
+  - @cypherock/cysync-desktop-ui@0.0.26
+
 ## 2.1.0
 
 ### Minor Changes

@@ -1,5 +1,17 @@
 # @cypherock/coin-support-tron
 
+## 0.0.15
+
+### Patch Changes
+
+- [#780](https://github.com/Cypherock/cypherock-cysync/pull/780) [`53762659`](https://github.com/Cypherock/cypherock-cysync/commit/53762659bf2542008fcce997af13b81342b47a96) Thanks [@AryanCypherock](https://github.com/AryanCypherock)! - reverted lint changes
+
+## 0.0.15-pre.0
+
+### Patch Changes
+
+- [#780](https://github.com/Cypherock/cypherock-cysync/pull/780) [`53762659`](https://github.com/Cypherock/cypherock-cysync/commit/53762659bf2542008fcce997af13b81342b47a96) Thanks [@AryanCypherock](https://github.com/AryanCypherock)! - reverted lint changes
+
 ## 0.0.14
 
 ### Patch Changes

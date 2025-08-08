@@ -69,7 +69,7 @@ export const SwapStatus = () => {
         exchangeId: exchangeDetails?.id ?? '',
       });
       if (result.status === 200) {
-        const url = result.data?.data?.providerUrl;
+        const url = result?.data?.data?.providerUrl;
         setProviderUrl(url);
         let swapData;
 

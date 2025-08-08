@@ -82,25 +82,25 @@ const getErrorAndWarningComponents = (
 
   return (
     <>
-      {isFeeLow && txnValidation.isValidFee && (
+      {isFeeLow && txnValidation?.isValidFee && (
         <MessageBox type="warning" text={displayText.warning} />
       )}
-      {tronTxnValidation.notEnoughEnergy && (
+      {tronTxnValidation?.notEnoughEnergy && (
         <MessageBox
           type="warning"
           text={lang.strings.send.tron.notEnoughEnergyWarning}
         />
       )}
-      {!txnValidation.isValidFee && (
+      {!txnValidation?.isValidFee && (
         <MessageBox type="danger" text={displayText.feeError} />
       )}
       {xrpOrStellarTxnValidation.isFeeBelowMin && (
         <MessageBox type="danger" text={displayText.feeBelowMinError} />
       )}
-      {solanaTxnValidation.isRentExemptFeeRequired && (
+      {solanaTxnValidation?.isRentExemptFeeRequired && (
         <MessageBox type="warning" text={displayText.rentExemptFeeWarning} />
       )}
-      {showErrors && !txnValidation.hasEnoughBalance && (
+      {showErrors && txnValidation?.hasEnoughBalance === false && (
         <MessageBox type="danger" text={displayText.notEnoughBalance} />
       )}
     </>

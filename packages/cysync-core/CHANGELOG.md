@@ -1,5 +1,57 @@
 # @cypherock/cysync-core
 
+## 0.6.6
+
+### Patch Changes
+
+- Updated dependencies [[`66476ac5`](https://github.com/Cypherock/cypherock-cysync/commit/66476ac55b6e334b459bb252612a45d4dcb56e50)]:
+  - @cypherock/cysync-core-constants@0.5.0
+
+## 0.6.5
+
+### Patch Changes
+
+- [#780](https://github.com/Cypherock/cypherock-cysync/pull/780) [`53762659`](https://github.com/Cypherock/cypherock-cysync/commit/53762659bf2542008fcce997af13b81342b47a96) Thanks [@AryanCypherock](https://github.com/AryanCypherock)! - reverted lint changes
+
+- Updated dependencies [[`53762659`](https://github.com/Cypherock/cypherock-cysync/commit/53762659bf2542008fcce997af13b81342b47a96)]:
+  - @cypherock/coin-support-tron@0.0.15
+  - @cypherock/coin-support@0.1.9
+  - @cypherock/cysync-core-services@0.1.7
+  - @cypherock/cysync-core-workers@0.0.23
+
+## 0.6.5-pre.0
+
+### Patch Changes
+
+- [#780](https://github.com/Cypherock/cypherock-cysync/pull/780) [`53762659`](https://github.com/Cypherock/cypherock-cysync/commit/53762659bf2542008fcce997af13b81342b47a96) Thanks [@AryanCypherock](https://github.com/AryanCypherock)! - reverted lint changes
+
+- Updated dependencies [[`53762659`](https://github.com/Cypherock/cypherock-cysync/commit/53762659bf2542008fcce997af13b81342b47a96)]:
+  - @cypherock/coin-support-tron@0.0.15-pre.0
+  - @cypherock/coin-support@0.1.9-pre.0
+  - @cypherock/cysync-core-services@0.1.7-pre.0
+  - @cypherock/cysync-core-workers@0.0.23-pre.0
+
+## 0.6.4
+
+### Patch Changes
+
+- [#765](https://github.com/Cypherock/cypherock-cysync/pull/765) [`a4247c5e`](https://github.com/Cypherock/cypherock-cysync/commit/a4247c5e5eda7239616c5a211179dc725736a0f7) Thanks [@muzaffarbhat07](https://github.com/muzaffarbhat07)! - Fixed bitcoin dust threshold and fee calculation issue
+
+- Updated dependencies [[`a4247c5e`](https://github.com/Cypherock/cypherock-cysync/commit/a4247c5e5eda7239616c5a211179dc725736a0f7), [`e7840d17`](https://github.com/Cypherock/cypherock-cysync/commit/e7840d1711483ab6efa3be2d1488b4ab17ccd863)]:
+  - @cypherock/coin-support-btc@0.0.19
+  - @cypherock/coin-support@0.1.8
+  - @cypherock/cysync-core-services@0.1.6
+  - @cypherock/cysync-core-workers@0.0.22
+
+## 0.6.3
+
+### Patch Changes
+
+- [#766](https://github.com/Cypherock/cypherock-cysync/pull/766) [`fb604652`](https://github.com/Cypherock/cypherock-cysync/commit/fb6046521f39f2742a564d99cf25c4c340424f70) Thanks [@AryanCypherock](https://github.com/AryanCypherock)! - Affiliate section added and sidebar updated
+
+- Updated dependencies [[`fb604652`](https://github.com/Cypherock/cypherock-cysync/commit/fb6046521f39f2742a564d99cf25c4c340424f70)]:
+  - @cypherock/cysync-ui@0.0.14
+
 ## 0.6.2
 
 ### Patch Changes

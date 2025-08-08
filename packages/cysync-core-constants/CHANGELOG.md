@@ -1,5 +1,11 @@
 # @cypherock/cysync-core-constants
 
+## 0.5.0
+
+### Minor Changes
+
+- [#787](https://github.com/Cypherock/cypherock-cysync/pull/787) [`66476ac5`](https://github.com/Cypherock/cypherock-cysync/commit/66476ac55b6e334b459bb252612a45d4dcb56e50) Thanks [@AryanCypherock](https://github.com/AryanCypherock)! - French language support added
+
 ## 0.4.2
 
 ### Patch Changes

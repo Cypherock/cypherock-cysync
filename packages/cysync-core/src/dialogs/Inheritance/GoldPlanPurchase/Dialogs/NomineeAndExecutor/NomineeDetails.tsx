@@ -28,10 +28,10 @@ export const NomineeDetails: React.FC<{ index: number }> = ({ index }) => {
 
   const details = useMemo(() => nomineeDetails[index], [nomineeDetails]);
 
-  const [name, setName] = useState(details.name ?? '');
-  const [email, setEmail] = useState(details.email ?? '');
+  const [name, setName] = useState(details?.name ?? '');
+  const [email, setEmail] = useState(details?.email ?? '');
   const [alternateEmail, setAlternateEmail] = useState(
-    details.alternateEmail ?? '',
+    details?.alternateEmail ?? '',
   );
 
   const formId = 'inheritance-gold-plan-user-details';

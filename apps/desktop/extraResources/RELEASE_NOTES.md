@@ -1,3 +1,32 @@
+# v2.1.4
+
+### 🚀 Feature
+
+- Added French language support in the cySync app.
+
+# v2.1.3
+
+### 🐛 Bugfix
+
+- Fixed issues with **Cypherock Cover** plan setup for a smoother experience.
+
+# v2.1.2
+
+### 🚀 Feature
+
+- **SegWit Support:** Send and receive BTC with SegWit for lower fees and faster confirmations.
+
+### 🐛 Bugfix
+
+- **Dust Limit Fix:** Fixed the SER_2000 broadcast failed error when sending small Bitcoin amounts.
+
+# v2.1.1
+
+### 🚀 Feature
+
+- **UI Upgrade**: Sidebar redesigned; main buttons moved to topbar for smoother navigation.
+- **Refer & Earn**: New in-app affiliate feature – invite friends and earn rewards!
+
 # v2.1.0
 
 ### 🚀 Feature

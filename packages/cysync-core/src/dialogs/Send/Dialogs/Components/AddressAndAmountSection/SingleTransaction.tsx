@@ -106,7 +106,7 @@ export const SingleTransaction: React.FC<SingleTransactionProps> = ({
     return {
       label: displayText.destinationTag.label,
       placeholder: displayText.destinationTag.placeholder,
-      initialValue: txn.userInputs.outputs[0]?.destinationTag,
+      initialValue: txn?.userInputs.outputs[0]?.destinationTag,
       isDisabled: disableInputs,
       onChange: prepareDestinationTag,
       error: getDestinationTagError(),
@@ -148,7 +148,7 @@ export const SingleTransaction: React.FC<SingleTransactionProps> = ({
     return {
       label: displayText.memo.label,
       placeholder: displayText.memo.placeholder,
-      initialValue: txn.userInputs.outputs[0]?.memo,
+      initialValue: txn?.userInputs.outputs[0]?.memo,
       onChange: prepareMemo,
       limit: MAX_UINT64,
     };
@@ -261,7 +261,7 @@ export const SingleTransaction: React.FC<SingleTransactionProps> = ({
           toggleLabel={disableInputs ? '' : displayText.amount.toggle}
           initialToggle={transaction?.userInputs.isSendAll !== false}
           priceUnit={displayText.amount.dollar}
-          error={getAmountError()}
+          error={getAmountError(0)}
           placeholder={displayText.amount.placeholder}
           initialAmount={getConvertedAmount(
             transaction?.userInputs.outputs[0]?.amount,

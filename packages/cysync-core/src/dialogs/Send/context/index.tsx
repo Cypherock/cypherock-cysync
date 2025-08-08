@@ -139,7 +139,7 @@ export interface SendDialogContextInterface {
   defaultWalletId?: string;
   defaultAccountId?: string;
   getOutputError: (index: number) => string;
-  getAmountError: () => string;
+  getAmountError: (index: number) => string;
   getDestinationTagError: () => string;
   getMemoError: () => string;
   isPreparingTxn: boolean;
@@ -877,6 +877,18 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
     [transaction, lang],
   );
 
+  const getBtcAmountError = useCallback(
+    (index: number) => {
+      const btcValidation =
+        transaction?.validation as IPreparedBtcTransaction['validation'];
+
+      return btcValidation?.isNotOverDustThreshold?.[index]
+        ? lang.strings.send.recipient.amount.notOverDustThreshold
+        : '';
+    },
+    [transaction, lang],
+  );
+
   const getXrpAmountError = useCallback(() => {
     const xrpValidation =
       transaction?.validation as IPreparedXrpTransaction['validation'];
@@ -1004,45 +1016,46 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
     return '';
   }, [transaction, lang, selectedAccount]);
 
-  const getAmountError = useCallback(() => {
-    if (transaction?.validation.zeroAmountNotAllowed) {
-      return lang.strings.send.recipient.amount.zeroAmount;
-    }
+  const getAmountError = useCallback(
+    (index: number) => {
+      if (transaction?.validation.zeroAmountNotAllowed) {
+        return lang.strings.send.recipient.amount.zeroAmount;
+      }
 
-    if (
-      (transaction?.validation as IPreparedBtcTransaction['validation'])
-        ?.isNotOverDustThreshold
-    ) {
-      return lang.strings.send.recipient.amount.notOverDustThreshold;
-    }
+      if (transaction?.validation.hasEnoughBalance === false) {
+        return lang.strings.send.recipient.amount.error;
+      }
 
-    if (transaction?.validation.hasEnoughBalance === false) {
-      return lang.strings.send.recipient.amount.error;
-    }
+      const btcAmountError = getBtcAmountError(index);
+      if (btcAmountError !== '') {
+        return btcAmountError;
+      }
 
-    const xrpAmountError = getXrpAmountError();
-    if (xrpAmountError !== '') {
-      return xrpAmountError;
-    }
+      const xrpAmountError = getXrpAmountError();
+      if (xrpAmountError !== '') {
+        return xrpAmountError;
+      }
 
-    const solanaAmountError = getSolanaAmountError();
-    if (solanaAmountError !== '') {
-      return solanaAmountError;
-    }
+      const solanaAmountError = getSolanaAmountError();
+      if (solanaAmountError !== '') {
+        return solanaAmountError;
+      }
 
-    const stellarAmountError = getStellarAmountError();
-    if (stellarAmountError !== '') {
-      return stellarAmountError;
-    }
+      const stellarAmountError = getStellarAmountError();
+      if (stellarAmountError !== '') {
+        return stellarAmountError;
+      }
 
-    return '';
-  }, [
-    transaction,
-    lang,
-    getXrpAmountError,
-    getSolanaAmountError,
-    getStellarAmountError,
-  ]);
+      return '';
+    },
+    [
+      transaction,
+      lang,
+      getXrpAmountError,
+      getSolanaAmountError,
+      getStellarAmountError,
+    ],
+  );
 
   const getDestinationTagError = useCallback(() => {
     if (
