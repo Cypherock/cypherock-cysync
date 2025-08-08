@@ -336,6 +336,17 @@
         "placeholder": "أدخل مذكرة رقمية",
         "error": "قيمة مرتفعة جدًا"
       },
+      "stellarMemo": {
+        "label": "Memo (Optional",
+        "placeholder": {
+          "none": "Select different type to enter memo",
+          "text": "Enter text memo (max 28 bytes)",
+          "id": "Enter a numeric memo ID",
+          "hash": "Enter 64-character hex hash memo",
+          "return": "Enter 64-character hex return hash memo"
+        },
+        "error": "Invalid memo"
+      },
       "feeBelowMinError": "المعاملة ذات الرسوم الأقل من الحد الأدنى ستفشل",
       "rentExemptFeeWarning": "استلام رمز على سولانا لأول مرة يستلزم رسوم إعفاء من الإيجار، وتشمل إجمالي الرسوم."
     },
