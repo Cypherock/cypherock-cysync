@@ -156,13 +156,13 @@ export const SingleTransaction: React.FC<SingleTransactionProps> = ({
 
   const getStellarMemoInputProps = () => {
     const txn = transaction as IPreparedStellarTransaction;
+    const stellarTexts = displayText.stellarMemo;
     return {
-      label: displayText.stellarMemo.label,
-      placeholder: displayText.stellarMemo.placeholder,
-      initialValue: {
-        type: txn.userInputs.outputs[0]?.memo?.type ?? IStellarMemoType.NONE,
-        value: txn.userInputs.outputs[0]?.memo?.value ?? '',
-      },
+      label: stellarTexts.label,
+      inputPlaceholder: stellarTexts.inputPlaceholder,
+      dropdownPlaceholder: stellarTexts.dropdownPlaceholder,
+      searchText: stellarTexts.searchText,
+      initialValue: txn.userInputs.outputs[0]?.memo,
       onChange: prepareStellarMemo,
       memoTypes: [
         { value: IStellarMemoType.NONE, label: 'None' },

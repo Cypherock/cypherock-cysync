@@ -347,13 +347,15 @@ interface LangSend {
     };
     stellarMemo: {
       label: string;
-      placeholder: {
+      inputPlaceholder: {
         none: string;
         text: string;
         id: string;
         hash: string;
         return: string;
       };
+      dropdownPlaceholder: string;
+      searchText: string;
       error: string;
     };
     rentExemptFeeWarning: string;

@@ -9,10 +9,11 @@ import {
   Typography,
   CustomInputSend,
   Input,
-  Breadcrumb,
+  DropDownItemProps,
+  Dropdown,
 } from '@cypherock/cysync-ui';
 import lodash from 'lodash';
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useMemo, useState } from 'react';
 
 interface MemoTypeOption {
   value: IStellarMemoType;
@@ -21,14 +22,16 @@ interface MemoTypeOption {
 
 interface StellarMemoInputProps {
   label: string;
-  placeholder: {
+  inputPlaceholder: {
     none: string;
     text: string;
     id: string;
     hash: string;
     return: string;
   };
-  initialValue: IStellarMemo;
+  dropdownPlaceholder: string;
+  searchText: string;
+  initialValue?: IStellarMemo;
   onChange: (memo: IStellarMemo) => Promise<void>;
   memoTypes: MemoTypeOption[];
   error?: string;
@@ -37,17 +40,19 @@ interface StellarMemoInputProps {
 
 export const StellarMemoInput: React.FC<StellarMemoInputProps> = ({
   label,
-  placeholder,
+  inputPlaceholder,
+  dropdownPlaceholder,
+  searchText,
   initialValue,
   onChange,
   memoTypes,
   error,
   isDisabled,
 }) => {
-  const [selectedType, setSelectedType] = useState<IStellarMemoType>(
-    initialValue.type,
-  );
-  const [memoValue, setMemoValue] = useState<string>(initialValue.value ?? '');
+  const [selectedType, setSelectedType] = useState<
+    IStellarMemoType | undefined
+  >(initialValue?.type);
+  const [memoValue, setMemoValue] = useState<string>(initialValue?.value ?? '');
 
   const debouncedOnChange = useCallback(
     lodash.debounce((memo: IStellarMemo) => {
@@ -56,25 +61,25 @@ export const StellarMemoInput: React.FC<StellarMemoInputProps> = ({
     [onChange],
   );
 
-  const getPlaceholderText = (type: IStellarMemoType): string => {
+  const getPlaceholderText = (type?: IStellarMemoType): string => {
     switch (type) {
       case IStellarMemoType.TEXT:
-        return placeholder.text;
+        return inputPlaceholder.text;
       case IStellarMemoType.ID:
-        return placeholder.id;
+        return inputPlaceholder.id;
       case IStellarMemoType.HASH:
-        return placeholder.hash;
+        return inputPlaceholder.hash;
       case IStellarMemoType.RETURN:
-        return placeholder.return;
+        return inputPlaceholder.return;
       default:
-        return placeholder.none;
+        return '';
     }
   };
 
   const handleTypeChange = (type: IStellarMemoType) => {
     setSelectedType(type);
 
-    if (type === IStellarMemoType.NONE) {
+    if (!type || type === IStellarMemoType.NONE) {
       setMemoValue('');
       debouncedOnChange({ type, value: '' });
     } else {
@@ -83,47 +88,26 @@ export const StellarMemoInput: React.FC<StellarMemoInputProps> = ({
   };
 
   const handleValueChange = (value: string) => {
-    if (selectedType === IStellarMemoType.NONE) return;
+    if (!selectedType || selectedType === IStellarMemoType.NONE) return;
 
     setMemoValue(value);
     debouncedOnChange({ type: selectedType, value });
   };
 
-  // Create breadcrumb items for memo type dropdown
-  const breadcrumbItems = [
-    {
-      id: 'memo-type',
-      dropdown: {
-        displayNode: (
-          <Container direction="row">
-            <Typography ml={1} color="white" $fontSize={14}>
-              {memoTypes.find(type => type.value === selectedType)?.label ??
-                'None'}
-            </Typography>
-          </Container>
-        ),
-        selectedItem: selectedType,
-        setSelectedItem: (typeValue: string | undefined) => {
-          if (typeValue) {
-            handleTypeChange(typeValue as IStellarMemoType);
-          }
-        },
-        dropdown: memoTypes.map(type => ({
-          text: type.label,
-          id: type.value,
-          displayNode: (
-            <Container direction="row">
-              <Typography ml={1} color="muted" $fontSize={14}>
-                {type.label}
-              </Typography>
-            </Container>
-          ),
-        })),
-      },
-    },
-  ];
+  const disableInput = useMemo(
+    () => !selectedType || selectedType === IStellarMemoType.NONE || isDisabled,
+    [selectedType, isDisabled],
+  );
 
-  const showInput = selectedType !== IStellarMemoType.NONE;
+  const memoTypeDropdownList: DropDownItemProps[] = useMemo(
+    () =>
+      memoTypes.map(memoType => ({
+        id: memoType.value,
+        text: memoType.label,
+        checkType: 'radio',
+      })),
+    [memoTypes],
+  );
 
   return (
     <Container display="flex" direction="column" width="full" gap={8}>
@@ -133,33 +117,41 @@ export const StellarMemoInput: React.FC<StellarMemoInputProps> = ({
         </Typography>
       </Flex>
 
-      {/* Combined Memo Type Dropdown + Input Field */}
-      <CustomInputSend>
-        <Flex align="center" width="full">
-          {/* Memo Type Dropdown */}
-          <Container $minWidth="80px">
-            <Breadcrumb items={breadcrumbItems} />
-          </Container>
-
-          {/* Memo Value Input - always show container for consistent height */}
-          <Container $flex="1" ml={2} $minHeight="40px">
-            {showInput ? (
-              <Input
-                type="text"
-                name="stellarMemo"
-                placeholder={getPlaceholderText(selectedType)}
-                onChange={handleValueChange}
-                disabled={isDisabled}
-                value={memoValue}
-                $textColor="white"
-                $noBorder
-              />
-            ) : (
-              <div style={{ height: '100%' }} />
-            )}
-          </Container>
-        </Flex>
-      </CustomInputSend>
+      <Flex $alignSelf="stretch" gap={8} align="flex-start" width="full">
+        <Container align="center" width="140px" justify="space-between">
+          <Dropdown
+            items={memoTypeDropdownList}
+            selectedItem={selectedType}
+            searchText={searchText}
+            placeholderText={dropdownPlaceholder}
+            onChange={(typeValue?: string) =>
+              typeValue && handleTypeChange(typeValue as IStellarMemoType)
+            }
+            autoFocus={false}
+            noLeftImageInList
+            disabled={isDisabled}
+          />
+        </Container>
+        <Container
+          align="center"
+          $flex="1 0 0"
+          $alignSelf="stretch"
+          $minHeight="40px"
+        >
+          <CustomInputSend>
+            <Input
+              type="text"
+              name="stellarMemo"
+              placeholder={getPlaceholderText(selectedType)}
+              onChange={handleValueChange}
+              disabled={disableInput}
+              value={memoValue}
+              $textColor="white"
+              $noBorder
+            />
+          </CustomInputSend>
+        </Container>
+      </Flex>
 
       {error && (
         <Typography
@@ -178,4 +170,5 @@ export const StellarMemoInput: React.FC<StellarMemoInputProps> = ({
 StellarMemoInput.defaultProps = {
   error: undefined,
   isDisabled: undefined,
+  initialValue: undefined,
 };

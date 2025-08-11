@@ -337,14 +337,16 @@
         "error": "Nilai terlalu tinggi"
       },
       "stellarMemo": {
-        "label": "Memo (Optional",
-        "placeholder": {
-          "none": "Select different type to enter memo",
+        "label": "Memo (Optional)",
+        "inputPlaceholder": {
+          "none": "",
           "text": "Enter text memo (max 28 bytes)",
           "id": "Enter a numeric memo ID",
           "hash": "Enter 64-character hex hash memo",
           "return": "Enter 64-character hex return hash memo"
         },
+        "dropdownPlaceholder": "Memo",
+        "searchText": "Search",
         "error": "Invalid memo"
       },
       "feeBelowMinError": "Transaksi dengan biaya lebih rendah dari minimum akan gagal",
