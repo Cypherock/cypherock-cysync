@@ -5,6 +5,7 @@ import {
   SolanaIdMap,
   NearIdMap,
   XrpIdMap,
+  StellarIdMap,
 } from '@cypherock/coins';
 import {
   ContainerProps,
@@ -26,6 +27,7 @@ import {
   MediaQuery,
   Image,
   UtilsProps,
+  StellarIcon,
 } from '@cypherock/cysync-ui';
 import React from 'react';
 
@@ -62,6 +64,7 @@ const coinToIconMap: Record<string, React.FC<IconProps> | undefined> = {
   [NearIdMap.near]: NearIcon,
   [SolanaIdMap.solana]: SolanaIcon,
   [XrpIdMap.xrp]: XrpIcon,
+  [StellarIdMap.stellar]: StellarIcon,
 } as Record<string, React.FC<IconProps> | undefined>;
 
 const fallbackIcon = `https://static.cypherock.com/images/fallback-crypto-icon.png`;
