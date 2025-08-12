@@ -19,3 +19,5 @@ export const fiatCurrencyList: Record<string, IFiatCurrency> =
     }),
     {},
   );
+
+export * from './service';

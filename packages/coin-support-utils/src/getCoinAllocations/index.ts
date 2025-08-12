@@ -12,7 +12,7 @@ export * from './types';
 export async function createGetCoinAllocations(
   params: ICreateGetCoinAllocationsParams,
 ) {
-  const { db, walletId, getCoinIds, assetId, parentAssetId } = params;
+  const { db, walletId, getCoinIds, assetId, parentAssetId, currency } = params;
 
   const allocations: ICoinAllocation[] = [];
 
@@ -32,7 +32,7 @@ export async function createGetCoinAllocations(
       query.walletId = walletId;
     }
 
-    const coinPrice = await getCoinPrice(db, coinId.assetId);
+    const coinPrice = await getCoinPrice(db, coinId.assetId, currency);
     const accounts = await db.account.getAll(query);
 
     if (accounts.length > 0) {

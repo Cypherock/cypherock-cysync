@@ -25,6 +25,7 @@ export interface CalculatePortfolioGraphDataParams {
   parentAssetId?: string;
   accountId?: string;
   showGraphInUSD: boolean;
+  currency: string;
 }
 
 export interface CalculatePortfolioGraphDataParamsWithComputedData
