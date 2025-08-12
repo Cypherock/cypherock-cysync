@@ -7,7 +7,6 @@ import {
   getDefaultUnit,
   getParsedAmount,
   getZeroUnit,
-  DEFAULT_CURRENCY,
 } from '@cypherock/coin-support-utils';
 import { coinFamiliesMap } from '@cypherock/coins';
 import {
@@ -31,11 +30,12 @@ import React, { useCallback, useEffect, useState } from 'react';
 
 import { openHistoryDialog } from '~/actions';
 import { CoinIcon } from '~/components';
+import { useCurrency } from '~/context';
 import { useStateToRef, useWindowSize } from '~/hooks';
 import {
   selectDiscreetMode,
   selectLanguage,
-  selectPriceInfos,
+  selectCurrentCurrencyPriceInfos,
   selectTransactions,
   selectUnHiddenAccounts,
   selectWallets,
@@ -130,16 +130,18 @@ const selector = createSelector(
     selectWallets,
     selectUnHiddenAccounts,
     selectTransactions,
-    selectPriceInfos,
+    selectCurrentCurrencyPriceInfos,
     selectDiscreetMode,
+    (state, currency: string) => currency,
   ],
   (
     lang,
     { wallets },
     { accounts },
     { transactions },
-    { priceInfos },
+    priceInfos,
     { active: isDiscreetMode },
+    currency,
   ) => ({
     lang,
     wallets,
@@ -147,6 +149,7 @@ const selector = createSelector(
     transactions,
     priceInfos,
     isDiscreetMode,
+    currency,
   }),
 );
 
@@ -179,19 +182,20 @@ const getDisplayValues = (
   transaction: ITransaction,
   priceInfos: IPriceInfo[],
   isDiscreetMode: boolean,
+  currency: string,
 ) => {
-  let displayValue = '0.00';
+  let displayValue = formatDisplayPrice('0.00', currency);
   let value = '0.00';
-  let displayFeeValue = '0.00';
+  let displayFeeValue = formatDisplayPrice('0.00', currency);
   const coinPrice = priceInfos.find(
     p =>
       p.assetId === transaction.parentAssetId &&
-      p.currency.toLowerCase() === DEFAULT_CURRENCY,
+      p.currency.toLowerCase() === currency.toLowerCase(),
   );
   const assetPrice = priceInfos.find(
     p =>
       p.assetId === transaction.assetId &&
-      p.currency.toLowerCase() === DEFAULT_CURRENCY,
+      p.currency.toLowerCase() === currency.toLowerCase(),
   );
 
   if (coinPrice) {
@@ -204,7 +208,7 @@ const getDisplayValues = (
     const feeValue = new BigNumber(feeInDefaultUnit.amount).multipliedBy(
       coinPrice.latestPrice,
     );
-    displayFeeValue = `${formatDisplayPrice(feeValue, DEFAULT_CURRENCY)}`;
+    displayFeeValue = formatDisplayPrice(feeValue, currency);
   }
 
   if (assetPrice) {
@@ -221,7 +225,7 @@ const getDisplayValues = (
       new BigNumber(amountInDefaultUnit.amount).multipliedBy(
         assetPrice.latestPrice,
       ),
-      DEFAULT_CURRENCY,
+      currency,
     );
     value = formattedValue;
     displayValue = formattedValue;
@@ -278,7 +282,7 @@ const getDisplayValues = (
     statusText: lodash.capitalize(transaction.status),
     displayValueWithoutUnit: value,
     displayValue: isDiscreetMode ? '****' : displayValue,
-    displayValueUnit: DEFAULT_CURRENCY.toUpperCase(),
+    displayValueUnit: currency.toUpperCase(),
     displayFeeValue: isDiscreetMode ? '****' : displayFeeValue,
     displayFee: `${isDiscreetMode ? '****' : fee} ${feeUnit.abbr}`,
     amount: parseFloat(amount),
@@ -322,6 +326,7 @@ export const mapTransactionForDisplay = (params: {
   accounts: IAccount[];
   lang: ILangState;
   isDiscreetMode: boolean;
+  currency: string;
 }): TransactionRowData => {
   const { transaction } = params;
 
@@ -333,7 +338,12 @@ export const mapTransactionForDisplay = (params: {
   );
 
   return {
-    ...getDisplayValues(transaction, params.priceInfos, params.isDiscreetMode),
+    ...getDisplayValues(
+      transaction,
+      params.priceInfos,
+      params.isDiscreetMode,
+      params.currency,
+    ),
     id: transaction.__id ?? '',
     xpubOrAddress: account?.xpubOrAddress ?? '',
     walletAndAccount: getWalletAndAccount(wallet, account),
@@ -363,6 +373,7 @@ export const useTransactions = ({
   parentAssetId,
   accountId,
 }: UseTransactionsProps = {}) => {
+  const { currentCurrency } = useCurrency();
   const {
     lang,
     wallets,
@@ -370,7 +381,8 @@ export const useTransactions = ({
     transactions: allTransactions,
     priceInfos,
     isDiscreetMode,
-  } = useAppSelector(selector);
+  } = useAppSelector(state => selector(state, currentCurrency));
+
   const refData = useStateToRef({
     lang,
     wallets,
@@ -382,6 +394,7 @@ export const useTransactions = ({
     assetId,
     parentAssetId,
     accountId,
+    currentCurrency,
   });
 
   const dispatch = useAppDispatch();
@@ -472,6 +485,7 @@ export const useTransactions = ({
             wallets: refData.current.wallets,
             accounts: refData.current.accounts,
             lang: refData.current.lang,
+            currency: refData.current.currentCurrency,
           }),
         );
 
@@ -494,7 +508,15 @@ export const useTransactions = ({
 
   useEffect(() => {
     debounceParseTransactionListOnUserAction();
-  }, [isDiscreetMode, lang, walletId, assetId, parentAssetId, accountId]);
+  }, [
+    isDiscreetMode,
+    lang,
+    walletId,
+    assetId,
+    parentAssetId,
+    accountId,
+    currentCurrency,
+  ]);
 
   useEffect(() => {
     setDisplayedData(getDisplayDataList(transactionList));

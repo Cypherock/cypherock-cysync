@@ -1,7 +1,6 @@
 import {
   getDefaultUnit,
   formatDisplayPrice,
-  DEFAULT_CURRENCY,
 } from '@cypherock/coin-support-utils';
 import {
   CustomInputSend,
@@ -13,8 +12,13 @@ import {
 } from '@cypherock/cysync-ui';
 import { BigNumber } from '@cypherock/cysync-utils';
 import React, { useMemo, useRef } from 'react';
+import { useCurrency } from '~/context';
 
-import { useAppSelector, selectLanguage, selectPriceInfos } from '~/store';
+import {
+  useAppSelector,
+  selectLanguage,
+  selectCurrentCurrencyPriceInfos,
+} from '~/store';
 
 const throbber: JSX.Element = <Throbber size={15} strokeWidth={2} />;
 
@@ -135,7 +139,10 @@ export const AmountAndAccountSelection: React.FC<any> = ({
   const lang = useAppSelector(selectLanguage);
   const dialogText = lang.strings.swap.detailsInput.common;
 
-  const { priceInfos } = useAppSelector(selectPriceInfos);
+  const { currentCurrency } = useCurrency();
+  const priceInfos = useAppSelector(state =>
+    selectCurrentCurrencyPriceInfos(state, currentCurrency),
+  );
 
   const coinUnit = useMemo(() => {
     const account = selectedAccount;
@@ -152,9 +159,7 @@ export const AmountAndAccountSelection: React.FC<any> = ({
     const account = selectedAccount;
     if (!account) return '';
 
-    const assetPrice = priceInfos.find(
-      p => p.assetId === account?.assetId && p.currency.toLowerCase() === 'usd',
-    );
+    const assetPrice = priceInfos.find(p => p.assetId === account?.assetId);
 
     if (!assetPrice) return '';
 
@@ -163,7 +168,7 @@ export const AmountAndAccountSelection: React.FC<any> = ({
       assetPrice.latestPrice,
     );
 
-    const value = formatDisplayPrice(amountValue, DEFAULT_CURRENCY);
+    const value = formatDisplayPrice(amountValue, currentCurrency);
 
     return `~${value} ${assetPrice.currency.toUpperCase()}`;
   }, [selectedAccount, amount]);

@@ -121,7 +121,7 @@ const selector = createSelector(
     { wallets },
     { accounts },
     { transactions },
-    { priceInfos },
+    priceInfos,
     { active: isDiscreetMode },
   ) => ({
     lang,
