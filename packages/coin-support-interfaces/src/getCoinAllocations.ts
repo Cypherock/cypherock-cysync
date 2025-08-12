@@ -13,6 +13,7 @@ export interface IGetCoinAllocationsParams {
   walletId?: string;
   parentAssetId?: string;
   assetId?: string;
+  currency: string;
 }
 
 export interface IGetCoinAllocationsResult {
