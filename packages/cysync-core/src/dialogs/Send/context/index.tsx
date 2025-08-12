@@ -23,7 +23,6 @@ import {
 import { IPreparedTronTransaction } from '@cypherock/coin-support-tron';
 import {
   convertToUnit,
-  DEFAULT_CURRENCY,
   formatDisplayAmount,
   formatDisplayPrice,
   getDefaultUnit,
@@ -64,6 +63,7 @@ import { LoaderDialog } from '~/components';
 import {
   WalletConnectCallRequestMethodMap,
   deviceLock,
+  useCurrency,
   useDevice,
   useWalletConnect,
 } from '~/context';
@@ -77,8 +77,8 @@ import {
 } from '~/hooks';
 import {
   closeDialog,
+  selectCurrentCurrencyPriceInfos,
   selectLanguage,
-  selectPriceInfos,
   useAppDispatch,
   useAppSelector,
 } from '~/store';
@@ -204,7 +204,10 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
 }) => {
   const lang = useAppSelector(selectLanguage);
   const dispatch = useAppDispatch();
-  const { priceInfos } = useAppSelector(selectPriceInfos);
+  const { currentCurrency } = useCurrency();
+  const priceInfos = useAppSelector(state =>
+    selectCurrentCurrencyPriceInfos(state, currentCurrency),
+  );
   const deviceRequiredDialogsMap: Record<number, number[] | undefined> =
     useMemo(
       () => ({
@@ -722,9 +725,7 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
 
   const priceConverter = (val: string, invert?: boolean) => {
     const coinPrice = priceInfos.find(
-      p =>
-        p.assetId === selectedAccount?.assetId &&
-        p.currency.toLowerCase() === 'usd',
+      p => p.assetId === selectedAccount?.assetId,
     );
 
     if (!coinPrice) return '';
@@ -737,7 +738,7 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
     if (result.isNaN()) return '';
     return invert
       ? formatDisplayAmount(result).complete
-      : formatDisplayPrice(result, DEFAULT_CURRENCY);
+      : formatDisplayPrice(result, currentCurrency);
   };
 
   const updateUserInputs = (count: number) => {

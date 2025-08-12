@@ -1,5 +1,4 @@
 import {
-  DEFAULT_CURRENCY,
   formatDisplayAmount,
   formatDisplayPrice,
   getDefaultUnit,
@@ -23,8 +22,8 @@ import {
 import {
   selectDiscreetMode,
   selectLanguage,
-  selectPriceHistories,
-  selectPriceInfos,
+  selectCurrentCurrencyPriceHistories,
+  selectCurrentCurrencyPriceInfos,
   selectTransactions,
   selectUnHiddenAccounts,
   selectWallets,
@@ -35,6 +34,7 @@ import logger from '~/utils/logger';
 
 import { UseGraphProps } from './types';
 import { calculatePortfolioGraphDataWithWorker } from './worker';
+import { useCurrency } from '~/context';
 
 export * from './types';
 
@@ -43,19 +43,21 @@ const selector = createSelector(
     selectLanguage,
     selectWallets,
     selectUnHiddenAccounts,
-    selectPriceHistories,
-    selectPriceInfos,
+    selectCurrentCurrencyPriceHistories,
+    selectCurrentCurrencyPriceInfos,
     selectTransactions,
     selectDiscreetMode,
+    (state, currency: string) => currency,
   ],
   (
     lang,
     { wallets },
     { accounts },
-    { priceHistories },
-    { priceInfos },
+    priceHistories,
+    priceInfos,
     { transactions },
     { active: isDiscreetMode },
+    currency,
   ) => ({
     lang,
     wallets,
@@ -64,12 +66,14 @@ const selector = createSelector(
     priceInfos,
     transactions,
     isDiscreetMode,
+    currency,
   }),
 );
 
 export const useGraph = (props?: UseGraphProps) => {
   const theme = useTheme();
   const dispatch = useAppDispatch();
+  const { currentCurrency } = useCurrency();
   const {
     lang,
     accounts,
@@ -78,7 +82,7 @@ export const useGraph = (props?: UseGraphProps) => {
     priceHistories,
     priceInfos,
     isDiscreetMode,
-  } = useAppSelector(selector);
+  } = useAppSelector(state => selector(state, currentCurrency));
 
   const { rangeList, selectedRange, setSelectedRange } = useGraphTimeRange();
 
@@ -117,6 +121,7 @@ export const useGraph = (props?: UseGraphProps) => {
     showGraphInUSD,
     theme,
     computedData: calculatedData,
+    currentCurrency,
   });
 
   const getAssetDetailsFromProps = () => {
@@ -151,7 +156,7 @@ export const useGraph = (props?: UseGraphProps) => {
       parentAssetId: data.props?.parentAssetId,
       showGraphInUSD: data.showGraphInUSD,
       days: graphTimeRangeToDaysMap[data.selectedRange],
-      currency: DEFAULT_CURRENCY,
+      currency: data.currentCurrency,
     };
 
     try {
@@ -213,7 +218,13 @@ export const useGraph = (props?: UseGraphProps) => {
     includeUnit = false,
   ) => {
     const { parentAssetId, assetId } = getAssetDetailsFromProps();
-    if (new BigNumber(value).isNaN()) return '';
+    if (new BigNumber(value).isNaN() && typeof value === 'string') {
+      return value;
+    }
+    if (new BigNumber(value).isNaN()) {
+      return '';
+    }
+
     const showUnitInUSD = showInUSD ?? showGraphInUSD;
     let unit: ICoinUnit | undefined;
 
@@ -225,13 +236,13 @@ export const useGraph = (props?: UseGraphProps) => {
       if (!includeUnit) return v;
 
       if (unit && !showUnitInUSD) return `${v} ${unit.abbr}`;
-      return `${v}`;
+      return v;
     };
 
     if (isDiscreetMode) return appendUnit('****');
 
     if (showUnitInUSD)
-      return appendUnit(formatDisplayPrice(value, DEFAULT_CURRENCY));
+      return appendUnit(formatDisplayPrice(value, currentCurrency));
     return appendUnit(formatDisplayAmount(value).complete);
   };
 
@@ -251,6 +262,7 @@ export const useGraph = (props?: UseGraphProps) => {
       props?.assetId,
       props?.parentAssetId,
       isDiscreetMode,
+      currentCurrency,
     ],
   );
 
@@ -275,6 +287,7 @@ export const useGraph = (props?: UseGraphProps) => {
       props?.assetId,
       props?.parentAssetId,
       isDiscreetMode,
+      currentCurrency,
     ],
   );
 

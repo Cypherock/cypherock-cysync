@@ -1,5 +1,4 @@
 import {
-  DEFAULT_CURRENCY,
   formatDisplayPrice,
   getAsset,
   getDefaultUnit,
@@ -34,12 +33,12 @@ import {
 import React, { useEffect, useState } from 'react';
 
 import { CoinIcon } from '~/components';
-import { useSwap } from '~/context';
+import { useCurrency, useSwap } from '~/context';
 import { getExchangeStatus } from '~/services/swapService';
 import {
   selectAccounts,
+  selectCurrentCurrencyPriceInfos,
   selectLanguage,
-  selectPriceInfos,
   selectWallets,
   useAppSelector,
 } from '~/store';
@@ -167,7 +166,10 @@ export const SwapStatus = () => {
 
   const { wallets } = useAppSelector(selectWallets);
   const { accounts } = useAppSelector(selectAccounts);
-  const { priceInfos } = useAppSelector(selectPriceInfos);
+  const { currentCurrency } = useCurrency();
+  const priceInfos = useAppSelector(rootState =>
+    selectCurrentCurrencyPriceInfos(rootState, currentCurrency),
+  );
 
   const getAccountDetails = (account: IAccount) => {
     const accountDetails = [
@@ -209,16 +211,14 @@ export const SwapStatus = () => {
     account: IAccount,
     amount: string,
   ) => {
-    const coinPrice = priceInfos.find(
-      p => p.assetId === account.assetId && p.currency.toLowerCase() === 'usd',
-    );
+    const coinPrice = priceInfos.find(p => p.assetId === account.assetId);
     if (!account || !coinPrice) return [];
 
     const unit = getDefaultUnit(account.parentAssetId, account.assetId).abbr;
 
     const value = formatDisplayPrice(
       new BigNumber(amount).multipliedBy(coinPrice.latestPrice),
-      DEFAULT_CURRENCY,
+      currentCurrency,
     );
 
     const outputDetails: SummaryItemType = [

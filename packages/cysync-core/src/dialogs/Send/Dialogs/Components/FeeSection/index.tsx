@@ -10,7 +10,6 @@ import {
   getParsedAmount,
   getZeroUnit,
   formatDisplayPrice,
-  DEFAULT_CURRENCY,
 } from '@cypherock/coin-support-utils';
 import { IPreparedXrpTransaction } from '@cypherock/coin-support-xrp';
 import {
@@ -30,8 +29,8 @@ import { useLabelSuffix } from '~/dialogs/Send/hooks';
 import { useStateToRef } from '~/hooks';
 import {
   ILangState,
+  selectCurrentCurrencyPriceInfos,
   selectLanguage,
-  selectPriceInfos,
   useAppSelector,
 } from '~/store';
 
@@ -43,6 +42,7 @@ import { OptimismFeesHeader } from './OptimismFeesHeader';
 import { XrpInput } from './XrpInput';
 
 import { useSendDialog } from '../../../context';
+import { useCurrency } from '~/context';
 
 const feeInputMap: Partial<Record<CoinFamily, React.FC<any>>> = {
   bitcoin: BitcoinInput,
@@ -119,7 +119,10 @@ export const FeeSection: React.FC<FeeSectionProps> = ({
 }) => {
   const lang = useAppSelector(selectLanguage);
   const displayText = lang.strings.send.recipient;
-  const { priceInfos } = useAppSelector(selectPriceInfos);
+  const { currentCurrency } = useCurrency();
+  const priceInfos = useAppSelector(state =>
+    selectCurrentCurrencyPriceInfos(state, currentCurrency),
+  );
   const { transaction, selectedAccount, prepare, getComputedFee } =
     useSendDialog();
   const transactionRef = useStateToRef({ transaction });
@@ -383,9 +386,7 @@ export const FeeSection: React.FC<FeeSectionProps> = ({
     result.fee = `${_amount} ${unit.abbr}`;
 
     const coinPrice = priceInfos.find(
-      p =>
-        p.assetId === (isIcpToken ? account.assetId : account.parentAssetId) &&
-        p.currency.toLowerCase() === 'usd',
+      p => p.assetId === (isIcpToken ? account.assetId : account.parentAssetId),
     );
 
     if (coinPrice) {
@@ -405,7 +406,7 @@ export const FeeSection: React.FC<FeeSectionProps> = ({
       const feeValue = new BigNumber(feesInDefaultUnit.amount).multipliedBy(
         coinPrice.latestPrice,
       );
-      result.value = `${formatDisplayPrice(feeValue, DEFAULT_CURRENCY)}`;
+      result.value = `${formatDisplayPrice(feeValue, currentCurrency)}`;
     }
 
     return result;

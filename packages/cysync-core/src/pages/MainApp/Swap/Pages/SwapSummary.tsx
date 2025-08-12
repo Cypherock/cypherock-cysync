@@ -1,5 +1,4 @@
 import {
-  DEFAULT_CURRENCY,
   formatDisplayAmount,
   formatDisplayPrice,
   getAsset,
@@ -24,11 +23,11 @@ import { AccountTypeMap, IAccount } from '@cypherock/db-interfaces';
 import React from 'react';
 
 import { CoinIcon } from '~/components';
-import { useSwap } from '~/context';
+import { useCurrency, useSwap } from '~/context';
 import {
   selectAccounts,
+  selectCurrentCurrencyPriceInfos,
   selectLanguage,
-  selectPriceInfos,
   selectWallets,
   useAppSelector,
 } from '~/store';
@@ -36,7 +35,10 @@ import {
 export const SwapSummary = () => {
   const { wallets } = useAppSelector(selectWallets);
   const { accounts } = useAppSelector(selectAccounts);
-  const { priceInfos } = useAppSelector(selectPriceInfos);
+  const { currentCurrency } = useCurrency();
+  const priceInfos = useAppSelector(state =>
+    selectCurrentCurrencyPriceInfos(state, currentCurrency),
+  );
   const lang = useAppSelector(selectLanguage);
 
   const button = lang.strings.buttons;
@@ -81,9 +83,7 @@ export const SwapSummary = () => {
 
   const getAmountDetails = () => {
     const account = fromAccount;
-    const coinPrice = priceInfos.find(
-      p => p.assetId === account?.assetId && p.currency.toLowerCase() === 'usd',
-    );
+    const coinPrice = priceInfos.find(p => p.assetId === account?.assetId);
     if (!account || !coinPrice) return [];
 
     const amount = quote?.fromAmount ?? '0';
@@ -91,7 +91,7 @@ export const SwapSummary = () => {
 
     const value = formatDisplayPrice(
       new BigNumber(amount).multipliedBy(coinPrice.latestPrice),
-      DEFAULT_CURRENCY,
+      currentCurrency,
     );
 
     const outputDetails: SummaryItemType = [
@@ -110,9 +110,7 @@ export const SwapSummary = () => {
     const details = [];
     const account = fromAccount;
     const coinPrice = priceInfos.find(
-      p =>
-        p.assetId === account?.parentAssetId &&
-        p.currency.toLowerCase() === 'usd',
+      p => p.assetId === account?.parentAssetId,
     );
     if (!account || !coinPrice) return [];
 
@@ -122,7 +120,7 @@ export const SwapSummary = () => {
     ).fixed;
     const unit = getDefaultUnit(account.parentAssetId).abbr;
 
-    const value = formatDisplayPrice(new BigNumber(fee), DEFAULT_CURRENCY);
+    const value = formatDisplayPrice(new BigNumber(fee), currentCurrency);
 
     details.push({
       id: 'fee-details',
@@ -136,18 +134,12 @@ export const SwapSummary = () => {
 
   const getTotalAmount = () => {
     const account = fromAccount;
-    const assetPrice = priceInfos.find(
-      p => p.assetId === account?.assetId && p.currency.toLowerCase() === 'usd',
-    );
+    const assetPrice = priceInfos.find(p => p.assetId === account?.assetId);
     const parentAssetPrice = priceInfos.find(
-      p =>
-        p.assetId === account?.parentAssetId &&
-        p.currency.toLowerCase() === 'usd',
+      p => p.assetId === account?.parentAssetId,
     );
     const coinPrice = priceInfos.find(
-      p =>
-        p.assetId === account?.parentAssetId &&
-        p.currency.toLowerCase() === 'usd',
+      p => p.assetId === account?.parentAssetId,
     );
     if (!account || !assetPrice || !parentAssetPrice || !coinPrice) return [];
 
@@ -164,7 +156,7 @@ export const SwapSummary = () => {
 
     const totalValue = formatDisplayPrice(
       amountValue.plus(feeAmount),
-      DEFAULT_CURRENCY,
+      currentCurrency,
     );
     const totalAmount = formatDisplayAmount(
       new BigNumber(amount).plus(feeInCrypto),

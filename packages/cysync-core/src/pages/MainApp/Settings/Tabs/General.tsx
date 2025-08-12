@@ -10,15 +10,27 @@ import {
 import { selectLanguage, useAppDispatch, useAppSelector } from '~/store';
 
 import { SettingsButton, SettingsStandardItem } from '../components';
+import { useCurrency } from '~/context';
 
 export const GeneralSettings: React.FC = () => {
   const dispatch = useAppDispatch();
   const { strings, lang } = useAppSelector(selectLanguage);
   const { item } = strings.settings.tabs.general;
+  const { availableCurrencies, currentCurrency, updateCurrency } =
+    useCurrency();
 
   const onLangChange = useCallback(
     (id?: string) => {
       dispatch(setAppLanguage(id));
+    },
+    [dispatch],
+  );
+
+  const onCurrencyChange = useCallback(
+    (id?: string) => {
+      if (id) {
+        updateCurrency(id);
+      }
     },
     [dispatch],
   );
@@ -42,22 +54,23 @@ export const GeneralSettings: React.FC = () => {
       >
         <ArrowDown />
       </SettingsStandardItem> */}
-      {/* <SettingsStandardItem
+      <SettingsStandardItem
         title={{ text: item.currency.title }}
         description={{ text: item.currency.description }}
       >
         <Flex width={300}>
           <Dropdown
-            items={[
-              { text: 'USD (United States Dollar)', id: 'usd' },
-              { text: 'INR (Indian Rupees)', id: 'inr' },
-            ]}
+            items={availableCurrencies.map(c => ({
+              text: `${c.code.toUpperCase()} - ${c.name}`,
+              id: c.code,
+            }))}
             searchText="Search Currency"
             placeholderText="Select Currency"
-            selectedItem="usd"
+            selectedItem={currentCurrency.toUpperCase()}
+            onChange={onCurrencyChange}
           />
         </Flex>
-      </SettingsStandardItem> */}
+      </SettingsStandardItem>
       <SettingsStandardItem
         title={{ text: item.language.title }}
         description={{ text: item.language.description }}
