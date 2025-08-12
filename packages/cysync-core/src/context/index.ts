@@ -6,3 +6,4 @@ export * from './appUpdate';
 export * from './latestDeviceVersion';
 export * from './buySell';
 export * from './swap';
+export * from './currency';

@@ -1,5 +1,5 @@
 import { IPriceInfo } from '@cypherock/db-interfaces';
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createSlice, createSelector, PayloadAction } from '@reduxjs/toolkit';
 
 import { IPriceInfoState } from './types';
 
@@ -25,6 +25,21 @@ export const priceInfoSlice = createSlice({
 
 export const { setPriceInfos } = priceInfoSlice.actions;
 
-export const selectPriceInfos = (state: RootState) => state.priceInfo;
+export const selectPriceInfos = (state: RootState) =>
+  state.priceInfo.priceInfos;
+export const selectPriceInfoState = (state: RootState) => state.priceInfo;
+
+export const selectCurrentCurrencyPriceInfos: (
+  state: RootState,
+  currency: string,
+) => IPriceInfo[] = createSelector(
+  [selectPriceInfos, (state, currency: string) => currency],
+  (priceInfos, currency): IPriceInfo[] => {
+    const currentCurrencyPriceInfos = priceInfos.filter(
+      p => p.currency === currency,
+    );
+    return currentCurrencyPriceInfos;
+  },
+);
 
 export default priceInfoSlice.reducer;

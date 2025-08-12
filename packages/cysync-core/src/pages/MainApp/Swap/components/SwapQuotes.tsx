@@ -12,15 +12,18 @@ import {
   QuestionMarkButton,
 } from '@cypherock/cysync-ui';
 import {
-  DEFAULT_CURRENCY,
   formatDisplayAmount,
   formatDisplayPrice,
   getDefaultUnit,
 } from '@cypherock/coin-support-utils';
 import { formatSecondsToMinutes, BigNumber } from '@cypherock/cysync-utils';
 import { IAccount, IWallet } from '@cypherock/db-interfaces';
-import { IQuote, useSwap } from '~/context';
-import { useAppSelector, selectLanguage, selectPriceInfos } from '~/store';
+import { IQuote, useCurrency, useSwap } from '~/context';
+import {
+  useAppSelector,
+  selectLanguage,
+  selectCurrentCurrencyPriceInfos,
+} from '~/store';
 import { providerImageUrlMap } from '~/constants';
 
 const getEarliestExpiryTime = (quotes: IQuote[]) =>
@@ -165,7 +168,10 @@ export const SwapQuotes: React.FC<{
   hasEnoughBalance,
 }) => {
   const { toNextPage, fillDetails, setReceiveFlowValidTill } = useSwap();
-  const { priceInfos } = useAppSelector(selectPriceInfos);
+  const { currentCurrency } = useCurrency();
+  const priceInfos = useAppSelector(state =>
+    selectCurrentCurrencyPriceInfos(state, currentCurrency),
+  );
   const lang = useAppSelector(selectLanguage);
   const displayText = lang.strings.swap.detailsInput.offers;
   const validTill = getEarliestExpiryTime(quotes);
@@ -192,9 +198,7 @@ export const SwapQuotes: React.FC<{
   function getNetworkFee(quote: IQuote) {
     const account = fromAccount;
     const coinPrice = priceInfos.find(
-      p =>
-        p.assetId === account?.parentAssetId &&
-        p.currency.toLowerCase() === 'usd',
+      p => p.assetId === account?.parentAssetId,
     );
 
     if (!account || !coinPrice) return {};
@@ -204,7 +208,7 @@ export const SwapQuotes: React.FC<{
       new BigNumber(fee).dividedBy(coinPrice.latestPrice),
     ).fixed;
     const unit = getDefaultUnit(account.parentAssetId).abbr;
-    const value = formatDisplayPrice(new BigNumber(fee), DEFAULT_CURRENCY);
+    const value = formatDisplayPrice(new BigNumber(fee), currentCurrency);
     const feeInCrypto = `${amount} ${unit}`;
     const feeInFiat = `${value}`;
 

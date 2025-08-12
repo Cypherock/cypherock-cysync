@@ -44,6 +44,7 @@ import { getDB } from '~/utils';
 import logger from '~/utils/logger';
 
 import { AddTokenCongrats, AddTokenSelectionDialog } from '../Dialogs';
+import { useCurrency } from '~/context';
 
 export interface AddTokenDialogContextInterface {
   currentTab: number;
@@ -99,6 +100,7 @@ export const AddTokenDialogProvider: FC<AddTokenDialogContextProviderProps> = ({
   );
   const [selectedTokens, setSelectedTokens] = useState<TokenTypes[]>([]);
   const [selectedAccounts, setSelectedAccounts] = useState<IAccount[]>([]);
+  const { currentCurrency } = useCurrency();
 
   useEffect(() => {
     setSelectedAccounts([]);
@@ -290,11 +292,20 @@ export const AddTokenDialogProvider: FC<AddTokenDialogContextProviderProps> = ({
       .map(entry => entry.account);
 
     if (unHiddenOrNewTokenAccounts.length > 0) {
-      syncPrices({ families: [coinFamiliesMap.evm] }).catch(logger.error);
-      syncPriceHistories({ families: [coinFamiliesMap.evm] }).catch(
-        logger.error,
+      syncPrices({
+        families: [coinFamiliesMap.evm],
+        currency: currentCurrency,
+      }).catch(logger.error);
+      syncPriceHistories({
+        families: [coinFamiliesMap.evm],
+        currency: currentCurrency,
+      }).catch(logger.error);
+      dispatch(
+        syncAccounts({
+          accounts: unHiddenOrNewTokenAccounts,
+          currency: currentCurrency,
+        }),
       );
-      dispatch(syncAccounts({ accounts: unHiddenOrNewTokenAccounts }));
     }
 
     onNext();

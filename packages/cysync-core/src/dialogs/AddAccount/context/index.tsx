@@ -24,7 +24,7 @@ import React, {
 import { Observer, Subscription } from 'rxjs';
 
 import { syncAccounts, syncPriceHistories, syncPrices } from '~/actions';
-import { deviceLock, useDevice } from '~/context';
+import { deviceLock, useCurrency, useDevice } from '~/context';
 import { ITabs, useTabsAndDialogs } from '~/hooks';
 import { useWalletDropdown } from '~/hooks/useWalletDropdown';
 import {
@@ -121,6 +121,8 @@ export const AddAccountDialogProvider: FC<
   const [error, setError] = useState<any | undefined>();
 
   const addAccountSubscriptionRef = useRef<Subscription | undefined>();
+
+  const { currentCurrency } = useCurrency();
 
   const deviceRequiredDialogsMap: Record<number, number[] | undefined> =
     useMemo(
@@ -291,10 +293,18 @@ export const AddAccountDialogProvider: FC<
         if (response.isInserted) addedAccounts.push(response.account);
       }
 
-      dispatch(syncAccounts({ accounts: addedAccounts }));
+      dispatch(
+        syncAccounts({ accounts: addedAccounts, currency: currentCurrency }),
+      );
       if (selectedCoin) {
-        syncPrices({ families: [selectedCoin.family] });
-        syncPriceHistories({ families: [selectedCoin.family] });
+        syncPrices({
+          families: [selectedCoin.family],
+          currency: currentCurrency,
+        });
+        syncPriceHistories({
+          families: [selectedCoin.family],
+          currency: currentCurrency,
+        });
       }
       goTo(3, 0);
     } catch (e) {
