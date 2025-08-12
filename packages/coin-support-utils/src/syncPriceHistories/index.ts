@@ -10,7 +10,6 @@ import logger from '../utils/logger';
 
 export * from './types';
 
-const DEFAULT_CURRENCY = 'usd';
 const MAX_RETRIES = 3;
 
 const daysToIntervalMap = {
@@ -22,16 +21,18 @@ const fetchPriceHistoryForCoin = async ({
   coinId,
   db,
   days,
+  currency,
 }: {
   coinId: { parentAssetId: string; assetId: string };
   db: IDatabase;
   days: number;
+  currency: string;
 }) => {
-  const prices = await getPriceHistory(coinId, DEFAULT_CURRENCY, days);
+  const prices = await getPriceHistory(coinId, currency, days);
 
   const priceHistory: IPriceHistory = {
     assetId: coinId.assetId,
-    currency: DEFAULT_CURRENCY,
+    currency,
     days,
     history: prices.map(e => ({ timestamp: e[0], price: e[1].toString() })),
   };
@@ -43,9 +44,10 @@ const getExpiredCoinList = async (
   db: IDatabase,
   coinIds: { parentAssetId: string; assetId: string }[],
   days: 30 | 365,
+  currency: string,
 ) => {
   const existingPriceHistories = await db.priceHistory.getAll(
-    coinIds.map(id => ({ assetId: id.assetId, currency: DEFAULT_CURRENCY })),
+    coinIds.map(id => ({ assetId: id.assetId, currency })),
   );
 
   const expiredCoinIds: { parentAssetId: string; assetId: string }[] = [];
@@ -87,7 +89,7 @@ export function createSyncPriceHistoriesObservable(
 
     const main = async () => {
       try {
-        const { db, getCoinIds } = params;
+        const { db, getCoinIds, currency } = params;
 
         const coinIds = await getCoinIds(db);
 
@@ -96,6 +98,7 @@ export function createSyncPriceHistoriesObservable(
             db,
             coinIds,
             days as any,
+            currency,
           );
 
           let retries = 0;
@@ -104,7 +107,7 @@ export function createSyncPriceHistoriesObservable(
             const coinId = expiredCoinIds[i];
 
             try {
-              await fetchPriceHistoryForCoin({ coinId, db, days });
+              await fetchPriceHistoryForCoin({ coinId, db, days, currency });
               await sleep(params.waitInMSBetweenEachAPICall ?? 500);
             } catch (error) {
               retries += 1;

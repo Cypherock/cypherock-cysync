@@ -1,6 +1,7 @@
 import { coinList, IEvmCoinInfo } from '@cypherock/coins';
 import { assert, BigNumber } from '@cypherock/cysync-utils';
 
+export const DEFAULT_CURRENCY = 'usd';
 type NumberLike = string | number | BigNumber;
 /**
  * Used to format the display amount.
@@ -38,8 +39,34 @@ const formatDisplayValue = (
 
 export const formatDisplayAmount = (value: NumberLike, decimal = 12) =>
   formatDisplayValue(value, decimal, true);
-export const formatDisplayPrice = (value: NumberLike, decimal = 2) =>
-  formatDisplayValue(value, decimal).fixed;
+
+const currencyFormatterCache: Record<string, Intl.NumberFormat> = {};
+
+export const formatDisplayPrice = (value: NumberLike, currencyCode: string) => {
+  let number = new BigNumber(0);
+  if (
+    !(
+      value === '0' ||
+      value.toString().toLowerCase() === 'nan' ||
+      value === 0 ||
+      Number.isNaN(value) ||
+      (value instanceof BigNumber && (value.toNumber() === 0 || value.isNaN()))
+    )
+  )
+    number = new BigNumber(value);
+  const code = currencyCode?.toUpperCase?.() ?? currencyCode;
+
+  let formatter = currencyFormatterCache[code];
+  if (!formatter) {
+    formatter = new Intl.NumberFormat(undefined, {
+      style: 'currency',
+      currency: code,
+    });
+    currencyFormatterCache[code] = formatter;
+  }
+
+  return formatter.format(number.toNumber());
+};
 
 export const getUnit = (coinId: string, unitAbbr: string, assetId?: string) => {
   const coin = coinList[coinId];

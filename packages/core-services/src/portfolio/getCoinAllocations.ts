@@ -13,6 +13,7 @@ export const getCoinAllocations = async (params: {
   walletId?: string;
   assetId?: string;
   parentAssetId?: string;
+  currency: string;
 }) => {
   const coinFamiliesList = Object.keys(coinFamiliesMap);
 
@@ -21,7 +22,9 @@ export const getCoinAllocations = async (params: {
 
   for (const coinFamily of coinFamiliesList) {
     const coinSupport = getCoinSupport(coinFamily);
-    const result = await coinSupport.getCoinAllocations({ ...params });
+    const result = await coinSupport.getCoinAllocations({
+      ...params,
+    });
     allocations.push(...result.allocations);
   }
 
