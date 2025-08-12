@@ -1,3 +1,9 @@
+# v2.1.5
+
+### 🚀 Feature
+
+- **Stellar Network Support:** Now you can seamlessly manage your XLM assets directly through the app.
+
 # v2.1.4
 
 ### 🚀 Feature
