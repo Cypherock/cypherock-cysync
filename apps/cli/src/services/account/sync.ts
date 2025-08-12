@@ -47,7 +47,7 @@ const syncPrices = (db: IDatabase) =>
       },
     };
 
-    syncAllPrices({ db, families }).subscribe(observer);
+    syncAllPrices({ db, families, currency: 'usd' }).subscribe(observer);
   });
 
 export const syncAccounts = async (params: { db: IDatabase }) =>
@@ -94,5 +94,5 @@ export const syncAccounts = async (params: { db: IDatabase }) =>
       },
     };
 
-    syncAllAccounts({ db, accounts }).subscribe(observer);
+    syncAllAccounts({ db, accounts, currency: 'usd' }).subscribe(observer);
   });

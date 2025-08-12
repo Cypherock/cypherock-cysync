@@ -7,6 +7,7 @@ import {
   getDefaultUnit,
   getParsedAmount,
   getZeroUnit,
+  DEFAULT_CURRENCY,
 } from '@cypherock/coin-support-utils';
 import { coinFamiliesMap } from '@cypherock/coins';
 import {
@@ -179,17 +180,18 @@ const getDisplayValues = (
   priceInfos: IPriceInfo[],
   isDiscreetMode: boolean,
 ) => {
-  let displayValue = '$0.00';
+  let displayValue = '0.00';
   let value = '0.00';
-  let displayFeeValue = '$0.00';
+  let displayFeeValue = '0.00';
   const coinPrice = priceInfos.find(
     p =>
       p.assetId === transaction.parentAssetId &&
-      p.currency.toLowerCase() === 'usd',
+      p.currency.toLowerCase() === DEFAULT_CURRENCY,
   );
   const assetPrice = priceInfos.find(
     p =>
-      p.assetId === transaction.assetId && p.currency.toLowerCase() === 'usd',
+      p.assetId === transaction.assetId &&
+      p.currency.toLowerCase() === DEFAULT_CURRENCY,
   );
 
   if (coinPrice) {
@@ -202,7 +204,7 @@ const getDisplayValues = (
     const feeValue = new BigNumber(feeInDefaultUnit.amount).multipliedBy(
       coinPrice.latestPrice,
     );
-    displayFeeValue = `$${formatDisplayPrice(feeValue)}`;
+    displayFeeValue = `${formatDisplayPrice(feeValue, DEFAULT_CURRENCY)}`;
   }
 
   if (assetPrice) {
@@ -219,10 +221,10 @@ const getDisplayValues = (
       new BigNumber(amountInDefaultUnit.amount).multipliedBy(
         assetPrice.latestPrice,
       ),
-      2,
+      DEFAULT_CURRENCY,
     );
     value = formattedValue;
-    displayValue = `$${formattedValue}`;
+    displayValue = formattedValue;
   }
 
   const { amount, unit } = getParsedAmount({
@@ -275,9 +277,9 @@ const getDisplayValues = (
     status: transaction.status,
     statusText: lodash.capitalize(transaction.status),
     displayValueWithoutUnit: value,
-    displayValue: isDiscreetMode ? '$****' : displayValue,
-    displayValueUnit: 'USD',
-    displayFeeValue: isDiscreetMode ? '$****' : displayFeeValue,
+    displayValue: isDiscreetMode ? '****' : displayValue,
+    displayValueUnit: DEFAULT_CURRENCY.toUpperCase(),
+    displayFeeValue: isDiscreetMode ? '****' : displayFeeValue,
     displayFee: `${isDiscreetMode ? '****' : fee} ${feeUnit.abbr}`,
     amount: parseFloat(amount),
     displayFeeWithoutUnit: fee,
