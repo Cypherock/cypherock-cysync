@@ -1,4 +1,5 @@
 import {
+  DEFAULT_CURRENCY,
   formatDisplayAmount,
   getAsset,
   getDefaultUnit,
@@ -82,8 +83,10 @@ export const useSubAccounts = ({ accountId }: UseSubAccountsProps) => {
             ),
             displayAmount,
             amountTooltip,
-            displayValue: `$${
-              isDiscreetMode ? '****' : formatDisplayPrice(value)
+            displayValue: `${
+              isDiscreetMode
+                ? '****'
+                : formatDisplayPrice(value, DEFAULT_CURRENCY)
             }`,
           };
         }),

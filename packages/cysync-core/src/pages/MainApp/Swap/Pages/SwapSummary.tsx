@@ -1,4 +1,5 @@
 import {
+  DEFAULT_CURRENCY,
   formatDisplayAmount,
   formatDisplayPrice,
   getAsset,
@@ -90,6 +91,7 @@ export const SwapSummary = () => {
 
     const value = formatDisplayPrice(
       new BigNumber(amount).multipliedBy(coinPrice.latestPrice),
+      DEFAULT_CURRENCY,
     );
 
     const outputDetails: SummaryItemType = [
@@ -97,7 +99,7 @@ export const SwapSummary = () => {
         id: `toDetail-amount`,
         leftText: displayText.amount,
         rightText: `${amount} ${unit}`,
-        rightSubText: `$${value}`,
+        rightSubText: `${value}`,
       },
     ];
 
@@ -120,13 +122,13 @@ export const SwapSummary = () => {
     ).fixed;
     const unit = getDefaultUnit(account.parentAssetId).abbr;
 
-    const value = formatDisplayPrice(new BigNumber(fee));
+    const value = formatDisplayPrice(new BigNumber(fee), DEFAULT_CURRENCY);
 
     details.push({
       id: 'fee-details',
       leftText: displayText.networkFee,
       rightText: `${amount} ${unit}`,
-      rightSubText: `$${value}`,
+      rightSubText: `${value}`,
     });
 
     return details;
@@ -160,7 +162,10 @@ export const SwapSummary = () => {
     );
     const unit = getDefaultUnit(account.parentAssetId, account.assetId).abbr;
 
-    const totalValue = formatDisplayPrice(amountValue.plus(feeAmount));
+    const totalValue = formatDisplayPrice(
+      amountValue.plus(feeAmount),
+      DEFAULT_CURRENCY,
+    );
     const totalAmount = formatDisplayAmount(
       new BigNumber(amount).plus(feeInCrypto),
     ).fixed;
@@ -170,7 +175,7 @@ export const SwapSummary = () => {
         id: 'total-amount-details',
         leftText: displayText.totalToDebit,
         rightText: `${totalAmount} ${unit}`,
-        rightSubText: `$${totalValue}`,
+        rightSubText: `${totalValue}`,
       },
     ];
   };

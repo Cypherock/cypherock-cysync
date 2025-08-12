@@ -3,6 +3,7 @@ import {
   getParsedAmount,
   formatDisplayPrice,
   getAsset,
+  DEFAULT_CURRENCY,
 } from '@cypherock/coin-support-utils';
 import { CoinFamily } from '@cypherock/coins';
 import {
@@ -61,13 +62,14 @@ export const SummaryDialog: React.FC = () => {
 
     const value = formatDisplayPrice(
       new BigNumber(amount).multipliedBy(coinPrice.latestPrice),
+      DEFAULT_CURRENCY,
     );
 
     details.push({
       id: 'fee-details',
       leftText: displayText.fee,
       rightText: `${amount} ${unit.abbr}`,
-      rightSubText: `$${value}`,
+      rightSubText: `${value}`,
     });
 
     return details;

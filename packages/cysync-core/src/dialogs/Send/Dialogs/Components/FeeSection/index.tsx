@@ -10,6 +10,7 @@ import {
   getParsedAmount,
   getZeroUnit,
   formatDisplayPrice,
+  DEFAULT_CURRENCY,
 } from '@cypherock/coin-support-utils';
 import { IPreparedXrpTransaction } from '@cypherock/coin-support-xrp';
 import {
@@ -404,7 +405,7 @@ export const FeeSection: React.FC<FeeSectionProps> = ({
       const feeValue = new BigNumber(feesInDefaultUnit.amount).multipliedBy(
         coinPrice.latestPrice,
       );
-      result.value = `$${formatDisplayPrice(feeValue)}`;
+      result.value = `${formatDisplayPrice(feeValue, DEFAULT_CURRENCY)}`;
     }
 
     return result;

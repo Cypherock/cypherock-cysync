@@ -12,6 +12,7 @@ import {
   QuestionMarkButton,
 } from '@cypherock/cysync-ui';
 import {
+  DEFAULT_CURRENCY,
   formatDisplayAmount,
   formatDisplayPrice,
   getDefaultUnit,
@@ -202,9 +203,9 @@ export const SwapQuotes: React.FC<{
       new BigNumber(fee).dividedBy(coinPrice.latestPrice),
     ).fixed;
     const unit = getDefaultUnit(account.parentAssetId).abbr;
-    const value = formatDisplayPrice(new BigNumber(fee));
+    const value = formatDisplayPrice(new BigNumber(fee), DEFAULT_CURRENCY);
     const feeInCrypto = `${amount} ${unit}`;
-    const feeInFiat = `$${value}`;
+    const feeInFiat = `${value}`;
 
     return { feeInCrypto, feeInFiat };
   }

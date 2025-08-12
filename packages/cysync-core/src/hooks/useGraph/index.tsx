@@ -1,4 +1,5 @@
 import {
+  DEFAULT_CURRENCY,
   formatDisplayAmount,
   formatDisplayPrice,
   getDefaultUnit,
@@ -89,7 +90,7 @@ export const useGraph = (props?: UseGraphProps) => {
   >({
     balanceHistory: { balanceHistory: [], totalValue: '0' },
     summary: {
-      totalValue: '$0',
+      totalValue: 0,
       totalBalance: '',
       conversionRate: '',
       changePercent: '',
@@ -150,6 +151,7 @@ export const useGraph = (props?: UseGraphProps) => {
       parentAssetId: data.props?.parentAssetId,
       showGraphInUSD: data.showGraphInUSD,
       days: graphTimeRangeToDaysMap[data.selectedRange],
+      currency: DEFAULT_CURRENCY,
     };
 
     try {
@@ -223,12 +225,13 @@ export const useGraph = (props?: UseGraphProps) => {
       if (!includeUnit) return v;
 
       if (unit && !showUnitInUSD) return `${v} ${unit.abbr}`;
-      return `$${v}`;
+      return `${v}`;
     };
 
     if (isDiscreetMode) return appendUnit('****');
 
-    if (showUnitInUSD) return appendUnit(formatDisplayPrice(value));
+    if (showUnitInUSD)
+      return appendUnit(formatDisplayPrice(value, DEFAULT_CURRENCY));
     return appendUnit(formatDisplayAmount(value).complete);
   };
 

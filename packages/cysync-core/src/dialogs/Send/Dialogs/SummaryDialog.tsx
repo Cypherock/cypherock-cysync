@@ -8,6 +8,7 @@ import {
   getParsedAmount,
   formatDisplayPrice,
   getAsset,
+  DEFAULT_CURRENCY,
 } from '@cypherock/coin-support-utils';
 import { IPreparedXrpTransaction } from '@cypherock/coin-support-xrp';
 import { coinFamiliesMap, CoinFamily } from '@cypherock/coins';
@@ -68,6 +69,7 @@ export const SummaryDialog: React.FC = () => {
       });
       const value = formatDisplayPrice(
         new BigNumber(amount).multipliedBy(coinPrice.latestPrice),
+        DEFAULT_CURRENCY,
       );
 
       const outputDetails: SummaryItemType = [
@@ -81,7 +83,7 @@ export const SummaryDialog: React.FC = () => {
           id: `toDetail-amount-${output.address}`,
           leftText: displayText.amount,
           rightText: `${amount} ${unit.abbr}`,
-          rightSubText: `$${value}`,
+          rightSubText: `${value}`,
         },
       ];
 
@@ -150,13 +152,16 @@ export const SummaryDialog: React.FC = () => {
       parentAssetPrice.latestPrice,
     );
 
-    const totalValue = formatDisplayPrice(amountValue.plus(feeValue));
+    const totalValue = formatDisplayPrice(
+      amountValue.plus(feeValue),
+      DEFAULT_CURRENCY,
+    );
 
     return [
       {
         id: 'total-amount-details',
         leftText: displayText.debit,
-        rightText: `$${totalValue}`,
+        rightText: `${totalValue}`,
       },
     ];
   };
@@ -186,13 +191,14 @@ export const SummaryDialog: React.FC = () => {
 
     const value = formatDisplayPrice(
       new BigNumber(amount).multipliedBy(coinPrice.latestPrice),
+      DEFAULT_CURRENCY,
     );
 
     details.push({
       id: 'fee-details',
       leftText: displayText.network + getLabelSuffix(selectedAccount),
       rightText: `${amount} ${unit.abbr}`,
-      rightSubText: `$${value}`,
+      rightSubText: `${value}`,
     });
 
     return details;

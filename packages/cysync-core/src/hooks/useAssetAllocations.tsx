@@ -1,4 +1,5 @@
 import {
+  DEFAULT_CURRENCY,
   formatDisplayAmount,
   formatDisplayPrice,
   getAsset,
@@ -152,6 +153,7 @@ export const useAssetAllocations = ({
         result = await getCoinAllocations({
           db: getDB(),
           walletId: data.walletId,
+          currency: DEFAULT_CURRENCY,
         });
       }
 
@@ -221,11 +223,15 @@ export const useAssetAllocations = ({
             value: new BigNumber(r.value).toNumber(),
             displayBalance,
             balanceTooltip,
-            displayPrice: `$${
-              data.isDiscreetMode ? '****' : formatDisplayPrice(r.price)
+            displayPrice: `${
+              data.isDiscreetMode
+                ? '****'
+                : formatDisplayPrice(r.price, DEFAULT_CURRENCY)
             }`,
-            displayValue: `$${
-              data.isDiscreetMode ? '****' : formatDisplayPrice(r.value)
+            displayValue: `${
+              data.isDiscreetMode
+                ? '****'
+                : formatDisplayPrice(r.value, DEFAULT_CURRENCY)
             }`,
             ...accountProperties,
           };

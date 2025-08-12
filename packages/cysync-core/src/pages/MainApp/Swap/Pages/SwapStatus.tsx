@@ -1,4 +1,5 @@
 import {
+  DEFAULT_CURRENCY,
   formatDisplayPrice,
   getAsset,
   getDefaultUnit,
@@ -217,6 +218,7 @@ export const SwapStatus = () => {
 
     const value = formatDisplayPrice(
       new BigNumber(amount).multipliedBy(coinPrice.latestPrice),
+      DEFAULT_CURRENCY,
     );
 
     const outputDetails: SummaryItemType = [
@@ -224,7 +226,7 @@ export const SwapStatus = () => {
         id: `${account.__id}-Detail-amount`,
         leftText: text,
         rightText: `${amount} ${unit}`,
-        rightSubText: `$${value}`,
+        rightSubText: `${value}`,
       },
     ];
 

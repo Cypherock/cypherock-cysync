@@ -1,3 +1,4 @@
+import { DEFAULT_CURRENCY } from '@cypherock/coin-support-utils';
 import { coinFamiliesMap } from '@cypherock/coins';
 import {
   syncPrices as syncPricesCore,
@@ -7,7 +8,13 @@ import { Observer } from 'rxjs';
 
 import { getDB } from '~/utils';
 
-export const syncPrices = ({ families }: { families: string[] }) =>
+export const syncPrices = ({
+  families,
+  currency = DEFAULT_CURRENCY,
+}: {
+  families: string[];
+  currency?: string;
+}) =>
   new Promise<void>(resolve => {
     const observer: Observer<ISyncPricesEvent> = {
       error: () => {
@@ -23,8 +30,12 @@ export const syncPrices = ({ families }: { families: string[] }) =>
     syncPricesCore({
       db: getDB(),
       families,
+      currency,
     }).subscribe(observer);
   });
 
 export const syncAllPrices = () =>
-  syncPrices({ families: Object.values(coinFamiliesMap) });
+  syncPrices({
+    families: Object.values(coinFamiliesMap),
+    currency: DEFAULT_CURRENCY,
+  });
