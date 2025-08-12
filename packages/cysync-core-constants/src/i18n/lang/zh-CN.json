@@ -336,6 +336,19 @@
         "placeholder": "输入数字备注",
         "error": "值过高"
       },
+      "stellarMemo": {
+        "label": "备注（可选）",
+        "inputPlaceholder": {
+          "none": "",
+          "text": "输入文本备注（最多28字节）",
+          "id": "输入数字备注 ID",
+          "hash": "输入64字符的十六进制哈希备注",
+          "return": "输入64字符的十六进制返回哈希备注"
+        },
+        "dropdownPlaceholder": "备注",
+        "searchText": "搜索",
+        "error": "无效的备注"
+      },
       "feeBelowMinError": "低于最低 fee 的交易将失败",
       "rentExemptFeeWarning": "首次在 Solana 上接收代币会产生租金豁免费用，已包含在总费用中。"
     },

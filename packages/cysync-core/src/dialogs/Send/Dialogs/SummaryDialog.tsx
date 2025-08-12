@@ -1,5 +1,9 @@
 import { IPreparedIcpTransaction } from '@cypherock/coin-support-icp';
 import {
+  IPreparedStellarTransaction,
+  IStellarMemoType,
+} from '@cypherock/coin-support-stellar';
+import {
   getDefaultUnit,
   getParsedAmount,
   formatDisplayPrice,
@@ -261,21 +265,67 @@ export const SummaryDialog: React.FC = () => {
   const getMemoDetails = () => {
     if (!transaction || !transaction.userInputs.outputs) return [];
 
-    const icpTxn = transaction as IPreparedIcpTransaction;
-    if (icpTxn.userInputs.outputs[0]?.memo !== undefined) {
-      return icpTxn.userInputs.outputs
-        .filter(output => output.memo !== undefined)
-        .map((output, index) => ({
-          id: `memo-${icpTxn.accountId}-${index}`,
-          leftText: displayText.memo,
-          rightText: output.memo ?? '',
-        }));
+    if (selectedAccount?.familyId === coinFamiliesMap.icp) {
+      const icpTxn = transaction as IPreparedIcpTransaction;
+
+      if (icpTxn.userInputs.outputs[0]?.memo !== undefined) {
+        return icpTxn.userInputs.outputs
+          .filter(output => output.memo !== undefined)
+          .map((output, index) => ({
+            id: `memo-${icpTxn.accountId}-${index}`,
+            leftText: displayText.memo,
+            rightText: output.memo ?? '',
+          }));
+      }
+    }
+
+    if (selectedAccount?.familyId === coinFamiliesMap.stellar) {
+      const stellarTxn = transaction as IPreparedStellarTransaction;
+
+      if (stellarTxn.userInputs.outputs[0]?.memo) {
+        return stellarTxn.userInputs.outputs
+          .filter(
+            output => output.memo && output.memo.type !== IStellarMemoType.NONE,
+          )
+          .map((output, index) => {
+            const memoType = output.memo?.type ?? '';
+            const memoValue = output.memo?.value ?? '';
+
+            let displayValue = '';
+
+            if (
+              memoType === IStellarMemoType.HASH ||
+              memoType === IStellarMemoType.RETURN
+            ) {
+              if (memoValue.length > 16) {
+                displayValue = `${memoType}: ${memoValue.substring(
+                  0,
+                  8,
+                )}...${memoValue.substring(memoValue.length - 8)}`;
+              } else {
+                displayValue = `${memoType}: ${memoValue}`;
+              }
+            } else if (
+              memoType === IStellarMemoType.ID ||
+              memoType === IStellarMemoType.TEXT
+            ) {
+              displayValue = `${memoType}: ${memoValue}`;
+            }
+
+            return {
+              id: `memo-${stellarTxn.accountId}-${index}`,
+              leftText: displayText.memo,
+              rightText: displayValue,
+            };
+          });
+      }
     }
 
     return [];
   };
 
   const isSingleTransaction = transaction?.userInputs.outputs.length === 1;
+
   return (
     <DialogBox width={600}>
       <DialogBoxBody p={0} pt={5}>

@@ -14,6 +14,11 @@ import {
   IPreparedStarknetTransaction,
   StarknetSupport,
 } from '@cypherock/coin-support-starknet';
+import {
+  IPreparedStellarTransaction,
+  IStellarMemo,
+  IStellarMemoType,
+} from '@cypherock/coin-support-stellar';
 import { IPreparedTronTransaction } from '@cypherock/coin-support-tron';
 import {
   convertToUnit,
@@ -122,6 +127,7 @@ export interface SendDialogContextInterface {
   prepareSendMax: (state: boolean) => Promise<string>;
   prepareDestinationTag: (tag: number) => Promise<void>;
   prepareMemo: (memo: string) => Promise<void>;
+  prepareStellarMemo: (memo: IStellarMemo) => Promise<void>;
   priceConverter: (val: string, inverse?: boolean) => string;
   updateUserInputs: (count: number) => void;
   isAccountSelectionDisabled: boolean | undefined;
@@ -135,6 +141,7 @@ export interface SendDialogContextInterface {
   getOutputError: (index: number) => string;
   getAmountError: (index: number) => string;
   getDestinationTagError: () => string;
+  getMemoError: () => string;
   isPreparingTxn: boolean;
   validTill?: string;
   providerName?: string;
@@ -682,6 +689,32 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
     }
   };
 
+  const prepareStellarMemo = async (memo: IStellarMemo) => {
+    const txn = transactionRef.current as IPreparedStellarTransaction;
+    if (!txn) return;
+
+    const { type, value } = memo;
+
+    if (txn.userInputs.outputs.length > 0) {
+      txn.userInputs.outputs[0].memo = {
+        type,
+        value: type === IStellarMemoType.NONE ? undefined : value,
+      };
+    } else {
+      txn.userInputs.outputs = [
+        {
+          address: '',
+          amount: '',
+          memo: {
+            type,
+            value: type === IStellarMemoType.NONE ? undefined : value,
+          },
+        },
+      ];
+    }
+    await prepare(txn);
+  };
+
   const priceConverter = (val: string, invert?: boolean) => {
     const coinPrice = priceInfos.find(
       p =>
@@ -761,6 +794,12 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
     return computedData.fees || '0';
   };
 
+  const getStellarFeeAmount = (txn: IPreparedTransaction | undefined) => {
+    if (!txn) return '0';
+    const { computedData } = txn as IPreparedStellarTransaction;
+    return computedData.fees || '0';
+  };
+
   const computedFeeMap: Record<
     CoinFamily,
     (txn: IPreparedTransaction | undefined) => string
@@ -773,6 +812,7 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
     xrp: getXrpFeeAmount,
     starknet: getStarknetFeeAmount,
     icp: getIcpFeeAmount,
+    stellar: getStellarFeeAmount,
   };
 
   const getComputedFee = (coinFamily: CoinFamily, txn?: IPreparedTransaction) =>
@@ -899,6 +939,56 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
     return '';
   }, [transaction, lang, selectedAccount]);
 
+  const getStellarAmountError = useCallback(() => {
+    const stellarValidation =
+      transaction?.validation as IPreparedStellarTransaction['validation'];
+
+    if (stellarValidation.isBalanceBelowStellarReserve && selectedAccount) {
+      const reserveBalance = selectedAccount.spendableBalance
+        ? new BigNumber(selectedAccount.balance)
+            .minus(selectedAccount.spendableBalance)
+            .toString()
+        : '10000000'; // 1 XLM
+
+      const { amount: _amount, unit } = getParsedAmount({
+        coinId: selectedAccount.parentAssetId,
+        assetId: selectedAccount.assetId,
+        unitAbbr:
+          selectedAccount.unit ??
+          getDefaultUnit(selectedAccount.parentAssetId, selectedAccount.assetId)
+            .abbr,
+        amount: reserveBalance,
+      });
+
+      return parseLangTemplate(
+        lang.strings.send.recipient.amount.balanceBelowReserveBalance,
+        { amount: _amount, unit: unit.abbr },
+      );
+    }
+
+    if (stellarValidation.isAmountBelowStellarReserve && selectedAccount) {
+      const reserveBalance = (transaction as IPreparedStellarTransaction)
+        .staticData.reserveBaseBalance;
+
+      const { amount: _amount, unit } = getParsedAmount({
+        coinId: selectedAccount.parentAssetId,
+        assetId: selectedAccount.assetId,
+        unitAbbr:
+          selectedAccount.unit ??
+          getDefaultUnit(selectedAccount.parentAssetId, selectedAccount.assetId)
+            .abbr,
+        amount: reserveBalance,
+      });
+
+      return parseLangTemplate(
+        lang.strings.send.recipient.amount.amountBelowReserveBalance,
+        { amount: _amount, unit: unit.abbr },
+      );
+    }
+
+    return '';
+  }, [transaction, lang, selectedAccount]);
+
   const getSolanaAmountError = useCallback(() => {
     const solanaValidation =
       transaction?.validation as IPreparedSolanaTransaction['validation'];
@@ -951,9 +1041,20 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
         return solanaAmountError;
       }
 
+      const stellarAmountError = getStellarAmountError();
+      if (stellarAmountError !== '') {
+        return stellarAmountError;
+      }
+
       return '';
     },
-    [transaction, lang, getXrpAmountError, getSolanaAmountError],
+    [
+      transaction,
+      lang,
+      getXrpAmountError,
+      getSolanaAmountError,
+      getStellarAmountError,
+    ],
   );
 
   const getDestinationTagError = useCallback(() => {
@@ -964,6 +1065,16 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
       return lang.strings.send.recipient.destinationTag.error;
     }
 
+    return '';
+  }, [transaction, lang]);
+
+  const getMemoError = useCallback(() => {
+    if (
+      (transaction?.validation as IPreparedStellarTransaction['validation'])
+        ?.isInvalidMemo
+    ) {
+      return lang.strings.send.recipient.stellarMemo.error;
+    }
     return '';
   }, [transaction, lang]);
 
@@ -1031,6 +1142,7 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
     prepareSendMax,
     prepareDestinationTag,
     prepareMemo,
+    prepareStellarMemo,
     priceConverter,
     updateUserInputs,
     isAccountSelectionDisabled: disableAccountSelection,
@@ -1039,6 +1151,7 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
     getOutputError,
     getAmountError,
     getDestinationTagError,
+    getMemoError,
     isPreparingTxn,
     validTill,
     providerName,

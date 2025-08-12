@@ -23,6 +23,7 @@ const packages = {
   'packages/coin-support-near': [...commonFolders],
   'packages/coin-support-tron': [...commonFolders],
   'packages/coin-support-xrp': [...commonFolders],
+  'packages/coin-support-stellar': [...commonFolders],
   'packages/coin-support-utils': [...commonFolders],
   'packages/coin-support-interfaces': [...commonFolders],
   'packages/coins': [...commonFolders],

@@ -5,6 +5,7 @@ import { IcpSupport } from '@cypherock/coin-support-icp';
 import { NearSupport } from '@cypherock/coin-support-near';
 import { SolanaSupport } from '@cypherock/coin-support-solana';
 import { StarknetSupport } from '@cypherock/coin-support-starknet';
+import { StellarSupport } from '@cypherock/coin-support-stellar';
 import { TronSupport } from '@cypherock/coin-support-tron';
 import { XrpSupport } from '@cypherock/coin-support-xrp';
 
@@ -24,6 +25,7 @@ export const setGlobalDependencies = () => {
     new (globalThis as any).TronWeb({ fullHost: 'https://api.trongrid.io' }),
   );
   XrpSupport.setXrpLib((globalThis as any).xrpl);
+  StellarSupport.setStellarLib((globalThis as any).StellarSdk);
   StarknetSupport.setStarknetLib((globalThis as any).starknet);
   IcpSupport.setDfinityLib((globalThis as any).dfinity);
 };

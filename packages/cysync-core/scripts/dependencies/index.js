@@ -10,6 +10,7 @@ globalThis.web3 = require('web3');
 globalThis.solanaWeb3 = require('@solana/web3.js');
 globalThis.solanaSplToken = require('@solana/spl-token');
 globalThis.xrpl = require('xrpl');
+globalThis.StellarSdk = require('stellar-sdk');
 globalThis.starknet = require('starknet');
 globalThis.dfinity = {
   agent: require('@dfinity/agent'),
