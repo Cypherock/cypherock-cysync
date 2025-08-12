@@ -337,17 +337,17 @@
         "error": "قيمة مرتفعة جدًا"
       },
       "stellarMemo": {
-        "label": "Memo (Optional)",
+        "label": "مذكرة (اختياري)",
         "inputPlaceholder": {
           "none": "",
-          "text": "Enter text memo (max 28 bytes)",
-          "id": "Enter a numeric memo ID",
-          "hash": "Enter 64-character hex hash memo",
-          "return": "Enter 64-character hex return hash memo"
+          "text": "أدخل مذكرة نصية (بحد أقصى 28 بايت)",
+          "id": "أدخل معرف مذكرة رقمي",
+          "hash": "أدخل مذكرة تجزئة سداسية عشرية مكونة من 64 حرفًا",
+          "return": "أدخل مذكرة تجزئة عودة سداسية عشرية مكونة من 64 حرفًا"
         },
-        "dropdownPlaceholder": "Memo",
-        "searchText": "Search",
-        "error": "Invalid memo"
+        "dropdownPlaceholder": "مذكرة",
+        "searchText": "بحث",
+        "error": "مذكرة غير صالحة"
       },
       "feeBelowMinError": "المعاملة ذات الرسوم الأقل من الحد الأدنى ستفشل",
       "rentExemptFeeWarning": "استلام رمز على سولانا لأول مرة يستلزم رسوم إعفاء من الإيجار، وتشمل إجمالي الرسوم."

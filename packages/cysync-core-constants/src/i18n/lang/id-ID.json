@@ -337,17 +337,17 @@
         "error": "Nilai terlalu tinggi"
       },
       "stellarMemo": {
-        "label": "Memo (Optional)",
+        "label": "Memo (Opsional)",
         "inputPlaceholder": {
           "none": "",
-          "text": "Enter text memo (max 28 bytes)",
-          "id": "Enter a numeric memo ID",
-          "hash": "Enter 64-character hex hash memo",
-          "return": "Enter 64-character hex return hash memo"
+          "text": "Masukkan memo teks (maks 28 byte)",
+          "id": "Masukkan ID memo numerik",
+          "hash": "Masukkan memo hash hex 64 karakter",
+          "return": "Masukkan memo return hash hex 64 karakter"
         },
         "dropdownPlaceholder": "Memo",
-        "searchText": "Search",
-        "error": "Invalid memo"
+        "searchText": "Cari",
+        "error": "Memo tidak valid"
       },
       "feeBelowMinError": "Transaksi dengan biaya lebih rendah dari minimum akan gagal",
       "rentExemptFeeWarning": "Menerima token di Solana untuk pertama kali akan dikenakan biaya pembebasan sewa, yang termasuk dalam total biaya."

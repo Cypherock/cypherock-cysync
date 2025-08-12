@@ -777,17 +777,17 @@
         "error": "Valeur trop élevée"
       },
       "stellarMemo": {
-        "label": "Memo (Optional)",
+        "label": "Mémo (Facultatif)",
         "inputPlaceholder": {
           "none": "",
-          "text": "Enter text memo (max 28 bytes)",
-          "id": "Enter a numeric memo ID",
-          "hash": "Enter 64-character hex hash memo",
-          "return": "Enter 64-character hex return hash memo"
+          "text": "Entrez le mémo texte (max 28 octets)",
+          "id": "Entrez un ID de mémo numérique",
+          "hash": "Entrez un mémo de hachage hexadécimal de 64 caractères",
+          "return": "Entrez un mémo de retour de hachage hexadécimal de 64 caractères"
         },
-        "dropdownPlaceholder": "Memo",
-        "searchText": "Search",
-        "error": "Invalid memo"
+        "dropdownPlaceholder": "Mémo",
+        "searchText": "Recherche",
+        "error": "Mémo invalide"
       },
       "feeBelowMinError": "Une transaction avec des frais inférieurs au minimum échouera",
       "rentExemptFeeWarning": "Recevoir un jeton sur solana pour la première fois entraîne des frais d'exemption de loyer, inclus dans les frais totaux."

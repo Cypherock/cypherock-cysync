@@ -337,17 +337,17 @@
         "error": "Wert zu hoch"
       },
       "stellarMemo": {
-        "label": "Memo (Optional)",
+        "label": "Memo (optional)",
         "inputPlaceholder": {
           "none": "",
-          "text": "Enter text memo (max 28 bytes)",
-          "id": "Enter a numeric memo ID",
-          "hash": "Enter 64-character hex hash memo",
-          "return": "Enter 64-character hex return hash memo"
+          "text": "Text-Memo eingeben (max. 28 Bytes)",
+          "id": "Geben Sie eine numerische Memo-ID ein",
+          "hash": "Geben Sie ein 64-stelliges Hex-Hash-Memo ein",
+          "return": "Geben Sie ein 64-stelliges Hex-Return-Hash-Memo ein"
         },
         "dropdownPlaceholder": "Memo",
-        "searchText": "Search",
-        "error": "Invalid memo"
+        "searchText": "Suchen",
+        "error": "Ungültiges Memo"
       },
       "feeBelowMinError": "Transaktion mit fee unter dem Minimum wird fehlschlagen",
       "rentExemptFeeWarning": "Das erstmalige Empfangen eines Tokens auf Solana zieht Mietbefreiungsgebühren nach sich, die in den Gesamtgebühren enthalten sind."
