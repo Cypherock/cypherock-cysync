@@ -1,5 +1,6 @@
 import {
   convertToUnit,
+  DEFAULT_CURRENCY,
   formatDisplayAmount,
   formatDisplayPrice,
   getAsset,
@@ -153,9 +154,10 @@ const mapTokenAccounts = (
       new BigNumber(balanceInDefaultUnit.amount).multipliedBy(
         coinPrice.latestPrice,
       ),
+      DEFAULT_CURRENCY,
     );
     value = formattedValue;
-    displayValue = `$${formattedValue}`;
+    displayValue = `${formattedValue}`;
   }
   const formattedAmount = formatDisplayAmount(amount, 24);
   const displayAmount = `${isDiscreetMode ? '****' : formattedAmount.fixed} ${
@@ -306,9 +308,10 @@ export const useWalletPage = () => {
           new BigNumber(balanceInDefaultUnit.amount).multipliedBy(
             coinPrice.latestPrice,
           ),
+          DEFAULT_CURRENCY,
         );
         value = formattedValue;
-        displayValue = `$${formattedValue}`;
+        displayValue = `${formattedValue}`;
       }
 
       const tokenAccounts = allAccounts

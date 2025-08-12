@@ -22,6 +22,7 @@ import {
 import { IPreparedTronTransaction } from '@cypherock/coin-support-tron';
 import {
   convertToUnit,
+  DEFAULT_CURRENCY,
   formatDisplayAmount,
   formatDisplayPrice,
   getDefaultUnit,
@@ -732,7 +733,7 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
     if (result.isNaN()) return '';
     return invert
       ? formatDisplayAmount(result).complete
-      : formatDisplayPrice(result);
+      : formatDisplayPrice(result, DEFAULT_CURRENCY);
   };
 
   const updateUserInputs = (count: number) => {
