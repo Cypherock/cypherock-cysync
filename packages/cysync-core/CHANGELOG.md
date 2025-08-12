@@ -1,5 +1,30 @@
 # @cypherock/cysync-core
 
+## 0.6.7
+
+### Patch Changes
+
+- [#790](https://github.com/Cypherock/cypherock-cysync/pull/790) [`16b59074`](https://github.com/Cypherock/cypherock-cysync/commit/16b590745083d9c447f06a279d09f877200a403b) Thanks [@Keyur279](https://github.com/Keyur279)! - Added stellar support
+
+- Updated dependencies [[`16b59074`](https://github.com/Cypherock/cypherock-cysync/commit/16b590745083d9c447f06a279d09f877200a403b)]:
+  - @cypherock/coin-support-stellar@1.0.0
+  - @cypherock/cysync-core-constants@0.5.1
+  - @cypherock/coin-support@0.1.10
+  - @cypherock/coins@0.3.3
+  - @cypherock/cysync-ui@0.0.15
+  - @cypherock/cysync-core-services@0.1.8
+  - @cypherock/app-support-buy-sell@0.0.7
+  - @cypherock/coin-support-btc@0.0.20
+  - @cypherock/coin-support-evm@0.0.19
+  - @cypherock/coin-support-icp@1.0.3
+  - @cypherock/coin-support-near@0.0.19
+  - @cypherock/coin-support-solana@0.1.5
+  - @cypherock/coin-support-starknet@1.0.6
+  - @cypherock/coin-support-tron@0.0.16
+  - @cypherock/coin-support-utils@0.0.19
+  - @cypherock/coin-support-xrp@1.1.7
+  - @cypherock/cysync-core-workers@0.0.24
+
 ## 0.6.6
 
 ### Patch Changes
