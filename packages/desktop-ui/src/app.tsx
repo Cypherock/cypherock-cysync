@@ -35,8 +35,8 @@ const App = () => (
         window.electronAPI.restartApp();
       }}
     >
-      <CurrencyProvider>
-        <StoreProvider store={store}>
+      <StoreProvider store={store}>
+        <CurrencyProvider>
           <LockscreenProvider>
             <LockscreenBoundary>
               <DeviceProvider
@@ -76,8 +76,8 @@ const App = () => (
               </DeviceProvider>
             </LockscreenBoundary>
           </LockscreenProvider>
-        </StoreProvider>
-      </CurrencyProvider>
+        </CurrencyProvider>
+      </StoreProvider>
     </ErrorBoundary>
   </ThemeProvider>
 );
