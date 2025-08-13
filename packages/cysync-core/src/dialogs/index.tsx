@@ -45,6 +45,7 @@ import { SwapDialog } from './SwapDialog';
 import { WalletActionsDialogBox } from './WalletActions';
 import { WalletConnectDialog } from './WalletConnect';
 import { WalletSyncError } from './WalletSyncError';
+import { FullPageLoaderDialog } from './FullPageLoaderDialog';
 
 export const dialogs: Record<DialogName, ReactComponentLike> = {
   walletSyncError: WalletSyncError,
@@ -85,4 +86,5 @@ export const dialogs: Record<DialogName, ReactComponentLike> = {
   inheritanceEstateRecovery: InheritanceEstateRecoveryDialog,
   mobileAppSyncDialog: MobileAppSyncDialog,
   swapDialog: SwapDialog,
+  fullPageLoaderDialog: FullPageLoaderDialog,
 };

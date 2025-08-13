@@ -7,7 +7,9 @@ import React, {
   useEffect,
   useState,
 } from 'react';
+import { openFullPageLoaderDialog } from '~/actions';
 import { useMemoReturn } from '~/hooks';
+import { closeDialog, useAppDispatch } from '~/store';
 import { keyValueStore } from '~/utils';
 import logger from '~/utils/logger';
 
@@ -15,6 +17,7 @@ export interface CurrencyContextInterface {
   currentCurrency: string;
   availableCurrencies: IFiatCurrency[];
   updateCurrency: (c: string) => void;
+  showLoader: boolean;
 }
 
 const SupportedVsCurrencies = [
@@ -88,11 +91,13 @@ export const CurrencyContext: React.Context<CurrencyContextInterface> =
 
 export const CurrencyProvider: React.FC<PropsWithChildren> = ({ children }) => {
   const [currentCurrency, setCurrentCurrency] = useState(DEFAULT_CURRENCY);
+  const [showLoader, setShowLoader] = useState(false);
   const [availableCurrencies] = useState(
     Object.values(fiatCurrencyList).filter(c =>
       SupportedVsCurrencies.includes(c.code.toLowerCase()),
     ),
   );
+  const dispatch = useAppDispatch();
 
   const loadCurrency = async () => {
     const currency = await keyValueStore.appCurrency.get();
@@ -103,6 +108,10 @@ export const CurrencyProvider: React.FC<PropsWithChildren> = ({ children }) => {
   };
 
   const updateCurrency = useCallback((currency: string) => {
+    dispatch(openFullPageLoaderDialog({}));
+    setTimeout(() => {
+      dispatch(closeDialog('fullPageLoaderDialog'));
+    }, 5000);
     const normalized = currency.toLowerCase();
     logger.info('update currency', { currency });
     startTransition(() => {
@@ -122,6 +131,7 @@ export const CurrencyProvider: React.FC<PropsWithChildren> = ({ children }) => {
     currentCurrency,
     availableCurrencies,
     updateCurrency,
+    showLoader,
   });
 
   return (
