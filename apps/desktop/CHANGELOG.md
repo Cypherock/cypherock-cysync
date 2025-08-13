@@ -1,5 +1,16 @@
 # @cypherock/cysync-desktop
 
+## 2.2.0-pre.0
+
+### Minor Changes
+
+- [`63c292e3`](https://github.com/Cypherock/cypherock-cysync/commit/63c292e3e46fc2fb3e035dbd00ea6c02b32fa074) Thanks [@AryanCypherock](https://github.com/AryanCypherock)! - App size optimized for all platforms
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @cypherock/cysync-desktop-ui@0.0.31-pre.0
+
 ## 2.1.5
 
 ### Patch Changes
