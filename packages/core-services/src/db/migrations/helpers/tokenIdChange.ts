@@ -1,5 +1,12 @@
-import { createErc20AssetId } from '@cypherock/coins';
+import {
+  CoinFamily,
+  createErc20AssetId,
+  createSplAssetId,
+  createTrc20AssetId,
+} from '@cypherock/coins';
 import { IDatabase, IRepository } from '@cypherock/db-interfaces';
+
+type TokenFamilyId = Extract<CoinFamily, 'evm' | 'solana' | 'tron'>;
 
 export interface TokenIdChangeItem {
   oldId: string;
@@ -9,16 +16,35 @@ export interface TokenIdChangeItem {
   platform: string;
 }
 
-const createTokenIdChangesMap = (idChanges: TokenIdChangeItem[]) => {
+const createAssetId = (familyId: TokenFamilyId) => {
+  switch (familyId) {
+    case 'solana':
+      return createSplAssetId;
+
+    case 'tron':
+      return createTrc20AssetId;
+
+    case 'evm':
+      return createErc20AssetId;
+
+    default:
+      throw new Error(`Unsupported familyId: ${familyId}`);
+  }
+};
+
+const createTokenIdChangesMap = (
+  idChanges: TokenIdChangeItem[],
+  familyId: TokenFamilyId,
+) => {
   const map: Record<string, string | undefined> = {};
 
   for (const change of idChanges) {
-    const existingAssetId = createErc20AssetId({
+    const existingAssetId = createAssetId(familyId)({
       parentAssetId: change.platform,
       assetId: change.oldId,
       version: change.oldVersion,
     });
-    const newAssetId = createErc20AssetId({
+    const newAssetId = createAssetId(familyId)({
       parentAssetId: change.platform,
       assetId: change.newId,
       version: change.newVersion,
@@ -53,8 +79,9 @@ async function migrateTokenIdChangeInDbRepository<
 export const migrateTokenIdChangeInDb = async (
   db: IDatabase,
   idChanges: TokenIdChangeItem[],
+  familyId: TokenFamilyId = 'evm',
 ) => {
-  const map = createTokenIdChangesMap(idChanges);
+  const map = createTokenIdChangesMap(idChanges, familyId);
 
   const repositories = [
     {

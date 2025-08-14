@@ -1900,6 +1900,12 @@ importers:
       '@cypherock/coin-support-interfaces':
         specifier: workspace:^
         version: link:../coin-support-interfaces
+      '@cypherock/coin-support-solana':
+        specifier: workspace:^
+        version: link:../coin-support-solana
+      '@cypherock/coin-support-tron':
+        specifier: workspace:^
+        version: link:../coin-support-tron
       '@cypherock/coin-support-utils':
         specifier: workspace:^
         version: link:../coin-support-utils
