@@ -13,6 +13,7 @@ import lodash from 'lodash';
 import React, { useCallback, useEffect, useState } from 'react';
 
 import { openAddAccountDialog } from '~/actions';
+import { useCurrency } from '~/context';
 import {
   GraphTimeRangeMap,
   graphTimeRangeToDaysMap,
@@ -34,7 +35,6 @@ import logger from '~/utils/logger';
 
 import { UseGraphProps } from './types';
 import { calculatePortfolioGraphDataWithWorker } from './worker';
-import { useCurrency } from '~/context';
 
 export * from './types';
 

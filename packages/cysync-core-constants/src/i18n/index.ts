@@ -1,9 +1,9 @@
 import ar from './lang/ar-AE.json';
 import de from './lang/de-DE.json';
 import en from './lang/en.json';
+import fr from './lang/fr-FR.json';
 import id from './lang/id-ID.json';
 import zh from './lang/zh-CN.json';
-import fr from './lang/fr-FR.json';
 import { LanguageStrings } from './types';
 
 export type { LanguageStrings } from './types';

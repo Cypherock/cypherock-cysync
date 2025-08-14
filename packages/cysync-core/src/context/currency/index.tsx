@@ -7,6 +7,7 @@ import React, {
   useEffect,
   useState,
 } from 'react';
+
 import { openFullPageLoaderDialog } from '~/actions';
 import { useMemoReturn } from '~/hooks';
 import { closeDialog, useAppDispatch } from '~/store';
@@ -17,7 +18,6 @@ export interface CurrencyContextInterface {
   currentCurrency: string;
   availableCurrencies: IFiatCurrency[];
   updateCurrency: (c: string) => void;
-  showLoader: boolean;
 }
 
 const SupportedVsCurrencies = [
@@ -91,7 +91,6 @@ export const CurrencyContext: React.Context<CurrencyContextInterface> =
 
 export const CurrencyProvider: React.FC<PropsWithChildren> = ({ children }) => {
   const [currentCurrency, setCurrentCurrency] = useState(DEFAULT_CURRENCY);
-  const [showLoader, setShowLoader] = useState(false);
   const [availableCurrencies] = useState(
     Object.values(fiatCurrencyList).filter(c =>
       SupportedVsCurrencies.includes(c.code.toLowerCase()),
@@ -131,7 +130,6 @@ export const CurrencyProvider: React.FC<PropsWithChildren> = ({ children }) => {
     currentCurrency,
     availableCurrencies,
     updateCurrency,
-    showLoader,
   });
 
   return (

@@ -20,6 +20,7 @@ import { createSelector } from '@reduxjs/toolkit';
 import { format as formatDate } from 'date-fns';
 import lodash from 'lodash';
 import React, { useCallback, useEffect, useState } from 'react';
+
 import { openSwapHistoryDialog } from '~/actions';
 import { CoinIcon } from '~/components';
 import { providerImageUrlMap } from '~/constants';

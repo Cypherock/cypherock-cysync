@@ -1,5 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 
+import { useCurrency } from '~/context';
+
 import {
   syncAllDb,
   addListeners,
@@ -8,7 +10,6 @@ import {
   addPriceListeners,
   removePriceListeners,
 } from './helper';
-import { useCurrency } from '~/context';
 
 export const DatabaseListener: React.FC = () => {
   const { currentCurrency } = useCurrency();

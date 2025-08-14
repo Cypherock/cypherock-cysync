@@ -28,6 +28,7 @@ import {
 import { createSelector } from '@reduxjs/toolkit';
 import React, { FC, useMemo } from 'react';
 
+import { useCurrency } from '~/context';
 import { mapTransactionForDisplay } from '~/hooks';
 import {
   closeDialog,
@@ -43,7 +44,6 @@ import {
 } from '~/store';
 
 import { LoaderDialog } from '../components';
-import { useCurrency } from '~/context';
 
 export interface IHistoryDialogProps {
   txn: ITransaction;

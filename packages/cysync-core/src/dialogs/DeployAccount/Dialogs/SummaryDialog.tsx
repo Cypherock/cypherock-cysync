@@ -24,6 +24,7 @@ import { AccountTypeMap } from '@cypherock/db-interfaces';
 import React, { useEffect, useState } from 'react';
 
 import { CoinIcon, LoaderDialog } from '~/components';
+import { useCurrency } from '~/context';
 import {
   selectCurrentCurrencyPriceInfos,
   selectLanguage,
@@ -31,7 +32,6 @@ import {
 } from '~/store';
 
 import { useDeployAccountDialog } from '../context';
-import { useCurrency } from '~/context';
 
 export const SummaryDialog: React.FC = () => {
   const {
