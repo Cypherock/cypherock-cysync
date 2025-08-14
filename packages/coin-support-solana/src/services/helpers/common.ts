@@ -10,6 +10,8 @@ import {
   IDatabase,
 } from '@cypherock/db-interfaces';
 
+import { InstructionType, TransactionParserReturnType } from './types';
+
 import { ISolanaSplTokenAccount } from '../../operations/types';
 import {
   deriveAssociatedTokenAddress,
@@ -21,7 +23,6 @@ import {
   ISolanaInstruction,
   ISolanaTransactionItem,
 } from '../api';
-import { InstructionType, TransactionParserReturnType } from './types';
 
 const parseCoinTransaction = (
   instruction: ISolanaInstruction,
