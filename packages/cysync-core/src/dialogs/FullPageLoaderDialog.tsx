@@ -11,10 +11,13 @@ export interface FullPageLoaderDialogProps {
 export const FullPageLoaderDialog: FC<FullPageLoaderDialogProps> = ({
   title,
   subtext,
-}) => {
-  return (
-    <BlurOverlay>
-      <LoaderDialog title={title} subtext={subtext} />
-    </BlurOverlay>
-  );
+}) => (
+  <BlurOverlay>
+    <LoaderDialog title={title} subtext={subtext} />
+  </BlurOverlay>
+);
+
+FullPageLoaderDialog.defaultProps = {
+  title: undefined,
+  subtext: undefined,
 };

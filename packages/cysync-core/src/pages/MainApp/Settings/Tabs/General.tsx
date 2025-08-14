@@ -7,10 +7,10 @@ import {
   openEditAccountDialog,
   openMobileAppSyncDialog,
 } from '~/actions';
+import { useCurrency } from '~/context';
 import { selectLanguage, useAppDispatch, useAppSelector } from '~/store';
 
 import { SettingsButton, SettingsStandardItem } from '../components';
-import { useCurrency } from '~/context';
 
 export const GeneralSettings: React.FC = () => {
   const dispatch = useAppDispatch();

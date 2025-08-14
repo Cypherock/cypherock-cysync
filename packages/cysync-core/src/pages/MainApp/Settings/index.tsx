@@ -6,7 +6,6 @@ import {
   Typography,
   useTheme,
   Tab,
-  BlurOverlay,
 } from '@cypherock/cysync-ui';
 import React, { FC, useState } from 'react';
 
@@ -15,12 +14,9 @@ import { selectLanguage, useAppSelector } from '~/store';
 import { AppSettings, DeviceSettings, About, GeneralSettings } from './Tabs';
 
 import { MainAppLayout } from '../Layout';
-import { useCurrency } from '~/context';
-import { LoaderDialog } from '~/components';
 
 export const Settings: FC = () => {
   const { strings } = useAppSelector(selectLanguage);
-  const { showLoader } = useCurrency();
 
   const tabs: Tab[] = [
     {
@@ -43,16 +39,6 @@ export const Settings: FC = () => {
 
   const [tabIndex, setTabIndex] = useState<number>(0);
   const theme = useTheme();
-
-  if (showLoader) {
-    return (
-      <Container width="full" height="full" position="absolute">
-        <BlurOverlay>
-          <LoaderDialog />
-        </BlurOverlay>
-      </Container>
-    );
-  }
 
   return (
     <MainAppLayout topbar={{ title: strings.sidebar.settings }}>

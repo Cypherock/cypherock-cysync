@@ -25,6 +25,7 @@ import lodash from 'lodash';
 import React, { useCallback, useState } from 'react';
 
 import { CoinIcon } from '~/components';
+import { useCurrency } from '~/context';
 import { useLabelSuffix } from '~/dialogs/Send/hooks';
 import { useStateToRef } from '~/hooks';
 import {
@@ -42,7 +43,6 @@ import { OptimismFeesHeader } from './OptimismFeesHeader';
 import { XrpInput } from './XrpInput';
 
 import { useSendDialog } from '../../../context';
-import { useCurrency } from '~/context';
 
 const feeInputMap: Partial<Record<CoinFamily, React.FC<any>>> = {
   bitcoin: BitcoinInput,

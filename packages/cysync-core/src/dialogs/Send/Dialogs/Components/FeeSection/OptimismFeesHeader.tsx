@@ -10,6 +10,7 @@ import { Divider, Flex, LangDisplay, Typography } from '@cypherock/cysync-ui';
 import { BigNumber } from '@cypherock/cysync-utils';
 import React from 'react';
 
+import { useCurrency } from '~/context';
 import { useSendDialog } from '~/dialogs/Send/context';
 import {
   selectCurrentCurrencyPriceInfos,
@@ -20,7 +21,6 @@ import {
 import { FeesHeaderProps } from './FeesHeader';
 import { FeesTitle } from './FeesTitle';
 import { ValueDisplay } from './ValueDisplay';
-import { useCurrency } from '~/context';
 
 export const OptimismFeesHeader: React.FC<FeesHeaderProps> = ({
   initialState,

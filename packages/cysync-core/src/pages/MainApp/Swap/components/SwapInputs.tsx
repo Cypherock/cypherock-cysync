@@ -12,8 +12,8 @@ import {
 } from '@cypherock/cysync-ui';
 import { BigNumber } from '@cypherock/cysync-utils';
 import React, { useMemo, useRef } from 'react';
-import { useCurrency } from '~/context';
 
+import { useCurrency } from '~/context';
 import {
   useAppSelector,
   selectLanguage,

@@ -18,6 +18,7 @@ import { DeviceAuthenticationDialog } from './DeviceAuthenticationDialog';
 import { DeviceUpdateDialog } from './DeviceUpdateDialog';
 import { EditAccountDialog } from './EditAccountDialog';
 import { ErrorDialog } from './ErrorDialog';
+import { FullPageLoaderDialog } from './FullPageLoaderDialog';
 import { GuidedFlow } from './GuidedFlow';
 import { HistoryDialog } from './HistoryDialog';
 import {
@@ -45,7 +46,6 @@ import { SwapDialog } from './SwapDialog';
 import { WalletActionsDialogBox } from './WalletActions';
 import { WalletConnectDialog } from './WalletConnect';
 import { WalletSyncError } from './WalletSyncError';
-import { FullPageLoaderDialog } from './FullPageLoaderDialog';
 
 export const dialogs: Record<DialogName, ReactComponentLike> = {
   walletSyncError: WalletSyncError,

@@ -31,6 +31,7 @@ import React, {
 
 import { syncAccounts, syncPriceHistories, syncPrices } from '~/actions';
 import { CoinIcon } from '~/components';
+import { useCurrency } from '~/context';
 import { ITabs, useAccountDropdown, useTabsAndDialogs } from '~/hooks';
 import { useWalletDropdown } from '~/hooks/useWalletDropdown';
 import {
@@ -44,7 +45,6 @@ import { getDB } from '~/utils';
 import logger from '~/utils/logger';
 
 import { AddTokenCongrats, AddTokenSelectionDialog } from '../Dialogs';
-import { useCurrency } from '~/context';
 
 export interface AddTokenDialogContextInterface {
   currentTab: number;
