@@ -1,5 +1,11 @@
 # @cypherock/cysync-core
 
+## 0.6.8
+
+### Patch Changes
+
+- [#801](https://github.com/Cypherock/cypherock-cysync/pull/801) [`63c292e3`](https://github.com/Cypherock/cypherock-cysync/commit/63c292e3e46fc2fb3e035dbd00ea6c02b32fa074) Thanks [@AryanCypherock](https://github.com/AryanCypherock)! - App size optimized for all platforms
+
 ## 0.6.8-pre.0
 
 ### Patch Changes
