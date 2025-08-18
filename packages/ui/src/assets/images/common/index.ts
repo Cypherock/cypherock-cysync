@@ -34,7 +34,7 @@ import dashWalletHoverBgIcon from './dash-wallet-hover-bg-icon.svg';
 import deviceAuthAsideImage from './DeviceAuthAside.png';
 import { DeviceUpdateIcon } from './DeviceUpdateIcon';
 import disconnectedIcon from './disconnected.svg';
-import emailIcon from './email-icon.svg';
+import emailIconLogo from './email-icon.svg';
 import emailIconOutlined from './email.svg';
 import errorIcon from './error.svg';
 import ethereumIcon from './ethereum-icon.svg';
@@ -120,6 +120,7 @@ import odixCardTapAside from './odix-card-tap-aside.png';
 import odixBlockSelectedIcon from './odix-block.svg';
 import odixSliderThumb from './odix-slider-thumb.svg';
 import odixLocked from './odix-locked.svg';
+import odixEmailIconLogo from './odix-email-icon.svg';
 
 const sliderThumbIcon =
   (window as any).cysyncEnv.VENDOR === 'odix' ? odixSliderThumb : sliderThumb;
@@ -222,6 +223,11 @@ const goldHoverWalletIcon =
 
 const cysyncLockedLogo =
   (window as any).cysyncEnv.VENDOR === 'odix' ? odixLocked : cysyncLocked;
+
+const emailIcon =
+  (window as any).cysyncEnv.VENDOR === 'odix'
+    ? odixEmailIconLogo
+    : emailIconLogo;
 
 export {
   WalletDefaultExpiredIcon,
