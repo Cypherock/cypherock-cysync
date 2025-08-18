@@ -21,7 +21,7 @@ export const Styles = createGlobalStyle`
   padding: 0px;
   font-family: 'Poppins';
 }
-*:focus {
+*:focus-visible {
   outline: 1px solid ${({ theme }) => theme.palette.border.gold}; 
 }
 
