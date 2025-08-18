@@ -53,7 +53,7 @@ jobs:
             ${{ runner.os }}-pnpm-store-
 
       - name: Install linux dependencies
-        run: sudo apt-get install fakeroot dpkg rpm -y
+        run: sudo apt-get install -y fakeroot dpkg rpm libudev-dev libusb-1.0-0-dev
 
       - name: pnpm install
         run: pnpm install

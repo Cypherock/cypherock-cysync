@@ -1,6 +1,6 @@
 {
   "name": "@cypherock/cysync-core",
-  "version": "0.6.7",
+  "version": "0.6.8-pre.0",
   "module": "dist/esm/index.js",
   "types": "dist/esm/index.d.ts",
   "license": "AGPL-3.0",
@@ -25,6 +25,7 @@
     "@cypherock/jest-config": "workspace:^",
     "@cypherock/prettier-config": "workspace:^",
     "@cypherock/tsconfig": "workspace:^",
+    "@dfinity/utils": "^2.13.1",
     "@jest/globals": "^29.5.0",
     "@stryker-mutator/core": "^7.0.2",
     "@stryker-mutator/jest-runner": "^7.0.2",

@@ -1,3 +1,9 @@
+# v2.2.0
+
+### 🚀 Feature
+
+- **File Size Optimization**: We've made significant improvements to the cySync app's size, drastically reducing it from gigabytes (GBs) to megabytes (MBs) for a faster download and installation experience.
+
 # v2.1.5
 
 ### 🚀 Feature
