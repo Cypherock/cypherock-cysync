@@ -1,4 +1,5 @@
 const { getDefaultConfig } = require('expo/metro-config');
+const exclusionList = require('metro-config/src/defaults/exclusionList');
 const path = require('path');
 
 const projectRoot = __dirname;
@@ -25,6 +26,13 @@ config.resolver.nodeModulesPaths = [
   path.resolve(projectRoot, 'node_modules'),
   path.resolve(monorepoRoot, 'node_modules'),
 ];
+
+// Exclude Electron binaries and desktop app artifacts from Metro's file map
+config.resolver.blockList = exclusionList([
+  /[\\/]apps[\\/]desktop[\\/].*/,
+  /[\\/]node_modules[\\/]electron[\\/].*/,
+  /[\\/](?:android|ios)[\\/]build[\\/].*/,
+]);
 
 config.transformer.getTransformOptions = () => ({
   transform: {
