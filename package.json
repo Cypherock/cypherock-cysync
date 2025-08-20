@@ -81,7 +81,8 @@
     },
     "overrides": {
       "write-file-atomic": "5.0.1",
-      "signal-exit": "4.1.0"
+      "signal-exit": "4.1.0",
+      "eslint-import-resolver-typescript": "3.5.5"
     }
   }
 }
