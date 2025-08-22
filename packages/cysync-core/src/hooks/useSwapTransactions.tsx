@@ -22,7 +22,6 @@ import lodash from 'lodash';
 import React, { useCallback, useEffect, useState } from 'react';
 import { openSwapHistoryDialog } from '~/actions';
 import { CoinIcon } from '~/components';
-import { providerImageUrlMap } from '~/constants';
 import { useStateToRef } from '~/hooks';
 import {
   selectDiscreetMode,
@@ -302,8 +301,8 @@ export const mapSwapTransactionForDisplay = (params: {
     alreadyDisplayUnit: true,
   });
 
-  const providerName = swapData.providerId;
-  const providerImageUrl = providerImageUrlMap[swapData.providerId];
+  const providerName = swapData.providerName;
+  const providerImageUrl = swapData.providerImageUrl;
   const { providerUrl, swapStatus } = swapData;
 
   return {

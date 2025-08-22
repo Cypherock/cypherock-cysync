@@ -37,6 +37,8 @@ export interface ISwapData {
   swapId: string;
   providerUrl: string;
   providerId: string;
+  providerName: string;
+  providerImageUrl: string;
   payoutTxnHash?: string;
   isReceiveUpdated: boolean;
   swapStatus: SwapStatus;

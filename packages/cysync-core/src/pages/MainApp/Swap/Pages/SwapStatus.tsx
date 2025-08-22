@@ -25,6 +25,7 @@ import {
   SwapStatus as SwapStates,
   AccountTypeMap,
   IAccount,
+  ISwapData,
 } from '@cypherock/db-interfaces';
 import React, { useEffect, useState } from 'react';
 
@@ -71,7 +72,7 @@ export const SwapStatus = () => {
       if (result.status === 200) {
         const url = result?.data?.data?.providerUrl;
         setProviderUrl(url);
-        let swapData;
+        let swapData: ISwapData;
 
         if (
           transactionId.current &&
@@ -93,6 +94,8 @@ export const SwapStatus = () => {
             swapId: exchangeDetails.id,
             providerUrl: url,
             providerId: quote.provider.id,
+            providerImageUrl: quote.provider.imageUrl,
+            providerName: quote.provider.name,
             payoutTxnHash: result.data.data.payoutHash,
             swapStatus: SwapStates.Pending,
             isReceiveUpdated: false,
