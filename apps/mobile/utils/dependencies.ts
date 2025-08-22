@@ -5,6 +5,7 @@ const { EvmSupport } = require('@cypherock/coin-support-evm');
 const { NearSupport } = require('@cypherock/coin-support-near');
 const { SolanaSupport } = require('@cypherock/coin-support-solana');
 const { StarknetSupport } = require('@cypherock/coin-support-starknet');
+import { StellarSupport } from '@cypherock/coin-support-stellar';
 const { TronSupport } = require('@cypherock/coin-support-tron');
 const { XrpSupport } = require('@cypherock/coin-support-xrp');
 const { IcpSupport } = require('@cypherock/coin-support-icp');
@@ -21,6 +22,7 @@ export const setGlobalDependencies = async () => {
     new (globalThis as any).TronWeb({ fullHost: 'https://api.trongrid.io' }),
   );
   XrpSupport.setXrpLib((globalThis as any).xrpl);
+  StellarSupport.setStellarLib((globalThis as any).StellarSdk);
   StarknetSupport.setStarknetLib((globalThis as any).starknet);
   IcpSupport.setDfinityLib((globalThis as any).dfinity);
 };

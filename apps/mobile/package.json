@@ -1,7 +1,7 @@
 {
   "name": "@cypherock/cysync-mobile",
   "main": "./App.js",
-  "version": "0.1.15",
+  "version": "0.1.16",
   "scripts": {
     "start": "expo start",
     "android": "expo run:android",
@@ -26,6 +26,7 @@
     "@cypherock/coin-support-near": "workspace:^",
     "@cypherock/coin-support-solana": "workspace:^",
     "@cypherock/coin-support-starknet": "workspace:^",
+    "@cypherock/coin-support-stellar": "workspace:^",
     "@cypherock/coin-support-tron": "workspace:^",
     "@cypherock/coin-support-utils": "workspace:^",
     "@cypherock/coin-support-xrp": "workspace:^",
