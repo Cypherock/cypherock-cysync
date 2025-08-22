@@ -7,6 +7,10 @@ with import <nixpkgs> {};
       python39
       nodePackages.node-gyp
       libusb1
+      udev
+      rpm
+      dpkg
+      fakeroot
     ];
     LD_LIBRARY_PATH = lib.makeLibraryPath [
       libusb1

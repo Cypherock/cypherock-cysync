@@ -30,10 +30,15 @@ If you use Nix you can skip this step, and run `nix-shell` in root directory.
   - For more details, please refer to the [node-gyp documentation][5].
 - Dependencies for MacOS
   `brew install pkg-config pixman cairo pango`
-- If you are using linux, run the following command to configure usb.
-  ```sh
-  wget -q -O - https://raw.githubusercontent.com/Cypherock/cysync-scripts/main/configure-usb.sh | sudo bash
-  ```
+- If you are using Linux, install system packages and configure USB:
+  - Install dependencies (Debian/Ubuntu):
+    ```sh
+    sudo apt-get update && sudo apt-get install -y fakeroot dpkg rpm libudev-dev libusb-1.0-0-dev
+    ```
+  - Configure USB permissions:
+    ```sh
+    wget -q -O - https://raw.githubusercontent.com/Cypherock/cysync-scripts/main/configure-usb.sh | sudo bash
+    ```
 
 ## Understanding the directory structure
 
