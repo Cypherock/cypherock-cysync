@@ -464,6 +464,9 @@ importers:
       '@cypherock/coin-support-starknet':
         specifier: workspace:^
         version: link:../../packages/coin-support-starknet
+      '@cypherock/coin-support-stellar':
+        specifier: workspace:^
+        version: link:../../packages/coin-support-stellar
       '@cypherock/coin-support-tron':
         specifier: workspace:^
         version: link:../../packages/coin-support-tron
