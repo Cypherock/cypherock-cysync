@@ -15,32 +15,44 @@ const packages = {
     'videos',
   ],
   'apps/cli': [...commonFolders, 'release'],
-  'packages/coin-support': [...commonFolders],
-  'packages/app-support-inheritance': [...commonFolders],
-  'packages/coin-support-evm': [...commonFolders],
-  'packages/coin-support-btc': [...commonFolders],
-  'packages/coin-support-solana': [...commonFolders],
-  'packages/coin-support-near': [...commonFolders],
-  'packages/coin-support-tron': [...commonFolders],
-  'packages/coin-support-xrp': [...commonFolders],
-  'packages/coin-support-stellar': [...commonFolders],
-  'packages/coin-support-utils': [...commonFolders],
-  'packages/coin-support-interfaces': [...commonFolders],
-  'packages/coins': [...commonFolders],
-  'packages/desktop-ui': [...commonFolders],
   'packages/ui': [...commonFolders, 'src/assets/icons/generated'],
-  'packages/database': [...commonFolders],
-  'packages/db-interfaces': [...commonFolders],
   'packages/cysync-core': [...commonFolders, 'src/generated'],
   'packages/cysync-core-workers': [...commonFolders, 'lib', 'parcel'],
-  'packages/cysync-core-constants': [...commonFolders],
-  'packages/interfaces': [...commonFolders],
-  'packages/utils': [...commonFolders],
-  'packages/cysync-automation-scripts': [...commonFolders],
   'packages/util-eslint-config': ['node_modules'],
   'packages/util-prettier-config': ['node_modules'],
   'packages/util-jest-config': ['node_modules'],
   'packages/util-tsconfig': ['node_modules'],
+};
+
+const getPackages = async () => {
+  const srcDirectories = ['apps', 'packages'];
+  for (const d of srcDirectories) {
+    const dirPath = path.join(__dirname, '..', d);
+    try {
+      const entries = await fs.readdir(dirPath, { withFileTypes: true });
+      for (const entry of entries) {
+        const name = entry.name;
+        if (
+          !entry.isDirectory() ||
+          name.startsWith('.') ||
+          name.toLowerCase() === '.ds_store' ||
+          name.toLowerCase() === 'ds_store'
+        ) {
+          continue;
+        }
+
+        const pkgKey = path.join(d, name);
+
+        if (!packages[pkgKey]) {
+          packages[pkgKey] = [...commonFolders];
+        }
+      }
+    } catch (err) {
+      console.log(`Path not found: ${dirPath}`);
+    }
+  }
+
+  return packages;
 };
 
 const rl = readline.createInterface({
@@ -76,7 +88,7 @@ const removeFolders = async (parentDirectory, folders) => {
   for (const folder of folders) {
     const folderPath = path.join(parentDirectory, folder);
 
-    if (doExists(folderPath)) {
+    if (await doExists(folderPath)) {
       console.log(`Deleting: ${folderPath}`);
       await fs.rm(folderPath, { recursive: true, force: true });
     }
@@ -89,8 +101,10 @@ const run = async () => {
   const isForce =
     process.argv.includes('--force') || process.argv.includes('-f');
 
-  for (const pkgName in packages) {
-    for (const folder of packages[pkgName]) {
+  const resolvedPackages = await getPackages();
+
+  for (const pkgName in resolvedPackages) {
+    for (const folder of resolvedPackages[pkgName]) {
       allFoldersToDelete.push(path.join(pkgName, folder));
     }
   }
