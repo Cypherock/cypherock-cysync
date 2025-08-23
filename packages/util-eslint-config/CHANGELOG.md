@@ -1,5 +1,11 @@
 # @cypherock/eslint-config
 
+## 0.0.2-pre.0
+
+### Patch Changes
+
+- [#800](https://github.com/Cypherock/cypherock-cysync/pull/800) [`83e84de5`](https://github.com/Cypherock/cypherock-cysync/commit/83e84de54d3ee01fe56d3339a7ecc7adfa238423) Thanks [@AryanCypherock](https://github.com/AryanCypherock)! - multiple currency support added
+
 ## 0.0.1
 
 ### Patch Changes

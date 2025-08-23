@@ -1,5 +1,21 @@
 # @cypherock/coin-support-evm
 
+## 0.1.0-pre.0
+
+### Minor Changes
+
+- [#800](https://github.com/Cypherock/cypherock-cysync/pull/800) [`83e84de5`](https://github.com/Cypherock/cypherock-cysync/commit/83e84de54d3ee01fe56d3339a7ecc7adfa238423) Thanks [@AryanCypherock](https://github.com/AryanCypherock)! - multiple currency support added
+
+### Patch Changes
+
+- Updated dependencies [[`83e84de5`](https://github.com/Cypherock/cypherock-cysync/commit/83e84de54d3ee01fe56d3339a7ecc7adfa238423)]:
+  - @cypherock/coin-support-interfaces@0.1.0-pre.0
+  - @cypherock/coin-support-utils@0.1.0-pre.0
+  - @cypherock/coins@0.3.3
+  - @cypherock/db-interfaces@0.1.0
+  - @cypherock/cysync-interfaces@0.0.9
+  - @cypherock/cysync-utils@0.0.11
+
 ## 0.0.19
 
 ### Patch Changes

@@ -35,5 +35,7 @@
     "@cypherock/tsconfig": "0.0.1",
     "@cypherock/cysync-utils": "0.0.11"
   },
-  "changesets": []
+  "changesets": [
+    "loud-jeans-appear"
+  ]
 }
