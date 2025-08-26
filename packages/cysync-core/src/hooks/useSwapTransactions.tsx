@@ -20,6 +20,7 @@ import { createSelector } from '@reduxjs/toolkit';
 import { format as formatDate } from 'date-fns';
 import lodash from 'lodash';
 import React, { useCallback, useEffect, useState } from 'react';
+
 import { openSwapHistoryDialog } from '~/actions';
 import { CoinIcon } from '~/components';
 import { useStateToRef } from '~/hooks';
@@ -301,8 +302,8 @@ export const mapSwapTransactionForDisplay = (params: {
     alreadyDisplayUnit: true,
   });
 
-  const providerName = swapData.providerName;
-  const providerImageUrl = swapData.providerImageUrl;
+  const { providerName } = swapData;
+  const { providerImageUrl } = swapData;
   const { providerUrl, swapStatus } = swapData;
 
   return {
