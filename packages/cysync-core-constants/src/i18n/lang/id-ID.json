@@ -2928,15 +2928,19 @@
       "heading": {
         "success": "Pertukaran Berhasil",
         "pending": "Pertukaran Tertunda",
-        "failed": "Pertukaran Gagal"
+        "failed": "Pertukaran Gagal",
+        "hold": "Pertukaran Tertunda",
+        "expired": "Pertukaran Expired"
       },
       "description": "",
       "amountSent": "Jumlah Dikirim",
       "amountReceived": "Jumlah Diterima",
       "transactionID": "ID Transaksi",
       "messageBox": {
-        "warning": "Saldo akun Anda akan diperbarui ketika blockchain mengonfirmasi transaksi",
-        "danger": "Jaringan mengembalikan kesalahan berikut:"
+        "pending": "Saldo akun Anda akan diperbarui ketika blockchain mengonfirmasi transaksi",
+        "failed": "Jaringan mengembalikan kesalahan berikut:",
+        "hold": "Pertukaran Tertunda",
+        "expired": "Pertukaran Expired"
       },
       "button": {
         "backToSwap": "Kembali ke Pertukaran"

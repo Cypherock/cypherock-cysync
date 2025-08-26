@@ -2,6 +2,8 @@ import axios from 'axios';
 
 import { config } from '../config';
 
+const SUPPORTED_PROVIDERS = ['changenow', 'changelly'];
+
 export const getQuotes = async (params: {
   fromCurrency: string;
   toCurrency: string;
@@ -10,6 +12,7 @@ export const getQuotes = async (params: {
   toNetwork: string;
 }) =>
   axios.post(`${config.API_CYPHEROCK}/swap/get-quotes`, {
+    supportedProviders: SUPPORTED_PROVIDERS,
     ...params,
   });
 

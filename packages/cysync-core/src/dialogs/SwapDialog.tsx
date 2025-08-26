@@ -36,6 +36,8 @@ const textColorMap: Record<SwapStatus, any> = {
   success: 'success',
   failed: 'error',
   pending: 'warn',
+  hold: 'warn',
+  expired: 'error',
 };
 
 export const SwapDialog: FC<ISwapDialogProps> = ({ swap: swapSource }) => {

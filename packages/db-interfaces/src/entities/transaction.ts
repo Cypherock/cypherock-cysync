@@ -22,6 +22,8 @@ export enum SwapStatus {
   Pending = 'pending',
   Failed = 'failed',
   Success = 'success',
+  Hold = 'hold',
+  Expired = 'expired',
 }
 
 export type TransactionType =

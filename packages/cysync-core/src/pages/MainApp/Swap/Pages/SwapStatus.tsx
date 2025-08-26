@@ -119,6 +119,18 @@ export const SwapStatus = () => {
               ...swapData,
               swapStatus: SwapStates.Success,
             };
+          } else if (result.data.data.status === 'hold') {
+            setState(SwapStates.Hold);
+            swapData = {
+              ...swapData,
+              swapStatus: SwapStates.Hold,
+            };
+          } else if (result.data.data.status === 'expired') {
+            setState(SwapStates.Expired);
+            swapData = {
+              ...swapData,
+              swapStatus: SwapStates.Expired,
+            };
           } else if (result.data.data.status === 'failed') {
             setState(SwapStates.Failed);
             swapData = {
