@@ -1,3 +1,6 @@
+import { getCoinSupport } from '@cypherock/coin-support';
+import { IcpSupport } from '@cypherock/coin-support-icp';
+import { coinFamiliesMap } from '@cypherock/coins';
 import { IAccount, IWallet, ISwapData } from '@cypherock/db-interfaces';
 import {
   ExchangeApp,
@@ -222,6 +225,22 @@ export const SwapProvider: React.FC<SwapProviderProps> = ({ children }) => {
     dontExecuteTask: true,
   });
 
+  const getRefundAddress = async (account: IAccount) => {
+    const coinSupport = getCoinSupport(account.familyId);
+    const refundAddress = await coinSupport.getAccountAddress({
+      account,
+    });
+    if (account.familyId === coinFamiliesMap.icp) {
+      const { accountId } = (
+        coinSupport as IcpSupport
+      ).getAddressDetailsFromPublicKey({
+        pubKey: refundAddress,
+      });
+      return accountId;
+    }
+    return refundAddress;
+  };
+
   const initiateExchange = async (address: string) => {
     try {
       const sig = await getSignature.run();
@@ -236,6 +255,9 @@ export const SwapProvider: React.FC<SwapProviderProps> = ({ children }) => {
       )
         throw new Error('Invalid prerequisite data');
 
+      // using fromAccount address as refund address
+      const refundAddress = await getRefundAddress(fromAccount);
+
       // give details to server
       const result = await createExchange({
         id: quote.id,
@@ -243,6 +265,7 @@ export const SwapProvider: React.FC<SwapProviderProps> = ({ children }) => {
         fromCurrency: fromAccount.assetId,
         toCurrency: toAccount.assetId,
         amount: quote.fromAmount,
+        refundAddress,
         receiverAddress: address,
         receiverAddressSignature: Buffer.from(sig.result.signature).toString(
           'hex',

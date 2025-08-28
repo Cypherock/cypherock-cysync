@@ -22,6 +22,7 @@ export const createExchange = async (params: {
   fromCurrency: string;
   toCurrency: string;
   amount: string;
+  refundAddress?: string;
   receiverAddress: string;
   receiverAddressSignature: string;
   fromNetwork: string;
