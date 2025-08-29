@@ -61,6 +61,7 @@ export const formatDisplayPrice = (value: NumberLike, currencyCode: string) => {
     formatter = new Intl.NumberFormat(undefined, {
       style: 'currency',
       currency: code,
+      currencyDisplay: 'symbol',
     });
     currencyFormatterCache[code] = formatter;
   }
