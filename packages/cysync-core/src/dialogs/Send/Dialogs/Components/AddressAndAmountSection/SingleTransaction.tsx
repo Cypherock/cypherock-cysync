@@ -6,7 +6,11 @@ import {
   IPreparedStellarTransaction,
   IStellarMemoType,
 } from '@cypherock/coin-support-stellar';
-import { getDefaultUnit, getParsedAmount } from '@cypherock/coin-support-utils';
+import {
+  getDefaultUnit,
+  getParsedAmount,
+  getFiatUnit,
+} from '@cypherock/coin-support-utils';
 import { IPreparedXrpTransaction } from '@cypherock/coin-support-xrp';
 import { coinFamiliesMap, CoinFamily } from '@cypherock/coins';
 import { Container, parseLangTemplate } from '@cypherock/cysync-ui';
@@ -24,6 +28,7 @@ import { NotesInput } from './NotesInput';
 import { StellarMemoInput } from './StellarMemoInput';
 
 import { useSendDialog } from '../../../context';
+import { useCurrency } from '~/context';
 
 const MAX_UINT64 = new BigNumber('0xffffffffffffffff');
 
@@ -37,6 +42,7 @@ export const SingleTransaction: React.FC<SingleTransactionProps> = ({
   const lang = useAppSelector(selectLanguage);
   const displayText = lang.strings.send.recipient;
   const [amountOverride, setAmountOverride] = useState('');
+  const { currentCurrency } = useCurrency();
 
   const {
     selectedAccount,
@@ -260,7 +266,7 @@ export const SingleTransaction: React.FC<SingleTransactionProps> = ({
           }
           toggleLabel={disableInputs ? '' : displayText.amount.toggle}
           initialToggle={transaction?.userInputs.isSendAll !== false}
-          priceUnit={displayText.amount.dollar}
+          priceUnit={getFiatUnit(currentCurrency).symbol}
           error={getAmountError(0)}
           placeholder={displayText.amount.placeholder}
           initialAmount={getConvertedAmount(
