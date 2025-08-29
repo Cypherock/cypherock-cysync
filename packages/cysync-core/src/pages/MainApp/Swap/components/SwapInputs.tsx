@@ -1,6 +1,6 @@
 import {
   getDefaultUnit,
-  formatDisplayPrice,
+  formatDisplayAmount,
 } from '@cypherock/coin-support-utils';
 import {
   CustomInputSend,
@@ -169,9 +169,9 @@ export const AmountAndAccountSelection: React.FC<any> = ({
       assetPrice.latestPrice,
     );
 
-    const value = formatDisplayPrice(amountValue, currentCurrency);
+    const value = formatDisplayAmount(amountValue).fixed;
 
-    return `~${value} ${assetPrice.currency.toUpperCase()}`;
+    return `~${value} ${currentCurrency.toUpperCase()}`;
   }, [selectedAccount, amount]);
 
   return (

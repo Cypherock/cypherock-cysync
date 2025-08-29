@@ -69,6 +69,27 @@ export const formatDisplayPrice = (value: NumberLike, currencyCode: string) => {
   return formatter.format(number.toNumber());
 };
 
+export const getFiatUnit = (currencyCode: string) => {
+  const code = currencyCode?.toUpperCase?.() ?? currencyCode;
+  let formatter = currencyFormatterCache[code];
+  if (!formatter) {
+    formatter = new Intl.NumberFormat(undefined, {
+      style: 'currency',
+      currency: code,
+      currencyDisplay: 'symbol',
+    });
+    currencyFormatterCache[code] = formatter;
+  }
+
+  const parts = formatter.formatToParts(0);
+  const symbolPart = parts.find(p => p.type === 'currency');
+  return {
+    abbr: code,
+    symbol: symbolPart ? symbolPart.value : code,
+    decimal: 2,
+  };
+};
+
 export const getUnit = (coinId: string, unitAbbr: string, assetId?: string) => {
   const coin = coinList[coinId];
 
