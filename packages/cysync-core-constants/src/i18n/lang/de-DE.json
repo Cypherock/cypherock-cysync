@@ -2940,7 +2940,7 @@
       "messageBox": {
         "pending": "Ihr Kontostand wird aktualisiert, wenn die Blockchain die Transaktion bestätigt",
         "failed": "Das Netzwerk hat den folgenden Fehler zurückgegeben:",
-        "hold": "Tausch auf Halt",
+        "hold": "Your transaction has been placed on hold for security verification. To proceed, please contact ${providerName} security team at ${providerEmail} for further instructions.",
         "expired": "Tausch abgelaufen"
       },
       "button": {

@@ -2939,7 +2939,7 @@
       "messageBox": {
         "pending": "Saldo akun Anda akan diperbarui ketika blockchain mengonfirmasi transaksi",
         "failed": "Jaringan mengembalikan kesalahan berikut:",
-        "hold": "Pertukaran Tertunda",
+        "hold": "Your transaction has been placed on hold for security verification. To proceed, please contact ${providerName} security team at ${providerEmail} for further instructions.",
         "expired": "Pertukaran Expired"
       },
       "button": {

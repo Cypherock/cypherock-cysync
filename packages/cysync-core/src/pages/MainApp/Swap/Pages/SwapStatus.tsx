@@ -17,8 +17,11 @@ import {
   DialogBoxFooter,
   Button,
   successIcon,
-  warningIcon,
   GoldExternalLink,
+  MessageBox,
+  SwapInformationIcon,
+  parseLangTemplate,
+  useTheme,
 } from '@cypherock/cysync-ui';
 import { BigNumber } from '@cypherock/cysync-utils';
 import {
@@ -61,6 +64,7 @@ export const SwapStatus = () => {
     transactionId,
   } = useSwap();
   const [providerUrl, setProviderUrl] = useState<string>();
+  const theme = useTheme();
 
   const updateState = async () => {
     if (state !== SwapStates.Pending) return;
@@ -220,20 +224,42 @@ export const SwapStatus = () => {
     return outputDetails;
   };
 
+  const StatusIconMap = {
+    [SwapStates.Success]: <Image src={successIcon} alt="Success Icon" />,
+    [SwapStates.Pending]: (
+      <SwapInformationIcon color={theme.palette.warn.main} />
+    ),
+    [SwapStates.Hold]: <SwapInformationIcon color={theme.palette.warn.main} />,
+    [SwapStates.Expired]: (
+      <SwapInformationIcon color={theme.palette.error.main} />
+    ),
+    [SwapStates.Failed]: (
+      <SwapInformationIcon color={theme.palette.error.main} />
+    ),
+  };
+
+  const providerSupportEmail = 'compliance@changelly.com';
+
   return (
     <Container width="full" height="full">
       <DialogBox width={600}>
         <DialogBoxBody p={0} pt={5}>
-          <Image
-            src={state === SwapStates.Success ? successIcon : warningIcon}
-            alt="Status Icon"
-          />
+          {StatusIconMap[state]}
           <Typography variant="h5" $textAlign="center">
             <LangDisplay text={`${displayText.heading[state]}`} />
           </Typography>
 
           <ScrollableContainer $maxHeight={{ def: '40vh', lg: '65vh' }}>
             <DialogBoxBody p={0} px={4} pb={5} gap={24}>
+              {state === SwapStates.Hold && (
+                <MessageBox
+                  text={parseLangTemplate(displayText.messageBox.hold, {
+                    providerName: quote?.provider.name,
+                    providerEmail: `[**${providerSupportEmail}**](mailto:${providerSupportEmail})`,
+                  })}
+                  type="warning"
+                />
+              )}
               <SummaryBox
                 items={[
                   {

@@ -11,6 +11,8 @@ import {
   GoldExternalLink,
   GraphSwitchSmallIcon,
   Image,
+  MessageBox,
+  parseLangTemplate,
   ScrollableContainer,
   SummaryBox,
   SummaryItemType,
@@ -53,6 +55,8 @@ export const SwapDialog: FC<ISwapDialogProps> = ({ swap: swapSource }) => {
     () => displayedData.find(d => d.swapId === swapSource.swapId) ?? swapSource,
     [displayedData, swapSource.swapId],
   );
+
+  const providerSupportEmail = 'compliance@changelly.com';
 
   const summaryItems: SummaryItemType = useMemo(
     () => [
@@ -237,10 +241,10 @@ export const SwapDialog: FC<ISwapDialogProps> = ({ swap: swapSource }) => {
           align="center"
           direction="column"
           height="full"
-          pr={0}
           pb={0}
+          px={0}
         >
-          <Container align="center" justify="center" width="full">
+          <Container align="center" justify="center" width="full" px={5}>
             <GraphSwitchSmallIcon
               width={36}
               height={36}
@@ -253,6 +257,7 @@ export const SwapDialog: FC<ISwapDialogProps> = ({ swap: swapSource }) => {
             align="center"
             width="full"
             gap={4}
+            px={5}
           >
             <Typography variant="h5">
               {swap.sentDisplayAmount} → {swap.receivedDisplayAmount}
@@ -261,15 +266,35 @@ export const SwapDialog: FC<ISwapDialogProps> = ({ swap: swapSource }) => {
               {swap.dateHeader} {swap.time}
             </Typography>
           </Container>
+          {swap.swapStatus === SwapStatus.Hold && (
+            <Container
+              display="flex"
+              direction="column"
+              align="center"
+              width="full"
+              gap={4}
+              px={5}
+            >
+              <MessageBox
+                text={parseLangTemplate(
+                  lang.strings.swap.swapStatus.messageBox.hold,
+                  {
+                    providerName: swap.providerName,
+                    providerEmail: `[**${providerSupportEmail}**](mailto:${providerSupportEmail})`,
+                  },
+                )}
+                type="warning"
+              />
+            </Container>
+          )}
           <ScrollableContainer $maxHeight="calc(100vh - 400px)">
             <Container
               display="flex"
               direction="column"
               width="full"
-              pt={5}
-              pr={5}
               pb={3}
               gap={12}
+              px={5}
             >
               <SummaryBox items={summaryItems} />
             </Container>

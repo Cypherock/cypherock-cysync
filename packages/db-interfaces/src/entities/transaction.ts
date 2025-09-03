@@ -9,6 +9,11 @@ export const TransactionStatusMap = {
 export type TransactionStatus =
   (typeof TransactionStatusMap)[keyof typeof TransactionStatusMap];
 
+export enum SupportedProviders {
+  CHANGELLY = 'changelly',
+  CHANGENOW = 'changenow',
+}
+
 export const TransactionTypeMap = {
   receive: 'receive',
   send: 'send',

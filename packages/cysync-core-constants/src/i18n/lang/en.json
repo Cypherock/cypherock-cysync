@@ -2931,8 +2931,8 @@
       "messageBox": {
         "pending": "Your account balance will be updated when the blockchain confirms the transaction",
         "failed": "The network returned the following error:",
-        "hold": "The swap is on hold",
-        "expired": "The swap has expired"
+        "hold": "Your transaction has been placed on hold for security verification. To proceed, please contact ${providerName} security team at ${providerEmail} for further instructions.",
+        "expired": "Your swap has expired"
       },
       "button": {
         "backToSwap": "Back to Swap"

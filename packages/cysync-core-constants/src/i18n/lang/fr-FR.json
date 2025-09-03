@@ -2931,7 +2931,7 @@
       "messageBox": {
         "pending": "Le solde de votre compte sera mis à jour lorsque la blockchain confirmera la transaction",
         "failed": "Le réseau a renvoyé l'erreur suivante :",
-        "hold": "Échange en attente",
+        "hold": "Your transaction has been placed on hold for security verification. To proceed, please contact ${providerName} security team at ${providerEmail} for further instructions.",
         "expired": "Échange expiré"
       },
       "button": {

@@ -1,8 +1,8 @@
 import axios from 'axios';
-
+import { SupportedProviders } from '@cypherock/db-interfaces';
 import { config } from '../config';
 
-const SUPPORTED_PROVIDERS = ['changenow', 'changelly'];
+const SUPPORTED_PROVIDERS = Object.values(SupportedProviders) as string[];
 
 export const getQuotes = async (params: {
   fromCurrency: string;
@@ -40,4 +40,11 @@ export const getExchangeStatus = async (params: {
 }) =>
   axios.post(`${config.API_CYPHEROCK}/swap/get-exchange-status`, {
     ...params,
+  });
+
+export const getProviderDetails = async () =>
+  axios.get(`${config.API_CYPHEROCK}/swap/get-provider-details`, {
+    params: {
+      supportedProviders: SUPPORTED_PROVIDERS,
+    },
   });

@@ -2913,7 +2913,7 @@
       "messageBox": {
         "pending": "当区块链确认交易时，您的账户余额将更新",
         "failed": "网络返回以下错误：",
-        "hold": "交换待处理",
+        "hold": "Your transaction has been placed on hold for security verification. To proceed, please contact ${providerName} security team at ${providerEmail} for further instructions.",
         "expired": "交换过期"
       },
       "button": {
