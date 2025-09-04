@@ -1,5 +1,6 @@
 import { DEFAULT_CURRENCY } from '@cypherock/coin-support-utils';
 import { fiatCurrencyList, IFiatCurrency } from '@cypherock/coins';
+import axios from 'axios';
 import React, {
   PropsWithChildren,
   startTransition,
@@ -9,6 +10,7 @@ import React, {
 } from 'react';
 
 import { openFullPageLoaderDialog } from '~/actions';
+import { config } from '~/config';
 import { useMemoReturn } from '~/hooks';
 import { closeDialog, useAppDispatch } from '~/store';
 import { keyValueStore } from '~/utils';
@@ -20,83 +22,37 @@ export interface CurrencyContextInterface {
   updateCurrency: (c: string) => void;
 }
 
-const SupportedVsCurrencies = [
-  'btc',
-  'eth',
-  'ltc',
-  'bch',
-  'bnb',
-  'eos',
-  'xrp',
-  'xlm',
-  'link',
-  'dot',
-  'yfi',
-  'sol',
-  'usd',
-  'aed',
-  'ars',
-  'aud',
-  'bdt',
-  'bhd',
-  'bmd',
-  'brl',
-  'cad',
-  'chf',
-  'clp',
-  'cny',
-  'czk',
-  'dkk',
-  'eur',
-  'gbp',
-  'gel',
-  'hkd',
-  'huf',
-  'idr',
-  'ils',
-  'inr',
-  'jpy',
-  'krw',
-  'kwd',
-  'lkr',
-  'mmk',
-  'mxn',
-  'myr',
-  'ngn',
-  'nok',
-  'nzd',
-  'php',
-  'pkr',
-  'pln',
-  'rub',
-  'sar',
-  'sek',
-  'sgd',
-  'thb',
-  'try',
-  'twd',
-  'uah',
-  'vef',
-  'vnd',
-  'zar',
-  'xdr',
-  'xag',
-  'xau',
-  'bits',
-  'sats',
-];
-
 export const CurrencyContext: React.Context<CurrencyContextInterface> =
   React.createContext<CurrencyContextInterface>({} as CurrencyContextInterface);
 
 export const CurrencyProvider: React.FC<PropsWithChildren> = ({ children }) => {
   const [currentCurrency, setCurrentCurrency] = useState(DEFAULT_CURRENCY);
-  const [availableCurrencies] = useState(
+  const [availableCurrencies, setAvailableCurrencies] = useState(
     Object.values(fiatCurrencyList).filter(c =>
-      SupportedVsCurrencies.includes(c.code.toLowerCase()),
+      [DEFAULT_CURRENCY].includes(c.code.toLowerCase()),
     ),
   );
   const dispatch = useAppDispatch();
+
+  const fetchVsCurrency = useCallback(async () => {
+    try {
+      logger.info('fetching vsCurrencies');
+      const res = await axios.get(
+        `${config.API_CYPHEROCK}/price/get-supported-vs-currencies`,
+      );
+      if (res.status === 200) {
+        const { data } = res.data;
+        const currencies = Object.values(fiatCurrencyList).filter(c =>
+          data.includes(c.code.toLowerCase()),
+        );
+        setAvailableCurrencies(currencies);
+      } else {
+        throw new Error('Invalid server response');
+      }
+    } catch (error) {
+      logger.error('could not fetch vsCurrencies', { error });
+    }
+  }, [fiatCurrencyList]);
 
   const loadCurrency = async () => {
     const currency = await keyValueStore.appCurrency.get();
@@ -120,6 +76,10 @@ export const CurrencyProvider: React.FC<PropsWithChildren> = ({ children }) => {
         return normalized;
       });
     });
+  }, []);
+
+  useEffect(() => {
+    fetchVsCurrency();
   }, []);
 
   useEffect(() => {
