@@ -21,6 +21,7 @@ import {
 } from '@cypherock/cysync-ui';
 import { SwapStatus } from '@cypherock/db-interfaces';
 import React, { FC, useMemo } from 'react';
+import { useSwap } from '~/context';
 
 import { SwapTransactionRowData, useSwapTransactions } from '~/hooks';
 import {
@@ -45,7 +46,8 @@ const textColorMap: Record<SwapStatus, any> = {
 export const SwapDialog: FC<ISwapDialogProps> = ({ swap: swapSource }) => {
   const theme = useTheme();
   const dispatch = useAppDispatch();
-  const { displayedData } = useSwapTransactions();
+  const { providerDetails } = useSwap();
+  const { displayedData } = useSwapTransactions(providerDetails);
   const onClose = () => dispatch(closeDialog('swapDialog'));
 
   const lang = useAppSelector(selectLanguage);
@@ -55,8 +57,6 @@ export const SwapDialog: FC<ISwapDialogProps> = ({ swap: swapSource }) => {
     () => displayedData.find(d => d.swapId === swapSource.swapId) ?? swapSource,
     [displayedData, swapSource.swapId],
   );
-
-  const providerSupportEmail = 'compliance@changelly.com';
 
   const summaryItems: SummaryItemType = useMemo(
     () => [
@@ -266,7 +266,7 @@ export const SwapDialog: FC<ISwapDialogProps> = ({ swap: swapSource }) => {
               {swap.dateHeader} {swap.time}
             </Typography>
           </Container>
-          {swap.swapStatus === SwapStatus.Hold && (
+          {swap.swapStatus === SwapStatus.Hold && swap.providerMail && (
             <Container
               display="flex"
               direction="column"
@@ -280,7 +280,7 @@ export const SwapDialog: FC<ISwapDialogProps> = ({ swap: swapSource }) => {
                   lang.strings.swap.swapStatus.messageBox.hold,
                   {
                     providerName: swap.providerName,
-                    providerEmail: `[**${providerSupportEmail}**](mailto:${providerSupportEmail})`,
+                    providerEmail: `[**${swap.providerMail}**](mailto:${swap.providerMail})`,
                   },
                 )}
                 type="warning"

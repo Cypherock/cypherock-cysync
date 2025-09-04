@@ -23,6 +23,7 @@ import React, { useCallback, useEffect, useState } from 'react';
 
 import { openSwapHistoryDialog } from '~/actions';
 import { CoinIcon } from '~/components';
+import { IProviderDetails } from '~/context';
 import { useStateToRef } from '~/hooks';
 import {
   selectDiscreetMode,
@@ -43,6 +44,7 @@ export interface SwapTransactionRowData {
   providerName: string;
   providerImageUrl: string;
   providerUrl: string;
+  providerMail?: string;
   time: string;
   timestamp: number;
   dateTime: string;
@@ -228,6 +230,7 @@ export const mapSwapTransactionForDisplay = (params: {
   accounts: IAccount[];
   lang: ILangState;
   isDiscreetMode: boolean;
+  provider?: IProviderDetails;
 }): SwapTransactionRowData => {
   const { sentTransaction, wallets, accounts, isDiscreetMode } = params;
   const swapData = sentTransaction.swapData!;
@@ -302,8 +305,18 @@ export const mapSwapTransactionForDisplay = (params: {
     alreadyDisplayUnit: true,
   });
 
-  const { providerName } = swapData;
-  const { providerImageUrl } = swapData;
+  const {
+    name: providerName,
+    imageUrl: providerImageUrl,
+    complianceEmail: providerMail,
+  } = params.provider ?? {
+    id: swapData.providerId,
+    imageUrl: swapData.providerImageUrl,
+    name: swapData.providerName,
+    complianceEmail: '',
+    txnBaseURL: '',
+  };
+
   const { providerUrl, swapStatus } = swapData;
 
   return {
@@ -312,6 +325,7 @@ export const mapSwapTransactionForDisplay = (params: {
     providerName,
     providerImageUrl,
     providerUrl,
+    providerMail,
     time: formatDate(dateObj, 'h:mm a'),
     timestamp,
     dateTime: formatDate(dateObj, 'eeee, MMMM d yyyy h:mm a'),
@@ -339,7 +353,9 @@ export const mapSwapTransactionForDisplay = (params: {
   };
 };
 
-export const useSwapTransactions = () => {
+export const useSwapTransactions = (
+  providerDetails?: Record<string, IProviderDetails>,
+) => {
   const {
     lang,
     wallets,
@@ -398,7 +414,8 @@ export const useSwapTransactions = () => {
 
     const mappedTransactions: SwapTransactionRowData[] = sentSwaps.map(
       sentTxn => {
-        const { swapId } = sentTxn.swapData!;
+        const { swapId, providerId } = sentTxn.swapData!;
+        const provider = providerDetails && providerDetails[providerId];
         const receiveTxn = receiveSwaps.find(
           r => r.swapData?.swapId === swapId,
         );
@@ -410,6 +427,7 @@ export const useSwapTransactions = () => {
           wallets: refData.current.wallets,
           accounts: refData.current.accounts,
           lang: refData.current.lang,
+          provider,
         });
       },
     );

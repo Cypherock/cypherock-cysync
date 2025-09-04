@@ -43,8 +43,6 @@ export const getExchangeStatus = async (params: {
   });
 
 export const getProviderDetails = async () =>
-  axios.get(`${config.API_CYPHEROCK}/swap/get-provider-details`, {
-    params: {
-      supportedProviders: SUPPORTED_PROVIDERS,
-    },
+  axios.post(`${config.API_CYPHEROCK}/swap/get-providers-details`, {
+    providers: SUPPORTED_PROVIDERS,
   });

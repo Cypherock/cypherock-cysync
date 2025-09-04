@@ -8,11 +8,11 @@ import {
 } from '@cypherock/sdk-app-exchange';
 import { ManagerApp } from '@cypherock/sdk-app-manager';
 import { hexToUint8Array } from '@cypherock/sdk-utils';
-import React, { useCallback, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 
 import { ErrorActionMap, ErrorIconNameMap } from '~/constants/errors';
 import { DeviceTask, useDeviceTask, useMemoReturn } from '~/hooks';
-import { createExchange } from '~/services/swapService';
+import { createExchange, getProviderDetails } from '~/services/swapService';
 import { getDB } from '~/utils';
 import logger from '~/utils/logger';
 
@@ -28,6 +28,8 @@ export interface IProviderDetails {
   id: string;
   name: string;
   imageUrl: string;
+  complianceEmail?: string;
+  txnBaseURL?: string;
 }
 
 export interface IQuote {
@@ -74,6 +76,7 @@ export interface SwapContextInterface {
   setReceiveFlowValidTill: (d: number) => void;
   fillDetails: (params: IFillDetailsParams) => void;
   exchangeDetails?: IExchangeDetails;
+  providerDetails?: Record<string, IProviderDetails>;
   initiateExchange: (address: string) => Promise<void>;
   closeExchange: () => Promise<void>;
   resetIndex: number;
@@ -106,6 +109,8 @@ export const createCustomError = (heading: string, subtext?: string) => ({
 export const SwapProvider: React.FC<SwapProviderProps> = ({ children }) => {
   const [currentPage, setCurrentPage] = useState(SwapPage.DETAILS);
   const [globalError, setGlobalError] = useState<any>();
+  const [providerDetails, setProviderDetails] =
+    useState<Record<string, IProviderDetails>>();
 
   const toNextPage = () => {
     setCurrentPage(p => Math.min(SwapPage.STATUS, p + 1));
@@ -182,6 +187,20 @@ export const SwapProvider: React.FC<SwapProviderProps> = ({ children }) => {
     setToAccount(destinationAccount);
     setQuote(selectedQuote);
   };
+
+  const fetchProviderDetails = useCallback(async () => {
+    try {
+      const res = await getProviderDetails();
+      const { providersDetails } = res.data;
+      if (res.status === 200) {
+        setProviderDetails(providersDetails);
+      } else {
+        throw Error('Invalid response from server');
+      }
+    } catch (error) {
+      logger.error('Could not fetch provider details', { error });
+    }
+  }, []);
 
   // give details to exchange app (init)
   // start receive flow
@@ -340,6 +359,10 @@ export const SwapProvider: React.FC<SwapProviderProps> = ({ children }) => {
 
   const transactionId = useRef<string>();
 
+  useEffect(() => {
+    fetchProviderDetails();
+  }, []);
+
   const ctx = useMemoReturn({
     currentPage,
     toNextPage,
@@ -358,6 +381,7 @@ export const SwapProvider: React.FC<SwapProviderProps> = ({ children }) => {
     setReceiveFlowValidTill,
     fillDetails,
     exchangeDetails,
+    providerDetails,
     initiateExchange,
     closeExchange,
     markTransactionAsSwap,

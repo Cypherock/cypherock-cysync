@@ -62,8 +62,10 @@ export const SwapStatus = () => {
     closeExchange,
     updateTransactionSwapData,
     transactionId,
+    providerDetails,
   } = useSwap();
   const [providerUrl, setProviderUrl] = useState<string>();
+  const [providerEmail, setProviderEmail] = useState<string>();
   const theme = useTheme();
 
   const updateState = async () => {
@@ -125,6 +127,11 @@ export const SwapStatus = () => {
             };
           } else if (result.data.data.status === 'hold') {
             setState(SwapStates.Hold);
+            const providerId = quote.provider.id;
+            const providerSupportMail = providerDetails
+              ? providerDetails[providerId].complianceEmail
+              : '';
+            setProviderEmail(providerSupportMail);
             swapData = {
               ...swapData,
               swapStatus: SwapStates.Hold,
@@ -238,8 +245,6 @@ export const SwapStatus = () => {
     ),
   };
 
-  const providerSupportEmail = 'compliance@changelly.com';
-
   return (
     <Container width="full" height="full">
       <DialogBox width={600}>
@@ -255,7 +260,7 @@ export const SwapStatus = () => {
                 <MessageBox
                   text={parseLangTemplate(displayText.messageBox.hold, {
                     providerName: quote?.provider.name,
-                    providerEmail: `[**${providerSupportEmail}**](mailto:${providerSupportEmail})`,
+                    providerEmail: `[**${providerEmail}**](mailto:${providerEmail})`,
                   })}
                   type="warning"
                 />
