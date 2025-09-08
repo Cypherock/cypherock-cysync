@@ -20,7 +20,9 @@ export const DeviceUpdateDialogBox: FC = () => {
   const navigateTo = useNavigateTo();
 
   const toNextPage = () => {
-    navigateTo(routes.onboarding.deviceAuthentication.path);
+    navigateTo(
+      `${routes.onboarding.deviceAuthentication.path}?disableNavigation=true`,
+    );
   };
 
   const { state, downloadProgress, version, errorToShow, onRetry } =

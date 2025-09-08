@@ -503,6 +503,17 @@ interface LangOnboarding {
     title: string;
     unavailable: { title: string; subtext: string };
   };
+  chooseFirmware: {
+    heading: string;
+    btcOnly: {
+      title: string;
+      subtext: string;
+    };
+    multiCoin: {
+      title: string;
+      subtext: string;
+    };
+  };
   deviceAuth: {
     heading: string;
     title: string;

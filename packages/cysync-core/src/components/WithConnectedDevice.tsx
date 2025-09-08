@@ -42,7 +42,7 @@ export interface WithConnectedDeviceProps {
 
 const OnboardingMap: Record<OnboardingStep, string> = {
   [OnboardingStep.ONBOARDING_STEP_VIRGIN_DEVICE]:
-    routes.onboarding.deviceAuthentication.path,
+    routes.onboarding.chooseFirmware.path,
   [OnboardingStep.ONBOARDING_STEP_DEVICE_AUTH]:
     routes.onboarding.joystickTraining.path,
   [OnboardingStep.ONBOARDING_STEP_JOYSTICK_TRAINING]:

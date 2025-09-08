@@ -18,6 +18,7 @@ export const useOnboardingCheckpoint = () => {
     routes.onboarding.deviceDetection.path,
     routes.onboarding.emailAuth.path,
     routes.onboarding.joystickTraining.path,
+    routes.onboarding.chooseFirmware.path,
   ];
 
   const updateCheckpoint = async () => {

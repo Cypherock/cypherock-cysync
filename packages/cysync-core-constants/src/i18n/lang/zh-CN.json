@@ -551,6 +551,17 @@
         "subtext": "尝试重新连接设备"
       }
     },
+    "chooseFirmware": {
+      "heading": "Select Firmware",
+      "btcOnly": {
+        "title": "I want to use Cypherock X1 just for Bitcoin",
+        "subtext": "Both the device firmware and the CySync will be tailored to serve only bitcoin"
+      },
+      "multiCoin": {
+        "title": "I want support for all crypto currencies",
+        "subtext": "You will get the complete support of all the crypto currencies Cypherock supports"
+      }
+    },
     "deviceAuth": {
       "heading": "设备验证",
       "title": "你的 X1 Vault 现在将通过 Cypherock 服务器进行验证，以检查其真实性 ",
