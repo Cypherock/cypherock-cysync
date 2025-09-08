@@ -155,8 +155,7 @@ const getExtraInfo = (transaction: ITransaction) => {
   const memo = transaction.extraData?.memo;
   let operation = transaction.extraData?.operation;
   if (operation) {
-    operation =
-      operation.charAt(0).toUpperCase() + operation.slice(1).toLowerCase();
+    operation = operation.charAt(0).toUpperCase() + operation.slice(1);
   }
 
   return { remarks, destinationTag, memo, operation };

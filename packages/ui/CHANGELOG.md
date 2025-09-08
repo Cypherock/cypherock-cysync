@@ -1,5 +1,11 @@
 # @cypherock/cysync-ui
 
+## 0.0.15
+
+### Patch Changes
+
+- [#790](https://github.com/Cypherock/cypherock-cysync/pull/790) [`16b59074`](https://github.com/Cypherock/cypherock-cysync/commit/16b590745083d9c447f06a279d09f877200a403b) Thanks [@Keyur279](https://github.com/Keyur279)! - Added stellar support
+
 ## 0.0.14
 
 ### Patch Changes

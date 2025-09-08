@@ -233,7 +233,7 @@ export const InheritanceSilverPlanPurchaseDialogProvider: FC<
         if (result.result.planType !== 'SILVER')
           throw { isForDifferentPlan: true };
 
-        setCouponDuration(result.result.duration ?? '');
+        setCouponDuration(result.result?.duration ?? '');
         setCoupon(_coupon);
       } catch (error: any) {
         console.log({ error });

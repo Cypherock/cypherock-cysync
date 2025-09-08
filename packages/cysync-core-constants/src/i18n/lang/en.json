@@ -337,6 +337,19 @@
         "placeholder": "Enter a numeric memo",
         "error": "Value too high"
       },
+      "stellarMemo": {
+        "label": "Memo (Optional)",
+        "inputPlaceholder": {
+          "none": "",
+          "text": "Enter text memo (max 28 bytes)",
+          "id": "Enter a numeric memo ID",
+          "hash": "Enter 64-character hex hash memo",
+          "return": "Enter 64-character hex return hash memo"
+        },
+        "dropdownPlaceholder": "Memo",
+        "searchText": "Search",
+        "error": "Invalid memo"
+      },
       "feeBelowMinError": "Transaction with fee lesser than minimum will fail",
       "rentExemptFeeWarning": "Receiving a token on solana for the first time incurs rent exemption fees, included in total fees."
     },

@@ -1,6 +1,6 @@
 {
   "name": "@cypherock/cysync-cli",
-  "version": "0.1.8",
+  "version": "0.1.10",
   "description": "Cypherock CySync CLI",
   "types": "dist/index.d.ts",
   "author": "support@cypherock.com",
@@ -38,6 +38,7 @@
     "@cypherock/coin-support-icp": "workspace:^",
     "@cypherock/coin-support-utils": "workspace:^",
     "@cypherock/coin-support-xrp": "workspace:^",
+    "@cypherock/coin-support-stellar": "workspace:^",
     "@cypherock/coins": "workspace:^",
     "@cypherock/cysync-core-services": "workspace:^",
     "@cypherock/cysync-utils": "workspace:^",
@@ -64,7 +65,8 @@
     "rxjs": "^7.8.1",
     "semver": "^7.5.3",
     "starknet": "^6.11.0",
-    "xrpl": "^4.0.0"
+    "xrpl": "^4.0.0",
+    "stellar-sdk": "^13.3.0"
   },
   "devDependencies": {
     "@cypherock/eslint-config": "workspace:^",

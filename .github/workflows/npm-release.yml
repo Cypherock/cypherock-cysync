@@ -40,6 +40,7 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node }}
+          registry-url: 'https://registry.npmjs.org'
 
       - name: Setup pnpm store path
         run: pnpm config set store-dir ~/.pnpm-store
@@ -53,7 +54,7 @@ jobs:
             ${{ runner.os }}-pnpm-store-
 
       - name: Install linux dependencies
-        run: sudo apt-get install fakeroot dpkg rpm -y
+        run: sudo apt-get install -y fakeroot dpkg rpm libudev-dev libusb-1.0-0-dev
 
       - name: pnpm install
         run: pnpm install
@@ -76,9 +77,6 @@ jobs:
       - name: Test
         run: pnpm test
 
-      - name: Setup npmrc
-        run: echo "//registry.npmjs.org/:_authToken=$NPM_AUTH" >> .npmrc
-
       - name: Update versions
         env:
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
@@ -87,4 +85,5 @@ jobs:
       - name: Publish versions
         env:
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_AUTH }}
         run: pnpm ci:publish

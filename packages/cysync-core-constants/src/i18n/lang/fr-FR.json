@@ -1,0 +1,2944 @@
+{
+  "x1Card": "X1 Card",
+  "tooltips": {
+    "downloadCsv": "Exporter en CSV"
+  },
+  "back": "Retour",
+  "help": "Help",
+  "allWallets": "Tous les Wallets",
+  "permissionSetup": {
+    "title": "Appuyez sur exécuter la commande suivante dans votre terminal pour permettre à l'application d'accéder au port USB",
+    "subtext": "Redémarrez l'application après avoir exécuté le script",
+    "checkbox": "J'ai déjà exécuté la commande"
+  },
+  "lockscreen": {
+    "title": "Votre portail vers la souveraineté personnelle",
+    "passwordLabel": "Entrez le mot de passe pour déverrouiller CySync",
+    "forgotPassword": "Mot de passe oublié?",
+    "incorrectPassword": "Mot de passe incorrect",
+    "sameOldAndNewPassword": "Le nouveau mot de passe ne peut pas être identique à l'ancien mot de passe",
+    "button": "Débloquer",
+    "forgotPasswordDialog": {
+      "title": "Réinitialiser le mot de passe réinitialisera votre application CySync, souhaitez-vous continuer ?",
+      "subtext": "Cela effacera toutes vos données sur votre application CySync. Notez que cela n'entraînera pas de perte d'actifs"
+    }
+  },
+  "deviceAuthentication": {
+    "success": {
+      "title": "Votre X1 Vault est authentifié avec succès"
+    },
+    "loading": {
+      "title": "Veuillez patienter pendant que votre X1 Vault est en cours d'authentification",
+      "subtitle": "Ne déconnectez pas votre X1 Vault pendant l'opération"
+    }
+  },
+  "addToken": {
+    "header": "Ajouter un jeton",
+    "select": {
+      "header": "Sélectionnez le portefeuille, les comptes et les jetons que vous souhaitez ajouter",
+      "searchText": "Rechercher",
+      "walletPlaceholder": "Sélectionner le portefeuille",
+      "tokenPlaceholder": "Sélectionner les jetons",
+      "accountPlaceholder": "Sélectionner les comptes",
+      "message": "Le compte ${chainName} doit d'abord être ajouté pour continuer à ajouter les jetons"
+    },
+    "congrats": {
+      "title": "Jetons ajoutés avec succès",
+      "subtitle": "Ajoutez d'autres jetons ou retournez au portefeuille",
+      "buttonAddMore": "Ajouter plus"
+    }
+  },
+  "deviceUpdateBar": {
+    "message": "Mise à jour du firmware version ${version} disponible",
+    "button": "Télécharger"
+  },
+  "betaNotificationBar": {
+    "message": "CySync v2.0.0 est disponible !",
+    "button": "En savoir plus"
+  },
+  "addAccount": {
+    "header": "Ajouter un compte",
+    "select": {
+      "header": "Sélectionnez le Wallet & Coin que vous souhaitez ajouter",
+      "searchText": "Recherche",
+      "walletPlaceholder": "Choisissez un wallet",
+      "coinPlaceholder": "Choisissez une pièce"
+    },
+    "deviceActions": {
+      "header": "Suivez les instructions sur le X1 Vault",
+      "subtext": "Ajoutez une pièce/un compte au wallet",
+      "walletName": "${walletName}",
+      "actions": {
+        "verifyCoin": "Vérifiez les pièces sur l'appareil",
+        "enterPassphrase": "Entrez votre phrase secrète",
+        "enterPin": "Entrez le code PIN et appuyez sur n'importe quelle carte",
+        "tapCard": "Appuyez sur n'importe quelle carte"
+      }
+    },
+    "loader": {
+      "waitMessage": "Ce processus peut prendre environ une minute. Veuillez être patient"
+    },
+    "sync": {
+      "syncingHeader": "Synchronisation du compte",
+      "header": "Ajouter de nouveaux comptes",
+      "newAccount": "Nouveaux comptes",
+      "advancedButton": "Afficher tous les types d'adresses",
+      "accountsNotSynced": "Compte pas encore synchronisé (${count})",
+      "deselectAllButton": "Tout désélectionner",
+      "selectAllButton": "Tout sélectionner",
+      "accountsInPortfolio": "Comptes déjà dans le portefeuille (${count})",
+      "addAccountButton": "Ajouter des comptes",
+      "resyncButton": "Resynchroniser"
+    },
+    "congrats": {
+      "header": "Ajouter une pièce/un compte",
+      "subtext": "Ajoutez d'autres comptes ou retournez au portefeuille",
+      "title": "Comptes ajoutés avec succès",
+      "buttonAddMore": "Ajouter plus"
+    },
+    "aside": {
+      "tabs": {
+        "asset": "Actif",
+        "device": "X1 Vault",
+        "confirmation": "Confirmation"
+      }
+    }
+  },
+  "sidebar": {
+    "portfolio": "Portfolio",
+    "wallets": "Wallets",
+    "sendCrypto": "Envoyer Crypto",
+    "receiveCrypto": "Recevoir Crypto",
+    "history": "Historique",
+    "walletConnect": "Wallet Connect",
+    "buysell": "Acheter Crypto",
+    "cypherockCover": "Cypherock Cover",
+    "referAndEarn": "Parrainer & Gagner",
+    "settings": "Paramètres",
+    "help": "Help",
+    "new": "Nouveau",
+    "tooltip": {
+      "walletDeleted": "${walletName} a été supprimé de votre X1 Vault de Cypherock"
+    }
+  },
+  "history": {
+    "tableTitle": "Transactions",
+    "tableHeader": {
+      "time": "Temps",
+      "asset": "Actif",
+      "walletAndAccount": "Portefeuille / Compte",
+      "wallet": "Portefeuille",
+      "account": "Compte",
+      "amount": "Montant",
+      "value": "Valeur"
+    },
+    "transactionStatus": {
+      "send": {
+        "failed": "Échec de l'envoi",
+        "pending": "Envoi",
+        "success": "Envoyé"
+      },
+      "receive": {
+        "failed": "Échec de la réception",
+        "pending": "Réception",
+        "success": "Reçu"
+      }
+    },
+    "dialogBox": {
+      "value": "Valeur",
+      "view": "Voir dans l'explorateur",
+      "fee": "Fee",
+      "type": "Type",
+      "status": "Statut",
+      "wallet": "Portefeuille",
+      "account": "Compte",
+      "asset": "Actif",
+      "sender": "Expéditeur",
+      "receiver": "Récepteur",
+      "mine": "Mien",
+      "transactionHash": "Hash de la transaction",
+      "transactionId": "ID de la transaction",
+      "description": "Description",
+      "feePrefix": {
+        "optimism": "L2 "
+      },
+      "remarks": "Note personnelle",
+      "destinationTag": "Tag de destination",
+      "memo": "Mémo",
+      "operation": "Opération"
+    },
+    "noData": {
+      "text": "Aucune transaction pour le moment",
+      "subText": "Recevez des cryptos aujourd'hui pour voir l'historique de vos transactions ici",
+      "buttonText": "Recevoir"
+    },
+    "search": {
+      "placeholder": "Rechercher...",
+      "notFound": {
+        "text": "Aucun résultat trouvé pour",
+        "subText": "Veuillez essayer de rechercher d'autres mots-clés"
+      }
+    }
+  },
+  "topbar": {
+    "statusTexts": {
+      "connection": {
+        "connected": "Connecté",
+        "disconnected": "Déconnecté",
+        "error": "Erreur de connexion !"
+      },
+      "sync": {
+        "synchronized": "Synchronisé",
+        "synchronizing": "Synchronisation...",
+        "error": "Erreur de synchronisation !",
+        "networkErrorTooltip": "Erreur Réseau"
+      }
+    },
+    "notification": {
+      "title": "Transactions",
+      "sendTransaction": "${amount} ${unit} ${type} à ${address}",
+      "sendTransactionMultiple": "${amount} ${unit} ${type} à plusieurs adresses",
+      "receiveTransaction": "${amount} ${unit} ${type} dans le compte ${walletName}/${accountName}",
+      "noTransactions": {
+        "title": "Tout est à jour",
+        "subTitle": "Pas de nouvelles transactions à afficher"
+      }
+    }
+  },
+  "receive": {
+    "title": "Recevoir",
+    "showAnywayButton": "Vous n'avez pas votre appareil ?",
+    "source": {
+      "title": "Recevoir",
+      "subtitle": "Choisissez un portefeuille et un compte à créditer",
+      "searchText": "Rechercher",
+      "walletPlaceholder": "Choisir un portefeuille",
+      "accountPlaceholder": "Compte à créditer"
+    },
+    "x1Vault": {
+      "title": "Suivez les instructions sur la X1 Vault",
+      "subtitle": "Confirmez l'opération sur votre appareil pour finaliser",
+      "actions": {
+        "verifyCoin": "Vérifiez l'actif et le nom du portefeuille sur l'appareil",
+        "enterPassphrase": "Entrez la phrase secrète",
+        "enterPin": "Entrez le PIN et tapez n'importe quelle carte",
+        "tapCard": "Tapez n'importe quelle carte"
+      }
+    },
+    "receive": {
+      "title": {
+        "prefix": "Adresse pour ",
+        "accountIdPrefix": "ID de compte pour ",
+        "principalIdPrefix": "ID principal pour ",
+        "suffix": "dans ${walletName}"
+      },
+      "addressLabel": "Adresse",
+      "accountIdLabel": "ID de compte",
+      "principalIdLabel": "ID principal",
+      "actions": {
+        "verify": "Vérifiez que l'adresse sur X1 Vault correspond exactement à l'adresse affichée ci-dessus",
+        "verifyAccountId": "Vérifiez que l'ID de compte sur X1 Vault correspond exactement à l'ID de compte affiché ci-dessus",
+        "verifyPrincipalId": "Vérifiez que l'ID principal sur X1 Vault correspond exactement à l'ID principal affiché ci-dessus"
+      },
+      "messageBox": {
+        "warning": "Cette adresse de réception n'a PAS ÉTÉ VÉRIFIÉE par l'appareil. Utilisez-la à vos propres risques",
+        "accountIdWarning": "Cet ID de compte de réception n'a PAS ÉTÉ VÉRIFIÉ par l'appareil. Utilisez-le à vos propres risques",
+        "principalIdWarning": "Cet ID principal de réception n'a PAS ÉTÉ VÉRIFIÉ par l'appareil. Utilisez-le à vos propres risques"
+      },
+      "waitMessageBox": {
+        "warning": "Ce processus pourrait prendre environ une minute. Veuillez être patient"
+      }
+    },
+    "congrats": {
+      "title": "Adresse vérifiée avec succès",
+      "accountAndPrincipalIdTitle": "ID de compte et ID principal vérifiés avec succès"
+    },
+    "finalButtons": {
+      "secondary": "Vérifier à nouveau",
+      "secondaryUnverified": "Vérifier l'adresse",
+      "secondaryUnverifiedAccountId": "Vérifier l'ID de compte",
+      "secondaryUnverifiedPrincipalId": "Vérifier l'ID principal",
+      "primary": "Terminé",
+      "continue": "Continuer"
+    },
+    "aside": {
+      "tabs": {
+        "source": "Source",
+        "device": "X1 Vault",
+        "receive": "Recevoir"
+      }
+    }
+  },
+  "graph": {
+    "totalBalance": "Solde total",
+    "walletDropdown": {
+      "search": "Rechercher"
+    },
+    "timeRange": {
+      "day": "1D",
+      "week": "1W",
+      "month": "1M",
+      "year": "1Y"
+    }
+  },
+  "buttons": {
+    "addWallet": "Ajouter un portefeuille",
+    "addAccount": "Ajouter un compte",
+    "syncWallets": "Synchroniser les portefeuilles",
+    "addToken": "Ajouter un jeton",
+    "reverify": "Revérifier",
+    "continue": "Continuer",
+    "confirm": "Confirmer",
+    "skip": "Passer",
+    "send": "Envoyer",
+    "receive": "Recevoir",
+    "back": "Retour",
+    "retry": "Réessayer",
+    "update": "Mettre à jour",
+    "cancel": "Annuler",
+    "reset": "Réinitialiser",
+    "done": "Terminé",
+    "close": "Fermer",
+    "report": "Signaler",
+    "help": "Help",
+    "stop": "Arrêter",
+    "exit": "Quitter",
+    "resync": "Resynchroniser",
+    "showAll": "Afficher tout",
+    "connect": "Connecter",
+    "disconnect": "Déconnecter",
+    "reject": "Rejeter",
+    "check": "Vérifier",
+    "authenticate": "Authentifier",
+    "start": "Commencer",
+    "setPassword": "Définir le mot de passe",
+    "changePassword": "Changer le mot de passe",
+    "removePassword": "Supprimer le mot de passe",
+    "details": "Détails",
+    "showQRCode": "Afficher le code QR",
+    "editAccount": "Modifier le compte",
+    "submit": "Soumettre",
+    "showMore": "Afficher plus",
+    "resendOTP": "Redémarrer",
+    "next": "Suivant",
+    "setup": "Configurer",
+    "sync": "Synchroniser",
+    "learnMore": "En savoir plus",
+    "checkout": "Commander",
+    "yes": "Oui",
+    "no": "Non",
+    "saveAndContinue": "Enregistrer et continuer",
+    "exitWithoutSaving": "Quitter sans enregistrer",
+    "saveChanges": "Enregistrer les modifications",
+    "edit": "Modifier",
+    "tryAgain": "Essayer encore"
+  },
+  "signMessage": {
+    "title": "Signer le message",
+    "subTitle": "Connecté au compte suivant",
+    "actions": {
+      "confirmDevice": "Confirmer sur l'appareil",
+      "verifyData": "Vérifier les données",
+      "enterPassphrase": "Entrez la phrase secrète",
+      "enterPin": "Entrez le code PIN et touchez n'importe quelle carte",
+      "tapCard": "Touchez n'importe quelle carte"
+    }
+  },
+  "walletSync": {
+    "deletedOne": {
+      "title": "Il semble que vous ayez supprimé le portefeuille ${walletName} du X1 Vault. Voulez-vous également le supprimer sur cySync?"
+    },
+    "deletedMany": {
+      "title": "Il semble que vous ayez supprimé des portefeuilles du X1 Vault. Voulez-vous également les supprimer de cySync?",
+      "subTitle": "Vous pouvez choisir lesquels garder et lesquels supprimer"
+    },
+    "freshOneCreated": {
+      "title": "Il semble que vous ayez supprimé des portefeuilles du X1 Vault tout en en créant de nouveaux avec le même nom. Voulez-vous supprimer les anciens portefeuilles sur cySync?",
+      "subTitle": "Vous pouvez choisir lequel garder et lequel supprimer",
+      "checkboxText": "Ne plus montrer cela"
+    },
+    "buttons": {
+      "keepIt": "Garder",
+      "keepAll": "Tout garder",
+      "delete": "Supprimer"
+    }
+  },
+  "deployAccount": {
+    "title": "Déploiement du compte",
+    "x1Vault": {
+      "title": "Suivez les instructions sur le X1 Vault",
+      "actions": {
+        "verifyCoin": "Vérifier",
+        "verifyDetails": "Vérifiez les détails du déploiement du compte sur l'appareil",
+        "enterPassphrase": "Entrez la phrase secrète",
+        "enterPin": "Entrez le PIN et appuyez sur n'importe quelle carte",
+        "tapCard": "Appuyez sur n'importe quelle carte"
+      },
+      "token": {
+        "info": "Souvenez-vous que ${tokenName} est un jeton ${parentCoinName} donc les frais seront calculés en ${parentCoinUnit}"
+      },
+      "messageBox": {
+        "warning": "Avant de pouvoir effectuer votre première transaction sur Starknet, votre compte doit être activé. Cette transaction concerne le déploiement de votre compte sur le réseau Starknet"
+      }
+    },
+    "summary": {
+      "title": "Résumé",
+      "from": "De",
+      "account": "Adresse du compte",
+      "fee": "Frais de déploiement maximum",
+      "messageBox": {
+        "warning": "Avant de pouvoir effectuer votre première transaction sur Starknet, votre compte doit être activé. Cette transaction concerne le déploiement de votre compte sur le réseau Starknet",
+        "error": "Votre compte n'a pas un solde suffisant pour le déploiement du compte"
+      }
+    },
+    "finalMessage": {
+      "button": "Continuer",
+      "title": "Compte déployé avec succès",
+      "hashLabel": "Hash de la transaction"
+    },
+    "aside": {
+      "tabs": {
+        "summary": "Résumé",
+        "x1vault": "X1 Vault",
+        "confirm": "Confirmation"
+      }
+    }
+  },
+  "deleteAccount": {
+    "title": "Êtes-vous sûr de vouloir supprimer",
+    "subTitle": "Vous pouvez ajouter à nouveau le compte depuis la page du portefeuille ${walletName}. Notez que cela n'entraînera pas de perte d'actifs",
+    "tokenSubtitle": "Vous pouvez ajouter à nouveau le token depuis la page du portefeuille ${walletName}. Notez que cela n'entraînera pas de perte d'actifs",
+    "buttons": {
+      "yes": "Oui",
+      "no": "Non"
+    }
+  },
+  "appUpdateBar": {
+    "confirmation": "Une mise à jour vers la version ${version} de CySync est disponible",
+    "downloading": "Téléchargement de la version ${version} de CySync",
+    "error": "Erreur lors du téléchargement de la mise à jour de CySync",
+    "successful": "La mise à jour de CySync a été téléchargée, elle s'installera automatiquement lorsque vous fermerez l'application",
+    "buttons": {
+      "download": "Télécharger",
+      "tryAgain": "Réessayer",
+      "installUpdate": "Installer la mise à jour"
+    }
+  },
+  "walletConnect": {
+    "uriTab": {
+      "title": "WalletConnect",
+      "subTitle": "Entrez l'URI WalletConnect pour se connecter avec le DApp",
+      "inputLabel": "Entrez l'URI de connexion",
+      "placeholder": "Collez l'URI"
+    },
+    "accountSelectionTab": {
+      "title": "Connectez-vous à l'interface ${dappName}",
+      "chooseWallet": "Choisissez un portefeuille",
+      "chooseAccount": "Sélectionnez les comptes ${assetName}",
+      "supportInfo": "Ces blockchains sont prises en charge mais ajoutez leurs comptes avant utilisation",
+      "notSupportedWarning": {
+        "title": "Ces blockchains ne sont pas prises en charge"
+      }
+    },
+    "accountConnectedTab": {
+      "title": "Connecté à l'interface ${dappName}",
+      "subTitle": "Comptes",
+      "info": "Vous pouvez maintenant accéder au DApp de ${dappName} sur votre navigateur web"
+    },
+    "common": {
+      "info": {
+        "title": "Cette application pourra :",
+        "points": [
+          "Vérifier le solde et l'activité de votre compte",
+          "Demander des approbations pour les transactions"
+        ]
+      },
+      "error": {
+        "default": {
+          "title": "Une erreur est survenue lors de la connexion",
+          "subtitle": "Réessayez la connexion depuis le DApp"
+        },
+        "unsupportedChains": {
+          "title": "${dappName} a demandé à se connecter à des chaînes que nous ne prenons pas encore en charge",
+          "subtitle": "Nous prenons actuellement en charge ${chains}",
+          "message": "Chaînes non prises en charge : ${chains}"
+        }
+      },
+      "reject": {
+        "call": "Utilisateur rejeté"
+      }
+    }
+  },
+  "toggle": {
+    "on": "ACTIVÉ",
+    "off": "DÉSACTIVÉ"
+  },
+  "wallet": {
+    "title": "Portefeuilles",
+    "tableTitle": "Comptes",
+    "buttons": {
+      "less": "Afficher moins",
+      "more": "Afficher plus",
+      "hide": "Masquer les jetons",
+      "show": "Afficher les jetons"
+    },
+    "tableHeader": {
+      "account": "Compte",
+      "syncStatus": "Statut de synchronisation",
+      "balance": "Solde",
+      "value": "Valeur"
+    },
+    "accountMissing": {
+      "text": "Pas encore de compte",
+      "subText": "Aucune pièce/compte trouvée dans le portefeuille"
+    },
+    "search": {
+      "placeholder": "Rechercher",
+      "text": "Aucun résultat trouvé pour",
+      "subText": "Veuillez essayer de rechercher d'autres mots-clés"
+    }
+  },
+  "validation": {
+    "generic": {
+      "required": "Ce champ est requis",
+      "englishOnly": "Seuls les caractères ASCII et le texte en anglais sont autorisés"
+    },
+    "email": {
+      "invalid": "Ceci n'est pas un e-mail valide"
+    },
+    "password": {
+      "mismatch": "Les mots de passe ne correspondent pas",
+      "passwordFieldPrefix": "Mot de passe ",
+      "confirmPasswordFieldPrefix": "Confirmer le mot de passe ",
+      "minLength": "doit comporter au moins 8 caractères",
+      "containNumber": "doit contenir au moins 1 chiffre",
+      "containSymbol": "doit contenir au moins 1 symbole",
+      "required": "est requis",
+      "containUppercase": "doit contenir au moins 1 lettre majuscule",
+      "containLowercase": "doit contenir au moins 1 lettre minuscule"
+    }
+  },
+  "portfolio": {
+    "title": "Portfolio",
+    "tokenTable": {
+      "title": "Jetons",
+      "tableHeader": {
+        "token": "Jetons",
+        "amount": "Montant",
+        "value": "Valeur"
+      }
+    },
+    "assetAllocation": {
+      "title": "Répartition des Actifs",
+      "accountTitle": "Comptes",
+      "tableHeader": {
+        "asset": "Actif",
+        "account": "Compte",
+        "wallet": "Portefeuille",
+        "price": "Prix",
+        "balance": "Solde",
+        "value": "Valeur",
+        "allocation": "Allocation"
+      }
+    },
+    "walletMissing": {
+      "text": "Portefeuilles Manquants",
+      "subText": "Créez un nouveau portefeuille ou importez depuis une phrase secrète pour commencer",
+      "subText2": "Si vous avez déjà créé des portefeuilles sur l'appareil, synchronisez-les simplement avec cySync"
+    },
+    "accountMissing": {
+      "text": "Comptes Manquants",
+      "subText": "Créez ou importez un compte pour commencer"
+    }
+  },
+  "snackbar": {
+    "copiedToClipboard": "Copié dans le presse-papiers",
+    "accountUpdated": "Compte mis à jour avec succès",
+    "downloadCSV": "Historique des transactions exporté"
+  },
+  "labels": {
+    "email": "E-mail",
+    "required": "Requis"
+  },
+  "dashboard": {
+    "wallet": {
+      "renewNow": "Renouveler maintenant",
+      "buyNow": "Acheter maintenant",
+      "created": "Créé",
+      "expiredOn": "Expiré le",
+      "expiresIn": "Expire dans",
+      "expiry": "Expiration",
+      "expiring": "Expiration imminente",
+      "expired": "Expiré",
+      "pending": "En attente",
+      "silver": "Argent",
+      "gold": "Or",
+      "hours": "Heures",
+      "setupCover": "Configurer la couverture Cypherock"
+    }
+  },
+  "otp": {
+    "title": "Entrez le OTP",
+    "wrongOtpTitle": "OTP incorrect",
+    "successRedirectTitle": "Veuillez patienter pendant que nous vous redirigeons...",
+    "triesRemaining": "${retries} essais restants",
+    "infoTexts": [
+      "Un email a été envoyé à **${email}**",
+      "Veuillez entrer le code reçu dans l'email"
+    ],
+    "noRetries": {
+      "title": "Vous avez 0 essais restants",
+      "subTitle": "Veuillez quitter le processus et recommencer"
+    },
+    "buttons": {
+      "resendWithTimeout": "Valable pendant ${timeout}s"
+    }
+  },
+  "onramp": {
+    "title": "Acheter des Crypto",
+    "buy": {
+      "title": "Acheter",
+      "selectCurrency": {
+        "selectFiat": {
+          "label": "Vous paierez",
+          "placeholder": "Sélectionnez la devise Fiat",
+          "searchText": "Rechercher une devise Fiat"
+        },
+        "selectCrypto": {
+          "label": "Vous recevrez",
+          "placeholder": "Sélectionnez la devise Crypto",
+          "searchText": "Rechercher une devise Crypto"
+        },
+        "amount": {
+          "label": "Montant",
+          "tooltip": "Les prix affichés incluent les frais de transaction",
+          "error": "Le montant saisi est invalide",
+          "limitError": "Le montant saisi doit être compris entre ${min} et ${max}",
+          "noMethodsError": "Aucune méthode de paiement n'est actuellement disponible pour cette paire de pièces. Veuillez essayer une autre paire de pièces"
+        }
+      },
+      "selectWallet": {
+        "title": "Acheter",
+        "subtitle": "Choisissez un portefeuille et un compte pour créditer ${currencyCode}",
+        "selectWallet": {
+          "placeholder": "Choisissez un portefeuille",
+          "searchText": "Rechercher un portefeuille"
+        },
+        "selectAccount": {
+          "placeholder": "Sélectionnez un compte",
+          "searchText": "Rechercher un compte"
+        },
+        "selectPaymentMethod": {
+          "label": "Choisissez la méthode de paiement",
+          "placeholder": "Méthode de paiement",
+          "searchText": "Rechercher une méthode de paiement"
+        },
+        "messageBox": {
+          "danger": "Aucun compte trouvé pour"
+        }
+      },
+      "redirectOrder": {
+        "title": "Commander",
+        "subtitle": "Complétez la commande depuis votre navigateur",
+        "info": {
+          "accountFieldLabel": "Compte",
+          "amountFieldLabel": "Vous paierez",
+          "conversionFieldLabel": "Vous recevrez"
+        },
+        "messageBox": {
+          "info": "Le navigateur ne s'est pas ouvert ?",
+          "action": "Cliquez ici"
+        }
+      }
+    }
+  },
+  "send": {
+    "title": "Envoyer",
+    "fees": {
+      "header": [
+        {
+          "id": 1,
+          "label": "Standard",
+          "type": "slider"
+        },
+        {
+          "id": 2,
+          "label": "Avancé",
+          "type": "input"
+        }
+      ],
+      "sliderLabels": [
+        {
+          "id": 1,
+          "name": "Min"
+        },
+        {
+          "id": 2,
+          "name": "Moyenne"
+        },
+        {
+          "id": 3,
+          "name": "Max"
+        }
+      ],
+      "inputLabels": {
+        "gasPrice": "Prix du gaz",
+        "gasLimit": "Limite de gaz"
+      }
+    },
+    "source": {
+      "title": "Source",
+      "subtitle": "Choisissez un portefeuille et un compte",
+      "searchText": "Recherche",
+      "walletPlaceholder": "Choisissez un portefeuille",
+      "accountPlaceholder": "Compte à débiter"
+    },
+    "x1Vault": {
+      "title": "Suivez les instructions sur le X1 Vault",
+      "actions": {
+        "verifyCoin": "Vérifier",
+        "verifyDetails": "Vérifiez les détails de la transaction sur l'appareil",
+        "enterPassphrase": "Entrez la phrase de passe",
+        "enterPin": "Entrez le code PIN et appuyez sur n'importe quelle carte",
+        "tapCard": "Appuyez sur n'importe quelle carte"
+      },
+      "token": {
+        "info": "Rappelez-vous que ${tokenName} est un jeton ${parentCoinName}, donc le fee sera calculé en ${parentCoinUnit}"
+      },
+      "messageBox": {
+        "warning": "Vérifiez toujours que l'adresse affichée sur votre appareil correspond exactement à l'adresse fournie par le destinataire"
+      }
+    },
+    "recipient": {
+      "title": "Destinataire",
+      "subtitle": "Entrez le montant et l'adresse du destinataire à qui vous souhaitez envoyer les fonds",
+      "recipient": {
+        "label": "Adresse du destinataire",
+        "labelSwap": "Adresse de ${provider}",
+        "placeholder": "Entrez l'adresse",
+        "error": "Adresse invalide",
+        "ownAddress": "L'adresse du destinataire est identique à l'adresse de l'expéditeur"
+      },
+      "icpAccountIdRecipient": {
+        "label": "ID de compte du destinataire",
+        "labelSwap": "ID de compte de ${provider}",
+        "placeholder": "Entrez l'ID du compte",
+        "error": "ID de compte invalide",
+        "ownAddress": "L'ID de compte du destinataire est identique à l'ID de compte de l'expéditeur"
+      },
+      "icpPrincipalIdRecipient": {
+        "label": "ID principal du destinataire",
+        "labelSwap": "ID principal de ${provider}",
+        "placeholder": "Entrez l'ID principal",
+        "error": "ID principal invalide",
+        "ownAddress": "L'ID principal du destinataire est identique à l'ID principal de l'expéditeur"
+      },
+      "tabs": {
+        "single": "Transaction unique",
+        "batch": "Transaction en lot"
+      },
+      "amount": {
+        "label": "Montant à envoyer",
+        "placeholder": "0",
+        "toggle": "Envoyer le max",
+        "dollar": "$",
+        "error": "Fonds insuffisants",
+        "zeroAmount": "Le montant ne peut pas être zéro",
+        "notOverDustThreshold": "Le montant est inférieur à la dust limit",
+        "amountBelowReserveBalance": "L'adresse du destinataire est inactive. Envoyez au moins ${amount} ${unit} pour l'activer.",
+        "balanceBelowReserveBalance": "Le solde ne peut pas descendre en dessous de ${amount} ${unit}"
+      },
+      "fees": {
+        "title": "Frais",
+        "label": "Frais de réseau"
+      },
+      "remarks": {
+        "label": "Note personnelle (optionnelle)",
+        "placeholder": "Entrez vos notes personnelles ici",
+        "error": "Limite maximale de caractères dépassée (120 caractères)"
+      },
+      "warning": "La transaction pourrait être annulée si les frais sont très bas",
+      "feeError": "Une transaction avec des frais de 0 n'est pas autorisée",
+      "notEnoughBalance": "Fonds insuffisants pour la transaction",
+      "toggleText": {
+        "replace": "Permettre à la transaction d'être remplacée (Remplacer par frais)",
+        "unconfirmed": "Inclure les pièces provenant de transactions non confirmées et remplaçables"
+      },
+      "infoBox": "Montant maximum dépensable est ",
+      "addButton": "Ajouter un autre destinataire",
+      "destinationTag": {
+        "label": "Tag de destination",
+        "placeholder": "Optionnel",
+        "error": "Valeur trop élevée"
+      },
+      "memo": {
+        "label": "Mémo (optionnel)",
+        "placeholder": "Entrez un mémo numérique",
+        "error": "Valeur trop élevée"
+      },
+      "stellarMemo": {
+        "label": "Mémo (Facultatif)",
+        "inputPlaceholder": {
+          "none": "",
+          "text": "Entrez le mémo texte (max 28 octets)",
+          "id": "Entrez un ID de mémo numérique",
+          "hash": "Entrez un mémo de hachage hexadécimal de 64 caractères",
+          "return": "Entrez un mémo de retour de hachage hexadécimal de 64 caractères"
+        },
+        "dropdownPlaceholder": "Mémo",
+        "searchText": "Recherche",
+        "error": "Mémo invalide"
+      },
+      "feeBelowMinError": "Une transaction avec des frais inférieurs au minimum échouera",
+      "rentExemptFeeWarning": "Recevoir un jeton sur solana pour la première fois entraîne des frais d'exemption de loyer, inclus dans les frais totaux."
+    },
+    "summary": {
+      "title": "Résumé",
+      "from": "De",
+      "to": "À",
+      "amount": "Montant",
+      "network": "Frais de réseau",
+      "debit": "Total à débiter",
+      "remarks": "Note personnelle",
+      "destinationTag": "Tag de destination",
+      "memo": "Mémo"
+    },
+    "finalMessage": {
+      "button": "Vérifier les transactions",
+      "title": "Transaction envoyée",
+      "hashLabel": "Hash de la transaction",
+      "idLabel": "ID de la transaction",
+      "messageBox": {
+        "warning": "Le solde de votre compte sera mis à jour lorsque la blockchain confirmera la transaction"
+      }
+    },
+    "aside": {
+      "tabs": {
+        "source": "Source",
+        "recipient": "Destinataire",
+        "summary": "Résumé",
+        "x1vault": "X1 Vault",
+        "confirm": "Confirmation"
+      },
+      "timer": {
+        "title": "Expiration dans",
+        "minutes": "Minutes",
+        "seconds": "Secondes"
+      }
+    },
+    "optimism": {
+      "deviceAction": "L1 Fee: ${fee}. Votre fee de L1 ne sera pas vérifié depuis l'appareil",
+      "l1": " (L1)",
+      "l2": " (L2)",
+      "suffix": " (L1 + L2)"
+    },
+    "tron": {
+      "notEnoughEnergyWarning": "Énergie insuffisante, cela peut entraîner des frais allant jusqu'à 50 TRX"
+    }
+  },
+  "onboarding": {
+    "info": {
+      "aside": {
+        "title": "Bienvenue sur l'application cySync",
+        "subTitle": "Votre passerelle vers l'autonomie"
+      },
+      "dialogBox": {
+        "title": "Assurez-vous des éléments suivants avant de continuer",
+        "listItems": [
+          "Vous vous trouvez dans un environnement sûr et sécurisé",
+          "Vous disposez d'au moins 10 à 15 minutes pour configurer votre portefeuille",
+          "Vous avez une connexion internet active",
+          "Le sceau inviolable de l'emballage est intact",
+          "Cypherock ne vous demandera jamais votre phrase de récupération ni ne vous demandera jamais de signer une transaction",
+          "Cypherock vous enverra des e-mails uniquement depuis cypherock.com. Ne faites confiance à aucun e-mail provenant d'un autre domaine de site web"
+        ]
+      }
+    },
+    "usage": {
+      "userNew": {
+        "title": "J'utilise Cypherock X1 pour la première fois",
+        "note": "Choisissez ceci si vous n'avez jamais utilisé Cypherock X1 auparavant"
+      },
+      "userExpert": {
+        "title": "J'ai déjà utilisé un Cypherock X1",
+        "note": "Choisissez ceci si vous souhaitez migrer vos portefeuilles vers un nouveau Cypherock X1. Cela pourrait être nécessaire si vous avez perdu votre X1 Vault et une ou plusieurs des X1 Cards"
+      }
+    },
+    "terms": {
+      "title": "Conditions d'utilisation",
+      "subtext": "Prenez le temps de consulter nos Conditions d'utilisation et notre Politique de confidentialité",
+      "bulletPoints": {
+        "terms": "Conditions d'utilisation",
+        "privacyPolicy": "Politique de confidentialité"
+      },
+      "consent": "J'ai lu et j'accepte les Conditions d'utilisation et la Politique de confidentialité"
+    },
+    "setPassword": {
+      "heading": "Définir un mot de passe",
+      "title": "Définissez votre mot de passe cySync ",
+      "subtitle": "Nous ne stockons pas votre mot de passe sur nos serveurs",
+      "success": "Votre mot de passe cySync a été défini avec succès",
+      "newPasswordLabel": "Nouveau mot de passe",
+      "confirmPasswordLabel": "Confirmer le mot de passe",
+      "hint": "Utilisez 8 caractères ou plus avec un mélange de lettres, de chiffres et de symboles"
+    },
+    "emailAuth": {
+      "heading": "Authentification par e-mail",
+      "title": "Il est recommandé de saisir un identifiant e-mail comme 2FA pour obtenir des résultats d'authenticité ",
+      "subtitle": "Nous ne stockons pas cet identifiant e-mail de manière permanente sur nos serveurs ",
+      "success": "Votre mot de passe cySync a été défini avec succès",
+      "enterEmailLabel": "E-mail",
+      "placeholder": "E-mail"
+    },
+    "deviceDetection": {
+      "heading": "Connexion de l'appareil",
+      "title": "Connectez votre X1 Vault à votre PC pour continuer",
+      "unavailable": {
+        "title": "Votre X1 Vault est incapable de communiquer",
+        "subtext": "Essayez de reconnecter l'appareil"
+      }
+    },
+    "deviceAuth": {
+      "heading": "Authentification de l'appareil",
+      "title": "Votre X1 Vault sera maintenant authentifié\npar le serveur Cypherock pour vérifier son\nauthenticité ",
+      "subtext": "Ne déconnectez pas votre appareil pendant l'opération",
+      "success": {
+        "title": "Votre X1 Vault a été authentifié avec succès",
+        "subtext": "Attendez pendant que nous vous emmenons à l'écran suivant"
+      },
+      "error": "L'authentification du X1 Vault a échoué"
+    },
+    "joystickTraining": {
+      "heading": "Instructions du joystick",
+      "subtext": "X1 Vault offre un joystick à 4 directions pour la navigation à l'écran",
+      "upTitle": "Basculer vers le haut",
+      "rightTitle": "Basculer vers la droite",
+      "downTitle": "Basculer vers le bas",
+      "leftTitle": "Basculer vers la gauche",
+      "centerTitle": "Cliquez au centre du joystick pour continuer",
+      "centerSubtext": "X1 Vault dispose d'un bouton central pour effectuer des clics",
+      "footer": "Suivez les instructions sur l'appareil",
+      "success": "Instructions du joystick terminées",
+      "error": "Les instructions du joystick ont échoué"
+    },
+    "cardTraining": {
+      "heading": "Instructions de tapotement de carte",
+      "title": "Tapez toute X1 Card sous le X1 Vault pour tester le tapotement de carte",
+      "subtext": "Vos cartes communiquent avec l'appareil par NFC chiffré. Assurez-vous de la garder appuyée jusqu'à ce que vous entendiez un bip sonore",
+      "error": "Le tapotement de carte a échoué"
+    },
+    "cardAuth": {
+      "heading": "Authentification de carte",
+      "title": "Tapez les X1 Cards une par une sous le \nX1 Vault jusqu'à ce que vous entendiez 3 bips sonores",
+      "subtext": "Soulevez votre carte après 3 bips sonores"
+    },
+    "walletActionsDialogBox": {
+      "title": "Créons un portefeuille avant de continuer. Assurez-vous d'avoir toutes les 4 X1 Cards avec vous",
+      "subTitle": "Les tutoriels suivants sont là pour vous guider sur votre appareil. Vous pouvez créer un portefeuille même sans ces tutoriels de manière indépendante sur votre Cypherock X1",
+      "createWallet": {
+        "title": "Créer un nouveau portefeuille",
+        "list": [
+          "Si vous avez acheté un tout nouveau Cypherock X1 et souhaitez configurer un nouveau portefeuille"
+        ]
+      },
+      "importWallet": {
+        "title": "Importer votre portefeuille à partir d'une phrase de récupération",
+        "list": [
+          "Vous souhaitez utiliser Cypherock X1 comme sauvegarde de vos autres portefeuilles ",
+          "Vous souhaitez transférer vos actifs depuis vos autres portefeuilles vers Cypherock X1 ",
+          "Vous souhaitez gérer et suivre le portefeuille de vos autres portefeuilles via Cypherock X1 "
+        ]
+      }
+    },
+    "success": {
+      "title": "Félicitations",
+      "subtext": "Cypherock X1 est maintenant prêt à l'emploi"
+    },
+    "appUpdate": {
+      "heading": "Mise à jour de l'application",
+      "dialogs": {
+        "checking": {
+          "heading": "Mise à jour de l'application",
+          "title": "Veuillez patienter pendant que nous vérifions les mises à jour de Cypherock CySync"
+        },
+        "checkingFailed": {
+          "heading": "Mise à jour de l'application",
+          "title": "Une erreur s'est produite lors de la vérification de la mise à jour",
+          "subtext": "Quelque chose a mal tourné, vérifiez votre connexion internet et réessayez"
+        },
+        "confirmation": {
+          "heading": "Mise à jour de l'application",
+          "title": "Une nouvelle mise à jour est disponible pour votre application cySync. Mettez à jour l'application vers v${version} pour continuer",
+          "subtext": "Votre X1 Vault semble être incompatible avec l'application cySync actuelle. Mettez à jour votre application de bureau vers v${version} pour continuer"
+        },
+        "downloading": {
+          "heading": "Mise à jour en cours...",
+          "subtext": "Veuillez patienter pendant que nous mettons à jour votre application cySync",
+          "version": "Version ${version}"
+        },
+        "updateSuccessful": {
+          "heading": "Application cySync mise à jour avec succès",
+          "subtext": "Veuillez patienter pendant que nous redémarrons l'application pour appliquer la dernière mise à jour",
+          "bubbleText": "Au cas où l'application ne redémarrerait pas d'elle-même, relancez-la manuellement"
+        },
+        "updateFailed": {
+          "heading": "La mise à jour de cySync vers la version ${version} a échoué",
+          "subtext": "Quelque chose a mal tourné, essayez de mettre à jour à nouveau ou contactez le support",
+          "buttons": {
+            "retry": "Réessayer"
+          }
+        },
+        "updateFailedFallback": {
+          "heading": "La mise à jour de l'application cySync vers la version ${version} a échoué",
+          "subtext": "Téléchargez et réinstallez l'application de bureau depuis le lien ci-dessous",
+          "alertText": "Fermez cette application avant de réinstaller la dernière application cySync"
+        }
+      }
+    },
+    "deviceUpdate": {
+      "heading": "Mise à jour de l'appareil",
+      "version": "Version ${version}",
+      "dialogs": {
+        "checking": {
+          "title": "Veuillez patienter pendant que nous vérifions les mises à jour de X1 Vault"
+        },
+        "confirmation": {
+          "heading": "Mise à jour de l'appareil",
+          "title": "Une nouvelle mise à jour est disponible pour votre X1 Vault. Mettez à jour l'appareil vers v${version} pour continuer",
+          "subtext": "Suivez les instructions sur l'appareil"
+        },
+        "loading": {
+          "text": "Veuillez patienter pendant que nous vérifions les mises à jour de X1 Vault"
+        },
+        "updating": {
+          "heading": "Mise à jour en cours...",
+          "subtext": "Veuillez patienter pendant que nous mettons à jour votre X1 Vault"
+        },
+        "updateSuccessful": {
+          "heading": "X1 Vault mis à jour avec succès",
+          "headingWithVersion": "X1 Vault mis à jour vers la version v${version} avec succès",
+          "subtext": "Votre appareil fonctionne désormais avec le dernier firmware"
+        },
+        "updateFailed": {
+          "heading": "La mise à jour du firmware a échoué",
+          "subtext": "Reconnectez l'appareil pour continuer"
+        }
+      }
+    }
+  },
+  "errors": {
+    "deviceErrors": {
+      "CON_0100": {
+        "heading": "Connectez le X1 Vault à votre PC pour continuer"
+      },
+      "CON_0101": {
+        "heading": "Connectez le X1 Vault à votre PC pour continuer"
+      },
+      "CON_0102": {
+        "heading": "Votre X1 Vault ne peut pas se connecter",
+        "subtext": "Reconnectez l'appareil et réessayez"
+      },
+      "COM_0000": {
+        "heading": "Votre X1 Vault est en mode sécurisé",
+        "subtext": "Mettez à jour votre appareil pour continuer"
+      },
+      "COM_0104": {
+        "heading": "Votre X1 Vault rencontre des problèmes de communication",
+        "subtext": "Reconnectez l'appareil et réessayez"
+      },
+      "COM_0101": {
+        "heading": "Votre X1 Vault rencontre des problèmes de communication",
+        "subtext": "Reconnectez l'appareil et réessayez"
+      },
+      "COM_0102": {
+        "heading": "Votre X1 Vault rencontre des problèmes de communication",
+        "subtext": "Reconnectez l'appareil et réessayez"
+      },
+      "COM_0103": {
+        "heading": "Votre X1 Vault rencontre des problèmes de communication",
+        "subtext": "Reconnectez l'appareil et réessayez"
+      },
+      "COM_0100": {
+        "heading": "Votre X1 Vault rencontre des problèmes de communication",
+        "subtext": "Reconnectez l'appareil et réessayez"
+      },
+      "COM_0200": {
+        "heading": "Votre X1 Vault ne supporte pas cette opération",
+        "subtext": "Mettez à jour l'application CySync et l'appareil à la dernière version"
+      },
+      "COM_0201": {
+        "heading": "Votre X1 Vault n'est pas compatible avec l'application CySync",
+        "subtext": "Mettez à jour l'application CySync et l'appareil à la dernière version"
+      },
+      "BTL_0000": {
+        "heading": "Échec de l'opération sur le X1 Vault",
+        "subtext": "Reconnectez l'appareil et réessayez"
+      },
+      "BTL_0100": {
+        "heading": "Votre X1 Vault ne supporte pas ce firmware",
+        "subtext": "Contactez le support Cypherock pour obtenir de l'aide"
+      },
+      "BTL_0101": {
+        "heading": "Votre X1 Vault ne supporte pas ce firmware",
+        "subtext": "Contactez le support Cypherock pour obtenir de l'aide"
+      },
+      "BTL_0102": {
+        "heading": "Votre X1 Vault ne supporte pas ce firmware",
+        "subtext": "Contactez le support Cypherock pour obtenir de l'aide"
+      },
+      "BTL_0103": {
+        "heading": "Le firmware de votre X1 Vault n'est pas authentique",
+        "subtext": "Cela arrive généralement lorsque vous essayez d'installer un firmware non développé par Cypherock"
+      },
+      "BTL_0104": {
+        "heading": "Votre X1 Vault ne peut pas être mis à jour vers une version de firmware inférieure",
+        "subtext": "L'appareil ne supporte que la mise à jour du firmware vers une version supérieure"
+      },
+      "BTL_0106": {
+        "heading": "Échec de la mise à jour du X1 Vault",
+        "subtext": "Reconnectez l'appareil, réessayez et si le problème persiste, contactez le support Cypherock pour obtenir de l'aide"
+      },
+      "BTL_0107": {
+        "heading": "Votre X1 Vault ne supporte pas ce firmware",
+        "subtext": "Contactez le support Cypherock pour obtenir de l'aide"
+      },
+      "BTL_0108": {
+        "heading": "Votre X1 Vault rencontre des problèmes de communication",
+        "subtext": "Reconnectez l'appareil, réessayez et si le problème persiste, contactez le support Cypherock pour obtenir de l'aide"
+      },
+      "BTL_0109": {
+        "heading": "Quelque chose s'est mal passé",
+        "subtext": "Reconnectez l'appareil, réessayez et si le problème persiste, contactez le support Cypherock pour obtenir de l'aide"
+      },
+      "BTL_0105": {
+        "heading": "Votre X1 Vault rencontre des problèmes de communication",
+        "subtext": "Reconnectez l'appareil, réessayez et si le problème persiste, contactez le support Cypherock pour obtenir de l'aide"
+      },
+      "APP_0000": {
+        "heading": "Quelque chose s'est mal passé",
+        "subtext": "Reconnectez l'appareil, réessayez et si le problème persiste, contactez le support Cypherock pour obtenir de l'aide"
+      },
+      "APP_0101": {
+        "heading": "Votre X1 Vault est actuellement occupé",
+        "subtext": "Accédez au menu principal sur l'appareil et réessayez"
+      },
+      "APP_0102": {
+        "heading": "Votre X1 Vault a annulé cette opération",
+        "subtext": "Vous pouvez la reprendre là où vous l'aviez laissée"
+      },
+      "APP_0103": {
+        "heading": "Votre X1 Vault a annulé cette opération",
+        "subtext": "Reconnectez l'appareil, réessayez et si le problème persiste, contactez le support Cypherock pour obtenir de l'aide"
+      },
+      "APP_0200": {
+        "heading": "Votre X1 Vault rencontre des problèmes de communication",
+        "subtext": "Reconnectez l'appareil, réessayez et si le problème persiste, contactez le support Cypherock pour obtenir de l'aide"
+      },
+      "APP_0201": {
+        "heading": "Votre X1 Vault rencontre des problèmes de communication",
+        "subtext": "Reconnectez l'appareil, réessayez et si le problème persiste, contactez le support Cypherock pour obtenir de l'aide"
+      },
+      "APP_0202": {
+        "heading": "Votre X1 Vault rencontre des problèmes de communication",
+        "subtext": "Reconnectez l'appareil, réessayez et si le problème persiste, contactez le support Cypherock pour obtenir de l'aide"
+      },
+      "APP_0203": {
+        "heading": "L'application n'existe pas sur l'appareil"
+      },
+      "APP_0204": {
+        "heading": "Votre X1 Vault est actuellement occupé",
+        "subtext": "Réessayez après un certain temps, si le problème persiste, reconnectez l'appareil."
+      },
+      "APP_0205": {
+        "heading": "Votre X1 Vault n'est actuellement pas configuré correctement",
+        "subtext": "Appuyez sur continuer pour démarrer la configuration"
+      },
+      "APP_0300": {
+        "heading": "Vous avez supprimé le portefeuille ${walletName} du X1 Vault. Voulez-vous le supprimer également de l'application CySync ?"
+      },
+      "APP_0301": {
+        "heading": "Votre portefeuille ${walletName} est actuellement mal configuré sur votre X1 Vault",
+        "subtext": "Allez au portefeuille ${walletName} depuis le menu principal sur votre appareil pour résoudre le problème"
+      },
+      "APP_0206": {
+        "heading": "Votre X1 Vault a expiré",
+        "subtext": "Accédez au menu principal sur l'appareil et réessayez"
+      },
+      "APP_0400": {
+        "heading": "Erreur inconnue de la carte X1",
+        "subtext": "Réessayez ou cliquez sur Help pour trouver une solution"
+      },
+      "APP_0501": {
+        "heading": "Vous avez annulé cette opération sur votre X1 Vault"
+      },
+      "APP_0600": {
+        "heading": "Votre X1 Vault rencontre des problèmes de communication",
+        "subtext": "Réessayez ou contactez le support Cypherock pour obtenir de l'aide"
+      },
+      "APP_0700": {
+        "heading": "L'appareil semble compromis. Contactez immédiatement le support Cypherock"
+      },
+      "APP_0701": {
+        "heading": "La carte semble compromise. Contactez immédiatement le support Cypherock"
+      },
+      "APP_0400_001": {
+        "heading": "Erreur inconnue de la carte X1",
+        "subtext": "Réessayez et si le problème persiste, contactez le support Cypherock pour obtenir de l'aide"
+      },
+      "APP_0400_002": {
+        "heading": "Votre carte X1 n'est actuellement pas appairée avec votre X1 Vault",
+        "subtext": "Appairez votre carte en accédant aux paramètres depuis le menu principal sur votre appareil avant de réaliser une opération",
+        "deviceNavigationText": "Menu principal > Paramètres > Appairer la carte"
+      },
+      "APP_0400_003": {
+        "heading": "L'authentification de votre carte X1 a échoué",
+        "subtext": "Essayez une autre carte et si le problème persiste, contactez le support Cypherock pour obtenir de l'aide"
+      },
+      "APP_0400_004": {
+        "heading": "Votre carte X1 a mal fonctionné",
+        "subtext": "Réessayez ou cliquez sur Help pour trouver une solution"
+      },
+      "APP_0400_005": {
+        "heading": "Votre carte X1 rencontre des problèmes de communication",
+        "subtext": "Réessayez ou cliquez sur Help pour trouver une solution"
+      },
+      "APP_0400_006": {
+        "heading": "Vous avez tapé une carte X1 incorrecte",
+        "subtext": "Assurez-vous que votre carte appartient au même ensemble"
+      },
+      "APP_0400_007": {
+        "heading": "Votre carte X1 rencontre des problèmes de communication",
+        "subtext": "Réessayez et si le problème persiste, contactez le support Cypherock pour obtenir de l'aide"
+      },
+      "APP_0400_008": {
+        "heading": "Vous avez tapé une carte X1 incorrecte",
+        "subtext": "Veuillez taper les cartes dans l'ordre correct"
+      },
+      "APP_0400_009": {
+        "heading": "Votre carte X1 rencontre des problèmes de communication",
+        "subtext": "Réessayez et si le problème persiste, contactez le support Cypherock pour obtenir de l'aide"
+      },
+      "APP_0400_010": {
+        "heading": "Votre carte X1 rencontre des problèmes de communication",
+        "subtext": "Contactez le support Cypherock pour obtenir de l'aide"
+      },
+      "APP_0400_011": {
+        "heading": "Votre carte X1 est désynchronisée avec votre X1 Vault",
+        "subtext": "Resynchronisez votre carte en accédant au portefeuille ${walletName} depuis le menu principal sur votre appareil avant de réaliser une opération"
+      },
+      "APP_0400_012": {
+        "heading": "La mémoire de votre carte X1 est pleine",
+        "subtext": "Vous pouvez supprimer un portefeuille pour en ajouter un nouveau ou acheter un autre Cypherock X1"
+      },
+      "APP_0400_013": {
+        "heading": "Vous avez entré un code PIN incorrect",
+        "subtext": "Entrez le code PIN correct avant que la carte ne se bloque"
+      },
+      "APP_0400_014": {
+        "heading": "Votre carte X1 rencontre des problèmes de communication",
+        "subtext": "Contactez le support Cypherock pour obtenir de l'aide"
+      },
+      "APP_0400_015": {
+        "heading": "Votre carte X1 doit être appairée avec votre X1 Vault",
+        "subtext": "Vous pouvez démarrer l'appairage de la carte depuis les paramètres de l'appareil ou vous pouvez utiliser un autre ensemble de cartes"
+      },
+      "APP_0400_016": {
+        "heading": "Votre carte X1 rencontre des problèmes de communication",
+        "subtext": "Contactez le support Cypherock pour obtenir de l'aide"
+      },
+      "APP_0400_017": {
+        "heading": "Le portefeuille ${walletName} est actuellement verrouillé sur votre X1 Vault",
+        "subtext": "Déverrouillez d'abord le portefeuille avant de réessayer",
+        "deviceNavigationText": "Menu principal > ${walletName}"
+      },
+      "APP_0400_018": {
+        "heading": "Votre carte X1 a mal fonctionné",
+        "subtext": "Cliquez sur Help pour trouver une solution"
+      },
+      "APP_0400_019": {
+        "heading": "Votre carte X1 a mal fonctionné",
+        "subtext": "Réessayez ou cliquez sur Help pour trouver une solution"
+      },
+      "APP_0400_000": {
+        "heading": "Erreur inconnue de la carte X1",
+        "subtext": "Réessayez ou cliquez sur Help pour trouver une solution"
+      },
+      "MGA_GL_0000": {
+        "heading": "Les journaux sont désactivés sur le X1 Vault",
+        "subtext": "Activez les journaux dans les paramètres du X1 Vault et réessayez"
+      },
+      "APP_0207": {
+        "heading": "Impossible d'établir une session sur l'appareil"
+      }
+    },
+    "databaseError": {
+      "heading": "Votre application CySync rencontre un problème interne",
+      "subtext": "Réessayez et si le problème persiste, contactez le support Cypherock pour obtenir de l'aide"
+    },
+    "serverErrors": {
+      "SER_0000": {
+        "heading": "Votre application CySync rencontre un problème de connectivité",
+        "subtext": "Réessayez et si le problème persiste, contactez le support Cypherock pour obtenir de l'aide"
+      },
+      "SER_0001": {
+        "heading": "Veuillez vous connecter à Internet pour continuer"
+      },
+      "SER_1001": {
+        "heading": "Échec de la vérification OTP",
+        "subtext": "Réessayez et si le problème persiste, contactez le support Cypherock pour obtenir de l'aide"
+      },
+      "SER_1003": {
+        "heading": "Échec de la connexion",
+        "subtext": "Impossible de se connecter. Vérifiez vos identifiants et réessayez. Si le problème persiste, contactez le support Cypherock pour obtenir de l'aide"
+      },
+      "SER_1004": {
+        "heading": "Échec de la vérification de la signature",
+        "subtext": "La signature n'a pas pu être vérifiée. Réessayez et si le problème persiste, contactez le support Cypherock pour obtenir de l'aide"
+      },
+      "SER_1005": {
+        "heading": "Requête invalide",
+        "subtext": "La requête n'a pas pu être traitée. Vérifiez l'entrée et réessayez. Si le problème persiste, contactez le support Cypherock pour obtenir de l'aide"
+      },
+      "SER_1006": {
+        "heading": "Accès non autorisé",
+        "subtext": "Vous n'avez pas la permission d'effectuer cette action. Contactez le support Cypherock pour obtenir de l'aide"
+      },
+      "SER_1007": {
+        "heading": "Ressource non trouvée",
+        "subtext": "La ressource demandée n'a pas pu être localisée. Réessayez et si le problème persiste, contactez le support Cypherock pour obtenir de l'aide"
+      },
+      "SER_1008": {
+        "heading": "Erreur interne du serveur",
+        "subtext": "Une erreur inattendue s'est produite. Réessayez et si le problème persiste, contactez le support Cypherock pour obtenir de l'aide"
+      },
+      "SER_1009": {
+        "heading": "Délai de la requête dépassé",
+        "subtext": "La requête a pris trop de temps à être traitée. Réessayez et si le problème persiste, contactez le support Cypherock pour obtenir de l'aide"
+      },
+      "SER_1010": {
+        "heading": "OTP expiré",
+        "subtext": "L'OTP a expiré. Veuillez en demander un nouveau et réessayez."
+      },
+      "SER_1011": {
+        "heading": "Échec de la validation de la Charge Utile",
+        "subtext": "Les données d'entrée sont invalides. Vérifiez et réessayez. Si le problème persiste, contactez le support Cypherock pour obtenir de l'aide"
+      },
+      "SER_1012": {
+        "heading": "Nombre maximum de tentatives de réessai atteint",
+        "subtext": "Vous avez atteint la limite de réessais. Veuillez réessayer plus tard. Si le problème persiste, contactez le support Cypherock pour obtenir de l'aide"
+      },
+      "SER_1013": {
+        "heading": "Compte verrouillé",
+        "subtext": "Votre compte a été temporairement verrouillé. Contactez le support Cypherock pour obtenir de l'aide"
+      },
+      "SER_1014": {
+        "heading": "Service indisponible",
+        "subtext": "Le service est actuellement indisponible. Veuillez réessayer plus tard. Si le problème persiste, contactez le support Cypherock pour obtenir de l'aide"
+      },
+      "SER_1015": {
+        "heading": "Conflit de requête",
+        "subtext": "Une requête conflictuelle a été faite. Révisez et réessayez. Si le problème persiste, contactez le support Cypherock pour obtenir de l'aide"
+      },
+      "SER_1016": {
+        "heading": "Erreur de validation",
+        "subtext": "L'entrée ne respecte pas les critères de validation. Réviser et réessayer. Si le problème persiste, contactez le support Cypherock pour obtenir de l'aide"
+      },
+      "SER_1017": {
+        "heading": "Portefeuille non trouvé",
+        "subtext": "Aucun portefeuille n'a été trouvé pour cette opération. Révisez et réessayez. Si le problème persiste, contactez le support Cypherock pour obtenir de l'aide"
+      },
+      "SER_1018": {
+        "heading": "Utilisateur non trouvé",
+        "subtext": "Aucune donnée utilisateur n'a été trouvée. Révisez et réessayez. Si le problème persiste, contactez le support Cypherock pour obtenir de l'aide"
+      },
+      "SER_1019": {
+        "heading": "Nominee manquant",
+        "subtext": "Veuillez ajouter un Nominee pour continuer."
+      },
+      "SER_1020": {
+        "heading": "Executor manquant",
+        "subtext": "Veuillez ajouter un Executor pour continuer."
+      },
+      "SER_1021": {
+        "heading": "Session non trouvée",
+        "subtext": "Les données de session sont manquantes. Réessayez et si le problème persiste, contactez le support Cypherock pour obtenir de l'aide"
+      },
+      "SER_1022": {
+        "heading": "Coupon invalide",
+        "subtext": "Le code de coupon saisi est invalide. Vérifiez et réessayez. Si le problème persiste, contactez le support Cypherock pour obtenir de l'aide"
+      },
+      "SER_1023": {
+        "heading": "Session invalide",
+        "subtext": "La session est invalide ou expirée. Réessayez et si le problème persiste, contactez le support Cypherock pour obtenir de l'aide"
+      },
+      "SER_1024": {
+        "heading": "Appareil invalide",
+        "subtext": "Réessayez et si le problème persiste, contactez le support Cypherock pour obtenir de l'aide"
+      },
+      "SER_1025": {
+        "heading": "Clé invalide",
+        "subtext": "Réessayez et si le problème persiste, contactez le support Cypherock pour obtenir de l'aide"
+      },
+      "SER_1026": {
+        "heading": "Plan actif déjà trouvé",
+        "subtext": "Vous avez déjà un plan actif pour ce portefeuille. Choisissez un autre portefeuille et réessayez."
+      },
+      "SER_1027": {
+        "heading": "Limite de renvoi de l'OTP atteinte",
+        "subtext": "Vous avez atteint le nombre maximum de tentatives de réenvoi de l'OTP. Veuillez réessayer plus tard ou contactez le support Cypherock pour obtenir de l'aide"
+      },
+      "SER_1028": {
+        "heading": "Email déjà existant",
+        "subtext": "Un compte avec cette adresse e-mail existe déjà. Veuillez utiliser une autre adresse e-mail ou contactez le support Cypherock pour obtenir de l'aide"
+      },
+      "SER_2000": {
+        "heading": "Échec de la diffusion de la transaction",
+        "subtext": "Réessayez ou contactez le support pour obtenir de l'aide"
+      }
+    },
+    "binanceErrors": {
+      "BIN_0000": {
+        "heading": "Erreur système",
+        "subtext": "Réessayez et si le problème persiste, contactez le support Cypherock pour obtenir de l'aide"
+      },
+      "BIN_0001": {
+        "heading": "Système occupé",
+        "subtext": "Réessayez et si le problème persiste, contactez le support Cypherock pour obtenir de l'aide"
+      },
+      "BIN_0002": {
+        "heading": "Paramètres invalides",
+        "subtext": "Réessayez et si le problème persiste, contactez le support Cypherock pour obtenir de l'aide"
+      },
+      "BIN_0003": {
+        "heading": "ID client manquant",
+        "subtext": "Contactez le support Cypherock pour obtenir de l'aide"
+      },
+      "BIN_0004": {
+        "heading": "Paramètre désactivé",
+        "subtext": "Contactez le support Cypherock pour obtenir de l'aide"
+      },
+      "BIN_0005": {
+        "heading": "Commande non trouvée",
+        "subtext": "Réessayez et si le problème persiste, contactez le support Cypherock pour obtenir de l'aide"
+      },
+      "BIN_0006": {
+        "heading": "Type de commande non pris en charge",
+        "subtext": "Contactez le support Cypherock pour obtenir de l'aide"
+      },
+      "BIN_0007": {
+        "heading": "Paramètre non trouvé",
+        "subtext": "Contactez le support Cypherock pour obtenir de l'aide"
+      },
+      "BIN_0008": {
+        "heading": "Méthode de paiement non prise en charge",
+        "subtext": "Contactez le support Cypherock pour obtenir de l'aide"
+      }
+    },
+    "default": "Une erreur interne est survenue",
+    "serverCoinErrors": {
+      "default": {
+        "DEF_0000": {
+          "heading": "Quelque chose s'est mal passé",
+          "subtext": "Réessayez et si le problème persiste, contactez le support Cypherock pour obtenir de l'aide"
+        }
+      }
+    },
+    "videoPlaybackError": "Pas de connexion Internet. Veuillez vérifier votre connexion et "
+  },
+  "guidedFlows": {
+    "createWallet": {
+      "title": "Créer un nouveau portefeuille",
+      "skipPinSetup": "Passez cette étape si vous ne configurez pas de code PIN",
+      "tabs": [
+        {
+          "asideTitle": "X1 Vault",
+          "pages": [
+            {
+              "title": "Depuis le menu principal de votre X1 Vault, cliquez sur \"Créer un portefeuille\""
+            },
+            {
+              "title": "Cliquez sur \"Générer un nouveau portefeuille\" sur votre X1 Vault"
+            },
+            {
+              "title": "Entrez un nom de portefeuille sur votre X1 Vault",
+              "bulletList": [
+                "Jusqu'à 15 caractères autorisés",
+                "Il peut être alphanumérique"
+              ],
+              "messageBoxList": [
+                {
+                  "info": "Assurez-vous que le nom du portefeuille est unique par rapport aux autres noms de portefeuilles sur l'appareil"
+                },
+                {
+                  "warning": "Une fois établi, le nom du portefeuille ne peut pas être modifié. Veuillez donc définir le nom en conséquence"
+                }
+              ]
+            },
+            {
+              "title": "Confirmez le nom du portefeuille sur le X1 Vault"
+            },
+            {
+              "title": "Voulez-vous configurer un code PIN pour votre portefeuille ?",
+              "messageBoxList": [
+                {
+                  "warning": "Une fois établi, le code PIN ne peut pas être changé. Vous devrez supprimer le portefeuille et en créer un nouveau pour changer le code PIN"
+                }
+              ]
+            },
+            {
+              "title": "Configurer un code PIN sur le X1 Vault",
+              "bulletList": [
+                "Utilisez entre 4 et 8 caractères",
+                "Le code PIN peut être alphanumérique"
+              ],
+              "messageBoxList": [
+                {
+                  "warning": "Assurez-vous de sauvegarder votre code PIN. Si vous le perdez, vous perdez l'accès à vos fonds"
+                },
+                {
+                  "infoGreen": "Vous pouvez configurer le service de récupération de code PIN Cypherock Cover pour récupérer en toute sécurité votre code PIN de portefeuille sans exposer votre phrase de récupération"
+                }
+              ]
+            },
+            {
+              "title": "Confirmez le code PIN saisi sur le X1 Vault",
+              "messageBoxList": [
+                {
+                  "warning": "Assurez-vous de sauvegarder votre code PIN. Si vous le perdez, vous perdez l'accès à vos fonds"
+                },
+                {
+                  "infoGreen": "Vous pouvez configurer le service de récupération de code PIN Cypherock Cover pour récupérer en toute sécurité votre code PIN de portefeuille sans exposer votre phrase de récupération"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "asideTitle": "Synchroniser les cartes X1",
+          "pages": [
+            {
+              "title": "Appuyez sur les cartes X1 une par une sous le X1 Vault",
+              "subtitle": "Ne levez pas jusqu'à ce que vous entendiez un bip",
+              "messageBoxList": [
+                {
+                  "info": "Assurez-vous que vos cartes X1 appartiennent à la même famille"
+                },
+                {
+                  "info": "Assurez-vous d'appuyer sur les cartes X1 dans le bon ordre"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "asideTitle": "Confirmation",
+          "pages": [
+            {
+              "title": "Félicitations, votre portefeuille a été créé avec succès"
+            },
+            {
+              "title": "La prochaine fois que vous devez effectuer une transaction, vous devez simplement récupérer une carte X1 avec le X1 Vault"
+            },
+            {
+              "title": "Au cas où vous perdriez votre X1 Vault, vous pouvez acheter un nouveau X1 Vault séparément et l'utiliser avec vos anciennes cartes X1"
+            },
+            {
+              "title": "Note Importante",
+              "messageBoxList": [
+                {
+                  "warning": "Si vous devez ajouter un autre portefeuille, vous devrez récupérer les 4 cartes ensemble. Si vous souhaitez importer vos autres portefeuilles dans Cypherock X1, c'est le meilleur moment pour éviter les tracas futurs"
+                }
+              ]
+            },
+            {
+              "title": "À l'étape suivante, gardez vos cartes X1 en sécurité à l'intérieur des pochettes de cartes et distribuez-les à différents endroits. Quelques exemples d'endroits pourraient être :",
+              "bulletList": [
+                "Domiciles de vos membres de famille ou de vos amis",
+                "Cachette secrète",
+                "Coffre-fort de banque"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "importWallet": {
+      "title": "Importer un portefeuille",
+      "tabs": [
+        {
+          "asideTitle": "X1 Vault",
+          "pages": [
+            {
+              "title": "Depuis le menu principal de votre X1 Vault, cliquez sur \"Créer un portefeuille\""
+            },
+            {
+              "title": "Cliquez sur \"Restaurer depuis une phrase de récupération\" sur votre X1 Vault"
+            },
+            {
+              "title": "Entrez un nom de portefeuille sur votre X1 Vault",
+              "bulletList": [
+                "Jusqu'à 15 caractères autorisés",
+                "Il peut être alphanumérique"
+              ],
+              "messageBoxList": [
+                {
+                  "info": "Assurez-vous que le nom du portefeuille est unique par rapport aux autres noms de portefeuilles sur l'appareil"
+                },
+                {
+                  "warning": "Une fois établi, le nom du portefeuille ne peut pas être modifié. Veuillez donc définir le nom en conséquence"
+                }
+              ]
+            },
+            {
+              "title": "Confirmez le nom du portefeuille sur le X1 Vault"
+            },
+            {
+              "title": "Voulez-vous configurer un code PIN pour votre portefeuille ?",
+              "messageBoxList": [
+                {
+                  "warning": "Une fois établi, le code PIN ne peut pas être changé. Vous devrez supprimer le portefeuille et en créer un nouveau pour changer le code PIN"
+                }
+              ]
+            },
+            {
+              "title": "Configurer un code PIN sur le X1 Vault",
+              "bulletList": [
+                "Utilisez entre 4 et 8 caractères",
+                "Le code PIN peut être alphanumérique"
+              ],
+              "messageBoxList": [
+                {
+                  "warning": "Assurez-vous de sauvegarder votre code PIN. Si vous le perdez, vous perdez l'accès à vos fonds"
+                },
+                {
+                  "infoGreen": "Vous pouvez configurer le service de récupération de code PIN Cypherock Cover pour récupérer en toute sécurité votre code PIN de portefeuille sans exposer votre phrase de récupération"
+                }
+              ]
+            },
+            {
+              "title": "Confirmez le code PIN saisi sur le X1 Vault",
+              "messageBoxList": [
+                {
+                  "warning": "Souvenez-vous de votre code PIN, si vous le perdez, vous perdez l'accès à vos fonds. Même Cypherock ne pourra pas vous aider à récupérer vos actifs"
+                },
+                {
+                  "infoGreen": "Vous pouvez configurer le service de récupération de code PIN Cypherock Cover pour récupérer en toute sécurité votre code PIN de portefeuille sans exposer votre phrase de récupération"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "asideTitle": "Synchroniser les cartes X1",
+          "pages": [
+            {
+              "title": "Comptez le nombre de mots de la phrase de récupération que vous importez et sélectionnez-le sur le X1 Vault"
+            },
+            {
+              "title": "Entrez la phrase de récupération sur le X1 Vault",
+              "messageBoxList": [
+                {
+                  "warning": "Assurez-vous de ne pas faire d'erreurs d'orthographe lors de la saisie des mots sur l'appareil. Les mots comme \"ouest\" et \"nid\" sont souvent confondus lors de la lecture et doivent être saisis correctement"
+                }
+              ]
+            },
+            {
+              "title": "Vérifiez la phrase de récupération que vous avez entrée sur le X1 Vault",
+              "subtitle": "Assurez-vous que chaque mot est correct pour importer correctement le portefeuille"
+            },
+            {
+              "title": "Appuyez sur les cartes X1 une par une sous le X1 Vault",
+              "subtitle": "Ne levez pas jusqu'à ce que vous entendiez un bip",
+              "messageBoxList": [
+                {
+                  "info": "Assurez-vous que vos cartes X1 appartiennent à la même famille"
+                },
+                {
+                  "info": "Assurez-vous d'appuyer sur les cartes X1 dans le bon ordre"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "asideTitle": "Confirmation",
+          "pages": [
+            {
+              "title": "Félicitations, votre portefeuille a été créé avec succès"
+            },
+            {
+              "title": "La prochaine fois que vous devez effectuer une transaction, vous devez simplement récupérer une carte X1 avec le X1 Vault"
+            },
+            {
+              "title": "Au cas où vous perdriez votre X1 Vault, vous pouvez acheter un nouveau X1 Vault séparément et l'utiliser avec vos anciennes cartes X1"
+            },
+            {
+              "title": "Note Importante",
+              "messageBoxList": [
+                {
+                  "warning": "Si vous devez ajouter un autre portefeuille, vous devrez récupérer les 4 cartes ensemble. Si vous souhaitez importer vos autres portefeuilles dans Cypherock X1, c'est le meilleur moment pour éviter les tracas futurs"
+                }
+              ]
+            },
+            {
+              "title": "À l'étape suivante, gardez vos cartes X1 en sécurité à l'intérieur des pochettes de cartes et distribuez-les à différents endroits. Quelques exemples d'endroits pourraient être :",
+              "bulletList": [
+                "Domiciles de vos membres de famille ou de vos amis",
+                "Cachette secrète",
+                "Coffre-fort de banque"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "finalMessage": {
+      "title": "Pour ajouter des pièces et des jetons dans le portefeuille, vous devez d'abord ajouter un compte. Assurez-vous d'avoir le X1 Vault et une carte X1 à portée de main",
+      "buttons": {
+        "secondary": "Passer",
+        "primary": "Ajouter un compte"
+      }
+    },
+    "walletNotCreatedDialog": {
+      "title": "Il semble que vous n'avez pas encore créé de portefeuille",
+      "subtitle": "Pour ajouter un compte, vous devez d'abord créer un portefeuille",
+      "buttons": {
+        "secondary": "Je le ferai plus tard",
+        "primary": "Créer un portefeuille"
+      }
+    },
+    "closeDialog": {
+      "title": "Êtes-vous sûr de vouloir quitter?",
+      "subtitle": "Vous pouvez toujours commencer ce guide en cliquant sur \"Ajouter un portefeuille\" sous l'onglet Wallets",
+      "buttons": {
+        "secondary": "Annuler",
+        "primary": "Quitter"
+      }
+    }
+  },
+  "dialogs": {
+    "close": {
+      "title": "Êtes-vous sûr de vouloir quitter ?"
+    },
+    "reset": {
+      "confim": {
+        "title": "Êtes-vous sûr de vouloir réinitialiser l'application CySync ?",
+        "subTitle": "Cela effacera toutes vos données sur votre application CySync. Notez que cela ne entraînera pas de perte d'actifs."
+      }
+    },
+    "releaseNote": {
+      "title": "Notes de version"
+    },
+    "auth": {
+      "title": "Suivez les instructions sur le X1 Vault",
+      "email2fa": {
+        "title": "Il est recommandé de saisir un e-mail en tant que 2FA pour obtenir les résultats d'authenticité",
+        "emailInput": "Email"
+      },
+      "authX1Vault": {
+        "description": "Votre appareil est en cours d'authentification",
+        "info": "Ne déconnectez pas l'appareil pendant qu'il est en cours d'authentification",
+        "steps": {
+          "confirm": "Confirmez l'authentification sur l'appareil"
+        },
+        "success": "Votre X1 Vault a été authentifié avec succès",
+        "authenticating": {
+          "title": "Veuillez patienter pendant que votre X1 Vault est en cours d'authentification",
+          "description": "Ne déconnectez pas votre X1 Vault pendant que l'opération est en cours"
+        }
+      },
+      "authX1Card": {
+        "description": "Votre carte est en cours d'authentification",
+        "info": "Ne déconnectez pas l'appareil pendant que la carte est en cours d'authentification",
+        "steps": {
+          "confirm": "Confirmez l'authentification de la carte sur l'appareil",
+          "tapCard": "Appliquez une carte sous l'appareil"
+        },
+        "success": "Votre X1 Card a été authentifiée avec succès"
+      }
+    },
+    "password": {
+      "input": {
+        "enterPassword": "Entrez le mot de passe",
+        "oldPassword": "Ancien mot de passe",
+        "newPassword": "Nouveau mot de passe",
+        "confirmPassword": "Confirmez le mot de passe"
+      },
+      "error": {
+        "mismatchError": "Mot de passe non correspondant",
+        "lengthError": "La longueur du mot de passe doit être supérieure à 8",
+        "failedToSet": "Échec de la définition du mot de passe"
+      },
+      "success": {
+        "change": "Mot de passe changé avec succès",
+        "set": "Mot de passe défini avec succès",
+        "remove": "Mot de passe supprimé avec succès"
+      },
+      "info": {
+        "constraints": "Utilisez 8 caractères ou plus avec un mélange de lettres, de chiffres et de symboles"
+      },
+      "confimPassword": {
+        "title": "Confirmez le mot de passe pour continuer",
+        "subTitle": "Fournissez le mot de passe pour continuer"
+      },
+      "createNewPassword": {
+        "title": "Définissez votre mot de passe CySync",
+        "subTitle": "Nous ne stockons pas votre mot de passe sur nos serveurs"
+      }
+    },
+    "contactSupport": {
+      "form": {
+        "header": "Contacter le support",
+        "title": "Comment pouvons-nous vous aider ?",
+        "description": "Notre équipe aimerait avoir de vos nouvelles",
+        "field": {
+          "email": {
+            "label": "Email",
+            "placeholder": "Votre Email"
+          },
+          "category": {
+            "label": "Catégorie",
+            "placeholder": "Sélectionnez la catégorie"
+          },
+          "description": {
+            "label": "Description",
+            "placeholder": "Décrivez votre problème ici"
+          }
+        },
+        "checks": {
+          "attachAppLogs": "Joindre les journaux de l'application",
+          "attachDeviceLogs": "Joindre les journaux de l'appareil",
+          "confirmDevice": "Veuillez confirmer sur l'appareil pour continuer",
+          "fetchingDeviceLogs": "Récupération des journaux de l'appareil",
+          "attachedDeviceLogs": "Journaux de l'appareil attachés avec succès"
+        },
+        "errors": {
+          "connectDevice": "Connectez l'appareil pour joindre les journaux de l'appareil",
+          "bootloaderMode": "L'appareil est en mode bootloader"
+        }
+      },
+      "success": {
+        "formSubmit": "Formulaire de support soumis avec succès"
+      }
+    },
+    "betaNotification": {
+      "title": "CySync Update v2.0.0",
+      "description": "Nous avons effectué une refonte majeure de l'application CySync.\n\n**Important**\n\n* Vous ne perdrez pas vos fonds\n* Après la mise à jour, vous devrez importer à nouveau vos comptes\n* Pas de nouvelles mises à jour de CySync v1 sauf pour la mise à jour de sécurité\n"
+    },
+    "editAccount": {
+      "header": "Modifier le compte",
+      "accountSelection": {
+        "title": "Sélectionnez le compte à modifier",
+        "subtitle": "Choisissez le compte que vous souhaitez modifier",
+        "searchText": "Recherche",
+        "accountPlaceholder": "Sélectionner les comptes",
+        "walletPlaceholder": "Choisissez un portefeuille"
+      },
+      "accountEdit": {
+        "title": "Détails du compte",
+        "subtitle": "Modifiez vos attributs de compte",
+        "input": {
+          "accountName": {
+            "title": "Nom du compte",
+            "subtitle": "Description du compte"
+          },
+          "unit": {
+            "title": "Unité",
+            "subtitle": "Choisissez l'unité à utiliser"
+          }
+        },
+        "buttons": {
+          "remove": "Supprimer du portefeuille",
+          "apply": "Appliquer"
+        },
+        "info": "Ceci est un xpub ${derivationSchemeName}. Lors de son importation dans un portefeuille tiers, choisissez le même mode de dérivation",
+        "advanced": "Avancé"
+      }
+    },
+    "inheritanceSyncPlans": {
+      "enterEmail": {
+        "title": "Veuillez entrer votre e-mail principal associé à ce plan",
+        "subTitle": "Un OTP sera envoyé à cet e-mail",
+        "button": "Vérifier"
+      },
+      "verifyEmail": {
+        "title": "Vérification OTP"
+      }
+    },
+    "inheritancePlanLogin": {
+      "walletAuth": {
+        "title": "Suivez les instructions sur le X1 Vault pour authentifier le portefeuille sélectionné",
+        "subTitle": "Authentification du portefeuille ",
+        "actions": {
+          "confirm": "Confirmez l'authentification du portefeuille sur l'appareil",
+          "tapCard": "Entrez le code PIN et appliquez une carte"
+        }
+      },
+      "fetchData": {
+        "title": "Veuillez patienter pendant que nous récupérons les données du plan",
+        "subTitle": "Ne déconnectez pas ou ne fermez pas l'application"
+      },
+      "verifyEmail": {
+        "title": "Vérification OTP"
+      }
+    },
+    "inheritanceEditExecutorMessage": {
+      "fetchData": {
+        "title": "Veuillez patienter pendant que nous récupérons les données",
+        "subTitle": "Ne déconnectez pas ou ne fermez pas l'application"
+      },
+      "editMessage": {
+        "title": "Message de l'exécuteur",
+        "form": {
+          "messageField": {
+            "label": "Message",
+            "placeholder": "Message de l'exécuteur"
+          }
+        },
+        "buttons": {
+          "exit": "Quitter sans enregistrer",
+          "save": "Enregistrer les modifications"
+        },
+        "loading": {
+          "title": "Veuillez patienter pendant que nous mettons à jour les données",
+          "subtitle": "Ne déconnectez pas ou ne fermez pas l'application"
+        }
+      },
+      "success": {
+        "title": "Message de l'exécuteur chiffré avec succès"
+      }
+    },
+    "inheritanceEditReminderTime": {
+      "fetchData": {
+        "title": "Veuillez patienter pendant que nous récupérons les données",
+        "subTitle": "Ne déconnectez pas ou ne fermez pas l'application"
+      },
+      "reminderSetup": {
+        "title": "Configuration du rappel",
+        "reminderInfo": {
+          "subtitle": "Qu'est-ce qu'un temps de rappel ?",
+          "subtext": "Le temps de rappel est l'intervalle auquel vous recevrez un e-mail de confirmation de Cypherock pour vérifier votre bien-être continu. Si aucune réponse n'est reçue dans les deux mois suivant l'e-mail initial, le processus d'héritage commencera et votre bénéficiaire recevra l'e-mail d'instructions de récupération de Cypherock."
+        },
+        "form": {
+          "reminderField": {
+            "label": "Définir l'intervalle de temps de rappel",
+            "month": "Mois",
+            "months": "Mois"
+          }
+        },
+        "currentReminder": "Le rappel actuel est défini à ${month}",
+        "loading": {
+          "title": "Veuillez patienter pendant que nous mettons à jour les données",
+          "subtitle": "Ne déconnectez pas ou ne fermez pas l'application"
+        }
+      },
+      "success": {
+        "title": "Durée des rappels mise à jour avec succès"
+      }
+    },
+    "inheritanceEditUserDetails": {
+      "editDetails": {
+        "title": "Modifier les détails de ${userType}",
+        "userTypes": {
+          "owner": "Propriétaire",
+          "nominee": "Bénéficiaire",
+          "executor": "Exécuteur"
+        },
+        "buttons": {
+          "verifyEmail": "Vérifier l'email"
+        }
+      },
+      "verifyOtp": {
+        "loading": {
+          "title": "Veuillez patienter pendant que nous mettons à jour les données",
+          "subtext": "Ne déconnectez pas ou ne fermez pas l'application"
+        }
+      },
+      "success": {
+        "title": "Détails de ${userType} mis à jour avec succès"
+      }
+    },
+    "inheritancePinRecovery": {
+      "title": "Récupération du code PIN",
+      "sync": {
+        "name": "Synchronisation",
+        "walletAuth": {
+          "title": "Suivez les instructions sur le X1 Vault pour authentifier le portefeuille sélectionné",
+          "subTitle": "Authentification du portefeuille ",
+          "actions": {
+            "confirmAuth": "Confirmez l'authentification du portefeuille sur l'appareil",
+            "tapCard": "Appliquez une carte"
+          },
+          "messageBox": {
+            "warning": "Soulevez votre carte après 2 bips sonores"
+          }
+        },
+        "verifyOtp": {
+          "title": "Vérification OTP"
+        },
+        "fetch": {
+          "title": "Veuillez patienter pendant que nous récupérons le code PIN chiffré",
+          "subTitle": "Ne déconnectez pas ou ne fermez pas l'application"
+        }
+      },
+      "decryptPin": {
+        "name": "Déchiffrement",
+        "title": "Suivez les instructions sur le X1 Vault",
+        "actions": {
+          "confirmOnDevice": "Confirmez le déchiffrement sur l'appareil",
+          "tapCard": "Appliquez une carte"
+        },
+        "messageBox": {
+          "warning": "Le code PIN sera déchiffré par la carte"
+        },
+        "error": {
+          "title": "Échec du déchiffrement du code PIN",
+          "subTitle": "Le déchiffrement du code PIN a échoué. Le portefeuille ${wallet} n'a pas été trouvé dans la carte"
+        }
+      },
+      "viewPin": {
+        "name": "Voir le code PIN",
+        "title": "Suivez les instructions sur le X1 Vault",
+        "subTitle": "Code PIN pour le portefeuille ",
+        "actions": {
+          "viewDevice": "Voir le code PIN sur votre appareil et confirmer"
+        }
+      },
+      "success": {
+        "name": "Confirmation",
+        "title": "Félicitations, la récupération du code PIN est terminée"
+      }
+    },
+    "inheritanceEditEncryptedMessage": {
+      "confirmation": {
+        "title": "Êtes-vous sûr de vouloir modifier le message chiffré du bénéficiaire ?",
+        "subTitle": "Vous aurez besoin de l'appareil et d'au moins une carte pour chiffrer à nouveau le message après la modification"
+      },
+      "syncing": {
+        "title": "Veuillez patienter pendant que nous récupérons les données",
+        "subTitle": "Ne déconnectez pas ou ne fermez pas l'application"
+      },
+      "decryption": {
+        "wallet": {
+          "title": "Suivez les instructions sur le X1 Vault",
+          "actions": {
+            "confirm": "Confirmez le déchiffrement sur l'appareil",
+            "tapCard": "Appliquez une carte"
+          },
+          "messageBox": {
+            "warning": "Le message sera déchiffré par la X1 Card"
+          },
+          "decryption": {
+            "title": "Veuillez patienter pendant que nous déchiffrons les données",
+            "subTitle": "Ne déconnectez pas ou ne fermez pas l'application"
+          }
+        }
+      },
+      "editMessage": {
+        "title": "Message pour le bénéficiaire",
+        "subTitle": "Les messages du bénéficiaire seront chiffrés de bout en bout",
+        "form": {
+          "cardLocationField": {
+            "label": "Emplacement de la carte et mot de passe",
+            "placeholder": "Indiquez l'emplacement de la carte",
+            "tooltip": "Indiquez l'emplacement d'une autre carte que le bénéficiaire doit récupérer. Le bénéficiaire ne pourra récupérer les actifs crypto qu'après avoir obtenu une autre carte. Rappelez-vous que cette carte doit être différente de celles que vous avez pu donner à vos bénéficiaires.\nVous pouvez également inclure le mot de passe dans ce message"
+          },
+          "personalMessageField": {
+            "label": "Message personnel",
+            "placeholder": "Écrivez votre message",
+            "tooltip": "Cela peut inclure votre testament/message pour le bénéficiaire et d'autres informations importantes que vous souhaitez que votre bénéficiaire connaisse, comme les détails de votre compte d'échange de crypto, les pièces que vous avez parmi d'autres."
+          }
+        },
+        "messageBox": {
+          "warning": "Assurez-vous de décrire clairement l'emplacement de la carte pour le bénéficiaire"
+        }
+      },
+      "confirmMessage": {
+        "title": "Suivez les instructions sur le X1 Vault pour vérifier le message du bénéficiaire",
+        "subTitle": "Vous pouvez chiffrer le message lors de l'étape suivante",
+        "actions": {
+          "confirmOnDevice": "Confirmer sur l'appareil",
+          "verifyLocation": "Vérifiez l'emplacement de la carte sur votre appareil"
+        },
+        "messageBox": {
+          "danger": "Lisez le texte dans son intégralité et vérifiez que le message affiché sur l'appareil est identique à celui que vous avez saisi dans CySync"
+        }
+      },
+      "encryption": {
+        "title": "Suivez les instructions sur le X1 Vault pour chiffrer le message du bénéficiaire",
+        "subTitle": "Soulevez votre carte après 2 bips sonores",
+        "tooltip": "",
+        "actions": {
+          "enterPinAndTap": "Entrez le code PIN et appliquez une carte"
+        },
+        "messageBox": {
+          "warning": "Le message du bénéficiaire sera chiffré par la carte"
+        },
+        "syncing": {
+          "title": "Veuillez patienter pendant que nous enregistrons les données chiffrées sur le serveur",
+          "subTitle": "Ne déconnectez pas ou ne fermez pas l'application"
+        }
+      },
+      "success": {
+        "title": "Message du bénéficiaire mis à jour avec succès"
+      }
+    },
+    "inheritanceEstateRecovery": {
+      "title": "Récupération de la succession",
+      "instructions": {
+        "name": "Effacer les données de l'appareil",
+        "dialogs": {
+          "settings": {
+            "title": "Depuis le menu principal de votre X1 Vault, cliquez sur \"Paramètres\""
+          },
+          "clearData": {
+            "title": "Cliquez sur \"Effacer les données de l'appareil\" sur votre X1 Vault"
+          },
+          "confirmClearData": {
+            "title": "Confirmez \"Effacer les données de l'appareil\" sur le X1 Vault"
+          },
+          "tapCards": {
+            "title": "Appliquez 2 cartes X1 anciennes sous le X1 Vault",
+            "subTitle": "Ne soulevez pas tant que vous n'entendez pas un bip sonore",
+            "messageBoxList": [
+              {
+                "warning": "Appliquez les cartes que vous avez utilisées lors de la configuration initiale de Cypherock, et non les cartes données par le propriétaire du portefeuille"
+              },
+              {
+                "warning": "Votre appareil redémarrera après ce processus"
+              }
+            ]
+          }
+        }
+      },
+      "wallet": {
+        "name": "Portefeuille",
+        "title": "Suivez les instructions sur le X1 Vault pour authentifier le portefeuille sélectionné",
+        "subTitle": "Authentification du portefeuille ",
+        "actions": {
+          "confirm": "Confirmez l'authentification du portefeuille sur l'appareil",
+          "tapCard": "Appliquez la carte que vous avez reçue en tant que bénéficiaire"
+        },
+        "messageBox": {
+          "warning": "Ne soulevez pas tant que vous n'entendez pas 2 bips sonores"
+        },
+        "verification": {
+          "title": "Vérification OTP"
+        },
+        "syncing": {
+          "title": "Veuillez patienter pendant que nous récupérons les données",
+          "subTitle": "Ne déconnectez pas ou ne fermez pas l'application"
+        }
+      },
+      "decryption": {
+        "name": "Déchiffrement",
+        "device": {
+          "title": "Suivez les instructions sur le X1 Vault",
+          "subTitle": "Ne soulevez pas la carte tant que vous n'entendez pas un bip sonore",
+          "actions": {
+            "confirm": "Confirmez le déchiffrement sur l'appareil",
+            "tapCard": "Appliquez la carte que vous avez reçue en tant que bénéficiaire"
+          },
+          "messageBox": {
+            "warning": "Le message sera déchiffré par la carte que vous avez reçue en tant que bénéficiaire"
+          }
+        },
+        "error": {
+          "title": "Message déchiffré",
+          "message": "La mise à jour a échoué. Le portefeuille ABC n'a pas été trouvé dans la carte"
+        }
+      },
+      "viewPin": {
+        "name": "Voir le code PIN",
+        "title": "Suivez les instructions sur le X1 Vault",
+        "subTitle": "Code PIN pour le portefeuille ",
+        "actions": {
+          "view": "Voir et copier le code PIN affiché sur votre appareil, puis confirmer"
+        },
+        "messageBox": {
+          "warning": "Vous aurez besoin de ce code PIN pour accéder aux actifs crypto sur ce portefeuille. Assurez-vous de ne pas l'oublier"
+        }
+      },
+      "viewMessage": {
+        "name": "Voir le message",
+        "title": "Message de ${name}",
+        "tooltip": "Ces messages ont été écrits par le propriétaire du portefeuille pour vous. Ils contiennent des informations importantes sur la façon de récupérer leurs actifs crypto stockés sur le Cypherock X1.\nNotez - Assurez-vous de garder ces messages en sécurité et privés.",
+        "form": {
+          "cardLocationField": {
+            "label": "Emplacement de la carte",
+            "placeholder": "Indiquez l'emplacement de la carte",
+            "tooltip": "Ceci est l'emplacement d'une autre carte indiqué par le propriétaire du portefeuille pour que vous la récupériez. Vous ne pourrez récupérer les actifs crypto qu'après avoir obtenu une autre carte"
+          },
+          "personalMessageField": {
+            "label": "Message personnel",
+            "placeholder": "Écrivez votre message",
+            "tooltip": "Cela inclut un message personnel écrit par le propriétaire du portefeuille pour vous"
+          },
+          "checkBox": {
+            "label": "J'ai lu et copié les messages ci-dessus"
+          }
+        }
+      },
+      "confirmation": {
+        "name": "Confirmation",
+        "success": {
+          "title": "Félicitations, vous venez de déchiffrer le message de ${name}",
+          "subTitle": "Regardez la vidéo pour comprendre les prochaines étapes"
+        }
+      }
+    },
+    "swapDialog": {
+      "provider": "Fournisseur",
+      "swapId": "ID d'échange",
+      "status": "Statut",
+      "fromTitle": "De",
+      "fromWallet": "Portefeuille",
+      "fromAccount": "Compte",
+      "fromAsset": "Actif",
+      "fromAmount": "Montant envoyé",
+      "fromSender": "Expéditeur",
+      "toTitle": "À",
+      "toWallet": "Portefeuille",
+      "toAccount": "Compte",
+      "toAsset": "Actif",
+      "toAmount": "Montant reçu",
+      "toReceiver": "Récepteur"
+    }
+  },
+  "settings": {
+    "tabs": {
+      "general": {
+        "title": "Général",
+        "item": {
+          "syncMobile": {
+            "title": "Synchroniser l'application mobile cySync",
+            "description": "Synchronisez vos comptes avec l'application mobile cySync via un code QR"
+          },
+          "editAccount": {
+            "title": "Modifier les comptes",
+            "description": "Modifiez le nom, la devise préférée du compte ou supprimez-les du portefeuille"
+          },
+          "toggleWalletOnPortfolio": {
+            "title": "Afficher/Masquer les portefeuilles sur le portefeuille",
+            "description": "Vous pouvez désactiver un portefeuille spécifique ici. Il ne sera pas affiché sur la page du portefeuille"
+          },
+          "currency": {
+            "title": "Devise préférée",
+            "description": "Choisissez la devise affichée à côté de votre solde et de vos opérations"
+          },
+          "language": {
+            "title": "Langue d'affichage",
+            "description": "Définissez la langue pour l'application cySync"
+          },
+          "region": {
+            "title": "Région",
+            "description": "Choisissez votre région pour mettre à jour les formats de date et d'heure"
+          }
+        }
+      },
+      "app": {
+        "title": "Paramètres de l'application",
+        "item": {
+          "password": {
+            "title": "Mot de passe",
+            "description": "Changer ou activer/désactiver le mot de passe pour votre application cySync"
+          },
+          "anayticsAndBugReport": {
+            "title": "Analytique & Rapport de bugs",
+            "description": "Activez les analyses et les rapports de bugs pour aider Cypherock à améliorer l'expérience utilisateur et à résoudre vos problèmes plus rapidement. Cela inclut les clics, les visites de pages, les redirections, les actions (envoyer, recevoir, verrouiller, etc.), les fins de défilement de page, l'(dés)installation et la version de l'application, le nombre de comptes, les actifs crypto et les opérations, les durées de session, le type d'appareil Cypherock et le firmware"
+          },
+          "reset": {
+            "title": "Réinitialiser cySync",
+            "description": "Effacez toutes les données cySync stockées sur votre PC, y compris vos comptes, historiques de transactions et paramètres. Notez que cela ne entraînera pas de perte d'actifs"
+          },
+          "update": {
+            "title": "Mise à jour cySync",
+            "description": "Téléchargez automatiquement la mise à jour cySync lorsqu'elle est disponible"
+          },
+          "usb": {
+            "title": "Diagnostics USB",
+            "description": "Dépanner la connexion USB avec l'appareil"
+          }
+        }
+      },
+      "device": {
+        "title": "Paramètres de l'appareil",
+        "item": {
+          "x1VaultAuth": {
+            "title": "Authentification X1 Vault",
+            "description": "Authentifiez votre appareil"
+          },
+          "x1CardAuth": {
+            "title": "Authentification X1 Card",
+            "description": "Authentifiez votre carte"
+          },
+          "transferWallet": {
+            "title": "Transférer le portefeuille",
+            "description": "Si vous avez déjà eu un Cypherock X1 et souhaitez transférer vos portefeuilles en utilisant vos cartes en cas de perte ou pour toute autre raison"
+          }
+        }
+      },
+      "about": {
+        "title": "À propos",
+        "item": {
+          "cySyncVersion": {
+            "title": "Version cySync",
+            "description": "Version ${version}"
+          },
+          "termsOfUse": {
+            "title": "Conditions d'utilisation",
+            "description": "En utilisant cySync, vous acceptez nos conditions d'utilisation"
+          },
+          "privacyPolicy": {
+            "title": "Politique de confidentialité",
+            "description": "Consultez notre politique de confidentialité pour savoir quelles données personnelles nous collectons, pourquoi et comment nous les utilisons"
+          },
+          "appTutorials": {
+            "title": "Tutoriels de l'application",
+            "description": "Regardez des guides vidéo étape par étape sur la façon d'utiliser cySync et Cypherock X1"
+          }
+        }
+      }
+    }
+  },
+  "inheritance": {
+    "title": "Cypherock Cover",
+    "plans": {
+      "silver": {
+        "title": "Argent",
+        "description": "Sécurisez le code PIN de votre portefeuille avec nous et récupérez-le facilement en cas d'oubli, garantissant un accès continu à vos actifs crypto"
+      },
+      "gold": {
+        "title": "Or",
+        "description": "Assurez-vous que vos actifs crypto soient hérités par vos proches sans effort, contournant les restrictions légales complexes pour des transferts fluides"
+      }
+    },
+    "choosePlan": {
+      "title": "Choisissez un plan",
+      "plans": {
+        "buttonText": "SÉLECTIONNER",
+        "popularTagText": "LE PLUS POPULAIRE",
+        "features": [
+          "Aucun KYC requis",
+          "Multi-Chain",
+          "Récupération de PIN",
+          "Récupération de patrimoine",
+          "Récupération de phrase secrète"
+        ]
+      }
+    },
+    "homePage": {
+      "headers": {
+        "owner": {
+          "title": "Propriétaire",
+          "subtitle": "Configurer la récupération pour vos portefeuilles"
+        },
+        "nominee": {
+          "title": "Nominé",
+          "subtitle": "Vous êtes un nommé des portefeuilles suivants"
+        }
+      },
+      "setup": {
+        "setupCover": {
+          "title": "Configurer Cypherock Cover",
+          "subTitle": "Protégez vos actifs crypto et assurez un transfert fluide à vos bénéficiaires en cas de circonstances imprévues"
+        },
+        "syncFromMail": {
+          "title": "Synchroniser depuis l'Email",
+          "subTitle": "Si vous faites déjà partie d'un plan Cypherock Cover, soit en tant que propriétaire du plan ou bénéficiaire"
+        },
+        "learnMore": {
+          "title": "Qu'est-ce que Cypherock Cover ?",
+          "subTitle": "Découvrez comment Cypherock Cover sécurise vos actifs crypto et assure leur transfert sans heurt à vos proches"
+        }
+      }
+    },
+    "planDetails": {
+      "walletDetails": {
+        "createdOn": "Créé le",
+        "expiringOn": "Expire le",
+        "reminderPeriodField": {
+          "label": "Période de rappel",
+          "input": "Tous les ${month} mois",
+          "inputPlural": "Tous les ${month} mois"
+        }
+      },
+      "ownerDetails": {
+        "title": "Détails du propriétaire",
+        "form": {
+          "userNameField": {
+            "label": "Nom"
+          },
+          "primaryEmailField": {
+            "label": "Email principal"
+          },
+          "secondaryEmailField": {
+            "label": "Email secondaire"
+          }
+        }
+      },
+      "nomineeDetails": {
+        "title": "Nommé #${number}",
+        "form": {
+          "nomineeNameField": {
+            "label": "Nom"
+          },
+          "primaryEmailField": {
+            "label": "Email principal"
+          },
+          "secondaryEmailField": {
+            "label": "Email secondaire"
+          },
+          "encryptedMessage": {
+            "label": "Message chiffré"
+          }
+        }
+      },
+      "executorDetails": {
+        "title": "Exécuteur",
+        "form": {
+          "nomineeNameField": {
+            "label": "Nom"
+          },
+          "primaryEmailField": {
+            "label": "Email principal"
+          },
+          "secondaryEmailField": {
+            "label": "Email secondaire"
+          },
+          "executorMessage": {
+            "label": "Message de l'exécuteur"
+          },
+          "assignTo": {
+            "label": "Attribué à"
+          }
+        }
+      }
+    },
+    "buttons": {
+      "syncFromEmail": "Synchroniser depuis l’Email",
+      "recoverPin": "Récupérer le PIN",
+      "renewPlan": "Renouveler le plan",
+      "unlock": "Débloquer",
+      "upgradePlan": "Mettre à niveau le plan"
+    },
+    "termsOfService": {
+      "title": "Conditions d'utilisation",
+      "termsOfService": "Conditions d'utilisation",
+      "privacyPolicy": "Politique de confidentialité",
+      "checkBoxLabel": "J'ai lu et j'accepte les Conditions d'utilisation et la Politique de confidentialité"
+    },
+    "dialog": {
+      "userDetails": {
+        "form": {
+          "name": "Nom",
+          "emailField": {
+            "label": "Email principal",
+            "tooltip": "Entrez l'email sur lequel vous souhaitez recevoir tous les emails de rappel"
+          },
+          "alternateEmail": "Email alternatif"
+        },
+        "error": {
+          "sameEmail": "L'email alternatif ne peut pas être identique à l'email principal"
+        }
+      },
+      "verifyOTP": {
+        "primaryEmailOTP": {
+          "title": "Vérification OTP pour l'email principal"
+        },
+        "alternateEmailOTP": {
+          "title": "Vérification OTP pour l'email alternatif"
+        }
+      },
+      "payment": {
+        "heading": "Achetez le plan sur le site Cypherock",
+        "subtext": "Vous devez acheter le plan sur le site Cypherock puis appliquer le code promo généré dans la section « Code promo » ci-dessous pour compléter votre achat",
+        "form": {
+          "promoField": {
+            "label": "Code promo / coupon",
+            "placeholder": "Entrer le code"
+          }
+        },
+        "couponInput": {
+          "appliedButtonText": "Coupon appliqué :",
+          "applyButtonText": "Appliquer"
+        },
+        "noOfYear": "Nombre d'années",
+        "total": "Total",
+        "year": "année",
+        "error": {
+          "errorHeading": "Code promo invalide",
+          "subtext": "Veuillez essayer un autre code promo",
+          "differentPlanSubtext": "Ce code promo est pour un plan différent"
+        }
+      }
+    },
+    "banner": {
+      "title": "Sécurisez votre héritage crypto avec Cypherock Cover - Assurez-vous que vos actifs atteignent vos proches",
+      "buttons": {
+        "knowMore": "En savoir plus"
+      }
+    }
+  },
+  "inheritanceSilverPlanPurchase": {
+    "title": "Configuration du plan Silver",
+    "instructions": {
+      "heading": "Instructions",
+      "ensure": {
+        "title": "Assurez-vous des éléments suivants avant de continuer",
+        "instructions": [
+          "Assurez-vous d'avoir 15-30 minutes pour le configurer",
+          "Vous êtes présent dans un environnement sûr",
+          "Vous devez avoir un appareil et une carte à portée de main pour le configurer"
+        ]
+      },
+      "video": {
+        "title": "Regardez la vidéo tutorielle avant de continuer"
+      }
+    },
+    "wallet": {
+      "heading": "Portefeuille",
+      "selectWallet": {
+        "title": "Sélectionnez le portefeuille que vous souhaitez couvrir dans ce plan",
+        "subTitle": "Pour configurer des portefeuilles supplémentaires, des plans individuels peuvent être créés ultérieurement",
+        "tooltips": {
+          "alreadyActive": "Le plan est déjà configuré pour ce portefeuille",
+          "noPin": "Ce portefeuille n'a pas de code PIN configuré, créez un nouveau portefeuille ou sélectionnez un portefeuille différent avec un code PIN configuré",
+          "isDeleted": "Portefeuille introuvable dans l'appareil connecté, ajoutez ce portefeuille ou choisissez un portefeuille différent"
+        }
+      },
+      "walletAuth": {
+        "title": "Suivez les instructions sur le X1 Vault pour authentifier le portefeuille sélectionné",
+        "subTitle": "Authentification du portefeuille",
+        "actions": {
+          "confirm": "Confirmez l'authentification du portefeuille sur l'appareil",
+          "tapCard": "Entrez le code PIN et appuyez sur n'importe quelle carte"
+        },
+        "messageBox": {
+          "warning": "Soulevez votre carte après trois bips sonores"
+        }
+      }
+    },
+    "email": {
+      "heading": "Propriétaire",
+      "userDetails": {
+        "title": "Vos coordonnées",
+        "subTitle": "Tous les champs sont obligatoires",
+        "buttons": {
+          "sendOTP": "Envoyer l'OTP"
+        }
+      }
+    },
+    "encryption": {
+      "heading": "Cryptage",
+      "device": {
+        "title": "Suivez les instructions sur le X1 Vault pour crypter le code PIN",
+        "subTitle": "Soulevez votre carte après deux bips sonores",
+        "tooltip": "Appuyez sur n'importe quelle carte X1 sous l'appareil X1 pour crypter le message et ne retirez pas la carte jusqu'à ce que vous entendiez deux bips sonores",
+        "actions": {
+          "confirm": "Confirmez le cryptage sur l'appareil",
+          "tapCard": "Entrez le code PIN et appuyez sur n'importe quelle carte"
+        },
+        "messageBox": {
+          "warning": "Le code PIN sera crypté par la carte X1"
+        }
+      },
+      "loading": {
+        "title": "Veuillez patienter pendant que nous enregistrons les données chiffrées sur le serveur",
+        "subTitle": "Ne déconnectez pas ou ne fermez pas l'application"
+      },
+      "success": {
+        "title": "Le code PIN est chiffré avec succès et enregistré",
+        "subTitle": "Pour terminer la configuration de votre plan Silver, vous pouvez maintenant procéder à l'achat du plan"
+      }
+    },
+    "checkout": {
+      "heading": "Paiement",
+      "payment": {
+        "title": "Complétez votre paiement",
+        "subtext": "Vous devez acheter le plan sur le site de Cypherock puis appliquer le code coupon généré dans la section 'Code Coupon' ci-dessous pour finaliser votre achat"
+      },
+      "success": {
+        "title": "Merci !",
+        "subtext": "Votre plan Silver est maintenant activé"
+      }
+    }
+  },
+  "inheritanceGoldPlanPurchase": {
+    "title": "Configuration du Plan Gold",
+    "instructions": {
+      "heading": "Instructions",
+      "ensure": {
+        "title": "Assurez-vous des points suivants avant de continuer",
+        "instructions": [
+          "Assurez-vous d'avoir 15-30 minutes pour le configurer",
+          "Vous êtes dans un environnement sécurisé",
+          "Vous avez besoin d'un appareil et d'une carte à portée de main pour la configuration"
+        ]
+      },
+      "video": {
+        "title": "Regardez la vidéo tutorielle avant de continuer",
+        "subTitle": "La vidéo vous aidera à prendre les bonnes décisions"
+      }
+    },
+    "wallet": {
+      "heading": "Portefeuille",
+      "selectWallet": {
+        "title": "Sélectionnez le portefeuille que vous souhaitez couvrir dans ce plan",
+        "subTitle": "Pour configurer des portefeuilles supplémentaires, des plans individuels peuvent être créés ultérieurement",
+        "tooltips": {
+          "alreadyActive": "Le plan est déjà configuré pour ce portefeuille",
+          "noPin": "Ce portefeuille n'a pas de code PIN configuré, créez un nouveau portefeuille ou sélectionnez un autre portefeuille avec un code PIN configuré",
+          "isDeleted": "Portefeuille introuvable dans l'appareil connecté, ajoutez ce portefeuille ou choisissez un autre portefeuille"
+        }
+      },
+      "walletAuth": {
+        "heading": "Authentification du Portefeuille",
+        "title": "Suivez les instructions sur le X1 Vault pour authentifier le portefeuille sélectionné",
+        "subTitle": "Authentification du portefeuille ",
+        "actions": {
+          "confirmOnDevice": "Confirmer l'authentification du portefeuille sur l'appareil",
+          "tapCard": "Entrez le code PIN et touchez n'importe quelle carte"
+        },
+        "messageBox": {
+          "warning": "Soulevez votre carte après les 3 bips sonores"
+        },
+        "error": {
+          "title": "Échec de l'authentification du portefeuille",
+          "subtext": "Nous n'avons pas pu authentifier le portefeuille sélectionné",
+          "messageBox": {
+            "warning": "Cela se produit généralement lorsque les portefeuilles dans CySync et l'appareil ne sont pas synchronisés. Synchronisez les portefeuilles entre CySync et l'appareil ou choisissez un autre portefeuille"
+          }
+        }
+      }
+    },
+    "email": {
+      "heading": "Propriétaire",
+      "userDetails": {
+        "title": "Vos Détails",
+        "form": {
+          "name": "Nom",
+          "emailField": {
+            "label": "Email Principal",
+            "tooltip": "Entrez l'email sur lequel vous souhaitez recevoir tous les rappels"
+          },
+          "alternateEmail": "Email Alternatif"
+        },
+        "buttons": {
+          "sendOTP": "Envoyer l'OTP"
+        }
+      },
+      "primaryEmailOTP": {
+        "title": "Vérification OTP pour l'email principal"
+      },
+      "alternateEmailOTP": {
+        "title": "Vérification OTP pour l'email alternatif"
+      }
+    },
+    "nomineeAndExecutor": {
+      "heading": "Nominés & Exécuteur",
+      "select": {
+        "title": "Exécutez la commande suivante dans votre terminal pour autoriser l'application à accéder au port USB",
+        "subtitle": "Vous pouvez avoir jusqu'à deux Nominés pour ce Testament",
+        "tooltip": "Dans le cas où vous sélectionnez deux Nominés, le 2ème Nominé recevra l'email de récupération trois mois après que le 1er Nominé l'ait reçu\nNote - Les deux Nominés recevront le même email de récupération et le même message rédigé par vous sur le CySync App",
+        "options": {
+          "descOne": "Sélectionnez si vous souhaitez n'avoir qu'un seul Nominé",
+          "descTwo": "Sélectionnez si vous souhaitez avoir deux Nominés"
+        }
+      },
+      "nomineeDetails": {
+        "first": {
+          "title": "Ajouter le Premier Nominé",
+          "warning": "Assurez-vous de donner une carte à votre Nominé",
+          "tooltip": "Votre Nominé recevra des instructions de récupération sur cet email"
+        },
+        "second": {
+          "title": "Ajouter le Deuxième Nominé",
+          "warning": "Assurez-vous de donner une carte à votre deuxième Nominé"
+        },
+        "confirm": {
+          "title": "Voulez-vous vérifier les emails des Nominés ?",
+          "subtext": "Un OTP sera envoyé aux emails fournis. Si vous ne souhaitez pas informer le Nominé de ce plan, vous pouvez ignorer la vérification des emails.",
+          "warning": "Si vous ne vérifiez pas l'email des Nominés, les emails de Cypherock peuvent tomber dans le dossier spam"
+        }
+      },
+      "executor": {
+        "select": {
+          "title": "Voulez-vous avoir un Exécuteur pour ce Testament ?",
+          "subtext": "L'Exécuteur aidera le Nominé à récupérer les fonds ",
+          "tooltip": "Un Exécuteur/aide peut être quelqu'un en qui vous avez confiance qui n'a aucun intérêt financier mais qui peut être nommé comme aide au Nominé pour la récupération des fonds\nL'Exécuteur recevra l'email en même temps que le Nominé.",
+          "options": {
+            "one": {
+              "yes": "Oui",
+              "desc": "Une personne compétente en technologie en qui vous avez confiance"
+            },
+            "two": {
+              "no": "Non",
+              "desc": "Si vos Nominés sont compétents en technologie"
+            }
+          }
+        },
+        "executorDetails": {
+          "title": "Ajouter un Exécuteur",
+          "tooltip": "L'Exécuteur recevra des instructions pour aider le Nominé sur cet email",
+          "radio": {
+            "label": "Choisissez un Nominé à lier avec l'Exécuteur",
+            "tooltip": "Sélectionnez le Nominé que vous souhaitez lier avec l'Exécuteur. Si vous choisissez Nominé 1, alors l'Exécuteur recevra leur email rédigé par vous en même temps que Nominé 1.\n\nSi vous choisissez Nominé 2, alors l'Exécuteur recevra leur email rédigé par vous en même temps que Nominé 2, c'est-à-dire 3 mois après Nominé 1.",
+            "options": {
+              "labelPrefix": "Nominé "
+            },
+            "messageBox": {
+              "warning": "L'Exécuteur recevra leur email rédigé par vous en même temps que le Nominé"
+            }
+          }
+        }
+      }
+    },
+    "message": {
+      "heading": "Message",
+      "tutorial": {
+        "title": "Regardez la vidéo tutorielle avant de poursuivre",
+        "subtext": "Comment rédiger les messages finaux"
+      },
+      "nominee": {
+        "title": "Rédigez le message final pour le Nominé",
+        "subtitle": "Les messages pour les Nominés seront cryptés de bout en bout",
+        "tooltip": "Le cryptage de bout en bout garde vos messages entre vous et le Nominé que vous choisissez. Même Cypherock ne peut pas les lire",
+        "form": {
+          "locationField": {
+            "label": "Emplacement de la carte & Phrase secrète",
+            "placeholder": "Indiquez l'emplacement de la carte",
+            "tooltip": "Notez l'emplacement d'une autre carte pour que le Nominé puisse la récupérer. Le Nominé ne pourra récupérer les actifs crypto qu'après avoir obtenu une autre carte. Souvenez-vous que cette carte doit être différente de celle(s) que vous avez peut-être donnée(s) à votre/vos Nominé(s).\nVous pouvez également inclure la phrase secrète dans ce message."
+          },
+          "personalMessage": {
+            "label": "Message Personnel",
+            "placeholder": "Écrivez votre message",
+            "tooltip": "Cela peut inclure votre testament/message pour le Nominé et d'autres informations importantes que vous pourriez vouloir que votre Nominé sache, comme les détails de votre compte d'échange crypto, les coins que vous possédez entre autres."
+          }
+        },
+        "messageBox": {
+          "warning": "Assurez-vous de décrire clairement l'emplacement de la carte pour le Nominé"
+        }
+      },
+      "executor": {
+        "title": "Ajoutez un message pour l'Exécuteur",
+        "subtitle": "Veuillez noter que le message pour l'Exécuteur n'est pas crypté",
+        "tooltip": "Ce message sera reçu par l'Exécuteur en cas de déclenchement de la récupération, il est recommandé de ne PAS ajouter d'informations critiques ici",
+        "form": {
+          "messageField": {
+            "label": "Message",
+            "placeholder": "Écrivez votre message"
+          }
+        }
+      }
+    },
+    "reminder": {
+      "heading": "Rappel",
+      "title": "Configuration du rappel"
+    },
+    "summary": {
+      "heading": "Résumé",
+      "title": "Résumé",
+      "subtitle": "Veuillez vérifier tous les détails avant qu'ils ne soient cryptés avec l'appareil",
+      "ownerDetails": {
+        "title": "Détails du Propriétaire",
+        "form": {
+          "userNameField": {
+            "label": "Nom"
+          },
+          "primaryEmailField": {
+            "label": "Email Principal"
+          },
+          "secondaryEmailField": {
+            "label": "Email Secondaire"
+          },
+          "reminderPeriodField": {
+            "label": "Période de Rappel",
+            "input": "Tous les ${month} mois",
+            "inputPlural": "Tous les ${month} mois"
+          }
+        }
+      },
+      "nomineeDetails": {
+        "title": "Nominé #",
+        "form": {
+          "nomineeNameField": {
+            "label": "Nom"
+          },
+          "primaryEmailField": {
+            "label": "Email Principal"
+          },
+          "secondaryEmailField": {
+            "label": "Email Secondaire"
+          }
+        }
+      },
+      "cardLocation": {
+        "title": "Emplacement de la Carte & Phrase Secrète"
+      },
+      "personalMessage": {
+        "title": "Message Personnel"
+      },
+      "executorDetails": {
+        "title": "Exécuteur",
+        "form": {
+          "nomineeNameField": {
+            "label": "Nom"
+          },
+          "primaryEmailField": {
+            "label": "Email Principal"
+          },
+          "secondaryEmailField": {
+            "label": "Email Secondaire"
+          },
+          "assignTo": {
+            "label": "Assigné à"
+          }
+        }
+      },
+      "executorMessage": {
+        "title": "Message de l'Exécuteur"
+      }
+    },
+    "encryption": {
+      "heading": "Cryptage",
+      "confirm": {
+        "title": "Suivez les instructions sur le X1 Vault pour vérifier le message du Nominé",
+        "subtext": "Vous pouvez crypter le message à l'étape suivante",
+        "actions": {
+          "confirmOnDevice": "Confirmer la vérification du message sur l'appareil",
+          "verifyLocation": "Vérifiez l'Emplacement de la Carte dans votre appareil"
+        },
+        "messageBox": {
+          "danger": "Lisez tout le texte et vérifiez que le message affiché sur l'appareil est le même que celui que vous avez entré dans CySync"
+        }
+      },
+      "device": {
+        "title": "Suivez les instructions sur le X1 Vault pour crypter le code PIN du portefeuille",
+        "subtext": "Soulevez votre carte après les 2 bips sonores ",
+        "tooltip": "Touchez n'importe quelle carte X1 sous le dispositif X1 pour crypter le message et ne retirez pas la carte jusqu'à ce que vous entendiez 2 bips sonores",
+        "actions": {
+          "confirmOnDevice": "Confirmer le cryptage sur l'appareil",
+          "tapCard": "Entrez le code PIN et touchez n'importe quelle carte"
+        },
+        "messageBox": {
+          "warning": "Le code PIN sera crypté par la carte X1"
+        }
+      },
+      "loading": {
+        "title": "Veuillez patienter pendant que nous envoyons les données cryptées au serveur",
+        "subTitle": "Ne pas déconnecter ou fermer l'application"
+      },
+      "success": {
+        "title": "Message du Nominé crypté avec succès",
+        "subtext": "Pour compléter la configuration de votre Plan Gold, vous pouvez maintenant procéder à l'achat du plan"
+      }
+    },
+    "checkout": {
+      "heading": "Paiement",
+      "payment": {
+        "title": "Complétez votre paiement",
+        "subtext": "Vous devez acheter le plan sur le site Web de Cypherock, puis appliquer le code de coupon généré dans la section 'Code de Coupon' ci-dessous pour finaliser votre achat"
+      },
+      "greeting": {
+        "title": "Merci!",
+        "subtext": "Votre Plan Gold est maintenant activé"
+      }
+    }
+  },
+  "swap": {
+    "title": "Échange",
+    "detailsInput": {
+      "common": {
+        "searchText": "Recherche",
+        "walletPlaceholder": "Choisir un portefeuille"
+      },
+      "from": {
+        "title": "De",
+        "accountPlaceholder": "Compte à débiter",
+        "amountLabel": "Montant à envoyer",
+        "amountError": "Solde insuffisant"
+      },
+      "to": {
+        "title": "À",
+        "accountPlaceholder": "Compte à créditer",
+        "amountLabel": "Vous recevrez"
+      },
+      "offers": {
+        "title": "Vos meilleures offres",
+        "initialText": "Sélectionnez le portefeuille et le compte pour obtenir des devis",
+        "searchingForOffers": "Recherche de votre meilleure offre",
+        "bestOffer": "Meilleure Offre",
+        "fixedRate": "Taux fixe",
+        "fixedRateTooltip": "Un taux fixe vous assure d'obtenir la valeur indiquée sans être affecté par les changements de prix.",
+        "networkFee": "Frais de réseau",
+        "networkFeeTooltip": "Le réseau blockchain applique ces frais pour exécuter votre échange. Seuls les frais réseau sortants (envoi) sont ajoutés au montant indiqué — les frais entrants (réception) sont déjà couverts dans le devis.",
+        "quotesFound": "${num} devis trouvés",
+        "timerText": "Mises à jour dans ${time}",
+        "buttons": {
+          "continue": "Continuer"
+        },
+        "errors": {
+          "sameAsset": "Impossible d'échanger le même actif",
+          "noOffers": "Aucune offre disponible pour votre demande",
+          "currencyNotSupported": "Devise non prise en charge",
+          "amountRange": "Le montant doit être entre ${min} et ${max}",
+          "noQuotes": "Aucun devis trouvé",
+          "noInternet": "Pas de connexion Internet",
+          "enterAmount": "Entrez le montant pour obtenir des devis",
+          "selectDifferentCoinPair": "Sélectionnez une paire de devises différente"
+        }
+      }
+    },
+    "topBar": {
+      "history": "Historique"
+    },
+    "swapReceive": {
+      "errors": {
+        "notSuccessful": "Le processus de réception n'a pas été réussi",
+        "invalidInputs": "Entrées invalides pour lancer l'échange",
+        "accountNotSelected": "Compte non sélectionné"
+      }
+    },
+    "swapSend": {
+      "errors": {
+        "notSuccessfull": "Le processus d'envoi n'a pas été réussi",
+        "cannotStart": "Impossible de démarrer le processus d'envoi",
+        "invalidPrerequisite": "prérequis invalide pour l'envoi d'échange"
+      }
+    },
+    "swapSummary": {
+      "heading": "Résumé de l'échange",
+      "from": "De",
+      "to": "À",
+      "amount": "Montant",
+      "provider": "Fournisseur",
+      "networkFee": "Frais de réseau",
+      "totalToDebit": "Total à débiter"
+    },
+    "swapStatus": {
+      "heading": {
+        "success": "Échange Réussi",
+        "pending": "Échange en attente",
+        "failed": "Échange Échoué"
+      },
+      "description": "",
+      "amountSent": "Montant Envoyé",
+      "amountReceived": "Montant Reçu",
+      "transactionID": "ID de Transaction",
+      "messageBox": {
+        "warning": "Le solde de votre compte sera mis à jour lorsque la blockchain confirmera la transaction",
+        "danger": "Le réseau a renvoyé l'erreur suivante :"
+      },
+      "button": {
+        "backToSwap": "Retour à l'Échange"
+      }
+    },
+    "commonErrors": {
+      "timeout": {
+        "title": "Délai d'Échange Expiré",
+        "description": "La demande d'échange a expiré. Veuillez réessayer ou contacter le support si le problème persiste."
+      }
+    }
+  }
+}

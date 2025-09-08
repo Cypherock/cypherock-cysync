@@ -1,6 +1,6 @@
 {
   "name": "@cypherock/cysync-core",
-  "version": "0.6.4",
+  "version": "0.6.8",
   "module": "dist/esm/index.js",
   "types": "dist/esm/index.d.ts",
   "license": "AGPL-3.0",
@@ -25,6 +25,7 @@
     "@cypherock/jest-config": "workspace:^",
     "@cypherock/prettier-config": "workspace:^",
     "@cypherock/tsconfig": "workspace:^",
+    "@dfinity/utils": "^2.13.1",
     "@jest/globals": "^29.5.0",
     "@stryker-mutator/core": "^7.0.2",
     "@stryker-mutator/jest-runner": "^7.0.2",
@@ -62,7 +63,8 @@
     "tsc-alias": "^1.8.6",
     "typescript": "^4.9.5",
     "web3": "^4.1.2",
-    "xrpl": "^4.0.0"
+    "xrpl": "^4.0.0",
+    "stellar-sdk": "^13.3.0"
   },
   "dependencies": {
     "@aws-crypto/sha256-browser": "^4.0.0",
@@ -79,6 +81,7 @@
     "@cypherock/coin-support-tron": "workspace:^",
     "@cypherock/coin-support-utils": "workspace:^",
     "@cypherock/coin-support-xrp": "workspace:^",
+    "@cypherock/coin-support-stellar": "workspace:^",
     "@cypherock/coins": "workspace:^",
     "@cypherock/cysync-core-constants": "workspace:^",
     "@cypherock/cysync-core-services": "workspace:^",

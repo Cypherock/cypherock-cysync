@@ -1,3 +1,27 @@
+# v2.2.0
+
+### 🚀 Feature
+
+- **File Size Optimization**: We've made significant improvements to the cySync app's size, drastically reducing it from gigabytes (GBs) to megabytes (MBs) for a faster download and installation experience.
+
+# v2.1.5
+
+### 🚀 Feature
+
+- **Stellar Network Support:** Now you can seamlessly manage your XLM assets directly through the app.
+
+# v2.1.4
+
+### 🚀 Feature
+
+- Added French language support in the cySync app.
+
+# v2.1.3
+
+### 🐛 Bugfix
+
+- Fixed issues with **Cypherock Cover** plan setup for a smoother experience.
+
 # v2.1.2
 
 ### 🚀 Feature

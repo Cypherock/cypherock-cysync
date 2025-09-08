@@ -1,5 +1,73 @@
 # @cypherock/cysync-core
 
+## 0.6.8
+
+### Patch Changes
+
+- [#801](https://github.com/Cypherock/cypherock-cysync/pull/801) [`63c292e3`](https://github.com/Cypherock/cypherock-cysync/commit/63c292e3e46fc2fb3e035dbd00ea6c02b32fa074) Thanks [@AryanCypherock](https://github.com/AryanCypherock)! - App size optimized for all platforms
+
+## 0.6.8-pre.0
+
+### Patch Changes
+
+- [`63c292e3`](https://github.com/Cypherock/cypherock-cysync/commit/63c292e3e46fc2fb3e035dbd00ea6c02b32fa074) Thanks [@AryanCypherock](https://github.com/AryanCypherock)! - App size optimized for all platforms
+
+## 0.6.7
+
+### Patch Changes
+
+- [#790](https://github.com/Cypherock/cypherock-cysync/pull/790) [`16b59074`](https://github.com/Cypherock/cypherock-cysync/commit/16b590745083d9c447f06a279d09f877200a403b) Thanks [@Keyur279](https://github.com/Keyur279)! - Added stellar support
+
+- Updated dependencies [[`16b59074`](https://github.com/Cypherock/cypherock-cysync/commit/16b590745083d9c447f06a279d09f877200a403b)]:
+  - @cypherock/coin-support-stellar@1.0.0
+  - @cypherock/cysync-core-constants@0.5.1
+  - @cypherock/coin-support@0.1.10
+  - @cypherock/coins@0.3.3
+  - @cypherock/cysync-ui@0.0.15
+  - @cypherock/cysync-core-services@0.1.8
+  - @cypherock/app-support-buy-sell@0.0.7
+  - @cypherock/coin-support-btc@0.0.20
+  - @cypherock/coin-support-evm@0.0.19
+  - @cypherock/coin-support-icp@1.0.3
+  - @cypherock/coin-support-near@0.0.19
+  - @cypherock/coin-support-solana@0.1.5
+  - @cypherock/coin-support-starknet@1.0.6
+  - @cypherock/coin-support-tron@0.0.16
+  - @cypherock/coin-support-utils@0.0.19
+  - @cypherock/coin-support-xrp@1.1.7
+  - @cypherock/cysync-core-workers@0.0.24
+
+## 0.6.6
+
+### Patch Changes
+
+- Updated dependencies [[`66476ac5`](https://github.com/Cypherock/cypherock-cysync/commit/66476ac55b6e334b459bb252612a45d4dcb56e50)]:
+  - @cypherock/cysync-core-constants@0.5.0
+
+## 0.6.5
+
+### Patch Changes
+
+- [#780](https://github.com/Cypherock/cypherock-cysync/pull/780) [`53762659`](https://github.com/Cypherock/cypherock-cysync/commit/53762659bf2542008fcce997af13b81342b47a96) Thanks [@AryanCypherock](https://github.com/AryanCypherock)! - reverted lint changes
+
+- Updated dependencies [[`53762659`](https://github.com/Cypherock/cypherock-cysync/commit/53762659bf2542008fcce997af13b81342b47a96)]:
+  - @cypherock/coin-support-tron@0.0.15
+  - @cypherock/coin-support@0.1.9
+  - @cypherock/cysync-core-services@0.1.7
+  - @cypherock/cysync-core-workers@0.0.23
+
+## 0.6.5-pre.0
+
+### Patch Changes
+
+- [#780](https://github.com/Cypherock/cypherock-cysync/pull/780) [`53762659`](https://github.com/Cypherock/cypherock-cysync/commit/53762659bf2542008fcce997af13b81342b47a96) Thanks [@AryanCypherock](https://github.com/AryanCypherock)! - reverted lint changes
+
+- Updated dependencies [[`53762659`](https://github.com/Cypherock/cypherock-cysync/commit/53762659bf2542008fcce997af13b81342b47a96)]:
+  - @cypherock/coin-support-tron@0.0.15-pre.0
+  - @cypherock/coin-support@0.1.9-pre.0
+  - @cypherock/cysync-core-services@0.1.7-pre.0
+  - @cypherock/cysync-core-workers@0.0.23-pre.0
+
 ## 0.6.4
 
 ### Patch Changes

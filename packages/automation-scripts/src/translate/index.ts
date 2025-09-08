@@ -34,6 +34,7 @@ const DONT_TRANSLATE_PHRASES = [
   '1Y',
   'Help',
   'Support',
+  'Swap',
 ];
 
 export const generateTranslationFiles = async () => {
