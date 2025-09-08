@@ -331,7 +331,8 @@
     "exitWithoutSaving": "Quitter sans enregistrer",
     "saveChanges": "Enregistrer les modifications",
     "edit": "Modifier",
-    "tryAgain": "Essayer encore"
+    "tryAgain": "Essayer encore",
+    "switchFirmware": "Changer de firmware"
   },
   "signMessage": {
     "title": "Signer le message",
@@ -896,6 +897,17 @@
       "unavailable": {
         "title": "Votre X1 Vault est incapable de communiquer",
         "subtext": "Essayez de reconnecter l'appareil"
+      }
+    },
+    "chooseFirmware": {
+      "heading": "Sélectionner le Firmware",
+      "btcOnly": {
+        "title": "Je veux utiliser Cypherock X1 uniquement pour Bitcoin",
+        "subtext": "Le firmware de l'appareil et le CySync seront adaptés pour ne servir que le bitcoin"
+      },
+      "multiCoin": {
+        "title": "Je veux le support pour toutes les crypto-monnaies",
+        "subtext": "Vous bénéficierez du support complet de toutes les crypto-monnaies prises en charge par Cypherock"
       }
     },
     "deviceAuth": {
@@ -2203,6 +2215,22 @@
       "toAsset": "Actif",
       "toAmount": "Montant reçu",
       "toReceiver": "Récepteur"
+    },
+    "switchFirmwareDialog": {
+      "btcOnly": {
+        "title": "Changer le firmware pour Bitcoin uniquement",
+        "subtext": "Le firmware Bitcoin uniquement fonctionne uniquement avec les transactions Bitcoin. Si vous souhaitez accéder et gérer toutes vos pièces autres que Bitcoin, vous ne pourrez pas le faire"
+      },
+      "multiCoin": {
+        "title": "Changer le firmware pour Multi-pièces",
+        "subtext": "Le firmware multi-pièces fonctionne avec toutes les transactions de pièces supportées sur Cypherock X1. Si vous souhaitez accéder et gérer toutes vos pièces autres que Bitcoin, vous pourrez le faire"
+      },
+      "checkbox": {
+        "label": "J'ai lu et compris"
+      },
+      "primaryBtn": {
+        "label": "Installer le Firmware"
+      }
     }
   },
   "settings": {
@@ -2264,6 +2292,16 @@
       "device": {
         "title": "Paramètres de l'appareil",
         "item": {
+          "switchFirmware": {
+            "btcOnly": {
+              "title": "Switch firmware to Bitcoin-only",
+              "description": "Bitcoin-only firmware only works with Bitcoin transactions."
+            },
+            "multiCoin": {
+              "title": "Switch firmware to Multi-coin",
+              "description": "Multi-coin firmware works with all coin transactions supported on Cypherock X1"
+            }
+          },
           "x1VaultAuth": {
             "title": "Authentification X1 Vault",
             "description": "Authentifiez votre appareil"
