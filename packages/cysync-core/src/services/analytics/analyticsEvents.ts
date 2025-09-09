@@ -1,0 +1,53 @@
+export const ANALYTICS_EVENTS = {
+  ONBOARDING_STARTED: 'Onboarding - Started',
+  ONBOARDING_VIEWED_USAGE_SCREEN: 'Onboarding - Viewed Usage Screen',
+  ONBOARDING_VIEWED_TERMS: 'Onboarding - Viewed Terms',
+  ONBOARDING_PASSWORD_SET: 'Onboarding - Password Set',
+  ONBOARDING_EMAIL_SAVED: 'Onboarding - Email Saved',
+  ONBOARDING_DEVICE_DETECTED: 'Onboarding - Device Detected',
+  ONBOARDING_DEVICE_AUTHENTICATED: 'Onboarding - Device Authenticated',
+  ONBOARDING_JOYSTICK_TRAINED: 'Onboarding - Joystick Trained',
+  ONBOARDING_CARD_TRAINED: 'Onboarding - Card Trained',
+  ONBOARDING_CARD_AUTHENTICATED: 'Onboarding - Card Authenticated',
+  ONBOARDING_COMPLETED: 'Onboarding - Completed',
+  ONBOARDING_CANCELLED: 'Onboarding - Cancelled',
+
+  SEND_FLOW_STARTED: 'Send - Flow Started',
+  SEND_VIEWED_RECIPIENT_FORM: 'Send - Viewed Recipient Form',
+  SEND_VIEWED_SUMMARY: 'Send - Viewed Summary',
+  SEND_ATTEMPTED_SIGNING: 'Send - Attempted Signing',
+  SEND_SUCCEEDED: 'Send - Succeeded',
+  SEND_FAILED: 'Send - Failed',
+  SEND_CANCELLED: 'Send - Cancelled',
+
+  RECEIVE_FLOW_STARTED: 'Receive - Flow Started',
+  RECEIVE_ADDRESS_VERIFIED_ON_DEVICE: 'Receive - Address Verified on Device',
+  RECEIVE_SKIPPED_VERIFICATION: 'Receive - Skipped Verification',
+  RECEIVE_SUCCEEDED: 'Receive - Succeeded',
+  RECEIVE_CANCELLED: 'Receive - Cancelled',
+
+  SWAP_FLOW_STARTED: 'Swap - Flow Started',
+  SWAP_QUOTES_REQUESTED: 'Swap - Quotes Requested',
+  SWAP_QUOTES_RECEIVED: 'Swap - Quotes Received',
+  SWAP_PROVIDER_SELECTED: 'Swap - Provider Selected',
+  SWAP_VIEWED_SUMMARY: 'Swap - Viewed Summary',
+  SWAP_RECEIVE_STEP_STARTED: 'Swap - Receive Step Started',
+  SWAP_SEND_STEP_STARTED: 'Swap - Send Step Started',
+  SWAP_SUCCEEDED: 'Swap - Succeeded',
+  SWAP_FAILED: 'Swap - Failed',
+  SWAP_CANCELLED: 'Swap - Cancelled',
+
+  BUY_CRYPTO_FLOW_STARTED: 'Buy Crypto - Flow Started',
+  BUY_CRYPTO_ORDER_INITIATED: 'Buy Crypto - Order Initiated',
+  BUY_CRYPTO_CANCELLED: 'Buy Crypto - Cancelled',
+
+  ACCOUNT_ADDED: 'Account - Added',
+  ACCOUNT_DELETED: 'Account - Deleted',
+  TOKEN_ADDED: 'Token - Added',
+
+  WALLET_ACTIONS_CREATE_INITIATED: 'Wallet Actions - Create Initiated',
+  WALLET_ACTIONS_IMPORT_INITIATED: 'Wallet Actions - Import Initiated',
+} as const;
+
+export type AnalyticsEvent =
+  (typeof ANALYTICS_EVENTS)[keyof typeof ANALYTICS_EVENTS];

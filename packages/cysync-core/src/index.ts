@@ -21,3 +21,4 @@ export * from './context';
 export * from './store';
 export * from './components';
 export * from './bgTask';
+export * from './services';

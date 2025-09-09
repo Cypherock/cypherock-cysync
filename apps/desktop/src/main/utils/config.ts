@@ -23,6 +23,7 @@ export interface IConfig {
   API_CYPHEROCK: string;
   RELEASE_NOTES: string;
   OS: 'win32' | 'darwin' | 'linux' | string;
+  MIXPANEL_TOKEN: string;
 }
 
 const getResourcesPath = () => {
@@ -144,6 +145,11 @@ const getConfig = (): IConfig => {
     IS_PRODUCTION = false;
   }
 
+  const MIXPANEL_TOKEN = IS_PRODUCTION
+    ? process.env.MIXPANEL_TOKEN_PROD ?? ''
+    : process.env.MIXPANEL_TOKEN_DEV ?? '';
+  console.log(process.env);
+
   const config: IConfig = {
     BUILD_TYPE: jsonConfig.BUILD_TYPE,
     BUILD_VERSION: jsonConfig.BUILD_VERSION,
@@ -163,6 +169,7 @@ const getConfig = (): IConfig => {
     ),
     RELEASE_NOTES: getReleaseNotes(),
     OS: os.platform(),
+    MIXPANEL_TOKEN,
   };
 
   return config;
