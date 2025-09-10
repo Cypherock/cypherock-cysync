@@ -6,8 +6,9 @@ import {
   SkeletonLoader,
   NoAccountWrapper,
 } from '@cypherock/cysync-ui';
-import React, { FC, useCallback, useState } from 'react';
+import React, { FC, useCallback, useEffect, useState } from 'react';
 
+import { analyticsService, ANALYTICS_EVENTS } from '~/services/analytics';
 import logger from '~/utils/logger';
 
 import { AccountTable } from './AccountTable';
@@ -38,6 +39,16 @@ export const Wallet: FC = () => {
 
   const hasAccounts = accountList.length > 0;
 
+  useEffect(() => {
+    analyticsService.trackEvent(ANALYTICS_EVENTS.WALLET_PAGE_VIEWED);
+  }, []);
+
+  useEffect(() => {
+    if (selectedWallet) {
+      analyticsService.trackEvent(ANALYTICS_EVENTS.WALLET_WALLET_SELECTED);
+    }
+  }, [selectedWallet]);
+
   type HandlersType = typeof handleAddAccountClick & typeof handleAddTokenClick;
   const getHandlerProxy = useCallback(
     (clickInfo: string, source: string, func: HandlersType): HandlersType =>
@@ -45,6 +56,23 @@ export const Wallet: FC = () => {
         logger.info(`Button Click: ${clickInfo}`, {
           source: `${Wallet.name}/${source}`,
         });
+
+        if (clickInfo === 'Add Account') {
+          analyticsService.trackEvent(
+            ANALYTICS_EVENTS.WALLET_ADD_ACCOUNT_CLICKED,
+            {
+              source,
+            },
+          );
+        } else if (clickInfo === 'Add Token') {
+          analyticsService.trackEvent(
+            ANALYTICS_EVENTS.WALLET_ADD_TOKEN_CLICKED,
+            {
+              source,
+            },
+          );
+        }
+
         func();
       },
     [],
