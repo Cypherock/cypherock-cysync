@@ -25,6 +25,11 @@ export const ANALYTICS_EVENTS = {
   RECEIVE_SKIPPED_VERIFICATION: 'Receive - Skipped Verification',
   RECEIVE_SUCCEEDED: 'Receive - Succeeded',
   RECEIVE_CANCELLED: 'Receive - Cancelled',
+  RECEIVE_DEVICE_ACTION_STARTED: 'Receive - Device Action Started',
+  RECEIVE_DEVICE_ACTION_COMPLETED: 'Receive - Device Action Completed',
+  RECEIVE_RETRY_ACTION: 'Receive - Retry Action',
+  RECEIVE_CONTINUE_ACTION: 'Receive - Continue Action',
+  RECEIVE_DIALOG_CLOSED: 'Receive - Dialog Closed',
 
   SWAP_FLOW_STARTED: 'Swap - Flow Started',
   SWAP_QUOTES_REQUESTED: 'Swap - Quotes Requested',
@@ -36,6 +41,9 @@ export const ANALYTICS_EVENTS = {
   SWAP_SUCCEEDED: 'Swap - Succeeded',
   SWAP_FAILED: 'Swap - Failed',
   SWAP_CANCELLED: 'Swap - Cancelled',
+  SWAP_DIRECTION_SWAPPED: 'Swap - Direction Swapped',
+  SWAP_DIALOG_VIEWED: 'Swap - Dialog Viewed',
+  SWAP_DIALOG_CLOSED: 'Swap - Dialog Closed',
 
   BUY_CRYPTO_FLOW_STARTED: 'Buy Crypto - Flow Started',
   BUY_CRYPTO_ORDER_INITIATED: 'Buy Crypto - Order Initiated',

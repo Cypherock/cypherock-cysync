@@ -23,6 +23,7 @@ import { Observer, Subscription } from 'rxjs';
 import { deviceLock, useDevice } from '~/context';
 import { useAccountDropdown, useMemoReturn, useWalletDropdown } from '~/hooks';
 import { ITabs, useTabsAndDialogs } from '~/hooks/useTabsAndDialogs';
+import { analyticsService, ANALYTICS_EVENTS } from '~/services/analytics';
 import {
   closeDialog,
   selectLanguage,
@@ -224,6 +225,7 @@ export const ReceiveDialogProvider: FC<ReceiveDialogContextProviderProps> = ({
   };
 
   const onSkip = () => {
+    analyticsService.trackEvent(ANALYTICS_EVENTS.RECEIVE_SKIPPED_VERIFICATION);
     setIsStartedWithoutDevice(true);
     goTo(1, 0);
   };
@@ -295,10 +297,19 @@ export const ReceiveDialogProvider: FC<ReceiveDialogContextProviderProps> = ({
       }
     },
     error: err => {
+      analyticsService.trackEvent(ANALYTICS_EVENTS.RECEIVE_CANCELLED, {
+        error: err.message || 'Unknown error',
+        step: 'receive_flow',
+      });
+
       onEnd();
       onError(err);
     },
     complete: () => {
+      analyticsService.trackEvent(ANALYTICS_EVENTS.RECEIVE_SUCCEEDED, {
+        step: 'receive_flow_completed',
+      });
+
       onEnd();
       cleanUp();
     },
@@ -311,6 +322,13 @@ export const ReceiveDialogProvider: FC<ReceiveDialogContextProviderProps> = ({
       logger.warn('Flow started without selecting wallet or account');
       return;
     }
+
+    analyticsService.trackEvent(ANALYTICS_EVENTS.RECEIVE_FLOW_STARTED, {
+      assetId: selectedAccount.assetId,
+      parentAssetId: selectedAccount.parentAssetId,
+      accountId: selectedAccount.__id,
+      source: source === ReceiveFlowSource.SWAP ? 'swap' : 'default',
+    });
 
     resetStates(true);
     cleanUp();
