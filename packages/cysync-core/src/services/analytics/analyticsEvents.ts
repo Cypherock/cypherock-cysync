@@ -19,6 +19,7 @@ export const ANALYTICS_EVENTS = {
   SEND_SUCCEEDED: 'Send - Succeeded',
   SEND_FAILED: 'Send - Failed',
   SEND_CANCELLED: 'Send - Cancelled',
+  SEND_DEVICE_ACTION_STARTED: 'Send - Device Action Started',
 
   RECEIVE_FLOW_STARTED: 'Receive - Flow Started',
   RECEIVE_ADDRESS_VERIFIED_ON_DEVICE: 'Receive - Address Verified on Device',
