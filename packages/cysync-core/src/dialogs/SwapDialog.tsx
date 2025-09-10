@@ -21,6 +21,7 @@ import { SwapStatus } from '@cypherock/db-interfaces';
 import React, { FC, useMemo } from 'react';
 
 import { SwapTransactionRowData, useSwapTransactions } from '~/hooks';
+import { analyticsService, ANALYTICS_EVENTS } from '~/services/analytics';
 import {
   closeDialog,
   selectLanguage,
@@ -42,7 +43,14 @@ export const SwapDialog: FC<ISwapDialogProps> = ({ swap: swapSource }) => {
   const theme = useTheme();
   const dispatch = useAppDispatch();
   const { displayedData } = useSwapTransactions();
-  const onClose = () => dispatch(closeDialog('swapDialog'));
+  const onClose = () => {
+    analyticsService.trackEvent(ANALYTICS_EVENTS.SWAP_DIALOG_CLOSED, {
+      swapId: swapSource.swapId,
+      swapStatus: swapSource.swapStatus,
+      provider: swapSource.providerName,
+    });
+    dispatch(closeDialog('swapDialog'));
+  };
 
   const lang = useAppSelector(selectLanguage);
   const strings = lang.strings.dialogs.swapDialog;

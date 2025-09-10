@@ -24,6 +24,7 @@ import React, {
 import { IQuote, useSwap } from '~/context';
 import { useAccountDropdown, useWalletDropdown } from '~/hooks';
 import { getQuotes } from '~/services/swapService';
+import { analyticsService, ANALYTICS_EVENTS } from '~/services/analytics';
 import { useAppSelector, selectLanguage } from '~/store';
 import { createServerErrorFromError } from '~/utils';
 import logger from '~/utils/logger';
@@ -122,6 +123,14 @@ export const SwapDetailsInput = () => {
       return;
     }
 
+    analyticsService.trackEvent(ANALYTICS_EVENTS.SWAP_QUOTES_REQUESTED, {
+      fromAsset: from.assetId,
+      toAsset: to.assetId,
+      fromNetwork: from.parentAssetId,
+      toNetwork: to.parentAssetId,
+      amount,
+    });
+
     try {
       const result = await getQuotes({
         fromCurrency: from.assetId,
@@ -134,6 +143,14 @@ export const SwapDetailsInput = () => {
       if (result.status === 200) {
         newQuotes = result.data.data;
         newRange = result.data?.metadata?.range;
+
+        analyticsService.trackEvent(ANALYTICS_EVENTS.SWAP_QUOTES_RECEIVED, {
+          fromAsset: from.assetId,
+          toAsset: to.assetId,
+          amount,
+          quotesCount: newQuotes.length,
+          providers: newQuotes.map(q => q.provider.name),
+        });
       }
       logger.info(`Received quotes result from server: ${result.data}`);
     } catch (e) {
@@ -194,6 +211,13 @@ export const SwapDetailsInput = () => {
     const intermediateWalletId = toWallet.selectedWallet?.__id;
     const intermediateAccountId = toAccount.selectedAccount?.__id;
     const intermediateAmount = calculatedAmount;
+
+    analyticsService.trackEvent(ANALYTICS_EVENTS.SWAP_DIRECTION_SWAPPED, {
+      fromAsset: fromAccount.selectedAccount?.assetId,
+      toAsset: toAccount.selectedAccount?.assetId,
+      fromAmount,
+      toAmount: intermediateAmount,
+    });
 
     toWallet.handleWalletChange(fromWallet.selectedWallet?.__id);
     toAccount.handleAccountChange(fromAccount.selectedAccount?.__id);
