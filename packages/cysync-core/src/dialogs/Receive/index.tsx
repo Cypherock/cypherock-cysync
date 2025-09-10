@@ -142,12 +142,13 @@ export const Receive: FC = () => {
                 <CloseButton
                   onClick={() => {
                     analyticsService.trackEvent(
-                      ANALYTICS_EVENTS.RECEIVE_DIALOG_CLOSED,
+                      ANALYTICS_EVENTS.RECEIVE_CANCELLED,
                       {
                         source:
                           source === ReceiveFlowSource.SWAP
                             ? 'swap'
                             : 'default',
+                        action: 'dialog_closed',
                         isAddressVerified,
                       },
                     );

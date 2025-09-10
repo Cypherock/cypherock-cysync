@@ -163,6 +163,10 @@ export const ReceiveDialogProvider: FC<ReceiveDialogContextProviderProps> = ({
     );
 
   const onRetry = () => {
+    analyticsService.trackEvent(ANALYTICS_EVENTS.RECEIVE_CANCELLED, {
+      action: 'retry',
+      step: 'receive_flow',
+    });
     resetStates();
     goTo(1, 0);
   };
@@ -264,6 +268,10 @@ export const ReceiveDialogProvider: FC<ReceiveDialogContextProviderProps> = ({
   };
 
   const onError = (e?: any) => {
+    analyticsService.trackEvent(ANALYTICS_EVENTS.RECEIVE_CANCELLED, {
+      error: e?.message || 'Unknown error',
+      step: 'receive_flow_error',
+    });
     cleanUp();
     setError(e);
     if (injectedOnError) injectedOnError(e);
@@ -299,16 +307,19 @@ export const ReceiveDialogProvider: FC<ReceiveDialogContextProviderProps> = ({
     error: err => {
       analyticsService.trackEvent(ANALYTICS_EVENTS.RECEIVE_CANCELLED, {
         error: err.message || 'Unknown error',
-        step: 'receive_flow',
+        step: 'address_verification',
       });
 
       onEnd();
       onError(err);
     },
     complete: () => {
-      analyticsService.trackEvent(ANALYTICS_EVENTS.RECEIVE_SUCCEEDED, {
-        step: 'receive_flow_completed',
-      });
+      analyticsService.trackEvent(
+        ANALYTICS_EVENTS.RECEIVE_DEVICE_ACTION_COMPLETED,
+        {
+          step: 'address_verification',
+        },
+      );
 
       onEnd();
       cleanUp();
