@@ -11,6 +11,7 @@ import { openErrorDialog } from '~/actions';
 import { WithConnectedDevice } from '~/components';
 import { SwapPage, useSwap } from '~/context';
 import { useSwapTransactions } from '~/hooks';
+import { analyticsService, ANALYTICS_EVENTS } from '~/services/analytics';
 import {
   closeDialog,
   useAppDispatch,
@@ -178,7 +179,11 @@ export const Swap = () => {
 
   const currentComponent = useMemo(() => pageMap[currentPage], [currentPage]);
 
-  useEffect(() => () => reset(), []);
+  useEffect(() => {
+    analyticsService.trackEvent(ANALYTICS_EVENTS.SWAP_FLOW_STARTED);
+
+    return () => reset();
+  }, []);
 
   useLayoutEffect(() => {
     if (error) {

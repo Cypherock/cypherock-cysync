@@ -42,7 +42,6 @@ export const ANALYTICS_EVENTS = {
   SWAP_FAILED: 'Swap - Failed',
   SWAP_CANCELLED: 'Swap - Cancelled',
   SWAP_DIRECTION_SWAPPED: 'Swap - Direction Swapped',
-  SWAP_DIALOG_VIEWED: 'Swap - Dialog Viewed',
   SWAP_DIALOG_CLOSED: 'Swap - Dialog Closed',
 
   BUY_CRYPTO_FLOW_STARTED: 'Buy Crypto - Flow Started',

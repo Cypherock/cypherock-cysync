@@ -13,6 +13,7 @@ import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { ErrorActionMap, ErrorIconNameMap } from '~/constants/errors';
 import { DeviceTask, useDeviceTask, useMemoReturn } from '~/hooks';
 import { createExchange, getProviderDetails } from '~/services/swapService';
+import { analyticsService, ANALYTICS_EVENTS } from '~/services/analytics';
 import { getDB } from '~/utils';
 import logger from '~/utils/logger';
 
@@ -113,7 +114,22 @@ export const SwapProvider: React.FC<SwapProviderProps> = ({ children }) => {
     useState<Record<string, IProviderDetails>>();
 
   const toNextPage = () => {
-    setCurrentPage(p => Math.min(SwapPage.STATUS, p + 1));
+    const newPage = Math.min(SwapPage.STATUS, currentPage + 1);
+    setCurrentPage(newPage);
+
+    if (newPage === SwapPage.RECEIVE) {
+      analyticsService.trackEvent(ANALYTICS_EVENTS.SWAP_RECEIVE_STEP_STARTED, {
+        fromAsset: fromAccount?.assetId,
+        toAsset: toAccount?.assetId,
+        provider: quote?.provider?.name,
+      });
+    } else if (newPage === SwapPage.SEND) {
+      analyticsService.trackEvent(ANALYTICS_EVENTS.SWAP_SEND_STEP_STARTED, {
+        fromAsset: fromAccount?.assetId,
+        toAsset: toAccount?.assetId,
+        provider: quote?.provider?.name,
+      });
+    }
   };
   const toPreviousPage = () => {
     setCurrentPage(p => Math.max(SwapPage.DETAILS, p - 1));
@@ -135,18 +151,21 @@ export const SwapProvider: React.FC<SwapProviderProps> = ({ children }) => {
   };
 
   const resetAll = () => {
+    if (fromAccount || toAccount || quote) {
+      analyticsService.trackEvent(ANALYTICS_EVENTS.SWAP_CANCELLED, {
+        fromAsset: fromAccount?.assetId,
+        toAsset: toAccount?.assetId,
+        provider: quote?.provider?.name,
+        currentPage,
+        reason: 'user_reset',
+        action: 'dialog_closed',
+      });
+    }
+
     resetUserInput();
     resetState();
     setResetIndex(prev => prev + 1);
   };
-
-  const onError = useCallback(
-    (e?: any) => {
-      resetState();
-      setGlobalError(e);
-    },
-    [setGlobalError, resetState],
-  );
 
   const retryMap: Record<SwapPage, () => void> = {
     [SwapPage.DETAILS]: resetState,
@@ -155,10 +174,6 @@ export const SwapProvider: React.FC<SwapProviderProps> = ({ children }) => {
     [SwapPage.SEND]: resetState,
     [SwapPage.STATUS]: resetState,
   };
-
-  const retryPage = useCallback(() => {
-    retryMap[currentPage]();
-  }, [currentPage]);
 
   const [fromWallet, setFromWallet] = useState<IWallet | undefined>();
   const [fromAccount, setFromAccount] = useState<IAccount | undefined>();
@@ -171,6 +186,38 @@ export const SwapProvider: React.FC<SwapProviderProps> = ({ children }) => {
   const [exchangeDetails, setExchangeDetails] = useState<
     IExchangeDetails | undefined
   >();
+
+  const onError = useCallback(
+    (e?: any) => {
+      analyticsService.trackEvent(ANALYTICS_EVENTS.SWAP_FAILED, {
+        error: e?.message || 'Unknown error',
+        step: 'swap_flow_error',
+        fromAsset: fromAccount?.assetId,
+        toAsset: toAccount?.assetId,
+        provider: quote?.provider?.name,
+      });
+      resetState();
+      setGlobalError(e);
+    },
+    [fromAccount?.assetId, toAccount?.assetId, quote?.provider?.name],
+  );
+
+  const retryPage = useCallback(() => {
+    analyticsService.trackEvent(ANALYTICS_EVENTS.SWAP_CANCELLED, {
+      action: 'retry',
+      step: 'swap_flow',
+      currentPage,
+      fromAsset: fromAccount?.assetId,
+      toAsset: toAccount?.assetId,
+      provider: quote?.provider?.name,
+    });
+    retryMap[currentPage]();
+  }, [
+    currentPage,
+    fromAccount?.assetId,
+    toAccount?.assetId,
+    quote?.provider?.name,
+  ]);
 
   const fillDetails = ({
     fromWallet: sourceWallet,
@@ -186,6 +233,16 @@ export const SwapProvider: React.FC<SwapProviderProps> = ({ children }) => {
     setToWallet(destinationWallet);
     setToAccount(destinationAccount);
     setQuote(selectedQuote);
+
+    analyticsService.trackEvent(ANALYTICS_EVENTS.SWAP_PROVIDER_SELECTED, {
+      providerId: selectedQuote.provider.id,
+      providerName: selectedQuote.provider.name,
+      fromAsset: sourceAccount.assetId,
+      toAsset: destinationAccount.assetId,
+      fromAmount: sourceAmount,
+      toAmount: selectedQuote.toAmount,
+      fee: selectedQuote.fee,
+    });
   };
 
   const fetchProviderDetails = useCallback(async () => {
@@ -313,6 +370,15 @@ export const SwapProvider: React.FC<SwapProviderProps> = ({ children }) => {
       }
     } catch (error) {
       logger.error(error);
+
+      analyticsService.trackEvent(ANALYTICS_EVENTS.SWAP_FAILED, {
+        error: error instanceof Error ? error.message : 'Unknown error',
+        fromAsset: fromAccount?.assetId,
+        toAsset: toAccount?.assetId,
+        provider: quote?.provider?.name,
+        step: 'initiate_exchange',
+      });
+
       onError(error);
       await closeExchange();
     }
@@ -350,6 +416,17 @@ export const SwapProvider: React.FC<SwapProviderProps> = ({ children }) => {
   const markTransactionAsSwap = (id: string) => {
     const db = getDB();
     db.transaction.update({ __id: id }, { isSwap: true });
+
+    analyticsService.trackEvent(ANALYTICS_EVENTS.SWAP_SUCCEEDED, {
+      transactionId: id,
+      fromAsset: fromAccount?.assetId,
+      toAsset: toAccount?.assetId,
+      fromAmount,
+      toAmount: quote?.toAmount,
+      provider: quote?.provider?.name,
+      providerId: quote?.provider?.id,
+      fee: quote?.fee,
+    });
   };
 
   const updateTransactionSwapData = (id: string, swapData: ISwapData) => {
