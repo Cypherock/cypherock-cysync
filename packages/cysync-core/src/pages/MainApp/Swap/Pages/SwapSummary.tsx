@@ -24,6 +24,7 @@ import React from 'react';
 
 import { CoinIcon } from '~/components';
 import { useSwap } from '~/context';
+import { analyticsService, ANALYTICS_EVENTS } from '~/services/analytics';
 import {
   selectAccounts,
   selectLanguage,
@@ -246,6 +247,18 @@ export const SwapSummary = () => {
           <Button
             variant="primary"
             onClick={() => {
+              analyticsService.trackEvent(
+                ANALYTICS_EVENTS.SWAP_VIEWED_SUMMARY,
+                {
+                  fromAsset: fromAccount?.assetId,
+                  toAsset: toAccount?.assetId,
+                  fromAmount: quote?.fromAmount,
+                  toAmount: quote?.toAmount,
+                  provider: quote?.provider?.name,
+                  fee: quote?.fee,
+                  action: 'confirmed',
+                },
+              );
               toNextPage();
             }}
           >
