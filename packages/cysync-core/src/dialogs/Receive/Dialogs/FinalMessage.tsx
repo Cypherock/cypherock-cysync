@@ -13,6 +13,7 @@ import {
 } from '@cypherock/cysync-ui';
 import React, { useState } from 'react';
 
+import { analyticsService, ANALYTICS_EVENTS } from '~/services/analytics';
 import { ILangState, selectLanguage, useAppSelector } from '~/store';
 
 import { AddressDisplay } from './Components';
@@ -130,16 +131,49 @@ export const FinalMessage: React.FC = () => {
         </ScrollableContainer>
       </DialogBoxBody>
       <DialogBoxFooter>
-        <Button variant="secondary" onClick={onRetry}>
+        <Button
+          variant="secondary"
+          onClick={() => {
+            analyticsService.trackEvent(ANALYTICS_EVENTS.RECEIVE_RETRY_ACTION, {
+              assetId: selectedAccount?.assetId,
+              isAddressVerified,
+              action: 'retry',
+            });
+            onRetry();
+          }}
+        >
           {displayTexts.secondaryBtnText}
         </Button>
         {(!showAccountId || isAddressVerified) && (
-          <Button variant="primary" onClick={onClose}>
+          <Button
+            variant="primary"
+            onClick={() => {
+              analyticsService.trackEvent(ANALYTICS_EVENTS.RECEIVE_SUCCEEDED, {
+                assetId: selectedAccount?.assetId,
+                address: derivedAddress,
+                isAddressVerified,
+                action: 'completed',
+              });
+              onClose();
+            }}
+          >
             {displayTexts.primaryBtnText}
           </Button>
         )}
         {showAccountId && !isAddressVerified && (
-          <Button variant="primary" onClick={() => setShowAccountId(false)}>
+          <Button
+            variant="primary"
+            onClick={() => {
+              analyticsService.trackEvent(
+                ANALYTICS_EVENTS.RECEIVE_CONTINUE_ACTION,
+                {
+                  assetId: selectedAccount?.assetId,
+                  action: 'continue',
+                },
+              );
+              setShowAccountId(false);
+            }}
+          >
             {displayTexts.continueBtnText}
           </Button>
         )}
