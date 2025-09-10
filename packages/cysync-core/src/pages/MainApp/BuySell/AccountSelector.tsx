@@ -21,6 +21,7 @@ import React, { useCallback } from 'react';
 import { openAddAccountDialog } from '~/actions';
 import { CoinIcon, LoaderDialog } from '~/components';
 import { useBuySell } from '~/context';
+import { analyticsService, ANALYTICS_EVENTS } from '~/services/analytics';
 import { useAppSelector, selectLanguage, useAppDispatch } from '~/store';
 import logger from '~/utils/logger';
 
@@ -52,6 +53,11 @@ export const BuySellAccountSelector = () => {
         source: 'Buy',
         isWalletSelected: Boolean(args[0]),
       });
+      if (args[0]) {
+        analyticsService.trackEvent(
+          ANALYTICS_EVENTS.BUY_CRYPTO_WALLET_SELECTED,
+        );
+      }
       handleWalletChange(...args);
     },
     [handleWalletChange],
@@ -69,6 +75,14 @@ export const BuySellAccountSelector = () => {
             }
           : undefined,
       });
+      if (targetAccount) {
+        analyticsService.trackEvent(
+          ANALYTICS_EVENTS.BUY_CRYPTO_ACCOUNT_SELECTED,
+          {
+            assetId: targetAccount.assetId,
+          },
+        );
+      }
       setSelectedAccount(targetAccount);
     },
     [accountList],
@@ -81,6 +95,11 @@ export const BuySellAccountSelector = () => {
           source: 'Buy',
           id,
         });
+        if (id) {
+          analyticsService.trackEvent(
+            ANALYTICS_EVENTS.BUY_CRYPTO_PAYMENT_METHOD_SELECTED,
+          );
+        }
         handlePaymentMethodChange(id);
       },
       [handlePaymentMethodChange],
@@ -200,7 +219,6 @@ export const BuySellAccountSelector = () => {
                     dispatch(
                       openAddAccountDialog({
                         coinId: selectedCryptoCurrency?.coin.coin.id,
-                        walletId: selectedWallet.__id,
                       }),
                     )
                   }
@@ -215,7 +233,19 @@ export const BuySellAccountSelector = () => {
         </Container>
       </DialogBoxBody>
       <DialogBoxFooter>
-        <Button variant="secondary" onClick={onPreviousState}>
+        <Button
+          variant="secondary"
+          onClick={() => {
+            analyticsService.trackEvent(
+              ANALYTICS_EVENTS.BUY_CRYPTO_BACK_NAVIGATION,
+              {
+                fromStep: 'account_selection',
+                toStep: 'currency_selection',
+              },
+            );
+            onPreviousState();
+          }}
+        >
           <LangDisplay text={lang.strings.buttons.back} />
         </Button>
         <Button
@@ -223,7 +253,12 @@ export const BuySellAccountSelector = () => {
           disabled={
             !selectedWallet || !selectedAccount || !selectedPaymentMethod
           }
-          onClick={onNextState}
+          onClick={() => {
+            analyticsService.trackEvent(
+              ANALYTICS_EVENTS.BUY_CRYPTO_CONTINUE_TO_ORDER,
+            );
+            onNextState();
+          }}
         >
           <LangDisplay text={lang.strings.buttons.continue} />
         </Button>
