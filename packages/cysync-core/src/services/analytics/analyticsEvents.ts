@@ -48,6 +48,13 @@ export const ANALYTICS_EVENTS = {
   BUY_CRYPTO_ORDER_INITIATED: 'Buy Crypto - Order Initiated',
   BUY_CRYPTO_CANCELLED: 'Buy Crypto - Cancelled',
 
+  INHERITANCE_SETUP_PAGE_VIEWED: 'Inheritance - Setup Page Viewed',
+  INHERITANCE_SETUP_COVER_CLICKED: 'Inheritance - Setup Cover Clicked',
+  INHERITANCE_SYNC_MAIL_CLICKED: 'Inheritance - Sync Mail Clicked',
+  INHERITANCE_LEARN_MORE_CLICKED: 'Inheritance - Learn More Clicked',
+  INHERITANCE_SILVER_PLAN_CLICKED: 'Inheritance - Silver Plan Clicked',
+  INHERITANCE_GOLD_PLAN_CLICKED: 'Inheritance - Gold Plan Clicked',
+
   ACCOUNT_ADDED: 'Account - Added',
   ACCOUNT_DELETED: 'Account - Deleted',
   TOKEN_ADDED: 'Token - Added',
