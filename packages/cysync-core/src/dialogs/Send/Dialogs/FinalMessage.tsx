@@ -97,8 +97,6 @@ export const FinalMessage: React.FC = () => {
           variant="primary"
           onClick={() => {
             analyticsService.trackEvent(ANALYTICS_EVENTS.SEND_SUCCEEDED, {
-              transactionId: storedTransaction?.__id,
-              transactionHash: storedTransaction?.hash,
               action: 'completed',
             });
             showHistoryDialog();
