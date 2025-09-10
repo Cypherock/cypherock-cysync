@@ -1,33 +1,17 @@
 export const ANALYTICS_EVENTS = {
   ONBOARDING_INFO_PAGE_VIEWED: 'Onboarding - Info Page Viewed',
   ONBOARDING_INFO_CONTINUE_CLICKED: 'Onboarding - Info Continue Clicked',
-  ONBOARDING_USAGE_PAGE_VIEWED: 'Onboarding - Usage Page Viewed',
-  ONBOARDING_USAGE_CONTINUE_CLICKED: 'Onboarding - Usage Continue Clicked',
   ONBOARDING_TERMS_PAGE_VIEWED: 'Onboarding - Terms Page Viewed',
   ONBOARDING_TERMS_ACCEPTED: 'Onboarding - Terms Accepted',
   ONBOARDING_PASSWORD_PAGE_VIEWED: 'Onboarding - Password Page Viewed',
   ONBOARDING_PASSWORD_SET: 'Onboarding - Password Set',
   ONBOARDING_EMAIL_PAGE_VIEWED: 'Onboarding - Email Page Viewed',
   ONBOARDING_EMAIL_AUTHENTICATED: 'Onboarding - Email Authenticated',
-  ONBOARDING_DEVICE_DETECTION_PAGE_VIEWED:
-    'Onboarding - Device Detection Page Viewed',
-  ONBOARDING_DEVICE_DETECTED: 'Onboarding - Device Detected',
-  ONBOARDING_DEVICE_AUTH_PAGE_VIEWED: 'Onboarding - Device Auth Page Viewed',
-  ONBOARDING_DEVICE_AUTHENTICATED: 'Onboarding - Device Authenticated',
-  ONBOARDING_JOYSTICK_TRAINING_STARTED:
-    'Onboarding - Joystick Training Started',
-  ONBOARDING_JOYSTICK_TRAINED: 'Onboarding - Joystick Trained',
-  ONBOARDING_CARD_TRAINING_STARTED: 'Onboarding - Card Training Started',
-  ONBOARDING_CARD_TRAINED: 'Onboarding - Card Trained',
-  ONBOARDING_CARD_AUTH_STARTED: 'Onboarding - Card Auth Started',
   ONBOARDING_CARD_AUTHENTICATED: 'Onboarding - Card Authenticated',
-  ONBOARDING_APP_UPDATE_CHECKED: 'Onboarding - App Update Checked',
-  ONBOARDING_DEVICE_UPDATE_CHECKED: 'Onboarding - Device Update Checked',
   ONBOARDING_COMPLETED: 'Onboarding - Completed',
   ONBOARDING_CANCELLED: 'Onboarding - Cancelled',
 
   SEND_FLOW_STARTED: 'Send - Flow Started',
-  SEND_VIEWED_RECIPIENT_FORM: 'Send - Viewed Recipient Form',
   SEND_VIEWED_SUMMARY: 'Send - Viewed Summary',
   SEND_ATTEMPTED_SIGNING: 'Send - Attempted Signing',
   SEND_SUCCEEDED: 'Send - Succeeded',
@@ -76,19 +60,27 @@ export const ANALYTICS_EVENTS = {
   BUY_CRYPTO_BACK_NAVIGATION: 'Buy Crypto - Back Navigation',
   BUY_CRYPTO_RETRY_ATTEMPT: 'Buy Crypto - Retry Attempt',
 
+  PORTFOLIO_PAGE_VIEWED: 'Portfolio - Page Viewed',
+  PORTFOLIO_WALLET_SELECTED: 'Portfolio - Wallet Selected',
+  PORTFOLIO_ASSET_CLICKED: 'Portfolio - Asset Clicked',
+  PORTFOLIO_ADD_ACCOUNT_CLICKED: 'Portfolio - Add Account Clicked',
+
+  WALLET_PAGE_VIEWED: 'Wallet - Page Viewed',
+  WALLET_WALLET_SELECTED: 'Wallet - Wallet Selected',
+  WALLET_ACCOUNT_CLICKED: 'Wallet - Account Clicked',
+  WALLET_TOKEN_CLICKED: 'Wallet - Token Clicked',
+  WALLET_ADD_ACCOUNT_CLICKED: 'Wallet - Add Account Clicked',
+  WALLET_ADD_TOKEN_CLICKED: 'Wallet - Add Token Clicked',
+  WALLET_ACCOUNT_STATUS_CLICKED: 'Wallet - Account Status Clicked',
+  WALLET_SORT_CHANGED: 'Wallet - Sort Changed',
+  WALLET_SEARCH_USED: 'Wallet - Search Used',
+
   INHERITANCE_SETUP_PAGE_VIEWED: 'Inheritance - Setup Page Viewed',
   INHERITANCE_SETUP_COVER_CLICKED: 'Inheritance - Setup Cover Clicked',
   INHERITANCE_SYNC_MAIL_CLICKED: 'Inheritance - Sync Mail Clicked',
   INHERITANCE_LEARN_MORE_CLICKED: 'Inheritance - Learn More Clicked',
   INHERITANCE_SILVER_PLAN_CLICKED: 'Inheritance - Silver Plan Clicked',
   INHERITANCE_GOLD_PLAN_CLICKED: 'Inheritance - Gold Plan Clicked',
-
-  ACCOUNT_ADDED: 'Account - Added',
-  ACCOUNT_DELETED: 'Account - Deleted',
-  TOKEN_ADDED: 'Token - Added',
-
-  WALLET_ACTIONS_CREATE_INITIATED: 'Wallet Actions - Create Initiated',
-  WALLET_ACTIONS_IMPORT_INITIATED: 'Wallet Actions - Import Initiated',
 } as const;
 
 export type AnalyticsEvent =
