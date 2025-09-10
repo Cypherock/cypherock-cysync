@@ -16,6 +16,7 @@ import {
 import React, { useEffect } from 'react';
 
 import { LoaderDialog } from '~/components';
+import { analyticsService, ANALYTICS_EVENTS } from '~/services/analytics';
 import { selectLanguage, useAppSelector } from '~/store';
 
 import { useReceiveDialog } from '../context';
@@ -40,11 +41,18 @@ export const DeviceAction: React.FC = () => {
 
   useEffect(() => {
     if (deviceEvents[ReceiveDeviceEvent.CARD_TAPPED]) {
+      analyticsService.trackEvent(
+        ANALYTICS_EVENTS.RECEIVE_DEVICE_ACTION_COMPLETED,
+        {
+          action: 'card_tapped',
+        },
+      );
       onDeviceActionNext();
     }
   }, [deviceEvents]);
 
   useEffect(() => {
+    analyticsService.trackEvent(ANALYTICS_EVENTS.RECEIVE_DEVICE_ACTION_STARTED);
     startFlow();
   }, []);
 

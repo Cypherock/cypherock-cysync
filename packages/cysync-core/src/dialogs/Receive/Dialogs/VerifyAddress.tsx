@@ -14,6 +14,7 @@ import {
 } from '@cypherock/cysync-ui';
 import React, { useEffect } from 'react';
 
+import { analyticsService, ANALYTICS_EVENTS } from '~/services/analytics';
 import { selectLanguage, useAppSelector } from '~/store';
 
 import { AddressDisplay } from './Components';
@@ -40,6 +41,14 @@ export const VerifyAddress: React.FC = () => {
 
   useEffect(() => {
     if (!isFlowCompleted && deviceEvents[ReceiveDeviceEvent.VERIFIED]) {
+      analyticsService.trackEvent(
+        ANALYTICS_EVENTS.RECEIVE_ADDRESS_VERIFIED_ON_DEVICE,
+        {
+          assetId: selectedAccount?.assetId,
+          address: derivedAddress,
+          walletId: selectedAccount?.walletId,
+        },
+      );
       onAddressVerificationNext();
     }
   }, [deviceEvents]);

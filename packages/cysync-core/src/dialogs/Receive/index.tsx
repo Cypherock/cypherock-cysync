@@ -10,6 +10,7 @@ import {
 import React, { FC, useEffect, useState } from 'react';
 
 import { ErrorHandlerDialog, WithConnectedDevice } from '~/components';
+import { analyticsService, ANALYTICS_EVENTS } from '~/services/analytics';
 import { selectLanguage, useAppSelector } from '~/store';
 
 import {
@@ -137,7 +138,23 @@ export const Receive: FC = () => {
               </DeviceConnectionWrapper>
             </DialogBoxBody>
             <DialogBoxBackgroundBar
-              rightComponent={<CloseButton onClick={() => onClose()} />}
+              rightComponent={
+                <CloseButton
+                  onClick={() => {
+                    analyticsService.trackEvent(
+                      ANALYTICS_EVENTS.RECEIVE_DIALOG_CLOSED,
+                      {
+                        source:
+                          source === ReceiveFlowSource.SWAP
+                            ? 'swap'
+                            : 'default',
+                        isAddressVerified,
+                      },
+                    );
+                    onClose();
+                  }}
+                />
+              }
               position="top"
               useLightPadding
             />

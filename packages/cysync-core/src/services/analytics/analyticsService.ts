@@ -25,7 +25,7 @@ class AnalyticsService {
         debug: !isProduction,
         track_pageview: false,
         autocapture: false,
-        api_host: 'https://api-eu.mixpanel.com',
+        api_host: 'https://api.mixpanel.com',
         persistence: 'localStorage',
       });
       this.isInitialized = true;
