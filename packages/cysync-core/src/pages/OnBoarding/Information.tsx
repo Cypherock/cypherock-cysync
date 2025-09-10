@@ -10,9 +10,10 @@ import {
   DialogBoxFooter,
   Button,
 } from '@cypherock/cysync-ui';
-import React, { FC } from 'react';
+import React, { FC, useEffect } from 'react';
 
 import { routes } from '~/constants';
+import { analyticsService, ANALYTICS_EVENTS } from '~/services/analytics';
 import { useNavigateTo } from '~/hooks';
 import { selectLanguage, useAppSelector } from '~/store';
 
@@ -58,6 +59,9 @@ const InfoDialogBox: FC<{
       <DialogBoxFooter>
         <Button
           onClick={() => {
+            analyticsService.trackEvent(
+              ANALYTICS_EVENTS.ONBOARDING_INFO_CONTINUE_CLICKED,
+            );
             navigateTo(routes.onboarding.usage.path);
           }}
           variant="primary"
@@ -71,6 +75,10 @@ const InfoDialogBox: FC<{
 
 export const Information: React.FC = () => {
   const lang = useAppSelector(selectLanguage);
+
+  useEffect(() => {
+    analyticsService.trackEvent(ANALYTICS_EVENTS.ONBOARDING_INFO_PAGE_VIEWED);
+  }, []);
 
   return (
     <OnboardingPageLayout
