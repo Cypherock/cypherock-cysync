@@ -418,14 +418,9 @@ export const SwapProvider: React.FC<SwapProviderProps> = ({ children }) => {
     db.transaction.update({ __id: id }, { isSwap: true });
 
     analyticsService.trackEvent(ANALYTICS_EVENTS.SWAP_SUCCEEDED, {
-      transactionId: id,
       fromAsset: fromAccount?.assetId,
       toAsset: toAccount?.assetId,
-      fromAmount,
-      toAmount: quote?.toAmount,
       provider: quote?.provider?.name,
-      providerId: quote?.provider?.id,
-      fee: quote?.fee,
     });
   };
 
