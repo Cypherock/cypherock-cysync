@@ -1,8 +1,9 @@
 import { Container } from '@cypherock/cysync-ui';
-import React, { useLayoutEffect } from 'react';
+import React, { useEffect, useLayoutEffect } from 'react';
 
 import { ErrorHandlerDialog, LoaderDialog } from '~/components';
 import { BuySellState, useBuySell } from '~/context';
+import { analyticsService, ANALYTICS_EVENTS } from '~/services/analytics';
 import { selectLanguage, useAppSelector } from '~/store';
 
 import { BuySellAccountSelector } from './AccountSelector';
@@ -15,6 +16,32 @@ export const BuySell = () => {
   const lang = useAppSelector(selectLanguage);
   const { init, isInitializing, unhandledError, reset, state, onRetry } =
     useBuySell();
+
+  useEffect(() => {
+    analyticsService.trackEvent(ANALYTICS_EVENTS.BUY_CRYPTO_FLOW_STARTED);
+  }, []);
+
+  useEffect(() => {
+    switch (state) {
+      case BuySellState.CURRENCY_SELECT:
+        analyticsService.trackEvent(
+          ANALYTICS_EVENTS.BUY_CRYPTO_CURRENCY_PAGE_VIEWED,
+        );
+        break;
+      case BuySellState.ACCOUNT_SELECT:
+        analyticsService.trackEvent(
+          ANALYTICS_EVENTS.BUY_CRYPTO_ACCOUNT_PAGE_VIEWED,
+        );
+        break;
+      case BuySellState.ORDER:
+        analyticsService.trackEvent(
+          ANALYTICS_EVENTS.BUY_CRYPTO_ORDER_PAGE_VIEWED,
+        );
+        break;
+      default:
+        break;
+    }
+  }, [state]);
 
   useLayoutEffect(() => {
     reset();
