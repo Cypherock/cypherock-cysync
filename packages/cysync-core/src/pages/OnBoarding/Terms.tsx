@@ -21,6 +21,7 @@ import React, {
 } from 'react';
 
 import { constants, routes } from '~/constants';
+import { analyticsService, ANALYTICS_EVENTS } from '~/services/analytics';
 import { useLockscreen } from '~/context';
 import { useNavigateTo } from '~/hooks';
 import { selectLanguage, useAppSelector } from '~/store';
@@ -51,6 +52,7 @@ const TermsDialogBox: FC<{
   const { isPasswordSet } = useLockscreen();
   const navigateTo = useNavigateTo();
   const toNextPage = async () => {
+    analyticsService.trackEvent(ANALYTICS_EVENTS.ONBOARDING_TERMS_ACCEPTED);
     if (isPasswordSet) navigateTo(routes.onboarding.emailAuth.path);
     else navigateTo(routes.onboarding.setPassword.path);
   };
@@ -99,6 +101,10 @@ const TermsDialogBox: FC<{
 export const Terms: FC = () => {
   const lang = useAppSelector(selectLanguage);
   const [isChecked, setIsChecked] = useState(false);
+
+  useEffect(() => {
+    analyticsService.trackEvent(ANALYTICS_EVENTS.ONBOARDING_TERMS_PAGE_VIEWED);
+  }, []);
 
   const fetchTerms = async () => {
     setIsChecked(await keyValueStore.isTermsAccepted.get());
