@@ -30,7 +30,6 @@ export const ANALYTICS_EVENTS = {
   RECEIVE_DEVICE_ACTION_COMPLETED: 'Receive - Device Action Completed',
   RECEIVE_RETRY_ACTION: 'Receive - Retry Action',
   RECEIVE_CONTINUE_ACTION: 'Receive - Continue Action',
-  RECEIVE_DIALOG_CLOSED: 'Receive - Dialog Closed',
 
   SWAP_FLOW_STARTED: 'Swap - Flow Started',
   SWAP_QUOTES_REQUESTED: 'Swap - Quotes Requested',
