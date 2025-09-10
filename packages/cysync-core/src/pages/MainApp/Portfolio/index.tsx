@@ -5,9 +5,10 @@ import {
   SkeletonLoader,
 } from '@cypherock/cysync-ui';
 import { createSelector } from '@reduxjs/toolkit';
-import React, { FC } from 'react';
+import React, { FC, useEffect } from 'react';
 
 import { openAddAccountDialog } from '~/actions';
+import { analyticsService, ANALYTICS_EVENTS } from '~/services/analytics';
 import {
   selectLanguage,
   selectUnHiddenAccounts,
@@ -35,10 +36,15 @@ export const Portfolio: FC = () => {
   const { lang, wallets, accounts } = useAppSelector(selector);
   const dispatch = useAppDispatch();
 
+  useEffect(() => {
+    analyticsService.trackEvent(ANALYTICS_EVENTS.PORTFOLIO_PAGE_VIEWED);
+  }, []);
+
   const handleAddAccountClick = () => {
     logger.info('Button Click: Add Account', {
       source: `${Portfolio.name}/NoAccountWrapper`,
     });
+    analyticsService.trackEvent(ANALYTICS_EVENTS.PORTFOLIO_ADD_ACCOUNT_CLICKED);
     dispatch(openAddAccountDialog());
   };
 
