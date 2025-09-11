@@ -28,6 +28,11 @@ const BaseLangDisplay: React.FC<LangDisplayProps> = ({
 
   if ($allowMarkdown) {
     parsedText = marked.parseInline(parsedText) as string;
+
+    parsedText = parsedText.replace(
+      /<a\s/g,
+      `<a style="color: inherit; text-decoration: underline;" `,
+    );
   }
 
   return (

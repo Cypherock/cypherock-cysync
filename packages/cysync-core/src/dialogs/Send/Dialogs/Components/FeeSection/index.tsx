@@ -100,7 +100,7 @@ const getErrorAndWarningComponents = (
       {solanaTxnValidation?.isRentExemptFeeRequired && (
         <MessageBox type="warning" text={displayText.rentExemptFeeWarning} />
       )}
-      {showErrors && txnValidation?.hasEnoughBalance === false && (
+      {showErrors && !txnValidation?.hasEnoughBalance && (
         <MessageBox type="danger" text={displayText.notEnoughBalance} />
       )}
     </>

@@ -16,6 +16,7 @@ import {
 } from '@cypherock/coin-support-starknet';
 import {
   IPreparedStellarTransaction,
+  IPreparedStellarTransactionOutput,
   IStellarMemo,
   IStellarMemoType,
 } from '@cypherock/coin-support-stellar';
@@ -28,7 +29,10 @@ import {
   getParsedAmount,
   getZeroUnit,
 } from '@cypherock/coin-support-utils';
-import { IPreparedXrpTransaction } from '@cypherock/coin-support-xrp';
+import {
+  IPreparedXrpTransaction,
+  IPreparedXrpTransactionOutput,
+} from '@cypherock/coin-support-xrp';
 import { coinFamiliesMap, CoinFamily } from '@cypherock/coins';
 import { ServerError, ServerErrorType } from '@cypherock/cysync-core-constants';
 import { DropDownItemProps, parseLangTemplate } from '@cypherock/cysync-ui';
@@ -825,7 +829,19 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
   ) => {
     const { userInputs } = initTransaction;
     if (familyId === 'xrp') {
-      (userInputs.outputs[0] as any).destinationTag = parseInt(data, 10);
+      (
+        userInputs.outputs[0] as unknown as IPreparedXrpTransactionOutput
+      ).destinationTag = parseInt(data, 10);
+    } else if (familyId === 'stellar') {
+      const memo: IStellarMemo = {
+        type: data.match(/^[0-9]+$/)
+          ? IStellarMemoType.ID
+          : IStellarMemoType.TEXT,
+        value: data,
+      };
+      (
+        userInputs.outputs[0] as unknown as IPreparedStellarTransactionOutput
+      ).memo = memo;
     }
     return userInputs;
   };

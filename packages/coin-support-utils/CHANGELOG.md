@@ -1,5 +1,15 @@
 # @cypherock/coin-support-utils
 
+## 0.0.20-pre.0
+
+### Patch Changes
+
+- Updated dependencies [[`d57d8d65`](https://github.com/Cypherock/cypherock-cysync/commit/d57d8d65dfca075c39537e33b243827edaf36263)]:
+  - @cypherock/db-interfaces@0.1.1-pre.0
+  - @cypherock/coin-support-interfaces@0.0.11-pre.0
+  - @cypherock/cysync-interfaces@0.0.10-pre.0
+  - @cypherock/cysync-utils@0.0.12-pre.0
+
 ## 0.0.19
 
 ### Patch Changes
