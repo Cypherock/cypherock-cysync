@@ -1,6 +1,6 @@
 {
   "name": "@cypherock/coin-support-icp",
-  "version": "1.0.4-pre.0",
+  "version": "1.0.4",
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
   "types": "dist/esm/index.d.ts",

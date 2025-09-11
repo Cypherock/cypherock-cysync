@@ -1,5 +1,16 @@
 # @cypherock/coin-support-starknet
 
+## 1.0.7
+
+### Patch Changes
+
+- Updated dependencies [[`d57d8d65`](https://github.com/Cypherock/cypherock-cysync/commit/d57d8d65dfca075c39537e33b243827edaf36263)]:
+  - @cypherock/db-interfaces@0.1.1
+  - @cypherock/coin-support-interfaces@0.0.11
+  - @cypherock/coin-support-utils@0.0.20
+  - @cypherock/cysync-interfaces@0.0.10
+  - @cypherock/cysync-utils@0.0.12
+
 ## 1.0.7-pre.0
 
 ### Patch Changes

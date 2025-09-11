@@ -1,5 +1,16 @@
 # @cypherock/cysync-desktop
 
+## 2.2.1
+
+### Patch Changes
+
+- Updated dependencies [[`d57d8d65`](https://github.com/Cypherock/cypherock-cysync/commit/d57d8d65dfca075c39537e33b243827edaf36263)]:
+  - @cypherock/db-interfaces@0.1.1
+  - @cypherock/database@0.1.4
+  - @cypherock/cysync-interfaces@0.0.10
+  - @cypherock/cysync-desktop-ui@0.0.32
+  - @cypherock/cysync-utils@0.0.12
+
 ## 2.2.1-pre.0
 
 ### Patch Changes

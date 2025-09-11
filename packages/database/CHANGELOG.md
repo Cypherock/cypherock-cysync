@@ -1,5 +1,16 @@
 # @cypherock/database
 
+## 0.1.4
+
+### Patch Changes
+
+- [#804](https://github.com/Cypherock/cypherock-cysync/pull/804) [`d57d8d65`](https://github.com/Cypherock/cypherock-cysync/commit/d57d8d65dfca075c39537e33b243827edaf36263) Thanks [@AryanCypherock](https://github.com/AryanCypherock)! - Swap provider added
+
+- Updated dependencies [[`d57d8d65`](https://github.com/Cypherock/cypherock-cysync/commit/d57d8d65dfca075c39537e33b243827edaf36263)]:
+  - @cypherock/db-interfaces@0.1.1
+  - @cypherock/cysync-interfaces@0.0.10
+  - @cypherock/cysync-utils@0.0.12
+
 ## 0.1.4-pre.0
 
 ### Patch Changes
