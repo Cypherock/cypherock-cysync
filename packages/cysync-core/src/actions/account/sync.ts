@@ -50,9 +50,18 @@ const updateSwapReceiveTransactions = async () => {
           payoutTxnHash = payoutTxnHash ?? data.data.payoutHash;
         } else if (exchangeStatus === 'failed') {
           swapStatus = SwapStatus.Failed;
+        } else if (exchangeStatus === 'hold') {
+          swapStatus = SwapStatus.Hold;
+        } else if (exchangeStatus === 'expired') {
+          swapStatus = SwapStatus.Expired;
         }
       }
-    } else if (swapStatus === SwapStatus.Failed) continue;
+    } else if (
+      swapStatus === SwapStatus.Failed ||
+      swapStatus === SwapStatus.Expired
+    ) {
+      continue;
+    }
 
     const swapData = {
       ...txn.swapData,

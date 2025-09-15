@@ -2929,15 +2929,19 @@
       "heading": {
         "success": "Tausch Erfolgreich",
         "pending": "Tausch Ausstehend",
-        "failed": "Tausch Fehlgeschlagen"
+        "failed": "Tausch Fehlgeschlagen",
+        "hold": "Tausch auf Halt",
+        "expired": "Tausch abgelaufen"
       },
       "description": "",
       "amountSent": "Gesendeter Betrag",
       "amountReceived": "Erhaltener Betrag",
       "transactionID": "Transaktions-ID",
       "messageBox": {
-        "warning": "Ihr Kontostand wird aktualisiert, wenn die Blockchain die Transaktion bestätigt",
-        "danger": "Das Netzwerk hat den folgenden Fehler zurückgegeben:"
+        "pending": "Ihr Kontostand wird aktualisiert, wenn die Blockchain die Transaktion bestätigt",
+        "failed": "Das Netzwerk hat den folgenden Fehler zurückgegeben:",
+        "hold": "Your transaction has been placed on hold for security verification. To proceed, please contact ${providerName} security team at ${providerEmail} for further instructions.",
+        "expired": "Tausch abgelaufen"
       },
       "button": {
         "backToSwap": "Zurück zum Tauschen"

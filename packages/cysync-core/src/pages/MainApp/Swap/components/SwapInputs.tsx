@@ -29,7 +29,8 @@ const AmountInput: React.FC<any> = ({
 }) => {
   const inputRef = useRef<HTMLInputElement | null>(null);
   const filterNumericInput = (val: string) => {
-    let filteredValue = val.replace(/[^0-9.]/g, '');
+    const [firstPart] = val.split(' ');
+    let filteredValue = firstPart.replace(/[^0-9.]/g, '');
     const bigNum = new BigNumber(filteredValue);
 
     if (filteredValue.includes('.')) {

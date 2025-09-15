@@ -8,7 +8,7 @@ import { HistoryNameBox } from '../HistoryNameBox';
 import { TableNameBox } from '../TableNameBox';
 import { RowWrapper, RowContainer } from '../TableStyles';
 
-type SwapStatus = 'success' | 'pending' | 'failed';
+type SwapStatus = 'success' | 'pending' | 'failed' | 'hold' | 'expired';
 
 export interface SwapTableRowProps {
   id: string;
@@ -36,6 +36,8 @@ export const getSwapFillFromStatus = (status: SwapStatus, theme: ThemeType) => {
     success: theme.palette.text.success,
     pending: theme.palette.text.warn,
     failed: theme.palette.text.error,
+    hold: theme.palette.text.warn,
+    expired: theme.palette.text.error,
   };
 
   return map[status];

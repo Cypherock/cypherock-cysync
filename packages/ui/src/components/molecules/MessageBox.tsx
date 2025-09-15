@@ -83,7 +83,7 @@ export const MessageBox: FC<{
           color={textColor ?? 'muted'}
           $textAlign={$textAlign ?? 'left'}
         >
-          <LangDisplay text={text} variables={variables} />
+          <LangDisplay text={text} variables={variables} $allowMarkdown />
           {!altText && rightImage && rightImage}
           {showQuestionmark && <GoldQuestionMark ml={1} />}
         </Typography>

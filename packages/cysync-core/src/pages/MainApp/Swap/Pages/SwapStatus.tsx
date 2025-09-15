@@ -17,14 +17,18 @@ import {
   DialogBoxFooter,
   Button,
   successIcon,
-  warningIcon,
   GoldExternalLink,
+  MessageBox,
+  SwapInformationIcon,
+  parseLangTemplate,
+  useTheme,
 } from '@cypherock/cysync-ui';
 import { BigNumber } from '@cypherock/cysync-utils';
 import {
   SwapStatus as SwapStates,
   AccountTypeMap,
   IAccount,
+  ISwapData,
 } from '@cypherock/db-interfaces';
 import React, { useEffect, useState } from 'react';
 
@@ -58,8 +62,11 @@ export const SwapStatus = () => {
     closeExchange,
     updateTransactionSwapData,
     transactionId,
+    providerDetails,
   } = useSwap();
   const [providerUrl, setProviderUrl] = useState<string>();
+  const [providerEmail, setProviderEmail] = useState<string>();
+  const theme = useTheme();
 
   const updateState = async () => {
     if (state !== SwapStates.Pending) return;
@@ -71,7 +78,7 @@ export const SwapStatus = () => {
       if (result.status === 200) {
         const url = result?.data?.data?.providerUrl;
         setProviderUrl(url);
-        let swapData;
+        let swapData: ISwapData;
 
         if (
           transactionId.current &&
@@ -93,6 +100,8 @@ export const SwapStatus = () => {
             swapId: exchangeDetails.id,
             providerUrl: url,
             providerId: quote.provider.id,
+            providerImageUrl: quote.provider.imageUrl,
+            providerName: quote.provider.name,
             payoutTxnHash: result.data.data.payoutHash,
             swapStatus: SwapStates.Pending,
             isReceiveUpdated: false,
@@ -115,6 +124,23 @@ export const SwapStatus = () => {
             swapData = {
               ...swapData,
               swapStatus: SwapStates.Success,
+            };
+          } else if (result.data.data.status === 'hold') {
+            setState(SwapStates.Hold);
+            const providerId = quote.provider.id;
+            const providerSupportMail = providerDetails
+              ? providerDetails[providerId].complianceEmail
+              : '';
+            setProviderEmail(providerSupportMail);
+            swapData = {
+              ...swapData,
+              swapStatus: SwapStates.Hold,
+            };
+          } else if (result.data.data.status === 'expired') {
+            setState(SwapStates.Expired);
+            swapData = {
+              ...swapData,
+              swapStatus: SwapStates.Expired,
             };
           } else if (result.data.data.status === 'failed') {
             setState(SwapStates.Failed);
@@ -205,20 +231,40 @@ export const SwapStatus = () => {
     return outputDetails;
   };
 
+  const StatusIconMap = {
+    [SwapStates.Success]: <Image src={successIcon} alt="Success Icon" />,
+    [SwapStates.Pending]: (
+      <SwapInformationIcon color={theme.palette.warn.main} />
+    ),
+    [SwapStates.Hold]: <SwapInformationIcon color={theme.palette.warn.main} />,
+    [SwapStates.Expired]: (
+      <SwapInformationIcon color={theme.palette.error.main} />
+    ),
+    [SwapStates.Failed]: (
+      <SwapInformationIcon color={theme.palette.error.main} />
+    ),
+  };
+
   return (
     <Container width="full" height="full">
       <DialogBox width={600}>
         <DialogBoxBody p={0} pt={5}>
-          <Image
-            src={state === SwapStates.Success ? successIcon : warningIcon}
-            alt="Status Icon"
-          />
+          {StatusIconMap[state]}
           <Typography variant="h5" $textAlign="center">
             <LangDisplay text={`${displayText.heading[state]}`} />
           </Typography>
 
           <ScrollableContainer $maxHeight={{ def: '40vh', lg: '65vh' }}>
             <DialogBoxBody p={0} px={4} pb={5} gap={24}>
+              {state === SwapStates.Hold && (
+                <MessageBox
+                  text={parseLangTemplate(displayText.messageBox.hold, {
+                    providerName: quote?.provider.name,
+                    providerEmail: `[**${providerEmail}**](mailto:${providerEmail})`,
+                  })}
+                  type="warning"
+                />
+              )}
               <SummaryBox
                 items={[
                   {

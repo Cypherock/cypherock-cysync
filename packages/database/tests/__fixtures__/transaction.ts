@@ -313,6 +313,8 @@ class TransactionData implements ITestClass<ITransaction> {
       swapData: {
         providerUrl: 'https://changenow.io/exchange/txs/d282997acb6abf',
         providerId: 'changenow',
+        providerName: 'ChangeNow',
+        providerImageUrl: 'https://changenow.io/favicon.ico',
         payoutTxnHash:
           '0xa4143c543227f170347c8e93cc988e5b8e1bf86f7e92c7f8c9b4493540ffa938',
         isReceiveUpdated: true,
@@ -359,6 +361,8 @@ class TransactionData implements ITestClass<ITransaction> {
       swapData: {
         providerUrl: 'https://changenow.io/exchange/txs/d282997acb6abf',
         providerId: 'changenow',
+        providerName: 'ChangeNow',
+        providerImageUrl: 'https://changenow.io/favicon.ico',
         payoutTxnHash:
           '0xa4143c543227f170347c8e93cc988e5b8e1bf86f7e92c7f8c9b4493540ffa938',
         isReceiveUpdated: true,
@@ -405,6 +409,8 @@ class TransactionData implements ITestClass<ITransaction> {
       swapData: {
         providerUrl: 'https://changenow.io/exchange/txs/d282997acb6abf',
         providerId: 'changenow',
+        providerName: 'ChangeNow',
+        providerImageUrl: 'https://changenow.io/favicon.ico',
         payoutTxnHash:
           '0xa4143c543227f170347c8e93cc988e5b8e1bf86f7e92c7f8c9b4493540ffa938',
         isReceiveUpdated: true,
@@ -451,6 +457,8 @@ class TransactionData implements ITestClass<ITransaction> {
       swapData: {
         providerUrl: 'https://changenow.io/exchange/txs/d282997acb6abf',
         providerId: 'changenow',
+        providerName: 'ChangeNow',
+        providerImageUrl: 'https://changenow.io/favicon.ico',
         payoutTxnHash:
           '0xa4143c543227f170347c8e93cc988e5b8e1bf86f7e92c7f8c9b4493540ffa938',
         isReceiveUpdated: true,

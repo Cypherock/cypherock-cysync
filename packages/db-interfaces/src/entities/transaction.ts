@@ -9,6 +9,11 @@ export const TransactionStatusMap = {
 export type TransactionStatus =
   (typeof TransactionStatusMap)[keyof typeof TransactionStatusMap];
 
+export enum SupportedProviders {
+  CHANGELLY = 'changelly',
+  CHANGENOW = 'changenow',
+}
+
 export const TransactionTypeMap = {
   receive: 'receive',
   send: 'send',
@@ -22,6 +27,8 @@ export enum SwapStatus {
   Pending = 'pending',
   Failed = 'failed',
   Success = 'success',
+  Hold = 'hold',
+  Expired = 'expired',
 }
 
 export type TransactionType =
@@ -37,6 +44,8 @@ export interface ISwapData {
   swapId: string;
   providerUrl: string;
   providerId: string;
+  providerName: string;
+  providerImageUrl: string;
   payoutTxnHash?: string;
   isReceiveUpdated: boolean;
   swapStatus: SwapStatus;
