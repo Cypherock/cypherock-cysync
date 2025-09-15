@@ -146,10 +146,11 @@ const getConfig = (): IConfig => {
   }
 
   const MIXPANEL_TOKEN =
-    IS_PRODUCTION &&
-    (jsonConfig.BUILD_TYPE !== 'debug' || jsonConfig.LOG_LEVEL !== 'debug')
-      ? process.env.MIXPANEL_TOKEN_PROD ?? ''
-      : process.env.MIXPANEL_TOKEN_DEV ?? '';
+    (!IS_PRODUCTION && !IS_TEST) ||
+    jsonConfig.BUILD_TYPE === 'debug' ||
+    jsonConfig.LOG_LEVEL === 'debug'
+      ? process.env.MIXPANEL_TOKEN_DEV ?? ''
+      : process.env.MIXPANEL_TOKEN_PROD ?? '';
 
   const config: IConfig = {
     BUILD_TYPE: jsonConfig.BUILD_TYPE,
