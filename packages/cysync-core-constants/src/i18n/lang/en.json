@@ -2920,15 +2920,19 @@
       "heading": {
         "success": "Swap Successful",
         "pending": "Swap Pending",
-        "failed": "Swap Failed"
+        "failed": "Swap Failed",
+        "hold": "Swap Hold",
+        "expired": "Swap Expired"
       },
       "description": "",
       "amountSent": "Amount Sent",
       "amountReceived": "Amount Received",
       "transactionID": "Transaction ID",
       "messageBox": {
-        "warning": "Your account balance will be updated when the blockchain confirms the transaction",
-        "danger": "The network returned the following error:"
+        "pending": "Your account balance will be updated when the blockchain confirms the transaction",
+        "failed": "The network returned the following error:",
+        "hold": "Your transaction has been placed on hold for security verification. To proceed, please contact ${providerName} security team at ${providerEmail} for further instructions.",
+        "expired": "Your swap has expired"
       },
       "button": {
         "backToSwap": "Back to Swap"

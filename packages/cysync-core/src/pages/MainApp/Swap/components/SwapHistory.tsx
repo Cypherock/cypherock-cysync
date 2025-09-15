@@ -18,11 +18,13 @@ import React, { useEffect, useRef } from 'react';
 import * as Virtualize from 'react-virtualized/dist/umd/react-virtualized';
 
 import { openReceiveDialog } from '~/actions';
+import { useSwap } from '~/context';
 import { useSwapTransactions, useWindowSize } from '~/hooks';
 import { useAppSelector, selectLanguage } from '~/store';
 import { downloadCSVToDesktop } from '~/utils';
 
 export const SwapHistory = ({ topbarHeight }: { topbarHeight: number }) => {
+  const { providerDetails } = useSwap();
   const {
     strings,
     dispatch,
@@ -34,7 +36,7 @@ export const SwapHistory = ({ topbarHeight }: { topbarHeight: number }) => {
     onSort,
     displayedData,
     handleTransactionTableRow,
-  } = useSwapTransactions();
+  } = useSwapTransactions(providerDetails);
   const theme = useTheme();
   const { windowHeight } = useWindowSize();
   const listRef = useRef<any>(null);

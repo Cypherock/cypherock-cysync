@@ -1928,14 +1928,18 @@ interface LangSwap {
       success: string;
       pending: string;
       failed: string;
+      hold: string;
+      expired: string;
     };
     description: string;
     amountSent: string;
     amountReceived: string;
     transactionID: string;
     messageBox: {
-      warning: string;
-      danger: string;
+      pending: string;
+      failed: string;
+      hold: string;
+      expired: string;
     };
     button: {
       backToSwap: string;

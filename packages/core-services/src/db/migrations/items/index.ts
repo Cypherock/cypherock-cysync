@@ -6,6 +6,7 @@ import maticToPol from './004.maticToPol';
 import erc20Migrations5 from './005.erc20Token';
 import resetSolanaTxnHistory from './006.resetSolanaTxnHistory';
 import erc20Migrations7 from './007.erc20Token';
+import updateSwapTxnHistory from './008.updateSwapTxnHistory';
 
 export const migrationItems = [
   erc20Migrations,
@@ -16,4 +17,5 @@ export const migrationItems = [
   erc20Migrations5,
   resetSolanaTxnHistory,
   erc20Migrations7,
+  updateSwapTxnHistory,
 ];
