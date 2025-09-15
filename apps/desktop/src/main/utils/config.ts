@@ -61,6 +61,7 @@ const configValidators = {
   CHANNEL: (val?: string) => !!val,
   SIMULATE_PRODUCTION: (val?: boolean) => typeof val === 'boolean',
   ALLOW_PRERELEASE: (val?: boolean) => typeof val === 'boolean',
+  MIXPANEL_TOKEN: (val?: string) => typeof val === 'string' && val.length > 0,
 } as const;
 
 const validateJsonConfig = () => {
@@ -145,13 +146,6 @@ const getConfig = (): IConfig => {
     IS_PRODUCTION = false;
   }
 
-  const MIXPANEL_TOKEN =
-    (!IS_PRODUCTION && !IS_TEST) ||
-    jsonConfig.BUILD_TYPE === 'debug' ||
-    jsonConfig.LOG_LEVEL === 'debug'
-      ? process.env.MIXPANEL_TOKEN_DEV ?? ''
-      : process.env.MIXPANEL_TOKEN_PROD ?? '';
-
   const config: IConfig = {
     BUILD_TYPE: jsonConfig.BUILD_TYPE,
     BUILD_VERSION: jsonConfig.BUILD_VERSION,
@@ -171,7 +165,10 @@ const getConfig = (): IConfig => {
     ),
     RELEASE_NOTES: getReleaseNotes(),
     OS: os.platform(),
-    MIXPANEL_TOKEN,
+    MIXPANEL_TOKEN: getFromExternalEnv(
+      'MIXPANEL_TOKEN',
+      jsonConfig.MIXPANEL_TOKEN,
+    ),
   };
 
   return config;
