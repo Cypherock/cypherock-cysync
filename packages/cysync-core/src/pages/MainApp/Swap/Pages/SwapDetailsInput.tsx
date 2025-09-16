@@ -112,9 +112,9 @@ export const SwapDetailsInput = () => {
     let newRange;
     if (
       !(
-        fromAccount !== undefined &&
+        from !== undefined &&
         !new BigNumber(amount).isNaN() &&
-        toAccount !== undefined
+        to !== undefined
       )
     ) {
       setQuotes(newQuotes);
