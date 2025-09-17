@@ -5,6 +5,7 @@ import {
   ProgressDialog,
   parseLangTemplate,
 } from '@cypherock/cysync-ui';
+import { FirmwareVariant } from '@cypherock/sdk-app-manager';
 import React, { FC, ReactElement, useEffect, useRef } from 'react';
 import { useDispatch } from 'react-redux';
 
@@ -22,7 +23,13 @@ import {
   useDevice,
 } from '..';
 
-export const DeviceUpdateDialog: FC = () => {
+export interface IDeviceUpdateDialogProps {
+  variant?: FirmwareVariant;
+}
+
+export const DeviceUpdateDialog: FC<IDeviceUpdateDialogProps> = ({
+  variant,
+}) => {
   const lang = useAppSelector(selectLanguage);
   const dispatch = useDispatch();
   const { deviceHandlingState, connection } = useDevice();
@@ -30,7 +37,7 @@ export const DeviceUpdateDialog: FC = () => {
   const timeoutRef = useRef<ReturnType<typeof setTimeout>>();
 
   const { state, downloadProgress, version, errorToShow, onRetry } =
-    useDeviceUpdate();
+    useDeviceUpdate(variant);
 
   const onClose = () => {
     if (
@@ -125,4 +132,8 @@ export const DeviceUpdateDialog: FC = () => {
       </ErrorHandlerDialog>
     </BlurOverlay>
   );
+};
+
+DeviceUpdateDialog.defaultProps = {
+  variant: undefined,
 };

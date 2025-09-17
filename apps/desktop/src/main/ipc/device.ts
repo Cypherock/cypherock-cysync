@@ -1,5 +1,5 @@
 import { GetDevices } from '@cypherock/cysync-interfaces';
-import { ManagerApp } from '@cypherock/sdk-app-manager';
+import { FirmwareVariant, ManagerApp } from '@cypherock/sdk-app-manager';
 import { DeviceConnection as DeviceConnectionHID } from '@cypherock/sdk-hw-hid';
 import { DeviceConnection as DeviceConnectionSerialPort } from '@cypherock/sdk-hw-serialport';
 import {
@@ -61,10 +61,12 @@ const connectedDeviceMethodCall = async (
 const updateDeviceFirmware = async ({
   firmware,
   version,
+  variant,
   allowPrerelease,
 }: {
   firmware: Uint8Array;
   version: { major: number; minor: number; patch: number };
+  variant: FirmwareVariant;
   allowPrerelease?: boolean;
 }) => {
   const connected = deviceUtils.getConnectedDevice();
@@ -80,6 +82,7 @@ const updateDeviceFirmware = async ({
   await app.updateFirmware({
     firmware,
     version,
+    variant,
     allowPrerelease,
     getDevices,
     createConnection: async (device: IDevice) =>
