@@ -4,11 +4,18 @@ import {
   ProgressDialog,
   SuccessDialog,
 } from '@cypherock/cysync-ui';
+import { FirmwareVariant } from '@cypherock/sdk-app-manager';
+import { firmwareVariantFromJSON } from '@cypherock/sdk-app-manager/dist/proto/generated/common';
 import React, { FC, useEffect, ReactElement } from 'react';
 
 import { ErrorHandlerDialog } from '~/components';
 import { routes } from '~/constants';
-import { useNavigateTo, useDeviceUpdate, DeviceUpdateState } from '~/hooks';
+import {
+  useNavigateTo,
+  useDeviceUpdate,
+  DeviceUpdateState,
+  useQuery,
+} from '~/hooks';
 import { useAppSelector, selectLanguage } from '~/store';
 import { getCloseAppMethod } from '~/utils';
 
@@ -19,6 +26,17 @@ export const DeviceUpdateDialogBox: FC = () => {
 
   const navigateTo = useNavigateTo();
 
+  const query = useQuery();
+  const variant = query.get('variant');
+  let firmwareVariant: FirmwareVariant | undefined =
+    firmwareVariantFromJSON(variant);
+  if (
+    firmwareVariant !== FirmwareVariant.BTC_ONLY &&
+    firmwareVariant !== FirmwareVariant.MULTI_COIN
+  ) {
+    firmwareVariant = undefined;
+  }
+
   const toNextPage = () => {
     navigateTo(
       `${routes.onboarding.deviceAuthentication.path}?disableNavigation=true`,
@@ -26,7 +44,7 @@ export const DeviceUpdateDialogBox: FC = () => {
   };
 
   const { state, downloadProgress, version, errorToShow, onRetry } =
-    useDeviceUpdate();
+    useDeviceUpdate(firmwareVariant);
 
   useEffect(() => {
     if (state === DeviceUpdateState.NotRequired) {

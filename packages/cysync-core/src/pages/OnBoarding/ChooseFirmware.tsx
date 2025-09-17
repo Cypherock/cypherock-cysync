@@ -11,13 +11,14 @@ import {
   Typography,
   cysyncLogoBig,
 } from '@cypherock/cysync-ui';
-import React, { useState } from 'react';
+import { FirmwareVariant } from '@cypherock/sdk-app-manager';
+import { firmwareVariantToJSON } from '@cypherock/sdk-app-manager/dist/proto/generated/common';
+import React from 'react';
 
-import { setIsLastConnectedFirmwareBtcOnly } from '~/actions/lastConnectedFirmware';
 import { WithConnectedDevice } from '~/components';
 import { routes } from '~/constants';
 import { useNavigateTo } from '~/hooks';
-import { selectLanguage, useAppDispatch, useAppSelector } from '~/store';
+import { selectLanguage, useAppSelector } from '~/store';
 
 import { OnboardingPageLayout } from './OnboardingPageLayout';
 
@@ -35,15 +36,15 @@ const ChooseFirmwareCard: React.FC<ChooseFirmwareCardProps> = ({
   const lang = useAppSelector(selectLanguage);
   const { buttons } = lang.strings;
 
-  const dispatch = useAppDispatch();
   const navigateTo = useNavigateTo();
-  const [isLoading, setIsLoading] = useState(false);
 
   const handleContinue = async (isBtcOnlyParam: boolean) => {
-    setIsLoading(true);
-    dispatch(setIsLastConnectedFirmwareBtcOnly(isBtcOnlyParam));
-    setIsLoading(false);
-    navigateTo(`${routes.onboarding.deviceUpdate.path}?disableNavigation=true`);
+    const targetVariant = firmwareVariantToJSON(
+      isBtcOnlyParam ? FirmwareVariant.BTC_ONLY : FirmwareVariant.MULTI_COIN,
+    );
+    navigateTo(
+      `${routes.onboarding.deviceUpdate.path}?disableNavigation=true&variant=${targetVariant}`,
+    );
   };
 
   return (
@@ -65,11 +66,7 @@ const ChooseFirmwareCard: React.FC<ChooseFirmwareCardProps> = ({
         </Flex>
       </DialogBoxBody>
       <DialogBoxFooter py={4} px={5}>
-        <Button
-          variant="primary"
-          disabled={isLoading}
-          onClick={() => handleContinue(isBtcOnly)}
-        >
+        <Button variant="primary" onClick={() => handleContinue(isBtcOnly)}>
           <LangDisplay text={buttons.continue} />
         </Button>
       </DialogBoxFooter>
