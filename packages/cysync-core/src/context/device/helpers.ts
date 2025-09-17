@@ -1,6 +1,6 @@
 import { ConnectDevice } from '@cypherock/cysync-interfaces';
 import {
-  IGetDeviceInfoResultResponse,
+  GetDeviceInfoResult,
   IGetWalletsResultResponse,
   ManagerApp,
   OnboardingStep,
@@ -24,7 +24,7 @@ export const DEVICE_LISTENER_INTERVAL = 1000;
 export const MAX_CONNECTION_RETRY = 3;
 
 export interface IConnectedDeviceInfo
-  extends IGetDeviceInfoResultResponse,
+  extends GetDeviceInfoResult,
     IGetWalletsResultResponse {}
 
 export const checkIfSameDevice = (a: IDevice, b: IDevice) =>
@@ -37,10 +37,7 @@ export const checkIfSameDevice = (a: IDevice, b: IDevice) =>
 export const checkIfDeviceInList = (list: IDevice[], device: IDevice) =>
   list.findIndex(e => checkIfSameDevice(e, device)) !== -1;
 
-export const getDeviceState = (
-  device: IDevice,
-  info?: IGetDeviceInfoResultResponse,
-) => {
+export const getDeviceState = (device: IDevice, info?: GetDeviceInfoResult) => {
   let { deviceState } = device;
 
   if (info?.isInitial) {
@@ -68,6 +65,7 @@ export const createDeviceConnectionInfo = (
   firmwareVersion: info?.firmwareVersion
     ? `${info.firmwareVersion.major}.${info.firmwareVersion.minor}.${info.firmwareVersion.patch}`
     : undefined,
+  firmwareVariantInfo: info?.firmwareVariantInfo,
   serial: info?.deviceSerial ? uint8ArrayToHex(info.deviceSerial) : undefined,
   walletList: info?.walletList,
   isAuthenticated: info?.isAuthenticated,
