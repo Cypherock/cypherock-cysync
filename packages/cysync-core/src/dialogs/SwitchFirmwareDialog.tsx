@@ -6,11 +6,11 @@ import {
   IconDialogBox,
   InfoItalicsIcon,
 } from '@cypherock/cysync-ui';
+import { FirmwareVariant } from '@cypherock/sdk-app-manager';
 import React, { FC, useCallback, useRef, useState } from 'react';
 import { createSelector } from '@reduxjs/toolkit';
 import { useTheme } from 'styled-components';
 
-import { setIsLastConnectedFirmwareBtcOnly } from '~/actions/lastConnectedFirmware';
 import { openDeviceUpdateDialog } from '~/actions';
 import { useCountdown } from '~/hooks';
 import {
@@ -37,7 +37,6 @@ export const SwitchFirmwareDialog: FC = () => {
   const startTimeRef = useRef(new Date().getTime() + 12 * 1000);
   const { seconds: remainingSeconds } = useCountdown(startTimeRef.current);
   const [isChecked, setIsChecked] = useState(false);
-  const [loading, setLoading] = useState(false);
 
   const texts = strings.dialogs.switchFirmwareDialog;
   const { title, subtext } = isFirmwareBtcOnly
@@ -49,12 +48,15 @@ export const SwitchFirmwareDialog: FC = () => {
   }, [dispatch]);
 
   const onInstallFirmware = useCallback(() => {
-    setLoading(true);
-    dispatch(setIsLastConnectedFirmwareBtcOnly(!isFirmwareBtcOnly));
-    dispatch(openDeviceUpdateDialog());
-    setLoading(false);
     onClose();
-  }, [dispatch, onClose, setLoading, isFirmwareBtcOnly]);
+    dispatch(
+      openDeviceUpdateDialog({
+        variant: !isFirmwareBtcOnly
+          ? FirmwareVariant.BTC_ONLY
+          : FirmwareVariant.MULTI_COIN,
+      }),
+    );
+  }, [dispatch, onClose, isFirmwareBtcOnly]);
 
   return (
     <BlurOverlay>
@@ -84,7 +86,7 @@ export const SwitchFirmwareDialog: FC = () => {
           <Button
             onClick={onInstallFirmware}
             variant="primary"
-            disabled={!isChecked || loading || remainingSeconds > 0}
+            disabled={!isChecked || remainingSeconds > 0}
           >
             {texts.primaryBtn.label}
             {remainingSeconds > 0 && ` ${remainingSeconds}s`}
