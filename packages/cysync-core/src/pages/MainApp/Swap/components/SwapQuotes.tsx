@@ -19,7 +19,6 @@ import { formatSecondsToMinutes, BigNumber } from '@cypherock/cysync-utils';
 import { IAccount, IWallet } from '@cypherock/db-interfaces';
 import React, { useEffect, useMemo, useState } from 'react';
 
-import { providerImageUrlMap } from '~/constants';
 import { IQuote, useCurrency, useSwap } from '~/context';
 import {
   useAppSelector,

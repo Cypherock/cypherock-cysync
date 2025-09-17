@@ -63,11 +63,12 @@ export const CurrencyProvider: React.FC<PropsWithChildren> = ({ children }) => {
   };
 
   const updateCurrency = useCallback((currency: string) => {
+    const normalized = currency.toLowerCase();
+    if (normalized === currentCurrency) return;
     dispatch(openFullPageLoaderDialog({}));
     setTimeout(() => {
       dispatch(closeDialog('fullPageLoaderDialog'));
     }, 5000);
-    const normalized = currency.toLowerCase();
     logger.info('update currency', { currency });
     startTransition(() => {
       setCurrentCurrency(prev => {
