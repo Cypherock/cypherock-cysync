@@ -7,6 +7,7 @@ import logger from '~/utils/logger';
 
 import {
   DeviceConnectionStatus,
+  getFirmwareVariantDisplayName,
   selectLastConnectedFirmware,
   useAppSelector,
   useDevice,
@@ -14,6 +15,7 @@ import {
 
 export interface LatestDeviceVersionContextInterface {
   version: string | undefined;
+  variantDisplayName: string;
 }
 
 export const LatestDeviceVersionContext: React.Context<LatestDeviceVersionContextInterface> =
@@ -38,6 +40,8 @@ export const LatestDeviceVersionProvider: React.FC<
   const variant = isFirmwareBtcOnly
     ? FirmwareVariant.BTC_ONLY
     : FirmwareVariant.MULTI_COIN;
+
+  const variantDisplayName = getFirmwareVariantDisplayName(variant);
 
   const fetchLatestVersion = useCallback(async () => {
     const currentRequestId = requestIdRef.current + 1;
@@ -91,8 +95,9 @@ export const LatestDeviceVersionProvider: React.FC<
   const ctx = useMemo(
     () => ({
       version,
+      variantDisplayName,
     }),
-    [version],
+    [version, variantDisplayName],
   );
 
   return (

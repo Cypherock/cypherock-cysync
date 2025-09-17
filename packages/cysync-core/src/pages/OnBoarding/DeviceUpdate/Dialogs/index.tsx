@@ -6,36 +6,55 @@ import {
 } from '@cypherock/cysync-ui';
 import { FirmwareVariant } from '@cypherock/sdk-app-manager';
 import { firmwareVariantFromJSON } from '@cypherock/sdk-app-manager/dist/proto/generated/common';
+import { createSelector } from '@reduxjs/toolkit';
 import React, { FC, useEffect, ReactElement } from 'react';
 
 import { ErrorHandlerDialog } from '~/components';
-import { routes } from '~/constants';
+import { getFirmwareVariantDisplayName, routes } from '~/constants';
 import {
   useNavigateTo,
   useDeviceUpdate,
   DeviceUpdateState,
   useQuery,
 } from '~/hooks';
-import { useAppSelector, selectLanguage } from '~/store';
+import {
+  useAppSelector,
+  selectLanguage,
+  selectLastConnectedFirmware,
+} from '~/store';
 import { getCloseAppMethod } from '~/utils';
 
 import { DeviceUpdateLoading } from './DeviceUpdateLoading';
 
+const selector = createSelector(
+  [selectLanguage, selectLastConnectedFirmware],
+  (lang, { isFirmwareBtcOnly }) => ({
+    lang,
+    isFirmwareBtcOnly,
+  }),
+);
+
 export const DeviceUpdateDialogBox: FC = () => {
-  const lang = useAppSelector(selectLanguage);
+  const { lang, isFirmwareBtcOnly } = useAppSelector(selector);
 
   const navigateTo = useNavigateTo();
 
   const query = useQuery();
-  const variant = query.get('variant');
-  let firmwareVariant: FirmwareVariant | undefined =
-    firmwareVariantFromJSON(variant);
+  let forcedVariant: FirmwareVariant | undefined = firmwareVariantFromJSON(
+    query.get('variant'),
+  );
   if (
-    firmwareVariant !== FirmwareVariant.BTC_ONLY &&
-    firmwareVariant !== FirmwareVariant.MULTI_COIN
+    forcedVariant !== FirmwareVariant.BTC_ONLY &&
+    forcedVariant !== FirmwareVariant.MULTI_COIN
   ) {
-    firmwareVariant = undefined;
+    forcedVariant = undefined;
   }
+
+  const variant =
+    forcedVariant ??
+    (isFirmwareBtcOnly ? FirmwareVariant.BTC_ONLY : FirmwareVariant.MULTI_COIN);
+
+  const variantDisplayName = getFirmwareVariantDisplayName(variant);
 
   const toNextPage = () => {
     navigateTo(
@@ -44,7 +63,7 @@ export const DeviceUpdateDialogBox: FC = () => {
   };
 
   const { state, downloadProgress, version, errorToShow, onRetry } =
-    useDeviceUpdate(firmwareVariant);
+    useDeviceUpdate(variant, forcedVariant);
 
   useEffect(() => {
     if (state === DeviceUpdateState.NotRequired) {
@@ -68,7 +87,7 @@ export const DeviceUpdateDialogBox: FC = () => {
           subtext={
             lang.strings.onboarding.deviceUpdate.dialogs.confirmation.subtext
           }
-          textVariables={{ version }}
+          textVariables={{ version, variant: variantDisplayName }}
         />
       ),
       [DeviceUpdateState.Updating]: (
@@ -79,7 +98,7 @@ export const DeviceUpdateDialogBox: FC = () => {
           }
           icon={<FirmwareDownloadGreenIcon />}
           progress={Number(downloadProgress.toFixed(0))}
-          versionTextVariables={{ version }}
+          versionTextVariables={{ version, variant: variantDisplayName }}
         />
       ),
       [DeviceUpdateState.Successful]: (
@@ -106,7 +125,7 @@ export const DeviceUpdateDialogBox: FC = () => {
         lang.strings.onboarding.deviceUpdate.dialogs.updateFailed.subtext
       }
       onRetry={onRetry}
-      textVariables={{ version }}
+      textVariables={{ version, variant: variantDisplayName }}
       isOnboarding
       onClose={getCloseAppMethod()}
     >

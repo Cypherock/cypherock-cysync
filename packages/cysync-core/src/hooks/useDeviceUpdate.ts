@@ -8,13 +8,7 @@ import semver from 'semver';
 
 import { setIsLastConnectedFirmwareBtcOnly } from '~/actions/lastConnectedFirmware';
 
-import {
-  IDeviceConnectionInfo,
-  selectLastConnectedFirmware,
-  useAppDispatch,
-  useAppSelector,
-  useDevice,
-} from '..';
+import { IDeviceConnectionInfo, useAppDispatch, useDevice } from '..';
 
 import { DeviceTask, useDeviceTask, useStateWithRef } from '.';
 
@@ -31,7 +25,10 @@ enum InternalState {
   Installing,
 }
 
-export const useDeviceUpdate = (forcedVariant?: FirmwareVariant) => {
+export const useDeviceUpdate = (
+  variant: FirmwareVariant,
+  forcedVariant?: FirmwareVariant,
+) => {
   const {
     connection,
     updateDeviceFirmware,
@@ -48,10 +45,7 @@ export const useDeviceUpdate = (forcedVariant?: FirmwareVariant) => {
   const firmwareRef = useRef<Uint8Array | undefined>(undefined);
   const [errorToShow, setErrorToShow] = useState<Error | undefined>();
   const connectionRef = useRef<IDeviceConnectionInfo | undefined>(connection);
-  const { isFirmwareBtcOnly } = useAppSelector(selectLastConnectedFirmware);
-  const variant =
-    forcedVariant ??
-    (isFirmwareBtcOnly ? FirmwareVariant.BTC_ONLY : FirmwareVariant.MULTI_COIN);
+
   const variantRef = useRef(variant);
   const dispatch = useAppDispatch();
 

@@ -7,8 +7,8 @@ import {
   InfoItalicsIcon,
 } from '@cypherock/cysync-ui';
 import { FirmwareVariant } from '@cypherock/sdk-app-manager';
-import React, { FC, useCallback, useRef, useState } from 'react';
 import { createSelector } from '@reduxjs/toolkit';
+import React, { FC, useCallback, useRef, useState } from 'react';
 import { useTheme } from 'styled-components';
 
 import { openDeviceUpdateDialog } from '~/actions';
@@ -51,7 +51,7 @@ export const SwitchFirmwareDialog: FC = () => {
     onClose();
     dispatch(
       openDeviceUpdateDialog({
-        variant: !isFirmwareBtcOnly
+        forcedVariant: !isFirmwareBtcOnly
           ? FirmwareVariant.BTC_ONLY
           : FirmwareVariant.MULTI_COIN,
       }),

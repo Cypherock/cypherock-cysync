@@ -669,14 +669,14 @@
     },
     "deviceUpdate": {
       "heading": "Device Update",
-      "version": "Version ${version}",
+      "version": "Version ${variant} ${version}",
       "dialogs": {
         "checking": {
           "title": "Please wait while we check for X1 Vault updates"
         },
         "confirmation": {
           "heading": "Device Update",
-          "title": "A new update is available for your X1 Vault. Update the device to v${version} to continue",
+          "title": "A new update is available for your X1 Vault. Update the device to ${variant} v${version} to continue",
           "subtext": "Follow the instructions on the device"
         },
         "loading": {
@@ -688,7 +688,7 @@
         },
         "updateSuccessful": {
           "heading": "X1 Vault updated successfully",
-          "headingWithVersion": "X1 Vault updated to v${version} successfully",
+          "headingWithVersion": "X1 Vault updated to ${variant} v${version} successfully",
           "subtext": "Your device is now operating on the latest firmware"
         },
         "updateFailed": {
@@ -710,7 +710,7 @@
     }
   },
   "deviceUpdateBar": {
-    "message": "Firmware update version ${version} available",
+    "message": "Firmware update version ${variant} ${version} available",
     "button": "Download"
   },
   "betaNotificationBar": {

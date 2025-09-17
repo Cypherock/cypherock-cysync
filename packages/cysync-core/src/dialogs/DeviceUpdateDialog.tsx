@@ -6,6 +6,7 @@ import {
   parseLangTemplate,
 } from '@cypherock/cysync-ui';
 import { FirmwareVariant } from '@cypherock/sdk-app-manager';
+import { createSelector } from '@reduxjs/toolkit';
 import React, { FC, ReactElement, useEffect, useRef } from 'react';
 import { useDispatch } from 'react-redux';
 
@@ -18,26 +19,42 @@ import {
   ErrorHandlerDialog,
   LoaderDialog,
   closeDialog,
+  getFirmwareVariantDisplayName,
   selectLanguage,
+  selectLastConnectedFirmware,
   useAppSelector,
   useDevice,
 } from '..';
 
+const selector = createSelector(
+  [selectLanguage, selectLastConnectedFirmware],
+  (lang, { isFirmwareBtcOnly }) => ({
+    lang,
+    isFirmwareBtcOnly,
+  }),
+);
+
 export interface IDeviceUpdateDialogProps {
-  variant?: FirmwareVariant;
+  forcedVariant?: FirmwareVariant;
 }
 
 export const DeviceUpdateDialog: FC<IDeviceUpdateDialogProps> = ({
-  variant,
+  forcedVariant,
 }) => {
-  const lang = useAppSelector(selectLanguage);
+  const { lang, isFirmwareBtcOnly } = useAppSelector(selector);
   const dispatch = useDispatch();
   const { deviceHandlingState, connection } = useDevice();
   const { deviceUpdate } = lang.strings.onboarding;
   const timeoutRef = useRef<ReturnType<typeof setTimeout>>();
 
+  const variant =
+    forcedVariant ??
+    (isFirmwareBtcOnly ? FirmwareVariant.BTC_ONLY : FirmwareVariant.MULTI_COIN);
+
+  const variantDisplayName = getFirmwareVariantDisplayName(variant);
+
   const { state, downloadProgress, version, errorToShow, onRetry } =
-    useDeviceUpdate(variant);
+    useDeviceUpdate(variant, forcedVariant);
 
   const onClose = () => {
     if (
@@ -60,7 +77,7 @@ export const DeviceUpdateDialog: FC<IDeviceUpdateDialogProps> = ({
       openDeviceAuthenticationDialog({
         successTitle: parseLangTemplate(
           deviceUpdate.dialogs.updateSuccessful.headingWithVersion,
-          { version },
+          { version, variant: variantDisplayName },
         ),
         successDescription: deviceUpdate.dialogs.updateSuccessful.subtext,
       }),
@@ -98,7 +115,7 @@ export const DeviceUpdateDialog: FC<IDeviceUpdateDialogProps> = ({
           title={deviceUpdate.dialogs.confirmation.title}
           icon={<FirmwareDownloadGreenIcon />}
           subtext={deviceUpdate.dialogs.confirmation.subtext}
-          textVariables={{ version }}
+          textVariables={{ version, variant: variantDisplayName }}
           onClose={onClose}
         />
       ),
@@ -109,7 +126,7 @@ export const DeviceUpdateDialog: FC<IDeviceUpdateDialogProps> = ({
           icon={<FirmwareDownloadGreenIcon />}
           progress={Number(downloadProgress.toFixed(0))}
           versionText={deviceUpdate.version}
-          versionTextVariables={{ version }}
+          versionTextVariables={{ version, variant: variantDisplayName }}
         />
       ),
       [DeviceUpdateState.Successful]: <LoaderDialog />,
@@ -124,7 +141,7 @@ export const DeviceUpdateDialog: FC<IDeviceUpdateDialogProps> = ({
         noDelay
         defaultMsg={deviceUpdate.dialogs.updateFailed.subtext}
         onRetry={onRetry}
-        textVariables={{ version }}
+        textVariables={{ version, variant: variantDisplayName }}
         onClose={onClose}
         showCloseButton
       >
@@ -135,5 +152,5 @@ export const DeviceUpdateDialog: FC<IDeviceUpdateDialogProps> = ({
 };
 
 DeviceUpdateDialog.defaultProps = {
-  variant: undefined,
+  forcedVariant: undefined,
 };

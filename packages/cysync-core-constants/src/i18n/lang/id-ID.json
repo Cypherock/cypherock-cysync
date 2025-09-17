@@ -676,14 +676,14 @@
     },
     "deviceUpdate": {
       "heading": "Pembaruan Perangkat",
-      "version": "Versi ${version}",
+      "version": "Versi ${variant} ${version}",
       "dialogs": {
         "checking": {
           "title": "Harap tunggu sementara kami memeriksa pembaruan X1 Vault"
         },
         "confirmation": {
           "heading": "Pembaruan Perangkat",
-          "title": "Pembaruan baru tersedia untuk X1 Vault Anda. Perbarui perangkat ke v${version} untuk melanjutkan",
+          "title": "Pembaruan baru tersedia untuk X1 Vault Anda. Perbarui perangkat ke ${variant} v${version} untuk melanjutkan",
           "subtext": "Ikuti petunjuk pada perangkat"
         },
         "loading": {
@@ -695,7 +695,7 @@
         },
         "updateSuccessful": {
           "heading": "X1 Vault berhasil diperbarui",
-          "headingWithVersion": "X1 Vault berhasil diperbarui ke v${version}",
+          "headingWithVersion": "X1 Vault berhasil diperbarui ke ${variant} v${version}",
           "subtext": "Perangkat Anda sekarang beroperasi pada firmware terbaru"
         },
         "updateFailed": {
@@ -717,7 +717,7 @@
     }
   },
   "deviceUpdateBar": {
-    "message": "Versi pembaruan Firmware ${version} tersedia",
+    "message": "Versi pembaruan Firmware ${variant} ${version} tersedia",
     "button": "Unduh"
   },
   "betaNotificationBar": {
