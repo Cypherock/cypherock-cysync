@@ -1,5 +1,16 @@
 # @cypherock/cysync-core-constants
 
+## 0.6.0-pre.0
+
+### Minor Changes
+
+- [#800](https://github.com/Cypherock/cypherock-cysync/pull/800) [`c3ed0794`](https://github.com/Cypherock/cypherock-cysync/commit/c3ed0794b9d0cb7281e6a154450d40aca1240395) Thanks [@AryanCypherock](https://github.com/AryanCypherock)! - Multiple currency support added
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @cypherock/coins@0.3.3
+
 ## 0.5.2
 
 ### Patch Changes
