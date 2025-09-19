@@ -59,6 +59,7 @@ export const LatestDeviceVersionProvider: React.FC<
     const result = await ManagerApp.getLatestFirmware({
       prerelease: window.cysyncEnv.ALLOW_PRERELEASE === 'true',
       variant,
+      isUserRelevant: true,
     });
 
     if (currentRequestId !== requestIdRef.current) {
