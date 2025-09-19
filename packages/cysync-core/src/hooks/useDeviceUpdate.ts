@@ -122,7 +122,7 @@ export const useDeviceUpdate = (
       const { error } = await task.run();
       if (error) throw error;
 
-      if (forcedVariant) {
+      if (forcedVariant !== undefined) {
         dispatch(
           setIsLastConnectedFirmwareBtcOnly(
             variant === FirmwareVariant.BTC_ONLY,
@@ -143,14 +143,17 @@ export const useDeviceUpdate = (
         prerelease: window.cysyncEnv.ALLOW_PRERELEASE === 'true',
         doDownload: true,
         variant,
+        isUserRelevant: forcedVariant === undefined ? true : undefined,
       });
       setVersion(result.version);
       firmwareRef.current = result.firmware;
 
       if (
-        !forcedVariant && // In case of forced variant, we update irrespective of the version
+        // In case of forced variant, we update even if the version is same, but not if the version is older
         connection?.firmwareVersion &&
-        semver.gte(connection.firmwareVersion, result.version)
+        (forcedVariant !== undefined
+          ? semver.gt(connection.firmwareVersion, result.version)
+          : semver.gte(connection.firmwareVersion, result.version))
       ) {
         setStateWithResetError(DeviceUpdateState.NotRequired);
         return;
