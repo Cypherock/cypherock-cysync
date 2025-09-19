@@ -25,5 +25,12 @@ const config: StorybookConfig = {
   docs: {
     autodocs: 'tag',
   },
+  previewHead: head => `
+    ${head} 
+    <script>
+      window.global = window;
+      window.cysyncEnv = { VENDOR: "${process.env.VENDOR ?? 'default'}" };
+    </script>
+    `,
 };
 export default config;
