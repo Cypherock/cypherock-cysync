@@ -7,8 +7,16 @@ import { useEffect, useRef, useState } from 'react';
 import semver from 'semver';
 
 import { setIsLastConnectedFirmwareBtcOnly } from '~/actions/lastConnectedFirmware';
+import { openErrorDialog } from '~/actions';
+import { createCustomError } from '~/utils';
 
-import { IDeviceConnectionInfo, useAppDispatch, useDevice } from '..';
+import {
+  IDeviceConnectionInfo,
+  selectLanguage,
+  useAppDispatch,
+  useAppSelector,
+  useDevice,
+} from '..';
 
 import { DeviceTask, useDeviceTask, useStateWithRef } from '.';
 
@@ -48,6 +56,7 @@ export const useDeviceUpdate = (
 
   const variantRef = useRef(variant);
   const dispatch = useAppDispatch();
+  const { strings } = useAppSelector(selectLanguage);
 
   useEffect(() => {
     connectionRef.current = connection;
@@ -156,6 +165,16 @@ export const useDeviceUpdate = (
           : semver.gte(connection.firmwareVersion, result.version))
       ) {
         setStateWithResetError(DeviceUpdateState.NotRequired);
+        dispatch(
+          openErrorDialog({
+            error: createCustomError(
+              strings.errors.deviceErrors.BTL_0104.heading,
+              strings.errors.deviceErrors.BTL_0104.subtext,
+            ) as any,
+            showCloseButton: true,
+            suppressActions: true,
+          }),
+        );
         return;
       }
 
