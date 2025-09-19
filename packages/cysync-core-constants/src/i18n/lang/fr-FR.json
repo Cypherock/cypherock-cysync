@@ -2245,7 +2245,7 @@
           },
           "anayticsAndBugReport": {
             "title": "Analytique & Rapport de bugs",
-            "description": "Activez les analyses et les rapports de bugs pour aider Cypherock à améliorer l'expérience utilisateur et à résoudre vos problèmes plus rapidement. Cela inclut les clics, les visites de pages, les redirections, les actions (envoyer, recevoir, verrouiller, etc.), les fins de défilement de page, l'(dés)installation et la version de l'application, le nombre de comptes, les actifs crypto et les opérations, les durées de session, le type d'appareil Cypherock et le firmware"
+            "description": "Activez les analyses et les rapports de bugs pour aider Cypherock à améliorer l'expérience utilisateur et à résoudre vos problèmes plus rapidement"
           },
           "reset": {
             "title": "Réinitialiser cySync",

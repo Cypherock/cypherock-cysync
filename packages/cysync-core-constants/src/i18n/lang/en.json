@@ -2149,7 +2149,7 @@
           },
           "anayticsAndBugReport": {
             "title": "Analytics & Bug Report",
-            "description": "Enable analytics & bug reports to help Cypherock improve user experience & to help resolve your issues faster. This includes clicks, page visits, redirections, actions(send, receive, lock etc.), end of page scrolls, (un)installing and app version, number of accounts, crypto assets and operations, session durations, the Cypherock device type and firmware"
+            "description": "Enable analytics & bug reports to help Cypherock improve user experience & to help resolve your issues faster"
           },
           "reset": {
             "title": "Reset cySync",

@@ -2140,7 +2140,7 @@
           },
           "anayticsAndBugReport": {
             "title": "分析与错误报告",
-            "description": "启用分析和错误报告以帮助 Cypherock 改善用户体验并更快解决问题。这包括点击、页面访问、重定向、操作（发送、接收、锁定等）、页面滚动结束、（卸载）和应用版本、账户数量、加密资产和操作、会话持续时间、Cypherock 设备类型和固件"
+            "description": "启用分析和错误报告以帮助 Cypherock 改善用户体验并更快解决问题"
           },
           "reset": {
             "title": "重置 CySync",
