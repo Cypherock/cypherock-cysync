@@ -1,4 +1,4 @@
-import { LangDisplay } from '@cypherock/cysync-ui';
+import { LangDisplay, Toggle } from '@cypherock/cysync-ui';
 import React, { useEffect, useState } from 'react';
 
 import {
@@ -10,6 +10,7 @@ import {
 import { useLockscreen } from '~/context';
 import { selectLanguage, useAppDispatch, useAppSelector } from '~/store';
 import { keyValueStore } from '~/utils';
+import { analyticsService } from '~/services/analytics';
 
 import { SettingsButton, SettingsStandardItem } from '../components';
 
@@ -19,7 +20,7 @@ export const AppSettings: React.FC = () => {
   const dispatch = useAppDispatch();
   const { isPasswordSet } = useLockscreen();
   const [isAnalyticsAndBugReportEnabled, setAnalyticsAndBugReportEnabled] =
-    useState<boolean | undefined>(undefined);
+    useState<boolean>(true);
   const [isAutoUpdateCySyncEnabled, setAutoUpdateCySyncEnabled] = useState<
     boolean | undefined
   >(undefined);
@@ -39,6 +40,7 @@ export const AppSettings: React.FC = () => {
     keyValueStore.isAnalyticsAndBugReportEnabled.set(
       isAnalyticsAndBugReportEnabled,
     );
+    analyticsService.setEnabled(isAnalyticsAndBugReportEnabled);
   }, [isAnalyticsAndBugReportEnabled]);
 
   useEffect(() => {
@@ -78,7 +80,6 @@ export const AppSettings: React.FC = () => {
           </>
         )}
       </SettingsStandardItem>
-      {/* TODO: enable the following setting when implemented
       <SettingsStandardItem
         title={{ text: item.anayticsAndBugReport.title }}
         description={{ text: item.anayticsAndBugReport.description }}
@@ -92,7 +93,7 @@ export const AppSettings: React.FC = () => {
           onToggle={setAnalyticsAndBugReportEnabled}
         />
       </SettingsStandardItem>
-      */}
+
       <SettingsStandardItem
         title={{ text: item.reset.title }}
         description={{ text: item.reset.description }}

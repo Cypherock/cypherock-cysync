@@ -2157,7 +2157,7 @@
           },
           "anayticsAndBugReport": {
             "title": "Analitik & Laporan Bug",
-            "description": "Aktifkan analitik & laporan bug untuk membantu Cypherock meningkatkan pengalaman pengguna & membantu menyelesaikan masalah Anda lebih cepat. Ini termasuk klik, kunjungan halaman, pengalihan, tindakan (kirim, terima, kunci, dll.), akhir gulir halaman, (un)installing dan versi aplikasi, jumlah akun, aset kripto dan operasi, durasi sesi, tipe perangkat Cypherock dan firmware"
+            "description": "Aktifkan analitik dan laporan bug untuk membantu Cypherock meningkatkan pengalaman pengguna dan membantu menyelesaikan masalah Anda lebih cepat"
           },
           "reset": {
             "title": "Reset CySync",

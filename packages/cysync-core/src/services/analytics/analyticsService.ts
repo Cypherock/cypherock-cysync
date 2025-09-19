@@ -1,11 +1,23 @@
 import mixpanel from 'mixpanel-browser';
 import logger from '~/utils/logger';
+import { keyValueStore } from '~/utils';
 
 class AnalyticsService {
   private isInitialized = false;
 
-  public init(): void {
+  private isEnabled = true;
+
+  public async init(): Promise<void> {
     if (this.isInitialized) return;
+
+    const isAnalyticsEnabled =
+      await keyValueStore.isAnalyticsAndBugReportEnabled.get();
+    this.isEnabled = isAnalyticsEnabled ?? true;
+
+    if (!this.isEnabled) {
+      logger.info('Analytics disabled by user preference.');
+      return;
+    }
 
     const token = window.cysyncEnv.MIXPANEL_TOKEN;
     const isProduction = window.cysyncEnv.IS_PRODUCTION === 'true';
@@ -36,13 +48,36 @@ class AnalyticsService {
     }
   }
 
+  public async setEnabled(enabled: boolean): Promise<void> {
+    if (this.isEnabled === enabled) return;
+    this.isEnabled = enabled;
+    if (enabled) {
+      if (!this.isInitialized) {
+        await this.init();
+      }
+      try {
+        mixpanel.opt_in_tracking();
+        logger.info('Analytics enabled (opt-in)');
+      } catch (error) {
+        logger.error('Failed to enable Mixpanel', { error });
+      }
+    } else {
+      try {
+        mixpanel.opt_out_tracking();
+        logger.info('Analytics disabled (opt-out)');
+      } catch (error) {
+        logger.error('Failed to disable Mixpanel', { error });
+      }
+    }
+  }
+
   public trackEvent(eventName: string, properties?: object): void {
-    if (!this.isInitialized) return;
+    if (!this.isInitialized || !this.isEnabled) return;
     mixpanel.track(eventName, properties);
   }
 
   public trackPageView(pageName: string, url: string): void {
-    if (!this.isInitialized) return;
+    if (!this.isInitialized || !this.isEnabled) return;
     mixpanel.track('Page View', {
       page: pageName,
       url,

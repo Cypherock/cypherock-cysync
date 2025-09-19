@@ -2158,7 +2158,7 @@
           },
           "anayticsAndBugReport": {
             "title": "Analyse & Fehlerbericht",
-            "description": "Aktivieren Sie Analysen & Fehlerberichte, um Cypherock zu helfen, die Benutzererfahrung zu verbessern und um Ihre Probleme schneller zu lösen. Dies umfasst Klicks, Seitenbesuche, Weiterleitungen, Aktionen (senden, empfangen, sperren etc.), Enden von Seiten-Scrolls, (De-)Installation und App-Version, Anzahl der Konten, Krypto-Assets und Operationen, Sitzungsdauern, der Cypherock-Gerätetyp und Firmware"
+            "description": "Aktivieren Sie Analysen und Fehlerberichte, um Cypherock zu helfen, die Benutzererfahrung zu verbessern und Ihre Probleme schneller zu lösen"
           },
           "reset": {
             "title": "CySync zurücksetzen",

@@ -7,7 +7,7 @@ import { analyticsService } from '@cypherock/cysync-core';
 
 export async function render(target?: HTMLElement) {
   await setupCoreDependencies();
-  analyticsService.init();
+  await analyticsService.init();
 
   const root = ReactDOM.createRoot(target ?? document.body);
   root.render(<App />);
