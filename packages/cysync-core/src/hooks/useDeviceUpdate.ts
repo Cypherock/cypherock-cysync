@@ -165,16 +165,18 @@ export const useDeviceUpdate = (
           : semver.gte(connection.firmwareVersion, result.version))
       ) {
         setStateWithResetError(DeviceUpdateState.NotRequired);
-        dispatch(
-          openErrorDialog({
-            error: createCustomError(
-              strings.errors.deviceErrors.BTL_0104.heading,
-              strings.errors.deviceErrors.BTL_0104.subtext,
-            ) as any,
-            showCloseButton: true,
-            suppressActions: true,
-          }),
-        );
+        if (forcedVariant !== undefined) {
+          dispatch(
+            openErrorDialog({
+              error: createCustomError(
+                strings.errors.deviceErrors.BTL_0104.heading,
+                strings.errors.deviceErrors.BTL_0104.subtext,
+              ) as any,
+              showCloseButton: true,
+              suppressActions: true,
+            }),
+          );
+        }
         return;
       }
 

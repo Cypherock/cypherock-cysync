@@ -4,12 +4,13 @@ import {
   ProgressDialog,
   SuccessDialog,
 } from '@cypherock/cysync-ui';
+import { sleep } from '@cypherock/cysync-utils';
 import { FirmwareVariant } from '@cypherock/sdk-app-manager';
 import { firmwareVariantFromJSON } from '@cypherock/sdk-app-manager/dist/proto/generated/common';
 import { createSelector } from '@reduxjs/toolkit';
-import React, { FC, useEffect, ReactElement } from 'react';
+import React, { FC, useEffect, ReactElement, useState } from 'react';
 
-import { ErrorHandlerDialog } from '~/components';
+import { ErrorHandlerDialog, LoaderDialog } from '~/components';
 import { getFirmwareVariantDisplayName, routes } from '~/constants';
 import {
   useNavigateTo,
@@ -36,8 +37,12 @@ const selector = createSelector(
 
 export const DeviceUpdateDialogBox: FC = () => {
   const { lang, isFirmwareBtcOnly } = useAppSelector(selector);
+  const existingVariant = isFirmwareBtcOnly
+    ? FirmwareVariant.BTC_ONLY
+    : FirmwareVariant.MULTI_COIN;
 
   const navigateTo = useNavigateTo();
+  const [loading, setLoading] = useState(false);
 
   const query = useQuery();
   let forcedVariant: FirmwareVariant | undefined = firmwareVariantFromJSON(
@@ -50,20 +55,25 @@ export const DeviceUpdateDialogBox: FC = () => {
     forcedVariant = undefined;
   }
 
-  const variant =
-    forcedVariant ??
-    (isFirmwareBtcOnly ? FirmwareVariant.BTC_ONLY : FirmwareVariant.MULTI_COIN);
+  const variant = forcedVariant ?? existingVariant;
 
   const variantDisplayName = getFirmwareVariantDisplayName(variant);
 
-  const toNextPage = () => {
+  const toNextPage = async () => {
+    setLoading(true);
+    // Wating for the device to restart after update
+    await sleep(10000);
     navigateTo(
       `${routes.onboarding.deviceAuthentication.path}?disableNavigation=true`,
     );
+    setLoading(false);
   };
 
   const { state, downloadProgress, version, errorToShow, onRetry } =
-    useDeviceUpdate(variant, forcedVariant);
+    useDeviceUpdate(
+      variant,
+      forcedVariant === existingVariant ? undefined : forcedVariant,
+    );
 
   useEffect(() => {
     if (state === DeviceUpdateState.NotRequired) {
@@ -101,7 +111,9 @@ export const DeviceUpdateDialogBox: FC = () => {
           versionTextVariables={{ version, variant: variantDisplayName }}
         />
       ),
-      [DeviceUpdateState.Successful]: (
+      [DeviceUpdateState.Successful]: loading ? (
+        <LoaderDialog />
+      ) : (
         <SuccessDialog
           title={
             lang.strings.onboarding.deviceUpdate.dialogs.updateSuccessful

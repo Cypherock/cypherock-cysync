@@ -47,14 +47,18 @@ export const DeviceUpdateDialog: FC<IDeviceUpdateDialogProps> = ({
   const { deviceUpdate } = lang.strings.onboarding;
   const timeoutRef = useRef<ReturnType<typeof setTimeout>>();
 
-  const variant =
-    forcedVariant ??
-    (isFirmwareBtcOnly ? FirmwareVariant.BTC_ONLY : FirmwareVariant.MULTI_COIN);
+  const existingVariant = isFirmwareBtcOnly
+    ? FirmwareVariant.BTC_ONLY
+    : FirmwareVariant.MULTI_COIN;
+  const variant = forcedVariant ?? existingVariant;
 
   const variantDisplayName = getFirmwareVariantDisplayName(variant);
 
   const { state, downloadProgress, version, errorToShow, onRetry } =
-    useDeviceUpdate(variant, forcedVariant);
+    useDeviceUpdate(
+      variant,
+      forcedVariant === existingVariant ? undefined : forcedVariant,
+    );
 
   const onClose = () => {
     if (
