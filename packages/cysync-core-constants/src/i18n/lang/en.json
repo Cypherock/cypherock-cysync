@@ -2940,5 +2940,52 @@
         "description": "The swap request has timed out. Please try again or contact support if the issue persists."
       }
     }
+  },
+  "buySell": {
+    "buy": {
+      "title": "Buy Crypto",
+      "selectAsset": {
+        "title": "To",
+        "selectWallet": {
+          "placeholder": "Choose a Wallet",
+          "searchText": "Search Wallet"
+        },
+        "selectCrypto": {
+          "placeholder": "Select Crypto Currency",
+          "searchText": "Search Crypto Currency"
+        },
+        "messageBox": {
+          "danger": "No accounts found for"
+        }
+      },
+      "selectCurrency": {
+        "title": "Select region and currency",
+        "selectCountry": {
+          "searchText": "Select a Country",
+          "placeholder": "Search Country"
+        },
+        "selectFiat": {
+          "searchText": "Search Fiat Currency",
+          "placeholder": "Select Fiat Currency"
+        }
+      },
+      "selectAmount": {
+        "pay": {
+          "title": "Pay"
+        },
+        "receive": {
+          "title": "You will receive"
+        }
+      },
+      "selectPaymentMethod": {
+        "title": "Pay with",
+        "placeholder": "Payment Method",
+        "searchText": "Search Payment Method"
+      },
+      "offers": {
+        "title": "Your best offers",
+        "initialText": "Select the wallet and account to get offers"
+      }
+    }
   }
 }

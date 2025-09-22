@@ -12,6 +12,7 @@ import {
   AppUpdateProvider,
   LatestDeviceVersionProvider,
   BuySellProvider,
+  BuySell2Provider,
   SwapProvider,
   SnackBarManager,
 } from '@cypherock/cysync-core';
@@ -61,11 +62,13 @@ const App = () => (
                   <WalletConnectProvider>
                     <SwapProvider>
                       <BuySellProvider>
-                        <AppRouter>
-                          <SnackBarManager />
-                          <DialogManager />
-                          <BackgroundTasks />
-                        </AppRouter>
+                        <BuySell2Provider>
+                          <AppRouter>
+                            <SnackBarManager />
+                            <DialogManager />
+                            <BackgroundTasks />
+                          </AppRouter>
+                        </BuySell2Provider>
                       </BuySellProvider>
                     </SwapProvider>
                   </WalletConnectProvider>

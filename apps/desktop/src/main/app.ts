@@ -2,7 +2,7 @@ import { release } from 'node:os';
 import path from 'node:path';
 
 import { sleep } from '@cypherock/cysync-utils';
-import { app, BrowserWindow, ipcMain, shell } from 'electron';
+import { app, BrowserWindow, ipcMain, shell, nativeTheme } from 'electron';
 
 import { removeListeners, setupIPCHandlers, setupListeners } from './ipc';
 import { getSendWCConnectionString } from './ipc/walletConnect';
@@ -60,6 +60,9 @@ const prepareApp = () => {
 
   setupProcessEventHandlers();
   setupDependencies();
+
+  nativeTheme.themeSource = 'dark';
+
   setupIPCHandlers(ipcMain, getWebContents);
 
   // Disable GPU Acceleration for Windows 7

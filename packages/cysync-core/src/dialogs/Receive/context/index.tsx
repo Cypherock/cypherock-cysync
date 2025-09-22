@@ -44,6 +44,7 @@ import {
 export enum ReceiveFlowSource {
   DEFAULT = 0,
   SWAP,
+  ONRAMP,
 }
 
 export interface ReceiveDialogContextInterface {
@@ -82,6 +83,7 @@ export interface ReceiveDialogContextInterface {
   defaultWalletId?: string;
   defaultAccountId?: string;
   validTill?: number;
+  isVerificationRequired?: boolean;
 }
 
 export const ReceiveDialogContext: Context<ReceiveDialogContextInterface> =
@@ -99,6 +101,7 @@ export interface ReceiveDialogContextProviderProps {
   source?: ReceiveFlowSource;
   onError?: (e?: any) => void;
   validTill?: number;
+  isVerificationRequired?: boolean;
 }
 
 export const ReceiveDialogProvider: FC<ReceiveDialogContextProviderProps> = ({
@@ -111,6 +114,7 @@ export const ReceiveDialogProvider: FC<ReceiveDialogContextProviderProps> = ({
   source = ReceiveFlowSource.DEFAULT,
   onError: injectedOnError,
   validTill,
+  isVerificationRequired,
 }) => {
   const lang = useAppSelector(selectLanguage);
   const dispatch = useAppDispatch();
@@ -193,29 +197,29 @@ export const ReceiveDialogProvider: FC<ReceiveDialogContextProviderProps> = ({
     [lang],
   );
 
-  if (storeReceiveAddress) {
-    useEffect(() => {
-      if (isAddressVerified) {
-        if (selectedAccount?.familyId === coinFamiliesMap.icp) {
-          const isIcpToken = selectedAccount.type === AccountTypeMap.subAccount;
-          if (isIcpToken && derivedPrincipalId) {
-            storeReceiveAddress(derivedPrincipalId);
-          } else if (derivedAccountId) {
-            storeReceiveAddress(derivedAccountId);
-          }
-        } else if (derivedAddress) {
-          storeReceiveAddress(derivedAddress);
+  useEffect(() => {
+    if (isAddressVerified && storeReceiveAddress) {
+      if (selectedAccount?.familyId === coinFamiliesMap.icp) {
+        const isIcpToken = selectedAccount.type === AccountTypeMap.subAccount;
+        if (isIcpToken && derivedPrincipalId) {
+          storeReceiveAddress(derivedPrincipalId);
+        } else if (derivedAccountId) {
+          storeReceiveAddress(derivedAccountId);
         }
-
-        if (source === ReceiveFlowSource.SWAP) onClose();
+      } else if (derivedAddress) {
+        storeReceiveAddress(derivedAddress);
       }
-    }, [
-      derivedAddress,
-      derivedPrincipalId,
-      derivedAccountId,
-      isAddressVerified,
-    ]);
-  }
+
+      if (source === ReceiveFlowSource.SWAP) onClose();
+      if (source === ReceiveFlowSource.ONRAMP) onClose();
+    }
+  }, [
+    derivedAddress,
+    derivedPrincipalId,
+    derivedAccountId,
+    isAddressVerified,
+    storeReceiveAddress,
+  ]);
 
   const onClose = () => {
     cleanUp();
@@ -238,7 +242,10 @@ export const ReceiveDialogProvider: FC<ReceiveDialogContextProviderProps> = ({
   };
 
   const onAddressVerificationNext = () => {
-    if (source !== ReceiveFlowSource.SWAP) {
+    if (
+      source !== ReceiveFlowSource.SWAP &&
+      source !== ReceiveFlowSource.ONRAMP
+    ) {
       goTo(3);
     }
   };
@@ -408,6 +415,7 @@ export const ReceiveDialogProvider: FC<ReceiveDialogContextProviderProps> = ({
     isStartedWithoutDevice,
     isFlowCompleted,
     validTill,
+    isVerificationRequired,
   });
 
   return (
@@ -430,4 +438,5 @@ ReceiveDialogProvider.defaultProps = {
   source: ReceiveFlowSource.DEFAULT,
   onError: undefined,
   validTill: undefined,
+  isVerificationRequired: false,
 };

@@ -51,6 +51,7 @@ export interface LanguageStrings {
   inheritanceSilverPlanPurchase: LangInheritanceSilverPlanPurchase;
   inheritanceGoldPlanPurchase: LangInheritanceGoldPlanPurchase;
   swap: LangSwap;
+  buySell: LangBuySell;
 }
 
 interface LangLabels {
@@ -1945,6 +1946,50 @@ interface LangSwap {
     timeout: {
       title: string;
       description: string;
+    };
+  };
+}
+
+interface LangBuySell {
+  buy: {
+    title: string;
+    selectAsset: {
+      title: string;
+      selectWallet: {
+        placeholder: string;
+        searchText: string;
+      };
+      selectCrypto: {
+        placeholder: string;
+        searchText: string;
+      };
+      messageBox: {
+        danger: string;
+      };
+    };
+    selectCurrency: {
+      title: string;
+      selectCountry: {
+        searchText: string;
+        placeholder: string;
+      };
+      selectFiat: {
+        searchText: string;
+        placeholder: string;
+      };
+    };
+    selectAmount: {
+      pay: {
+        title: string;
+      };
+      receive: {
+        title: string;
+      };
+    };
+    selectPaymentMethod: {
+      title: string;
+      placeholder: string;
+      searchText: string;
     };
   };
 }

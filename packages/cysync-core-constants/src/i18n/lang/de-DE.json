@@ -2949,5 +2949,48 @@
         "description": "Die Tausch anfrage ist abgelaufen. Bitte versuchen Sie es erneut oder kontaktieren Sie den Support, wenn das Problem weiterhin besteht."
       }
     }
+  },
+  "buySell": {
+    "buy": {
+      "title": "Buy Crypto",
+      "selectAsset": {
+        "title": "To",
+        "selectWallet": {
+          "placeholder": "Choose a Wallet",
+          "searchText": "Search Wallet"
+        },
+        "selectCrypto": {
+          "placeholder": "Select Crypto Currency",
+          "searchText": "Search Crypto Currency"
+        },
+        "messageBox": {
+          "danger": "No accounts found for"
+        }
+      },
+      "selectCurrency": {
+        "title": "Select region and currency",
+        "selectCountry": {
+          "searchText": "Select a Country",
+          "placeholder": "Search Country"
+        },
+        "selectFiat": {
+          "searchText": "Search Fiat Currency",
+          "placeholder": "Select Fiat Currency"
+        }
+      },
+      "selectAmount": {
+        "pay": {
+          "title": "Pay"
+        },
+        "receive": {
+          "title": "You will receive"
+        }
+      },
+      "selectPaymentMethod": {
+        "title": "Pay with",
+        "placeholder": "Payment Method",
+        "searchText": "Search Payment Method"
+      }
+    }
   }
 }

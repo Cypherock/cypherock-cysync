@@ -37,7 +37,8 @@ export type Page =
   | 'help'
   | 'referAndEarn'
   | 'swap'
-  | 'buysell';
+  | 'buysell'
+  | 'buysell2';
 
 export interface SidebarContextInterface {
   strings: ILangState['strings']['sidebar'];

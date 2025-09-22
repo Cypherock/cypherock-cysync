@@ -2922,5 +2922,48 @@
         "description": "交换请求已超时。如果问题仍然存在，请重试或联系支持。"
       }
     }
+  },
+  "buySell": {
+    "buy": {
+      "title": "Buy Crypto",
+      "selectAsset": {
+        "title": "To",
+        "selectWallet": {
+          "placeholder": "Choose a Wallet",
+          "searchText": "Search Wallet"
+        },
+        "selectCrypto": {
+          "placeholder": "Select Crypto Currency",
+          "searchText": "Search Crypto Currency"
+        },
+        "messageBox": {
+          "danger": "No accounts found for"
+        }
+      },
+      "selectCurrency": {
+        "title": "Select region and currency",
+        "selectCountry": {
+          "searchText": "Select a Country",
+          "placeholder": "Search Country"
+        },
+        "selectFiat": {
+          "searchText": "Search Fiat Currency",
+          "placeholder": "Select Fiat Currency"
+        }
+      },
+      "selectAmount": {
+        "pay": {
+          "title": "Pay"
+        },
+        "receive": {
+          "title": "You will receive"
+        }
+      },
+      "selectPaymentMethod": {
+        "title": "Pay with",
+        "placeholder": "Payment Method",
+        "searchText": "Search Payment Method"
+      }
+    }
   }
 }

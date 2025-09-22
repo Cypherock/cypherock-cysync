@@ -13,8 +13,6 @@ import {
   preorderResultSchema,
 } from './schema';
 
-import { config } from '../../config';
-
 export {
   type BinanceGetTradingPairsResponse,
   type BinanceGetCryptoNetworksResponse,
@@ -24,7 +22,7 @@ export {
   type BinancePreorderResponse,
 } from './schema';
 
-const baseURL = `${config.API_CYPHEROCK}/v1/buy/binance`;
+const baseURL = `https://api.cypherock.com/v1/buy/binance`;
 
 const getTradingPairs = async () => {
   const url = `${baseURL}/trading-pairs`;

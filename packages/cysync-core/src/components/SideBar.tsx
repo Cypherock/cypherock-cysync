@@ -185,9 +185,20 @@ const SideBarComponent: FC = () => {
               text={strings.buysell}
               Icon={DollarIcon}
               state={
-                wallets.length === 0 ? State.disabled : getState('buysell')
+                wallets.length === 0 ? State.disabled : getState('buysell2')
               }
-              onClick={() => navigate('buysell')}
+              onClick={() => navigate('buysell2')}
+              extraRight={
+                <Chip $gradient="silver">
+                  <Typography
+                    $fontSize={10}
+                    $fontWeight="semibold"
+                    color="black"
+                  >
+                    {strings.new}
+                  </Typography>
+                </Chip>
+              }
             />
             <SideBarItem
               text="Swap"
