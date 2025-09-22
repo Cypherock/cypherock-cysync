@@ -337,7 +337,6 @@ export const ReceiveDialogProvider: FC<ReceiveDialogContextProviderProps> = ({
     analyticsService.trackEvent(ANALYTICS_EVENTS.RECEIVE_FLOW_STARTED, {
       assetId: selectedAccount.assetId,
       parentAssetId: selectedAccount.parentAssetId,
-      accountId: selectedAccount.__id,
       source: source === ReceiveFlowSource.SWAP ? 'swap' : 'default',
     });
 
