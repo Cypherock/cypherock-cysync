@@ -51,7 +51,6 @@ export const SwapDialog: FC<ISwapDialogProps> = ({ swap: swapSource }) => {
   const { displayedData } = useSwapTransactions(providerDetails);
   const onClose = () => {
     analyticsService.trackEvent(ANALYTICS_EVENTS.SWAP_DIALOG_CLOSED, {
-      swapId: swapSource.swapId,
       swapStatus: swapSource.swapStatus,
       provider: swapSource.providerName,
     });

@@ -564,7 +564,6 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
     analyticsService.trackEvent(ANALYTICS_EVENTS.SEND_FLOW_STARTED, {
       assetId: selectedAccount?.assetId,
       parentAssetId: selectedAccount?.parentAssetId,
-      accountId: selectedAccount?.__id,
       source: source === SendFlowSource.SWAP ? 'swap' : 'default',
     });
 
