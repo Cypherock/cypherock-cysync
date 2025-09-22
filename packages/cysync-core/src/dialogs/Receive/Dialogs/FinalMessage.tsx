@@ -150,7 +150,6 @@ export const FinalMessage: React.FC = () => {
             onClick={() => {
               analyticsService.trackEvent(ANALYTICS_EVENTS.RECEIVE_SUCCEEDED, {
                 assetId: selectedAccount?.assetId,
-                address: derivedAddress,
                 isAddressVerified,
                 action: 'completed',
               });

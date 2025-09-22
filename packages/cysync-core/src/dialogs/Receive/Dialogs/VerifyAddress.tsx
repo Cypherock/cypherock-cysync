@@ -45,7 +45,6 @@ export const VerifyAddress: React.FC = () => {
         ANALYTICS_EVENTS.RECEIVE_ADDRESS_VERIFIED_ON_DEVICE,
         {
           assetId: selectedAccount?.assetId,
-          address: derivedAddress,
           walletId: selectedAccount?.walletId,
         },
       );

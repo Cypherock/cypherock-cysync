@@ -128,7 +128,6 @@ export const SwapDetailsInput = () => {
       toAsset: to.assetId,
       fromNetwork: from.parentAssetId,
       toNetwork: to.parentAssetId,
-      amount,
     });
 
     try {
@@ -147,7 +146,6 @@ export const SwapDetailsInput = () => {
         analyticsService.trackEvent(ANALYTICS_EVENTS.SWAP_QUOTES_RECEIVED, {
           fromAsset: from.assetId,
           toAsset: to.assetId,
-          amount,
           quotesCount: newQuotes.length,
           providers: newQuotes.map(q => q.provider.name),
         });
@@ -215,8 +213,6 @@ export const SwapDetailsInput = () => {
     analyticsService.trackEvent(ANALYTICS_EVENTS.SWAP_DIRECTION_SWAPPED, {
       fromAsset: fromAccount.selectedAccount?.assetId,
       toAsset: toAccount.selectedAccount?.assetId,
-      fromAmount,
-      toAmount: intermediateAmount,
     });
 
     toWallet.handleWalletChange(fromWallet.selectedWallet?.__id);

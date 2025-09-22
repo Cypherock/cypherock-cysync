@@ -381,7 +381,6 @@ export const SummaryDialog: React.FC = () => {
         <Button
           variant="primary"
           onClick={() => {
-            // Track summary confirmation
             analyticsService.trackEvent(ANALYTICS_EVENTS.SEND_VIEWED_SUMMARY, {
               assetId: selectedAccount?.assetId,
               action: 'confirmed',

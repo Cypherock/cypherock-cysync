@@ -39,6 +39,16 @@ class AnalyticsService {
         autocapture: false,
         api_host: 'https://api.mixpanel.com',
         persistence: 'localStorage',
+        property_blacklist: [
+          '$browser',
+          '$browser_version',
+          '$region',
+          '$initial_referrer',
+          '$referrer',
+          '$initial_referring_domain',
+          '$lib_version',
+          'mp_lib',
+        ],
       });
       this.isInitialized = true;
       logger.info('Analytics Initialized.');
@@ -81,7 +91,6 @@ class AnalyticsService {
     mixpanel.track('Page View', {
       page: pageName,
       url,
-      timestamp: new Date().toISOString(),
     });
   }
 }

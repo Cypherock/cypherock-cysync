@@ -55,7 +55,6 @@ export const SwapReceive = () => {
       fromAsset: fromAccount?.assetId,
       toAsset: toAccount?.assetId,
       action: 'address_generated',
-      address: receiversAddress.current,
     });
 
     await initiateExchange(receiversAddress.current);

@@ -48,7 +48,6 @@ export const SwapSend = () => {
         fromAsset: fromAccount?.assetId,
         toAsset: toAccount?.assetId,
         action: 'transaction_created',
-        transactionId: transactionId.current,
       });
       markTransactionAsSwap(transactionId.current);
       toNextPage();

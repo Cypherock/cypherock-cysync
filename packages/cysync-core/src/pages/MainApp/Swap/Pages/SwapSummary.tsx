@@ -249,8 +249,6 @@ export const SwapSummary = () => {
                 {
                   fromAsset: fromAccount?.assetId,
                   toAsset: toAccount?.assetId,
-                  fromAmount: quote?.fromAmount,
-                  toAmount: quote?.toAmount,
                   provider: quote?.provider?.name,
                   fee: quote?.fee,
                   action: 'confirmed',

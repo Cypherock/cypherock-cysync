@@ -151,7 +151,6 @@ export const BuySellCurrencySelector = () => {
                   analyticsService.trackEvent(
                     ANALYTICS_EVENTS.BUY_CRYPTO_AMOUNT_ENTERED,
                     {
-                      amount,
                       currency: selectedFiatCurrency?.code,
                       type: 'fiat',
                     },
@@ -164,7 +163,6 @@ export const BuySellCurrencySelector = () => {
                   analyticsService.trackEvent(
                     ANALYTICS_EVENTS.BUY_CRYPTO_AMOUNT_ENTERED,
                     {
-                      amount,
                       currency: selectedCryptoCurrency?.coin.coin.abbr,
                       type: 'crypto',
                     },
@@ -195,8 +193,6 @@ export const BuySellCurrencySelector = () => {
               {
                 fiatCurrency: selectedFiatCurrency?.code,
                 cryptoCurrency: selectedCryptoCurrency?.coin.coin.abbr,
-                fiatAmount,
-                cryptoAmount,
               },
             );
             onNextState();
