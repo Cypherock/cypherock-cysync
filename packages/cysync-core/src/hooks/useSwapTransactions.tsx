@@ -212,7 +212,7 @@ const getDestinationAccountAndAsset = (
   wallets: IWallet[],
   swapData: ISwapData,
 ) => {
-  const destinationAccount = findAccount(accounts, {
+  let destinationAccount = findAccount(accounts, {
     __id: swapData.destinationAccountId,
     xpubOrAddress: swapData.destinationAddress,
     assetId: swapData.destinationAssetId,
@@ -226,6 +226,11 @@ const getDestinationAccountAndAsset = (
         destinationAccount.assetId,
       )
     : undefined;
+  if (destinationAccount?.type === AccountTypeMap.subAccount) {
+    destinationAccount = findAccount(accounts, {
+      __id: destinationAccount.parentAccountId,
+    });
+  }
   return { destinationAccount, destinationWallet, destinationAsset };
 };
 
@@ -285,8 +290,8 @@ export const mapSwapTransactionForDisplay = (params: {
   const destinationAssetName = destinationAsset?.name;
   const destinationAssetIcon = (props: any) => (
     <CoinIcon
-      parentAssetId={destinationAccount?.parentAssetId ?? ''}
-      assetId={destinationAccount?.assetId}
+      parentAssetId={swapData.destinationParentAssetId}
+      assetId={destinationAsset?.id}
       showFallback={!destinationAccount}
       {...props}
     />
