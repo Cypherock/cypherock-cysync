@@ -186,7 +186,6 @@ export const BuySell2Provider: FC<BuySell2ContextProviderProps> = ({
           return {
             ...a,
             shortForm,
-            rightText: undefined,
             showRightTextOnBottom: undefined,
           };
         }),
