@@ -28,7 +28,6 @@ export const InheritanceSetup: FC = () => {
   const navigateTo = useNavigateTo();
   const dispatch = useDispatch();
 
-  // Track page view
   useEffect(() => {
     analyticsService.trackEvent(ANALYTICS_EVENTS.INHERITANCE_SETUP_PAGE_VIEWED);
   }, []);

@@ -239,8 +239,6 @@ export const SwapProvider: React.FC<SwapProviderProps> = ({ children }) => {
       providerName: selectedQuote.provider.name,
       fromAsset: sourceAccount.assetId,
       toAsset: destinationAccount.assetId,
-      fromAmount: sourceAmount,
-      toAmount: selectedQuote.toAmount,
       fee: selectedQuote.fee,
     });
   };

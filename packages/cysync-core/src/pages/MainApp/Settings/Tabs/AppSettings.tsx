@@ -20,7 +20,7 @@ export const AppSettings: React.FC = () => {
   const dispatch = useAppDispatch();
   const { isPasswordSet } = useLockscreen();
   const [isAnalyticsAndBugReportEnabled, setAnalyticsAndBugReportEnabled] =
-    useState<boolean>(true);
+    useState<undefined | boolean>(undefined);
   const [isAutoUpdateCySyncEnabled, setAutoUpdateCySyncEnabled] = useState<
     boolean | undefined
   >(undefined);
