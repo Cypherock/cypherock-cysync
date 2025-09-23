@@ -103,6 +103,6 @@ export default [
     feesUnit: 'Gwei',
     network: 'hyperliquid',
     chain: 999,
-    color: '#0c0807',
+    color: '#97fce4',
   },
 ];
