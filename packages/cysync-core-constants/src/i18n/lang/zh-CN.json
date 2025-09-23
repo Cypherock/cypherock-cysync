@@ -350,7 +350,8 @@
         "error": "无效的备注"
       },
       "feeBelowMinError": "低于最低 fee 的交易将失败",
-      "rentExemptFeeWarning": "首次在 Solana 上接收代币会产生租金豁免费用，已包含在总费用中。"
+      "rentExemptFeeWarning": "首次在 Solana 上接收代币会产生租金豁免费用，已包含在总费用中。",
+      "parentAssetInsufficient": "您的账户至少需要 ${minParentBalance} 才能支付在 ${network} 网络上的交易费用。请购买或充值更多 ${unit} 到您的账户。"
     },
     "summary": {
       "title": "摘要",
