@@ -1,5 +1,21 @@
 # @cypherock/coin-support
 
+## 0.1.12-pre.0
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @cypherock/coin-support-btc@0.0.22-pre.0
+  - @cypherock/coin-support-evm@0.0.21-pre.0
+  - @cypherock/coin-support-icp@1.0.5-pre.0
+  - @cypherock/coin-support-near@0.0.21-pre.0
+  - @cypherock/coin-support-solana@0.1.7-pre.0
+  - @cypherock/coin-support-starknet@1.0.8-pre.0
+  - @cypherock/coin-support-stellar@1.0.2-pre.0
+  - @cypherock/coin-support-tron@0.0.18-pre.0
+  - @cypherock/coin-support-xrp@1.1.9-pre.0
+  - @cypherock/cysync-utils@0.0.13-pre.0
+
 ## 0.1.11
 
 ### Patch Changes

@@ -1,5 +1,34 @@
 # @cypherock/cysync-core
 
+## 0.7.0-pre.0
+
+### Minor Changes
+
+- [`fe99d430`](https://github.com/Cypherock/cypherock-cysync/commit/fe99d430ef5f0ea5cbdb9a83db3d07df5fac5f6c) Thanks [@AryanCypherock](https://github.com/AryanCypherock)! - odix support added
+
+### Patch Changes
+
+- Updated dependencies [[`fe99d430`](https://github.com/Cypherock/cypherock-cysync/commit/fe99d430ef5f0ea5cbdb9a83db3d07df5fac5f6c)]:
+  - @cypherock/cysync-core-constants@0.6.0-pre.0
+  - @cypherock/cysync-interfaces@0.1.0-pre.0
+  - @cypherock/cysync-ui@0.1.0-pre.0
+  - @cypherock/app-support-buy-sell@0.0.9-pre.0
+  - @cypherock/app-support-inheritance@1.0.7-pre.0
+  - @cypherock/coin-support-btc@0.0.22-pre.0
+  - @cypherock/coin-support-evm@0.0.21-pre.0
+  - @cypherock/coin-support-icp@1.0.5-pre.0
+  - @cypherock/coin-support-near@0.0.21-pre.0
+  - @cypherock/coin-support-solana@0.1.7-pre.0
+  - @cypherock/coin-support-starknet@1.0.8-pre.0
+  - @cypherock/coin-support-stellar@1.0.2-pre.0
+  - @cypherock/coin-support-tron@0.0.18-pre.0
+  - @cypherock/coin-support-utils@0.0.21-pre.0
+  - @cypherock/coin-support-xrp@1.1.9-pre.0
+  - @cypherock/cysync-core-services@0.1.10-pre.0
+  - @cypherock/cysync-utils@0.0.13-pre.0
+  - @cypherock/coin-support@0.1.12-pre.0
+  - @cypherock/cysync-core-workers@0.0.26-pre.0
+
 ## 0.6.9
 
 ### Patch Changes

@@ -1,5 +1,11 @@
 # @cypherock/cysync-core-constants
 
+## 0.6.0-pre.0
+
+### Minor Changes
+
+- [`fe99d430`](https://github.com/Cypherock/cypherock-cysync/commit/fe99d430ef5f0ea5cbdb9a83db3d07df5fac5f6c) Thanks [@AryanCypherock](https://github.com/AryanCypherock)! - odix support added
+
 ## 0.5.2
 
 ### Patch Changes
