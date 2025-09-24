@@ -11,6 +11,11 @@ on:
         default: 'default'
         type: string
         required: true
+      api:
+        description: api endpoint for the application
+        default: 'https://dev-api.cypherock.com'
+        type: string
+        required: true
 
 env:
   NODE_OPTIONS: '--max-old-space-size=8192'
@@ -19,6 +24,7 @@ env:
   APP_NAME: '@cypherock/cysync-desktop'
   CHANNEL: 'latest'
   VENDOR: ${{ inputs.vendor }}
+  API: ${{ inputs.api }}
 
 jobs:
   integrity-check:
