@@ -8,7 +8,16 @@ const {
   execCommand,
 } = require('./helpers');
 
-const S3_URL = config.S3_URL;
+const getS3Url = () => {
+  switch (config.VENDOR) {
+    case 'odix':
+      return `${config.S3_URL}/odix-desktop`;
+    default:
+      return `${config.S3_URL}/cysync-desktop`;
+  }
+};
+
+const S3_URL = getS3Url();
 
 const getArgs = () => {
   const CMD_ERROR_MSG =
