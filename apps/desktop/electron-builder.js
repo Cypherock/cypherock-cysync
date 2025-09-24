@@ -21,21 +21,32 @@ function getAppID() {
   }
 }
 
-const BUILD_RESOURCES_PATH = process.env.VENDOR
-  ? 'build/' + process.env.VENDOR
-  : 'build/default';
+function getBuildResourcesPath() {
+  if (!process.env.VENDOR) {
+    return 'build/default';
+  } else {
+    return `build/${process.env.VENDOR}`;
+  }
+}
 
-const APP_ID = getAppID();
+function getPublishUrl() {
+  const vendor = process.env.VENDOR;
+  switch (vendor) {
+    case 'odix':
+      return 'https://cypherock-updater-v2.s3-accelerate.amazonaws.com/odix-desktop';
+    default:
+      return 'https://cypherock-updater-v2.s3-accelerate.amazonaws.com/cysync-desktop';
+  }
+}
 
-console.log({ APP_ID });
 const config = {
-  appId: APP_ID,
+  appId: getAppID(),
   productName,
   asar: true,
   asarUnpack: ['!**/*.node'],
   directories: {
     output: 'release/${version}',
-    buildResources: BUILD_RESOURCES_PATH,
+    buildResources: getBuildResourcesPath(),
   },
   files: [
     'dist-electron',
@@ -92,15 +103,15 @@ const config = {
   afterSign: 'scripts/notarize.js',
   publish: {
     provider: 'generic',
-    url: 'https://cypherock-updater-v2.s3-accelerate.amazonaws.com/cysync-desktop',
+    url: getPublishUrl(),
   },
 };
 
 if (process.env.WINDOWS_CERT_SUBJECT) {
- if (!config.win.signtoolOptions) { 
-    config.win.signtoolOptions = {}; 
- } 
- config.win.signtoolOptions.certificateSubjectName =
+  if (!config.win.signtoolOptions) {
+    config.win.signtoolOptions = {};
+  }
+  config.win.signtoolOptions.certificateSubjectName =
     process.env.WINDOWS_CERT_SUBJECT;
 }
 
