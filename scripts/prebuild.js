@@ -55,21 +55,11 @@ const getProductName = vendor => {
   }
 };
 
-const getChannel = (vendor, channel) => {
-  if (vendor) {
-    return `${vendor}-${channel}`;
-  } else {
-    return channel;
-  }
-};
-
 const setDesktopAppVersion = async params => {
-  const channelWithoutPrefix = config.CHANNEL;
   params.pkgJson.productName = getProductName(config.VENDOR);
-  config.CHANNEL = getChannel(config.VENDOR, channelWithoutPrefix);
 
-  if (channelWithoutPrefix !== config.RELEASE_CHANNEL) {
-    params.pkgJson.productName = `${params.pkgJson.productName}-${channelWithoutPrefix}`;
+  if (config.CHANNEL !== config.RELEASE_CHANNEL) {
+    params.pkgJson.productName = `${params.pkgJson.productName}-${config.CHANNEL}`;
   }
 
   const pkgJsonVersion = semver.parse(params.pkgJson.version);
