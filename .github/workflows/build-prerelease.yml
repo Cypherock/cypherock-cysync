@@ -6,6 +6,16 @@ on:
       ref:
         description: the branch to prerelease from
         required: true
+      vendor:
+        description: vendor for the build
+        default: 'default'
+        type: string
+        required: false
+      api:
+        description: api endpoint for the application
+        default: 'https://dev-api.cypherock.com'
+        type: string
+        required: true
 
 env:
   NODE_OPTIONS: '--max-old-space-size=8192'
@@ -13,6 +23,8 @@ env:
   APP_NAME: '@cypherock/cysync-desktop'
   CHANNEL: 'pre'
   DO_UPDATE_APP_VERSION: 'true'
+  VENDOR: ${{ inputs.vendor }}
+  API: ${{ inputs.api }}
 
 jobs:
   integrity-check:
