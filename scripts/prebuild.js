@@ -46,15 +46,30 @@ const getUpdateChannel = () => {
   return channelMigrationItem.to;
 };
 
-const setDesktopAppVersion = async params => {
-  if (config.VENDOR !== 'default') {
-    // TODO: add a vendorm productname map here
-    params.pkgJson.productName = config.VENDOR;
-    // config.CHANNEL = `${config.VENDOR}-${config.CHANNEL}`;
+const getProductName = vendor => {
+  switch (vendor) {
+    case 'odix':
+      return 'odix';
+    default:
+      return 'cypherock-cysync';
   }
+};
 
-  if (config.CHANNEL !== config.RELEASE_CHANNEL) {
-    params.pkgJson.productName = `${params.pkgJson.productName}-${config.CHANNEL}`;
+const getChannel = (vendor, channel) => {
+  if (vendor) {
+    return `${vendor}-${channel}`;
+  } else {
+    return channel;
+  }
+};
+
+const setDesktopAppVersion = async params => {
+  const channelWithoutPrefix = config.CHANNEL;
+  params.pkgJson.productName = getProductName(config.VENDOR);
+  config.CHANNEL = getChannel(config.VENDOR, channelWithoutPrefix);
+
+  if (channelWithoutPrefix !== config.RELEASE_CHANNEL) {
+    params.pkgJson.productName = `${params.pkgJson.productName}-${channelWithoutPrefix}`;
   }
 
   const pkgJsonVersion = semver.parse(params.pkgJson.version);
