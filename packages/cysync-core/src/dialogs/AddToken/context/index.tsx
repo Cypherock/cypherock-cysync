@@ -210,7 +210,9 @@ export const AddTokenDialogProvider: FC<AddTokenDialogContextProviderProps> = ({
   const tokenDropDownList: DropDownItemProps[] = useMemo<
     DropDownItemProps[]
   >(() => {
-    const tokens = Object.values(tokenList);
+    const tokens = Object.values(tokenList).filter(
+      t => window.cysyncEnv.VENDOR === 'odix' && t.parentId !== 'fantom',
+    );
 
     return tokens.map(token => ({
       id: token.id,
