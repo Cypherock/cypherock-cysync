@@ -3,7 +3,6 @@ import { fiatCurrencyList, IFiatCurrency } from '@cypherock/coins';
 import axios from 'axios';
 import React, {
   PropsWithChildren,
-  startTransition,
   useCallback,
   useEffect,
   useState,
@@ -64,18 +63,15 @@ export const CurrencyProvider: React.FC<PropsWithChildren> = ({ children }) => {
 
   const updateCurrency = useCallback((currency: string) => {
     const normalized = currency.toLowerCase();
-    if (normalized === currentCurrency) return;
-    dispatch(openFullPageLoaderDialog({}));
-    setTimeout(() => {
-      dispatch(closeDialog('fullPageLoaderDialog'));
-    }, 5000);
-    logger.info('update currency', { currency });
-    startTransition(() => {
-      setCurrentCurrency(prev => {
-        if (prev === normalized) return prev;
-        keyValueStore.appCurrency.set(normalized);
-        return normalized;
-      });
+    setCurrentCurrency(prev => {
+      if (prev === normalized) return prev;
+      logger.info('update currency', { currency });
+      dispatch(openFullPageLoaderDialog({}));
+      setTimeout(() => {
+        dispatch(closeDialog('fullPageLoaderDialog'));
+      }, 5000);
+      keyValueStore.appCurrency.set(normalized);
+      return normalized;
     });
   }, []);
 

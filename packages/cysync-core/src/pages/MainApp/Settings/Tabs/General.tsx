@@ -32,7 +32,7 @@ export const GeneralSettings: React.FC = () => {
         updateCurrency(id);
       }
     },
-    [dispatch],
+    [updateCurrency],
   );
 
   return (
