@@ -31,6 +31,7 @@ import React, {
 
 import { syncAccounts, syncPriceHistories, syncPrices } from '~/actions';
 import { CoinIcon } from '~/components';
+import { useCurrency } from '~/context';
 import { ITabs, useAccountDropdown, useTabsAndDialogs } from '~/hooks';
 import { useWalletDropdown } from '~/hooks/useWalletDropdown';
 import {
@@ -99,6 +100,7 @@ export const AddTokenDialogProvider: FC<AddTokenDialogContextProviderProps> = ({
   );
   const [selectedTokens, setSelectedTokens] = useState<TokenTypes[]>([]);
   const [selectedAccounts, setSelectedAccounts] = useState<IAccount[]>([]);
+  const { currentCurrency } = useCurrency();
 
   useEffect(() => {
     setSelectedAccounts([]);
@@ -290,11 +292,20 @@ export const AddTokenDialogProvider: FC<AddTokenDialogContextProviderProps> = ({
       .map(entry => entry.account);
 
     if (unHiddenOrNewTokenAccounts.length > 0) {
-      syncPrices({ families: [coinFamiliesMap.evm] }).catch(logger.error);
-      syncPriceHistories({ families: [coinFamiliesMap.evm] }).catch(
-        logger.error,
+      syncPrices({
+        families: [coinFamiliesMap.evm],
+        currency: currentCurrency,
+      }).catch(logger.error);
+      syncPriceHistories({
+        families: [coinFamiliesMap.evm],
+        currency: currentCurrency,
+      }).catch(logger.error);
+      dispatch(
+        syncAccounts({
+          accounts: unHiddenOrNewTokenAccounts,
+          currency: currentCurrency,
+        }),
       );
-      dispatch(syncAccounts({ accounts: unHiddenOrNewTokenAccounts }));
     }
 
     onNext();

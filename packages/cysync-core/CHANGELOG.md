@@ -1,5 +1,37 @@
 # @cypherock/cysync-core
 
+## 0.7.0-pre.0
+
+### Minor Changes
+
+- [#800](https://github.com/Cypherock/cypherock-cysync/pull/800) [`c3ed0794`](https://github.com/Cypherock/cypherock-cysync/commit/c3ed0794b9d0cb7281e6a154450d40aca1240395) Thanks [@AryanCypherock](https://github.com/AryanCypherock)! - Multiple currency support added
+
+### Patch Changes
+
+- Updated dependencies [[`c3ed0794`](https://github.com/Cypherock/cypherock-cysync/commit/c3ed0794b9d0cb7281e6a154450d40aca1240395)]:
+  - @cypherock/coin-support-interfaces@0.1.0-pre.0
+  - @cypherock/cysync-core-constants@0.6.0-pre.0
+  - @cypherock/coin-support-solana@0.2.0-pre.0
+  - @cypherock/cysync-core-workers@0.1.0-pre.0
+  - @cypherock/coin-support-utils@0.1.0-pre.0
+  - @cypherock/coin-support-tron@0.1.0-pre.0
+  - @cypherock/coin-support-evm@0.1.0-pre.0
+  - @cypherock/cysync-core-services@0.2.0-pre.0
+  - @cypherock/coin-support@0.2.0-pre.0
+  - @cypherock/coin-support-btc@0.0.22-pre.0
+  - @cypherock/coin-support-icp@1.0.5-pre.0
+  - @cypherock/coin-support-near@0.0.21-pre.0
+  - @cypherock/coin-support-starknet@1.0.8-pre.0
+  - @cypherock/coin-support-stellar@1.0.2-pre.0
+  - @cypherock/coin-support-xrp@1.1.9-pre.0
+  - @cypherock/app-support-buy-sell@0.0.8
+  - @cypherock/app-support-inheritance@1.0.6
+  - @cypherock/coins@0.3.3
+  - @cypherock/db-interfaces@0.1.1
+  - @cypherock/cysync-interfaces@0.0.10
+  - @cypherock/cysync-ui@0.0.16
+  - @cypherock/cysync-utils@0.0.12
+
 ## 0.6.9
 
 ### Patch Changes

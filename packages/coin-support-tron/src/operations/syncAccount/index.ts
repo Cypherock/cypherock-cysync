@@ -35,12 +35,17 @@ interface GetTransactionParserParams {
   account: IAccount;
 }
 
-const onNewAccounts = (newAccounts: IAccount[], db: IDatabase) => {
+const onNewAccounts = (
+  newAccounts: IAccount[],
+  db: IDatabase,
+  currency: string,
+) => {
   for (const newAccount of newAccounts) {
     lastValueFrom(
       syncAccount({
         db,
         accountId: newAccount.__id ?? '',
+        currency,
       }),
     ).catch(error => {
       logger.error('Error in syncing tron token account');
@@ -59,6 +64,7 @@ const onNewAccounts = (newAccounts: IAccount[], db: IDatabase) => {
       createSyncPricesObservable({
         db,
         getCoinIds,
+        currency,
       }),
     ).catch(error => {
       logger.error('Error in syncing tron token prices');
@@ -69,6 +75,7 @@ const onNewAccounts = (newAccounts: IAccount[], db: IDatabase) => {
       createSyncPriceHistoriesObservable({
         db,
         getCoinIds,
+        currency,
       }),
     ).catch(error => {
       logger.error('Error in syncing tron token price histories');
@@ -270,7 +277,7 @@ const getAddressDetails: IGetAddressDetails<{
   page: number;
   perPage: number;
   afterBlock?: number;
-}> = async ({ db, account, iterationContext }) => {
+}> = async ({ db, account, iterationContext, currency }) => {
   const afterBlock =
     iterationContext?.afterBlock ??
     (await getLatestTransactionBlock(db, {
@@ -353,7 +360,7 @@ const getAddressDetails: IGetAddressDetails<{
     transactions.push(normalTransactionParsed);
   }
 
-  onNewAccounts(newAccounts, db);
+  onNewAccounts(newAccounts, db, currency);
 
   const hasMore = Boolean(
     response.page && response.totalPages && response.totalPages > response.page,

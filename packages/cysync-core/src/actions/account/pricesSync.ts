@@ -7,7 +7,13 @@ import { Observer } from 'rxjs';
 
 import { getDB } from '~/utils';
 
-export const syncPrices = ({ families }: { families: string[] }) =>
+export const syncPrices = ({
+  families,
+  currency,
+}: {
+  families: string[];
+  currency: string;
+}) =>
   new Promise<void>(resolve => {
     const observer: Observer<ISyncPricesEvent> = {
       error: () => {
@@ -23,8 +29,9 @@ export const syncPrices = ({ families }: { families: string[] }) =>
     syncPricesCore({
       db: getDB(),
       families,
+      currency,
     }).subscribe(observer);
   });
 
-export const syncAllPrices = () =>
-  syncPrices({ families: Object.values(coinFamiliesMap) });
+export const syncAllPrices = (currency: string) =>
+  syncPrices({ families: Object.values(coinFamiliesMap), currency });

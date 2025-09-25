@@ -13,9 +13,10 @@ import React, { useMemo } from 'react';
 import {
   CoinIcon,
   selectDiscreetMode,
-  selectPriceInfos,
+  selectCurrentCurrencyPriceInfos,
   selectUnHiddenAccounts,
   useAppSelector,
+  useCurrency,
 } from '..';
 
 export interface UseSubAccountsProps {
@@ -23,16 +24,25 @@ export interface UseSubAccountsProps {
 }
 
 const selector = createSelector(
-  [selectUnHiddenAccounts, selectPriceInfos, selectDiscreetMode],
-  ({ accounts }, { priceInfos }, { active }) => ({
+  [
+    selectUnHiddenAccounts,
+    selectCurrentCurrencyPriceInfos,
+    selectDiscreetMode,
+    (state, currency: string) => currency,
+  ],
+  ({ accounts }, priceInfos, { active }, currency) => ({
     accounts,
     priceInfos,
     isDiscreetMode: active,
+    currency,
   }),
 );
 
 export const useSubAccounts = ({ accountId }: UseSubAccountsProps) => {
-  const { accounts, priceInfos, isDiscreetMode } = useAppSelector(selector);
+  const { currentCurrency } = useCurrency();
+  const { accounts, priceInfos, isDiscreetMode } = useAppSelector(state =>
+    selector(state, currentCurrency),
+  );
 
   const subAccounts = useMemo(
     () =>
@@ -82,12 +92,12 @@ export const useSubAccounts = ({ accountId }: UseSubAccountsProps) => {
             ),
             displayAmount,
             amountTooltip,
-            displayValue: `$${
-              isDiscreetMode ? '****' : formatDisplayPrice(value)
-            }`,
+            displayValue: isDiscreetMode
+              ? '****'
+              : formatDisplayPrice(value, currentCurrency),
           };
         }),
-    [accountId, accounts, priceInfos],
+    [accountId, accounts, priceInfos, currentCurrency],
   );
 
   return {

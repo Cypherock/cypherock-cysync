@@ -125,6 +125,9 @@ const initialState: IDialogState = {
   mobileAppSyncDialog: {
     isOpen: false,
   },
+  fullPageLoaderDialog: {
+    isOpen: false,
+  },
 };
 
 export const dialogSlice = createSlice({
