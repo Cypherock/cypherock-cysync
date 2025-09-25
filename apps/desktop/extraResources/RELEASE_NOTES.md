@@ -1,3 +1,9 @@
+# v2.2.2
+
+### 🚀 Feature
+
+- **Multiple Fiat Currencies Support** is now live on the cySync app. Manage your crypto using your local fiat currency with ease.
+
 # v2.2.1
 
 ### 🚀 Feature
