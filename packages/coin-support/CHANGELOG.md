@@ -1,5 +1,27 @@
 # @cypherock/coin-support
 
+## 0.2.0
+
+### Minor Changes
+
+- [#800](https://github.com/Cypherock/cypherock-cysync/pull/800) [`c3ed0794`](https://github.com/Cypherock/cypherock-cysync/commit/c3ed0794b9d0cb7281e6a154450d40aca1240395) Thanks [@AryanCypherock](https://github.com/AryanCypherock)! - Multiple currency support added
+
+### Patch Changes
+
+- Updated dependencies [[`c3ed0794`](https://github.com/Cypherock/cypherock-cysync/commit/c3ed0794b9d0cb7281e6a154450d40aca1240395)]:
+  - @cypherock/coin-support-interfaces@0.1.0
+  - @cypherock/coin-support-solana@0.2.0
+  - @cypherock/coin-support-tron@0.1.0
+  - @cypherock/coin-support-evm@0.1.0
+  - @cypherock/coin-support-btc@0.0.22
+  - @cypherock/coin-support-icp@1.0.5
+  - @cypherock/coin-support-near@0.0.21
+  - @cypherock/coin-support-starknet@1.0.8
+  - @cypherock/coin-support-stellar@1.0.2
+  - @cypherock/coin-support-xrp@1.1.9
+  - @cypherock/coins@0.3.3
+  - @cypherock/cysync-utils@0.0.12
+
 ## 0.2.0-pre.0
 
 ### Minor Changes
