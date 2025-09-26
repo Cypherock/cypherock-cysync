@@ -790,7 +790,8 @@
         "error": "Mémo invalide"
       },
       "feeBelowMinError": "Une transaction avec des frais inférieurs au minimum échouera",
-      "rentExemptFeeWarning": "Recevoir un jeton sur solana pour la première fois entraîne des frais d'exemption de loyer, inclus dans les frais totaux."
+      "rentExemptFeeWarning": "Recevoir un jeton sur solana pour la première fois entraîne des frais d'exemption de loyer, inclus dans les frais totaux.",
+      "parentAssetInsufficient": "Vous avez besoin d'au moins ${minParentBalance} sur votre compte pour couvrir les frais de transaction sur le réseau ${network}. Achetez ou déposez davantage de ${unit} sur votre compte."
     },
     "summary": {
       "title": "Résumé",

@@ -77,7 +77,7 @@ const ComponentWithHeader: React.FC<{
         )}
         {onHistory && (
           <Button
-            variant="text"
+            variant="secondary"
             title="History"
             onClick={onHistory}
             disabled={disableHistory}

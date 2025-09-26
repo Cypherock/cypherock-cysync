@@ -359,6 +359,7 @@ interface LangSend {
       error: string;
     };
     rentExemptFeeWarning: string;
+    parentAssetInsufficient: string;
   };
   summary: {
     title: string;

@@ -350,7 +350,8 @@
         "error": "Memo tidak valid"
       },
       "feeBelowMinError": "Transaksi dengan biaya lebih rendah dari minimum akan gagal",
-      "rentExemptFeeWarning": "Menerima token di Solana untuk pertama kali akan dikenakan biaya pembebasan sewa, yang termasuk dalam total biaya."
+      "rentExemptFeeWarning": "Menerima token di Solana untuk pertama kali akan dikenakan biaya pembebasan sewa, yang termasuk dalam total biaya.",
+      "parentAssetInsufficient": "Anda memerlukan setidaknya ${minParentBalance} di akun Anda untuk menutupi biaya transaksi di jaringan ${network}. Beli atau setor lebih banyak ${unit} ke akun Anda."
     },
     "summary": {
       "title": "Ringkasan",

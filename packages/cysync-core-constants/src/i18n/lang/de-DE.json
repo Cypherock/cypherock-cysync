@@ -350,7 +350,8 @@
         "error": "Ungültiges Memo"
       },
       "feeBelowMinError": "Transaktion mit fee unter dem Minimum wird fehlschlagen",
-      "rentExemptFeeWarning": "Das erstmalige Empfangen eines Tokens auf Solana zieht Mietbefreiungsgebühren nach sich, die in den Gesamtgebühren enthalten sind."
+      "rentExemptFeeWarning": "Das erstmalige Empfangen eines Tokens auf Solana zieht Mietbefreiungsgebühren nach sich, die in den Gesamtgebühren enthalten sind.",
+      "parentAssetInsufficient": "Sie benötigen mindestens ${minParentBalance} auf Ihrem Konto, um die Transaktionsgebühren im ${network}-Netzwerk zu decken. Kaufen oder hinterlegen Sie mehr ${unit} auf Ihrem Konto."
     },
     "summary": {
       "title": "Zusammenfassung",

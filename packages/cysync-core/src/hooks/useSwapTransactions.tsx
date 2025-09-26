@@ -8,6 +8,7 @@ import {
 } from '@cypherock/coin-support-utils';
 import { SvgProps, SwapTableHeaderName } from '@cypherock/cysync-ui';
 import {
+  AccountTypeMap,
   IAccount,
   IPriceInfo,
   ISwapData,
@@ -188,14 +189,21 @@ const getSourceAccountAndAsset = (
   sentTransaction: ITransaction,
   swapData: ISwapData,
 ) => {
-  const sourceAccount = findAccount(accounts, {
+  let sourceAccount = findAccount(accounts, {
+    xpubOrAddress: swapData.sourceAddress,
     __id: swapData.sourceAccountId,
   });
   const sourceWallet = findWallet(wallets, swapData.sourceWalletId);
   const sourceAsset = getAsset(
-    sourceAccount?.parentAssetId ?? sentTransaction.parentAssetId,
-    sourceAccount?.assetId ?? sentTransaction.assetId,
+    sentTransaction.parentAssetId,
+    sentTransaction.assetId,
   );
+
+  if (sourceAccount?.type === AccountTypeMap.subAccount) {
+    sourceAccount = findAccount(accounts, {
+      __id: sourceAccount.parentAccountId,
+    });
+  }
   return { sourceAccount, sourceWallet, sourceAsset };
 };
 
@@ -204,13 +212,12 @@ const getDestinationAccountAndAsset = (
   wallets: IWallet[],
   swapData: ISwapData,
 ) => {
-  const destinationAccount =
-    findAccount(accounts, { __id: swapData.destinationAccountId }) ??
-    findAccount(accounts, {
-      xpubOrAddress: swapData.destinationAddress,
-      assetId: swapData.destinationAssetId,
-      parentAssetId: swapData.destinationParentAssetId,
-    });
+  let destinationAccount = findAccount(accounts, {
+    __id: swapData.destinationAccountId,
+    xpubOrAddress: swapData.destinationAddress,
+    assetId: swapData.destinationAssetId,
+    parentAssetId: swapData.destinationParentAssetId,
+  });
   const destinationWallet = findWallet(wallets, swapData.destinationWalletId);
 
   const destinationAsset = destinationAccount
@@ -219,6 +226,11 @@ const getDestinationAccountAndAsset = (
         destinationAccount.assetId,
       )
     : undefined;
+  if (destinationAccount?.type === AccountTypeMap.subAccount) {
+    destinationAccount = findAccount(accounts, {
+      __id: destinationAccount.parentAccountId,
+    });
+  }
   return { destinationAccount, destinationWallet, destinationAsset };
 };
 
@@ -261,7 +273,7 @@ export const mapSwapTransactionForDisplay = (params: {
       parentAssetId={
         sourceAccount?.parentAssetId ?? sentTransaction.parentAssetId
       }
-      assetId={sourceAccount?.assetId ?? sentTransaction.assetId}
+      assetId={sourceAsset.id}
       {...props}
     />
   );
@@ -278,8 +290,8 @@ export const mapSwapTransactionForDisplay = (params: {
   const destinationAssetName = destinationAsset?.name;
   const destinationAssetIcon = (props: any) => (
     <CoinIcon
-      parentAssetId={destinationAccount?.parentAssetId ?? ''}
-      assetId={destinationAccount?.assetId}
+      parentAssetId={swapData.destinationParentAssetId}
+      assetId={destinationAsset?.id}
       showFallback={!destinationAccount}
       {...props}
     />
