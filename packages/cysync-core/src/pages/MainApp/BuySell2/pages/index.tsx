@@ -13,9 +13,14 @@ export enum BuySellPage {
   History,
 }
 
-export const pageMap: Record<BuySellPage, () => React.ReactNode> = {
+export const pageMap: Record<
+  BuySellPage,
+  (props: { topbarHeight: number }) => React.ReactNode
+> = {
   [BuySellPage.Input]: () => <BuySellInput />,
   [BuySellPage.Receive]: () => <BuySellReceive />,
   [BuySellPage.Webview]: () => <BuySellWebview />,
-  [BuySellPage.History]: () => <BuySellHistory />,
+  [BuySellPage.History]: ({ topbarHeight }: { topbarHeight: number }) => (
+    <BuySellHistory topbarHeight={topbarHeight} />
+  ),
 };

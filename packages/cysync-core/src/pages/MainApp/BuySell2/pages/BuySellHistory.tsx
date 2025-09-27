@@ -23,7 +23,7 @@ import { getDB } from '~/utils';
 
 import { BuySellPage } from '.';
 
-export const BuySellHistory = () => {
+export const BuySellHistory = ({ topbarHeight }: { topbarHeight: number }) => {
   const lang = useAppSelector(selectLanguage);
   const { toPage, setNavigationOptions } = useBuySell2();
   const {
@@ -154,7 +154,7 @@ export const BuySellHistory = () => {
               {({ width }: any) => (
                 <Virtualize.List
                   ref={listRef}
-                  height={windowHeight - 173 - 20}
+                  height={windowHeight - topbarHeight - 173 - 57}
                   width={width}
                   rowCount={displayedData.length}
                   rowHeight={getRowHeight}

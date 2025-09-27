@@ -1,5 +1,5 @@
 import { Container } from '@cypherock/cysync-ui';
-import React, { useMemo } from 'react';
+import React, { useMemo, useState } from 'react';
 
 import { useBuySell2 } from '~/context/buySell2';
 import { selectLanguage, useAppSelector } from '~/store';
@@ -13,12 +13,17 @@ export const BuySell2 = () => {
   const lang = useAppSelector(selectLanguage);
   const strings = lang.strings.buySell;
 
+  const [topbarHeight, setTopbarHeight] = useState(0);
+
   const { currentPage } = useBuySell2();
 
   const currentComponent = useMemo(() => pageMap[currentPage], [currentPage]);
 
   return (
-    <MainAppLayout topbar={{ title: strings.buy.title }}>
+    <MainAppLayout
+      topbar={{ title: strings.buy.title }}
+      onTopbarHeightChange={setTopbarHeight}
+    >
       <Container
         gap={16}
         py={2}
@@ -27,7 +32,7 @@ export const BuySell2 = () => {
         justify="flex-start"
       >
         <Header />
-        {currentComponent()}
+        {currentComponent({ topbarHeight })}
       </Container>
     </MainAppLayout>
   );
