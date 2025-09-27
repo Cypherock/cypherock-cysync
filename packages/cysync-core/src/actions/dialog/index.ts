@@ -1,5 +1,6 @@
 import { AddAccountDialogProps } from '~/dialogs/AddAccount';
 import { AddTokenDialogProps } from '~/dialogs/AddToken';
+import { IBuySellDialogProps } from '~/dialogs/BuySellDialog';
 import { IContactSupportDialogProps } from '~/dialogs/ContactSupport';
 import { DeleteAccountDialogProps } from '~/dialogs/DeleteAccountDialog';
 import { DeployAccountDialogProps } from '~/dialogs/DeployAccount/context';
@@ -76,6 +77,9 @@ export const openHistoryDialog = (props?: IHistoryDialogProps) =>
 
 export const openSwapHistoryDialog = (props?: ISwapDialogProps) =>
   openDialog({ name: 'swapDialog', data: props });
+
+export const openBuySellHistoryDialog = (props?: IBuySellDialogProps) =>
+  openDialog({ name: 'buySellDialog', data: props });
 
 export const openDeviceUpdateDialog = () =>
   openDialog({ name: 'deviceUpdateDialog', data: undefined });

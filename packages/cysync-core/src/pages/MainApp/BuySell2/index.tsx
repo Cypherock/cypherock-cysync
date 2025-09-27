@@ -1,4 +1,4 @@
-import { Container, Flex } from '@cypherock/cysync-ui';
+import { Container } from '@cypherock/cysync-ui';
 import React, { useMemo } from 'react';
 
 import { useBuySell2 } from '~/context/buySell2';
@@ -27,9 +27,7 @@ export const BuySell2 = () => {
         justify="flex-start"
       >
         <Header />
-        <Flex px={2} width="full" height="full">
-          {currentComponent()}
-        </Flex>
+        {currentComponent()}
       </Container>
     </MainAppLayout>
   );

@@ -37,20 +37,10 @@ export const BuySellReceive = () => {
     };
   }, [toPreviousPage]);
 
-  // const { strings } = useAppSelector(selectLanguage);
-  // const displayText = {
-  //   errors: {
-  //     notSuccessful: 'Receive flow was not successful',
-  //     invalidInputs: 'Invalid inputs for initiating Exchange',
-  //     accountNotSelected: 'Account not selected',
-  //   },
-  // };
-
   const onReceiveFlowClosed = async () => {
     if (receiversAddress.current === undefined) {
       // TODO: error handling
       // onError(createCustomError(displayText.errors.notSuccessful));
-      // await closeExchange();
       reset();
       return;
     }
@@ -73,7 +63,7 @@ export const BuySellReceive = () => {
         storeReceiveAddress,
         source: ReceiveFlowSource.ONRAMP,
         onClose: onReceiveFlowClosed,
-        isVerificationRequired: true,
+        isVerificationRequired: false,
       }),
     );
   };

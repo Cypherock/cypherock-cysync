@@ -13,4 +13,8 @@ export class BuySellSupport2 {
   public createOrder(params: operations.ICreateOrderParams) {
     return operations.createOrder(params);
   }
+
+  public getOrders(params: operations.IGetOrdersParams) {
+    return operations.getOrders(params);
+  }
 }

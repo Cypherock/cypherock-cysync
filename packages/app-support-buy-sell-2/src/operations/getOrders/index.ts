@@ -1,6 +1,6 @@
 import { makePostRequest } from '@cypherock/cysync-utils';
 
-import { ICreateOrderParams, ICreateOrderResponse } from './types';
+import { IGetOrdersParams, IGetOrdersResponse } from './types';
 
 import { config } from '../../config';
 
@@ -8,11 +8,11 @@ export * from './types';
 
 const BASE_URL = `${config.API_CYPHEROCK}/buySell`;
 
-export const createOrder = async (
-  params: ICreateOrderParams,
-): Promise<ICreateOrderResponse> => {
+export const getOrders = async (
+  params: IGetOrdersParams,
+): Promise<IGetOrdersResponse> => {
   try {
-    const response = await makePostRequest(`${BASE_URL}/order`, params);
+    const response = await makePostRequest(`${BASE_URL}/get-orders`, params);
     return response.data;
   } catch (error) {
     return {

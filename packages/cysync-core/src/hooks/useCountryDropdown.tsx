@@ -1,13 +1,12 @@
-import { fiatCurrencyList, IFiatCurrency } from '@cypherock/coins';
 import { DropDownItemProps, Typography } from '@cypherock/cysync-ui';
-import lodash from 'lodash';
 import React, { useMemo, useState } from 'react';
 
+import { countryList } from '~/countries';
+
 export interface Country {
-  countryCode: string;
-  countryName: string;
-  countryFlag: string;
-  currencies: IFiatCurrency[];
+  code: string;
+  name: string;
+  flag: string;
 }
 
 export interface UseCountryDropdownProps {
@@ -19,31 +18,15 @@ export const useCountryDropdown = ({
 }: UseCountryDropdownProps = {}) => {
   const [selectedCountry, setSelectedCountry] = useState<Country | undefined>();
 
-  const availableCountries = useMemo(() => {
-    const countriesMap = lodash.groupBy(
-      Object.values(fiatCurrencyList),
-      'countryCode',
-    );
-
-    return Object.entries(countriesMap).map(([countryCode, currencies]) => ({
-      countryCode,
-      countryName: currencies[0].countryName,
-      countryFlag: currencies[0].countryFlag,
-      currencies,
-    })) as Country[];
-  }, []);
-
   const countryDropdownList: DropDownItemProps[] = useMemo(
     () =>
-      availableCountries.map(country => ({
-        id: country.countryCode,
+      Object.values(countryList).map(country => ({
+        id: country.code,
         checkType: 'radio',
-        text: country.countryName,
-        leftImage: (
-          <Typography $fontSize={16}>{country.countryFlag}</Typography>
-        ),
+        text: country.name,
+        leftImage: <Typography $fontSize={16}>{country.flag}</Typography>,
       })),
-    [availableCountries],
+    [countryList],
   );
 
   const handleCountryChange = (countryCode?: string) => {
@@ -52,25 +35,21 @@ export const useCountryDropdown = ({
       return;
     }
 
-    const country = availableCountries.find(c => c.countryCode === countryCode);
-    setSelectedCountry(country);
+    setSelectedCountry(countryList[countryCode]);
   };
 
   // Set default selection if provided
   React.useEffect(() => {
     if (defaultCountryCode && !selectedCountry) {
-      const country = availableCountries.find(
-        c => c.countryCode === defaultCountryCode,
-      );
+      const country = countryList[defaultCountryCode];
       setSelectedCountry(country);
     }
-  }, [defaultCountryCode, selectedCountry, availableCountries]);
+  }, [defaultCountryCode, selectedCountry, countryList]);
 
   return {
     selectedCountry,
     setSelectedCountry,
     handleCountryChange,
     countryDropdownList,
-    availableCountries,
   };
 };

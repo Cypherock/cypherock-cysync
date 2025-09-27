@@ -1,18 +1,18 @@
-import countryList from './country';
+import countries from './country';
 
-export interface ICountry {
+interface ICountry {
   name: string;
   code: string;
   flag: string;
 }
 
-export const fiatCurrencyList: Record<string, ICountry> = countryList.reduce<
+export const countryList: Record<string, ICountry> = countries.reduce<
   Record<string, ICountry>
 >(
-  (list, currency) => ({
+  (list, country) => ({
     ...list,
-    [currency.code]: {
-      ...currency,
+    [country.code]: {
+      ...country,
     },
   }),
   {},

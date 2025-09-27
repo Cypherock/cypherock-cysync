@@ -36,10 +36,10 @@ const OfferBox: React.FC<{
     px={2}
     gap={16}
     direction="column"
-    $borderRadius={8}
+    $borderRadius={isSelected ? 8 : 0}
     $borderColor={isSelected ? 'gold' : 'card'}
     $bgColor={isSelected ? 'input' : 'disabled'}
-    $borderWidth={1}
+    $borderWidth={isSelected ? 1 : 0}
     onClick={onSelect}
   >
     <Flex justify="space-between" align="center">

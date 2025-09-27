@@ -128,117 +128,119 @@ export const BuySellInput: React.FC = () => {
   );
 
   return (
-    <Container
-      $borderRadius={24}
-      shadow="popup"
-      direction="row"
-      align="stretch"
-      $borderWidth={0}
-      $overflow="hidden"
-      height="full"
-      width="full"
-      $bgColor="primary"
-    >
-      {/* Input Section */}
-      <Flex
-        gap={16}
-        p={4}
-        px={5}
-        height="fit-content"
-        direction="column"
-        $flex={5}
-        $minWidth="0"
+    <Flex width="full" height="full" pb={5}>
+      <Container
+        $borderRadius={24}
+        shadow="popup"
+        direction="row"
+        align="stretch"
+        $borderWidth={1}
+        $overflow="hidden"
+        height="full"
+        width="full"
+        $bgColor="primary"
+        mx="20"
       >
-        {/* Input From */}
+        {/* Input Section */}
         <Flex
-          p={3}
           gap={16}
+          p={4}
+          px={5}
+          height="fit-content"
           direction="column"
-          $bgColor="lightBlack"
-          $borderRadius={8}
-          $borderWidth={0}
+          $flex={1}
+          $minWidth="0"
         >
-          <RegionCurrencySelector />
-          <AmountInput />
-          <PaymentMethodSelector />
+          {/* Input From */}
+          <Flex
+            p={3}
+            gap={16}
+            direction="column"
+            $bgColor="lightBlack"
+            $borderRadius={8}
+            $borderWidth={0}
+          >
+            <RegionCurrencySelector />
+            <AmountInput />
+            <PaymentMethodSelector />
+          </Flex>
+
+          {/* Input To */}
+          <Flex
+            p={3}
+            gap={16}
+            direction="column"
+            $bgColor="lightBlack"
+            $borderRadius={8}
+            $borderWidth={0}
+          >
+            <CryptoSelector />
+            <WalletAccountSelector />
+          </Flex>
+
+          {/* Error Message */}
+          {selectedWallet &&
+            selectedCrypto &&
+            accountDropdownList.length === 0 && (
+              <MessageBox
+                type="danger"
+                text={strings.messageBox.danger}
+                altText={`${selectedCrypto.name} ${strings.messageBox.altText} ${selectedWallet.name}`}
+                actionButton={
+                  <Button
+                    variant="text"
+                    onClick={() =>
+                      dispatch(
+                        openAddAccountDialog({
+                          coinId: selectedCrypto.parentAssetId,
+                          walletId: selectedWallet.__id,
+                        }),
+                      )
+                    }
+                  >
+                    <Typography color="gold">
+                      {lang.strings.buttons.addAccount}
+                    </Typography>
+                  </Button>
+                }
+              />
+            )}
         </Flex>
 
-        {/* Input To */}
+        {/* Quotes Section */}
         <Flex
-          p={3}
-          gap={16}
+          $bgColor="list"
+          width={400}
+          py={4}
+          px={5}
+          justify="space-between"
           direction="column"
-          $bgColor="lightBlack"
-          $borderRadius={8}
-          $borderWidth={0}
+          $borderWidthL={1}
         >
-          <CryptoSelector />
-          <WalletAccountSelector />
-        </Flex>
+          <Flex direction="column" gap={24}>
+            <Typography color="muted">{strings.offers.title}</Typography>
 
-        {/* Error Message */}
-        {selectedWallet &&
-          selectedCrypto &&
-          accountDropdownList.length === 0 && (
-            <MessageBox
-              type="danger"
-              text={strings.messageBox.danger}
-              altText={`${selectedCrypto.name} ${strings.messageBox.altText} ${selectedWallet.name}`}
-              actionButton={
-                <Button
-                  variant="text"
-                  onClick={() =>
-                    dispatch(
-                      openAddAccountDialog({
-                        coinId: selectedCrypto.parentAssetId,
-                        walletId: selectedWallet.__id,
-                      }),
-                    )
-                  }
-                >
-                  <Typography color="gold">
-                    {lang.strings.buttons.addAccount}
-                  </Typography>
-                </Button>
-              }
-            />
-          )}
-      </Flex>
+            {!canShowOffers && messages()}
+            {canShowOffers && <Offers />}
+          </Flex>
 
-      {/* Quotes Section */}
-      <Flex
-        $flex={2}
-        $bgColor="list"
-        width={400}
-        py={4}
-        px={5}
-        justify="space-between"
-        direction="column"
-        $borderWidthL={1}
-      >
-        <Flex direction="column" gap={24}>
-          <Typography color="muted">{strings.offers.title}</Typography>
+          <Flex direction="column" gap={8}>
+            {canShowOffers && !canCreateOrder && messages()}
 
-          {!canShowOffers && messages()}
-          {canShowOffers && <Offers />}
-        </Flex>
-
-        <Flex direction="column" gap={8}>
-          {canShowOffers && !canCreateOrder && messages()}
-
-          <Flex py={3} $borderWidthT={1}>
-            <Button
-              width="full"
-              variant="primary"
-              display="inline-block"
-              disabled={!canCreateOrder}
-              onClick={toNextPage}
-            >
-              {lang.strings.buttons.continue}
-            </Button>
+            <Flex py={3} $borderWidthT={1}>
+              <Button
+                width="full"
+                variant="primary"
+                display="inline-block"
+                disabled={!canCreateOrder}
+                onClick={toNextPage}
+              >
+                {lang.strings.buttons.continue}
+              </Button>
+            </Flex>
           </Flex>
         </Flex>
-      </Flex>
-    </Container>
+      </Container>
+    </Flex>
   );
 };

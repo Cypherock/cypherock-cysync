@@ -10,6 +10,7 @@ import {
   AuthenticateX1VaultDialog,
 } from './Authenticate';
 import { BetaNotificationDialog } from './BetaNotificationDialog';
+import { BuySellDialog } from './BuySellDialog';
 import { ContactSupportDialog } from './ContactSupport';
 import { ReleaseNotesDialog, ResetCySyncDialog } from './CySync';
 import { DeleteAccountDialog } from './DeleteAccountDialog';
@@ -85,4 +86,5 @@ export const dialogs: Record<DialogName, ReactComponentLike> = {
   inheritanceEstateRecovery: InheritanceEstateRecoveryDialog,
   mobileAppSyncDialog: MobileAppSyncDialog,
   swapDialog: SwapDialog,
+  buySellDialog: BuySellDialog,
 };

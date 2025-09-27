@@ -86,6 +86,9 @@ const initialState: IDialogState = {
   swapDialog: {
     isOpen: false,
   },
+  buySellDialog: {
+    isOpen: false,
+  },
   deleteAccount: {
     isOpen: false,
   },

@@ -2,9 +2,11 @@ import { makePostRequest } from '@cypherock/cysync-utils';
 
 import { IGetOffersParams, IGetOffersResponse } from './types';
 
+import { config } from '../../config';
+
 export * from './types';
 
-const BASE_URL = `http://localhost:5000/buySell`;
+const BASE_URL = `${config.API_CYPHEROCK}/buySell`;
 
 export const getOffers = async (
   params: IGetOffersParams,

@@ -51,7 +51,7 @@ export const RegionCurrencySelector = () => {
       <Flex gap={8}>
         <Dropdown
           items={countryDropdownList}
-          selectedItem={selectedCountry?.countryCode}
+          selectedItem={selectedCountry?.code}
           searchText={strings.selectCountry.searchText}
           placeholderText={strings.selectCountry.placeholder}
           onChange={handleCountryChangeProxy}

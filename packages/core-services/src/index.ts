@@ -5,4 +5,5 @@ export * from './portfolio';
 export * from './address';
 export * from './transactions';
 export * from './inheritancePlan';
+export * from './buySellOrder';
 export { updateLogger } from './utils/logger';

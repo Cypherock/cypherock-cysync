@@ -114,6 +114,11 @@ export interface IDialogState {
     data?: ISwapDialogProps;
   };
 
+  buySellDialog: {
+    isOpen: boolean;
+    data?: ISwapDialogProps;
+  };
+
   walletActions: {
     isOpen: boolean;
     data?: undefined;

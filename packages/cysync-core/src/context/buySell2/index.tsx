@@ -7,8 +7,14 @@ import {
 } from '@cypherock/app-support-buy-sell-2';
 import { getAsset } from '@cypherock/coin-support-utils';
 import { IFiatCurrency } from '@cypherock/coins';
+import { insertBuySellOrder } from '@cypherock/cysync-core-services';
 import { DropDownItemProps, Typography } from '@cypherock/cysync-ui';
-import { IAccount, IWallet } from '@cypherock/db-interfaces';
+import {
+  IAccount,
+  IWallet,
+  IBuySellOrder,
+  BuySellStatusMap,
+} from '@cypherock/db-interfaces';
 import lodash from 'lodash';
 import React, {
   Context,
@@ -35,13 +41,14 @@ import {
 import { useNavigation } from '~/pages/MainApp/BuySell2/hooks';
 import { BuySellPage } from '~/pages/MainApp/BuySell2/pages';
 import { selectUnHiddenAccounts, selectWallets, useAppSelector } from '~/store';
+import { getDB } from '~/utils/db';
 
 export interface BuySell2ContextInterface {
   reset: () => void;
 
   // Country functionality
   countryDropdownList: DropDownItemProps[];
-  selectedCountry?: { countryCode: string; countryName: string };
+  selectedCountry?: { code: string; name: string; flag: string };
   handleCountryChange: (countryCode?: string) => void;
 
   // Currency functionality (fiat)
@@ -254,7 +261,6 @@ export const BuySell2Provider: FC<BuySell2ContextProviderProps> = ({
       id: method.code,
       checkType: 'radio',
       text: method.name,
-      shortForm: method.code,
       rightText: ' ',
       rightIcon:
         method.code === bestPaymentMethod ? (
@@ -303,10 +309,35 @@ export const BuySell2Provider: FC<BuySell2ContextProviderProps> = ({
       provider: selectedOffer.provider,
       receiverAddress: address,
       toCurrency: selectedCrypto.abbr,
-      country: selectedCountry?.countryCode,
+      country: selectedCountry?.code,
       extra: {},
     });
-    if (result.success) {
+    if (result.success && result.data) {
+      const db = getDB();
+
+      // Save order to database
+      const dbOrder: IBuySellOrder = {
+        id: result.data.id,
+        provider: selectedOffer.provider,
+        paymentMethod: {
+          code: selectedPaymentMethod,
+          name: selectedOffer.paymentMethod.name,
+        },
+        currencyFrom: selectedFiatCurrency.code,
+        amountFrom: amount,
+        amountTo: selectedOffer.toAmount,
+        country: selectedCountry?.code ?? '',
+        status: BuySellStatusMap.created,
+        accountId: selectedAccount?.__id ?? '',
+        walletId: selectedWallet?.__id ?? '',
+        assetId: selectedCrypto.assetId,
+        familyId: selectedAccount?.familyId ?? '',
+        parentAssetId: selectedCrypto.parentAssetId,
+        createdAt: new Date().toISOString(),
+        updatedAt: new Date().toISOString(),
+      };
+
+      await insertBuySellOrder(db, dbOrder);
       order.current = result.data;
     }
   };
@@ -365,7 +396,7 @@ export const BuySell2Provider: FC<BuySell2ContextProviderProps> = ({
       selectedCrypto?.abbr,
       selectedCrypto?.network,
       amount,
-      selectedCountry?.countryCode,
+      selectedCountry?.code,
     );
   }, [
     selectedFiatCurrency,
@@ -403,7 +434,7 @@ export const BuySell2Provider: FC<BuySell2ContextProviderProps> = ({
         selectedCrypto.abbr,
         selectedCrypto.network,
         amount,
-        selectedCountry.countryCode,
+        selectedCountry.code,
       );
     }
   };
