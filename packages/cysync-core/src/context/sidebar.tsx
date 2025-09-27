@@ -37,7 +37,6 @@ export type Page =
   | 'help'
   | 'referAndEarn'
   | 'swap'
-  | 'buysell'
   | 'buysell2';
 
 export interface SidebarContextInterface {

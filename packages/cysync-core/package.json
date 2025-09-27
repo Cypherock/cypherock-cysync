@@ -68,7 +68,6 @@
   },
   "dependencies": {
     "@aws-crypto/sha256-browser": "^4.0.0",
-    "@cypherock/app-support-buy-sell": "workspace:^",
     "@cypherock/app-support-buy-sell-2": "workspace:^",
     "@cypherock/app-support-inheritance": "workspace:^",
     "@cypherock/coin-support": "workspace:^",

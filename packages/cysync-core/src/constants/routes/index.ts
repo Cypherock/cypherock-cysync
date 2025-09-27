@@ -30,10 +30,6 @@ const rootRoutes = {
     name: 'settings',
     path: '/settings',
   },
-  buysell: {
-    name: 'buy-sell',
-    path: '/buy-sell',
-  },
   buysell2: {
     name: 'buy-sell2',
     path: '/buy-sell2',

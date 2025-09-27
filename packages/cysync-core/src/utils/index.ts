@@ -19,5 +19,4 @@ export * from './uuid';
 export * from './validator';
 export * from './walletConnect';
 export * from './file';
-export * from './buysell';
 export * from './inheritance';

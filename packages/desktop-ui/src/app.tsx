@@ -11,7 +11,6 @@ import {
   WalletConnectProvider,
   AppUpdateProvider,
   LatestDeviceVersionProvider,
-  BuySellProvider,
   BuySell2Provider,
   SwapProvider,
   SnackBarManager,
@@ -61,15 +60,13 @@ const App = () => (
                 <LatestDeviceVersionProvider>
                   <WalletConnectProvider>
                     <SwapProvider>
-                      <BuySellProvider>
-                        <BuySell2Provider>
-                          <AppRouter>
-                            <SnackBarManager />
-                            <DialogManager />
-                            <BackgroundTasks />
-                          </AppRouter>
-                        </BuySell2Provider>
-                      </BuySellProvider>
+                      <BuySell2Provider>
+                        <AppRouter>
+                          <SnackBarManager />
+                          <DialogManager />
+                          <BackgroundTasks />
+                        </AppRouter>
+                      </BuySell2Provider>
                     </SwapProvider>
                   </WalletConnectProvider>
                 </LatestDeviceVersionProvider>
