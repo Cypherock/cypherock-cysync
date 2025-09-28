@@ -18,6 +18,7 @@ import { BigNumber } from '@cypherock/cysync-utils';
 import { AccountTypeMap } from '@cypherock/db-interfaces';
 import React, { useEffect, useState } from 'react';
 
+import { useCurrency } from '~/context';
 import { selectLanguage, useAppSelector } from '~/store';
 
 import { AddressInput } from './AddressInput';
@@ -28,7 +29,6 @@ import { NotesInput } from './NotesInput';
 import { StellarMemoInput } from './StellarMemoInput';
 
 import { useSendDialog } from '../../../context';
-import { useCurrency } from '~/context';
 
 const MAX_UINT64 = new BigNumber('0xffffffffffffffff');
 
