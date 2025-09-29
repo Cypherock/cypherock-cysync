@@ -7,6 +7,7 @@ export interface IGetOffersParams {
   amount: string;
   country?: string;
   state?: string;
+  supportedProviders?: string[];
 }
 
 export interface IPaymentMethod {

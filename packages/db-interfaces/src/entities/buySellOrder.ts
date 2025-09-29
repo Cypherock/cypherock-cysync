@@ -10,6 +10,11 @@ export const BuySellStatusMap = {
   complete: 'complete',
 } as const;
 
+export enum OnRampSupportedProviders {
+  CHANGELLY = 'changelly',
+  BINANCE = 'binance',
+}
+
 interface IPaymentMethod {
   code: string;
   name: string;
