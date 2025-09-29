@@ -96,7 +96,7 @@ export interface BuySell2ContextInterface {
   selectedOffer?: IOfferDetails;
   setSelectedOffer: (offer?: IOfferDetails) => void;
   receiveAmount: string;
-  selectedPaymentMethod: string;
+  selectedPaymentMethod?: string;
   setSelectedPaymentMethod: (method: string) => void;
 
   // Order functionality
@@ -116,6 +116,8 @@ export interface BuySell2ContextInterface {
   }) => void;
 
   retry: () => void;
+
+  timerSeconds: number;
 }
 
 export interface BuySell2Props {
@@ -132,8 +134,11 @@ export interface BuySell2ContextProviderProps extends BuySell2Props {
 export const BuySell2Provider: FC<BuySell2ContextProviderProps> = ({
   children,
 }) => {
-  const { strings } = useAppSelector(selectLanguage);
-  const langStrings = strings.buySell2.offers;
+  const lang = useAppSelector(selectLanguage);
+  const strings = lang.strings.buySell2.offers;
+
+  // Timer for auto-refresh
+  const [timerSeconds, setTimerSeconds] = useState(30);
 
   // Wallet selection
   const { wallets } = useAppSelector(selectWallets);
@@ -235,8 +240,7 @@ export const BuySell2Provider: FC<BuySell2ContextProviderProps> = ({
   const providers = getOffersResponse?.data?.providers ?? [];
 
   // Payment method selection
-  const [selectedPaymentMethod, setSelectedPaymentMethod] =
-    useState<string>('card');
+  const [selectedPaymentMethod, setSelectedPaymentMethod] = useState<string>();
 
   const filteredOffers = useMemo(
     () =>
@@ -255,10 +259,7 @@ export const BuySell2Provider: FC<BuySell2ContextProviderProps> = ({
     [offers],
   );
 
-  const bestPaymentMethod = useMemo(
-    () => offers[0]?.paymentMethod?.code ?? 'card',
-    [offers],
-  );
+  const bestPaymentMethod = offers[0]?.paymentMethod?.code;
 
   const paymentMethodsDropdownList: DropDownItemProps[] = paymentMethods.map(
     method => ({
@@ -268,7 +269,9 @@ export const BuySell2Provider: FC<BuySell2ContextProviderProps> = ({
       rightText: ' ',
       rightIcon:
         method.code === bestPaymentMethod ? (
-          <Typography color="gold">{langStrings.bestOfferText}</Typography>
+          <Typography color="gold" $whiteSpace="nowrap">
+            {strings.bestOfferText}
+          </Typography>
         ) : undefined,
     }),
   );
@@ -281,7 +284,7 @@ export const BuySell2Provider: FC<BuySell2ContextProviderProps> = ({
     if (selectedPaymentMethod !== bestPaymentMethod) {
       setSelectedPaymentMethod(bestPaymentMethod);
     }
-  }, [bestPaymentMethod]);
+  }, [getOffersResponse, bestPaymentMethod]);
 
   useEffect(() => {
     const bestOffer = filteredOffers[0] as IOfferDetails | undefined;
@@ -357,6 +360,8 @@ export const BuySell2Provider: FC<BuySell2ContextProviderProps> = ({
 
   const buySellSupport = new BuySellSupport2();
 
+  const controllerRef = useRef<AbortController | null>(null);
+
   // Fetch offers
   const fetchOffers = async (
     fromCurrency?: string,
@@ -371,6 +376,11 @@ export const BuySell2Provider: FC<BuySell2ContextProviderProps> = ({
       return;
     }
 
+    if (controllerRef.current) {
+      controllerRef.current.abort();
+    }
+    controllerRef.current = new AbortController();
+
     setIsFetchingOffers(true);
 
     try {
@@ -381,8 +391,9 @@ export const BuySell2Provider: FC<BuySell2ContextProviderProps> = ({
         amount: fromAmount,
         country,
       });
+      if (controllerRef.current?.signal.aborted) return;
       setGetOffersResponse(result);
-    } catch (e) {
+    } catch (e: unknown) {
       setGetOffersResponse(undefined);
     } finally {
       setIsFetchingOffers(false);
@@ -402,6 +413,12 @@ export const BuySell2Provider: FC<BuySell2ContextProviderProps> = ({
       amount,
       selectedCountry?.code,
     );
+
+    return () => {
+      if (controllerRef.current) {
+        controllerRef.current.abort();
+      }
+    };
   }, [
     selectedFiatCurrency,
     selectedCrypto,
@@ -442,6 +459,27 @@ export const BuySell2Provider: FC<BuySell2ContextProviderProps> = ({
       );
     }
   };
+
+  useEffect(() => {
+    const interval = setInterval(
+      () => setTimerSeconds(s => Math.max(s - 1, 0)),
+      1000,
+    );
+    return () => clearInterval(interval);
+  }, []);
+
+  useEffect(() => {
+    if (timerSeconds === 0) {
+      retry();
+      setTimerSeconds(30);
+    }
+  }, [timerSeconds, retry]);
+
+  useEffect(() => {
+    if (!isFetchingOffers && getOffersResponse) {
+      setTimerSeconds(30);
+    }
+  }, [isFetchingOffers, getOffersResponse]);
 
   const ctx = useMemoReturn<BuySell2ContextInterface>({
     reset: resetAll,
@@ -495,6 +533,8 @@ export const BuySell2Provider: FC<BuySell2ContextProviderProps> = ({
     setNavigationOptions,
 
     retry,
+
+    timerSeconds,
   });
 
   return (

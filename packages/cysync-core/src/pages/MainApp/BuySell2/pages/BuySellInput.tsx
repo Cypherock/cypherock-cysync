@@ -19,6 +19,7 @@ import {
   Offers,
   PaymentMethodSelector,
 } from '../components';
+import { BuySellOffersHeader } from '../components/BuySellOffersHeader';
 import { WalletAccountSelector } from '../components/WalletAccountSelector';
 
 const throbber: JSX.Element = <Throbber size={15} strokeWidth={2} />;
@@ -207,7 +208,7 @@ export const BuySellInput: React.FC = () => {
           $borderWidthL={1}
         >
           <Flex direction="column" gap={24}>
-            <Typography color="muted">{strings.offersSection.title}</Typography>
+            <BuySellOffersHeader size={offers.length} />
 
             {!canShowOffers && messages()}
             {canShowOffers && <Offers />}
