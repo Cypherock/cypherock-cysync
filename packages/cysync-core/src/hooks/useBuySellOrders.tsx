@@ -146,7 +146,7 @@ const selector = createSelector(
     { wallets },
     { accounts },
     { orders, isLoaded },
-    { priceInfos },
+    priceInfos,
     { active: isDiscreetMode },
   ) => ({
     lang,
