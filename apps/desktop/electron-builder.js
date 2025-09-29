@@ -29,6 +29,14 @@ function getBuildResourcesPath() {
   }
 }
 
+function getExtraResourcesPath() {
+  if (!process.env.VENDOR) {
+    return 'extraResources/default';
+  } else {
+    return `extraResources/${process.env.VENDOR}`;
+  }
+}
+
 function getPublishUrl() {
   const vendor = process.env.VENDOR;
   switch (vendor) {
@@ -55,9 +63,9 @@ const config = {
     '!node_modules/@cypherock/*/.turbo/**',
     '!node_modules/@cypherock/*/scripts/**',
   ],
-  extraResources: ['extraResources/RELEASE_NOTES.md'],
+  extraResources: [`${getExtraResourcesPath()}/RELEASE_NOTES.md`],
   releaseInfo: {
-    releaseNotesFile: './extraResources/RELEASE_NOTES.md',
+    releaseNotesFile: `./${getExtraResourcesPath()}/RELEASE_NOTES.md`,
   },
   mac: {
     artifactName: getArtifactName(),

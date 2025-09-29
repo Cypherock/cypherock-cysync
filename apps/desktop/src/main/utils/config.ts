@@ -39,9 +39,12 @@ const getResourcesPath = () => {
 };
 
 const getReleaseNotes = () => {
+  const vendor = jsonConfig.VENDOR || 'default';
+
   const filePath = path.join(
     getResourcesPath(),
     'extraResources',
+    vendor,
     RELEASE_NOTES_FILENAME,
   );
 
