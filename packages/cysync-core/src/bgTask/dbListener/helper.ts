@@ -131,7 +131,7 @@ export const syncAllDb = async (isFirst: boolean) => {
   await syncPriceHistoriesDb();
   await syncTransactionsDb();
   await syncInheritancePlanDb();
-  await syncBuySellOrdersDb();
+  await syncBuySellOrdersDb(isFirst);
 
   store.dispatch(setLanguage((await keyValueStore.appLanguage.get()) as any));
 };

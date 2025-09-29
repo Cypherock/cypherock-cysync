@@ -80,16 +80,20 @@ export const syncBuySellOrdersCore = async (params: {
 
       const updatedOrders = ordersResponse.data;
       for (const updatedOrder of updatedOrders) {
-        await updateBuySellOrder(db, {
+        const order: Partial<IBuySellOrder> = {
           id: updatedOrder.id,
           status: updatedOrder.status,
           updatedAt: updatedOrder.updatedAt,
           createdAt: updatedOrder.createdAt,
           amountFrom: updatedOrder.fromAmount,
-          ...(updatedOrder.toAmount && {
-            amountTo: updatedOrder.toAmount,
-          }),
-        });
+        };
+
+        // eslint-disable-next-line no-null/no-null
+        if (updatedOrder.toAmount !== null) {
+          order.amountTo = updatedOrder.toAmount;
+        }
+
+        await updateBuySellOrder(db, order);
       }
       isSuccessful = true;
     } catch (e) {

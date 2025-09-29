@@ -159,6 +159,14 @@ const selector = createSelector(
   }),
 );
 
+export const buySellOrderComparatorMap: Record<BuySellTableHeaderName, string> =
+  {
+    provider: 'providerName',
+    assetTo: 'destinationAssetName',
+    sent: 'sentDisplayAmount',
+    received: 'receivedDisplayAmount',
+  };
+
 export const useBuySellOrders = () => {
   const { lang, wallets, accounts, orders, isDiscreetMode, isLoaded } =
     useAppSelector(selector);
@@ -202,8 +210,13 @@ export const useBuySellOrders = () => {
   }, [searchTerm, ordersList]);
 
   const displayedData = useMemo(
-    () => lodash.orderBy(filteredData, [], [isAscending ? 'asc' : 'desc']),
-    [filteredData, isAscending],
+    () =>
+      lodash.orderBy(
+        filteredData,
+        [buySellOrderComparatorMap[sortedBy]],
+        [isAscending ? 'asc' : 'desc'],
+      ),
+    [filteredData, isAscending, sortedBy],
   );
 
   const onSort = (columnName: BuySellTableHeaderName) => {
