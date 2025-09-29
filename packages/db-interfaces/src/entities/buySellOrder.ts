@@ -7,7 +7,7 @@ export const BuySellStatusMap = {
   refunded: 'refunded',
   expired: 'expired',
   failed: 'failed',
-  completed: 'completed',
+  complete: 'complete',
 } as const;
 
 interface IPaymentMethod {

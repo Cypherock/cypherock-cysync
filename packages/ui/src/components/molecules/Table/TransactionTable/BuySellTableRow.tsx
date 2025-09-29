@@ -40,7 +40,7 @@ export const getOrderFillFromStatus = (
   theme: ThemeType,
 ) => {
   const map = {
-    completed: theme.palette.text.success,
+    complete: theme.palette.text.success,
     created: theme.palette.text.warn,
     pending: theme.palette.text.warn,
     failed: theme.palette.text.error,

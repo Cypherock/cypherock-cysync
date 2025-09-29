@@ -31,7 +31,7 @@ export interface IBuySellDialogProps {
 }
 
 const textColorMap: Record<IBuySellStatus, any> = {
-  completed: 'success',
+  complete: 'success',
   pending: 'warn',
   created: 'warn',
   expired: 'error',
@@ -41,7 +41,7 @@ const textColorMap: Record<IBuySellStatus, any> = {
 };
 
 const statusTextMap: Record<IBuySellStatus, string> = {
-  completed: 'Success',
+  complete: 'Success',
   pending: 'Pending',
   created: 'Created',
   expired: 'Expired',
