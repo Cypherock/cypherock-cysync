@@ -30,6 +30,7 @@ import React, {
   useCallback,
 } from 'react';
 
+import { getPaymentMethodIcon } from '~/constants';
 import {
   useAccountDropdown,
   useCountryDropdown,
@@ -262,18 +263,21 @@ export const BuySell2Provider: FC<BuySell2ContextProviderProps> = ({
   const bestPaymentMethod = offers[0]?.paymentMethod?.code;
 
   const paymentMethodsDropdownList: DropDownItemProps[] = paymentMethods.map(
-    method => ({
-      id: method.code,
-      checkType: 'radio',
-      text: method.name,
-      rightText: ' ',
-      rightIcon:
-        method.code === bestPaymentMethod ? (
-          <Typography color="gold" $whiteSpace="nowrap">
-            {strings.bestOfferText}
-          </Typography>
-        ) : undefined,
-    }),
+    method => {
+      const icon = getPaymentMethodIcon(method.code);
+      return {
+        id: method.code,
+        checkType: 'radio',
+        text: icon ? `${icon} ${method.name}` : method.name,
+        rightText: ' ',
+        rightIcon:
+          method.code === bestPaymentMethod ? (
+            <Typography color="gold" $whiteSpace="nowrap">
+              {strings.bestOfferText}
+            </Typography>
+          ) : undefined,
+      };
+    },
   );
 
   const [selectedOffer, setSelectedOffer] = useState<

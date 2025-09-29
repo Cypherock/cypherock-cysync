@@ -24,6 +24,7 @@ import { IBuySellStatus } from '@cypherock/db-interfaces';
 import { format } from 'date-fns';
 import React, { FC, useMemo } from 'react';
 
+import { getPaymentMethodIcon } from '~/constants';
 import { countryList } from '~/countries';
 import { useBuySellOrders } from '~/hooks';
 import {
@@ -149,7 +150,18 @@ export const BuySellDialog: FC<IBuySellDialogProps> = ({
       {
         id: 'payment-method',
         leftText: langStrings.paymentMethod,
-        rightText: order.paymentMethod.name,
+        rightComponent: [
+          {
+            id: 'payment-method-info',
+            name: (() => {
+              const icon = getPaymentMethodIcon(order.paymentMethod.code);
+              return icon
+                ? `${icon} ${order.paymentMethod.name}`
+                : order.paymentMethod.name;
+            })(),
+            muted: false,
+          },
+        ],
       },
       { isDivider: true, id: 'divider-5' },
       {
