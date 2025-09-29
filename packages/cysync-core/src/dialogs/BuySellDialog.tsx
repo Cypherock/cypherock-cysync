@@ -12,6 +12,8 @@ import {
   getOrderFillFromStatus,
   GoldExternalLink,
   Image,
+  MessageBox,
+  parseLangTemplate,
   ScrollableContainer,
   SummaryBox,
   SummaryItemType,
@@ -72,6 +74,10 @@ export const BuySellDialog: FC<IBuySellDialogProps> = ({
     toAccount: 'Account',
     toAmount: 'Amount Received',
     paymentMethod: 'Payment Method',
+    messageBox: {
+      // eslint-disable-next-line no-template-curly-in-string
+      hold: 'Your transaction has been placed on hold for security verification. To proceed, please contact ${providerName} security team for further instructions.',
+    },
   };
 
   const order = useMemo(
@@ -223,13 +229,7 @@ export const BuySellDialog: FC<IBuySellDialogProps> = ({
             <CloseButton onClick={onClose} />
           </Flex>
         </DialogBoxHeader>
-        <DialogBoxBody
-          align="center"
-          direction="column"
-          height="full"
-          pr={0}
-          pb={0}
-        >
+        <DialogBoxBody align="center" direction="column" height="full" pb={0}>
           <Container align="center" justify="center" width="full">
             <DollarIcon
               width={36}
@@ -251,13 +251,27 @@ export const BuySellDialog: FC<IBuySellDialogProps> = ({
               {dateHeader} {time}
             </Typography>
           </Container>
+          {order.status === 'hold' && (
+            <Container
+              display="flex"
+              direction="column"
+              align="center"
+              width="full"
+            >
+              <MessageBox
+                text={parseLangTemplate(strings.messageBox.hold, {
+                  providerName: order.providerName,
+                })}
+                type="warning"
+              />
+            </Container>
+          )}
           <ScrollableContainer $maxHeight="calc(100vh - 400px)">
             <Container
               display="flex"
               direction="column"
               width="full"
               pt={5}
-              pr={5}
               pb={3}
               gap={12}
             >
