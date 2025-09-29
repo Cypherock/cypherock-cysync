@@ -19,6 +19,7 @@ import { DeviceAuthenticationDialog } from './DeviceAuthenticationDialog';
 import { DeviceUpdateDialog } from './DeviceUpdateDialog';
 import { EditAccountDialog } from './EditAccountDialog';
 import { ErrorDialog } from './ErrorDialog';
+import { FullPageLoaderDialog } from './FullPageLoaderDialog';
 import { GuidedFlow } from './GuidedFlow';
 import { HistoryDialog } from './HistoryDialog';
 import {
@@ -87,4 +88,5 @@ export const dialogs: Record<DialogName, ReactComponentLike> = {
   mobileAppSyncDialog: MobileAppSyncDialog,
   swapDialog: SwapDialog,
   buySellDialog: BuySellDialog,
+  fullPageLoaderDialog: FullPageLoaderDialog,
 };

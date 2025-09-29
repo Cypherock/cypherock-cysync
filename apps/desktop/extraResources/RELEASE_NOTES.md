@@ -1,3 +1,15 @@
+# v2.2.2
+
+### 🚀 Feature
+
+- **Multiple Fiat Currencies Support** is now live on the cySync app. Manage your crypto using your local fiat currency with ease.
+
+# v2.2.1
+
+### 🚀 Feature
+
+- **New Swap Provider**: Changelly Integration: Swaps are now powered by Changelly, allowing you to seamlessly exchange tokens across chains within the cySync app. This integration enhances the user experience with secure, private, and non-custodial token swaps.
+
 # v2.2.0
 
 ### 🚀 Feature

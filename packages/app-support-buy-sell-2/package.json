@@ -1,6 +1,6 @@
 {
   "name": "@cypherock/app-support-buy-sell-2",
-  "version": "0.0.7",
+  "version": "0.0.1",
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
   "types": "dist/esm/index.d.ts",

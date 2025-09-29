@@ -1,5 +1,53 @@
 # @cypherock/cysync-desktop-ui
 
+## 0.1.0
+
+### Minor Changes
+
+- [#800](https://github.com/Cypherock/cypherock-cysync/pull/800) [`c3ed0794`](https://github.com/Cypherock/cypherock-cysync/commit/c3ed0794b9d0cb7281e6a154450d40aca1240395) Thanks [@AryanCypherock](https://github.com/AryanCypherock)! - Multiple currency support added
+
+### Patch Changes
+
+- Updated dependencies [[`c3ed0794`](https://github.com/Cypherock/cypherock-cysync/commit/c3ed0794b9d0cb7281e6a154450d40aca1240395)]:
+  - @cypherock/cysync-core@0.7.0
+  - @cypherock/cysync-interfaces@0.0.10
+  - @cypherock/cysync-ui@0.0.16
+  - @cypherock/cysync-utils@0.0.12
+
+## 0.1.0-pre.0
+
+### Minor Changes
+
+- [#800](https://github.com/Cypherock/cypherock-cysync/pull/800) [`c3ed0794`](https://github.com/Cypherock/cypherock-cysync/commit/c3ed0794b9d0cb7281e6a154450d40aca1240395) Thanks [@AryanCypherock](https://github.com/AryanCypherock)! - Multiple currency support added
+
+### Patch Changes
+
+- Updated dependencies [[`c3ed0794`](https://github.com/Cypherock/cypherock-cysync/commit/c3ed0794b9d0cb7281e6a154450d40aca1240395)]:
+  - @cypherock/cysync-core@0.7.0-pre.0
+  - @cypherock/cysync-interfaces@0.0.10
+  - @cypherock/cysync-ui@0.0.16
+  - @cypherock/cysync-utils@0.0.12
+
+## 0.0.32
+
+### Patch Changes
+
+- Updated dependencies [[`d57d8d65`](https://github.com/Cypherock/cypherock-cysync/commit/d57d8d65dfca075c39537e33b243827edaf36263)]:
+  - @cypherock/cysync-core@0.6.9
+  - @cypherock/cysync-ui@0.0.16
+  - @cypherock/cysync-interfaces@0.0.10
+  - @cypherock/cysync-utils@0.0.12
+
+## 0.0.32-pre.0
+
+### Patch Changes
+
+- Updated dependencies [[`d57d8d65`](https://github.com/Cypherock/cypherock-cysync/commit/d57d8d65dfca075c39537e33b243827edaf36263)]:
+  - @cypherock/cysync-core@0.6.9-pre.0
+  - @cypherock/cysync-ui@0.0.16-pre.0
+  - @cypherock/cysync-interfaces@0.0.10-pre.0
+  - @cypherock/cysync-utils@0.0.12-pre.0
+
 ## 0.0.31
 
 ### Patch Changes

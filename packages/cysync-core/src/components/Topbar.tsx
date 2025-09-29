@@ -9,7 +9,12 @@ import React, { FC, ReactNode, useMemo, useCallback } from 'react';
 
 import { openContactSupportDialog, syncAllAccounts } from '~/actions';
 import { routes } from '~/constants';
-import { DeviceConnectionStatus, useDevice, useLockscreen } from '~/context';
+import {
+  DeviceConnectionStatus,
+  useCurrency,
+  useDevice,
+  useLockscreen,
+} from '~/context';
 import { useNavigateTo } from '~/hooks';
 import {
   AccountSyncState,
@@ -69,6 +74,7 @@ const TopbarComponent: FC<TopbarProps> = props => {
   const { connection } = useDevice();
   const { isLocked, isPasswordSet, lock, isLockscreenLoading } =
     useLockscreen();
+  const { currentCurrency } = useCurrency();
 
   const syncState = useMemo<SyncStatusType>(
     () => accountSyncMap[accountSync.syncState],
@@ -82,7 +88,7 @@ const TopbarComponent: FC<TopbarProps> = props => {
   );
 
   const onSyncClick = useCallback(() => {
-    dispatch(syncAllAccounts());
+    dispatch(syncAllAccounts(currentCurrency));
 
     const db = getDB();
     syncBuySellOrdersCore({ db });

@@ -18,10 +18,13 @@ import { getDB, keyValueStore } from '~/utils';
 import logger from '~/utils/logger';
 
 const createFuncWithErrorHandler =
-  (name: string, func: (isFirst?: boolean) => Promise<any>) =>
-  async (isFirst?: boolean) => {
+  (
+    name: string,
+    func: (isFirst?: boolean, currency?: string) => Promise<any>,
+  ) =>
+  async (isFirst?: boolean, currency?: string) => {
     try {
-      await func(isFirst);
+      await func(isFirst, currency);
 
       return true;
     } catch (error) {
@@ -43,7 +46,7 @@ const syncWalletsDb = createFuncWithErrorHandler('syncWalletsDb', async () => {
 
 const syncAccountsDb = createFuncWithErrorHandler(
   'syncAccountsDb',
-  async isFirst => {
+  async (isFirst, currency) => {
     const db = getDB();
 
     const accounts = await db.account.getAll(undefined, {
@@ -51,9 +54,9 @@ const syncAccountsDb = createFuncWithErrorHandler(
     });
     store.dispatch(setAccounts(accounts));
 
-    if (isFirst) {
+    if (isFirst && currency) {
       if (window.cysyncEnv.IS_PRODUCTION === 'true') {
-        store.dispatch(syncAccounts({ accounts, isSyncAll: true }));
+        store.dispatch(syncAccounts({ accounts, isSyncAll: true, currency }));
       }
     }
   },
@@ -66,22 +69,43 @@ const syncDevicesDb = createFuncWithErrorHandler('syncDevicesDb', async () => {
   store.dispatch(setDevices(devices));
 });
 
+let lastPriceInfosVersion = 0;
+const computePriceInfosVersion = (list: any[]) =>
+  list.reduce((acc, p) => acc + (p.lastSyncedAt ?? 0), 0);
+
 const syncPriceInfosDb = createFuncWithErrorHandler(
   'syncPriceInfosDb',
-  async () => {
+  async (_isFirst?: boolean, currency?: string) => {
     const db = getDB();
 
-    const priceInfos = await db.priceInfo.getAll();
+    const priceInfos = currency
+      ? await db.priceInfo.getAll([{ currency } as any])
+      : await db.priceInfo.getAll();
+    const version = computePriceInfosVersion(priceInfos);
+    if (version === lastPriceInfosVersion) return;
+    lastPriceInfosVersion = version;
     store.dispatch(setPriceInfos(priceInfos));
   },
 );
 
+let lastPriceHistoriesVersion = 0;
+const computePriceHistoriesVersion = (list: any[]) =>
+  list.reduce(
+    (acc, h) => acc + (h.days ?? 0) + (h.history?.[0]?.timestamp ?? 0),
+    0,
+  );
+
 const syncPriceHistoriesDb = createFuncWithErrorHandler(
   'syncPriceHistoriesDb',
-  async () => {
+  async (_isFirst?: boolean, currency?: string) => {
     const db = getDB();
 
-    const priceHistories = await db.priceHistory.getAll();
+    const priceHistories = currency
+      ? await db.priceHistory.getAll([{ currency } as any])
+      : await db.priceHistory.getAll();
+    const version = computePriceHistoriesVersion(priceHistories);
+    if (version === lastPriceHistoriesVersion) return;
+    lastPriceHistoriesVersion = version;
     store.dispatch(setPriceHistories(priceHistories));
   },
 );
@@ -123,12 +147,12 @@ export const syncBuySellOrdersDb = createFuncWithErrorHandler(
   },
 );
 
-export const syncAllDb = async (isFirst: boolean) => {
-  await syncAccountsDb(isFirst);
+export const syncAllDb = async (isFirst: boolean, currency: string) => {
+  await syncAccountsDb(isFirst, currency);
   await syncWalletsDb();
   await syncDevicesDb();
-  await syncPriceInfosDb();
-  await syncPriceHistoriesDb();
+  await syncPriceInfosDb(isFirst, currency);
+  await syncPriceHistoriesDb(isFirst, currency);
   await syncTransactionsDb();
   await syncInheritancePlanDb();
   await syncBuySellOrdersDb(isFirst);
@@ -139,17 +163,15 @@ export const syncAllDb = async (isFirst: boolean) => {
 const throttleDbFunction = (func: any) =>
   lodash.throttle(func, 3000, { leading: true });
 
+const debounceDbFunction = (func: any, wait = 1500) =>
+  lodash.debounce(func, wait);
+
 export const addListeners = () => {
   const db = getDB();
 
   db.wallet.addListener('change', throttleDbFunction(syncWalletsDb));
   db.account.addListener('change', throttleDbFunction(syncAccountsDb));
   db.device.addListener('change', throttleDbFunction(syncDevicesDb));
-  db.priceInfo.addListener('change', throttleDbFunction(syncPriceInfosDb));
-  db.priceHistory.addListener(
-    'change',
-    throttleDbFunction(syncPriceHistoriesDb),
-  );
   db.transaction.addListener('change', throttleDbFunction(syncTransactionsDb));
   db.inheritancePlan.addListener(
     'change',
@@ -167,9 +189,30 @@ export const removeListeners = () => {
   db.wallet.removeAllListener();
   db.account.removeAllListener();
   db.device.removeAllListener();
-  db.priceInfo.removeAllListener();
-  db.priceHistory.removeAllListener();
   db.transaction.removeAllListener();
   db.inheritancePlan.removeAllListener();
   db.buySellOrder.removeAllListener();
+};
+
+export const syncPriceDataDb = async (currency?: string) => {
+  await syncPriceInfosDb(false, currency);
+  await syncPriceHistoriesDb(false, currency);
+};
+
+export const addPriceListeners = (currency?: string) => {
+  const db = getDB();
+  db.priceInfo.addListener(
+    'change',
+    debounceDbFunction(() => syncPriceInfosDb(false, currency)),
+  );
+  db.priceHistory.addListener(
+    'change',
+    debounceDbFunction(() => syncPriceHistoriesDb(false, currency)),
+  );
+};
+
+export const removePriceListeners = () => {
+  const db = getDB();
+  db.priceInfo.removeAllListener();
+  db.priceHistory.removeAllListener();
 };

@@ -3,6 +3,7 @@ import { AddTokenDialogProps } from '~/dialogs/AddToken';
 import { DeleteAccountDialogProps } from '~/dialogs/DeleteAccountDialog';
 import { DeployAccountDialogProps } from '~/dialogs/DeployAccount/context';
 import { ErrorDialogProps } from '~/dialogs/ErrorDialog';
+import { FullPageLoaderDialogProps } from '~/dialogs/FullPageLoaderDialog';
 import { IHistoryDialogProps } from '~/dialogs/HistoryDialog';
 import {
   InheritanceEstateRecoveryDialogProps,
@@ -209,6 +210,11 @@ export interface IDialogState {
   mobileAppSyncDialog: {
     isOpen: boolean;
     data?: undefined;
+  };
+
+  fullPageLoaderDialog: {
+    isOpen: boolean;
+    data?: FullPageLoaderDialogProps;
   };
 }
 

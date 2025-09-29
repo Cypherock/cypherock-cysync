@@ -30,12 +30,17 @@ import { IEvmAccount } from '../types';
 
 const PER_PAGE_TXN_LIMIT = 100;
 
-const onNewAccounts = (newAccounts: IAccount[], db: IDatabase) => {
+const onNewAccounts = (
+  newAccounts: IAccount[],
+  db: IDatabase,
+  currency: string,
+) => {
   for (const newAccount of newAccounts) {
     lastValueFrom(
       syncAccount({
         db,
         accountId: newAccount.__id ?? '',
+        currency,
       }),
     ).catch(error => {
       logger.error('Error in syncing evm token account');
@@ -54,6 +59,7 @@ const onNewAccounts = (newAccounts: IAccount[], db: IDatabase) => {
       createSyncPricesObservable({
         db,
         getCoinIds,
+        currency,
       }),
     ).catch(error => {
       logger.error('Error in syncing evm token prices');
@@ -64,6 +70,7 @@ const onNewAccounts = (newAccounts: IAccount[], db: IDatabase) => {
       createSyncPriceHistoriesObservable({
         db,
         getCoinIds,
+        currency,
       }),
     ).catch(error => {
       logger.error('Error in syncing evm token price histories');
@@ -156,11 +163,13 @@ const fetchAndParseInternalTransactions = async (params: {
 const fetchAndParseContractTransactions = async (params: {
   db: IDatabase;
   account: IAccount;
+  currency: string;
   updatedAccountInfo: Partial<IAccount>;
   afterContractTransactionBlock: number | undefined;
   existingTransactions: ITransaction[];
 }) => {
-  const { db, afterContractTransactionBlock, existingTransactions } = params;
+  const { db, afterContractTransactionBlock, existingTransactions, currency } =
+    params;
   const account = params.account as IEvmAccount;
   const updatedAccountInfo = params.updatedAccountInfo as IEvmAccount;
 
@@ -186,7 +195,7 @@ const fetchAndParseContractTransactions = async (params: {
 
   const hasMore = transactionDetails.more;
 
-  onNewAccounts(newAccounts, db);
+  onNewAccounts(newAccounts, db, currency);
 
   return {
     hasMore,
@@ -206,7 +215,7 @@ const getAddressDetails: IGetAddressDetails<{
   afterContractTransactionBlock?: number;
   hasMoreContractTransactions?: boolean;
   fetchingMode?: 'transaction' | 'internalTransaction' | 'contractTransaction';
-}> = async ({ db, account, iterationContext }) => {
+}> = async ({ db, account, iterationContext, currency }) => {
   let {
     afterTransactionBlock,
     afterInternalTransactionBlock,
@@ -313,6 +322,7 @@ const getAddressDetails: IGetAddressDetails<{
       account,
       afterContractTransactionBlock,
       existingTransactions: transactionsTillNow ?? [],
+      currency,
     });
 
     transactions.push(...contractTransactionDetails.transactions);

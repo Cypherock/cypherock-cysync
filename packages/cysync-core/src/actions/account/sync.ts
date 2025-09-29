@@ -50,9 +50,18 @@ const updateSwapReceiveTransactions = async () => {
           payoutTxnHash = payoutTxnHash ?? data.data.payoutHash;
         } else if (exchangeStatus === 'failed') {
           swapStatus = SwapStatus.Failed;
+        } else if (exchangeStatus === 'hold') {
+          swapStatus = SwapStatus.Hold;
+        } else if (exchangeStatus === 'expired') {
+          swapStatus = SwapStatus.Expired;
         }
       }
-    } else if (swapStatus === SwapStatus.Failed) continue;
+    } else if (
+      swapStatus === SwapStatus.Failed ||
+      swapStatus === SwapStatus.Expired
+    ) {
+      continue;
+    }
 
     const swapData = {
       ...txn.swapData,
@@ -82,11 +91,14 @@ const updateSwapReceiveTransactions = async () => {
 
 export const syncAccounts = createAsyncThunk<
   void,
-  { accounts: IAccount[]; isSyncAll?: boolean },
+  { accounts: IAccount[]; isSyncAll?: boolean; currency: string },
   { state: RootState }
 >(
   'accounts/sync',
-  async ({ accounts: allAccounts, isSyncAll }, { dispatch, getState }) =>
+  async (
+    { accounts: allAccounts, isSyncAll, currency },
+    { dispatch, getState },
+  ) =>
     new Promise<void>(resolve => {
       const unhiddenAccounts = allAccounts.filter(a => !a.isHidden);
 
@@ -162,12 +174,14 @@ export const syncAccounts = createAsyncThunk<
       syncAccountsCore({
         db: getDB(),
         accounts: unhiddenAccounts,
+        currency,
       }).subscribe(observer);
     }),
 );
 
 export const syncAllAccounts =
-  (): ActionCreator<void> => (dispatch, getState) => {
+  (currency: string): ActionCreator<void> =>
+  (dispatch, getState) => {
     if (!getState().network.active) {
       dispatch(
         setSyncError(
@@ -181,6 +195,7 @@ export const syncAllAccounts =
         syncAccounts({
           accounts: getState().account.accounts,
           isSyncAll: true,
+          currency,
         }),
       );
     }

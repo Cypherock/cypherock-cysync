@@ -11,7 +11,6 @@ import logger from '../utils/logger';
 
 export * from './types';
 
-const DEFAULT_CURRENCY = 'usd';
 const PRICE_SYNC_INTERVAL_IN_SEC = 60;
 const BATCH_SIZE = 20;
 const MAX_RETRIES = 3;
@@ -19,14 +18,16 @@ const MAX_RETRIES = 3;
 const fetchLatestPricesForBatch = async ({
   coinIds,
   db,
+  currency,
 }: {
   coinIds: { parentAssetId: string; assetId: string }[];
   db: IDatabase;
+  currency: string;
 }) => {
-  const prices = await getLatestPrices(coinIds, DEFAULT_CURRENCY);
+  const prices = await getLatestPrices(coinIds, currency);
   const allPriceInfos: IPriceInfo[] = prices.map(elem => ({
     assetId: elem.assetId,
-    currency: DEFAULT_CURRENCY,
+    currency,
     lastSyncedAt: Date.now(),
     latestPrice: elem.price.toString(),
   }));
@@ -46,14 +47,14 @@ export function createSyncPricesObservable(
 
     const main = async () => {
       try {
-        const { db, getCoinIds } = params;
+        const { db, getCoinIds, currency } = params;
 
         const coinIds = await getCoinIds(db);
 
         const existingPrices = await db.priceInfo.getAll(
           coinIds.map(coin => ({
             assetId: coin.assetId,
-            currency: DEFAULT_CURRENCY,
+            currency,
           })),
         );
 
@@ -84,7 +85,11 @@ export function createSyncPricesObservable(
           const coinList = coinListBatch[i];
 
           try {
-            await fetchLatestPricesForBatch({ coinIds: coinList, db });
+            await fetchLatestPricesForBatch({
+              coinIds: coinList,
+              db,
+              currency,
+            });
             await sleep(params.waitInMSBetweenEachAPICall ?? 500);
 
             if (finished) return;

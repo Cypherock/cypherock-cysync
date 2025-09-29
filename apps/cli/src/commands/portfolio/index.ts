@@ -11,6 +11,6 @@ export default class Portfolio extends BaseCommand<typeof Portfolio> {
   protected connectToDatabase = true;
 
   async run(): Promise<void> {
-    await showPortfolio(this.db);
+    await showPortfolio(this.db, 'usd');
   }
 }

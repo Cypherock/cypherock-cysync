@@ -24,7 +24,12 @@ import { AccountTypeMap } from '@cypherock/db-interfaces';
 import React, { useEffect, useState } from 'react';
 
 import { CoinIcon, LoaderDialog } from '~/components';
-import { selectLanguage, selectPriceInfos, useAppSelector } from '~/store';
+import { useCurrency } from '~/context';
+import {
+  selectCurrentCurrencyPriceInfos,
+  selectLanguage,
+  useAppSelector,
+} from '~/store';
 
 import { useDeployAccountDialog } from '../context';
 
@@ -40,7 +45,10 @@ export const SummaryDialog: React.FC = () => {
     prepare,
   } = useDeployAccountDialog();
   const lang = useAppSelector(selectLanguage);
-  const { priceInfos } = useAppSelector(selectPriceInfos);
+  const priceInfos = useAppSelector(state =>
+    selectCurrentCurrencyPriceInfos(state, currentCurrency),
+  );
+  const { currentCurrency } = useCurrency();
   const button = lang.strings.buttons;
   const displayText = lang.strings.deployAccount.summary;
 
@@ -48,9 +56,7 @@ export const SummaryDialog: React.FC = () => {
     const details = [];
     const account = selectedAccount;
     const coinPrice = priceInfos.find(
-      p =>
-        p.assetId === account?.parentAssetId &&
-        p.currency.toLowerCase() === 'usd',
+      p => p.assetId === account?.parentAssetId,
     );
     if (!account || !coinPrice) return [];
     const { amount, unit } = getParsedAmount({
@@ -61,13 +67,14 @@ export const SummaryDialog: React.FC = () => {
 
     const value = formatDisplayPrice(
       new BigNumber(amount).multipliedBy(coinPrice.latestPrice),
+      currentCurrency,
     );
 
     details.push({
       id: 'fee-details',
       leftText: displayText.fee,
       rightText: `${amount} ${unit.abbr}`,
-      rightSubText: `$${value}`,
+      rightSubText: `${value}`,
     });
 
     return details;

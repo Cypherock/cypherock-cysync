@@ -16,6 +16,7 @@ import {
 } from '@cypherock/coin-support-starknet';
 import {
   IPreparedStellarTransaction,
+  IPreparedStellarTransactionOutput,
   IStellarMemo,
   IStellarMemoType,
 } from '@cypherock/coin-support-stellar';
@@ -28,7 +29,10 @@ import {
   getParsedAmount,
   getZeroUnit,
 } from '@cypherock/coin-support-utils';
-import { IPreparedXrpTransaction } from '@cypherock/coin-support-xrp';
+import {
+  IPreparedXrpTransaction,
+  IPreparedXrpTransactionOutput,
+} from '@cypherock/coin-support-xrp';
 import { coinFamiliesMap, CoinFamily } from '@cypherock/coins';
 import { ServerError, ServerErrorType } from '@cypherock/cysync-core-constants';
 import { DropDownItemProps, parseLangTemplate } from '@cypherock/cysync-ui';
@@ -59,6 +63,7 @@ import { LoaderDialog } from '~/components';
 import {
   WalletConnectCallRequestMethodMap,
   deviceLock,
+  useCurrency,
   useDevice,
   useWalletConnect,
 } from '~/context';
@@ -72,8 +77,8 @@ import {
 } from '~/hooks';
 import {
   closeDialog,
+  selectCurrentCurrencyPriceInfos,
   selectLanguage,
-  selectPriceInfos,
   useAppDispatch,
   useAppSelector,
 } from '~/store';
@@ -199,7 +204,10 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
 }) => {
   const lang = useAppSelector(selectLanguage);
   const dispatch = useAppDispatch();
-  const { priceInfos } = useAppSelector(selectPriceInfos);
+  const { currentCurrency } = useCurrency();
+  const priceInfos = useAppSelector(state =>
+    selectCurrentCurrencyPriceInfos(state, currentCurrency),
+  );
   const deviceRequiredDialogsMap: Record<number, number[] | undefined> =
     useMemo(
       () => ({
@@ -717,9 +725,7 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
 
   const priceConverter = (val: string, invert?: boolean) => {
     const coinPrice = priceInfos.find(
-      p =>
-        p.assetId === selectedAccount?.assetId &&
-        p.currency.toLowerCase() === 'usd',
+      p => p.assetId === selectedAccount?.assetId,
     );
 
     if (!coinPrice) return '';
@@ -732,7 +738,7 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
     if (result.isNaN()) return '';
     return invert
       ? formatDisplayAmount(result).complete
-      : formatDisplayPrice(result);
+      : formatDisplayPrice(result, currentCurrency);
   };
 
   const updateUserInputs = (count: number) => {
@@ -825,7 +831,19 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
   ) => {
     const { userInputs } = initTransaction;
     if (familyId === 'xrp') {
-      (userInputs.outputs[0] as any).destinationTag = parseInt(data, 10);
+      (
+        userInputs.outputs[0] as unknown as IPreparedXrpTransactionOutput
+      ).destinationTag = parseInt(data, 10);
+    } else if (familyId === 'stellar') {
+      const memo: IStellarMemo = {
+        type: data.match(/^[0-9]+$/)
+          ? IStellarMemoType.ID
+          : IStellarMemoType.TEXT,
+        value: data,
+      };
+      (
+        userInputs.outputs[0] as unknown as IPreparedStellarTransactionOutput
+      ).memo = memo;
     }
     return userInputs;
   };

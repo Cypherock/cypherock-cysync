@@ -2920,15 +2920,19 @@
       "heading": {
         "success": "Échange Réussi",
         "pending": "Échange en attente",
-        "failed": "Échange Échoué"
+        "failed": "Échange Échoué",
+        "hold": "Échange en attente",
+        "expired": "Échange expiré"
       },
       "description": "",
       "amountSent": "Montant Envoyé",
       "amountReceived": "Montant Reçu",
       "transactionID": "ID de Transaction",
       "messageBox": {
-        "warning": "Le solde de votre compte sera mis à jour lorsque la blockchain confirmera la transaction",
-        "danger": "Le réseau a renvoyé l'erreur suivante :"
+        "pending": "Le solde de votre compte sera mis à jour lorsque la blockchain confirmera la transaction",
+        "failed": "Le réseau a renvoyé l'erreur suivante :",
+        "hold": "Your transaction has been placed on hold for security verification. To proceed, please contact ${providerName} security team at ${providerEmail} for further instructions.",
+        "expired": "Échange expiré"
       },
       "button": {
         "backToSwap": "Retour à l'Échange"

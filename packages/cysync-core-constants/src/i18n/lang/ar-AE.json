@@ -2932,15 +2932,19 @@
       "heading": {
         "success": "التبديل ناجح",
         "pending": "التبديل معلق",
-        "failed": "فشل التبديل"
+        "failed": "فشل التبديل",
+        "hold": "تبديل معلق",
+        "expired": "تبديل انتهاء"
       },
       "description": "",
       "amountSent": "المبلغ المرسل",
       "amountReceived": "المبلغ المستلم",
       "transactionID": "معرف المعاملة",
       "messageBox": {
-        "warning": "سيتم تحديث رصيد حسابك عند تأكيد المعاملة بواسطة الblockchain",
-        "danger": "أعادت الشبكة الخطأ التالي:"
+        "pending": "سيتم تحديث رصيد حسابك عند تأكيد المعاملة بواسطة الblockchain",
+        "failed": "أعادت الشبكة الخطأ التالي:",
+        "hold": "Your transaction has been placed on hold for security verification. To proceed, please contact ${providerName} security team at ${providerEmail} for further instructions.",
+        "expired": "تبديل انتهاء"
       },
       "button": {
         "backToSwap": "العودة إلى التبديل"

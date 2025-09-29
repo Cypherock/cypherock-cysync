@@ -31,4 +31,5 @@ export const keyValueStore = {
   cysyncVersion: createStringValueStore('cysyncVersion'),
   uuid: createStringValueStore('uuid'),
   appLanguage: createStringValueStore('appLanguage'),
+  appCurrency: createStringValueStore('appCurrency'),
 };
