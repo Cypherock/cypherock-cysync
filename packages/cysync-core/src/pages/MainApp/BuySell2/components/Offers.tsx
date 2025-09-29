@@ -7,7 +7,7 @@ import {
   QuestionMarkButton,
   Chip,
 } from '@cypherock/cysync-ui';
-import React, { useRef } from 'react';
+import React from 'react';
 
 import { useBuySell2 } from '~/context/buySell2';
 
@@ -94,18 +94,8 @@ const OfferBox: React.FC<{
 );
 
 export const Offers = () => {
-  const {
-    offers,
-    selectedOffer,
-    setSelectedOffer,
-    providers,
-    filteredOffers,
-    selectedFiatCurrency,
-    selectedCrypto,
-  } = useBuySell2();
-
-  const cryptoCurrencyCode = useRef(selectedCrypto?.abbr);
-  const fiatCurrencyCode = useRef(selectedFiatCurrency?.code);
+  const { offers, selectedOffer, setSelectedOffer, providers, filteredOffers } =
+    useBuySell2();
 
   const strings = {
     bestOfferText: 'Best Offer',
@@ -135,15 +125,12 @@ export const Offers = () => {
                 {
                   title: strings.toAmount,
                   tooltip: strings.toAmountTooltip,
-                  value: [
-                    `${offer.toAmount} ${cryptoCurrencyCode.current}`,
-                    '',
-                  ],
+                  value: [`${offer.toAmount} ${offer.toCurrency}`, ''],
                 },
                 {
                   title: strings.fees,
                   tooltip: strings.feesTooltip,
-                  value: [`${offer.fee} ${fiatCurrencyCode.current}`, ''],
+                  value: [`${offer.fee} ${offer.fromCurrency}`, ''],
                 },
               ],
             }}

@@ -22,6 +22,8 @@ export interface IOfferDetails {
   fee: string;
   fromAmount: string;
   toAmount: string;
+  fromCurrency: string;
+  toCurrency: string;
 }
 
 export interface IGetOffersResult {
