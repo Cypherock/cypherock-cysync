@@ -16,6 +16,7 @@ const collectionNameList: (keyof IDatabase)[] = [
   'transactionNotificationRead',
   'transactionNotificationClick',
   'inheritancePlan',
+  'buySellOrder',
 ];
 
 export const setupDbListeners = async (webContents: WebContents) => {

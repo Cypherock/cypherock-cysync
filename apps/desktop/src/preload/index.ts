@@ -161,6 +161,7 @@ const electronAPI = {
       'transactionNotificationRead',
       'transactionNotificationClick',
       'inheritancePlan',
+      'buySellOrder',
     ];
 
     const eventNames = ['change'];
