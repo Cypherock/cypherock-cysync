@@ -24,7 +24,7 @@ import { getDB } from '~/utils';
 import { BuySellPage } from '.';
 
 export const BuySellHistory = ({ topbarHeight }: { topbarHeight: number }) => {
-  const lang = useAppSelector(selectLanguage);
+  const { strings: langStrings } = useAppSelector(selectLanguage);
   const { toPage, setNavigationOptions } = useBuySell2();
   const {
     isLoaded,
@@ -39,18 +39,7 @@ export const BuySellHistory = ({ topbarHeight }: { topbarHeight: number }) => {
 
   const { windowHeight } = useWindowSize();
 
-  const strings = {
-    search: 'Search buy/sell history',
-    state: {
-      loading: 'Loading buy/sell history...',
-    },
-    header: {
-      provider: 'Provider',
-      assetTo: 'Asset To',
-      received: 'Received',
-      sent: 'Sent',
-    },
-  };
+  const strings = langStrings.buySell2.history;
 
   const listRef = useRef<any>(null);
 
@@ -94,9 +83,9 @@ export const BuySellHistory = ({ topbarHeight }: { topbarHeight: number }) => {
       <NoAccountWrapper>
         <SkeletonLoader
           loader={<ArrowReceivedIcon fill={theme.palette.text.success} />}
-          text="No buy/sell history found"
-          subText="Your completed buy/sell orders will appear here"
-          $buttonOne="Start Buying"
+          text={strings.noData.text}
+          subText={strings.noData.subText}
+          $buttonOne={strings.noData.buttonText}
           onClick={() => toPage(BuySellPage.Input)}
         />
       </NoAccountWrapper>
@@ -137,7 +126,7 @@ export const BuySellHistory = ({ topbarHeight }: { topbarHeight: number }) => {
           value={searchTerm}
           onChange={setSearchTerm}
           handleDownloadCSV={handleDownloadCSV}
-          downloadCSVTooltip={lang.strings.tooltips.downloadCsv}
+          downloadCSVTooltip={langStrings.tooltips.downloadCsv}
         />
         {displayedData.length > 0 ? (
           <>
@@ -166,8 +155,8 @@ export const BuySellHistory = ({ topbarHeight }: { topbarHeight: number }) => {
         ) : (
           <NoSearchResult
             image={<NotFound />}
-            text="No search results founds"
-            subText="not found"
+            text={strings.noSearchResult.text}
+            subText={strings.noSearchResult.subText}
             searchText={searchTerm}
           />
         )}

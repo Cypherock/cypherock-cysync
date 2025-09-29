@@ -2987,5 +2987,121 @@
         "searchText": "Search Payment Method"
       }
     }
+  },
+  "buySell2": {
+    "title": "Acheter des Crypto",
+    "input": {
+      "region": {
+        "title": "Sélectionner la région et la devise",
+        "selectCountry": {
+          "searchText": "Rechercher un pays",
+          "placeholder": "Sélectionner un pays"
+        },
+        "selectFiat": {
+          "searchText": "Rechercher une devise fiat",
+          "placeholder": "Sélectionner une devise fiat"
+        }
+      },
+      "amount": {
+        "pay": {
+          "title": "Payer"
+        },
+        "receive": {
+          "title": "Vous recevrez"
+        }
+      },
+      "crypto": {
+        "title": "Sélectionner la devise crypto",
+        "selectCrypto": {
+          "searchText": "Rechercher une devise crypto",
+          "placeholder": "Sélectionner une devise crypto"
+        }
+      },
+      "accounts": {
+        "title": "À",
+        "selectWallet": {
+          "searchText": "Rechercher un portefeuille",
+          "placeholder": "Sélectionner un portefeuille"
+        },
+        "selectAccount": {
+          "searchText": "Rechercher un compte",
+          "placeholder": "Sélectionner un compte"
+        },
+        "selectAnAccount": "Sélectionner un compte pour continuer"
+      },
+      "paymentMethod": {
+        "title": "Payer avec",
+        "placeholder": "Méthode de paiement",
+        "searchText": "Rechercher une méthode de paiement"
+      },
+      "messageBox": {
+        "danger": "Aucun compte trouvé pour",
+        "altText": "dans le portefeuille"
+      },
+      "offersSection": {
+        "title": "Vos meilleures offres",
+        "searchingForOffers": "Recherche de vos meilleures offres",
+        "selectAnOffer": "Sélectionner une offre pour continuer",
+        "offersFound": "${num} offres trouvées",
+        "timerText": "Mises à jour dans ${time}"
+      },
+      "errors": {
+        "noOffers": "Aucune offre disponible pour votre demande"
+      }
+    },
+    "offers": {
+      "bestOfferText": "Meilleure offre",
+      "optimalOfferText": "Offre optimale",
+      "toAmount": "Vous recevrez",
+      "fees": "Frais"
+    },
+    "history": {
+      "search": "Rechercher l'historique d'achat/vente",
+      "state": {
+        "loading": "Chargement de l'historique d'achat/vente..."
+      },
+      "header": {
+        "provider": "Fournisseur",
+        "assetTo": "Actif à",
+        "received": "Reçu",
+        "sent": "Envoyé"
+      },
+      "noData": {
+        "text": "Aucun historique d'achat/vente trouvé",
+        "subText": "Vos commandes d'achat/vente terminées apparaîtront ici",
+        "buttonText": "Commencer à acheter"
+      },
+      "noSearchResult": {
+        "text": "Aucun résultat de recherche trouvé",
+        "subText": "non trouvé"
+      }
+    },
+    "dialog": {
+      "provider": "Fournisseur",
+      "orderId": "ID de commande",
+      "status": "Statut",
+      "region": "Région",
+      "fromTitle": "De",
+      "toTitle": "À",
+      "fromAsset": "Actif",
+      "fromAmount": "Montant envoyé",
+      "toWallet": "Portefeuille",
+      "toAsset": "Actif",
+      "toAccount": "Compte",
+      "toAmount": "Montant reçu",
+      "paymentMethod": "Méthode de paiement",
+      "messageBox": {
+        "hold": "Votre transaction a été mise en attente pour vérification de sécurité. Pour continuer, veuillez contacter l'équipe de sécurité de ${providerName} à ${providerEmail} pour obtenir des instructions supplémentaires."
+      },
+      "statusText": {
+        "complete": "Succès",
+        "pending": "En attente",
+        "created": "Créé",
+        "expired": "Expiré",
+        "failed": "Échec",
+        "hold": "En attente",
+        "refunded": "Remboursé"
+      }
+    }
   }
 }

@@ -2991,5 +2991,121 @@
         "initialText": "Select the wallet and account to get offers"
       }
     }
+  },
+  "buySell2": {
+    "title": "Buy Crypto",
+    "input": {
+      "region": {
+        "title": "Select region and currency",
+        "selectCountry": {
+          "searchText": "Search Country",
+          "placeholder": "Select a Country"
+        },
+        "selectFiat": {
+          "searchText": "Search Fiat Currency",
+          "placeholder": "Select Fiat Currency"
+        }
+      },
+      "amount": {
+        "pay": {
+          "title": "Pay"
+        },
+        "receive": {
+          "title": "You will receive"
+        }
+      },
+      "crypto": {
+        "title": "Select crypto currency",
+        "selectCrypto": {
+          "searchText": "Search Crypto Currency",
+          "placeholder": "Select Crypto Currency"
+        }
+      },
+      "accounts": {
+        "title": "To",
+        "selectWallet": {
+          "searchText": "Search Wallet",
+          "placeholder": "Select Wallet"
+        },
+        "selectAccount": {
+          "searchText": "Search Account",
+          "placeholder": "Select an Account"
+        },
+        "selectAnAccount": "Select an account to continue"
+      },
+      "paymentMethod": {
+        "title": "Pay with",
+        "placeholder": "Payment Method",
+        "searchText": "Search Payment Method"
+      },
+      "messageBox": {
+        "danger": "No accounts found for",
+        "altText": "in the wallet"
+      },
+      "offersSection": {
+        "title": "Your best offers",
+        "searchingForOffers": "Searching for your best offers",
+        "selectAnOffer": "Select an offer to proceed",
+        "offersFound": "${num} offers found",
+        "timerText": "Updates in ${time}"
+      },
+      "errors": {
+        "noOffers": "No offers available for your request"
+      }
+    },
+    "offers": {
+      "bestOfferText": "Best Offer",
+      "optimalOfferText": "Optimal Offer",
+      "toAmount": "You will receive",
+      "fees": "Fees"
+    },
+    "history": {
+      "search": "Search buy/sell history",
+      "state": {
+        "loading": "Loading buy/sell history..."
+      },
+      "header": {
+        "provider": "Provider",
+        "assetTo": "Asset To",
+        "received": "Received",
+        "sent": "Sent"
+      },
+      "noData": {
+        "text": "No buy/sell history found",
+        "subText": "Your completed buy/sell orders will appear here",
+        "buttonText": "Start Buying"
+      },
+      "noSearchResult": {
+        "text": "No search results found",
+        "subText": "not found"
+      }
+    },
+    "dialog": {
+      "provider": "Provider",
+      "orderId": "Order ID",
+      "status": "Status",
+      "region": "Region",
+      "fromTitle": "From",
+      "toTitle": "To",
+      "fromAsset": "Asset",
+      "fromAmount": "Amount Sent",
+      "toWallet": "Wallet",
+      "toAsset": "Asset",
+      "toAccount": "Account",
+      "toAmount": "Amount Received",
+      "paymentMethod": "Payment Method",
+      "messageBox": {
+        "hold": "Your transaction has been placed on hold for security verification. To proceed, please contact ${providerName} security team for further instructions."
+      },
+      "statusText": {
+        "complete": "Success",
+        "pending": "Pending",
+        "created": "Created",
+        "expired": "Expired",
+        "failed": "Failed",
+        "hold": "On Hold",
+        "refunded": "Refunded"
+      }
+    }
   }
 }

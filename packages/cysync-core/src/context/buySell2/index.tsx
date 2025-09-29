@@ -40,7 +40,12 @@ import {
 } from '~/hooks';
 import { useNavigation } from '~/pages/MainApp/BuySell2/hooks';
 import { BuySellPage } from '~/pages/MainApp/BuySell2/pages';
-import { selectUnHiddenAccounts, selectWallets, useAppSelector } from '~/store';
+import {
+  selectLanguage,
+  selectUnHiddenAccounts,
+  selectWallets,
+  useAppSelector,
+} from '~/store';
 import { getDB } from '~/utils/db';
 
 export interface BuySell2ContextInterface {
@@ -127,9 +132,8 @@ export interface BuySell2ContextProviderProps extends BuySell2Props {
 export const BuySell2Provider: FC<BuySell2ContextProviderProps> = ({
   children,
 }) => {
-  const strings = {
-    bestPaymentMethod: 'Best',
-  };
+  const { strings } = useAppSelector(selectLanguage);
+  const langStrings = strings.buySell2.offers;
 
   // Wallet selection
   const { wallets } = useAppSelector(selectWallets);
@@ -264,7 +268,7 @@ export const BuySell2Provider: FC<BuySell2ContextProviderProps> = ({
       rightText: ' ',
       rightIcon:
         method.code === bestPaymentMethod ? (
-          <Typography color="gold">{strings.bestPaymentMethod}</Typography>
+          <Typography color="gold">{langStrings.bestOfferText}</Typography>
         ) : undefined,
     }),
   );

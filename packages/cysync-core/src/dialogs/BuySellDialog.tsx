@@ -26,7 +26,12 @@ import React, { FC, useMemo } from 'react';
 
 import { countryList } from '~/countries';
 import { useBuySellOrders } from '~/hooks';
-import { closeDialog, useAppDispatch } from '~/store';
+import {
+  closeDialog,
+  selectLanguage,
+  useAppDispatch,
+  useAppSelector,
+} from '~/store';
 
 export interface IBuySellDialogProps {
   buySell: BuySellOrderRowData;
@@ -42,16 +47,6 @@ const textColorMap: Record<IBuySellStatus, any> = {
   refunded: 'muted',
 };
 
-const statusTextMap: Record<IBuySellStatus, string> = {
-  complete: 'Success',
-  pending: 'Pending',
-  created: 'Created',
-  expired: 'Expired',
-  failed: 'Failed',
-  hold: 'On Hold',
-  refunded: 'Refunded',
-};
-
 export const BuySellDialog: FC<IBuySellDialogProps> = ({
   buySell: buySellSource,
 }) => {
@@ -59,26 +54,9 @@ export const BuySellDialog: FC<IBuySellDialogProps> = ({
   const dispatch = useAppDispatch();
   const { displayedData } = useBuySellOrders();
   const onClose = () => dispatch(closeDialog('buySellDialog'));
+  const { strings } = useAppSelector(selectLanguage);
 
-  const strings = {
-    provider: 'Provider',
-    orderId: 'Order ID',
-    status: 'Status',
-    region: 'Region',
-    fromTitle: 'From',
-    toTitle: 'To',
-    fromAsset: 'Asset',
-    fromAmount: 'Amount Sent',
-    toWallet: 'Wallet',
-    toAsset: 'Asset',
-    toAccount: 'Account',
-    toAmount: 'Amount Received',
-    paymentMethod: 'Payment Method',
-    messageBox: {
-      // eslint-disable-next-line no-template-curly-in-string
-      hold: 'Your transaction has been placed on hold for security verification. To proceed, please contact ${providerName} security team for further instructions.',
-    },
-  };
+  const langStrings = strings.buySell2.dialog;
 
   const order = useMemo(
     () => displayedData.find(d => d.id === buySellSource.id) ?? buySellSource,
@@ -91,7 +69,7 @@ export const BuySellDialog: FC<IBuySellDialogProps> = ({
     () => [
       {
         id: 'provider',
-        leftText: strings.provider,
+        leftText: langStrings.provider,
         rightComponent: [
           {
             id: 'provider-info',
@@ -115,7 +93,7 @@ export const BuySellDialog: FC<IBuySellDialogProps> = ({
       { isDivider: true, id: 'divider-1' },
       {
         id: 'order-id',
-        leftText: strings.orderId,
+        leftText: langStrings.orderId,
         rightComponent: [
           {
             id: 'order-id-info',
@@ -130,14 +108,14 @@ export const BuySellDialog: FC<IBuySellDialogProps> = ({
       { isDivider: true, id: 'divider-2' },
       {
         id: 'status',
-        leftText: strings.status,
+        leftText: langStrings.status,
         rightTextColor: textColorMap[order.status],
-        rightText: statusTextMap[order.status],
+        rightText: langStrings.statusText[order.status],
       },
       { isDivider: true, id: 'divider-3' },
       {
         id: 'region',
-        leftText: strings.region,
+        leftText: langStrings.region,
         rightComponent: [
           {
             id: 'region-info',
@@ -150,11 +128,11 @@ export const BuySellDialog: FC<IBuySellDialogProps> = ({
       { isDivider: true, id: 'divider-4' },
       {
         id: 'from-title',
-        leftText: strings.fromTitle,
+        leftText: langStrings.fromTitle,
       },
       {
         id: 'from-asset',
-        leftText: strings.fromAsset,
+        leftText: langStrings.fromAsset,
         rightComponent: [
           {
             id: 'from-asset-id',
@@ -165,27 +143,27 @@ export const BuySellDialog: FC<IBuySellDialogProps> = ({
       },
       {
         id: 'from-amount',
-        leftText: strings.fromAmount,
+        leftText: langStrings.fromAmount,
         rightText: order.sentDisplayAmount,
       },
       {
         id: 'payment-method',
-        leftText: strings.paymentMethod,
+        leftText: langStrings.paymentMethod,
         rightText: order.paymentMethod.name,
       },
       { isDivider: true, id: 'divider-5' },
       {
         id: 'to-title',
-        leftText: strings.toTitle,
+        leftText: langStrings.toTitle,
       },
       {
         id: 'to-wallet',
-        leftText: strings.toWallet,
+        leftText: langStrings.toWallet,
         rightText: order.destinationWalletName,
       },
       {
         id: 'to-account',
-        leftText: strings.toAccount,
+        leftText: langStrings.toAccount,
         rightComponent: [
           {
             id: 'to-account-id',
@@ -197,7 +175,7 @@ export const BuySellDialog: FC<IBuySellDialogProps> = ({
       },
       {
         id: 'to-asset',
-        leftText: strings.toAsset,
+        leftText: langStrings.toAsset,
         rightComponent: [
           {
             id: 'to-asset-id',
@@ -209,12 +187,12 @@ export const BuySellDialog: FC<IBuySellDialogProps> = ({
       },
       {
         id: 'to-amount',
-        leftText: strings.toAmount,
+        leftText: langStrings.toAmount,
         rightText: order.receivedDisplayAmount,
       },
       { isDivider: true, id: 'divider-6' },
     ],
-    [order, strings],
+    [order, langStrings],
   );
 
   const dateObj = new Date(order.createdAt);
@@ -259,7 +237,7 @@ export const BuySellDialog: FC<IBuySellDialogProps> = ({
               width="full"
             >
               <MessageBox
-                text={parseLangTemplate(strings.messageBox.hold, {
+                text={parseLangTemplate(langStrings.messageBox.hold, {
                   providerName: order.providerName,
                 })}
                 type="warning"

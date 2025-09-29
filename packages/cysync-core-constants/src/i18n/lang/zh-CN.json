@@ -2969,5 +2969,121 @@
         "searchText": "Search Payment Method"
       }
     }
+  },
+  "buySell2": {
+    "title": "购买加密货币",
+    "input": {
+      "region": {
+        "title": "选择区域和货币",
+        "selectCountry": {
+          "searchText": "搜索国家",
+          "placeholder": "选择一个国家"
+        },
+        "selectFiat": {
+          "searchText": "搜索法定货币",
+          "placeholder": "选择法定货币"
+        }
+      },
+      "amount": {
+        "pay": {
+          "title": "支付"
+        },
+        "receive": {
+          "title": "您将收到"
+        }
+      },
+      "crypto": {
+        "title": "选择加密货币",
+        "selectCrypto": {
+          "searchText": "搜索加密货币",
+          "placeholder": "选择加密货币"
+        }
+      },
+      "accounts": {
+        "title": "到",
+        "selectWallet": {
+          "searchText": "搜索钱包",
+          "placeholder": "选择钱包"
+        },
+        "selectAccount": {
+          "searchText": "搜索账户",
+          "placeholder": "选择账户"
+        },
+        "selectAnAccount": "选择账户以继续"
+      },
+      "paymentMethod": {
+        "title": "用...支付",
+        "placeholder": "支付方式",
+        "searchText": "搜索支付方式"
+      },
+      "messageBox": {
+        "danger": "未找到账户",
+        "altText": "在钱包中"
+      },
+      "offersSection": {
+        "title": "您的最佳报价",
+        "searchingForOffers": "搜索您的最佳报价",
+        "selectAnOffer": "选择报价以继续",
+        "offersFound": "找到 ${num} 个报价",
+        "timerText": "${time} 后更新"
+      },
+      "errors": {
+        "noOffers": "您的请求没有可用报价"
+      }
+    },
+    "offers": {
+      "bestOfferText": "最佳报价",
+      "optimalOfferText": "最优报价",
+      "toAmount": "您将收到",
+      "fees": "费用"
+    },
+    "history": {
+      "search": "搜索买卖历史",
+      "state": {
+        "loading": "加载买卖历史..."
+      },
+      "header": {
+        "provider": "提供商",
+        "assetTo": "资产到",
+        "received": "已收到",
+        "sent": "已发送"
+      },
+      "noData": {
+        "text": "未找到买卖历史",
+        "subText": "完成的买卖订单将出现在这里",
+        "buttonText": "开始购买"
+      },
+      "noSearchResult": {
+        "text": "未找到搜索结果",
+        "subText": "未找到"
+      }
+    },
+    "dialog": {
+      "provider": "提供商",
+      "orderId": "订单 ID",
+      "status": "状态",
+      "region": "区域",
+      "fromTitle": "从",
+      "toTitle": "到",
+      "fromAsset": "资产",
+      "fromAmount": "发送金额",
+      "toWallet": "钱包",
+      "toAsset": "资产",
+      "toAccount": "账户",
+      "toAmount": "接收金额",
+      "paymentMethod": "支付方式",
+      "messageBox": {
+        "hold": "您的交易已被暂停进行安全验证。要继续，请联系 ${providerName} 安全团队以获取进一步指示。"
+      },
+      "statusText": {
+        "complete": "成功",
+        "pending": "待处理",
+        "created": "已创建",
+        "expired": "已过期",
+        "failed": "已失败",
+        "hold": "暂停",
+        "refunded": "已退款"
+      }
+    }
   }
 }

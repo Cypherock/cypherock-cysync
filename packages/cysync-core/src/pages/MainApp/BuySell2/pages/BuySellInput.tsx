@@ -49,24 +49,13 @@ export const BuySellInput: React.FC = () => {
     };
   }, []);
 
-  const lang = useAppSelector(selectLanguage);
+  const { strings: langStrings } = useAppSelector(selectLanguage);
 
   const strings = {
-    offers: {
-      title: 'Your best offers',
-      searchingForOffers: 'Searching for your best offers',
-      selectAnOffer: 'Select an offer to proceed',
-    },
-    accounts: {
-      selectAnAccount: 'Select an account to continue',
-    },
-    messageBox: {
-      danger: 'No accounts found for',
-      altText: 'in the wallet',
-    },
-    errors: {
-      noOffers: 'No offers available for your request',
-    },
+    offersSection: langStrings.buySell2.input.offersSection,
+    accounts: langStrings.buySell2.input.accounts,
+    messageBox: langStrings.buySell2.input.messageBox,
+    errors: langStrings.buySell2.input.errors,
   };
 
   const canShowOffers = !isFetchingOffers && offers.length > 0;
@@ -74,7 +63,7 @@ export const BuySellInput: React.FC = () => {
 
   const getText = () => {
     if (isFetchingOffers) {
-      return [strings.offers.searchingForOffers];
+      return [strings.offersSection.searchingForOffers];
     }
 
     if (!canShowOffers && offers.length === 0) {
@@ -85,7 +74,7 @@ export const BuySellInput: React.FC = () => {
       const messages = [];
 
       if (!selectedOffer) {
-        messages.push(strings.offers.selectAnOffer);
+        messages.push(strings.offersSection.selectAnOffer);
       }
 
       if (!selectedAccount) {
@@ -199,7 +188,7 @@ export const BuySellInput: React.FC = () => {
                     }
                   >
                     <Typography color="gold">
-                      {lang.strings.buttons.addAccount}
+                      {langStrings.buttons.addAccount}
                     </Typography>
                   </Button>
                 }
@@ -218,7 +207,7 @@ export const BuySellInput: React.FC = () => {
           $borderWidthL={1}
         >
           <Flex direction="column" gap={24}>
-            <Typography color="muted">{strings.offers.title}</Typography>
+            <Typography color="muted">{strings.offersSection.title}</Typography>
 
             {!canShowOffers && messages()}
             {canShowOffers && <Offers />}
@@ -235,7 +224,7 @@ export const BuySellInput: React.FC = () => {
                 disabled={!canCreateOrder}
                 onClick={toNextPage}
               >
-                {lang.strings.buttons.continue}
+                {langStrings.buttons.continue}
               </Button>
             </Flex>
           </Flex>

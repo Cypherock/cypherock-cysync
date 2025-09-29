@@ -11,7 +11,7 @@ import { MainAppLayout } from '../Layout';
 
 export const BuySell2 = () => {
   const lang = useAppSelector(selectLanguage);
-  const strings = lang.strings.buySell;
+  const strings = lang.strings.buySell2;
 
   const [topbarHeight, setTopbarHeight] = useState(0);
 
@@ -21,7 +21,7 @@ export const BuySell2 = () => {
 
   return (
     <MainAppLayout
-      topbar={{ title: strings.buy.title }}
+      topbar={{ title: strings.title }}
       onTopbarHeightChange={setTopbarHeight}
     >
       <Container
