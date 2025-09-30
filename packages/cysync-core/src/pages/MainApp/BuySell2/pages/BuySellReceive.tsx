@@ -63,7 +63,7 @@ export const BuySellReceive = () => {
         storeReceiveAddress,
         source: ReceiveFlowSource.ONRAMP,
         onClose: onReceiveFlowClosed,
-        isVerificationRequired: false,
+        isVerificationRequired: true,
       }),
     );
   };
