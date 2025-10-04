@@ -219,8 +219,14 @@ export const BuySellDialog: FC<IBuySellDialogProps> = ({
             <CloseButton onClick={onClose} />
           </Flex>
         </DialogBoxHeader>
-        <DialogBoxBody align="center" direction="column" height="full" pb={0}>
-          <Container align="center" justify="center" width="full">
+        <DialogBoxBody
+          align="center"
+          direction="column"
+          height="full"
+          pb={0}
+          px={0}
+        >
+          <Container align="center" justify="center" width="full" px={5}>
             <DollarIcon
               width={36}
               height={36}
@@ -233,6 +239,7 @@ export const BuySellDialog: FC<IBuySellDialogProps> = ({
             align="center"
             width="full"
             gap={4}
+            px={5}
           >
             <Typography variant="h5">
               {order.sentDisplayAmount} → {order.receivedDisplayAmount}
@@ -264,6 +271,7 @@ export const BuySellDialog: FC<IBuySellDialogProps> = ({
               pt={5}
               pb={3}
               gap={12}
+              px={5}
             >
               <SummaryBox items={summaryItems} />
             </Container>
