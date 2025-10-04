@@ -90,14 +90,14 @@ export const BuySellTableRow = (props: BuySellTableRowProps) => {
           <HistoryNameBox
             title={order.providerName}
             $icon={DollarIcon}
-            width={{ def: '20%' }}
+            width={{ def: '25%' }}
+            p={{ def: 2 }}
             variant="success"
             subtitle={`${date} | ${time}`}
             fill={getOrderFillFromStatus(order.status, theme)}
           />
           <BuySellHistoryAssetBox
-            width={{ def: '40%' }}
-            p={{ def: 2 }}
+            width={{ def: '35%' }}
             wallet={order.destinationWalletName}
             $assetIcon={order.destinationAssetIcon}
             $assetName={order.destinationAssetName}

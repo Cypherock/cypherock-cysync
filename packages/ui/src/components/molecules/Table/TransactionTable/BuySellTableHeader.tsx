@@ -25,12 +25,12 @@ export interface BuySellTableHeaderProps {
 
 const ProviderHeader = styled(TableHeader)`
   padding: 16px 16px 16px 40px;
-  width: 20%;
+  width: 25%;
 `;
 
 const AssetToHeader = styled(TableHeader)`
   padding: 16px;
-  width: 40%;
+  width: 35%;
 `;
 
 const ReceivedHeader = styled(TableHeader)`
