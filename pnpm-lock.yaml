@@ -895,8 +895,8 @@ importers:
         specifier: workspace:^
         version: link:../db-interfaces
       '@cypherock/sdk-app-evm':
-        specifier: ^0.0.35
-        version: 0.0.35
+        specifier: ^0.1.0
+        version: 0.1.0
       '@cypherock/sdk-interfaces':
         specifier: ^0.0.16
         version: 0.0.16
@@ -2067,8 +2067,8 @@ importers:
         specifier: ^0.1.1
         version: 0.1.1
       '@cypherock/sdk-app-evm':
-        specifier: ^0.0.35
-        version: 0.0.35
+        specifier: ^0.1.0
+        version: 0.1.0
       '@cypherock/sdk-app-exchange':
         specifier: ^1.1.1
         version: 1.1.1
@@ -6280,8 +6280,8 @@ packages:
       - debug
     dev: false
 
-  /@cypherock/sdk-app-evm@0.0.35:
-    resolution: {integrity: sha512-LS/DBc/wj21iTPhgDt4FbvKJztCLw5tDAbXRe9UJXX7fhbT4RUCuyk97vlumQ+uVObYjpChL6y+ZbRCPbGNBfA==}
+  /@cypherock/sdk-app-evm@0.1.0:
+    resolution: {integrity: sha512-k1wvu8k5h+y8mBBh83f94tfjq6ukGuTcC7D2ZbnK15Y3xGltXcb0IQH+Zf/IN6gn4+mgMlWziKK8KHlsORMyCA==}
     dependencies:
       '@cypherock/sdk-core': 0.1.1
       '@cypherock/sdk-interfaces': 0.0.16
