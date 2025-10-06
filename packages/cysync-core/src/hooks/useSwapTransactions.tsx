@@ -264,7 +264,7 @@ export const mapSwapTransactionForDisplay = (params: {
       parentAssetId={
         sourceAccount?.parentAssetId ?? sentTransaction.parentAssetId
       }
-      assetId={undefined}
+      showFallback={!sourceAccount}
       {...props}
     />
   );
@@ -273,7 +273,8 @@ export const mapSwapTransactionForDisplay = (params: {
       parentAssetId={
         sourceAccount?.parentAssetId ?? sentTransaction.parentAssetId
       }
-      assetId={sourceAsset.id}
+      assetId={sourceAsset?.id}
+      showFallback={!sourceAsset}
       {...props}
     />
   );

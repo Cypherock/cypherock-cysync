@@ -1,4 +1,4 @@
-import { getAsset } from '@cypherock/coin-support-utils';
+import { getAssetOrUndefined } from '@cypherock/coin-support-utils';
 import {
   BtcIdMap,
   EvmIdMap,
@@ -146,7 +146,15 @@ export const CoinIcon: React.FC<CoinIconProps> = ({
   };
 
   const getErc20Image = () => {
-    const asset = getAsset(parentAssetId, assetId);
+    const asset = getAssetOrUndefined(parentAssetId, assetId);
+
+    if (!asset) {
+      return {
+        src: fallbackIcon,
+        alt: assetId ?? parentAssetId,
+      };
+    }
+
     return {
       src: requestErc20ImageFile(asset.coinGeckoId),
       alt: asset.name,
