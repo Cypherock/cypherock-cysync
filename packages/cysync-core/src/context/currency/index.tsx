@@ -13,6 +13,8 @@ import { config } from '~/config';
 import { useMemoReturn } from '~/hooks';
 import { closeDialog, useAppDispatch } from '~/store';
 import { keyValueStore } from '~/utils';
+import { analyticsService } from '~/services/analytics/analyticsService';
+import { ANALYTICS_EVENTS } from '~/services/analytics/analyticsEvents';
 import logger from '~/utils/logger';
 
 export interface CurrencyContextInterface {
@@ -59,6 +61,14 @@ export const CurrencyProvider: React.FC<PropsWithChildren> = ({ children }) => {
     if (currency) {
       setCurrentCurrency(currency);
     }
+    try {
+      analyticsService.trackEvent(
+        ANALYTICS_EVENTS.PREFERENCE_CURRENCY_SELECTED,
+        { currency: currency ?? DEFAULT_CURRENCY, source: 'load' },
+      );
+    } catch {
+      logger.warn('Failed to track preference currency selected');
+    }
   };
 
   const updateCurrency = useCallback((currency: string) => {
@@ -71,6 +81,10 @@ export const CurrencyProvider: React.FC<PropsWithChildren> = ({ children }) => {
         dispatch(closeDialog('fullPageLoaderDialog'));
       }, 5000);
       keyValueStore.appCurrency.set(normalized);
+      analyticsService.trackEvent(
+        ANALYTICS_EVENTS.PREFERENCE_CURRENCY_SELECTED,
+        { currency: normalized, source: 'update' },
+      );
       return normalized;
     });
   }, []);

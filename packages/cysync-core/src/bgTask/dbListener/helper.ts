@@ -21,6 +21,7 @@ import {
 } from '~/store';
 import { getDB, keyValueStore } from '~/utils';
 import logger from '~/utils/logger';
+import { getDefaultLang } from '@cypherock/cysync-core-constants';
 
 const createFuncWithErrorHandler =
   (
@@ -210,6 +211,15 @@ export const syncAllDb = async (isFirst: boolean, currency: string) => {
   await syncInheritancePlanDb();
 
   store.dispatch(setLanguage((await keyValueStore.appLanguage.get()) as any));
+  try {
+    const lang = await keyValueStore.appLanguage.get();
+    analyticsService.trackEvent(ANALYTICS_EVENTS.PREFERENCE_LANGUAGE_SELECTED, {
+      language: lang ?? getDefaultLang(),
+      source: 'load',
+    });
+  } catch {
+    logger.warn('Failed to track preference language selected');
+  }
 };
 
 const throttleDbFunction = (func: any) =>

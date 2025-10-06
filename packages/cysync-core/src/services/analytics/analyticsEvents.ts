@@ -84,6 +84,9 @@ export const ANALYTICS_EVENTS = {
 
   SYNC_ACCOUNTS: 'Sync - Accounts',
   SYNC_INHERITANCE_ENABLED: 'Sync - Inheritance Enabled',
+
+  PREFERENCE_LANGUAGE_SELECTED: 'Preference - Language Selected',
+  PREFERENCE_CURRENCY_SELECTED: 'Preference - Currency Selected',
 } as const;
 
 export type AnalyticsEvent =
