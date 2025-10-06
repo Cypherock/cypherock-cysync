@@ -1,6 +1,6 @@
 import mixpanel from 'mixpanel-browser';
 import logger from '~/utils/logger';
-import { keyValueStore } from '~/utils';
+import { getKeyDB, keyValueStore } from '~/utils';
 
 class AnalyticsService {
   private isInitialized = false;
@@ -10,9 +10,13 @@ class AnalyticsService {
   public async init(): Promise<void> {
     if (this.isInitialized) return;
 
-    const isAnalyticsEnabled =
-      await keyValueStore.isAnalyticsAndBugReportEnabled.get();
-    this.isEnabled = isAnalyticsEnabled ?? true;
+    const rawValue = await getKeyDB().getItem('isAnalyticsAndBugReportEnabled');
+    if (rawValue === null) {
+      this.isEnabled = true;
+      await keyValueStore.isAnalyticsAndBugReportEnabled.set(true);
+    } else {
+      this.isEnabled = rawValue === 'true';
+    }
 
     if (!this.isEnabled) {
       logger.info('Analytics disabled by user preference.');
