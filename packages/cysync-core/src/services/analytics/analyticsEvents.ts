@@ -81,6 +81,9 @@ export const ANALYTICS_EVENTS = {
   INHERITANCE_LEARN_MORE_CLICKED: 'Inheritance - Learn More Clicked',
   INHERITANCE_SILVER_PLAN_CLICKED: 'Inheritance - Silver Plan Clicked',
   INHERITANCE_GOLD_PLAN_CLICKED: 'Inheritance - Gold Plan Clicked',
+
+  SYNC_ACCOUNTS: 'Sync - Accounts',
+  SYNC_INHERITANCE_ENABLED: 'Sync - Inheritance Enabled',
 } as const;
 
 export type AnalyticsEvent =

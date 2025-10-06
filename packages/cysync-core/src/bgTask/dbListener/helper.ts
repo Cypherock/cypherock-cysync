@@ -2,6 +2,13 @@ import lodash from 'lodash';
 
 import { syncAccounts } from '~/actions';
 import {
+  getDefaultUnit,
+  getParsedAmount,
+  formatDisplayAmount,
+} from '@cypherock/coin-support-utils';
+import { analyticsService } from '~/services/analytics/analyticsService';
+import { ANALYTICS_EVENTS } from '~/services/analytics/analyticsEvents';
+import {
   setAccounts,
   setDevices,
   setInheritancePlans,
@@ -51,6 +58,62 @@ const syncAccountsDb = createFuncWithErrorHandler(
       sortBy: { key: 'name' },
     });
     store.dispatch(setAccounts(accounts));
+
+    const assetsPerWallet: Record<
+      string,
+      Record<
+        string,
+        { count: number; balance: string; unit: string; displayBalance: string }
+      >
+    > = {};
+    for (const a of accounts) {
+      const { walletId } = a;
+      const { assetId } = a;
+      if (!assetsPerWallet[walletId]) assetsPerWallet[walletId] = {};
+      if (!assetsPerWallet[walletId][assetId]) {
+        const unitAbbr = getDefaultUnit(a.parentAssetId, a.assetId).abbr;
+        assetsPerWallet[walletId][assetId] = {
+          count: 0,
+          balance: '0',
+          unit: unitAbbr,
+          displayBalance: '0',
+        };
+      }
+      assetsPerWallet[walletId][assetId].count += 1;
+      try {
+        const prevBalance = BigInt(assetsPerWallet[walletId][assetId].balance);
+        const currBalance = BigInt(a.balance ?? '0');
+        const summed = (prevBalance + currBalance).toString();
+        assetsPerWallet[walletId][assetId].balance = summed;
+        const parsed = getParsedAmount({
+          coinId: a.parentAssetId,
+          assetId: a.assetId,
+          unitAbbr: assetsPerWallet[walletId][assetId].unit,
+          amount: summed,
+        });
+        const formatted = formatDisplayAmount(parsed.amount).fixed;
+        assetsPerWallet[walletId][
+          assetId
+        ].displayBalance = `${formatted} ${parsed.unit.abbr}`;
+      } catch {
+        assetsPerWallet[walletId][assetId].balance = a.balance ?? '0';
+        const parsed = getParsedAmount({
+          coinId: a.parentAssetId,
+          assetId: a.assetId,
+          unitAbbr: assetsPerWallet[walletId][assetId].unit,
+          amount: assetsPerWallet[walletId][assetId].balance,
+        });
+        const formatted = formatDisplayAmount(parsed.amount).fixed;
+        assetsPerWallet[walletId][
+          assetId
+        ].displayBalance = `${formatted} ${parsed.unit.abbr}`;
+      }
+    }
+    if (Object.keys(assetsPerWallet).length > 0) {
+      analyticsService.trackEvent(ANALYTICS_EVENTS.SYNC_ACCOUNTS, {
+        assetsPerWallet,
+      });
+    }
 
     if (isFirst && currency) {
       if (window.cysyncEnv.IS_PRODUCTION === 'true') {
@@ -128,6 +191,12 @@ const syncInheritancePlanDb = createFuncWithErrorHandler(
       p => !!(p.expireAt && p.purchasedAt),
     );
     store.dispatch(setInheritancePlans(plans));
+
+    if (plans.length > 0) {
+      analyticsService.trackEvent(ANALYTICS_EVENTS.SYNC_INHERITANCE_ENABLED, {
+        wallets: plans.map(p => ({ walletId: p.walletId, planType: p.type })),
+      });
+    }
   },
 );
 
