@@ -62,6 +62,8 @@ const ComponentWithHeader: React.FC<{
         py="10px"
         align="center"
         $bgColor="sideBar"
+        $maxHeight="60px"
+        height="60px"
       >
         {onBack && (
           <Button
@@ -91,9 +93,7 @@ const ComponentWithHeader: React.FC<{
           </Button>
         )}
       </Flex>
-      <div style={{ alignItems: 'stretch', height: '91%', width: '100%' }}>
-        {children}
-      </div>
+      <div style={{ width: '100%', height: '88%' }}>{children}</div>
     </Container>
   );
 };
@@ -220,7 +220,7 @@ export const Swap = () => {
     >
       {showHistory ? (
         <ComponentWithHeader onBack={onHistoryBack}>
-          <SwapHistory topbarHeight={topbarHeight} />
+          <SwapHistory topbarHeight={topbarHeight + 60} />
         </ComponentWithHeader>
       ) : (
         currentComponent({

@@ -173,9 +173,5 @@ export const SwapHistory = ({ topbarHeight }: { topbarHeight: number }) => {
     );
   };
 
-  return (
-    <Container $noFlex m="20">
-      {getMainContent()}
-    </Container>
-  );
+  return <Container $noFlex>{getMainContent()}</Container>;
 };
