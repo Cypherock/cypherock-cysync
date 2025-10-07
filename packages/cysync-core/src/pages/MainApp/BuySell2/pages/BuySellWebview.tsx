@@ -58,7 +58,7 @@ export const BuySellWebview = () => {
         );
       }
     };
-  }, []); // Empty deps; add listener once on mount
+  }, []);
 
   return (
     <Flex

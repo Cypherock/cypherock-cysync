@@ -138,35 +138,29 @@ export const BuySell2Provider: FC<BuySell2ContextProviderProps> = ({
   const lang = useAppSelector(selectLanguage);
   const strings = lang.strings.buySell2.offers;
 
-  // Timer for auto-refresh
   const [timerSeconds, setTimerSeconds] = useState(30);
 
-  // Wallet selection
   const { wallets } = useAppSelector(selectWallets);
   const { selectedWallet, handleWalletChange, walletDropdownList } =
     useWalletDropdown({
       walletId: wallets[0]?.__id,
     });
 
-  // Crypto selection
   const { cryptoDropdownList, selectedCrypto, handleCryptoChange } =
     useCryptoDropdown({
       defaultCryptoId: 'bitcoin/bitcoin',
     });
 
-  // Country selection
   const { countryDropdownList, selectedCountry, handleCountryChange } =
     useCountryDropdown({
       defaultCountryCode: 'US',
     });
 
-  // Currency Selection
   const { fiatDropdownList, selectedFiatCurrency, handleFiatCurrencyChange } =
     useFiatDropdown({
       defaultFiatCurrency: 'USD',
     });
 
-  // Account list
   const { accounts } = useAppSelector(selectUnHiddenAccounts);
 
   const accountList: Record<string, IAccount> = useMemo(
@@ -174,7 +168,6 @@ export const BuySell2Provider: FC<BuySell2ContextProviderProps> = ({
     [accounts],
   );
 
-  // Account Selection
   const {
     accountDropdownList: accountDropdownListSrc,
     selectedAccount,
@@ -217,7 +210,6 @@ export const BuySell2Provider: FC<BuySell2ContextProviderProps> = ({
 
   const [amount, setAmount] = useState('100');
 
-  // Navigation options
   const [onBack, setOnBack] = useState<(() => void) | undefined>(undefined);
   const [onRefresh, setOnRefresh] = useState<(() => void) | undefined>(
     undefined,
@@ -231,7 +223,6 @@ export const BuySell2Provider: FC<BuySell2ContextProviderProps> = ({
     setOnRefresh(() => options.onRefresh);
   };
 
-  // Offers state
   const [getOffersResponse, setGetOffersResponse] = useState<
     IGetOffersResponse | undefined
   >();
@@ -240,7 +231,6 @@ export const BuySell2Provider: FC<BuySell2ContextProviderProps> = ({
   const offers = getOffersResponse?.data?.offers ?? [];
   const providers = getOffersResponse?.data?.providers ?? [];
 
-  // Payment method selection
   const [selectedPaymentMethod, setSelectedPaymentMethod] = useState<string>();
 
   const filteredOffers = useMemo(
@@ -326,7 +316,6 @@ export const BuySell2Provider: FC<BuySell2ContextProviderProps> = ({
     if (result.success && result.data) {
       const db = getDB();
 
-      // Save order to database
       const dbOrder: IBuySellOrder = {
         id: result.data.id,
         provider: selectedOffer.provider,
@@ -366,7 +355,6 @@ export const BuySell2Provider: FC<BuySell2ContextProviderProps> = ({
 
   const controllerRef = useRef<AbortController | null>(null);
 
-  // Fetch offers
   const fetchOffers = async (
     fromCurrency?: string,
     toCurrency?: string,

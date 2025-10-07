@@ -29,7 +29,6 @@ export const AmountInput = () => {
 
   return (
     <Flex gap={16} width="full">
-      {/* Pay Field */}
       <Container direction="column" width="full" gap={8} align="flex-start">
         <Typography $fontSize={12} color="muted">
           {strings.pay.title}
@@ -53,7 +52,6 @@ export const AmountInput = () => {
         </CustomInputSend>
       </Container>
 
-      {/* Receive Field */}
       <Container direction="column" width="full" gap={8} align="flex-start">
         <Typography $fontSize={12} color="muted">
           {strings.receive.title}

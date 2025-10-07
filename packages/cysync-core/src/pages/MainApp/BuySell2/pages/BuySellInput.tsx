@@ -118,7 +118,7 @@ export const BuySellInput: React.FC = () => {
   );
 
   return (
-    <Flex width="full" height="full" pb={5}>
+    <Flex width="full" height="full">
       <Container
         $borderRadius={24}
         shadow="popup"
@@ -131,7 +131,6 @@ export const BuySellInput: React.FC = () => {
         $bgColor="primary"
         mx="20"
       >
-        {/* Input Section */}
         <Flex
           gap={16}
           p={4}
@@ -141,7 +140,6 @@ export const BuySellInput: React.FC = () => {
           $flex={1}
           $minWidth="0"
         >
-          {/* Input From */}
           <Flex
             p={3}
             gap={16}
@@ -155,7 +153,6 @@ export const BuySellInput: React.FC = () => {
             <PaymentMethodSelector />
           </Flex>
 
-          {/* Input To */}
           <Flex
             p={3}
             gap={16}
@@ -168,7 +165,6 @@ export const BuySellInput: React.FC = () => {
             <WalletAccountSelector />
           </Flex>
 
-          {/* Error Message */}
           {selectedWallet &&
             selectedCrypto &&
             accountDropdownList.length === 0 && (
@@ -197,7 +193,6 @@ export const BuySellInput: React.FC = () => {
             )}
         </Flex>
 
-        {/* Quotes Section */}
         <Flex
           $bgColor="list"
           width={400}
