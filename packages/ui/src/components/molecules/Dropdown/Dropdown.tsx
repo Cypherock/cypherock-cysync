@@ -251,6 +251,20 @@ export const Dropdown: React.FC<
     [filteredItems],
   );
 
+  const showAbove = useMemo(() => {
+    if (!isOpen) return false;
+
+    const containerRect = containerRef.current?.getBoundingClientRect();
+    if (!containerRect) return false;
+
+    const viewportHeight = window.innerHeight;
+    const dropdownHeight = Math.min(filteredItems.length, 4) * baseHeight + 32; // same as used in virtualized list
+    const spaceBelow = viewportHeight - containerRect.bottom;
+    const spaceAbove = containerRect.top;
+
+    return spaceBelow < dropdownHeight && spaceAbove > dropdownHeight;
+  }, [isOpen, filteredItems.length, baseHeight]);
+
   const rowRenderer = useCallback(
     ({ index, style }: any) => {
       const item = filteredItems[index];
@@ -386,6 +400,7 @@ export const Dropdown: React.FC<
           <DropDownListContainer
             ref={listRef}
             $cursor={disabled ? 'not-allowed' : 'default'}
+            $showAbove={showAbove}
           >
             {filteredItems.map((_, index) => rowRenderer({ index }))}
           </DropDownListContainer>
@@ -395,6 +410,7 @@ export const Dropdown: React.FC<
             height={baseHeight * Math.min(filteredItems.length, 4) + 32}
             $maxHeight={244}
             $cursor={disabled ? 'not-allowed' : 'default'}
+            $showAbove={showAbove}
           >
             <Virtualize.AutoSizer style={{ width: '100%' }}>
               {({ width, height }: any) => (
@@ -414,7 +430,7 @@ export const Dropdown: React.FC<
         ))}
 
       {isOpen && filteredItems.length === 0 && (
-        <DropDownListContainer $cursor="default">
+        <DropDownListContainer $cursor="default" $showAbove={showAbove}>
           <Flex
             justify="center"
             align="center"
