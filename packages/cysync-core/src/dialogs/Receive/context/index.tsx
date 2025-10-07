@@ -147,6 +147,7 @@ export const ReceiveDialogProvider: FC<ReceiveDialogContextProviderProps> = ({
   const [derivedPrincipalId, setDerivedPrincipalId] = useState<
     string | undefined
   >();
+  const [isAddressAvailable, setIsAddressAvailable] = useState(false);
   const [isAddressVerified, setIsAddressVerified] = useState(false);
   const [isFlowCompleted, setIsFlowCompleted] = useState(false);
   const [deviceEvents, setDeviceEvents] = useState<
@@ -198,7 +199,11 @@ export const ReceiveDialogProvider: FC<ReceiveDialogContextProviderProps> = ({
   );
 
   useEffect(() => {
-    if (isAddressVerified && storeReceiveAddress) {
+    if (
+      isAddressAvailable &&
+      (isAddressVerified || !isVerificationRequired) &&
+      storeReceiveAddress
+    ) {
       if (selectedAccount?.familyId === coinFamiliesMap.icp) {
         const isIcpToken = selectedAccount.type === AccountTypeMap.subAccount;
         if (isIcpToken && derivedPrincipalId) {
@@ -210,8 +215,11 @@ export const ReceiveDialogProvider: FC<ReceiveDialogContextProviderProps> = ({
         storeReceiveAddress(derivedAddress);
       }
 
-      if (source === ReceiveFlowSource.SWAP) onClose();
-      if (source === ReceiveFlowSource.ONRAMP) onClose();
+      // close the receive flow only if address verified on device
+      if (isAddressVerified) {
+        if (source === ReceiveFlowSource.SWAP) onClose();
+        if (source === ReceiveFlowSource.ONRAMP) onClose();
+      }
     }
   }, [
     derivedAddress,
@@ -295,6 +303,8 @@ export const ReceiveDialogProvider: FC<ReceiveDialogContextProviderProps> = ({
         } else {
           setDerivedAddress(payload.address);
         }
+
+        setIsAddressAvailable(true);
       }
 
       if (payload.didAddressMatched !== undefined) {

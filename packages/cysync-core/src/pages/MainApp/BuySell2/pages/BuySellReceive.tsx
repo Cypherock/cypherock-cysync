@@ -16,7 +16,6 @@ export const BuySellReceive = () => {
     order,
     toNextPage,
     createOrder,
-    reset,
     selectedAccount,
     toPreviousPage,
     setNavigationOptions,
@@ -39,15 +38,13 @@ export const BuySellReceive = () => {
 
   const onReceiveFlowClosed = async () => {
     if (receiversAddress.current === undefined) {
-      // TODO: error handling
-      // onError(createCustomError(displayText.errors.notSuccessful));
-      reset();
+      // TODO: show error to user
       return;
     }
 
     await createOrder(receiversAddress.current);
     if (order.current === undefined) {
-      reset();
+      // TODO: show error to user
       return;
     }
 
@@ -63,7 +60,7 @@ export const BuySellReceive = () => {
         storeReceiveAddress,
         source: ReceiveFlowSource.ONRAMP,
         onClose: onReceiveFlowClosed,
-        isVerificationRequired: true,
+        isVerificationRequired: false,
       }),
     );
   };
