@@ -1,7 +1,48 @@
 import { BuySellSupport2 } from '@cypherock/app-support-buy-sell-2';
+import {
+  createCSVFromObject,
+  formatDateToUTCString,
+} from '@cypherock/cysync-utils';
 import { IBuySellOrder, IDatabase } from '@cypherock/db-interfaces';
 
 import logger from './utils/logger';
+
+export const createCSVFromOrder = (
+  transactions: {
+    date: string;
+    provider: string;
+    country: string;
+    paymentMethod: string;
+    assetFrom: string;
+    assetFromAmount: string;
+    assetTo: string;
+    assetToAmount: string;
+    status: string;
+    wallet: string;
+    account: string;
+    id: string;
+  }[],
+) =>
+  createCSVFromObject({
+    headers: [
+      { name: 'Date (UTC)', key: 'date' },
+      { name: 'Provider', key: 'provider' },
+      { name: 'Country', key: 'country' },
+      { name: 'PaymentMethod', key: 'paymentMethod' },
+      { name: 'Asset From', key: 'assetFrom' },
+      { name: 'Amount From', key: 'assetFromAmount' },
+      { name: 'Asset To', key: 'assetTo' },
+      { name: 'Amount To', key: 'assetToAmount' },
+      { name: 'Status', key: 'status' },
+      { name: 'Wallet', key: 'wallet' },
+      { name: 'Account', key: 'account' },
+      { name: 'OrderId', key: 'id' },
+    ],
+    rows: transactions.map(t => ({
+      ...t,
+      date: formatDateToUTCString(t.date),
+    })),
+  });
 
 export const insertBuySellOrder = async (
   db: IDatabase,

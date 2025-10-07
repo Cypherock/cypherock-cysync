@@ -1,4 +1,7 @@
-import { syncBuySellOrdersCore } from '@cypherock/cysync-core-services';
+import {
+  createCSVFromOrder,
+  syncBuySellOrdersCore,
+} from '@cypherock/cysync-core-services';
 import {
   Flex,
   TableSearchFilter,
@@ -19,7 +22,7 @@ import * as Virtualize from 'react-virtualized/dist/umd/react-virtualized';
 import { useBuySell2 } from '~/context';
 import { useBuySellOrders, useWindowSize } from '~/hooks';
 import { selectLanguage, useAppSelector } from '~/store';
-import { getDB } from '~/utils';
+import { downloadCSVToDesktop, getDB } from '~/utils';
 
 import { BuySellPage } from '.';
 
@@ -91,7 +94,27 @@ export const BuySellHistory = ({ topbarHeight }: { topbarHeight: number }) => {
       </NoAccountWrapper>
     );
 
-  const handleDownloadCSV = () => undefined;
+  const handleDownloadCSV = () => {
+    const csvFile = createCSVFromOrder(
+      displayedData
+        .filter(t => !t.isGroupHeader)
+        .map(t => ({
+          id: t.id,
+          date: t.createdAt,
+          provider: t.providerName,
+          assetFrom: t.currencyFrom,
+          assetFromAmount: t.sentDisplayAmount,
+          assetTo: t.destinationAssetName,
+          assetToAmount: t.receivedDisplayAmount,
+          status: t.status,
+          wallet: t.destinationWalletName,
+          account: t.destinationAccountName,
+          country: t.country,
+          paymentMethod: t.paymentMethod.name,
+        })),
+    );
+    downloadCSVToDesktop('CySync-Onramp-History.csv', csvFile);
+  };
 
   const getRowHeight = ({ index }: { index: number }) => {
     if (displayedData[index].isGroupHeader) {
@@ -143,7 +166,7 @@ export const BuySellHistory = ({ topbarHeight }: { topbarHeight: number }) => {
               {({ width }: any) => (
                 <Virtualize.List
                   ref={listRef}
-                  height={windowHeight - topbarHeight - 173 - 57}
+                  height={windowHeight - topbarHeight - 173 - 60}
                   width={width}
                   rowCount={displayedData.length}
                   rowHeight={getRowHeight}

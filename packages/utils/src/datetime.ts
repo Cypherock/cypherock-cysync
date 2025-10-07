@@ -1,4 +1,4 @@
-export const formatDateToUTCString = (date: number) => {
+export const formatDateToUTCString = (date: number | string | Date) => {
   const isoDate = new Date(date).toISOString();
 
   return `${isoDate.substring(0, 10)} ${isoDate.substring(11, 19)}`;
