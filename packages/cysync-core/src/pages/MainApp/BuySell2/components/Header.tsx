@@ -15,7 +15,7 @@ import { BuySellPage } from '../pages';
 
 export const Header = () => {
   const { strings } = useAppSelector(selectLanguage);
-  const { onBack, onRefresh, toPage } = useBuySell2();
+  const { onBack, onRefresh, toPage, currentPage } = useBuySell2();
 
   const shouldShowLeftHeader = onRefresh !== undefined || onBack !== undefined;
 
@@ -70,11 +70,15 @@ export const Header = () => {
       py="10"
       $bgColor="primary"
       justify={shouldShowLeftHeader ? 'space-between' : 'flex-end'}
+      height={60}
     >
       {leftHeader()}
-      <Button variant="secondary" onClick={goToHistory}>
-        {strings.sidebar.history}
-      </Button>
+
+      {currentPage !== BuySellPage.History && (
+        <Button variant="secondary" onClick={goToHistory}>
+          {strings.sidebar.history}
+        </Button>
+      )}
     </Flex>
   );
 };
