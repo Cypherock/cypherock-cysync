@@ -8,8 +8,10 @@ import {
   Chip,
 } from '@cypherock/cysync-ui';
 import React from 'react';
+import { useSelector } from 'react-redux';
 
 import { useBuySell2 } from '~/context/buySell2';
+import { selectLanguage } from '~/store';
 
 interface OfferData {
   title: string;
@@ -96,15 +98,9 @@ const OfferBox: React.FC<{
 export const Offers = () => {
   const { offers, selectedOffer, setSelectedOffer, providers, filteredOffers } =
     useBuySell2();
+  const lang = useSelector(selectLanguage);
 
-  const strings = {
-    bestOfferText: 'Best Offer',
-    optimalOfferText: 'Optimal Offer',
-    toAmount: 'You will receive',
-    toAmountTooltip: '',
-    fees: 'Fees',
-    feesTooltip: '',
-  };
+  const strings = lang.strings.buySell2.offers;
 
   return (
     <Flex direction="column" gap={8} $overflow="auto">

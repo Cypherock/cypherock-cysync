@@ -3057,7 +3057,9 @@
       "bestOfferText": "Best Offer",
       "optimalOfferText": "Optimal Offer",
       "toAmount": "You will receive",
-      "fees": "Fees"
+      "toAmountTooltip": "The amount reflects what you will get after fees.",
+      "fees": "Fees",
+      "feesTooltip": "Fees include both blockchain network and provider fees."
     },
     "history": {
       "search": "Search buy/sell history",

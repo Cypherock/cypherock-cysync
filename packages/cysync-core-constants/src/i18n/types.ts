@@ -2064,7 +2064,9 @@ interface LangBuySell2 {
     bestOfferText: string;
     optimalOfferText: string;
     toAmount: string;
+    toAmountTooltip: string;
     fees: string;
+    feesTooltip: string;
   };
   history: {
     search: string;

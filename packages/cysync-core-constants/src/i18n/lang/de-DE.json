@@ -3062,7 +3062,9 @@
       "bestOfferText": "Bestes Angebot",
       "optimalOfferText": "Optimales Angebot",
       "toAmount": "Sie erhalten",
-      "fees": "Gebühren"
+      "toAmountTooltip": "Der Betrag entspricht dem, was Sie nach Abzug der Gebühren erhalten.",
+      "fees": "Gebühren",
+      "feesTooltip": "Die Gebühren umfassen sowohl Blockchain-Netzwerkgebühren als auch Anbietergebühren."
     },
     "history": {
       "search": "Kauf-/Verkaufshistorie suchen",

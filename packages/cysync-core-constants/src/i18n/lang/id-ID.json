@@ -3061,7 +3061,9 @@
       "bestOfferText": "Penawaran Terbaik",
       "optimalOfferText": "Penawaran Optimal",
       "toAmount": "Anda akan menerima",
-      "fees": "Biaya"
+      "toAmountTooltip": "Jumlah mencerminkan apa yang akan Anda dapatkan setelah biaya.",
+      "fees": "Biaya",
+      "feesTooltip": "Biaya termasuk jaringan blockchain dan penyedia biaya."
     },
     "history": {
       "search": "Cari riwayat beli/jual",

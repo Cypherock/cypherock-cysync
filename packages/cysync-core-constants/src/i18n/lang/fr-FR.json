@@ -3053,7 +3053,9 @@
       "bestOfferText": "Meilleure offre",
       "optimalOfferText": "Offre optimale",
       "toAmount": "Vous recevrez",
-      "fees": "Frais"
+      "toAmountTooltip": "Le montant reflète ce que vous recevrez après les frais.",
+      "fees": "Frais",
+      "feesTooltip": "Les frais incluent à la fois les frais de réseau de blockchain et les frais du fournisseur."
     },
     "history": {
       "search": "Rechercher l'historique d'achat/vente",

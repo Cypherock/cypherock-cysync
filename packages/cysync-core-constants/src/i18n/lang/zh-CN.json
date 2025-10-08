@@ -3035,7 +3035,9 @@
       "bestOfferText": "最佳报价",
       "optimalOfferText": "最优报价",
       "toAmount": "您将收到",
-      "fees": "费用"
+      "toAmountTooltip": "金额反映费用扣除后您将获得的内容。",
+      "fees": "费用",
+      "feesTooltip": "费用包括区块链网络费用和供应商费用。"
     },
     "history": {
       "search": "搜索买卖历史",
