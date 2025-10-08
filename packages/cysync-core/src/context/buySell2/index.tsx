@@ -275,7 +275,11 @@ export const BuySell2Provider: FC<BuySell2ContextProviderProps> = ({
   >();
 
   useEffect(() => {
-    if (selectedPaymentMethod !== bestPaymentMethod) {
+    if (
+      !selectedPaymentMethod ||
+      (selectedPaymentMethod !== bestPaymentMethod &&
+        !paymentMethods.find(method => method.code === selectedPaymentMethod))
+    ) {
       setSelectedPaymentMethod(bestPaymentMethod);
     }
   }, [getOffersResponse, bestPaymentMethod]);
