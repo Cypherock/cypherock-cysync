@@ -91,23 +91,26 @@ const searchFilter = (
     return data;
   }
 
-  return data.filter(
-    row =>
-      row.providerName?.toLowerCase().includes(searchTerm.toLowerCase()) ??
-      row.sourceWalletName?.toLowerCase().includes(searchTerm.toLowerCase()) ??
-      row.sourceAccountName?.toLowerCase().includes(searchTerm.toLowerCase()) ??
-      row.sourceAssetName?.toLowerCase().includes(searchTerm.toLowerCase()) ??
-      row.destinationWalletName
-        ?.toLowerCase()
-        .includes(searchTerm.toLowerCase()) ??
-      row.destinationAccountName
-        ?.toLowerCase()
-        .includes(searchTerm.toLowerCase()) ??
-      row.destinationAssetName
-        ?.toLowerCase()
-        .includes(searchTerm.toLowerCase()) ??
-      row.swapId?.toLowerCase().includes(searchTerm.toLowerCase()),
-  );
+  const normalizedTerm = searchTerm.toLowerCase();
+
+  return data.filter(row => {
+    const destinationWalletName =
+      row.destinationWalletName?.toLowerCase() ?? '';
+    const destinationAccountName =
+      row.destinationAccountName?.toLowerCase() ?? '';
+    const destinationAssetName = row.destinationAssetName?.toLowerCase() ?? '';
+    const swapId = row.swapId.toLowerCase() ?? '';
+    return (
+      row.providerName.toLowerCase().includes(normalizedTerm) ||
+      row.sourceWalletName.toLowerCase().includes(normalizedTerm) ||
+      row.sourceAccountName.toLowerCase().includes(normalizedTerm) ||
+      row.sourceAssetName.toLowerCase().includes(normalizedTerm) ||
+      destinationWalletName.includes(normalizedTerm) ||
+      destinationAccountName.includes(normalizedTerm) ||
+      destinationAssetName.includes(normalizedTerm) ||
+      swapId.includes(normalizedTerm)
+    );
+  });
 };
 
 const selector = createSelector(
