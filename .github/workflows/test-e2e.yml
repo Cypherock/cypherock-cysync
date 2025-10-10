@@ -19,6 +19,7 @@ permissions:
 
 env:
   TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
+  MIXPANEL_TOKEN_DEV: ${{ secrets.MIXPANEL_TOKEN_DEV }}
 
 jobs:
   test-e2e:
