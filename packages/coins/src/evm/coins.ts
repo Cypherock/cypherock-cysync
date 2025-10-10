@@ -91,4 +91,18 @@ export default [
     chain: 42161,
     color: '#12AAFF',
   },
+  {
+    id: 'hyperliquid',
+    abbr: 'HYPE',
+    name: 'Hype',
+    magnitude: 18,
+    hasSegwit: false,
+    isTest: false,
+    coinGeckoId: 'hyperliquid',
+    coinIndex: '8000003c',
+    feesUnit: 'Gwei',
+    network: 'hyperliquid',
+    chain: 999,
+    color: '#97fce4',
+  },
 ];

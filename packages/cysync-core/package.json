@@ -91,7 +91,7 @@
     "@cypherock/cysync-utils": "workspace:^",
     "@cypherock/db-interfaces": "workspace:^",
     "@cypherock/sdk-app-btc": "^0.1.1",
-    "@cypherock/sdk-app-evm": "^0.0.35",
+    "@cypherock/sdk-app-evm": "^0.1.0",
     "@cypherock/sdk-app-exchange": "^1.1.1",
     "@cypherock/sdk-app-manager": "^0.0.34",
     "@cypherock/sdk-app-near": "^0.0.33",
