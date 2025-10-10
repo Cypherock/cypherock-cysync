@@ -161,7 +161,7 @@ const selector = createSelector(
 
 export const buySellOrderComparatorMap: Record<BuySellTableHeaderName, string> =
   {
-    provider: 'providerName',
+    provider: 'createdAt',
     assetTo: 'destinationAssetName',
     sent: 'sentDisplayAmount',
     received: 'receivedDisplayAmount',
