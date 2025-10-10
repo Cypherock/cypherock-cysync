@@ -1,5 +1,19 @@
 # @cypherock/coin-support-evm
 
+## 0.1.1-pre.0
+
+### Patch Changes
+
+- [#809](https://github.com/Cypherock/cypherock-cysync/pull/809) [`c3745ad9`](https://github.com/Cypherock/cypherock-cysync/commit/c3745ad98950f5becd0d1a2fd70a70a47e3fe2bd) Thanks [@0xcuriosity](https://github.com/0xcuriosity)! - Added Hyperliquid support
+
+- [#814](https://github.com/Cypherock/cypherock-cysync/pull/814) [`1434a79d`](https://github.com/Cypherock/cypherock-cysync/commit/1434a79d295cc8eaa0bd0a39d97a5f05a13e872d) Thanks [@AryanCypherock](https://github.com/AryanCypherock)! - Analytics added
+
+- Updated dependencies [[`c3745ad9`](https://github.com/Cypherock/cypherock-cysync/commit/c3745ad98950f5becd0d1a2fd70a70a47e3fe2bd), [`1434a79d`](https://github.com/Cypherock/cypherock-cysync/commit/1434a79d295cc8eaa0bd0a39d97a5f05a13e872d)]:
+  - @cypherock/coins@0.4.0-pre.0
+  - @cypherock/cysync-interfaces@0.0.11-pre.0
+  - @cypherock/coin-support-utils@0.1.1-pre.0
+  - @cypherock/cysync-utils@0.0.13-pre.0
+
 ## 0.1.0
 
 ### Minor Changes
