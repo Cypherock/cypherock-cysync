@@ -71,6 +71,8 @@ export const Header = () => {
       $bgColor="primary"
       justify={shouldShowLeftHeader ? 'space-between' : 'flex-end'}
       height={60}
+      $flex={1}
+      $minHeight={60}
     >
       {leftHeader()}
 

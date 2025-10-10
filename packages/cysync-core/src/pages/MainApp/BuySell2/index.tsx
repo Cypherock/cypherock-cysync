@@ -26,10 +26,12 @@ export const BuySell2 = () => {
     >
       <Container
         gap={16}
-        py={2}
+        pb={2}
         direction="column"
         height="full"
         justify="flex-start"
+        align="flex-start"
+        $overflow="hidden"
       >
         <Header />
         {currentComponent({ topbarHeight })}

@@ -118,114 +118,112 @@ export const BuySellInput: React.FC = () => {
   );
 
   return (
-    <Flex width="full" height="full">
-      <Container
-        $borderRadius={24}
-        shadow="popup"
-        direction="row"
-        align="stretch"
-        $borderWidth={1}
-        $overflow="hidden"
-        height="full"
-        width="full"
-        $bgColor="primary"
-        mx="20"
+    <Container
+      $borderRadius={24}
+      shadow="popup"
+      direction="row"
+      align="stretch"
+      $borderWidth={1}
+      $overflowX="hidden"
+      height="full"
+      $bgColor="primary"
+      mx="20"
+      width="-webkit-fill-available"
+    >
+      <Flex
+        gap={16}
+        p={4}
+        px={5}
+        height="fit-content"
+        direction="column"
+        $flex={1}
+        $minWidth="0"
       >
         <Flex
+          p={3}
           gap={16}
-          p={4}
-          px={5}
-          height="fit-content"
           direction="column"
-          $flex={1}
-          $minWidth="0"
+          $bgColor="lightBlack"
+          $borderRadius={8}
+          $borderWidth={0}
         >
-          <Flex
-            p={3}
-            gap={16}
-            direction="column"
-            $bgColor="lightBlack"
-            $borderRadius={8}
-            $borderWidth={0}
-          >
-            <RegionCurrencySelector />
-            <AmountInput />
-            <PaymentMethodSelector />
-          </Flex>
-
-          <Flex
-            p={3}
-            gap={16}
-            direction="column"
-            $bgColor="lightBlack"
-            $borderRadius={8}
-            $borderWidth={0}
-          >
-            <CryptoSelector />
-            <WalletAccountSelector />
-          </Flex>
-
-          {selectedWallet &&
-            selectedCrypto &&
-            accountDropdownList.length === 0 && (
-              <MessageBox
-                type="danger"
-                text={strings.messageBox.danger}
-                altText={`${selectedCrypto.name} ${strings.messageBox.altText} ${selectedWallet.name}`}
-                actionButton={
-                  <Button
-                    variant="text"
-                    onClick={() =>
-                      dispatch(
-                        openAddAccountDialog({
-                          coinId: selectedCrypto.parentAssetId,
-                          walletId: selectedWallet.__id,
-                        }),
-                      )
-                    }
-                  >
-                    <Typography color="gold">
-                      {langStrings.buttons.addAccount}
-                    </Typography>
-                  </Button>
-                }
-              />
-            )}
+          <RegionCurrencySelector />
+          <AmountInput />
+          <PaymentMethodSelector />
         </Flex>
 
         <Flex
-          $bgColor="list"
-          width={400}
-          py={4}
-          px={5}
-          justify="space-between"
+          p={3}
+          gap={16}
           direction="column"
-          $borderWidthL={1}
+          $bgColor="lightBlack"
+          $borderRadius={8}
+          $borderWidth={0}
         >
-          <Flex direction="column" gap={24}>
-            <BuySellOffersHeader size={offers.length} />
+          <CryptoSelector />
+          <WalletAccountSelector />
+        </Flex>
 
-            {!canShowOffers && messages()}
-            {canShowOffers && <Offers />}
-          </Flex>
+        {selectedWallet &&
+          selectedCrypto &&
+          accountDropdownList.length === 0 && (
+            <MessageBox
+              type="danger"
+              text={strings.messageBox.danger}
+              altText={`${selectedCrypto.name} ${strings.messageBox.altText} ${selectedWallet.name}`}
+              actionButton={
+                <Button
+                  variant="text"
+                  onClick={() =>
+                    dispatch(
+                      openAddAccountDialog({
+                        coinId: selectedCrypto.parentAssetId,
+                        walletId: selectedWallet.__id,
+                      }),
+                    )
+                  }
+                >
+                  <Typography color="gold">
+                    {langStrings.buttons.addAccount}
+                  </Typography>
+                </Button>
+              }
+            />
+          )}
+      </Flex>
 
-          <Flex direction="column" gap={8}>
-            {canShowOffers && !canCreateOrder && messages()}
+      <Flex
+        $bgColor="list"
+        width={400}
+        py={4}
+        px={5}
+        justify="space-between"
+        direction="column"
+        $borderWidthL={1}
+      >
+        <Flex direction="column" gap={24}>
+          <BuySellOffersHeader size={offers.length} />
 
-            <Flex py={3} $borderWidthT={1}>
-              <Button
-                width="full"
-                variant="primary"
-                display="inline-block"
-                disabled={!canCreateOrder}
-                onClick={toNextPage}
-              >
-                {langStrings.buttons.continue}
-              </Button>
-            </Flex>
+          {!canShowOffers && messages()}
+          {canShowOffers && <Offers />}
+        </Flex>
+
+        <Flex direction="column" gap={8}>
+          {canShowOffers && !canCreateOrder && messages()}
+
+          <Flex py={3} $borderWidthT={1}>
+            <Button
+              width="full"
+              variant="primary"
+              display="inline-block"
+              disabled={!canCreateOrder}
+              onClick={toNextPage}
+            >
+              {langStrings.buttons.continue}
+            </Button>
           </Flex>
         </Flex>
-      </Container>
-    </Flex>
+      </Flex>
+    </Container>
   );
 };
