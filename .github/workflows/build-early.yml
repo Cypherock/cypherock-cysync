@@ -46,7 +46,7 @@ jobs:
         run: git fetch --tags origin
 
       - name: Install pnpm
-        uses: pnpm/action-setup@v4
+        uses: pnpm/action-setup@v4.1.0
         with:
           run_install: false
 
@@ -107,7 +107,7 @@ jobs:
         run: git fetch --tags origin
 
       - name: Install pnpm
-        uses: pnpm/action-setup@v4
+        uses: pnpm/action-setup@v4.1.0
         with:
           run_install: false
 
@@ -183,7 +183,7 @@ jobs:
         run: git fetch --tags origin
 
       - name: Install pnpm
-        uses: pnpm/action-setup@v4
+        uses: pnpm/action-setup@v4.1.0
         with:
           run_install: false
 
@@ -261,7 +261,7 @@ jobs:
         run: git fetch --tags origin
 
       - name: Install pnpm
-        uses: pnpm/action-setup@v4
+        uses: pnpm/action-setup@v4.1.0
         with:
           run_install: false
 
@@ -357,7 +357,7 @@ jobs:
         run: git fetch --tags origin
 
       - name: Install pnpm
-        uses: pnpm/action-setup@v4
+        uses: pnpm/action-setup@v4.1.0
         with:
           run_install: false
 
