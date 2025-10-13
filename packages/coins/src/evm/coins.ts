@@ -94,7 +94,7 @@ export default [
   {
     id: 'hyperliquid',
     abbr: 'HYPE',
-    name: 'Hype',
+    name: 'Hyperliquid',
     magnitude: 18,
     hasSegwit: false,
     isTest: false,
