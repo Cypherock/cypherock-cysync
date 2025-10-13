@@ -1,9 +1,9 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
-import { SnackBar } from '../../components';
+import { TableMutedTextBox } from '../../../components';
 
-const meta: Meta<typeof SnackBar> = {
-  component: SnackBar,
+const meta: Meta<typeof TableMutedTextBox> = {
+  component: TableMutedTextBox,
   tags: ['autodocs'],
 };
 
@@ -13,8 +13,6 @@ type Story = StoryObj<typeof meta>;
 
 export const Info: Story = {
   args: {
-    icon: 'check',
-    buttonText: 'Placeholder Text',
-    text: 'Sample Text',
+    text: 'Placeholder',
   },
 };

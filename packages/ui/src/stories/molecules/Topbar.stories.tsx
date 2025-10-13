@@ -1,4 +1,5 @@
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj, Decorator } from '@storybook/react';
+import React from 'react';
 
 import { Topbar } from '../../components';
 
@@ -10,6 +11,12 @@ const meta: Meta<typeof Topbar> = {
 export default meta;
 
 type Story = StoryObj<typeof meta>;
+
+const withWidthDecorator: Decorator = Story => (
+  <div style={{ width: '130%' }}>
+    <Story />
+  </div>
+);
 
 export const Default: Story = {
   args: {
@@ -33,7 +40,11 @@ export const Default: Story = {
     isLocked: false,
     isLockscreenLoading: false,
     isPasswordSet: true,
+    toggleDiscreetMode: () => '',
+    onNotificationClick: () => '',
+    onSyncClick: () => '',
   },
+  decorators: [withWidthDecorator],
 };
 
 export const InProcess: Story = {
@@ -42,6 +53,7 @@ export const InProcess: Story = {
     connectionStatus: 'disconnected',
     syncStatus: 'synchronizing',
   },
+  decorators: [withWidthDecorator],
 };
 
 export const Failed: Story = {
@@ -50,4 +62,5 @@ export const Failed: Story = {
     connectionStatus: 'error',
     syncStatus: 'error',
   },
+  decorators: [withWidthDecorator],
 };

@@ -36,5 +36,5 @@ export const SelectContainer: FC<SelectProps> = ({ children }) => (
 );
 
 SelectContainer.defaultProps = {
-  children: null,
+  children: undefined,
 };
