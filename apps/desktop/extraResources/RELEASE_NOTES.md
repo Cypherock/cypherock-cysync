@@ -1,3 +1,10 @@
+# v2.3.0
+
+### 🚀 Feature
+
+- Added support for **Hyperliquid Network** and its tokens.
+- Added **analytics** for better bugs, error tracking and **product improvements**.
+
 # v2.2.2
 
 ### 🚀 Feature
