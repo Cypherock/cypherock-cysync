@@ -21,6 +21,7 @@ import { AccountTypeMap } from '@cypherock/db-interfaces';
 import React, { useEffect, useMemo } from 'react';
 
 import { CoinIcon } from '~/components';
+import { analyticsService, ANALYTICS_EVENTS } from '~/services/analytics';
 import { selectLanguage, useAppSelector } from '~/store';
 
 import { useSendDialog } from '../context';
@@ -51,11 +52,19 @@ export const DeviceAction: React.FC = () => {
 
   useEffect(() => {
     if (deviceEvents[SignTransactionDeviceEvent.CARD_TAPPED]) {
+      analyticsService.trackEvent(ANALYTICS_EVENTS.SEND_ATTEMPTED_SIGNING, {
+        action: 'card_tapped',
+      });
       onNext();
     }
   }, [deviceEvents]);
 
   useEffect(() => {
+    analyticsService.trackEvent(ANALYTICS_EVENTS.SEND_DEVICE_ACTION_STARTED, {
+      assetId: selectedAccount?.assetId,
+      hasPassphrase: selectedWallet?.hasPassphrase,
+      hasPin: selectedWallet?.hasPin,
+    });
     startFlow();
   }, []);
 

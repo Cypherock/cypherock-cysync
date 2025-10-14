@@ -11,6 +11,7 @@ import { openErrorDialog } from '~/actions';
 import { WithConnectedDevice } from '~/components';
 import { SwapPage, useSwap } from '~/context';
 import { useSwapTransactions } from '~/hooks';
+import { analyticsService, ANALYTICS_EVENTS } from '~/services/analytics';
 import {
   closeDialog,
   useAppDispatch,
@@ -61,6 +62,8 @@ const ComponentWithHeader: React.FC<{
         py="10px"
         align="center"
         $bgColor="sideBar"
+        $maxHeight="60px"
+        height="60px"
       >
         {onBack && (
           <Button
@@ -76,7 +79,7 @@ const ComponentWithHeader: React.FC<{
         )}
         {onHistory && (
           <Button
-            variant="text"
+            variant="secondary"
             title="History"
             onClick={onHistory}
             disabled={disableHistory}
@@ -90,9 +93,7 @@ const ComponentWithHeader: React.FC<{
           </Button>
         )}
       </Flex>
-      <div style={{ alignItems: 'stretch', height: '91%', width: '100%' }}>
-        {children}
-      </div>
+      <div style={{ width: '100%', height: '88%' }}>{children}</div>
     </Container>
   );
 };
@@ -178,7 +179,11 @@ export const Swap = () => {
 
   const currentComponent = useMemo(() => pageMap[currentPage], [currentPage]);
 
-  useEffect(() => () => reset(), []);
+  useEffect(() => {
+    analyticsService.trackEvent(ANALYTICS_EVENTS.SWAP_FLOW_STARTED);
+
+    return () => reset();
+  }, []);
 
   useLayoutEffect(() => {
     if (error) {
@@ -215,7 +220,7 @@ export const Swap = () => {
     >
       {showHistory ? (
         <ComponentWithHeader onBack={onHistoryBack}>
-          <SwapHistory topbarHeight={topbarHeight} />
+          <SwapHistory topbarHeight={topbarHeight + 60} />
         </ComponentWithHeader>
       ) : (
         currentComponent({

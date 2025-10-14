@@ -29,9 +29,15 @@ import {
   InheritancePlanDetails,
   ReferAndEarn,
   Swap,
+  analyticsService,
 } from '@cypherock/cysync-core';
-import React, { memo, ReactNode } from 'react';
-import { HashRouter as Router, Route, Routes } from 'react-router-dom';
+import React, { memo, ReactNode, useEffect } from 'react';
+import {
+  HashRouter as Router,
+  Route,
+  Routes,
+  useLocation,
+} from 'react-router-dom';
 
 const components: Record<RouteName, ReactNode> = {
   'permission-setup': <PermissionSetup />,
@@ -86,11 +92,27 @@ const getRoute = (parseRoutes: IRoutes): IRoute[] => {
   return allRoutes;
 };
 
+const PageTracker: React.FC = () => {
+  const location = useLocation();
+
+  useEffect(() => {
+    const currentRoute = getRoute(routes).find(
+      route => route.path === location.pathname,
+    );
+    const pageTitle = currentRoute?.name ?? 'Unknown Page';
+
+    analyticsService.trackPageView(pageTitle, window.location.href);
+  }, [location.pathname]);
+
+  return null;
+};
+
 const BaseAppRouter: React.FC<{ children: ReactNode | undefined }> = ({
   children,
 }) => (
   <Router>
     <SidebarProvider>
+      <PageTracker />
       <Routes>
         {getRoute(routes).map(route => (
           <Route

@@ -350,7 +350,8 @@
         "error": "Ungültiges Memo"
       },
       "feeBelowMinError": "Transaktion mit fee unter dem Minimum wird fehlschlagen",
-      "rentExemptFeeWarning": "Das erstmalige Empfangen eines Tokens auf Solana zieht Mietbefreiungsgebühren nach sich, die in den Gesamtgebühren enthalten sind."
+      "rentExemptFeeWarning": "Das erstmalige Empfangen eines Tokens auf Solana zieht Mietbefreiungsgebühren nach sich, die in den Gesamtgebühren enthalten sind.",
+      "parentAssetInsufficient": "Sie benötigen mindestens ${minParentBalance} auf Ihrem Konto, um die Transaktionsgebühren im ${network}-Netzwerk zu decken. Kaufen oder hinterlegen Sie mehr ${unit} auf Ihrem Konto."
     },
     "summary": {
       "title": "Zusammenfassung",
@@ -2158,7 +2159,7 @@
           },
           "anayticsAndBugReport": {
             "title": "Analyse & Fehlerbericht",
-            "description": "Aktivieren Sie Analysen & Fehlerberichte, um Cypherock zu helfen, die Benutzererfahrung zu verbessern und um Ihre Probleme schneller zu lösen. Dies umfasst Klicks, Seitenbesuche, Weiterleitungen, Aktionen (senden, empfangen, sperren etc.), Enden von Seiten-Scrolls, (De-)Installation und App-Version, Anzahl der Konten, Krypto-Assets und Operationen, Sitzungsdauern, der Cypherock-Gerätetyp und Firmware"
+            "description": "Aktivieren Sie Analysen und Fehlerberichte, um Cypherock zu helfen, die Benutzererfahrung zu verbessern und Ihre Probleme schneller zu lösen"
           },
           "reset": {
             "title": "CySync zurücksetzen",

@@ -16,6 +16,7 @@ import {
 import React, { useCallback } from 'react';
 
 import { useBuySell } from '~/context';
+import { analyticsService, ANALYTICS_EVENTS } from '~/services/analytics';
 import { useAppSelector, selectLanguage } from '~/store';
 import logger from '~/utils/logger';
 
@@ -46,6 +47,14 @@ export const BuySellCurrencySelector = () => {
         source: 'Buy',
         currency,
       });
+      if (currency) {
+        analyticsService.trackEvent(
+          ANALYTICS_EVENTS.BUY_CRYPTO_FIAT_CURRENCY_SELECTED,
+          {
+            fiatCurrency: currency,
+          },
+        );
+      }
       handleFiatCurrencyChange(currency);
     },
     [handleFiatCurrencyChange],
@@ -58,6 +67,14 @@ export const BuySellCurrencySelector = () => {
           source: 'Buy',
           currency,
         });
+        if (currency) {
+          analyticsService.trackEvent(
+            ANALYTICS_EVENTS.BUY_CRYPTO_CRYPTO_CURRENCY_SELECTED,
+            {
+              cryptoCurrency: currency,
+            },
+          );
+        }
         handleCryptoCurrencyChange(currency);
       },
       [handleCryptoCurrencyChange],
@@ -129,8 +146,30 @@ export const BuySellCurrencySelector = () => {
               placeholder="0.00"
               fiatAmount={fiatAmount}
               cryptoAmount={cryptoAmount}
-              onFiatAmountChange={onFiatAmountChange}
-              onCryptoAmountChange={onCryptoAmountChange}
+              onFiatAmountChange={amount => {
+                if (amount && amount !== '0') {
+                  analyticsService.trackEvent(
+                    ANALYTICS_EVENTS.BUY_CRYPTO_AMOUNT_ENTERED,
+                    {
+                      currency: selectedFiatCurrency?.code,
+                      type: 'fiat',
+                    },
+                  );
+                }
+                return onFiatAmountChange(amount);
+              }}
+              onCryptoAmountChange={amount => {
+                if (amount && amount !== '0') {
+                  analyticsService.trackEvent(
+                    ANALYTICS_EVENTS.BUY_CRYPTO_AMOUNT_ENTERED,
+                    {
+                      currency: selectedCryptoCurrency?.coin.coin.abbr,
+                      type: 'crypto',
+                    },
+                  );
+                }
+                return onCryptoAmountChange(amount);
+              }}
               isDisabled={isAmountDiabled}
             />
           </Container>
@@ -148,7 +187,16 @@ export const BuySellCurrencySelector = () => {
               !fiatAmount ||
               !cryptoAmount,
           )}
-          onClick={onNextState}
+          onClick={() => {
+            analyticsService.trackEvent(
+              ANALYTICS_EVENTS.BUY_CRYPTO_CONTINUE_TO_ACCOUNT,
+              {
+                fiatCurrency: selectedFiatCurrency?.code,
+                cryptoCurrency: selectedCryptoCurrency?.coin.coin.abbr,
+              },
+            );
+            onNextState();
+          }}
         >
           <LangDisplay text={lang.strings.buttons.continue} />
         </Button>

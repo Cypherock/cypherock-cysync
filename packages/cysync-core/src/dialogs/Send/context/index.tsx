@@ -75,6 +75,7 @@ import {
   useTabsAndDialogs,
   useWalletDropdown,
 } from '~/hooks';
+import { analyticsService, ANALYTICS_EVENTS } from '~/services/analytics';
 import {
   closeDialog,
   selectCurrentCurrencyPriceInfos,
@@ -358,11 +359,19 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
   };
 
   const onRetry = () => {
+    analyticsService.trackEvent(ANALYTICS_EVENTS.SEND_CANCELLED, {
+      action: 'retry',
+      step: 'send_flow',
+    });
     resetStates();
     goTo(1, 0);
   };
 
   const onError = (e?: any) => {
+    analyticsService.trackEvent(ANALYTICS_EVENTS.SEND_FAILED, {
+      error: e?.message || 'Unknown error',
+      step: 'send_flow_error',
+    });
     cleanUp();
     setError(e);
     if (injectedOnError) injectedOnError(e);
@@ -526,10 +535,19 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
       if (payload.transaction) setSignedTransaction(payload.transaction);
     },
     error: err => {
+      analyticsService.trackEvent(ANALYTICS_EVENTS.SEND_FAILED, {
+        error: err.message || 'Unknown error',
+        step: 'send_flow',
+      });
+
       onEnd();
       onError(err);
     },
     complete: () => {
+      analyticsService.trackEvent(ANALYTICS_EVENTS.SEND_ATTEMPTED_SIGNING, {
+        action: 'signing_completed',
+      });
+
       cleanUp();
       onEnd();
     },
@@ -542,6 +560,12 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
     if (!connection?.connection || !txn) {
       return;
     }
+
+    analyticsService.trackEvent(ANALYTICS_EVENTS.SEND_FLOW_STARTED, {
+      assetId: selectedAccount?.assetId,
+      parentAssetId: selectedAccount?.parentAssetId,
+      source: source === SendFlowSource.SWAP ? 'swap' : 'default',
+    });
 
     try {
       resetStates();

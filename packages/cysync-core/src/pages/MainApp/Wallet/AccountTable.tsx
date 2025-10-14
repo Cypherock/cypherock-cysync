@@ -10,6 +10,7 @@ import {
 import React, { useEffect, useRef } from 'react';
 import * as Virtualize from 'react-virtualized/dist/umd/react-virtualized';
 
+import { analyticsService, ANALYTICS_EVENTS } from '~/services/analytics';
 import { useStateWithRef, useWindowSize } from '~/hooks';
 import { selectLanguage, useAppSelector } from '~/store';
 
@@ -27,6 +28,48 @@ export interface AccountTableProps {
   sortedBy: AccountTableHeaderName;
   topbarHeight: number;
 }
+
+const trackAccountClick =
+  (originalOnClick: (id: string) => void) => (id: string) => {
+    analyticsService.trackEvent(ANALYTICS_EVENTS.WALLET_ACCOUNT_CLICKED);
+    originalOnClick(id);
+  };
+
+const trackTokenClick =
+  (originalOnTokenClick: (id: string) => void) => (id: string) => {
+    analyticsService.trackEvent(ANALYTICS_EVENTS.WALLET_TOKEN_CLICKED);
+    originalOnTokenClick(id);
+  };
+
+const trackStatusClick =
+  (originalOnStatusClick: (row: AccountRowData) => void) =>
+  (row: AccountRowData) => {
+    analyticsService.trackEvent(ANALYTICS_EVENTS.WALLET_ACCOUNT_STATUS_CLICKED);
+    originalOnStatusClick(row);
+  };
+
+const trackSort =
+  (originalOnSort: (column: AccountTableHeaderName) => void) =>
+  (column: AccountTableHeaderName) => {
+    analyticsService.trackEvent(ANALYTICS_EVENTS.WALLET_SORT_CHANGED, {
+      column,
+    });
+    originalOnSort(column);
+  };
+
+const trackSearch =
+  (
+    originalSetSearchTerm: React.Dispatch<React.SetStateAction<string>>,
+    currentTerm: string,
+  ) =>
+  (newTerm: React.SetStateAction<string>) => {
+    const newTermValue =
+      typeof newTerm === 'function' ? newTerm(currentTerm) : newTerm;
+    if (newTermValue && !currentTerm) {
+      analyticsService.trackEvent(ANALYTICS_EVENTS.WALLET_SEARCH_USED);
+    }
+    originalSetSearchTerm(newTerm);
+  };
 
 const ROW_HEIGHT = 85;
 const TOKEN_BTN_HEIGHT = 45;
@@ -47,6 +90,12 @@ export const AccountTable: React.FC<AccountTableProps> = ({
   const lang = useAppSelector(selectLanguage);
   const listRef = useRef<any>(null);
   const { windowHeight } = useWindowSize();
+
+  const onClickWithTracking = trackAccountClick(onClick);
+  const onTokenClickWithTracking = trackTokenClick(onTokenClick);
+  const onStatusClickWithTracking = trackStatusClick(onStatusClick);
+  const onSortWithTracking = trackSort(onSort);
+  const setSearchTermWithTracking = trackSearch(setSearchTerm, searchTerm);
   const [showTokensMap, setShowTokensMap, showTokensMapRef] = useStateWithRef<
     Record<string, boolean | undefined>
   >({});
@@ -89,9 +138,9 @@ export const AccountTable: React.FC<AccountTableProps> = ({
         $rowIndex={index}
         $hide={lang.strings.wallet.buttons.hide}
         $show={lang.strings.wallet.buttons.show}
-        onClick={() => onClick(row.id)}
-        onStatusClick={() => onStatusClick(row)}
-        onTokenClick={onTokenClick}
+        onClick={() => onClickWithTracking(row.id)}
+        onStatusClick={() => onStatusClickWithTracking(row)}
+        onTokenClick={onTokenClickWithTracking}
         onShowTokensClick={() => onShowTokensClick(row)}
         showTokens={showTokensMapRef.current[row.id] ?? false}
       />
@@ -120,7 +169,7 @@ export const AccountTable: React.FC<AccountTableProps> = ({
         placeholder={lang.strings.wallet.search.placeholder}
         heading={lang.strings.wallet.tableTitle}
         value={searchTerm}
-        onChange={setSearchTerm}
+        onChange={setSearchTermWithTracking}
       />
       {accountRows.length > 0 ? (
         <>
@@ -131,7 +180,7 @@ export const AccountTable: React.FC<AccountTableProps> = ({
             value={lang.strings.wallet.tableHeader.value}
             $ascending={isAscending}
             selected={sortedBy}
-            onSort={onSort}
+            onSort={onSortWithTracking}
           />
           <Virtualize.AutoSizer>
             {({ width }: any) => (
