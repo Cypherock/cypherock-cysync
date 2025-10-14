@@ -1,6 +1,6 @@
 import mixpanel from 'mixpanel-browser';
 import logger from '~/utils/logger';
-import { getKeyDB, keyValueStore } from '~/utils';
+import { keyValueStore } from '~/utils';
 
 class AnalyticsService {
   private isInitialized = false;
@@ -10,12 +10,16 @@ class AnalyticsService {
   public async init(): Promise<void> {
     if (this.isInitialized) return;
 
-    const rawValue = await getKeyDB().getItem('isAnalyticsAndBugReportEnabled');
-    if (rawValue === null) {
+    const enabledAnalyticsByDefault =
+      await keyValueStore.enabledAnalyticsByDefault.get();
+    const isAnalyticsAndBugReportEnabled =
+      await keyValueStore.isAnalyticsAndBugReportEnabled.get();
+    if (!enabledAnalyticsByDefault) {
       this.isEnabled = true;
-      await keyValueStore.isAnalyticsAndBugReportEnabled.set(true);
+      await keyValueStore.isAnalyticsAndBugReportEnabled.set(this.isEnabled);
+      await keyValueStore.enabledAnalyticsByDefault.set(this.isEnabled);
     } else {
-      this.isEnabled = rawValue === 'true';
+      this.isEnabled = isAnalyticsAndBugReportEnabled;
     }
 
     if (!this.isEnabled) {
