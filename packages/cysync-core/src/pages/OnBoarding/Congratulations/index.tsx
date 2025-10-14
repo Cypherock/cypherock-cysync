@@ -4,6 +4,7 @@ import React, { useEffect } from 'react';
 
 import { openWalletActionsDialog } from '~/actions';
 import { routes } from '~/constants';
+import { analyticsService, ANALYTICS_EVENTS } from '~/services/analytics';
 import { useDevice } from '~/context';
 import { useNavigateTo, useQuery } from '~/hooks';
 import { selectLanguage, useAppDispatch, useAppSelector } from '~/store';
@@ -20,6 +21,7 @@ export const Congratulations: React.FC = () => {
 
   const updateIsOnboardingCompleted = async () => {
     await keyValueStore.isOnboardingCompleted.set(true);
+    analyticsService.trackEvent(ANALYTICS_EVENTS.ONBOARDING_COMPLETED);
   };
 
   const goToMain = () => {

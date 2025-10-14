@@ -12,10 +12,11 @@ import {
   syncIcon,
   Typography,
 } from '@cypherock/cysync-ui';
-import React, { FC, useCallback } from 'react';
+import React, { FC, useCallback, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 
 import { openInheritanceSyncPlansDialog } from '~/actions';
+import { analyticsService, ANALYTICS_EVENTS } from '~/services/analytics';
 import { constants, routes } from '~/constants';
 import { useNavigateTo } from '~/hooks';
 import { selectLanguage, useAppSelector } from '~/store';
@@ -27,15 +28,26 @@ export const InheritanceSetup: FC = () => {
   const navigateTo = useNavigateTo();
   const dispatch = useDispatch();
 
+  useEffect(() => {
+    analyticsService.trackEvent(ANALYTICS_EVENTS.INHERITANCE_SETUP_PAGE_VIEWED);
+  }, []);
+
   const toSetup = useCallback(() => {
+    analyticsService.trackEvent(
+      ANALYTICS_EVENTS.INHERITANCE_SETUP_COVER_CLICKED,
+    );
     navigateTo(routes.inheritance.choosePlan.path);
   }, [navigateTo]);
 
   const openSyncPlans = useCallback(() => {
+    analyticsService.trackEvent(ANALYTICS_EVENTS.INHERITANCE_SYNC_MAIL_CLICKED);
     dispatch(openInheritanceSyncPlansDialog());
   }, [dispatch]);
 
   const openLearnMore = useCallback(() => {
+    analyticsService.trackEvent(
+      ANALYTICS_EVENTS.INHERITANCE_LEARN_MORE_CLICKED,
+    );
     window.open(
       constants.inheritance.learnMore,
       '_blank',

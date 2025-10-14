@@ -790,7 +790,8 @@
         "error": "Mémo invalide"
       },
       "feeBelowMinError": "Une transaction avec des frais inférieurs au minimum échouera",
-      "rentExemptFeeWarning": "Recevoir un jeton sur solana pour la première fois entraîne des frais d'exemption de loyer, inclus dans les frais totaux."
+      "rentExemptFeeWarning": "Recevoir un jeton sur solana pour la première fois entraîne des frais d'exemption de loyer, inclus dans les frais totaux.",
+      "parentAssetInsufficient": "Vous avez besoin d'au moins ${minParentBalance} sur votre compte pour couvrir les frais de transaction sur le réseau ${network}. Achetez ou déposez davantage de ${unit} sur votre compte."
     },
     "summary": {
       "title": "Résumé",
@@ -2245,7 +2246,7 @@
           },
           "anayticsAndBugReport": {
             "title": "Analytique & Rapport de bugs",
-            "description": "Activez les analyses et les rapports de bugs pour aider Cypherock à améliorer l'expérience utilisateur et à résoudre vos problèmes plus rapidement. Cela inclut les clics, les visites de pages, les redirections, les actions (envoyer, recevoir, verrouiller, etc.), les fins de défilement de page, l'(dés)installation et la version de l'application, le nombre de comptes, les actifs crypto et les opérations, les durées de session, le type d'appareil Cypherock et le firmware"
+            "description": "Activez les analyses et les rapports de bugs pour aider Cypherock à améliorer l'expérience utilisateur et à résoudre vos problèmes plus rapidement"
           },
           "reset": {
             "title": "Réinitialiser cySync",

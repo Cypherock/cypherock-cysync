@@ -99,7 +99,10 @@ export const createWindowAndOpenUrl = (
       preload: windowUrls.preload,
       nodeIntegration: false,
       contextIsolation: true,
-      devTools: !config.IS_PRODUCTION && !config.IS_TEST,
+      devTools:
+        (!config.IS_PRODUCTION && !config.IS_TEST) ||
+        config.BUILD_TYPE === 'debug' ||
+        config.LOG_LEVEL === 'debug',
       webviewTag: true,
     },
   });

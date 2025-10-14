@@ -23,6 +23,7 @@ export interface IConfig {
   API_CYPHEROCK: string;
   RELEASE_NOTES: string;
   OS: 'win32' | 'darwin' | 'linux' | string;
+  MIXPANEL_TOKEN: string;
 }
 
 const getResourcesPath = () => {
@@ -60,6 +61,7 @@ const configValidators = {
   CHANNEL: (val?: string) => !!val,
   SIMULATE_PRODUCTION: (val?: boolean) => typeof val === 'boolean',
   ALLOW_PRERELEASE: (val?: boolean) => typeof val === 'boolean',
+  MIXPANEL_TOKEN: (val?: string) => typeof val === 'string' && val.length > 0,
 } as const;
 
 const validateJsonConfig = () => {
@@ -163,6 +165,10 @@ const getConfig = (): IConfig => {
     ),
     RELEASE_NOTES: getReleaseNotes(),
     OS: os.platform(),
+    MIXPANEL_TOKEN: getFromExternalEnv(
+      'MIXPANEL_TOKEN',
+      jsonConfig.MIXPANEL_TOKEN,
+    ),
   };
 
   return config;

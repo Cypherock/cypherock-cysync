@@ -1,5 +1,69 @@
 # @cypherock/cysync-core
 
+## 0.8.0
+
+### Minor Changes
+
+- [#814](https://github.com/Cypherock/cypherock-cysync/pull/814) [`1434a79d`](https://github.com/Cypherock/cypherock-cysync/commit/1434a79d295cc8eaa0bd0a39d97a5f05a13e872d) Thanks [@AryanCypherock](https://github.com/AryanCypherock)! - Analytics added
+
+### Patch Changes
+
+- [#809](https://github.com/Cypherock/cypherock-cysync/pull/809) [`c3745ad9`](https://github.com/Cypherock/cypherock-cysync/commit/c3745ad98950f5becd0d1a2fd70a70a47e3fe2bd) Thanks [@0xcuriosity](https://github.com/0xcuriosity)! - Added Hyperliquid support
+
+- Updated dependencies [[`c3745ad9`](https://github.com/Cypherock/cypherock-cysync/commit/c3745ad98950f5becd0d1a2fd70a70a47e3fe2bd), [`1434a79d`](https://github.com/Cypherock/cypherock-cysync/commit/1434a79d295cc8eaa0bd0a39d97a5f05a13e872d)]:
+  - @cypherock/coins@0.4.0
+  - @cypherock/app-support-buy-sell@0.0.9
+  - @cypherock/coin-support-evm@0.1.1
+  - @cypherock/cysync-ui@0.0.17
+  - @cypherock/cysync-core-constants@0.6.1
+  - @cypherock/cysync-interfaces@0.0.11
+  - @cypherock/coin-support@0.2.1
+  - @cypherock/coin-support-btc@0.0.23
+  - @cypherock/coin-support-icp@1.0.6
+  - @cypherock/coin-support-near@0.0.22
+  - @cypherock/coin-support-solana@0.2.1
+  - @cypherock/coin-support-starknet@1.0.9
+  - @cypherock/coin-support-stellar@1.0.3
+  - @cypherock/coin-support-tron@0.1.1
+  - @cypherock/coin-support-utils@0.1.1
+  - @cypherock/coin-support-xrp@1.1.10
+  - @cypherock/cysync-core-services@0.2.1
+  - @cypherock/app-support-inheritance@1.0.7
+  - @cypherock/cysync-utils@0.0.13
+  - @cypherock/cysync-core-workers@0.1.1
+
+## 0.8.0-pre.0
+
+### Minor Changes
+
+- [#814](https://github.com/Cypherock/cypherock-cysync/pull/814) [`1434a79d`](https://github.com/Cypherock/cypherock-cysync/commit/1434a79d295cc8eaa0bd0a39d97a5f05a13e872d) Thanks [@AryanCypherock](https://github.com/AryanCypherock)! - Analytics added
+
+### Patch Changes
+
+- [#809](https://github.com/Cypherock/cypherock-cysync/pull/809) [`c3745ad9`](https://github.com/Cypherock/cypherock-cysync/commit/c3745ad98950f5becd0d1a2fd70a70a47e3fe2bd) Thanks [@0xcuriosity](https://github.com/0xcuriosity)! - Added Hyperliquid support
+
+- Updated dependencies [[`c3745ad9`](https://github.com/Cypherock/cypherock-cysync/commit/c3745ad98950f5becd0d1a2fd70a70a47e3fe2bd), [`1434a79d`](https://github.com/Cypherock/cypherock-cysync/commit/1434a79d295cc8eaa0bd0a39d97a5f05a13e872d)]:
+  - @cypherock/coins@0.4.0-pre.0
+  - @cypherock/app-support-buy-sell@0.0.9-pre.0
+  - @cypherock/coin-support-evm@0.1.1-pre.0
+  - @cypherock/cysync-ui@0.0.17-pre.0
+  - @cypherock/cysync-core-constants@0.6.1-pre.0
+  - @cypherock/cysync-interfaces@0.0.11-pre.0
+  - @cypherock/coin-support@0.2.1-pre.0
+  - @cypherock/coin-support-btc@0.0.23-pre.0
+  - @cypherock/coin-support-icp@1.0.6-pre.0
+  - @cypherock/coin-support-near@0.0.22-pre.0
+  - @cypherock/coin-support-solana@0.2.1-pre.0
+  - @cypherock/coin-support-starknet@1.0.9-pre.0
+  - @cypherock/coin-support-stellar@1.0.3-pre.0
+  - @cypherock/coin-support-tron@0.1.1-pre.0
+  - @cypherock/coin-support-utils@0.1.1-pre.0
+  - @cypherock/coin-support-xrp@1.1.10-pre.0
+  - @cypherock/cysync-core-services@0.2.1-pre.0
+  - @cypherock/app-support-inheritance@1.0.7-pre.0
+  - @cypherock/cysync-utils@0.0.13-pre.0
+  - @cypherock/cysync-core-workers@0.1.1-pre.0
+
 ## 0.7.0
 
 ### Minor Changes

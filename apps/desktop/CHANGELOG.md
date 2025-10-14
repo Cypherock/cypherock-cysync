@@ -1,5 +1,33 @@
 # @cypherock/cysync-desktop
 
+## 2.3.0
+
+### Minor Changes
+
+- [#814](https://github.com/Cypherock/cypherock-cysync/pull/814) [`1434a79d`](https://github.com/Cypherock/cypherock-cysync/commit/1434a79d295cc8eaa0bd0a39d97a5f05a13e872d) Thanks [@AryanCypherock](https://github.com/AryanCypherock)! - Analytics added
+
+### Patch Changes
+
+- Updated dependencies [[`1434a79d`](https://github.com/Cypherock/cypherock-cysync/commit/1434a79d295cc8eaa0bd0a39d97a5f05a13e872d)]:
+  - @cypherock/cysync-desktop-ui@0.2.0
+  - @cypherock/cysync-interfaces@0.0.11
+  - @cypherock/database@0.1.5
+  - @cypherock/cysync-utils@0.0.13
+
+## 2.3.0-pre.0
+
+### Minor Changes
+
+- [#814](https://github.com/Cypherock/cypherock-cysync/pull/814) [`1434a79d`](https://github.com/Cypherock/cypherock-cysync/commit/1434a79d295cc8eaa0bd0a39d97a5f05a13e872d) Thanks [@AryanCypherock](https://github.com/AryanCypherock)! - Analytics added
+
+### Patch Changes
+
+- Updated dependencies [[`1434a79d`](https://github.com/Cypherock/cypherock-cysync/commit/1434a79d295cc8eaa0bd0a39d97a5f05a13e872d)]:
+  - @cypherock/cysync-desktop-ui@0.2.0-pre.0
+  - @cypherock/cysync-interfaces@0.0.11-pre.0
+  - @cypherock/database@0.1.5-pre.0
+  - @cypherock/cysync-utils@0.0.13-pre.0
+
 ## 2.2.2
 
 ### Patch Changes

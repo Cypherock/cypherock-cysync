@@ -30,6 +30,7 @@ import { AccountTypeMap } from '@cypherock/db-interfaces';
 import React from 'react';
 
 import { CoinIcon } from '~/components';
+import { analyticsService, ANALYTICS_EVENTS } from '~/services/analytics';
 import { useCurrency } from '~/context';
 import {
   selectLanguage,
@@ -380,6 +381,10 @@ export const SummaryDialog: React.FC = () => {
         <Button
           variant="primary"
           onClick={() => {
+            analyticsService.trackEvent(ANALYTICS_EVENTS.SEND_VIEWED_SUMMARY, {
+              assetId: selectedAccount?.assetId,
+              action: 'confirmed',
+            });
             onNext();
           }}
         >

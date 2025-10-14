@@ -3,6 +3,8 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 
 import { RootState, setLanguage } from '~/store';
 import { keyValueStore } from '~/utils';
+import { analyticsService } from '~/services/analytics/analyticsService';
+import { ANALYTICS_EVENTS } from '~/services/analytics/analyticsEvents';
 
 export const setAppLanguage = createAsyncThunk<
   void,
@@ -12,4 +14,8 @@ export const setAppLanguage = createAsyncThunk<
   const langId = (id as any) ?? getDefaultLang();
   await keyValueStore.appLanguage.set(langId);
   dispatch(setLanguage(langId));
+  analyticsService.trackEvent(ANALYTICS_EVENTS.PREFERENCE_LANGUAGE_SELECTED, {
+    language: langId,
+    source: 'update',
+  });
 });

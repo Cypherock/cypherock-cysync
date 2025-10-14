@@ -14,6 +14,7 @@ import {
   openInheritanceGoldPlanPurchaseDialog,
   openInheritanceSilverPlanPurchaseDialog,
 } from '~/actions';
+import { analyticsService, ANALYTICS_EVENTS } from '~/services/analytics';
 import { selectLanguage, useAppSelector } from '~/store';
 
 import { InheritancePageLayout } from './Layout';
@@ -39,10 +40,14 @@ export const InheritanceChoosePlan: FC = () => {
   }, [navigate]);
 
   const openSilverPlanSetup = useCallback(() => {
+    analyticsService.trackEvent(
+      ANALYTICS_EVENTS.INHERITANCE_SILVER_PLAN_CLICKED,
+    );
     dispatch(openInheritanceSilverPlanPurchaseDialog());
   }, [dispatch]);
 
   const openGoldPlanSetup = useCallback(() => {
+    analyticsService.trackEvent(ANALYTICS_EVENTS.INHERITANCE_GOLD_PLAN_CLICKED);
     dispatch(openInheritanceGoldPlanPurchaseDialog());
   }, [dispatch]);
 

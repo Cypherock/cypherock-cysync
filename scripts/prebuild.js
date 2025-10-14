@@ -14,6 +14,7 @@ const CHANNEL_CONFIG = {
     API_CYPHEROCK: 'https://dev-api.cypherock.com',
     ALLOW_PRERELEASE: true,
     SIMULATE_PRODUCTION: false,
+    MIXPANEL_TOKEN: process.env.MIXPANEL_TOKEN_DEV || '',
   },
   ...betaChannels.reduce(
     (a, c) => ({
@@ -24,6 +25,7 @@ const CHANNEL_CONFIG = {
         API_CYPHEROCK: 'https://api.cypherock.com',
         ALLOW_PRERELEASE: true,
         SIMULATE_PRODUCTION: false,
+        MIXPANEL_TOKEN: process.env.MIXPANEL_TOKEN_DEV || '',
       },
     }),
     {},
@@ -34,6 +36,7 @@ const CHANNEL_CONFIG = {
     API_CYPHEROCK: 'https://api.cypherock.com',
     ALLOW_PRERELEASE: false,
     SIMULATE_PRODUCTION: false,
+    MIXPANEL_TOKEN: process.env.MIXPANEL_TOKEN_PROD || '',
   },
 };
 
