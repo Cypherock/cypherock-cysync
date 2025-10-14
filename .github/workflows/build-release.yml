@@ -10,7 +10,7 @@ on:
 env:
   NODE_OPTIONS: '--max-old-space-size=8192'
   TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
-  MIXPANEL_TOKEN_PROD: ${{ secrets.MIXPANEL_TOKEN_PROD }}M
+  MIXPANEL_TOKEN_PROD: ${{ secrets.MIXPANEL_TOKEN_PROD }}
   APP_NAME: '@cypherock/cysync-desktop'
   CHANNEL: 'latest'
 
