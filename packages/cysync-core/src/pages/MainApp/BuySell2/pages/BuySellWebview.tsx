@@ -4,6 +4,7 @@ import React, { useRef, useEffect } from 'react';
 import { useBuySell2 } from '~/context/buySell2';
 
 import { BuySellPage } from '.';
+import { ANALYTICS_EVENTS, analyticsService } from '~/services';
 
 export const BuySellWebview = () => {
   const { order, reset, toPage, setNavigationOptions } = useBuySell2();
@@ -15,6 +16,9 @@ export const BuySellWebview = () => {
     const webview = webviewRef.current;
 
     const onRefresh = () => {
+      analyticsService.trackEvent(ANALYTICS_EVENTS.BUY_CRYPTO_RETRY_ATTEMPT, {
+        action: 'refresh_order',
+      });
       if (webview) {
         webview.reload();
       }
@@ -22,8 +26,22 @@ export const BuySellWebview = () => {
 
     const onBack = () => {
       if (webview?.canGoBack()) {
+        analyticsService.trackEvent(
+          ANALYTICS_EVENTS.BUY_CRYPTO_BACK_NAVIGATION,
+          {
+            fromStep: 'order',
+            action: 'webview_back',
+          },
+        );
         webview.goBack();
       } else {
+        analyticsService.trackEvent(
+          ANALYTICS_EVENTS.BUY_CRYPTO_BACK_NAVIGATION,
+          {
+            fromStep: 'order',
+            toStep: 'input',
+          },
+        );
         toPage(BuySellPage.Input);
       }
     };
@@ -40,7 +58,14 @@ export const BuySellWebview = () => {
     // TODO: fetch targetUrl from server as well?
     const targetUrl = 'https://www.cypherock.com';
     if (e?.url?.includes(targetUrl)) {
+      analyticsService.trackEvent(ANALYTICS_EVENTS.BUY_CRYPTO_ORDER_COMPLETED, {
+        action: 'order_completed',
+      });
       reset();
+    } else {
+      analyticsService.trackEvent(ANALYTICS_EVENTS.BUY_CRYPTO_ORDER_CANCELLED, {
+        action: 'navigation_cancelled',
+      });
     }
   };
 
@@ -59,6 +84,14 @@ export const BuySellWebview = () => {
       }
     };
   }, []);
+
+  useEffect(() => {
+    if (order.current?.redirectUrl) {
+      analyticsService.trackEvent(ANALYTICS_EVENTS.BUY_CRYPTO_ORDER_INITIATED, {
+        action: 'order_initiated',
+      });
+    }
+  }, [order.current?.redirectUrl]);
 
   return (
     <Flex

@@ -23,6 +23,7 @@ import {
 } from '../components';
 import { BuySellOffersHeader } from '../components/BuySellOffersHeader';
 import { WalletAccountSelector } from '../components/WalletAccountSelector';
+import { ANALYTICS_EVENTS, analyticsService } from '~/services';
 
 const throbber: JSX.Element = <Throbber size={15} strokeWidth={2} />;
 
@@ -71,6 +72,12 @@ export const BuySellInput: React.FC = () => {
 
     setIsFetchingOffers(true);
 
+    analyticsService.trackEvent(ANALYTICS_EVENTS.BUY_CRYPTO_OFFERS_REQUESTED, {
+      fromCurrency,
+      toCurrency,
+      network,
+    });
+
     try {
       const result = await buySellSupport.getOffers({
         fromCurrency,
@@ -80,6 +87,12 @@ export const BuySellInput: React.FC = () => {
         country,
       });
       if (controllerRef.current?.signal.aborted) return;
+
+      analyticsService.trackEvent(ANALYTICS_EVENTS.BUY_CRYPTO_OFFERS_RECEIVED, {
+        fromCurrency,
+        toCurrency,
+        network,
+      });
       setGetOffersResponse(result);
     } catch (e: unknown) {
       setGetOffersResponse(undefined);

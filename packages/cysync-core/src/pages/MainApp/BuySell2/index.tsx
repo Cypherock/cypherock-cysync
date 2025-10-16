@@ -1,11 +1,12 @@
 import { Container } from '@cypherock/cysync-ui';
-import React, { useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 
 import { useBuySell2 } from '~/context/buySell2';
 import { selectLanguage, useAppSelector } from '~/store';
+import { ANALYTICS_EVENTS, analyticsService } from '~/services/analytics';
 
 import { Header } from './components/Header';
-import { pageMap } from './pages';
+import { BuySellPage, pageMap } from './pages';
 
 import { MainAppLayout } from '../Layout';
 
@@ -18,6 +19,37 @@ export const BuySell2 = () => {
   const { currentPage } = useBuySell2();
 
   const currentComponent = useMemo(() => pageMap[currentPage], [currentPage]);
+
+  useEffect(() => {
+    analyticsService.trackEvent(ANALYTICS_EVENTS.BUY_CRYPTO_FLOW_STARTED);
+  }, []);
+
+  useEffect(() => {
+    switch (currentPage) {
+      case BuySellPage.Input:
+        analyticsService.trackEvent(
+          ANALYTICS_EVENTS.BUY_CRYPTO_INPUT_PAGE_VIEWED,
+        );
+        break;
+      case BuySellPage.History:
+        analyticsService.trackEvent(
+          ANALYTICS_EVENTS.BUY_CRYPTO_HISTORY_PAGE_VIEWED,
+        );
+        break;
+      case BuySellPage.Receive:
+        analyticsService.trackEvent(
+          ANALYTICS_EVENTS.BUY_CRYPTO_RECEIVE_PAGE_VIEWED,
+        );
+        break;
+      case BuySellPage.Webview:
+        analyticsService.trackEvent(
+          ANALYTICS_EVENTS.BUY_CRYPTO_WEBVIEW_PAGE_VIEWED,
+        );
+        break;
+      default:
+        break;
+    }
+  }, [currentPage]);
 
   return (
     <MainAppLayout

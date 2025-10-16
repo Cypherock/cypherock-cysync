@@ -7,6 +7,7 @@ import { LoaderDialog } from '~/components';
 import { useBuySell2 } from '~/context/buySell2';
 import { ReceiveFlowSource } from '~/dialogs/Receive/context';
 import { useAppDispatch } from '~/store';
+import { ANALYTICS_EVENTS, analyticsService } from '~/services';
 
 export const BuySellReceive = () => {
   const dispatch = useAppDispatch();
@@ -19,6 +20,8 @@ export const BuySellReceive = () => {
     selectedAccount,
     toPreviousPage,
     setNavigationOptions,
+    selectedCrypto,
+    selectedFiatCurrency,
   } = useBuySell2();
 
   const receiversAddress = useRef<string>();
@@ -38,13 +41,31 @@ export const BuySellReceive = () => {
 
   const onReceiveFlowClosed = async () => {
     if (receiversAddress.current === undefined) {
-      // TODO: show error to user
+      analyticsService.trackEvent(ANALYTICS_EVENTS.BUY_CRYPTO_FAILED, {
+        fromAsset: selectedFiatCurrency?.code,
+        toAsset: selectedCrypto?.assetId,
+        step: 'receive_address_generation',
+        error: 'No address received',
+      });
       return;
     }
 
+    analyticsService.trackEvent(
+      ANALYTICS_EVENTS.BUY_CRYPTO_RECEIVE_FLOW_CLOSED,
+      {
+        fromAsset: selectedFiatCurrency?.code,
+        toAsset: selectedCrypto?.assetId,
+      },
+    );
+
     await createOrder(receiversAddress.current);
     if (order.current === undefined) {
-      // TODO: show error to user
+      analyticsService.trackEvent(ANALYTICS_EVENTS.BUY_CRYPTO_FAILED, {
+        fromAsset: selectedFiatCurrency?.code,
+        toAsset: selectedCrypto?.assetId,
+        step: 'create_order',
+        error: 'No order created',
+      });
       return;
     }
 
@@ -52,6 +73,13 @@ export const BuySellReceive = () => {
   };
 
   const init = async () => {
+    analyticsService.trackEvent(
+      ANALYTICS_EVENTS.BUY_CRYPTO_RECEIVE_FLOW_STARTED,
+      {
+        fromAsset: selectedFiatCurrency?.code,
+        toAsset: selectedCrypto?.assetId,
+      },
+    );
     dispatch(
       openReceiveDialog({
         walletId: selectedWallet?.__id,

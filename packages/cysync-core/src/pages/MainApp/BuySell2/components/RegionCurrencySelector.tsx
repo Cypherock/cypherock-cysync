@@ -2,20 +2,13 @@ import { Dropdown, Typography, Flex } from '@cypherock/cysync-ui';
 import React, { useCallback } from 'react';
 
 import { useBuySell2 } from '~/context/buySell2';
+import { ANALYTICS_EVENTS, analyticsService } from '~/services';
+import { selectLanguage, useAppSelector } from '~/store';
 import logger from '~/utils/logger';
 
 export const RegionCurrencySelector = () => {
-  const strings = {
-    title: 'Select region and currency',
-    selectCountry: {
-      searchText: 'Search Country',
-      placeholder: 'Select a Country',
-    },
-    selectFiat: {
-      searchText: 'Search Fiat Currency',
-      placeholder: 'Select Fiat Currency',
-    },
-  };
+  const lang = useAppSelector(selectLanguage);
+  const strings = lang.strings.buySell2.input.region;
 
   const {
     selectedCountry,
@@ -29,6 +22,7 @@ export const RegionCurrencySelector = () => {
   const handleCountryChangeProxy = useCallback(
     (countryCode?: string) => {
       logger.info('Dropdown Change: Country Change', { countryCode });
+      analyticsService.trackEvent(ANALYTICS_EVENTS.BUY_CRYPTO_COUNTRY_SELECTED);
       handleCountryChange(countryCode);
     },
     [handleCountryChange],
@@ -37,6 +31,12 @@ export const RegionCurrencySelector = () => {
   const handleCurrencyChangeProxy = useCallback(
     (currencyCode?: string) => {
       logger.info('Dropdown Change: Currency Change', { currencyCode });
+      analyticsService.trackEvent(
+        ANALYTICS_EVENTS.BUY_CRYPTO_FIAT_CURRENCY_SELECTED,
+        {
+          fiatCurrency: currencyCode,
+        },
+      );
       handleFiatCurrencyChange(currencyCode);
     },
     [handleFiatCurrencyChange],

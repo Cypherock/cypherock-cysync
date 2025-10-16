@@ -6,18 +6,16 @@ import {
   CustomInputSend,
 } from '@cypherock/cysync-ui';
 import React from 'react';
+import { useSelector } from 'react-redux';
 
 import { useBuySell2 } from '~/context/buySell2';
+import { ANALYTICS_EVENTS, analyticsService } from '~/services';
+import { selectLanguage } from '~/store';
 
 export const AmountInput = () => {
-  const strings = {
-    pay: {
-      title: 'Pay',
-    },
-    receive: {
-      title: 'You will receive',
-    },
-  };
+  const lang = useSelector(selectLanguage);
+
+  const strings = lang.strings.buySell2.input.amount;
 
   const {
     selectedFiatCurrency,
@@ -26,6 +24,16 @@ export const AmountInput = () => {
     setAmount,
     receiveAmount,
   } = useBuySell2();
+
+  const setAmountProxy: typeof setAmount = (newAmount: string) => {
+    if (newAmount && newAmount !== '0') {
+      analyticsService.trackEvent(ANALYTICS_EVENTS.BUY_CRYPTO_AMOUNT_ENTERED, {
+        currency: selectedFiatCurrency?.code,
+        type: 'fiat',
+      });
+    }
+    setAmount(newAmount);
+  };
 
   return (
     <Flex gap={16} width="full">
@@ -39,7 +47,7 @@ export const AmountInput = () => {
             type="text"
             name="payAmount"
             value={amount}
-            onChange={setAmount}
+            onChange={setAmountProxy}
             placeholder="0.00"
             $textColor="white"
             $noBorder
