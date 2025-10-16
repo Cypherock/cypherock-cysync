@@ -27,7 +27,8 @@ import React, {
   useEffect,
   useRef,
   MutableRefObject,
-  useCallback,
+  Dispatch,
+  SetStateAction,
 } from 'react';
 
 import { getPaymentMethodIcon } from '~/constants';
@@ -89,6 +90,9 @@ export interface BuySell2ContextInterface {
   filteredOffers: IOfferDetails[];
   isFetchingOffers: boolean;
   providers: IProviderDetails[];
+  setGetOffersResponse: (response: IGetOffersResponse | undefined) => void;
+  setIsFetchingOffers: (isFetching: boolean) => void;
+  setTimerSeconds: Dispatch<SetStateAction<number>>;
 
   paymentMethodsDropdownList: DropDownItemProps[];
 
@@ -115,8 +119,6 @@ export interface BuySell2ContextInterface {
     onBack?: () => void;
     onRefresh?: () => void;
   }) => void;
-
-  retry: () => void;
 
   timerSeconds: number;
 }
@@ -227,6 +229,9 @@ export const BuySell2Provider: FC<BuySell2ContextProviderProps> = ({
     IGetOffersResponse | undefined
   >();
   const [isFetchingOffers, setIsFetchingOffers] = useState(false);
+  const setIsFetchingOffersState = (isFetching: boolean) => {
+    setIsFetchingOffers(isFetching);
+  };
 
   const offers = getOffersResponse?.data?.offers ?? [];
   const providers = getOffersResponse?.data?.providers ?? [];
@@ -346,7 +351,6 @@ export const BuySell2Provider: FC<BuySell2ContextProviderProps> = ({
     }
   };
 
-  // Navigation
   const {
     currentPage,
     toNextPage,
@@ -357,72 +361,6 @@ export const BuySell2Provider: FC<BuySell2ContextProviderProps> = ({
 
   const buySellSupport = new BuySellSupport2();
 
-  const controllerRef = useRef<AbortController | null>(null);
-
-  const fetchOffers = async (
-    fromCurrency?: string,
-    toCurrency?: string,
-    network?: string,
-    fromAmount?: string,
-    country?: string,
-  ) => {
-    if (!fromCurrency || !toCurrency || !fromAmount || !network) {
-      setGetOffersResponse(undefined);
-      setIsFetchingOffers(false);
-      return;
-    }
-
-    if (controllerRef.current) {
-      controllerRef.current.abort();
-    }
-    controllerRef.current = new AbortController();
-
-    setIsFetchingOffers(true);
-
-    try {
-      const result = await buySellSupport.getOffers({
-        fromCurrency,
-        toCurrency,
-        network,
-        amount: fromAmount,
-        country,
-      });
-      if (controllerRef.current?.signal.aborted) return;
-      setGetOffersResponse(result);
-    } catch (e: unknown) {
-      setGetOffersResponse(undefined);
-    } finally {
-      setIsFetchingOffers(false);
-    }
-  };
-
-  const debouncedFetchOffers = useCallback(
-    lodash.debounce(fetchOffers, 500),
-    [],
-  );
-
-  useEffect(() => {
-    debouncedFetchOffers(
-      selectedFiatCurrency?.code,
-      selectedCrypto?.abbr,
-      selectedCrypto?.network,
-      amount,
-      selectedCountry?.code,
-    );
-
-    return () => {
-      if (controllerRef.current) {
-        controllerRef.current.abort();
-      }
-    };
-  }, [
-    selectedFiatCurrency,
-    selectedCrypto,
-    amount,
-    selectedCountry,
-    debouncedFetchOffers,
-  ]);
-
   const resetUserInput = () => {
     handleCountryChange();
     handleFiatCurrencyChange();
@@ -432,6 +370,7 @@ export const BuySell2Provider: FC<BuySell2ContextProviderProps> = ({
     setSelectedPaymentMethod('card');
     setOnBack(undefined);
     setOnRefresh(undefined);
+    setIsFetchingOffers(false);
   };
 
   const resetState = () => {
@@ -443,39 +382,6 @@ export const BuySell2Provider: FC<BuySell2ContextProviderProps> = ({
     resetUserInput();
     resetState();
   };
-
-  const retry = () => {
-    if (selectedFiatCurrency && selectedCrypto && selectedCountry && amount) {
-      debouncedFetchOffers(
-        selectedFiatCurrency.code,
-        selectedCrypto.abbr,
-        selectedCrypto.network,
-        amount,
-        selectedCountry.code,
-      );
-    }
-  };
-
-  useEffect(() => {
-    const interval = setInterval(
-      () => setTimerSeconds(s => Math.max(s - 1, 0)),
-      1000,
-    );
-    return () => clearInterval(interval);
-  }, []);
-
-  useEffect(() => {
-    if (timerSeconds === 0) {
-      retry();
-      setTimerSeconds(30);
-    }
-  }, [timerSeconds, retry]);
-
-  useEffect(() => {
-    if (!isFetchingOffers && getOffersResponse) {
-      setTimerSeconds(30);
-    }
-  }, [isFetchingOffers, getOffersResponse]);
 
   const ctx = useMemoReturn<BuySell2ContextInterface>({
     reset: resetAll,
@@ -507,6 +413,9 @@ export const BuySell2Provider: FC<BuySell2ContextProviderProps> = ({
     offers,
     filteredOffers,
     providers,
+    setGetOffersResponse,
+    setIsFetchingOffers: setIsFetchingOffersState,
+    setTimerSeconds,
     paymentMethodsDropdownList,
 
     selectedOffer,
@@ -527,8 +436,6 @@ export const BuySell2Provider: FC<BuySell2ContextProviderProps> = ({
     onBack,
     onRefresh,
     setNavigationOptions,
-
-    retry,
 
     timerSeconds,
   });
