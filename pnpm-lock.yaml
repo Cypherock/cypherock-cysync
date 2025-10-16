@@ -701,6 +701,9 @@ importers:
       realm:
         specifier: 20.1.0
         version: 20.1.0(react-native@0.76.9)
+      redux:
+        specifier: ^5.0.1
+        version: 5.0.1
       rxjs:
         specifier: ^7.8.1
         version: 7.8.1
@@ -4076,8 +4079,8 @@ packages:
     dependencies:
       '@babel/core': 7.27.4
       '@babel/helper-module-imports': 7.27.1
-      '@babel/helper-validator-identifier': 7.28.5
-      '@babel/traverse': 7.28.6
+      '@babel/helper-validator-identifier': 7.27.1
+      '@babel/traverse': 7.28.0
     transitivePeerDependencies:
       - supports-color
 
@@ -4089,8 +4092,8 @@ packages:
     dependencies:
       '@babel/core': 7.28.0
       '@babel/helper-module-imports': 7.27.1
-      '@babel/helper-validator-identifier': 7.28.5
-      '@babel/traverse': 7.28.6
+      '@babel/helper-validator-identifier': 7.27.1
+      '@babel/traverse': 7.28.0
     transitivePeerDependencies:
       - supports-color
 
