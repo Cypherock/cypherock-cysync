@@ -105,4 +105,18 @@ export default [
     chain: 999,
     color: '#97fce4',
   },
+  {
+    id: 'base',
+    abbr: 'BASE',
+    name: 'Base',
+    magnitude: 18,
+    hasSegwit: false,
+    isTest: false,
+    coinGeckoId: 'base',
+    coinIndex: '8000003c',
+    feesUnit: 'Gwei',
+    network: 'base',
+    chain: 8453,
+    color: '#0000ff',
+  },
 ];
