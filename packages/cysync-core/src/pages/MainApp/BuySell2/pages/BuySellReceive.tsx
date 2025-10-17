@@ -39,14 +39,15 @@ export const BuySellReceive = () => {
     };
   }, [toPreviousPage]);
 
-  const onReceiveFlowClosed = async () => {
-    if (receiversAddress.current === undefined) {
+  const onReceiveFlowClosed = async (discardFlow?: boolean) => {
+    if (receiversAddress.current === undefined || discardFlow) {
       analyticsService.trackEvent(ANALYTICS_EVENTS.BUY_CRYPTO_FAILED, {
         fromAsset: selectedFiatCurrency?.code,
         toAsset: selectedCrypto?.assetId,
         step: 'receive_address_generation',
         error: 'No address received',
       });
+      toPreviousPage();
       return;
     }
 
@@ -66,6 +67,7 @@ export const BuySellReceive = () => {
         step: 'create_order',
         error: 'No order created',
       });
+      toPreviousPage();
       return;
     }
 

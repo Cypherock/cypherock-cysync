@@ -27,6 +27,9 @@ interface OfferDetails {
   data: OfferData[];
 }
 
+const FALLBACK_IMAGE_URL =
+  'https://static.cypherock.com/images/fallback-crypto-icon.png';
+
 const OfferBox: React.FC<{
   offer: OfferDetails;
   provider: IProviderDetails;
@@ -46,7 +49,13 @@ const OfferBox: React.FC<{
   >
     <Flex justify="space-between" align="center">
       <Flex gap={8} align="center">
-        <Image src={provider.imageUrl} alt="Logo" $width="20" $height="20" />
+        <Image
+          src={provider.imageUrl}
+          fallbackSrc={FALLBACK_IMAGE_URL}
+          alt="Logo"
+          $width="20"
+          $height="20"
+        />
         <Typography $fontSize={14}>{provider.name}</Typography>
       </Flex>
 

@@ -160,7 +160,7 @@ export const Receive: FC = () => {
                         isAddressVerified,
                       },
                     );
-                    onClose();
+                    onClose(true);
                   }}
                 />
               }
