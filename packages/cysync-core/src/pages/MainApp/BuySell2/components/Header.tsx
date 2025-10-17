@@ -25,6 +25,21 @@ export const Header = () => {
 
   const leftHeader = () => (
     <Flex>
+      {onBack && (
+        <Button variant="none" onClick={onBack}>
+          <Flex
+            direction="row"
+            gap={16}
+            justify="center"
+            align="center"
+            px={2}
+            $height="full"
+          >
+            <ArrowBackGoldenIcon width={12} height={12} />
+            <Typography>{strings.buttons.back}</Typography>
+          </Flex>
+        </Button>
+      )}
       {onRefresh && (
         <Button variant="none" onClick={onRefresh}>
           <Flex
@@ -41,21 +56,6 @@ export const Header = () => {
               fill={`url(#${svgGradients.gold})`}
             />
             <Typography> {strings.buttons.retry} </Typography>
-          </Flex>
-        </Button>
-      )}
-      {onBack && (
-        <Button variant="none" onClick={onBack}>
-          <Flex
-            direction="row"
-            gap={16}
-            justify="center"
-            align="center"
-            px={2}
-            $height="full"
-          >
-            <ArrowBackGoldenIcon width={12} height={12} />
-            <Typography>{strings.buttons.back}</Typography>
           </Flex>
         </Button>
       )}

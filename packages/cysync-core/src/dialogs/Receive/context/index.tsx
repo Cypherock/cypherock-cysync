@@ -57,7 +57,7 @@ export interface ReceiveDialogContextInterface {
   currentTab: number;
   currentDialog: number;
   isDeviceRequired: boolean;
-  onClose: () => void;
+  onClose: (discardFlow?: boolean) => void;
   onSkip: () => void;
   onDeviceActionNext: () => void;
   onAddressVerificationNext: () => void;
@@ -98,7 +98,7 @@ export interface ReceiveDialogContextProviderProps {
   accountId?: string;
   skipSelection?: boolean;
   storeReceiveAddress?: (address: string) => void;
-  onClose?: () => void;
+  onClose?: (discardFlow?: boolean) => void;
   source?: ReceiveFlowSource;
   onError?: (e?: any) => void;
   validTill?: number;
@@ -234,10 +234,10 @@ export const ReceiveDialogProvider: FC<ReceiveDialogContextProviderProps> = ({
     storeReceiveAddress,
   ]);
 
-  const onClose = () => {
+  const onClose = (discardFlow?: boolean) => {
     cleanUp();
     dispatch(closeDialog('receive'));
-    if (onCloseInjected) onCloseInjected();
+    if (onCloseInjected) onCloseInjected(discardFlow);
   };
 
   const onSkip = () => {
