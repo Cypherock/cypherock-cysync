@@ -881,6 +881,16 @@
   },
   "portfolio": {
     "title": "Portfolio",
+    "banner": {
+      "addCanton": {
+        "title": "Erleben Sie das **Canton-Netzwerk**. Verdienen Sie **Canton-Münzen**. Nur auf Cypherock X1",
+        "button": "Mehr erfahren"
+      },
+      "enableAutomaticApprovals": {
+        "title": "Aktivieren Sie **automatische Genehmigungen** für Canton, um eingehende Transaktionen automatisch zu akzeptieren",
+        "button": "Aktivieren"
+      }
+    },
     "tokenTable": {
       "title": "Token",
       "tableHeader": {

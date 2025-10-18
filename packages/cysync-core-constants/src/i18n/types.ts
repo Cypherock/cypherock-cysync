@@ -739,6 +739,16 @@ interface LangSignMessage {
 
 interface LangPortfolio {
   title: string;
+  banner: {
+    addCanton: {
+      title: string;
+      button: string;
+    };
+    enableAutomaticApprovals: {
+      title: string;
+      button: string;
+    };
+  };
   tokenTable: {
     title: string;
     tableHeader: { token: string; amount: string; value: string };

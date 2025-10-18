@@ -872,6 +872,16 @@
   },
   "portfolio": {
     "title": "Portfolio",
+    "banner": {
+      "addCanton": {
+        "title": "Experience **Canton Network**. Earn **Canton Coins**. Only on Cypherock X1",
+        "button": "Know More"
+      },
+      "enableAutomaticApprovals": {
+        "title": "Enable **Automatic Approvals** for Canton to automatically accept incoming transactions",
+        "button": "Enable"
+      }
+    },
     "tokenTable": {
       "title": "Tokens",
       "tableHeader": {
