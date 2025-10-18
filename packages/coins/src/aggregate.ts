@@ -1,4 +1,5 @@
 import { btcCoinList, BtcId } from './btc';
+import { cantonCoinList, CantonId } from './canton';
 import { evmCoinList, EvmId, IEvmErc20Token } from './evm';
 import { icpCoinList, IcpId, IIcpIcrcToken } from './icp';
 import { nearCoinList, NearId } from './near';
@@ -10,7 +11,15 @@ import { ICoinInfo } from './types';
 import { xrpCoinList, XrpId } from './xrp';
 
 export const coinList: Record<
-  BtcId | EvmId | SolanaId | NearId | XrpId | StarknetId | IcpId | StellarId,
+  | BtcId
+  | EvmId
+  | SolanaId
+  | NearId
+  | XrpId
+  | StarknetId
+  | IcpId
+  | StellarId
+  | CantonId,
   ICoinInfo
 > = {
   ...btcCoinList,
@@ -22,6 +31,7 @@ export const coinList: Record<
   ...starknetCoinList,
   ...icpCoinList,
   ...stellarCoinList,
+  ...cantonCoinList,
 };
 
 export type CoinTypes =
@@ -32,5 +42,6 @@ export type CoinTypes =
   | XrpId
   | StarknetId
   | IcpId
-  | StellarId;
+  | StellarId
+  | CantonId;
 export type TokenTypes = IEvmErc20Token | ITronTrc20Token | IIcpIcrcToken;
