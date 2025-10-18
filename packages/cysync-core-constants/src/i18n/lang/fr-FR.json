@@ -520,6 +520,16 @@
   },
   "portfolio": {
     "title": "Portfolio",
+    "banner": {
+      "addCanton": {
+        "title": "Découvrez le **réseau Canton**. Gagnez des **pièces Canton**. Uniquement sur Cypherock X1",
+        "button": "En savoir plus"
+      },
+      "enableAutomaticApprovals": {
+        "title": "Activez les **approbations automatiques** pour Canton afin d'accepter automatiquement les transactions entrantes",
+        "button": "Activer"
+      }
+    },
     "tokenTable": {
       "title": "Jetons",
       "tableHeader": {

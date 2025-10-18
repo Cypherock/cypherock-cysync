@@ -843,6 +843,16 @@
   },
   "portfolio": {
     "title": "Portfolio",
+    "banner": {
+      "addCanton": {
+        "title": "体验**Canton网络**。赚取**Canton币**。仅在Cypherock X1上",
+        "button": "了解更多"
+      },
+      "enableAutomaticApprovals": {
+        "title": "为Canton启用**自动批准**以自动接受传入交易",
+        "button": "启用"
+      }
+    },
     "tokenTable": {
       "title": "代币",
       "tableHeader": {

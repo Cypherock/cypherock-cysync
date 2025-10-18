@@ -849,6 +849,16 @@
   },
   "portfolio": {
     "title": "محفظة",
+    "banner": {
+      "addCanton": {
+        "title": "اختبر **شبكة Canton**. اربح **عملات Canton**. فقط على Cypherock X1",
+        "button": "اعرف المزيد"
+      },
+      "enableAutomaticApprovals": {
+        "title": "تفعيل **الموافقات التلقائية** لـ Canton لقبول المعاملات الواردة تلقائياً",
+        "button": "تفعيل"
+      }
+    },
     "tokenTable": {
       "title": "رموز",
       "tableHeader": {

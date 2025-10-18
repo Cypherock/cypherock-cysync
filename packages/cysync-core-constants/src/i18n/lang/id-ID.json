@@ -845,6 +845,16 @@
   },
   "portfolio": {
     "title": "Portofolio",
+    "banner": {
+      "addCanton": {
+        "title": "Rasakan **Jaringan Canton**. Dapatkan **Koin Canton**. Hanya di Cypherock X1",
+        "button": "Pelajari Lebih Lanjut"
+      },
+      "enableAutomaticApprovals": {
+        "title": "Aktifkan **Persetujuan Otomatis** untuk Canton agar secara otomatis menerima transaksi masuk",
+        "button": "Aktifkan"
+      }
+    },
     "tokenTable": {
       "title": "Token",
       "tableHeader": {
