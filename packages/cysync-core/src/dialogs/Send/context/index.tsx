@@ -93,6 +93,7 @@ import {
   SelectionDialog,
   DeviceAction,
 } from '../Dialogs';
+import { IPreparedCantonTransaction } from '@cypherock/coin-support-canton';
 
 export interface SendDialogContextInterface {
   source: SendFlowSource;
@@ -830,6 +831,12 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
     return computedData.fees || '0';
   };
 
+  const getCantonFeeAmount = (txn: IPreparedTransaction | undefined) => {
+    if (!txn) return '0';
+    const { computedData } = txn as IPreparedCantonTransaction;
+    return computedData.fees || '0';
+  };
+
   const computedFeeMap: Record<
     CoinFamily,
     (txn: IPreparedTransaction | undefined) => string
@@ -843,6 +850,7 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
     starknet: getStarknetFeeAmount,
     icp: getIcpFeeAmount,
     stellar: getStellarFeeAmount,
+    canton: getCantonFeeAmount,
   };
 
   const getComputedFee = (coinFamily: CoinFamily, txn?: IPreparedTransaction) =>

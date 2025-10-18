@@ -685,6 +685,9 @@ importers:
       '@cypherock/coin-support-btc':
         specifier: workspace:^
         version: link:../coin-support-btc
+      '@cypherock/coin-support-canton':
+        specifier: workspace:^
+        version: link:../coin-support-canton
       '@cypherock/coin-support-evm':
         specifier: workspace:^
         version: link:../coin-support-evm
@@ -849,6 +852,94 @@ importers:
       '@types/multicoin-address-validator':
         specifier: ^0.5.0
         version: 0.5.0
+      '@types/node':
+        specifier: 18.15.11
+        version: 18.15.11
+      eslint:
+        specifier: ^8.43.0
+        version: 8.43.0
+      jest:
+        specifier: ^29.5.0
+        version: 29.5.0(@types/node@18.15.11)(ts-node@10.9.1)
+      lint-staged:
+        specifier: ^13.2.2
+        version: 13.2.2
+      prettier:
+        specifier: ^2.8.8
+        version: 2.8.8
+      rimraf:
+        specifier: ^5.0.1
+        version: 5.0.1
+      ts-jest:
+        specifier: ^29.1.0
+        version: 29.1.0(@babel/core@7.28.0)(esbuild@0.18.20)(jest@29.5.0)(typescript@4.9.5)
+      typescript:
+        specifier: ^4.9.5
+        version: 4.9.5
+
+  packages/coin-support-canton:
+    dependencies:
+      '@cypherock/coin-support-interfaces':
+        specifier: workspace:^
+        version: link:../coin-support-interfaces
+      '@cypherock/coin-support-utils':
+        specifier: workspace:^
+        version: link:../coin-support-utils
+      '@cypherock/coins':
+        specifier: workspace:^
+        version: link:../coins
+      '@cypherock/cysync-interfaces':
+        specifier: workspace:^
+        version: link:../interfaces
+      '@cypherock/cysync-utils':
+        specifier: workspace:^
+        version: link:../utils
+      '@cypherock/db-interfaces':
+        specifier: workspace:^
+        version: link:../db-interfaces
+      '@cypherock/sdk-interfaces':
+        specifier: ^0.0.16
+        version: 0.0.16
+      '@cypherock/sdk-utils':
+        specifier: ^0.0.20
+        version: 0.0.20
+      lodash:
+        specifier: ^4.17.21
+        version: 4.17.21
+      rxjs:
+        specifier: ^7.8.1
+        version: 7.8.1
+    devDependencies:
+      '@cypherock/eslint-config':
+        specifier: workspace:^
+        version: link:../util-eslint-config
+      '@cypherock/jest-config':
+        specifier: workspace:^
+        version: link:../util-jest-config
+      '@cypherock/prettier-config':
+        specifier: workspace:^
+        version: link:../util-prettier-config
+      '@cypherock/tsconfig':
+        specifier: workspace:^
+        version: link:../util-tsconfig
+      '@jest/globals':
+        specifier: ^29.5.0
+        version: 29.5.0
+      '@stryker-mutator/core':
+        specifier: ^7.0.2
+        version: 7.0.2
+      '@stryker-mutator/jest-runner':
+        specifier: ^7.0.2
+        version: 7.0.2(@stryker-mutator/core@7.0.2)
+      '@stryker-mutator/typescript-checker':
+        specifier: ^7.0.2
+        version: 7.0.2(@stryker-mutator/core@7.0.2)(typescript@4.9.5)
+      '@types/jest':
+        specifier: ^29.5.2
+        version: 29.5.2
+      '@types/lodash':
+        specifier: ^4.14.195
+        version: 4.14.195
       '@types/node':
         specifier: 18.15.11
         version: 18.15.11
@@ -2009,6 +2100,9 @@ importers:
       '@cypherock/coin-support-btc':
         specifier: workspace:^
         version: link:../coin-support-btc
+      '@cypherock/coin-support-canton':
+        specifier: workspace:^
+        version: link:../coin-support-canton
       '@cypherock/coin-support-evm':
         specifier: workspace:^
         version: link:../coin-support-evm
@@ -7684,7 +7778,7 @@ packages:
       '@jest/test-result': 29.7.0
       '@jest/transform': 29.7.0
       '@jest/types': 29.6.3
-      '@jridgewell/trace-mapping': 0.3.25
+      '@jridgewell/trace-mapping': 0.3.29
       '@types/node': 16.18.36
       chalk: 4.1.2
       collect-v8-coverage: 1.0.2
@@ -12426,7 +12520,7 @@ packages:
       npm-run-path: 5.1.0
       progress: 2.0.3
       rxjs: 7.8.1
-      semver: 7.5.3
+      semver: 7.7.2
       source-map: 0.7.4
       tree-kill: 1.2.2
       tslib: 2.5.3
@@ -21151,7 +21245,7 @@ packages:
       pretty-format: 29.7.0
       slash: 3.0.0
       strip-json-comments: 3.1.1
-      ts-node: 10.9.1(@types/node@20.5.1)(typescript@4.9.5)
+      ts-node: 10.9.1(@types/node@18.15.11)(typescript@4.9.5)
     transitivePeerDependencies:
       - babel-plugin-macros
       - supports-color
@@ -21508,7 +21602,7 @@ packages:
       '@babel/generator': 7.28.0
       '@babel/plugin-syntax-jsx': 7.27.1(@babel/core@7.28.0)
       '@babel/plugin-syntax-typescript': 7.27.1(@babel/core@7.28.0)
-      '@babel/types': 7.27.6
+      '@babel/types': 7.28.1
       '@jest/expect-utils': 29.7.0
       '@jest/transform': 29.7.0
       '@jest/types': 29.6.3

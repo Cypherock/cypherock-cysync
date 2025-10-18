@@ -1,4 +1,5 @@
 import { BtcSupport } from '@cypherock/coin-support-btc';
+import { CantonSupport } from '@cypherock/coin-support-canton';
 import { EvmSupport } from '@cypherock/coin-support-evm';
 import { IcpSupport } from '@cypherock/coin-support-icp';
 import { CoinSupport } from '@cypherock/coin-support-interfaces';
@@ -20,6 +21,7 @@ const coinSupportMap: Record<CoinFamily, CoinSupport> = {
   [coinFamiliesMap.stellar]: new StellarSupport(),
   [coinFamiliesMap.starknet]: new StarknetSupport(),
   [coinFamiliesMap.icp]: new IcpSupport(),
+  [coinFamiliesMap.canton]: new CantonSupport(),
 };
 
 export const getCoinSupport = (coinFamily: string) => {

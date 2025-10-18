@@ -72,6 +72,7 @@
     "@cypherock/app-support-inheritance": "workspace:^",
     "@cypherock/coin-support": "workspace:^",
     "@cypherock/coin-support-btc": "workspace:^",
+    "@cypherock/coin-support-canton": "workspace:^",
     "@cypherock/coin-support-evm": "workspace:^",
     "@cypherock/coin-support-icp": "workspace:^",
     "@cypherock/coin-support-interfaces": "workspace:^",
