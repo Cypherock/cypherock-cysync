@@ -336,6 +336,23 @@
         "placeholder": "Geben Sie ein numerisches Memo ein",
         "error": "Wert zu hoch"
       },
+      "expirationDate": {
+        "label": "Ablaufdatum",
+        "placeholder": "Ablaufdatum festlegen",
+        "tooltipText": "Bitte legen Sie ein Ablaufdatum für diese partyID fest. Wenn der Empfänger diese Transaktion vor diesem Datum nicht akzeptiert, läuft sie ab",
+        "options": {
+          "threeHours": "3 Stunden",
+          "oneDay": "1 Tag",
+          "oneWeek": "1 Woche",
+          "tenDays": "10 Tage",
+          "oneMonth": "1 Monat"
+        }
+      },
+      "memoDescription": {
+        "label": "Memo",
+        "placeholder": "Optional",
+        "tooltipText": "Sie können ein Memo oder eine Beschreibung hinzufügen, die zusammen mit dieser Transaktion gesendet wird"
+      },
       "stellarMemo": {
         "label": "Memo (optional)",
         "inputPlaceholder": {

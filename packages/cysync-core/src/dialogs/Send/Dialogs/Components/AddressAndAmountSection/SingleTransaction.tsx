@@ -29,6 +29,10 @@ import { StellarMemoInput } from './StellarMemoInput';
 
 import { useSendDialog } from '../../../context';
 import { useCurrency } from '~/context';
+import {
+  ExpirationDateInput,
+  IExpirationDateInputType,
+} from './ExpirationDateInput';
 
 const MAX_UINT64 = new BigNumber('0xffffffffffffffff');
 
@@ -149,6 +153,80 @@ export const SingleTransaction: React.FC<SingleTransactionProps> = ({
     return <Component {...props} />;
   };
 
+  const getExpirationDateInputProps = () => ({
+    label: displayText.expirationDate.label,
+    placeholder: displayText.expirationDate.placeholder,
+    tooltipText: displayText.expirationDate.tooltipText,
+    initialValue: { type: IExpirationDateInputType.THREE_HOURS, value: '3' },
+    onChange: () => {
+      // TODO: Implement expiration date input
+    },
+    expirationDateOptions: [
+      {
+        value: IExpirationDateInputType.THREE_HOURS,
+        label: displayText.expirationDate.options.threeHours,
+      },
+      {
+        value: IExpirationDateInputType.ONE_DAY,
+        label: displayText.expirationDate.options.oneDay,
+      },
+      {
+        value: IExpirationDateInputType.ONE_WEEK,
+        label: displayText.expirationDate.options.oneWeek,
+      },
+      {
+        value: IExpirationDateInputType.TEN_DAYS,
+        label: displayText.expirationDate.options.tenDays,
+      },
+      {
+        value: IExpirationDateInputType.MONTH,
+        label: displayText.expirationDate.options.oneMonth,
+      },
+    ],
+    error: undefined,
+    isDisabled: disableInputs,
+  });
+
+  const expirationDateInputPropsMap: Record<
+    CoinFamily,
+    () => Record<string, any>
+  > = {
+    bitcoin: () => ({}),
+    evm: () => ({}),
+    near: () => ({}),
+    solana: () => ({}),
+    tron: () => ({}),
+    xrp: getExpirationDateInputProps, // TOOD: remove from xrp when canton support is added
+    starknet: () => ({}),
+    icp: () => ({}),
+    stellar: () => ({}),
+  };
+
+  const expirationDateInputMap: Partial<Record<CoinFamily, React.FC<any>>> = {
+    xrp: ExpirationDateInput, // TOOD: remove from xrp when canton support is added
+  };
+
+  const getExpirationDateInputComponent = () => {
+    if (!selectedAccount) return null;
+    const coinFamily = selectedAccount.familyId as CoinFamily;
+
+    const Component = expirationDateInputMap[coinFamily];
+    if (!Component) return null;
+
+    const props = expirationDateInputPropsMap[coinFamily]();
+    return <Component {...props} />;
+  };
+
+  const getCantonMemoInputProps = () => ({
+    label: displayText.memoDescription.label,
+    placeholder: displayText.memoDescription.placeholder,
+    tooltipText: displayText.memoDescription.tooltipText,
+    initialValue: undefined,
+    onChange: () => {
+      // TODO: Implement memo input
+    },
+  });
+
   const getIcpMemoInputProps = () => {
     const txn = transaction as IPreparedIcpTransaction;
     return {
@@ -187,7 +265,7 @@ export const SingleTransaction: React.FC<SingleTransactionProps> = ({
     near: () => ({}),
     solana: () => ({}),
     tron: () => ({}),
-    xrp: () => ({}),
+    xrp: getCantonMemoInputProps, // TOOD: remove from xrp when canton support is added
     starknet: () => ({}),
     icp: getIcpMemoInputProps,
     stellar: getStellarMemoInputProps,
@@ -196,6 +274,7 @@ export const SingleTransaction: React.FC<SingleTransactionProps> = ({
   const memoInputMap: Partial<Record<CoinFamily, React.FC<any>>> = {
     icp: MemoInput,
     stellar: StellarMemoInput,
+    xrp: MemoInput, // TOOD: remove from xrp when canton support is added
   };
 
   const getMemoInputComponent = () => {
@@ -279,6 +358,7 @@ export const SingleTransaction: React.FC<SingleTransactionProps> = ({
           isDisabled={disableInputs}
         />
 
+        {getExpirationDateInputComponent()}
         {getDestinationTagInputComponent()}
         {getMemoInputComponent()}
 

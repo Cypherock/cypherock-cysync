@@ -5,6 +5,8 @@ import {
   Typography,
   CustomInputSend,
   Input,
+  Tooltip,
+  QuestionMarkButton,
 } from '@cypherock/cysync-ui';
 import { BigNumber } from '@cypherock/cysync-utils';
 import lodash from 'lodash';
@@ -14,6 +16,7 @@ import { selectLanguage, useAppSelector } from '~/store';
 
 interface MemoInputProps {
   label: string;
+  tooltipText?: string;
   placeholder: string;
   initialValue?: string;
   onChange: (value: string) => Promise<void>;
@@ -22,6 +25,7 @@ interface MemoInputProps {
 
 export const MemoInput: React.FC<MemoInputProps> = ({
   label,
+  tooltipText,
   placeholder,
   initialValue,
   onChange,
@@ -63,10 +67,15 @@ export const MemoInput: React.FC<MemoInputProps> = ({
 
   return (
     <Container display="flex" direction="column" width="full" gap={8}>
-      <Flex justify="space-between" width="full">
+      <Flex align="center" width="full" gap={4}>
         <Typography variant="span" color="muted" $fontSize={13}>
           <LangDisplay text={label} />
         </Typography>
+        {tooltipText && (
+          <Tooltip tooltipPlacement="bottom" text={tooltipText}>
+            <QuestionMarkButton />
+          </Tooltip>
+        )}
       </Flex>
       <CustomInputSend>
         <Input
@@ -95,4 +104,5 @@ export const MemoInput: React.FC<MemoInputProps> = ({
 
 MemoInput.defaultProps = {
   initialValue: undefined,
+  tooltipText: undefined,
 };

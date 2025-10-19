@@ -336,6 +336,23 @@
         "placeholder": "Enter a numeric memo",
         "error": "Value too high"
       },
+      "expirationDate": {
+        "label": "Expiration Date",
+        "placeholder": "Set Expiration Date",
+        "tooltipText": "Please set an expiration date for this partyID, if receiver don't accept this transaction before this then it'll expire",
+        "options": {
+          "threeHours": "3 Hours",
+          "oneDay": "1 Day",
+          "oneWeek": "1 Week",
+          "tenDays": "10 Days",
+          "oneMonth": "1 Month"
+        }
+      },
+      "memoDescription": {
+        "label": "Memo",
+        "placeholder": "Optional",
+        "tooltipText": "You can add a Memo or Description and this will be sent along with this transaction"
+      },
       "stellarMemo": {
         "label": "Memo (Optional)",
         "inputPlaceholder": {
