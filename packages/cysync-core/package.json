@@ -68,6 +68,7 @@
   },
   "dependencies": {
     "@aws-crypto/sha256-browser": "^4.0.0",
+    "@canton-network/core-ledger-proto": "0.6.0",
     "@cypherock/app-support-buy-sell": "workspace:^",
     "@cypherock/app-support-inheritance": "workspace:^",
     "@cypherock/coin-support": "workspace:^",

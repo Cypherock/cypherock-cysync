@@ -1,5 +1,6 @@
 import '../../generated';
 import { BtcSupport } from '@cypherock/coin-support-btc';
+import { CantonSupport } from '@cypherock/coin-support-canton';
 import { EvmSupport } from '@cypherock/coin-support-evm';
 import { IcpSupport } from '@cypherock/coin-support-icp';
 import { NearSupport } from '@cypherock/coin-support-near';
@@ -28,4 +29,5 @@ export const setGlobalDependencies = () => {
   StellarSupport.setStellarLib((globalThis as any).StellarSdk);
   StarknetSupport.setStarknetLib((globalThis as any).starknet);
   IcpSupport.setDfinityLib((globalThis as any).dfinity);
+  CantonSupport.setCantonLib((globalThis as any).cantonLib);
 };

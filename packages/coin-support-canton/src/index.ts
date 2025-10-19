@@ -23,7 +23,7 @@ import {
   IValidateAddressParams,
 } from '@cypherock/coin-support-interfaces';
 import { ITransaction } from '@cypherock/db-interfaces';
-// import { setCantonLib } from '@cypherock/sdk-app-canton';
+import { CantonLib, setCantonLib } from '@cypherock/sdk-app-canton';
 import { Observable } from 'rxjs';
 
 import * as operations from './operations';
@@ -38,10 +38,9 @@ export * from './operations/types';
 export { updateLogger } from './utils/logger';
 
 export class CantonSupport implements CoinSupport {
-  // public static setCantonLib(cantonlib: CantonLibType): void {
-  //   setCantonLib(cantonlib);
-  //   setCoinSupportCantonLib(cantonlib);
-  // }
+  public static setCantonLib(cantonlib: CantonLib): void {
+    setCantonLib(cantonlib);
+  }
 
   public receive(params: IReceiveParams): Observable<IReceiveEvent> {
     return operations.receive(params);
