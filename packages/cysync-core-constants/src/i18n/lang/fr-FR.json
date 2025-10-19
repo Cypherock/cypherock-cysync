@@ -784,6 +784,23 @@
         "placeholder": "Entrez un mémo numérique",
         "error": "Valeur trop élevée"
       },
+      "expirationDate": {
+        "label": "Date d'expiration",
+        "placeholder": "Définir la date d'expiration",
+        "tooltipText": "Veuillez définir une date d'expiration pour ce partyID, si le destinataire n'accepte pas cette transaction avant cette date, elle expirera",
+        "options": {
+          "threeHours": "3 heures",
+          "oneDay": "1 jour",
+          "oneWeek": "1 semaine",
+          "tenDays": "10 jours",
+          "oneMonth": "1 mois"
+        }
+      },
+      "memoDescription": {
+        "label": "Mémo",
+        "placeholder": "Optionnel",
+        "tooltipText": "Vous pouvez ajouter un mémo ou une description qui sera envoyé avec cette transaction"
+      },
       "stellarMemo": {
         "label": "Mémo (Facultatif)",
         "inputPlaceholder": {

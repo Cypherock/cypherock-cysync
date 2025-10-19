@@ -343,6 +343,23 @@
         "placeholder": "أدخل مذكرة رقمية",
         "error": "قيمة مرتفعة جدًا"
       },
+      "expirationDate": {
+        "label": "تاريخ الانتهاء",
+        "placeholder": "تعيين تاريخ الانتهاء",
+        "tooltipText": "يرجى تعيين تاريخ انتهاء لهذا partyID، إذا لم يقبل المستلم هذه المعاملة قبل هذا التاريخ فستنتهي صلاحيتها",
+        "options": {
+          "threeHours": "3 ساعات",
+          "oneDay": "1 يوم",
+          "oneWeek": "1 أسبوع",
+          "tenDays": "10 أيام",
+          "oneMonth": "1 شهر"
+        }
+      },
+      "memoDescription": {
+        "label": "مذكرة",
+        "placeholder": "اختياري",
+        "tooltipText": "يمكنك إضافة مذكرة أو وصف وسيتم إرسالها مع هذه المعاملة"
+      },
       "stellarMemo": {
         "label": "مذكرة (اختياري)",
         "inputPlaceholder": {

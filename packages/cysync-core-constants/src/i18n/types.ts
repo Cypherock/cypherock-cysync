@@ -352,6 +352,23 @@ interface LangSend {
       placeholder: string;
       error: string;
     };
+    expirationDate: {
+      label: string;
+      placeholder: string;
+      tooltipText: string;
+      options: {
+        threeHours: string;
+        oneDay: string;
+        oneWeek: string;
+        tenDays: string;
+        oneMonth: string;
+      };
+    };
+    memoDescription: {
+      label: string;
+      placeholder: string;
+      tooltipText: string;
+    };
     stellarMemo: {
       label: string;
       inputPlaceholder: {

@@ -343,6 +343,23 @@
         "placeholder": "Masukkan memo numerik",
         "error": "Nilai terlalu tinggi"
       },
+      "expirationDate": {
+        "label": "Tanggal Kedaluwarsa",
+        "placeholder": "Atur Tanggal Kedaluwarsa",
+        "tooltipText": "Silakan atur tanggal kedaluwarsa untuk partyID ini, jika penerima tidak menerima transaksi ini sebelum tanggal tersebut maka akan kedaluwarsa",
+        "options": {
+          "threeHours": "3 Jam",
+          "oneDay": "1 Hari",
+          "oneWeek": "1 Minggu",
+          "tenDays": "10 Hari",
+          "oneMonth": "1 Bulan"
+        }
+      },
+      "memoDescription": {
+        "label": "Memo",
+        "placeholder": "Opsional",
+        "tooltipText": "Anda dapat menambahkan Memo atau Deskripsi dan ini akan dikirim bersama dengan transaksi ini"
+      },
       "stellarMemo": {
         "label": "Memo (Opsional)",
         "inputPlaceholder": {

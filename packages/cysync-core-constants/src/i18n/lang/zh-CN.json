@@ -343,6 +343,23 @@
         "placeholder": "输入数字备注",
         "error": "值过高"
       },
+      "expirationDate": {
+        "label": "过期日期",
+        "placeholder": "设置过期日期",
+        "tooltipText": "请为此partyID设置过期日期，如果接收方在此日期之前不接受此交易，则交易将过期",
+        "options": {
+          "threeHours": "3小时",
+          "oneDay": "1天",
+          "oneWeek": "1周",
+          "tenDays": "10天",
+          "oneMonth": "1个月"
+        }
+      },
+      "memoDescription": {
+        "label": "备忘录",
+        "placeholder": "可选",
+        "tooltipText": "您可以添加备忘录或描述，这将与此交易一起发送"
+      },
       "stellarMemo": {
         "label": "备注（可选）",
         "inputPlaceholder": {
