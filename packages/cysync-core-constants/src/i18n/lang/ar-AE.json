@@ -53,7 +53,8 @@
     "exitWithoutSaving": "الخروج بدون حفظ",
     "saveChanges": "حفظ التغييرات",
     "edit": "تحرير",
-    "tryAgain": "حاول مرة أخرى"
+    "tryAgain": "حاول مرة أخرى",
+    "manualApproval": "الموافقة اليدوية"
   },
   "tooltips": {
     "downloadCsv": "تصدير بصيغة CSV"

@@ -1,5 +1,5 @@
 import { getAssetOrUndefined } from '@cypherock/coin-support-utils';
-import { BtcIdMap, coinList } from '@cypherock/coins';
+import { BtcIdMap, coinFamiliesMap, coinList } from '@cypherock/coins';
 import {
   Breadcrumb,
   Button,
@@ -98,6 +98,18 @@ export const AccountPage: FC = () => {
             >
               {lang.strings.buttons.receive}
             </Button>
+            {selectedAccount?.familyId === coinFamiliesMap.xrp && ( // TODO: change to canton familyId
+              <Button
+                variant="primary"
+                onClick={() => dispatch(openReceiveDialog())}
+                size="sm"
+                display="flex"
+                justify="center"
+                align="center"
+              >
+                {lang.strings.buttons.manualApproval}
+              </Button>
+            )}
             <Container pl={{ def: 0, mdlg: 4 }} gap={8}>
               {doAllowAccountDeletion() && (
                 <Button

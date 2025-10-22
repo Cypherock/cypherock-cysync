@@ -29,6 +29,7 @@ import { selectLanguage, useAppDispatch, useAppSelector } from '~/store';
 
 import { useAssetPage } from '../hooks';
 import { MainAppLayout } from '../Layout';
+import { coinFamiliesMap } from '@cypherock/coins';
 
 const ReceiveIcon = (props: SvgProps) => (
   <ArrowReceivedIcon {...props} $width="12px" $height="12px" />
@@ -141,6 +142,18 @@ export const AssetPage: FC = () => {
                   <WalletConnectWithBgIcon />
                 </Button>
               </Container>
+            )}
+            {selectedAsset?.family === coinFamiliesMap.xrp && ( // TODO: change to canton familyId
+              <Button
+                variant="primary"
+                onClick={() => dispatch(openReceiveDialog())}
+                size="sm"
+                display="flex"
+                justify="center"
+                align="center"
+              >
+                {lang.strings.buttons.manualApproval}
+              </Button>
             )}
           </Flex>
         </Flex>
