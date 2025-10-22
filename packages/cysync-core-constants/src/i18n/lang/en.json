@@ -386,7 +386,8 @@
       "debit": "Total to debit",
       "remarks": "Personal Note",
       "destinationTag": "Destination Tag",
-      "memo": "Memo"
+      "memo": "Memo",
+      "expirationDate": "Expiration Date"
     },
     "finalMessage": {
       "button": "Check transactions",

@@ -386,7 +386,8 @@
       "debit": "Gesamtsumme zum Abbuchen",
       "remarks": "Persönliche Notiz",
       "destinationTag": "Ziel-Tag",
-      "memo": "Memo"
+      "memo": "Memo",
+      "expirationDate": "Ablaufdatum"
     },
     "finalMessage": {
       "button": "Transaktionen überprüfen",

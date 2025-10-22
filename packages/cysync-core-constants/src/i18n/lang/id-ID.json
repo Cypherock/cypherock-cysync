@@ -386,7 +386,8 @@
       "debit": "Total yang didebet",
       "remarks": "Catatan Pribadi",
       "destinationTag": "Tag Tujuan",
-      "memo": "Memo"
+      "memo": "Memo",
+      "expirationDate": "Tanggal Kedaluwarsa"
     },
     "finalMessage": {
       "button": "Periksa transaksi",

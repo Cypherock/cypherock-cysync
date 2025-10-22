@@ -395,6 +395,7 @@ interface LangSend {
     remarks: string;
     destinationTag: string;
     memo: string;
+    expirationDate: string;
   };
   finalMessage: {
     button: string;

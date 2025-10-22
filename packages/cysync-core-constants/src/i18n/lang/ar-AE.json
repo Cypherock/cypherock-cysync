@@ -386,7 +386,8 @@
       "debit": "المجموع المراد خصمه",
       "remarks": "ملاحظة شخصية",
       "destinationTag": "علامة الوجهة",
-      "memo": "مذكرة"
+      "memo": "مذكرة",
+      "expirationDate": "تاريخ الانتهاء"
     },
     "finalMessage": {
       "button": "التحقق من المعاملات",
