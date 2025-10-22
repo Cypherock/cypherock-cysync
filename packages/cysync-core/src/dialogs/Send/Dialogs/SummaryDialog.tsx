@@ -331,6 +331,16 @@ export const SummaryDialog: React.FC = () => {
     return [];
   };
 
+  const getExpirationDateDetails = () => {
+    const expirationDateDetails = {
+      id: `expirationDate-details`,
+      leftText: displayText.expirationDate,
+      rightText: '3 Hours', // TODO: Implement expiration date details
+    };
+
+    return [expirationDateDetails];
+  };
+
   const isSingleTransaction = transaction?.userInputs.outputs.length === 1;
 
   return (
@@ -365,9 +375,10 @@ export const SummaryDialog: React.FC = () => {
                 transaction.userInputs.outputs[0].remarks
                   ? [...getTransactionRemarks(), { isDivider: true, id: '5' }]
                   : []),
-
                 ...getFeeDetails(),
                 { isDivider: true, id: '6' },
+                ...getExpirationDateDetails(),
+                { isDivider: true, id: '7' },
                 ...getTotalAmount(),
               ]}
             />

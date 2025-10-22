@@ -829,7 +829,8 @@
       "debit": "Total à débiter",
       "remarks": "Note personnelle",
       "destinationTag": "Tag de destination",
-      "memo": "Mémo"
+      "memo": "Mémo",
+      "expirationDate": "Date d'expiration"
     },
     "finalMessage": {
       "button": "Vérifier les transactions",
