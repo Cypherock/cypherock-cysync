@@ -339,7 +339,8 @@
     "exitWithoutSaving": "Quitter sans enregistrer",
     "saveChanges": "Enregistrer les modifications",
     "edit": "Modifier",
-    "tryAgain": "Essayer encore"
+    "tryAgain": "Essayer encore",
+    "manualApproval": "Approbation manuelle"
   },
   "signMessage": {
     "title": "Signer le message",

@@ -53,7 +53,8 @@
     "exitWithoutSaving": "Ohne Speichern beenden",
     "saveChanges": "Änderungen speichern",
     "edit": "Bearbeiten",
-    "tryAgain": "Erneut versuchen"
+    "tryAgain": "Erneut versuchen",
+    "manualApproval": "Manuelle Genehmigung"
   },
   "tooltips": {
     "downloadCsv": "Als CSV exportieren"

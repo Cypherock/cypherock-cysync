@@ -53,7 +53,8 @@
     "exitWithoutSaving": "Keluar tanpa menyimpan",
     "saveChanges": "Simpan perubahan",
     "edit": "Sunting",
-    "tryAgain": "Coba Lagi"
+    "tryAgain": "Coba Lagi",
+    "manualApproval": "Persetujuan Manual"
   },
   "tooltips": {
     "downloadCsv": "Ekspor sebagai CSV"
