@@ -6,8 +6,9 @@ import {
 import {
   getDefaultUnit,
   getParsedAmount,
-  formatDisplayPrice,
+  // formatDisplayPrice,
   getAsset,
+  formatDisplayAmount,
 } from '@cypherock/coin-support-utils';
 import { IPreparedXrpTransaction } from '@cypherock/coin-support-xrp';
 import { coinFamiliesMap, CoinFamily } from '@cypherock/coins';
@@ -31,10 +32,10 @@ import React from 'react';
 
 import { CoinIcon } from '~/components';
 import { analyticsService, ANALYTICS_EVENTS } from '~/services/analytics';
-import { useCurrency } from '~/context';
+// import { useCurrency } from '~/context';
 import {
   selectLanguage,
-  selectCurrentCurrencyPriceInfos,
+  // selectCurrentCurrencyPriceInfos,
   useAppSelector,
 } from '~/store';
 
@@ -52,17 +53,17 @@ export const SummaryDialog: React.FC = () => {
     getComputedFee,
   } = useSendDialog();
   const lang = useAppSelector(selectLanguage);
-  const { currentCurrency } = useCurrency();
-  const priceInfos = useAppSelector(state =>
-    selectCurrentCurrencyPriceInfos(state, currentCurrency),
-  );
+  // const { currentCurrency } = useCurrency();
+  // const priceInfos = useAppSelector(state =>
+  //   selectCurrentCurrencyPriceInfos(state, currentCurrency),
+  // );
   const button = lang.strings.buttons;
   const displayText = lang.strings.send.summary;
   const getLabelSuffix = useLabelSuffix();
   const getToDetails = () => {
     const account = selectedAccount;
-    const coinPrice = priceInfos.find(p => p.assetId === account?.assetId);
-    if (!account || !coinPrice) return [];
+    // const coinPrice = priceInfos.find(p => p.assetId === account?.assetId);
+    if (!account) return [];
 
     const details = transaction?.userInputs.outputs.flatMap((output, index) => {
       const { amount, unit } = getParsedAmount({
@@ -73,23 +74,25 @@ export const SummaryDialog: React.FC = () => {
           account.unit ??
           getDefaultUnit(account.parentAssetId, account.assetId).abbr,
       });
-      const value = formatDisplayPrice(
-        new BigNumber(amount).multipliedBy(coinPrice.latestPrice),
-        currentCurrency,
-      );
+      // const value = coinPrice ? formatDisplayPrice(
+      //   new BigNumber(amount).multipliedBy(coinPrice.latestPrice),
+      //   currentCurrency,
+      // ) : '0';
 
       const outputDetails: SummaryItemType = [
         {
           id: `toDetail-address-${output.address}`,
           leftIcon: <QrCode width="11px" height="20px" />,
           leftText: displayText.to,
-          rightText: output.address,
+          rightText: `${output.address.slice(0, 10)}...${output.address.slice(
+            -10,
+          )}`,
         },
         {
           id: `toDetail-amount-${output.address}`,
           leftText: displayText.amount,
           rightText: `${amount} ${unit.abbr}`,
-          rightSubText: value,
+          // rightSubText: value,
         },
       ];
 
@@ -118,18 +121,18 @@ export const SummaryDialog: React.FC = () => {
 
   const getTotalAmount = () => {
     const account = selectedAccount;
-    const assetPrice = priceInfos.find(p => p.assetId === account?.assetId);
-    const parentAssetPrice = priceInfos.find(
-      p => p.assetId === account?.parentAssetId,
-    );
-    if (!account || !assetPrice || !parentAssetPrice) return [];
+    // const assetPrice = priceInfos.find(p => p.assetId === account?.assetId);
+    // const parentAssetPrice = priceInfos.find(
+    //   p => p.assetId === account?.parentAssetId,
+    // );
+    if (!account) return [];
     let totalAmount = new BigNumber(0);
 
     transaction?.userInputs.outputs.forEach(output => {
       totalAmount = totalAmount.plus(output.amount);
     });
 
-    const { amount } = getParsedAmount({
+    const { amount, unit } = getParsedAmount({
       coinId: account.parentAssetId,
       assetId: account.assetId,
       amount: totalAmount.toString(),
@@ -137,9 +140,9 @@ export const SummaryDialog: React.FC = () => {
         account.unit ??
         getDefaultUnit(account.parentAssetId, account.assetId).abbr,
     });
-    const amountValue = new BigNumber(amount).multipliedBy(
-      assetPrice.latestPrice,
-    );
+    // const amountValue = new BigNumber(amount).multipliedBy(
+    //   assetPrice ? assetPrice.latestPrice : '0',
+    // )
 
     const totalFee = new BigNumber(
       getComputedFee(account.familyId as CoinFamily, transaction),
@@ -150,20 +153,25 @@ export const SummaryDialog: React.FC = () => {
       amount: totalFee.toString(),
       unitAbbr: getDefaultUnit(account.parentAssetId).abbr,
     });
-    const feeValue = new BigNumber(feeAmount).multipliedBy(
-      parentAssetPrice.latestPrice,
-    );
+    // const feeValue = new BigNumber(feeAmount).multipliedBy(
+    //   parentAssetPrice ? parentAssetPrice.latestPrice : '0',
+    // );
 
-    const totalValue = formatDisplayPrice(
-      amountValue.plus(feeValue),
-      currentCurrency,
-    );
+    // const totalValue = formatDisplayPrice(
+    //   amountValue.plus(feeValue),
+    //   currentCurrency,
+    // );
+
+    const totalAmountToDebit = formatDisplayAmount(
+      new BigNumber(amount).plus(feeAmount),
+      10,
+    ).fixed;
 
     return [
       {
         id: 'total-amount-details',
         leftText: displayText.debit,
-        rightText: totalValue,
+        rightText: `${totalAmountToDebit} ${unit.abbr}`,
       },
     ];
   };
@@ -175,11 +183,11 @@ export const SummaryDialog: React.FC = () => {
       account?.familyId === coinFamiliesMap.icp &&
       account.type === AccountTypeMap.subAccount;
 
-    const coinPrice = priceInfos.find(
-      p =>
-        p.assetId === (isIcpToken ? account.assetId : account?.parentAssetId),
-    );
-    if (!account || !coinPrice) return [];
+    // const coinPrice = priceInfos.find(
+    //   p =>
+    //     p.assetId === (isIcpToken ? account.assetId : account?.parentAssetId),
+    // );
+    if (!account) return [];
     const { amount, unit } = getParsedAmount({
       coinId: account.parentAssetId,
       assetId: isIcpToken ? account.assetId : undefined,
@@ -190,16 +198,16 @@ export const SummaryDialog: React.FC = () => {
       ).abbr,
     });
 
-    const value = formatDisplayPrice(
-      new BigNumber(amount).multipliedBy(coinPrice.latestPrice),
-      currentCurrency,
-    );
+    // const value = formatDisplayPrice(
+    //   new BigNumber(amount).multipliedBy(coinPrice ? coinPrice.latestPrice : '0'),
+    //   currentCurrency,
+    // );
 
     details.push({
       id: 'fee-details',
       leftText: displayText.network + getLabelSuffix(selectedAccount),
       rightText: `${amount} ${unit.abbr}`,
-      rightSubText: value,
+      // rightSubText: value,
     });
 
     return details;

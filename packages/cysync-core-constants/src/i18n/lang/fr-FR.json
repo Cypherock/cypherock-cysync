@@ -158,6 +158,7 @@
       "mine": "Mien",
       "transactionHash": "Hash de la transaction",
       "transactionId": "ID de la transaction",
+      "transactionUpdateId": "ID de Transaction Update",
       "description": "Description",
       "feePrefix": {
         "optimism": "L2 "
@@ -733,6 +734,13 @@
         "error": "ID principal invalide",
         "ownAddress": "L'ID principal du destinataire est identique à l'ID principal de l'expéditeur"
       },
+      "cantonRecipient": {
+        "label": "Recipient Party ID",
+        "labelSwap": "${provider}'s Party ID",
+        "placeholder": "Enter party id",
+        "error": "Invalid party id",
+        "ownAddress": "Recipient party id is the same as sender party id"
+      },
       "tabs": {
         "single": "Transaction unique",
         "batch": "Transaction en lot"
@@ -809,6 +817,7 @@
       "title": "Transaction envoyée",
       "hashLabel": "Hash de la transaction",
       "idLabel": "ID de la transaction",
+      "updateIdLabel": "ID de Transaction Update",
       "messageBox": {
         "warning": "Le solde de votre compte sera mis à jour lorsque la blockchain confirmera la transaction"
       }

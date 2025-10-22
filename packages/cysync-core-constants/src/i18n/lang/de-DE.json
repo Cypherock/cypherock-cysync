@@ -293,6 +293,13 @@
         "error": "Ungültige Principal-ID",
         "ownAddress": "Die Empfänger-Principal-ID ist dieselbe wie die Absender-Principal-ID"
       },
+      "cantonRecipient": {
+        "label": "Recipient Party ID",
+        "labelSwap": "${provider}'s Party ID",
+        "placeholder": "Enter party id",
+        "error": "Invalid party id",
+        "ownAddress": "Recipient party id is the same as sender party id"
+      },
       "tabs": {
         "single": "Einzeltransaktion",
         "batch": "Batch-Transaktion"
@@ -369,6 +376,7 @@
       "title": "Transaktion gesendet",
       "hashLabel": "Transaktions-Hash",
       "idLabel": "Transaktions-ID",
+      "updateIdLabel": "Transaktions-Update-ID",
       "messageBox": {
         "warning": "Ihr Kontostand wird aktualisiert, wenn die blockchain die Transaktion bestätigt"
       }
@@ -475,6 +483,7 @@
       "mine": "Meine",
       "transactionHash": "Transaktions-Hash",
       "transactionId": "Transaktions-ID",
+      "transactionUpdateId": "Transaktions-Update-ID",
       "description": "Beschreibung",
       "feePrefix": {
         "optimism": "L2 "

@@ -293,6 +293,13 @@
         "error": "无效的主体 ID",
         "ownAddress": "收件人主体 ID 与发件人主体 ID 相同"
       },
+      "cantonRecipient": {
+        "label": "Recipient Party ID",
+        "labelSwap": "${provider}'s Party ID",
+        "placeholder": "Enter party id",
+        "error": "Invalid party id",
+        "ownAddress": "Recipient party id is the same as sender party id"
+      },
       "tabs": {
         "single": "单笔交易",
         "batch": "批量交易"
@@ -369,6 +376,7 @@
       "title": "交易已发送",
       "hashLabel": "交易哈希",
       "idLabel": "交易 ID",
+      "updateIdLabel": "交易更新 ID",
       "messageBox": {
         "warning": "当 blockchain 确认交易后，您的账户余额将被更新"
       }
@@ -475,6 +483,7 @@
       "mine": "我",
       "transactionHash": "交易哈希",
       "transactionId": "交易 ID",
+      "transactionUpdateId": "交易更新 ID",
       "description": "描述",
       "feePrefix": {
         "optimism": "L2 "

@@ -293,6 +293,13 @@
         "error": "ID prinsipal tidak valid",
         "ownAddress": "ID prinsipal penerima sama dengan ID prinsipal pengirim"
       },
+      "cantonRecipient": {
+        "label": "Recipient Party ID",
+        "labelSwap": "${provider}'s Party ID",
+        "placeholder": "Enter party id",
+        "error": "Invalid party id",
+        "ownAddress": "Recipient party id is the same as sender party id"
+      },
       "tabs": {
         "single": "Transaksi Tunggal",
         "batch": "Transaksi Batch"
@@ -369,6 +376,7 @@
       "title": "Transaksi Terkirim",
       "hashLabel": "Hash Transaksi",
       "idLabel": "ID Transaksi",
+      "updateIdLabel": "ID Update Transaksi",
       "messageBox": {
         "warning": "Saldo akun Anda akan diperbarui saat blockchain mengonfirmasi transaksi"
       }
@@ -475,6 +483,7 @@
       "mine": "Tambang",
       "transactionHash": "Hash Transaksi",
       "transactionId": "ID Transaksi",
+      "transactionUpdateId": "ID Update Transaksi",
       "description": "Deskripsi",
       "feePrefix": {
         "optimism": "L2 "

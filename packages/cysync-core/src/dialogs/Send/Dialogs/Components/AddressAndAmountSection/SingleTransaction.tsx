@@ -70,6 +70,8 @@ export const SingleTransaction: React.FC<SingleTransactionProps> = ({
     recipientDisplayText = isIcpToken
       ? displayText.icpPrincipalIdRecipient
       : displayText.icpAccountIdRecipient;
+  } else if (selectedAccount?.familyId === coinFamiliesMap.canton) {
+    recipientDisplayText = displayText.cantonRecipient;
   }
 
   useEffect(() => {

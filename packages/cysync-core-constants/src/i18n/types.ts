@@ -314,6 +314,13 @@ interface LangSend {
       error: string;
       ownAddress: string;
     };
+    cantonRecipient: {
+      label: string;
+      labelSwap: string;
+      placeholder: string;
+      error: string;
+      ownAddress: string;
+    };
     tabs: { single: string; batch: string };
     amount: {
       label: string;
@@ -377,6 +384,7 @@ interface LangSend {
     title: string;
     hashLabel: string;
     idLabel: string;
+    updateIdLabel: string;
     messageBox: { warning: string };
   };
   aside: {
@@ -468,6 +476,7 @@ interface LangHistory {
     mine: string;
     transactionHash: string;
     transactionId: string;
+    transactionUpdateId: string;
     description: string;
     feePrefix: { optimism: string };
     remarks: string;

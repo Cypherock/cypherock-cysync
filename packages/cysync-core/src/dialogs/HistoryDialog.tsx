@@ -177,6 +177,14 @@ export const HistoryDialog: FC<IHistoryDialogProps> = ({ txn: _txn }) => {
   if (displayTransaction === undefined) {
     return <LoaderDialog />;
   }
+
+  let transactionHashText = keys.transactionHash;
+  if (displayTransaction.txn.familyId === coinFamiliesMap.icp) {
+    transactionHashText = keys.transactionId;
+  } else if (displayTransaction.txn.familyId === coinFamiliesMap.canton) {
+    transactionHashText = keys.transactionUpdateId;
+  }
+
   return (
     <BlurOverlay>
       <DialogBox width={700} onClose={onClose}>
@@ -460,13 +468,7 @@ export const HistoryDialog: FC<IHistoryDialogProps> = ({ txn: _txn }) => {
                   </Container>
                 </HistoryItem>
               )}
-              <HistoryItem
-                leftText={
-                  displayTransaction.txn.familyId === coinFamiliesMap.icp
-                    ? keys.transactionId
-                    : keys.transactionHash
-                }
-              >
+              <HistoryItem leftText={transactionHashText}>
                 <Container direction="row" gap={8}>
                   <Typography
                     variant="span"

@@ -293,6 +293,13 @@
         "error": "Invalid principal id",
         "ownAddress": "Recipient principal id is the same as sender principal id"
       },
+      "cantonRecipient": {
+        "label": "Recipient Party ID",
+        "labelSwap": "${provider}'s Party ID",
+        "placeholder": "Enter party id",
+        "error": "Invalid party id",
+        "ownAddress": "Recipient party id is the same as sender party id"
+      },
       "tabs": {
         "single": "Single Transaction",
         "batch": "Batch Transaction"
@@ -369,6 +376,7 @@
       "title": "Transaction Sent",
       "hashLabel": "Transaction Hash",
       "idLabel": "Transaction ID",
+      "updateIdLabel": "Update ID",
       "messageBox": {
         "warning": "Your account balance will be updated when the blockchain confirms the transaction"
       }
@@ -475,6 +483,7 @@
       "mine": "Mine",
       "transactionHash": "Transaction Hash",
       "transactionId": "Transaction ID",
+      "transactionUpdateId": "Update ID",
       "description": "Description",
       "feePrefix": {
         "optimism": "L2 "

@@ -293,6 +293,13 @@
         "error": "معرّف رئيسي غير صالح",
         "ownAddress": "معرّف المستلم الرئيسي هو نفسه معرّف المرسل الرئيسي"
       },
+      "cantonRecipient": {
+        "label": "Recipient Party ID",
+        "labelSwap": "${provider}'s Party ID",
+        "placeholder": "Enter party id",
+        "error": "Invalid party id",
+        "ownAddress": "Recipient party id is the same as sender party id"
+      },
       "tabs": {
         "single": "معاملة واحدة",
         "batch": "معاملة مجمعة"
@@ -369,6 +376,7 @@
       "title": "تم إرسال المعاملة",
       "hashLabel": "هش المعاملة",
       "idLabel": "معرّف المعاملة",
+      "updateIdLabel": "معرّف تحديث المعاملة",
       "messageBox": {
         "warning": "سيتم تحديث رصيد حسابك عند تأكيد المعاملة بواسطة blockchain"
       }
@@ -475,6 +483,7 @@
       "mine": "خاصتي",
       "transactionHash": "هش المعاملة",
       "transactionId": "معرّف المعاملة",
+      "transactionUpdateId": "معرّف تحديث المعاملة",
       "description": "الوصف",
       "feePrefix": {
         "optimism": "L2 "
