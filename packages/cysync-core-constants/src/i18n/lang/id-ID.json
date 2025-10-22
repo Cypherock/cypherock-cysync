@@ -343,6 +343,12 @@
         "placeholder": "Masukkan memo numerik",
         "error": "Nilai terlalu tinggi"
       },
+      "cantonMemo": {
+        "label": "Memo",
+        "placeholder": "Opsional",
+        "tooltipText": "Anda dapat menambahkan Memo atau Deskripsi dan ini akan dikirim bersama dengan transaksi ini",
+        "error": "Memo terlalu panjang (maks 255 karakter)"
+      },
       "expirationDate": {
         "label": "Tanggal Kedaluwarsa",
         "placeholder": "Atur Tanggal Kedaluwarsa",
@@ -354,11 +360,6 @@
           "tenDays": "10 Hari",
           "oneMonth": "1 Bulan"
         }
-      },
-      "memoDescription": {
-        "label": "Memo",
-        "placeholder": "Opsional",
-        "tooltipText": "Anda dapat menambahkan Memo atau Deskripsi dan ini akan dikirim bersama dengan transaksi ini"
       },
       "stellarMemo": {
         "label": "Memo (Opsional)",

@@ -135,6 +135,7 @@ export interface SendDialogContextInterface {
   prepareDestinationTag: (tag: number) => Promise<void>;
   prepareMemo: (memo: string) => Promise<void>;
   prepareStellarMemo: (memo: IStellarMemo) => Promise<void>;
+  prepareCantonMemo: (memo: string) => Promise<void>;
   priceConverter: (val: string, inverse?: boolean) => string;
   updateUserInputs: (count: number) => void;
   isAccountSelectionDisabled: boolean | undefined;
@@ -748,6 +749,24 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
     await prepare(txn);
   };
 
+  const prepareCantonMemo = async (memo: string) => {
+    const txn = transactionRef.current as IPreparedCantonTransaction;
+    if (!txn) return;
+
+    if (txn.userInputs.outputs.length > 0) {
+      txn.userInputs.outputs[0].memo = memo;
+    } else {
+      txn.userInputs.outputs = [
+        {
+          address: '',
+          amount: '',
+          memo,
+        },
+      ];
+    }
+    await prepare(txn);
+  };
+
   const priceConverter = (val: string, invert?: boolean) => {
     const coinPrice = priceInfos.find(
       p => p.assetId === selectedAccount?.assetId,
@@ -1193,6 +1212,7 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
     prepareDestinationTag,
     prepareMemo,
     prepareStellarMemo,
+    prepareCantonMemo,
     priceConverter,
     updateUserInputs,
     isAccountSelectionDisabled: disableAccountSelection,

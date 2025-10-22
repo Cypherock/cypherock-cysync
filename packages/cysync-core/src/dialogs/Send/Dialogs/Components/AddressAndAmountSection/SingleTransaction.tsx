@@ -23,9 +23,10 @@ import { selectLanguage, useAppSelector } from '~/store';
 import { AddressInput } from './AddressInput';
 import { AmountInput } from './AmountInput';
 import { DestinationTagInput } from './DestinationTagInput';
-import { MemoInput } from './MemoInput';
+import { IcpMemoInput } from './IcpMemoInput';
 import { NotesInput } from './NotesInput';
 import { StellarMemoInput } from './StellarMemoInput';
+import { CantonMemoInput } from './cantonMemoInput';
 
 import { useSendDialog } from '../../../context';
 import { useCurrency } from '~/context';
@@ -33,6 +34,7 @@ import {
   ExpirationDateInput,
   IExpirationDateInputType,
 } from './ExpirationDateInput';
+import { IPreparedCantonTransaction } from '@cypherock/coin-support-canton';
 
 const MAX_UINT64 = new BigNumber('0xffffffffffffffff');
 
@@ -58,6 +60,7 @@ export const SingleTransaction: React.FC<SingleTransactionProps> = ({
     prepareDestinationTag,
     prepareMemo,
     prepareStellarMemo,
+    prepareCantonMemo,
     priceConverter,
     updateUserInputs,
     prepare,
@@ -200,10 +203,11 @@ export const SingleTransaction: React.FC<SingleTransactionProps> = ({
     near: () => ({}),
     solana: () => ({}),
     tron: () => ({}),
-    xrp: getExpirationDateInputProps, // TOOD: remove from xrp when canton support is added
+    xrp: () => ({}),
     starknet: () => ({}),
     icp: () => ({}),
     stellar: () => ({}),
+    canton: getExpirationDateInputProps,
   };
 
   const expirationDateInputMap: Partial<Record<CoinFamily, React.FC<any>>> = {
@@ -222,13 +226,12 @@ export const SingleTransaction: React.FC<SingleTransactionProps> = ({
   };
 
   const getCantonMemoInputProps = () => ({
-    label: displayText.memoDescription.label,
-    placeholder: displayText.memoDescription.placeholder,
-    tooltipText: displayText.memoDescription.tooltipText,
-    initialValue: undefined,
-    onChange: () => {
-      // TODO: Implement memo input
-    },
+    label: displayText.cantonMemo.label,
+    placeholder: displayText.cantonMemo.placeholder,
+    tooltipText: displayText.cantonMemo.tooltipText,
+    initialValue: (transaction as IPreparedCantonTransaction)?.userInputs
+      .outputs[0]?.memo,
+    onChange: prepareCantonMemo,
   });
 
   const getIcpMemoInputProps = () => {
@@ -269,17 +272,17 @@ export const SingleTransaction: React.FC<SingleTransactionProps> = ({
     near: () => ({}),
     solana: () => ({}),
     tron: () => ({}),
-    xrp: getCantonMemoInputProps, // TOOD: remove from xrp when canton support is added
+    xrp: () => ({}),
     starknet: () => ({}),
     icp: getIcpMemoInputProps,
     stellar: getStellarMemoInputProps,
-    canton: () => ({}),
+    canton: getCantonMemoInputProps,
   };
 
   const memoInputMap: Partial<Record<CoinFamily, React.FC<any>>> = {
-    icp: MemoInput,
+    icp: IcpMemoInput,
     stellar: StellarMemoInput,
-    xrp: MemoInput, // TOOD: remove from xrp when canton support is added
+    canton: CantonMemoInput,
   };
 
   const getMemoInputComponent = () => {

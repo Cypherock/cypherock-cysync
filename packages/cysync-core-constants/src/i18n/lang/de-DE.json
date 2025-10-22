@@ -343,6 +343,12 @@
         "placeholder": "Geben Sie ein numerisches Memo ein",
         "error": "Wert zu hoch"
       },
+      "cantonMemo": {
+        "label": "Memo",
+        "placeholder": "Optional",
+        "tooltipText": "Sie können ein Memo oder eine Beschreibung hinzufügen, die zusammen mit dieser Transaktion gesendet wird",
+        "error": "Memo ist zu lang (max. 255 Zeichen)"
+      },
       "expirationDate": {
         "label": "Ablaufdatum",
         "placeholder": "Ablaufdatum festlegen",
@@ -354,11 +360,6 @@
           "tenDays": "10 Tage",
           "oneMonth": "1 Monat"
         }
-      },
-      "memoDescription": {
-        "label": "Memo",
-        "placeholder": "Optional",
-        "tooltipText": "Sie können ein Memo oder eine Beschreibung hinzufügen, die zusammen mit dieser Transaktion gesendet wird"
       },
       "stellarMemo": {
         "label": "Memo (optional)",

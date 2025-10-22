@@ -352,6 +352,12 @@ interface LangSend {
       placeholder: string;
       error: string;
     };
+    cantonMemo: {
+      label: string;
+      placeholder: string;
+      tooltipText: string;
+      error: string;
+    };
     expirationDate: {
       label: string;
       placeholder: string;
@@ -363,11 +369,6 @@ interface LangSend {
         tenDays: string;
         oneMonth: string;
       };
-    };
-    memoDescription: {
-      label: string;
-      placeholder: string;
-      tooltipText: string;
     };
     stellarMemo: {
       label: string;

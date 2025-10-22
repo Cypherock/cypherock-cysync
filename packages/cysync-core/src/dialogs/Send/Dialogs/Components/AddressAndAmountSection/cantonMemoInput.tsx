@@ -8,28 +8,25 @@ import {
   Tooltip,
   QuestionMarkButton,
 } from '@cypherock/cysync-ui';
-import { BigNumber } from '@cypherock/cysync-utils';
 import lodash from 'lodash';
 import React, { useCallback, useState } from 'react';
 
 import { selectLanguage, useAppSelector } from '~/store';
 
-interface MemoInputProps {
+interface CantonMemoInputProps {
   label: string;
   tooltipText?: string;
   placeholder: string;
   initialValue?: string;
   onChange: (value: string) => Promise<void>;
-  limit: BigNumber;
 }
 
-export const MemoInput: React.FC<MemoInputProps> = ({
+export const CantonMemoInput: React.FC<CantonMemoInputProps> = ({
   label,
   tooltipText,
   placeholder,
   initialValue,
   onChange,
-  limit,
 }) => {
   const lang = useAppSelector(selectLanguage);
 
@@ -42,27 +39,13 @@ export const MemoInput: React.FC<MemoInputProps> = ({
   );
 
   const handleValueChange = (newValue: string) => {
-    let filteredValue = newValue.replace(/[^0-9]/g, '');
-    let bigNum = new BigNumber(filteredValue);
-
-    if (bigNum.isNaN()) {
-      filteredValue = '';
-      bigNum = new BigNumber(-1);
-    }
-
-    if (bigNum.isGreaterThanOrEqualTo(limit)) {
-      setError(lang.strings.send.recipient.memo.error);
-    } else {
+    if (newValue.length <= 255) {
+      setValue(newValue);
       setError('');
+      debouncedOnValueChange(newValue);
+    } else {
+      setError(lang.strings.send.recipient.cantonMemo.error);
     }
-
-    while (filteredValue.length > 0 && bigNum.isGreaterThanOrEqualTo(limit)) {
-      filteredValue = filteredValue.slice(0, filteredValue.length - 1);
-      bigNum = new BigNumber(filteredValue);
-    }
-
-    setValue(filteredValue);
-    debouncedOnValueChange(bigNum.toString());
   };
 
   return (
@@ -102,7 +85,7 @@ export const MemoInput: React.FC<MemoInputProps> = ({
   );
 };
 
-MemoInput.defaultProps = {
+CantonMemoInput.defaultProps = {
   initialValue: undefined,
   tooltipText: undefined,
 };

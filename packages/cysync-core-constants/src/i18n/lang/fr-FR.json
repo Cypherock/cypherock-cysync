@@ -784,6 +784,12 @@
         "placeholder": "Entrez un mémo numérique",
         "error": "Valeur trop élevée"
       },
+      "cantonMemo": {
+        "label": "Mémo",
+        "placeholder": "Optionnel",
+        "tooltipText": "Vous pouvez ajouter un mémo ou une description qui sera envoyé avec cette transaction",
+        "error": "Mémo trop long (max 255 caractères)"
+      },
       "expirationDate": {
         "label": "Date d'expiration",
         "placeholder": "Définir la date d'expiration",
@@ -795,11 +801,6 @@
           "tenDays": "10 jours",
           "oneMonth": "1 mois"
         }
-      },
-      "memoDescription": {
-        "label": "Mémo",
-        "placeholder": "Optionnel",
-        "tooltipText": "Vous pouvez ajouter un mémo ou une description qui sera envoyé avec cette transaction"
       },
       "stellarMemo": {
         "label": "Mémo (Facultatif)",

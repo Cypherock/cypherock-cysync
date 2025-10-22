@@ -1,4 +1,5 @@
 import { IPreparedIcpTransaction } from '@cypherock/coin-support-icp';
+import { IPreparedCantonTransaction } from '@cypherock/coin-support-canton';
 import {
   IPreparedStellarTransaction,
   IStellarMemoType,
@@ -336,17 +337,32 @@ export const SummaryDialog: React.FC = () => {
       }
     }
 
+    if (selectedAccount?.familyId === coinFamiliesMap.canton) {
+      const cantonTxn = transaction as IPreparedCantonTransaction;
+      return cantonTxn.userInputs.outputs
+        .filter(output => output.memo !== undefined && output.memo !== '')
+        .map((output, index) => ({
+          id: `memo-${cantonTxn.accountId}-${index}`,
+          leftText: displayText.memo,
+          rightText: output.memo,
+        }));
+    }
+
     return [];
   };
 
   const getExpirationDateDetails = () => {
-    const expirationDateDetails = {
-      id: `expirationDate-details`,
-      leftText: displayText.expirationDate,
-      rightText: '3 Hours', // TODO: Implement expiration date details
-    };
+    if (!transaction || !transaction.userInputs.outputs) return [];
+    const txn = transaction as IPreparedCantonTransaction;
+    if (txn.userInputs.outputs[0]?.expiry === undefined) return [];
 
-    return [expirationDateDetails];
+    return [
+      {
+        id: 'expirationDate',
+        leftText: displayText.expirationDate,
+        rightText: `${txn.userInputs.outputs[0]?.expiry?.value} ${txn.userInputs.outputs[0]?.expiry?.unit}`,
+      },
+    ];
   };
 
   const isSingleTransaction = transaction?.userInputs.outputs.length === 1;
