@@ -1,9 +1,10 @@
 // import { cantonCoinList } from '@cypherock/coins';
-// import { makePostRequest } from '@cypherock/cysync-utils';
+import { makePostRequest } from '@cypherock/cysync-utils';
 
 // import { config } from '../../config';
 
 // const baseURL = `${config.API_CYPHEROCK}/canton/wallet`;
+const baseURL = `http://localhost:5001/canton/wallet`;
 
 export const getAccountInfo = async (
   address: string,
@@ -21,12 +22,16 @@ export const getAccountInfo = async (
 };
 
 export const getBalance = async (
-  address: string,
+  partyId: string,
   assetId: string,
 ): Promise<string> => {
-  const accountInfo = await getAccountInfo(address, assetId);
+  console.log(`Getting Balance for ${partyId}:${assetId}`);
+  const url = `${baseURL}/balance`;
+  const response = await makePostRequest(url, {
+    partyId,
+  });
 
-  let balance = accountInfo?.balance ?? '0';
+  let balance = response.data?.balance ?? '0';
 
   if (typeof balance === 'number') balance = balance.toString();
 
@@ -37,10 +42,20 @@ export const getBalance = async (
 };
 
 export const getIsAccountCreated = async (
-  address: string,
+  partyId: string,
   assetId: string,
 ): Promise<boolean> => {
-  const accountInfo = await getAccountInfo(address, assetId);
+  try {
+    console.log(`Getting Is Account Created for ${partyId}:${assetId}`);
+    const url = `${baseURL}/balance`;
+    const response = await makePostRequest(url, {
+      partyId,
+    });
 
-  return accountInfo?.balance && accountInfo.balance !== '0';
+    if (!response.data?.balance) return false;
+    return true;
+  } catch (error) {
+    console.error(error);
+    return false;
+  }
 };

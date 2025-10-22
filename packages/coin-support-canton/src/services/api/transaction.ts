@@ -1,11 +1,12 @@
 // import { cantonCoinList } from '@cypherock/coins';
-import { assert } from '@cypherock/cysync-utils';
+import { makePostRequest, assert } from '@cypherock/cysync-utils';
 
 import { ICantonTransactionParams, ICantonTransactionResult } from './types';
 
 // import { config } from '../../config';
 
 // const baseURL = `${config.API_CYPHEROCK}/canton/transaction`;
+const baseURL = `http://localhost:5001/canton/transaction`;
 
 export const getTransactions = async (
   params: ICantonTransactionParams,
@@ -49,28 +50,52 @@ export const getFees = async (assetId: string) => {
   return '0';
 };
 
-export const broadcastTransactionToBlockchain = async (
-  transaction: string,
-  assetId: string,
+export const prepareSendTransaction = async (
+  senderPartyId: string,
+  receiverPartyId: string,
+  amount: string,
+  memo?: string,
+  expiryDate?: string,
 ): Promise<any> => {
-  console.log(`Broadcasting transaction for ${assetId} with ${transaction}`);
-  // const url = `${baseURL}/broadcast`;
-  // const response = await makePostRequest(
-  //   url,
-  //   {
-  //     transaction,
-  //     network: cantonCoinList[assetId].network,
-  //   },
-  //   {
-  //     maxTries: 0,
-  //   },
-  // );
+  console.log(
+    `Preparing transaction for ${senderPartyId} to ${receiverPartyId} with amount ${amount} and memo ${memo}`,
+  );
+  const url = `${baseURL}/prepare/send`;
+  const response = await makePostRequest(url, {
+    senderPartyId,
+    receiverPartyId,
+    amount,
+    memo,
+    expiryDate,
+  });
 
-  // assert(
-  //   !response.data.error,
-  //   new Error('Server: Invalid txn hash from server'),
-  // );
+  assert(
+    !response.data.error &&
+      response.data.command?.preparedTransaction &&
+      response.data.commandId,
+    new Error('Server: Invalid prepared transaction from server'),
+  );
 
-  // return response.data;
-  assert(null, new Error('Broadcast api not integrated'));
+  return response.data;
+};
+
+export const broadcastTransactionToBlockchain = async (
+  signature: string,
+  publicKey: string,
+  preparedTransaction: any,
+): Promise<any> => {
+  console.log(`Broadcasting transaction action`);
+  const url = `${baseURL}/broadcast`;
+  const response = await makePostRequest(url, {
+    signature,
+    publicKey,
+    preparedTransaction,
+  });
+
+  assert(
+    !response.data.error,
+    new Error('Server: Invalid txn hash from server'),
+  );
+
+  return response.data;
 };
