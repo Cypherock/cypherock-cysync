@@ -235,15 +235,18 @@ interface LangReceive {
       prefix: string;
       accountIdPrefix: string;
       principalIdPrefix: string;
+      partyIdPrefix: string;
       suffix: string;
     };
     addressLabel: string;
     accountIdLabel: string;
     principalIdLabel: string;
+    partyIdLabel: string;
     actions: {
       verify: string;
       verifyAccountId: string;
       verifyPrincipalId: string;
+      verifyPartyId: string;
     };
     messageBox: {
       warning: string;

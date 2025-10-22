@@ -173,15 +173,18 @@
         "prefix": "عنوان لـ ",
         "accountIdPrefix": "معرف الحساب لـ ",
         "principalIdPrefix": "معرف المستخدم لـ ",
+        "partyIdPrefix": "معرف الطرف لـ ",
         "suffix": "في ${walletName}"
       },
       "addressLabel": "عنوان",
       "accountIdLabel": "معرف الحساب",
       "principalIdLabel": "معرّف المدير الرئيسي",
+      "partyIdLabel": "معرف الطرف",
       "actions": {
         "verify": "تحقق من تطابق عنوان الاستقبال على X1 Vault تمامًا مع العنوان المعروض أعلاه",
         "verifyAccountId": "تحقق من تطابق معرف الحساب على X1 Vault تمامًا مع معرف الحساب المعروض أعلاه",
-        "verifyPrincipalId": "تحقق من تطابق معرف المسؤول على X1 Vault تمامًا مع معرف المسؤول المعروض أعلاه"
+        "verifyPrincipalId": "تحقق من تطابق معرف المسؤول على X1 Vault تمامًا مع معرف المسؤول المعروض أعلاه",
+        "verifyPartyId": "تحقق من تطابق معرف الطرف على X1 Vault تمامًا مع المعرف المعروض أعلاه"
       },
       "messageBox": {
         "warning": "لم يتم التحقق من عنوان الاستقبال هذا بواسطة الجهاز. استخدمه على مسؤوليتك الخاصة",

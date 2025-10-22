@@ -173,15 +173,18 @@
         "prefix": "Address for ",
         "accountIdPrefix": "Account ID for ",
         "principalIdPrefix": "Principal ID for ",
+        "partyIdPrefix": "Party ID for ",
         "suffix": "in ${walletName}"
       },
       "addressLabel": "Address",
       "accountIdLabel": "Account ID",
       "principalIdLabel": "Principal ID",
+      "partyIdLabel": "Party ID",
       "actions": {
         "verify": "Verify the address on X1 Vault exactly matches the address displayed above",
         "verifyAccountId": "Verify the Account ID on X1 Vault exactly matches the Account ID displayed above",
-        "verifyPrincipalId": "Verify the Principal ID on X1 Vault exactly matches the Principal ID displayed above"
+        "verifyPrincipalId": "Verify the Principal ID on X1 Vault exactly matches the Principal ID displayed above",
+        "verifyPartyId": "Verify the Party Id on X1 Vault exactly matches the Id displayed above"
       },
       "messageBox": {
         "warning": "This Receive Address was NOT VERIFIED by the device. Use it at your own risk",

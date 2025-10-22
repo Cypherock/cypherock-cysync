@@ -40,6 +40,7 @@ import {
   FinalMessage,
   VerifyAccountId,
   VerifyPrincipalId,
+  VerifyPartyId,
 } from '../Dialogs';
 
 export enum ReceiveFlowSource {
@@ -71,6 +72,7 @@ export interface ReceiveDialogContextInterface {
   derivedAddress: string | undefined;
   derivedAccountId: string | undefined;
   derivedPrincipalId: string | undefined;
+  derivedPartyId: string | undefined;
   isAddressVerified: boolean;
   deviceEvents: Record<number, boolean | undefined>;
   startFlow: () => Promise<void>;
@@ -144,6 +146,7 @@ export const ReceiveDialogProvider: FC<ReceiveDialogContextProviderProps> = ({
   const [derivedPrincipalId, setDerivedPrincipalId] = useState<
     string | undefined
   >();
+  const [derivedPartyId] = useState<string | undefined>();
   const [isAddressVerified, setIsAddressVerified] = useState(false);
   const [isFlowCompleted, setIsFlowCompleted] = useState(false);
   const [deviceEvents, setDeviceEvents] = useState<
@@ -187,6 +190,7 @@ export const ReceiveDialogProvider: FC<ReceiveDialogContextProviderProps> = ({
           <VerifyAddress />,
           <VerifyAccountId />,
           <VerifyPrincipalId />,
+          <VerifyPartyId />,
         ],
       },
       {
@@ -236,8 +240,11 @@ export const ReceiveDialogProvider: FC<ReceiveDialogContextProviderProps> = ({
 
   const onDeviceActionNext = () => {
     const isIcpAccount = selectedAccount?.familyId === coinFamiliesMap.icp;
+    const isXrpAccount = selectedAccount?.familyId === coinFamiliesMap.xrp;
     if (isIcpAccount) {
       goTo(2, 1);
+    } else if (isXrpAccount) {
+      goTo(2, 3);
     } else {
       onNext();
     }
@@ -426,6 +433,7 @@ export const ReceiveDialogProvider: FC<ReceiveDialogContextProviderProps> = ({
     derivedAddress,
     derivedAccountId,
     derivedPrincipalId,
+    derivedPartyId,
     isAddressVerified,
     deviceEvents,
     startFlow,

@@ -173,15 +173,18 @@
         "prefix": "在 ",
         "accountIdPrefix": "账户 ID 为 ",
         "principalIdPrefix": "主要 ID 为 ",
+        "partyIdPrefix": "参与方ID为 ",
         "suffix": "${walletName}中的地址"
       },
       "addressLabel": "地址",
       "accountIdLabel": "账户 ID",
       "principalIdLabel": "主要ID",
+      "partyIdLabel": "参与方ID",
       "actions": {
         "verify": "验证X1 Vault上的地址与上面显示的地址完全匹配",
         "verifyAccountId": "在X1 Vault上验证账户ID与上面显示的账户ID完全匹配",
-        "verifyPrincipalId": "在X1 Vault上验证主ID与上面显示的主ID完全匹配"
+        "verifyPrincipalId": "在X1 Vault上验证主ID与上面显示的主ID完全匹配",
+        "verifyPartyId": "验证X1 Vault上的参与方ID与上面显示的ID完全匹配"
       },
       "messageBox": {
         "warning": "此接收地址未经过设备验证。使用风险自负",

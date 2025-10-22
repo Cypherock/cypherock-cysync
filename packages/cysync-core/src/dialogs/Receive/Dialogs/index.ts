@@ -4,3 +4,4 @@ export * from './VerifyAddress';
 export * from './FinalMessage';
 export * from './VerifyAccountId';
 export * from './VerifyPrincipalId';
+export * from './VerifyPartyId';

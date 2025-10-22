@@ -173,15 +173,18 @@
         "prefix": "Alamat untuk ",
         "accountIdPrefix": "ID Akun untuk ",
         "principalIdPrefix": "ID Utama untuk ",
+        "partyIdPrefix": "ID Pihak untuk ",
         "suffix": "di ${walletName}"
       },
       "addressLabel": "Alamat",
       "accountIdLabel": "ID Akun",
       "principalIdLabel": "ID Utama",
+      "partyIdLabel": "ID Pihak",
       "actions": {
         "verify": "Verifikasi apakah alamat pada X1 Vault sesuai dengan alamat yang ditampilkan di atas",
         "verifyAccountId": "Verifikasi ID Akun di X1 Vault cocok persis dengan ID Akun yang ditampilkan di atas",
-        "verifyPrincipalId": "Verifikasi ID Principal di X1 Vault cocok persis dengan ID Principal yang ditampilkan di atas"
+        "verifyPrincipalId": "Verifikasi ID Principal di X1 Vault cocok persis dengan ID Principal yang ditampilkan di atas",
+        "verifyPartyId": "Verifikasi ID Pihak di X1 Vault cocok persis dengan ID yang ditampilkan di atas"
       },
       "messageBox": {
         "warning": "Alamat Penerimaan ini TIDAK DIVERIFIKASI oleh perangkat. Gunakan dengan risiko Anda sendiri",

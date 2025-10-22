@@ -173,15 +173,18 @@
         "prefix": "Adresse für ",
         "accountIdPrefix": "Kontokennung für ",
         "principalIdPrefix": "Principal-Kennung für ",
+        "partyIdPrefix": "Partei-ID für ",
         "suffix": "in ${walletName}"
       },
       "addressLabel": "Adresse",
       "accountIdLabel": "Konto-ID",
       "principalIdLabel": "Haupt-ID",
+      "partyIdLabel": "Partei-ID",
       "actions": {
         "verify": "Überprüfen Sie, dass die Adresse auf dem X1 Vault genau mit der oben angezeigten Adresse übereinstimmt",
         "verifyAccountId": "Überprüfen Sie, ob die Kontonummer auf der X1 Vault genau mit der oben angezeigten Kontonummer übereinstimmt",
-        "verifyPrincipalId": "Überprüfen Sie, ob die Haupt-ID auf der X1 Vault genau mit der oben angezeigten Haupt-ID übereinstimmt"
+        "verifyPrincipalId": "Überprüfen Sie, ob die Haupt-ID auf der X1 Vault genau mit der oben angezeigten Haupt-ID übereinstimmt",
+        "verifyPartyId": "Überprüfen Sie, dass die Partei-ID auf dem X1 Vault genau mit der oben angezeigten ID übereinstimmt"
       },
       "messageBox": {
         "warning": "Diese Empfangsadresse wurde NICHT vom Gerät VERIFIZIERT. Verwenden Sie sie auf eigenes Risiko",
