@@ -32,5 +32,6 @@ export interface IPreparedCantonTransaction extends IPreparedTransaction {
   computedData: {
     output: IPreparedCantonTransactionOutput;
     fees: string;
+    preparedTransaction?: any;
   };
 }

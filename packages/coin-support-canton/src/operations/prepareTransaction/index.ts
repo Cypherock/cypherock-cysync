@@ -6,8 +6,9 @@ import { IPrepareCantonTransactionParams } from './types';
 
 import { IPreparedCantonTransaction } from '../transaction';
 import { validateAddress } from '../validateAddress';
+import { getIsAccountCreated, prepareSendTransaction } from '../../services';
 
-const validateAddresses = (
+const validateAddresses = async (
   params: IPrepareCantonTransactionParams,
   coin: ICoinInfo,
 ) => {
@@ -22,7 +23,8 @@ const validateAddresses = (
      */
     if (
       output.address &&
-      !validateAddress({ address: output.address, coinId: coin.id })
+      !validateAddress({ address: output.address, coinId: coin.id }) &&
+      !(await getIsAccountCreated(output.address, coin.id))
     ) {
       isValid = false;
     }
@@ -48,15 +50,12 @@ export const prepareTransaction = async (
     new Error('Canton transaction requires exactly 1 output'),
   );
 
-  const outputsValidation = validateAddresses(params, coin);
+  const outputsValidation = await validateAddresses(params, coin);
 
   const output = { ...txn.userInputs.outputs[0] };
 
   output.amount = new BigNumber(output.amount).toString();
   let sendAmount = new BigNumber(output.amount);
-
-  const myAddress = account.xpubOrAddress;
-  const isOwnOutputAddress = output.address === myAddress;
 
   // TODO: Estimate fees
   const { fees } = txn.computedData;
@@ -93,6 +92,28 @@ export const prepareTransaction = async (
   // TODO: validate expiry
   const isInvalidExpiry = false;
 
+  const isValidAmount = !sendAmount.isNaN() && !sendAmount.isZero();
+
+  const isValidInputs =
+    output.address?.length &&
+    isValidAmount &&
+    outputsValidation.every(isValid => isValid) &&
+    hasEnoughBalance &&
+    isValidFee &&
+    !isInvalidExpiry &&
+    !isFeeBelowMin;
+
+  let preparedTransaction: any;
+  // prepare send transaction if all validations are passed
+  if (isValidInputs) {
+    preparedTransaction = await prepareSendTransaction(
+      account.xpubOrAddress,
+      output.address,
+      output.amount,
+      output.memo,
+    );
+  }
+
   return {
     ...txn,
     validation: {
@@ -100,13 +121,14 @@ export const prepareTransaction = async (
       hasEnoughBalance,
       isValidFee,
       isFeeBelowMin,
-      ownOutputAddressNotAllowed: [isOwnOutputAddress],
+      ownOutputAddressNotAllowed: [],
       zeroAmountNotAllowed: sendAmount.isZero(),
       isInvalidExpiry,
     },
     computedData: {
       fees,
       output,
+      preparedTransaction,
     },
   };
 };

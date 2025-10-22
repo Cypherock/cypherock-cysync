@@ -9,6 +9,7 @@ import {
   TransactionStatusMap,
   TransactionTypeMap,
 } from '@cypherock/db-interfaces';
+import { hexToUint8Array, uint8ArrayToBase64 } from '@cypherock/sdk-utils';
 
 import { IBroadcastCantonTransactionParams } from './types';
 
@@ -18,7 +19,7 @@ export const broadcastTransaction = async (
   params: IBroadcastCantonTransactionParams,
 ): Promise<ITransaction> => {
   const { db, signedTransaction, transaction } = params;
-  const { account, coin } = await getAccountAndCoin(
+  const { account } = await getAccountAndCoin(
     db,
     cantonCoinList,
     transaction.accountId,
@@ -28,12 +29,13 @@ export const broadcastTransaction = async (
   const isMine = params.transaction.computedData.output.address === myAddress;
 
   const result = await broadcastTransactionToBlockchain(
-    signedTransaction,
-    coin.id,
+    uint8ArrayToBase64(hexToUint8Array(signedTransaction)),
+    uint8ArrayToBase64(hexToUint8Array(account.extraData?.publicKey ?? '')),
+    transaction.computedData.preparedTransaction,
   );
 
   const parsedTransaction: ITransaction = {
-    hash: result.tx_json.hash,
+    hash: result.updateId,
     fees: transaction.computedData.fees,
     amount: '0',
     status: TransactionStatusMap.pending,
@@ -61,12 +63,7 @@ export const broadcastTransaction = async (
     familyId: account.familyId,
     parentAccountId: account.parentAccountId,
     remarks: [transaction.userInputs.outputs[0].remarks ?? ''],
-    extraData: {
-      destinationTag: result.tx_json.DestinationTag,
-      flags: result.tx_json.Flags,
-      sequence: result.tx_json.Sequence,
-      lastLedgerSequence: result.tx_json.LastLedgerSequence,
-    },
+    extraData: {},
   };
 
   const amount = parsedTransaction.outputs.reduce(

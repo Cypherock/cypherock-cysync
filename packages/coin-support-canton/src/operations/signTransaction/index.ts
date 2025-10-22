@@ -25,9 +25,13 @@ const prepareUnsignedTxn = async (
   coin: ICantonCoinInfo,
   account: IAccount,
 ): Promise<IUnsignedTransaction> => {
+  // const expiryDate =
   logger.info('Prepared Transaction', { transaction, coin, account });
+  const prepared = transaction.computedData.preparedTransaction;
 
-  return { protoSerializedPreparedTransaction: '' };
+  return {
+    protoSerializedPreparedTransaction: prepared.command.preparedTransaction,
+  };
 };
 
 const signTransactionFromDevice: SignTransactionFromDevice<
@@ -48,11 +52,10 @@ const signTransactionFromDevice: SignTransactionFromDevice<
 
   assert(txn, 'Missing unsigned transaction');
 
-  const { serializedTxn } = await app.signTxn({
+  const { signature } = await app.signTxn({
     walletId: hexToUint8Array(account.walletId),
     derivationPath: mapDerivationPath(account.derivationPath),
     txn,
-    serializeTxn: true,
     onEvent: event => {
       const deviceEvent = signCantonToDeviceEventMap[event];
       if (deviceEvent !== undefined) {
@@ -65,9 +68,9 @@ const signTransactionFromDevice: SignTransactionFromDevice<
 
   observer.next({ type: 'Device', device: { isDone: true, events } });
 
-  assert(serializedTxn, new Error('Failed to sign transaction'));
+  assert(signature, new Error('Failed to sign transaction'));
 
-  return serializedTxn;
+  return signature;
 };
 
 export const signTransaction = (
