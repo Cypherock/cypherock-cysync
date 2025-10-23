@@ -173,20 +173,24 @@
         "prefix": "在 ",
         "accountIdPrefix": "账户 ID 为 ",
         "principalIdPrefix": "主要 ID 为 ",
+        "partyIdPrefix": "Party ID 为 ",
         "suffix": "${walletName}中的地址"
       },
       "addressLabel": "地址",
       "accountIdLabel": "账户 ID",
       "principalIdLabel": "主要ID",
+      "partyIdLabel": "Party ID",
       "actions": {
         "verify": "验证X1 Vault上的地址与上面显示的地址完全匹配",
         "verifyAccountId": "在X1 Vault上验证账户ID与上面显示的账户ID完全匹配",
-        "verifyPrincipalId": "在X1 Vault上验证主ID与上面显示的主ID完全匹配"
+        "verifyPrincipalId": "在X1 Vault上验证主ID与上面显示的主ID完全匹配",
+        "verifyPartyId": "在X1 Vault上验证Party ID与上面显示的Party ID完全匹配"
       },
       "messageBox": {
         "warning": "此接收地址未经过设备验证。使用风险自负",
         "accountIdWarning": "此接收账户ID未经设备验证。使用时请自担风险",
-        "principalIdWarning": "此接收主体ID未经设备验证。使用时请自担风险"
+        "principalIdWarning": "此接收主体ID未经设备验证。使用时请自担风险",
+        "partyIdWarning": "此接收Party ID未经设备验证。使用时请自担风险"
       },
       "waitMessageBox": {
         "warning": "此过程可能需要大约一分钟。请耐心等待"
@@ -194,13 +198,15 @@
     },
     "congrats": {
       "title": "地址验证成功",
-      "accountAndPrincipalIdTitle": "账户 ID 和主体 ID 验证成功"
+      "accountAndPrincipalIdTitle": "账户 ID 和主体 ID 验证成功",
+      "partyIdTitle": "Party ID 验证成功"
     },
     "finalButtons": {
       "secondary": "再次验证",
       "secondaryUnverified": "验证地址",
       "secondaryUnverifiedAccountId": "验证账户 ID",
       "secondaryUnverifiedPrincipalId": "验证主体 ID",
+      "secondaryUnverifiedPartyId": "验证Party ID",
       "primary": "完成",
       "continue": "继续"
     },

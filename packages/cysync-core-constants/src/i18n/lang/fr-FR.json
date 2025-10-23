@@ -232,20 +232,24 @@
         "prefix": "Adresse pour ",
         "accountIdPrefix": "ID de compte pour ",
         "principalIdPrefix": "ID principal pour ",
+        "partyIdPrefix": "ID de la partie pour ",
         "suffix": "dans ${walletName}"
       },
       "addressLabel": "Adresse",
       "accountIdLabel": "ID de compte",
       "principalIdLabel": "ID principal",
+      "partyIdLabel": "ID de la partie",
       "actions": {
         "verify": "Vérifiez que l'adresse sur X1 Vault correspond exactement à l'adresse affichée ci-dessus",
         "verifyAccountId": "Vérifiez que l'ID de compte sur X1 Vault correspond exactement à l'ID de compte affiché ci-dessus",
-        "verifyPrincipalId": "Vérifiez que l'ID principal sur X1 Vault correspond exactement à l'ID principal affiché ci-dessus"
+        "verifyPrincipalId": "Vérifiez que l'ID principal sur X1 Vault correspond exactement à l'ID principal affiché ci-dessus",
+        "verifyPartyId": "Vérifiez que l'ID de la partie sur X1 Vault correspond exactement à l'ID de la partie affiché ci-dessus"
       },
       "messageBox": {
         "warning": "Cette adresse de réception n'a PAS ÉTÉ VÉRIFIÉE par l'appareil. Utilisez-la à vos propres risques",
         "accountIdWarning": "Cet ID de compte de réception n'a PAS ÉTÉ VÉRIFIÉ par l'appareil. Utilisez-le à vos propres risques",
-        "principalIdWarning": "Cet ID principal de réception n'a PAS ÉTÉ VÉRIFIÉ par l'appareil. Utilisez-le à vos propres risques"
+        "principalIdWarning": "Cet ID principal de réception n'a PAS ÉTÉ VÉRIFIÉ par l'appareil. Utilisez-le à vos propres risques",
+        "partyIdWarning": "Cet ID de la partie de réception n'a PAS ÉTÉ VÉRIFIÉ par l'appareil. Utilisez-le à vos propres risques"
       },
       "waitMessageBox": {
         "warning": "Ce processus pourrait prendre environ une minute. Veuillez être patient"
@@ -253,13 +257,15 @@
     },
     "congrats": {
       "title": "Adresse vérifiée avec succès",
-      "accountAndPrincipalIdTitle": "ID de compte et ID principal vérifiés avec succès"
+      "accountAndPrincipalIdTitle": "ID de compte et ID principal vérifiés avec succès",
+      "partyIdTitle": "ID de la partie vérifié avec succès"
     },
     "finalButtons": {
       "secondary": "Vérifier à nouveau",
       "secondaryUnverified": "Vérifier l'adresse",
       "secondaryUnverifiedAccountId": "Vérifier l'ID de compte",
       "secondaryUnverifiedPrincipalId": "Vérifier l'ID principal",
+      "secondaryUnverifiedPartyId": "Vérifier l'ID de la partie",
       "primary": "Terminé",
       "continue": "Continuer"
     },

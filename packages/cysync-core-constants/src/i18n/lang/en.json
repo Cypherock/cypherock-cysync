@@ -173,20 +173,24 @@
         "prefix": "Address for ",
         "accountIdPrefix": "Account ID for ",
         "principalIdPrefix": "Principal ID for ",
+        "partyIdPrefix": "Party ID for ",
         "suffix": "in ${walletName}"
       },
       "addressLabel": "Address",
       "accountIdLabel": "Account ID",
       "principalIdLabel": "Principal ID",
+      "partyIdLabel": "Party ID",
       "actions": {
         "verify": "Verify the address on X1 Vault exactly matches the address displayed above",
         "verifyAccountId": "Verify the Account ID on X1 Vault exactly matches the Account ID displayed above",
-        "verifyPrincipalId": "Verify the Principal ID on X1 Vault exactly matches the Principal ID displayed above"
+        "verifyPrincipalId": "Verify the Principal ID on X1 Vault exactly matches the Principal ID displayed above",
+        "verifyPartyId": "Verify the Party ID on X1 Vault exactly matches the Party ID displayed above"
       },
       "messageBox": {
         "warning": "This Receive Address was NOT VERIFIED by the device. Use it at your own risk",
         "accountIdWarning": "This Receive Account ID was NOT VERIFIED by the device. Use it at your own risk",
-        "principalIdWarning": "This Receive Principal ID was NOT VERIFIED by the device. Use it at your own risk"
+        "principalIdWarning": "This Receive Principal ID was NOT VERIFIED by the device. Use it at your own risk",
+        "partyIdWarning": "This Receive Party ID was NOT VERIFIED by the device. Use it at your own risk"
       },
       "waitMessageBox": {
         "warning": "This process might take around a minute. Please be patient"
@@ -194,13 +198,15 @@
     },
     "congrats": {
       "title": "Address verified successfully",
-      "accountAndPrincipalIdTitle": "Account ID and Principal ID verified successfully"
+      "accountAndPrincipalIdTitle": "Account ID and Principal ID verified successfully",
+      "partyIdTitle": "Party ID verified successfully"
     },
     "finalButtons": {
       "secondary": "Verify Again",
       "secondaryUnverified": "Verify Address",
       "secondaryUnverifiedAccountId": "Verify Account ID",
       "secondaryUnverifiedPrincipalId": "Verify Principal ID",
+      "secondaryUnverifiedPartyId": "Verify Party ID",
       "primary": "Done",
       "continue": "Continue"
     },
