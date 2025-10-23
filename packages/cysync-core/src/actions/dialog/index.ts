@@ -144,3 +144,9 @@ export const openMobileAppSyncDialog = () =>
 
 export const openFullPageLoaderDialog = (props: FullPageLoaderDialogProps) =>
   openDialog({ name: 'fullPageLoaderDialog', data: props });
+
+export const openEnableApprovalPromptDialog = () =>
+  openDialog({ name: 'enableApprovalPromptDialog', data: undefined });
+
+export const openEnableApprovalDialog = () =>
+  openDialog({ name: 'enableApprovalDialog', data: undefined });

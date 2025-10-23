@@ -1288,6 +1288,38 @@ interface LangDialogs {
     toAmount: string;
     toReceiver: string;
   };
+  cantonDialogs: {
+    common: {
+      actions: {
+        verifyAccountAddress: string;
+        enterPassphrase: string;
+        enterPinAndTapCard: string;
+      };
+    };
+    enableApprovalPrompt: {
+      title: string;
+      subTitle: string;
+    };
+    enableApproval: {
+      title: string;
+      dialogs: {
+        x1Vault: {
+          title: string;
+          name: string;
+          actions: {
+            verifyAutomaticApproval: {
+              prefix: string;
+              suffix: string;
+            };
+          };
+        };
+        confirmation: {
+          name: string;
+          title: string;
+        };
+      };
+    };
+  };
 }
 
 interface LangToggle {

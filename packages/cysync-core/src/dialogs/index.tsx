@@ -46,6 +46,7 @@ import { SwapDialog } from './SwapDialog';
 import { WalletActionsDialogBox } from './WalletActions';
 import { WalletConnectDialog } from './WalletConnect';
 import { WalletSyncError } from './WalletSyncError';
+import { EnableApprovalDialog, EnableApprovalPromptDialog } from './Canton';
 
 export const dialogs: Record<DialogName, ReactComponentLike> = {
   walletSyncError: WalletSyncError,
@@ -87,4 +88,6 @@ export const dialogs: Record<DialogName, ReactComponentLike> = {
   mobileAppSyncDialog: MobileAppSyncDialog,
   swapDialog: SwapDialog,
   fullPageLoaderDialog: FullPageLoaderDialog,
+  enableApprovalPromptDialog: EnableApprovalPromptDialog,
+  enableApprovalDialog: EnableApprovalDialog,
 };
