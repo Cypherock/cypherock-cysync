@@ -211,6 +211,16 @@ export interface IDialogState {
     isOpen: boolean;
     data?: FullPageLoaderDialogProps;
   };
+
+  enableApprovalPromptDialog: {
+    isOpen: boolean;
+    data?: undefined;
+  };
+
+  enableApprovalDialog: {
+    isOpen: boolean;
+    data?: undefined;
+  };
 }
 
 export const GuidedFlowMap = {
