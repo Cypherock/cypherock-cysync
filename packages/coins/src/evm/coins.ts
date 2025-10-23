@@ -112,7 +112,7 @@ export default [
     magnitude: 18,
     hasSegwit: false,
     isTest: false,
-    coinGeckoId: 'base',
+    coinGeckoId: 'ethereum',
     coinIndex: '8000003c',
     feesUnit: 'Gwei',
     network: 'base',
