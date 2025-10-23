@@ -350,9 +350,9 @@
         "error": "Memo ist zu lang (max. 255 Zeichen)"
       },
       "expirationDate": {
-        "label": "Ablaufdatum",
-        "placeholder": "Ablaufdatum festlegen",
-        "tooltipText": "Bitte legen Sie ein Ablaufdatum für diese partyID fest. Wenn der Empfänger diese Transaktion vor diesem Datum nicht akzeptiert, läuft sie ab",
+        "label": "Ablaufzeit",
+        "placeholder": "Ablaufzeit auswählen",
+        "tooltipText": "Bitte wählen Sie eine Ablaufzeit für diese Transaktion. Wenn der Empfänger diese Transaktion vor diesem Zeitpunkt nicht akzeptiert, läuft sie ab",
         "options": {
           "threeHours": "3 Stunden",
           "oneDay": "1 Tag",
@@ -388,7 +388,7 @@
       "remarks": "Persönliche Notiz",
       "destinationTag": "Ziel-Tag",
       "memo": "Memo",
-      "expirationDate": "Ablaufdatum"
+      "expirationDate": "Ablaufzeit"
     },
     "finalMessage": {
       "button": "Transaktionen überprüfen",
@@ -510,6 +510,7 @@
       "remarks": "Persönliche Notiz",
       "destinationTag": "Ziel-Tag",
       "memo": "Memo",
+      "expirationDate": "Ablaufdatum",
       "operation": "Betrieb"
     },
     "noData": {

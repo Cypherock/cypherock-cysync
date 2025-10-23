@@ -2,6 +2,10 @@
 /* eslint-disable react/jsx-key */
 import { getCoinSupport } from '@cypherock/coin-support';
 import { IPreparedBtcTransaction } from '@cypherock/coin-support-btc';
+import {
+  ICantonTransactionExpiryInput,
+  IPreparedCantonTransaction,
+} from '@cypherock/coin-support-canton';
 import { IPreparedEvmTransaction } from '@cypherock/coin-support-evm';
 import { IPreparedIcpTransaction } from '@cypherock/coin-support-icp';
 import {
@@ -93,7 +97,6 @@ import {
   SelectionDialog,
   DeviceAction,
 } from '../Dialogs';
-import { IPreparedCantonTransaction } from '@cypherock/coin-support-canton';
 
 export interface SendDialogContextInterface {
   source: SendFlowSource;
@@ -136,6 +139,7 @@ export interface SendDialogContextInterface {
   prepareMemo: (memo: string) => Promise<void>;
   prepareStellarMemo: (memo: IStellarMemo) => Promise<void>;
   prepareCantonMemo: (memo: string) => Promise<void>;
+  prepareCantonExpiry: (expiry: ICantonTransactionExpiryInput) => Promise<void>;
   priceConverter: (val: string, inverse?: boolean) => string;
   updateUserInputs: (count: number) => void;
   isAccountSelectionDisabled: boolean | undefined;
@@ -767,6 +771,24 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
     await prepare(txn);
   };
 
+  const prepareCantonExpiry = async (expiry: ICantonTransactionExpiryInput) => {
+    const txn = transactionRef.current as IPreparedCantonTransaction;
+    if (!txn) return;
+
+    if (txn.userInputs.outputs.length > 0) {
+      txn.userInputs.outputs[0].expiry = expiry;
+    } else {
+      txn.userInputs.outputs = [
+        {
+          address: '',
+          amount: '',
+          expiry,
+        },
+      ];
+    }
+    await prepare(txn);
+  };
+
   const priceConverter = (val: string, invert?: boolean) => {
     const coinPrice = priceInfos.find(
       p => p.assetId === selectedAccount?.assetId,
@@ -1213,6 +1235,7 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
     prepareMemo,
     prepareStellarMemo,
     prepareCantonMemo,
+    prepareCantonExpiry,
     priceConverter,
     updateUserInputs,
     isAccountSelectionDisabled: disableAccountSelection,

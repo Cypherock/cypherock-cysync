@@ -87,6 +87,7 @@ export interface TransactionRowData {
   network: string;
   destinationTag?: number;
   memo?: string;
+  expiry?: string;
   operation?: string;
   providerUrl?: string;
 }
@@ -170,12 +171,18 @@ const getExtraInfo = (transaction: ITransaction) => {
 
   const destinationTag = transaction.extraData?.destinationTag;
   const memo = transaction.extraData?.memo;
+  const expiry = transaction.extraData?.expiry
+    ? formatDate(
+        new Date(transaction.extraData?.expiry),
+        'eeee, MMMM d yyyy h:mm a',
+      )
+    : undefined;
   let operation = transaction.extraData?.operation;
   if (operation) {
     operation = operation.charAt(0).toUpperCase() + operation.slice(1);
   }
 
-  return { remarks, destinationTag, memo, operation };
+  return { remarks, destinationTag, memo, operation, expiry };
 };
 
 const getDisplayValues = (

@@ -350,9 +350,9 @@
         "error": "Memo terlalu panjang (maks 255 karakter)"
       },
       "expirationDate": {
-        "label": "Tanggal Kedaluwarsa",
-        "placeholder": "Atur Tanggal Kedaluwarsa",
-        "tooltipText": "Silakan atur tanggal kedaluwarsa untuk partyID ini, jika penerima tidak menerima transaksi ini sebelum tanggal tersebut maka akan kedaluwarsa",
+        "label": "Waktu Kedaluwarsa",
+        "placeholder": "Pilih Waktu Kedaluwarsa",
+        "tooltipText": "Silakan pilih waktu kedaluwarsa untuk transaksi ini, jika penerima tidak menerima transaksi ini sebelum waktu tersebut maka akan kedaluwarsa",
         "options": {
           "threeHours": "3 Jam",
           "oneDay": "1 Hari",
@@ -388,7 +388,7 @@
       "remarks": "Catatan Pribadi",
       "destinationTag": "Tag Tujuan",
       "memo": "Memo",
-      "expirationDate": "Tanggal Kedaluwarsa"
+      "expirationDate": "Waktu Kedaluwarsa"
     },
     "finalMessage": {
       "button": "Periksa transaksi",
@@ -510,6 +510,7 @@
       "remarks": "Catatan Pribadi",
       "destinationTag": "Tag Tujuan",
       "memo": "Memo",
+      "expirationDate": "Waktu Kedaluwarsa",
       "operation": "Operasi"
     },
     "noData": {

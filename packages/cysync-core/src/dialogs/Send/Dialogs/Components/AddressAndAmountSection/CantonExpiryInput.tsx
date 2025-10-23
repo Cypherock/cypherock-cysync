@@ -1,4 +1,9 @@
 import {
+  cantonTransactionExpiryMap,
+  ICantonTransactionExpiryInput,
+  ICantonTransactionExpiryInputKey,
+} from '@cypherock/coin-support-canton';
+import {
   Container,
   Flex,
   LangDisplay,
@@ -11,53 +16,43 @@ import {
 import lodash from 'lodash';
 import React, { useCallback, useMemo, useState } from 'react';
 
-export enum IExpirationDateInputType {
-  THREE_HOURS = 3,
-  ONE_DAY = 1,
-  ONE_WEEK = 7,
-  TEN_DAYS = 10,
-  MONTH = 30,
-}
-
-interface IExpirationDateInputValue {
-  type: IExpirationDateInputType;
-  value: string;
-}
-
-interface ExpirationDateOption {
-  value: IExpirationDateInputType;
+interface ICantonTransactionExpiryOption {
+  value: ICantonTransactionExpiryInputKey;
   label: string;
 }
 
-interface ExpirationDateInputProps {
+export interface ICantonTransactionExpiryInputProps {
   label: string;
   tooltipText: string;
   dropdownPlaceholder: string;
-  searchText: string;
-  initialValue: IExpirationDateInputValue;
-  onChange: (memo: IExpirationDateInputValue) => Promise<void>;
-  expirationDateOptions: ExpirationDateOption[];
+  searchText?: string;
+  initialValue?: ICantonTransactionExpiryInputKey;
+  onChange: (expiry: ICantonTransactionExpiryInput) => Promise<void>;
+  expiryOptions: ICantonTransactionExpiryOption[];
   error?: string;
   isDisabled?: boolean;
 }
 
-export const ExpirationDateInput: React.FC<ExpirationDateInputProps> = ({
+export const CantonTransactionExpiryInput: React.FC<
+  ICantonTransactionExpiryInputProps
+> = ({
   label,
   tooltipText,
   dropdownPlaceholder,
   searchText,
   initialValue,
   onChange,
-  expirationDateOptions,
+  expiryOptions,
   error,
   isDisabled,
 }) => {
-  const [selectedDate, setSelectedDate] =
-    useState<IExpirationDateInputValue>(initialValue);
+  const [selectedExpiry, setSelectedExpiry] = useState<
+    ICantonTransactionExpiryInputKey | undefined
+  >(initialValue);
 
   const debouncedOnChange = useCallback(
-    lodash.debounce((expirationDate: IExpirationDateInputValue) => {
-      onChange(expirationDate);
+    lodash.debounce((expiry: ICantonTransactionExpiryInput) => {
+      onChange(expiry);
     }, 300),
     [onChange],
   );
@@ -65,28 +60,28 @@ export const ExpirationDateInput: React.FC<ExpirationDateInputProps> = ({
   const handleValueChange = (selectedValue?: string) => {
     if (!selectedValue) return;
 
-    const selectedType =
-      IExpirationDateInputType[
-        selectedValue as keyof typeof IExpirationDateInputType
+    const selectedExpiryValue =
+      cantonTransactionExpiryMap[
+        selectedValue as keyof typeof cantonTransactionExpiryMap
       ];
 
-    const expirationDateInputValue: IExpirationDateInputValue = {
-      type: selectedType,
-      value: selectedValue,
-    };
+    if (!selectedExpiryValue) return;
 
-    setSelectedDate(expirationDateInputValue);
-    debouncedOnChange(expirationDateInputValue);
+    setSelectedExpiry(selectedValue as ICantonTransactionExpiryInputKey);
+    debouncedOnChange({
+      key: selectedValue as ICantonTransactionExpiryInputKey,
+      value: selectedExpiryValue,
+    });
   };
 
-  const expirationDateOptionsDropDownList: DropDownItemProps[] = useMemo(
+  const expiryOptionsDropDownList: DropDownItemProps[] = useMemo(
     () =>
-      expirationDateOptions.map(expirationDateOption => ({
-        id: expirationDateOption.value.toString(),
-        text: expirationDateOption.label,
+      expiryOptions.map(expiryOption => ({
+        id: expiryOption.value,
+        text: expiryOption.label,
         checkType: 'radio',
       })),
-    [expirationDateOptions],
+    [expiryOptions],
   );
 
   return (
@@ -102,9 +97,9 @@ export const ExpirationDateInput: React.FC<ExpirationDateInputProps> = ({
 
       <Flex $alignSelf="stretch" gap={8} align="flex-start" width="full">
         <Dropdown
-          items={expirationDateOptionsDropDownList}
-          selectedItem={selectedDate.value.toString()}
-          searchText={searchText}
+          items={expiryOptionsDropDownList}
+          selectedItem={selectedExpiry}
+          searchText={searchText ?? ''}
           placeholderText={dropdownPlaceholder}
           onChange={handleValueChange}
           autoFocus={false}
@@ -127,7 +122,9 @@ export const ExpirationDateInput: React.FC<ExpirationDateInputProps> = ({
   );
 };
 
-ExpirationDateInput.defaultProps = {
+CantonTransactionExpiryInput.defaultProps = {
   error: undefined,
   isDisabled: undefined,
+  initialValue: undefined,
+  searchText: undefined,
 };

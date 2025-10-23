@@ -1,5 +1,5 @@
-import { IPreparedIcpTransaction } from '@cypherock/coin-support-icp';
 import { IPreparedCantonTransaction } from '@cypherock/coin-support-canton';
+import { IPreparedIcpTransaction } from '@cypherock/coin-support-icp';
 import {
   IPreparedStellarTransaction,
   IStellarMemoType,
@@ -353,16 +353,14 @@ export const SummaryDialog: React.FC = () => {
 
   const getExpirationDateDetails = () => {
     if (!transaction || !transaction.userInputs.outputs) return [];
-    const txn = transaction as IPreparedCantonTransaction;
-    if (txn.userInputs.outputs[0]?.expiry === undefined) return [];
-
-    return [
-      {
-        id: 'expirationDate',
+    const cantonTxn = transaction as IPreparedCantonTransaction;
+    return cantonTxn.userInputs.outputs
+      .filter(output => output.expiry !== undefined && output.expiry.key)
+      .map((output, index) => ({
+        id: `expiry-${cantonTxn.accountId}-${index}`,
         leftText: displayText.expirationDate,
-        rightText: `${txn.userInputs.outputs[0]?.expiry?.value} ${txn.userInputs.outputs[0]?.expiry?.unit}`,
-      },
-    ];
+        rightText: output.expiry?.key,
+      }));
   };
 
   const isSingleTransaction = transaction?.userInputs.outputs.length === 1;

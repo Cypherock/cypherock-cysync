@@ -350,9 +350,9 @@
         "error": "备注过长（最多255个字符）"
       },
       "expirationDate": {
-        "label": "过期日期",
-        "placeholder": "设置过期日期",
-        "tooltipText": "请为此partyID设置过期日期，如果接收方在此日期之前不接受此交易，则交易将过期",
+        "label": "过期时间",
+        "placeholder": "选择过期时间",
+        "tooltipText": "请选择过期时间，如果接收方在此时间之前不接受此交易，则交易将过期",
         "options": {
           "threeHours": "3小时",
           "oneDay": "1天",
@@ -388,7 +388,7 @@
       "remarks": "个人备注",
       "destinationTag": "目标标签",
       "memo": "备忘录",
-      "expirationDate": "过期日期"
+      "expirationDate": "过期时间"
     },
     "finalMessage": {
       "button": "查看交易",
@@ -510,6 +510,7 @@
       "remarks": "个人备注",
       "destinationTag": "目标标签",
       "memo": "备忘录",
+      "expirationDate": "过期日期",
       "operation": "操作"
     },
     "noData": {

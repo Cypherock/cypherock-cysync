@@ -501,6 +501,7 @@ interface LangHistory {
     remarks: string;
     destinationTag: string;
     memo: string;
+    expirationDate: string;
     operation: string;
   };
   noData: { text: string; subText: string; buttonText: string };

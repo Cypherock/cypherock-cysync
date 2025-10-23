@@ -65,6 +65,7 @@ export const broadcastTransaction = async (
     remarks: [transaction.userInputs.outputs[0].remarks ?? ''],
     extraData: {
       memo: transaction.computedData.output.memo,
+      expiry: transaction.computedData.output.expiryDate,
     },
   };
 

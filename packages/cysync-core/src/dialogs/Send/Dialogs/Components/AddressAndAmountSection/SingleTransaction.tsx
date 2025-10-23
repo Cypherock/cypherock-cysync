@@ -1,4 +1,8 @@
 import { IPreparedBtcTransaction } from '@cypherock/coin-support-btc';
+import {
+  ICantonTransactionExpiryInputKey,
+  IPreparedCantonTransaction,
+} from '@cypherock/coin-support-canton';
 import { IPreparedEvmTransaction } from '@cypherock/coin-support-evm';
 import { IPreparedIcpTransaction } from '@cypherock/coin-support-icp';
 import { IPreparedTransaction } from '@cypherock/coin-support-interfaces';
@@ -18,23 +22,21 @@ import { BigNumber } from '@cypherock/cysync-utils';
 import { AccountTypeMap } from '@cypherock/db-interfaces';
 import React, { useEffect, useState } from 'react';
 
+import { useCurrency } from '~/context';
 import { selectLanguage, useAppSelector } from '~/store';
 
 import { AddressInput } from './AddressInput';
 import { AmountInput } from './AmountInput';
+import {
+  CantonTransactionExpiryInput,
+  ICantonTransactionExpiryInputProps,
+} from './CantonExpiryInput';
+import { CantonMemoInput } from './CantonMemoInput';
 import { DestinationTagInput } from './DestinationTagInput';
 import { IcpMemoInput } from './IcpMemoInput';
 import { NotesInput } from './NotesInput';
 import { StellarMemoInput } from './StellarMemoInput';
-import { CantonMemoInput } from './cantonMemoInput';
-
 import { useSendDialog } from '../../../context';
-import { useCurrency } from '~/context';
-import {
-  ExpirationDateInput,
-  IExpirationDateInputType,
-} from './ExpirationDateInput';
-import { IPreparedCantonTransaction } from '@cypherock/coin-support-canton';
 
 const MAX_UINT64 = new BigNumber('0xffffffffffffffff');
 
@@ -61,6 +63,7 @@ export const SingleTransaction: React.FC<SingleTransactionProps> = ({
     prepareMemo,
     prepareStellarMemo,
     prepareCantonMemo,
+    prepareCantonExpiry,
     priceConverter,
     updateUserInputs,
     prepare,
@@ -160,39 +163,39 @@ export const SingleTransaction: React.FC<SingleTransactionProps> = ({
     return <Component {...props} />;
   };
 
-  const getExpirationDateInputProps = () => ({
-    label: displayText.expirationDate.label,
-    placeholder: displayText.expirationDate.placeholder,
-    tooltipText: displayText.expirationDate.tooltipText,
-    initialValue: { type: IExpirationDateInputType.THREE_HOURS, value: '3' },
-    onChange: () => {
-      // TODO: Implement expiration date input
-    },
-    expirationDateOptions: [
-      {
-        value: IExpirationDateInputType.THREE_HOURS,
-        label: displayText.expirationDate.options.threeHours,
-      },
-      {
-        value: IExpirationDateInputType.ONE_DAY,
-        label: displayText.expirationDate.options.oneDay,
-      },
-      {
-        value: IExpirationDateInputType.ONE_WEEK,
-        label: displayText.expirationDate.options.oneWeek,
-      },
-      {
-        value: IExpirationDateInputType.TEN_DAYS,
-        label: displayText.expirationDate.options.tenDays,
-      },
-      {
-        value: IExpirationDateInputType.MONTH,
-        label: displayText.expirationDate.options.oneMonth,
-      },
-    ],
-    error: undefined,
-    isDisabled: disableInputs,
-  });
+  const getExpirationDateInputProps =
+    (): ICantonTransactionExpiryInputProps => ({
+      label: displayText.expirationDate.label,
+      dropdownPlaceholder: displayText.expirationDate.placeholder,
+      tooltipText: displayText.expirationDate.tooltipText,
+      initialValue: (transaction as IPreparedCantonTransaction)?.userInputs
+        .outputs[0]?.expiry?.key,
+      onChange: prepareCantonExpiry,
+      expiryOptions: [
+        {
+          value: ICantonTransactionExpiryInputKey.THREE_HOURS,
+          label: displayText.expirationDate.options.threeHours,
+        },
+        {
+          value: ICantonTransactionExpiryInputKey.ONE_DAY,
+          label: displayText.expirationDate.options.oneDay,
+        },
+        {
+          value: ICantonTransactionExpiryInputKey.ONE_WEEK,
+          label: displayText.expirationDate.options.oneWeek,
+        },
+        {
+          value: ICantonTransactionExpiryInputKey.TEN_DAYS,
+          label: displayText.expirationDate.options.tenDays,
+        },
+        {
+          value: ICantonTransactionExpiryInputKey.ONE_MONTH,
+          label: displayText.expirationDate.options.oneMonth,
+        },
+      ],
+      error: undefined,
+      isDisabled: disableInputs,
+    });
 
   const expirationDateInputPropsMap: Record<
     CoinFamily,
@@ -211,7 +214,7 @@ export const SingleTransaction: React.FC<SingleTransactionProps> = ({
   };
 
   const expirationDateInputMap: Partial<Record<CoinFamily, React.FC<any>>> = {
-    xrp: ExpirationDateInput, // TOOD: remove from xrp when canton support is added
+    canton: CantonTransactionExpiryInput,
   };
 
   const getExpirationDateInputComponent = () => {
