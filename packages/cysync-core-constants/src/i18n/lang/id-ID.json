@@ -173,20 +173,24 @@
         "prefix": "Alamat untuk ",
         "accountIdPrefix": "ID Akun untuk ",
         "principalIdPrefix": "ID Utama untuk ",
+        "partyIdPrefix": "ID Partai untuk ",
         "suffix": "di ${walletName}"
       },
       "addressLabel": "Alamat",
       "accountIdLabel": "ID Akun",
       "principalIdLabel": "ID Utama",
+      "partyIdLabel": "ID Partai",
       "actions": {
         "verify": "Verifikasi apakah alamat pada X1 Vault sesuai dengan alamat yang ditampilkan di atas",
         "verifyAccountId": "Verifikasi ID Akun di X1 Vault cocok persis dengan ID Akun yang ditampilkan di atas",
-        "verifyPrincipalId": "Verifikasi ID Principal di X1 Vault cocok persis dengan ID Principal yang ditampilkan di atas"
+        "verifyPrincipalId": "Verifikasi ID Principal di X1 Vault cocok persis dengan ID Principal yang ditampilkan di atas",
+        "verifyPartyId": "Verifikasi ID Partai di X1 Vault cocok persis dengan ID Partai yang ditampilkan di atas"
       },
       "messageBox": {
         "warning": "Alamat Penerimaan ini TIDAK DIVERIFIKASI oleh perangkat. Gunakan dengan risiko Anda sendiri",
         "accountIdWarning": "ID Akun Penerima ini TIDAK DIVERIFIKASI oleh perangkat. Gunakan dengan risiko Anda sendiri",
-        "principalIdWarning": "ID Utama Penerima ini TIDAK DIVERIFIKASI oleh perangkat. Gunakan dengan risiko Anda sendiri"
+        "principalIdWarning": "ID Utama Penerima ini TIDAK DIVERIFIKASI oleh perangkat. Gunakan dengan risiko Anda sendiri",
+        "partyIdWarning": "ID Partai Penerima ini TIDAK DIVERIFIKASI oleh perangkat. Gunakan dengan risiko Anda sendiri"
       },
       "waitMessageBox": {
         "warning": "Proses ini mungkin memakan waktu sekitar satu menit. Mohon bersabar"
@@ -194,13 +198,15 @@
     },
     "congrats": {
       "title": "Alamat berhasil diverifikasi",
-      "accountAndPrincipalIdTitle": "ID Akun dan ID Utama berhasil diverifikasi"
+      "accountAndPrincipalIdTitle": "ID Akun dan ID Utama berhasil diverifikasi",
+      "partyIdTitle": "ID Partai berhasil diverifikasi"
     },
     "finalButtons": {
       "secondary": "Verifikasi Lagi",
       "secondaryUnverified": "Verifikasi Alamat",
       "secondaryUnverifiedAccountId": "Verifikasi ID Akun",
       "secondaryUnverifiedPrincipalId": "Verifikasi ID Principal",
+      "secondaryUnverifiedPartyId": "Verifikasi ID Partai",
       "primary": "Selesai",
       "continue": "Lanjutkan"
     },

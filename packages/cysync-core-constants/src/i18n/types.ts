@@ -235,29 +235,38 @@ interface LangReceive {
       prefix: string;
       accountIdPrefix: string;
       principalIdPrefix: string;
+      partyIdPrefix: string;
       suffix: string;
     };
     addressLabel: string;
     accountIdLabel: string;
     principalIdLabel: string;
+    partyIdLabel: string;
     actions: {
       verify: string;
       verifyAccountId: string;
       verifyPrincipalId: string;
+      verifyPartyId: string;
     };
     messageBox: {
       warning: string;
       accountIdWarning: string;
       principalIdWarning: string;
+      partyIdWarning: string;
     };
     waitMessageBox: { warning: string };
   };
-  congrats: { title: string; accountAndPrincipalIdTitle: string };
+  congrats: {
+    title: string;
+    accountAndPrincipalIdTitle: string;
+    partyIdTitle: string;
+  };
   finalButtons: {
     secondary: string;
     secondaryUnverified: string;
     secondaryUnverifiedAccountId: string;
     secondaryUnverifiedPrincipalId: string;
+    secondaryUnverifiedPartyId: string;
     primary: string;
     continue: string;
   };

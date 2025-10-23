@@ -173,20 +173,24 @@
         "prefix": "عنوان لـ ",
         "accountIdPrefix": "معرف الحساب لـ ",
         "principalIdPrefix": "معرف المستخدم لـ ",
+        "partyIdPrefix": "معرف المؤسسة لـ ",
         "suffix": "في ${walletName}"
       },
       "addressLabel": "عنوان",
       "accountIdLabel": "معرف الحساب",
       "principalIdLabel": "معرّف المدير الرئيسي",
+      "partyIdLabel": "معرف المؤسسة",
       "actions": {
         "verify": "تحقق من تطابق عنوان الاستقبال على X1 Vault تمامًا مع العنوان المعروض أعلاه",
         "verifyAccountId": "تحقق من تطابق معرف الحساب على X1 Vault تمامًا مع معرف الحساب المعروض أعلاه",
-        "verifyPrincipalId": "تحقق من تطابق معرف المسؤول على X1 Vault تمامًا مع معرف المسؤول المعروض أعلاه"
+        "verifyPrincipalId": "تحقق من تطابق معرف المسؤول على X1 Vault تمامًا مع معرف المسؤول المعروض أعلاه",
+        "verifyPartyId": "تحقق من تطابق معرف المؤسسة على X1 Vault تمامًا مع معرف المؤسسة المعروض أعلاه"
       },
       "messageBox": {
         "warning": "لم يتم التحقق من عنوان الاستقبال هذا بواسطة الجهاز. استخدمه على مسؤوليتك الخاصة",
         "accountIdWarning": "لم يتم التحقق من معرف الحساب لهذا الاستلام بواسطة الجهاز. استخدمه على مسؤوليتك الخاصة",
-        "principalIdWarning": "لم يتم التحقق من معرف المبدأ لهذا الاستلام بواسطة الجهاز. استخدمه على مسؤوليتك الخاصة"
+        "principalIdWarning": "لم يتم التحقق من معرف المبدأ لهذا الاستلام بواسطة الجهاز. استخدمه على مسؤوليتك الخاصة",
+        "partyIdWarning": "لم يتم التحقق من معرف المؤسسة لهذا الاستلام بواسطة الجهاز. استخدمه على مسؤوليتك الخاصة"
       },
       "waitMessageBox": {
         "warning": "قد تستغرق هذه العملية حوالي دقيقة. يرجى التحلي بالصبر"
@@ -194,13 +198,15 @@
     },
     "congrats": {
       "title": "تم التحقق من العنوان بنجاح",
-      "accountAndPrincipalIdTitle": "تم التحقق بنجاح من معرف الحساب ومعرف المستخدم"
+      "accountAndPrincipalIdTitle": "تم التحقق بنجاح من معرف الحساب ومعرف المستخدم",
+      "partyIdTitle": "تم التحقق بنجاح من معرف المؤسسة"
     },
     "finalButtons": {
       "secondary": "التحقق مرة أخرى",
       "secondaryUnverified": "التحقق من العنوان",
       "secondaryUnverifiedAccountId": "تحقق من معرف الحساب",
       "secondaryUnverifiedPrincipalId": "تحقق من معرف الرئيس",
+      "secondaryUnverifiedPartyId": "تحقق من معرف المؤسسة",
       "primary": "تم",
       "continue": "متابعة"
     },

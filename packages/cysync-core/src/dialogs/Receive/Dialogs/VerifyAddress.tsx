@@ -12,14 +12,46 @@ import {
   ScrollableContainer,
   MessageBox,
 } from '@cypherock/cysync-ui';
+import { IAccount } from '@cypherock/db-interfaces';
 import React, { useEffect } from 'react';
 
 import { analyticsService, ANALYTICS_EVENTS } from '~/services/analytics';
-import { selectLanguage, useAppSelector } from '~/store';
+import { ILangState, selectLanguage, useAppSelector } from '~/store';
 
 import { AddressDisplay } from './Components';
 
 import { useReceiveDialog } from '../context';
+
+const getDisplayTexts = (lang: ILangState, selectedAccount?: IAccount) => {
+  const { title, actions, waitMessageBox, addressLabel, partyIdLabel } =
+    lang.strings.receive.receive;
+
+  let label = addressLabel;
+  let titlePrefix = title.prefix;
+  let verifyActionText = actions.verify;
+
+  if (selectedAccount && selectedAccount.familyId === coinFamiliesMap.canton) {
+    label = partyIdLabel;
+    titlePrefix = title.partyIdPrefix;
+    verifyActionText = actions.verifyPartyId;
+  }
+
+  let waitMessage: string | undefined;
+  if (
+    selectedAccount &&
+    selectedAccount.familyId === coinFamiliesMap.starknet
+  ) {
+    waitMessage = waitMessageBox.warning;
+  }
+
+  return {
+    waitMessage,
+    titlePrefix,
+    verifyActionText,
+    addressLabel: label,
+    titleSuffix: title.suffix,
+  };
+};
 
 export const VerifyAddress: React.FC = () => {
   const {
@@ -31,7 +63,8 @@ export const VerifyAddress: React.FC = () => {
     onAddressVerificationNext,
   } = useReceiveDialog();
   const lang = useAppSelector(selectLanguage);
-  const texts = lang.strings.receive.receive;
+
+  const displayTexts = getDisplayTexts(lang, selectedAccount);
 
   useEffect(() => {
     if (isFlowCompleted) {
@@ -58,18 +91,10 @@ export const VerifyAddress: React.FC = () => {
       leftImage: (
         <Image src={arrowGoldenForward} alt="arrowGoldenForward icon" />
       ),
-      text: texts.actions.verify,
+      text: displayTexts.verifyActionText,
       rightImage: <Throbber size={15} strokeWidth={2} />,
     },
   ];
-
-  let waitMessage: string | undefined;
-  if (
-    selectedAccount &&
-    selectedAccount.familyId === coinFamiliesMap.starknet
-  ) {
-    waitMessage = texts.waitMessageBox.warning;
-  }
 
   return (
     <DialogBox width={600}>
@@ -78,9 +103,9 @@ export const VerifyAddress: React.FC = () => {
         <ScrollableContainer $maxHeight={{ def: '50vh', lg: '65vh' }}>
           <DialogBoxBody p={0} px={4} pb={5}>
             <AddressDisplay
-              titlePrefix={texts.title.prefix}
-              titleSuffix={texts.title.suffix}
-              addressLabel={texts.addressLabel}
+              titlePrefix={displayTexts.titlePrefix}
+              titleSuffix={displayTexts.titleSuffix}
+              addressLabel={displayTexts.addressLabel}
               address={derivedAddress ?? ''}
             />
             <LeanBoxContainer>
@@ -95,7 +120,9 @@ export const VerifyAddress: React.FC = () => {
                 />
               ))}
             </LeanBoxContainer>
-            {waitMessage && <MessageBox type="warning" text={waitMessage} />}
+            {displayTexts.waitMessage && (
+              <MessageBox type="warning" text={displayTexts.waitMessage} />
+            )}
           </DialogBoxBody>
         </ScrollableContainer>
       </DialogBoxBody>

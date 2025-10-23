@@ -173,20 +173,24 @@
         "prefix": "Adresse für ",
         "accountIdPrefix": "Kontokennung für ",
         "principalIdPrefix": "Principal-Kennung für ",
+        "partyIdPrefix": "Party-Kennung für ",
         "suffix": "in ${walletName}"
       },
       "addressLabel": "Adresse",
       "accountIdLabel": "Konto-ID",
       "principalIdLabel": "Haupt-ID",
+      "partyIdLabel": "Party-ID",
       "actions": {
         "verify": "Überprüfen Sie, dass die Adresse auf dem X1 Vault genau mit der oben angezeigten Adresse übereinstimmt",
         "verifyAccountId": "Überprüfen Sie, ob die Kontonummer auf der X1 Vault genau mit der oben angezeigten Kontonummer übereinstimmt",
-        "verifyPrincipalId": "Überprüfen Sie, ob die Haupt-ID auf der X1 Vault genau mit der oben angezeigten Haupt-ID übereinstimmt"
+        "verifyPrincipalId": "Überprüfen Sie, ob die Haupt-ID auf der X1 Vault genau mit der oben angezeigten Haupt-ID übereinstimmt",
+        "verifyPartyId": "Überprüfen Sie, ob die Party-Kennung auf der X1 Vault genau mit der oben angezeigten Party-Kennung übereinstimmt"
       },
       "messageBox": {
         "warning": "Diese Empfangsadresse wurde NICHT vom Gerät VERIFIZIERT. Verwenden Sie sie auf eigenes Risiko",
         "accountIdWarning": "Diese Empfangskonto-ID wurde NICHT vom Gerät VERIFIZIERT. Verwenden Sie sie auf eigenes Risiko",
-        "principalIdWarning": "Diese Empfangs-Prinzipal-ID wurde NICHT vom Gerät VERIFIZIERT. Verwenden Sie sie auf eigenes Risiko"
+        "principalIdWarning": "Diese Empfangs-Prinzipal-ID wurde NICHT vom Gerät VERIFIZIERT. Verwenden Sie sie auf eigenes Risiko",
+        "partyIdWarning": "Diese Empfangs-Party-Kennung wurde NICHT vom Gerät VERIFIZIERT. Verwenden Sie sie auf eigenes Risiko"
       },
       "waitMessageBox": {
         "warning": "Dieser Vorgang kann ungefähr eine Minute dauern. Bitte haben Sie Geduld"
@@ -194,7 +198,8 @@
     },
     "congrats": {
       "title": "Adresse erfolgreich verifiziert",
-      "accountAndPrincipalIdTitle": "Konto-ID und Principal ID erfolgreich verifiziert"
+      "accountAndPrincipalIdTitle": "Konto-ID und Principal ID erfolgreich verifiziert",
+      "partyIdTitle": "Party-Kennung erfolgreich verifiziert"
     },
     "finalButtons": {
       "secondary": "Erneut überprüfen",
@@ -202,6 +207,7 @@
       "primary": "Fertig",
       "secondaryUnverifiedAccountId": "Konto-ID überprüfen",
       "secondaryUnverifiedPrincipalId": "Haupt-ID überprüfen",
+      "secondaryUnverifiedPartyId": "Party-Kennung überprüfen",
       "continue": "Fortfahren"
     },
     "aside": {
