@@ -343,6 +343,24 @@
         "placeholder": "Masukkan memo numerik",
         "error": "Nilai terlalu tinggi"
       },
+      "cantonMemo": {
+        "label": "Memo",
+        "placeholder": "Opsional",
+        "tooltipText": "Anda dapat menambahkan Memo atau Deskripsi dan ini akan dikirim bersama dengan transaksi ini",
+        "error": "Memo terlalu panjang (maks 255 karakter)"
+      },
+      "expirationDate": {
+        "label": "Waktu Kedaluwarsa",
+        "placeholder": "Pilih Waktu Kedaluwarsa",
+        "tooltipText": "Silakan pilih waktu kedaluwarsa untuk transaksi ini, jika penerima tidak menerima transaksi ini sebelum waktu tersebut maka akan kedaluwarsa",
+        "options": {
+          "threeHours": "3 Jam",
+          "oneDay": "1 Hari",
+          "oneWeek": "1 Minggu",
+          "tenDays": "10 Hari",
+          "oneMonth": "1 Bulan"
+        }
+      },
       "stellarMemo": {
         "label": "Memo (Opsional)",
         "inputPlaceholder": {
@@ -369,7 +387,8 @@
       "debit": "Total yang didebet",
       "remarks": "Catatan Pribadi",
       "destinationTag": "Tag Tujuan",
-      "memo": "Memo"
+      "memo": "Memo",
+      "expirationDate": "Waktu Kedaluwarsa"
     },
     "finalMessage": {
       "button": "Periksa transaksi",
@@ -491,6 +510,7 @@
       "remarks": "Catatan Pribadi",
       "destinationTag": "Tag Tujuan",
       "memo": "Memo",
+      "expirationDate": "Waktu Kedaluwarsa",
       "operation": "Operasi"
     },
     "noData": {

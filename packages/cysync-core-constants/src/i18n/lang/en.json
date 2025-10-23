@@ -343,6 +343,24 @@
         "placeholder": "Enter a numeric memo",
         "error": "Value too high"
       },
+      "cantonMemo": {
+        "label": "Memo",
+        "placeholder": "Optional",
+        "tooltipText": "You can add a Memo or Description and this will be sent along with this transaction",
+        "error": "Memo is too long (max 255 characters)"
+      },
+      "expirationDate": {
+        "label": "Expiration Time",
+        "placeholder": "Choose Expiration Time",
+        "tooltipText": "Please choose an expiration time for this transaction, if receiver doesn't accept this transaction before this then it'll expire",
+        "options": {
+          "threeHours": "3 Hours",
+          "oneDay": "1 Day",
+          "oneWeek": "1 Week",
+          "tenDays": "10 Days",
+          "oneMonth": "1 Month"
+        }
+      },
       "stellarMemo": {
         "label": "Memo (Optional)",
         "inputPlaceholder": {
@@ -369,7 +387,8 @@
       "debit": "Total to debit",
       "remarks": "Personal Note",
       "destinationTag": "Destination Tag",
-      "memo": "Memo"
+      "memo": "Memo",
+      "expirationDate": "Expiration Time"
     },
     "finalMessage": {
       "button": "Check transactions",
@@ -491,6 +510,7 @@
       "remarks": "Personal Note",
       "destinationTag": "Destination Tag",
       "memo": "Memo",
+      "expirationDate": "Expiration Date",
       "operation": "Operation"
     },
     "noData": {

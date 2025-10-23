@@ -455,6 +455,19 @@ export const HistoryDialog: FC<IHistoryDialogProps> = ({ txn: _txn }) => {
                   </Container>
                 </HistoryItem>
               )}
+              {displayTransaction.expiry !== undefined && (
+                <HistoryItem leftText={keys.expirationDate}>
+                  <Container direction="row" gap={8}>
+                    <Typography
+                      variant="span"
+                      $maxWidth="400"
+                      $textOverflow="ellipsis"
+                    >
+                      {displayTransaction.expiry}
+                    </Typography>
+                  </Container>
+                </HistoryItem>
+              )}
               {displayTransaction.operation !== undefined && (
                 <HistoryItem leftText={keys.operation}>
                   <Container direction="row" gap={8}>

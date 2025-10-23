@@ -343,6 +343,24 @@
         "placeholder": "Geben Sie ein numerisches Memo ein",
         "error": "Wert zu hoch"
       },
+      "cantonMemo": {
+        "label": "Memo",
+        "placeholder": "Optional",
+        "tooltipText": "Sie können ein Memo oder eine Beschreibung hinzufügen, die zusammen mit dieser Transaktion gesendet wird",
+        "error": "Memo ist zu lang (max. 255 Zeichen)"
+      },
+      "expirationDate": {
+        "label": "Ablaufzeit",
+        "placeholder": "Ablaufzeit auswählen",
+        "tooltipText": "Bitte wählen Sie eine Ablaufzeit für diese Transaktion. Wenn der Empfänger diese Transaktion vor diesem Zeitpunkt nicht akzeptiert, läuft sie ab",
+        "options": {
+          "threeHours": "3 Stunden",
+          "oneDay": "1 Tag",
+          "oneWeek": "1 Woche",
+          "tenDays": "10 Tage",
+          "oneMonth": "1 Monat"
+        }
+      },
       "stellarMemo": {
         "label": "Memo (optional)",
         "inputPlaceholder": {
@@ -369,7 +387,8 @@
       "debit": "Gesamtsumme zum Abbuchen",
       "remarks": "Persönliche Notiz",
       "destinationTag": "Ziel-Tag",
-      "memo": "Memo"
+      "memo": "Memo",
+      "expirationDate": "Ablaufzeit"
     },
     "finalMessage": {
       "button": "Transaktionen überprüfen",
@@ -491,6 +510,7 @@
       "remarks": "Persönliche Notiz",
       "destinationTag": "Ziel-Tag",
       "memo": "Memo",
+      "expirationDate": "Ablaufdatum",
       "operation": "Betrieb"
     },
     "noData": {

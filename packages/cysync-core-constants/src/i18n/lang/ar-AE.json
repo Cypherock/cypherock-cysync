@@ -343,6 +343,24 @@
         "placeholder": "أدخل مذكرة رقمية",
         "error": "قيمة مرتفعة جدًا"
       },
+      "cantonMemo": {
+        "label": "مذكرة",
+        "placeholder": "اختياري",
+        "tooltipText": "يمكنك إضافة مذكرة أو وصف وسيتم إرسالها مع هذه المعاملة",
+        "error": "مذكرة طويلة جدًا (حد أقصى 255 حرف)"
+      },
+      "expirationDate": {
+        "label": "وقت الانتهاء",
+        "placeholder": "اختر وقت الانتهاء",
+        "tooltipText": "يرجى اختيار وقت انتهاء لهذه المعاملة، إذا لم يقبل المستلم هذه المعاملة قبل هذا الوقت فستنتهي صلاحيتها",
+        "options": {
+          "threeHours": "3 ساعات",
+          "oneDay": "1 يوم",
+          "oneWeek": "1 أسبوع",
+          "tenDays": "10 أيام",
+          "oneMonth": "1 شهر"
+        }
+      },
       "stellarMemo": {
         "label": "مذكرة (اختياري)",
         "inputPlaceholder": {
@@ -369,7 +387,8 @@
       "debit": "المجموع المراد خصمه",
       "remarks": "ملاحظة شخصية",
       "destinationTag": "علامة الوجهة",
-      "memo": "مذكرة"
+      "memo": "مذكرة",
+      "expirationDate": "وقت الانتهاء"
     },
     "finalMessage": {
       "button": "التحقق من المعاملات",
@@ -491,6 +510,7 @@
       "remarks": "ملاحظة شخصية",
       "destinationTag": "علامة الوجهة",
       "memo": "مذكرة",
+      "expirationDate": "تاريخ الانتهاء",
       "operation": "عملية"
     },
     "noData": {

@@ -166,6 +166,7 @@
       "remarks": "Note personnelle",
       "destinationTag": "Tag de destination",
       "memo": "Mémo",
+      "expirationDate": "Date d'expiration",
       "operation": "Opération"
     },
     "noData": {
@@ -784,6 +785,24 @@
         "placeholder": "Entrez un mémo numérique",
         "error": "Valeur trop élevée"
       },
+      "cantonMemo": {
+        "label": "Mémo",
+        "placeholder": "Optionnel",
+        "tooltipText": "Vous pouvez ajouter un mémo ou une description qui sera envoyé avec cette transaction",
+        "error": "Mémo trop long (max 255 caractères)"
+      },
+      "expirationDate": {
+        "label": "Temps d'expiration",
+        "placeholder": "Choisir le temps d'expiration",
+        "tooltipText": "Veuillez choisir un temps d'expiration pour cette transaction, si le destinataire n'accepte pas cette transaction avant ce temps, elle expirera",
+        "options": {
+          "threeHours": "3 heures",
+          "oneDay": "1 jour",
+          "oneWeek": "1 semaine",
+          "tenDays": "10 jours",
+          "oneMonth": "1 mois"
+        }
+      },
       "stellarMemo": {
         "label": "Mémo (Facultatif)",
         "inputPlaceholder": {
@@ -810,7 +829,8 @@
       "debit": "Total à débiter",
       "remarks": "Note personnelle",
       "destinationTag": "Tag de destination",
-      "memo": "Mémo"
+      "memo": "Mémo",
+      "expirationDate": "Temps d'expiration"
     },
     "finalMessage": {
       "button": "Vérifier les transactions",

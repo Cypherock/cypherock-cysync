@@ -4,9 +4,12 @@ import { assert, BigNumber } from '@cypherock/cysync-utils';
 
 import { IPrepareCantonTransactionParams } from './types';
 
-import { IPreparedCantonTransaction } from '../transaction';
-import { validateAddress } from '../validateAddress';
 import { getIsAccountCreated, prepareSendTransaction } from '../../services';
+import {
+  IPreparedCantonTransaction,
+  IPreparedCantonTransactionOutput,
+} from '../transaction';
+import { validateAddress } from '../validateAddress';
 
 const validateAddresses = async (
   params: IPrepareCantonTransactionParams,
@@ -52,7 +55,9 @@ export const prepareTransaction = async (
 
   const outputsValidation = await validateAddresses(params, coin);
 
-  const output = { ...txn.userInputs.outputs[0] };
+  const output: IPreparedCantonTransactionOutput = {
+    ...txn.userInputs.outputs[0],
+  };
 
   output.amount = new BigNumber(output.amount).toString();
   let sendAmount = new BigNumber(output.amount);
@@ -89,8 +94,16 @@ export const prepareTransaction = async (
   const isFeeBelowMin =
     isValidFee && new BigNumber(fees).isLessThan(txn.staticData.fees);
 
-  // TODO: validate expiry
-  const isInvalidExpiry = false;
+  let isInvalidExpiry = false;
+  if (output.expiry?.key && output.expiry?.value) {
+    const expiryValue = output.expiry.value;
+    const expiryDate = new Date(Date.now() + expiryValue.calculatedValueInMs);
+    isInvalidExpiry = expiryDate.getTime() < Date.now();
+
+    if (!isInvalidExpiry) {
+      output.expiryDate = expiryDate.toISOString();
+    }
+  }
 
   const isValidAmount = !sendAmount.isNaN() && !sendAmount.isZero();
 
@@ -111,6 +124,7 @@ export const prepareTransaction = async (
       output.address,
       output.amount,
       output.memo,
+      output.expiryDate,
     );
   }
 

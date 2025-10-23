@@ -352,6 +352,24 @@ interface LangSend {
       placeholder: string;
       error: string;
     };
+    cantonMemo: {
+      label: string;
+      placeholder: string;
+      tooltipText: string;
+      error: string;
+    };
+    expirationDate: {
+      label: string;
+      placeholder: string;
+      tooltipText: string;
+      options: {
+        threeHours: string;
+        oneDay: string;
+        oneWeek: string;
+        tenDays: string;
+        oneMonth: string;
+      };
+    };
     stellarMemo: {
       label: string;
       inputPlaceholder: {
@@ -378,6 +396,7 @@ interface LangSend {
     remarks: string;
     destinationTag: string;
     memo: string;
+    expirationDate: string;
   };
   finalMessage: {
     button: string;
@@ -482,6 +501,7 @@ interface LangHistory {
     remarks: string;
     destinationTag: string;
     memo: string;
+    expirationDate: string;
     operation: string;
   };
   noData: { text: string; subText: string; buttonText: string };
