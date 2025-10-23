@@ -102,7 +102,6 @@ export const CantonTransactionExpiryInput: React.FC<
           searchText={searchText ?? ''}
           placeholderText={dropdownPlaceholder}
           onChange={handleValueChange}
-          autoFocus={false}
           noLeftImageInList
           disabled={isDisabled}
         />

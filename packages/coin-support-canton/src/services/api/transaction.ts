@@ -3,10 +3,10 @@ import { makePostRequest, assert } from '@cypherock/cysync-utils';
 
 import { ICantonTransactionParams, ICantonTransactionResult } from './types';
 
-// import { config } from '../../config';
+import { config } from '../../config';
 
-// const baseURL = `${config.API_CYPHEROCK}/canton/transaction`;
-const baseURL = `http://localhost:5001/canton/transaction`;
+const baseURL = `${config.API_CYPHEROCK}/canton/transaction`;
+// const baseURL = `http://localhost:5001/canton/transaction`;
 
 export const getTransactions = async (
   params: ICantonTransactionParams,

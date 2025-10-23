@@ -31,7 +31,7 @@ import {
   CantonTransactionExpiryInput,
   ICantonTransactionExpiryInputProps,
 } from './CantonExpiryInput';
-import { CantonMemoInput } from './CantonMemoInput';
+import { CantonMemoInput } from './cantonMemoInput';
 import { DestinationTagInput } from './DestinationTagInput';
 import { IcpMemoInput } from './IcpMemoInput';
 import { NotesInput } from './NotesInput';
