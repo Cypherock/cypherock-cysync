@@ -8,6 +8,7 @@ import { StarknetSupport } from '@cypherock/coin-support-starknet';
 import { TronSupport } from '@cypherock/coin-support-tron';
 import { XrpSupport } from '@cypherock/coin-support-xrp';
 import { StellarSupport } from '@cypherock/coin-support-stellar';
+import { SiaSupport } from '@cypherock/coin-support-sia';
 import { coinFamiliesMap, CoinFamily } from '@cypherock/coins';
 
 const coinSupportMap: Record<CoinFamily, CoinSupport> = {
@@ -20,6 +21,7 @@ const coinSupportMap: Record<CoinFamily, CoinSupport> = {
   [coinFamiliesMap.stellar]: new StellarSupport(),
   [coinFamiliesMap.starknet]: new StarknetSupport(),
   [coinFamiliesMap.icp]: new IcpSupport(),
+  [coinFamiliesMap.sia]: new SiaSupport(),
 };
 
 export const getCoinSupport = (coinFamily: string) => {

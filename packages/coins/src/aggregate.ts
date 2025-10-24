@@ -5,12 +5,21 @@ import { nearCoinList, NearId } from './near';
 import { solanaCoinList, SolanaId } from './solana';
 import { starknetCoinList, StarknetId } from './starknet';
 import { stellarCoinList, StellarId } from './stellar';
+import { siaCoinList, SiaId } from './sia';
 import { tronCoinList, ITronTrc20Token } from './tron';
 import { ICoinInfo } from './types';
 import { xrpCoinList, XrpId } from './xrp';
 
 export const coinList: Record<
-  BtcId | EvmId | SolanaId | NearId | XrpId | StarknetId | IcpId | StellarId,
+  | BtcId
+  | EvmId
+  | SolanaId
+  | NearId
+  | XrpId
+  | StarknetId
+  | IcpId
+  | StellarId
+  | SiaId,
   ICoinInfo
 > = {
   ...btcCoinList,
@@ -22,6 +31,7 @@ export const coinList: Record<
   ...starknetCoinList,
   ...icpCoinList,
   ...stellarCoinList,
+  ...siaCoinList,
 };
 
 export type CoinTypes =
@@ -32,5 +42,6 @@ export type CoinTypes =
   | XrpId
   | StarknetId
   | IcpId
-  | StellarId;
+  | StellarId
+  | SiaId;
 export type TokenTypes = IEvmErc20Token | ITronTrc20Token | IIcpIcrcToken;

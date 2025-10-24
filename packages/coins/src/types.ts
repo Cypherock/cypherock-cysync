@@ -14,6 +14,7 @@ export const coinFamiliesMap = {
   starknet: 'starknet',
   icp: 'icp',
   stellar: 'stellar',
+  sia: 'sia',
 } as const;
 
 export type CoinFamily = (typeof coinFamiliesMap)[keyof typeof coinFamiliesMap];

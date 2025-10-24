@@ -6,6 +6,7 @@ import { SolanaSupport } from '@cypherock/coin-support-solana';
 import { StarknetSupport } from '@cypherock/coin-support-starknet';
 import { XrpSupport } from '@cypherock/coin-support-xrp';
 import { StellarSupport } from '@cypherock/coin-support-stellar';
+import { SiaSupport } from '@cypherock/coin-support-sia';
 import { IDatabase, IKeyValueStore } from '@cypherock/db-interfaces';
 import { IDeviceConnection } from '@cypherock/sdk-interfaces';
 import { Command, Flags, Interfaces } from '@oclif/core';
