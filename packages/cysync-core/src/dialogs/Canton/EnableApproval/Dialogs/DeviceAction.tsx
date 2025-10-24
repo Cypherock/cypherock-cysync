@@ -23,16 +23,15 @@ const rightArrowIcon = <ArrowRightIcon />;
 export const DeviceAction: React.FC = () => {
   const lang = useAppSelector(selectLanguage);
   const displayText = lang.strings.dialogs.cantonDialogs;
+  const selectedAccountName = 'Canton';
+
+  const verifyAutomaticApprovalText =
+    displayText.enableApproval.dialogs.x1Vault.actions.verifyAutomaticApproval;
 
   const actionsList: LeanBoxProps[] = [
     {
       id: '1',
-      text:
-        displayText.enableApproval.dialogs.x1Vault.actions
-          .verifyAutomaticApproval.prefix +
-        ' ' +
-        displayText.enableApproval.dialogs.x1Vault.actions
-          .verifyAutomaticApproval.suffix,
+      text: `${verifyAutomaticApprovalText.prefix} ${selectedAccountName} ${verifyAutomaticApprovalText.suffix}`,
       leftImage: rightArrowIcon,
       rightImage: checkIconComponent,
     },
@@ -55,6 +54,7 @@ export const DeviceAction: React.FC = () => {
       rightImage: undefined,
     },
   ];
+
   return (
     <DialogBox width={600}>
       <DialogBoxBody pt={4} pr={5} pb={4} pl={5}>

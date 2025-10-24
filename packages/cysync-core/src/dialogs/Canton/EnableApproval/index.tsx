@@ -16,6 +16,7 @@ import {
   EnableApprovalDialogProvider,
   useEnableApprovalDialog,
 } from './context';
+import { selectLanguage, useAppSelector } from '~/store';
 
 export type { EnableApprovalDialogProps } from './context';
 
@@ -30,6 +31,8 @@ const DeviceConnectionWrapper: React.FC<{
 };
 
 export const EnableApprovalFlow: FC = () => {
+  const lang = useAppSelector(selectLanguage);
+  const { title } = lang.strings.dialogs.cantonDialogs.enableApproval;
   const {
     tabs,
     currentTab,
@@ -55,7 +58,7 @@ export const EnableApprovalFlow: FC = () => {
               .filter(t => !t.dontShowOnMilestone)
               .map(t => t.name)}
             activeTab={currentTab}
-            heading="Enable Approval"
+            heading={title}
           />
           <WalletDialogMainContainer>
             <DialogBoxBody

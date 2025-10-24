@@ -2256,7 +2256,7 @@
         "actions": {
           "verifyAccountAddress": "Verify Account Address",
           "enterPassphrase": "Enter Passphrase",
-          "enterPinAndTapCard": "Enter PIN and Tap Card"
+          "enterPinAndTapCard": "Enter PIN and tap any one card"
         }
       },
       "enableApprovalPrompt": {
@@ -2264,7 +2264,7 @@
         "subTitle": "Automatically accept incoming transactions without manual approval. This will save you time by eliminating the need to manually accept each receiving transaction and rewards."
       },
       "enableApproval": {
-        "title": "Transaction Approval",
+        "title": "Enable Automatic Approvals",
         "dialogs": {
           "x1Vault": {
             "title": "Follow instructions on the X1 Vault",
