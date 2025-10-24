@@ -65,6 +65,7 @@ import { LoaderDialog } from '~/components';
 import {
   WalletConnectCallRequestMethodMap,
   deviceLock,
+  useCurrency,
   useDevice,
   useWalletConnect,
 } from '~/context';
@@ -76,10 +77,11 @@ import {
   useTabsAndDialogs,
   useWalletDropdown,
 } from '~/hooks';
+import { analyticsService, ANALYTICS_EVENTS } from '~/services/analytics';
 import {
   closeDialog,
+  selectCurrentCurrencyPriceInfos,
   selectLanguage,
-  selectPriceInfos,
   useAppDispatch,
   useAppSelector,
 } from '~/store';
@@ -205,7 +207,10 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
 }) => {
   const lang = useAppSelector(selectLanguage);
   const dispatch = useAppDispatch();
-  const { priceInfos } = useAppSelector(selectPriceInfos);
+  const { currentCurrency } = useCurrency();
+  const priceInfos = useAppSelector(state =>
+    selectCurrentCurrencyPriceInfos(state, currentCurrency),
+  );
   const deviceRequiredDialogsMap: Record<number, number[] | undefined> =
     useMemo(
       () => ({
@@ -356,11 +361,19 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
   };
 
   const onRetry = () => {
+    analyticsService.trackEvent(ANALYTICS_EVENTS.SEND_CANCELLED, {
+      action: 'retry',
+      step: 'send_flow',
+    });
     resetStates();
     goTo(1, 0);
   };
 
   const onError = (e?: any) => {
+    analyticsService.trackEvent(ANALYTICS_EVENTS.SEND_FAILED, {
+      error: e?.message || 'Unknown error',
+      step: 'send_flow_error',
+    });
     cleanUp();
     setError(e);
     if (injectedOnError) injectedOnError(e);
@@ -524,10 +537,19 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
       if (payload.transaction) setSignedTransaction(payload.transaction);
     },
     error: err => {
+      analyticsService.trackEvent(ANALYTICS_EVENTS.SEND_FAILED, {
+        error: err.message || 'Unknown error',
+        step: 'send_flow',
+      });
+
       onEnd();
       onError(err);
     },
     complete: () => {
+      analyticsService.trackEvent(ANALYTICS_EVENTS.SEND_ATTEMPTED_SIGNING, {
+        action: 'signing_completed',
+      });
+
       cleanUp();
       onEnd();
     },
@@ -540,6 +562,12 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
     if (!connection?.connection || !txn) {
       return;
     }
+
+    analyticsService.trackEvent(ANALYTICS_EVENTS.SEND_FLOW_STARTED, {
+      assetId: selectedAccount?.assetId,
+      parentAssetId: selectedAccount?.parentAssetId,
+      source: source === SendFlowSource.SWAP ? 'swap' : 'default',
+    });
 
     try {
       resetStates();
@@ -723,9 +751,7 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
 
   const priceConverter = (val: string, invert?: boolean) => {
     const coinPrice = priceInfos.find(
-      p =>
-        p.assetId === selectedAccount?.assetId &&
-        p.currency.toLowerCase() === 'usd',
+      p => p.assetId === selectedAccount?.assetId,
     );
 
     if (!coinPrice) return '';
@@ -738,7 +764,7 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
     if (result.isNaN()) return '';
     return invert
       ? formatDisplayAmount(result).complete
-      : formatDisplayPrice(result);
+      : formatDisplayPrice(result, currentCurrency);
   };
 
   const updateUserInputs = (count: number) => {

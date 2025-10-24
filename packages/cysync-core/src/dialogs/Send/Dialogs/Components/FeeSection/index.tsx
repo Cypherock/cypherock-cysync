@@ -26,12 +26,13 @@ import lodash from 'lodash';
 import React, { useCallback, useState } from 'react';
 
 import { CoinIcon } from '~/components';
+import { useCurrency } from '~/context';
 import { useLabelSuffix } from '~/dialogs/Send/hooks';
 import { useStateToRef } from '~/hooks';
 import {
   ILangState,
+  selectCurrentCurrencyPriceInfos,
   selectLanguage,
-  selectPriceInfos,
   useAppSelector,
 } from '~/store';
 
@@ -121,7 +122,10 @@ export const FeeSection: React.FC<FeeSectionProps> = ({
 }) => {
   const lang = useAppSelector(selectLanguage);
   const displayText = lang.strings.send.recipient;
-  const { priceInfos } = useAppSelector(selectPriceInfos);
+  const { currentCurrency } = useCurrency();
+  const priceInfos = useAppSelector(state =>
+    selectCurrentCurrencyPriceInfos(state, currentCurrency),
+  );
   const { transaction, selectedAccount, prepare, getComputedFee } =
     useSendDialog();
   const transactionRef = useStateToRef({ transaction });
@@ -434,9 +438,7 @@ export const FeeSection: React.FC<FeeSectionProps> = ({
     result.fee = `${_amount} ${unit.abbr}`;
 
     const coinPrice = priceInfos.find(
-      p =>
-        p.assetId === (isIcpToken ? account.assetId : account.parentAssetId) &&
-        p.currency.toLowerCase() === 'usd',
+      p => p.assetId === (isIcpToken ? account.assetId : account.parentAssetId),
     );
 
     if (coinPrice) {
@@ -456,7 +458,7 @@ export const FeeSection: React.FC<FeeSectionProps> = ({
       const feeValue = new BigNumber(feesInDefaultUnit.amount).multipliedBy(
         coinPrice.latestPrice,
       );
-      result.value = `$${formatDisplayPrice(feeValue)}`;
+      result.value = `${formatDisplayPrice(feeValue, currentCurrency)}`;
     }
 
     return result;

@@ -38,4 +38,9 @@ export default {
    * Auto update channel
    */
   CHANNEL: 'latest',
+
+  /**
+   * Mixpanel token
+   */
+  MIXPANEL_TOKEN: 'your-mixpanel-token',
 };

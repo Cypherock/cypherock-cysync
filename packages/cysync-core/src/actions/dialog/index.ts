@@ -6,6 +6,7 @@ import { DeployAccountDialogProps } from '~/dialogs/DeployAccount/context';
 import { DeviceAuthenticationDialogProps } from '~/dialogs/DeviceAuthenticationDialog';
 import { EditAccountDialogProps } from '~/dialogs/EditAccountDialog';
 import { ErrorDialogProps } from '~/dialogs/ErrorDialog';
+import { FullPageLoaderDialogProps } from '~/dialogs/FullPageLoaderDialog';
 import { IHistoryDialogProps } from '~/dialogs/HistoryDialog';
 import {
   InheritanceEditUserDetailsDialogProps,
@@ -140,3 +141,6 @@ export const openInheritanceEstateRecoveryDialog = (
 
 export const openMobileAppSyncDialog = () =>
   openDialog({ name: 'mobileAppSyncDialog', data: undefined });
+
+export const openFullPageLoaderDialog = (props: FullPageLoaderDialogProps) =>
+  openDialog({ name: 'fullPageLoaderDialog', data: props });

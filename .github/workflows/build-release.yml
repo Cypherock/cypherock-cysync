@@ -10,6 +10,7 @@ on:
 env:
   NODE_OPTIONS: '--max-old-space-size=8192'
   TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
+  MIXPANEL_TOKEN_PROD: ${{ secrets.MIXPANEL_TOKEN_PROD }}
   APP_NAME: '@cypherock/cysync-desktop'
   CHANNEL: 'latest'
 
@@ -33,7 +34,7 @@ jobs:
         run: git fetch --tags origin
 
       - name: Install pnpm
-        uses: pnpm/action-setup@v4
+        uses: pnpm/action-setup@v4.1.0
         with:
           run_install: false
 
@@ -114,7 +115,7 @@ jobs:
         run: git fetch --tags origin
 
       - name: Install pnpm
-        uses: pnpm/action-setup@v4
+        uses: pnpm/action-setup@v4.1.0
         with:
           run_install: false
 
@@ -183,7 +184,7 @@ jobs:
         run: git fetch --tags origin
 
       - name: Install pnpm
-        uses: pnpm/action-setup@v4
+        uses: pnpm/action-setup@v4.1.0
         with:
           run_install: false
 
@@ -255,7 +256,7 @@ jobs:
         run: git fetch --tags origin
 
       - name: Install pnpm
-        uses: pnpm/action-setup@v4
+        uses: pnpm/action-setup@v4.1.0
         with:
           run_install: false
 
@@ -348,7 +349,7 @@ jobs:
         uses: fregante/setup-git-user@v2
 
       - name: Install pnpm
-        uses: pnpm/action-setup@v4
+        uses: pnpm/action-setup@v4.1.0
         with:
           run_install: false
 

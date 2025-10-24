@@ -22,6 +22,9 @@ export const keyValueStore = {
   passwordHash: createStringValueStore('passwordHash'),
   email: createStringValueStore('email'),
   onboardingCheckpointPath: createStringValueStore('onboardingCheckpointPath'),
+  enabledAnalyticsByDefault: createBooleanValueStore(
+    'enabledAnalyticsByDefault',
+  ),
   isAnalyticsAndBugReportEnabled: createBooleanValueStore(
     'isAnalyticsAndBugReportEnabled',
   ),
@@ -31,4 +34,5 @@ export const keyValueStore = {
   cysyncVersion: createStringValueStore('cysyncVersion'),
   uuid: createStringValueStore('uuid'),
   appLanguage: createStringValueStore('appLanguage'),
+  appCurrency: createStringValueStore('appCurrency'),
 };

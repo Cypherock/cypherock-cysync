@@ -33,12 +33,13 @@ import {
   CoinIcon,
   selectDiscreetMode,
   selectLanguage,
-  selectPriceInfos,
+  selectCurrentCurrencyPriceInfos,
   selectTransactions,
   selectUnHiddenAccounts,
   selectWallets,
   useAppDispatch,
   useAppSelector,
+  useCurrency,
 } from '..';
 
 export interface CoinAllocationRow {
@@ -69,16 +70,18 @@ const selector = createSelector(
     selectWallets,
     selectUnHiddenAccounts,
     selectTransactions,
-    selectPriceInfos,
+    selectCurrentCurrencyPriceInfos,
     selectDiscreetMode,
+    (state, currency: string) => currency,
   ],
   (
     lang,
     { wallets },
     { accounts },
     { transactions },
-    { priceInfos },
+    priceInfos,
     { active: isDiscreetMode },
+    currency,
   ) => ({
     lang,
     wallets,
@@ -86,6 +89,7 @@ const selector = createSelector(
     transactions,
     priceInfos,
     isDiscreetMode,
+    currency,
   }),
 );
 
@@ -106,6 +110,7 @@ export const useAssetAllocations = ({
   withParentIconAtBottom,
   withSubIconAtBottom,
 }: UseAssetAllocationProps = {}) => {
+  const { currentCurrency } = useCurrency();
   const {
     lang,
     wallets,
@@ -113,7 +118,8 @@ export const useAssetAllocations = ({
     transactions: allTransactions,
     priceInfos,
     isDiscreetMode,
-  } = useAppSelector(selector);
+  } = useAppSelector(state => selector(state, currentCurrency));
+
   const refData = useStateToRef({
     lang,
     wallets,
@@ -125,6 +131,7 @@ export const useAssetAllocations = ({
     assetId,
     parentAssetId,
     accountId,
+    currentCurrency,
   });
 
   const dispatch = useAppDispatch();
@@ -152,6 +159,7 @@ export const useAssetAllocations = ({
         result = await getCoinAllocations({
           db: getDB(),
           walletId: data.walletId,
+          currency: data.currentCurrency,
         });
       }
 
@@ -221,12 +229,12 @@ export const useAssetAllocations = ({
             value: new BigNumber(r.value).toNumber(),
             displayBalance,
             balanceTooltip,
-            displayPrice: `$${
-              data.isDiscreetMode ? '****' : formatDisplayPrice(r.price)
-            }`,
-            displayValue: `$${
-              data.isDiscreetMode ? '****' : formatDisplayPrice(r.value)
-            }`,
+            displayPrice: data.isDiscreetMode
+              ? '****'
+              : formatDisplayPrice(r.price, data.currentCurrency),
+            displayValue: data.isDiscreetMode
+              ? '****'
+              : formatDisplayPrice(r.value, data.currentCurrency),
             ...accountProperties,
           };
         }),

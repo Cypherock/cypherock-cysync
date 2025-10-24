@@ -3,12 +3,12 @@ import { EvmSupport } from '@cypherock/coin-support-evm';
 import { IcpSupport } from '@cypherock/coin-support-icp';
 import { CoinSupport } from '@cypherock/coin-support-interfaces';
 import { NearSupport } from '@cypherock/coin-support-near';
+import { SiaSupport } from '@cypherock/coin-support-sia';
 import { SolanaSupport } from '@cypherock/coin-support-solana';
 import { StarknetSupport } from '@cypherock/coin-support-starknet';
+import { StellarSupport } from '@cypherock/coin-support-stellar';
 import { TronSupport } from '@cypherock/coin-support-tron';
 import { XrpSupport } from '@cypherock/coin-support-xrp';
-import { StellarSupport } from '@cypherock/coin-support-stellar';
-import { SiaSupport } from '@cypherock/coin-support-sia';
 import { coinFamiliesMap, CoinFamily } from '@cypherock/coins';
 
 const coinSupportMap: Record<CoinFamily, CoinSupport> = {

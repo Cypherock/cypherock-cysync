@@ -11,4 +11,5 @@ export interface ICysyncEnv {
   CHANNEL: string;
   RELEASE_NOTES: string;
   OS: 'darwin' | 'win32' | 'linux' | string;
+  MIXPANEL_TOKEN: string;
 }

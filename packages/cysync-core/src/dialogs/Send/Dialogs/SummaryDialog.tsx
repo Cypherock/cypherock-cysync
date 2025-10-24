@@ -30,7 +30,13 @@ import { AccountTypeMap } from '@cypherock/db-interfaces';
 import React from 'react';
 
 import { CoinIcon } from '~/components';
-import { selectLanguage, selectPriceInfos, useAppSelector } from '~/store';
+import { analyticsService, ANALYTICS_EVENTS } from '~/services/analytics';
+import { useCurrency } from '~/context';
+import {
+  selectLanguage,
+  selectCurrentCurrencyPriceInfos,
+  useAppSelector,
+} from '~/store';
 
 import { useSendDialog } from '../context';
 import { useLabelSuffix } from '../hooks';
@@ -46,15 +52,16 @@ export const SummaryDialog: React.FC = () => {
     getComputedFee,
   } = useSendDialog();
   const lang = useAppSelector(selectLanguage);
-  const { priceInfos } = useAppSelector(selectPriceInfos);
+  const { currentCurrency } = useCurrency();
+  const priceInfos = useAppSelector(state =>
+    selectCurrentCurrencyPriceInfos(state, currentCurrency),
+  );
   const button = lang.strings.buttons;
   const displayText = lang.strings.send.summary;
   const getLabelSuffix = useLabelSuffix();
   const getToDetails = () => {
     const account = selectedAccount;
-    const coinPrice = priceInfos.find(
-      p => p.assetId === account?.assetId && p.currency.toLowerCase() === 'usd',
-    );
+    const coinPrice = priceInfos.find(p => p.assetId === account?.assetId);
     if (!account || !coinPrice) return [];
 
     const details = transaction?.userInputs.outputs.flatMap((output, index) => {
@@ -68,6 +75,7 @@ export const SummaryDialog: React.FC = () => {
       });
       const value = formatDisplayPrice(
         new BigNumber(amount).multipliedBy(coinPrice.latestPrice),
+        currentCurrency,
       );
 
       const outputDetails: SummaryItemType = [
@@ -81,7 +89,7 @@ export const SummaryDialog: React.FC = () => {
           id: `toDetail-amount-${output.address}`,
           leftText: displayText.amount,
           rightText: `${amount} ${unit.abbr}`,
-          rightSubText: `$${value}`,
+          rightSubText: value,
         },
       ];
 
@@ -110,13 +118,9 @@ export const SummaryDialog: React.FC = () => {
 
   const getTotalAmount = () => {
     const account = selectedAccount;
-    const assetPrice = priceInfos.find(
-      p => p.assetId === account?.assetId && p.currency.toLowerCase() === 'usd',
-    );
+    const assetPrice = priceInfos.find(p => p.assetId === account?.assetId);
     const parentAssetPrice = priceInfos.find(
-      p =>
-        p.assetId === account?.parentAssetId &&
-        p.currency.toLowerCase() === 'usd',
+      p => p.assetId === account?.parentAssetId,
     );
     if (!account || !assetPrice || !parentAssetPrice) return [];
     let totalAmount = new BigNumber(0);
@@ -150,13 +154,16 @@ export const SummaryDialog: React.FC = () => {
       parentAssetPrice.latestPrice,
     );
 
-    const totalValue = formatDisplayPrice(amountValue.plus(feeValue));
+    const totalValue = formatDisplayPrice(
+      amountValue.plus(feeValue),
+      currentCurrency,
+    );
 
     return [
       {
         id: 'total-amount-details',
         leftText: displayText.debit,
-        rightText: `$${totalValue}`,
+        rightText: totalValue,
       },
     ];
   };
@@ -170,8 +177,7 @@ export const SummaryDialog: React.FC = () => {
 
     const coinPrice = priceInfos.find(
       p =>
-        p.assetId === (isIcpToken ? account.assetId : account?.parentAssetId) &&
-        p.currency.toLowerCase() === 'usd',
+        p.assetId === (isIcpToken ? account.assetId : account?.parentAssetId),
     );
     if (!account || !coinPrice) return [];
     const { amount, unit } = getParsedAmount({
@@ -186,13 +192,14 @@ export const SummaryDialog: React.FC = () => {
 
     const value = formatDisplayPrice(
       new BigNumber(amount).multipliedBy(coinPrice.latestPrice),
+      currentCurrency,
     );
 
     details.push({
       id: 'fee-details',
       leftText: displayText.network + getLabelSuffix(selectedAccount),
       rightText: `${amount} ${unit.abbr}`,
-      rightSubText: `$${value}`,
+      rightSubText: value,
     });
 
     return details;
@@ -374,6 +381,10 @@ export const SummaryDialog: React.FC = () => {
         <Button
           variant="primary"
           onClick={() => {
+            analyticsService.trackEvent(ANALYTICS_EVENTS.SEND_VIEWED_SUMMARY, {
+              assetId: selectedAccount?.assetId,
+              action: 'confirmed',
+            });
             onNext();
           }}
         >

@@ -11,6 +11,7 @@ import React, { useEffect, useRef, useState } from 'react';
 
 import { LoaderDialog } from '~/components';
 import { useBuySell } from '~/context';
+import { analyticsService, ANALYTICS_EVENTS } from '~/services/analytics';
 import { selectLanguage, useAppSelector } from '~/store';
 
 export const BuySellOrder = () => {
@@ -21,13 +22,24 @@ export const BuySellOrder = () => {
   const [showLoader, setShowLoader] = useState(true);
 
   const onRefresh = () => {
+    analyticsService.trackEvent(ANALYTICS_EVENTS.BUY_CRYPTO_RETRY_ATTEMPT, {
+      action: 'refresh_order',
+    });
     webviewRef.current?.reload();
   };
 
   const onBack = () => {
     if (webviewRef.current?.canGoBack()) {
+      analyticsService.trackEvent(ANALYTICS_EVENTS.BUY_CRYPTO_BACK_NAVIGATION, {
+        fromStep: 'order',
+        action: 'webview_back',
+      });
       webviewRef.current.goBack();
     } else {
+      analyticsService.trackEvent(ANALYTICS_EVENTS.BUY_CRYPTO_BACK_NAVIGATION, {
+        fromStep: 'order',
+        toStep: 'account_selection',
+      });
       onPreviousState();
     }
   };
@@ -36,7 +48,14 @@ export const BuySellOrder = () => {
     // TODO: fetch targetUrl from server as well?
     const targetUrl = 'https://www.cypherock.com';
     if (e?.url?.includes(targetUrl)) {
+      analyticsService.trackEvent(ANALYTICS_EVENTS.BUY_CRYPTO_ORDER_COMPLETED, {
+        action: 'order_completed',
+      });
       onRetry(true);
+    } else {
+      analyticsService.trackEvent(ANALYTICS_EVENTS.BUY_CRYPTO_ORDER_CANCELLED, {
+        action: 'navigation_cancelled',
+      });
     }
   };
 
@@ -45,6 +64,12 @@ export const BuySellOrder = () => {
   };
 
   useEffect(() => {
+    if (preorderDetails?.link) {
+      analyticsService.trackEvent(ANALYTICS_EVENTS.BUY_CRYPTO_ORDER_INITIATED, {
+        action: 'order_initiated',
+      });
+    }
+
     const webview = document.getElementById('webviewid');
     if (webview) {
       webviewRef.current = webview;

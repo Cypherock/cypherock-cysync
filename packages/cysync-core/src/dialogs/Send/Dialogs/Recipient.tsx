@@ -1,6 +1,7 @@
 import { IPreparedBtcTransaction } from '@cypherock/coin-support-btc';
 import { IPreparedTransaction } from '@cypherock/coin-support-interfaces';
 import { IPreparedSolanaTransaction } from '@cypherock/coin-support-solana';
+import { IPreparedStellarTransaction } from '@cypherock/coin-support-stellar';
 import { getDefaultUnit, getParsedAmount } from '@cypherock/coin-support-utils';
 import { IPreparedXrpTransaction } from '@cypherock/coin-support-xrp';
 import { IPreparedSiaTransaction } from '@cypherock/coin-support-sia';
@@ -14,6 +15,7 @@ import {
   InformationIcon,
   LangDisplay,
   LeanBox,
+  MessageBox,
   ScrollableContainer,
   Typography,
   useTheme,
@@ -28,7 +30,7 @@ import logger from '~/utils/logger';
 import { AddressAndAmountSection, FeeSection } from './Components';
 
 import { useSendDialog } from '../context';
-import { IPreparedStellarTransaction } from '@cypherock/coin-support-stellar';
+import { CoinFamily, coinList } from '@cypherock/coins';
 
 export const Recipient: React.FC = () => {
   const {
@@ -40,11 +42,16 @@ export const Recipient: React.FC = () => {
     isAccountSelectionDisabled,
     isPreparingTxn,
     providerName,
+    selectedAccountParent,
+    getComputedFee,
   } = useSendDialog();
   const lang = useAppSelector(selectLanguage);
   const button = lang.strings.buttons;
   const theme = useTheme();
   const displayText = lang.strings.send.recipient;
+  const [showParentBalanceWarning, setShowParentBalanceWarning] =
+    useState(false);
+  const [minParentBalance, setMinParentBalance] = useState<string>('0');
 
   const getBalanceToDisplay = () => {
     const account = selectedAccount;
@@ -138,6 +145,31 @@ export const Recipient: React.FC = () => {
     initialize();
   }, []);
 
+  useEffect(() => {
+    if (selectedAccount && selectedAccountParent && transaction) {
+      const parentBalance = selectedAccountParent?.balance ?? '0';
+      const computedFee = getComputedFee(
+        selectedAccount.familyId as CoinFamily,
+        transaction,
+      );
+      setShowParentBalanceWarning(
+        new BigNumber(parentBalance).isLessThanOrEqualTo(
+          new BigNumber(computedFee),
+        ),
+      );
+      const { amount: minParsedAmount, unit } = getParsedAmount({
+        coinId: selectedAccountParent.parentAssetId,
+        assetId: selectedAccountParent.assetId,
+        unitAbbr: getDefaultUnit(
+          selectedAccountParent.parentAssetId,
+          selectedAccountParent.assetId,
+        ).abbr,
+        amount: computedFee,
+      });
+      setMinParentBalance(`${minParsedAmount} ${unit.abbr}`);
+    }
+  }, [selectedAccount, selectedAccountParent, transaction]);
+
   const handleSubmit = useCallback(() => {
     logger.info('Form Submit: Recipient', {
       source: `Send/${Recipient.name}`,
@@ -179,6 +211,19 @@ export const Recipient: React.FC = () => {
         )}
       </DialogBoxBody>
       <ScrollableContainer>
+        {showParentBalanceWarning && selectedAccountParent && (
+          <Container px={5}>
+            <MessageBox
+              type="warning"
+              text={lang.strings.send.recipient.parentAssetInsufficient}
+              variables={{
+                minParentBalance,
+                network: coinList[selectedAccountParent.parentAssetId].name,
+                unit: coinList[selectedAccountParent.parentAssetId].abbr,
+              }}
+            />
+          </Container>
+        )}
         <AddressAndAmountSection
           disableInputs={isAccountSelectionDisabled}
           providerName={providerName}

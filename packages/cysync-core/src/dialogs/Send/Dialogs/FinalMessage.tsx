@@ -20,6 +20,7 @@ import React from 'react';
 import QRCode from 'react-qr-code';
 
 import { openHistoryDialog } from '~/actions';
+import { analyticsService, ANALYTICS_EVENTS } from '~/services/analytics';
 import { selectLanguage, useAppDispatch, useAppSelector } from '~/store';
 import { truncateMiddle } from '~/utils';
 
@@ -92,7 +93,15 @@ export const FinalMessage: React.FC = () => {
       </DialogBoxBody>
 
       <DialogBoxFooter height={101}>
-        <Button variant="primary" onClick={showHistoryDialog}>
+        <Button
+          variant="primary"
+          onClick={() => {
+            analyticsService.trackEvent(ANALYTICS_EVENTS.SEND_SUCCEEDED, {
+              action: 'completed',
+            });
+            showHistoryDialog();
+          }}
+        >
           <LangDisplay text={displayText.button} />
         </Button>
       </DialogBoxFooter>

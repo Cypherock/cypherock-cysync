@@ -350,7 +350,8 @@
         "error": "Invalid memo"
       },
       "feeBelowMinError": "Transaction with fee lesser than minimum will fail",
-      "rentExemptFeeWarning": "Receiving a token on solana for the first time incurs rent exemption fees, included in total fees."
+      "rentExemptFeeWarning": "Receiving a token on solana for the first time incurs rent exemption fees, included in total fees.",
+      "parentAssetInsufficient": "You need at least ${minParentBalance} in your account to cover transaction fees on the ${network} network. Buy or deposit more ${unit} into your account."
     },
     "summary": {
       "title": "Summary",
@@ -2149,7 +2150,7 @@
           },
           "anayticsAndBugReport": {
             "title": "Analytics & Bug Report",
-            "description": "Enable analytics & bug reports to help Cypherock improve user experience & to help resolve your issues faster. This includes clicks, page visits, redirections, actions(send, receive, lock etc.), end of page scrolls, (un)installing and app version, number of accounts, crypto assets and operations, session durations, the Cypherock device type and firmware"
+            "description": "Enable analytics & bug reports to help Cypherock improve user experience & to help resolve your issues faster"
           },
           "reset": {
             "title": "Reset cySync",

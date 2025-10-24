@@ -45,5 +45,6 @@ export const ipcConfig = {
     'CHANNEL',
     'RELEASE_NOTES',
     'OS',
+    'MIXPANEL_TOKEN',
   ],
 };

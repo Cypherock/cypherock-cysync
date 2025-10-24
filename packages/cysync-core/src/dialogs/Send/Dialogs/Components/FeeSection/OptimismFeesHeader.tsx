@@ -10,8 +10,13 @@ import { Divider, Flex, LangDisplay, Typography } from '@cypherock/cysync-ui';
 import { BigNumber } from '@cypherock/cysync-utils';
 import React from 'react';
 
+import { useCurrency } from '~/context';
 import { useSendDialog } from '~/dialogs/Send/context';
-import { selectLanguage, selectPriceInfos, useAppSelector } from '~/store';
+import {
+  selectCurrentCurrencyPriceInfos,
+  selectLanguage,
+  useAppSelector,
+} from '~/store';
 
 import { FeesHeaderProps } from './FeesHeader';
 import { FeesTitle } from './FeesTitle';
@@ -23,7 +28,10 @@ export const OptimismFeesHeader: React.FC<FeesHeaderProps> = ({
   title,
 }) => {
   const { transaction, selectedAccount } = useSendDialog();
-  const { priceInfos } = useAppSelector(selectPriceInfos);
+  const { currentCurrency } = useCurrency();
+  const priceInfos = useAppSelector(state =>
+    selectCurrentCurrencyPriceInfos(state, currentCurrency),
+  );
   const lang = useAppSelector(selectLanguage);
 
   const getTotalFees = () => {
@@ -40,9 +48,7 @@ export const OptimismFeesHeader: React.FC<FeesHeaderProps> = ({
   const getFeesValue = () => {
     const account = selectedAccount;
     if (!account) return `0`;
-    const coinPrice = priceInfos.find(
-      p => p.assetId === account.assetId && p.currency.toLowerCase() === 'usd',
-    );
+    const coinPrice = priceInfos.find(p => p.assetId === account.assetId);
 
     if (coinPrice && transaction) {
       const txn = transaction as IPreparedEvmTransaction;
@@ -55,7 +61,7 @@ export const OptimismFeesHeader: React.FC<FeesHeaderProps> = ({
       const value = new BigNumber(feesInDefaultUnit.amount).multipliedBy(
         coinPrice.latestPrice,
       );
-      return `$${formatDisplayPrice(value)}`;
+      return `${formatDisplayPrice(value, currentCurrency)}`;
     }
     return '';
   };
