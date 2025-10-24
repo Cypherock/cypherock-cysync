@@ -164,7 +164,7 @@ export const LeanBox: FC<LeanBoxProps> = ({
                 color={color}
                 $fontSize={fontSize}
               >
-                {text}
+                <LangDisplay text={text} $allowMarkdown />
               </StretchedTypography>
               {image && image}
               {altText && (

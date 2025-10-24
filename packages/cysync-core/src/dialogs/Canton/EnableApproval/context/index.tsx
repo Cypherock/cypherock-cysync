@@ -18,14 +18,15 @@ import {
   useAppDispatch,
   useAppSelector,
 } from '~/store';
-
+import { keyValueStore } from '~/utils';
 import { DeviceAction, SuccessDialogComponent } from '../Dialogs';
+import { IAccount } from '@cypherock/db-interfaces';
+
 export interface EnableApprovalDialogContextInterface {
   tabs: ITabs;
   onNext: (tab?: number, dialog?: number) => void;
   goTo: (tab: number, dialog?: number) => void;
   onPrevious: () => void;
-  onSummaryDialogPrevious: () => void;
   onClose: () => void;
   onFinishEnableApproval: () => void;
   onRetry: () => void;
@@ -40,7 +41,9 @@ export const EnableApprovalDialogContext: Context<EnableApprovalDialogContextInt
     {} as EnableApprovalDialogContextInterface,
   );
 
-export interface EnableApprovalDialogProps {}
+export interface EnableApprovalDialogProps {
+  selectedAccount?: IAccount;
+}
 
 export interface EnableApprovalDialogContextProviderProps
   extends EnableApprovalDialogProps {
@@ -49,7 +52,7 @@ export interface EnableApprovalDialogContextProviderProps
 
 export const EnableApprovalDialogProvider: FC<
   EnableApprovalDialogContextProviderProps
-> = ({ children }) => {
+> = ({ children, selectedAccount }) => {
   const lang = useAppSelector(selectLanguage);
   const strings = lang.strings.dialogs.cantonDialogs.enableApproval.dialogs;
   const dispatch = useAppDispatch();
@@ -90,11 +93,9 @@ export const EnableApprovalDialogProvider: FC<
     setError(undefined);
   };
 
-  const onSummaryDialogPrevious = () => {
-    // Navigation handled by useTabsAndDialogs
-  };
-
-  const onFinishEnableApproval = () => {
+  const onFinishEnableApproval = async () => {
+    console.log('selectedAccount', selectedAccount);
+    await keyValueStore.isAutomaticApprovalsEnabled.set(true);
     onClose();
   };
 
@@ -108,13 +109,12 @@ export const EnableApprovalDialogProvider: FC<
   } = useTabsAndDialogs({
     deviceRequiredDialogsMap,
     tabs,
-    dialogName: 'enableApprovalPromptDialog',
+    dialogName: 'enableApprovalDialog',
   });
 
   const ctx = useMemoReturn({
     onNext,
     onPrevious,
-    onSummaryDialogPrevious,
     tabs,
     goTo,
     onClose,
@@ -136,3 +136,7 @@ export const EnableApprovalDialogProvider: FC<
 export function useEnableApprovalDialog(): EnableApprovalDialogContextInterface {
   return useContext(EnableApprovalDialogContext);
 }
+
+EnableApprovalDialogProvider.defaultProps = {
+  selectedAccount: undefined,
+};
