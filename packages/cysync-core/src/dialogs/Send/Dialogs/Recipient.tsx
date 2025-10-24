@@ -3,6 +3,7 @@ import { IPreparedTransaction } from '@cypherock/coin-support-interfaces';
 import { IPreparedSolanaTransaction } from '@cypherock/coin-support-solana';
 import { getDefaultUnit, getParsedAmount } from '@cypherock/coin-support-utils';
 import { IPreparedXrpTransaction } from '@cypherock/coin-support-xrp';
+import { IPreparedSiaTransaction } from '@cypherock/coin-support-sia';
 import {
   BlockchainIcon,
   Button,
@@ -102,6 +103,13 @@ export const Recipient: React.FC = () => {
       !validation.isFeeBelowMin &&
       !validation.isInvalidMemo;
 
+    const isSiaValid = (
+      validation: IPreparedSiaTransaction['validation'],
+    ): boolean =>
+      validation.hasEnoughBalance &&
+      validation.isValidFee &&
+      !validation.zeroAmountNotAllowed;
+
     const isSolanaValid = (
       validation: IPreparedSolanaTransaction['validation'],
     ): boolean => !validation.isAmountBelowRentExempt;
@@ -118,7 +126,8 @@ export const Recipient: React.FC = () => {
         isBtcValid(v as IPreparedBtcTransaction['validation']) &&
         isXrpValid(v as IPreparedXrpTransaction['validation']) &&
         isStellarValid(v as IPreparedStellarTransaction['validation']) &&
-        isSolanaValid(v as IPreparedSolanaTransaction['validation'])
+        isSolanaValid(v as IPreparedSolanaTransaction['validation']) &&
+        isSiaValid(v as IPreparedSiaTransaction['validation'])
       );
     };
 

@@ -99,6 +99,7 @@ export const SingleTransaction: React.FC<SingleTransactionProps> = ({
     starknet: () => '',
     icp: () => '',
     stellar: () => '',
+    sia: () => '',
   };
 
   const getXrpDestinationTagInputProps = () => {
@@ -126,6 +127,7 @@ export const SingleTransaction: React.FC<SingleTransactionProps> = ({
     starknet: () => ({}),
     icp: () => ({}),
     stellar: () => ({}),
+    sia: () => ({}),
   };
 
   const destinationTagInputMap: Partial<Record<CoinFamily, React.FC<any>>> = {
@@ -185,6 +187,7 @@ export const SingleTransaction: React.FC<SingleTransactionProps> = ({
     starknet: () => ({}),
     icp: getIcpMemoInputProps,
     stellar: getStellarMemoInputProps,
+    sia: () => ({}),
   };
 
   const memoInputMap: Partial<Record<CoinFamily, React.FC<any>>> = {
