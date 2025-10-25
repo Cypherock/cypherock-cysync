@@ -134,6 +134,9 @@ const initialState: IDialogState = {
   enableApprovalDialog: {
     isOpen: false,
   },
+  createCantonAccountDialog: {
+    isOpen: false,
+  },
 };
 
 export const dialogSlice = createSlice({
