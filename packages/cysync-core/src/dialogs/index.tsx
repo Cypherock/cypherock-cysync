@@ -46,7 +46,11 @@ import { SwapDialog } from './SwapDialog';
 import { WalletActionsDialogBox } from './WalletActions';
 import { WalletConnectDialog } from './WalletConnect';
 import { WalletSyncError } from './WalletSyncError';
-import { EnableApprovalDialog, EnableApprovalPromptDialog } from './Canton';
+import {
+  CreateCantonAccountDialog,
+  EnableApprovalDialog,
+  EnableApprovalPromptDialog,
+} from './Canton';
 
 export const dialogs: Record<DialogName, ReactComponentLike> = {
   walletSyncError: WalletSyncError,
@@ -90,4 +94,5 @@ export const dialogs: Record<DialogName, ReactComponentLike> = {
   fullPageLoaderDialog: FullPageLoaderDialog,
   enableApprovalPromptDialog: EnableApprovalPromptDialog,
   enableApprovalDialog: EnableApprovalDialog,
+  createCantonAccountDialog: CreateCantonAccountDialog,
 };

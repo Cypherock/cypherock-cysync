@@ -1319,6 +1319,33 @@ interface LangDialogs {
         };
       };
     };
+    createCantonAccount: {
+      title: string;
+      dialogs: {
+        x1Vault: {
+          title: string;
+          name: string;
+          actions: {
+            verifyCantonAccount: {
+              prefix: string;
+              suffix: string;
+            };
+          };
+          messageBox: {
+            warning: string;
+          };
+        };
+        confirmation: {
+          name: string;
+        };
+        success: {
+          title: string;
+        };
+        automaticApproval: {
+          name: string;
+        };
+      };
+    };
   };
 }
 
