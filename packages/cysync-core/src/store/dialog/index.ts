@@ -137,6 +137,9 @@ const initialState: IDialogState = {
   createCantonAccountDialog: {
     isOpen: false,
   },
+  transactionActionDialog: {
+    isOpen: false,
+  },
 };
 
 export const dialogSlice = createSlice({

@@ -51,6 +51,7 @@ import {
   EnableApprovalDialog,
   EnableApprovalPromptDialog,
 } from './Canton';
+import { TransactionActionDialog } from './Canton/TransactionAction';
 
 export const dialogs: Record<DialogName, ReactComponentLike> = {
   walletSyncError: WalletSyncError,
@@ -95,4 +96,5 @@ export const dialogs: Record<DialogName, ReactComponentLike> = {
   enableApprovalPromptDialog: EnableApprovalPromptDialog,
   enableApprovalDialog: EnableApprovalDialog,
   createCantonAccountDialog: CreateCantonAccountDialog,
+  transactionActionDialog: TransactionActionDialog,
 };

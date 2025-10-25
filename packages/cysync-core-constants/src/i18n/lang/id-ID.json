@@ -2211,6 +2211,33 @@
             "name": "Automatic Approval"
           }
         }
+      },
+      "transactionAction": {
+        "title": {
+          "approve": "Accept Incoming Transaction",
+          "reject": "Reject Incoming Transaction",
+          "cancel": "Cancel Outgoing Transaction"
+        },
+        "dialogs": {
+          "x1Vault": {
+            "title": "Follow instructions on the X1 Vault",
+            "name": "X1 Vault",
+            "actions": {
+              "verifyCantonAccount": {
+                "prefix": "Verify",
+                "suffix": "account"
+              }
+            }
+          },
+          "confirmation": {
+            "name": "Confirmation"
+          },
+          "success": {
+            "approve": "Incoming transaction accepted",
+            "reject": "Incoming transaction rejected",
+            "cancel": "Outgoing transaction cancelled"
+          }
+        }
       }
     }
   },
