@@ -16,27 +16,8 @@ import {
   signSiaToDeviceEventMap,
 } from './types';
 
-import { createApp } from '../../utils';
+import { createApp, scToHastings, hexToBytes } from '../../utils';
 import { IPreparedSiaTransaction } from '../transaction';
-
-const hexToBytes = (hex: string): number[] => {
-  const cleanHex = hex.startsWith('0x') ? hex.slice(2) : hex;
-  const bytes = [];
-  for (let i = 0; i < cleanHex.length; i += 2) {
-    bytes.push(parseInt(cleanHex.substr(i, 2), 16));
-  }
-  return bytes;
-};
-
-const scToHastings = (sc: string): string => {
-  const parts = sc.split('.');
-  const wholePart = parts[0] || '0';
-  const decimalPart = (parts[1] || '').padEnd(24, '0').substring(0, 24);
-  return (
-    BigInt(wholePart) * BigInt('1000000000000000000000000') +
-    BigInt(decimalPart)
-  ).toString();
-};
 
 const serializeTransactionBlob = (
   selectedUTXOs: Array<{ id: string; value: string }>,
@@ -109,15 +90,18 @@ const prepareUnsignedTxn = async (
   transaction: IPreparedSiaTransaction,
   account: IAccount,
 ): Promise<IUnsignedTransaction> => {
-  const { selectedUtxos, output, fees } = transaction.computedData;
+  const { selectedUtxos, output, fees, changeAmount } =
+    transaction.computedData;
+
+  console.log('DEBUG: prepareUnsignedTxn inputs:', {
+    sendAmount: output.amount,
+    fee: fees,
+    changeAmount,
+    selectedUtxoCount: selectedUtxos.length,
+  });
 
   const sendAmountHastings = BigInt(scToHastings(output.amount));
   const feeHastings = BigInt(scToHastings(fees));
-
-  const totalInputHastings = selectedUtxos.reduce(
-    (sum, utxo) => sum + BigInt(utxo.value),
-    BigInt(0),
-  );
 
   const outputs: Array<{ address: string; value: string }> = [
     {
@@ -126,7 +110,8 @@ const prepareUnsignedTxn = async (
     },
   ];
 
-  const changeHastings = totalInputHastings - sendAmountHastings - feeHastings;
+  const changeHastings = BigInt(changeAmount);
+
   if (changeHastings > BigInt(0)) {
     outputs.push({
       address: account.xpubOrAddress,
@@ -134,11 +119,15 @@ const prepareUnsignedTxn = async (
     });
   }
 
+  console.log('DEBUG: Built outputs:', outputs);
+
   const blob = serializeTransactionBlob(
     selectedUtxos,
     outputs,
     feeHastings.toString(),
   );
+
+  console.log('DEBUG: Transaction blob length:', blob.length);
 
   return { blob };
 };

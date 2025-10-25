@@ -4,7 +4,10 @@ export const getExplorerLink = (params: IGetExplorerLink) => {
   const { transaction } = params;
 
   // If we its getting called from history we have its hash, else we redirect to address
-  if (transaction.hash && transaction.hash !== '') {
+  if (
+    transaction.hash &&
+    transaction.hash !== 'Transaction submitted - awaiting confirmation'
+  ) {
     return `https://siascan.com/tx/${transaction.hash}`;
   }
 

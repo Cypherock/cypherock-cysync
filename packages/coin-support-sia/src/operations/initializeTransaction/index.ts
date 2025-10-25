@@ -29,6 +29,7 @@ export const initializeTransaction = async (
       output: { address: '', amount: '0' },
       fees: fees.recommendedFee,
       selectedUtxos: [],
+      changeAmount: '0',
     },
   };
 };

@@ -5,20 +5,15 @@ export default [
     name: 'Sia',
     isTest: false,
     coinGeckoId: 'siacoin',
-    coinIndex: '800007c7', // 1991 + 0x80000000 in hex
+    coinIndex: '800007c7',
     feesUnit: 'SC',
-    color: '#00CDA7', // Sia's teal color
+    color: '#00CDA7',
     family: 'sia',
     network: 'mainnet',
     units: [
       {
         name: 'Siacoin',
         abbr: 'SC',
-        magnitude: 24,
-      },
-      {
-        name: 'hastings',
-        abbr: 'hastings',
         magnitude: 0,
       },
     ],

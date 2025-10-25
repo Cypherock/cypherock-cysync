@@ -24,5 +24,6 @@ export interface IPreparedSiaTransaction extends IPreparedTransaction {
     output: IPreparedTransactionOutput;
     fees: string;
     selectedUtxos: ISiaUtxo[];
+    changeAmount: string;
   };
 }
