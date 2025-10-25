@@ -1,6 +1,7 @@
 import { AddAccountDialogProps } from '~/dialogs/AddAccount';
 import { AddTokenDialogProps } from '~/dialogs/AddToken';
 import { CreateCantonAccountDialogProps } from '~/dialogs/Canton';
+import { TransactionActionDialogProps } from '~/dialogs/Canton/TransactionAction';
 import { DeleteAccountDialogProps } from '~/dialogs/DeleteAccountDialog';
 import { DeployAccountDialogProps } from '~/dialogs/DeployAccount/context';
 import { ErrorDialogProps } from '~/dialogs/ErrorDialog';
@@ -226,6 +227,11 @@ export interface IDialogState {
   createCantonAccountDialog: {
     isOpen: boolean;
     data?: CreateCantonAccountDialogProps;
+  };
+
+  transactionActionDialog: {
+    isOpen: boolean;
+    data?: TransactionActionDialogProps;
   };
 }
 

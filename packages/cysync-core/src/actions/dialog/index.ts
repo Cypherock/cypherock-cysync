@@ -1,6 +1,7 @@
 import { AddAccountDialogProps } from '~/dialogs/AddAccount';
 import { AddTokenDialogProps } from '~/dialogs/AddToken';
 import { CreateCantonAccountDialogProps } from '~/dialogs/Canton';
+import { TransactionActionDialogProps } from '~/dialogs/Canton/TransactionAction';
 import { IContactSupportDialogProps } from '~/dialogs/ContactSupport';
 import { DeleteAccountDialogProps } from '~/dialogs/DeleteAccountDialog';
 import { DeployAccountDialogProps } from '~/dialogs/DeployAccount/context';
@@ -155,3 +156,7 @@ export const openEnableApprovalDialog = () =>
 export const openCreateCantonAccountDialog = (
   props: CreateCantonAccountDialogProps,
 ) => openDialog({ name: 'createCantonAccountDialog', data: props });
+
+export const openTransactionActionDialog = (
+  props: TransactionActionDialogProps,
+) => openDialog({ name: 'transactionActionDialog', data: props });
