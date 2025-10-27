@@ -516,6 +516,8 @@
       "remarks": "Catatan Pribadi",
       "destinationTag": "Tag Tujuan",
       "memo": "Memo",
+      "choice": "Pilihan",
+      "startDate": "Tanggal Mulai",
       "expirationDate": "Waktu Kedaluwarsa",
       "operation": "Operasi"
     },

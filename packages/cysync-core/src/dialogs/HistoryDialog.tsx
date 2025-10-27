@@ -442,6 +442,19 @@ export const HistoryDialog: FC<IHistoryDialogProps> = ({ txn: _txn }) => {
                   </Container>
                 </HistoryItem>
               )}
+              {displayTransaction.choice && (
+                <HistoryItem leftText={keys.choice}>
+                  <Container direction="row" gap={8}>
+                    <Typography
+                      variant="span"
+                      $maxWidth="400"
+                      $textOverflow="ellipsis"
+                    >
+                      {displayTransaction.choice}
+                    </Typography>
+                  </Container>
+                </HistoryItem>
+              )}
               {displayTransaction.memo !== undefined && (
                 <HistoryItem leftText={keys.memo}>
                   <Container direction="row" gap={8}>
@@ -455,7 +468,20 @@ export const HistoryDialog: FC<IHistoryDialogProps> = ({ txn: _txn }) => {
                   </Container>
                 </HistoryItem>
               )}
-              {displayTransaction.expiry !== undefined && (
+              {displayTransaction.startDate !== undefined && (
+                <HistoryItem leftText={keys.startDate}>
+                  <Container direction="row" gap={8}>
+                    <Typography
+                      variant="span"
+                      $maxWidth="400"
+                      $textOverflow="ellipsis"
+                    >
+                      {displayTransaction.startDate}
+                    </Typography>
+                  </Container>
+                </HistoryItem>
+              )}
+              {displayTransaction.expiryDate !== undefined && (
                 <HistoryItem leftText={keys.expirationDate}>
                   <Container direction="row" gap={8}>
                     <Typography
@@ -463,7 +489,7 @@ export const HistoryDialog: FC<IHistoryDialogProps> = ({ txn: _txn }) => {
                       $maxWidth="400"
                       $textOverflow="ellipsis"
                     >
-                      {displayTransaction.expiry}
+                      {displayTransaction.expiryDate}
                     </Typography>
                   </Container>
                 </HistoryItem>

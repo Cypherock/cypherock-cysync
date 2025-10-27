@@ -166,6 +166,8 @@
       "remarks": "Note personnelle",
       "destinationTag": "Tag de destination",
       "memo": "Mémo",
+      "choice": "Choix",
+      "startDate": "Date de début",
       "expirationDate": "Date d'expiration",
       "operation": "Opération"
     },

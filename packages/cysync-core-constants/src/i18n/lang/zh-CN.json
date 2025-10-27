@@ -516,6 +516,8 @@
       "remarks": "个人备注",
       "destinationTag": "目标标签",
       "memo": "备忘录",
+      "choice": "选择",
+      "startDate": "开始日期",
       "expirationDate": "过期日期",
       "operation": "操作"
     },
