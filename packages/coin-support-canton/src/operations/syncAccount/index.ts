@@ -1,10 +1,12 @@
 import {
   createSyncAccountsObservable,
+  createTransactionId,
   getLatestTransactionBlock,
   IGetAddressDetails,
 } from '@cypherock/coin-support-utils';
 import {
   IAccount,
+  IDatabase,
   ITransaction,
   TransactionStatus,
   TransactionStatusMap,
@@ -41,6 +43,27 @@ const CantonTransactionStatusMap = {
   [CantonTransactionStatus.FAILED]: TransactionStatusMap.failed,
   [CantonTransactionStatus.PENDING]: TransactionStatusMap.pending,
 } as const;
+
+const removeObsoleteTransactions = async (
+  db: IDatabase,
+  account: IAccount,
+  pendingTransactions: ITransaction[],
+) => {
+  const existingPendingTransactions = await db.transaction.getAll({
+    accountId: account.__id,
+    status: TransactionStatusMap.pending,
+  });
+
+  const currentPendingTransactionIds = await Promise.all(
+    pendingTransactions.map(txn => createTransactionId(txn)),
+  );
+
+  for (const existing of existingPendingTransactions) {
+    if (!currentPendingTransactionIds.includes(existing.__id)) {
+      await db.transaction.remove({ __id: existing.__id });
+    }
+  }
+};
 
 const parseTransaction = (
   partyId: string,
@@ -100,12 +123,65 @@ const parseTransaction = (
   return transaction;
 };
 
+const parsePendingTransaction = (
+  partyId: string,
+  account: IAccount,
+  txn: services.ICantonPendingResponseTransaction,
+): ITransaction => {
+  const myPartyId = partyId;
+  const fromPartyId = txn.sender;
+  const toPartyId = txn.receiver;
+  const { fees = '0', amount } = txn;
+
+  const transaction: ITransaction = {
+    accountId: account.__id ?? '',
+    walletId: account.walletId,
+    assetId: account.assetId,
+    familyId: account.familyId,
+    parentAssetId: account.parentAssetId,
+    hash: txn.updateId,
+    confirmations: 1,
+    fees,
+    amount,
+    status: TransactionStatusMap.pending,
+    type:
+      myPartyId === fromPartyId
+        ? TransactionTypeMap.send
+        : TransactionTypeMap.receive,
+    timestamp: new Date(txn.recordTime).getTime(),
+    blockHeight: txn.offset,
+    inputs: [
+      {
+        address: fromPartyId,
+        amount,
+        isMine: myPartyId === fromPartyId,
+      },
+    ],
+    outputs: [
+      {
+        address: toPartyId,
+        amount,
+        isMine: myPartyId === toPartyId,
+      },
+    ],
+    extraData: {
+      cantonStatus: txn.status,
+      memo: txn.memo ? txn.memo : undefined,
+      startDate: txn.requestedAt,
+      expiryDate: txn.executeBefore,
+      instrument: txn.instrumentId,
+    },
+  };
+  return transaction;
+};
+
 const fetchAndParseTransactions = async (params: {
   partyId: string;
   account: IAccount;
   afterOffset?: number;
+  db: IDatabase;
 }) => {
-  const { partyId, account, afterOffset } = params;
+  const { partyId, account, afterOffset, db } = params;
 
   const response = await services.getTransactions({
     partyId,
@@ -121,6 +197,26 @@ const fetchAndParseTransactions = async (params: {
   }
 
   const { hasMore, nextOffset } = response;
+
+  if (!hasMore) {
+    const pendingTransactions = await services.getPendingTransactions({
+      partyId,
+      assetId: account.assetId,
+    });
+
+    const resultPendingTxns: ITransaction[] = [];
+    for (const rawTransaction of pendingTransactions) {
+      const transaction = parsePendingTransaction(
+        partyId,
+        account,
+        rawTransaction,
+      );
+      resultPendingTxns.push({ ...transaction });
+    }
+    transactions.push(...resultPendingTxns);
+
+    await removeObsoleteTransactions(db, account, resultPendingTxns);
+  }
 
   return {
     transactions,
@@ -151,6 +247,7 @@ const getAddressDetails: IGetAddressDetails<{
       partyId,
       account,
       afterOffset,
+      db,
     },
   );
 

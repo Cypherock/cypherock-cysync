@@ -1,7 +1,11 @@
 // import { cantonCoinList } from '@cypherock/coins';
 import { makePostRequest, assert } from '@cypherock/cysync-utils';
 
-import { ICantonTransactionParams, ICantonTransactionResult } from './types';
+import {
+  ICantonPendingResponseTransaction,
+  ICantonTransactionParams,
+  ICantonTransactionResult,
+} from './types';
 
 import { config } from '../../config';
 
@@ -25,6 +29,26 @@ export const getTransactions = async (
   );
 
   return response.data;
+};
+
+export const getPendingTransactions = async (
+  params: ICantonTransactionParams,
+): Promise<ICantonPendingResponseTransaction[]> => {
+  const url = `${baseURL}/history/pending`;
+  const query: Record<string, any> = {
+    ...params,
+  };
+  delete query.assetId;
+  delete query.nextOffset;
+
+  const response = await makePostRequest(url, query);
+
+  assert(
+    typeof response.data?.transactions === 'object',
+    'Invalid transaction response from server',
+  );
+
+  return response.data.transactions;
 };
 
 export const getFees = async (assetId: string) => {

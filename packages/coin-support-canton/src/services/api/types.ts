@@ -4,12 +4,10 @@ export interface ICantonTransactionParams {
   afterOffset?: number;
 }
 
-export interface ICantonResponseTransaction {
+interface ICantonBaseResponseTransaction {
   updateId: string;
   offset: number;
   recordTime: string;
-  type: string;
-  choice: string;
   status: string;
   sender: string;
   receiver: string;
@@ -22,6 +20,18 @@ export interface ICantonResponseTransaction {
   requestedAt: string;
   executeBefore: string;
   memo: string;
+}
+
+export interface ICantonResponseTransaction
+  extends ICantonBaseResponseTransaction {
+  type: string;
+  choice: string;
+}
+
+export interface ICantonPendingResponseTransaction
+  extends ICantonBaseResponseTransaction {
+  contractId: string;
+  templateId: string;
 }
 
 export interface ICantonTransactionResult {
