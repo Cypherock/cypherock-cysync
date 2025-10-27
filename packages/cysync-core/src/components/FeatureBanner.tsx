@@ -7,6 +7,8 @@ import {
   LangDisplay,
 } from '@cypherock/cysync-ui';
 import React, { FC, useCallback, useEffect, useMemo, useState } from 'react';
+import { useLocation } from 'react-router-dom';
+import { routes } from '~/constants';
 import { selectLanguage, useAppSelector } from '~/store';
 import { keyValueStore } from '~/utils';
 
@@ -16,6 +18,11 @@ export const FeatureBanner: FC = () => {
     useState(false);
   const lang = useAppSelector(selectLanguage);
   const strings = lang.strings.portfolio.banner;
+
+  const { path } = routes.portfolio;
+  const location = useLocation();
+
+  const isPortfolioPage = location.pathname.startsWith(path);
 
   useEffect(() => {
     keyValueStore.isCantonAdded.get().then(value => {
@@ -31,10 +38,10 @@ export const FeatureBanner: FC = () => {
     setIsCantonAdded(true);
   }, []);
 
-  const renderContent = useMemo(
-    () => (
-      // if (isCantonAdded && isAutomaticApprovalEnabled) return null;
+  const renderContent = useMemo(() => {
+    if (!isPortfolioPage) return null;
 
+    return (
       <Container $bgColor="contentGradient" width="full">
         <Container
           direction="row"
@@ -78,9 +85,8 @@ export const FeatureBanner: FC = () => {
           )}
         </Container>
       </Container>
-    ),
-    [isAutomaticApprovalEnabled, isCantonAdded],
-  );
+    );
+  }, [isAutomaticApprovalEnabled, isCantonAdded]);
 
   return renderContent;
 };
