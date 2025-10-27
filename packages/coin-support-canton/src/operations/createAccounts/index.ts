@@ -108,12 +108,10 @@ const getBalanceAndTxnCount = async (
     balance: await services.getBalance(partyId, params.coinId),
     txnCount: (
       await services.getTransactions({
-        address: partyId,
+        partyId,
         assetId: params.coinId,
-        limit: 1,
-        binary: true,
       })
-    ).transactions.length,
+    ).count,
   };
 };
 
