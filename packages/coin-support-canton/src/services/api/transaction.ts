@@ -6,28 +6,25 @@ import { ICantonTransactionParams, ICantonTransactionResult } from './types';
 import { config } from '../../config';
 
 const baseURL = `${config.API_CYPHEROCK}/canton/transaction`;
-// const baseURL = `http://localhost:5001/canton/transaction`;
 
 export const getTransactions = async (
   params: ICantonTransactionParams,
 ): Promise<ICantonTransactionResult> => {
-  console.log(`Getting transactions with params: ${params}`);
-  // const url = `${baseURL}/history`;
+  const url = `${baseURL}/history`;
 
-  // const query: Record<string, any> = {
-  //   ...params,
-  //   network: cantonCoinList[params.assetId].network,
-  // };
-  // delete query.assetId;
+  const query: Record<string, any> = {
+    ...params,
+  };
+  delete query.assetId;
 
-  // const response = await makePostRequest(url, query);
+  const response = await makePostRequest(url, query);
 
-  // assert(
-  //   typeof response.data.transactions === 'object',
-  //   'Invalid transaction response from server',
-  // );
+  assert(
+    typeof response.data?.transactions === 'object',
+    'Invalid transaction response from server',
+  );
 
-  return { transactions: [], hasMore: false, limit: 20 };
+  return response.data;
 };
 
 export const getFees = async (assetId: string) => {

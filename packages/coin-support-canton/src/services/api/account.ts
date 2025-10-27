@@ -4,7 +4,6 @@ import { makePostRequest } from '@cypherock/cysync-utils';
 import { config } from '../../config';
 
 const baseURL = `${config.API_CYPHEROCK}/canton/wallet`;
-// const baseURL = `http://localhost:5001/canton/wallet`;
 
 export const getAccountInfo = async (
   address: string,
