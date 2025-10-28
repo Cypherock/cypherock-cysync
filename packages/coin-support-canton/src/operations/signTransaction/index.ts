@@ -4,8 +4,6 @@ import {
   mapDerivationPath,
   SignTransactionFromDevice,
 } from '@cypherock/coin-support-utils';
-import { ICantonCoinInfo } from '@cypherock/coins';
-import { IAccount } from '@cypherock/db-interfaces';
 import { IUnsignedTransaction, CantonApp } from '@cypherock/sdk-app-canton';
 import { assert, hexToUint8Array } from '@cypherock/sdk-utils';
 import { Observable } from 'rxjs';
@@ -22,11 +20,7 @@ import { IPreparedCantonTransaction } from '../transaction';
 
 const prepareUnsignedTxn = async (
   transaction: IPreparedCantonTransaction,
-  coin: ICantonCoinInfo,
-  account: IAccount,
 ): Promise<IUnsignedTransaction> => {
-  // const expiryDate =
-  logger.info('Prepared Transaction', { transaction, coin, account });
   const prepared = transaction.computedData.preparedTransaction;
 
   return {
@@ -38,7 +32,7 @@ const signTransactionFromDevice: SignTransactionFromDevice<
   CantonApp,
   string
 > = async params => {
-  const { app, observer, transaction, account, coin } = params;
+  const { app, observer, transaction, account } = params;
   logger.info({ transaction });
 
   const events: Record<SignTransactionDeviceEvent, boolean | undefined> =
@@ -46,8 +40,6 @@ const signTransactionFromDevice: SignTransactionFromDevice<
 
   const txn = await prepareUnsignedTxn(
     transaction as IPreparedCantonTransaction,
-    coin as ICantonCoinInfo,
-    account,
   );
 
   assert(txn, 'Missing unsigned transaction');

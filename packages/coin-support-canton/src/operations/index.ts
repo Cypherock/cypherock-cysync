@@ -9,5 +9,6 @@ export * from './validateAddress';
 export * from './getExplorerLink';
 export * from './initializeTransaction';
 export * from './prepareTransaction';
+export * from './prepareChoiceTransaction';
 export * from './signTransaction';
 export * from './broadcastTransaction';
