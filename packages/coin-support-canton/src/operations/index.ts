@@ -11,5 +11,8 @@ export * from './initializeTransaction';
 export * from './prepareTransaction';
 export * from './prepareChoiceTransaction';
 export * from './prepareTransferPreApprovalTransaction';
+export * from './prepareExternalPartyTransaction';
 export * from './signTransaction';
+export * from './signExternalPartyTransaction';
 export * from './broadcastTransaction';
+export * from './broadcastExternalPartyTransaction';

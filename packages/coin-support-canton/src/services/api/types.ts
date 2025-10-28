@@ -40,3 +40,10 @@ export interface ICantonTransactionResult {
   hasMore: boolean;
   nextOffset?: number;
 }
+
+export interface ICantonPrepareExternalPartyTxnResult {
+  partyId: string;
+  publicKeyFingerprint: string;
+  multiHash: string;
+  topologyTransactions: string[];
+}

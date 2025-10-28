@@ -3,6 +3,7 @@ import { makePostRequest, assert } from '@cypherock/cysync-utils';
 
 import {
   ICantonPendingResponseTransaction,
+  ICantonPrepareExternalPartyTxnResult,
   ICantonTransactionParams,
   ICantonTransactionResult,
 } from './types';
@@ -151,6 +152,42 @@ export const broadcastTransactionToBlockchain = async (
   assert(
     !response.data.error,
     new Error('Server: Invalid txn hash from server'),
+  );
+
+  return response.data;
+};
+
+export const prepareExternalPartyTxn = async (
+  publicKey: string,
+  partyHint: string,
+): Promise<ICantonPrepareExternalPartyTxnResult> => {
+  const url = `${baseURL}/prepare/external-party`;
+  const response = await makePostRequest(url, {
+    publicKey,
+    partyHint,
+  });
+
+  assert(
+    !response.data.error && response.data.topologyTransactions,
+    new Error('Server: Invalid prepared transaction from server'),
+  );
+
+  return response.data;
+};
+
+export const broadcastExternalPartyTransactionToBlockchain = async (
+  signature: string,
+  preparedParty: ICantonPrepareExternalPartyTxnResult,
+): Promise<any> => {
+  const url = `${baseURL}/broadcast/external-party`;
+  const response = await makePostRequest(url, {
+    signature,
+    preparedParty,
+  });
+
+  assert(
+    !response.data.error,
+    new Error('Server: Broadcast external party txn failed'),
   );
 
   return response.data;

@@ -28,17 +28,18 @@ import { Observable } from 'rxjs';
 
 import * as operations from './operations';
 import {
+  IBroadcastCantonExternalPartyTransactionParams,
   IBroadcastCantonTransactionParams,
+  IPrepareCantonChoiceTransactionParams,
+  IPrepareCantonExternalPartyTransactionParams,
   IPrepareCantonTransactionParams,
   IPrepareCantonTransferPreApprovalTransactionParams,
+  IPreparedCantonChoiceTransaction,
+  IPreparedCantonExternalPartyTransaction,
   IPreparedCantonTransferPreApprovalTransaction,
   ISignCantonTransactionEvent,
 } from './operations/types';
 import { getAppletId } from './utils';
-import {
-  IPrepareCantonChoiceTransactionParams,
-  IPreparedCantonChoiceTransaction,
-} from './operations/prepareChoiceTransaction/types';
 
 export * from './operations/types';
 export { updateLogger } from './utils/logger';
@@ -86,6 +87,12 @@ export class CantonSupport implements CoinSupport {
     return operations.prepareTransferPreApprovalTransaction(params);
   }
 
+  public async prepareExternalPartyTransaction(
+    params: IPrepareCantonExternalPartyTransactionParams,
+  ): Promise<IPreparedCantonExternalPartyTransaction> {
+    return operations.prepareExternalPartyTransaction(params);
+  }
+
   public signTransaction(
     params: ISignTransactionParams,
   ): Observable<ISignCantonTransactionEvent> {
@@ -96,6 +103,12 @@ export class CantonSupport implements CoinSupport {
     params: IBroadcastCantonTransactionParams,
   ): Promise<ITransaction> {
     return operations.broadcastTransaction(params);
+  }
+
+  public broadcastExternalPartyTransaction(
+    params: IBroadcastCantonExternalPartyTransactionParams,
+  ): Promise<void> {
+    return operations.broadcastExternalPartyTransaction(params);
   }
 
   public signMessage(
