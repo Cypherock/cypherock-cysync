@@ -2,6 +2,7 @@ import {
   IPreparedTransaction,
   IPreparedTransactionOutput,
 } from '@cypherock/coin-support-interfaces';
+import { ICantonPrepareExternalPartyTxnResult } from '../services';
 
 export enum ICantonTransactionExpiryUnit {
   HOURS = 'Hours',
@@ -92,5 +93,12 @@ export interface IPreparedCantonTransaction extends IPreparedTransaction {
     output: IPreparedCantonTransactionOutput;
     fees: string;
     preparedTransaction?: any;
+  };
+}
+
+export interface IPreparedCantonExternalPartyTransaction
+  extends IPreparedTransaction {
+  computedData: {
+    preparedTransaction: ICantonPrepareExternalPartyTxnResult;
   };
 }
