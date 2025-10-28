@@ -10,5 +10,6 @@ export * from './getExplorerLink';
 export * from './initializeTransaction';
 export * from './prepareTransaction';
 export * from './prepareChoiceTransaction';
+export * from './prepareTransferPreApprovalTransaction';
 export * from './signTransaction';
 export * from './broadcastTransaction';
