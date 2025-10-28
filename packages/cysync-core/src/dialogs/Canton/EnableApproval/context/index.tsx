@@ -20,7 +20,7 @@ import {
 } from '~/store';
 import { keyValueStore } from '~/utils';
 import { DeviceAction, SuccessDialogComponent } from '../Dialogs';
-import { IAccount } from '@cypherock/db-interfaces';
+import { IAccount, IWallet } from '@cypherock/db-interfaces';
 
 export interface EnableApprovalDialogContextInterface {
   tabs: ITabs;
@@ -34,6 +34,9 @@ export interface EnableApprovalDialogContextInterface {
   currentTab: number;
   currentDialog: number;
   isDeviceRequired: boolean;
+  selectedAccount: IAccount | undefined;
+  deviceEvents: Record<number, boolean | undefined>;
+  selectedWallet: IWallet | undefined;
 }
 
 export const EnableApprovalDialogContext: Context<EnableApprovalDialogContextInterface> =
@@ -65,6 +68,8 @@ export const EnableApprovalDialogProvider: FC<
     );
 
   const [error, setError] = useState<any | undefined>();
+  const [deviceEvents] = useState<Record<number, boolean | undefined>>({});
+  const [selectedWallet] = useState<IWallet | undefined>();
 
   const tabs: ITabs = useMemo(
     () => [
@@ -124,6 +129,9 @@ export const EnableApprovalDialogProvider: FC<
     error,
     onRetry,
     onFinishEnableApproval,
+    selectedAccount,
+    deviceEvents,
+    selectedWallet,
   });
 
   return (

@@ -2159,13 +2159,6 @@
       "toReceiver": "Receiver"
     },
     "cantonDialogs": {
-      "common": {
-        "actions": {
-          "verifyAccountAddress": "Verify Account Address",
-          "enterPassphrase": "Enter Passphrase",
-          "enterPinAndTapCard": "Enter PIN and tap any one card"
-        }
-      },
       "enableApprovalPrompt": {
         "title": "Enable Automatic Approvals",
         "subTitle": "Automatically accept incoming transactions without manual approval. This will save you time by eliminating the need to manually accept each receiving transaction and rewards."
@@ -2174,14 +2167,7 @@
         "title": "Enable Automatic Approvals",
         "dialogs": {
           "x1Vault": {
-            "title": "Follow instructions on the X1 Vault",
-            "name": "X1 Vault",
-            "actions": {
-              "verifyAutomaticApproval": {
-                "prefix": "Verify",
-                "suffix": "automatic approval"
-              }
-            }
+            "name": "X1 Vault"
           },
           "confirmation": {
             "name": "Confirmation",
@@ -2193,14 +2179,7 @@
         "title": "Account Creation",
         "dialogs": {
           "x1Vault": {
-            "title": "Follow instructions on the X1 Vault",
             "name": "X1 Vault",
-            "actions": {
-              "verifyCantonAccount": {
-                "prefix": "Verify",
-                "suffix": "account creation"
-              }
-            },
             "messageBox": {
               "warning": "Before you can interact on the Canton network, your account needs to be created. This will allow you to start sending, receiving, and managing digital assets."
             }
@@ -2224,14 +2203,7 @@
         },
         "dialogs": {
           "x1Vault": {
-            "title": "Follow instructions on the X1 Vault",
-            "name": "X1 Vault",
-            "actions": {
-              "verifyCantonAccount": {
-                "prefix": "Verify",
-                "suffix": "account"
-              }
-            }
+            "name": "X1 Vault"
           },
           "confirmation": {
             "name": "Confirmation"

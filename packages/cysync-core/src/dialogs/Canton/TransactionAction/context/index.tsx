@@ -19,7 +19,7 @@ import {
   useAppSelector,
 } from '~/store';
 import { DeviceAction, SuccessDialogComponent } from '../Dialogs';
-import { IAccount } from '@cypherock/db-interfaces';
+import { IAccount, IWallet } from '@cypherock/db-interfaces';
 
 export enum TransactionActionType {
   CANCEL = 'cancel',
@@ -39,6 +39,9 @@ export interface TransactionActionDialogContextInterface {
   currentTab: number;
   currentDialog: number;
   isDeviceRequired: boolean;
+  selectedWallet: IWallet | undefined;
+  selectedAccount: IAccount | undefined;
+  deviceEvents: Record<number, boolean | undefined>;
   transactionActionType: TransactionActionType;
 }
 
@@ -66,10 +69,12 @@ export const TransactionActionDialogProvider: FC<
   const deviceRequiredDialogsMap: Record<number, number[] | undefined> =
     useMemo(
       () => ({
-        7: [0],
+        0: [0],
       }),
       [],
     );
+  const [deviceEvents] = useState<Record<number, boolean | undefined>>({});
+  const [selectedWallet] = useState<IWallet | undefined>();
 
   const [error, setError] = useState<any | undefined>();
 
@@ -130,6 +135,9 @@ export const TransactionActionDialogProvider: FC<
     error,
     onRetry,
     onFinishCreateAccount,
+    selectedWallet,
+    selectedAccount,
+    deviceEvents,
     transactionActionType,
   });
 

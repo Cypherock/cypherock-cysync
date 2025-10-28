@@ -19,7 +19,7 @@ import {
   useAppSelector,
 } from '~/store';
 import { DeviceAction, SuccessDialogComponent } from '../Dialogs';
-import { IAccount } from '@cypherock/db-interfaces';
+import { IAccount, IWallet } from '@cypherock/db-interfaces';
 import { AutomaticApprovalDialog } from '../Dialogs/AutomaticApproval';
 
 export interface CreateCantonAccountDialogContextInterface {
@@ -34,6 +34,9 @@ export interface CreateCantonAccountDialogContextInterface {
   currentTab: number;
   currentDialog: number;
   isDeviceRequired: boolean;
+  selectedAccount: IAccount | undefined;
+  deviceEvents: Record<number, boolean | undefined>;
+  selectedWallet: IWallet | undefined;
 }
 
 export const CreateCantonAccountDialogContext: Context<CreateCantonAccountDialogContextInterface> =
@@ -60,12 +63,14 @@ export const CreateCantonAccountDialogProvider: FC<
   const deviceRequiredDialogsMap: Record<number, number[] | undefined> =
     useMemo(
       () => ({
-        7: [0],
+        0: [0],
       }),
       [],
     );
 
   const [error, setError] = useState<any | undefined>();
+  const [deviceEvents] = useState<Record<number, boolean | undefined>>({});
+  const [selectedWallet] = useState<IWallet | undefined>();
 
   const tabs: ITabs = useMemo(
     () => [
@@ -128,6 +133,9 @@ export const CreateCantonAccountDialogProvider: FC<
     error,
     onRetry,
     onFinishCreateAccount,
+    selectedAccount,
+    deviceEvents,
+    selectedWallet,
   });
 
   return (

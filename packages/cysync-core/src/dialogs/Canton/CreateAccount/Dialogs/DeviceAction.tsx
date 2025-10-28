@@ -15,6 +15,9 @@ import {
 import React from 'react';
 
 import { selectLanguage, useAppSelector } from '~/store';
+import { useCreateCantonAccountDialog } from '../context';
+import { SignTransactionDeviceEvent } from '@cypherock/coin-support-interfaces';
+import { CoinIcon } from '~/components';
 
 const checkIconComponent = <Check width={15} height={12} />;
 const throbberComponent = <Throbber size={15} strokeWidth={2} />;
@@ -22,38 +25,88 @@ const rightArrowIcon = <ArrowRightIcon />;
 
 export const DeviceAction: React.FC = () => {
   const lang = useAppSelector(selectLanguage);
-  const displayText = lang.strings.dialogs.cantonDialogs;
-  const selectedAccountName = 'Canton';
+  const displayText = lang.strings.send.x1Vault;
+  const { deviceEvents, selectedWallet, selectedAccount } =
+    useCreateCantonAccountDialog();
 
-  const verifyAccountCreationText =
-    displayText.createCantonAccount.dialogs.x1Vault.actions.verifyCantonAccount;
+  const assetName = 'Canton';
 
-  const actionsList: LeanBoxProps[] = [
-    {
-      id: '1',
-      text: `${verifyAccountCreationText.prefix} ${selectedAccountName} ${verifyAccountCreationText.suffix}`,
-      leftImage: rightArrowIcon,
-      rightImage: checkIconComponent,
-    },
-    {
-      id: '2',
-      text: displayText.common.actions.verifyAccountAddress,
-      leftImage: rightArrowIcon,
-      rightImage: checkIconComponent,
-    },
-    {
-      id: '3',
-      text: displayText.common.actions.enterPassphrase,
-      leftImage: rightArrowIcon,
-      rightImage: throbberComponent,
-    },
-    {
-      id: '4',
-      text: displayText.common.actions.enterPinAndTapCard,
-      leftImage: rightArrowIcon,
-      rightImage: undefined,
-    },
-  ];
+  const getDeviceEventIcon = (
+    loadingEvent: SignTransactionDeviceEvent,
+    completedEvent: SignTransactionDeviceEvent,
+  ) => {
+    if (deviceEvents[completedEvent]) return checkIconComponent;
+    if (deviceEvents[loadingEvent]) return throbberComponent;
+
+    return undefined;
+  };
+
+  const actionsList = React.useMemo<LeanBoxProps[]>(() => {
+    const actions: LeanBoxProps[] = [
+      {
+        id: '1',
+        text: displayText.actions.verifyCoin,
+        leftImage: rightArrowIcon,
+        rightImage: getDeviceEventIcon(
+          SignTransactionDeviceEvent.INIT,
+          SignTransactionDeviceEvent.CONFIRMED,
+        ),
+        altText: assetName,
+        image: (
+          <CoinIcon parentAssetId={selectedAccount?.parentAssetId ?? ''} />
+        ),
+      },
+      {
+        id: '4',
+        leftImage: rightArrowIcon,
+        text: displayText.actions.verifyDetails,
+        rightImage: getDeviceEventIcon(
+          SignTransactionDeviceEvent.CONFIRMED,
+          SignTransactionDeviceEvent.VERIFIED,
+        ),
+      },
+    ];
+
+    if (selectedWallet?.hasPassphrase) {
+      actions.push({
+        id: '2',
+        text: displayText.actions.enterPassphrase,
+        leftImage: rightArrowIcon,
+        rightImage: getDeviceEventIcon(
+          SignTransactionDeviceEvent.VERIFIED,
+          SignTransactionDeviceEvent.PASSPHRASE_ENTERED,
+        ),
+      });
+    }
+
+    if (selectedWallet?.hasPin) {
+      actions.push({
+        id: '3',
+        text: displayText.actions.enterPin,
+        leftImage: rightArrowIcon,
+        rightImage: getDeviceEventIcon(
+          selectedWallet.hasPassphrase
+            ? SignTransactionDeviceEvent.PASSPHRASE_ENTERED
+            : SignTransactionDeviceEvent.VERIFIED,
+          SignTransactionDeviceEvent.CARD_TAPPED,
+        ),
+      });
+    } else {
+      actions.push({
+        id: '3',
+        text: displayText.actions.tapCard,
+        leftImage: rightArrowIcon,
+        rightImage: getDeviceEventIcon(
+          selectedWallet?.hasPassphrase
+            ? SignTransactionDeviceEvent.PASSPHRASE_ENTERED
+            : SignTransactionDeviceEvent.VERIFIED,
+          SignTransactionDeviceEvent.CARD_TAPPED,
+        ),
+      });
+    }
+
+    return actions;
+  }, [deviceEvents]);
 
   return (
     <DialogBox width={600}>
@@ -61,9 +114,7 @@ export const DeviceAction: React.FC = () => {
         <VerifyAmountDeviceGraphics />
         <Container display="flex" direction="column" gap={20} width="full">
           <Typography variant="h5" $textAlign="center">
-            <LangDisplay
-              text={displayText.createCantonAccount.dialogs.x1Vault.title}
-            />
+            <LangDisplay text={displayText.title} />
           </Typography>
         </Container>
         <LeanBoxContainer>
