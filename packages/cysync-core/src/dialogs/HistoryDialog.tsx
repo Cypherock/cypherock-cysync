@@ -28,7 +28,7 @@ import {
   TransactionTypeMap,
 } from '@cypherock/db-interfaces';
 import { createSelector } from '@reduxjs/toolkit';
-import React, { FC, useMemo } from 'react';
+import React, { FC, useEffect, useMemo, useState } from 'react';
 
 import { useCurrency } from '~/context';
 import { mapTransactionForDisplay } from '~/hooks';
@@ -48,6 +48,7 @@ import {
 import { LoaderDialog } from '../components';
 import { openTransactionActionDialog } from '~/actions';
 import { TransactionActionType } from './Canton/TransactionAction/context';
+import { keyValueStore } from '~/utils';
 
 export interface IHistoryDialogProps {
   txn: ITransaction;
@@ -123,6 +124,14 @@ export const HistoryDialog: FC<IHistoryDialogProps> = ({ txn: _txn }) => {
   const dispatch = useAppDispatch();
   const theme = useTheme();
   const txn = useAppSelector(selectTransactionById(_txn.__id));
+  const [automaticApprovalEnabled, setAutomaticApprovalEnabled] =
+    useState(true);
+
+  useEffect(() => {
+    keyValueStore.isAutomaticApprovalsEnabled.get().then(value => {
+      setAutomaticApprovalEnabled(value);
+    });
+  }, []);
 
   const displayTransaction = useMemo(() => {
     if (txn === undefined) return undefined;
@@ -256,61 +265,73 @@ export const HistoryDialog: FC<IHistoryDialogProps> = ({ txn: _txn }) => {
           </Container>
           <ScrollableContainer $maxHeight="calc(100vh - 400px)">
             {showTransactionAction && (
-              <Container
-                $borderWidthT={1}
-                $borderColor="separator"
-                $borderStyle="solid"
-                px={5}
-                py={2}
-                gap={16}
-              >
+              <>
                 {displayTransaction.txn.type === TransactionTypeMap.send && (
-                  <Button
-                    onClick={() => {
-                      onClose();
-                      dispatch(
-                        openTransactionActionDialog({
-                          transactionActionType: TransactionActionType.CANCEL,
-                        }),
-                      );
-                    }}
-                    variant="secondary"
+                  <Container
+                    $borderWidthT={1}
+                    $borderColor="separator"
+                    $borderStyle="solid"
+                    px={5}
+                    py={2}
+                    gap={16}
                   >
-                    {lang.strings.buttons.cancel}
-                  </Button>
-                )}
-                {displayTransaction.txn.type === TransactionTypeMap.receive && (
-                  <>
                     <Button
                       onClick={() => {
                         onClose();
                         dispatch(
                           openTransactionActionDialog({
-                            transactionActionType: TransactionActionType.REJECT,
+                            transactionActionType: TransactionActionType.CANCEL,
                           }),
                         );
                       }}
                       variant="secondary"
                     >
-                      {lang.strings.buttons.reject}
+                      {lang.strings.buttons.cancel}
                     </Button>
-                    <Button
-                      onClick={() => {
-                        onClose();
-                        dispatch(
-                          openTransactionActionDialog({
-                            transactionActionType:
-                              TransactionActionType.APPROVE,
-                          }),
-                        );
-                      }}
-                    >
-                      {lang.strings.buttons.accept}
-                    </Button>
-                  </>
+                  </Container>
                 )}
-              </Container>
+                {displayTransaction.txn.type === TransactionTypeMap.receive &&
+                  !automaticApprovalEnabled && (
+                    <Container
+                      $borderWidthT={1}
+                      $borderColor="separator"
+                      $borderStyle="solid"
+                      px={5}
+                      py={2}
+                      gap={16}
+                    >
+                      <Button
+                        onClick={() => {
+                          onClose();
+                          dispatch(
+                            openTransactionActionDialog({
+                              transactionActionType:
+                                TransactionActionType.REJECT,
+                            }),
+                          );
+                        }}
+                        variant="secondary"
+                      >
+                        {lang.strings.buttons.reject}
+                      </Button>
+                      <Button
+                        onClick={() => {
+                          onClose();
+                          dispatch(
+                            openTransactionActionDialog({
+                              transactionActionType:
+                                TransactionActionType.APPROVE,
+                            }),
+                          );
+                        }}
+                      >
+                        {lang.strings.buttons.accept}
+                      </Button>
+                    </Container>
+                  )}
+              </>
             )}
+
             <Container
               display="flex"
               direction="column"
