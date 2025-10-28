@@ -76,17 +76,17 @@ export const TransactionActionDialogProvider: FC<
   const tabs: ITabs = useMemo(
     () => [
       {
-        name: '',
-        dialogs: [<SuccessDialogComponent />],
-        dontShowOnMilestone: true,
-      },
-      {
         name: strings.x1Vault.name,
         dialogs: [<DeviceAction />],
       },
       {
         name: strings.confirmation.name,
         dialogs: [<LoaderDialog />],
+      },
+      {
+        name: '',
+        dialogs: [<SuccessDialogComponent />],
+        dontShowOnMilestone: true,
       },
     ],
     [lang],

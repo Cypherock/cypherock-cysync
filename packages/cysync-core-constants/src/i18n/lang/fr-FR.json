@@ -340,7 +340,8 @@
     "saveChanges": "Enregistrer les modifications",
     "edit": "Modifier",
     "tryAgain": "Essayer encore",
-    "manualApproval": "Approbation manuelle"
+    "manualApproval": "Approbation manuelle",
+    "accept": "Accepter"
   },
   "signMessage": {
     "title": "Signer le message",

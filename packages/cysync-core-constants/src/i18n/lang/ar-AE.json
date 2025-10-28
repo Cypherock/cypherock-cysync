@@ -54,7 +54,8 @@
     "saveChanges": "حفظ التغييرات",
     "edit": "تحرير",
     "tryAgain": "حاول مرة أخرى",
-    "manualApproval": "الموافقة اليدوية"
+    "manualApproval": "الموافقة اليدوية",
+    "accept": "قبول"
   },
   "tooltips": {
     "downloadCsv": "تصدير بصيغة CSV"

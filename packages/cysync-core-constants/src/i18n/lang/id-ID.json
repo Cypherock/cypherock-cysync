@@ -54,7 +54,8 @@
     "saveChanges": "Simpan perubahan",
     "edit": "Sunting",
     "tryAgain": "Coba Lagi",
-    "manualApproval": "Persetujuan Manual"
+    "manualApproval": "Persetujuan Manual",
+    "accept": "Terima"
   },
   "tooltips": {
     "downloadCsv": "Ekspor sebagai CSV"

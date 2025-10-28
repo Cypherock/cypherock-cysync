@@ -110,6 +110,7 @@ interface LangButtons {
   edit: string;
   tryAgain: string;
   manualApproval: string;
+  accept: string;
 }
 
 interface LangDashboard {

@@ -2,6 +2,7 @@ import { coinFamiliesMap } from '@cypherock/coins';
 import { formatAddress } from '@cypherock/cysync-core-services';
 import {
   BlurOverlay,
+  Button,
   Chip,
   Clipboard,
   CloseButton,
@@ -24,6 +25,7 @@ import {
   ITransaction,
   TransactionStatus,
   TransactionStatusMap,
+  TransactionTypeMap,
 } from '@cypherock/db-interfaces';
 import { createSelector } from '@reduxjs/toolkit';
 import React, { FC, useMemo } from 'react';
@@ -44,6 +46,8 @@ import {
 } from '~/store';
 
 import { LoaderDialog } from '../components';
+import { openTransactionActionDialog } from '~/actions';
+import { TransactionActionType } from './Canton/TransactionAction/context';
 
 export interface IHistoryDialogProps {
   txn: ITransaction;
@@ -178,10 +182,14 @@ export const HistoryDialog: FC<IHistoryDialogProps> = ({ txn: _txn }) => {
     return <LoaderDialog />;
   }
 
+  let showTransactionAction = false;
   let transactionHashText = keys.transactionHash;
   if (displayTransaction.txn.familyId === coinFamiliesMap.icp) {
     transactionHashText = keys.transactionId;
   } else if (displayTransaction.txn.familyId === coinFamiliesMap.canton) {
+    if (displayTransaction.status === TransactionStatusMap.pending) {
+      showTransactionAction = true;
+    }
     transactionHashText = keys.transactionUpdateId;
   }
 
@@ -247,6 +255,62 @@ export const HistoryDialog: FC<IHistoryDialogProps> = ({ txn: _txn }) => {
             </a>
           </Container>
           <ScrollableContainer $maxHeight="calc(100vh - 400px)">
+            {showTransactionAction && (
+              <Container
+                $borderWidthT={1}
+                $borderColor="separator"
+                $borderStyle="solid"
+                px={5}
+                py={2}
+                gap={16}
+              >
+                {displayTransaction.txn.type === TransactionTypeMap.send && (
+                  <Button
+                    onClick={() => {
+                      onClose();
+                      dispatch(
+                        openTransactionActionDialog({
+                          transactionActionType: TransactionActionType.CANCEL,
+                        }),
+                      );
+                    }}
+                    variant="secondary"
+                  >
+                    {lang.strings.buttons.cancel}
+                  </Button>
+                )}
+                {displayTransaction.txn.type === TransactionTypeMap.receive && (
+                  <>
+                    <Button
+                      onClick={() => {
+                        onClose();
+                        dispatch(
+                          openTransactionActionDialog({
+                            transactionActionType: TransactionActionType.REJECT,
+                          }),
+                        );
+                      }}
+                      variant="secondary"
+                    >
+                      {lang.strings.buttons.reject}
+                    </Button>
+                    <Button
+                      onClick={() => {
+                        onClose();
+                        dispatch(
+                          openTransactionActionDialog({
+                            transactionActionType:
+                              TransactionActionType.APPROVE,
+                          }),
+                        );
+                      }}
+                    >
+                      {lang.strings.buttons.accept}
+                    </Button>
+                  </>
+                )}
+              </Container>
+            )}
             <Container
               display="flex"
               direction="column"

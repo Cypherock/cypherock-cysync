@@ -54,7 +54,8 @@
     "saveChanges": "保存更改",
     "edit": "编辑",
     "tryAgain": "再试一次",
-    "manualApproval": "手动批准"
+    "manualApproval": "手动批准",
+    "accept": "接受"
   },
   "tooltips": {
     "downloadCsv": "导出为CSV"

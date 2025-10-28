@@ -54,7 +54,8 @@
     "saveChanges": "Save changes",
     "edit": "Edit",
     "tryAgain": "Try Again",
-    "manualApproval": "Manual Approval"
+    "manualApproval": "Manual Approval",
+    "accept": "Accept"
   },
   "tooltips": {
     "downloadCsv": "Export as CSV"
