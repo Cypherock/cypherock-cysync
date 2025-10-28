@@ -30,6 +30,7 @@ import * as operations from './operations';
 import {
   IBroadcastCantonExternalPartyTransactionParams,
   IBroadcastCantonTransactionParams,
+  IBroadcastCantonTransferPreApprovalTransactionParams,
   IPrepareCantonChoiceTransactionParams,
   IPrepareCantonExternalPartyTransactionParams,
   IPrepareCantonTransactionParams,
@@ -109,6 +110,12 @@ export class CantonSupport implements CoinSupport {
     params: IBroadcastCantonExternalPartyTransactionParams,
   ): Promise<void> {
     return operations.broadcastExternalPartyTransaction(params);
+  }
+
+  public broadcastTransferPreApprovalTransaction(
+    params: IBroadcastCantonTransferPreApprovalTransactionParams,
+  ): Promise<void> {
+    return operations.broadcastTransferPreApprovalTransaction(params);
   }
 
   public signMessage(
