@@ -1,18 +1,20 @@
 import { getAccountAndCoin } from '@cypherock/coin-support-utils';
 import { cantonCoinList } from '@cypherock/coins';
 
-import {
-  IPrepareCantonChoiceTransactionParams,
-  IPreparedCantonChoiceTransaction,
-} from './types';
+import { IPrepareCantonChoiceTransactionParams } from './types';
 
 import { prepareChoiceTxn } from '../../services';
+import { IPreparedCantonTransaction } from '../transaction';
 
 export const prepareChoiceTransaction = async (
   params: IPrepareCantonChoiceTransactionParams,
-): Promise<IPreparedCantonChoiceTransaction> => {
-  const { accountId, db, txn, choice } = params;
-  const { account } = await getAccountAndCoin(db, cantonCoinList, accountId);
+): Promise<IPreparedCantonTransaction> => {
+  const { db, txn, choice } = params;
+  const { account } = await getAccountAndCoin(
+    db,
+    cantonCoinList,
+    txn.accountId,
+  );
 
   if (!txn.extraData?.contractId) {
     throw new Error('Canton choice transaction requires contract id');
@@ -25,21 +27,32 @@ export const prepareChoiceTransaction = async (
   );
 
   return {
-    accountId,
+    accountId: txn.accountId,
     validation: {
       outputs: [],
       hasEnoughBalance: true,
       isValidFee: true,
+      isFeeBelowMin: false,
       ownOutputAddressNotAllowed: [],
       zeroAmountNotAllowed: false,
+      isInvalidExpiry: false,
     },
     userInputs: {
       outputs: [],
       isSendAll: false,
     },
-    staticData: {},
+    staticData: {
+      fees: txn.fees,
+    },
     computedData: {
+      output: {
+        address: txn.outputs?.[0].address,
+        amount: txn.amount,
+        memo: txn.extraData?.memo,
+      },
+      fees: '0',
       preparedTransaction,
+      choice,
     },
   };
 };
