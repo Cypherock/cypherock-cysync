@@ -1,25 +1,53 @@
 // The ReactNodes won't be rendered as list so key is not required
 /* eslint-disable react/jsx-key */
+import { getCoinSupport } from '@cypherock/coin-support';
+import {
+  CantonSupport,
+  ICantonTransactionChoice,
+  IPreparedCantonTransaction,
+} from '@cypherock/coin-support-canton';
+import {
+  CoinSupport,
+  ISignTransactionEvent,
+} from '@cypherock/coin-support-interfaces';
+import { coinFamiliesMap } from '@cypherock/coins';
+import { IAccount, ITransaction, IWallet } from '@cypherock/db-interfaces';
+import { createSelector } from '@reduxjs/toolkit';
+import lodash from 'lodash';
 import React, {
   Context,
   FC,
   ReactNode,
   createContext,
   useContext,
+  useEffect,
   useMemo,
+  useRef,
   useState,
 } from 'react';
+import { Observer, Subscription } from 'rxjs';
 
+import { syncAccounts } from '~/actions';
 import { LoaderDialog } from '~/components';
-import { ITabs, useMemoReturn, useTabsAndDialogs } from '~/hooks';
+import { deviceLock, useCurrency, useDevice } from '~/context';
+import {
+  ITabs,
+  useMemoReturn,
+  useStateWithRef,
+  useTabsAndDialogs,
+} from '~/hooks';
 import {
   closeDialog,
   selectLanguage,
+  selectUnHiddenAccounts,
+  selectWallets,
   useAppDispatch,
   useAppSelector,
 } from '~/store';
+import { getDB } from '~/utils';
+import logger from '~/utils/logger';
+
 import { DeviceAction, SuccessDialogComponent } from '../Dialogs';
-import { IAccount, IWallet } from '@cypherock/db-interfaces';
 
 export enum TransactionActionType {
   CANCEL = 'cancel',
@@ -27,13 +55,22 @@ export enum TransactionActionType {
   REJECT = 'reject',
 }
 
+const transactionActionToChoiceMap: Record<
+  TransactionActionType,
+  ICantonTransactionChoice
+> = {
+  [TransactionActionType.CANCEL]: ICantonTransactionChoice.WITHDRAW,
+  [TransactionActionType.APPROVE]: ICantonTransactionChoice.ACCEPT,
+  [TransactionActionType.REJECT]: ICantonTransactionChoice.REJECT,
+};
+
 export interface TransactionActionDialogContextInterface {
   tabs: ITabs;
   onNext: (tab?: number, dialog?: number) => void;
   goTo: (tab: number, dialog?: number) => void;
   onPrevious: () => void;
   onClose: () => void;
-  onFinishCreateAccount: () => void;
+  onFinishTransactionAction: () => void;
   onRetry: () => void;
   error: any | undefined;
   currentTab: number;
@@ -43,6 +80,9 @@ export interface TransactionActionDialogContextInterface {
   selectedAccount: IAccount | undefined;
   deviceEvents: Record<number, boolean | undefined>;
   transactionActionType: TransactionActionType;
+  transaction: IPreparedCantonTransaction | undefined;
+  prepare: () => Promise<void>;
+  startFlow: () => Promise<void>;
 }
 
 export const TransactionActionDialogContext: Context<TransactionActionDialogContextInterface> =
@@ -51,7 +91,7 @@ export const TransactionActionDialogContext: Context<TransactionActionDialogCont
   );
 
 export interface TransactionActionDialogProps {
-  selectedAccount?: IAccount;
+  selectedTransaction: ITransaction;
   transactionActionType: TransactionActionType;
 }
 
@@ -60,23 +100,49 @@ export interface TransactionActionDialogContextProviderProps
   children: ReactNode;
 }
 
+const selector = createSelector(
+  [selectLanguage, selectWallets, selectUnHiddenAccounts],
+  (lang, { wallets }, { accounts }) => ({ lang, wallets, accounts }),
+);
+
 export const TransactionActionDialogProvider: FC<
   TransactionActionDialogContextProviderProps
-> = ({ children, selectedAccount, transactionActionType }) => {
-  const lang = useAppSelector(selectLanguage);
+> = ({ children, selectedTransaction, transactionActionType }) => {
+  const { lang, wallets, accounts } = useAppSelector(selector);
   const strings = lang.strings.dialogs.cantonDialogs.transactionAction.dialogs;
   const dispatch = useAppDispatch();
   const deviceRequiredDialogsMap: Record<number, number[] | undefined> =
     useMemo(
       () => ({
         0: [0],
+        1: [0],
       }),
       [],
     );
-  const [deviceEvents] = useState<Record<number, boolean | undefined>>({});
-  const [selectedWallet] = useState<IWallet | undefined>();
+
+  const selectedAccount = accounts.find(
+    a => a.__id === selectedTransaction.accountId,
+  );
+  const selectedWallet = wallets.find(
+    w => w.__id === selectedAccount?.walletId,
+  );
 
   const [error, setError] = useState<any | undefined>();
+  const [signedTransaction, setSignedTransaction] = useState<
+    string | undefined
+  >();
+  const [transaction, setTransaction, transactionRef] = useStateWithRef<
+    IPreparedCantonTransaction | undefined
+  >(undefined);
+
+  const coinSupport = useRef<CoinSupport | undefined>();
+
+  const [deviceEvents, setDeviceEvents] = useState<
+    Record<number, boolean | undefined>
+  >({});
+  const { connection } = useDevice();
+  const flowSubscription = useRef<Subscription | undefined>();
+  const { currentCurrency } = useCurrency();
 
   const tabs: ITabs = useMemo(
     () => [
@@ -97,16 +163,143 @@ export const TransactionActionDialogProvider: FC<
     [lang],
   );
 
+  useEffect(() => {
+    if (signedTransaction) {
+      broadcast();
+    }
+  }, [signedTransaction]);
+
+  const resetStates = () => {
+    setSignedTransaction(undefined);
+    setError(undefined);
+    setDeviceEvents({});
+  };
+
+  const cleanUp = () => {
+    if (flowSubscription.current) {
+      flowSubscription.current.unsubscribe();
+      flowSubscription.current = undefined;
+    }
+  };
+
   const onClose = async () => {
+    cleanUp();
     dispatch(closeDialog('transactionActionDialog'));
   };
 
   const onRetry = () => {
-    setError(undefined);
+    resetStates();
+    goTo(0, 0);
   };
 
-  const onFinishCreateAccount = async () => {
-    console.log('selectedAccount', selectedAccount);
+  const onError = (e?: any) => {
+    cleanUp();
+    setError(e);
+  };
+
+  const getCurrentCoinSupport = () => {
+    if (!coinSupport.current)
+      coinSupport.current = getCoinSupport(coinFamiliesMap.canton);
+    return coinSupport.current;
+  };
+
+  const broadcast = async () => {
+    const txn = transactionRef.current;
+    if (!txn || !signedTransaction) {
+      logger.warn('Transaction not ready');
+      return;
+    }
+
+    try {
+      await (
+        getCurrentCoinSupport() as CantonSupport
+      ).broadcastChoiceTransaction({
+        db: getDB(),
+        signedTransaction,
+        transaction: txn,
+      });
+
+      onNext();
+      dispatch(
+        syncAccounts({
+          accounts: selectedAccount ? [selectedAccount] : [],
+          currency: currentCurrency,
+        }),
+      );
+    } catch (e: any) {
+      onError(e);
+    }
+  };
+
+  const prepare = async () => {
+    logger.info('Preparing canton choice transaction');
+    if (transaction !== undefined) return;
+
+    try {
+      const currentCoinSupport = getCurrentCoinSupport() as CantonSupport;
+      const preparedTransaction =
+        await currentCoinSupport.prepareChoiceTransaction({
+          db: getDB(),
+          txn: selectedTransaction,
+          choice: transactionActionToChoiceMap[transactionActionType],
+        });
+      setTransaction(preparedTransaction);
+    } catch (e: any) {
+      onError(e);
+    }
+  };
+
+  const getFlowObserver = (
+    onEnd: () => void,
+  ): Observer<ISignTransactionEvent<any>> => ({
+    next: payload => {
+      if (payload.device) setDeviceEvents({ ...payload.device.events });
+      if (payload.transaction) setSignedTransaction(payload.transaction);
+    },
+    error: err => {
+      onEnd();
+      onError(err);
+    },
+    complete: () => {
+      cleanUp();
+      onEnd();
+    },
+  });
+
+  const startFlow = async () => {
+    const txn = transactionRef.current;
+    logger.info('Starting sign transaction');
+
+    if (!connection?.connection || !txn) {
+      return;
+    }
+
+    try {
+      resetStates();
+      cleanUp();
+
+      const taskId = lodash.uniqueId('task-');
+
+      await deviceLock.acquire(connection.device, taskId);
+
+      const onEnd = () => {
+        deviceLock.release(connection.device, taskId);
+      };
+
+      const deviceConnection = connection.connection;
+      flowSubscription.current = (getCurrentCoinSupport() as CantonSupport)
+        .signTransaction({
+          connection: deviceConnection,
+          db: getDB(),
+          transaction: txn,
+        })
+        .subscribe(getFlowObserver(onEnd));
+    } catch (e) {
+      onError(e);
+    }
+  };
+
+  const onFinishTransactionAction = async () => {
     onClose();
   };
 
@@ -134,11 +327,14 @@ export const TransactionActionDialogProvider: FC<
     isDeviceRequired,
     error,
     onRetry,
-    onFinishCreateAccount,
+    onFinishTransactionAction,
     selectedWallet,
     selectedAccount,
     deviceEvents,
     transactionActionType,
+    transaction,
+    prepare,
+    startFlow,
   });
 
   return (
@@ -151,7 +347,3 @@ export const TransactionActionDialogProvider: FC<
 export function useTransactionActionDialog(): TransactionActionDialogContextInterface {
   return useContext(TransactionActionDialogContext);
 }
-
-TransactionActionDialogProvider.defaultProps = {
-  selectedAccount: undefined,
-};

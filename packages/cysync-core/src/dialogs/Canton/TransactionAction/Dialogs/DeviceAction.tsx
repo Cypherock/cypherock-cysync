@@ -1,4 +1,5 @@
 import { SignTransactionDeviceEvent } from '@cypherock/coin-support-interfaces';
+import { coinFamiliesMap, coinList } from '@cypherock/coins';
 import {
   LangDisplay,
   DialogBox,
@@ -13,11 +14,12 @@ import {
   Check,
   VerifyAmountDeviceGraphics,
 } from '@cypherock/cysync-ui';
-import React from 'react';
+import React, { useEffect } from 'react';
 
+import { CoinIcon, LoaderDialog } from '~/components';
 import { selectLanguage, useAppSelector } from '~/store';
+
 import { useTransactionActionDialog } from '../context';
-import { CoinIcon } from '~/components';
 
 const checkIconComponent = <Check width={15} height={12} />;
 const throbberComponent = <Throbber size={15} strokeWidth={2} />;
@@ -27,10 +29,33 @@ export const DeviceAction: React.FC = () => {
   const lang = useAppSelector(selectLanguage);
   const displayText = lang.strings.send.x1Vault;
 
-  const { deviceEvents, selectedWallet, selectedAccount } =
-    useTransactionActionDialog();
+  const {
+    onNext,
+    deviceEvents,
+    selectedWallet,
+    selectedAccount,
+    transaction,
+    prepare,
+    startFlow,
+  } = useTransactionActionDialog();
 
-  const assetName = 'Canton';
+  const assetName = coinList[coinFamiliesMap.canton].name;
+
+  useEffect(() => {
+    if (deviceEvents[SignTransactionDeviceEvent.CARD_TAPPED]) {
+      onNext();
+    }
+  }, [deviceEvents]);
+
+  useEffect(() => {
+    if (transaction) {
+      startFlow();
+    }
+  }, [transaction]);
+
+  useEffect(() => {
+    prepare();
+  }, []);
 
   const getDeviceEventIcon = (
     loadingEvent: SignTransactionDeviceEvent,
@@ -108,6 +133,8 @@ export const DeviceAction: React.FC = () => {
 
     return actions;
   }, [deviceEvents]);
+
+  if (transaction === undefined) return <LoaderDialog />;
 
   return (
     <DialogBox width={600}>

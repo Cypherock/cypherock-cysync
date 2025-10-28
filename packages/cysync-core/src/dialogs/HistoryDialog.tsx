@@ -30,6 +30,7 @@ import {
 import { createSelector } from '@reduxjs/toolkit';
 import React, { FC, useEffect, useMemo, useState } from 'react';
 
+import { openTransactionActionDialog } from '~/actions';
 import { useCurrency } from '~/context';
 import { mapTransactionForDisplay } from '~/hooks';
 import {
@@ -44,11 +45,11 @@ import {
   useAppDispatch,
   useAppSelector,
 } from '~/store';
+import { keyValueStore } from '~/utils';
+
+import { TransactionActionType } from './Canton/TransactionAction/context';
 
 import { LoaderDialog } from '../components';
-import { openTransactionActionDialog } from '~/actions';
-import { TransactionActionType } from './Canton/TransactionAction/context';
-import { keyValueStore } from '~/utils';
 
 export interface IHistoryDialogProps {
   txn: ITransaction;
@@ -281,6 +282,7 @@ export const HistoryDialog: FC<IHistoryDialogProps> = ({ txn: _txn }) => {
                         dispatch(
                           openTransactionActionDialog({
                             transactionActionType: TransactionActionType.CANCEL,
+                            selectedTransaction: displayTransaction.txn,
                           }),
                         );
                       }}
@@ -307,6 +309,7 @@ export const HistoryDialog: FC<IHistoryDialogProps> = ({ txn: _txn }) => {
                             openTransactionActionDialog({
                               transactionActionType:
                                 TransactionActionType.REJECT,
+                              selectedTransaction: displayTransaction.txn,
                             }),
                           );
                         }}
@@ -321,6 +324,7 @@ export const HistoryDialog: FC<IHistoryDialogProps> = ({ txn: _txn }) => {
                             openTransactionActionDialog({
                               transactionActionType:
                                 TransactionActionType.APPROVE,
+                              selectedTransaction: displayTransaction.txn,
                             }),
                           );
                         }}
