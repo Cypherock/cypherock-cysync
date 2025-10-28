@@ -170,6 +170,8 @@ const parsePendingTransaction = (
       startDate: txn.requestedAt,
       expiryDate: txn.executeBefore,
       instrument: txn.instrumentId,
+      contractId: txn.contractId,
+      templateId: txn.templateId,
     },
   };
   return transaction;

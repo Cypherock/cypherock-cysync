@@ -78,9 +78,6 @@ export const prepareSendTransaction = async (
   memo?: string,
   expiryDate?: string,
 ): Promise<any> => {
-  console.log(
-    `Preparing transaction for ${senderPartyId} to ${receiverPartyId} with amount ${amount} and memo ${memo}`,
-  );
   const url = `${baseURL}/prepare/send`;
   const response = await makePostRequest(url, {
     senderPartyId,
@@ -100,12 +97,32 @@ export const prepareSendTransaction = async (
   return response.data;
 };
 
+export const prepareChoiceTxn = async (
+  partyId: string,
+  transferContractId: string,
+  choice: string,
+): Promise<any> => {
+  const url = `${baseURL}/prepare/${choice.toLowerCase()}`;
+  const response = await makePostRequest(url, {
+    partyId,
+    transferContractId,
+  });
+
+  assert(
+    !response.data.error &&
+      response.data.command?.preparedTransaction &&
+      response.data.commandId,
+    new Error('Server: Invalid prepared transaction from server'),
+  );
+
+  return response.data;
+};
+
 export const broadcastTransactionToBlockchain = async (
   signature: string,
   publicKey: string,
   preparedTransaction: any,
 ): Promise<any> => {
-  console.log(`Broadcasting transaction action`);
   const url = `${baseURL}/broadcast`;
   const response = await makePostRequest(url, {
     signature,

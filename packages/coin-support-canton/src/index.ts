@@ -33,6 +33,10 @@ import {
   ISignCantonTransactionEvent,
 } from './operations/types';
 import { getAppletId } from './utils';
+import {
+  IPrepareCantonChoiceTransactionParams,
+  IPreparedCantonChoiceTransaction,
+} from './operations/prepareChoiceTransaction/types';
 
 export * from './operations/types';
 export { updateLogger } from './utils/logger';
@@ -66,6 +70,12 @@ export class CantonSupport implements CoinSupport {
     params: IPrepareCantonTransactionParams,
   ): Promise<IPreparedTransaction> {
     return operations.prepareTransaction(params);
+  }
+
+  public async prepareChoiceTransaction(
+    params: IPrepareCantonChoiceTransactionParams,
+  ): Promise<IPreparedCantonChoiceTransaction> {
+    return operations.prepareChoiceTransaction(params);
   }
 
   public signTransaction(
