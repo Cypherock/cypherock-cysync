@@ -28,8 +28,16 @@ import { Observable } from 'rxjs';
 
 import * as operations from './operations';
 import {
+  IBroadcastCantonExternalPartyTransactionParams,
   IBroadcastCantonTransactionParams,
+  IBroadcastCantonTransferPreApprovalTransactionParams,
+  IPrepareCantonChoiceTransactionParams,
+  IPrepareCantonExternalPartyTransactionParams,
   IPrepareCantonTransactionParams,
+  IPrepareCantonTransferPreApprovalTransactionParams,
+  IPreparedCantonChoiceTransaction,
+  IPreparedCantonExternalPartyTransaction,
+  IPreparedCantonTransferPreApprovalTransaction,
   ISignCantonTransactionEvent,
 } from './operations/types';
 import { getAppletId } from './utils';
@@ -68,6 +76,24 @@ export class CantonSupport implements CoinSupport {
     return operations.prepareTransaction(params);
   }
 
+  public async prepareChoiceTransaction(
+    params: IPrepareCantonChoiceTransactionParams,
+  ): Promise<IPreparedCantonChoiceTransaction> {
+    return operations.prepareChoiceTransaction(params);
+  }
+
+  public async prepareTransferPreApprovalTransaction(
+    params: IPrepareCantonTransferPreApprovalTransactionParams,
+  ): Promise<IPreparedCantonTransferPreApprovalTransaction> {
+    return operations.prepareTransferPreApprovalTransaction(params);
+  }
+
+  public async prepareExternalPartyTransaction(
+    params: IPrepareCantonExternalPartyTransactionParams,
+  ): Promise<IPreparedCantonExternalPartyTransaction> {
+    return operations.prepareExternalPartyTransaction(params);
+  }
+
   public signTransaction(
     params: ISignTransactionParams,
   ): Observable<ISignCantonTransactionEvent> {
@@ -78,6 +104,18 @@ export class CantonSupport implements CoinSupport {
     params: IBroadcastCantonTransactionParams,
   ): Promise<ITransaction> {
     return operations.broadcastTransaction(params);
+  }
+
+  public broadcastExternalPartyTransaction(
+    params: IBroadcastCantonExternalPartyTransactionParams,
+  ): Promise<void> {
+    return operations.broadcastExternalPartyTransaction(params);
+  }
+
+  public broadcastTransferPreApprovalTransaction(
+    params: IBroadcastCantonTransferPreApprovalTransactionParams,
+  ): Promise<void> {
+    return operations.broadcastTransferPreApprovalTransaction(params);
   }
 
   public signMessage(

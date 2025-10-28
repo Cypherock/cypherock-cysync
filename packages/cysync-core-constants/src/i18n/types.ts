@@ -512,6 +512,8 @@ interface LangHistory {
     remarks: string;
     destinationTag: string;
     memo: string;
+    choice: string;
+    startDate: string;
     expirationDate: string;
     operation: string;
   };

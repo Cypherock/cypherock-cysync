@@ -1,10 +1,12 @@
 import {
   createSyncAccountsObservable,
+  createTransactionId,
   getLatestTransactionBlock,
   IGetAddressDetails,
 } from '@cypherock/coin-support-utils';
 import {
   IAccount,
+  IDatabase,
   ITransaction,
   TransactionStatus,
   TransactionStatusMap,
@@ -16,24 +18,65 @@ import { ISyncCantonAccountsParams } from './types';
 import * as services from '../../services';
 import { ICantonAccount } from '../types';
 
-const PER_PAGE_TXN_LIMIT = 100;
+enum CantonTransactionSubType {
+  ACCEPT = 'TransferInstruction_Accept',
+  REJECT = 'TransferInstruction_Reject',
+  WITHDRAW = 'TransferInstruction_Withdraw',
+  DIRECT_TRANSFER = 'TransferFactory_Transfer',
+}
+
+const CantonTransactionChoiceMap = {
+  [CantonTransactionSubType.ACCEPT]: 'Accept',
+  [CantonTransactionSubType.REJECT]: 'Reject',
+  [CantonTransactionSubType.WITHDRAW]: 'Withdraw',
+  [CantonTransactionSubType.DIRECT_TRANSFER]: 'Direct Transfer',
+} as const;
+
+enum CantonTransactionStatus {
+  COMPLETED = 'TransferInstructionResult_Completed',
+  FAILED = 'TransferInstructionResult_Failed',
+  PENDING = 'TransferInstructionResult_Pending',
+}
+
+const CantonTransactionStatusMap = {
+  [CantonTransactionStatus.COMPLETED]: TransactionStatusMap.success,
+  [CantonTransactionStatus.FAILED]: TransactionStatusMap.failed,
+  [CantonTransactionStatus.PENDING]: TransactionStatusMap.pending,
+} as const;
+
+const removeObsoleteTransactions = async (
+  db: IDatabase,
+  account: IAccount,
+  pendingTransactions: ITransaction[],
+) => {
+  const existingPendingTransactions = await db.transaction.getAll({
+    accountId: account.__id,
+    status: TransactionStatusMap.pending,
+  });
+
+  const currentPendingTransactionIds = await Promise.all(
+    pendingTransactions.map(txn => createTransactionId(txn)),
+  );
+
+  for (const existing of existingPendingTransactions) {
+    if (!currentPendingTransactionIds.includes(existing.__id)) {
+      await db.transaction.remove({ __id: existing.__id });
+    }
+  }
+};
 
 const parseTransaction = (
-  address: string,
+  partyId: string,
   account: IAccount,
-  txn: services.IDetailedCantonResponseTransaction,
+  txn: services.ICantonResponseTransaction,
 ): ITransaction => {
-  const myAddress = address;
-  const fromAddress = txn.tx.Account;
-  const toAddress = txn.tx.Destination;
-  const fees = txn.tx.Fee;
-  const amount = txn.tx.Amount;
-  let status: TransactionStatus = TransactionStatusMap.failed;
-  if (txn.meta.TransactionResult.startsWith('tes')) {
-    status = TransactionStatusMap.success;
-  } else if (txn.meta.TransactionResult.startsWith('ter')) {
-    status = TransactionStatusMap.pending;
-  }
+  const myPartyId = partyId;
+  const fromPartyId = txn.sender;
+  const toPartyId = txn.receiver;
+  const { fees = '0', amount } = txn;
+  const status: TransactionStatus =
+    CantonTransactionStatusMap[txn.status as CantonTransactionStatus] ??
+    TransactionStatusMap.failed;
 
   const transaction: ITransaction = {
     accountId: account.__id ?? '',
@@ -41,111 +84,196 @@ const parseTransaction = (
     assetId: account.assetId,
     familyId: account.familyId,
     parentAssetId: account.parentAssetId,
-    hash: txn.tx.hash,
+    hash: txn.updateId,
     confirmations: 1,
     fees,
     amount,
     status,
     type:
-      myAddress === fromAddress
+      myPartyId === fromPartyId
         ? TransactionTypeMap.send
         : TransactionTypeMap.receive,
-    timestamp: new Date(parseInt(txn.tx.date.toString(), 10) * 1000).getTime(),
-    blockHeight: txn.tx.ledger_index,
+    timestamp: new Date(txn.recordTime).getTime(),
+    blockHeight: txn.offset,
     inputs: [
       {
-        address: fromAddress,
+        address: fromPartyId,
         amount,
-        isMine: myAddress === fromAddress,
+        isMine: myPartyId === fromPartyId,
       },
     ],
     outputs: [
       {
-        address: txn.tx.Destination,
+        address: toPartyId,
         amount,
-        isMine: myAddress === toAddress,
+        isMine: myPartyId === toPartyId,
       },
     ],
     extraData: {
-      destinationTag: txn.tx.DestinationTag,
-      flags: txn.tx.Flags,
-      sequence: txn.tx.Sequence,
-      lastLedgerSequence: txn.tx.LastLedgerSequence,
+      cantonType: txn.type,
+      cantonStatus: txn.status,
+      choice:
+        CantonTransactionChoiceMap[txn.choice as CantonTransactionSubType],
+      memo: txn.memo ? txn.memo : undefined,
+      startDate: txn.requestedAt,
+      expiryDate: txn.executeBefore,
+      instrument: txn.instrumentId,
+    },
+  };
+  return transaction;
+};
+
+const parsePendingTransaction = (
+  partyId: string,
+  account: IAccount,
+  txn: services.ICantonPendingResponseTransaction,
+): ITransaction => {
+  const myPartyId = partyId;
+  const fromPartyId = txn.sender;
+  const toPartyId = txn.receiver;
+  const { fees = '0', amount } = txn;
+
+  const transaction: ITransaction = {
+    accountId: account.__id ?? '',
+    walletId: account.walletId,
+    assetId: account.assetId,
+    familyId: account.familyId,
+    parentAssetId: account.parentAssetId,
+    hash: txn.updateId,
+    confirmations: 1,
+    fees,
+    amount,
+    status: TransactionStatusMap.pending,
+    type:
+      myPartyId === fromPartyId
+        ? TransactionTypeMap.send
+        : TransactionTypeMap.receive,
+    timestamp: new Date(txn.recordTime).getTime(),
+    blockHeight: txn.offset,
+    inputs: [
+      {
+        address: fromPartyId,
+        amount,
+        isMine: myPartyId === fromPartyId,
+      },
+    ],
+    outputs: [
+      {
+        address: toPartyId,
+        amount,
+        isMine: myPartyId === toPartyId,
+      },
+    ],
+    extraData: {
+      cantonStatus: txn.status,
+      memo: txn.memo ? txn.memo : undefined,
+      startDate: txn.requestedAt,
+      expiryDate: txn.executeBefore,
+      instrument: txn.instrumentId,
+      contractId: txn.contractId,
+      templateId: txn.templateId,
     },
   };
   return transaction;
 };
 
 const fetchAndParseTransactions = async (params: {
-  address: string;
+  partyId: string;
   account: IAccount;
-  limit: number;
-  ledgerIndexMin: number;
+  afterOffset?: number;
+  db: IDatabase;
 }) => {
-  const { address, account, limit, ledgerIndexMin } = params;
+  const { partyId, account, afterOffset, db } = params;
+
   const response = await services.getTransactions({
-    address,
+    partyId,
     assetId: account.assetId,
-    limit,
-    forward: true,
-    ledgerIndexMin,
+    afterOffset,
   });
 
   const transactions: ITransaction[] = [];
   for (const rawTransaction of response.transactions) {
-    const transaction = parseTransaction(address, account, rawTransaction);
+    const transaction = parseTransaction(partyId, account, rawTransaction);
 
     transactions.push({ ...transaction });
   }
 
-  const { hasMore, offset } = response;
+  const { hasMore, nextOffset } = response;
+
+  if (!hasMore) {
+    const pendingTransactions = await services.getPendingTransactions({
+      partyId,
+      assetId: account.assetId,
+    });
+
+    const resultPendingTxns: ITransaction[] = [];
+    for (const rawTransaction of pendingTransactions) {
+      const transaction = parsePendingTransaction(
+        partyId,
+        account,
+        rawTransaction,
+      );
+      resultPendingTxns.push({ ...transaction });
+    }
+    transactions.push(...resultPendingTxns);
+
+    await removeObsoleteTransactions(db, account, resultPendingTxns);
+  }
 
   return {
     transactions,
     hasMore,
-    offset,
+    nextOffset,
   };
 };
 
 const getAddressDetails: IGetAddressDetails<{
-  perPage: number;
-  afterBlock?: number;
+  afterOffset?: number;
   updatedBalance?: string;
+  updatedTransferPreApprovalStatus?: boolean;
 }> = async ({ db, account, iterationContext }) => {
-  const address = account.xpubOrAddress;
+  const partyId = account.xpubOrAddress;
 
   const updatedBalance =
     iterationContext?.updatedBalance ??
-    (await services.getBalance(address, account.assetId));
+    (await services.getBalance(partyId, account.assetId));
 
-  const afterBlock =
-    iterationContext?.afterBlock ??
+  const updatedTransferPreApprovalStatus =
+    iterationContext?.updatedTransferPreApprovalStatus ??
+    (await services.isTransferPreApprovalEnabled(partyId, account.assetId));
+
+  const afterOffset =
+    iterationContext?.afterOffset ??
     (await getLatestTransactionBlock(db, {
       accountId: account.__id,
     })) ??
-    -1;
+    0;
 
-  const perPage = iterationContext?.perPage ?? PER_PAGE_TXN_LIMIT;
-
-  const transactionDetails = await fetchAndParseTransactions({
-    address,
-    account,
-    limit: perPage,
-    ledgerIndexMin: afterBlock,
-  });
+  const { transactions, hasMore, nextOffset } = await fetchAndParseTransactions(
+    {
+      partyId,
+      account,
+      afterOffset,
+      db,
+    },
+  );
 
   const updatedAccountInfo: Partial<ICantonAccount> = {
     balance: updatedBalance,
+    extraData: {
+      ...account.extraData,
+      isTransferPreApprovalEnabled: updatedTransferPreApprovalStatus,
+    },
   };
 
   return {
-    hasMore: transactionDetails.hasMore,
+    hasMore,
     nextIterationContext: {
-      perPage,
-      afterBlock: transactionDetails.offset,
+      afterOffset: nextOffset,
       updatedBalance,
+      updatedTransferPreApprovalStatus,
     },
-    transactions: transactionDetails.transactions,
+    transactions,
     updatedAccountInfo,
   };
 };

@@ -1,33 +1,55 @@
 // import { cantonCoinList } from '@cypherock/coins';
 import { makePostRequest, assert } from '@cypherock/cysync-utils';
 
-import { ICantonTransactionParams, ICantonTransactionResult } from './types';
+import {
+  ICantonPendingResponseTransaction,
+  ICantonPrepareExternalPartyTxnResult,
+  ICantonTransactionParams,
+  ICantonTransactionResult,
+} from './types';
 
 import { config } from '../../config';
 
 const baseURL = `${config.API_CYPHEROCK}/canton/transaction`;
-// const baseURL = `http://localhost:5001/canton/transaction`;
 
 export const getTransactions = async (
   params: ICantonTransactionParams,
 ): Promise<ICantonTransactionResult> => {
-  console.log(`Getting transactions with params: ${params}`);
-  // const url = `${baseURL}/history`;
+  const url = `${baseURL}/history`;
 
-  // const query: Record<string, any> = {
-  //   ...params,
-  //   network: cantonCoinList[params.assetId].network,
-  // };
-  // delete query.assetId;
+  const query: Record<string, any> = {
+    ...params,
+  };
+  delete query.assetId;
 
-  // const response = await makePostRequest(url, query);
+  const response = await makePostRequest(url, query);
 
-  // assert(
-  //   typeof response.data.transactions === 'object',
-  //   'Invalid transaction response from server',
-  // );
+  assert(
+    typeof response.data?.transactions === 'object',
+    'Invalid transaction response from server',
+  );
 
-  return { transactions: [], hasMore: false, limit: 20 };
+  return response.data;
+};
+
+export const getPendingTransactions = async (
+  params: ICantonTransactionParams,
+): Promise<ICantonPendingResponseTransaction[]> => {
+  const url = `${baseURL}/history/pending`;
+  const query: Record<string, any> = {
+    ...params,
+  };
+  delete query.assetId;
+  delete query.nextOffset;
+
+  const response = await makePostRequest(url, query);
+
+  assert(
+    typeof response.data?.transactions === 'object',
+    'Invalid transaction response from server',
+  );
+
+  return response.data.transactions;
 };
 
 export const getFees = async (assetId: string) => {
@@ -57,9 +79,6 @@ export const prepareSendTransaction = async (
   memo?: string,
   expiryDate?: string,
 ): Promise<any> => {
-  console.log(
-    `Preparing transaction for ${senderPartyId} to ${receiverPartyId} with amount ${amount} and memo ${memo}`,
-  );
   const url = `${baseURL}/prepare/send`;
   const response = await makePostRequest(url, {
     senderPartyId,
@@ -79,12 +98,50 @@ export const prepareSendTransaction = async (
   return response.data;
 };
 
+export const prepareChoiceTxn = async (
+  partyId: string,
+  transferContractId: string,
+  choice: string,
+): Promise<any> => {
+  const url = `${baseURL}/prepare/${choice.toLowerCase()}`;
+  const response = await makePostRequest(url, {
+    partyId,
+    transferContractId,
+  });
+
+  assert(
+    !response.data.error &&
+      response.data.command?.preparedTransaction &&
+      response.data.commandId,
+    new Error('Server: Invalid prepared transaction from server'),
+  );
+
+  return response.data;
+};
+
+export const prepareTransferPreApprovalTxn = async (
+  partyId: string,
+): Promise<any> => {
+  const url = `${baseURL}/prepare/transfer-preapproval`;
+  const response = await makePostRequest(url, {
+    partyId,
+  });
+
+  assert(
+    !response.data.error &&
+      response.data.command?.preparedTransaction &&
+      response.data.commandId,
+    new Error('Server: Invalid prepared transaction from server'),
+  );
+
+  return response.data;
+};
+
 export const broadcastTransactionToBlockchain = async (
   signature: string,
   publicKey: string,
   preparedTransaction: any,
 ): Promise<any> => {
-  console.log(`Broadcasting transaction action`);
   const url = `${baseURL}/broadcast`;
   const response = await makePostRequest(url, {
     signature,
@@ -95,6 +152,42 @@ export const broadcastTransactionToBlockchain = async (
   assert(
     !response.data.error,
     new Error('Server: Invalid txn hash from server'),
+  );
+
+  return response.data;
+};
+
+export const prepareExternalPartyTxn = async (
+  publicKey: string,
+  partyHint: string,
+): Promise<ICantonPrepareExternalPartyTxnResult> => {
+  const url = `${baseURL}/prepare/external-party`;
+  const response = await makePostRequest(url, {
+    publicKey,
+    partyHint,
+  });
+
+  assert(
+    !response.data.error && response.data.topologyTransactions,
+    new Error('Server: Invalid prepared transaction from server'),
+  );
+
+  return response.data;
+};
+
+export const broadcastExternalPartyTransactionToBlockchain = async (
+  signature: string,
+  preparedParty: ICantonPrepareExternalPartyTxnResult,
+): Promise<any> => {
+  const url = `${baseURL}/broadcast/external-party`;
+  const response = await makePostRequest(url, {
+    signature,
+    preparedParty,
+  });
+
+  assert(
+    !response.data.error,
+    new Error('Server: Broadcast external party txn failed'),
   );
 
   return response.data;

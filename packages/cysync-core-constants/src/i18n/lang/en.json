@@ -518,6 +518,8 @@
       "remarks": "Personal Note",
       "destinationTag": "Destination Tag",
       "memo": "Memo",
+      "choice": "Choice",
+      "startDate": "Start Date",
       "expirationDate": "Expiration Date",
       "operation": "Operation"
     },

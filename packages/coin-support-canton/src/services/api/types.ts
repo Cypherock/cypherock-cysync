@@ -1,41 +1,49 @@
 export interface ICantonTransactionParams {
-  address: string;
+  partyId: string;
   assetId: string;
-  limit?: number;
-  forward?: boolean;
-  binary?: boolean;
-  ledgerIndexMin?: number;
+  afterOffset?: number;
 }
 
-interface ICantonResponseTransaction {
-  hash: string;
-  TransactionType: string;
-  Account: string;
-  Amount: string;
-  Destination: string;
-  Fee: string;
-  Flags: number;
-  LastLedgerSequence: number;
-  Sequence: number;
-  SigningPubKey: string;
-  TxnSignature: string;
-  DestinationTag: number;
-  SourceTag: number;
-  date: number;
-  ledger_index: number;
-}
-
-export interface IDetailedCantonResponseTransaction {
-  meta: {
-    TransactionResult: string;
-    delivered_amount: string;
+interface ICantonBaseResponseTransaction {
+  updateId: string;
+  offset: number;
+  recordTime: string;
+  status: string;
+  sender: string;
+  receiver: string;
+  amount: string;
+  fees: string;
+  instrumentId: {
+    id: string;
+    admin: string;
   };
-  tx: ICantonResponseTransaction;
+  requestedAt: string;
+  executeBefore: string;
+  memo: string;
+}
+
+export interface ICantonResponseTransaction
+  extends ICantonBaseResponseTransaction {
+  type: string;
+  choice: string;
+}
+
+export interface ICantonPendingResponseTransaction
+  extends ICantonBaseResponseTransaction {
+  contractId: string;
+  templateId: string;
 }
 
 export interface ICantonTransactionResult {
-  transactions: IDetailedCantonResponseTransaction[];
-  limit: number;
+  transactions: ICantonResponseTransaction[];
+  count: number;
   hasMore: boolean;
-  offset?: number;
+  nextOffset?: number;
+}
+
+export interface ICantonPrepareExternalPartyTxnResult {
+  partyId: string;
+  publicKeyFingerprint: string;
+  multiHash: string;
+  topologyTransactions: string[];
 }

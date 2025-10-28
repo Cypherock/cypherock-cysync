@@ -4,7 +4,6 @@ import { makePostRequest } from '@cypherock/cysync-utils';
 import { config } from '../../config';
 
 const baseURL = `${config.API_CYPHEROCK}/canton/wallet`;
-// const baseURL = `http://localhost:5001/canton/wallet`;
 
 export const getAccountInfo = async (
   address: string,
@@ -58,4 +57,20 @@ export const getIsAccountCreated = async (
     console.error(error);
     return false;
   }
+};
+
+export const isTransferPreApprovalEnabled = async (
+  partyId: string,
+  assetId: string,
+): Promise<boolean> => {
+  console.log(`Getting Balance for ${partyId}:${assetId}`);
+  const url = `${baseURL}/transfer-preapproval-status`;
+  const response = await makePostRequest(url, {
+    partyId,
+  });
+
+  return (
+    response.data?.receiverId === partyId &&
+    new Date(response.data.expiresAt) > new Date(Date.now())
+  );
 };

@@ -4,27 +4,30 @@ import {
   mapDerivationPath,
   SignTransactionFromDevice,
 } from '@cypherock/coin-support-utils';
-import { IUnsignedTransaction, CantonApp } from '@cypherock/sdk-app-canton';
+import {
+  CantonApp,
+  IUnsignedTopologyTransaction,
+} from '@cypherock/sdk-app-canton';
 import { assert, hexToUint8Array } from '@cypherock/sdk-utils';
 import { Observable } from 'rxjs';
 
 import {
-  ISignCantonTransactionParams,
-  ISignCantonTransactionEvent,
-  signCantonToDeviceEventMap,
+  ISignCantonExternalPartyTransactionParams,
+  ISignCantonExternalPartyTransactionEvent,
 } from './types';
 
 import { createApp } from '../../utils';
 import logger from '../../utils/logger';
-import { IPreparedCantonTransaction } from '../transaction';
+import { IPreparedCantonExternalPartyTransaction } from '../transaction';
+import { signCantonToDeviceEventMap } from '../types';
 
-const prepareUnsignedTxn = async (
-  transaction: IPreparedCantonTransaction,
-): Promise<IUnsignedTransaction> => {
+const prepareUnsignedTopologyTxn = (
+  transaction: IPreparedCantonExternalPartyTransaction,
+): IUnsignedTopologyTransaction => {
   const prepared = transaction.computedData.preparedTransaction;
 
   return {
-    protoSerializedPreparedTransaction: prepared.command.preparedTransaction,
+    partyTransactions: prepared.topologyTransactions,
   };
 };
 
@@ -38,16 +41,16 @@ const signTransactionFromDevice: SignTransactionFromDevice<
   const events: Record<SignTransactionDeviceEvent, boolean | undefined> =
     {} as any;
 
-  const txn = await prepareUnsignedTxn(
-    transaction as IPreparedCantonTransaction,
+  const topologyTxn = prepareUnsignedTopologyTxn(
+    transaction as IPreparedCantonExternalPartyTransaction,
   );
 
-  assert(txn, 'Missing unsigned transaction');
+  assert(topologyTxn, 'Missing unsigned transaction');
 
-  const { signature } = await app.signTxn({
+  const { signature } = await app.signTopologyTxn({
     walletId: hexToUint8Array(account.walletId),
     derivationPath: mapDerivationPath(account.derivationPath),
-    txn,
+    topologyTxn,
     onEvent: event => {
       const deviceEvent = signCantonToDeviceEventMap[event];
       if (deviceEvent !== undefined) {
@@ -60,17 +63,17 @@ const signTransactionFromDevice: SignTransactionFromDevice<
 
   observer.next({ type: 'Device', device: { isDone: true, events } });
 
-  assert(signature, new Error('Failed to sign transaction'));
+  assert(signature, new Error('Failed to sign topology transaction'));
 
   return signature;
 };
 
-export const signTransaction = (
-  params: ISignCantonTransactionParams,
-): Observable<ISignCantonTransactionEvent> =>
+export const signExternalPartyTransaction = (
+  params: ISignCantonExternalPartyTransactionParams,
+): Observable<ISignCantonExternalPartyTransactionEvent> =>
   makeSignTransactionsObservable<
     CantonApp,
-    ISignCantonTransactionEvent,
+    ISignCantonExternalPartyTransactionEvent,
     string
   >({
     ...params,

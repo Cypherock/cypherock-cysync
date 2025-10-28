@@ -518,6 +518,8 @@
       "remarks": "ملاحظة شخصية",
       "destinationTag": "علامة الوجهة",
       "memo": "مذكرة",
+      "choice": "الخيار",
+      "startDate": "تاريخ البدء",
       "expirationDate": "تاريخ الانتهاء",
       "operation": "عملية"
     },

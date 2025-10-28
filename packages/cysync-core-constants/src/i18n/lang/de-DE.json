@@ -518,6 +518,8 @@
       "remarks": "Persönliche Notiz",
       "destinationTag": "Ziel-Tag",
       "memo": "Memo",
+      "choice": "Auswahl",
+      "startDate": "Startdatum",
       "expirationDate": "Ablaufdatum",
       "operation": "Betrieb"
     },
