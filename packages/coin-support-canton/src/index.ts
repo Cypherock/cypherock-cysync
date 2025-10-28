@@ -30,6 +30,8 @@ import * as operations from './operations';
 import {
   IBroadcastCantonTransactionParams,
   IPrepareCantonTransactionParams,
+  IPrepareCantonTransferPreApprovalTransactionParams,
+  IPreparedCantonTransferPreApprovalTransaction,
   ISignCantonTransactionEvent,
 } from './operations/types';
 import { getAppletId } from './utils';
@@ -76,6 +78,12 @@ export class CantonSupport implements CoinSupport {
     params: IPrepareCantonChoiceTransactionParams,
   ): Promise<IPreparedCantonChoiceTransaction> {
     return operations.prepareChoiceTransaction(params);
+  }
+
+  public async prepareTransferPreApprovalTransaction(
+    params: IPrepareCantonTransferPreApprovalTransactionParams,
+  ): Promise<IPreparedCantonTransferPreApprovalTransaction> {
+    return operations.prepareTransferPreApprovalTransaction(params);
   }
 
   public signTransaction(

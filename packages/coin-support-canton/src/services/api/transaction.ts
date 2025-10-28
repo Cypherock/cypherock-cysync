@@ -118,6 +118,24 @@ export const prepareChoiceTxn = async (
   return response.data;
 };
 
+export const prepareTransferPreApprovalTxn = async (
+  partyId: string,
+): Promise<any> => {
+  const url = `${baseURL}/prepare/transfer-preapproval`;
+  const response = await makePostRequest(url, {
+    partyId,
+  });
+
+  assert(
+    !response.data.error &&
+      response.data.command?.preparedTransaction &&
+      response.data.commandId,
+    new Error('Server: Invalid prepared transaction from server'),
+  );
+
+  return response.data;
+};
+
 export const broadcastTransactionToBlockchain = async (
   signature: string,
   publicKey: string,
