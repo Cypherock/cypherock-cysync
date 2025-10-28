@@ -58,3 +58,19 @@ export const getIsAccountCreated = async (
     return false;
   }
 };
+
+export const isTransferPreApprovalEnabled = async (
+  partyId: string,
+  assetId: string,
+): Promise<boolean> => {
+  console.log(`Getting Balance for ${partyId}:${assetId}`);
+  const url = `${baseURL}/transfer-preapproval-status`;
+  const response = await makePostRequest(url, {
+    partyId,
+  });
+
+  return (
+    response.data?.receiverId === partyId &&
+    new Date(response.data.expiresAt) > new Date(Date.now())
+  );
+};

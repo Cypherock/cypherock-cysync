@@ -230,12 +230,17 @@ const fetchAndParseTransactions = async (params: {
 const getAddressDetails: IGetAddressDetails<{
   afterOffset?: number;
   updatedBalance?: string;
+  updatedTransferPreApprovalStatus?: boolean;
 }> = async ({ db, account, iterationContext }) => {
   const partyId = account.xpubOrAddress;
 
   const updatedBalance =
     iterationContext?.updatedBalance ??
     (await services.getBalance(partyId, account.assetId));
+
+  const updatedTransferPreApprovalStatus =
+    iterationContext?.updatedTransferPreApprovalStatus ??
+    (await services.isTransferPreApprovalEnabled(partyId, account.assetId));
 
   const afterOffset =
     iterationContext?.afterOffset ??
@@ -255,6 +260,10 @@ const getAddressDetails: IGetAddressDetails<{
 
   const updatedAccountInfo: Partial<ICantonAccount> = {
     balance: updatedBalance,
+    extraData: {
+      ...account.extraData,
+      isTransferPreApprovalEnabled: updatedTransferPreApprovalStatus,
+    },
   };
 
   return {
@@ -262,6 +271,7 @@ const getAddressDetails: IGetAddressDetails<{
     nextIterationContext: {
       afterOffset: nextOffset,
       updatedBalance,
+      updatedTransferPreApprovalStatus,
     },
     transactions,
     updatedAccountInfo,

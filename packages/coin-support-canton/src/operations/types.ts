@@ -6,6 +6,7 @@ export * from './prepareTransferPreApprovalTransaction/types';
 export * from './prepareExternalPartyTransaction/types';
 export * from './signTransaction/types';
 export * from './signExternalPartyTransaction/types';
-export * from './broadcastTransaction/types';
 export * from './broadcastExternalPartyTransaction/types';
+export * from './broadcastTransaction/types';
+export * from './broadcastTransferPreApprovalTransaction/types';
 export * from './transaction';
