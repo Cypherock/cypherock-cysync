@@ -106,14 +106,26 @@ const getBalanceAndTxnCount = async (
   params: ICreateCantonAccountParams,
 ) => {
   const partyId = await derivePartyId(hexToUint8Array(publicKey));
+  const isAccountCreated = await services.getIsAccountCreated(
+    partyId,
+    params.coinId,
+  );
+
+  if (isAccountCreated) {
+    return {
+      balance: await services.getBalance(partyId, params.coinId),
+      txnCount: (
+        await services.getTransactions({
+          partyId,
+          assetId: params.coinId,
+        })
+      ).count,
+    };
+  }
+
   return {
-    balance: await services.getBalance(partyId, params.coinId),
-    txnCount: (
-      await services.getTransactions({
-        partyId,
-        assetId: params.coinId,
-      })
-    ).count,
+    balance: '0',
+    txnCount: 0,
   };
 };
 
