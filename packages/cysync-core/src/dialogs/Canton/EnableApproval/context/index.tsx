@@ -1,26 +1,49 @@
 // The ReactNodes won't be rendered as list so key is not required
 /* eslint-disable react/jsx-key */
+import { getCoinSupport } from '@cypherock/coin-support';
+import {
+  CantonSupport,
+  IPreparedCantonTransferPreApprovalTransaction,
+} from '@cypherock/coin-support-canton';
+import {
+  CoinSupport,
+  ISignTransactionEvent,
+} from '@cypherock/coin-support-interfaces';
+import { coinFamiliesMap } from '@cypherock/coins';
+import { IAccount, IWallet } from '@cypherock/db-interfaces';
+import lodash from 'lodash';
 import React, {
   Context,
   FC,
   ReactNode,
   createContext,
   useContext,
+  useEffect,
   useMemo,
+  useRef,
   useState,
 } from 'react';
+import { Observer, Subscription } from 'rxjs';
 
+import { syncAccounts } from '~/actions';
 import { LoaderDialog } from '~/components';
-import { ITabs, useMemoReturn, useTabsAndDialogs } from '~/hooks';
+import { deviceLock, useCurrency, useDevice } from '~/context';
+import {
+  ITabs,
+  useMemoReturn,
+  useStateWithRef,
+  useTabsAndDialogs,
+} from '~/hooks';
 import {
   closeDialog,
   selectLanguage,
   useAppDispatch,
   useAppSelector,
 } from '~/store';
-import { keyValueStore } from '~/utils';
+import { getDB, keyValueStore } from '~/utils';
+import logger from '~/utils/logger';
+
 import { DeviceAction, SuccessDialogComponent } from '../Dialogs';
-import { IAccount, IWallet } from '@cypherock/db-interfaces';
 
 export interface EnableApprovalDialogContextInterface {
   tabs: ITabs;
@@ -34,9 +57,12 @@ export interface EnableApprovalDialogContextInterface {
   currentTab: number;
   currentDialog: number;
   isDeviceRequired: boolean;
+  selectedWallet: IWallet | undefined;
   selectedAccount: IAccount | undefined;
   deviceEvents: Record<number, boolean | undefined>;
-  selectedWallet: IWallet | undefined;
+  transaction: IPreparedCantonTransferPreApprovalTransaction | undefined;
+  prepare: () => Promise<void>;
+  startFlow: () => Promise<void>;
 }
 
 export const EnableApprovalDialogContext: Context<EnableApprovalDialogContextInterface> =
@@ -46,6 +72,7 @@ export const EnableApprovalDialogContext: Context<EnableApprovalDialogContextInt
 
 export interface EnableApprovalDialogProps {
   selectedAccount?: IAccount;
+  selectedWallet?: IWallet;
 }
 
 export interface EnableApprovalDialogContextProviderProps
@@ -55,7 +82,7 @@ export interface EnableApprovalDialogContextProviderProps
 
 export const EnableApprovalDialogProvider: FC<
   EnableApprovalDialogContextProviderProps
-> = ({ children, selectedAccount }) => {
+> = ({ children, selectedAccount, selectedWallet }) => {
   const lang = useAppSelector(selectLanguage);
   const strings = lang.strings.dialogs.cantonDialogs.enableApproval.dialogs;
   const dispatch = useAppDispatch();
@@ -63,13 +90,27 @@ export const EnableApprovalDialogProvider: FC<
     useMemo(
       () => ({
         0: [0],
+        1: [0],
       }),
       [],
     );
 
   const [error, setError] = useState<any | undefined>();
-  const [deviceEvents] = useState<Record<number, boolean | undefined>>({});
-  const [selectedWallet] = useState<IWallet | undefined>();
+  const [signedTransaction, setSignedTransaction] = useState<
+    string | undefined
+  >();
+  const [transaction, setTransaction, transactionRef] = useStateWithRef<
+    IPreparedCantonTransferPreApprovalTransaction | undefined
+  >(undefined);
+
+  const coinSupport = useRef<CoinSupport | undefined>();
+
+  const [deviceEvents, setDeviceEvents] = useState<
+    Record<number, boolean | undefined>
+  >({});
+  const { connection } = useDevice();
+  const flowSubscription = useRef<Subscription | undefined>();
+  const { currentCurrency } = useCurrency();
 
   const tabs: ITabs = useMemo(
     () => [
@@ -90,17 +131,143 @@ export const EnableApprovalDialogProvider: FC<
     [lang],
   );
 
+  useEffect(() => {
+    if (signedTransaction) {
+      broadcast();
+    }
+  }, [signedTransaction]);
+
+  const resetStates = () => {
+    setSignedTransaction(undefined);
+    setError(undefined);
+    setDeviceEvents({});
+  };
+
+  const cleanUp = () => {
+    if (flowSubscription.current) {
+      flowSubscription.current.unsubscribe();
+      flowSubscription.current = undefined;
+    }
+  };
+
   const onClose = async () => {
+    cleanUp();
     dispatch(closeDialog('enableApprovalDialog'));
   };
 
   const onRetry = () => {
-    setError(undefined);
+    resetStates();
+    goTo(0, 0);
+  };
+
+  const onError = (e?: any) => {
+    cleanUp();
+    setError(e);
+  };
+
+  const getCurrentCoinSupport = () => {
+    if (!coinSupport.current)
+      coinSupport.current = getCoinSupport(coinFamiliesMap.canton);
+    return coinSupport.current;
+  };
+
+  const broadcast = async () => {
+    const txn = transactionRef.current;
+    if (!txn || !signedTransaction) {
+      logger.warn('Transaction not ready');
+      return;
+    }
+
+    try {
+      await (
+        getCurrentCoinSupport() as CantonSupport
+      ).broadcastTransferPreApprovalTransaction({
+        db: getDB(),
+        signedTransaction,
+        transaction: txn,
+      });
+
+      onNext();
+      dispatch(
+        syncAccounts({
+          accounts: selectedAccount ? [selectedAccount] : [],
+          currency: currentCurrency,
+        }),
+      );
+    } catch (e: any) {
+      onError(e);
+    }
+  };
+
+  const prepare = async () => {
+    logger.info('Preparing canton transferPreApproval transaction');
+    if (transaction !== undefined) return;
+
+    try {
+      const currentCoinSupport = getCurrentCoinSupport() as CantonSupport;
+      const preparedTransaction =
+        await currentCoinSupport.prepareTransferPreApprovalTransaction({
+          db: getDB(),
+          accountId: selectedAccount?.__id ?? '',
+        });
+      setTransaction(preparedTransaction);
+    } catch (e: any) {
+      onError(e);
+    }
+  };
+
+  const getFlowObserver = (
+    onEnd: () => void,
+  ): Observer<ISignTransactionEvent<any>> => ({
+    next: payload => {
+      if (payload.device) setDeviceEvents({ ...payload.device.events });
+      if (payload.transaction) setSignedTransaction(payload.transaction);
+    },
+    error: err => {
+      onEnd();
+      onError(err);
+    },
+    complete: () => {
+      cleanUp();
+      onEnd();
+    },
+  });
+
+  const startFlow = async () => {
+    const txn = transactionRef.current;
+    logger.info('Starting sign transaction');
+
+    if (!connection?.connection || !txn) {
+      return;
+    }
+
+    try {
+      resetStates();
+      cleanUp();
+
+      const taskId = lodash.uniqueId('task-');
+
+      await deviceLock.acquire(connection.device, taskId);
+
+      const onEnd = () => {
+        deviceLock.release(connection.device, taskId);
+      };
+
+      const deviceConnection = connection.connection;
+      flowSubscription.current = (getCurrentCoinSupport() as CantonSupport)
+        .signTransaction({
+          connection: deviceConnection,
+          db: getDB(),
+          transaction: txn,
+        })
+        .subscribe(getFlowObserver(onEnd));
+    } catch (e) {
+      onError(e);
+    }
   };
 
   const onFinishEnableApproval = async () => {
-    console.log('selectedAccount', selectedAccount);
-    await keyValueStore.isAutomaticApprovalsEnabled.set(true);
+    keyValueStore.isAutomaticApprovalsEnabled.set(true);
     onClose();
   };
 
@@ -129,9 +296,12 @@ export const EnableApprovalDialogProvider: FC<
     error,
     onRetry,
     onFinishEnableApproval,
+    selectedWallet,
     selectedAccount,
     deviceEvents,
-    selectedWallet,
+    transaction,
+    prepare,
+    startFlow,
   });
 
   return (
@@ -147,4 +317,5 @@ export function useEnableApprovalDialog(): EnableApprovalDialogContextInterface 
 
 EnableApprovalDialogProvider.defaultProps = {
   selectedAccount: undefined,
+  selectedWallet: undefined,
 };

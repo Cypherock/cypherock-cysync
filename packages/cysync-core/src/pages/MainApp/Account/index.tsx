@@ -15,6 +15,7 @@ import React, { FC } from 'react';
 
 import {
   openEditAccountDialog,
+  openEnableApprovalDialog,
   openReceiveDialog,
   openSendDialog,
 } from '~/actions';
@@ -98,10 +99,17 @@ export const AccountPage: FC = () => {
             >
               {lang.strings.buttons.receive}
             </Button>
-            {selectedAccount?.familyId === coinFamiliesMap.xrp && ( // TODO: change to canton familyId
+            {selectedAccount?.familyId === coinFamiliesMap.canton && (
               <Button
                 variant="primary"
-                onClick={() => dispatch(openReceiveDialog())}
+                onClick={() =>
+                  dispatch(
+                    openEnableApprovalDialog({
+                      selectedAccount,
+                      selectedWallet,
+                    }),
+                  )
+                }
                 size="sm"
                 display="flex"
                 justify="center"

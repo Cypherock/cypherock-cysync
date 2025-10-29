@@ -2,7 +2,7 @@ import { BlurOverlay } from '@cypherock/cysync-ui';
 import React from 'react';
 
 import { EnableApprovalPrompt } from '~/components/EnableApprovalPrompt';
-import { openEnableApprovalDialog } from '~/actions/dialog';
+// import { openEnableApprovalDialog } from '~/actions/dialog';
 import { closeDialog, useAppDispatch } from '~/store';
 
 export const EnableApprovalPromptDialog = () => {
@@ -14,14 +14,14 @@ export const EnableApprovalPromptDialog = () => {
 
   const onEnableApproval = () => {
     onClose();
-    dispatch(openEnableApprovalDialog());
+    // dispatch(openEnableApprovalDialog());
   };
 
   return (
     <BlurOverlay>
       <EnableApprovalPrompt
         onClose={onClose}
-        primaryActionText={'Enable'}
+        primaryActionText="Enable"
         primaryActionOnClick={onEnableApproval}
       />
     </BlurOverlay>
