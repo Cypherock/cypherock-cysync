@@ -111,13 +111,18 @@
     "sync": {
       "syncingHeader": "Menyinkronkan akun",
       "header": "Tambahkan akun baru",
+      "addSingleAccountHeader": "Tambahkan akun baru",
+      "createSingleAccountHeader": "Buat akun baru",
       "newAccount": "Akun Baru",
+      "newSingleAccount": "Akun Baru",
       "advancedButton": "Tampilkan semua jenis alamat",
       "accountsNotSynced": "Akun belum disinkronkan (${count})",
       "deselectAllButton": "Batalkan pilihan semua",
       "selectAllButton": "Pilih semua",
       "accountsInPortfolio": "Akun sudah ada di portofolio (${count})",
       "addAccountButton": "Tambahkan Akun",
+      "addSingleAccountButton": "Tambahkan Akun",
+      "createSingleAccountButton": "Buat Akun",
       "resyncButton": "Sinkronisasi Ulang"
     },
     "congrats": {

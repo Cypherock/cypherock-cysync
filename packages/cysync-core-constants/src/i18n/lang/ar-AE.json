@@ -111,13 +111,18 @@
     "sync": {
       "syncingHeader": "مزامنة الحساب",
       "header": "إضافة حسابات جديدة",
+      "addSingleAccountHeader": "إضافة حساب جديد",
+      "createSingleAccountHeader": "إنشاء حساب جديد",
       "newAccount": "حسابات جديدة",
+      "newSingleAccount": "حساب جديد",
       "advancedButton": "إظهار جميع أنواع العناوين",
       "accountsNotSynced": "الحساب لم يتم مزامنته بعد (${count})",
       "deselectAllButton": "إلغاء تحديد الكل",
       "selectAllButton": "تحديد الكل",
       "accountsInPortfolio": "الحسابات الموجودة بالفعل في المحفظة (${count})",
       "addAccountButton": "إضافة حسابات",
+      "addSingleAccountButton": "إضافة حساب",
+      "createSingleAccountButton": "إنشاء حساب",
       "resyncButton": "إعادة المزامنة"
     },
     "congrats": {

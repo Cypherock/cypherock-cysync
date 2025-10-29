@@ -181,13 +181,18 @@ interface LangAddAccount {
   sync: {
     syncingHeader: string;
     header: string;
+    addSingleAccountHeader: string;
+    createSingleAccountHeader: string;
     newAccount: string;
+    newSingleAccount: string;
     advancedButton: string;
     accountsNotSynced: string;
     deselectAllButton: string;
     selectAllButton: string;
     accountsInPortfolio: string;
     addAccountButton: string;
+    addSingleAccountButton: string;
+    createSingleAccountButton: string;
     resyncButton: string;
   };
   congrats: {

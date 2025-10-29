@@ -111,13 +111,18 @@
     "sync": {
       "syncingHeader": "正在同步账户",
       "header": "添加新账户",
+      "addSingleAccountHeader": "添加新账户",
+      "createSingleAccountHeader": "创建新账户",
       "newAccount": "新账户",
+      "newSingleAccount": "新账户",
       "advancedButton": "显示所有地址类型",
       "accountsNotSynced": "账户尚未同步 (${count})",
       "deselectAllButton": "取消全选",
       "selectAllButton": "全选",
       "accountsInPortfolio": "账户已在投资组合中 (${count})",
       "addAccountButton": "添加账户",
+      "addSingleAccountButton": "添加账户",
+      "createSingleAccountButton": "创建账户",
       "resyncButton": "重新同步"
     },
     "congrats": {

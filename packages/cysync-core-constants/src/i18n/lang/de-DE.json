@@ -111,13 +111,18 @@
     "sync": {
       "syncingHeader": "Das Konto wird synchronisiert",
       "header": "Neue Konten hinzufügen",
+      "addSingleAccountHeader": "Neues Konto hinzufügen",
+      "createSingleAccountHeader": "Neues Konto erstellen",
       "newAccount": "Neue Konten",
+      "newSingleAccount": "Neues Konto",
       "advancedButton": "Alle Adresstypen anzeigen",
       "accountsNotSynced": "Konto noch nicht synchronisiert (${count})",
       "deselectAllButton": "Alle abwählen",
       "selectAllButton": "Alle auswählen",
       "accountsInPortfolio": "Konten bereits im Portfolio (${count})",
       "addAccountButton": "Konten hinzufügen",
+      "addSingleAccountButton": "Konto hinzufügen",
+      "createSingleAccountButton": "Konto erstellen",
       "resyncButton": "Erneut synchronisieren"
     },
     "congrats": {
