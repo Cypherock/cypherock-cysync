@@ -1,4 +1,4 @@
-import { coinList } from '@cypherock/coins';
+import { coinFamiliesMap, coinList } from '@cypherock/coins';
 import {
   Button,
   Container,
@@ -12,13 +12,26 @@ import {
   Typography,
   addAccountIcon,
 } from '@cypherock/cysync-ui';
-import React, { useCallback } from 'react';
+import { createSelector } from '@reduxjs/toolkit';
+import React, { useCallback, useMemo } from 'react';
 
 import { CoinIcon } from '~/components/CoinIcon';
-import { selectLanguage, useAppSelector } from '~/store';
+import {
+  selectLanguage,
+  selectUnHiddenAccounts,
+  useAppSelector,
+} from '~/store';
 import logger from '~/utils/logger';
 
 import { useAddAccountDialog } from '../context';
+
+const selector = createSelector(
+  [selectLanguage, selectUnHiddenAccounts],
+  (lang, { accounts }) => ({
+    lang,
+    accounts,
+  }),
+);
 
 const coinDropDownList: DropDownItemProps[] = Object.values(coinList)
   .filter(
@@ -33,7 +46,7 @@ const coinDropDownList: DropDownItemProps[] = Object.values(coinList)
   }));
 
 export const AddAccountSelectionDialog: React.FC = () => {
-  const lang = useAppSelector(selectLanguage);
+  const { lang, accounts } = useAppSelector(selector);
   const {
     onNext,
     selectedCoin,
@@ -43,6 +56,25 @@ export const AddAccountSelectionDialog: React.FC = () => {
     walletDropdownList,
     defaultWalletId,
   } = useAddAccountDialog();
+
+  const filteredCoinDropDownList = useMemo(() => {
+    if (!selectedWallet) {
+      return coinDropDownList;
+    }
+    const isCantonAccountAddedInWallet = accounts.some(
+      account =>
+        account.walletId === selectedWallet.__id &&
+        account.familyId === coinFamiliesMap.canton,
+    );
+
+    if (isCantonAccountAddedInWallet) {
+      return coinDropDownList.filter(
+        coin => coin.id !== coinFamiliesMap.canton,
+      );
+    }
+
+    return coinDropDownList;
+  }, [accounts, selectedWallet]);
 
   const strings = lang.strings.addAccount.select;
   const button = lang.strings.buttons;
@@ -90,7 +122,7 @@ export const AddAccountSelectionDialog: React.FC = () => {
             autoFocus={!defaultWalletId}
           />
           <Dropdown
-            items={coinDropDownList}
+            items={filteredCoinDropDownList}
             selectedItem={selectedCoin?.id}
             disabled={!selectedWallet}
             searchText={strings.searchText}
