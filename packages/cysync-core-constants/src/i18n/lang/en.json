@@ -279,7 +279,8 @@
         "info": "Remember ${tokenName} is an ${parentCoinName} token therefore fee will be calculated in ${parentCoinUnit}"
       },
       "messageBox": {
-        "warning": "Always verify the address displayed on your device exactly matches the address given by the recipient"
+        "warning": "Always verify the address displayed on your device exactly matches the address given by the recipient",
+        "partyIdWarning": "Always verify the party id displayed on your device exactly matches the party id given by the recipient"
       }
     },
     "recipient": {

@@ -279,7 +279,8 @@
         "info": "请记住 ${tokenName} 是一个 ${parentCoinName} 代币，因此 fee 将以 ${parentCoinUnit} 计算"
       },
       "messageBox": {
-        "warning": "始终确认设备上显示的地址与收件人提供的地址完全匹配"
+        "warning": "始终确认设备上显示的地址与收件人提供的地址完全匹配",
+        "partyIdWarning": "始终确认设备上显示的Party ID与收件人提供的Party ID完全匹配"
       }
     },
     "recipient": {

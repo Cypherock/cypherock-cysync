@@ -304,7 +304,10 @@ interface LangSend {
       tapCard: string;
     };
     token: { info: string };
-    messageBox: { warning: string };
+    messageBox: {
+      warning: string;
+      partyIdWarning: string;
+    };
   };
   recipient: {
     title: string;
