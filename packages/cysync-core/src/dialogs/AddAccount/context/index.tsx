@@ -23,7 +23,12 @@ import React, {
 } from 'react';
 import { Observer, Subscription } from 'rxjs';
 
-import { syncAccounts, syncPriceHistories, syncPrices } from '~/actions';
+import {
+  openCreateCantonAccountDialog,
+  syncAccounts,
+  syncPriceHistories,
+  syncPrices,
+} from '~/actions';
 import { deviceLock, useCurrency, useDevice } from '~/context';
 import { ITabs, useTabsAndDialogs } from '~/hooks';
 import { useWalletDropdown } from '~/hooks/useWalletDropdown';
@@ -64,6 +69,7 @@ export interface AddAccountDialogContextInterface {
   setNewSelectedAccounts: React.Dispatch<React.SetStateAction<IAccount[]>>;
   startAddAccounts: () => void;
   addSelectedAccounts: () => void;
+  createNewSelectedAccounts: () => void;
   isStopped: boolean;
   onStop: () => void;
   onRetry: () => void;
@@ -312,6 +318,19 @@ export const AddAccountDialogProvider: FC<
     }
   };
 
+  const createNewSelectedAccounts = async () => {
+    onClose();
+    if (newSelectedAccounts.length > 0) {
+      // For Canton, we only create one account per wallet.
+      dispatch(
+        openCreateCantonAccountDialog({
+          selectedAccount: newSelectedAccounts[0],
+          selectedWallet,
+        }),
+      );
+    }
+  };
+
   useEffect(() => {
     if (!connection) {
       if (addAccountStatus === 'device') {
@@ -348,6 +367,7 @@ export const AddAccountDialogProvider: FC<
       setSelectedWallet,
       startAddAccounts,
       addSelectedAccounts,
+      createNewSelectedAccounts,
       newAccounts,
       setNewSelectedAccounts,
       newSelectedAccounts,

@@ -116,6 +116,7 @@ export const AddAccountSyncDialog: FC = () => {
     newSelectedAccounts,
     addAccountStatus,
     addSelectedAccounts,
+    createNewSelectedAccounts,
     selectedAccounts,
     setSelectedAccounts,
     onClose,
@@ -212,7 +213,11 @@ export const AddAccountSyncDialog: FC = () => {
           {accounts.length > 0 || newAccounts.length > 0 ? (
             <Button
               variant="primary"
-              onClick={addSelectedAccounts}
+              onClick={
+                newSelectedAccounts.length > 0
+                  ? createNewSelectedAccounts
+                  : addSelectedAccounts
+              }
               disabled={
                 selectedAccounts.length <= 0 && newSelectedAccounts.length <= 0
               }
