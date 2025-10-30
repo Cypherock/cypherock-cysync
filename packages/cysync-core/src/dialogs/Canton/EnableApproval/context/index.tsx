@@ -25,9 +25,8 @@ import React, {
 } from 'react';
 import { Observer, Subscription } from 'rxjs';
 
-import { syncAccounts } from '~/actions';
 import { LoaderDialog } from '~/components';
-import { deviceLock, useCurrency, useDevice } from '~/context';
+import { deviceLock, useDevice } from '~/context';
 import {
   ITabs,
   useMemoReturn,
@@ -110,7 +109,6 @@ export const EnableApprovalDialogProvider: FC<
   >({});
   const { connection } = useDevice();
   const flowSubscription = useRef<Subscription | undefined>();
-  const { currentCurrency } = useCurrency();
 
   const tabs: ITabs = useMemo(
     () => [
@@ -188,12 +186,6 @@ export const EnableApprovalDialogProvider: FC<
       });
 
       onNext();
-      dispatch(
-        syncAccounts({
-          accounts: selectedAccount ? [selectedAccount] : [],
-          currency: currentCurrency,
-        }),
-      );
     } catch (e: any) {
       onError(e);
     }
