@@ -1,4 +1,3 @@
-import { coinFamiliesMap } from '@cypherock/coins';
 import {
   Typography,
   Breadcrumb,
@@ -13,7 +12,6 @@ import {
 import React, { FC } from 'react';
 
 import {
-  openEnableApprovalPromptDialog,
   openReceiveDialog,
   openSendDialog,
   openWalletConnectDialog,
@@ -144,7 +142,7 @@ export const AssetPage: FC = () => {
                 </Button>
               </Container>
             )}
-            {selectedAsset?.family === coinFamiliesMap.canton && (
+            {/* {selectedAsset?.family === coinFamiliesMap.canton && (
               <Button
                 variant="primary"
                 onClick={() => dispatch(openEnableApprovalPromptDialog())}
@@ -155,7 +153,7 @@ export const AssetPage: FC = () => {
               >
                 {lang.strings.buttons.autoApproval}
               </Button>
-            )}
+            )} */}
           </Flex>
         </Flex>
 

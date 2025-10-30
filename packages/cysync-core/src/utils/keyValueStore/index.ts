@@ -35,8 +35,4 @@ export const keyValueStore = {
   uuid: createStringValueStore('uuid'),
   appLanguage: createStringValueStore('appLanguage'),
   appCurrency: createStringValueStore('appCurrency'),
-  isCantonAdded: createBooleanValueStore('isCantonAdded'),
-  isAutomaticApprovalsEnabled: createBooleanValueStore(
-    'isAutomaticApprovalsEnabled',
-  ),
 };

@@ -39,7 +39,7 @@ import {
   useAppDispatch,
   useAppSelector,
 } from '~/store';
-import { getDB, keyValueStore } from '~/utils';
+import { getDB } from '~/utils';
 import logger from '~/utils/logger';
 
 import { DeviceAction, SuccessDialogComponent } from '../Dialogs';
@@ -259,7 +259,6 @@ export const EnableApprovalDialogProvider: FC<
   };
 
   const onFinishEnableApproval = async () => {
-    keyValueStore.isAutomaticApprovalsEnabled.set(true);
     onClose();
   };
 
