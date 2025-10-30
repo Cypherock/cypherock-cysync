@@ -38,6 +38,8 @@ import {
   IPreparedCantonExternalPartyTransaction,
   IPreparedCantonTransaction,
   IPreparedCantonTransferPreApprovalTransaction,
+  ISignCantonExternalPartyTransactionEvent,
+  ISignCantonExternalPartyTransactionParams,
   ISignCantonTransactionEvent,
 } from './operations/types';
 import { getAppletId } from './utils';
@@ -98,6 +100,12 @@ export class CantonSupport implements CoinSupport {
     params: ISignTransactionParams,
   ): Observable<ISignCantonTransactionEvent> {
     return operations.signTransaction(params);
+  }
+
+  public signExternalPartyTransaction(
+    params: ISignCantonExternalPartyTransactionParams,
+  ): Observable<ISignCantonExternalPartyTransactionEvent> {
+    return operations.signExternalPartyTransaction(params);
   }
 
   public broadcastTransaction(

@@ -1,4 +1,4 @@
-import { IDatabase } from '@cypherock/db-interfaces';
+import { IAccount, IDatabase } from '@cypherock/db-interfaces';
 import { IDeviceConnection } from '@cypherock/sdk-interfaces';
 
 export interface IPreparedTransactionOutput {
@@ -47,6 +47,7 @@ export interface ISignTransactionParams {
   db: IDatabase;
   connection: IDeviceConnection;
   transaction: IPreparedTransaction;
+  account?: IAccount;
 }
 
 export type ISignTransactionEventType = 'Transaction' | 'Device';

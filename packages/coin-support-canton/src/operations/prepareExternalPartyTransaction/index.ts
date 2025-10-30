@@ -1,5 +1,3 @@
-import { getAccountAndCoin } from '@cypherock/coin-support-utils';
-import { cantonCoinList } from '@cypherock/coins';
 import { hexToBase64 } from '@cypherock/sdk-utils';
 
 import { IPrepareCantonExternalPartyTransactionParams } from './types';
@@ -10,8 +8,7 @@ import { IPreparedCantonExternalPartyTransaction } from '../transaction';
 export const prepareExternalPartyTransaction = async (
   params: IPrepareCantonExternalPartyTransactionParams,
 ): Promise<IPreparedCantonExternalPartyTransaction> => {
-  const { accountId, db } = params;
-  const { account } = await getAccountAndCoin(db, cantonCoinList, accountId);
+  const { account } = params;
 
   if (!account.extraData?.publicKey) {
     throw new Error('Public key missing for the account');
@@ -30,7 +27,7 @@ export const prepareExternalPartyTransaction = async (
   );
 
   return {
-    accountId,
+    accountId: account.__id ?? '',
     validation: {
       outputs: [],
       hasEnoughBalance: true,
