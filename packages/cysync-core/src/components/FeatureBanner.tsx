@@ -6,37 +6,33 @@ import {
   cantonIcon,
   LangDisplay,
 } from '@cypherock/cysync-ui';
-import React, { FC, useCallback, useEffect, useMemo, useState } from 'react';
+import React, { FC, useCallback, useMemo, useState } from 'react';
 import { useLocation } from 'react-router-dom';
+
+import { openEnableApprovalPromptDialog } from '~/actions';
 import { routes } from '~/constants';
-import { selectLanguage, useAppSelector } from '~/store';
-import { keyValueStore } from '~/utils';
+import { selectLanguage, useAppDispatch, useAppSelector } from '~/store';
 
 export const FeatureBanner: FC = () => {
-  const [isCantonAdded, setIsCantonAdded] = useState(false);
-  const [isAutomaticApprovalEnabled, setIsAutomaticApprovalEnabled] =
-    useState(false);
   const lang = useAppSelector(selectLanguage);
   const strings = lang.strings.portfolio.banner;
 
   const { path } = routes.portfolio;
   const location = useLocation();
+  const dispatch = useAppDispatch();
 
   const isPortfolioPage = location.pathname.startsWith(path);
 
-  useEffect(() => {
-    keyValueStore.isCantonAdded.get().then(value => {
-      setIsCantonAdded(value);
-    });
-    keyValueStore.isAutomaticApprovalsEnabled.get().then(value => {
-      setIsAutomaticApprovalEnabled(value);
-    });
-  }, []);
+  // TODO: Implement the logic to check if canton is added and automatic approvals are enabled
+  const [isCantonAdded, setIsCantonAdded] = useState(false);
+  const [isAutomaticApprovalEnabled, setIsAutomaticApprovalEnabled] =
+    useState(true);
 
   const enableAutomaticApprovals = useCallback(() => {
-    // TODO: Implement the logic to enable automatic approvals for canton
+    dispatch(openEnableApprovalPromptDialog());
+    setIsAutomaticApprovalEnabled(true);
     setIsCantonAdded(true);
-  }, []);
+  }, [dispatch]);
 
   const renderContent = useMemo(() => {
     if (!isPortfolioPage) return null;
