@@ -99,25 +99,26 @@ export const AccountPage: FC = () => {
             >
               {lang.strings.buttons.receive}
             </Button>
-            {selectedAccount?.familyId === coinFamiliesMap.canton && (
-              <Button
-                variant="primary"
-                onClick={() =>
-                  dispatch(
-                    openEnableApprovalDialog({
-                      selectedAccount,
-                      selectedWallet,
-                    }),
-                  )
-                }
-                size="sm"
-                display="flex"
-                justify="center"
-                align="center"
-              >
-                {lang.strings.buttons.manualApproval}
-              </Button>
-            )}
+            {selectedAccount?.familyId === coinFamiliesMap.canton &&
+              !selectedAccount.extraData?.isTransferPreApprovalEnabled && (
+                <Button
+                  variant="primary"
+                  onClick={() =>
+                    dispatch(
+                      openEnableApprovalDialog({
+                        selectedAccount,
+                        selectedWallet,
+                      }),
+                    )
+                  }
+                  size="sm"
+                  display="flex"
+                  justify="center"
+                  align="center"
+                >
+                  {lang.strings.buttons.autoApproval}
+                </Button>
+              )}
             <Container pl={{ def: 0, mdlg: 4 }} gap={8}>
               {doAllowAccountDeletion() && (
                 <Button

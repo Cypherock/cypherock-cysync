@@ -347,7 +347,7 @@
     "saveChanges": "Enregistrer les modifications",
     "edit": "Modifier",
     "tryAgain": "Essayer encore",
-    "manualApproval": "Approbation manuelle",
+    "autoApproval": "Activer l'approbation automatique",
     "accept": "Accepter"
   },
   "signMessage": {

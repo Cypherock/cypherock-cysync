@@ -54,7 +54,7 @@
     "saveChanges": "حفظ التغييرات",
     "edit": "تحرير",
     "tryAgain": "حاول مرة أخرى",
-    "manualApproval": "الموافقة اليدوية",
+    "autoApproval": "تمكين الموافقة التلقائية",
     "accept": "قبول"
   },
   "tooltips": {

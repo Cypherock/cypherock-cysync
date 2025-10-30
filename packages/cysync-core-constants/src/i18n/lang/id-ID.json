@@ -54,7 +54,7 @@
     "saveChanges": "Simpan perubahan",
     "edit": "Sunting",
     "tryAgain": "Coba Lagi",
-    "manualApproval": "Persetujuan Manual",
+    "autoApproval": "Aktifkan Persetujuan Otomatis",
     "accept": "Terima"
   },
   "tooltips": {

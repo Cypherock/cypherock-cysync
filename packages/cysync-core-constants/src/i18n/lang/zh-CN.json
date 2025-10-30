@@ -54,7 +54,7 @@
     "saveChanges": "保存更改",
     "edit": "编辑",
     "tryAgain": "再试一次",
-    "manualApproval": "手动批准",
+    "autoApproval": "启用自动批准",
     "accept": "接受"
   },
   "tooltips": {

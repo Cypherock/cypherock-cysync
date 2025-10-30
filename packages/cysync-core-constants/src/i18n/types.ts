@@ -109,7 +109,7 @@ interface LangButtons {
   saveChanges: string;
   edit: string;
   tryAgain: string;
-  manualApproval: string;
+  autoApproval: string;
   accept: string;
 }
 

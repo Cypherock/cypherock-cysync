@@ -54,7 +54,7 @@
     "saveChanges": "Änderungen speichern",
     "edit": "Bearbeiten",
     "tryAgain": "Erneut versuchen",
-    "manualApproval": "Manuelle Genehmigung",
+    "autoApproval": "Automatische Genehmigung aktivieren",
     "accept": "Akzeptieren"
   },
   "tooltips": {

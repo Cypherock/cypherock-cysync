@@ -153,7 +153,7 @@ export const AssetPage: FC = () => {
                 justify="center"
                 align="center"
               >
-                {lang.strings.buttons.manualApproval}
+                {lang.strings.buttons.autoApproval}
               </Button>
             )}
           </Flex>
