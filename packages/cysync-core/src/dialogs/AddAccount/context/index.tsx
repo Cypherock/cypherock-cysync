@@ -46,6 +46,10 @@ import {
   AddAccountDeviceActionDialog,
   AddAccountSelectionDialog,
   AddAccountSyncDialog,
+  UserDetails,
+  VerifyOTP,
+  SuccessDialog,
+  LoaderDialog,
 } from '../Dialogs';
 
 export type AddAccountStatus = 'idle' | 'device' | 'sync' | 'done';
@@ -146,7 +150,13 @@ export const AddAccountDialogProvider: FC<
       },
       {
         name: lang.strings.addAccount.aside.tabs.device,
-        dialogs: [<AddAccountDeviceActionDialog />],
+        dialogs: [
+          <UserDetails />,
+          <VerifyOTP />,
+          <LoaderDialog />,
+          <SuccessDialog />,
+          <AddAccountDeviceActionDialog />,
+        ],
       },
       {
         name: lang.strings.addAccount.aside.tabs.confirmation,

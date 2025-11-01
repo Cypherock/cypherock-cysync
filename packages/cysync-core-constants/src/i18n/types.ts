@@ -175,6 +175,38 @@ interface LangAddAccount {
       tapCard: string;
     };
   };
+  cantonSignup: {
+    userDetails: {
+      title: string;
+      subtext: string;
+      emailField: {
+        label: string;
+        rightLabel: string;
+      };
+      sendOTPButton: string;
+    };
+    verifyOTP: {
+      title: string;
+    };
+    loader: {
+      title: string;
+      subtext: string;
+    };
+    success: {
+      eligibleAndCanProceed: {
+        title: string;
+      };
+      eligibleAndAddedInWaitlist: {
+        title: string;
+        subtext: string;
+      };
+      notEligible: {
+        title: string;
+        subtext: string;
+      };
+      buttonText: string;
+    };
+  };
   loader: {
     waitMessage: string;
   };
