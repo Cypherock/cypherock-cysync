@@ -2247,9 +2247,9 @@
             "name": "Confirmation"
           },
           "success": {
-            "approve": "Incoming transaction accepted",
-            "reject": "Incoming transaction rejected",
-            "cancel": "Outgoing transaction cancelled"
+            "approve": "Incoming transaction **accepted**",
+            "reject": "Incoming transaction **rejected**",
+            "cancel": "Outgoing transaction **cancelled**"
           }
         }
       }
