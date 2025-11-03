@@ -45,7 +45,7 @@
     "@cypherock/cysync-utils": "workspace:^",
     "@cypherock/db-interfaces": "workspace:^",
     "@cypherock/sdk-interfaces": "^0.0.16",
-    "@cypherock/sdk-utils": "^0.0.20",
+    "@cypherock/sdk-utils": "^0.0.21",
     "axios": "^1.4.0",
     "lodash": "^4.17.21",
     "rxjs": "^7.8.1"
