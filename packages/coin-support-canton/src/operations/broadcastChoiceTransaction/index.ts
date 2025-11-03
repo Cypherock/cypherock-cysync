@@ -19,6 +19,7 @@ export const broadcastChoiceTransaction = async (
   await broadcastTransactionToBlockchain(
     hexToBase64(signedTransaction),
     hexToBase64(account.extraData?.publicKey ?? ''),
+    account.xpubOrAddress,
     transaction.computedData.preparedTransaction,
   );
 };

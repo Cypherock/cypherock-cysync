@@ -81,7 +81,7 @@ export const prepareSendTransaction = async (
 ): Promise<any> => {
   const url = `${baseURL}/prepare/send`;
   const response = await makePostRequest(url, {
-    senderPartyId,
+    partyId: senderPartyId,
     receiverPartyId,
     amount,
     memo,
@@ -140,12 +140,14 @@ export const prepareTransferPreApprovalTxn = async (
 export const broadcastTransactionToBlockchain = async (
   signature: string,
   publicKey: string,
+  partyId: string,
   preparedTransaction: any,
 ): Promise<any> => {
   const url = `${baseURL}/broadcast`;
   const response = await makePostRequest(url, {
     signature,
     publicKey,
+    partyId,
     preparedTransaction,
   });
 
@@ -159,12 +161,12 @@ export const broadcastTransactionToBlockchain = async (
 
 export const prepareExternalPartyTxn = async (
   publicKey: string,
-  partyHint: string,
+  partyId: string,
 ): Promise<ICantonPrepareExternalPartyTxnResult> => {
   const url = `${baseURL}/prepare/external-party`;
   const response = await makePostRequest(url, {
     publicKey,
-    partyHint,
+    partyId,
   });
 
   assert(

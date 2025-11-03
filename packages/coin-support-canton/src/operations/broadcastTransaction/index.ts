@@ -31,6 +31,7 @@ export const broadcastTransaction = async (
   const result = await broadcastTransactionToBlockchain(
     uint8ArrayToBase64(hexToUint8Array(signedTransaction)),
     uint8ArrayToBase64(hexToUint8Array(account.extraData?.publicKey ?? '')),
+    myAddress,
     transaction.computedData.preparedTransaction,
   );
 

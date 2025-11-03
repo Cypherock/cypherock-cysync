@@ -23,7 +23,7 @@ export const prepareExternalPartyTransaction = async (
 
   const preparedTransaction = await prepareExternalPartyTxn(
     hexToBase64(account.extraData.publicKey),
-    partyHint,
+    account.xpubOrAddress,
   );
 
   return {
