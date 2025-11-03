@@ -31,8 +31,9 @@ import {
   syncPrices,
 } from '~/actions';
 import { deviceLock, useCurrency, useDevice } from '~/context';
-import { ITabs, useTabsAndDialogs } from '~/hooks';
+import { ITabs, useMemoReturn, useTabsAndDialogs } from '~/hooks';
 import { useWalletDropdown } from '~/hooks/useWalletDropdown';
+import { cantonService } from '~/services/canton';
 import {
   closeDialog,
   selectLanguage,
@@ -87,6 +88,14 @@ export interface AddAccountDialogContextInterface {
   walletDropdownList: DropDownItemProps[];
   handleWalletChange: (id?: string) => void;
   defaultWalletId?: string;
+  onUserDetailsSubmit: () => void;
+  isSubmittingUserDetails: boolean;
+  email: string;
+  setEmail: (email: string) => void;
+  setHasErrors: (hasErrors: boolean) => void;
+  onOTPSubmit: (otp: string) => void;
+  isSubmittingOTP: boolean;
+  otpVerificationDetails: ICantonOtpVerificationDetails | undefined;
 }
 
 export const AddAccountDialogContext: Context<AddAccountDialogContextInterface> =
@@ -98,6 +107,13 @@ export interface AddAccountDialogContextProviderProps {
   children: ReactNode;
   walletId?: string;
   coinId?: string;
+}
+
+export interface ICantonOtpVerificationDetails {
+  email: string;
+  retriesRemaining: number;
+  otpExpiry: string;
+  showIncorrectError?: boolean;
 }
 
 export const AddAccountDialogProvider: FC<
@@ -135,6 +151,15 @@ export const AddAccountDialogProvider: FC<
   const addAccountSubscriptionRef = useRef<Subscription | undefined>();
 
   const { currentCurrency } = useCurrency();
+
+  // canton signup/login states
+  const [isSubmittingUserDetails, setIsSubmittingUserDetails] = useState(false);
+  const [email, setEmail] = useState('');
+  const [hasErrors, setHasErrors] = useState(false);
+  const [isSubmittingOTP, setIsSubmittingOTP] = useState(false);
+  const [otpVerificationDetails, setOtpVerificationDetails] = useState<
+    ICantonOtpVerificationDetails | undefined
+  >();
 
   const deviceRequiredDialogsMap: Record<number, number[] | undefined> =
     useMemo(
@@ -222,6 +247,38 @@ export const AddAccountDialogProvider: FC<
       goTo(1, 4);
     }
   }, [onNext, goTo, selectedCoin]);
+
+  const onUserDetailsSubmit = useCallback(async () => {
+    if (hasErrors) return;
+    setIsSubmittingUserDetails(true);
+
+    const response = await cantonService.login({ email });
+
+    if (response.error) {
+      setIsSubmittingUserDetails(false);
+      throw response.error;
+    }
+
+    setOtpVerificationDetails({
+      email,
+      retriesRemaining: response.result.otpDetails.retriesRemaining,
+      otpExpiry: response.result.otpDetails.otpExpiry,
+    });
+
+    setIsSubmittingUserDetails(false);
+    onNext();
+  }, [onNext, email, hasErrors, setIsSubmittingUserDetails]);
+
+  const onOTPSubmit = useCallback(
+    (otp: string) => {
+      if (hasErrors) return;
+      setIsSubmittingOTP(true);
+      console.log(otp);
+      setIsSubmittingOTP(false);
+      onNext();
+    },
+    [onNext, hasErrors, setHasErrors, setIsSubmittingOTP],
+  );
 
   const createAccountSetter =
     (account: ICreatedAccount) => (list: IAccount[]) =>
@@ -372,72 +429,47 @@ export const AddAccountDialogProvider: FC<
     [],
   );
 
-  const ctx = useMemo(
-    () => ({
-      defaultWalletId,
-      isDeviceRequired,
-      currentTab,
-      currentDialog,
-      tabs,
-      onNext,
-      onSelectionDialogNext,
-      goTo,
-      onPrevious,
-      onClose,
-      selectedCoin,
-      selectedWallet,
-      selectedAccounts,
-      setSelectedAccounts,
-      setSelectedCoin,
-      setSelectedWallet,
-      startAddAccounts,
-      addSelectedAccounts,
-      createNewSelectedAccounts,
-      newAccounts,
-      setNewSelectedAccounts,
-      newSelectedAccounts,
-      isStopped,
-      onStop,
-      onRetry,
-      accounts,
-      deviceEvents,
-      addAccountStatus,
-      error,
-      handleWalletChange,
-      walletDropdownList,
-    }),
-    [
-      defaultWalletId,
-      isDeviceRequired,
-      currentTab,
-      currentDialog,
-      tabs,
-      onNext,
-      goTo,
-      onPrevious,
-      onClose,
-      selectedCoin,
-      selectedWallet,
-      selectedAccounts,
-      setSelectedAccounts,
-      setSelectedCoin,
-      setSelectedWallet,
-      startAddAccounts,
-      addSelectedAccounts,
-      newAccounts,
-      setNewSelectedAccounts,
-      newSelectedAccounts,
-      isStopped,
-      onStop,
-      onRetry,
-      accounts,
-      deviceEvents,
-      addAccountStatus,
-      error,
-      handleWalletChange,
-      walletDropdownList,
-    ],
-  );
+  const ctx = useMemoReturn({
+    defaultWalletId,
+    isDeviceRequired,
+    currentTab,
+    currentDialog,
+    tabs,
+    onNext,
+    onSelectionDialogNext,
+    goTo,
+    onPrevious,
+    onClose,
+    selectedCoin,
+    selectedWallet,
+    selectedAccounts,
+    setSelectedAccounts,
+    setSelectedCoin,
+    setSelectedWallet,
+    startAddAccounts,
+    addSelectedAccounts,
+    createNewSelectedAccounts,
+    newAccounts,
+    setNewSelectedAccounts,
+    newSelectedAccounts,
+    isStopped,
+    onStop,
+    onRetry,
+    accounts,
+    deviceEvents,
+    addAccountStatus,
+    error,
+    handleWalletChange,
+    walletDropdownList,
+    onUserDetailsSubmit,
+    isSubmittingUserDetails,
+    email,
+    setEmail,
+    setHasErrors,
+    onOTPSubmit,
+    isSubmittingOTP,
+    otpVerificationDetails,
+  });
 
   return (
     <AddAccountDialogContext.Provider value={ctx}>
