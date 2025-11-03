@@ -166,6 +166,16 @@ export const CoinIcon: React.FC<CoinIconProps> = ({
     };
   };
 
+  const renderDualIcon = (
+    mainElement: React.ReactNode,
+    subElement: React.ReactNode,
+  ) => (
+    <Container {...containerProps}>
+      {mainElement}
+      <Container {...subContainerProps}>{subElement}</Container>
+    </Container>
+  );
+
   if (showFallback) {
     return (
       <Container {...containerProps}>
@@ -192,30 +202,22 @@ export const CoinIcon: React.FC<CoinIconProps> = ({
 
   if (withSubIconAtBottom && parentAssetId !== assetId) {
     const { src, alt } = getErc20Image();
-    return (
-      <Container {...containerProps}>
-        <Icon {...iconProps} />
-        <Container {...subContainerProps}>
-          <Image
-            src={src}
-            fallbackSrc={fallbackIcon}
-            alt={alt}
-            {...subIconProps}
-          />
-        </Container>
-      </Container>
+    return renderDualIcon(
+      <Icon {...iconProps} />,
+      <Image
+        src={src}
+        fallbackSrc={fallbackIcon}
+        alt={alt}
+        {...subIconProps}
+      />,
     );
   }
 
   if (withParentIconAtBottom && parentAssetId !== assetId) {
     const { src, alt } = getErc20Image();
-    return (
-      <Container {...containerProps}>
-        <Image src={src} fallbackSrc={fallbackIcon} alt={alt} {...iconProps} />
-        <Container {...subContainerProps}>
-          <Icon {...subIconProps} />
-        </Container>
-      </Container>
+    return renderDualIcon(
+      <Image src={src} fallbackSrc={fallbackIcon} alt={alt} {...iconProps} />,
+      <Icon {...subIconProps} />,
     );
   }
 
