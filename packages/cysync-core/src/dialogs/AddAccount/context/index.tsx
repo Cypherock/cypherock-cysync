@@ -6,7 +6,7 @@ import {
   ICreatedAccount,
 } from '@cypherock/coin-support-interfaces';
 import { insertAccountIfNotExists } from '@cypherock/coin-support-utils';
-import { ICoinInfo, coinList } from '@cypherock/coins';
+import { ICoinInfo, coinFamiliesMap, coinList } from '@cypherock/coins';
 import { DropDownItemProps } from '@cypherock/cysync-ui';
 import { IAccount, IWallet } from '@cypherock/db-interfaces';
 import lodash from 'lodash';
@@ -15,6 +15,7 @@ import React, {
   FC,
   ReactNode,
   createContext,
+  useCallback,
   useContext,
   useEffect,
   useMemo,
@@ -60,6 +61,7 @@ export interface AddAccountDialogContextInterface {
   currentTab: number;
   currentDialog: number;
   onNext: () => void;
+  onSelectionDialogNext: () => void;
   goTo: (tab: number, dialog?: number) => void;
   onPrevious: () => void;
   onClose: () => void;
@@ -213,6 +215,14 @@ export const AddAccountDialogProvider: FC<
     setError(e);
   };
 
+  const onSelectionDialogNext = useCallback(() => {
+    if (selectedCoin?.family === coinFamiliesMap.canton) {
+      onNext();
+    } else {
+      goTo(1, 4);
+    }
+  }, [onNext, goTo, selectedCoin]);
+
   const createAccountSetter =
     (account: ICreatedAccount) => (list: IAccount[]) =>
       [...list, { ...account, isNew: undefined }];
@@ -290,7 +300,11 @@ export const AddAccountDialogProvider: FC<
 
   const onRetry = () => {
     resetAddAccountStates();
-    goTo(1, 0);
+    if (selectedCoin?.family === coinFamiliesMap.canton) {
+      goTo(1, 0);
+    } else {
+      goTo(1, 4);
+    }
   };
 
   const addSelectedAccounts = async () => {
@@ -366,6 +380,7 @@ export const AddAccountDialogProvider: FC<
       currentDialog,
       tabs,
       onNext,
+      onSelectionDialogNext,
       goTo,
       onPrevious,
       onClose,
