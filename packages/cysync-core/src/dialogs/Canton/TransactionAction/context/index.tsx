@@ -38,6 +38,7 @@ import {
 } from '~/hooks';
 import {
   closeDialog,
+  selectCantonAuthTokens,
   selectLanguage,
   selectUnHiddenAccounts,
   selectWallets,
@@ -101,14 +102,25 @@ export interface TransactionActionDialogContextProviderProps
 }
 
 const selector = createSelector(
-  [selectLanguage, selectWallets, selectUnHiddenAccounts],
-  (lang, { wallets }, { accounts }) => ({ lang, wallets, accounts }),
+  [
+    selectLanguage,
+    selectCantonAuthTokens,
+    selectWallets,
+    selectUnHiddenAccounts,
+  ],
+  (lang, cantonAuthTokens, { wallets }, { accounts }) => ({
+    lang,
+    cantonAuthTokens,
+    wallets,
+    accounts,
+  }),
 );
 
 export const TransactionActionDialogProvider: FC<
   TransactionActionDialogContextProviderProps
 > = ({ children, selectedTransaction, transactionActionType }) => {
-  const { lang, wallets, accounts } = useAppSelector(selector);
+  const { lang, cantonAuthTokens, wallets, accounts } =
+    useAppSelector(selector);
   const strings = lang.strings.dialogs.cantonDialogs.transactionAction.dialogs;
   const dispatch = useAppDispatch();
   const deviceRequiredDialogsMap: Record<number, number[] | undefined> =
@@ -217,6 +229,7 @@ export const TransactionActionDialogProvider: FC<
         db: getDB(),
         signedTransaction,
         transaction: txn,
+        accessToken: cantonAuthTokens?.accessToken ?? '',
       });
 
       onNext();
@@ -242,6 +255,7 @@ export const TransactionActionDialogProvider: FC<
           db: getDB(),
           txn: selectedTransaction,
           choice: transactionActionToChoiceMap[transactionActionType],
+          accessToken: cantonAuthTokens?.accessToken ?? '',
         });
       setTransaction(preparedTransaction);
     } catch (e: any) {

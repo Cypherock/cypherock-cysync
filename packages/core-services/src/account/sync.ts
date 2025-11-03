@@ -17,8 +17,9 @@ export const syncSingleAccount = async (params: {
   db: IDatabase;
   account: IAccount;
   currency: string;
+  accessToken?: string;
 }): Promise<ISyncAccountsEvent> => {
-  const { db, account, currency } = params;
+  const { db, account, currency, accessToken } = params;
   const support = getCoinSupport(account.familyId);
   let isSuccessful = false;
   let retryCount = 0;
@@ -31,6 +32,7 @@ export const syncSingleAccount = async (params: {
           accountId: account.__id ?? '',
           db,
           currency,
+          accessToken,
         }),
       );
       isSuccessful = true;
@@ -58,8 +60,9 @@ export const syncAccounts = (params: {
   db: IDatabase;
   accounts: IAccount[];
   currency: string;
+  accessToken?: string;
 }) => {
-  const { db, accounts, currency } = params;
+  const { db, accounts, currency, accessToken } = params;
   return new Observable<ISyncAccountsEvent>(observer => {
     let promiseQueue: PromiseQueue<ISyncAccountsEvent> | undefined;
 
@@ -78,6 +81,7 @@ export const syncAccounts = (params: {
                 account: a,
                 db,
                 currency,
+                accessToken,
               }),
           ),
           concurrentCount: ACCOUNT_SYNC_CONCURRENCY,

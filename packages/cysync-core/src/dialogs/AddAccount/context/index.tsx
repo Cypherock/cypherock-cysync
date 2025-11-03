@@ -410,6 +410,7 @@ export const AddAccountDialogProvider: FC<
         connection: deviceConnection,
         db: getDB(),
         coinId: selectedCoin.id,
+        accessToken: cantonAuthTokens?.accessToken,
       })
       .subscribe(getAddAccountObserver(onEnd));
 
