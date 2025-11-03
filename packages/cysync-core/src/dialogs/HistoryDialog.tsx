@@ -116,6 +116,104 @@ const selector = createSelector(
   }),
 );
 
+const getTransactionHashText = (familyId: string, keys: any): string => {
+  if (familyId === coinFamiliesMap.icp) {
+    return keys.transactionId;
+  }
+  if (familyId === coinFamiliesMap.canton) {
+    return keys.transactionUpdateId;
+  }
+  return keys.transactionHash;
+};
+
+interface TransactionActionButtonsProps {
+  transactionType: string;
+  onClose: () => void;
+  onOpenActionDialog: (actionType: TransactionActionType) => void;
+  lang: any;
+}
+
+const TransactionActionButtons: FC<TransactionActionButtonsProps> = ({
+  transactionType,
+  onClose,
+  onOpenActionDialog,
+  lang,
+}) => {
+  const handleAction = (actionType: TransactionActionType) => {
+    onClose();
+    onOpenActionDialog(actionType);
+  };
+
+  if (transactionType === TransactionTypeMap.send) {
+    return (
+      <Container
+        $borderWidthT={1}
+        $borderColor="separator"
+        $borderStyle="solid"
+        px={5}
+        py={2}
+        gap={16}
+      >
+        <Button
+          onClick={() => handleAction(TransactionActionType.CANCEL)}
+          variant="secondary"
+        >
+          {lang.strings.buttons.cancel}
+        </Button>
+      </Container>
+    );
+  }
+
+  if (transactionType === TransactionTypeMap.receive) {
+    return (
+      <Container
+        $borderWidthT={1}
+        $borderColor="separator"
+        $borderStyle="solid"
+        px={5}
+        py={2}
+        gap={16}
+      >
+        <Button
+          onClick={() => handleAction(TransactionActionType.REJECT)}
+          variant="secondary"
+        >
+          {lang.strings.buttons.reject}
+        </Button>
+        <Button onClick={() => handleAction(TransactionActionType.APPROVE)}>
+          {lang.strings.buttons.accept}
+        </Button>
+      </Container>
+    );
+  }
+
+  return undefined;
+};
+
+interface ConditionalHistoryItemProps {
+  condition: boolean;
+  leftText: string;
+  children: React.ReactNode;
+}
+
+const ConditionalHistoryItem: FC<ConditionalHistoryItemProps> = ({
+  condition,
+  leftText,
+  children,
+}) => {
+  if (!condition) return undefined;
+
+  return (
+    <HistoryItem leftText={leftText}>
+      <Container direction="row" gap={8}>
+        <Typography variant="span" $maxWidth="400" $textOverflow="ellipsis">
+          {children}
+        </Typography>
+      </Container>
+    </HistoryItem>
+  );
+};
+
 export const HistoryDialog: FC<IHistoryDialogProps> = ({ txn: _txn }) => {
   const { currentCurrency } = useCurrency();
   const { lang, wallets, accounts, priceInfos, isDiscreetMode, currency } =
@@ -183,21 +281,26 @@ export const HistoryDialog: FC<IHistoryDialogProps> = ({ txn: _txn }) => {
     return <LoaderDialog />;
   }
 
-  const isIcpTransaction =
-    displayTransaction.txn.familyId === coinFamiliesMap.icp;
   const isCantonTransaction =
     displayTransaction.txn.familyId === coinFamiliesMap.canton;
 
-  let transactionHashText = keys.transactionHash;
-  if (isIcpTransaction) {
-    transactionHashText = keys.transactionId;
-  } else if (isCantonTransaction) {
-    transactionHashText = keys.transactionUpdateId;
-  }
+  const transactionHashText = getTransactionHashText(
+    displayTransaction.txn.familyId,
+    keys,
+  );
 
   const showTransactionAction =
     isCantonTransaction &&
     displayTransaction.status === TransactionStatusMap.pending;
+
+  const handleOpenActionDialog = (actionType: TransactionActionType) => {
+    dispatch(
+      openTransactionActionDialog({
+        transactionActionType: actionType,
+        selectedTransaction: displayTransaction.txn,
+      }),
+    );
+  };
 
   return (
     <BlurOverlay>
@@ -262,72 +365,12 @@ export const HistoryDialog: FC<IHistoryDialogProps> = ({ txn: _txn }) => {
           </Container>
           <ScrollableContainer $maxHeight="calc(100vh - 400px)">
             {showTransactionAction && (
-              <>
-                {displayTransaction.txn.type === TransactionTypeMap.send && (
-                  <Container
-                    $borderWidthT={1}
-                    $borderColor="separator"
-                    $borderStyle="solid"
-                    px={5}
-                    py={2}
-                    gap={16}
-                  >
-                    <Button
-                      onClick={() => {
-                        onClose();
-                        dispatch(
-                          openTransactionActionDialog({
-                            transactionActionType: TransactionActionType.CANCEL,
-                            selectedTransaction: displayTransaction.txn,
-                          }),
-                        );
-                      }}
-                      variant="secondary"
-                    >
-                      {lang.strings.buttons.cancel}
-                    </Button>
-                  </Container>
-                )}
-                {displayTransaction.txn.type === TransactionTypeMap.receive && (
-                  <Container
-                    $borderWidthT={1}
-                    $borderColor="separator"
-                    $borderStyle="solid"
-                    px={5}
-                    py={2}
-                    gap={16}
-                  >
-                    <Button
-                      onClick={() => {
-                        onClose();
-                        dispatch(
-                          openTransactionActionDialog({
-                            transactionActionType: TransactionActionType.REJECT,
-                            selectedTransaction: displayTransaction.txn,
-                          }),
-                        );
-                      }}
-                      variant="secondary"
-                    >
-                      {lang.strings.buttons.reject}
-                    </Button>
-                    <Button
-                      onClick={() => {
-                        onClose();
-                        dispatch(
-                          openTransactionActionDialog({
-                            transactionActionType:
-                              TransactionActionType.APPROVE,
-                            selectedTransaction: displayTransaction.txn,
-                          }),
-                        );
-                      }}
-                    >
-                      {lang.strings.buttons.accept}
-                    </Button>
-                  </Container>
-                )}
-              </>
+              <TransactionActionButtons
+                transactionType={displayTransaction.txn.type}
+                onClose={onClose}
+                onOpenActionDialog={handleOpenActionDialog}
+                lang={lang}
+              />
             )}
 
             <Container
@@ -512,84 +555,42 @@ export const HistoryDialog: FC<IHistoryDialogProps> = ({ txn: _txn }) => {
                   ))}
                 </NestedContainer>
               </HistoryItem>
-              {displayTransaction.destinationTag !== undefined && (
-                <HistoryItem leftText={keys.destinationTag}>
-                  <Container direction="row" gap={8}>
-                    <Typography
-                      variant="span"
-                      $maxWidth="400"
-                      $textOverflow="ellipsis"
-                    >
-                      {displayTransaction.destinationTag}
-                    </Typography>
-                  </Container>
-                </HistoryItem>
-              )}
-              {displayTransaction.choice && (
-                <HistoryItem leftText={keys.choice}>
-                  <Container direction="row" gap={8}>
-                    <Typography
-                      variant="span"
-                      $maxWidth="400"
-                      $textOverflow="ellipsis"
-                    >
-                      {displayTransaction.choice}
-                    </Typography>
-                  </Container>
-                </HistoryItem>
-              )}
-              {displayTransaction.memo !== undefined && (
-                <HistoryItem leftText={keys.memo}>
-                  <Container direction="row" gap={8}>
-                    <Typography
-                      variant="span"
-                      $maxWidth="400"
-                      $textOverflow="ellipsis"
-                    >
-                      {displayTransaction.memo}
-                    </Typography>
-                  </Container>
-                </HistoryItem>
-              )}
-              {displayTransaction.startDate !== undefined && (
-                <HistoryItem leftText={keys.startDate}>
-                  <Container direction="row" gap={8}>
-                    <Typography
-                      variant="span"
-                      $maxWidth="400"
-                      $textOverflow="ellipsis"
-                    >
-                      {displayTransaction.startDate}
-                    </Typography>
-                  </Container>
-                </HistoryItem>
-              )}
-              {displayTransaction.expiryDate !== undefined && (
-                <HistoryItem leftText={keys.expirationDate}>
-                  <Container direction="row" gap={8}>
-                    <Typography
-                      variant="span"
-                      $maxWidth="400"
-                      $textOverflow="ellipsis"
-                    >
-                      {displayTransaction.expiryDate}
-                    </Typography>
-                  </Container>
-                </HistoryItem>
-              )}
-              {displayTransaction.operation !== undefined && (
-                <HistoryItem leftText={keys.operation}>
-                  <Container direction="row" gap={8}>
-                    <Typography
-                      variant="span"
-                      $maxWidth="400"
-                      $textOverflow="ellipsis"
-                    >
-                      {displayTransaction.operation}
-                    </Typography>
-                  </Container>
-                </HistoryItem>
-              )}
+              <ConditionalHistoryItem
+                condition={displayTransaction.destinationTag !== undefined}
+                leftText={keys.destinationTag}
+              >
+                {displayTransaction.destinationTag}
+              </ConditionalHistoryItem>
+              <ConditionalHistoryItem
+                condition={!!displayTransaction.choice}
+                leftText={keys.choice}
+              >
+                {displayTransaction.choice}
+              </ConditionalHistoryItem>
+              <ConditionalHistoryItem
+                condition={displayTransaction.memo !== undefined}
+                leftText={keys.memo}
+              >
+                {displayTransaction.memo}
+              </ConditionalHistoryItem>
+              <ConditionalHistoryItem
+                condition={displayTransaction.startDate !== undefined}
+                leftText={keys.startDate}
+              >
+                {displayTransaction.startDate}
+              </ConditionalHistoryItem>
+              <ConditionalHistoryItem
+                condition={displayTransaction.expiryDate !== undefined}
+                leftText={keys.expirationDate}
+              >
+                {displayTransaction.expiryDate}
+              </ConditionalHistoryItem>
+              <ConditionalHistoryItem
+                condition={displayTransaction.operation !== undefined}
+                leftText={keys.operation}
+              >
+                {displayTransaction.operation}
+              </ConditionalHistoryItem>
               <HistoryItem leftText={transactionHashText}>
                 <Container direction="row" gap={8}>
                   <Typography
@@ -633,19 +634,12 @@ export const HistoryDialog: FC<IHistoryDialogProps> = ({ txn: _txn }) => {
                   </Container>
                 </HistoryItem>
               )}
-              {displayTransaction.txn.description && (
-                <HistoryItem leftText={keys.description}>
-                  <Container direction="row" gap={8}>
-                    <Typography
-                      variant="span"
-                      $maxWidth="400"
-                      $textOverflow="ellipsis"
-                    >
-                      {displayTransaction.txn.description}
-                    </Typography>
-                  </Container>
-                </HistoryItem>
-              )}
+              <ConditionalHistoryItem
+                condition={!!displayTransaction.txn.description}
+                leftText={keys.description}
+              >
+                {displayTransaction.txn.description}
+              </ConditionalHistoryItem>
             </Container>
           </ScrollableContainer>
         </DialogBoxBody>
