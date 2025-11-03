@@ -187,7 +187,7 @@ const TransactionActionButtons: FC<TransactionActionButtonsProps> = ({
     );
   }
 
-  return undefined;
+  return null;
 };
 
 interface ConditionalHistoryItemProps {
@@ -201,7 +201,7 @@ const ConditionalHistoryItem: FC<ConditionalHistoryItemProps> = ({
   leftText,
   children,
 }) => {
-  if (!condition) return undefined;
+  if (!condition) return null;
 
   return (
     <HistoryItem leftText={leftText}>
