@@ -1,5 +1,5 @@
 import { cantonBaseUrl } from './common';
-import { loginResultSchema } from './schema';
+import { loginOtpVerificationResultSchema, loginResultSchema } from './schema';
 
 import { makePostRequest, runAndHandleServerErrors } from '../utils';
 
@@ -8,4 +8,16 @@ const login = async (params: { email: string }) =>
     makePostRequest(loginResultSchema, `${cantonBaseUrl}/user/login`, params),
   );
 
-export const cantonService = { login };
+const loginOtpVerification = async (params: {
+  email: string;
+  secret: string;
+}) =>
+  runAndHandleServerErrors(() =>
+    makePostRequest(
+      loginOtpVerificationResultSchema,
+      `${cantonBaseUrl}/user/verify`,
+      params,
+    ),
+  );
+
+export const cantonService = { login, loginOtpVerification };
