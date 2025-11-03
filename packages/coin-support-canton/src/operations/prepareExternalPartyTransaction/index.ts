@@ -8,7 +8,7 @@ import { IPreparedCantonExternalPartyTransaction } from '../transaction';
 export const prepareExternalPartyTransaction = async (
   params: IPrepareCantonExternalPartyTransactionParams,
 ): Promise<IPreparedCantonExternalPartyTransaction> => {
-  const { account } = params;
+  const { account, accessToken } = params;
 
   if (!account.extraData?.publicKey) {
     throw new Error('Public key missing for the account');
@@ -24,6 +24,7 @@ export const prepareExternalPartyTransaction = async (
   const preparedTransaction = await prepareExternalPartyTxn(
     hexToBase64(account.extraData.publicKey),
     account.xpubOrAddress,
+    accessToken,
   );
 
   return {

@@ -18,7 +18,7 @@ import { broadcastTransactionToBlockchain } from '../../services';
 export const broadcastTransaction = async (
   params: IBroadcastCantonTransactionParams,
 ): Promise<ITransaction> => {
-  const { db, signedTransaction, transaction } = params;
+  const { db, signedTransaction, transaction, accessToken } = params;
   const { account } = await getAccountAndCoin(
     db,
     cantonCoinList,
@@ -33,6 +33,7 @@ export const broadcastTransaction = async (
     uint8ArrayToBase64(hexToUint8Array(account.extraData?.publicKey ?? '')),
     myAddress,
     transaction.computedData.preparedTransaction,
+    accessToken,
   );
 
   const parsedTransaction: ITransaction = {

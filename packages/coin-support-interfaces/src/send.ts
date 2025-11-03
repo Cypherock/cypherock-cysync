@@ -33,6 +33,7 @@ export interface IPrepareTransactionParams {
   accountId: string;
   db: IDatabase;
   txn: IPreparedTransaction;
+  accessToken?: string;
 }
 
 export enum SignTransactionDeviceEvent {
@@ -65,4 +66,5 @@ export interface IBroadcastTransactionParams<T> {
   db: IDatabase;
   transaction: IPreparedTransaction;
   signedTransaction: T;
+  accessToken?: string;
 }

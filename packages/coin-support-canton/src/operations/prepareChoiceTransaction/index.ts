@@ -9,7 +9,7 @@ import { IPreparedCantonTransaction } from '../transaction';
 export const prepareChoiceTransaction = async (
   params: IPrepareCantonChoiceTransactionParams,
 ): Promise<IPreparedCantonTransaction> => {
-  const { db, txn, choice } = params;
+  const { db, txn, choice, accessToken } = params;
   const { account } = await getAccountAndCoin(
     db,
     cantonCoinList,
@@ -24,6 +24,7 @@ export const prepareChoiceTransaction = async (
     account.xpubOrAddress,
     txn.extraData.contractId,
     choice,
+    accessToken,
   );
 
   return {
