@@ -7,6 +7,7 @@ import {
 } from '@cypherock/coin-support-interfaces';
 import { insertAccountIfNotExists } from '@cypherock/coin-support-utils';
 import { ICoinInfo, coinFamiliesMap, coinList } from '@cypherock/coins';
+import { ServerErrorType } from '@cypherock/cysync-core-constants';
 import { DropDownItemProps } from '@cypherock/cysync-ui';
 import { IAccount, IWallet } from '@cypherock/db-interfaces';
 import lodash from 'lodash';
@@ -96,6 +97,7 @@ export interface AddAccountDialogContextInterface {
   onOTPSubmit: (otp: string) => void;
   isSubmittingOTP: boolean;
   otpVerificationDetails: ICantonOtpVerificationDetails | undefined;
+  authTokens: ICantonAuthTokens | undefined;
 }
 
 export const AddAccountDialogContext: Context<AddAccountDialogContextInterface> =
@@ -114,6 +116,11 @@ export interface ICantonOtpVerificationDetails {
   retriesRemaining: number;
   otpExpiry: string;
   showIncorrectError?: boolean;
+}
+
+export interface ICantonAuthTokens {
+  accessToken?: string;
+  refreshToken?: string;
 }
 
 export const AddAccountDialogProvider: FC<
@@ -160,6 +167,9 @@ export const AddAccountDialogProvider: FC<
   const [otpVerificationDetails, setOtpVerificationDetails] = useState<
     ICantonOtpVerificationDetails | undefined
   >();
+  const [authTokens, setAuthTokens] = useState<ICantonAuthTokens | undefined>(
+    undefined,
+  );
 
   const deviceRequiredDialogsMap: Record<number, number[] | undefined> =
     useMemo(
@@ -270,14 +280,40 @@ export const AddAccountDialogProvider: FC<
   }, [onNext, email, hasErrors, setIsSubmittingUserDetails]);
 
   const onOTPSubmit = useCallback(
-    (otp: string) => {
-      if (hasErrors) return;
+    async (otp: string) => {
       setIsSubmittingOTP(true);
-      console.log(otp);
+      const response = await cantonService.loginOtpVerification({
+        email,
+        secret: otp,
+      });
+      if (response.error) {
+        if (response.error.code === ServerErrorType.OTP_VERIFICATION_FAILED) {
+          setOtpVerificationDetails({
+            email,
+            showIncorrectError: true,
+            otpExpiry:
+              response.error.details?.responseBody.otpExpiry ??
+              otpVerificationDetails?.otpExpiry,
+            retriesRemaining:
+              response.error.details?.responseBody.retriesRemaining ??
+              otpVerificationDetails?.retriesRemaining,
+          });
+          setIsSubmittingOTP(false);
+          return;
+        }
+        setIsSubmittingOTP(false);
+        throw response.error;
+      }
+      setOtpVerificationDetails(undefined);
+      // TODO: Save auth tokens to store db for global use and persistance
+      setAuthTokens({
+        accessToken: response.result.accessToken,
+        refreshToken: response.result.refreshToken,
+      });
       setIsSubmittingOTP(false);
       onNext();
     },
-    [onNext, hasErrors, setHasErrors, setIsSubmittingOTP],
+    [onNext, email, setIsSubmittingOTP, otpVerificationDetails],
   );
 
   const createAccountSetter =
@@ -469,6 +505,7 @@ export const AddAccountDialogProvider: FC<
     onOTPSubmit,
     isSubmittingOTP,
     otpVerificationDetails,
+    authTokens,
   });
 
   return (
