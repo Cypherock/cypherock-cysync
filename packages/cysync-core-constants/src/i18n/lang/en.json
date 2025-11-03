@@ -1355,6 +1355,18 @@
         "heading": "Email Already Exists",
         "subtext": "An account with this email address already exists. Please use a different email address or contact Cypherock support for assistance"
       },
+      "SER_1100": {
+        "heading": "Max Daily User Registrations Exceeded",
+        "subtext": "We've reached the maximum number of user registrations for today. Please try again tomorrow."
+      },
+      "SER_1101": {
+        "heading": "Max Parties Per User Exceeded",
+        "subtext": "You've reached the maximum number of parties for your account. Please contact Cypherock support for assistance"
+      },
+      "SER_1102": {
+        "heading": "User Not Eligible For Party Creation",
+        "subtext": "You are not eligible to create a party. Please contact Cypherock support for assistance"
+      },
       "SER_2000": {
         "heading": "Transaction broadcast failed",
         "subtext": "Try again or contact support for assistance"

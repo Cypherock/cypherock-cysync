@@ -1480,6 +1480,18 @@
         "heading": "Email déjà existant",
         "subtext": "Un compte avec cette adresse e-mail existe déjà. Veuillez utiliser une autre adresse e-mail ou contactez le support Cypherock pour obtenir de l'aide"
       },
+      "SER_1100": {
+        "heading": "Nombre maximum d'inscriptions utilisateur atteint",
+        "subtext": "Nous avons atteint le nombre maximum d'inscriptions utilisateur pour aujourd'hui. Veuillez réessayer demain."
+      },
+      "SER_1101": {
+        "heading": "Nombre maximum de parties par utilisateur atteint",
+        "subtext": "Vous avez atteint le nombre maximum de parties pour votre compte. Veuillez contacter le support Cypherock pour obtenir de l'aide"
+      },
+      "SER_1102": {
+        "heading": "Utilisateur non autorisé pour la création de partie",
+        "subtext": "Vous n'êtes pas autorisé à créer une partie. Veuillez contacter le support Cypherock pour obtenir de l'aide"
+      },
       "SER_2000": {
         "heading": "Échec de la diffusion de la transaction",
         "subtext": "Réessayez ou contactez le support pour obtenir de l'aide"

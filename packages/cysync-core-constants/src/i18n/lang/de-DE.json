@@ -1364,6 +1364,18 @@
         "heading": "E-Mail-Adresse bereits vorhanden",
         "subtext": "Ein Konto mit dieser E-Mail-Adresse existiert bereits. Bitte verwenden Sie eine andere E-Mail-Adresse oder wenden Sie sich an den Cypherock-Support für Unterstützung."
       },
+      "SER_1100": {
+        "heading": "Maximale Anzahl an Benutzerregistrierungen pro Tag erreicht",
+        "subtext": "Wir haben die maximale Anzahl an Benutzerregistrierungen für heute erreicht. Bitte versuchen Sie es morgen noch einmal."
+      },
+      "SER_1101": {
+        "heading": "Maximale Anzahl an Partys pro Benutzer erreicht",
+        "subtext": "Sie haben die maximale Anzahl an Partys für Ihr Konto erreicht. Bitte wenden Sie sich an den Cypherock-Support für Unterstützung."
+      },
+      "SER_1102": {
+        "heading": "Benutzer nicht berechtigt für Party-Erstellung",
+        "subtext": "Sie sind nicht berechtigt, eine Party zu erstellen. Bitte wenden Sie sich an den Cypherock-Support für Unterstützung."
+      },
       "SER_2000": {
         "heading": "Transaktionsübertragung fehlgeschlagen",
         "subtext": "Versuchen Sie es erneut oder kontaktieren Sie den Support für Hilfe"

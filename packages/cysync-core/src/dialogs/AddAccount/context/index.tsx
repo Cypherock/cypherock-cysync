@@ -98,6 +98,8 @@ export interface AddAccountDialogContextInterface {
   isSubmittingOTP: boolean;
   otpVerificationDetails: ICantonOtpVerificationDetails | undefined;
   authTokens: ICantonAuthTokens | undefined;
+  isUserEligibleForCanton: boolean;
+  isUserInWaitingListForCanton: boolean;
 }
 
 export const AddAccountDialogContext: Context<AddAccountDialogContextInterface> =
@@ -170,6 +172,9 @@ export const AddAccountDialogProvider: FC<
   const [authTokens, setAuthTokens] = useState<ICantonAuthTokens | undefined>(
     undefined,
   );
+  const [isUserEligibleForCanton, setIsUserEligibleForCanton] = useState(false);
+  const [isUserInWaitingListForCanton, setIsUserInWaitingListForCanton] =
+    useState(false);
 
   const deviceRequiredDialogsMap: Record<number, number[] | undefined> =
     useMemo(
@@ -301,6 +306,28 @@ export const AddAccountDialogProvider: FC<
           setIsSubmittingOTP(false);
           return;
         }
+        if (
+          response.error.code ===
+          ServerErrorType.MAX_DAILY_USER_REGISTRATIONS_EXCEEDED
+        ) {
+          setIsUserEligibleForCanton(true);
+          setIsUserInWaitingListForCanton(true);
+          setOtpVerificationDetails(undefined);
+          setIsSubmittingOTP(false);
+          onNext();
+          return;
+        }
+        if (
+          response.error.code === ServerErrorType.MAX_PARTIES_PER_USER_EXCEEDED
+        ) {
+          setIsUserEligibleForCanton(false);
+          setIsUserInWaitingListForCanton(false);
+          setOtpVerificationDetails(undefined);
+          setIsSubmittingOTP(false);
+          onNext();
+          return;
+        }
+
         setIsSubmittingOTP(false);
         throw response.error;
       }
@@ -311,6 +338,8 @@ export const AddAccountDialogProvider: FC<
         refreshToken: response.result.refreshToken,
       });
       setIsSubmittingOTP(false);
+      setIsUserEligibleForCanton(true);
+      setIsUserInWaitingListForCanton(false);
       onNext();
     },
     [onNext, email, setIsSubmittingOTP, otpVerificationDetails],
@@ -506,6 +535,8 @@ export const AddAccountDialogProvider: FC<
     isSubmittingOTP,
     otpVerificationDetails,
     authTokens,
+    isUserEligibleForCanton,
+    isUserInWaitingListForCanton,
   });
 
   return (

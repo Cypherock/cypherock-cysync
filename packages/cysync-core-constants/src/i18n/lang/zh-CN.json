@@ -1361,6 +1361,18 @@
         "heading": "电子邮件已存在",
         "subtext": "使用此电子邮件地址的帐户已存在。请使用其他电子邮件地址或联系 Cypherock 支持寻求帮助。"
       },
+      "SER_1100": {
+        "heading": "每日用户注册数量已达上限",
+        "subtext": "我们已达到今日用户注册数量的上限。请明天再试。"
+      },
+      "SER_1101": {
+        "heading": "用户 party 数量已达上限",
+        "subtext": "您已达到您的账户中 party 数量的上限。请联系 Cypherock 支持寻求帮助。"
+      },
+      "SER_1102": {
+        "heading": "用户无资格创建 party",
+        "subtext": "您无资格创建 party。请联系 Cypherock 支持寻求帮助。"
+      },
       "SER_2000": {
         "heading": "交易广播失败",
         "subtext": "请重试或联系客服以获得帮助"

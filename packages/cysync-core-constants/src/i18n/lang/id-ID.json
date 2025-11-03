@@ -1363,6 +1363,18 @@
         "heading": "Email Sudah Terdaftar",
         "subtext": "Akun dengan alamat email ini sudah terdaftar. Silakan gunakan alamat email yang berbeda atau hubungi dukungan Cypherock untuk bantuan."
       },
+      "SER_1100": {
+        "heading": "Jumlah Pendaftaran Pengguna Maksimum Harian Dicapai",
+        "subtext": "Kami telah mencapai jumlah maksimum pendaftaran pengguna untuk hari ini. Silakan coba lagi besok."
+      },
+      "SER_1101": {
+        "heading": "Jumlah Parti Maksimum Per Pengguna Dicapai",
+        "subtext": "Anda telah mencapai jumlah maksimum parti untuk akun Anda. Silakan hubungi dukungan Cypherock untuk bantuan."
+      },
+      "SER_1102": {
+        "heading": "Pengguna Tidak Layak Untuk Pembuatan Parti",
+        "subtext": "Anda tidak layak untuk membuat parti. Silakan hubungi dukungan Cypherock untuk bantuan."
+      },
       "SER_2000": {
         "heading": "Penyiaran transaksi gagal",
         "subtext": "Coba lagi atau hubungi dukungan untuk bantuan"
