@@ -37,6 +37,8 @@ import { useWalletDropdown } from '~/hooks/useWalletDropdown';
 import { cantonService } from '~/services/canton';
 import {
   closeDialog,
+  ICantonAuthTokens,
+  selectCantonAuthTokens,
   selectLanguage,
   useAppDispatch,
   useAppSelector,
@@ -54,8 +56,15 @@ import {
   SuccessDialog,
   LoaderDialog,
 } from '../Dialogs';
+import { setCantonAccountAuthTokens } from '~/actions/canton';
+import { createSelector } from '@reduxjs/toolkit';
 
 export type AddAccountStatus = 'idle' | 'device' | 'sync' | 'done';
+
+const selector = createSelector(
+  [selectLanguage, selectCantonAuthTokens],
+  (lang, cantonAuthTokens) => ({ lang, cantonAuthTokens }),
+);
 
 export interface AddAccountDialogContextInterface {
   tabs: ITabs;
@@ -97,7 +106,7 @@ export interface AddAccountDialogContextInterface {
   onOTPSubmit: (otp: string) => void;
   isSubmittingOTP: boolean;
   otpVerificationDetails: ICantonOtpVerificationDetails | undefined;
-  authTokens: ICantonAuthTokens | undefined;
+  cantonAuthTokens: ICantonAuthTokens | undefined;
   isUserEligibleForCanton: boolean;
   isUserInWaitingListForCanton: boolean;
 }
@@ -120,15 +129,10 @@ export interface ICantonOtpVerificationDetails {
   showIncorrectError?: boolean;
 }
 
-export interface ICantonAuthTokens {
-  accessToken?: string;
-  refreshToken?: string;
-}
-
 export const AddAccountDialogProvider: FC<
   AddAccountDialogContextProviderProps
 > = ({ children, walletId: defaultWalletId, coinId: defaultCoinId }) => {
-  const lang = useAppSelector(selectLanguage);
+  const { lang, cantonAuthTokens } = useAppSelector(selector);
   const dispatch = useAppDispatch();
   const { connection } = useDevice();
 
@@ -169,9 +173,6 @@ export const AddAccountDialogProvider: FC<
   const [otpVerificationDetails, setOtpVerificationDetails] = useState<
     ICantonOtpVerificationDetails | undefined
   >();
-  const [authTokens, setAuthTokens] = useState<ICantonAuthTokens | undefined>(
-    undefined,
-  );
   const [isUserEligibleForCanton, setIsUserEligibleForCanton] = useState(false);
   const [isUserInWaitingListForCanton, setIsUserInWaitingListForCanton] =
     useState(false);
@@ -332,11 +333,12 @@ export const AddAccountDialogProvider: FC<
         throw response.error;
       }
       setOtpVerificationDetails(undefined);
-      // TODO: Save auth tokens to store db for global use and persistance
-      setAuthTokens({
-        accessToken: response.result.accessToken,
-        refreshToken: response.result.refreshToken,
-      });
+      dispatch(
+        setCantonAccountAuthTokens({
+          accessToken: response.result.accessToken,
+          refreshToken: response.result.refreshToken,
+        }),
+      );
       setIsSubmittingOTP(false);
       setIsUserEligibleForCanton(true);
       setIsUserInWaitingListForCanton(false);
@@ -534,7 +536,7 @@ export const AddAccountDialogProvider: FC<
     onOTPSubmit,
     isSubmittingOTP,
     otpVerificationDetails,
-    authTokens,
+    cantonAuthTokens,
     isUserEligibleForCanton,
     isUserInWaitingListForCanton,
   });

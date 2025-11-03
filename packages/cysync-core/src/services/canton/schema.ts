@@ -16,6 +16,6 @@ export const loginOtpVerificationResultSchema = z.object({
     _id: z.string(),
     email: z.string(),
   }),
-  accessToken: z.string().optional(),
-  refreshToken: z.string().optional(),
+  accessToken: z.string(),
+  refreshToken: z.string(),
 });

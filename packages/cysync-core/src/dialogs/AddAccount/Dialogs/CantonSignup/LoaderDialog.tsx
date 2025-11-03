@@ -8,7 +8,7 @@ export const LoaderDialog: React.FC = () => {
   const lang = useAppSelector(selectLanguage);
   const strings = lang.strings.addAccount.cantonSignup.loader;
   useEffect(() => {
-    setTimeout(() => onNext(), 3000);
+    setTimeout(() => onNext(), 1000);
   }, []);
   return (
     <LoaderDialogComponent title={strings.title} subtext={strings.subtext} />
