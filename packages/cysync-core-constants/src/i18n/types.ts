@@ -109,6 +109,9 @@ interface LangButtons {
   saveChanges: string;
   edit: string;
   tryAgain: string;
+  autoApproval: string;
+  accept: string;
+  earnRewards: string;
 }
 
 interface LangDashboard {
@@ -173,19 +176,56 @@ interface LangAddAccount {
       tapCard: string;
     };
   };
+  cantonSignup: {
+    userDetails: {
+      title: string;
+      subtext: string;
+      emailField: {
+        label: string;
+        rightLabel: string;
+      };
+      sendOTPButton: string;
+    };
+    verifyOTP: {
+      title: string;
+    };
+    loader: {
+      title: string;
+      subtext: string;
+    };
+    success: {
+      eligibleAndCanProceed: {
+        title: string;
+      };
+      eligibleAndAddedInWaitlist: {
+        title: string;
+        subtext: string;
+      };
+      notEligible: {
+        title: string;
+        subtext: string;
+      };
+      buttonText: string;
+    };
+  };
   loader: {
     waitMessage: string;
   };
   sync: {
     syncingHeader: string;
     header: string;
+    addSingleAccountHeader: string;
+    createSingleAccountHeader: string;
     newAccount: string;
+    newSingleAccount: string;
     advancedButton: string;
     accountsNotSynced: string;
     deselectAllButton: string;
     selectAllButton: string;
     accountsInPortfolio: string;
     addAccountButton: string;
+    addSingleAccountButton: string;
+    createSingleAccountButton: string;
     resyncButton: string;
   };
   congrats: {
@@ -297,7 +337,10 @@ interface LangSend {
       tapCard: string;
     };
     token: { info: string };
-    messageBox: { warning: string };
+    messageBox: {
+      warning: string;
+      partyIdWarning: string;
+    };
   };
   recipient: {
     title: string;
@@ -741,6 +784,16 @@ interface LangSignMessage {
 
 interface LangPortfolio {
   title: string;
+  banner: {
+    addCanton: {
+      title: string;
+      button: string;
+    };
+    enableAutomaticApprovals: {
+      title: string;
+      button: string;
+    };
+  };
   tokenTable: {
     title: string;
     tableHeader: { token: string; amount: string; value: string };
@@ -1278,6 +1331,64 @@ interface LangDialogs {
     toAsset: string;
     toAmount: string;
     toReceiver: string;
+  };
+  cantonDialogs: {
+    enableApprovalPrompt: {
+      title: string;
+      subTitle: string;
+    };
+    enableApproval: {
+      title: string;
+      dialogs: {
+        x1Vault: {
+          name: string;
+        };
+        confirmation: {
+          name: string;
+          title: string;
+        };
+      };
+    };
+    createCantonAccount: {
+      title: string;
+      dialogs: {
+        x1Vault: {
+          name: string;
+          messageBox: {
+            warning: string;
+          };
+        };
+        confirmation: {
+          name: string;
+        };
+        success: {
+          title: string;
+        };
+        automaticApproval: {
+          name: string;
+        };
+      };
+    };
+    transactionAction: {
+      title: {
+        approve: string;
+        reject: string;
+        cancel: string;
+      };
+      dialogs: {
+        x1Vault: {
+          name: string;
+        };
+        confirmation: {
+          name: string;
+        };
+        success: {
+          approve: string;
+          reject: string;
+          cancel: string;
+        };
+      };
+    };
   };
 }
 

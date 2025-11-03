@@ -1,6 +1,6 @@
-import { IDatabase } from '@cypherock/db-interfaces';
+import { IAccount } from '@cypherock/db-interfaces';
 
 export interface IPrepareCantonExternalPartyTransactionParams {
-  accountId: string;
-  db: IDatabase;
+  account: IAccount;
+  accessToken: string;
 }

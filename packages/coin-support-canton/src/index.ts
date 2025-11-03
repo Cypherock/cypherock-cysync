@@ -11,7 +11,6 @@ import {
   IGetCoinAllocationsResult,
   IGetExplorerLink,
   IInitializeTransactionParams,
-  IPreparedTransaction,
   IReceiveEvent,
   IReceiveParams,
   ISignMessageEvent,
@@ -28,6 +27,7 @@ import { Observable } from 'rxjs';
 
 import * as operations from './operations';
 import {
+  IBroadcastCantonChoiceTransactionParams,
   IBroadcastCantonExternalPartyTransactionParams,
   IBroadcastCantonTransactionParams,
   IBroadcastCantonTransferPreApprovalTransactionParams,
@@ -35,9 +35,11 @@ import {
   IPrepareCantonExternalPartyTransactionParams,
   IPrepareCantonTransactionParams,
   IPrepareCantonTransferPreApprovalTransactionParams,
-  IPreparedCantonChoiceTransaction,
   IPreparedCantonExternalPartyTransaction,
+  IPreparedCantonTransaction,
   IPreparedCantonTransferPreApprovalTransaction,
+  ISignCantonExternalPartyTransactionEvent,
+  ISignCantonExternalPartyTransactionParams,
   ISignCantonTransactionEvent,
 } from './operations/types';
 import { getAppletId } from './utils';
@@ -66,19 +68,19 @@ export class CantonSupport implements CoinSupport {
 
   public async initializeTransaction(
     params: IInitializeTransactionParams,
-  ): Promise<IPreparedTransaction> {
+  ): Promise<IPreparedCantonTransaction> {
     return operations.initializeTransaction(params);
   }
 
   public async prepareTransaction(
     params: IPrepareCantonTransactionParams,
-  ): Promise<IPreparedTransaction> {
+  ): Promise<IPreparedCantonTransaction> {
     return operations.prepareTransaction(params);
   }
 
   public async prepareChoiceTransaction(
     params: IPrepareCantonChoiceTransactionParams,
-  ): Promise<IPreparedCantonChoiceTransaction> {
+  ): Promise<IPreparedCantonTransaction> {
     return operations.prepareChoiceTransaction(params);
   }
 
@@ -100,10 +102,22 @@ export class CantonSupport implements CoinSupport {
     return operations.signTransaction(params);
   }
 
+  public signExternalPartyTransaction(
+    params: ISignCantonExternalPartyTransactionParams,
+  ): Observable<ISignCantonExternalPartyTransactionEvent> {
+    return operations.signExternalPartyTransaction(params);
+  }
+
   public broadcastTransaction(
     params: IBroadcastCantonTransactionParams,
   ): Promise<ITransaction> {
     return operations.broadcastTransaction(params);
+  }
+
+  public broadcastChoiceTransaction(
+    params: IBroadcastCantonChoiceTransactionParams,
+  ): Promise<void> {
+    return operations.broadcastChoiceTransaction(params);
   }
 
   public broadcastExternalPartyTransaction(

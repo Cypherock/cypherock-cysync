@@ -14,6 +14,7 @@ export interface ICreateAccountParams {
   walletId: string;
   coinId: string;
   waitInMSBetweenEachAccountAPI?: number;
+  accessToken?: string;
 }
 
 export type ICreateAccountEventType = 'Account' | 'Device';

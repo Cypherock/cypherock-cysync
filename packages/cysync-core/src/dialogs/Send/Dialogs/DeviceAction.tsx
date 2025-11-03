@@ -1,7 +1,12 @@
 import { IPreparedEvmTransaction } from '@cypherock/coin-support-evm';
 import { SignTransactionDeviceEvent } from '@cypherock/coin-support-interfaces';
 import { getDefaultUnit, getParsedAmount } from '@cypherock/coin-support-utils';
-import { EvmIdMap, IEvmCoinInfo, coinList } from '@cypherock/coins';
+import {
+  EvmIdMap,
+  IEvmCoinInfo,
+  coinFamiliesMap,
+  coinList,
+} from '@cypherock/coins';
 import {
   LangDisplay,
   DialogBox,
@@ -210,7 +215,14 @@ export const DeviceAction: React.FC = () => {
         </LeanBoxContainer>
         <Container display="flex" direction="column" gap={16} width="full">
           {getMessageBoxes()}
-          <MessageBox type="warning" text={displayText.messageBox.warning} />
+          <MessageBox
+            type="warning"
+            text={
+              selectedAccount?.familyId === coinFamiliesMap.canton
+                ? displayText.messageBox.partyIdWarning
+                : displayText.messageBox.warning
+            }
+          />
         </Container>
       </DialogBoxBody>
     </DialogBox>

@@ -128,6 +128,18 @@ const initialState: IDialogState = {
   fullPageLoaderDialog: {
     isOpen: false,
   },
+  enableApprovalPromptDialog: {
+    isOpen: false,
+  },
+  enableApprovalDialog: {
+    isOpen: false,
+  },
+  createCantonAccountDialog: {
+    isOpen: false,
+  },
+  transactionActionDialog: {
+    isOpen: false,
+  },
 };
 
 export const dialogSlice = createSlice({

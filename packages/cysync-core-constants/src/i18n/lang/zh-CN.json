@@ -53,7 +53,10 @@
     "exitWithoutSaving": "不保存退出",
     "saveChanges": "保存更改",
     "edit": "编辑",
-    "tryAgain": "再试一次"
+    "tryAgain": "再试一次",
+    "autoApproval": "Transfer Preapproval",
+    "accept": "接受",
+    "earnRewards": "赚取奖励"
   },
   "tooltips": {
     "downloadCsv": "导出为CSV"
@@ -103,19 +106,56 @@
         "tapCard": "轻触任意卡片"
       }
     },
+    "cantonSignup": {
+      "userDetails": {
+        "title": "Your Details",
+        "subtext": "Enter the email you used at time of purchasing Cypherock X1",
+        "emailField": {
+          "label": "Registered Email",
+          "rightLabel": "Required"
+        },
+        "sendOTPButton": "Send OTP"
+      },
+      "verifyOTP": {
+        "title": "OTP Verification for email"
+      },
+      "loader": {
+        "title": "Please wait while we verify your details...",
+        "subtext": "Do not disconnect or close the cySync app"
+      },
+      "success": {
+        "eligibleAndCanProceed": {
+          "title": "You are eligible and can proceed to create account"
+        },
+        "eligibleAndAddedInWaitlist": {
+          "title": "You are eligible and added in waitlist for Canton Network",
+          "subtext": "Due to high demand there’s a waitlist, you will be notified on email"
+        },
+        "notEligible": {
+          "title": "You are not eligible for Canton Network",
+          "subtext": "Only existing and pro users are eligible for Canton Network Accounts"
+        },
+        "buttonText": "Know More"
+      }
+    },
     "loader": {
       "waitMessage": "此过程可能需要大约一分钟。请耐心等待"
     },
     "sync": {
       "syncingHeader": "正在同步账户",
       "header": "添加新账户",
+      "addSingleAccountHeader": "添加新账户",
+      "createSingleAccountHeader": "创建新账户",
       "newAccount": "新账户",
+      "newSingleAccount": "新账户",
       "advancedButton": "显示所有地址类型",
       "accountsNotSynced": "账户尚未同步 (${count})",
       "deselectAllButton": "取消全选",
       "selectAllButton": "全选",
       "accountsInPortfolio": "账户已在投资组合中 (${count})",
       "addAccountButton": "添加账户",
+      "addSingleAccountButton": "添加账户",
+      "createSingleAccountButton": "创建账户",
       "resyncButton": "重新同步"
     },
     "congrats": {
@@ -272,7 +312,8 @@
         "info": "请记住 ${tokenName} 是一个 ${parentCoinName} 代币，因此 fee 将以 ${parentCoinUnit} 计算"
       },
       "messageBox": {
-        "warning": "始终确认设备上显示的地址与收件人提供的地址完全匹配"
+        "warning": "始终确认设备上显示的地址与收件人提供的地址完全匹配",
+        "partyIdWarning": "始终确认设备上显示的Party ID与收件人提供的Party ID完全匹配"
       }
     },
     "recipient": {
@@ -880,6 +921,16 @@
   },
   "portfolio": {
     "title": "Portfolio",
+    "banner": {
+      "addCanton": {
+        "title": "体验**Canton网络**。赚取**Canton币**。仅在Cypherock X1上",
+        "button": "了解更多"
+      },
+      "enableAutomaticApprovals": {
+        "title": "为Canton启用**自动批准**以自动接受传入交易",
+        "button": "启用"
+      }
+    },
     "tokenTable": {
       "title": "代币",
       "tableHeader": {
@@ -1309,6 +1360,18 @@
       "SER_1028": {
         "heading": "电子邮件已存在",
         "subtext": "使用此电子邮件地址的帐户已存在。请使用其他电子邮件地址或联系 Cypherock 支持寻求帮助。"
+      },
+      "SER_1100": {
+        "heading": "每日用户注册数量已达上限",
+        "subtext": "我们已达到今日用户注册数量的上限。请明天再试。"
+      },
+      "SER_1101": {
+        "heading": "用户 party 数量已达上限",
+        "subtext": "您已达到您的账户中 party 数量的上限。请联系 Cypherock 支持寻求帮助。"
+      },
+      "SER_1102": {
+        "heading": "用户无资格创建 party",
+        "subtext": "您无资格创建 party。请联系 Cypherock 支持寻求帮助。"
       },
       "SER_2000": {
         "heading": "交易广播失败",
@@ -2127,6 +2190,64 @@
       "toAsset": "Asset",
       "toAmount": "Amount Received",
       "toReceiver": "Receiver"
+    },
+    "cantonDialogs": {
+      "enableApprovalPrompt": {
+        "title": "Enable Transfer Preapproval",
+        "subTitle": "Automatically accept incoming transactions without manual approval. This will save you time by eliminating the need to manually accept each receiving transaction and rewards."
+      },
+      "enableApproval": {
+        "title": "Enable Transfer Preapproval",
+        "dialogs": {
+          "x1Vault": {
+            "name": "X1 Vault"
+          },
+          "confirmation": {
+            "name": "Confirmation",
+            "title": "Transfer Preapproval is enabled"
+          }
+        }
+      },
+      "createCantonAccount": {
+        "title": "Account Creation",
+        "dialogs": {
+          "x1Vault": {
+            "name": "X1 Vault",
+            "messageBox": {
+              "warning": "Before you can interact on the Canton network, your account needs to be created. This will allow you to start sending, receiving, and managing digital assets."
+            }
+          },
+          "confirmation": {
+            "name": "Confirmation"
+          },
+          "success": {
+            "title": "Account created successfully"
+          },
+          "automaticApproval": {
+            "name": "Transfer Preapproval"
+          }
+        }
+      },
+      "transactionAction": {
+        "title": {
+          "approve": "Accept Incoming Transaction",
+          "reject": "Reject Incoming Transaction",
+          "cancel": "Cancel Outgoing Transaction"
+        },
+        "dialogs": {
+          "x1Vault": {
+            "name": "X1 Vault"
+          },
+          "confirmation": {
+            "name": "Confirmation"
+          },
+          "success": {
+            "approve": "Incoming transaction **accepted**",
+            "reject": "Incoming transaction **rejected**",
+            "cancel": "Outgoing transaction **cancelled**"
+          }
+        }
+      }
     }
   },
   "toggle": {

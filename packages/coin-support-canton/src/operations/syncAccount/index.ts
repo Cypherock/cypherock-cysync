@@ -182,13 +182,15 @@ const fetchAndParseTransactions = async (params: {
   account: IAccount;
   afterOffset?: number;
   db: IDatabase;
+  accessToken: string;
 }) => {
-  const { partyId, account, afterOffset, db } = params;
+  const { partyId, account, afterOffset, db, accessToken } = params;
 
   const response = await services.getTransactions({
     partyId,
     assetId: account.assetId,
     afterOffset,
+    accessToken,
   });
 
   const transactions: ITransaction[] = [];
@@ -204,6 +206,7 @@ const fetchAndParseTransactions = async (params: {
     const pendingTransactions = await services.getPendingTransactions({
       partyId,
       assetId: account.assetId,
+      accessToken,
     });
 
     const resultPendingTxns: ITransaction[] = [];
@@ -231,16 +234,20 @@ const getAddressDetails: IGetAddressDetails<{
   afterOffset?: number;
   updatedBalance?: string;
   updatedTransferPreApprovalStatus?: boolean;
-}> = async ({ db, account, iterationContext }) => {
+}> = async ({ db, account, iterationContext, accessToken }) => {
   const partyId = account.xpubOrAddress;
 
   const updatedBalance =
     iterationContext?.updatedBalance ??
-    (await services.getBalance(partyId, account.assetId));
+    (await services.getBalance(partyId, account.assetId, accessToken ?? ''));
 
   const updatedTransferPreApprovalStatus =
     iterationContext?.updatedTransferPreApprovalStatus ??
-    (await services.isTransferPreApprovalEnabled(partyId, account.assetId));
+    (await services.isTransferPreApprovalEnabled(
+      partyId,
+      account.assetId,
+      accessToken ?? '',
+    ));
 
   const afterOffset =
     iterationContext?.afterOffset ??
@@ -255,6 +262,7 @@ const getAddressDetails: IGetAddressDetails<{
       account,
       afterOffset,
       db,
+      accessToken: accessToken ?? '',
     },
   );
 

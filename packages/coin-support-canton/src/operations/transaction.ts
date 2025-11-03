@@ -4,6 +4,12 @@ import {
 } from '@cypherock/coin-support-interfaces';
 import { ICantonPrepareExternalPartyTxnResult } from '../services';
 
+export enum ICantonTransactionChoice {
+  ACCEPT = 'Accept',
+  REJECT = 'Reject',
+  WITHDRAW = 'Withdraw',
+}
+
 export enum ICantonTransactionExpiryUnit {
   HOURS = 'Hours',
   DAYS = 'Days',
@@ -93,6 +99,7 @@ export interface IPreparedCantonTransaction extends IPreparedTransaction {
     output: IPreparedCantonTransactionOutput;
     fees: string;
     preparedTransaction?: any;
+    choice?: ICantonTransactionChoice;
   };
 }
 

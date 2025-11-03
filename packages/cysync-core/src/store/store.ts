@@ -25,6 +25,7 @@ import priceInfoReducer, { IPriceInfoState } from './priceInfo';
 import snackBarReducer, { ISnackBarState } from './snackBar';
 import transactionReducer, { ITransactionState } from './transaction';
 import walletReducer, { IWalletState } from './wallet';
+import cantonReducer, { ICantonState } from './canton';
 
 export interface RootState {
   wallet: IWalletState;
@@ -41,6 +42,7 @@ export interface RootState {
   notification: INotificationState;
   network: INetworkState;
   inheritance: IInheritanceState;
+  canton: ICantonState;
 }
 
 export const store = configureStore({
@@ -59,6 +61,7 @@ export const store = configureStore({
     notification: notificationReducer,
     network: networkReducer,
     inheritance: inheritanceReducer,
+    canton: cantonReducer,
   },
 });
 

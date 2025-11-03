@@ -142,6 +142,18 @@ export const AssetPage: FC = () => {
                 </Button>
               </Container>
             )}
+            {/* {selectedAsset?.family === coinFamiliesMap.canton && (
+              <Button
+                variant="primary"
+                onClick={() => dispatch(openEnableApprovalPromptDialog())}
+                size="sm"
+                display="flex"
+                justify="center"
+                align="center"
+              >
+                {lang.strings.buttons.autoApproval}
+              </Button>
+            )} */}
           </Flex>
         </Flex>
 

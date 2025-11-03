@@ -2,6 +2,7 @@ import { coinFamiliesMap } from '@cypherock/coins';
 import { formatAddress } from '@cypherock/cysync-core-services';
 import {
   BlurOverlay,
+  Button,
   Chip,
   Clipboard,
   CloseButton,
@@ -24,10 +25,12 @@ import {
   ITransaction,
   TransactionStatus,
   TransactionStatusMap,
+  TransactionTypeMap,
 } from '@cypherock/db-interfaces';
 import { createSelector } from '@reduxjs/toolkit';
 import React, { FC, useMemo } from 'react';
 
+import { openTransactionActionDialog } from '~/actions';
 import { useCurrency } from '~/context';
 import { mapTransactionForDisplay } from '~/hooks';
 import {
@@ -42,6 +45,8 @@ import {
   useAppDispatch,
   useAppSelector,
 } from '~/store';
+
+import { TransactionActionType } from './Canton/TransactionAction/context';
 
 import { LoaderDialog } from '../components';
 
@@ -178,12 +183,21 @@ export const HistoryDialog: FC<IHistoryDialogProps> = ({ txn: _txn }) => {
     return <LoaderDialog />;
   }
 
+  const isIcpTransaction =
+    displayTransaction.txn.familyId === coinFamiliesMap.icp;
+  const isCantonTransaction =
+    displayTransaction.txn.familyId === coinFamiliesMap.canton;
+
   let transactionHashText = keys.transactionHash;
-  if (displayTransaction.txn.familyId === coinFamiliesMap.icp) {
+  if (isIcpTransaction) {
     transactionHashText = keys.transactionId;
-  } else if (displayTransaction.txn.familyId === coinFamiliesMap.canton) {
+  } else if (isCantonTransaction) {
     transactionHashText = keys.transactionUpdateId;
   }
+
+  const showTransactionAction =
+    isCantonTransaction &&
+    displayTransaction.status === TransactionStatusMap.pending;
 
   return (
     <BlurOverlay>
@@ -247,6 +261,75 @@ export const HistoryDialog: FC<IHistoryDialogProps> = ({ txn: _txn }) => {
             </a>
           </Container>
           <ScrollableContainer $maxHeight="calc(100vh - 400px)">
+            {showTransactionAction && (
+              <>
+                {displayTransaction.txn.type === TransactionTypeMap.send && (
+                  <Container
+                    $borderWidthT={1}
+                    $borderColor="separator"
+                    $borderStyle="solid"
+                    px={5}
+                    py={2}
+                    gap={16}
+                  >
+                    <Button
+                      onClick={() => {
+                        onClose();
+                        dispatch(
+                          openTransactionActionDialog({
+                            transactionActionType: TransactionActionType.CANCEL,
+                            selectedTransaction: displayTransaction.txn,
+                          }),
+                        );
+                      }}
+                      variant="secondary"
+                    >
+                      {lang.strings.buttons.cancel}
+                    </Button>
+                  </Container>
+                )}
+                {displayTransaction.txn.type === TransactionTypeMap.receive && (
+                  <Container
+                    $borderWidthT={1}
+                    $borderColor="separator"
+                    $borderStyle="solid"
+                    px={5}
+                    py={2}
+                    gap={16}
+                  >
+                    <Button
+                      onClick={() => {
+                        onClose();
+                        dispatch(
+                          openTransactionActionDialog({
+                            transactionActionType: TransactionActionType.REJECT,
+                            selectedTransaction: displayTransaction.txn,
+                          }),
+                        );
+                      }}
+                      variant="secondary"
+                    >
+                      {lang.strings.buttons.reject}
+                    </Button>
+                    <Button
+                      onClick={() => {
+                        onClose();
+                        dispatch(
+                          openTransactionActionDialog({
+                            transactionActionType:
+                              TransactionActionType.APPROVE,
+                            selectedTransaction: displayTransaction.txn,
+                          }),
+                        );
+                      }}
+                    >
+                      {lang.strings.buttons.accept}
+                    </Button>
+                  </Container>
+                )}
+              </>
+            )}
+
             <Container
               display="flex"
               direction="column"

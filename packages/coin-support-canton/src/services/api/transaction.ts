@@ -1,6 +1,7 @@
 // import { cantonCoinList } from '@cypherock/coins';
 import { makePostRequest, assert } from '@cypherock/cysync-utils';
 
+import { getRequestOptions } from './common';
 import {
   ICantonPendingResponseTransaction,
   ICantonPrepareExternalPartyTxnResult,
@@ -22,7 +23,11 @@ export const getTransactions = async (
   };
   delete query.assetId;
 
-  const response = await makePostRequest(url, query);
+  const response = await makePostRequest(
+    url,
+    query,
+    getRequestOptions(params.accessToken),
+  );
 
   assert(
     typeof response.data?.transactions === 'object',
@@ -42,7 +47,11 @@ export const getPendingTransactions = async (
   delete query.assetId;
   delete query.nextOffset;
 
-  const response = await makePostRequest(url, query);
+  const response = await makePostRequest(
+    url,
+    query,
+    getRequestOptions(params.accessToken),
+  );
 
   assert(
     typeof response.data?.transactions === 'object',
@@ -73,6 +82,7 @@ export const getFees = async (assetId: string) => {
 };
 
 export const prepareSendTransaction = async (
+  accessToken: string,
   senderPartyId: string,
   receiverPartyId: string,
   amount: string,
@@ -80,13 +90,17 @@ export const prepareSendTransaction = async (
   expiryDate?: string,
 ): Promise<any> => {
   const url = `${baseURL}/prepare/send`;
-  const response = await makePostRequest(url, {
-    senderPartyId,
-    receiverPartyId,
-    amount,
-    memo,
-    expiryDate,
-  });
+  const response = await makePostRequest(
+    url,
+    {
+      partyId: senderPartyId,
+      receiverPartyId,
+      amount,
+      memo,
+      expiryDate,
+    },
+    getRequestOptions(accessToken),
+  );
 
   assert(
     !response.data.error &&
@@ -102,12 +116,17 @@ export const prepareChoiceTxn = async (
   partyId: string,
   transferContractId: string,
   choice: string,
+  accessToken: string,
 ): Promise<any> => {
   const url = `${baseURL}/prepare/${choice.toLowerCase()}`;
-  const response = await makePostRequest(url, {
-    partyId,
-    transferContractId,
-  });
+  const response = await makePostRequest(
+    url,
+    {
+      partyId,
+      transferContractId,
+    },
+    getRequestOptions(accessToken),
+  );
 
   assert(
     !response.data.error &&
@@ -121,11 +140,16 @@ export const prepareChoiceTxn = async (
 
 export const prepareTransferPreApprovalTxn = async (
   partyId: string,
+  accessToken: string,
 ): Promise<any> => {
   const url = `${baseURL}/prepare/transfer-preapproval`;
-  const response = await makePostRequest(url, {
-    partyId,
-  });
+  const response = await makePostRequest(
+    url,
+    {
+      partyId,
+    },
+    getRequestOptions(accessToken),
+  );
 
   assert(
     !response.data.error &&
@@ -140,14 +164,21 @@ export const prepareTransferPreApprovalTxn = async (
 export const broadcastTransactionToBlockchain = async (
   signature: string,
   publicKey: string,
+  partyId: string,
   preparedTransaction: any,
+  accessToken: string,
 ): Promise<any> => {
   const url = `${baseURL}/broadcast`;
-  const response = await makePostRequest(url, {
-    signature,
-    publicKey,
-    preparedTransaction,
-  });
+  const response = await makePostRequest(
+    url,
+    {
+      signature,
+      publicKey,
+      partyId,
+      preparedTransaction,
+    },
+    getRequestOptions(accessToken),
+  );
 
   assert(
     !response.data.error,
@@ -159,13 +190,18 @@ export const broadcastTransactionToBlockchain = async (
 
 export const prepareExternalPartyTxn = async (
   publicKey: string,
-  partyHint: string,
+  partyId: string,
+  accessToken: string,
 ): Promise<ICantonPrepareExternalPartyTxnResult> => {
   const url = `${baseURL}/prepare/external-party`;
-  const response = await makePostRequest(url, {
-    publicKey,
-    partyHint,
-  });
+  const response = await makePostRequest(
+    url,
+    {
+      publicKey,
+      partyId,
+    },
+    getRequestOptions(accessToken),
+  );
 
   assert(
     !response.data.error && response.data.topologyTransactions,
@@ -178,12 +214,17 @@ export const prepareExternalPartyTxn = async (
 export const broadcastExternalPartyTransactionToBlockchain = async (
   signature: string,
   preparedParty: ICantonPrepareExternalPartyTxnResult,
+  accessToken: string,
 ): Promise<any> => {
   const url = `${baseURL}/broadcast/external-party`;
-  const response = await makePostRequest(url, {
-    signature,
-    preparedParty,
-  });
+  const response = await makePostRequest(
+    url,
+    {
+      signature,
+      preparedParty,
+    },
+    getRequestOptions(accessToken),
+  );
 
   assert(
     !response.data.error,

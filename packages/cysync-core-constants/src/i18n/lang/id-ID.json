@@ -53,7 +53,10 @@
     "exitWithoutSaving": "Keluar tanpa menyimpan",
     "saveChanges": "Simpan perubahan",
     "edit": "Sunting",
-    "tryAgain": "Coba Lagi"
+    "tryAgain": "Coba Lagi",
+    "autoApproval": "Transfer Preapproval",
+    "accept": "Terima",
+    "earnRewards": "Earn Rewards"
   },
   "tooltips": {
     "downloadCsv": "Ekspor sebagai CSV"
@@ -103,19 +106,56 @@
         "tapCard": "Ketuk kartu apapun"
       }
     },
+    "cantonSignup": {
+      "userDetails": {
+        "title": "Your Details",
+        "subtext": "Enter the email you used at time of purchasing Cypherock X1",
+        "emailField": {
+          "label": "Registered Email",
+          "rightLabel": "Required"
+        },
+        "sendOTPButton": "Send OTP"
+      },
+      "verifyOTP": {
+        "title": "OTP Verification for email"
+      },
+      "loader": {
+        "title": "Please wait while we verify your details...",
+        "subtext": "Do not disconnect or close the cySync app"
+      },
+      "success": {
+        "eligibleAndCanProceed": {
+          "title": "You are eligible and can proceed to create account"
+        },
+        "eligibleAndAddedInWaitlist": {
+          "title": "You are eligible and added in waitlist for Canton Network",
+          "subtext": "Due to high demand there’s a waitlist, you will be notified on email"
+        },
+        "notEligible": {
+          "title": "You are not eligible for Canton Network",
+          "subtext": "Only existing and pro users are eligible for Canton Network Accounts"
+        },
+        "buttonText": "Know More"
+      }
+    },
     "loader": {
       "waitMessage": "Proses ini mungkin memakan waktu sekitar satu menit. Mohon bersabar"
     },
     "sync": {
       "syncingHeader": "Menyinkronkan akun",
       "header": "Tambahkan akun baru",
+      "addSingleAccountHeader": "Tambahkan akun baru",
+      "createSingleAccountHeader": "Buat akun baru",
       "newAccount": "Akun Baru",
+      "newSingleAccount": "Akun Baru",
       "advancedButton": "Tampilkan semua jenis alamat",
       "accountsNotSynced": "Akun belum disinkronkan (${count})",
       "deselectAllButton": "Batalkan pilihan semua",
       "selectAllButton": "Pilih semua",
       "accountsInPortfolio": "Akun sudah ada di portofolio (${count})",
       "addAccountButton": "Tambahkan Akun",
+      "addSingleAccountButton": "Tambahkan Akun",
+      "createSingleAccountButton": "Buat Akun",
       "resyncButton": "Sinkronisasi Ulang"
     },
     "congrats": {
@@ -272,7 +312,8 @@
         "info": "Ingat ${tokenName} adalah token ${parentCoinName} oleh karena itu biaya akan dihitung dalam ${parentCoinUnit}"
       },
       "messageBox": {
-        "warning": "Selalu pastikan alamat yang ditampilkan pada perangkat Anda cocok persis dengan alamat yang diberikan oleh penerima"
+        "warning": "Selalu pastikan alamat yang ditampilkan pada perangkat Anda cocok persis dengan alamat yang diberikan oleh penerima",
+        "partyIdWarning": "Selalu pastikan ID Partai yang ditampilkan pada perangkat Anda cocok persis dengan ID Partai yang diberikan oleh penerima"
       }
     },
     "recipient": {
@@ -882,6 +923,16 @@
   },
   "portfolio": {
     "title": "Portofolio",
+    "banner": {
+      "addCanton": {
+        "title": "Rasakan **Jaringan Canton**. Dapatkan **Koin Canton**. Hanya di Cypherock X1",
+        "button": "Pelajari Lebih Lanjut"
+      },
+      "enableAutomaticApprovals": {
+        "title": "Aktifkan **Persetujuan Otomatis** untuk Canton agar secara otomatis menerima transaksi masuk",
+        "button": "Aktifkan"
+      }
+    },
     "tokenTable": {
       "title": "Token",
       "tableHeader": {
@@ -1311,6 +1362,18 @@
       "SER_1028": {
         "heading": "Email Sudah Terdaftar",
         "subtext": "Akun dengan alamat email ini sudah terdaftar. Silakan gunakan alamat email yang berbeda atau hubungi dukungan Cypherock untuk bantuan."
+      },
+      "SER_1100": {
+        "heading": "Jumlah Pendaftaran Pengguna Maksimum Harian Dicapai",
+        "subtext": "Kami telah mencapai jumlah maksimum pendaftaran pengguna untuk hari ini. Silakan coba lagi besok."
+      },
+      "SER_1101": {
+        "heading": "Jumlah Parti Maksimum Per Pengguna Dicapai",
+        "subtext": "Anda telah mencapai jumlah maksimum parti untuk akun Anda. Silakan hubungi dukungan Cypherock untuk bantuan."
+      },
+      "SER_1102": {
+        "heading": "Pengguna Tidak Layak Untuk Pembuatan Parti",
+        "subtext": "Anda tidak layak untuk membuat parti. Silakan hubungi dukungan Cypherock untuk bantuan."
       },
       "SER_2000": {
         "heading": "Penyiaran transaksi gagal",
@@ -2144,6 +2207,64 @@
       "toAsset": "Asset",
       "toAmount": "Amount Received",
       "toReceiver": "Receiver"
+    },
+    "cantonDialogs": {
+      "enableApprovalPrompt": {
+        "title": "Enable Transfer Preapproval",
+        "subTitle": "Automatically accept incoming transactions without manual approval. This will save you time by eliminating the need to manually accept each receiving transaction and rewards."
+      },
+      "enableApproval": {
+        "title": "Enable Transfer Preapproval",
+        "dialogs": {
+          "x1Vault": {
+            "name": "X1 Vault"
+          },
+          "confirmation": {
+            "name": "Confirmation",
+            "title": "Transfer Preapproval is enabled"
+          }
+        }
+      },
+      "createCantonAccount": {
+        "title": "Account Creation",
+        "dialogs": {
+          "x1Vault": {
+            "name": "X1 Vault",
+            "messageBox": {
+              "warning": "Before you can interact on the Canton network, your account needs to be created. This will allow you to start sending, receiving, and managing digital assets."
+            }
+          },
+          "confirmation": {
+            "name": "Confirmation"
+          },
+          "success": {
+            "title": "Account created successfully"
+          },
+          "automaticApproval": {
+            "name": "Transfer Preapproval"
+          }
+        }
+      },
+      "transactionAction": {
+        "title": {
+          "approve": "Accept Incoming Transaction",
+          "reject": "Reject Incoming Transaction",
+          "cancel": "Cancel Outgoing Transaction"
+        },
+        "dialogs": {
+          "x1Vault": {
+            "name": "X1 Vault"
+          },
+          "confirmation": {
+            "name": "Confirmation"
+          },
+          "success": {
+            "approve": "Incoming transaction **accepted**",
+            "reject": "Incoming transaction **rejected**",
+            "cancel": "Outgoing transaction **cancelled**"
+          }
+        }
+      }
     }
   },
   "toggle": {
