@@ -1,4 +1,5 @@
 export interface ICantonTransactionParams {
+  accessToken: string;
   partyId: string;
   assetId: string;
   afterOffset?: number;

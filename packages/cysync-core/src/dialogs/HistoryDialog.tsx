@@ -28,8 +28,9 @@ import {
   TransactionTypeMap,
 } from '@cypherock/db-interfaces';
 import { createSelector } from '@reduxjs/toolkit';
-import React, { FC, useEffect, useMemo, useState } from 'react';
+import React, { FC, useMemo } from 'react';
 
+import { openTransactionActionDialog } from '~/actions';
 import { useCurrency } from '~/context';
 import { mapTransactionForDisplay } from '~/hooks';
 import {
@@ -45,10 +46,9 @@ import {
   useAppSelector,
 } from '~/store';
 
-import { LoaderDialog } from '../components';
-import { openTransactionActionDialog } from '~/actions';
 import { TransactionActionType } from './Canton/TransactionAction/context';
-import { keyValueStore } from '~/utils';
+
+import { LoaderDialog } from '../components';
 
 export interface IHistoryDialogProps {
   txn: ITransaction;
@@ -124,14 +124,6 @@ export const HistoryDialog: FC<IHistoryDialogProps> = ({ txn: _txn }) => {
   const dispatch = useAppDispatch();
   const theme = useTheme();
   const txn = useAppSelector(selectTransactionById(_txn.__id));
-  const [automaticApprovalEnabled, setAutomaticApprovalEnabled] =
-    useState(true);
-
-  useEffect(() => {
-    keyValueStore.isAutomaticApprovalsEnabled.get().then(value => {
-      setAutomaticApprovalEnabled(value);
-    });
-  }, []);
 
   const displayTransaction = useMemo(() => {
     if (txn === undefined) return undefined;
@@ -191,16 +183,21 @@ export const HistoryDialog: FC<IHistoryDialogProps> = ({ txn: _txn }) => {
     return <LoaderDialog />;
   }
 
-  let showTransactionAction = false;
+  const isIcpTransaction =
+    displayTransaction.txn.familyId === coinFamiliesMap.icp;
+  const isCantonTransaction =
+    displayTransaction.txn.familyId === coinFamiliesMap.canton;
+
   let transactionHashText = keys.transactionHash;
-  if (displayTransaction.txn.familyId === coinFamiliesMap.icp) {
+  if (isIcpTransaction) {
     transactionHashText = keys.transactionId;
-  } else if (displayTransaction.txn.familyId === coinFamiliesMap.canton) {
-    if (displayTransaction.status === TransactionStatusMap.pending) {
-      showTransactionAction = true;
-    }
+  } else if (isCantonTransaction) {
     transactionHashText = keys.transactionUpdateId;
   }
+
+  const showTransactionAction =
+    isCantonTransaction &&
+    displayTransaction.status === TransactionStatusMap.pending;
 
   return (
     <BlurOverlay>
@@ -281,6 +278,7 @@ export const HistoryDialog: FC<IHistoryDialogProps> = ({ txn: _txn }) => {
                         dispatch(
                           openTransactionActionDialog({
                             transactionActionType: TransactionActionType.CANCEL,
+                            selectedTransaction: displayTransaction.txn,
                           }),
                         );
                       }}
@@ -290,45 +288,45 @@ export const HistoryDialog: FC<IHistoryDialogProps> = ({ txn: _txn }) => {
                     </Button>
                   </Container>
                 )}
-                {displayTransaction.txn.type === TransactionTypeMap.receive &&
-                  !automaticApprovalEnabled && (
-                    <Container
-                      $borderWidthT={1}
-                      $borderColor="separator"
-                      $borderStyle="solid"
-                      px={5}
-                      py={2}
-                      gap={16}
+                {displayTransaction.txn.type === TransactionTypeMap.receive && (
+                  <Container
+                    $borderWidthT={1}
+                    $borderColor="separator"
+                    $borderStyle="solid"
+                    px={5}
+                    py={2}
+                    gap={16}
+                  >
+                    <Button
+                      onClick={() => {
+                        onClose();
+                        dispatch(
+                          openTransactionActionDialog({
+                            transactionActionType: TransactionActionType.REJECT,
+                            selectedTransaction: displayTransaction.txn,
+                          }),
+                        );
+                      }}
+                      variant="secondary"
                     >
-                      <Button
-                        onClick={() => {
-                          onClose();
-                          dispatch(
-                            openTransactionActionDialog({
-                              transactionActionType:
-                                TransactionActionType.REJECT,
-                            }),
-                          );
-                        }}
-                        variant="secondary"
-                      >
-                        {lang.strings.buttons.reject}
-                      </Button>
-                      <Button
-                        onClick={() => {
-                          onClose();
-                          dispatch(
-                            openTransactionActionDialog({
-                              transactionActionType:
-                                TransactionActionType.APPROVE,
-                            }),
-                          );
-                        }}
-                      >
-                        {lang.strings.buttons.accept}
-                      </Button>
-                    </Container>
-                  )}
+                      {lang.strings.buttons.reject}
+                    </Button>
+                    <Button
+                      onClick={() => {
+                        onClose();
+                        dispatch(
+                          openTransactionActionDialog({
+                            transactionActionType:
+                              TransactionActionType.APPROVE,
+                            selectedTransaction: displayTransaction.txn,
+                          }),
+                        );
+                      }}
+                    >
+                      {lang.strings.buttons.accept}
+                    </Button>
+                  </Container>
+                )}
               </>
             )}
 

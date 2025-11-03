@@ -1,17 +1,28 @@
 import React from 'react';
 
-import { useCreateCantonAccountDialog } from '../context';
-import { selectLanguage, useAppSelector } from '~/store';
+import { openEnableApprovalDialog } from '~/actions';
 import { EnableApprovalPrompt } from '~/components';
+import { selectLanguage, useAppDispatch, useAppSelector } from '~/store';
+
+import { useCreateCantonAccountDialog } from '../context';
 
 export const AutomaticApprovalDialog: React.FC = () => {
   const lang = useAppSelector(selectLanguage);
-  const { onFinishCreateAccount } = useCreateCantonAccountDialog();
+  const { onClose, addedAccount } = useCreateCantonAccountDialog();
+  const dispatch = useAppDispatch();
+
+  const onEnableApproval = () => {
+    onClose();
+    if (!addedAccount) return;
+    dispatch(openEnableApprovalDialog({ selectedAccount: addedAccount }));
+  };
 
   return (
     <EnableApprovalPrompt
       primaryActionText={lang.strings.buttons.continue}
-      primaryActionOnClick={onFinishCreateAccount}
+      primaryActionOnClick={onEnableApproval}
+      secondaryActionText={lang.strings.buttons.skip}
+      secondaryActionOnClick={onClose}
     />
   );
 };

@@ -29,7 +29,6 @@ import { selectLanguage, useAppDispatch, useAppSelector } from '~/store';
 
 import { useAssetPage } from '../hooks';
 import { MainAppLayout } from '../Layout';
-import { coinFamiliesMap } from '@cypherock/coins';
 
 const ReceiveIcon = (props: SvgProps) => (
   <ArrowReceivedIcon {...props} $width="12px" $height="12px" />
@@ -143,18 +142,18 @@ export const AssetPage: FC = () => {
                 </Button>
               </Container>
             )}
-            {selectedAsset?.family === coinFamiliesMap.xrp && ( // TODO: change to canton familyId
+            {/* {selectedAsset?.family === coinFamiliesMap.canton && (
               <Button
                 variant="primary"
-                onClick={() => dispatch(openReceiveDialog())}
+                onClick={() => dispatch(openEnableApprovalPromptDialog())}
                 size="sm"
                 display="flex"
                 justify="center"
                 align="center"
               >
-                {lang.strings.buttons.manualApproval}
+                {lang.strings.buttons.autoApproval}
               </Button>
-            )}
+            )} */}
           </Flex>
         </Flex>
 

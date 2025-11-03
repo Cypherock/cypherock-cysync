@@ -54,8 +54,9 @@
     "saveChanges": "Änderungen speichern",
     "edit": "Bearbeiten",
     "tryAgain": "Erneut versuchen",
-    "manualApproval": "Manuelle Genehmigung",
-    "accept": "Akzeptieren"
+    "autoApproval": "Transfer Preapproval",
+    "accept": "Akzeptieren",
+    "earnRewards": "Earn Rewards"
   },
   "tooltips": {
     "downloadCsv": "Als CSV exportieren"
@@ -105,19 +106,56 @@
         "tapCard": "Tippen Sie auf eine Karte"
       }
     },
+    "cantonSignup": {
+      "userDetails": {
+        "title": "Your Details",
+        "subtext": "Enter the email you used at time of purchasing Cypherock X1",
+        "emailField": {
+          "label": "Registered Email",
+          "rightLabel": "Required"
+        },
+        "sendOTPButton": "Send OTP"
+      },
+      "verifyOTP": {
+        "title": "OTP Verification for email"
+      },
+      "loader": {
+        "title": "Please wait while we verify your details...",
+        "subtext": "Do not disconnect or close the cySync app"
+      },
+      "success": {
+        "eligibleAndCanProceed": {
+          "title": "You are eligible and can proceed to create account"
+        },
+        "eligibleAndAddedInWaitlist": {
+          "title": "You are eligible and added in waitlist for Canton Network",
+          "subtext": "Due to high demand there’s a waitlist, you will be notified on email"
+        },
+        "notEligible": {
+          "title": "You are not eligible for Canton Network",
+          "subtext": "Only existing and pro users are eligible for Canton Network Accounts"
+        },
+        "buttonText": "Know More"
+      }
+    },
     "loader": {
       "waitMessage": "Dieser Vorgang kann ungefähr eine Minute dauern. Bitte haben Sie Geduld"
     },
     "sync": {
       "syncingHeader": "Das Konto wird synchronisiert",
       "header": "Neue Konten hinzufügen",
+      "addSingleAccountHeader": "Neues Konto hinzufügen",
+      "createSingleAccountHeader": "Neues Konto erstellen",
       "newAccount": "Neue Konten",
+      "newSingleAccount": "Neues Konto",
       "advancedButton": "Alle Adresstypen anzeigen",
       "accountsNotSynced": "Konto noch nicht synchronisiert (${count})",
       "deselectAllButton": "Alle abwählen",
       "selectAllButton": "Alle auswählen",
       "accountsInPortfolio": "Konten bereits im Portfolio (${count})",
       "addAccountButton": "Konten hinzufügen",
+      "addSingleAccountButton": "Konto hinzufügen",
+      "createSingleAccountButton": "Konto erstellen",
       "resyncButton": "Erneut synchronisieren"
     },
     "congrats": {
@@ -274,7 +312,8 @@
         "info": "Denken Sie daran, dass ${tokenName} ein ${parentCoinName}-Token ist, daher wird die Gebühr in ${parentCoinUnit} berechnet"
       },
       "messageBox": {
-        "warning": "Vergewissern Sie sich immer, dass die auf Ihrem Gerät angezeigte Adresse genau mit der vom Empfänger angegebenen Adresse übereinstimmt"
+        "warning": "Vergewissern Sie sich immer, dass die auf Ihrem Gerät angezeigte Adresse genau mit der vom Empfänger angegebenen Adresse übereinstimmt",
+        "partyIdWarning": "Vergewissern Sie sich immer, dass die auf Ihrem Gerät angezeigte Party-Kennung genau mit der vom Empfänger angegebenen Party-Kennung übereinstimmt"
       }
     },
     "recipient": {
@@ -1325,6 +1364,18 @@
         "heading": "E-Mail-Adresse bereits vorhanden",
         "subtext": "Ein Konto mit dieser E-Mail-Adresse existiert bereits. Bitte verwenden Sie eine andere E-Mail-Adresse oder wenden Sie sich an den Cypherock-Support für Unterstützung."
       },
+      "SER_1100": {
+        "heading": "Maximale Anzahl an Benutzerregistrierungen pro Tag erreicht",
+        "subtext": "Wir haben die maximale Anzahl an Benutzerregistrierungen für heute erreicht. Bitte versuchen Sie es morgen noch einmal."
+      },
+      "SER_1101": {
+        "heading": "Maximale Anzahl an Partys pro Benutzer erreicht",
+        "subtext": "Sie haben die maximale Anzahl an Partys für Ihr Konto erreicht. Bitte wenden Sie sich an den Cypherock-Support für Unterstützung."
+      },
+      "SER_1102": {
+        "heading": "Benutzer nicht berechtigt für Party-Erstellung",
+        "subtext": "Sie sind nicht berechtigt, eine Party zu erstellen. Bitte wenden Sie sich an den Cypherock-Support für Unterstützung."
+      },
       "SER_2000": {
         "heading": "Transaktionsübertragung fehlgeschlagen",
         "subtext": "Versuchen Sie es erneut oder kontaktieren Sie den Support für Hilfe"
@@ -2160,18 +2211,18 @@
     },
     "cantonDialogs": {
       "enableApprovalPrompt": {
-        "title": "Enable Automatic Approvals",
+        "title": "Enable Transfer Preapproval",
         "subTitle": "Automatically accept incoming transactions without manual approval. This will save you time by eliminating the need to manually accept each receiving transaction and rewards."
       },
       "enableApproval": {
-        "title": "Enable Automatic Approvals",
+        "title": "Enable Transfer Preapproval",
         "dialogs": {
           "x1Vault": {
             "name": "X1 Vault"
           },
           "confirmation": {
             "name": "Confirmation",
-            "title": "Automatic Approval is enabled"
+            "title": "Transfer Preapproval is enabled"
           }
         }
       },
@@ -2191,7 +2242,7 @@
             "title": "Account created successfully"
           },
           "automaticApproval": {
-            "name": "Automatic Approval"
+            "name": "Transfer Preapproval"
           }
         }
       },
@@ -2209,9 +2260,9 @@
             "name": "Confirmation"
           },
           "success": {
-            "approve": "Incoming transaction accepted",
-            "reject": "Incoming transaction rejected",
-            "cancel": "Outgoing transaction cancelled"
+            "approve": "Incoming transaction **accepted**",
+            "reject": "Incoming transaction **rejected**",
+            "cancel": "Outgoing transaction **cancelled**"
           }
         }
       }

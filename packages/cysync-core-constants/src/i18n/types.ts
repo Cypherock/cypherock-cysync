@@ -109,8 +109,9 @@ interface LangButtons {
   saveChanges: string;
   edit: string;
   tryAgain: string;
-  manualApproval: string;
+  autoApproval: string;
   accept: string;
+  earnRewards: string;
 }
 
 interface LangDashboard {
@@ -175,19 +176,56 @@ interface LangAddAccount {
       tapCard: string;
     };
   };
+  cantonSignup: {
+    userDetails: {
+      title: string;
+      subtext: string;
+      emailField: {
+        label: string;
+        rightLabel: string;
+      };
+      sendOTPButton: string;
+    };
+    verifyOTP: {
+      title: string;
+    };
+    loader: {
+      title: string;
+      subtext: string;
+    };
+    success: {
+      eligibleAndCanProceed: {
+        title: string;
+      };
+      eligibleAndAddedInWaitlist: {
+        title: string;
+        subtext: string;
+      };
+      notEligible: {
+        title: string;
+        subtext: string;
+      };
+      buttonText: string;
+    };
+  };
   loader: {
     waitMessage: string;
   };
   sync: {
     syncingHeader: string;
     header: string;
+    addSingleAccountHeader: string;
+    createSingleAccountHeader: string;
     newAccount: string;
+    newSingleAccount: string;
     advancedButton: string;
     accountsNotSynced: string;
     deselectAllButton: string;
     selectAllButton: string;
     accountsInPortfolio: string;
     addAccountButton: string;
+    addSingleAccountButton: string;
+    createSingleAccountButton: string;
     resyncButton: string;
   };
   congrats: {
@@ -299,7 +337,10 @@ interface LangSend {
       tapCard: string;
     };
     token: { info: string };
-    messageBox: { warning: string };
+    messageBox: {
+      warning: string;
+      partyIdWarning: string;
+    };
   };
   recipient: {
     title: string;

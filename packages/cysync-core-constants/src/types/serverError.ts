@@ -32,6 +32,11 @@ export enum ServerErrorType {
   OTP_RESEND_LIMIT = 'SER_1027',
   DUPLICATE_EMAIL = 'SER_1028',
 
+  // Canton Errors
+  MAX_DAILY_USER_REGISTRATIONS_EXCEEDED = 'SER_1100',
+  MAX_PARTIES_PER_USER_EXCEEDED = 'SER_1101',
+  USER_NOT_ELIGIBLE_FOR_PARTY_CREATION = 'SER_1102',
+
   TRANSACTION_BROADCAST_FAILED = 'SER_2000',
 }
 
@@ -128,6 +133,15 @@ export const serverErrorTypeDetails: CodeToErrorMap = {
   },
   [ServerErrorType.DUPLICATE_EMAIL]: {
     message: 'Duplicate Email',
+  },
+  [ServerErrorType.MAX_DAILY_USER_REGISTRATIONS_EXCEEDED]: {
+    message: 'Max Daily User Registrations Exceeded',
+  },
+  [ServerErrorType.MAX_PARTIES_PER_USER_EXCEEDED]: {
+    message: 'Max Parties Per User Exceeded',
+  },
+  [ServerErrorType.USER_NOT_ELIGIBLE_FOR_PARTY_CREATION]: {
+    message: 'User Not Eligible For Party Creation',
   },
   [ServerErrorType.TRANSACTION_BROADCAST_FAILED]: {
     message: 'Transaction Broadcast Failed',

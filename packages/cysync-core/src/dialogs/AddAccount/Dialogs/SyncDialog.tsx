@@ -1,4 +1,5 @@
 import { getDefaultUnit, getParsedAmount } from '@cypherock/coin-support-utils';
+import { coinFamiliesMap } from '@cypherock/coins';
 import {
   Button,
   DialogBox,
@@ -115,6 +116,7 @@ export const AddAccountSyncDialog: FC = () => {
     newSelectedAccounts,
     addAccountStatus,
     addSelectedAccounts,
+    createNewSelectedAccounts,
     selectedAccounts,
     setSelectedAccounts,
     onClose,
@@ -191,13 +193,53 @@ export const AddAccountSyncDialog: FC = () => {
       );
     }
 
+    const getResyncButton = () =>
+      isStopped ? (
+        <Button variant="secondary" onClick={onRetry}>
+          <LangDisplay text={strings.resyncButton} />
+        </Button>
+      ) : undefined;
+
+    const getCloseButton = () => (
+      <Button variant="primary" onClick={onClose}>
+        <LangDisplay text={lang.strings.buttons.close} />
+      </Button>
+    );
+
+    if (selectedCoin?.family === coinFamiliesMap.canton) {
+      return (
+        <>
+          {getResyncButton()}
+          {accounts.length > 0 || newAccounts.length > 0 ? (
+            <Button
+              variant="primary"
+              onClick={
+                newSelectedAccounts.length > 0
+                  ? createNewSelectedAccounts
+                  : addSelectedAccounts
+              }
+              disabled={
+                selectedAccounts.length <= 0 && newSelectedAccounts.length <= 0
+              }
+            >
+              <LangDisplay
+                text={
+                  newAccounts.length > 0
+                    ? strings.createSingleAccountButton
+                    : strings.addSingleAccountButton
+                }
+              />
+            </Button>
+          ) : (
+            getCloseButton()
+          )}
+        </>
+      );
+    }
+
     return (
       <>
-        {isStopped && (
-          <Button variant="secondary" onClick={onRetry}>
-            <LangDisplay text={strings.resyncButton} />
-          </Button>
-        )}
+        {getResyncButton()}
         {accounts.length > 0 || newAccounts.length > 0 ? (
           <Button
             variant="primary"
@@ -209,13 +251,24 @@ export const AddAccountSyncDialog: FC = () => {
             <LangDisplay text={strings.addAccountButton} />
           </Button>
         ) : (
-          <Button variant="primary" onClick={onClose}>
-            <LangDisplay text={lang.strings.buttons.close} />
-          </Button>
+          getCloseButton()
         )}
       </>
     );
   };
+
+  let headerText = strings.header;
+  if (selectedCoin?.family === coinFamiliesMap.canton) {
+    headerText =
+      newAccounts.length > 0
+        ? strings.createSingleAccountHeader
+        : strings.addSingleAccountHeader;
+  }
+
+  const newAccountText =
+    selectedCoin?.family === coinFamiliesMap.canton
+      ? strings.newSingleAccount
+      : strings.newAccount;
 
   return (
     <DialogBox width={500}>
@@ -237,7 +290,7 @@ export const AddAccountSyncDialog: FC = () => {
             <>
               <Image src={addAccountIcon} alt="Loader" />
               <Typography variant="h5" $textAlign="center">
-                <LangDisplay text={strings.header} />
+                <LangDisplay text={headerText} />
               </Typography>
             </>
           )}
@@ -254,7 +307,7 @@ export const AddAccountSyncDialog: FC = () => {
                 $fontSize={14}
                 $fontWeight="normal"
               >
-                <LangDisplay text={strings.newAccount} />
+                <LangDisplay text={newAccountText} />
               </InputLabel>
               <LeanBoxContainer>
                 {(isAdvanceChecked

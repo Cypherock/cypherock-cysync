@@ -4,6 +4,7 @@ import { IDatabase } from '@cypherock/db-interfaces';
 export interface IPrepareCantonTransferPreApprovalTransactionParams {
   accountId: string;
   db: IDatabase;
+  accessToken: string;
 }
 
 export interface IPreparedCantonTransferPreApprovalTransaction

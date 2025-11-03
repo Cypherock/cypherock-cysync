@@ -6,37 +6,33 @@ import {
   cantonIcon,
   LangDisplay,
 } from '@cypherock/cysync-ui';
-import React, { FC, useCallback, useEffect, useMemo, useState } from 'react';
+import React, { FC, useCallback, useMemo, useState } from 'react';
 import { useLocation } from 'react-router-dom';
-import { routes } from '~/constants';
-import { selectLanguage, useAppSelector } from '~/store';
-import { keyValueStore } from '~/utils';
+
+import { openEnableApprovalPromptDialog } from '~/actions';
+import { constants, routes } from '~/constants';
+import { selectLanguage, useAppDispatch, useAppSelector } from '~/store';
 
 export const FeatureBanner: FC = () => {
-  const [isCantonAdded, setIsCantonAdded] = useState(false);
-  const [isAutomaticApprovalEnabled, setIsAutomaticApprovalEnabled] =
-    useState(false);
   const lang = useAppSelector(selectLanguage);
   const strings = lang.strings.portfolio.banner;
 
   const { path } = routes.portfolio;
   const location = useLocation();
+  const dispatch = useAppDispatch();
 
   const isPortfolioPage = location.pathname.startsWith(path);
 
-  useEffect(() => {
-    keyValueStore.isCantonAdded.get().then(value => {
-      setIsCantonAdded(value);
-    });
-    keyValueStore.isAutomaticApprovalsEnabled.get().then(value => {
-      setIsAutomaticApprovalEnabled(value);
-    });
-  }, []);
+  // TODO: Implement the logic to check if canton is added and automatic approvals are enabled
+  const [isCantonAdded, setIsCantonAdded] = useState(false);
+  const [isAutomaticApprovalEnabled, setIsAutomaticApprovalEnabled] =
+    useState(true);
 
   const enableAutomaticApprovals = useCallback(() => {
-    // TODO: Implement the logic to enable automatic approvals for canton
+    dispatch(openEnableApprovalPromptDialog());
+    setIsAutomaticApprovalEnabled(true);
     setIsCantonAdded(true);
-  }, []);
+  }, [dispatch]);
 
   const renderContent = useMemo(() => {
     if (!isPortfolioPage) return null;
@@ -64,22 +60,34 @@ export const FeatureBanner: FC = () => {
             />
           </Typography>
           {isCantonAdded && !isAutomaticApprovalEnabled ? (
-            <Button variant="primary" onClick={enableAutomaticApprovals}>
-              {strings.enableAutomaticApprovals.button}
+            <Button variant="text" onClick={enableAutomaticApprovals}>
+              <Typography
+                $fontSize={16}
+                color="gold"
+                $fontWeight="semibold"
+                $whiteSpace="nowrap"
+              >
+                {strings.enableAutomaticApprovals.button}
+              </Typography>
             </Button>
           ) : (
-            <Button variant="primary">
+            <Button variant="text" color="gold">
               <a
-                href="https://cypherock.com"
+                href={constants.inheritance.cantonLink}
                 target="_blank"
                 style={{
                   textDecoration: 'none',
-                  color: 'black',
-                  whiteSpace: 'nowrap',
                 }}
                 rel="noreferrer"
               >
-                {strings.addCanton.button}
+                <Typography
+                  $fontSize={16}
+                  color="gold"
+                  $fontWeight="semibold"
+                  $whiteSpace="nowrap"
+                >
+                  {strings.addCanton.button}
+                </Typography>
               </a>
             </Button>
           )}

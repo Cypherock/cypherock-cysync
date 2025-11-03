@@ -5,4 +5,5 @@ export interface ISyncAccountsParams {
   accountId: string;
   currency: string;
   waitInMSBetweenEachAPICall?: number;
+  accessToken?: string;
 }

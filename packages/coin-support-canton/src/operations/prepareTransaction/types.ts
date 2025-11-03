@@ -5,4 +5,5 @@ import { IPreparedCantonTransaction } from '../transaction';
 export interface IPrepareCantonTransactionParams
   extends IPrepareTransactionParams {
   txn: IPreparedCantonTransaction;
+  accessToken: string;
 }

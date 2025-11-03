@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios, { AxiosRequestConfig } from 'axios';
 import Zod from 'zod';
 
 import { sleep } from './sleep';
@@ -6,6 +6,7 @@ import { sleep } from './sleep';
 export interface MakeRequestOptions {
   maxTries?: number;
   waitInMSBetweenEachAPIRetry?: number;
+  config?: AxiosRequestConfig;
 }
 
 export const makePostRequest = async (
@@ -28,7 +29,7 @@ export const makePostRequest = async (
         await sleep(nextWaitTime);
       }
 
-      const response = await axios.post(url, data);
+      const response = await axios.post(url, data, options?.config);
 
       if (
         response.data.message === 'NOTOK' &&
