@@ -54,8 +54,9 @@
     "saveChanges": "Änderungen speichern",
     "edit": "Bearbeiten",
     "tryAgain": "Erneut versuchen",
-    "autoApproval": "Automatische Genehmigung aktivieren",
-    "accept": "Akzeptieren"
+    "autoApproval": "Transfer Preapproval",
+    "accept": "Akzeptieren",
+    "earnRewards": "Earn Rewards"
   },
   "tooltips": {
     "downloadCsv": "Als CSV exportieren"
@@ -2198,18 +2199,18 @@
     },
     "cantonDialogs": {
       "enableApprovalPrompt": {
-        "title": "Enable Automatic Approvals",
+        "title": "Enable Transfer Preapproval",
         "subTitle": "Automatically accept incoming transactions without manual approval. This will save you time by eliminating the need to manually accept each receiving transaction and rewards."
       },
       "enableApproval": {
-        "title": "Enable Automatic Approvals",
+        "title": "Enable Transfer Preapproval",
         "dialogs": {
           "x1Vault": {
             "name": "X1 Vault"
           },
           "confirmation": {
             "name": "Confirmation",
-            "title": "Automatic Approval is enabled"
+            "title": "Transfer Preapproval is enabled"
           }
         }
       },
@@ -2229,7 +2230,7 @@
             "title": "Account created successfully"
           },
           "automaticApproval": {
-            "name": "Automatic Approval"
+            "name": "Transfer Preapproval"
           }
         }
       },

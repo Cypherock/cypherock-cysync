@@ -111,6 +111,7 @@ interface LangButtons {
   tryAgain: string;
   autoApproval: string;
   accept: string;
+  earnRewards: string;
 }
 
 interface LangDashboard {

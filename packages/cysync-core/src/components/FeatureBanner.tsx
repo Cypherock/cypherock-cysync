@@ -10,7 +10,7 @@ import React, { FC, useCallback, useMemo, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 
 import { openEnableApprovalPromptDialog } from '~/actions';
-import { routes } from '~/constants';
+import { constants, routes } from '~/constants';
 import { selectLanguage, useAppDispatch, useAppSelector } from '~/store';
 
 export const FeatureBanner: FC = () => {
@@ -60,22 +60,34 @@ export const FeatureBanner: FC = () => {
             />
           </Typography>
           {isCantonAdded && !isAutomaticApprovalEnabled ? (
-            <Button variant="primary" onClick={enableAutomaticApprovals}>
-              {strings.enableAutomaticApprovals.button}
+            <Button variant="text" onClick={enableAutomaticApprovals}>
+              <Typography
+                $fontSize={16}
+                color="gold"
+                $fontWeight="semibold"
+                $whiteSpace="nowrap"
+              >
+                {strings.enableAutomaticApprovals.button}
+              </Typography>
             </Button>
           ) : (
-            <Button variant="primary">
+            <Button variant="text" color="gold">
               <a
-                href="https://cypherock.com"
+                href={constants.inheritance.cantonLink}
                 target="_blank"
                 style={{
                   textDecoration: 'none',
-                  color: 'black',
-                  whiteSpace: 'nowrap',
                 }}
                 rel="noreferrer"
               >
-                {strings.addCanton.button}
+                <Typography
+                  $fontSize={16}
+                  color="gold"
+                  $fontWeight="semibold"
+                  $whiteSpace="nowrap"
+                >
+                  {strings.addCanton.button}
+                </Typography>
               </a>
             </Button>
           )}

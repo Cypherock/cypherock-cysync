@@ -9,13 +9,17 @@ import { selectLanguage, useAppSelector } from '~/store';
 
 export interface EnableApprovalPromptProps {
   onClose?: () => void;
-  primaryActionText?: string;
-  primaryActionOnClick?: () => void;
+  primaryActionText: string;
+  primaryActionOnClick: () => void;
+  secondaryActionText?: string;
+  secondaryActionOnClick?: () => void;
 }
 
 export const EnableApprovalPrompt: React.FC<EnableApprovalPromptProps> = ({
   primaryActionText,
   primaryActionOnClick,
+  secondaryActionText,
+  secondaryActionOnClick,
   onClose,
 }) => {
   const lang = useAppSelector(selectLanguage);
@@ -28,16 +32,23 @@ export const EnableApprovalPrompt: React.FC<EnableApprovalPromptProps> = ({
       icon={<EnableAutomaticApprovals />}
       onClose={onClose}
       footerComponent={
-        <Button variant="primary" onClick={primaryActionOnClick}>
-          {primaryActionText}
-        </Button>
+        <>
+          {secondaryActionText && secondaryActionOnClick && (
+            <Button variant="secondary" onClick={secondaryActionOnClick}>
+              {secondaryActionText}
+            </Button>
+          )}
+          <Button variant="primary" onClick={primaryActionOnClick}>
+            {primaryActionText}
+          </Button>
+        </>
       }
     />
   );
 };
 
 EnableApprovalPrompt.defaultProps = {
-  primaryActionText: undefined,
-  primaryActionOnClick: undefined,
   onClose: undefined,
+  secondaryActionText: undefined,
+  secondaryActionOnClick: undefined,
 };
