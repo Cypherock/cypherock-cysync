@@ -48,7 +48,7 @@ const coinDropDownList: DropDownItemProps[] = Object.values(coinList)
 export const AddAccountSelectionDialog: React.FC = () => {
   const { lang, accounts } = useAppSelector(selector);
   const {
-    onNext,
+    onSelectionDialogNext,
     selectedCoin,
     selectedWallet,
     setSelectedCoin,
@@ -139,7 +139,7 @@ export const AddAccountSelectionDialog: React.FC = () => {
           disabled={!selectedCoin || !selectedWallet}
           onClick={e => {
             e.preventDefault();
-            onNext();
+            onSelectionDialogNext();
           }}
         >
           <LangDisplay text={button.continue} />

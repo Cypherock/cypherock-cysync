@@ -19,5 +19,6 @@ export const constants = {
     goldPlanMessageTutorialVideo: 'https://youtu.be/JK28Xy6dr44',
     estateRecoverySuccessVideo: 'https://youtu.be/_B5fyazyW88',
     maxUserDetailsInputLength: 50,
+    cantonLink: 'https://cypherock.com/canton',
   },
 };

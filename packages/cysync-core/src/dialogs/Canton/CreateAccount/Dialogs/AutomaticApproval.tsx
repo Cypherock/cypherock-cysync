@@ -21,6 +21,8 @@ export const AutomaticApprovalDialog: React.FC = () => {
     <EnableApprovalPrompt
       primaryActionText={lang.strings.buttons.continue}
       primaryActionOnClick={onEnableApproval}
+      secondaryActionText={lang.strings.buttons.skip}
+      secondaryActionOnClick={onClose}
     />
   );
 };

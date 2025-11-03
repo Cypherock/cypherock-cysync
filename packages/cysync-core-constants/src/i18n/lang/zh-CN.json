@@ -54,8 +54,9 @@
     "saveChanges": "保存更改",
     "edit": "编辑",
     "tryAgain": "再试一次",
-    "autoApproval": "启用自动批准",
-    "accept": "接受"
+    "autoApproval": "Transfer Preapproval",
+    "accept": "接受",
+    "earnRewards": "赚取奖励"
   },
   "tooltips": {
     "downloadCsv": "导出为CSV"
@@ -103,6 +104,38 @@
         "enterPassphrase": "输入密码短语",
         "enterPin": "输入PIN并轻触任意卡片",
         "tapCard": "轻触任意卡片"
+      }
+    },
+    "cantonSignup": {
+      "userDetails": {
+        "title": "Your Details",
+        "subtext": "Enter the email you used at time of purchasing Cypherock X1",
+        "emailField": {
+          "label": "Registered Email",
+          "rightLabel": "Required"
+        },
+        "sendOTPButton": "Send OTP"
+      },
+      "verifyOTP": {
+        "title": "OTP Verification for email"
+      },
+      "loader": {
+        "title": "Please wait while we verify your details...",
+        "subtext": "Do not disconnect or close the cySync app"
+      },
+      "success": {
+        "eligibleAndCanProceed": {
+          "title": "You are eligible and can proceed to create account"
+        },
+        "eligibleAndAddedInWaitlist": {
+          "title": "You are eligible and added in waitlist for Canton Network",
+          "subtext": "Due to high demand there’s a waitlist, you will be notified on email"
+        },
+        "notEligible": {
+          "title": "You are not eligible for Canton Network",
+          "subtext": "Only existing and pro users are eligible for Canton Network Accounts"
+        },
+        "buttonText": "Know More"
       }
     },
     "loader": {
@@ -1328,6 +1361,18 @@
         "heading": "电子邮件已存在",
         "subtext": "使用此电子邮件地址的帐户已存在。请使用其他电子邮件地址或联系 Cypherock 支持寻求帮助。"
       },
+      "SER_1100": {
+        "heading": "每日用户注册数量已达上限",
+        "subtext": "我们已达到今日用户注册数量的上限。请明天再试。"
+      },
+      "SER_1101": {
+        "heading": "用户 party 数量已达上限",
+        "subtext": "您已达到您的账户中 party 数量的上限。请联系 Cypherock 支持寻求帮助。"
+      },
+      "SER_1102": {
+        "heading": "用户无资格创建 party",
+        "subtext": "您无资格创建 party。请联系 Cypherock 支持寻求帮助。"
+      },
       "SER_2000": {
         "heading": "交易广播失败",
         "subtext": "请重试或联系客服以获得帮助"
@@ -2148,18 +2193,18 @@
     },
     "cantonDialogs": {
       "enableApprovalPrompt": {
-        "title": "Enable Automatic Approvals",
+        "title": "Enable Transfer Preapproval",
         "subTitle": "Automatically accept incoming transactions without manual approval. This will save you time by eliminating the need to manually accept each receiving transaction and rewards."
       },
       "enableApproval": {
-        "title": "Enable Automatic Approvals",
+        "title": "Enable Transfer Preapproval",
         "dialogs": {
           "x1Vault": {
             "name": "X1 Vault"
           },
           "confirmation": {
             "name": "Confirmation",
-            "title": "Automatic Approval is enabled"
+            "title": "Transfer Preapproval is enabled"
           }
         }
       },
@@ -2179,7 +2224,7 @@
             "title": "Account created successfully"
           },
           "automaticApproval": {
-            "name": "Automatic Approval"
+            "name": "Transfer Preapproval"
           }
         }
       },
@@ -2197,9 +2242,9 @@
             "name": "Confirmation"
           },
           "success": {
-            "approve": "Incoming transaction accepted",
-            "reject": "Incoming transaction rejected",
-            "cancel": "Outgoing transaction cancelled"
+            "approve": "Incoming transaction **accepted**",
+            "reject": "Incoming transaction **rejected**",
+            "cancel": "Outgoing transaction **cancelled**"
           }
         }
       }

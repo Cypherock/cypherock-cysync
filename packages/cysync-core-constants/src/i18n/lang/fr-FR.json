@@ -75,6 +75,38 @@
         "tapCard": "Appuyez sur n'importe quelle carte"
       }
     },
+    "cantonSignup": {
+      "userDetails": {
+        "title": "Your Details",
+        "subtext": "Enter the email you used at time of purchasing Cypherock X1",
+        "emailField": {
+          "label": "Registered Email",
+          "rightLabel": "Required"
+        },
+        "sendOTPButton": "Send OTP"
+      },
+      "verifyOTP": {
+        "title": "OTP Verification for email"
+      },
+      "loader": {
+        "title": "Please wait while we verify your details...",
+        "subtext": "Do not disconnect or close the cySync app"
+      },
+      "success": {
+        "eligibleAndCanProceed": {
+          "title": "You are eligible and can proceed to create account"
+        },
+        "eligibleAndAddedInWaitlist": {
+          "title": "You are eligible and added in waitlist for Canton Network",
+          "subtext": "Due to high demand there’s a waitlist, you will be notified on email"
+        },
+        "notEligible": {
+          "title": "You are not eligible for Canton Network",
+          "subtext": "Only existing and pro users are eligible for Canton Network Accounts"
+        },
+        "buttonText": "Know More"
+      }
+    },
     "loader": {
       "waitMessage": "Ce processus peut prendre environ une minute. Veuillez être patient"
     },
@@ -347,8 +379,9 @@
     "saveChanges": "Enregistrer les modifications",
     "edit": "Modifier",
     "tryAgain": "Essayer encore",
-    "autoApproval": "Activer l'approbation automatique",
-    "accept": "Accepter"
+    "autoApproval": "Transfer Preapproval",
+    "accept": "Accepter",
+    "earnRewards": "Earn Rewards"
   },
   "signMessage": {
     "title": "Signer le message",
@@ -1447,6 +1480,18 @@
         "heading": "Email déjà existant",
         "subtext": "Un compte avec cette adresse e-mail existe déjà. Veuillez utiliser une autre adresse e-mail ou contactez le support Cypherock pour obtenir de l'aide"
       },
+      "SER_1100": {
+        "heading": "Nombre maximum d'inscriptions utilisateur atteint",
+        "subtext": "Nous avons atteint le nombre maximum d'inscriptions utilisateur pour aujourd'hui. Veuillez réessayer demain."
+      },
+      "SER_1101": {
+        "heading": "Nombre maximum de parties par utilisateur atteint",
+        "subtext": "Vous avez atteint le nombre maximum de parties pour votre compte. Veuillez contacter le support Cypherock pour obtenir de l'aide"
+      },
+      "SER_1102": {
+        "heading": "Utilisateur non autorisé pour la création de partie",
+        "subtext": "Vous n'êtes pas autorisé à créer une partie. Veuillez contacter le support Cypherock pour obtenir de l'aide"
+      },
       "SER_2000": {
         "heading": "Échec de la diffusion de la transaction",
         "subtext": "Réessayez ou contactez le support pour obtenir de l'aide"
@@ -2262,18 +2307,18 @@
     },
     "cantonDialogs": {
       "enableApprovalPrompt": {
-        "title": "Enable Automatic Approvals",
+        "title": "Enable Transfer Preapproval",
         "subTitle": "Automatically accept incoming transactions without manual approval. This will save you time by eliminating the need to manually accept each receiving transaction and rewards."
       },
       "enableApproval": {
-        "title": "Enable Automatic Approvals",
+        "title": "Enable Transfer Preapproval",
         "dialogs": {
           "x1Vault": {
             "name": "X1 Vault"
           },
           "confirmation": {
             "name": "Confirmation",
-            "title": "Automatic Approval is enabled"
+            "title": "Transfer Preapproval is enabled"
           }
         }
       },
@@ -2293,7 +2338,7 @@
             "title": "Account created successfully"
           },
           "automaticApproval": {
-            "name": "Automatic Approval"
+            "name": "Transfer Preapproval"
           }
         }
       },
@@ -2311,9 +2356,9 @@
             "name": "Confirmation"
           },
           "success": {
-            "approve": "Incoming transaction accepted",
-            "reject": "Incoming transaction rejected",
-            "cancel": "Outgoing transaction cancelled"
+            "approve": "Incoming transaction **accepted**",
+            "reject": "Incoming transaction **rejected**",
+            "cancel": "Outgoing transaction **cancelled**"
           }
         }
       }

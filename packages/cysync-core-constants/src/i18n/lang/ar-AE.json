@@ -54,8 +54,9 @@
     "saveChanges": "حفظ التغييرات",
     "edit": "تحرير",
     "tryAgain": "حاول مرة أخرى",
-    "autoApproval": "تمكين الموافقة التلقائية",
-    "accept": "قبول"
+    "autoApproval": "Transfer Preapproval",
+    "accept": "قبول",
+    "earnRewards": "Earn Rewards"
   },
   "tooltips": {
     "downloadCsv": "تصدير بصيغة CSV"
@@ -103,6 +104,38 @@
         "enterPassphrase": "أدخل عبارة المرور",
         "enterPin": "أدخل رقم التعريف الشخصي واضغط على أي بطاقة",
         "tapCard": "اضغط على أي بطاقة"
+      }
+    },
+    "cantonSignup": {
+      "userDetails": {
+        "title": "Your Details",
+        "subtext": "Enter the email you used at time of purchasing Cypherock X1",
+        "emailField": {
+          "label": "Registered Email",
+          "rightLabel": "Required"
+        },
+        "sendOTPButton": "Send OTP"
+      },
+      "verifyOTP": {
+        "title": "OTP Verification for email"
+      },
+      "loader": {
+        "title": "Please wait while we verify your details...",
+        "subtext": "Do not disconnect or close the cySync app"
+      },
+      "success": {
+        "eligibleAndCanProceed": {
+          "title": "You are eligible and can proceed to create account"
+        },
+        "eligibleAndAddedInWaitlist": {
+          "title": "You are eligible and added in waitlist for Canton Network",
+          "subtext": "Due to high demand there’s a waitlist, you will be notified on email"
+        },
+        "notEligible": {
+          "title": "You are not eligible for Canton Network",
+          "subtext": "Only existing and pro users are eligible for Canton Network Accounts"
+        },
+        "buttonText": "Know More"
       }
     },
     "loader": {
@@ -1334,6 +1367,18 @@
         "heading": "البريد الإلكتروني موجود بالفعل",
         "subtext": "يوجد بالفعل حساب به عنوان البريد الإلكتروني هذا. يرجى استخدام عنوان بريد إلكتروني مختلف أو الاتصال بدعم Cypherock للحصول على المساعدة"
       },
+      "SER_1100": {
+        "heading": "تم الوصول إلى حد إعادة إرسال OTP",
+        "subtext": "لقد وصلت إلى الحد الأقصى لعدد محاولات إعادة إرسال OTP. يرجى المحاولة مرة أخرى لاحقًا أو الاتصال بدعم Cypherock للحصول على المساعدة"
+      },
+      "SER_1101": {
+        "heading": "تم الوصول إلى حد إعادة إرسال OTP",
+        "subtext": "لقد وصلت إلى الحد الأقصى لعدد محاولات إعادة إرسال OTP. يرجى المحاولة مرة أخرى لاحقًا أو الاتصال بدعم Cypherock للحصول على المساعدة"
+      },
+      "SER_1102": {
+        "heading": "تم الوصول إلى حد إعادة إرسال OTP",
+        "subtext": "لقد وصلت إلى الحد الأقصى لعدد محاولات إعادة إرسال OTP. يرجى المحاولة مرة أخرى لاحقًا أو الاتصال بدعم Cypherock للحصول على المساعدة"
+      },
       "SER_2000": {
         "heading": "فشل في بث المعاملة",
         "subtext": "حاول مرة أخرى أو اتصل بالدعم للحصول على المساعدة"
@@ -2169,18 +2214,18 @@
     },
     "cantonDialogs": {
       "enableApprovalPrompt": {
-        "title": "Enable Automatic Approvals",
+        "title": "Enable Transfer Preapproval",
         "subTitle": "Automatically accept incoming transactions without manual approval. This will save you time by eliminating the need to manually accept each receiving transaction and rewards."
       },
       "enableApproval": {
-        "title": "Enable Automatic Approvals",
+        "title": "Enable Transfer Preapproval",
         "dialogs": {
           "x1Vault": {
             "name": "X1 Vault"
           },
           "confirmation": {
             "name": "Confirmation",
-            "title": "Automatic Approval is enabled"
+            "title": "Transfer Preapproval is enabled"
           }
         }
       },
@@ -2200,7 +2245,7 @@
             "title": "Account created successfully"
           },
           "automaticApproval": {
-            "name": "Automatic Approval"
+            "name": "Transfer Preapproval"
           }
         }
       },
@@ -2218,9 +2263,9 @@
             "name": "Confirmation"
           },
           "success": {
-            "approve": "Incoming transaction accepted",
-            "reject": "Incoming transaction rejected",
-            "cancel": "Outgoing transaction cancelled"
+            "approve": "Incoming transaction **accepted**",
+            "reject": "Incoming transaction **rejected**",
+            "cancel": "Outgoing transaction **cancelled**"
           }
         }
       }

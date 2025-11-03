@@ -54,8 +54,9 @@
     "saveChanges": "Simpan perubahan",
     "edit": "Sunting",
     "tryAgain": "Coba Lagi",
-    "autoApproval": "Aktifkan Persetujuan Otomatis",
-    "accept": "Terima"
+    "autoApproval": "Transfer Preapproval",
+    "accept": "Terima",
+    "earnRewards": "Earn Rewards"
   },
   "tooltips": {
     "downloadCsv": "Ekspor sebagai CSV"
@@ -103,6 +104,38 @@
         "enterPassphrase": "Masukkan frasa sandi",
         "enterPin": "Masukkan PIN dan ketuk kartu apapun",
         "tapCard": "Ketuk kartu apapun"
+      }
+    },
+    "cantonSignup": {
+      "userDetails": {
+        "title": "Your Details",
+        "subtext": "Enter the email you used at time of purchasing Cypherock X1",
+        "emailField": {
+          "label": "Registered Email",
+          "rightLabel": "Required"
+        },
+        "sendOTPButton": "Send OTP"
+      },
+      "verifyOTP": {
+        "title": "OTP Verification for email"
+      },
+      "loader": {
+        "title": "Please wait while we verify your details...",
+        "subtext": "Do not disconnect or close the cySync app"
+      },
+      "success": {
+        "eligibleAndCanProceed": {
+          "title": "You are eligible and can proceed to create account"
+        },
+        "eligibleAndAddedInWaitlist": {
+          "title": "You are eligible and added in waitlist for Canton Network",
+          "subtext": "Due to high demand there’s a waitlist, you will be notified on email"
+        },
+        "notEligible": {
+          "title": "You are not eligible for Canton Network",
+          "subtext": "Only existing and pro users are eligible for Canton Network Accounts"
+        },
+        "buttonText": "Know More"
       }
     },
     "loader": {
@@ -1330,6 +1363,18 @@
         "heading": "Email Sudah Terdaftar",
         "subtext": "Akun dengan alamat email ini sudah terdaftar. Silakan gunakan alamat email yang berbeda atau hubungi dukungan Cypherock untuk bantuan."
       },
+      "SER_1100": {
+        "heading": "Jumlah Pendaftaran Pengguna Maksimum Harian Dicapai",
+        "subtext": "Kami telah mencapai jumlah maksimum pendaftaran pengguna untuk hari ini. Silakan coba lagi besok."
+      },
+      "SER_1101": {
+        "heading": "Jumlah Parti Maksimum Per Pengguna Dicapai",
+        "subtext": "Anda telah mencapai jumlah maksimum parti untuk akun Anda. Silakan hubungi dukungan Cypherock untuk bantuan."
+      },
+      "SER_1102": {
+        "heading": "Pengguna Tidak Layak Untuk Pembuatan Parti",
+        "subtext": "Anda tidak layak untuk membuat parti. Silakan hubungi dukungan Cypherock untuk bantuan."
+      },
       "SER_2000": {
         "heading": "Penyiaran transaksi gagal",
         "subtext": "Coba lagi atau hubungi dukungan untuk bantuan"
@@ -2165,18 +2210,18 @@
     },
     "cantonDialogs": {
       "enableApprovalPrompt": {
-        "title": "Enable Automatic Approvals",
+        "title": "Enable Transfer Preapproval",
         "subTitle": "Automatically accept incoming transactions without manual approval. This will save you time by eliminating the need to manually accept each receiving transaction and rewards."
       },
       "enableApproval": {
-        "title": "Enable Automatic Approvals",
+        "title": "Enable Transfer Preapproval",
         "dialogs": {
           "x1Vault": {
             "name": "X1 Vault"
           },
           "confirmation": {
             "name": "Confirmation",
-            "title": "Automatic Approval is enabled"
+            "title": "Transfer Preapproval is enabled"
           }
         }
       },
@@ -2196,7 +2241,7 @@
             "title": "Account created successfully"
           },
           "automaticApproval": {
-            "name": "Automatic Approval"
+            "name": "Transfer Preapproval"
           }
         }
       },
@@ -2214,9 +2259,9 @@
             "name": "Confirmation"
           },
           "success": {
-            "approve": "Incoming transaction accepted",
-            "reject": "Incoming transaction rejected",
-            "cancel": "Outgoing transaction cancelled"
+            "approve": "Incoming transaction **accepted**",
+            "reject": "Incoming transaction **rejected**",
+            "cancel": "Outgoing transaction **cancelled**"
           }
         }
       }
