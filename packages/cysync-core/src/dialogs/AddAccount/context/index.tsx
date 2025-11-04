@@ -10,6 +10,7 @@ import { ICoinInfo, coinFamiliesMap, coinList } from '@cypherock/coins';
 import { ServerErrorType } from '@cypherock/cysync-core-constants';
 import { DropDownItemProps } from '@cypherock/cysync-ui';
 import { IAccount, IWallet } from '@cypherock/db-interfaces';
+import { createSelector } from '@reduxjs/toolkit';
 import lodash from 'lodash';
 import React, {
   Context,
@@ -31,6 +32,7 @@ import {
   syncPriceHistories,
   syncPrices,
 } from '~/actions';
+import { setCantonAccountAuthTokens } from '~/actions/canton';
 import { deviceLock, useCurrency, useDevice } from '~/context';
 import { ITabs, useMemoReturn, useTabsAndDialogs } from '~/hooks';
 import { useWalletDropdown } from '~/hooks/useWalletDropdown';
@@ -56,8 +58,6 @@ import {
   SuccessDialog,
   LoaderDialog,
 } from '../Dialogs';
-import { setCantonAccountAuthTokens } from '~/actions/canton';
-import { createSelector } from '@reduxjs/toolkit';
 
 export type AddAccountStatus = 'idle' | 'device' | 'sync' | 'done';
 
@@ -175,7 +175,17 @@ export const AddAccountDialogProvider: FC<
   >();
   const [isUserEligibleForCanton, setIsUserEligibleForCanton] = useState(false);
   const [isUserInWaitingListForCanton, setIsUserInWaitingListForCanton] =
-    useState(false);
+    useState(true);
+  const [otpVerified, setOtpVerified] = useState(false);
+
+  const resetOtpVerificationStates = () => {
+    setIsSubmittingUserDetails(false);
+    setIsSubmittingOTP(false);
+    setOtpVerificationDetails(undefined);
+    setIsUserEligibleForCanton(false);
+    setIsUserInWaitingListForCanton(true);
+    setOtpVerified(false);
+  };
 
   const deviceRequiredDialogsMap: Record<number, number[] | undefined> =
     useMemo(
@@ -264,6 +274,39 @@ export const AddAccountDialogProvider: FC<
     }
   }, [onNext, goTo, selectedCoin]);
 
+  const onOtpVerificationSuccess = useCallback(
+    (isEligible: boolean, isInWaitingList: boolean) => {
+      setIsUserEligibleForCanton(isEligible);
+      setIsUserInWaitingListForCanton(isInWaitingList);
+      setOtpVerified(true);
+      setOtpVerificationDetails(undefined);
+      setIsSubmittingOTP(false);
+      onNext();
+    },
+    [
+      onNext,
+      setIsUserEligibleForCanton,
+      setIsUserInWaitingListForCanton,
+      setOtpVerified,
+      setOtpVerificationDetails,
+      setIsSubmittingOTP,
+    ],
+  );
+
+  const onOtpVerificationFailure = useCallback(
+    (otpExpiry: string, retriesRemaining: number) => {
+      setOtpVerificationDetails({
+        email,
+        showIncorrectError: true,
+        otpExpiry,
+        retriesRemaining,
+      });
+      setOtpVerified(false);
+      setIsSubmittingOTP(false);
+    },
+    [email, setOtpVerificationDetails, setOtpVerified, setIsSubmittingOTP],
+  );
+
   const onUserDetailsSubmit = useCallback(async () => {
     if (hasErrors) return;
     setIsSubmittingUserDetails(true);
@@ -292,60 +335,52 @@ export const AddAccountDialogProvider: FC<
         email,
         secret: otp,
       });
+
       if (response.error) {
         if (response.error.code === ServerErrorType.OTP_VERIFICATION_FAILED) {
-          setOtpVerificationDetails({
-            email,
-            showIncorrectError: true,
-            otpExpiry:
-              response.error.details?.responseBody.otpExpiry ??
+          onOtpVerificationFailure(
+            response.error.details?.responseBody.otpExpiry ??
               otpVerificationDetails?.otpExpiry,
-            retriesRemaining:
-              response.error.details?.responseBody.retriesRemaining ??
+            response.error.details?.responseBody.retriesRemaining ??
               otpVerificationDetails?.retriesRemaining,
-          });
+          );
           setIsSubmittingOTP(false);
-          return;
-        }
-        if (
+        } else if (
           response.error.code ===
           ServerErrorType.MAX_DAILY_USER_REGISTRATIONS_EXCEEDED
         ) {
-          setIsUserEligibleForCanton(true);
-          setIsUserInWaitingListForCanton(true);
-          setOtpVerificationDetails(undefined);
-          setIsSubmittingOTP(false);
-          onNext();
-          return;
-        }
-        if (
+          onOtpVerificationSuccess(true, true);
+        } else if (
           response.error.code ===
           ServerErrorType.USER_NOT_ELIGIBLE_FOR_PARTY_CREATION
         ) {
-          setIsUserEligibleForCanton(false);
-          setIsUserInWaitingListForCanton(false);
-          setOtpVerificationDetails(undefined);
-          setIsSubmittingOTP(false);
-          onNext();
-          return;
+          onOtpVerificationSuccess(false, false);
+        } else {
+          // treating all other errors as OTP expired error for now
+          onOtpVerificationFailure(
+            response.error.details?.responseBody.otpExpiry ??
+              otpVerificationDetails?.otpExpiry,
+            0,
+          );
+          throw response.error;
         }
-
-        setIsSubmittingOTP(false);
-        throw response.error;
+        return;
       }
-      setOtpVerificationDetails(undefined);
+
       dispatch(
         setCantonAccountAuthTokens({
           accessToken: response.result.accessToken,
           refreshToken: response.result.refreshToken,
         }),
       );
-      setIsSubmittingOTP(false);
-      setIsUserEligibleForCanton(true);
-      setIsUserInWaitingListForCanton(false);
-      onNext();
+      onOtpVerificationSuccess(true, false);
     },
-    [onNext, email, setIsSubmittingOTP, otpVerificationDetails],
+    [
+      onOtpVerificationSuccess,
+      email,
+      setIsSubmittingOTP,
+      otpVerificationDetails,
+    ],
   );
 
   const createAccountSetter =
@@ -426,7 +461,8 @@ export const AddAccountDialogProvider: FC<
 
   const onRetry = () => {
     resetAddAccountStates();
-    if (selectedCoin?.family === coinFamiliesMap.canton) {
+    if (selectedCoin?.family === coinFamiliesMap.canton && !otpVerified) {
+      resetOtpVerificationStates();
       goTo(1, 0);
     } else {
       goTo(1, 4);
