@@ -319,7 +319,8 @@ export const AddAccountDialogProvider: FC<
           return;
         }
         if (
-          response.error.code === ServerErrorType.MAX_PARTIES_PER_USER_EXCEEDED
+          response.error.code ===
+          ServerErrorType.USER_NOT_ELIGIBLE_FOR_PARTY_CREATION
         ) {
           setIsUserEligibleForCanton(false);
           setIsUserInWaitingListForCanton(false);
