@@ -22,6 +22,7 @@ export const getTransactions = async (
     ...params,
   };
   delete query.assetId;
+  delete query.accessToken;
 
   const response = await makePostRequest(
     url,
@@ -46,6 +47,7 @@ export const getPendingTransactions = async (
   };
   delete query.assetId;
   delete query.nextOffset;
+  delete query.accessToken;
 
   const response = await makePostRequest(
     url,
