@@ -92,7 +92,8 @@ const createAccountFromAddress: IMakeCreateAccountsObservableParams<CantonApp>['
       isNew: txnCount <= 0,
       extraData: {
         publicKey,
-        // TODO: update this with api in case external party is already created
+        // Maybe update this with api in case external party is already created.
+        // Still gets updated immediately after creation in syncAccount.
         isTransferPreApprovalEnabled: false,
       },
       isHidden: false,

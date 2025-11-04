@@ -62,7 +62,6 @@ export const prepareTransaction = async (
   output.amount = new BigNumber(output.amount).toString();
   let sendAmount = new BigNumber(output.amount);
 
-  // TODO: Estimate fees
   const { fees } = txn.computedData;
 
   const calculateMaxSend = () => {
@@ -89,7 +88,6 @@ export const prepareTransaction = async (
   hasEnoughBalance =
     new BigNumber(txn.userInputs.outputs[0].amount).isNaN() || hasEnoughBalance;
 
-  // TODO: validate fees
   const isValidFee = true; //  new BigNumber(fees).isGreaterThan(0);
   const isFeeBelowMin =
     isValidFee && new BigNumber(fees).isLessThan(txn.staticData.fees);
