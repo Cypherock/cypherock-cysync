@@ -1,4 +1,4 @@
-import { IDatabase, IAccount } from '@cypherock/db-interfaces';
+import { IDatabase, IAccount, IKeyValueStore } from '@cypherock/db-interfaces';
 import { IDeviceConnection } from '@cypherock/sdk-interfaces';
 
 export enum CreateAccountDeviceEvent {
@@ -14,7 +14,7 @@ export interface ICreateAccountParams {
   walletId: string;
   coinId: string;
   waitInMSBetweenEachAccountAPI?: number;
-  accessToken?: string;
+  keyDB?: IKeyValueStore;
 }
 
 export type ICreateAccountEventType = 'Account' | 'Device';

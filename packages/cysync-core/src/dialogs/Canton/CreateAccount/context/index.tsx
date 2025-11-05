@@ -12,7 +12,6 @@ import {
 import { insertAccountIfNotExists } from '@cypherock/coin-support-utils';
 import { coinFamiliesMap } from '@cypherock/coins';
 import { IAccount, IWallet } from '@cypherock/db-interfaces';
-import { createSelector } from '@reduxjs/toolkit';
 import lodash from 'lodash';
 import React, {
   Context,
@@ -38,12 +37,11 @@ import {
 } from '~/hooks';
 import {
   closeDialog,
-  selectCantonAuthTokens,
   selectLanguage,
   useAppDispatch,
   useAppSelector,
 } from '~/store';
-import { getDB } from '~/utils';
+import { getDB, getKeyDB } from '~/utils';
 import logger from '~/utils/logger';
 
 import {
@@ -51,11 +49,6 @@ import {
   SuccessDialogComponent,
   AutomaticApprovalDialog,
 } from '../Dialogs';
-
-const selector = createSelector(
-  [selectLanguage, selectCantonAuthTokens],
-  (lang, cantonAuthTokens) => ({ lang, cantonAuthTokens }),
-);
 
 export interface CreateCantonAccountDialogContextInterface {
   tabs: ITabs;
@@ -95,7 +88,7 @@ export interface CreateCantonAccountDialogContextProviderProps
 export const CreateCantonAccountDialogProvider: FC<
   CreateCantonAccountDialogContextProviderProps
 > = ({ children, selectedAccount, selectedWallet }) => {
-  const { lang, cantonAuthTokens } = useAppSelector(selector);
+  const lang = useAppSelector(selectLanguage);
   const strings =
     lang.strings.dialogs.cantonDialogs.createCantonAccount.dialogs;
   const dispatch = useAppDispatch();
@@ -234,7 +227,7 @@ export const CreateCantonAccountDialogProvider: FC<
         db: getDB(),
         signedTransaction,
         transaction: txn,
-        accessToken: cantonAuthTokens?.accessToken ?? '',
+        keyDB: getKeyDB(),
       });
 
       await addSelectedAccount();
@@ -254,7 +247,7 @@ export const CreateCantonAccountDialogProvider: FC<
       const preparedTransaction =
         await currentCoinSupport.prepareExternalPartyTransaction({
           account: selectedAccount,
-          accessToken: cantonAuthTokens?.accessToken ?? '',
+          keyDB: getKeyDB(),
         });
       setTransaction(preparedTransaction);
     } catch (e: any) {

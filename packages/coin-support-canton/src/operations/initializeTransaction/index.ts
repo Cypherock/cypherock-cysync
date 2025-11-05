@@ -1,17 +1,11 @@
 import { IInitializeTransactionParams } from '@cypherock/coin-support-interfaces';
-import { getAccountAndCoin } from '@cypherock/coin-support-utils';
-import { cantonCoinList } from '@cypherock/coins';
 
-import { getFees } from '../../services';
 import { IPreparedCantonTransaction } from '../transaction';
 
 export const initializeTransaction = async (
   params: IInitializeTransactionParams,
 ): Promise<IPreparedCantonTransaction> => {
-  const { accountId, db } = params;
-  const { account } = await getAccountAndCoin(db, cantonCoinList, accountId);
-
-  const fees = await getFees(account.assetId);
+  const { accountId } = params;
 
   return {
     accountId,
@@ -29,7 +23,7 @@ export const initializeTransaction = async (
       isSendAll: false,
     },
     staticData: {
-      fees,
+      fees: '0',
     },
     computedData: {
       output: { address: '', amount: '0' },

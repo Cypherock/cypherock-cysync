@@ -11,12 +11,12 @@ import { prepareTransferPreApprovalTxn } from '../../services';
 export const prepareTransferPreApprovalTransaction = async (
   params: IPrepareCantonTransferPreApprovalTransactionParams,
 ): Promise<IPreparedCantonTransferPreApprovalTransaction> => {
-  const { accountId, db, accessToken } = params;
+  const { accountId, db, keyDB } = params;
   const { account } = await getAccountAndCoin(db, cantonCoinList, accountId);
 
   const preparedTransaction = await prepareTransferPreApprovalTxn(
     account.xpubOrAddress,
-    accessToken,
+    keyDB,
   );
 
   return {

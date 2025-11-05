@@ -9,7 +9,7 @@ import { broadcastTransactionToBlockchain } from '../../services';
 export const broadcastChoiceTransaction = async (
   params: IBroadcastCantonChoiceTransactionParams,
 ): Promise<void> => {
-  const { db, signedTransaction, transaction, accessToken } = params;
+  const { db, signedTransaction, transaction, keyDB } = params;
   const { account } = await getAccountAndCoin(
     db,
     cantonCoinList,
@@ -17,10 +17,12 @@ export const broadcastChoiceTransaction = async (
   );
 
   await broadcastTransactionToBlockchain(
-    hexToBase64(signedTransaction),
-    hexToBase64(account.extraData?.publicKey ?? ''),
-    account.xpubOrAddress,
-    transaction.computedData.preparedTransaction,
-    accessToken,
+    {
+      partyId: account.xpubOrAddress,
+      signature: hexToBase64(signedTransaction),
+      publicKey: hexToBase64(account.extraData?.publicKey ?? ''),
+      preparedTransaction: transaction.computedData.preparedTransaction,
+    },
+    keyDB,
   );
 };

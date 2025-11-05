@@ -7,11 +7,13 @@ import { broadcastExternalPartyTransactionToBlockchain } from '../../services';
 export const broadcastExternalPartyTransaction = async (
   params: IBroadcastCantonExternalPartyTransactionParams,
 ): Promise<void> => {
-  const { signedTransaction, transaction, accessToken } = params;
+  const { signedTransaction, transaction, keyDB } = params;
 
   await broadcastExternalPartyTransactionToBlockchain(
-    hexToBase64(signedTransaction),
-    transaction.computedData.preparedTransaction,
-    accessToken,
+    {
+      signature: hexToBase64(signedTransaction),
+      preparedParty: transaction.computedData.preparedTransaction,
+    },
+    keyDB,
   );
 };

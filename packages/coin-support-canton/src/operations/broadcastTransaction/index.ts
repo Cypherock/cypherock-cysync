@@ -9,7 +9,7 @@ import {
   TransactionStatusMap,
   TransactionTypeMap,
 } from '@cypherock/db-interfaces';
-import { hexToUint8Array, uint8ArrayToBase64 } from '@cypherock/sdk-utils';
+import { hexToBase64 } from '@cypherock/sdk-utils';
 
 import { IBroadcastCantonTransactionParams } from './types';
 
@@ -18,7 +18,7 @@ import { broadcastTransactionToBlockchain } from '../../services';
 export const broadcastTransaction = async (
   params: IBroadcastCantonTransactionParams,
 ): Promise<ITransaction> => {
-  const { db, signedTransaction, transaction, accessToken } = params;
+  const { db, signedTransaction, transaction, keyDB } = params;
   const { account } = await getAccountAndCoin(
     db,
     cantonCoinList,
@@ -29,11 +29,13 @@ export const broadcastTransaction = async (
   const isMine = params.transaction.computedData.output.address === myAddress;
 
   const result = await broadcastTransactionToBlockchain(
-    uint8ArrayToBase64(hexToUint8Array(signedTransaction)),
-    uint8ArrayToBase64(hexToUint8Array(account.extraData?.publicKey ?? '')),
-    myAddress,
-    transaction.computedData.preparedTransaction,
-    accessToken,
+    {
+      partyId: myAddress,
+      signature: hexToBase64(signedTransaction),
+      publicKey: hexToBase64(account.extraData?.publicKey ?? ''),
+      preparedTransaction: transaction.computedData.preparedTransaction,
+    },
+    keyDB,
   );
 
   const parsedTransaction: ITransaction = {

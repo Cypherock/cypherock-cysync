@@ -7,6 +7,7 @@ import {
 import {
   IAccount,
   IDatabase,
+  IKeyValueStore,
   ITransaction,
   TransactionStatus,
   TransactionStatusMap,
@@ -182,16 +183,17 @@ const fetchAndParseTransactions = async (params: {
   account: IAccount;
   afterOffset?: number;
   db: IDatabase;
-  accessToken: string;
+  keyDB?: IKeyValueStore;
 }) => {
-  const { partyId, account, afterOffset, db, accessToken } = params;
+  const { partyId, account, afterOffset, db, keyDB } = params;
 
-  const response = await services.getTransactions({
-    partyId,
-    assetId: account.assetId,
-    afterOffset,
-    accessToken,
-  });
+  const response = await services.getTransactions(
+    {
+      partyId,
+      afterOffset,
+    },
+    keyDB,
+  );
 
   const transactions: ITransaction[] = [];
   for (const rawTransaction of response.transactions) {
@@ -203,11 +205,12 @@ const fetchAndParseTransactions = async (params: {
   const { hasMore, nextOffset } = response;
 
   if (!hasMore) {
-    const pendingTransactions = await services.getPendingTransactions({
-      partyId,
-      assetId: account.assetId,
-      accessToken,
-    });
+    const pendingTransactions = await services.getPendingTransactions(
+      {
+        partyId,
+      },
+      keyDB,
+    );
 
     const resultPendingTxns: ITransaction[] = [];
     for (const rawTransaction of pendingTransactions) {
@@ -234,20 +237,16 @@ const getAddressDetails: IGetAddressDetails<{
   afterOffset?: number;
   updatedBalance?: string;
   updatedTransferPreApprovalStatus?: boolean;
-}> = async ({ db, account, iterationContext, accessToken }) => {
+}> = async ({ db, account, iterationContext, keyDB }) => {
   const partyId = account.xpubOrAddress;
 
   const updatedBalance =
     iterationContext?.updatedBalance ??
-    (await services.getBalance(partyId, account.assetId, accessToken ?? ''));
+    (await services.getBalance(partyId, keyDB));
 
   const updatedTransferPreApprovalStatus =
     iterationContext?.updatedTransferPreApprovalStatus ??
-    (await services.isTransferPreApprovalEnabled(
-      partyId,
-      account.assetId,
-      accessToken ?? '',
-    ));
+    (await services.isTransferPreApprovalEnabled(partyId, keyDB));
 
   const afterOffset =
     iterationContext?.afterOffset ??
@@ -262,7 +261,7 @@ const getAddressDetails: IGetAddressDetails<{
       account,
       afterOffset,
       db,
-      accessToken: accessToken ?? '',
+      keyDB,
     },
   );
 

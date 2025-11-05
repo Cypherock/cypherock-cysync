@@ -109,17 +109,12 @@ const getBalanceAndTxnCount = async (
   const partyId = await derivePartyId(hexToUint8Array(publicKey));
   const isAccountCreated = await services.getIsAccountCreated(
     partyId,
-    params.coinId,
-    params.accessToken ?? '',
+    params.keyDB,
   );
 
   if (isAccountCreated) {
     return {
-      balance: await services.getBalance(
-        partyId,
-        params.coinId,
-        params.accessToken ?? '',
-      ),
+      balance: await services.getBalance(partyId, params.keyDB),
       txnCount: 1,
     };
   }

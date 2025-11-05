@@ -45,7 +45,7 @@ import {
   useAppDispatch,
   useAppSelector,
 } from '~/store';
-import { getDB } from '~/utils';
+import { getDB, getKeyDB } from '~/utils';
 import logger from '~/utils/logger';
 
 import {
@@ -446,7 +446,7 @@ export const AddAccountDialogProvider: FC<
         connection: deviceConnection,
         db: getDB(),
         coinId: selectedCoin.id,
-        accessToken: cantonAuthTokens?.accessToken,
+        keyDB: getKeyDB(),
       })
       .subscribe(getAddAccountObserver(onEnd));
 

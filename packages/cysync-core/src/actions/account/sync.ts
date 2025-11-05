@@ -20,7 +20,7 @@ import {
   setSyncError,
   updateAccountSyncMap,
 } from '~/store';
-import { getDB, keyValueStore } from '~/utils';
+import { getDB, getKeyDB } from '~/utils';
 
 const updateSwapReceiveTransactions = async () => {
   const db = getDB();
@@ -98,10 +98,8 @@ export const syncAccounts = createAsyncThunk<
   async (
     { accounts: allAccounts, isSyncAll, currency },
     { dispatch, getState },
-  ) => {
-    const accessToken = (await keyValueStore.cantonAuthTokens.get())
-      ?.accessToken;
-    return new Promise<void>(resolve => {
+  ) =>
+    new Promise<void>(resolve => {
       const unhiddenAccounts = allAccounts.filter(a => !a.isHidden);
 
       if (!getState().network.active) {
@@ -177,10 +175,9 @@ export const syncAccounts = createAsyncThunk<
         db: getDB(),
         accounts: unhiddenAccounts,
         currency,
-        accessToken,
+        keyDB: getKeyDB(),
       }).subscribe(observer);
-    });
-  },
+    }),
 );
 
 export const syncAllAccounts =

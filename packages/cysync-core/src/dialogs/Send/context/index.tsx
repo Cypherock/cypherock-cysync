@@ -47,7 +47,6 @@ import {
   ITransaction,
   IWallet,
 } from '@cypherock/db-interfaces';
-import { createSelector } from '@reduxjs/toolkit';
 import lodash from 'lodash';
 import React, {
   Context,
@@ -83,13 +82,12 @@ import {
 import { analyticsService, ANALYTICS_EVENTS } from '~/services/analytics';
 import {
   closeDialog,
-  selectCantonAuthTokens,
   selectCurrentCurrencyPriceInfos,
   selectLanguage,
   useAppDispatch,
   useAppSelector,
 } from '~/store';
-import { getDB } from '~/utils';
+import { getDB, getKeyDB } from '~/utils';
 import logger from '~/utils/logger';
 
 import {
@@ -99,11 +97,6 @@ import {
   SelectionDialog,
   DeviceAction,
 } from '../Dialogs';
-
-const selector = createSelector(
-  [selectLanguage, selectCantonAuthTokens],
-  (lang, cantonAuthTokens) => ({ lang, cantonAuthTokens }),
-);
 
 export interface SendDialogContextInterface {
   source: SendFlowSource;
@@ -216,7 +209,7 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
   validTill,
   providerName,
 }) => {
-  const { lang, cantonAuthTokens } = useAppSelector(selector);
+  const lang = useAppSelector(selectLanguage);
   const dispatch = useAppDispatch();
   const { currentCurrency } = useCurrency();
   const priceInfos = useAppSelector(state =>
@@ -409,7 +402,7 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
         db: getDB(),
         signedTransaction,
         transaction: txn,
-        accessToken: cantonAuthTokens?.accessToken,
+        keyDB: getKeyDB(),
       });
 
       if (isWalletConnectRequest) {
@@ -531,7 +524,7 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
           accountId: selectedAccount?.__id ?? '',
           db: getDB(),
           txn,
-          accessToken: cantonAuthTokens?.accessToken,
+          keyDB: getKeyDB(),
         });
 
       setTransaction(structuredClone(preparedTransaction));

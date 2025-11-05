@@ -1,7 +1,6 @@
-// import { cantonCoinList } from '@cypherock/coins';
-import { makePostRequest } from '@cypherock/cysync-utils';
+import { IKeyValueStore } from '@cypherock/db-interfaces';
 
-import { getRequestOptions } from './common';
+import { makePostRequestWithAuthTokenConfig } from './common';
 
 import { config } from '../../config';
 
@@ -9,18 +8,13 @@ const baseURL = `${config.API_CYPHEROCK}/canton/wallet`;
 
 export const getBalance = async (
   partyId: string,
-  assetId: string,
-  accessToken: string,
+  keyDB?: IKeyValueStore,
 ): Promise<string> => {
-  console.log(`Getting Balance for ${partyId}:${assetId}`);
   const url = `${baseURL}/balance`;
-  const response = await makePostRequest(
-    url,
-    {
-      partyId,
-    },
-    getRequestOptions(accessToken),
-  );
+  const data = {
+    partyId,
+  };
+  const response = await makePostRequestWithAuthTokenConfig(url, data, keyDB);
 
   let balance = response.data?.balance ?? '0';
 
@@ -34,19 +28,14 @@ export const getBalance = async (
 
 export const getIsAccountCreated = async (
   partyId: string,
-  assetId: string,
-  accessToken: string,
+  keyDB?: IKeyValueStore,
 ): Promise<boolean> => {
   try {
-    console.log(`Getting Is Account Created for ${partyId}:${assetId}`);
     const url = `${baseURL}/balance`;
-    const response = await makePostRequest(
-      url,
-      {
-        partyId,
-      },
-      getRequestOptions(accessToken),
-    );
+    const data = {
+      partyId,
+    };
+    const response = await makePostRequestWithAuthTokenConfig(url, data, keyDB);
 
     if (!response.data?.balance) return false;
     return true;
@@ -58,18 +47,13 @@ export const getIsAccountCreated = async (
 
 export const isTransferPreApprovalEnabled = async (
   partyId: string,
-  assetId: string,
-  accessToken: string,
+  keyDB?: IKeyValueStore,
 ): Promise<boolean> => {
-  console.log(`Getting Balance for ${partyId}:${assetId}`);
   const url = `${baseURL}/transfer-preapproval-status`;
-  const response = await makePostRequest(
-    url,
-    {
-      partyId,
-    },
-    getRequestOptions(accessToken),
-  );
+  const data = {
+    partyId,
+  };
+  const response = await makePostRequestWithAuthTokenConfig(url, data, keyDB);
 
   return (
     response.data?.receiverId === partyId &&

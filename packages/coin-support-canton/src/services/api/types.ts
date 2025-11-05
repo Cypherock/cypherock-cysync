@@ -1,7 +1,5 @@
-export interface ICantonTransactionParams {
-  accessToken: string;
+export interface ICantonTransactionHistoryParams {
   partyId: string;
-  assetId: string;
   afterOffset?: number;
 }
 
@@ -42,9 +40,39 @@ export interface ICantonTransactionResult {
   nextOffset?: number;
 }
 
+export interface ICantonPrepareExternalPartyTxnParams {
+  publicKey: string;
+  partyId: string;
+}
+
 export interface ICantonPrepareExternalPartyTxnResult {
   partyId: string;
   publicKeyFingerprint: string;
   multiHash: string;
   topologyTransactions: string[];
+}
+
+export interface ICantonBroadcastExternalPartyTxnParams {
+  signature: string;
+  preparedParty: ICantonPrepareExternalPartyTxnResult;
+}
+
+export interface ICantonPrepareSendTxnParams {
+  partyId: string;
+  receiverPartyId: string;
+  amount: string;
+  memo?: string;
+  expiryDate?: string;
+}
+
+export interface ICantonPrepareChoiceTxnParams {
+  partyId: string;
+  transferContractId: string;
+}
+
+export interface ICantonBroadcastTxnParams {
+  partyId: string;
+  signature: string;
+  publicKey: string;
+  preparedTransaction: any;
 }

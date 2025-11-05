@@ -1,4 +1,4 @@
-import axios, { AxiosRequestConfig } from 'axios';
+import axios, { AxiosError, AxiosRequestConfig, HttpStatusCode } from 'axios';
 import Zod from 'zod';
 
 import { sleep } from './sleep';
@@ -6,13 +6,24 @@ import { sleep } from './sleep';
 export interface MakeRequestOptions {
   maxTries?: number;
   waitInMSBetweenEachAPIRetry?: number;
-  config?: AxiosRequestConfig;
+}
+
+export interface AuthTokenConfig {
+  accessToken: string;
+  refreshTokenConfig?: RefreshTokenConfig;
+}
+
+export interface RefreshTokenConfig {
+  refreshToken: string;
+  refreshTokenUrl: string;
+  updateAccessToken: (newAccessToken: string) => Promise<void>;
 }
 
 export const makePostRequest = async (
   url: string,
   data?: Record<string, any>,
   options?: MakeRequestOptions,
+  config?: AxiosRequestConfig,
 ) => {
   let tries = 0;
   let doRetry = false;
@@ -29,7 +40,7 @@ export const makePostRequest = async (
         await sleep(nextWaitTime);
       }
 
-      const response = await axios.post(url, data, options?.config);
+      const response = await axios.post(url, data, config);
 
       if (
         response.data.message === 'NOTOK' &&
@@ -68,3 +79,52 @@ export async function makePostRequestWithValidation<T>(
   const result = schema.parse(response.data);
   return result;
 }
+
+export const makePostRequestWithAuth = async (
+  url: string,
+  data?: Record<string, any>,
+  authTokenConfig?: AuthTokenConfig,
+  options?: MakeRequestOptions,
+) => {
+  let result;
+  try {
+    result = await makePostRequest(
+      url,
+      data,
+      options,
+      authTokenConfig?.accessToken
+        ? {
+            headers: {
+              Authorization: `Bearer ${authTokenConfig?.accessToken}`,
+            },
+          }
+        : undefined,
+    );
+  } catch (error) {
+    const { refreshTokenConfig } = authTokenConfig ?? {};
+    if (!refreshTokenConfig || !(error as any).isAxiosError) throw error;
+
+    const axiosError = error as AxiosError;
+    if (axiosError.response?.status !== HttpStatusCode.Unauthorized)
+      throw error;
+
+    let newAccessToken = '';
+    const refreshTokenResponse = await makePostRequest(
+      refreshTokenConfig.refreshTokenUrl,
+      {
+        refreshToken: refreshTokenConfig.refreshToken,
+      },
+    );
+
+    newAccessToken = refreshTokenResponse.data.accessToken;
+    if (!newAccessToken) throw error;
+
+    await refreshTokenConfig.updateAccessToken(newAccessToken);
+    result = await makePostRequest(url, data, options, {
+      headers: {
+        Authorization: `Bearer ${newAccessToken}`,
+      },
+    });
+  }
+  return result;
+};

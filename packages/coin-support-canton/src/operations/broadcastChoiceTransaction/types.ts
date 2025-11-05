@@ -5,5 +5,4 @@ import { IPreparedCantonTransaction } from '../transaction';
 export interface IBroadcastCantonChoiceTransactionParams
   extends IBroadcastTransactionParams<string> {
   transaction: IPreparedCantonTransaction;
-  accessToken: string;
 }

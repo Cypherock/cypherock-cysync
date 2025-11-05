@@ -27,7 +27,7 @@ const validateAddresses = async (
     if (
       output.address &&
       !validateAddress({ address: output.address, coinId: coin.id }) &&
-      !(await getIsAccountCreated(output.address, coin.id, params.accessToken))
+      !(await getIsAccountCreated(output.address, params.keyDB))
     ) {
       isValid = false;
     }
@@ -41,7 +41,7 @@ const validateAddresses = async (
 export const prepareTransaction = async (
   params: IPrepareCantonTransactionParams,
 ): Promise<IPreparedCantonTransaction> => {
-  const { accountId, db, txn, accessToken } = params;
+  const { accountId, db, txn, keyDB } = params;
   const { account, coin } = await getAccountAndCoin(
     db,
     cantonCoinList,
@@ -118,12 +118,14 @@ export const prepareTransaction = async (
   // prepare send transaction if all validations are passed
   if (isValidInputs) {
     preparedTransaction = await prepareSendTransaction(
-      accessToken,
-      account.xpubOrAddress,
-      output.address,
-      output.amount,
-      output.memo,
-      output.expiryDate,
+      {
+        partyId: account.xpubOrAddress,
+        receiverPartyId: output.address,
+        amount: output.amount,
+        memo: output.memo,
+        expiryDate: output.expiryDate,
+      },
+      keyDB,
     );
   }
 

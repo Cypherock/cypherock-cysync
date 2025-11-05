@@ -38,14 +38,13 @@ import {
 } from '~/hooks';
 import {
   closeDialog,
-  selectCantonAuthTokens,
   selectLanguage,
   selectUnHiddenAccounts,
   selectWallets,
   useAppDispatch,
   useAppSelector,
 } from '~/store';
-import { getDB } from '~/utils';
+import { getDB, getKeyDB } from '~/utils';
 import logger from '~/utils/logger';
 
 import { DeviceAction, SuccessDialogComponent } from '../Dialogs';
@@ -102,15 +101,9 @@ export interface TransactionActionDialogContextProviderProps
 }
 
 const selector = createSelector(
-  [
-    selectLanguage,
-    selectCantonAuthTokens,
-    selectWallets,
-    selectUnHiddenAccounts,
-  ],
-  (lang, cantonAuthTokens, { wallets }, { accounts }) => ({
+  [selectLanguage, selectWallets, selectUnHiddenAccounts],
+  (lang, { wallets }, { accounts }) => ({
     lang,
-    cantonAuthTokens,
     wallets,
     accounts,
   }),
@@ -119,8 +112,7 @@ const selector = createSelector(
 export const TransactionActionDialogProvider: FC<
   TransactionActionDialogContextProviderProps
 > = ({ children, selectedTransaction, transactionActionType }) => {
-  const { lang, cantonAuthTokens, wallets, accounts } =
-    useAppSelector(selector);
+  const { lang, wallets, accounts } = useAppSelector(selector);
   const strings = lang.strings.dialogs.cantonDialogs.transactionAction.dialogs;
   const dispatch = useAppDispatch();
   const deviceRequiredDialogsMap: Record<number, number[] | undefined> =
@@ -229,7 +221,7 @@ export const TransactionActionDialogProvider: FC<
         db: getDB(),
         signedTransaction,
         transaction: txn,
-        accessToken: cantonAuthTokens?.accessToken ?? '',
+        keyDB: getKeyDB(),
       });
 
       onNext();
@@ -255,7 +247,7 @@ export const TransactionActionDialogProvider: FC<
           db: getDB(),
           txn: selectedTransaction,
           choice: transactionActionToChoiceMap[transactionActionType],
-          accessToken: cantonAuthTokens?.accessToken ?? '',
+          keyDB: getKeyDB(),
         });
       setTransaction(preparedTransaction);
     } catch (e: any) {

@@ -1,12 +1,17 @@
-// import { cantonCoinList } from '@cypherock/coins';
-import { makePostRequest, assert } from '@cypherock/cysync-utils';
+import { assert } from '@cypherock/cysync-utils';
+import { IKeyValueStore } from '@cypherock/db-interfaces';
 
-import { getRequestOptions } from './common';
+import { makePostRequestWithAuthTokenConfig } from './common';
 import {
   ICantonPendingResponseTransaction,
   ICantonPrepareExternalPartyTxnResult,
-  ICantonTransactionParams,
+  ICantonPrepareSendTxnParams,
+  ICantonPrepareChoiceTxnParams,
+  ICantonTransactionHistoryParams,
   ICantonTransactionResult,
+  ICantonBroadcastTxnParams,
+  ICantonPrepareExternalPartyTxnParams,
+  ICantonBroadcastExternalPartyTxnParams,
 } from './types';
 
 import { config } from '../../config';
@@ -14,21 +19,16 @@ import { config } from '../../config';
 const baseURL = `${config.API_CYPHEROCK}/canton/transaction`;
 
 export const getTransactions = async (
-  params: ICantonTransactionParams,
+  params: ICantonTransactionHistoryParams,
+  keyDB?: IKeyValueStore,
 ): Promise<ICantonTransactionResult> => {
   const url = `${baseURL}/history`;
 
   const query: Record<string, any> = {
     ...params,
   };
-  delete query.assetId;
-  delete query.accessToken;
 
-  const response = await makePostRequest(
-    url,
-    query,
-    getRequestOptions(params.accessToken),
-  );
+  const response = await makePostRequestWithAuthTokenConfig(url, query, keyDB);
 
   assert(
     typeof response.data?.transactions === 'object',
@@ -39,21 +39,16 @@ export const getTransactions = async (
 };
 
 export const getPendingTransactions = async (
-  params: ICantonTransactionParams,
+  params: ICantonTransactionHistoryParams,
+  keyDB?: IKeyValueStore,
 ): Promise<ICantonPendingResponseTransaction[]> => {
   const url = `${baseURL}/history/pending`;
   const query: Record<string, any> = {
     ...params,
   };
-  delete query.assetId;
   delete query.nextOffset;
-  delete query.accessToken;
 
-  const response = await makePostRequest(
-    url,
-    query,
-    getRequestOptions(params.accessToken),
-  );
+  const response = await makePostRequestWithAuthTokenConfig(url, query, keyDB);
 
   assert(
     typeof response.data?.transactions === 'object',
@@ -63,46 +58,12 @@ export const getPendingTransactions = async (
   return response.data.transactions;
 };
 
-export const getFees = async (assetId: string) => {
-  console.log(`Getting fees for ${assetId}`);
-  // const url = `${baseURL}/fees`;
-
-  // const query: Record<string, any> = {
-  //   network: cantonCoinList[assetId].network,
-  // };
-
-  // const response = await makePostRequest(url, query);
-
-  // let fees = response.data?.fees?.minimum_fee ?? '10';
-
-  // if (typeof fees === 'number') fees = fees.toString();
-
-  // if (typeof fees !== 'string')
-  //   throw new Error('Invalid canton fees returned from server');
-
-  return '0';
-};
-
 export const prepareSendTransaction = async (
-  accessToken: string,
-  senderPartyId: string,
-  receiverPartyId: string,
-  amount: string,
-  memo?: string,
-  expiryDate?: string,
+  params: ICantonPrepareSendTxnParams,
+  keyDB?: IKeyValueStore,
 ): Promise<any> => {
   const url = `${baseURL}/prepare/send`;
-  const response = await makePostRequest(
-    url,
-    {
-      partyId: senderPartyId,
-      receiverPartyId,
-      amount,
-      memo,
-      expiryDate,
-    },
-    getRequestOptions(accessToken),
-  );
+  const response = await makePostRequestWithAuthTokenConfig(url, params, keyDB);
 
   assert(
     !response.data.error &&
@@ -115,20 +76,12 @@ export const prepareSendTransaction = async (
 };
 
 export const prepareChoiceTxn = async (
-  partyId: string,
-  transferContractId: string,
   choice: string,
-  accessToken: string,
+  params: ICantonPrepareChoiceTxnParams,
+  keyDB?: IKeyValueStore,
 ): Promise<any> => {
   const url = `${baseURL}/prepare/${choice.toLowerCase()}`;
-  const response = await makePostRequest(
-    url,
-    {
-      partyId,
-      transferContractId,
-    },
-    getRequestOptions(accessToken),
-  );
+  const response = await makePostRequestWithAuthTokenConfig(url, params, keyDB);
 
   assert(
     !response.data.error &&
@@ -142,16 +95,13 @@ export const prepareChoiceTxn = async (
 
 export const prepareTransferPreApprovalTxn = async (
   partyId: string,
-  accessToken: string,
+  keyDB?: IKeyValueStore,
 ): Promise<any> => {
   const url = `${baseURL}/prepare/transfer-preapproval`;
-  const response = await makePostRequest(
-    url,
-    {
-      partyId,
-    },
-    getRequestOptions(accessToken),
-  );
+  const data = {
+    partyId,
+  };
+  const response = await makePostRequestWithAuthTokenConfig(url, data, keyDB);
 
   assert(
     !response.data.error &&
@@ -164,23 +114,11 @@ export const prepareTransferPreApprovalTxn = async (
 };
 
 export const broadcastTransactionToBlockchain = async (
-  signature: string,
-  publicKey: string,
-  partyId: string,
-  preparedTransaction: any,
-  accessToken: string,
+  params: ICantonBroadcastTxnParams,
+  keyDB?: IKeyValueStore,
 ): Promise<any> => {
   const url = `${baseURL}/broadcast`;
-  const response = await makePostRequest(
-    url,
-    {
-      signature,
-      publicKey,
-      partyId,
-      preparedTransaction,
-    },
-    getRequestOptions(accessToken),
-  );
+  const response = await makePostRequestWithAuthTokenConfig(url, params, keyDB);
 
   assert(
     !response.data.error,
@@ -191,19 +129,11 @@ export const broadcastTransactionToBlockchain = async (
 };
 
 export const prepareExternalPartyTxn = async (
-  publicKey: string,
-  partyId: string,
-  accessToken: string,
+  params: ICantonPrepareExternalPartyTxnParams,
+  keyDB?: IKeyValueStore,
 ): Promise<ICantonPrepareExternalPartyTxnResult> => {
   const url = `${baseURL}/prepare/external-party`;
-  const response = await makePostRequest(
-    url,
-    {
-      publicKey,
-      partyId,
-    },
-    getRequestOptions(accessToken),
-  );
+  const response = await makePostRequestWithAuthTokenConfig(url, params, keyDB);
 
   assert(
     !response.data.error && response.data.topologyTransactions,
@@ -214,19 +144,11 @@ export const prepareExternalPartyTxn = async (
 };
 
 export const broadcastExternalPartyTransactionToBlockchain = async (
-  signature: string,
-  preparedParty: ICantonPrepareExternalPartyTxnResult,
-  accessToken: string,
+  params: ICantonBroadcastExternalPartyTxnParams,
+  keyDB?: IKeyValueStore,
 ): Promise<any> => {
   const url = `${baseURL}/broadcast/external-party`;
-  const response = await makePostRequest(
-    url,
-    {
-      signature,
-      preparedParty,
-    },
-    getRequestOptions(accessToken),
-  );
+  const response = await makePostRequestWithAuthTokenConfig(url, params, keyDB);
 
   assert(
     !response.data.error,

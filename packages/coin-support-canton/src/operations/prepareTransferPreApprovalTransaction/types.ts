@@ -1,10 +1,10 @@
 import { IPreparedTransaction } from '@cypherock/coin-support-interfaces';
-import { IDatabase } from '@cypherock/db-interfaces';
+import { IDatabase, IKeyValueStore } from '@cypherock/db-interfaces';
 
 export interface IPrepareCantonTransferPreApprovalTransactionParams {
   accountId: string;
   db: IDatabase;
-  accessToken: string;
+  keyDB: IKeyValueStore;
 }
 
 export interface IPreparedCantonTransferPreApprovalTransaction
