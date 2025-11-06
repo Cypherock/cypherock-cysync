@@ -81,15 +81,6 @@ export const DeviceAction: React.FC = () => {
           <CoinIcon parentAssetId={selectedAccount?.parentAssetId ?? ''} />
         ),
       },
-      {
-        id: '4',
-        leftImage: rightArrowIcon,
-        text: displayText.actions.verifyDetails,
-        rightImage: getDeviceEventIcon(
-          SignTransactionDeviceEvent.CONFIRMED,
-          SignTransactionDeviceEvent.VERIFIED,
-        ),
-      },
     ];
 
     if (selectedWallet?.hasPassphrase) {
