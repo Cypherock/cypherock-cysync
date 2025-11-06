@@ -1,4 +1,7 @@
-import { getAccountAndCoin } from '@cypherock/coin-support-utils';
+import {
+  getAccountAndCoin,
+  updateAccount,
+} from '@cypherock/coin-support-utils';
 import { cantonCoinList } from '@cypherock/coins';
 import { hexToBase64 } from '@cypherock/sdk-utils';
 
@@ -25,4 +28,8 @@ export const broadcastTransferPreApprovalTransaction = async (
     },
     keyDB,
   );
+
+  await updateAccount(db, account.__id, {
+    extraData: { ...account.extraData, isTransferPreApprovalEnabled: true },
+  });
 };
