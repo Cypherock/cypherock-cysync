@@ -1,3 +1,4 @@
+import { IPreparedCantonTransaction } from '@cypherock/coin-support-canton';
 import { IPreparedIcpTransaction } from '@cypherock/coin-support-icp';
 import {
   IPreparedStellarTransaction,
@@ -328,7 +329,30 @@ export const SummaryDialog: React.FC = () => {
       }
     }
 
+    if (selectedAccount?.familyId === coinFamiliesMap.canton) {
+      const cantonTxn = transaction as IPreparedCantonTransaction;
+      return cantonTxn.userInputs.outputs
+        .filter(output => output.memo !== undefined && output.memo !== '')
+        .map((output, index) => ({
+          id: `memo-${cantonTxn.accountId}-${index}`,
+          leftText: displayText.memo,
+          rightText: output.memo,
+        }));
+    }
+
     return [];
+  };
+
+  const getExpirationDateDetails = () => {
+    if (!transaction || !transaction.userInputs.outputs) return [];
+    const cantonTxn = transaction as IPreparedCantonTransaction;
+    return cantonTxn.userInputs.outputs
+      .filter(output => output.expiry !== undefined && output.expiry.key)
+      .map((output, index) => ({
+        id: `expiry-${cantonTxn.accountId}-${index}`,
+        leftText: displayText.expirationDate,
+        rightText: output.expiry?.key,
+      }));
   };
 
   const isSingleTransaction = transaction?.userInputs.outputs.length === 1;
@@ -365,9 +389,10 @@ export const SummaryDialog: React.FC = () => {
                 transaction.userInputs.outputs[0].remarks
                   ? [...getTransactionRemarks(), { isDivider: true, id: '5' }]
                   : []),
-
                 ...getFeeDetails(),
                 { isDivider: true, id: '6' },
+                ...getExpirationDateDetails(),
+                { isDivider: true, id: '7' },
                 ...getTotalAmount(),
               ]}
             />

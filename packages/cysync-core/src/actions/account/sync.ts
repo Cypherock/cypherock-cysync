@@ -20,7 +20,7 @@ import {
   setSyncError,
   updateAccountSyncMap,
 } from '~/store';
-import { getDB } from '~/utils';
+import { getDB, getKeyDB } from '~/utils';
 
 const updateSwapReceiveTransactions = async () => {
   const db = getDB();
@@ -175,6 +175,7 @@ export const syncAccounts = createAsyncThunk<
         db: getDB(),
         accounts: unhiddenAccounts,
         currency,
+        keyDB: getKeyDB(),
       }).subscribe(observer);
     }),
 );

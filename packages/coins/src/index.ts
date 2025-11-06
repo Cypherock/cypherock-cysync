@@ -1,5 +1,6 @@
 export * from './aggregate';
 export * from './btc';
+export * from './canton';
 export * from './evm';
 export * from './near';
 export * from './solana';

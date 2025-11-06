@@ -37,6 +37,9 @@ export const serverErrorCodeMap: Record<number, ServerErrorType | undefined> = {
   1024: ServerErrorType.INVALID_DEVICE,
   1025: ServerErrorType.INVALID_PRIVATE_KEY,
   1026: ServerErrorType.ACTIVE_PLAN_FOUND,
+  1100: ServerErrorType.MAX_DAILY_USER_REGISTRATIONS_EXCEEDED,
+  1101: ServerErrorType.MAX_PARTIES_PER_USER_EXCEEDED,
+  1102: ServerErrorType.USER_NOT_ELIGIBLE_FOR_PARTY_CREATION,
 };
 
 export type Only<T, U> = {

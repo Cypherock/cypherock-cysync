@@ -38,6 +38,13 @@ export const FinalMessage: React.FC = () => {
     onClose();
   };
 
+  let transactionHashLabel = displayText.hashLabel;
+  if (storedTransaction?.familyId === coinFamiliesMap.icp) {
+    transactionHashLabel = displayText.idLabel;
+  } else if (storedTransaction?.familyId === coinFamiliesMap.canton) {
+    transactionHashLabel = displayText.updateIdLabel;
+  }
+
   return (
     <DialogBox width={500} align="center">
       <ConfettiBlast />
@@ -56,13 +63,7 @@ export const FinalMessage: React.FC = () => {
                 <Flex justify="space-between" align="center" width="full">
                   <Flex align="center" gap={16}>
                     <Typography variant="span" color="muted" $fontSize={14}>
-                      <LangDisplay
-                        text={
-                          storedTransaction?.familyId === coinFamiliesMap.icp
-                            ? displayText.idLabel
-                            : displayText.hashLabel
-                        }
-                      />
+                      <LangDisplay text={transactionHashLabel} />
                     </Typography>
                   </Flex>
                   <Flex align="center" direction="row" gap={8}>

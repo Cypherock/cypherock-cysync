@@ -156,8 +156,8 @@ importers:
         specifier: ^0.0.16
         version: 0.0.16
       '@cypherock/sdk-utils':
-        specifier: ^0.0.20
-        version: 0.0.20
+        specifier: ^0.0.21
+        version: 0.0.21
       '@inquirer/checkbox':
         specifier: ^1.3.5
         version: 1.3.5
@@ -525,8 +525,8 @@ importers:
         specifier: ^0.0.16
         version: 0.0.16
       '@cypherock/sdk-utils':
-        specifier: ^0.0.20
-        version: 0.0.20
+        specifier: ^0.0.21
+        version: 0.0.21
       lodash:
         specifier: ^4.17.21
         version: 4.17.21
@@ -685,6 +685,9 @@ importers:
       '@cypherock/coin-support-btc':
         specifier: workspace:^
         version: link:../coin-support-btc
+      '@cypherock/coin-support-canton':
+        specifier: workspace:^
+        version: link:../coin-support-canton
       '@cypherock/coin-support-evm':
         specifier: workspace:^
         version: link:../coin-support-evm
@@ -798,8 +801,8 @@ importers:
         specifier: ^0.0.16
         version: 0.0.16
       '@cypherock/sdk-utils':
-        specifier: ^0.0.20
-        version: 0.0.20
+        specifier: ^0.0.21
+        version: 0.0.21
       axios:
         specifier: ^1.4.0
         version: 1.4.0
@@ -874,6 +877,97 @@ importers:
         specifier: ^4.9.5
         version: 4.9.5
 
+  packages/coin-support-canton:
+    dependencies:
+      '@cypherock/coin-support-interfaces':
+        specifier: workspace:^
+        version: link:../coin-support-interfaces
+      '@cypherock/coin-support-utils':
+        specifier: workspace:^
+        version: link:../coin-support-utils
+      '@cypherock/coins':
+        specifier: workspace:^
+        version: link:../coins
+      '@cypherock/cysync-interfaces':
+        specifier: workspace:^
+        version: link:../interfaces
+      '@cypherock/cysync-utils':
+        specifier: workspace:^
+        version: link:../utils
+      '@cypherock/db-interfaces':
+        specifier: workspace:^
+        version: link:../db-interfaces
+      '@cypherock/sdk-app-canton':
+        specifier: ^1.0.0
+        version: 1.0.0
+      '@cypherock/sdk-interfaces':
+        specifier: ^0.0.16
+        version: 0.0.16
+      '@cypherock/sdk-utils':
+        specifier: ^0.0.21
+        version: 0.0.21
+      lodash:
+        specifier: ^4.17.21
+        version: 4.17.21
+      rxjs:
+        specifier: ^7.8.1
+        version: 7.8.1
+    devDependencies:
+      '@cypherock/eslint-config':
+        specifier: workspace:^
+        version: link:../util-eslint-config
+      '@cypherock/jest-config':
+        specifier: workspace:^
+        version: link:../util-jest-config
+      '@cypherock/prettier-config':
+        specifier: workspace:^
+        version: link:../util-prettier-config
+      '@cypherock/tsconfig':
+        specifier: workspace:^
+        version: link:../util-tsconfig
+      '@jest/globals':
+        specifier: ^29.5.0
+        version: 29.5.0
+      '@stryker-mutator/core':
+        specifier: ^7.0.2
+        version: 7.0.2
+      '@stryker-mutator/jest-runner':
+        specifier: ^7.0.2
+        version: 7.0.2(@stryker-mutator/core@7.0.2)
+      '@stryker-mutator/typescript-checker':
+        specifier: ^7.0.2
+        version: 7.0.2(@stryker-mutator/core@7.0.2)(typescript@4.9.5)
+      '@types/jest':
+        specifier: ^29.5.2
+        version: 29.5.2
+      '@types/lodash':
+        specifier: ^4.14.195
+        version: 4.14.195
+      '@types/node':
+        specifier: 18.15.11
+        version: 18.15.11
+      eslint:
+        specifier: ^8.43.0
+        version: 8.43.0
+      jest:
+        specifier: ^29.5.0
+        version: 29.5.0(@types/node@18.15.11)(ts-node@10.9.1)
+      lint-staged:
+        specifier: ^13.2.2
+        version: 13.2.2
+      prettier:
+        specifier: ^2.8.8
+        version: 2.8.8
+      rimraf:
+        specifier: ^5.0.1
+        version: 5.0.1
+      ts-jest:
+        specifier: ^29.1.0
+        version: 29.1.0(@babel/core@7.28.0)(esbuild@0.18.20)(jest@29.5.0)(typescript@4.9.5)
+      typescript:
+        specifier: ^4.9.5
+        version: 4.9.5
+
   packages/coin-support-evm:
     dependencies:
       '@cypherock/coin-support-interfaces':
@@ -901,8 +995,8 @@ importers:
         specifier: ^0.0.16
         version: 0.0.16
       '@cypherock/sdk-utils':
-        specifier: ^0.0.20
-        version: 0.0.20
+        specifier: ^0.0.21
+        version: 0.0.21
       lodash:
         specifier: ^4.17.21
         version: 4.17.21
@@ -1001,8 +1095,8 @@ importers:
         specifier: ^0.0.16
         version: 0.0.16
       '@cypherock/sdk-utils':
-        specifier: ^0.0.20
-        version: 0.0.20
+        specifier: ^0.0.21
+        version: 0.0.21
       crc-32:
         specifier: ^1.2.2
         version: 1.2.2
@@ -1174,8 +1268,8 @@ importers:
         specifier: ^0.0.16
         version: 0.0.16
       '@cypherock/sdk-utils':
-        specifier: ^0.0.20
-        version: 0.0.20
+        specifier: ^0.0.21
+        version: 0.0.21
       axios:
         specifier: ^1.4.0
         version: 1.4.0
@@ -1271,8 +1365,8 @@ importers:
         specifier: ^0.0.16
         version: 0.0.16
       '@cypherock/sdk-utils':
-        specifier: ^0.0.20
-        version: 0.0.20
+        specifier: ^0.0.21
+        version: 0.0.21
       axios:
         specifier: ^1.4.0
         version: 1.4.0
@@ -1377,8 +1471,8 @@ importers:
         specifier: ^0.0.16
         version: 0.0.16
       '@cypherock/sdk-utils':
-        specifier: ^0.0.20
-        version: 0.0.20
+        specifier: ^0.0.21
+        version: 0.0.21
       lodash:
         specifier: ^4.17.21
         version: 4.17.21
@@ -1477,8 +1571,8 @@ importers:
         specifier: ^0.0.16
         version: 0.0.16
       '@cypherock/sdk-utils':
-        specifier: ^0.0.20
-        version: 0.0.20
+        specifier: ^0.0.21
+        version: 0.0.21
       lodash:
         specifier: ^4.17.21
         version: 4.17.21
@@ -1577,8 +1671,8 @@ importers:
         specifier: ^0.0.16
         version: 0.0.16
       '@cypherock/sdk-utils':
-        specifier: ^0.0.20
-        version: 0.0.20
+        specifier: ^0.0.21
+        version: 0.0.21
       lodash:
         specifier: ^4.17.21
         version: 4.17.21
@@ -1677,8 +1771,8 @@ importers:
         specifier: ^0.0.16
         version: 0.0.16
       '@cypherock/sdk-utils':
-        specifier: ^0.0.20
-        version: 0.0.20
+        specifier: ^0.0.21
+        version: 0.0.21
       axios:
         specifier: ^1.4.0
         version: 1.4.0
@@ -1771,8 +1865,8 @@ importers:
         specifier: ^0.0.16
         version: 0.0.16
       '@cypherock/sdk-utils':
-        specifier: ^0.0.20
-        version: 0.0.20
+        specifier: ^0.0.21
+        version: 0.0.21
       lodash:
         specifier: ^4.17.21
         version: 4.17.21
@@ -1931,8 +2025,8 @@ importers:
         specifier: ^0.0.16
         version: 0.0.16
       '@cypherock/sdk-utils':
-        specifier: ^0.0.20
-        version: 0.0.20
+        specifier: ^0.0.21
+        version: 0.0.21
       lodash:
         specifier: ^4.17.21
         version: 4.17.21
@@ -1997,6 +2091,9 @@ importers:
       '@aws-crypto/sha256-browser':
         specifier: ^4.0.0
         version: 4.0.0
+      '@canton-network/core-ledger-proto':
+        specifier: 0.6.0
+        version: 0.6.0
       '@cypherock/app-support-buy-sell':
         specifier: workspace:^
         version: link:../app-support-buy-sell
@@ -2009,6 +2106,9 @@ importers:
       '@cypherock/coin-support-btc':
         specifier: workspace:^
         version: link:../coin-support-btc
+      '@cypherock/coin-support-canton':
+        specifier: workspace:^
+        version: link:../coin-support-canton
       '@cypherock/coin-support-evm':
         specifier: workspace:^
         version: link:../coin-support-evm
@@ -2088,8 +2188,8 @@ importers:
         specifier: ^0.0.16
         version: 0.0.16
       '@cypherock/sdk-utils':
-        specifier: ^0.0.20
-        version: 0.0.20
+        specifier: ^0.0.21
+        version: 0.0.21
       '@dfinity/agent':
         specifier: ^2.3.0
         version: 2.3.0(@dfinity/candid@2.3.0)(@dfinity/principal@2.3.0)
@@ -5839,6 +5939,13 @@ packages:
       uint8array-tools: 0.0.7
     dev: false
 
+  /@canton-network/core-ledger-proto@0.6.0:
+    resolution: {integrity: sha512-Ebq6KgcGUZRRa1JhJw7ZacAnoMZpZPS8TEkioqIy814kQUiRpR+8y3Z4pLdrVgEMtVpwNvVbJbkbm6525vy67w==}
+    dependencies:
+      '@protobuf-ts/runtime': 2.11.1
+      '@protobuf-ts/runtime-rpc': 2.11.1
+    dev: false
+
   /@changesets/apply-release-plan@6.1.4:
     resolution: {integrity: sha512-FMpKF1fRlJyCZVYHr3CbinpZZ+6MwvOtWUuO8uo+svcATEoc1zRDcj23pAurJ2TZ/uVz1wFHH6K3NlACy0PLew==}
     dependencies:
@@ -6283,6 +6390,18 @@ packages:
       - debug
     dev: false
 
+  /@cypherock/sdk-app-canton@1.0.0:
+    resolution: {integrity: sha512-BDg2/CECF0zzf1dxMSjrWKP6/z6cVar2VyjjvHTnQhsd0HPVwb/wbrcj5HrGynQKDN+4BnPIItXGLu9ZnvYQlw==}
+    dependencies:
+      '@cypherock/sdk-core': 0.1.2
+      '@cypherock/sdk-interfaces': 0.0.16
+      '@cypherock/sdk-utils': 0.0.21
+      long: 5.3.2
+      protobufjs: 7.5.3
+    transitivePeerDependencies:
+      - debug
+    dev: false
+
   /@cypherock/sdk-app-evm@0.1.0:
     resolution: {integrity: sha512-k1wvu8k5h+y8mBBh83f94tfjq6ukGuTcC7D2ZbnK15Y3xGltXcb0IQH+Zf/IN6gn4+mgMlWziKK8KHlsORMyCA==}
     dependencies:
@@ -6436,6 +6555,19 @@ packages:
       - debug
     dev: false
 
+  /@cypherock/sdk-core@0.1.2:
+    resolution: {integrity: sha512-kmbl2VF1j8wyulYsBkKOWaci4ikfn+srH0/U+Drlq0e3eESbSmWXNxN1/j7AL9UgXdV2ZQsSC8qROqfV7QTIIA==}
+    dependencies:
+      '@cypherock/sdk-interfaces': 0.0.16
+      '@cypherock/sdk-utils': 0.0.21
+      axios: 1.10.0
+      compare-versions: 6.0.0-rc.1
+      protobufjs: 7.5.3
+      uuid: 9.0.0
+    transitivePeerDependencies:
+      - debug
+    dev: false
+
   /@cypherock/sdk-hw-hid@0.0.24:
     resolution: {integrity: sha512-brGUXkgTJrVQWBJFiHe/A6dlIDtsvye+BTiIxhZ0OJGrbQxOADrl34kpy4cRe0wpCEGPdYwZXg2XLlkHuNPP1Q==}
     dependencies:
@@ -6467,6 +6599,17 @@ packages:
 
   /@cypherock/sdk-utils@0.0.20:
     resolution: {integrity: sha512-WeIU8vlzeIhYi+bK9nbFqt68Pk33bJGMmY7o53SB2oeeR0OYKa6oZWsLxfO0OkUbtCVa+Cqb6OFht6z5sm7azw==}
+    dependencies:
+      '@aws-crypto/sha256-browser': 4.0.0
+      '@cypherock/sdk-interfaces': 0.0.16
+      compare-versions: 6.0.0-rc.1
+      protobufjs: 7.5.3
+      semver: 7.7.2
+      uuid: 9.0.0
+    dev: false
+
+  /@cypherock/sdk-utils@0.0.21:
+    resolution: {integrity: sha512-9QFMRswS80slCld/wThoxRRqu2Pf0aDj25dZpTv5B7/om4m7AISCXej3faURsrS1JDcvD81vHqFmogeNb9lOlA==}
     dependencies:
       '@aws-crypto/sha256-browser': 4.0.0
       '@cypherock/sdk-interfaces': 0.0.16
@@ -7684,7 +7827,7 @@ packages:
       '@jest/test-result': 29.7.0
       '@jest/transform': 29.7.0
       '@jest/types': 29.6.3
-      '@jridgewell/trace-mapping': 0.3.25
+      '@jridgewell/trace-mapping': 0.3.29
       '@types/node': 16.18.36
       chalk: 4.1.2
       collect-v8-coverage: 1.0.2
@@ -9552,6 +9695,16 @@ packages:
     optionalDependencies:
       fsevents: 2.3.2
     dev: true
+
+  /@protobuf-ts/runtime-rpc@2.11.1:
+    resolution: {integrity: sha512-4CqqUmNA+/uMz00+d3CYKgElXO9VrEbucjnBFEjqI4GuDrEQ32MaI3q+9qPBvIGOlL4PmHXrzM32vBPWRhQKWQ==}
+    dependencies:
+      '@protobuf-ts/runtime': 2.11.1
+    dev: false
+
+  /@protobuf-ts/runtime@2.11.1:
+    resolution: {integrity: sha512-KuDaT1IfHkugM2pyz+FwiY80ejWrkH1pAtOBOZFuR6SXEFTsnb/jiQWQ1rCIrcKx2BtyxnxW6BWwsVSA/Ie+WQ==}
+    dev: false
 
   /@protobufjs/aspromise@1.1.2:
     resolution: {integrity: sha512-j+gKExEuLmKwvz3OgROXtrJ2UG2x8Ch2YZUxahh+s1F2HZ+wAceUNLkvy6zKCPVRkU++ZWQrdxsUeQXmcg4uoQ==}
@@ -12426,7 +12579,7 @@ packages:
       npm-run-path: 5.1.0
       progress: 2.0.3
       rxjs: 7.8.1
-      semver: 7.5.3
+      semver: 7.7.2
       source-map: 0.7.4
       tree-kill: 1.2.2
       tslib: 2.5.3
@@ -21151,7 +21304,7 @@ packages:
       pretty-format: 29.7.0
       slash: 3.0.0
       strip-json-comments: 3.1.1
-      ts-node: 10.9.1(@types/node@20.5.1)(typescript@4.9.5)
+      ts-node: 10.9.1(@types/node@18.15.11)(typescript@4.9.5)
     transitivePeerDependencies:
       - babel-plugin-macros
       - supports-color
@@ -21508,7 +21661,7 @@ packages:
       '@babel/generator': 7.28.0
       '@babel/plugin-syntax-jsx': 7.27.1(@babel/core@7.28.0)
       '@babel/plugin-syntax-typescript': 7.27.1(@babel/core@7.28.0)
-      '@babel/types': 7.27.6
+      '@babel/types': 7.28.1
       '@jest/expect-utils': 29.7.0
       '@jest/transform': 29.7.0
       '@jest/types': 29.6.3

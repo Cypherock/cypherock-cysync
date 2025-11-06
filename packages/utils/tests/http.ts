@@ -53,7 +53,7 @@ describe('makePostRequest', () => {
       successResponse,
     );
     expect(mockedAxios.post).toHaveBeenCalledTimes(1);
-    expect(mockedAxios.post).toHaveBeenCalledWith(url, data);
+    expect(mockedAxios.post).toHaveBeenCalledWith(url, data, undefined);
   });
 
   test('should make a successful request on the second try', async () => {
@@ -66,7 +66,7 @@ describe('makePostRequest', () => {
 
     await expect(request).resolves.toStrictEqual(successResponse);
     expect(mockedAxios.post).toHaveBeenCalledTimes(2);
-    expect(mockedAxios.post).toHaveBeenCalledWith(url, data);
+    expect(mockedAxios.post).toHaveBeenCalledWith(url, data, undefined);
   });
 
   test('should make a successful request on the third try', async () => {
@@ -81,7 +81,7 @@ describe('makePostRequest', () => {
 
     await expect(request).resolves.toStrictEqual(successResponse);
     expect(mockedAxios.post).toHaveBeenCalledTimes(3);
-    expect(mockedAxios.post).toHaveBeenCalledWith(url, data);
+    expect(mockedAxios.post).toHaveBeenCalledWith(url, data, undefined);
   });
 
   test('should make a successful request on the fourth try', async () => {
@@ -98,7 +98,7 @@ describe('makePostRequest', () => {
 
     await expect(request).resolves.toStrictEqual(successResponse);
     expect(mockedAxios.post).toHaveBeenCalledTimes(4);
-    expect(mockedAxios.post).toHaveBeenCalledWith(url, data);
+    expect(mockedAxios.post).toHaveBeenCalledWith(url, data, undefined);
   });
 
   test('should throw an error after four failed requests', async () => {
@@ -114,7 +114,7 @@ describe('makePostRequest', () => {
       expect(error).toBeInstanceOf(Error);
       expect(error.message).toBe('Max rate limit reached for API');
       expect(mockedAxios.post).toHaveBeenCalledTimes(4);
-      expect(mockedAxios.post).toHaveBeenCalledWith(url, data);
+      expect(mockedAxios.post).toHaveBeenCalledWith(url, data, undefined);
     });
 
     await jest.advanceTimersByTimeAsync(2000);
@@ -138,7 +138,7 @@ describe('makePostRequest', () => {
       expect(error).toBeInstanceOf(Error);
       expect(error.message).toBe('Max rate limit reached for API');
       expect(mockedAxios.post).toHaveBeenCalledTimes(2);
-      expect(mockedAxios.post).toHaveBeenCalledWith(url, data);
+      expect(mockedAxios.post).toHaveBeenCalledWith(url, data, undefined);
     });
 
     await jest.advanceTimersByTimeAsync(waitInMSBetweenEachAPIRetry);
@@ -155,7 +155,7 @@ describe('makePostRequest', () => {
       expect(error).toBeInstanceOf(Error);
       expect(error.message).toBe(networkError.message);
       expect(mockedAxios.post).toHaveBeenCalledTimes(1);
-      expect(mockedAxios.post).toHaveBeenCalledWith(url, data);
+      expect(mockedAxios.post).toHaveBeenCalledWith(url, data, undefined);
     });
   });
 
@@ -168,7 +168,7 @@ describe('makePostRequest', () => {
     makePostRequest(url, data).catch(error => {
       expect(error).toBeInstanceOf(Error);
       expect(mockedAxios.post).toHaveBeenCalledTimes(1);
-      expect(mockedAxios.post).toHaveBeenCalledWith(url, data);
+      expect(mockedAxios.post).toHaveBeenCalledWith(url, data, undefined);
     });
   });
 });

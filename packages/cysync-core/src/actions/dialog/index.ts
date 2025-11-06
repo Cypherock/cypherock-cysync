@@ -1,5 +1,10 @@
 import { AddAccountDialogProps } from '~/dialogs/AddAccount';
 import { AddTokenDialogProps } from '~/dialogs/AddToken';
+import {
+  CreateCantonAccountDialogProps,
+  EnableApprovalDialogProps,
+} from '~/dialogs/Canton';
+import { TransactionActionDialogProps } from '~/dialogs/Canton/TransactionAction';
 import { IContactSupportDialogProps } from '~/dialogs/ContactSupport';
 import { DeleteAccountDialogProps } from '~/dialogs/DeleteAccountDialog';
 import { DeployAccountDialogProps } from '~/dialogs/DeployAccount/context';
@@ -144,3 +149,17 @@ export const openMobileAppSyncDialog = () =>
 
 export const openFullPageLoaderDialog = (props: FullPageLoaderDialogProps) =>
   openDialog({ name: 'fullPageLoaderDialog', data: props });
+
+export const openEnableApprovalPromptDialog = () =>
+  openDialog({ name: 'enableApprovalPromptDialog', data: undefined });
+
+export const openEnableApprovalDialog = (props: EnableApprovalDialogProps) =>
+  openDialog({ name: 'enableApprovalDialog', data: props });
+
+export const openCreateCantonAccountDialog = (
+  props: CreateCantonAccountDialogProps,
+) => openDialog({ name: 'createCantonAccountDialog', data: props });
+
+export const openTransactionActionDialog = (
+  props: TransactionActionDialogProps,
+) => openDialog({ name: 'transactionActionDialog', data: props });

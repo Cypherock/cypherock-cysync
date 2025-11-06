@@ -109,6 +109,9 @@ interface LangButtons {
   saveChanges: string;
   edit: string;
   tryAgain: string;
+  autoApproval: string;
+  accept: string;
+  earnRewards: string;
 }
 
 interface LangDashboard {
@@ -173,19 +176,56 @@ interface LangAddAccount {
       tapCard: string;
     };
   };
+  cantonSignup: {
+    userDetails: {
+      title: string;
+      subtext: string;
+      emailField: {
+        label: string;
+        rightLabel: string;
+      };
+      sendOTPButton: string;
+    };
+    verifyOTP: {
+      title: string;
+    };
+    loader: {
+      title: string;
+      subtext: string;
+    };
+    success: {
+      eligibleAndCanProceed: {
+        title: string;
+      };
+      eligibleAndAddedInWaitlist: {
+        title: string;
+        subtext: string;
+      };
+      notEligible: {
+        title: string;
+        subtext: string;
+      };
+      buttonText: string;
+    };
+  };
   loader: {
     waitMessage: string;
   };
   sync: {
     syncingHeader: string;
     header: string;
+    addSingleAccountHeader: string;
+    createSingleAccountHeader: string;
     newAccount: string;
+    newSingleAccount: string;
     advancedButton: string;
     accountsNotSynced: string;
     deselectAllButton: string;
     selectAllButton: string;
     accountsInPortfolio: string;
     addAccountButton: string;
+    addSingleAccountButton: string;
+    createSingleAccountButton: string;
     resyncButton: string;
   };
   congrats: {
@@ -235,29 +275,38 @@ interface LangReceive {
       prefix: string;
       accountIdPrefix: string;
       principalIdPrefix: string;
+      partyIdPrefix: string;
       suffix: string;
     };
     addressLabel: string;
     accountIdLabel: string;
     principalIdLabel: string;
+    partyIdLabel: string;
     actions: {
       verify: string;
       verifyAccountId: string;
       verifyPrincipalId: string;
+      verifyPartyId: string;
     };
     messageBox: {
       warning: string;
       accountIdWarning: string;
       principalIdWarning: string;
+      partyIdWarning: string;
     };
     waitMessageBox: { warning: string };
   };
-  congrats: { title: string; accountAndPrincipalIdTitle: string };
+  congrats: {
+    title: string;
+    accountAndPrincipalIdTitle: string;
+    partyIdTitle: string;
+  };
   finalButtons: {
     secondary: string;
     secondaryUnverified: string;
     secondaryUnverifiedAccountId: string;
     secondaryUnverifiedPrincipalId: string;
+    secondaryUnverifiedPartyId: string;
     primary: string;
     continue: string;
   };
@@ -288,7 +337,10 @@ interface LangSend {
       tapCard: string;
     };
     token: { info: string };
-    messageBox: { warning: string };
+    messageBox: {
+      warning: string;
+      partyIdWarning: string;
+    };
   };
   recipient: {
     title: string;
@@ -308,6 +360,13 @@ interface LangSend {
       ownAddress: string;
     };
     icpPrincipalIdRecipient: {
+      label: string;
+      labelSwap: string;
+      placeholder: string;
+      error: string;
+      ownAddress: string;
+    };
+    cantonRecipient: {
       label: string;
       labelSwap: string;
       placeholder: string;
@@ -345,6 +404,24 @@ interface LangSend {
       placeholder: string;
       error: string;
     };
+    cantonMemo: {
+      label: string;
+      placeholder: string;
+      tooltipText: string;
+      error: string;
+    };
+    expirationDate: {
+      label: string;
+      placeholder: string;
+      tooltipText: string;
+      options: {
+        threeHours: string;
+        oneDay: string;
+        oneWeek: string;
+        tenDays: string;
+        oneMonth: string;
+      };
+    };
     stellarMemo: {
       label: string;
       inputPlaceholder: {
@@ -371,12 +448,14 @@ interface LangSend {
     remarks: string;
     destinationTag: string;
     memo: string;
+    expirationDate: string;
   };
   finalMessage: {
     button: string;
     title: string;
     hashLabel: string;
     idLabel: string;
+    updateIdLabel: string;
     messageBox: { warning: string };
   };
   aside: {
@@ -468,11 +547,15 @@ interface LangHistory {
     mine: string;
     transactionHash: string;
     transactionId: string;
+    transactionUpdateId: string;
     description: string;
     feePrefix: { optimism: string };
     remarks: string;
     destinationTag: string;
     memo: string;
+    choice: string;
+    startDate: string;
+    expirationDate: string;
     operation: string;
   };
   noData: { text: string; subText: string; buttonText: string };
@@ -701,6 +784,16 @@ interface LangSignMessage {
 
 interface LangPortfolio {
   title: string;
+  banner: {
+    addCanton: {
+      title: string;
+      button: string;
+    };
+    enableAutomaticApprovals: {
+      title: string;
+      button: string;
+    };
+  };
   tokenTable: {
     title: string;
     tableHeader: { token: string; amount: string; value: string };
@@ -1238,6 +1331,64 @@ interface LangDialogs {
     toAsset: string;
     toAmount: string;
     toReceiver: string;
+  };
+  cantonDialogs: {
+    enableApprovalPrompt: {
+      title: string;
+      subTitle: string;
+    };
+    enableApproval: {
+      title: string;
+      dialogs: {
+        x1Vault: {
+          name: string;
+        };
+        confirmation: {
+          name: string;
+          title: string;
+        };
+      };
+    };
+    createCantonAccount: {
+      title: string;
+      dialogs: {
+        x1Vault: {
+          name: string;
+          messageBox: {
+            warning: string;
+          };
+        };
+        confirmation: {
+          name: string;
+        };
+        success: {
+          title: string;
+        };
+        automaticApproval: {
+          name: string;
+        };
+      };
+    };
+    transactionAction: {
+      title: {
+        approve: string;
+        reject: string;
+        cancel: string;
+      };
+      dialogs: {
+        x1Vault: {
+          name: string;
+        };
+        confirmation: {
+          name: string;
+        };
+        success: {
+          approve: string;
+          reject: string;
+          cancel: string;
+        };
+      };
+    };
   };
 }
 
