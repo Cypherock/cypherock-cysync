@@ -129,7 +129,7 @@
         },
         "eligibleAndAddedInWaitlist": {
           "title": "You are eligible and added in waitlist for Canton Network",
-          "subtext": "Due to high demand there’s a waitlist, you will be notified on email"
+          "subtext": "Due to high demand there’s a waitlist, please try again tomorrow"
         },
         "notEligible": {
           "title": "You are not eligible for Canton Network",

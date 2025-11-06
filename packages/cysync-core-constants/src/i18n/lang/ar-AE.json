@@ -54,9 +54,9 @@
     "saveChanges": "حفظ التغييرات",
     "edit": "تحرير",
     "tryAgain": "حاول مرة أخرى",
-    "autoApproval": "Transfer Preapproval",
+    "autoApproval": "تحويل موافقة مسبقة",
     "accept": "قبول",
-    "earnRewards": "Earn Rewards"
+    "earnRewards": "كسب المكافآت"
   },
   "tooltips": {
     "downloadCsv": "تصدير بصيغة CSV"
@@ -108,34 +108,34 @@
     },
     "cantonSignup": {
       "userDetails": {
-        "title": "Your Details",
-        "subtext": "Enter the email you used at time of purchasing Cypherock X1",
+        "title": "التفاصيل الخاصة بك",
+        "subtext": "أدخل البريد الإلكتروني الذي استخدمته عند شراء Cypherock X1",
         "emailField": {
-          "label": "Registered Email",
-          "rightLabel": "Required"
+          "label": "البريد الإلكتروني المسجل",
+          "rightLabel": "مطلوب"
         },
-        "sendOTPButton": "Send OTP"
+        "sendOTPButton": "إرسال OTP"
       },
       "verifyOTP": {
-        "title": "OTP Verification for email"
+        "title": "التحقق من OTP للبريد الإلكتروني"
       },
       "loader": {
-        "title": "Please wait while we verify your details...",
-        "subtext": "Do not disconnect or close the cySync app"
+        "title": "يرجى الانتظار أثناء التحقق من التفاصيل الخاصة بك...",
+        "subtext": "لا تقم بقطع الاتصال أو إغلاق التطبيق cySync"
       },
       "success": {
         "eligibleAndCanProceed": {
-          "title": "You are eligible and can proceed to create account"
+          "title": "أنت مؤهل ويمكنك المتابعة لإنشاء الحساب"
         },
         "eligibleAndAddedInWaitlist": {
-          "title": "You are eligible and added in waitlist for Canton Network",
-          "subtext": "Due to high demand there’s a waitlist, you will be notified on email"
+          "title": "أنت مؤهل وأضيفت في قائمة الانتظار لشبكة كانتون",
+          "subtext": "بسبب الطلب العالي هناك قائمة انتظار, يرجى المحاولة مرة أخرى الغد"
         },
         "notEligible": {
-          "title": "You are not eligible for Canton Network",
-          "subtext": "Only existing and pro users are eligible for Canton Network Accounts"
+          "title": "أنت غير مؤهل لشبكة كانتون",
+          "subtext": "فقط المستخدمين الموجودين والمستخدمين المميزين هم المؤهلين لحسابات شبكة كانتون"
         },
-        "buttonText": "Know More"
+        "buttonText": "اعرف المزيد"
       }
     },
     "loader": {
@@ -341,11 +341,11 @@
         "ownAddress": "معرّف المستلم الرئيسي هو نفسه معرّف المرسل الرئيسي"
       },
       "cantonRecipient": {
-        "label": "Recipient Party ID",
-        "labelSwap": "${provider}'s Party ID",
-        "placeholder": "Enter party id",
-        "error": "Invalid party id",
-        "ownAddress": "Recipient party id is the same as sender party id"
+        "label": "معرف المؤسسة المستلم",
+        "labelSwap": "معرف المؤسسة ${provider}",
+        "placeholder": "أدخل معرف المؤسسة",
+        "error": "معرف المؤسسة غير صالح",
+        "ownAddress": "معرف المؤسسة المستلم هو نفسه معرف المؤسسة المرسل"
       },
       "tabs": {
         "single": "معاملة واحدة",
@@ -2214,58 +2214,58 @@
     },
     "cantonDialogs": {
       "enableApprovalPrompt": {
-        "title": "Enable Transfer Preapproval",
-        "subTitle": "Automatically accept incoming transactions without manual approval. This will save you time by eliminating the need to manually accept each receiving transaction and rewards."
+        "title": "تمكين تحويل موافقة مسبقة",
+        "subTitle": "قبول المعاملات الواردة بدون موافقة يدوية. هذا سيوفر لك الوقت بتجنب الحاجة إلى قبول كل معاملة ومكافآت."
       },
       "enableApproval": {
-        "title": "Enable Transfer Preapproval",
+        "title": "تمكين تحويل موافقة مسبقة",
         "dialogs": {
           "x1Vault": {
             "name": "X1 Vault"
           },
           "confirmation": {
-            "name": "Confirmation",
-            "title": "Transfer Preapproval is enabled"
+            "name": "تأكيد",
+            "title": "تحويل موافقة مسبقة ممكن"
           }
         }
       },
       "createCantonAccount": {
-        "title": "Account Creation",
+        "title": "إنشاء الحساب",
         "dialogs": {
           "x1Vault": {
             "name": "X1 Vault",
             "messageBox": {
-              "warning": "Before you can interact on the Canton network, your account needs to be created. This will allow you to start sending, receiving, and managing digital assets."
+              "warning": "قبل أن تتمكن من التفاعل في شبكة كانتون, يجب أن يتم إنشاء حسابك. هذا سيتيح لك البدء في إرسال واستلام وإدارة الأصول الرقمية."
             }
           },
           "confirmation": {
-            "name": "Confirmation"
+            "name": "تأكيد"
           },
           "success": {
-            "title": "Account created successfully"
+            "title": "تم إنشاء الحساب بنجاح"
           },
           "automaticApproval": {
-            "name": "Transfer Preapproval"
+            "name": "تحويل موافقة مسبقة"
           }
         }
       },
       "transactionAction": {
         "title": {
-          "approve": "Accept Incoming Transaction",
-          "reject": "Reject Incoming Transaction",
-          "cancel": "Cancel Outgoing Transaction"
+          "approve": "قبول المعاملة الواردة",
+          "reject": "رفض المعاملة الواردة",
+          "cancel": "إلغاء المعاملة الصادرة"
         },
         "dialogs": {
           "x1Vault": {
             "name": "X1 Vault"
           },
           "confirmation": {
-            "name": "Confirmation"
+            "name": "تأكيد"
           },
           "success": {
-            "approve": "Incoming transaction **accepted**",
-            "reject": "Incoming transaction **rejected**",
-            "cancel": "Outgoing transaction **cancelled**"
+            "approve": "**المعاملة الواردة **مقبولة",
+            "reject": "**المعاملة الواردة **مرفوضة",
+            "cancel": "**المعاملة الصادرة **ملغية"
           }
         }
       }
