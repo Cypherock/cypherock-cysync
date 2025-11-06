@@ -10,7 +10,6 @@ import { ICoinInfo, coinFamiliesMap, coinList } from '@cypherock/coins';
 import { ServerErrorType } from '@cypherock/cysync-core-constants';
 import { DropDownItemProps } from '@cypherock/cysync-ui';
 import { IAccount, IWallet } from '@cypherock/db-interfaces';
-import { createSelector } from '@reduxjs/toolkit';
 import lodash from 'lodash';
 import React, {
   Context,
@@ -39,8 +38,6 @@ import { useWalletDropdown } from '~/hooks/useWalletDropdown';
 import { cantonService } from '~/services/canton';
 import {
   closeDialog,
-  ICantonAuthTokens,
-  selectCantonAuthTokens,
   selectLanguage,
   useAppDispatch,
   useAppSelector,
@@ -60,11 +57,6 @@ import {
 } from '../Dialogs';
 
 export type AddAccountStatus = 'idle' | 'device' | 'sync' | 'done';
-
-const selector = createSelector(
-  [selectLanguage, selectCantonAuthTokens],
-  (lang, cantonAuthTokens) => ({ lang, cantonAuthTokens }),
-);
 
 export interface AddAccountDialogContextInterface {
   tabs: ITabs;
@@ -106,7 +98,6 @@ export interface AddAccountDialogContextInterface {
   onOTPSubmit: (otp: string) => void;
   isSubmittingOTP: boolean;
   otpVerificationDetails: ICantonOtpVerificationDetails | undefined;
-  cantonAuthTokens: ICantonAuthTokens | undefined;
   isUserEligibleForCanton: boolean;
   isUserInWaitingListForCanton: boolean;
 }
@@ -132,7 +123,7 @@ export interface ICantonOtpVerificationDetails {
 export const AddAccountDialogProvider: FC<
   AddAccountDialogContextProviderProps
 > = ({ children, walletId: defaultWalletId, coinId: defaultCoinId }) => {
-  const { lang, cantonAuthTokens } = useAppSelector(selector);
+  const lang = useAppSelector(selectLanguage);
   const dispatch = useAppDispatch();
   const { connection } = useDevice();
 
@@ -574,7 +565,6 @@ export const AddAccountDialogProvider: FC<
     onOTPSubmit,
     isSubmittingOTP,
     otpVerificationDetails,
-    cantonAuthTokens,
     isUserEligibleForCanton,
     isUserInWaitingListForCanton,
   });
