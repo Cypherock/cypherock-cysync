@@ -54,7 +54,7 @@
     "saveChanges": "保存更改",
     "edit": "编辑",
     "tryAgain": "再试一次",
-    "autoApproval": "Transfer Preapproval",
+    "autoApproval": "转账预批准",
     "accept": "接受",
     "earnRewards": "赚取奖励"
   },
@@ -108,34 +108,34 @@
     },
     "cantonSignup": {
       "userDetails": {
-        "title": "Your Details",
-        "subtext": "Enter the email you used at time of purchasing Cypherock X1",
+        "title": "您的详情",
+        "subtext": "输入您在购买 Cypherock X1 时使用的电子邮件",
         "emailField": {
-          "label": "Registered Email",
-          "rightLabel": "Required"
+          "label": "注册邮箱",
+          "rightLabel": "必填"
         },
-        "sendOTPButton": "Send OTP"
+        "sendOTPButton": "发送 OTP"
       },
       "verifyOTP": {
-        "title": "OTP Verification for email"
+        "title": "电子邮件 OTP 验证"
       },
       "loader": {
-        "title": "Please wait while we verify your details...",
-        "subtext": "Do not disconnect or close the cySync app"
+        "title": "请稍候，我们正在验证您的详情...",
+        "subtext": "请不要断开或关闭 cySync 应用程序"
       },
       "success": {
         "eligibleAndCanProceed": {
-          "title": "You are eligible and can proceed to create account"
+          "title": "您有资格并可以继续创建账户"
         },
         "eligibleAndAddedInWaitlist": {
-          "title": "You are eligible and added in waitlist for Canton Network",
-          "subtext": "Due to high demand there’s a waitlist, you will be notified on email"
+          "title": "您有资格并已添加到 Canton Network 等待列表",
+          "subtext": "由于高需求，有一个等待列表，请明天再试"
         },
         "notEligible": {
-          "title": "You are not eligible for Canton Network",
-          "subtext": "Only existing and pro users are eligible for Canton Network Accounts"
+          "title": "您没有资格加入 Canton Network",
+          "subtext": "只有现有和专业用户才有资格加入 Canton Network 账户"
         },
-        "buttonText": "Know More"
+        "buttonText": "了解更多"
       }
     },
     "loader": {
@@ -341,11 +341,11 @@
         "ownAddress": "收件人主体 ID 与发件人主体 ID 相同"
       },
       "cantonRecipient": {
-        "label": "Recipient Party ID",
+        "label": "收件人 Party ID",
         "labelSwap": "${provider}'s Party ID",
-        "placeholder": "Enter party id",
-        "error": "Invalid party id",
-        "ownAddress": "Recipient party id is the same as sender party id"
+        "placeholder": "输入 Party ID",
+        "error": "无效的 Party ID",
+        "ownAddress": "收件人 Party ID 与发件人 Party ID 相同"
       },
       "tabs": {
         "single": "单笔交易",
@@ -2193,58 +2193,58 @@
     },
     "cantonDialogs": {
       "enableApprovalPrompt": {
-        "title": "Enable Transfer Preapproval",
-        "subTitle": "Automatically accept incoming transactions without manual approval. This will save you time by eliminating the need to manually accept each receiving transaction and rewards."
+        "title": "启用转账预批准",
+        "subTitle": "自动接受入账交易，无需手动批准。这将节省您的时间，无需手动接受每笔入账交易和奖励。"
       },
       "enableApproval": {
-        "title": "Enable Transfer Preapproval",
+        "title": "启用转账预批准",
         "dialogs": {
           "x1Vault": {
             "name": "X1 Vault"
           },
           "confirmation": {
-            "name": "Confirmation",
-            "title": "Transfer Preapproval is enabled"
+            "name": "确认",
+            "title": "转账预批准已启用"
           }
         }
       },
       "createCantonAccount": {
-        "title": "Account Creation",
+        "title": "账户创建",
         "dialogs": {
           "x1Vault": {
             "name": "X1 Vault",
             "messageBox": {
-              "warning": "Before you can interact on the Canton network, your account needs to be created. This will allow you to start sending, receiving, and managing digital assets."
+              "warning": "在您可以与 Canton Network 互动之前，您的账户需要创建。这将允许您开始发送、接收和管理数字资产。"
             }
           },
           "confirmation": {
-            "name": "Confirmation"
+            "name": "确认"
           },
           "success": {
-            "title": "Account created successfully"
+            "title": "账户创建成功"
           },
           "automaticApproval": {
-            "name": "Transfer Preapproval"
+            "name": "转账预批准"
           }
         }
       },
       "transactionAction": {
         "title": {
-          "approve": "Accept Incoming Transaction",
-          "reject": "Reject Incoming Transaction",
-          "cancel": "Cancel Outgoing Transaction"
+          "approve": "接受入账交易",
+          "reject": "拒绝入账交易",
+          "cancel": "取消出账交易"
         },
         "dialogs": {
           "x1Vault": {
             "name": "X1 Vault"
           },
           "confirmation": {
-            "name": "Confirmation"
+            "name": "确认"
           },
           "success": {
-            "approve": "Incoming transaction **accepted**",
-            "reject": "Incoming transaction **rejected**",
-            "cancel": "Outgoing transaction **cancelled**"
+            "approve": "入账交易 **已接受**",
+            "reject": "入账交易 **已拒绝**",
+            "cancel": "出账交易 **已取消**"
           }
         }
       }

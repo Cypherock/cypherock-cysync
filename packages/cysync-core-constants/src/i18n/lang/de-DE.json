@@ -54,9 +54,9 @@
     "saveChanges": "Änderungen speichern",
     "edit": "Bearbeiten",
     "tryAgain": "Erneut versuchen",
-    "autoApproval": "Transfer Preapproval",
+    "autoApproval": "Übertragungs-Vorgenehmigung",
     "accept": "Akzeptieren",
-    "earnRewards": "Earn Rewards"
+    "earnRewards": "Belohnungen verdienen"
   },
   "tooltips": {
     "downloadCsv": "Als CSV exportieren"
@@ -108,34 +108,34 @@
     },
     "cantonSignup": {
       "userDetails": {
-        "title": "Your Details",
-        "subtext": "Enter the email you used at time of purchasing Cypherock X1",
+        "title": "Ihre Details",
+        "subtext": "Geben Sie die E-Mail ein, die Sie bei der Kauf von Cypherock X1 verwendet haben",
         "emailField": {
-          "label": "Registered Email",
-          "rightLabel": "Required"
+          "label": "Registrierte E-Mail",
+          "rightLabel": "Erforderlich"
         },
-        "sendOTPButton": "Send OTP"
+        "sendOTPButton": "OTP senden"
       },
       "verifyOTP": {
-        "title": "OTP Verification for email"
+        "title": "OTP-Verifizierung für E-Mail"
       },
       "loader": {
-        "title": "Please wait while we verify your details...",
-        "subtext": "Do not disconnect or close the cySync app"
+        "title": "Bitte warten Sie, während wir Ihre Details überprüfen...",
+        "subtext": "Trennen oder schließen Sie die cySync-App nicht"
       },
       "success": {
         "eligibleAndCanProceed": {
-          "title": "You are eligible and can proceed to create account"
+          "title": "Sie sind berechtigt und können fortfahren, um ein Konto zu erstellen"
         },
         "eligibleAndAddedInWaitlist": {
-          "title": "You are eligible and added in waitlist for Canton Network",
-          "subtext": "Due to high demand there’s a waitlist, you will be notified on email"
+          "title": "Sie sind berechtigt und in die Warteliste für Canton Network aufgenommen",
+          "subtext": "Aufgrund der hohen Nachfrage gibt es eine Warteliste, versuchen Sie es erneut morgen"
         },
         "notEligible": {
-          "title": "You are not eligible for Canton Network",
-          "subtext": "Only existing and pro users are eligible for Canton Network Accounts"
+          "title": "Sie sind nicht berechtigt für Canton Network",
+          "subtext": "Nur bestehende und Pro-Benutzer sind berechtigt für Canton Network-Konten"
         },
-        "buttonText": "Know More"
+        "buttonText": "Mehr erfahren"
       }
     },
     "loader": {
@@ -341,11 +341,11 @@
         "ownAddress": "Die Empfänger-Principal-ID ist dieselbe wie die Absender-Principal-ID"
       },
       "cantonRecipient": {
-        "label": "Recipient Party ID",
+        "label": "Empfänger-Party-ID",
         "labelSwap": "${provider}'s Party ID",
-        "placeholder": "Enter party id",
-        "error": "Invalid party id",
-        "ownAddress": "Recipient party id is the same as sender party id"
+        "placeholder": "Party-ID eingeben",
+        "error": "Ungültige Party-ID",
+        "ownAddress": "Empfänger-Party-ID ist dieselbe wie die Absender-Party-ID"
       },
       "tabs": {
         "single": "Einzeltransaktion",
@@ -2211,58 +2211,58 @@
     },
     "cantonDialogs": {
       "enableApprovalPrompt": {
-        "title": "Enable Transfer Preapproval",
-        "subTitle": "Automatically accept incoming transactions without manual approval. This will save you time by eliminating the need to manually accept each receiving transaction and rewards."
+        "title": "Übertragungs-Vorgenehmigung aktivieren",
+        "subTitle": "Automatisch eingehende Transaktionen ohne manuelle Genehmigung akzeptieren. Dies wird Ihnen Zeit sparen, da Sie nicht jede eingehende Transaktion und Belohnungen manuell akzeptieren müssen."
       },
       "enableApproval": {
-        "title": "Enable Transfer Preapproval",
+        "title": "Übertragungs-Vorgenehmigung aktivieren",
         "dialogs": {
           "x1Vault": {
             "name": "X1 Vault"
           },
           "confirmation": {
-            "name": "Confirmation",
-            "title": "Transfer Preapproval is enabled"
+            "name": "Bestätigung",
+            "title": "Übertragungs-Vorgenehmigung ist aktiviert"
           }
         }
       },
       "createCantonAccount": {
-        "title": "Account Creation",
+        "title": "Konto erstellen",
         "dialogs": {
           "x1Vault": {
             "name": "X1 Vault",
             "messageBox": {
-              "warning": "Before you can interact on the Canton network, your account needs to be created. This will allow you to start sending, receiving, and managing digital assets."
+              "warning": "Bevor Sie auf der Canton Network interagieren können, muss Ihr Konto erstellt werden. Dies wird Ihnen erlauben, mit dem Senden, Empfangen und Verwalten digitaler Vermögenswerte zu beginnen."
             }
           },
           "confirmation": {
-            "name": "Confirmation"
+            "name": "Bestätigung"
           },
           "success": {
-            "title": "Account created successfully"
+            "title": "Konto erfolgreich erstellt"
           },
           "automaticApproval": {
-            "name": "Transfer Preapproval"
+            "name": "Übertragungs-Vorgenehmigung"
           }
         }
       },
       "transactionAction": {
         "title": {
-          "approve": "Accept Incoming Transaction",
-          "reject": "Reject Incoming Transaction",
-          "cancel": "Cancel Outgoing Transaction"
+          "approve": "Eingehende Transaktion akzeptieren",
+          "reject": "Eingehende Transaktion ablehnen",
+          "cancel": "Ausgehende Transaktion abbrechen"
         },
         "dialogs": {
           "x1Vault": {
             "name": "X1 Vault"
           },
           "confirmation": {
-            "name": "Confirmation"
+            "name": "Bestätigung"
           },
           "success": {
-            "approve": "Incoming transaction **accepted**",
-            "reject": "Incoming transaction **rejected**",
-            "cancel": "Outgoing transaction **cancelled**"
+            "approve": "Eingehende Transaktion **akzeptiert**",
+            "reject": "Eingehende Transaktion **abgelehnt**",
+            "cancel": "Ausgehende Transaktion **abgebrochen**"
           }
         }
       }
