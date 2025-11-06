@@ -1,3 +1,10 @@
+# v2.3.1
+
+### 🚀 Feature
+
+- **Canton Network Support:** Now you can seamlessly manage your Canton assets directly through the app.
+- **Canton Rewards Program:** Canton Rewards Program is also available now.
+
 # v2.3.0
 
 ### 🚀 Feature
