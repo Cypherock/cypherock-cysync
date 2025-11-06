@@ -79,6 +79,7 @@ export const AccountPage: FC = () => {
               justify="center"
               align="center"
               iconComponent={SendIcon}
+              disabled={selectedAccount?.familyId === coinFamiliesMap.canton}
             >
               {lang.strings.buttons.send}
             </Button>
@@ -97,6 +98,7 @@ export const AccountPage: FC = () => {
               justify="center"
               align="center"
               iconComponent={ReceiveIcon}
+              disabled={selectedAccount?.familyId === coinFamiliesMap.canton}
             >
               {lang.strings.buttons.receive}
             </Button>
