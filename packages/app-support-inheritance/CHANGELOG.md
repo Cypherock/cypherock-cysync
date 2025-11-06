@@ -1,5 +1,12 @@
 # @cypherock/app-support-inheritance
 
+## 1.0.8
+
+### Patch Changes
+
+- Updated dependencies [[`0b897a64`](https://github.com/Cypherock/cypherock-cysync/commit/0b897a64f2519dd8aca7230751ca28ce4eeb9251)]:
+  - @cypherock/cysync-utils@0.0.14
+
 ## 1.0.7
 
 ### Patch Changes

@@ -1,5 +1,11 @@
 # @cypherock/cysync-utils
 
+## 0.0.14
+
+### Patch Changes
+
+- [#819](https://github.com/Cypherock/cypherock-cysync/pull/819) [`0b897a64`](https://github.com/Cypherock/cypherock-cysync/commit/0b897a64f2519dd8aca7230751ca28ce4eeb9251) Thanks [@muzaffarbhat07](https://github.com/muzaffarbhat07)! - Adds canton support (Add Account and Transfer PreApproval only)
+
 ## 0.0.13
 
 ### Patch Changes
