@@ -1,6 +1,6 @@
 import {
   Container,
-  // DoubleArrow,
+  DoubleArrow,
   Flex,
   Input,
   LangDisplay,
@@ -50,7 +50,6 @@ export const AmountInput: React.FC<AmountInputProps> = ({
   const [coinValue, setCoinValue] = useState<string>(
     converter(initialAmount ?? '0') || '',
   );
-  console.log('coinValue', coinValue, priceUnit);
 
   const [isToggled, setIsToggled] = useState(initialToggle ?? false);
 
@@ -121,10 +120,10 @@ export const AmountInput: React.FC<AmountInputProps> = ({
     updateValues(filteredValue, converter(filteredValue));
   };
 
-  // const handleCoinValueChange = (val: string) => {
-  //   const filteredValue = filterNumericInput(val);
-  //   updateValues(converter(filteredValue, true), filteredValue);
-  // };
+  const handleCoinValueChange = (val: string) => {
+    const filteredValue = filterNumericInput(val);
+    updateValues(converter(filteredValue, true), filteredValue);
+  };
 
   return (
     <Container display="flex" direction="column" width="full" gap={8}>
@@ -161,8 +160,8 @@ export const AmountInput: React.FC<AmountInputProps> = ({
             </Typography>
           )}
         </CustomInputSend>
-        {/* <DoubleArrow height={22} width={22} /> */}
-        {/* <CustomInputSend error={parsedError()}>
+        <DoubleArrow height={22} width={22} />
+        <CustomInputSend error={parsedError()}>
           <Input
             type="text"
             name="address"
@@ -180,7 +179,7 @@ export const AmountInput: React.FC<AmountInputProps> = ({
               {priceUnit}
             </Typography>
           )}
-        </CustomInputSend> */}
+        </CustomInputSend>
       </Flex>
       {parsedError() && (
         <Typography
