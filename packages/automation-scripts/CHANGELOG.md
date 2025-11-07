@@ -1,5 +1,12 @@
 # @cypherock/cysync-automation-scripts
 
+## 0.1.10-pre.0
+
+### Patch Changes
+
+- Updated dependencies [[`4b698171`](https://github.com/Cypherock/cypherock-cysync/commit/4b69817156f90e3f716c070d944b1be32b870da0)]:
+  - @cypherock/cysync-core-constants@0.6.3-pre.0
+
 ## 0.1.9
 
 ### Patch Changes
