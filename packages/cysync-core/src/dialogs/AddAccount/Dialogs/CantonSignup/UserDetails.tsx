@@ -37,11 +37,11 @@ export const UserDetails = () => {
 
   const handleEmailChange = (val: string) => {
     setHasErrors(false);
-    if (!val) return;
-    const validation = schema.safeParse({ email });
     setErrorKey('');
     setEmailValidationError('');
-
+    setEmail(val);
+    if (!val) return;
+    const validation = schema.safeParse({ email: val });
     if (!validation.success) {
       const key = Object.keys(validation.error.formErrors.fieldErrors)[0];
       const error = (validation.error.formErrors.fieldErrors as any)[key][0];
@@ -49,7 +49,13 @@ export const UserDetails = () => {
       setEmailValidationError(error);
       setHasErrors(true);
     }
-    setEmail(val);
+  };
+
+  const onBack = () => {
+    setErrorKey('');
+    setEmailValidationError('');
+    setEmail('');
+    onPrevious();
   };
 
   const errorText = useMemo(() => {
@@ -89,7 +95,7 @@ export const UserDetails = () => {
         )}
       </DialogBoxBody>
       <DialogBoxFooter>
-        <Button onClick={() => onPrevious()} variant="secondary">
+        <Button onClick={onBack} variant="secondary">
           <LangDisplay text={lang.strings.buttons.back} />
         </Button>
         <Button
