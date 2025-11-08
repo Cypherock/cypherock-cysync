@@ -1,3 +1,9 @@
+# v2.3.2
+
+### 🚀 Feature
+
+- Updated portfolio screen banner details and fixed UI issues.
+
 # v2.3.1
 
 ### 🚀 Feature
