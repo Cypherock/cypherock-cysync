@@ -2209,7 +2209,10 @@
         "title": "Enable Transfer Preapproval",
         "dialogs": {
           "x1Vault": {
-            "name": "X1 Vault"
+            "name": "X1 Vault",
+            "deviceAction": {
+              "verifyDetails": "Verify transaction type on your device"
+            }
           },
           "confirmation": {
             "name": "Confirmation",

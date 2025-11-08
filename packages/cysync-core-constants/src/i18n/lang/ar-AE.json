@@ -2221,7 +2221,10 @@
         "title": "تمكين تحويل موافقة مسبقة",
         "dialogs": {
           "x1Vault": {
-            "name": "X1 Vault"
+            "name": "X1 Vault",
+            "deviceAction": {
+              "verifyDetails": "التحقق من نوع المعاملة على الجهاز"
+            }
           },
           "confirmation": {
             "name": "تأكيد",

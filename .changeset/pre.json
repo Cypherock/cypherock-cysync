@@ -1,0 +1,42 @@
+{
+  "mode": "exit",
+  "tag": "pre",
+  "initialVersions": {
+    "@cypherock/cysync-cli": "0.2.2",
+    "@cypherock/cysync-desktop": "2.3.1",
+    "@cypherock/app-support-buy-sell": "0.0.10",
+    "@cypherock/app-support-inheritance": "1.0.8",
+    "@cypherock/cysync-automation-scripts": "0.1.9",
+    "@cypherock/coin-support": "0.2.2",
+    "@cypherock/coin-support-btc": "0.0.24",
+    "@cypherock/coin-support-canton": "1.0.0",
+    "@cypherock/coin-support-evm": "0.1.2",
+    "@cypherock/coin-support-icp": "1.0.7",
+    "@cypherock/coin-support-interfaces": "0.1.1",
+    "@cypherock/coin-support-near": "0.0.23",
+    "@cypherock/coin-support-solana": "0.2.2",
+    "@cypherock/coin-support-starknet": "1.0.10",
+    "@cypherock/coin-support-stellar": "1.0.4",
+    "@cypherock/coin-support-tron": "0.1.2",
+    "@cypherock/coin-support-utils": "0.1.2",
+    "@cypherock/coin-support-xrp": "1.1.11",
+    "@cypherock/coins": "0.5.0",
+    "@cypherock/cysync-core-services": "0.2.2",
+    "@cypherock/cysync-core": "0.9.0",
+    "@cypherock/cysync-core-constants": "0.6.2",
+    "@cypherock/cysync-core-workers": "0.1.2",
+    "@cypherock/database": "0.1.6",
+    "@cypherock/db-interfaces": "0.1.1",
+    "@cypherock/cysync-desktop-ui": "0.2.1",
+    "@cypherock/cysync-interfaces": "0.0.11",
+    "@cypherock/cysync-ui": "0.0.18",
+    "@cypherock/eslint-config": "0.0.2",
+    "@cypherock/jest-config": "0.0.1",
+    "@cypherock/prettier-config": "0.0.1",
+    "@cypherock/tsconfig": "0.0.1",
+    "@cypherock/cysync-utils": "0.0.14"
+  },
+  "changesets": [
+    "olive-monkeys-press"
+  ]
+}

@@ -64,7 +64,7 @@ export const UserDetails = () => {
   }, [emailValidationError]);
 
   return (
-    <DialogBox width="800px" height="330px">
+    <DialogBox width="800px">
       <DialogBoxBody>
         <Flex direction="column" align="center" justify="center" $width="100%">
           <Typography $fontSize={20} $textAlign="center" color="white" mb="4px">

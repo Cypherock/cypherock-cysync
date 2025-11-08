@@ -1342,6 +1342,9 @@ interface LangDialogs {
       dialogs: {
         x1Vault: {
           name: string;
+          deviceAction: {
+            verifyDetails: string;
+          };
         };
         confirmation: {
           name: string;

@@ -2200,7 +2200,10 @@
         "title": "启用转账预批准",
         "dialogs": {
           "x1Vault": {
-            "name": "X1 Vault"
+            "name": "X1 Vault",
+            "deviceAction": {
+              "verifyDetails": "验证交易类型在您的设备上"
+            }
           },
           "confirmation": {
             "name": "确认",

@@ -2218,7 +2218,10 @@
         "title": "Übertragungs-Vorgenehmigung aktivieren",
         "dialogs": {
           "x1Vault": {
-            "name": "X1 Vault"
+            "name": "X1 Vault",
+            "deviceAction": {
+              "verifyDetails": "Transaktionsart auf Ihrem Gerät überprüfen"
+            }
           },
           "confirmation": {
             "name": "Bestätigung",

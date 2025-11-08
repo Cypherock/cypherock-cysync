@@ -1,5 +1,11 @@
 # @cypherock/cysync-core-constants
 
+## 0.6.3-pre.0
+
+### Patch Changes
+
+- [#833](https://github.com/Cypherock/cypherock-cysync/pull/833) [`4b698171`](https://github.com/Cypherock/cypherock-cysync/commit/4b69817156f90e3f716c070d944b1be32b870da0) Thanks [@muzaffarbhat07](https://github.com/muzaffarbhat07)! - Canton UI fixes
+
 ## 0.6.2
 
 ### Patch Changes
