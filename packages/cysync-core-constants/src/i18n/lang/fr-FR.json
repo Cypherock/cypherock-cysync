@@ -2314,7 +2314,10 @@
         "title": "Activer la pré-approbation de transfert",
         "dialogs": {
           "x1Vault": {
-            "name": "X1 Vault"
+            "name": "X1 Vault",
+            "deviceAction": {
+              "verifyDetails": "Vérifier le type de transaction sur votre appareil"
+            }
           },
           "confirmation": {
             "name": "Confirmation",

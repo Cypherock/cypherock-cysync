@@ -2217,7 +2217,10 @@
         "title": "Aktifkan Persetujuan Transfer",
         "dialogs": {
           "x1Vault": {
-            "name": "X1 Vault"
+            "name": "X1 Vault",
+            "deviceAction": {
+              "verifyDetails": "Verifikasi tipe transaksi pada perangkat Anda"
+            }
           },
           "confirmation": {
             "name": "Konfirmasi",

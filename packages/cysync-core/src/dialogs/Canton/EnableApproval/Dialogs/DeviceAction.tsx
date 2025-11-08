@@ -28,6 +28,9 @@ const rightArrowIcon = <ArrowRightIcon />;
 export const DeviceAction: React.FC = () => {
   const lang = useAppSelector(selectLanguage);
   const displayText = lang.strings.send.x1Vault;
+  const deviceActionText =
+    lang.strings.dialogs.cantonDialogs.enableApproval.dialogs.x1Vault
+      .deviceAction;
 
   const {
     onNext,
@@ -85,7 +88,7 @@ export const DeviceAction: React.FC = () => {
       {
         id: '4',
         leftImage: rightArrowIcon,
-        text: displayText.actions.verifyDetails,
+        text: deviceActionText.verifyDetails,
         rightImage: getDeviceEventIcon(
           SignTransactionDeviceEvent.CONFIRMED,
           SignTransactionDeviceEvent.VERIFIED,
