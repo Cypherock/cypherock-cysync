@@ -113,6 +113,26 @@ export const prepareTransferPreApprovalTxn = async (
   return response.data;
 };
 
+export const prepareMergeDelegationProposalTxn = async (
+  partyId: string,
+  keyDB?: IKeyValueStore,
+): Promise<any> => {
+  const url = `${baseURL}/prepare/merge-delegation-proposal`;
+  const data = {
+    partyId,
+  };
+  const response = await makePostRequestWithAuthTokenConfig(url, data, keyDB);
+
+  assert(
+    !response.data.error &&
+      response.data.command?.preparedTransaction &&
+      response.data.commandId,
+    new Error('Server: Invalid prepared transaction from server'),
+  );
+
+  return response.data;
+};
+
 export const broadcastTransactionToBlockchain = async (
   params: ICantonBroadcastTxnParams,
   keyDB?: IKeyValueStore,

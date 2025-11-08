@@ -31,13 +31,16 @@ import {
   IBroadcastCantonExternalPartyTransactionParams,
   IBroadcastCantonTransactionParams,
   IBroadcastCantonTransferPreApprovalTransactionParams,
+  IBroadcastCantonMergeDelegationProposalTransactionParams,
   IPrepareCantonChoiceTransactionParams,
   IPrepareCantonExternalPartyTransactionParams,
   IPrepareCantonTransactionParams,
   IPrepareCantonTransferPreApprovalTransactionParams,
+  IPrepareCantonMergeDelegationProposalTransactionParams,
   IPreparedCantonExternalPartyTransaction,
   IPreparedCantonTransaction,
   IPreparedCantonTransferPreApprovalTransaction,
+  IPreparedCantonMergeDelegationProposalTransaction,
   ISignCantonExternalPartyTransactionEvent,
   ISignCantonExternalPartyTransactionParams,
   ISignCantonTransactionEvent,
@@ -96,6 +99,12 @@ export class CantonSupport implements CoinSupport {
     return operations.prepareExternalPartyTransaction(params);
   }
 
+  public async prepareMergeDelegationProposalTransaction(
+    params: IPrepareCantonMergeDelegationProposalTransactionParams,
+  ): Promise<IPreparedCantonMergeDelegationProposalTransaction> {
+    return operations.prepareMergeDelegationProposalTransaction(params);
+  }
+
   public signTransaction(
     params: ISignTransactionParams,
   ): Observable<ISignCantonTransactionEvent> {
@@ -130,6 +139,12 @@ export class CantonSupport implements CoinSupport {
     params: IBroadcastCantonTransferPreApprovalTransactionParams,
   ): Promise<void> {
     return operations.broadcastTransferPreApprovalTransaction(params);
+  }
+
+  public broadcastMergeDelegationProposalTransaction(
+    params: IBroadcastCantonMergeDelegationProposalTransactionParams,
+  ): Promise<void> {
+    return operations.broadcastMergeDelegationProposalTransaction(params);
   }
 
   public signMessage(
