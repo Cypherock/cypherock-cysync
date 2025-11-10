@@ -3,7 +3,7 @@
 import { getCoinSupport } from '@cypherock/coin-support';
 import {
   CantonSupport,
-  IPreparedCantonTransferPreApprovalTransaction,
+  IPreparedCantonMergeDelegationProposalTransaction,
 } from '@cypherock/coin-support-canton';
 import {
   CoinSupport,
@@ -25,7 +25,6 @@ import React, {
 } from 'react';
 import { Observer, Subscription } from 'rxjs';
 
-import { openEnableMergeDelegationDialog } from '~/actions';
 import { LoaderDialog } from '~/components';
 import { deviceLock, useDevice } from '~/context';
 import {
@@ -43,15 +42,19 @@ import {
 import { getDB, getKeyDB } from '~/utils';
 import logger from '~/utils/logger';
 
-import { DeviceAction, SuccessDialogComponent } from '../Dialogs';
+import {
+  DeviceAction,
+  SuccessDialogComponent,
+  SummaryDialog,
+} from '../Dialogs';
 
-export interface EnableApprovalDialogContextInterface {
+export interface EnableMergeDelegationDialogContextInterface {
   tabs: ITabs;
   onNext: (tab?: number, dialog?: number) => void;
   goTo: (tab: number, dialog?: number) => void;
   onPrevious: () => void;
   onClose: () => void;
-  onFinishEnableApproval: () => void;
+  onFinishEnableMergeDelegation: () => void;
   onRetry: () => void;
   error: any | undefined;
   currentTab: number;
@@ -60,39 +63,40 @@ export interface EnableApprovalDialogContextInterface {
   selectedWallet: IWallet | undefined;
   selectedAccount: IAccount | undefined;
   deviceEvents: Record<number, boolean | undefined>;
-  transaction: IPreparedCantonTransferPreApprovalTransaction | undefined;
+  transaction: IPreparedCantonMergeDelegationProposalTransaction | undefined;
   prepare: () => Promise<void>;
   startFlow: () => Promise<void>;
   isOnboarding?: boolean;
 }
 
-export const EnableApprovalDialogContext: Context<EnableApprovalDialogContextInterface> =
-  createContext<EnableApprovalDialogContextInterface>(
-    {} as EnableApprovalDialogContextInterface,
+export const EnableMergeDelegationDialogContext: Context<EnableMergeDelegationDialogContextInterface> =
+  createContext<EnableMergeDelegationDialogContextInterface>(
+    {} as EnableMergeDelegationDialogContextInterface,
   );
 
-export interface EnableApprovalDialogProps {
+export interface EnableMergeDelegationDialogProps {
   selectedAccount?: IAccount;
   selectedWallet?: IWallet;
   isOnboarding?: boolean;
 }
 
-export interface EnableApprovalDialogContextProviderProps
-  extends EnableApprovalDialogProps {
+export interface EnableMergeDelegationDialogContextProviderProps
+  extends EnableMergeDelegationDialogProps {
   children: ReactNode;
 }
 
-export const EnableApprovalDialogProvider: FC<
-  EnableApprovalDialogContextProviderProps
+export const EnableMergeDelegationDialogProvider: FC<
+  EnableMergeDelegationDialogContextProviderProps
 > = ({ children, selectedAccount, selectedWallet, isOnboarding }) => {
   const lang = useAppSelector(selectLanguage);
-  const strings = lang.strings.dialogs.cantonDialogs.enableApproval.dialogs;
+  const strings =
+    lang.strings.dialogs.cantonDialogs.enableMergeDelegation.dialogs;
   const dispatch = useAppDispatch();
   const deviceRequiredDialogsMap: Record<number, number[] | undefined> =
     useMemo(
       () => ({
-        0: [0],
         1: [0],
+        2: [0],
       }),
       [],
     );
@@ -102,7 +106,7 @@ export const EnableApprovalDialogProvider: FC<
     string | undefined
   >();
   const [transaction, setTransaction, transactionRef] = useStateWithRef<
-    IPreparedCantonTransferPreApprovalTransaction | undefined
+    IPreparedCantonMergeDelegationProposalTransaction | undefined
   >(undefined);
 
   const coinSupport = useRef<CoinSupport | undefined>();
@@ -115,6 +119,10 @@ export const EnableApprovalDialogProvider: FC<
 
   const tabs: ITabs = useMemo(
     () => [
+      {
+        name: strings.summary.name,
+        dialogs: [<SummaryDialog />],
+      },
       {
         name: strings.x1Vault.name,
         dialogs: [<DeviceAction />],
@@ -153,7 +161,7 @@ export const EnableApprovalDialogProvider: FC<
 
   const onClose = async () => {
     cleanUp();
-    dispatch(closeDialog('enableApprovalDialog'));
+    dispatch(closeDialog('enableMergeDelegationDialog'));
   };
 
   const onRetry = () => {
@@ -182,7 +190,7 @@ export const EnableApprovalDialogProvider: FC<
     try {
       await (
         getCurrentCoinSupport() as CantonSupport
-      ).broadcastTransferPreApprovalTransaction({
+      ).broadcastMergeDelegationProposalTransaction({
         db: getDB(),
         signedTransaction,
         transaction: txn,
@@ -196,13 +204,13 @@ export const EnableApprovalDialogProvider: FC<
   };
 
   const prepare = async () => {
-    logger.info('Preparing canton transferPreApproval transaction');
+    logger.info('Preparing canton merge delegation proposal transaction');
     if (transaction !== undefined) return;
 
     try {
       const currentCoinSupport = getCurrentCoinSupport() as CantonSupport;
       const preparedTransaction =
-        await currentCoinSupport.prepareTransferPreApprovalTransaction({
+        await currentCoinSupport.prepareMergeDelegationProposalTransaction({
           db: getDB(),
           accountId: selectedAccount?.__id ?? '',
           keyDB: getKeyDB(),
@@ -263,17 +271,8 @@ export const EnableApprovalDialogProvider: FC<
     }
   };
 
-  const onFinishEnableApproval = () => {
+  const onFinishEnableMergeDelegation = async () => {
     onClose();
-    if (isOnboarding) {
-      dispatch(
-        openEnableMergeDelegationDialog({
-          selectedAccount,
-          selectedWallet,
-          isOnboarding,
-        }),
-      );
-    }
   };
 
   const {
@@ -286,7 +285,7 @@ export const EnableApprovalDialogProvider: FC<
   } = useTabsAndDialogs({
     deviceRequiredDialogsMap,
     tabs,
-    dialogName: 'enableApprovalDialog',
+    dialogName: 'enableMergeDelegationDialog',
   });
 
   const ctx = useMemoReturn({
@@ -300,7 +299,7 @@ export const EnableApprovalDialogProvider: FC<
     isDeviceRequired,
     error,
     onRetry,
-    onFinishEnableApproval,
+    onFinishEnableMergeDelegation,
     selectedWallet,
     selectedAccount,
     deviceEvents,
@@ -311,17 +310,17 @@ export const EnableApprovalDialogProvider: FC<
   });
 
   return (
-    <EnableApprovalDialogContext.Provider value={ctx}>
+    <EnableMergeDelegationDialogContext.Provider value={ctx}>
       {children}
-    </EnableApprovalDialogContext.Provider>
+    </EnableMergeDelegationDialogContext.Provider>
   );
 };
 
-export function useEnableApprovalDialog(): EnableApprovalDialogContextInterface {
-  return useContext(EnableApprovalDialogContext);
+export function useEnableMergeDelegationDialog(): EnableMergeDelegationDialogContextInterface {
+  return useContext(EnableMergeDelegationDialogContext);
 }
 
-EnableApprovalDialogProvider.defaultProps = {
+EnableMergeDelegationDialogProvider.defaultProps = {
   selectedAccount: undefined,
   selectedWallet: undefined,
   isOnboarding: false,

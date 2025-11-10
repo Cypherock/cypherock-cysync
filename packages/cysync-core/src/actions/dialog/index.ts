@@ -3,8 +3,9 @@ import { AddTokenDialogProps } from '~/dialogs/AddToken';
 import {
   CreateCantonAccountDialogProps,
   EnableApprovalDialogProps,
+  EnableMergeDelegationDialogProps,
+  TransactionActionDialogProps,
 } from '~/dialogs/Canton';
-import { TransactionActionDialogProps } from '~/dialogs/Canton/TransactionAction';
 import { IContactSupportDialogProps } from '~/dialogs/ContactSupport';
 import { DeleteAccountDialogProps } from '~/dialogs/DeleteAccountDialog';
 import { DeployAccountDialogProps } from '~/dialogs/DeployAccount/context';
@@ -155,6 +156,10 @@ export const openEnableApprovalPromptDialog = () =>
 
 export const openEnableApprovalDialog = (props: EnableApprovalDialogProps) =>
   openDialog({ name: 'enableApprovalDialog', data: props });
+
+export const openEnableMergeDelegationDialog = (
+  props: EnableMergeDelegationDialogProps,
+) => openDialog({ name: 'enableMergeDelegationDialog', data: props });
 
 export const openCreateCantonAccountDialog = (
   props: CreateCantonAccountDialogProps,

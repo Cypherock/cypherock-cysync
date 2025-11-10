@@ -17,17 +17,18 @@ import React, { FC } from 'react';
 import {
   openEditAccountDialog,
   openEnableApprovalDialog,
+  openEnableMergeDelegationDialog,
   openReceiveDialog,
   openSendDialog,
 } from '~/actions';
 import { CoinIcon, Graph, TransactionTable } from '~/components';
+import { constants } from '~/constants';
 import { selectLanguage, useAppDispatch, useAppSelector } from '~/store';
 
 import { TokenTable } from './TokenTable';
 
 import { useAccountPage } from '../hooks';
 import { MainAppLayout } from '../Layout';
-import { constants } from '~/constants';
 
 const ReceiveIcon = (props: SvgProps) => (
   <ArrowReceivedIcon {...props} $width="12px" $height="12px" />
@@ -149,6 +150,26 @@ export const AccountPage: FC = () => {
                   align="center"
                 >
                   {lang.strings.buttons.autoApproval}
+                </Button>
+              )}
+            {selectedAccount?.familyId === coinFamiliesMap.canton &&
+              !selectedAccount.extraData?.isMergeDelegationEnabled && (
+                <Button
+                  variant="primary"
+                  onClick={() =>
+                    dispatch(
+                      openEnableMergeDelegationDialog({
+                        selectedAccount,
+                        selectedWallet,
+                      }),
+                    )
+                  }
+                  size="sm"
+                  display="flex"
+                  justify="center"
+                  align="center"
+                >
+                  {lang.strings.buttons.mergeDelegation}
                 </Button>
               )}
             <Container pl={{ def: 0, mdlg: 4 }} gap={8}>

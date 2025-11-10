@@ -10,6 +10,13 @@ import {
   AuthenticateX1VaultDialog,
 } from './Authenticate';
 import { BetaNotificationDialog } from './BetaNotificationDialog';
+import {
+  CreateCantonAccountDialog,
+  EnableApprovalDialog,
+  EnableApprovalPromptDialog,
+  EnableMergeDelegationDialog,
+} from './Canton';
+import { TransactionActionDialog } from './Canton/TransactionAction';
 import { ContactSupportDialog } from './ContactSupport';
 import { ReleaseNotesDialog, ResetCySyncDialog } from './CySync';
 import { DeleteAccountDialog } from './DeleteAccountDialog';
@@ -46,12 +53,6 @@ import { SwapDialog } from './SwapDialog';
 import { WalletActionsDialogBox } from './WalletActions';
 import { WalletConnectDialog } from './WalletConnect';
 import { WalletSyncError } from './WalletSyncError';
-import {
-  CreateCantonAccountDialog,
-  EnableApprovalDialog,
-  EnableApprovalPromptDialog,
-} from './Canton';
-import { TransactionActionDialog } from './Canton/TransactionAction';
 
 export const dialogs: Record<DialogName, ReactComponentLike> = {
   walletSyncError: WalletSyncError,
@@ -95,6 +96,7 @@ export const dialogs: Record<DialogName, ReactComponentLike> = {
   fullPageLoaderDialog: FullPageLoaderDialog,
   enableApprovalPromptDialog: EnableApprovalPromptDialog,
   enableApprovalDialog: EnableApprovalDialog,
+  enableMergeDelegationDialog: EnableMergeDelegationDialog,
   createCantonAccountDialog: CreateCantonAccountDialog,
   transactionActionDialog: TransactionActionDialog,
 };

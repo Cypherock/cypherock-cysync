@@ -14,7 +14,12 @@ export const AutomaticApprovalDialog: React.FC = () => {
   const onEnableApproval = () => {
     onClose();
     if (!addedAccount) return;
-    dispatch(openEnableApprovalDialog({ selectedAccount: addedAccount }));
+    dispatch(
+      openEnableApprovalDialog({
+        selectedAccount: addedAccount,
+        isOnboarding: true,
+      }),
+    );
   };
 
   return (
