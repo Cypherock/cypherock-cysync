@@ -134,6 +134,9 @@ const initialState: IDialogState = {
   enableApprovalDialog: {
     isOpen: false,
   },
+  enableMergeDelegationDialog: {
+    isOpen: false,
+  },
   createCantonAccountDialog: {
     isOpen: false,
   },

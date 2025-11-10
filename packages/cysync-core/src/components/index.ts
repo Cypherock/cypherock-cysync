@@ -20,3 +20,4 @@ export * from './BetaNotificationBar';
 export * from './LangDropdown';
 export * from './DeleteAccount';
 export * from './EnableApprovalPrompt';
+export * from './EnableMergeDelegationPrompt';

@@ -55,6 +55,7 @@
     "edit": "Sunting",
     "tryAgain": "Coba Lagi",
     "autoApproval": "Persetujuan Transfer",
+    "mergeDelegation": "Pengelolaan UTXO",
     "accept": "Terima",
     "earnRewards": "Mendapatkan Reward"
   },
@@ -2211,7 +2212,8 @@
     "cantonDialogs": {
       "enableApprovalPrompt": {
         "title": "Aktifkan Persetujuan Transfer",
-        "subTitle": "Secara otomatis menerima transaksi masuk tanpa persetujuan manual. Ini akan menghemat waktu Anda dengan menghilangkan kebutuhan untuk menerima setiap transaksi masuk dan reward secara manual."
+        "subTitle": "Secara otomatis menerima transaksi masuk tanpa persetujuan manual. Ini akan menghemat waktu Anda dengan menghilangkan kebutuhan untuk menerima setiap transaksi masuk dan reward secara manual.",
+        "note": "Catatan- Ini wajib untuk memenuhi syarat untuk program Reward Canton."
       },
       "enableApproval": {
         "title": "Aktifkan Persetujuan Transfer",
@@ -2225,6 +2227,27 @@
           "confirmation": {
             "name": "Konfirmasi",
             "title": "Persetujuan Transfer diaktifkan"
+          }
+        }
+      },
+      "enableMergeDelegation": {
+        "title": "Aktifkan Pengelolaan UTXO",
+        "dialogs": {
+          "summary": {
+            "name": "Ringkasan",
+            "title": "Aktifkan Pengelolaan UTXO",
+            "subTitle": "**Secara otomatis menggabungkan** UTXO’s. Ini akan mempertahankan dompet Anda terorganisir dengan menggabungkan aset kecil secara otomatis ketika diperlukan",
+            "note": "Catatan- Ini wajib untuk memenuhi syarat untuk program Reward Canton."
+          },
+          "x1Vault": {
+            "name": "X1 Vault",
+            "deviceAction": {
+              "verifyDetails": "Verifikasi tipe transaksi pada perangkat Anda"
+            }
+          },
+          "confirmation": {
+            "name": "Konfirmasi",
+            "title": "Pengelolaan UTXO diaktifkan"
           }
         }
       },

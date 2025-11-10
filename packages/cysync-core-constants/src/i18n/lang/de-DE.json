@@ -55,6 +55,7 @@
     "edit": "Bearbeiten",
     "tryAgain": "Erneut versuchen",
     "autoApproval": "Übertragungs-Vorgenehmigung",
+    "mergeDelegation": "UTXO Verwaltung",
     "accept": "Akzeptieren",
     "earnRewards": "Belohnungen verdienen"
   },
@@ -2212,7 +2213,8 @@
     "cantonDialogs": {
       "enableApprovalPrompt": {
         "title": "Übertragungs-Vorgenehmigung aktivieren",
-        "subTitle": "Automatisch eingehende Transaktionen ohne manuelle Genehmigung akzeptieren. Dies wird Ihnen Zeit sparen, da Sie nicht jede eingehende Transaktion und Belohnungen manuell akzeptieren müssen."
+        "subTitle": "Automatisch eingehende Transaktionen ohne manuelle Genehmigung akzeptieren. Dies wird Ihnen Zeit sparen, da Sie nicht jede eingehende Transaktion und Belohnungen manuell akzeptieren müssen.",
+        "note": "Hinweis- Dies ist erforderlich, um für das Canton Rewards Program qualifiziert zu sein."
       },
       "enableApproval": {
         "title": "Übertragungs-Vorgenehmigung aktivieren",
@@ -2226,6 +2228,27 @@
           "confirmation": {
             "name": "Bestätigung",
             "title": "Übertragungs-Vorgenehmigung ist aktiviert"
+          }
+        }
+      },
+      "enableMergeDelegation": {
+        "title": "UTXO Verwaltung aktivieren",
+        "dialogs": {
+          "summary": {
+            "name": "Zusammenfassung",
+            "title": "UTXO Verwaltung aktivieren",
+            "subTitle": "**Automatisch zusammenfassen** UTXO’s. Dies wird Ihre Wallet organisiert halten, indem kleinere Bestände automatisch kombiniert werden, wenn benötigt",
+            "note": "Hinweis- Dies ist erforderlich, um für das Canton Rewards Program qualifiziert zu sein."
+          },
+          "x1Vault": {
+            "name": "X1 Vault",
+            "deviceAction": {
+              "verifyDetails": "Transaktionsart auf Ihrem Gerät überprüfen"
+            }
+          },
+          "confirmation": {
+            "name": "Bestätigung",
+            "title": "UTXO Verwaltung ist aktiviert"
           }
         }
       },

@@ -110,6 +110,7 @@ interface LangButtons {
   edit: string;
   tryAgain: string;
   autoApproval: string;
+  mergeDelegation: string;
   accept: string;
   earnRewards: string;
 }
@@ -1336,10 +1337,32 @@ interface LangDialogs {
     enableApprovalPrompt: {
       title: string;
       subTitle: string;
+      note: string;
     };
     enableApproval: {
       title: string;
       dialogs: {
+        x1Vault: {
+          name: string;
+          deviceAction: {
+            verifyDetails: string;
+          };
+        };
+        confirmation: {
+          name: string;
+          title: string;
+        };
+      };
+    };
+    enableMergeDelegation: {
+      title: string;
+      dialogs: {
+        summary: {
+          name: string;
+          title: string;
+          subTitle: string;
+          note: string;
+        };
         x1Vault: {
           name: string;
           deviceAction: {

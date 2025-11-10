@@ -380,6 +380,7 @@
     "edit": "Modifier",
     "tryAgain": "Essayer encore",
     "autoApproval": "Pré-approbation de transfert",
+    "mergeDelegation": "Gestion des UTXO",
     "accept": "Accepter",
     "earnRewards": "Gagner des récompenses"
   },
@@ -2308,7 +2309,8 @@
     "cantonDialogs": {
       "enableApprovalPrompt": {
         "title": "Activer la pré-approbation de transfert",
-        "subTitle": "Accepter automatiquement les transactions entrantes sans approbation manuelle. Cela vous permettra de gagner du temps en éliminant la nécessité de valider manuellement chaque transaction reçue et les récompenses."
+        "subTitle": "Accepter automatiquement les transactions entrantes sans approbation manuelle. Cela vous permettra de gagner du temps en éliminant la nécessité de valider manuellement chaque transaction reçue et les récompenses.",
+        "note": "Note- Cela est obligatoire pour être éligible au programme de récompenses Canton."
       },
       "enableApproval": {
         "title": "Activer la pré-approbation de transfert",
@@ -2322,6 +2324,27 @@
           "confirmation": {
             "name": "Confirmation",
             "title": "La pré-approbation de transfert est activée"
+          }
+        }
+      },
+      "enableMergeDelegation": {
+        "title": "Activer la gestion des UTXO",
+        "dialogs": {
+          "summary": {
+            "name": "Résumé",
+            "title": "Activer la gestion des UTXO",
+            "subTitle": "**Automatiquement consolider** les UTXO. Cela permettra de maintenir votre portefeuille organisé en combinant automatiquement les petites holdings lorsque nécessaire",
+            "note": "Note- Cela est obligatoire pour être éligible au programme de récompenses Canton."
+          },
+          "x1Vault": {
+            "name": "X1 Vault",
+            "deviceAction": {
+              "verifyDetails": "Vérifier le type de transaction sur votre appareil"
+            }
+          },
+          "confirmation": {
+            "name": "Confirmation",
+            "title": "La gestion des UTXO est activée"
           }
         }
       },

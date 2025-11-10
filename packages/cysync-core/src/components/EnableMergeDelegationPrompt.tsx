@@ -1,15 +1,15 @@
 import {
   Button,
-  EnableAutomaticApprovals,
+  UtxoMergeIcon,
   IconDialogBox,
-  LangDisplay,
   Typography,
+  LangDisplay,
 } from '@cypherock/cysync-ui';
 import React from 'react';
 
 import { selectLanguage, useAppSelector } from '~/store';
 
-export interface EnableApprovalPromptProps {
+export interface EnableMergeDelegationPromptProps {
   onClose?: () => void;
   primaryActionText: string;
   primaryActionOnClick: () => void;
@@ -17,7 +17,9 @@ export interface EnableApprovalPromptProps {
   secondaryActionOnClick?: () => void;
 }
 
-export const EnableApprovalPrompt: React.FC<EnableApprovalPromptProps> = ({
+export const EnableMergeDelegationPrompt: React.FC<
+  EnableMergeDelegationPromptProps
+> = ({
   primaryActionText,
   primaryActionOnClick,
   secondaryActionText,
@@ -25,13 +27,14 @@ export const EnableApprovalPrompt: React.FC<EnableApprovalPromptProps> = ({
   onClose,
 }) => {
   const lang = useAppSelector(selectLanguage);
-  const strings = lang.strings.dialogs.cantonDialogs.enableApprovalPrompt;
+  const strings =
+    lang.strings.dialogs.cantonDialogs.enableMergeDelegation.dialogs.summary;
 
   return (
     <IconDialogBox
       title={strings.title}
       subtext={strings.subTitle}
-      icon={<EnableAutomaticApprovals />}
+      icon={<UtxoMergeIcon />}
       onClose={onClose}
       allowMarkdown
       afterTextComponent={
@@ -60,7 +63,7 @@ export const EnableApprovalPrompt: React.FC<EnableApprovalPromptProps> = ({
   );
 };
 
-EnableApprovalPrompt.defaultProps = {
+EnableMergeDelegationPrompt.defaultProps = {
   onClose: undefined,
   secondaryActionText: undefined,
   secondaryActionOnClick: undefined,
