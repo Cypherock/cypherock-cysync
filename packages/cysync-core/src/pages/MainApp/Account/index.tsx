@@ -90,30 +90,24 @@ export const AccountPage: FC = () => {
                 {lang.strings.buttons.send}
               </Button>
             </Tooltip>
-            <Tooltip
-              text="Coming Soon!"
-              isActive={selectedAccount?.familyId === coinFamiliesMap.canton}
+            <Button
+              variant="secondary"
+              onClick={() =>
+                dispatch(
+                  openReceiveDialog({
+                    accountId: selectedAccount.__id,
+                    walletId: selectedAccount.walletId,
+                  }),
+                )
+              }
+              size="sm"
+              display="flex"
+              justify="center"
+              align="center"
+              iconComponent={ReceiveIcon}
             >
-              <Button
-                variant="secondary"
-                onClick={() =>
-                  dispatch(
-                    openReceiveDialog({
-                      accountId: selectedAccount.__id,
-                      walletId: selectedAccount.walletId,
-                    }),
-                  )
-                }
-                size="sm"
-                display="flex"
-                justify="center"
-                align="center"
-                iconComponent={ReceiveIcon}
-                disabled={selectedAccount?.familyId === coinFamiliesMap.canton}
-              >
-                {lang.strings.buttons.receive}
-              </Button>
-            </Tooltip>
+              {lang.strings.buttons.receive}
+            </Button>
             {selectedAccount?.familyId === coinFamiliesMap.canton && (
               <Button variant="primary">
                 <a

@@ -10,7 +10,7 @@ import {
   svgGradients,
   ArrowReceivedIcon,
 } from '@cypherock/cysync-ui';
-import React, { useCallback } from 'react';
+import React, { useCallback, useMemo } from 'react';
 
 import { selectAccounts, selectLanguage, useAppSelector } from '~/store';
 import logger from '~/utils/logger';
@@ -31,6 +31,19 @@ export const SelectionDialog: React.FC = () => {
     defaultWalletId,
     defaultAccountId,
   } = useReceiveDialog();
+
+  // temporary enable all accounts for receive dialog
+  // currently only canton account is disabled
+  // but we want it enabled for receive dialog
+  // remove this once canton account is enabled globally: in useAccountDropdown.tsx
+  const modifiedAccountDropdownList = useMemo(
+    () =>
+      accountDropdownList.map(item => ({
+        ...item,
+        disabled: false,
+      })),
+    [accountDropdownList],
+  );
 
   const dialogText = lang.strings.receive.source;
   const buttonText = lang.strings.buttons;
@@ -93,7 +106,7 @@ export const SelectionDialog: React.FC = () => {
             noLeftImageInList
           />
           <Dropdown
-            items={accountDropdownList}
+            items={modifiedAccountDropdownList}
             selectedItem={selectedAccount?.__id}
             disabled={!selectedWallet}
             searchText={dialogText.searchText}
