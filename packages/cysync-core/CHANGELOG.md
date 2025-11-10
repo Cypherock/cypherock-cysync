@@ -1,5 +1,18 @@
 # @cypherock/cysync-core
 
+## 0.9.2
+
+### Patch Changes
+
+- [#835](https://github.com/Cypherock/cypherock-cysync/pull/835) [`dbb8eb56`](https://github.com/Cypherock/cypherock-cysync/commit/dbb8eb560c7ad740693ba101182741360075ed4b) Thanks [@muzaffarbhat07](https://github.com/muzaffarbhat07)! - Adds enable canton utxo merge
+
+- Updated dependencies [[`dbb8eb56`](https://github.com/Cypherock/cypherock-cysync/commit/dbb8eb560c7ad740693ba101182741360075ed4b)]:
+  - @cypherock/cysync-core-constants@0.6.4
+  - @cypherock/coin-support-canton@1.0.1
+  - @cypherock/coin-support@0.2.3
+  - @cypherock/cysync-core-services@0.2.3
+  - @cypherock/cysync-core-workers@0.1.3
+
 ## 0.9.1
 
 ### Patch Changes

@@ -1,5 +1,11 @@
 # @cypherock/cysync-core-constants
 
+## 0.6.4
+
+### Patch Changes
+
+- [#835](https://github.com/Cypherock/cypherock-cysync/pull/835) [`dbb8eb56`](https://github.com/Cypherock/cypherock-cysync/commit/dbb8eb560c7ad740693ba101182741360075ed4b) Thanks [@muzaffarbhat07](https://github.com/muzaffarbhat07)! - Adds enable canton utxo merge
+
 ## 0.6.3
 
 ### Patch Changes
