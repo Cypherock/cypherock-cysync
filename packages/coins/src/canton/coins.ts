@@ -4,7 +4,7 @@ export default [
     abbr: 'CC',
     name: 'Canton',
     isTest: false,
-    coinGeckoId: 'canton', // temporary
+    coinGeckoId: 'canton-network',
     coinIndex: '80001a6f', // 6767'
     feesUnit: 'CC',
     color: '#F3FE97',
