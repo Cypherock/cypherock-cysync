@@ -1,3 +1,10 @@
+# v2.3.3
+
+### 🚀 Feature
+
+- Enable Canton UTXO Management.
+- Added Canton receive flow.
+
 # v2.3.2
 
 ### 🚀 Feature
