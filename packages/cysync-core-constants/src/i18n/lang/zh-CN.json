@@ -445,7 +445,8 @@
       "idLabel": "交易 ID",
       "updateIdLabel": "交易更新 ID",
       "messageBox": {
-        "warning": "当 blockchain 确认交易后，您的账户余额将被更新"
+        "warning": "当 blockchain 确认交易后，您的账户余额将被更新",
+        "delayWarning": "交易将在区块链确认后反映在您的账户中。"
       }
     },
     "aside": {

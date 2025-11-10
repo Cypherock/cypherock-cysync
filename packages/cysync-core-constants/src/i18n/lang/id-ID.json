@@ -445,7 +445,8 @@
       "idLabel": "ID Transaksi",
       "updateIdLabel": "ID Update Transaksi",
       "messageBox": {
-        "warning": "Saldo akun Anda akan diperbarui saat blockchain mengonfirmasi transaksi"
+        "warning": "Saldo akun Anda akan diperbarui saat blockchain mengonfirmasi transaksi",
+        "delayWarning": "Transaksi akan tercermin di akun Anda saat blockchain mengonfirmasinya."
       }
     },
     "aside": {

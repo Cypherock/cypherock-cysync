@@ -412,5 +412,7 @@ export const sendFunds = async (params: {
 
   broadcastSpinner.succeed();
 
-  console.log(`Transaction hash: ${colors.grey(txn.hash)}`);
+  if (txn) {
+    console.log(`Transaction hash: ${colors.grey(txn.hash)}`);
+  }
 };

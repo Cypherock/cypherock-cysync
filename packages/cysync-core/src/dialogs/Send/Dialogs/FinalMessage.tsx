@@ -15,6 +15,7 @@ import {
   GoldExternalLink,
   CopyContainer,
   ScrollableContainer,
+  SuccessDialog,
 } from '@cypherock/cysync-ui';
 import React from 'react';
 import QRCode from 'react-qr-code';
@@ -26,12 +27,47 @@ import { truncateMiddle } from '~/utils';
 
 import { useSendDialog } from '../context';
 
+interface SuccessOnlyDialogProps {
+  title: string;
+  subtext: string;
+  buttonText: string;
+  handleClick: () => void;
+}
+const SuccessOnlyDialog: React.FC<SuccessOnlyDialogProps> = ({
+  title,
+  subtext,
+  buttonText,
+  handleClick,
+}) => (
+  <>
+    <ConfettiBlast />
+    <SuccessDialog
+      title={title}
+      subtext={subtext}
+      buttonText={buttonText}
+      handleClick={handleClick}
+    />
+  </>
+);
+
 export const FinalMessage: React.FC = () => {
   const { storedTransaction, transactionLink, onClose } = useSendDialog();
   const lang = useAppSelector(selectLanguage);
   const dispatch = useAppDispatch();
 
   const displayText = lang.strings.send.finalMessage;
+
+  if (!storedTransaction) {
+    return (
+      <SuccessOnlyDialog
+        title={displayText.title}
+        subtext={displayText.messageBox.delayWarning}
+        buttonText={lang.strings.buttons.done}
+        handleClick={onClose}
+      />
+    );
+  }
+
   const showHistoryDialog = () => {
     if (!storedTransaction) return;
     dispatch(openHistoryDialog({ txn: storedTransaction }));
