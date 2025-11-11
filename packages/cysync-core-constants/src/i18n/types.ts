@@ -457,7 +457,7 @@ interface LangSend {
     hashLabel: string;
     idLabel: string;
     updateIdLabel: string;
-    messageBox: { warning: string };
+    messageBox: { warning: string; delayWarning: string };
   };
   aside: {
     tabs: {

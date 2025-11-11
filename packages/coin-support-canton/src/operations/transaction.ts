@@ -95,6 +95,7 @@ export interface IPreparedCantonTransaction extends IPreparedTransaction {
   };
   staticData: {
     fees: string;
+    utxos: any[];
   };
   computedData: {
     output: IPreparedCantonTransactionOutput;

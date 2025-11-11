@@ -445,7 +445,8 @@
       "idLabel": "Transaction ID",
       "updateIdLabel": "Update ID",
       "messageBox": {
-        "warning": "Your account balance will be updated when the blockchain confirms the transaction"
+        "warning": "Your account balance will be updated when the blockchain confirms the transaction",
+        "delayWarning": "The transaction will reflect in your account when the blockchain confirms it."
       }
     },
     "aside": {

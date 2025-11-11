@@ -38,6 +38,49 @@ const validateAddresses = async (
   return outputAddressValidation;
 };
 
+const selectUtxos = (targetAmount: string, utxos: any[]): string[] => {
+  // Select utxos whose total sum is greater than or equal to the targetAmount
+  // We need to select the maximum number of utxos that can be used to send the targetAmount
+  // so that number of utxos are reduced to minimum
+  // But this might increase the traffic cost as we are sending more utxos
+  // So we need to select the utxos in a way that the traffic cost is minimized:
+  // We will implement a better strategy later
+
+  // Sort the utxos by value in ascending order
+  const sortedUtxos = utxos.sort((a, b) =>
+    new BigNumber(a.interfaceViewValue.amount)
+      .minus(b.interfaceViewValue.amount)
+      .toNumber(),
+  );
+
+  let totalAmount = new BigNumber(0);
+  const selectedUtxos: string[] = [];
+  for (const utxo of sortedUtxos) {
+    totalAmount = totalAmount.plus(utxo.interfaceViewValue.amount);
+    selectedUtxos.push(utxo.contractId);
+
+    if (totalAmount.isGreaterThanOrEqualTo(targetAmount)) {
+      break;
+    }
+  }
+
+  // Remove utxos from the start of the array if the total amount is greater than the target amount
+  let i = 0;
+  while (i < selectedUtxos.length) {
+    const currentUtxoAmount = sortedUtxos[i].interfaceViewValue.amount;
+    if (
+      totalAmount.minus(currentUtxoAmount).isGreaterThanOrEqualTo(targetAmount)
+    ) {
+      totalAmount = totalAmount.minus(currentUtxoAmount);
+      i += 1;
+    } else {
+      break;
+    }
+  }
+
+  return selectedUtxos.slice(i);
+};
+
 export const prepareTransaction = async (
   params: IPrepareCantonTransactionParams,
 ): Promise<IPreparedCantonTransaction> => {
@@ -124,6 +167,7 @@ export const prepareTransaction = async (
         amount: output.amount,
         memo: output.memo,
         expiryDate: output.expiryDate,
+        inputUtxos: selectUtxos(output.amount, txn.staticData.utxos),
       },
       keyDB,
     );

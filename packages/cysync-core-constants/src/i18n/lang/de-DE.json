@@ -445,7 +445,8 @@
       "idLabel": "Transaktions-ID",
       "updateIdLabel": "Transaktions-Update-ID",
       "messageBox": {
-        "warning": "Ihr Kontostand wird aktualisiert, wenn die blockchain die Transaktion bestätigt"
+        "warning": "Ihr Kontostand wird aktualisiert, wenn die blockchain die Transaktion bestätigt",
+        "delayWarning": "Die Transaktion wird in Ihrem Konto reflektiert, wenn die blockchain die Transaktion bestätigt."
       }
     },
     "aside": {

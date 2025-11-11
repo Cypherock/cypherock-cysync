@@ -119,7 +119,7 @@ export class CantonSupport implements CoinSupport {
 
   public broadcastTransaction(
     params: IBroadcastCantonTransactionParams,
-  ): Promise<ITransaction> {
+  ): Promise<ITransaction | undefined> {
     return operations.broadcastTransaction(params);
   }
 

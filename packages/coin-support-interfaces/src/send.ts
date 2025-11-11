@@ -27,6 +27,7 @@ export interface IPreparedTransaction {
 export interface IInitializeTransactionParams {
   db: IDatabase;
   accountId: string;
+  keyDB?: IKeyValueStore;
 }
 
 export interface IPrepareTransactionParams {

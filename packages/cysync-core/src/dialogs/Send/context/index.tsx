@@ -62,7 +62,7 @@ import React, {
 } from 'react';
 import { Observer, Subscription } from 'rxjs';
 
-import { openDeployAccountDialog } from '~/actions';
+import { openDeployAccountDialog, syncAccounts } from '~/actions';
 import { LoaderDialog } from '~/components';
 import {
   WalletConnectCallRequestMethodMap,
@@ -405,15 +405,25 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
         keyDB: getKeyDB(),
       });
 
-      if (isWalletConnectRequest) {
-        approveCallRequest(storedTxn.hash);
-        onClose(true);
-        return;
+      if (storedTxn) {
+        if (isWalletConnectRequest) {
+          approveCallRequest(storedTxn.hash);
+          onClose(true);
+          return;
+        }
+        setStoredTransaction(storedTxn);
+        setTransactionLink(
+          getCurrentCoinSupport().getExplorerLink({ transaction: storedTxn }),
+        );
+      } else if (selectedAccount) {
+        dispatch(
+          syncAccounts({
+            accounts: [selectedAccount],
+            currency: currentCurrency,
+          }),
+        );
       }
-      setStoredTransaction(storedTxn);
-      setTransactionLink(
-        getCurrentCoinSupport().getExplorerLink({ transaction: storedTxn }),
-      );
+
       onNext();
     } catch (e: any) {
       logger.error(JSON.stringify(e));
@@ -482,6 +492,7 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
         {
           db: getDB(),
           accountId: selectedAccount?.__id ?? '',
+          keyDB: getKeyDB(),
         },
       );
       if (prefillDetails) {

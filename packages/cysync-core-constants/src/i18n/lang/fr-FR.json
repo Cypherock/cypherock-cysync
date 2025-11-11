@@ -899,7 +899,8 @@
       "idLabel": "ID de la transaction",
       "updateIdLabel": "ID de Transaction Update",
       "messageBox": {
-        "warning": "Le solde de votre compte sera mis à jour lorsque la blockchain confirmera la transaction"
+        "warning": "Le solde de votre compte sera mis à jour lorsque la blockchain confirmera la transaction",
+        "delayWarning": "La transaction sera reflétée dans votre compte lorsque la blockchain la confirmera."
       }
     },
     "aside": {

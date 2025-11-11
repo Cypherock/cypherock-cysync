@@ -445,7 +445,8 @@
       "idLabel": "معرّف المعاملة",
       "updateIdLabel": "معرّف تحديث المعاملة",
       "messageBox": {
-        "warning": "سيتم تحديث رصيد حسابك عند تأكيد المعاملة بواسطة blockchain"
+        "warning": "سيتم تحديث رصيد حسابك عند تأكيد المعاملة بواسطة blockchain",
+        "delayWarning": "سيتم تحديث رصيد حسابك عند تأكيد المعاملة بواسطة blockchain"
       }
     },
     "aside": {

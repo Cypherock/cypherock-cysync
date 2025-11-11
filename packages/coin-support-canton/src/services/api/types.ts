@@ -63,6 +63,7 @@ export interface ICantonPrepareSendTxnParams {
   amount: string;
   memo?: string;
   expiryDate?: string;
+  inputUtxos?: string[];
 }
 
 export interface ICantonPrepareChoiceTxnParams {
