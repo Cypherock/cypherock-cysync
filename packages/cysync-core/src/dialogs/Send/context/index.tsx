@@ -492,6 +492,7 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
         {
           db: getDB(),
           accountId: selectedAccount?.__id ?? '',
+          keyDB: getKeyDB(),
         },
       );
       if (prefillDetails) {
