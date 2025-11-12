@@ -45,6 +45,13 @@ const CantonTransactionStatusMap = {
   [CantonTransactionStatus.PENDING]: TransactionStatusMap.pending,
 } as const;
 
+const transactionChoiceToStatusMap = {
+  [CantonTransactionSubType.ACCEPT]: TransactionStatusMap.success,
+  [CantonTransactionSubType.REJECT]: TransactionStatusMap.rejected,
+  [CantonTransactionSubType.WITHDRAW]: TransactionStatusMap.cancelled,
+  [CantonTransactionSubType.DIRECT_TRANSFER]: TransactionStatusMap.success,
+} as const;
+
 const removeObsoleteTransactions = async (
   db: IDatabase,
   account: IAccount,
@@ -55,11 +62,22 @@ const removeObsoleteTransactions = async (
     status: TransactionStatusMap.pending,
   });
 
+  // also delete existing expired transactions if they not in the pending transactions list received from the server
+  const existingExpiredTransactions = await db.transaction.getAll({
+    accountId: account.__id,
+    status: TransactionStatusMap.expired,
+  });
+
+  const existingTransactions = [
+    ...existingPendingTransactions,
+    ...existingExpiredTransactions,
+  ];
+
   const currentPendingTransactionIds = await Promise.all(
     pendingTransactions.map(txn => createTransactionId(txn)),
   );
 
-  for (const existing of existingPendingTransactions) {
+  for (const existing of existingTransactions) {
     if (!currentPendingTransactionIds.includes(existing.__id)) {
       await db.transaction.remove({ __id: existing.__id });
     }
@@ -75,9 +93,18 @@ const parseTransaction = (
   const fromPartyId = txn.sender;
   const toPartyId = txn.receiver;
   const { fees = '0', amount } = txn;
-  const status: TransactionStatus =
-    CantonTransactionStatusMap[txn.status as CantonTransactionStatus] ??
-    TransactionStatusMap.failed;
+
+  let status: TransactionStatus = TransactionStatusMap.failed;
+  if (CantonTransactionStatusMap[txn.status as CantonTransactionStatus]) {
+    status =
+      CantonTransactionStatusMap[txn.status as CantonTransactionStatus] ??
+      TransactionStatusMap.failed;
+  }
+  if (status === TransactionStatusMap.failed && txn.choice) {
+    status =
+      transactionChoiceToStatusMap[txn.choice as CantonTransactionSubType] ??
+      TransactionStatusMap.failed;
+  }
 
   const transaction: ITransaction = {
     accountId: account.__id ?? '',
@@ -134,6 +161,11 @@ const parsePendingTransaction = (
   const toPartyId = txn.receiver;
   const { fees = '0', amount } = txn;
 
+  const status: TransactionStatus =
+    new Date(txn.executeBefore).getTime() < Date.now()
+      ? TransactionStatusMap.expired
+      : TransactionStatusMap.pending;
+
   const transaction: ITransaction = {
     accountId: account.__id ?? '',
     walletId: account.walletId,
@@ -144,7 +176,7 @@ const parsePendingTransaction = (
     confirmations: 1,
     fees,
     amount,
-    status: TransactionStatusMap.pending,
+    status,
     type:
       myPartyId === fromPartyId
         ? TransactionTypeMap.send

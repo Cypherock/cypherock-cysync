@@ -135,6 +135,7 @@ const getTransactionHashText = (familyId: string, keys: any): string => {
 
 interface TransactionActionButtonsProps {
   transactionType: string;
+  transactionStatus: TransactionStatus;
   onClose: () => void;
   onOpenActionDialog: (actionType: TransactionActionType) => void;
   lang: any;
@@ -142,6 +143,7 @@ interface TransactionActionButtonsProps {
 
 const TransactionActionButtons: FC<TransactionActionButtonsProps> = ({
   transactionType,
+  transactionStatus,
   onClose,
   onOpenActionDialog,
   lang,
@@ -189,12 +191,14 @@ const TransactionActionButtons: FC<TransactionActionButtonsProps> = ({
         >
           {lang.strings.buttons.reject}
         </Button>
-        <Button
-          onClick={() => handleAction(TransactionActionType.APPROVE)}
-          disabled
-        >
-          {lang.strings.buttons.accept}
-        </Button>
+        {transactionStatus === TransactionStatusMap.pending && (
+          <Button
+            onClick={() => handleAction(TransactionActionType.APPROVE)}
+            disabled
+          >
+            {lang.strings.buttons.accept}
+          </Button>
+        )}
       </Container>
     );
   }
@@ -303,7 +307,8 @@ export const HistoryDialog: FC<IHistoryDialogProps> = ({ txn: _txn }) => {
 
   const showTransactionAction =
     isCantonTransaction &&
-    displayTransaction.status === TransactionStatusMap.pending;
+    (displayTransaction.status === TransactionStatusMap.pending ||
+      displayTransaction.status === TransactionStatusMap.expired);
 
   const handleOpenActionDialog = (actionType: TransactionActionType) => {
     dispatch(
@@ -379,6 +384,7 @@ export const HistoryDialog: FC<IHistoryDialogProps> = ({ txn: _txn }) => {
             {showTransactionAction && (
               <TransactionActionButtons
                 transactionType={displayTransaction.txn.type}
+                transactionStatus={displayTransaction.status}
                 onClose={onClose}
                 onOpenActionDialog={handleOpenActionDialog}
                 lang={lang}
