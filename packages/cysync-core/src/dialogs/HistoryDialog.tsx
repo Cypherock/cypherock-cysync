@@ -19,6 +19,7 @@ import {
   Tag,
   ThemeType,
   Typography,
+  TypographyColor,
   useTheme,
 } from '@cypherock/cysync-ui';
 import {
@@ -54,10 +55,13 @@ export interface IHistoryDialogProps {
   txn: ITransaction;
 }
 
-const textColorMap: any = {
-  success: 'success',
-  failed: 'error',
-  pending: 'warn',
+const textColorMap: Record<TransactionStatus, TypographyColor> = {
+  [TransactionStatusMap.success]: 'success',
+  [TransactionStatusMap.failed]: 'error',
+  [TransactionStatusMap.pending]: 'warn',
+  [TransactionStatusMap.expired]: 'error',
+  [TransactionStatusMap.cancelled]: 'error',
+  [TransactionStatusMap.rejected]: 'error',
 };
 
 const HistoryItem = ({
@@ -85,6 +89,9 @@ const getFillFromStatus = (status: TransactionStatus, theme: ThemeType) => {
     [TransactionStatusMap.success]: theme.palette.text.success,
     [TransactionStatusMap.pending]: theme.palette.text.warn,
     [TransactionStatusMap.failed]: theme.palette.text.error,
+    [TransactionStatusMap.expired]: theme.palette.text.error,
+    [TransactionStatusMap.cancelled]: theme.palette.text.error,
+    [TransactionStatusMap.rejected]: theme.palette.text.error,
   };
 
   return map[status];

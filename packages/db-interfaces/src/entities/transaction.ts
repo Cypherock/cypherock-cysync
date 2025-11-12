@@ -4,6 +4,9 @@ export const TransactionStatusMap = {
   pending: 'pending',
   failed: 'failed',
   success: 'success',
+  expired: 'expired',
+  cancelled: 'cancelled',
+  rejected: 'rejected',
 } as const;
 
 export type TransactionStatus =

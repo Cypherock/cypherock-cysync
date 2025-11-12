@@ -529,12 +529,18 @@
       "send": {
         "failed": "Senden fehlgeschlagen",
         "pending": "Wird gesendet",
-        "success": "Gesendet"
+        "success": "Gesendet",
+        "expired": "Senden abgelaufen",
+        "cancelled": "Senden abgebrochen",
+        "rejected": "Senden abgelehnt"
       },
       "receive": {
         "failed": "Empfang fehlgeschlagen",
         "pending": "Wird empfangen",
-        "success": "Empfangen"
+        "success": "Empfangen",
+        "expired": "Empfang abgelaufen",
+        "cancelled": "Empfang abgebrochen",
+        "rejected": "Empfang abgelehnt"
       }
     },
     "dialogBox": {
