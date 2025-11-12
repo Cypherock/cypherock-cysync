@@ -1,5 +1,17 @@
 # @cypherock/cysync-core
 
+## 0.9.3
+
+### Patch Changes
+
+- [#841](https://github.com/Cypherock/cypherock-cysync/pull/841) [`32e8af6c`](https://github.com/Cypherock/cypherock-cysync/commit/32e8af6cbbd1ffd0b5f917a39ee340fc2de86d53) Thanks [@muzaffarbhat07](https://github.com/muzaffarbhat07)! - Fixes canton login on each create account
+
+- Updated dependencies [[`e77bb485`](https://github.com/Cypherock/cypherock-cysync/commit/e77bb4859c6d9875452eafdc0236735561fd5fa7)]:
+  - @cypherock/coin-support-canton@1.0.2
+  - @cypherock/coin-support@0.2.4
+  - @cypherock/cysync-core-services@0.2.4
+  - @cypherock/cysync-core-workers@0.1.4
+
 ## 0.9.2
 
 ### Patch Changes

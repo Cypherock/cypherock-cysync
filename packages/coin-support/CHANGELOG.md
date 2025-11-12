@@ -1,5 +1,12 @@
 # @cypherock/coin-support
 
+## 0.2.4
+
+### Patch Changes
+
+- Updated dependencies [[`e77bb485`](https://github.com/Cypherock/cypherock-cysync/commit/e77bb4859c6d9875452eafdc0236735561fd5fa7)]:
+  - @cypherock/coin-support-canton@1.0.2
+
 ## 0.2.3
 
 ### Patch Changes

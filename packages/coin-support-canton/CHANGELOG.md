@@ -1,5 +1,11 @@
 # @cypherock/coin-support-canton
 
+## 1.0.2
+
+### Patch Changes
+
+- [#840](https://github.com/Cypherock/cypherock-cysync/pull/840) [`e77bb485`](https://github.com/Cypherock/cypherock-cysync/commit/e77bb4859c6d9875452eafdc0236735561fd5fa7) Thanks [@muzaffarbhat07](https://github.com/muzaffarbhat07)! - Fixes canton coin pricing
+
 ## 1.0.1
 
 ### Patch Changes
