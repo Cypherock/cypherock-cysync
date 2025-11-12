@@ -1,3 +1,10 @@
+# v2.3.4
+
+### 🐛 Bugfixes
+
+- Fixed Canton Coin pricing.
+- Fixed Canton Add Account flow: No need to enter email on every Canton Add Account.
+
 # v2.3.3
 
 ### 🚀 Feature
