@@ -19,3 +19,12 @@ export const loginOtpVerificationResultSchema = z.object({
   accessToken: z.string(),
   refreshToken: z.string(),
 });
+
+export const refreshAccessTokenResultSchema = z.object({
+  status: z.number(),
+  user: z.object({
+    _id: z.string(),
+    email: z.string(),
+  }),
+  accessToken: z.string(),
+});

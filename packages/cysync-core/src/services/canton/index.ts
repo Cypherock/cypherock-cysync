@@ -1,5 +1,9 @@
 import { cantonBaseUrl } from './common';
-import { loginOtpVerificationResultSchema, loginResultSchema } from './schema';
+import {
+  loginOtpVerificationResultSchema,
+  loginResultSchema,
+  refreshAccessTokenResultSchema,
+} from './schema';
 
 import { makePostRequest, runAndHandleServerErrors } from '../utils';
 
@@ -20,4 +24,17 @@ const loginOtpVerification = async (params: {
     ),
   );
 
-export const cantonService = { login, loginOtpVerification };
+const refreshAccessToken = async (params: { refreshToken: string }) =>
+  runAndHandleServerErrors(() =>
+    makePostRequest(
+      refreshAccessTokenResultSchema,
+      `${cantonBaseUrl}/user/refresh-token`,
+      params,
+    ),
+  );
+
+export const cantonService = {
+  login,
+  loginOtpVerification,
+  refreshAccessToken,
+};
