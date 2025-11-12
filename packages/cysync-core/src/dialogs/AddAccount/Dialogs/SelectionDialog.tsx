@@ -15,6 +15,7 @@ import {
 import { createSelector } from '@reduxjs/toolkit';
 import React, { useCallback, useMemo } from 'react';
 
+import { LoaderDialog } from '~/components';
 import { CoinIcon } from '~/components/CoinIcon';
 import {
   selectLanguage,
@@ -55,6 +56,7 @@ export const AddAccountSelectionDialog: React.FC = () => {
     handleWalletChange,
     walletDropdownList,
     defaultWalletId,
+    isCheckingCantonUserLoggedIn,
   } = useAddAccountDialog();
 
   const filteredCoinDropDownList = useMemo(() => {
@@ -102,6 +104,8 @@ export const AddAccountSelectionDialog: React.FC = () => {
     [coinList],
   );
 
+  if (isCheckingCantonUserLoggedIn) return <LoaderDialog />;
+
   return (
     <DialogBox width={500}>
       <DialogBoxBody pt={4} pr={5} pb={4} pl={5}>
@@ -137,9 +141,9 @@ export const AddAccountSelectionDialog: React.FC = () => {
         <Button
           variant="primary"
           disabled={!selectedCoin || !selectedWallet}
-          onClick={e => {
+          onClick={async e => {
             e.preventDefault();
-            onSelectionDialogNext();
+            await onSelectionDialogNext();
           }}
         >
           <LangDisplay text={button.continue} />
