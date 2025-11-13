@@ -529,12 +529,18 @@
       "send": {
         "failed": "Pengiriman Gagal",
         "pending": "Mengirim",
-        "success": "Terkirim"
+        "success": "Terkirim",
+        "expired": "Pengiriman Expired",
+        "cancelled": "Pengiriman Dibatalkan",
+        "rejected": "Pengiriman Ditolak"
       },
       "receive": {
         "failed": "Penerimaan Gagal",
         "pending": "Menerima",
-        "success": "Diterima"
+        "success": "Diterima",
+        "expired": "Penerimaan Expired",
+        "cancelled": "Penerimaan Dibatalkan",
+        "rejected": "Penerimaan Ditolak"
       }
     },
     "dialogBox": {
