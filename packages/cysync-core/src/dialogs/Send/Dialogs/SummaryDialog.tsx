@@ -172,6 +172,8 @@ export const SummaryDialog: React.FC = () => {
   const getFeeDetails = () => {
     const details = [];
     const account = selectedAccount;
+    if (account?.familyId === coinFamiliesMap.canton) return [];
+
     const isIcpToken =
       account?.familyId === coinFamiliesMap.icp &&
       account.type === AccountTypeMap.subAccount;

@@ -67,7 +67,7 @@ export interface CoinSupport {
   signMessage(params: ISignMessageParams): Observable<ISignMessageEvent>;
   broadcastTransaction(
     params: IBroadcastTransactionParams<any>,
-  ): Promise<ITransaction>;
+  ): Promise<ITransaction | undefined>;
   syncPrices(params: ISyncPricesParams): Observable<void>;
   syncPriceHistories(params: ISyncPriceHistoriesParams): Observable<void>;
   getCoinAllocations(

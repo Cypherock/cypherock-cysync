@@ -1,3 +1,4 @@
+import { assert } from '@cypherock/cysync-utils';
 import { IKeyValueStore } from '@cypherock/db-interfaces';
 
 import { makePostRequestWithAuthTokenConfig } from './common';
@@ -40,7 +41,6 @@ export const getIsAccountCreated = async (
     if (!response.data?.balance) return false;
     return true;
   } catch (error) {
-    console.error(error);
     return false;
   }
 };
@@ -59,4 +59,35 @@ export const isTransferPreApprovalEnabled = async (
     response.data?.receiverId === partyId &&
     new Date(response.data.expiresAt) > new Date(Date.now())
   );
+};
+
+export const getUtxos = async (
+  partyId: string,
+  keyDB?: IKeyValueStore,
+): Promise<any[]> => {
+  const url = `${baseURL}/utxos`;
+  const data = {
+    partyId,
+  };
+
+  const response = await makePostRequestWithAuthTokenConfig(url, data, keyDB);
+
+  assert(
+    typeof response.data?.utxos === 'object',
+    'Invalid utxos response from server',
+  );
+
+  return response.data.utxos;
+};
+
+export const doesPartyExist = async (
+  partyId: string,
+  keyDB?: IKeyValueStore,
+): Promise<boolean> => {
+  const url = `${baseURL}/does-party-exist`;
+  const data = {
+    partyId,
+  };
+  const response = await makePostRequestWithAuthTokenConfig(url, data, keyDB);
+  return response.data?.exists ?? false;
 };

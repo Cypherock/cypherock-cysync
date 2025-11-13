@@ -173,12 +173,18 @@
       "send": {
         "failed": "Échec de l'envoi",
         "pending": "Envoi",
-        "success": "Envoyé"
+        "success": "Envoyé",
+        "expired": "Envoi expiré",
+        "cancelled": "Envoi annulé",
+        "rejected": "Envoi rejeté"
       },
       "receive": {
         "failed": "Échec de la réception",
         "pending": "Réception",
-        "success": "Reçu"
+        "success": "Reçu",
+        "expired": "Réception expirée",
+        "cancelled": "Réception annulée",
+        "rejected": "Réception rejetée"
       }
     },
     "dialogBox": {
@@ -899,7 +905,8 @@
       "idLabel": "ID de la transaction",
       "updateIdLabel": "ID de Transaction Update",
       "messageBox": {
-        "warning": "Le solde de votre compte sera mis à jour lorsque la blockchain confirmera la transaction"
+        "warning": "Le solde de votre compte sera mis à jour lorsque la blockchain confirmera la transaction",
+        "delayWarning": "La transaction sera reflétée dans votre compte lorsque la blockchain la confirmera."
       }
     },
     "aside": {

@@ -9,7 +9,6 @@ import {
   ArrowReceivedIcon,
   SvgProps,
   AccountSettingsIconBg,
-  Tooltip,
 } from '@cypherock/cysync-ui';
 import lodash from 'lodash';
 import React, { FC } from 'react';
@@ -66,30 +65,24 @@ export const AccountPage: FC = () => {
         <Flex justify="space-between" my={2}>
           <Breadcrumb items={breadcrumbItems} />
           <Flex gap={8}>
-            <Tooltip
-              text="Coming Soon!"
-              isActive={selectedAccount?.familyId === coinFamiliesMap.canton}
+            <Button
+              variant="secondary"
+              onClick={() =>
+                dispatch(
+                  openSendDialog({
+                    accountId: selectedAccount.__id,
+                    walletId: selectedAccount.walletId,
+                  }),
+                )
+              }
+              size="sm"
+              display="flex"
+              justify="center"
+              align="center"
+              iconComponent={SendIcon}
             >
-              <Button
-                variant="secondary"
-                onClick={() =>
-                  dispatch(
-                    openSendDialog({
-                      accountId: selectedAccount.__id,
-                      walletId: selectedAccount.walletId,
-                    }),
-                  )
-                }
-                size="sm"
-                display="flex"
-                justify="center"
-                align="center"
-                iconComponent={SendIcon}
-                disabled={selectedAccount?.familyId === coinFamiliesMap.canton}
-              >
-                {lang.strings.buttons.send}
-              </Button>
-            </Tooltip>
+              {lang.strings.buttons.send}
+            </Button>
             <Button
               variant="secondary"
               onClick={() =>

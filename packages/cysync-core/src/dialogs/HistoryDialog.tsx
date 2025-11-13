@@ -19,6 +19,7 @@ import {
   Tag,
   ThemeType,
   Typography,
+  TypographyColor,
   useTheme,
 } from '@cypherock/cysync-ui';
 import {
@@ -54,10 +55,13 @@ export interface IHistoryDialogProps {
   txn: ITransaction;
 }
 
-const textColorMap: any = {
-  success: 'success',
-  failed: 'error',
-  pending: 'warn',
+const textColorMap: Record<TransactionStatus, TypographyColor> = {
+  [TransactionStatusMap.success]: 'success',
+  [TransactionStatusMap.failed]: 'error',
+  [TransactionStatusMap.pending]: 'warn',
+  [TransactionStatusMap.expired]: 'error',
+  [TransactionStatusMap.cancelled]: 'error',
+  [TransactionStatusMap.rejected]: 'error',
 };
 
 const HistoryItem = ({
@@ -85,6 +89,9 @@ const getFillFromStatus = (status: TransactionStatus, theme: ThemeType) => {
     [TransactionStatusMap.success]: theme.palette.text.success,
     [TransactionStatusMap.pending]: theme.palette.text.warn,
     [TransactionStatusMap.failed]: theme.palette.text.error,
+    [TransactionStatusMap.expired]: theme.palette.text.error,
+    [TransactionStatusMap.cancelled]: theme.palette.text.error,
+    [TransactionStatusMap.rejected]: theme.palette.text.error,
   };
 
   return map[status];
@@ -128,6 +135,7 @@ const getTransactionHashText = (familyId: string, keys: any): string => {
 
 interface TransactionActionButtonsProps {
   transactionType: string;
+  transactionStatus: TransactionStatus;
   onClose: () => void;
   onOpenActionDialog: (actionType: TransactionActionType) => void;
   lang: any;
@@ -135,6 +143,7 @@ interface TransactionActionButtonsProps {
 
 const TransactionActionButtons: FC<TransactionActionButtonsProps> = ({
   transactionType,
+  transactionStatus,
   onClose,
   onOpenActionDialog,
   lang,
@@ -157,7 +166,6 @@ const TransactionActionButtons: FC<TransactionActionButtonsProps> = ({
         <Button
           onClick={() => handleAction(TransactionActionType.CANCEL)}
           variant="secondary"
-          disabled
         >
           {lang.strings.buttons.cancel}
         </Button>
@@ -178,16 +186,14 @@ const TransactionActionButtons: FC<TransactionActionButtonsProps> = ({
         <Button
           onClick={() => handleAction(TransactionActionType.REJECT)}
           variant="secondary"
-          disabled
         >
           {lang.strings.buttons.reject}
         </Button>
-        <Button
-          onClick={() => handleAction(TransactionActionType.APPROVE)}
-          disabled
-        >
-          {lang.strings.buttons.accept}
-        </Button>
+        {transactionStatus === TransactionStatusMap.pending && (
+          <Button onClick={() => handleAction(TransactionActionType.APPROVE)}>
+            {lang.strings.buttons.accept}
+          </Button>
+        )}
       </Container>
     );
   }
@@ -296,7 +302,8 @@ export const HistoryDialog: FC<IHistoryDialogProps> = ({ txn: _txn }) => {
 
   const showTransactionAction =
     isCantonTransaction &&
-    displayTransaction.status === TransactionStatusMap.pending;
+    (displayTransaction.status === TransactionStatusMap.pending ||
+      displayTransaction.status === TransactionStatusMap.expired);
 
   const handleOpenActionDialog = (actionType: TransactionActionType) => {
     dispatch(
@@ -372,6 +379,7 @@ export const HistoryDialog: FC<IHistoryDialogProps> = ({ txn: _txn }) => {
             {showTransactionAction && (
               <TransactionActionButtons
                 transactionType={displayTransaction.txn.type}
+                transactionStatus={displayTransaction.status}
                 onClose={onClose}
                 onOpenActionDialog={handleOpenActionDialog}
                 lang={lang}
@@ -396,26 +404,28 @@ export const HistoryDialog: FC<IHistoryDialogProps> = ({ txn: _txn }) => {
                   {displayTransaction.displayValue}
                 </Typography>
               </HistoryItem>
-              <HistoryItem leftText={getFeePrefix() + keys.fee}>
-                <NestedContainer>
-                  <Typography
-                    variant="span"
-                    $maxWidth="400"
-                    $textOverflow="ellipsis"
-                  >
-                    {displayTransaction.displayFee}
-                  </Typography>
-                  <Typography
-                    variant="span"
-                    $fontSize={14}
-                    color="normal"
-                    $maxWidth="400"
-                    $textOverflow="ellipsis"
-                  >
-                    = {displayTransaction.displayFeeValue}
-                  </Typography>
-                </NestedContainer>
-              </HistoryItem>
+              {displayTransaction.txn.familyId !== coinFamiliesMap.canton && (
+                <HistoryItem leftText={getFeePrefix() + keys.fee}>
+                  <NestedContainer>
+                    <Typography
+                      variant="span"
+                      $maxWidth="400"
+                      $textOverflow="ellipsis"
+                    >
+                      {displayTransaction.displayFee}
+                    </Typography>
+                    <Typography
+                      variant="span"
+                      $fontSize={14}
+                      color="normal"
+                      $maxWidth="400"
+                      $textOverflow="ellipsis"
+                    >
+                      = {displayTransaction.displayFeeValue}
+                    </Typography>
+                  </NestedContainer>
+                </HistoryItem>
+              )}
               <HistoryItem leftText={keys.type}>
                 <Container direction="row" gap={8}>
                   <displayTransaction.icon

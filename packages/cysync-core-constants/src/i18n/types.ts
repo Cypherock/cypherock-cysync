@@ -457,7 +457,7 @@ interface LangSend {
     hashLabel: string;
     idLabel: string;
     updateIdLabel: string;
-    messageBox: { warning: string };
+    messageBox: { warning: string; delayWarning: string };
   };
   aside: {
     tabs: {
@@ -531,8 +531,22 @@ interface LangHistory {
     value: string;
   };
   transactionStatus: {
-    send: { failed: string; pending: string; success: string };
-    receive: { failed: string; pending: string; success: string };
+    send: {
+      failed: string;
+      pending: string;
+      success: string;
+      expired: string;
+      cancelled: string;
+      rejected: string;
+    };
+    receive: {
+      failed: string;
+      pending: string;
+      success: string;
+      expired: string;
+      cancelled: string;
+      rejected: string;
+    };
   };
   dialogBox: {
     value: string;

@@ -445,7 +445,8 @@
       "idLabel": "交易 ID",
       "updateIdLabel": "交易更新 ID",
       "messageBox": {
-        "warning": "当 blockchain 确认交易后，您的账户余额将被更新"
+        "warning": "当 blockchain 确认交易后，您的账户余额将被更新",
+        "delayWarning": "交易将在区块链确认后反映在您的账户中。"
       }
     },
     "aside": {
@@ -528,12 +529,18 @@
       "send": {
         "failed": "发送失败",
         "pending": "发送中",
-        "success": "已发送"
+        "success": "已发送",
+        "expired": "发送已过期",
+        "cancelled": "发送已取消",
+        "rejected": "发送已拒绝"
       },
       "receive": {
         "failed": "接收失败",
         "pending": "接收中",
-        "success": "已接收"
+        "success": "已接收",
+        "expired": "接收已过期",
+        "cancelled": "接收已取消",
+        "rejected": "接收已拒绝"
       }
     },
     "dialogBox": {

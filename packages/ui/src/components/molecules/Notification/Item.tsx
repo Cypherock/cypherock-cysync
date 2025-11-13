@@ -23,6 +23,9 @@ const getTransactionTextFillFromStatus = (
     success: theme.palette.text.white,
     pending: theme.palette.text.warn,
     failed: theme.palette.text.error,
+    expired: theme.palette.text.error,
+    cancelled: theme.palette.text.error,
+    rejected: theme.palette.text.error,
   };
 
   return map[status];

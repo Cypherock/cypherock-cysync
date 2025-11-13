@@ -9,7 +9,7 @@ import {
   QuestionMarkButton,
 } from '@cypherock/cysync-ui';
 import lodash from 'lodash';
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 
 import { selectLanguage, useAppSelector } from '~/store';
 
@@ -32,15 +32,41 @@ export const CantonMemoInput: React.FC<CantonMemoInputProps> = ({
 
   const [value, setValue] = useState<string>(initialValue ?? '');
   const [error, setError] = useState('');
+  const errorTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   const debouncedOnValueChange = useCallback(
     lodash.debounce(onChange, 300),
     [],
   );
 
+  useEffect(() => {
+    if (error) {
+      // Clear any existing timeout
+      if (errorTimeoutRef.current) {
+        clearTimeout(errorTimeoutRef.current);
+      }
+      // Set a new timeout to clear the error after 2 seconds
+      errorTimeoutRef.current = setTimeout(() => {
+        setError('');
+      }, 2000);
+    }
+
+    // Cleanup function to clear timeout on unmount
+    return () => {
+      if (errorTimeoutRef.current) {
+        clearTimeout(errorTimeoutRef.current);
+      }
+    };
+  }, [error]);
+
   const handleValueChange = (newValue: string) => {
     if (newValue.length <= 255) {
       setValue(newValue);
+      // Clear any existing error timeout when value becomes valid
+      if (errorTimeoutRef.current) {
+        clearTimeout(errorTimeoutRef.current);
+        errorTimeoutRef.current = null;
+      }
       setError('');
       debouncedOnValueChange(newValue);
     } else {

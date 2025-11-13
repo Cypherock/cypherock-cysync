@@ -4,7 +4,7 @@ import { assert, BigNumber } from '@cypherock/cysync-utils';
 
 import { IPrepareCantonTransactionParams } from './types';
 
-import { getIsAccountCreated, prepareSendTransaction } from '../../services';
+import { doesPartyExist, prepareSendTransaction } from '../../services';
 import {
   IPreparedCantonTransaction,
   IPreparedCantonTransactionOutput,
@@ -26,8 +26,8 @@ const validateAddresses = async (
      */
     if (
       output.address &&
-      !validateAddress({ address: output.address, coinId: coin.id }) &&
-      !(await getIsAccountCreated(output.address, params.keyDB))
+      (!validateAddress({ address: output.address, coinId: coin.id }) ||
+        !(await doesPartyExist(output.address, params.keyDB)))
     ) {
       isValid = false;
     }
@@ -36,6 +36,49 @@ const validateAddresses = async (
   }
 
   return outputAddressValidation;
+};
+
+const selectUtxos = (targetAmount: string, utxos: any[]): string[] => {
+  // Select utxos whose total sum is greater than or equal to the targetAmount
+  // We need to select the maximum number of utxos that can be used to send the targetAmount
+  // so that number of utxos are reduced to minimum
+  // But this might increase the traffic cost as we are sending more utxos
+  // So we need to select the utxos in a way that the traffic cost is minimized:
+  // We will implement a better strategy later
+
+  // Sort the utxos by value in ascending order
+  const sortedUtxos = utxos.sort((a, b) =>
+    new BigNumber(a.interfaceViewValue.amount)
+      .minus(b.interfaceViewValue.amount)
+      .toNumber(),
+  );
+
+  let totalAmount = new BigNumber(0);
+  const selectedUtxos: string[] = [];
+  for (const utxo of sortedUtxos) {
+    totalAmount = totalAmount.plus(utxo.interfaceViewValue.amount);
+    selectedUtxos.push(utxo.contractId);
+
+    if (totalAmount.isGreaterThanOrEqualTo(targetAmount)) {
+      break;
+    }
+  }
+
+  // Remove utxos from the start of the array if the total amount is greater than the target amount
+  let i = 0;
+  while (i < selectedUtxos.length) {
+    const currentUtxoAmount = sortedUtxos[i].interfaceViewValue.amount;
+    if (
+      totalAmount.minus(currentUtxoAmount).isGreaterThanOrEqualTo(targetAmount)
+    ) {
+      totalAmount = totalAmount.minus(currentUtxoAmount);
+      i += 1;
+    } else {
+      break;
+    }
+  }
+
+  return selectedUtxos.slice(i);
 };
 
 export const prepareTransaction = async (
@@ -53,7 +96,10 @@ export const prepareTransaction = async (
     new Error('Canton transaction requires exactly 1 output'),
   );
 
-  const outputsValidation = await validateAddresses(params, coin);
+  const outputsValidation =
+    txn.userInputs.outputs?.[0]?.address !== txn.computedData.output.address
+      ? await validateAddresses(params, coin)
+      : [...txn.validation.outputs];
 
   const output: IPreparedCantonTransactionOutput = {
     ...txn.userInputs.outputs[0],
@@ -88,10 +134,6 @@ export const prepareTransaction = async (
   hasEnoughBalance =
     new BigNumber(txn.userInputs.outputs[0].amount).isNaN() || hasEnoughBalance;
 
-  const isValidFee = true; //  new BigNumber(fees).isGreaterThan(0);
-  const isFeeBelowMin =
-    isValidFee && new BigNumber(fees).isLessThan(txn.staticData.fees);
-
   let isInvalidExpiry = false;
   if (output.expiry?.key && output.expiry?.value) {
     const expiryValue = output.expiry.value;
@@ -110,9 +152,7 @@ export const prepareTransaction = async (
     isValidAmount &&
     outputsValidation.every(isValid => isValid) &&
     hasEnoughBalance &&
-    isValidFee &&
-    !isInvalidExpiry &&
-    !isFeeBelowMin;
+    !isInvalidExpiry;
 
   let preparedTransaction: any;
   // prepare send transaction if all validations are passed
@@ -124,6 +164,7 @@ export const prepareTransaction = async (
         amount: output.amount,
         memo: output.memo,
         expiryDate: output.expiryDate,
+        inputUtxos: selectUtxos(output.amount, txn.staticData.utxos),
       },
       keyDB,
     );
@@ -134,8 +175,8 @@ export const prepareTransaction = async (
     validation: {
       outputs: outputsValidation,
       hasEnoughBalance,
-      isValidFee,
-      isFeeBelowMin,
+      isValidFee: true,
+      isFeeBelowMin: false,
       ownOutputAddressNotAllowed: [],
       zeroAmountNotAllowed: sendAmount.isZero(),
       isInvalidExpiry,
