@@ -166,7 +166,6 @@ const TransactionActionButtons: FC<TransactionActionButtonsProps> = ({
         <Button
           onClick={() => handleAction(TransactionActionType.CANCEL)}
           variant="secondary"
-          disabled
         >
           {lang.strings.buttons.cancel}
         </Button>
@@ -187,15 +186,11 @@ const TransactionActionButtons: FC<TransactionActionButtonsProps> = ({
         <Button
           onClick={() => handleAction(TransactionActionType.REJECT)}
           variant="secondary"
-          disabled
         >
           {lang.strings.buttons.reject}
         </Button>
         {transactionStatus === TransactionStatusMap.pending && (
-          <Button
-            onClick={() => handleAction(TransactionActionType.APPROVE)}
-            disabled
-          >
+          <Button onClick={() => handleAction(TransactionActionType.APPROVE)}>
             {lang.strings.buttons.accept}
           </Button>
         )}
