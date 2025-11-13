@@ -404,26 +404,28 @@ export const HistoryDialog: FC<IHistoryDialogProps> = ({ txn: _txn }) => {
                   {displayTransaction.displayValue}
                 </Typography>
               </HistoryItem>
-              <HistoryItem leftText={getFeePrefix() + keys.fee}>
-                <NestedContainer>
-                  <Typography
-                    variant="span"
-                    $maxWidth="400"
-                    $textOverflow="ellipsis"
-                  >
-                    {displayTransaction.displayFee}
-                  </Typography>
-                  <Typography
-                    variant="span"
-                    $fontSize={14}
-                    color="normal"
-                    $maxWidth="400"
-                    $textOverflow="ellipsis"
-                  >
-                    = {displayTransaction.displayFeeValue}
-                  </Typography>
-                </NestedContainer>
-              </HistoryItem>
+              {displayTransaction.txn.familyId !== coinFamiliesMap.canton && (
+                <HistoryItem leftText={getFeePrefix() + keys.fee}>
+                  <NestedContainer>
+                    <Typography
+                      variant="span"
+                      $maxWidth="400"
+                      $textOverflow="ellipsis"
+                    >
+                      {displayTransaction.displayFee}
+                    </Typography>
+                    <Typography
+                      variant="span"
+                      $fontSize={14}
+                      color="normal"
+                      $maxWidth="400"
+                      $textOverflow="ellipsis"
+                    >
+                      = {displayTransaction.displayFeeValue}
+                    </Typography>
+                  </NestedContainer>
+                </HistoryItem>
+              )}
               <HistoryItem leftText={keys.type}>
                 <Container direction="row" gap={8}>
                   <displayTransaction.icon

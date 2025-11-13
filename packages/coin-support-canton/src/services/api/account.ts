@@ -79,3 +79,15 @@ export const getUtxos = async (
 
   return response.data.utxos;
 };
+
+export const doesPartyExist = async (
+  partyId: string,
+  keyDB?: IKeyValueStore,
+): Promise<boolean> => {
+  const url = `${baseURL}/does-party-exist`;
+  const data = {
+    partyId,
+  };
+  const response = await makePostRequestWithAuthTokenConfig(url, data, keyDB);
+  return response.data?.exists ?? false;
+};

@@ -395,7 +395,7 @@
         "label": "Memo",
         "placeholder": "Optional",
         "tooltipText": "You can add a Memo or Description and this will be sent along with this transaction",
-        "error": "Memo is too long (max 255 characters)"
+        "error": "Memo can't be too long (max 255 characters)"
       },
       "expirationDate": {
         "label": "Expiration Time",

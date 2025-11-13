@@ -4,7 +4,7 @@ import { assert, BigNumber } from '@cypherock/cysync-utils';
 
 import { IPrepareCantonTransactionParams } from './types';
 
-import { getIsAccountCreated, prepareSendTransaction } from '../../services';
+import { doesPartyExist, prepareSendTransaction } from '../../services';
 import {
   IPreparedCantonTransaction,
   IPreparedCantonTransactionOutput,
@@ -26,8 +26,8 @@ const validateAddresses = async (
      */
     if (
       output.address &&
-      !validateAddress({ address: output.address, coinId: coin.id }) &&
-      !(await getIsAccountCreated(output.address, params.keyDB))
+      (!validateAddress({ address: output.address, coinId: coin.id }) ||
+        !(await doesPartyExist(output.address, params.keyDB)))
     ) {
       isValid = false;
     }
@@ -96,7 +96,10 @@ export const prepareTransaction = async (
     new Error('Canton transaction requires exactly 1 output'),
   );
 
-  const outputsValidation = await validateAddresses(params, coin);
+  const outputsValidation =
+    txn.userInputs.outputs?.[0]?.address !== txn.computedData.output.address
+      ? await validateAddresses(params, coin)
+      : [...txn.validation.outputs];
 
   const output: IPreparedCantonTransactionOutput = {
     ...txn.userInputs.outputs[0],
@@ -131,10 +134,6 @@ export const prepareTransaction = async (
   hasEnoughBalance =
     new BigNumber(txn.userInputs.outputs[0].amount).isNaN() || hasEnoughBalance;
 
-  const isValidFee = true; //  new BigNumber(fees).isGreaterThan(0);
-  const isFeeBelowMin =
-    isValidFee && new BigNumber(fees).isLessThan(txn.staticData.fees);
-
   let isInvalidExpiry = false;
   if (output.expiry?.key && output.expiry?.value) {
     const expiryValue = output.expiry.value;
@@ -153,9 +152,7 @@ export const prepareTransaction = async (
     isValidAmount &&
     outputsValidation.every(isValid => isValid) &&
     hasEnoughBalance &&
-    isValidFee &&
-    !isInvalidExpiry &&
-    !isFeeBelowMin;
+    !isInvalidExpiry;
 
   let preparedTransaction: any;
   // prepare send transaction if all validations are passed
@@ -178,8 +175,8 @@ export const prepareTransaction = async (
     validation: {
       outputs: outputsValidation,
       hasEnoughBalance,
-      isValidFee,
-      isFeeBelowMin,
+      isValidFee: true,
+      isFeeBelowMin: false,
       ownOutputAddressNotAllowed: [],
       zeroAmountNotAllowed: sendAmount.isZero(),
       isInvalidExpiry,

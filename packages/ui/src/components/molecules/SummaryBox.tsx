@@ -102,6 +102,9 @@ export const SummaryRow: React.FC<SummaryRowProps> = ({
             $fontSize={14}
             $textAlign="right"
             color={rightTextColor ?? 'normal'}
+            $maxWidth={300}
+            $whiteSpace="pre-wrap"
+            $wordBreak="break-all"
           >
             {rightText}
           </Typography>

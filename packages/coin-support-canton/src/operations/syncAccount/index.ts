@@ -143,8 +143,6 @@ const parseTransaction = (
       choice:
         CantonTransactionChoiceMap[txn.choice as CantonTransactionSubType],
       memo: txn.memo ? txn.memo : undefined,
-      startDate: txn.requestedAt,
-      expiryDate: txn.executeBefore,
       instrument: txn.instrumentId,
     },
   };
