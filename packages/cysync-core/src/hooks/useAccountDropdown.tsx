@@ -1,5 +1,4 @@
 import { getDefaultUnit, getParsedAmount } from '@cypherock/coin-support-utils';
-import { coinFamiliesMap } from '@cypherock/coins';
 import { DropDownItemProps } from '@cypherock/cysync-ui';
 import { AccountTypeMap, IAccount, IWallet } from '@cypherock/db-interfaces';
 import lodash from 'lodash';
@@ -88,7 +87,6 @@ export const useAccountDropdown = (props: UseAccountDropdownProps) => {
         tag: lodash.upperCase(account.derivationScheme),
         rightText: getBalanceToDisplay(account),
         showRightTextOnBottom: true,
-        disabled: account.familyId === coinFamiliesMap.canton,
       });
 
       if (props.includeSubAccounts) {
