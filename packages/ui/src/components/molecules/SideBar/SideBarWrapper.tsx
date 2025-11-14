@@ -42,10 +42,23 @@ export const SideBarWrapper: FC<SideBarWrapperProps> = ({
       />
       <Typography
         variant="h4"
-        color="muted"
+        color={
+          (window as any).cysyncEnv.VENDOR === 'odix' && title === 'ODIX WALLET'
+            ? 'white'
+            : 'muted'
+        }
         my="auto"
-        $fontWeight="medium"
+        $fontWeight={
+          (window as any).cysyncEnv.VENDOR === 'odix' && title === 'ODIX WALLET'
+            ? 'normal'
+            : 'medium'
+        }
         $fontSize={20}
+        $fontFamily={
+          (window as any).cysyncEnv.VENDOR === 'odix' && title === 'ODIX WALLET'
+            ? 'odix-title'
+            : 'normal'
+        }
       >
         {title}
       </Typography>
