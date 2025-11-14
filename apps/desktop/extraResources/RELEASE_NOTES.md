@@ -1,3 +1,9 @@
+# v2.3.5
+
+### 🚀 Feature
+
+- Added Send Transaction and History on Canton Network for CC transfers.
+
 # v2.3.4
 
 ### 🐛 Bugfixes
