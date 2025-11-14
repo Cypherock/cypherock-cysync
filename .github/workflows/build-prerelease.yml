@@ -49,7 +49,7 @@ jobs:
         run: wc .changeset/pre.json
 
       - name: Install pnpm
-        uses: pnpm/action-setup@v4
+        uses: pnpm/action-setup@v4.1.0
         with:
           run_install: false
 
@@ -130,7 +130,7 @@ jobs:
         run: git fetch --tags origin
 
       - name: Install pnpm
-        uses: pnpm/action-setup@v4
+        uses: pnpm/action-setup@v4.1.0
         with:
           run_install: false
 
@@ -201,7 +201,7 @@ jobs:
         run: git fetch --tags origin
 
       - name: Install pnpm
-        uses: pnpm/action-setup@v4
+        uses: pnpm/action-setup@v4.1.0
         with:
           run_install: false
 
@@ -273,7 +273,7 @@ jobs:
         run: git fetch --tags origin
 
       - name: Install pnpm
-        uses: pnpm/action-setup@v4
+        uses: pnpm/action-setup@v4.1.0
         with:
           run_install: false
 
@@ -366,7 +366,7 @@ jobs:
         uses: fregante/setup-git-user@v2
 
       - name: Install pnpm
-        uses: pnpm/action-setup@v4
+        uses: pnpm/action-setup@v4.1.0
         with:
           run_install: false
 
