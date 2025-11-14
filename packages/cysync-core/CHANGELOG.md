@@ -1,5 +1,35 @@
 # @cypherock/cysync-core
 
+## 0.9.4
+
+### Patch Changes
+
+- [#839](https://github.com/Cypherock/cypherock-cysync/pull/839) [`cb9a80fc`](https://github.com/Cypherock/cypherock-cysync/commit/cb9a80fcc15e2334b4a7c471464ec39949fa0504) Thanks [@muzaffarbhat07](https://github.com/muzaffarbhat07)! - Fixes canton send and txn histroy
+
+- Updated dependencies [[`cb9a80fc`](https://github.com/Cypherock/cypherock-cysync/commit/cb9a80fcc15e2334b4a7c471464ec39949fa0504)]:
+  - @cypherock/coin-support-interfaces@0.1.2
+  - @cypherock/cysync-core-constants@0.6.5
+  - @cypherock/coin-support-canton@1.0.3
+  - @cypherock/db-interfaces@0.1.2
+  - @cypherock/cysync-ui@0.0.19
+  - @cypherock/coin-support@0.2.5
+  - @cypherock/coin-support-btc@0.0.25
+  - @cypherock/coin-support-evm@0.1.3
+  - @cypherock/coin-support-icp@1.0.8
+  - @cypherock/coin-support-near@0.0.24
+  - @cypherock/coin-support-solana@0.2.3
+  - @cypherock/coin-support-starknet@1.0.11
+  - @cypherock/coin-support-stellar@1.0.5
+  - @cypherock/coin-support-tron@0.1.3
+  - @cypherock/coin-support-utils@0.1.3
+  - @cypherock/coin-support-xrp@1.1.12
+  - @cypherock/cysync-core-services@0.2.5
+  - @cypherock/cysync-core-workers@0.1.5
+  - @cypherock/app-support-buy-sell@0.0.11
+  - @cypherock/cysync-interfaces@0.0.12
+  - @cypherock/app-support-inheritance@1.0.9
+  - @cypherock/cysync-utils@0.0.15
+
 ## 0.9.3
 
 ### Patch Changes
