@@ -25,7 +25,12 @@ const coinDropDownList: DropDownItemProps[] = Object.values(coinList)
   .filter(
     c => window.cysyncEnv.IS_PRODUCTION === 'false' || !c.isUnderDevelopment,
   )
-  .filter(c => window.cysyncEnv.VENDOR === 'odix' && c.id !== 'fantom')
+  .filter(c => {
+    if (window.cysyncEnv.VENDOR === 'odix' && c.id === 'fantom') {
+      return false;
+    }
+    return true;
+  })
   .map(coin => ({
     id: coin.id,
     leftImage: <CoinIcon parentAssetId={coin.id} />,

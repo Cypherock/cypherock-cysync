@@ -4,7 +4,7 @@ import { generateCss } from './generateCss';
 
 import { MediaQuery } from '../../types';
 
-export type FontFamily = 'normal' | 'monospace';
+export type FontFamily = 'normal' | 'monospace' | 'odix-title';
 
 export type WordBreak =
   | 'break-all'
@@ -45,6 +45,7 @@ export const fontWeightObj: Record<string, string> = {
 export const fontFamilyMap: Record<FontFamily, string> = {
   normal: 'Poppins',
   monospace: 'JetBrains Mono',
+  'odix-title': 'October Condensed Devanagari, sans-serif',
 };
 
 export const font = css<FontProps>`

@@ -100,7 +100,9 @@ const SideBarComponent: FC = () => {
   return (
     <>
       <SideBarWrapper
-        title={lang.strings.appName}
+        title={
+          lang.strings.appName === 'Odix' ? 'ODIX WALLET' : lang.strings.appName
+        }
         width={width}
         height="screen"
       >
