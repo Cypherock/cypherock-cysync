@@ -195,7 +195,7 @@ export const AddAccountDialogProvider: FC<
   const deviceRequiredDialogsMap: Record<number, number[] | undefined> =
     useMemo(
       () => ({
-        1: [0],
+        1: [4],
       }),
       [],
     );
