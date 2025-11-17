@@ -19,6 +19,7 @@ export const sendFeedback = async (params: {
     subject: params.category,
     uuid: id,
     appVersion: window.cysyncEnv.VERSION,
+    vendor: window.cysyncEnv.VENDOR,
   });
 
   return true;
