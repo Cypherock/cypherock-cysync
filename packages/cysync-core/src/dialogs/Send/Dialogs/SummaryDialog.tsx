@@ -41,6 +41,15 @@ import {
 import { useSendDialog } from '../context';
 import { useLabelSuffix } from '../hooks';
 
+// Sia has address length of 76, so needs to be displayed in 2 lines
+const formatAddressSia = (address: string): string => {
+  const midPoint = Math.ceil(address.length / 2);
+  const line1 = address.slice(0, midPoint);
+  const line2 = address.slice(midPoint);
+
+  return `${line1}\n${line2}`;
+};
+
 export const SummaryDialog: React.FC = () => {
   const {
     onNext,
@@ -83,7 +92,10 @@ export const SummaryDialog: React.FC = () => {
           id: `toDetail-address-${output.address}`,
           leftIcon: <QrCode width="11px" height="20px" />,
           leftText: displayText.to,
-          rightText: output.address,
+          rightText:
+            selectedAccount?.familyId === 'sia'
+              ? formatAddressSia(output.address)
+              : output.address,
         },
         {
           id: `toDetail-amount-${output.address}`,
