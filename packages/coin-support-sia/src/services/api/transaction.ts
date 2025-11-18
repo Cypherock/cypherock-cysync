@@ -7,14 +7,21 @@ import {
 } from './types';
 import { config } from '../../config';
 
-// const baseURL = `http://localhost:5000/sia/transaction`;
 const baseURL = `${config.API_CYPHEROCK}/sia/transaction`;
 
 export const getTransactions = async (
   address: string,
+  limit = 50,
+  offset = 0,
+  lastConfirmedHash = '',
 ): Promise<ISiaHistoryResponse> => {
   const url = `${baseURL}/history`;
-  const response = await makePostRequest(url, { address });
+  const response = await makePostRequest(url, {
+    address,
+    offset,
+    limit,
+    lastConfirmedHash,
+  });
 
   if (typeof response.data.transactions !== 'object') {
     throw new Error('Invalid sia transaction history returned from server');

@@ -2,7 +2,6 @@ import { makePostRequest } from '@cypherock/cysync-utils';
 import { ISiaUtxoResponse } from './types';
 import { config } from '../../config';
 
-// const baseURL = `http://localhost:5000/sia/wallet`;
 const baseURL = `${config.API_CYPHEROCK}/sia/wallet`;
 
 export const getBalance = async (address: string): Promise<string> => {

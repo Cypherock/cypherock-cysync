@@ -5,13 +5,14 @@ export interface ISiaTransactionHistory {
   fee?: string;
   timestamp: string;
   confirmations: number;
+  blockHeight: number;
   toAddress?: string;
   fromAddress?: string;
 }
 
 export interface ISiaHistoryResponse {
   transactions: ISiaTransactionHistory[];
-  count: number;
+  hasMore: boolean;
 }
 
 export interface ISiaUtxo {
@@ -40,6 +41,6 @@ export interface IBroadcastRequest {
 
 export interface ISiaBroadcastResponse {
   success: boolean;
-  url?: string;
+  hash?: string;
   error?: string;
 }
