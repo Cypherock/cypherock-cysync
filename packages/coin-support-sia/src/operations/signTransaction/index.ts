@@ -93,13 +93,6 @@ const prepareUnsignedTxn = async (
   const { selectedUtxos, output, fees, changeAmount } =
     transaction.computedData;
 
-  console.log('DEBUG: prepareUnsignedTxn inputs:', {
-    sendAmount: output.amount,
-    fee: fees,
-    changeAmount,
-    selectedUtxoCount: selectedUtxos.length,
-  });
-
   const sendAmountHastings = BigInt(scToHastings(output.amount));
   const feeHastings = BigInt(scToHastings(fees));
 
@@ -119,15 +112,11 @@ const prepareUnsignedTxn = async (
     });
   }
 
-  console.log('DEBUG: Built outputs:', outputs);
-
   const blob = serializeTransactionBlob(
     selectedUtxos,
     outputs,
     feeHastings.toString(),
   );
-
-  console.log('DEBUG: Transaction blob length:', blob.length);
 
   return { blob };
 };
