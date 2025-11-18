@@ -9,6 +9,10 @@ import { SiaDerivationSchemeName } from './schemes/types';
 
 export interface ISiaAccount extends IAccount {
   derivationScheme: SiaDerivationSchemeName;
+  extraData?: {
+    publicKey?: string;
+    lastConfirmedHash?: string;
+  };
 }
 
 export interface ICreatedSiaAccount extends ICreatedAccount {

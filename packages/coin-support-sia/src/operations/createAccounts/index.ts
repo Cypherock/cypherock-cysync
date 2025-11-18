@@ -94,11 +94,11 @@ const createAccountFromAddress: IMakeCreateAccountsObservableParams<SiaApp>['cre
 const getBalanceAndTxnCount = async (encodedAddress: string) => {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [address, _publicKey] = encodedAddress.split('|');
-  console.log('Returned Balance from createAccount ');
 
   return {
     balance: await services.getBalance(address),
-    txnCount: (await services.getTransactions(address)).count,
+    txnCount: (await services.getTransactions(address, 1, 0)).transactions
+      .length,
   };
 };
 
