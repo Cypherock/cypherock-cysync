@@ -92,7 +92,7 @@ export const SuccessDialog: React.FC<SuccessDialogProps> = ({
       {icon ?? <Image src={TickIconVariantMap[variant]} alt="Success Icon" />}
       <Container display="flex" direction="column" gap={4}>
         <Typography variant={headerType} $textAlign="center">
-          <LangDisplay text={title} />
+          <LangDisplay text={title} $allowMarkdown />
         </Typography>
         {subtext && (
           <Typography variant="h6" $textAlign="center" color="muted">

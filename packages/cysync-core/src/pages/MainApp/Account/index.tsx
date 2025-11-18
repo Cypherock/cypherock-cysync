@@ -1,5 +1,5 @@
 import { getAssetOrUndefined } from '@cypherock/coin-support-utils';
-import { BtcIdMap, coinList } from '@cypherock/coins';
+import { BtcIdMap, coinFamiliesMap, coinList } from '@cypherock/coins';
 import {
   Breadcrumb,
   Button,
@@ -15,10 +15,13 @@ import React, { FC } from 'react';
 
 import {
   openEditAccountDialog,
+  openEnableApprovalDialog,
+  openEnableMergeDelegationDialog,
   openReceiveDialog,
   openSendDialog,
 } from '~/actions';
 import { CoinIcon, Graph, TransactionTable } from '~/components';
+import { constants } from '~/constants';
 import { selectLanguage, useAppDispatch, useAppSelector } from '~/store';
 
 import { TokenTable } from './TokenTable';
@@ -98,6 +101,64 @@ export const AccountPage: FC = () => {
             >
               {lang.strings.buttons.receive}
             </Button>
+            {selectedAccount?.familyId === coinFamiliesMap.canton && (
+              <Button variant="primary">
+                <a
+                  href={constants.inheritance.cantonLink}
+                  target="_blank"
+                  style={{
+                    textDecoration: 'none',
+                    color: 'black',
+                    whiteSpace: 'nowrap',
+                    fontSize: '12px',
+                    fontWeight: '500',
+                  }}
+                  rel="noreferrer"
+                >
+                  {lang.strings.buttons.earnRewards}
+                </a>
+              </Button>
+            )}
+            {selectedAccount?.familyId === coinFamiliesMap.canton &&
+              !selectedAccount.extraData?.isTransferPreApprovalEnabled && (
+                <Button
+                  variant="primary"
+                  onClick={() =>
+                    dispatch(
+                      openEnableApprovalDialog({
+                        selectedAccount,
+                        selectedWallet,
+                      }),
+                    )
+                  }
+                  size="sm"
+                  display="flex"
+                  justify="center"
+                  align="center"
+                >
+                  {lang.strings.buttons.autoApproval}
+                </Button>
+              )}
+            {selectedAccount?.familyId === coinFamiliesMap.canton &&
+              !selectedAccount.extraData?.isMergeDelegationEnabled && (
+                <Button
+                  variant="primary"
+                  onClick={() =>
+                    dispatch(
+                      openEnableMergeDelegationDialog({
+                        selectedAccount,
+                        selectedWallet,
+                      }),
+                    )
+                  }
+                  size="sm"
+                  display="flex"
+                  justify="center"
+                  align="center"
+                >
+                  {lang.strings.buttons.mergeDelegation}
+                </Button>
+              )}
             <Container pl={{ def: 0, mdlg: 4 }} gap={8}>
               {doAllowAccountDeletion() && (
                 <Button

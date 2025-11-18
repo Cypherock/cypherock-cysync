@@ -53,7 +53,11 @@
     "exitWithoutSaving": "Keluar tanpa menyimpan",
     "saveChanges": "Simpan perubahan",
     "edit": "Sunting",
-    "tryAgain": "Coba Lagi"
+    "tryAgain": "Coba Lagi",
+    "autoApproval": "Persetujuan Transfer",
+    "mergeDelegation": "Pengelolaan UTXO",
+    "accept": "Terima",
+    "earnRewards": "Mendapatkan Reward"
   },
   "tooltips": {
     "downloadCsv": "Ekspor sebagai CSV"
@@ -103,19 +107,56 @@
         "tapCard": "Ketuk kartu apapun"
       }
     },
+    "cantonSignup": {
+      "userDetails": {
+        "title": "Detail Anda",
+        "subtext": "Masukkan email yang Anda gunakan saat membeli Cypherock X1",
+        "emailField": {
+          "label": "Email Terdaftar",
+          "rightLabel": "Diperlukan"
+        },
+        "sendOTPButton": "Kirim OTP"
+      },
+      "verifyOTP": {
+        "title": "Verifikasi OTP untuk email"
+      },
+      "loader": {
+        "title": "Silakan tunggu sementara kami memverifikasi detail Anda...",
+        "subtext": "Jangan putuskan koneksi atau tutup aplikasi cySync"
+      },
+      "success": {
+        "eligibleAndCanProceed": {
+          "title": "Anda berhak dan dapat melanjutkan untuk membuat akun"
+        },
+        "eligibleAndAddedInWaitlist": {
+          "title": "Anda berhak dan ditambahkan ke daftar tunggu untuk Canton Network",
+          "subtext": "Karena permintaan tinggi, ada daftar tunggu, silakan coba lagi besok"
+        },
+        "notEligible": {
+          "title": "Anda tidak berhak untuk Canton Network",
+          "subtext": "Hanya pengguna yang ada dan pengguna Pro yang berhak untuk akun Canton Network"
+        },
+        "buttonText": "Pelajari Lebih Lanjut"
+      }
+    },
     "loader": {
       "waitMessage": "Proses ini mungkin memakan waktu sekitar satu menit. Mohon bersabar"
     },
     "sync": {
       "syncingHeader": "Menyinkronkan akun",
       "header": "Tambahkan akun baru",
+      "addSingleAccountHeader": "Tambahkan akun baru",
+      "createSingleAccountHeader": "Buat akun baru",
       "newAccount": "Akun Baru",
+      "newSingleAccount": "Akun Baru",
       "advancedButton": "Tampilkan semua jenis alamat",
       "accountsNotSynced": "Akun belum disinkronkan (${count})",
       "deselectAllButton": "Batalkan pilihan semua",
       "selectAllButton": "Pilih semua",
       "accountsInPortfolio": "Akun sudah ada di portofolio (${count})",
       "addAccountButton": "Tambahkan Akun",
+      "addSingleAccountButton": "Tambahkan Akun",
+      "createSingleAccountButton": "Buat Akun",
       "resyncButton": "Sinkronisasi Ulang"
     },
     "congrats": {
@@ -173,20 +214,24 @@
         "prefix": "Alamat untuk ",
         "accountIdPrefix": "ID Akun untuk ",
         "principalIdPrefix": "ID Utama untuk ",
+        "partyIdPrefix": "ID Partai untuk ",
         "suffix": "di ${walletName}"
       },
       "addressLabel": "Alamat",
       "accountIdLabel": "ID Akun",
       "principalIdLabel": "ID Utama",
+      "partyIdLabel": "ID Partai",
       "actions": {
         "verify": "Verifikasi apakah alamat pada X1 Vault sesuai dengan alamat yang ditampilkan di atas",
         "verifyAccountId": "Verifikasi ID Akun di X1 Vault cocok persis dengan ID Akun yang ditampilkan di atas",
-        "verifyPrincipalId": "Verifikasi ID Principal di X1 Vault cocok persis dengan ID Principal yang ditampilkan di atas"
+        "verifyPrincipalId": "Verifikasi ID Principal di X1 Vault cocok persis dengan ID Principal yang ditampilkan di atas",
+        "verifyPartyId": "Verifikasi ID Partai di X1 Vault cocok persis dengan ID Partai yang ditampilkan di atas"
       },
       "messageBox": {
         "warning": "Alamat Penerimaan ini TIDAK DIVERIFIKASI oleh perangkat. Gunakan dengan risiko Anda sendiri",
         "accountIdWarning": "ID Akun Penerima ini TIDAK DIVERIFIKASI oleh perangkat. Gunakan dengan risiko Anda sendiri",
-        "principalIdWarning": "ID Utama Penerima ini TIDAK DIVERIFIKASI oleh perangkat. Gunakan dengan risiko Anda sendiri"
+        "principalIdWarning": "ID Utama Penerima ini TIDAK DIVERIFIKASI oleh perangkat. Gunakan dengan risiko Anda sendiri",
+        "partyIdWarning": "ID Partai Penerima ini TIDAK DIVERIFIKASI oleh perangkat. Gunakan dengan risiko Anda sendiri"
       },
       "waitMessageBox": {
         "warning": "Proses ini mungkin memakan waktu sekitar satu menit. Mohon bersabar"
@@ -194,13 +239,15 @@
     },
     "congrats": {
       "title": "Alamat berhasil diverifikasi",
-      "accountAndPrincipalIdTitle": "ID Akun dan ID Utama berhasil diverifikasi"
+      "accountAndPrincipalIdTitle": "ID Akun dan ID Utama berhasil diverifikasi",
+      "partyIdTitle": "ID Partai berhasil diverifikasi"
     },
     "finalButtons": {
       "secondary": "Verifikasi Lagi",
       "secondaryUnverified": "Verifikasi Alamat",
       "secondaryUnverifiedAccountId": "Verifikasi ID Akun",
       "secondaryUnverifiedPrincipalId": "Verifikasi ID Principal",
+      "secondaryUnverifiedPartyId": "Verifikasi ID Partai",
       "primary": "Selesai",
       "continue": "Lanjutkan"
     },
@@ -266,7 +313,8 @@
         "info": "Ingat ${tokenName} adalah token ${parentCoinName} oleh karena itu biaya akan dihitung dalam ${parentCoinUnit}"
       },
       "messageBox": {
-        "warning": "Selalu pastikan alamat yang ditampilkan pada perangkat Anda cocok persis dengan alamat yang diberikan oleh penerima"
+        "warning": "Selalu pastikan alamat yang ditampilkan pada perangkat Anda cocok persis dengan alamat yang diberikan oleh penerima",
+        "partyIdWarning": "Selalu pastikan ID Partai yang ditampilkan pada perangkat Anda cocok persis dengan ID Partai yang diberikan oleh penerima"
       }
     },
     "recipient": {
@@ -292,6 +340,13 @@
         "placeholder": "Masukkan id prinsipal",
         "error": "ID prinsipal tidak valid",
         "ownAddress": "ID prinsipal penerima sama dengan ID prinsipal pengirim"
+      },
+      "cantonRecipient": {
+        "label": "ID Partai Penerima",
+        "labelSwap": "ID Partai ${provider}",
+        "placeholder": "Masukkan ID partai",
+        "error": "ID partai tidak valid",
+        "ownAddress": "ID partai penerima sama dengan ID partai pengirim"
       },
       "tabs": {
         "single": "Transaksi Tunggal",
@@ -336,6 +391,24 @@
         "placeholder": "Masukkan memo numerik",
         "error": "Nilai terlalu tinggi"
       },
+      "cantonMemo": {
+        "label": "Memo",
+        "placeholder": "Opsional",
+        "tooltipText": "Anda dapat menambahkan Memo atau Deskripsi dan ini akan dikirim bersama dengan transaksi ini",
+        "error": "Memo terlalu panjang (maks 255 karakter)"
+      },
+      "expirationDate": {
+        "label": "Waktu Kedaluwarsa",
+        "placeholder": "Pilih Waktu Kedaluwarsa",
+        "tooltipText": "Silakan pilih waktu kedaluwarsa untuk transaksi ini, jika penerima tidak menerima transaksi ini sebelum waktu tersebut maka akan kedaluwarsa",
+        "options": {
+          "threeHours": "3 Jam",
+          "oneDay": "1 Hari",
+          "oneWeek": "1 Minggu",
+          "tenDays": "10 Hari",
+          "oneMonth": "1 Bulan"
+        }
+      },
       "stellarMemo": {
         "label": "Memo (Opsional)",
         "inputPlaceholder": {
@@ -362,15 +435,18 @@
       "debit": "Total yang didebet",
       "remarks": "Catatan Pribadi",
       "destinationTag": "Tag Tujuan",
-      "memo": "Memo"
+      "memo": "Memo",
+      "expirationDate": "Waktu Kedaluwarsa"
     },
     "finalMessage": {
       "button": "Periksa transaksi",
       "title": "Transaksi Terkirim",
       "hashLabel": "Hash Transaksi",
       "idLabel": "ID Transaksi",
+      "updateIdLabel": "ID Update Transaksi",
       "messageBox": {
-        "warning": "Saldo akun Anda akan diperbarui saat blockchain mengonfirmasi transaksi"
+        "warning": "Saldo akun Anda akan diperbarui saat blockchain mengonfirmasi transaksi",
+        "delayWarning": "Transaksi akan tercermin di akun Anda saat blockchain mengonfirmasinya."
       }
     },
     "aside": {
@@ -453,12 +529,18 @@
       "send": {
         "failed": "Pengiriman Gagal",
         "pending": "Mengirim",
-        "success": "Terkirim"
+        "success": "Terkirim",
+        "expired": "Pengiriman Expired",
+        "cancelled": "Pengiriman Dibatalkan",
+        "rejected": "Pengiriman Ditolak"
       },
       "receive": {
         "failed": "Penerimaan Gagal",
         "pending": "Menerima",
-        "success": "Diterima"
+        "success": "Diterima",
+        "expired": "Penerimaan Expired",
+        "cancelled": "Penerimaan Dibatalkan",
+        "rejected": "Penerimaan Ditolak"
       }
     },
     "dialogBox": {
@@ -475,6 +557,7 @@
       "mine": "Tambang",
       "transactionHash": "Hash Transaksi",
       "transactionId": "ID Transaksi",
+      "transactionUpdateId": "ID Update Transaksi",
       "description": "Deskripsi",
       "feePrefix": {
         "optimism": "L2 "
@@ -482,6 +565,9 @@
       "remarks": "Catatan Pribadi",
       "destinationTag": "Tag Tujuan",
       "memo": "Memo",
+      "choice": "Pilihan",
+      "startDate": "Tanggal Mulai",
+      "expirationDate": "Waktu Kedaluwarsa",
       "operation": "Operasi"
     },
     "noData": {
@@ -845,6 +931,16 @@
   },
   "portfolio": {
     "title": "Portofolio",
+    "banner": {
+      "addCanton": {
+        "title": "Rasakan **Jaringan Canton**. Dapatkan hingga **$2500 nilai Koin Canton**. Hanya di Cypherock X1",
+        "button": "Pelajari Lebih Lanjut"
+      },
+      "enableAutomaticApprovals": {
+        "title": "Aktifkan **Persetujuan Otomatis** untuk Canton agar secara otomatis menerima transaksi masuk",
+        "button": "Aktifkan"
+      }
+    },
     "tokenTable": {
       "title": "Token",
       "tableHeader": {
@@ -1274,6 +1370,18 @@
       "SER_1028": {
         "heading": "Email Sudah Terdaftar",
         "subtext": "Akun dengan alamat email ini sudah terdaftar. Silakan gunakan alamat email yang berbeda atau hubungi dukungan Cypherock untuk bantuan."
+      },
+      "SER_1100": {
+        "heading": "Jumlah Pendaftaran Pengguna Maksimum Harian Dicapai",
+        "subtext": "Kami telah mencapai jumlah maksimum pendaftaran pengguna untuk hari ini. Silakan coba lagi besok."
+      },
+      "SER_1101": {
+        "heading": "Jumlah Parti Maksimum Per Pengguna Dicapai",
+        "subtext": "Anda telah mencapai jumlah maksimum parti untuk akun Anda. Silakan hubungi dukungan Cypherock untuk bantuan."
+      },
+      "SER_1102": {
+        "heading": "Pengguna Tidak Layak Untuk Pembuatan Parti",
+        "subtext": "Anda tidak layak untuk membuat parti. Silakan hubungi dukungan Cypherock untuk bantuan."
       },
       "SER_2000": {
         "heading": "Penyiaran transaksi gagal",
@@ -2107,6 +2215,89 @@
       "toAsset": "Asset",
       "toAmount": "Amount Received",
       "toReceiver": "Receiver"
+    },
+    "cantonDialogs": {
+      "enableApprovalPrompt": {
+        "title": "Aktifkan Persetujuan Transfer",
+        "subTitle": "Secara otomatis menerima transaksi masuk tanpa persetujuan manual. Ini akan menghemat waktu Anda dengan menghilangkan kebutuhan untuk menerima setiap transaksi masuk dan reward secara manual.",
+        "note": "Catatan- Ini wajib untuk memenuhi syarat untuk program Reward Canton."
+      },
+      "enableApproval": {
+        "title": "Aktifkan Persetujuan Transfer",
+        "dialogs": {
+          "x1Vault": {
+            "name": "X1 Vault",
+            "deviceAction": {
+              "verifyDetails": "Verifikasi tipe transaksi pada perangkat Anda"
+            }
+          },
+          "confirmation": {
+            "name": "Konfirmasi",
+            "title": "Persetujuan Transfer diaktifkan"
+          }
+        }
+      },
+      "enableMergeDelegation": {
+        "title": "Aktifkan Pengelolaan UTXO",
+        "dialogs": {
+          "summary": {
+            "name": "Ringkasan",
+            "title": "Aktifkan Pengelolaan UTXO",
+            "subTitle": "**Secara otomatis menggabungkan** UTXO’s. Ini akan mempertahankan dompet Anda terorganisir dengan menggabungkan aset kecil secara otomatis ketika diperlukan",
+            "note": "Catatan- Ini wajib untuk memenuhi syarat untuk program Reward Canton."
+          },
+          "x1Vault": {
+            "name": "X1 Vault",
+            "deviceAction": {
+              "verifyDetails": "Verifikasi tipe transaksi pada perangkat Anda"
+            }
+          },
+          "confirmation": {
+            "name": "Konfirmasi",
+            "title": "Pengelolaan UTXO diaktifkan"
+          }
+        }
+      },
+      "createCantonAccount": {
+        "title": "Pembuatan Akun",
+        "dialogs": {
+          "x1Vault": {
+            "name": "X1 Vault",
+            "messageBox": {
+              "warning": "Sebelum Anda dapat berinteraksi di Canton Network, akun Anda harus dibuat. Ini akan memungkinkan Anda untuk memulai mengirim, menerima, dan mengelola aset digital."
+            }
+          },
+          "confirmation": {
+            "name": "Konfirmasi"
+          },
+          "success": {
+            "title": "Akun berhasil dibuat"
+          },
+          "automaticApproval": {
+            "name": "Persetujuan Transfer"
+          }
+        }
+      },
+      "transactionAction": {
+        "title": {
+          "approve": "Terima Transaksi Masuk",
+          "reject": "Tolak Transaksi Masuk",
+          "cancel": "Batalkan Transaksi Keluar"
+        },
+        "dialogs": {
+          "x1Vault": {
+            "name": "X1 Vault"
+          },
+          "confirmation": {
+            "name": "Konfirmasi"
+          },
+          "success": {
+            "approve": "Transaksi masuk **diterima**",
+            "reject": "Transaksi masuk **ditolak**",
+            "cancel": "Transaksi keluar **dibatalkan**"
+          }
+        }
+      }
     }
   },
   "toggle": {

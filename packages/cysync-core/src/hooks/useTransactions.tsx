@@ -87,6 +87,9 @@ export interface TransactionRowData {
   network: string;
   destinationTag?: number;
   memo?: string;
+  expiryDate?: string;
+  startDate?: string;
+  choice?: string;
   operation?: string;
   providerUrl?: string;
 }
@@ -175,7 +178,29 @@ const getExtraInfo = (transaction: ITransaction) => {
     operation = operation.charAt(0).toUpperCase() + operation.slice(1);
   }
 
-  return { remarks, destinationTag, memo, operation };
+  const expiryDate = transaction.extraData?.expiryDate
+    ? formatDate(
+        new Date(transaction.extraData?.expiryDate),
+        'eeee, MMMM d yyyy h:mm a',
+      )
+    : undefined;
+  const startDate = transaction.extraData?.startDate
+    ? formatDate(
+        new Date(transaction.extraData?.startDate),
+        'eeee, MMMM d yyyy h:mm a',
+      )
+    : undefined;
+  const choice = transaction.extraData?.choice;
+
+  return {
+    remarks,
+    destinationTag,
+    memo,
+    operation,
+    expiryDate,
+    startDate,
+    choice,
+  };
 };
 
 const getDisplayValues = (

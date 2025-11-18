@@ -2,6 +2,10 @@
 /* eslint-disable react/jsx-key */
 import { getCoinSupport } from '@cypherock/coin-support';
 import { IPreparedBtcTransaction } from '@cypherock/coin-support-btc';
+import {
+  ICantonTransactionExpiryInput,
+  IPreparedCantonTransaction,
+} from '@cypherock/coin-support-canton';
 import { IPreparedEvmTransaction } from '@cypherock/coin-support-evm';
 import { IPreparedIcpTransaction } from '@cypherock/coin-support-icp';
 import {
@@ -60,7 +64,7 @@ import React, {
 } from 'react';
 import { Observer, Subscription } from 'rxjs';
 
-import { openDeployAccountDialog } from '~/actions';
+import { openDeployAccountDialog, syncAccounts } from '~/actions';
 import { LoaderDialog } from '~/components';
 import {
   WalletConnectCallRequestMethodMap,
@@ -85,7 +89,7 @@ import {
   useAppDispatch,
   useAppSelector,
 } from '~/store';
-import { getDB } from '~/utils';
+import { getDB, getKeyDB } from '~/utils';
 import logger from '~/utils/logger';
 
 import {
@@ -136,6 +140,8 @@ export interface SendDialogContextInterface {
   prepareDestinationTag: (tag: number) => Promise<void>;
   prepareMemo: (memo: string) => Promise<void>;
   prepareStellarMemo: (memo: IStellarMemo) => Promise<void>;
+  prepareCantonMemo: (memo: string) => Promise<void>;
+  prepareCantonExpiry: (expiry: ICantonTransactionExpiryInput) => Promise<void>;
   priceConverter: (val: string, inverse?: boolean) => string;
   updateUserInputs: (count: number) => void;
   isAccountSelectionDisabled: boolean | undefined;
@@ -398,17 +404,28 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
         db: getDB(),
         signedTransaction,
         transaction: txn,
+        keyDB: getKeyDB(),
       });
 
-      if (isWalletConnectRequest) {
-        approveCallRequest(storedTxn.hash);
-        onClose(true);
-        return;
+      if (storedTxn) {
+        if (isWalletConnectRequest) {
+          approveCallRequest(storedTxn.hash);
+          onClose(true);
+          return;
+        }
+        setStoredTransaction(storedTxn);
+        setTransactionLink(
+          getCurrentCoinSupport().getExplorerLink({ transaction: storedTxn }),
+        );
+      } else if (selectedAccount) {
+        dispatch(
+          syncAccounts({
+            accounts: [selectedAccount],
+            currency: currentCurrency,
+          }),
+        );
       }
-      setStoredTransaction(storedTxn);
-      setTransactionLink(
-        getCurrentCoinSupport().getExplorerLink({ transaction: storedTxn }),
-      );
+
       onNext();
     } catch (e: any) {
       logger.error(JSON.stringify(e));
@@ -477,6 +494,7 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
         {
           db: getDB(),
           accountId: selectedAccount?.__id ?? '',
+          keyDB: getKeyDB(),
         },
       );
       if (prefillDetails) {
@@ -519,6 +537,7 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
           accountId: selectedAccount?.__id ?? '',
           db: getDB(),
           txn,
+          keyDB: getKeyDB(),
         });
 
       setTransaction(structuredClone(preparedTransaction));
@@ -749,6 +768,42 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
     await prepare(txn);
   };
 
+  const prepareCantonMemo = async (memo: string) => {
+    const txn = transactionRef.current as IPreparedCantonTransaction;
+    if (!txn) return;
+
+    if (txn.userInputs.outputs.length > 0) {
+      txn.userInputs.outputs[0].memo = memo;
+    } else {
+      txn.userInputs.outputs = [
+        {
+          address: '',
+          amount: '',
+          memo,
+        },
+      ];
+    }
+    await prepare(txn);
+  };
+
+  const prepareCantonExpiry = async (expiry: ICantonTransactionExpiryInput) => {
+    const txn = transactionRef.current as IPreparedCantonTransaction;
+    if (!txn) return;
+
+    if (txn.userInputs.outputs.length > 0) {
+      txn.userInputs.outputs[0].expiry = expiry;
+    } else {
+      txn.userInputs.outputs = [
+        {
+          address: '',
+          amount: '',
+          expiry,
+        },
+      ];
+    }
+    await prepare(txn);
+  };
+
   const priceConverter = (val: string, invert?: boolean) => {
     const coinPrice = priceInfos.find(
       p => p.assetId === selectedAccount?.assetId,
@@ -838,6 +893,12 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
     return computedData.fees || '0';
   };
 
+  const getCantonFeeAmount = (txn: IPreparedTransaction | undefined) => {
+    if (!txn) return '0';
+    const { computedData } = txn as IPreparedCantonTransaction;
+    return computedData.fees || '0';
+  };
+
   const computedFeeMap: Record<
     CoinFamily,
     (txn: IPreparedTransaction | undefined) => string
@@ -852,6 +913,7 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
     icp: getIcpFeeAmount,
     stellar: getStellarFeeAmount,
     sia: getSiaFeeAmount,
+    canton: getCantonFeeAmount,
   };
 
   const getComputedFee = (coinFamily: CoinFamily, txn?: IPreparedTransaction) =>
@@ -1205,6 +1267,8 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
     prepareDestinationTag,
     prepareMemo,
     prepareStellarMemo,
+    prepareCantonMemo,
+    prepareCantonExpiry,
     priceConverter,
     updateUserInputs,
     isAccountSelectionDisabled: disableAccountSelection,

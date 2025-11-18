@@ -75,19 +75,56 @@
         "tapCard": "Appuyez sur n'importe quelle carte"
       }
     },
+    "cantonSignup": {
+      "userDetails": {
+        "title": "Vos détails",
+        "subtext": "Entrez l'email que vous avez utilisée lors de l'achat de Cypherock X1",
+        "emailField": {
+          "label": "Email enregistrée",
+          "rightLabel": "Requis"
+        },
+        "sendOTPButton": "Envoyer OTP"
+      },
+      "verifyOTP": {
+        "title": "Vérification OTP pour l'email"
+      },
+      "loader": {
+        "title": "Please wait while we verify your details...",
+        "subtext": "Ne déconnectez pas ou fermez l'application cySync"
+      },
+      "success": {
+        "eligibleAndCanProceed": {
+          "title": "Vous êtes éligible et pouvez procéder à la création de compte"
+        },
+        "eligibleAndAddedInWaitlist": {
+          "title": "Vous êtes éligible et ajouté à la liste d'attente pour Canton Network",
+          "subtext": "En raison de la demande élevée, il y a une liste d'attente, veuillez réessayer demain"
+        },
+        "notEligible": {
+          "title": "Vous n'êtes pas éligible pour Canton Network",
+          "subtext": "Seuls les utilisateurs existants et les utilisateurs Pro sont éligibles pour les comptes Canton Network"
+        },
+        "buttonText": "En savoir plus"
+      }
+    },
     "loader": {
       "waitMessage": "Ce processus peut prendre environ une minute. Veuillez être patient"
     },
     "sync": {
       "syncingHeader": "Synchronisation du compte",
       "header": "Ajouter de nouveaux comptes",
+      "addSingleAccountHeader": "Ajouter un nouveau compte",
+      "createSingleAccountHeader": "Créer un nouveau compte",
       "newAccount": "Nouveaux comptes",
+      "newSingleAccount": "Nouveau compte",
       "advancedButton": "Afficher tous les types d'adresses",
       "accountsNotSynced": "Compte pas encore synchronisé (${count})",
       "deselectAllButton": "Tout désélectionner",
       "selectAllButton": "Tout sélectionner",
       "accountsInPortfolio": "Comptes déjà dans le portefeuille (${count})",
       "addAccountButton": "Ajouter des comptes",
+      "addSingleAccountButton": "Ajouter un compte",
+      "createSingleAccountButton": "Créer un compte",
       "resyncButton": "Resynchroniser"
     },
     "congrats": {
@@ -136,12 +173,18 @@
       "send": {
         "failed": "Échec de l'envoi",
         "pending": "Envoi",
-        "success": "Envoyé"
+        "success": "Envoyé",
+        "expired": "Envoi expiré",
+        "cancelled": "Envoi annulé",
+        "rejected": "Envoi rejeté"
       },
       "receive": {
         "failed": "Échec de la réception",
         "pending": "Réception",
-        "success": "Reçu"
+        "success": "Reçu",
+        "expired": "Réception expirée",
+        "cancelled": "Réception annulée",
+        "rejected": "Réception rejetée"
       }
     },
     "dialogBox": {
@@ -158,6 +201,7 @@
       "mine": "Mien",
       "transactionHash": "Hash de la transaction",
       "transactionId": "ID de la transaction",
+      "transactionUpdateId": "ID de Transaction Update",
       "description": "Description",
       "feePrefix": {
         "optimism": "L2 "
@@ -165,6 +209,9 @@
       "remarks": "Note personnelle",
       "destinationTag": "Tag de destination",
       "memo": "Mémo",
+      "choice": "Choix",
+      "startDate": "Date de début",
+      "expirationDate": "Date d'expiration",
       "operation": "Opération"
     },
     "noData": {
@@ -230,20 +277,24 @@
         "prefix": "Adresse pour ",
         "accountIdPrefix": "ID de compte pour ",
         "principalIdPrefix": "ID principal pour ",
+        "partyIdPrefix": "ID de la partie pour ",
         "suffix": "dans ${walletName}"
       },
       "addressLabel": "Adresse",
       "accountIdLabel": "ID de compte",
       "principalIdLabel": "ID principal",
+      "partyIdLabel": "ID de la partie",
       "actions": {
         "verify": "Vérifiez que l'adresse sur X1 Vault correspond exactement à l'adresse affichée ci-dessus",
         "verifyAccountId": "Vérifiez que l'ID de compte sur X1 Vault correspond exactement à l'ID de compte affiché ci-dessus",
-        "verifyPrincipalId": "Vérifiez que l'ID principal sur X1 Vault correspond exactement à l'ID principal affiché ci-dessus"
+        "verifyPrincipalId": "Vérifiez que l'ID principal sur X1 Vault correspond exactement à l'ID principal affiché ci-dessus",
+        "verifyPartyId": "Vérifiez que l'ID de la partie sur X1 Vault correspond exactement à l'ID de la partie affiché ci-dessus"
       },
       "messageBox": {
         "warning": "Cette adresse de réception n'a PAS ÉTÉ VÉRIFIÉE par l'appareil. Utilisez-la à vos propres risques",
         "accountIdWarning": "Cet ID de compte de réception n'a PAS ÉTÉ VÉRIFIÉ par l'appareil. Utilisez-le à vos propres risques",
-        "principalIdWarning": "Cet ID principal de réception n'a PAS ÉTÉ VÉRIFIÉ par l'appareil. Utilisez-le à vos propres risques"
+        "principalIdWarning": "Cet ID principal de réception n'a PAS ÉTÉ VÉRIFIÉ par l'appareil. Utilisez-le à vos propres risques",
+        "partyIdWarning": "Cet ID de la partie de réception n'a PAS ÉTÉ VÉRIFIÉ par l'appareil. Utilisez-le à vos propres risques"
       },
       "waitMessageBox": {
         "warning": "Ce processus pourrait prendre environ une minute. Veuillez être patient"
@@ -251,13 +302,15 @@
     },
     "congrats": {
       "title": "Adresse vérifiée avec succès",
-      "accountAndPrincipalIdTitle": "ID de compte et ID principal vérifiés avec succès"
+      "accountAndPrincipalIdTitle": "ID de compte et ID principal vérifiés avec succès",
+      "partyIdTitle": "ID de la partie vérifié avec succès"
     },
     "finalButtons": {
       "secondary": "Vérifier à nouveau",
       "secondaryUnverified": "Vérifier l'adresse",
       "secondaryUnverifiedAccountId": "Vérifier l'ID de compte",
       "secondaryUnverifiedPrincipalId": "Vérifier l'ID principal",
+      "secondaryUnverifiedPartyId": "Vérifier l'ID de la partie",
       "primary": "Terminé",
       "continue": "Continuer"
     },
@@ -331,7 +384,11 @@
     "exitWithoutSaving": "Quitter sans enregistrer",
     "saveChanges": "Enregistrer les modifications",
     "edit": "Modifier",
-    "tryAgain": "Essayer encore"
+    "tryAgain": "Essayer encore",
+    "autoApproval": "Pré-approbation de transfert",
+    "mergeDelegation": "Gestion des UTXO",
+    "accept": "Accepter",
+    "earnRewards": "Gagner des récompenses"
   },
   "signMessage": {
     "title": "Signer le message",
@@ -520,6 +577,16 @@
   },
   "portfolio": {
     "title": "Portfolio",
+    "banner": {
+      "addCanton": {
+        "title": "Découvrez le **réseau Canton**. Gagnez jusqu'à **2500 dollars en pièces Canton**. Uniquement sur Cypherock X1",
+        "button": "En savoir plus"
+      },
+      "enableAutomaticApprovals": {
+        "title": "Activez les **approbations automatiques** pour Canton afin d'accepter automatiquement les transactions entrantes",
+        "button": "Activer"
+      }
+    },
     "tokenTable": {
       "title": "Jetons",
       "tableHeader": {
@@ -706,7 +773,8 @@
         "info": "Rappelez-vous que ${tokenName} est un jeton ${parentCoinName}, donc le fee sera calculé en ${parentCoinUnit}"
       },
       "messageBox": {
-        "warning": "Vérifiez toujours que l'adresse affichée sur votre appareil correspond exactement à l'adresse fournie par le destinataire"
+        "warning": "Vérifiez toujours que l'adresse affichée sur votre appareil correspond exactement à l'adresse fournie par le destinataire",
+        "partyIdWarning": "Vérifiez toujours que l'ID de la partie affichée sur votre appareil correspond exactement à l'ID de la partie fourni par le destinataire"
       }
     },
     "recipient": {
@@ -732,6 +800,13 @@
         "placeholder": "Entrez l'ID principal",
         "error": "ID principal invalide",
         "ownAddress": "L'ID principal du destinataire est identique à l'ID principal de l'expéditeur"
+      },
+      "cantonRecipient": {
+        "label": "ID de la partie du destinataire",
+        "labelSwap": "${provider}'s Party ID",
+        "placeholder": "Entrez l'ID de la partie",
+        "error": "ID de la partie invalide",
+        "ownAddress": "L'ID de la partie du destinataire est identique à l'ID de la partie de l'expéditeur"
       },
       "tabs": {
         "single": "Transaction unique",
@@ -776,6 +851,24 @@
         "placeholder": "Entrez un mémo numérique",
         "error": "Valeur trop élevée"
       },
+      "cantonMemo": {
+        "label": "Mémo",
+        "placeholder": "Optionnel",
+        "tooltipText": "Vous pouvez ajouter un mémo ou une description qui sera envoyé avec cette transaction",
+        "error": "Mémo trop long (max 255 caractères)"
+      },
+      "expirationDate": {
+        "label": "Temps d'expiration",
+        "placeholder": "Choisir le temps d'expiration",
+        "tooltipText": "Veuillez choisir un temps d'expiration pour cette transaction, si le destinataire n'accepte pas cette transaction avant ce temps, elle expirera",
+        "options": {
+          "threeHours": "3 heures",
+          "oneDay": "1 jour",
+          "oneWeek": "1 semaine",
+          "tenDays": "10 jours",
+          "oneMonth": "1 mois"
+        }
+      },
       "stellarMemo": {
         "label": "Mémo (Facultatif)",
         "inputPlaceholder": {
@@ -802,15 +895,18 @@
       "debit": "Total à débiter",
       "remarks": "Note personnelle",
       "destinationTag": "Tag de destination",
-      "memo": "Mémo"
+      "memo": "Mémo",
+      "expirationDate": "Temps d'expiration"
     },
     "finalMessage": {
       "button": "Vérifier les transactions",
       "title": "Transaction envoyée",
       "hashLabel": "Hash de la transaction",
       "idLabel": "ID de la transaction",
+      "updateIdLabel": "ID de Transaction Update",
       "messageBox": {
-        "warning": "Le solde de votre compte sera mis à jour lorsque la blockchain confirmera la transaction"
+        "warning": "Le solde de votre compte sera mis à jour lorsque la blockchain confirmera la transaction",
+        "delayWarning": "La transaction sera reflétée dans votre compte lorsque la blockchain la confirmera."
       }
     },
     "aside": {
@@ -1391,6 +1487,18 @@
       "SER_1028": {
         "heading": "Email déjà existant",
         "subtext": "Un compte avec cette adresse e-mail existe déjà. Veuillez utiliser une autre adresse e-mail ou contactez le support Cypherock pour obtenir de l'aide"
+      },
+      "SER_1100": {
+        "heading": "Nombre maximum d'inscriptions utilisateur atteint",
+        "subtext": "Nous avons atteint le nombre maximum d'inscriptions utilisateur pour aujourd'hui. Veuillez réessayer demain."
+      },
+      "SER_1101": {
+        "heading": "Nombre maximum de parties par utilisateur atteint",
+        "subtext": "Vous avez atteint le nombre maximum de parties pour votre compte. Veuillez contacter le support Cypherock pour obtenir de l'aide"
+      },
+      "SER_1102": {
+        "heading": "Utilisateur non autorisé pour la création de partie",
+        "subtext": "Vous n'êtes pas autorisé à créer une partie. Veuillez contacter le support Cypherock pour obtenir de l'aide"
       },
       "SER_2000": {
         "heading": "Échec de la diffusion de la transaction",
@@ -2204,6 +2312,89 @@
       "toAsset": "Actif",
       "toAmount": "Montant reçu",
       "toReceiver": "Récepteur"
+    },
+    "cantonDialogs": {
+      "enableApprovalPrompt": {
+        "title": "Activer la pré-approbation de transfert",
+        "subTitle": "Accepter automatiquement les transactions entrantes sans approbation manuelle. Cela vous permettra de gagner du temps en éliminant la nécessité de valider manuellement chaque transaction reçue et les récompenses.",
+        "note": "Note- Cela est obligatoire pour être éligible au programme de récompenses Canton."
+      },
+      "enableApproval": {
+        "title": "Activer la pré-approbation de transfert",
+        "dialogs": {
+          "x1Vault": {
+            "name": "X1 Vault",
+            "deviceAction": {
+              "verifyDetails": "Vérifier le type de transaction sur votre appareil"
+            }
+          },
+          "confirmation": {
+            "name": "Confirmation",
+            "title": "La pré-approbation de transfert est activée"
+          }
+        }
+      },
+      "enableMergeDelegation": {
+        "title": "Activer la gestion des UTXO",
+        "dialogs": {
+          "summary": {
+            "name": "Résumé",
+            "title": "Activer la gestion des UTXO",
+            "subTitle": "**Automatiquement consolider** les UTXO. Cela permettra de maintenir votre portefeuille organisé en combinant automatiquement les petites holdings lorsque nécessaire",
+            "note": "Note- Cela est obligatoire pour être éligible au programme de récompenses Canton."
+          },
+          "x1Vault": {
+            "name": "X1 Vault",
+            "deviceAction": {
+              "verifyDetails": "Vérifier le type de transaction sur votre appareil"
+            }
+          },
+          "confirmation": {
+            "name": "Confirmation",
+            "title": "La gestion des UTXO est activée"
+          }
+        }
+      },
+      "createCantonAccount": {
+        "title": "Création de compte",
+        "dialogs": {
+          "x1Vault": {
+            "name": "X1 Vault",
+            "messageBox": {
+              "warning": "Avant de pouvoir interagir sur le réseau Canton, votre compte doit être créé. Cela vous permettra de commencer à envoyer, recevoir et gérer des actifs numériques."
+            }
+          },
+          "confirmation": {
+            "name": "Confirmation"
+          },
+          "success": {
+            "title": "Compte créé avec succès"
+          },
+          "automaticApproval": {
+            "name": "Pré-approbation de transfert"
+          }
+        }
+      },
+      "transactionAction": {
+        "title": {
+          "approve": "Accepter la transaction entrante",
+          "reject": "Rejeter la transaction entrante",
+          "cancel": "Annuler la transaction sortante"
+        },
+        "dialogs": {
+          "x1Vault": {
+            "name": "X1 Vault"
+          },
+          "confirmation": {
+            "name": "Confirmation"
+          },
+          "success": {
+            "approve": "Transaction entrante **acceptée**",
+            "reject": "Transaction entrante **rejetée**",
+            "cancel": "Transaction sortante **annulée**"
+          }
+        }
+      }
     }
   },
   "settings": {

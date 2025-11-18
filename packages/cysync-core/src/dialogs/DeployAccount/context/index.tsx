@@ -335,6 +335,7 @@ export const DeployAccountDialogProvider: FC<
     icp: () => '0',
     stellar: () => '0',
     sia: () => '0',
+    canton: () => '0',
   };
 
   const getComputedFee = (coinFamily: CoinFamily, txn?: IPreparedTransaction) =>

@@ -1,5 +1,46 @@
 # @cypherock/cysync-core-services
 
+## 0.2.5
+
+### Patch Changes
+
+- Updated dependencies [[`cb9a80fc`](https://github.com/Cypherock/cypherock-cysync/commit/cb9a80fcc15e2334b4a7c471464ec39949fa0504)]:
+  - @cypherock/coin-support-interfaces@0.1.2
+  - @cypherock/db-interfaces@0.1.2
+  - @cypherock/coin-support@0.2.5
+  - @cypherock/coin-support-evm@0.1.3
+  - @cypherock/coin-support-utils@0.1.3
+  - @cypherock/cysync-interfaces@0.0.12
+  - @cypherock/cysync-utils@0.0.15
+
+## 0.2.4
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @cypherock/coin-support@0.2.4
+
+## 0.2.3
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @cypherock/coin-support@0.2.3
+
+## 0.2.2
+
+### Patch Changes
+
+- [#819](https://github.com/Cypherock/cypherock-cysync/pull/819) [`0b897a64`](https://github.com/Cypherock/cypherock-cysync/commit/0b897a64f2519dd8aca7230751ca28ce4eeb9251) Thanks [@muzaffarbhat07](https://github.com/muzaffarbhat07)! - Adds canton support (Add Account and Transfer PreApproval only)
+
+- Updated dependencies [[`0b897a64`](https://github.com/Cypherock/cypherock-cysync/commit/0b897a64f2519dd8aca7230751ca28ce4eeb9251)]:
+  - @cypherock/coins@0.5.0
+  - @cypherock/coin-support-interfaces@0.1.1
+  - @cypherock/coin-support-utils@0.1.2
+  - @cypherock/coin-support@0.2.2
+  - @cypherock/cysync-utils@0.0.14
+  - @cypherock/coin-support-evm@0.1.2
+
 ## 0.2.1
 
 ### Patch Changes

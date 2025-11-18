@@ -1,5 +1,53 @@
 # @cypherock/cysync-desktop
 
+## 2.3.5
+
+### Patch Changes
+
+- Updated dependencies [[`cb9a80fc`](https://github.com/Cypherock/cypherock-cysync/commit/cb9a80fcc15e2334b4a7c471464ec39949fa0504)]:
+  - @cypherock/db-interfaces@0.1.2
+  - @cypherock/database@0.1.7
+  - @cypherock/cysync-interfaces@0.0.12
+  - @cypherock/cysync-desktop-ui@0.2.5
+  - @cypherock/cysync-utils@0.0.15
+
+## 2.3.4
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @cypherock/cysync-desktop-ui@0.2.4
+
+## 2.3.3
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @cypherock/cysync-desktop-ui@0.2.3
+
+## 2.3.2
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @cypherock/cysync-desktop-ui@0.2.2
+
+## 2.3.2-pre.0
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @cypherock/cysync-desktop-ui@0.2.2-pre.0
+
+## 2.3.1
+
+### Patch Changes
+
+- Updated dependencies [[`0b897a64`](https://github.com/Cypherock/cypherock-cysync/commit/0b897a64f2519dd8aca7230751ca28ce4eeb9251)]:
+  - @cypherock/cysync-utils@0.0.14
+  - @cypherock/cysync-desktop-ui@0.2.1
+  - @cypherock/database@0.1.6
+
 ## 2.3.0
 
 ### Minor Changes

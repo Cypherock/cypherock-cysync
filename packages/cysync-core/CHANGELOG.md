@@ -1,5 +1,109 @@
 # @cypherock/cysync-core
 
+## 0.9.4
+
+### Patch Changes
+
+- [#839](https://github.com/Cypherock/cypherock-cysync/pull/839) [`cb9a80fc`](https://github.com/Cypherock/cypherock-cysync/commit/cb9a80fcc15e2334b4a7c471464ec39949fa0504) Thanks [@muzaffarbhat07](https://github.com/muzaffarbhat07)! - Fixes canton send and txn histroy
+
+- Updated dependencies [[`cb9a80fc`](https://github.com/Cypherock/cypherock-cysync/commit/cb9a80fcc15e2334b4a7c471464ec39949fa0504)]:
+  - @cypherock/coin-support-interfaces@0.1.2
+  - @cypherock/cysync-core-constants@0.6.5
+  - @cypherock/coin-support-canton@1.0.3
+  - @cypherock/db-interfaces@0.1.2
+  - @cypherock/cysync-ui@0.0.19
+  - @cypherock/coin-support@0.2.5
+  - @cypherock/coin-support-btc@0.0.25
+  - @cypherock/coin-support-evm@0.1.3
+  - @cypherock/coin-support-icp@1.0.8
+  - @cypherock/coin-support-near@0.0.24
+  - @cypherock/coin-support-solana@0.2.3
+  - @cypherock/coin-support-starknet@1.0.11
+  - @cypherock/coin-support-stellar@1.0.5
+  - @cypherock/coin-support-tron@0.1.3
+  - @cypherock/coin-support-utils@0.1.3
+  - @cypherock/coin-support-xrp@1.1.12
+  - @cypherock/cysync-core-services@0.2.5
+  - @cypherock/cysync-core-workers@0.1.5
+  - @cypherock/app-support-buy-sell@0.0.11
+  - @cypherock/cysync-interfaces@0.0.12
+  - @cypherock/app-support-inheritance@1.0.9
+  - @cypherock/cysync-utils@0.0.15
+
+## 0.9.3
+
+### Patch Changes
+
+- [#841](https://github.com/Cypherock/cypherock-cysync/pull/841) [`32e8af6c`](https://github.com/Cypherock/cypherock-cysync/commit/32e8af6cbbd1ffd0b5f917a39ee340fc2de86d53) Thanks [@muzaffarbhat07](https://github.com/muzaffarbhat07)! - Fixes canton login on each create account
+
+- Updated dependencies [[`e77bb485`](https://github.com/Cypherock/cypherock-cysync/commit/e77bb4859c6d9875452eafdc0236735561fd5fa7)]:
+  - @cypherock/coin-support-canton@1.0.2
+  - @cypherock/coin-support@0.2.4
+  - @cypherock/cysync-core-services@0.2.4
+  - @cypherock/cysync-core-workers@0.1.4
+
+## 0.9.2
+
+### Patch Changes
+
+- [#835](https://github.com/Cypherock/cypherock-cysync/pull/835) [`dbb8eb56`](https://github.com/Cypherock/cypherock-cysync/commit/dbb8eb560c7ad740693ba101182741360075ed4b) Thanks [@muzaffarbhat07](https://github.com/muzaffarbhat07)! - Adds enable canton utxo merge
+
+- Updated dependencies [[`dbb8eb56`](https://github.com/Cypherock/cypherock-cysync/commit/dbb8eb560c7ad740693ba101182741360075ed4b)]:
+  - @cypherock/cysync-core-constants@0.6.4
+  - @cypherock/coin-support-canton@1.0.1
+  - @cypherock/coin-support@0.2.3
+  - @cypherock/cysync-core-services@0.2.3
+  - @cypherock/cysync-core-workers@0.1.3
+
+## 0.9.1
+
+### Patch Changes
+
+- [#833](https://github.com/Cypherock/cypherock-cysync/pull/833) [`4b698171`](https://github.com/Cypherock/cypherock-cysync/commit/4b69817156f90e3f716c070d944b1be32b870da0) Thanks [@muzaffarbhat07](https://github.com/muzaffarbhat07)! - Canton UI fixes
+
+- Updated dependencies [[`4b698171`](https://github.com/Cypherock/cypherock-cysync/commit/4b69817156f90e3f716c070d944b1be32b870da0)]:
+  - @cypherock/cysync-core-constants@0.6.3
+
+## 0.9.1-pre.0
+
+### Patch Changes
+
+- [#833](https://github.com/Cypherock/cypherock-cysync/pull/833) [`4b698171`](https://github.com/Cypherock/cypherock-cysync/commit/4b69817156f90e3f716c070d944b1be32b870da0) Thanks [@muzaffarbhat07](https://github.com/muzaffarbhat07)! - Canton UI fixes
+
+- Updated dependencies [[`4b698171`](https://github.com/Cypherock/cypherock-cysync/commit/4b69817156f90e3f716c070d944b1be32b870da0)]:
+  - @cypherock/cysync-core-constants@0.6.3-pre.0
+
+## 0.9.0
+
+### Minor Changes
+
+- [#819](https://github.com/Cypherock/cypherock-cysync/pull/819) [`0b897a64`](https://github.com/Cypherock/cypherock-cysync/commit/0b897a64f2519dd8aca7230751ca28ce4eeb9251) Thanks [@muzaffarbhat07](https://github.com/muzaffarbhat07)! - Adds canton support (Add Account and Transfer PreApproval only)
+
+### Patch Changes
+
+- Updated dependencies [[`0b897a64`](https://github.com/Cypherock/cypherock-cysync/commit/0b897a64f2519dd8aca7230751ca28ce4eeb9251)]:
+  - @cypherock/coin-support-canton@1.0.0
+  - @cypherock/coins@0.5.0
+  - @cypherock/coin-support-interfaces@0.1.1
+  - @cypherock/cysync-core-constants@0.6.2
+  - @cypherock/coin-support-utils@0.1.2
+  - @cypherock/cysync-core-services@0.2.2
+  - @cypherock/coin-support@0.2.2
+  - @cypherock/cysync-utils@0.0.14
+  - @cypherock/cysync-ui@0.0.18
+  - @cypherock/app-support-buy-sell@0.0.10
+  - @cypherock/coin-support-btc@0.0.24
+  - @cypherock/coin-support-evm@0.1.2
+  - @cypherock/coin-support-icp@1.0.7
+  - @cypherock/coin-support-near@0.0.23
+  - @cypherock/coin-support-solana@0.2.2
+  - @cypherock/coin-support-starknet@1.0.10
+  - @cypherock/coin-support-stellar@1.0.4
+  - @cypherock/coin-support-tron@0.1.2
+  - @cypherock/coin-support-xrp@1.1.11
+  - @cypherock/cysync-core-workers@0.1.2
+  - @cypherock/app-support-inheritance@1.0.8
+
 ## 0.8.0
 
 ### Minor Changes

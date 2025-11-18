@@ -11,7 +11,13 @@ import { HistoryNameBox } from '../HistoryNameBox';
 import { TableNameBox } from '../TableNameBox';
 import { RowWrapper, RowContainer } from '../TableStyles';
 
-export type TransactionTableStatus = 'pending' | 'failed' | 'success';
+export type TransactionTableStatus =
+  | 'pending'
+  | 'failed'
+  | 'success'
+  | 'expired'
+  | 'cancelled'
+  | 'rejected';
 
 export interface TransactionTableRowProps {
   id: string;
@@ -49,6 +55,9 @@ export const getTransactionFillFromStatus = (
     success: theme.palette.text.success,
     pending: theme.palette.text.warn,
     failed: theme.palette.text.error,
+    expired: theme.palette.text.error,
+    cancelled: theme.palette.text.error,
+    rejected: theme.palette.text.error,
   };
 
   return map[status];

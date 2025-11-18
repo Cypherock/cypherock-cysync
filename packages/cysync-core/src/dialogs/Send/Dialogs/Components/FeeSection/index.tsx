@@ -248,6 +248,7 @@ export const FeeSection: React.FC<FeeSectionProps> = ({
     icp: () => ({}),
     stellar: getStellarProps,
     sia: getSiaProps,
+    canton: () => ({}),
   };
 
   const getFeeInputComponent = () => {

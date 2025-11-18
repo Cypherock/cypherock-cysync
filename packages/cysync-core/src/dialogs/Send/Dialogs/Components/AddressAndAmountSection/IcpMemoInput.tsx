@@ -12,7 +12,7 @@ import React, { useCallback, useState } from 'react';
 
 import { selectLanguage, useAppSelector } from '~/store';
 
-interface MemoInputProps {
+interface IcpMemoInputProps {
   label: string;
   placeholder: string;
   initialValue?: string;
@@ -20,7 +20,7 @@ interface MemoInputProps {
   limit: BigNumber;
 }
 
-export const MemoInput: React.FC<MemoInputProps> = ({
+export const IcpMemoInput: React.FC<IcpMemoInputProps> = ({
   label,
   placeholder,
   initialValue,
@@ -93,6 +93,6 @@ export const MemoInput: React.FC<MemoInputProps> = ({
   );
 };
 
-MemoInput.defaultProps = {
+IcpMemoInput.defaultProps = {
   initialValue: undefined,
 };

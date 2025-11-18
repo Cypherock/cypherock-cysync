@@ -18,3 +18,6 @@ globalThis.dfinity = {
   candid: require('@dfinity/candid'),
   principal: require('@dfinity/principal'),
 };
+globalThis.cantonLib = {
+  cantonCoreLedgerProto: require('@canton-network/core-ledger-proto'),
+};

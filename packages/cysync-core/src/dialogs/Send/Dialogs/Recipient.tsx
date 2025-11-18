@@ -5,6 +5,7 @@ import { IPreparedStellarTransaction } from '@cypherock/coin-support-stellar';
 import { getDefaultUnit, getParsedAmount } from '@cypherock/coin-support-utils';
 import { IPreparedXrpTransaction } from '@cypherock/coin-support-xrp';
 import { IPreparedSiaTransaction } from '@cypherock/coin-support-sia';
+import { coinFamiliesMap, CoinFamily, coinList } from '@cypherock/coins';
 import {
   BlockchainIcon,
   Button,
@@ -30,7 +31,6 @@ import logger from '~/utils/logger';
 import { AddressAndAmountSection, FeeSection } from './Components';
 
 import { useSendDialog } from '../context';
-import { CoinFamily, coinList } from '@cypherock/coins';
 
 export const Recipient: React.FC = () => {
   const {
@@ -228,10 +228,12 @@ export const Recipient: React.FC = () => {
           disableInputs={isAccountSelectionDisabled}
           providerName={providerName}
         />
-        <FeeSection
-          hideSlider={isAccountSelectionDisabled}
-          showErrors={isAccountSelectionDisabled}
-        />
+        {selectedAccount?.familyId !== coinFamiliesMap.canton && (
+          <FeeSection
+            hideSlider={isAccountSelectionDisabled}
+            showErrors={isAccountSelectionDisabled}
+          />
+        )}
       </ScrollableContainer>
       <DialogBoxFooter>
         {!isAccountSelectionDisabled && (

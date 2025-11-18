@@ -2,6 +2,7 @@ import { coinFamiliesMap } from '@cypherock/coins';
 import { formatAddress } from '@cypherock/cysync-core-services';
 import {
   BlurOverlay,
+  Button,
   Chip,
   Clipboard,
   CloseButton,
@@ -18,16 +19,19 @@ import {
   Tag,
   ThemeType,
   Typography,
+  TypographyColor,
   useTheme,
 } from '@cypherock/cysync-ui';
 import {
   ITransaction,
   TransactionStatus,
   TransactionStatusMap,
+  TransactionTypeMap,
 } from '@cypherock/db-interfaces';
 import { createSelector } from '@reduxjs/toolkit';
 import React, { FC, useMemo } from 'react';
 
+import { openTransactionActionDialog } from '~/actions';
 import { useCurrency } from '~/context';
 import { mapTransactionForDisplay } from '~/hooks';
 import {
@@ -43,16 +47,21 @@ import {
   useAppSelector,
 } from '~/store';
 
+import { TransactionActionType } from './Canton/TransactionAction/context';
+
 import { LoaderDialog } from '../components';
 
 export interface IHistoryDialogProps {
   txn: ITransaction;
 }
 
-const textColorMap: any = {
-  success: 'success',
-  failed: 'error',
-  pending: 'warn',
+const textColorMap: Record<TransactionStatus, TypographyColor> = {
+  [TransactionStatusMap.success]: 'success',
+  [TransactionStatusMap.failed]: 'error',
+  [TransactionStatusMap.pending]: 'warn',
+  [TransactionStatusMap.expired]: 'error',
+  [TransactionStatusMap.cancelled]: 'error',
+  [TransactionStatusMap.rejected]: 'error',
 };
 
 const HistoryItem = ({
@@ -80,6 +89,9 @@ const getFillFromStatus = (status: TransactionStatus, theme: ThemeType) => {
     [TransactionStatusMap.success]: theme.palette.text.success,
     [TransactionStatusMap.pending]: theme.palette.text.warn,
     [TransactionStatusMap.failed]: theme.palette.text.error,
+    [TransactionStatusMap.expired]: theme.palette.text.error,
+    [TransactionStatusMap.cancelled]: theme.palette.text.error,
+    [TransactionStatusMap.rejected]: theme.palette.text.error,
   };
 
   return map[status];
@@ -110,6 +122,108 @@ const selector = createSelector(
     currency,
   }),
 );
+
+const getTransactionHashText = (familyId: string, keys: any): string => {
+  if (familyId === coinFamiliesMap.icp) {
+    return keys.transactionId;
+  }
+  if (familyId === coinFamiliesMap.canton) {
+    return keys.transactionUpdateId;
+  }
+  return keys.transactionHash;
+};
+
+interface TransactionActionButtonsProps {
+  transactionType: string;
+  transactionStatus: TransactionStatus;
+  onClose: () => void;
+  onOpenActionDialog: (actionType: TransactionActionType) => void;
+  lang: any;
+}
+
+const TransactionActionButtons: FC<TransactionActionButtonsProps> = ({
+  transactionType,
+  transactionStatus,
+  onClose,
+  onOpenActionDialog,
+  lang,
+}) => {
+  const handleAction = (actionType: TransactionActionType) => {
+    onClose();
+    onOpenActionDialog(actionType);
+  };
+
+  if (transactionType === TransactionTypeMap.send) {
+    return (
+      <Container
+        $borderWidthT={1}
+        $borderColor="separator"
+        $borderStyle="solid"
+        px={5}
+        py={2}
+        gap={16}
+      >
+        <Button
+          onClick={() => handleAction(TransactionActionType.CANCEL)}
+          variant="secondary"
+        >
+          {lang.strings.buttons.cancel}
+        </Button>
+      </Container>
+    );
+  }
+
+  if (transactionType === TransactionTypeMap.receive) {
+    return (
+      <Container
+        $borderWidthT={1}
+        $borderColor="separator"
+        $borderStyle="solid"
+        px={5}
+        py={2}
+        gap={16}
+      >
+        <Button
+          onClick={() => handleAction(TransactionActionType.REJECT)}
+          variant="secondary"
+        >
+          {lang.strings.buttons.reject}
+        </Button>
+        {transactionStatus === TransactionStatusMap.pending && (
+          <Button onClick={() => handleAction(TransactionActionType.APPROVE)}>
+            {lang.strings.buttons.accept}
+          </Button>
+        )}
+      </Container>
+    );
+  }
+
+  return null;
+};
+
+interface ConditionalHistoryItemProps {
+  condition: boolean;
+  leftText: string;
+  children: React.ReactNode;
+}
+
+const ConditionalHistoryItem: FC<ConditionalHistoryItemProps> = ({
+  condition,
+  leftText,
+  children,
+}) => {
+  if (!condition) return null;
+
+  return (
+    <HistoryItem leftText={leftText}>
+      <Container direction="row" gap={8}>
+        <Typography variant="span" $maxWidth="400" $textOverflow="ellipsis">
+          {children}
+        </Typography>
+      </Container>
+    </HistoryItem>
+  );
+};
 
 export const HistoryDialog: FC<IHistoryDialogProps> = ({ txn: _txn }) => {
   const { currentCurrency } = useCurrency();
@@ -177,6 +291,29 @@ export const HistoryDialog: FC<IHistoryDialogProps> = ({ txn: _txn }) => {
   if (displayTransaction === undefined) {
     return <LoaderDialog />;
   }
+
+  const isCantonTransaction =
+    displayTransaction.txn.familyId === coinFamiliesMap.canton;
+
+  const transactionHashText = getTransactionHashText(
+    displayTransaction.txn.familyId,
+    keys,
+  );
+
+  const showTransactionAction =
+    isCantonTransaction &&
+    (displayTransaction.status === TransactionStatusMap.pending ||
+      displayTransaction.status === TransactionStatusMap.expired);
+
+  const handleOpenActionDialog = (actionType: TransactionActionType) => {
+    dispatch(
+      openTransactionActionDialog({
+        transactionActionType: actionType,
+        selectedTransaction: displayTransaction.txn,
+      }),
+    );
+  };
+
   return (
     <BlurOverlay>
       <DialogBox width={700} onClose={onClose}>
@@ -239,6 +376,16 @@ export const HistoryDialog: FC<IHistoryDialogProps> = ({ txn: _txn }) => {
             </a>
           </Container>
           <ScrollableContainer $maxHeight="calc(100vh - 400px)">
+            {showTransactionAction && (
+              <TransactionActionButtons
+                transactionType={displayTransaction.txn.type}
+                transactionStatus={displayTransaction.status}
+                onClose={onClose}
+                onOpenActionDialog={handleOpenActionDialog}
+                lang={lang}
+              />
+            )}
+
             <Container
               display="flex"
               direction="column"
@@ -257,26 +404,28 @@ export const HistoryDialog: FC<IHistoryDialogProps> = ({ txn: _txn }) => {
                   {displayTransaction.displayValue}
                 </Typography>
               </HistoryItem>
-              <HistoryItem leftText={getFeePrefix() + keys.fee}>
-                <NestedContainer>
-                  <Typography
-                    variant="span"
-                    $maxWidth="400"
-                    $textOverflow="ellipsis"
-                  >
-                    {displayTransaction.displayFee}
-                  </Typography>
-                  <Typography
-                    variant="span"
-                    $fontSize={14}
-                    color="normal"
-                    $maxWidth="400"
-                    $textOverflow="ellipsis"
-                  >
-                    = {displayTransaction.displayFeeValue}
-                  </Typography>
-                </NestedContainer>
-              </HistoryItem>
+              {displayTransaction.txn.familyId !== coinFamiliesMap.canton && (
+                <HistoryItem leftText={getFeePrefix() + keys.fee}>
+                  <NestedContainer>
+                    <Typography
+                      variant="span"
+                      $maxWidth="400"
+                      $textOverflow="ellipsis"
+                    >
+                      {displayTransaction.displayFee}
+                    </Typography>
+                    <Typography
+                      variant="span"
+                      $fontSize={14}
+                      color="normal"
+                      $maxWidth="400"
+                      $textOverflow="ellipsis"
+                    >
+                      = {displayTransaction.displayFeeValue}
+                    </Typography>
+                  </NestedContainer>
+                </HistoryItem>
+              )}
               <HistoryItem leftText={keys.type}>
                 <Container direction="row" gap={8}>
                   <displayTransaction.icon
@@ -421,52 +570,43 @@ export const HistoryDialog: FC<IHistoryDialogProps> = ({ txn: _txn }) => {
                   ))}
                 </NestedContainer>
               </HistoryItem>
-              {displayTransaction.destinationTag !== undefined && (
-                <HistoryItem leftText={keys.destinationTag}>
-                  <Container direction="row" gap={8}>
-                    <Typography
-                      variant="span"
-                      $maxWidth="400"
-                      $textOverflow="ellipsis"
-                    >
-                      {displayTransaction.destinationTag}
-                    </Typography>
-                  </Container>
-                </HistoryItem>
-              )}
-              {displayTransaction.memo !== undefined && (
-                <HistoryItem leftText={keys.memo}>
-                  <Container direction="row" gap={8}>
-                    <Typography
-                      variant="span"
-                      $maxWidth="400"
-                      $textOverflow="ellipsis"
-                    >
-                      {displayTransaction.memo}
-                    </Typography>
-                  </Container>
-                </HistoryItem>
-              )}
-              {displayTransaction.operation !== undefined && (
-                <HistoryItem leftText={keys.operation}>
-                  <Container direction="row" gap={8}>
-                    <Typography
-                      variant="span"
-                      $maxWidth="400"
-                      $textOverflow="ellipsis"
-                    >
-                      {displayTransaction.operation}
-                    </Typography>
-                  </Container>
-                </HistoryItem>
-              )}
-              <HistoryItem
-                leftText={
-                  displayTransaction.txn.familyId === coinFamiliesMap.icp
-                    ? keys.transactionId
-                    : keys.transactionHash
-                }
+              <ConditionalHistoryItem
+                condition={displayTransaction.destinationTag !== undefined}
+                leftText={keys.destinationTag}
               >
+                {displayTransaction.destinationTag}
+              </ConditionalHistoryItem>
+              <ConditionalHistoryItem
+                condition={!!displayTransaction.choice}
+                leftText={keys.choice}
+              >
+                {displayTransaction.choice}
+              </ConditionalHistoryItem>
+              <ConditionalHistoryItem
+                condition={displayTransaction.memo !== undefined}
+                leftText={keys.memo}
+              >
+                {displayTransaction.memo}
+              </ConditionalHistoryItem>
+              <ConditionalHistoryItem
+                condition={displayTransaction.startDate !== undefined}
+                leftText={keys.startDate}
+              >
+                {displayTransaction.startDate}
+              </ConditionalHistoryItem>
+              <ConditionalHistoryItem
+                condition={displayTransaction.expiryDate !== undefined}
+                leftText={keys.expirationDate}
+              >
+                {displayTransaction.expiryDate}
+              </ConditionalHistoryItem>
+              <ConditionalHistoryItem
+                condition={displayTransaction.operation !== undefined}
+                leftText={keys.operation}
+              >
+                {displayTransaction.operation}
+              </ConditionalHistoryItem>
+              <HistoryItem leftText={transactionHashText}>
                 <Container direction="row" gap={8}>
                   <Typography
                     variant="span"
@@ -509,19 +649,12 @@ export const HistoryDialog: FC<IHistoryDialogProps> = ({ txn: _txn }) => {
                   </Container>
                 </HistoryItem>
               )}
-              {displayTransaction.txn.description && (
-                <HistoryItem leftText={keys.description}>
-                  <Container direction="row" gap={8}>
-                    <Typography
-                      variant="span"
-                      $maxWidth="400"
-                      $textOverflow="ellipsis"
-                    >
-                      {displayTransaction.txn.description}
-                    </Typography>
-                  </Container>
-                </HistoryItem>
-              )}
+              <ConditionalHistoryItem
+                condition={!!displayTransaction.txn.description}
+                leftText={keys.description}
+              >
+                {displayTransaction.txn.description}
+              </ConditionalHistoryItem>
             </Container>
           </ScrollableContainer>
         </DialogBoxBody>

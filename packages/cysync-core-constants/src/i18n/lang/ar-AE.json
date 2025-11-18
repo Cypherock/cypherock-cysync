@@ -53,7 +53,11 @@
     "exitWithoutSaving": "الخروج بدون حفظ",
     "saveChanges": "حفظ التغييرات",
     "edit": "تحرير",
-    "tryAgain": "حاول مرة أخرى"
+    "tryAgain": "حاول مرة أخرى",
+    "autoApproval": "تحويل موافقة مسبقة",
+    "mergeDelegation": "UTXO إدارة",
+    "accept": "قبول",
+    "earnRewards": "كسب المكافآت"
   },
   "tooltips": {
     "downloadCsv": "تصدير بصيغة CSV"
@@ -103,19 +107,56 @@
         "tapCard": "اضغط على أي بطاقة"
       }
     },
+    "cantonSignup": {
+      "userDetails": {
+        "title": "التفاصيل الخاصة بك",
+        "subtext": "أدخل البريد الإلكتروني الذي استخدمته عند شراء Cypherock X1",
+        "emailField": {
+          "label": "البريد الإلكتروني المسجل",
+          "rightLabel": "مطلوب"
+        },
+        "sendOTPButton": "إرسال OTP"
+      },
+      "verifyOTP": {
+        "title": "التحقق من OTP للبريد الإلكتروني"
+      },
+      "loader": {
+        "title": "يرجى الانتظار أثناء التحقق من التفاصيل الخاصة بك...",
+        "subtext": "لا تقم بقطع الاتصال أو إغلاق التطبيق cySync"
+      },
+      "success": {
+        "eligibleAndCanProceed": {
+          "title": "أنت مؤهل ويمكنك المتابعة لإنشاء الحساب"
+        },
+        "eligibleAndAddedInWaitlist": {
+          "title": "أنت مؤهل وأضيفت في قائمة الانتظار لشبكة كانتون",
+          "subtext": "بسبب الطلب العالي هناك قائمة انتظار, يرجى المحاولة مرة أخرى الغد"
+        },
+        "notEligible": {
+          "title": "أنت غير مؤهل لشبكة كانتون",
+          "subtext": "فقط المستخدمين الموجودين والمستخدمين المميزين هم المؤهلين لحسابات شبكة كانتون"
+        },
+        "buttonText": "اعرف المزيد"
+      }
+    },
     "loader": {
       "waitMessage": "قد تستغرق هذه العملية حوالي دقيقة. يرجى التحلي بالصبر"
     },
     "sync": {
       "syncingHeader": "مزامنة الحساب",
       "header": "إضافة حسابات جديدة",
+      "addSingleAccountHeader": "إضافة حساب جديد",
+      "createSingleAccountHeader": "إنشاء حساب جديد",
       "newAccount": "حسابات جديدة",
+      "newSingleAccount": "حساب جديد",
       "advancedButton": "إظهار جميع أنواع العناوين",
       "accountsNotSynced": "الحساب لم يتم مزامنته بعد (${count})",
       "deselectAllButton": "إلغاء تحديد الكل",
       "selectAllButton": "تحديد الكل",
       "accountsInPortfolio": "الحسابات الموجودة بالفعل في المحفظة (${count})",
       "addAccountButton": "إضافة حسابات",
+      "addSingleAccountButton": "إضافة حساب",
+      "createSingleAccountButton": "إنشاء حساب",
       "resyncButton": "إعادة المزامنة"
     },
     "congrats": {
@@ -173,20 +214,24 @@
         "prefix": "عنوان لـ ",
         "accountIdPrefix": "معرف الحساب لـ ",
         "principalIdPrefix": "معرف المستخدم لـ ",
+        "partyIdPrefix": "معرف المؤسسة لـ ",
         "suffix": "في ${walletName}"
       },
       "addressLabel": "عنوان",
       "accountIdLabel": "معرف الحساب",
       "principalIdLabel": "معرّف المدير الرئيسي",
+      "partyIdLabel": "معرف المؤسسة",
       "actions": {
         "verify": "تحقق من تطابق عنوان الاستقبال على X1 Vault تمامًا مع العنوان المعروض أعلاه",
         "verifyAccountId": "تحقق من تطابق معرف الحساب على X1 Vault تمامًا مع معرف الحساب المعروض أعلاه",
-        "verifyPrincipalId": "تحقق من تطابق معرف المسؤول على X1 Vault تمامًا مع معرف المسؤول المعروض أعلاه"
+        "verifyPrincipalId": "تحقق من تطابق معرف المسؤول على X1 Vault تمامًا مع معرف المسؤول المعروض أعلاه",
+        "verifyPartyId": "تحقق من تطابق معرف المؤسسة على X1 Vault تمامًا مع معرف المؤسسة المعروض أعلاه"
       },
       "messageBox": {
         "warning": "لم يتم التحقق من عنوان الاستقبال هذا بواسطة الجهاز. استخدمه على مسؤوليتك الخاصة",
         "accountIdWarning": "لم يتم التحقق من معرف الحساب لهذا الاستلام بواسطة الجهاز. استخدمه على مسؤوليتك الخاصة",
-        "principalIdWarning": "لم يتم التحقق من معرف المبدأ لهذا الاستلام بواسطة الجهاز. استخدمه على مسؤوليتك الخاصة"
+        "principalIdWarning": "لم يتم التحقق من معرف المبدأ لهذا الاستلام بواسطة الجهاز. استخدمه على مسؤوليتك الخاصة",
+        "partyIdWarning": "لم يتم التحقق من معرف المؤسسة لهذا الاستلام بواسطة الجهاز. استخدمه على مسؤوليتك الخاصة"
       },
       "waitMessageBox": {
         "warning": "قد تستغرق هذه العملية حوالي دقيقة. يرجى التحلي بالصبر"
@@ -194,13 +239,15 @@
     },
     "congrats": {
       "title": "تم التحقق من العنوان بنجاح",
-      "accountAndPrincipalIdTitle": "تم التحقق بنجاح من معرف الحساب ومعرف المستخدم"
+      "accountAndPrincipalIdTitle": "تم التحقق بنجاح من معرف الحساب ومعرف المستخدم",
+      "partyIdTitle": "تم التحقق بنجاح من معرف المؤسسة"
     },
     "finalButtons": {
       "secondary": "التحقق مرة أخرى",
       "secondaryUnverified": "التحقق من العنوان",
       "secondaryUnverifiedAccountId": "تحقق من معرف الحساب",
       "secondaryUnverifiedPrincipalId": "تحقق من معرف الرئيس",
+      "secondaryUnverifiedPartyId": "تحقق من معرف المؤسسة",
       "primary": "تم",
       "continue": "متابعة"
     },
@@ -266,7 +313,8 @@
         "info": "تذكر أن ${tokenName} هو رمز ${parentCoinName}، وبالتالي سيتم احتساب الرسوم بوحدة ${parentCoinUnit}"
       },
       "messageBox": {
-        "warning": "تحقق دائمًا من أن العنوان المعروض على جهازك يتطابق تمامًا مع العنوان الذي قدمه المستلم"
+        "warning": "تحقق دائمًا من أن العنوان المعروض على جهازك يتطابق تمامًا مع العنوان الذي قدمه المستلم",
+        "partyIdWarning": "تحقق دائمًا من أن معرف المؤسسة المعروض على جهازك يتطابق تمامًا مع معرف المؤسسة الذي قدمه المستلم"
       }
     },
     "recipient": {
@@ -292,6 +340,13 @@
         "placeholder": "أدخل المعرّف الرئيسي",
         "error": "معرّف رئيسي غير صالح",
         "ownAddress": "معرّف المستلم الرئيسي هو نفسه معرّف المرسل الرئيسي"
+      },
+      "cantonRecipient": {
+        "label": "معرف المؤسسة المستلم",
+        "labelSwap": "معرف المؤسسة ${provider}",
+        "placeholder": "أدخل معرف المؤسسة",
+        "error": "معرف المؤسسة غير صالح",
+        "ownAddress": "معرف المؤسسة المستلم هو نفسه معرف المؤسسة المرسل"
       },
       "tabs": {
         "single": "معاملة واحدة",
@@ -336,6 +391,24 @@
         "placeholder": "أدخل مذكرة رقمية",
         "error": "قيمة مرتفعة جدًا"
       },
+      "cantonMemo": {
+        "label": "مذكرة",
+        "placeholder": "اختياري",
+        "tooltipText": "يمكنك إضافة مذكرة أو وصف وسيتم إرسالها مع هذه المعاملة",
+        "error": "مذكرة طويلة جدًا (حد أقصى 255 حرف)"
+      },
+      "expirationDate": {
+        "label": "وقت الانتهاء",
+        "placeholder": "اختر وقت الانتهاء",
+        "tooltipText": "يرجى اختيار وقت انتهاء لهذه المعاملة، إذا لم يقبل المستلم هذه المعاملة قبل هذا الوقت فستنتهي صلاحيتها",
+        "options": {
+          "threeHours": "3 ساعات",
+          "oneDay": "1 يوم",
+          "oneWeek": "1 أسبوع",
+          "tenDays": "10 أيام",
+          "oneMonth": "1 شهر"
+        }
+      },
       "stellarMemo": {
         "label": "مذكرة (اختياري)",
         "inputPlaceholder": {
@@ -362,15 +435,18 @@
       "debit": "المجموع المراد خصمه",
       "remarks": "ملاحظة شخصية",
       "destinationTag": "علامة الوجهة",
-      "memo": "مذكرة"
+      "memo": "مذكرة",
+      "expirationDate": "وقت الانتهاء"
     },
     "finalMessage": {
       "button": "التحقق من المعاملات",
       "title": "تم إرسال المعاملة",
       "hashLabel": "هش المعاملة",
       "idLabel": "معرّف المعاملة",
+      "updateIdLabel": "معرّف تحديث المعاملة",
       "messageBox": {
-        "warning": "سيتم تحديث رصيد حسابك عند تأكيد المعاملة بواسطة blockchain"
+        "warning": "سيتم تحديث رصيد حسابك عند تأكيد المعاملة بواسطة blockchain",
+        "delayWarning": "سيتم تحديث رصيد حسابك عند تأكيد المعاملة بواسطة blockchain"
       }
     },
     "aside": {
@@ -453,12 +529,18 @@
       "send": {
         "failed": "فشل الإرسال",
         "pending": "جارٍ الإرسال",
-        "success": "تم الإرسال"
+        "success": "تم الإرسال",
+        "expired": "تم الإرسال بنجاح",
+        "cancelled": "تم الإرسال بنجاح",
+        "rejected": "تم الإرسال بنجاح"
       },
       "receive": {
         "failed": "فشل الاستلام",
         "pending": "جارٍ الاستلام",
-        "success": "تم الاستلام"
+        "success": "تم الاستلام",
+        "expired": "تم الاستلام بنجاح",
+        "cancelled": "تم الاستلام بنجاح",
+        "rejected": "تم الاستلام بنجاح"
       }
     },
     "dialogBox": {
@@ -475,6 +557,7 @@
       "mine": "خاصتي",
       "transactionHash": "هش المعاملة",
       "transactionId": "معرّف المعاملة",
+      "transactionUpdateId": "معرّف تحديث المعاملة",
       "description": "الوصف",
       "feePrefix": {
         "optimism": "L2 "
@@ -482,6 +565,9 @@
       "remarks": "ملاحظة شخصية",
       "destinationTag": "علامة الوجهة",
       "memo": "مذكرة",
+      "choice": "الخيار",
+      "startDate": "تاريخ البدء",
+      "expirationDate": "تاريخ الانتهاء",
       "operation": "عملية"
     },
     "noData": {
@@ -849,6 +935,16 @@
   },
   "portfolio": {
     "title": "محفظة",
+    "banner": {
+      "addCanton": {
+        "title": "اختبر **شبكة Canton**. اربح حتى **2500 دولار من قيمة عملات Canton**. فقط على Cypherock X1",
+        "button": "اعرف المزيد"
+      },
+      "enableAutomaticApprovals": {
+        "title": "تفعيل **الموافقات التلقائية** لـ Canton لقبول المعاملات الواردة تلقائياً",
+        "button": "تفعيل"
+      }
+    },
     "tokenTable": {
       "title": "رموز",
       "tableHeader": {
@@ -1278,6 +1374,18 @@
       "SER_1028": {
         "heading": "البريد الإلكتروني موجود بالفعل",
         "subtext": "يوجد بالفعل حساب به عنوان البريد الإلكتروني هذا. يرجى استخدام عنوان بريد إلكتروني مختلف أو الاتصال بدعم Cypherock للحصول على المساعدة"
+      },
+      "SER_1100": {
+        "heading": "تم الوصول إلى حد إعادة إرسال OTP",
+        "subtext": "لقد وصلت إلى الحد الأقصى لعدد محاولات إعادة إرسال OTP. يرجى المحاولة مرة أخرى لاحقًا أو الاتصال بدعم Cypherock للحصول على المساعدة"
+      },
+      "SER_1101": {
+        "heading": "تم الوصول إلى حد إعادة إرسال OTP",
+        "subtext": "لقد وصلت إلى الحد الأقصى لعدد محاولات إعادة إرسال OTP. يرجى المحاولة مرة أخرى لاحقًا أو الاتصال بدعم Cypherock للحصول على المساعدة"
+      },
+      "SER_1102": {
+        "heading": "تم الوصول إلى حد إعادة إرسال OTP",
+        "subtext": "لقد وصلت إلى الحد الأقصى لعدد محاولات إعادة إرسال OTP. يرجى المحاولة مرة أخرى لاحقًا أو الاتصال بدعم Cypherock للحصول على المساعدة"
       },
       "SER_2000": {
         "heading": "فشل في بث المعاملة",
@@ -2111,6 +2219,89 @@
       "toAsset": "Asset",
       "toAmount": "Amount Received",
       "toReceiver": "Receiver"
+    },
+    "cantonDialogs": {
+      "enableApprovalPrompt": {
+        "title": "تمكين تحويل موافقة مسبقة",
+        "subTitle": "قبول المعاملات الواردة بدون موافقة يدوية. هذا سيوفر لك الوقت بتجنب الحاجة إلى قبول كل معاملة ومكافآت.",
+        "note": "ملاحظة- هذا مطلوب للحصول على مكافآت كانتون."
+      },
+      "enableApproval": {
+        "title": "تمكين تحويل موافقة مسبقة",
+        "dialogs": {
+          "x1Vault": {
+            "name": "X1 Vault",
+            "deviceAction": {
+              "verifyDetails": "التحقق من نوع المعاملة على الجهاز"
+            }
+          },
+          "confirmation": {
+            "name": "تأكيد",
+            "title": "تحويل موافقة مسبقة ممكن"
+          }
+        }
+      },
+      "enableMergeDelegation": {
+        "title": "تمكين إدارة UTXO",
+        "dialogs": {
+          "summary": {
+            "name": "ملخص",
+            "title": "تمكين إدارة UTXO",
+            "subTitle": "**توحيد** UTXO’s. هذا سيبقي محفظتك منظمة بتوحيد الأصول الصغيرة عند الحاجة",
+            "note": "ملاحظة- هذا مطلوب للحصول على مكافآت كانتون."
+          },
+          "x1Vault": {
+            "name": "X1 Vault",
+            "deviceAction": {
+              "verifyDetails": "التحقق من نوع المعاملة على الجهاز"
+            }
+          },
+          "confirmation": {
+            "name": "تأكيد",
+            "title": "إدارة UTXO ممكنة"
+          }
+        }
+      },
+      "createCantonAccount": {
+        "title": "إنشاء الحساب",
+        "dialogs": {
+          "x1Vault": {
+            "name": "X1 Vault",
+            "messageBox": {
+              "warning": "قبل أن تتمكن من التفاعل في شبكة كانتون, يجب أن يتم إنشاء حسابك. هذا سيتيح لك البدء في إرسال واستلام وإدارة الأصول الرقمية."
+            }
+          },
+          "confirmation": {
+            "name": "تأكيد"
+          },
+          "success": {
+            "title": "تم إنشاء الحساب بنجاح"
+          },
+          "automaticApproval": {
+            "name": "تحويل موافقة مسبقة"
+          }
+        }
+      },
+      "transactionAction": {
+        "title": {
+          "approve": "قبول المعاملة الواردة",
+          "reject": "رفض المعاملة الواردة",
+          "cancel": "إلغاء المعاملة الصادرة"
+        },
+        "dialogs": {
+          "x1Vault": {
+            "name": "X1 Vault"
+          },
+          "confirmation": {
+            "name": "تأكيد"
+          },
+          "success": {
+            "approve": "**المعاملة الواردة **مقبولة",
+            "reject": "**المعاملة الواردة **مرفوضة",
+            "cancel": "**المعاملة الصادرة **ملغية"
+          }
+        }
+      }
     }
   },
   "toggle": {
