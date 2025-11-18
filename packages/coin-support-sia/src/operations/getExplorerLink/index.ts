@@ -3,11 +3,7 @@ import { IGetExplorerLink } from '@cypherock/coin-support-interfaces';
 export const getExplorerLink = (params: IGetExplorerLink) => {
   const { transaction } = params;
 
-  // If we its getting called from history we have its hash, else we redirect to address
-  if (
-    transaction.hash &&
-    transaction.hash !== 'Transaction submitted - awaiting confirmation'
-  ) {
+  if (transaction.confirmations !== 0) {
     return `https://siascan.com/tx/${transaction.hash}`;
   }
 
