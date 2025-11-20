@@ -106,15 +106,21 @@ const getBalanceAndTxnCount = async (
   publicKey: string,
   params: ICreateCantonAccountParams,
 ) => {
+  const coin = cantonCoinList[params.coinId];
   const partyId = await derivePartyId(hexToUint8Array(publicKey));
   const isAccountCreated = await services.getIsAccountCreated(
     partyId,
+    coin.instrument,
     params.keyDB,
   );
 
   if (isAccountCreated) {
     return {
-      balance: await services.getBalance(partyId, params.keyDB),
+      balance: await services.getBalance(
+        partyId,
+        coin.instrument,
+        params.keyDB,
+      ),
       txnCount: 1,
     };
   }

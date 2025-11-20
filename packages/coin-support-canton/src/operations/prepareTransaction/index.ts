@@ -1,10 +1,15 @@
 import { getAccountAndCoin } from '@cypherock/coin-support-utils';
 import { cantonCoinList, ICoinInfo } from '@cypherock/coins';
 import { assert, BigNumber } from '@cypherock/cysync-utils';
+import { AccountTypeMap } from '@cypherock/db-interfaces';
 
 import { IPrepareCantonTransactionParams } from './types';
 
-import { doesPartyExist, prepareSendTransaction } from '../../services';
+import {
+  doesPartyExist,
+  prepareSendTransaction,
+  ICantonInstrument,
+} from '../../services';
 import {
   IPreparedCantonTransaction,
   IPreparedCantonTransactionOutput,
@@ -91,6 +96,16 @@ export const prepareTransaction = async (
     accountId,
   );
 
+  let instrument: ICantonInstrument;
+  const isTokenAccount = account.type === AccountTypeMap.subAccount;
+  if (isTokenAccount) {
+    const tokenDetails =
+      cantonCoinList[account.parentAssetId].tokens[account.assetId];
+    instrument = tokenDetails.instrument;
+  } else {
+    instrument = cantonCoinList[account.assetId].instrument;
+  }
+
   assert(
     txn.userInputs.outputs.length === 1,
     new Error('Canton transaction requires exactly 1 output'),
@@ -162,6 +177,7 @@ export const prepareTransaction = async (
         partyId: account.xpubOrAddress,
         receiverPartyId: output.address,
         amount: output.amount,
+        instrument,
         memo: output.memo,
         expiryDate: output.expiryDate,
         inputUtxos: selectUtxos(output.amount, txn.staticData.utxos),

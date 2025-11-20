@@ -12,6 +12,7 @@ import {
   ICantonBroadcastTxnParams,
   ICantonPrepareExternalPartyTxnParams,
   ICantonBroadcastExternalPartyTxnParams,
+  ICantonInstrument,
 } from './types';
 
 import { config } from '../../config';
@@ -95,11 +96,13 @@ export const prepareChoiceTxn = async (
 
 export const prepareTransferPreApprovalTxn = async (
   partyId: string,
+  instrument: ICantonInstrument,
   keyDB?: IKeyValueStore,
 ): Promise<any> => {
   const url = `${baseURL}/prepare/transfer-preapproval`;
   const data = {
     partyId,
+    instrument,
   };
   const response = await makePostRequestWithAuthTokenConfig(url, data, keyDB);
 

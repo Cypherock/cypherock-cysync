@@ -1,5 +1,10 @@
+export interface ICantonInstrument {
+  id: string;
+  admin: string;
+}
 export interface ICantonTransactionHistoryParams {
   partyId: string;
+  instrument: ICantonInstrument;
   afterOffset?: number;
 }
 
@@ -12,10 +17,7 @@ interface ICantonBaseResponseTransaction {
   receiver: string;
   amount: string;
   fees: string;
-  instrumentId: {
-    id: string;
-    admin: string;
-  };
+  instrumentId: ICantonInstrument;
   requestedAt: string;
   executeBefore: string;
   memo: string;
@@ -61,6 +63,7 @@ export interface ICantonPrepareSendTxnParams {
   partyId: string;
   receiverPartyId: string;
   amount: string;
+  instrument: ICantonInstrument;
   memo?: string;
   expiryDate?: string;
   inputUtxos?: string[];
@@ -69,6 +72,7 @@ export interface ICantonPrepareSendTxnParams {
 export interface ICantonPrepareChoiceTxnParams {
   partyId: string;
   transferContractId: string;
+  instrument: ICantonInstrument;
 }
 
 export interface ICantonBroadcastTxnParams {

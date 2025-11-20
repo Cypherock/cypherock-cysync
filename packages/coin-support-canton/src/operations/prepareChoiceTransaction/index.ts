@@ -1,9 +1,10 @@
 import { getAccountAndCoin } from '@cypherock/coin-support-utils';
 import { cantonCoinList } from '@cypherock/coins';
+import { AccountTypeMap } from '@cypherock/db-interfaces';
 
 import { IPrepareCantonChoiceTransactionParams } from './types';
 
-import { prepareChoiceTxn } from '../../services';
+import { ICantonInstrument, prepareChoiceTxn } from '../../services';
 import { IPreparedCantonTransaction } from '../transaction';
 
 export const prepareChoiceTransaction = async (
@@ -20,11 +21,22 @@ export const prepareChoiceTransaction = async (
     throw new Error('Canton choice transaction requires contract id');
   }
 
+  let instrument: ICantonInstrument;
+  const isTokenAccount = account.type === AccountTypeMap.subAccount;
+  if (isTokenAccount) {
+    const tokenDetails =
+      cantonCoinList[account.parentAssetId].tokens[account.assetId];
+    instrument = tokenDetails.instrument;
+  } else {
+    instrument = cantonCoinList[account.assetId].instrument;
+  }
+
   const preparedTransaction = await prepareChoiceTxn(
     choice,
     {
       partyId: account.xpubOrAddress,
       transferContractId: txn.extraData.contractId,
+      instrument,
     },
     keyDB,
   );

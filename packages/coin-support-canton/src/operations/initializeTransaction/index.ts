@@ -1,8 +1,9 @@
 import { IInitializeTransactionParams } from '@cypherock/coin-support-interfaces';
 import { getAccountAndCoin } from '@cypherock/coin-support-utils';
 import { cantonCoinList } from '@cypherock/coins';
+import { AccountTypeMap } from '@cypherock/db-interfaces';
 
-import { getUtxos } from '../../services/api/account';
+import { getUtxos, ICantonInstrument } from '../../services';
 import { IPreparedCantonTransaction } from '../transaction';
 
 export const initializeTransaction = async (
@@ -12,7 +13,17 @@ export const initializeTransaction = async (
 
   const { account } = await getAccountAndCoin(db, cantonCoinList, accountId);
 
-  const utxos = await getUtxos(account.xpubOrAddress, keyDB);
+  let instrument: ICantonInstrument;
+  const isTokenAccount = account.type === AccountTypeMap.subAccount;
+  if (isTokenAccount) {
+    const tokenDetails =
+      cantonCoinList[account.parentAssetId].tokens[account.assetId];
+    instrument = tokenDetails.instrument;
+  } else {
+    instrument = cantonCoinList[account.assetId].instrument;
+  }
+
+  const utxos = await getUtxos(account.xpubOrAddress, instrument, keyDB);
 
   return {
     accountId,

@@ -4,7 +4,9 @@ import {
   getLatestTransactionBlock,
   IGetAddressDetails,
 } from '@cypherock/coin-support-utils';
+import { cantonCoinList } from '@cypherock/coins';
 import {
+  AccountTypeMap,
   IAccount,
   IDatabase,
   IKeyValueStore,
@@ -62,7 +64,7 @@ const removeObsoleteTransactions = async (
     status: TransactionStatusMap.pending,
   });
 
-  // also delete existing expired transactions if they not in the pending transactions list received from the server
+  // also delete existing expired transactions if they are not in the pending transactions list received from the server
   const existingExpiredTransactions = await db.transaction.getAll({
     accountId: account.__id,
     status: TransactionStatusMap.expired,
@@ -108,6 +110,7 @@ const parseTransaction = (
 
   const transaction: ITransaction = {
     accountId: account.__id ?? '',
+    parentAccountId: account.parentAccountId,
     walletId: account.walletId,
     assetId: account.assetId,
     familyId: account.familyId,
@@ -166,6 +169,7 @@ const parsePendingTransaction = (
 
   const transaction: ITransaction = {
     accountId: account.__id ?? '',
+    parentAccountId: account.parentAccountId,
     walletId: account.walletId,
     assetId: account.assetId,
     familyId: account.familyId,
@@ -214,12 +218,14 @@ const fetchAndParseTransactions = async (params: {
   afterOffset?: number;
   db: IDatabase;
   keyDB?: IKeyValueStore;
+  instrument: services.ICantonInstrument;
 }) => {
-  const { partyId, account, afterOffset, db, keyDB } = params;
+  const { partyId, account, afterOffset, db, keyDB, instrument } = params;
 
   const response = await services.getTransactions(
     {
       partyId,
+      instrument,
       afterOffset,
     },
     keyDB,
@@ -238,6 +244,7 @@ const fetchAndParseTransactions = async (params: {
     const pendingTransactions = await services.getPendingTransactions(
       {
         partyId,
+        instrument,
       },
       keyDB,
     );
@@ -270,13 +277,25 @@ const getAddressDetails: IGetAddressDetails<{
 }> = async ({ db, account, iterationContext, keyDB }) => {
   const partyId = account.xpubOrAddress;
 
+  let updatedTransferPreApprovalStatus =
+    iterationContext?.updatedTransferPreApprovalStatus;
+
+  let instrument: services.ICantonInstrument;
+  const isTokenAccount = account.type === AccountTypeMap.subAccount;
+  if (isTokenAccount) {
+    const tokenDetails =
+      cantonCoinList[account.parentAssetId].tokens[account.assetId];
+    instrument = tokenDetails.instrument;
+    updatedTransferPreApprovalStatus ??= false;
+  } else {
+    instrument = cantonCoinList[account.assetId].instrument;
+    updatedTransferPreApprovalStatus ??=
+      await services.isTransferPreApprovalEnabled(partyId, instrument, keyDB);
+  }
+
   const updatedBalance =
     iterationContext?.updatedBalance ??
-    (await services.getBalance(partyId, keyDB));
-
-  const updatedTransferPreApprovalStatus =
-    iterationContext?.updatedTransferPreApprovalStatus ??
-    (await services.isTransferPreApprovalEnabled(partyId, keyDB));
+    (await services.getBalance(partyId, instrument, keyDB));
 
   const afterOffset =
     iterationContext?.afterOffset ??
@@ -292,6 +311,7 @@ const getAddressDetails: IGetAddressDetails<{
       afterOffset,
       db,
       keyDB,
+      instrument,
     },
   );
 
