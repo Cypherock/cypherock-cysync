@@ -9,5 +9,6 @@ export * from './xrp';
 export * from './starknet';
 export * from './icp';
 export * from './stellar';
+export * from './sia';
 export * from './types';
 export * from './currencies';

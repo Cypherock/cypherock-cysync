@@ -78,6 +78,7 @@
     "@cypherock/coin-support-icp": "workspace:^",
     "@cypherock/coin-support-interfaces": "workspace:^",
     "@cypherock/coin-support-near": "workspace:^",
+    "@cypherock/coin-support-sia": "workspace:^",
     "@cypherock/coin-support-solana": "workspace:^",
     "@cypherock/coin-support-starknet": "workspace:^",
     "@cypherock/coin-support-stellar": "workspace:^",

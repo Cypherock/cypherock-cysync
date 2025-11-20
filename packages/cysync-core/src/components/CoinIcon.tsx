@@ -6,6 +6,7 @@ import {
   NearIdMap,
   XrpIdMap,
   StellarIdMap,
+  SiaIdMap,
   CantonIdMap,
 } from '@cypherock/coins';
 import {
@@ -31,6 +32,7 @@ import {
   Image,
   UtilsProps,
   StellarIcon,
+  SiacoinIcon,
   CantonIcon,
 } from '@cypherock/cysync-ui';
 import React from 'react';
@@ -71,6 +73,7 @@ const coinToIconMap: Record<string, React.FC<IconProps> | undefined> = {
   [SolanaIdMap.solana]: SolanaIcon,
   [XrpIdMap.xrp]: XrpIcon,
   [StellarIdMap.stellar]: StellarIcon,
+  [SiaIdMap.sia]: SiacoinIcon,
   [CantonIdMap.canton]: CantonIcon,
 } as Record<string, React.FC<IconProps> | undefined>;
 

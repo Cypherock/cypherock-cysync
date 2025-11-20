@@ -39,6 +39,7 @@
     "@cypherock/coin-support-utils": "workspace:^",
     "@cypherock/coin-support-xrp": "workspace:^",
     "@cypherock/coin-support-stellar": "workspace:^",
+    "@cypherock/coin-support-sia": "workspace:^",
     "@cypherock/coins": "workspace:^",
     "@cypherock/cysync-core-services": "workspace:^",
     "@cypherock/cysync-utils": "workspace:^",
