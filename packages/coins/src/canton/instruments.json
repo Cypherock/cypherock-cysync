@@ -1,0 +1,19 @@
+[
+  {
+    "description": {
+      "en": ""
+    },
+    "id": "CBTC",
+    "name": "CBTC",
+    "symbol": "CBTC",
+    "platforms": {
+      "canton": {
+        "decimal_place": 10,
+        "instrument": {
+          "id": "CBTC",
+          "admin": "cbtc-network::12205af3b949a04776fc48cdcc05a060f6bda2e470632935f375d1049a8546a3b262"
+        }
+      }
+    }
+  }
+]

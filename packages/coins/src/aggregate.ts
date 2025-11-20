@@ -1,5 +1,5 @@
 import { btcCoinList, BtcId } from './btc';
-import { cantonCoinList, CantonId } from './canton';
+import { cantonCoinList, CantonId, ICantonToken } from './canton';
 import { evmCoinList, EvmId, IEvmErc20Token } from './evm';
 import { icpCoinList, IcpId, IIcpIcrcToken } from './icp';
 import { nearCoinList, NearId } from './near';
@@ -44,4 +44,8 @@ export type CoinTypes =
   | IcpId
   | StellarId
   | CantonId;
-export type TokenTypes = IEvmErc20Token | ITronTrc20Token | IIcpIcrcToken;
+export type TokenTypes =
+  | IEvmErc20Token
+  | ITronTrc20Token
+  | IIcpIcrcToken
+  | ICantonToken;

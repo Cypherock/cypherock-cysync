@@ -17,5 +17,10 @@ export default [
         magnitude: 0,
       },
     ],
+    instrument: {
+      id: 'Amulet',
+      admin:
+        'DSO::1220b1431ef217342db44d516bb9befde802be7d8899637d290895fa58880f19accc',
+    },
   },
 ];

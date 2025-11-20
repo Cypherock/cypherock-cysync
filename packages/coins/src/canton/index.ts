@@ -1,12 +1,21 @@
 import coinList from './coins';
+import { getCantonTokens, ICantonToken } from './token';
 
 import { ICoinInfo, coinFamiliesMap } from '../types';
+
+export * from './token';
 
 type CantonFamily = typeof coinFamiliesMap.canton;
 
 export interface ICantonCoinInfo extends ICoinInfo {
   family: CantonFamily;
   network: string;
+  instrument: {
+    id: string;
+    admin: string;
+  };
+  tokens: Record<string, ICantonToken>;
+  tokensByContract: Record<string, ICantonToken>;
 }
 
 export const CantonIdMap = {
@@ -32,6 +41,8 @@ export const cantonCoinList: Record<string, ICantonCoinInfo> = coinList.reduce<
       network: coin.network,
       units: coin.units,
       color: coin.color,
+      instrument: coin.instrument,
+      ...getCantonTokens(coin.id, { color: coin.color }),
     },
   }),
   {},
