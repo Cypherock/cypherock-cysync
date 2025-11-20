@@ -179,6 +179,13 @@ export const DeviceAction: React.FC = () => {
       });
     }
 
+    if (selectedAccount?.parentAssetId === coinFamiliesMap.canton) {
+      messages.push({
+        text: lang.strings.send.x1Vault.longProcess.info,
+        variables: { assetName: coinList[selectedAccount.parentAssetId].name },
+      });
+    }
+
     if (selectedAccount?.parentAssetId === EvmIdMap.optimism) {
       messages.push({
         text: lang.strings.send.optimism.deviceAction,

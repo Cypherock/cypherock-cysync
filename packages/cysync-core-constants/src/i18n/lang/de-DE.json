@@ -312,6 +312,9 @@
       "token": {
         "info": "Denken Sie daran, dass ${tokenName} ein ${parentCoinName}-Token ist, daher wird die Gebühr in ${parentCoinUnit} berechnet"
       },
+      "longProcess": {
+        "info": "Die ${assetName}-Transaktion auf dem X1 Vault kann einige Zeit dauern. Bitte warten Sie"
+      },
       "messageBox": {
         "warning": "Vergewissern Sie sich immer, dass die auf Ihrem Gerät angezeigte Adresse genau mit der vom Empfänger angegebenen Adresse übereinstimmt",
         "partyIdWarning": "Vergewissern Sie sich immer, dass die auf Ihrem Gerät angezeigte Party-Kennung genau mit der vom Empfänger angegebenen Party-Kennung übereinstimmt"

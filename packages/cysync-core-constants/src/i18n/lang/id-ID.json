@@ -312,6 +312,9 @@
       "token": {
         "info": "Ingat ${tokenName} adalah token ${parentCoinName} oleh karena itu biaya akan dihitung dalam ${parentCoinUnit}"
       },
+      "longProcess": {
+        "info": "Transaksi ${assetName} yang diproses di X1 Vault mungkin memakan waktu. Silakan bersabar"
+      },
       "messageBox": {
         "warning": "Selalu pastikan alamat yang ditampilkan pada perangkat Anda cocok persis dengan alamat yang diberikan oleh penerima",
         "partyIdWarning": "Selalu pastikan ID Partai yang ditampilkan pada perangkat Anda cocok persis dengan ID Partai yang diberikan oleh penerima"

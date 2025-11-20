@@ -772,6 +772,9 @@
       "token": {
         "info": "Rappelez-vous que ${tokenName} est un jeton ${parentCoinName}, donc le fee sera calculé en ${parentCoinUnit}"
       },
+      "longProcess": {
+        "info": "La transaction ${assetName} sur le X1 Vault peut prendre un certain temps. Veuillez patienter"
+      },
       "messageBox": {
         "warning": "Vérifiez toujours que l'adresse affichée sur votre appareil correspond exactement à l'adresse fournie par le destinataire",
         "partyIdWarning": "Vérifiez toujours que l'ID de la partie affichée sur votre appareil correspond exactement à l'ID de la partie fourni par le destinataire"
