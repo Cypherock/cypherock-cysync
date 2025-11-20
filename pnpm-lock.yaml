@@ -1364,6 +1364,9 @@ importers:
       '@cypherock/db-interfaces':
         specifier: workspace:^
         version: link:../db-interfaces
+      '@cypherock/sdk-app-sia':
+        specifier: ^2.0.0
+        version: 2.0.0
       '@cypherock/sdk-interfaces':
         specifier: ^0.0.16
         version: 0.0.16
@@ -6574,6 +6577,18 @@ packages:
       '@cypherock/sdk-core': 0.1.1
       '@cypherock/sdk-interfaces': 0.0.16
       '@cypherock/sdk-utils': 0.0.20
+      long: 5.3.2
+      protobufjs: 7.5.3
+    transitivePeerDependencies:
+      - debug
+    dev: false
+
+  /@cypherock/sdk-app-sia@2.0.0:
+    resolution: {integrity: sha512-LHGZwtoXsXelLHy28cbmfgOzNYsu/wH7Aujbnw1g08hwAiKIymSuzXlQsHIeOyJ89CUdXmV4gyhGzBhZQ3Q6Gg==}
+    dependencies:
+      '@cypherock/sdk-core': 0.1.2
+      '@cypherock/sdk-interfaces': 0.0.16
+      '@cypherock/sdk-utils': 0.0.21
       long: 5.3.2
       protobufjs: 7.5.3
     transitivePeerDependencies:
