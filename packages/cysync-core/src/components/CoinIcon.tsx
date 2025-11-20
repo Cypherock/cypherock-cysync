@@ -31,6 +31,7 @@ import {
   UtilsProps,
   StellarIcon,
   CantonIcon,
+  CbtcIcon,
 } from '@cypherock/cysync-ui';
 import React from 'react';
 
@@ -72,6 +73,10 @@ const coinToIconMap: Record<string, React.FC<IconProps> | undefined> = {
   [CantonIdMap.canton]: CantonIcon,
 } as Record<string, React.FC<IconProps> | undefined>;
 
+const TokenToIconMap: Record<string, React.FC<IconProps> | undefined> = {
+  [`${CantonIdMap.canton}:CBTC`]: CbtcIcon,
+} as Record<string, React.FC<IconProps> | undefined>;
+
 const fallbackIcon = `https://static.cypherock.com/images/fallback-crypto-icon.png`;
 
 const requestErc20ImageFile = (id: string) =>
@@ -83,6 +88,16 @@ export const getCoinIcon = (
   if (!assetId) return undefined;
 
   const Icon = coinToIconMap[assetId];
+
+  return Icon;
+};
+
+export const getTokenIcon = (
+  assetId?: string,
+): React.FC<IconProps> | undefined => {
+  if (!assetId) return undefined;
+
+  const Icon = TokenToIconMap[assetId];
 
   return Icon;
 };
@@ -258,10 +273,12 @@ export const CoinIcon: React.FC<CoinIconProps> = ({
     return renderSingleImage(fallbackIcon, 'fallback', false);
   }
 
+  const isCanton = parentAssetId === CantonIdMap.canton;
   const hasDifferentAssetId = parentAssetId !== assetId;
-  const erc20Image = hasDifferentAssetId
-    ? getErc20Image(parentAssetId, assetId)
-    : null;
+  const erc20Image =
+    hasDifferentAssetId && !isCanton
+      ? getErc20Image(parentAssetId, assetId)
+      : null;
 
   const shouldRenderErc20 =
     !Icon ||
@@ -278,6 +295,17 @@ export const CoinIcon: React.FC<CoinIconProps> = ({
     const dualIconResult = renderDualIconWithAsset(erc20Image, Icon);
     if (dualIconResult) {
       return dualIconResult;
+    }
+  }
+
+  if (hasDifferentAssetId && isCanton) {
+    const TokenIcon = getTokenIcon(assetId);
+    if (TokenIcon) {
+      return (
+        <Container {...containerProps}>
+          <TokenIcon {...iconProps} />
+        </Container>
+      );
     }
   }
 
