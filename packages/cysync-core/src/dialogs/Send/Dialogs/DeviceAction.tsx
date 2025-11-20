@@ -165,7 +165,10 @@ export const DeviceAction: React.FC = () => {
   };
   const getMessageBoxes = () => {
     const messages: { text: string; variables?: any }[] = [];
-    if (selectedAccount?.type === AccountTypeMap.subAccount) {
+    if (
+      selectedAccount?.type === AccountTypeMap.subAccount &&
+      selectedAccount.parentAssetId !== coinFamiliesMap.canton
+    ) {
       messages.push({
         text: lang.strings.send.x1Vault.token.info,
         variables: {
