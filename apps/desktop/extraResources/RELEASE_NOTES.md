@@ -1,3 +1,9 @@
+# v2.3.6
+
+### 🚀 Feature
+
+- Added Sia coin support for transactions and wallet management
+
 # v2.3.5
 
 ### 🚀 Feature
