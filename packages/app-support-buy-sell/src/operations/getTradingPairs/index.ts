@@ -32,7 +32,6 @@ const networkMapping: Record<string, ICoinInfo | undefined> = {
   FTM: evmCoinList[EvmIdMap.fantom],
   MATIC: evmCoinList[EvmIdMap.polygon],
   HYPE: evmCoinList[EvmIdMap.hyperliquid],
-  BASE: evmCoinList[EvmIdMap.base],
 
   BTC: btcCoinList[BtcIdMap.bitcoin],
   DOGE: btcCoinList[BtcIdMap.dogecoin],
