@@ -1,5 +1,26 @@
 # @cypherock/cysync-cli
 
+## 0.2.6
+
+### Patch Changes
+
+- [#848](https://github.com/Cypherock/cypherock-cysync/pull/848) [`1676d442`](https://github.com/Cypherock/cypherock-cysync/commit/1676d442d58954c992165a525c6db626da7baeb9) Thanks [@Keyur279](https://github.com/Keyur279)! - Add Sia Coin Support
+
+- Updated dependencies [[`1676d442`](https://github.com/Cypherock/cypherock-cysync/commit/1676d442d58954c992165a525c6db626da7baeb9), [`421eb1c8`](https://github.com/Cypherock/cypherock-cysync/commit/421eb1c841bc92e4d9cb9148800de4d78bf81c35)]:
+  - @cypherock/coin-support-sia@2.0.0
+  - @cypherock/coins@0.5.1
+  - @cypherock/coin-support@0.2.6
+  - @cypherock/coin-support-btc@0.0.26
+  - @cypherock/coin-support-evm@0.1.4
+  - @cypherock/coin-support-icp@1.0.9
+  - @cypherock/coin-support-near@0.0.25
+  - @cypherock/coin-support-solana@0.2.4
+  - @cypherock/coin-support-starknet@1.0.12
+  - @cypherock/coin-support-stellar@1.0.6
+  - @cypherock/coin-support-utils@0.1.4
+  - @cypherock/coin-support-xrp@1.1.13
+  - @cypherock/cysync-core-services@0.2.6
+
 ## 0.2.6-pre.0
 
 ### Patch Changes
