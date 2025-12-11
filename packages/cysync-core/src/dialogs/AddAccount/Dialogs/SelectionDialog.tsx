@@ -13,6 +13,7 @@ import {
   addAccountIcon,
 } from '@cypherock/cysync-ui';
 import React, { useCallback } from 'react';
+import { coinFamiliesMap } from '@cypherock/coins';
 
 import { LoaderDialog } from '~/components';
 import { CoinIcon } from '~/components/CoinIcon';
@@ -26,7 +27,10 @@ const coinDropDownList: DropDownItemProps[] = Object.values(coinList)
     c => window.cysyncEnv.IS_PRODUCTION === 'false' || !c.isUnderDevelopment,
   )
   .filter(c => {
-    if (window.cysyncEnv.VENDOR === 'odix' && c.id === 'fantom') {
+    if (
+      window.cysyncEnv.VENDOR === 'odix' &&
+      (c.id === 'fantom' || c.id === coinFamiliesMap.canton)
+    ) {
       return false;
     }
     return true;

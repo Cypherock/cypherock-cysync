@@ -215,9 +215,15 @@ export const AddTokenDialogProvider: FC<AddTokenDialogContextProviderProps> = ({
   >(() => {
     // TODO: Remove the filter once we have a proper solution for SBC
     const tokens = Object.values(tokenList)
-      .filter(
-        t => window.cysyncEnv.VENDOR === 'odix' && t.parentId !== 'fantom',
-      )
+      .filter(t => {
+        if (
+          window.cysyncEnv.VENDOR === 'odix' &&
+          (t.parentId === 'fantom' || t.family === coinFamiliesMap.canton)
+        ) {
+          return false;
+        }
+        return true;
+      })
       .filter(
         token =>
           token.id !==
