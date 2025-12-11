@@ -17,7 +17,8 @@ export default {
    */
   LOG_LEVEL: 'debug',
 
-  API_CYPHEROCK: 'https://dev-api.cypherock.com',
+  // API_CYPHEROCK: 'https://dev-api.cypherock.com',
+  API_CYPHEROCK: 'https://odyx-dev.cypherock.com',
 
   /**
    * Should we allow the user to download prerelease firmware?
@@ -39,8 +40,8 @@ export default {
    */
   CHANNEL: 'latest',
 
-  VENDOR: 'default',
-  // VENDOR: 'odix',
+  // VENDOR: 'default',
+  VENDOR: 'odix',
 
   /**
    * Mixpanel token

@@ -35,7 +35,7 @@ export const FeatureBanner: FC = () => {
   }, [dispatch]);
 
   const renderContent = useMemo(() => {
-    if (!isPortfolioPage) return null;
+    if (!isPortfolioPage || window.cysyncEnv.VENDOR === 'odix') return null;
 
     return (
       <Container $bgColor="contentGradient" width="full">
