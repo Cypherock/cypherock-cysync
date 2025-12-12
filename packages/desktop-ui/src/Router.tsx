@@ -30,6 +30,7 @@ import {
   ReferAndEarn,
   Swap,
   analyticsService,
+  StakingLending,
 } from '@cypherock/cysync-core';
 import React, { memo, ReactNode, useEffect } from 'react';
 import {
@@ -66,6 +67,7 @@ const components: Record<RouteName, ReactNode> = {
   'inheritance-choose-plan': <InheritanceChoosePlan />,
   'inheritance-plan-details': <InheritancePlanDetails />,
   'refer-and-earn': <ReferAndEarn />,
+  'staking-lending': <StakingLending />,
 };
 
 export type InternalRoute = Record<string, IRoute>;

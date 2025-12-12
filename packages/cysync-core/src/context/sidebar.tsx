@@ -37,6 +37,7 @@ export type Page =
   | 'help'
   | 'referAndEarn'
   | 'swap'
+  | 'stakingLending'
   | 'buysell';
 
 export interface SidebarContextInterface {
@@ -136,6 +137,10 @@ export const SidebarProvider: FC<SidebarProviderProps> = ({ children }) => {
       navigateTo(routes.referAndEarn.path);
       return;
     }
+    if (page === 'stakingLending') {
+      navigateTo(routes.stakingLending.path);
+      return;
+    }
     navigateTo(routes[page].path);
   };
 
@@ -156,6 +161,9 @@ export const SidebarProvider: FC<SidebarProviderProps> = ({ children }) => {
         break;
       case 'referAndEarn':
         path = routes.referAndEarn.path;
+        break;
+      case 'stakingLending': // ADD THIS CASE
+        path = routes.stakingLending.path;
         break;
       default:
         path = routes[page].path;
