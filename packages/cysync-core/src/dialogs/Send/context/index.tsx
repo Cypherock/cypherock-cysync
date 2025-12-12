@@ -37,6 +37,8 @@ import {
   IPreparedXrpTransaction,
   IPreparedXrpTransactionOutput,
 } from '@cypherock/coin-support-xrp';
+import { IPreparedSiaTransaction } from '@cypherock/coin-support-sia';
+
 import { coinFamiliesMap, CoinFamily } from '@cypherock/coins';
 import { ServerError, ServerErrorType } from '@cypherock/cysync-core-constants';
 import { DropDownItemProps, parseLangTemplate } from '@cypherock/cysync-ui';
@@ -885,6 +887,12 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
     return computedData.fees || '0';
   };
 
+  const getSiaFeeAmount = (txn: IPreparedTransaction | undefined) => {
+    if (!txn) return '0';
+    const { computedData } = txn as IPreparedSiaTransaction;
+    return computedData.fees || '0';
+  };
+
   const getCantonFeeAmount = (txn: IPreparedTransaction | undefined) => {
     if (!txn) return '0';
     const { computedData } = txn as IPreparedCantonTransaction;
@@ -904,6 +912,7 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
     starknet: getStarknetFeeAmount,
     icp: getIcpFeeAmount,
     stellar: getStellarFeeAmount,
+    sia: getSiaFeeAmount,
     canton: getCantonFeeAmount,
   };
 
@@ -1120,6 +1129,11 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
     return '';
   }, [transaction, lang, selectedAccount]);
 
+  const getSiaAmountError = useCallback(
+    () => '',
+    [transaction, lang, selectedAccount],
+  );
+
   const getAmountError = useCallback(
     (index: number) => {
       if (transaction?.validation.zeroAmountNotAllowed) {
@@ -1150,6 +1164,11 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
         return stellarAmountError;
       }
 
+      const siaAmountError = getSiaAmountError();
+      if (siaAmountError !== '') {
+        return siaAmountError;
+      }
+
       return '';
     },
     [
@@ -1158,6 +1177,7 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
       getXrpAmountError,
       getSolanaAmountError,
       getStellarAmountError,
+      getSiaAmountError,
     ],
   );
 

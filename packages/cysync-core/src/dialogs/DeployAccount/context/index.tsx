@@ -334,6 +334,7 @@ export const DeployAccountDialogProvider: FC<
     starknet: getStarknetFeeAmount,
     icp: () => '0',
     stellar: () => '0',
+    sia: () => '0',
     canton: () => '0',
   };
 

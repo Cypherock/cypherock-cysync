@@ -1,6 +1,6 @@
 {
   "name": "@cypherock/cysync-cli",
-  "version": "0.2.5",
+  "version": "0.2.6",
   "description": "Cypherock CySync CLI",
   "types": "dist/index.d.ts",
   "author": "support@cypherock.com",
@@ -39,6 +39,7 @@
     "@cypherock/coin-support-utils": "workspace:^",
     "@cypherock/coin-support-xrp": "workspace:^",
     "@cypherock/coin-support-stellar": "workspace:^",
+    "@cypherock/coin-support-sia": "workspace:^",
     "@cypherock/coins": "workspace:^",
     "@cypherock/cysync-core-services": "workspace:^",
     "@cypherock/cysync-utils": "workspace:^",

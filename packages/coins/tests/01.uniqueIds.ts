@@ -10,6 +10,7 @@ import {
   icpCoinList,
   stellarCoinList,
   cantonCoinList,
+  siaCoinList,
 } from '../src';
 
 describe('01. All ids should be unique', () => {
@@ -22,6 +23,7 @@ describe('01. All ids should be unique', () => {
   const icpIds = Object.keys(icpCoinList);
   const stellarIds = Object.keys(stellarCoinList);
   const cantonIds = Object.keys(cantonCoinList);
+  const siaIds = Object.keys(siaCoinList);
 
   const idSet = new Set<string>();
 
@@ -70,6 +72,11 @@ describe('01. All ids should be unique', () => {
       coin: 'Canton',
       listName: 'cantonCoinList',
       ids: cantonIds,
+    },
+    {
+      coin: 'Sia',
+      listName: 'siaCoinList',
+      ids: siaIds,
     },
   ];
 

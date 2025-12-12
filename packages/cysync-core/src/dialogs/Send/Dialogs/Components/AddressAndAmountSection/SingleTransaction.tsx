@@ -117,6 +117,7 @@ export const SingleTransaction: React.FC<SingleTransactionProps> = ({
     starknet: () => '',
     icp: () => '',
     stellar: () => '',
+    sia: () => '',
     canton: () => '',
   };
 
@@ -145,6 +146,7 @@ export const SingleTransaction: React.FC<SingleTransactionProps> = ({
     starknet: () => ({}),
     icp: () => ({}),
     stellar: () => ({}),
+    sia: () => ({}),
     canton: () => ({}),
   };
 
@@ -210,6 +212,7 @@ export const SingleTransaction: React.FC<SingleTransactionProps> = ({
     starknet: () => ({}),
     icp: () => ({}),
     stellar: () => ({}),
+    sia: () => ({}),
     canton: getExpirationDateInputProps,
   };
 
@@ -279,6 +282,7 @@ export const SingleTransaction: React.FC<SingleTransactionProps> = ({
     starknet: () => ({}),
     icp: getIcpMemoInputProps,
     stellar: getStellarMemoInputProps,
+    sia: () => ({}),
     canton: getCantonMemoInputProps,
   };
 
