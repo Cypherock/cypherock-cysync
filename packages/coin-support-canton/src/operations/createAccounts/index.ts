@@ -24,7 +24,7 @@ import {
 import * as services from '../../services';
 import { createApp } from '../../utils';
 
-const DERIVATION_PATH_LIMIT = 1;
+const DERIVATION_PATH_LIMIT = 20;
 
 const getAddressesFromDevice: GetAddressesFromDevice<
   CantonApp
