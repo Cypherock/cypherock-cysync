@@ -7,6 +7,7 @@ export default [
     coinGeckoId: 'canton-network',
     coinIndex: '80001a6f', // 6767'
     feesUnit: 'CC',
+    decimals: 10,
     color: '#F3FE97',
     family: 'canton',
     network: 'mainnet',

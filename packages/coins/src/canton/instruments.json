@@ -6,6 +6,7 @@
     "id": "CBTC",
     "name": "CBTC",
     "symbol": "CBTC",
+    "coinGeckoId": "bitcoin",
     "platforms": {
       "canton": {
         "decimal_place": 10,

@@ -7,6 +7,7 @@ export { default as cantonInstrumentsJsonList } from './instruments.json';
 export interface ICantonToken extends ICoinInfo {
   parentId: string;
   address: string;
+  decimals: number;
   instrument: {
     id: string;
     admin: string;
@@ -50,8 +51,9 @@ export const getCantonTokens = (
         parentId,
         name: token.name,
         abbr: token.symbol.toUpperCase(),
-        coinGeckoId: 'bitcoin',
+        coinGeckoId: token.coinGeckoId,
         address: token.platforms[parentId].instrument.admin,
+        decimals: token.platforms[parentId].decimal_place,
         instrument: token.platforms[parentId].instrument,
         coinIndex: '',
         feesUnit: token.symbol.toUpperCase(),

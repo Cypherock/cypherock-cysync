@@ -14,6 +14,7 @@ export interface ICantonCoinInfo extends ICoinInfo {
     id: string;
     admin: string;
   };
+  decimals: number;
   tokens: Record<string, ICantonToken>;
   tokensByContract: Record<string, ICantonToken>;
 }
@@ -38,6 +39,7 @@ export const cantonCoinList: Record<string, ICantonCoinInfo> = coinList.reduce<
       coinGeckoId: coin.coinGeckoId,
       coinIndex: coin.coinIndex,
       feesUnit: coin.feesUnit,
+      decimals: coin.decimals,
       network: coin.network,
       units: coin.units,
       color: coin.color,
