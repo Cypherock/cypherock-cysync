@@ -313,7 +313,7 @@
         "info": "Remember ${tokenName} is an ${parentCoinName} token therefore fee will be calculated in ${parentCoinUnit}"
       },
       "longProcess": {
-        "info": "The ${assetName} transaction processing on X1 Vault might take a while. Please be patient"
+        "info": "The ${assetName} transaction processing on X1 Vault might take a while. Please wait"
       },
       "messageBox": {
         "warning": "Always verify the address displayed on your device exactly matches the address given by the recipient",
