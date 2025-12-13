@@ -4,7 +4,7 @@ export interface ICantonInstrument {
 }
 export interface ICantonTransactionHistoryParams {
   partyId: string;
-  instrument: ICantonInstrument;
+  fetchAll: boolean;
   afterOffset?: number;
 }
 
