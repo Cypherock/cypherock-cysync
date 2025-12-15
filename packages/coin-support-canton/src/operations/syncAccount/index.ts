@@ -1,10 +1,20 @@
 import {
   createSyncAccountsObservable,
+  createSyncPriceHistoriesObservable,
+  createSyncPricesObservable,
   createTransactionId,
   getLatestTransactionBlock,
   IGetAddressDetails,
+  insertAccountIfNotExists,
 } from '@cypherock/coin-support-utils';
 import {
+  cantonCoinList,
+  coinList,
+  ICantonCoinInfo,
+  ICantonToken,
+} from '@cypherock/coins';
+import {
+  AccountTypeMap,
   IAccount,
   IDatabase,
   IKeyValueStore,
@@ -13,10 +23,12 @@ import {
   TransactionStatusMap,
   TransactionTypeMap,
 } from '@cypherock/db-interfaces';
+import { lastValueFrom } from 'rxjs';
 
 import { ISyncCantonAccountsParams } from './types';
 
 import * as services from '../../services';
+import logger from '../../utils/logger';
 import { ICantonAccount } from '../types';
 
 enum CantonTransactionSubType {
@@ -52,6 +64,134 @@ const transactionChoiceToStatusMap = {
   [CantonTransactionSubType.DIRECT_TRANSFER]: TransactionStatusMap.success,
 } as const;
 
+const checkIsCantonCoinInstrument = (
+  account: IAccount,
+  instrument: services.ICantonInstrument,
+): boolean => {
+  const coin = coinList[account.assetId] as ICantonCoinInfo;
+  return (
+    coin.instrument.id.toLowerCase() === instrument.id.toLowerCase() &&
+    coin.instrument.admin.toLowerCase() === instrument.admin.toLowerCase()
+  );
+};
+
+const getTokenObject = (
+  account: IAccount,
+  instrument: services.ICantonInstrument,
+): ICantonToken | undefined => {
+  const coin = coinList[account.assetId] as ICantonCoinInfo;
+  return Object.values(coin.tokens).find(
+    token =>
+      token.instrument.id.toLowerCase() === instrument.id.toLowerCase() &&
+      token.instrument.admin.toLowerCase() === instrument.admin.toLowerCase(),
+  );
+};
+
+const getCantonTokenAccount = (
+  account: IAccount,
+  tokenObj: ICantonToken,
+): IAccount => ({
+  walletId: account.walletId,
+  assetId: tokenObj.id,
+  familyId: account.familyId,
+  parentAccountId: account.__id ?? '',
+  parentAssetId: account.parentAssetId,
+  type: AccountTypeMap.subAccount,
+  name: tokenObj.name,
+  derivationPath: account.derivationPath,
+  unit: tokenObj.units[0].abbr,
+  xpubOrAddress: account.xpubOrAddress,
+  balance: '0',
+  extraData: {
+    instrument: tokenObj.instrument,
+    publicKey: account.extraData?.publicKey,
+  },
+  isHidden: false,
+});
+
+const onNewAccounts = (
+  newAccounts: IAccount[],
+  db: IDatabase,
+  currency: string,
+) => {
+  for (const newAccount of newAccounts) {
+    lastValueFrom(
+      syncAccount({
+        db,
+        accountId: newAccount.__id ?? '',
+        currency,
+      }),
+    ).catch(error => {
+      logger.error('Error in syncing canton token account');
+      logger.error(error);
+    });
+  }
+
+  if (newAccounts.length > 0) {
+    const getCoinIds = async () =>
+      newAccounts.map(e => ({
+        parentAssetId: e.parentAssetId,
+        assetId: e.assetId,
+      }));
+
+    lastValueFrom(
+      createSyncPricesObservable({
+        db,
+        getCoinIds,
+        currency,
+      }),
+    ).catch(error => {
+      logger.error('Error in syncing canton token prices');
+      logger.error(error);
+    });
+
+    lastValueFrom(
+      createSyncPriceHistoriesObservable({
+        db,
+        getCoinIds,
+        currency,
+      }),
+    ).catch(error => {
+      logger.error('Error in syncing canton token price histories');
+      logger.error(error);
+    });
+  }
+};
+
+const getAccountToUseAndNewAccountIfNeeded = async (
+  db: IDatabase,
+  account: IAccount,
+  instrument: services.ICantonInstrument,
+): Promise<{ accountToUse?: IAccount; newAccount?: IAccount }> => {
+  const isCantonCoinInstrument = checkIsCantonCoinInstrument(
+    account,
+    instrument,
+  );
+
+  if (isCantonCoinInstrument) {
+    return { accountToUse: account };
+  }
+
+  const tokenObj = getTokenObject(account, instrument);
+
+  if (!tokenObj) {
+    logger.warn('Token instrument not available in cySync', {
+      instrument,
+    });
+    return { accountToUse: undefined };
+  }
+
+  const tokenAccount = getCantonTokenAccount(account, tokenObj);
+
+  const { account: newTokenAccount, isInserted } =
+    await insertAccountIfNotExists(db, tokenAccount);
+
+  return {
+    accountToUse: newTokenAccount,
+    newAccount: isInserted ? newTokenAccount : undefined,
+  };
+};
+
 const removeObsoleteTransactions = async (
   db: IDatabase,
   account: IAccount,
@@ -62,15 +202,27 @@ const removeObsoleteTransactions = async (
     status: TransactionStatusMap.pending,
   });
 
-  // also delete existing expired transactions if they not in the pending transactions list received from the server
+  const existingPendingTokenTransactions = await db.transaction.getAll({
+    parentAccountId: account.__id,
+    status: TransactionStatusMap.pending,
+  });
+
+  // also delete existing expired transactions if they are not in the pending transactions list received from the server
   const existingExpiredTransactions = await db.transaction.getAll({
     accountId: account.__id,
     status: TransactionStatusMap.expired,
   });
 
+  const existingExpiredTokenTransactions = await db.transaction.getAll({
+    parentAccountId: account.__id,
+    status: TransactionStatusMap.expired,
+  });
+
   const existingTransactions = [
     ...existingPendingTransactions,
+    ...existingPendingTokenTransactions,
     ...existingExpiredTransactions,
+    ...existingExpiredTokenTransactions,
   ];
 
   const currentPendingTransactionIds = await Promise.all(
@@ -108,6 +260,7 @@ const parseTransaction = (
 
   const transaction: ITransaction = {
     accountId: account.__id ?? '',
+    parentAccountId: account.parentAccountId,
     walletId: account.walletId,
     assetId: account.assetId,
     familyId: account.familyId,
@@ -166,6 +319,7 @@ const parsePendingTransaction = (
 
   const transaction: ITransaction = {
     accountId: account.__id ?? '',
+    parentAccountId: account.parentAccountId,
     walletId: account.walletId,
     assetId: account.assetId,
     familyId: account.familyId,
@@ -214,20 +368,46 @@ const fetchAndParseTransactions = async (params: {
   afterOffset?: number;
   db: IDatabase;
   keyDB?: IKeyValueStore;
+  currency: string;
 }) => {
-  const { partyId, account, afterOffset, db, keyDB } = params;
+  const { partyId, account, db, keyDB, currency } = params;
+  let { afterOffset } = params;
+
+  afterOffset ??= account?.extraData?.latestTransactionOffset;
+  afterOffset ??= await getLatestTransactionBlock(db, {
+    accountId: account.__id,
+  });
+  afterOffset ??= 0;
 
   const response = await services.getTransactions(
     {
       partyId,
+      fetchAll: true,
       afterOffset,
     },
     keyDB,
   );
 
   const transactions: ITransaction[] = [];
+  const newAccounts: IAccount[] = [];
+
   for (const rawTransaction of response.transactions) {
-    const transaction = parseTransaction(partyId, account, rawTransaction);
+    const { accountToUse, newAccount } =
+      await getAccountToUseAndNewAccountIfNeeded(
+        db,
+        account,
+        rawTransaction.instrumentId,
+      );
+
+    if (!accountToUse) {
+      continue;
+    }
+
+    if (newAccount) {
+      newAccounts.push(newAccount);
+    }
+
+    const transaction = parseTransaction(partyId, accountToUse, rawTransaction);
 
     transactions.push({ ...transaction });
   }
@@ -238,15 +418,30 @@ const fetchAndParseTransactions = async (params: {
     const pendingTransactions = await services.getPendingTransactions(
       {
         partyId,
+        fetchAll: true,
       },
       keyDB,
     );
 
     const resultPendingTxns: ITransaction[] = [];
     for (const rawTransaction of pendingTransactions) {
+      const { accountToUse, newAccount } =
+        await getAccountToUseAndNewAccountIfNeeded(
+          db,
+          account,
+          rawTransaction.instrumentId,
+        );
+
+      if (!accountToUse) {
+        continue;
+      }
+
+      if (newAccount) {
+        newAccounts.push(newAccount);
+      }
       const transaction = parsePendingTransaction(
         partyId,
-        account,
+        accountToUse,
         rawTransaction,
       );
       resultPendingTxns.push({ ...transaction });
@@ -255,6 +450,8 @@ const fetchAndParseTransactions = async (params: {
 
     await removeObsoleteTransactions(db, account, resultPendingTxns);
   }
+
+  onNewAccounts(newAccounts, db, currency);
 
   return {
     transactions,
@@ -267,39 +464,52 @@ const getAddressDetails: IGetAddressDetails<{
   afterOffset?: number;
   updatedBalance?: string;
   updatedTransferPreApprovalStatus?: boolean;
-}> = async ({ db, account, iterationContext, keyDB }) => {
+}> = async ({ db, account, iterationContext, currency, keyDB }) => {
   const partyId = account.xpubOrAddress;
+
+  let updatedTransferPreApprovalStatus =
+    iterationContext?.updatedTransferPreApprovalStatus;
+
+  let instrument: services.ICantonInstrument;
+  const isTokenAccount = account.type === AccountTypeMap.subAccount;
+  if (isTokenAccount) {
+    const tokenDetails =
+      cantonCoinList[account.parentAssetId].tokens[account.assetId];
+    instrument = tokenDetails.instrument;
+    updatedTransferPreApprovalStatus ??= false;
+  } else {
+    instrument = cantonCoinList[account.assetId].instrument;
+    updatedTransferPreApprovalStatus ??=
+      await services.isTransferPreApprovalEnabled(partyId, instrument, keyDB);
+  }
 
   const updatedBalance =
     iterationContext?.updatedBalance ??
-    (await services.getBalance(partyId, keyDB));
+    (await services.getBalance(partyId, instrument, keyDB));
 
-  const updatedTransferPreApprovalStatus =
-    iterationContext?.updatedTransferPreApprovalStatus ??
-    (await services.isTransferPreApprovalEnabled(partyId, keyDB));
+  const { transactions, hasMore, nextOffset } = isTokenAccount
+    ? { transactions: [], hasMore: false, nextOffset: undefined }
+    : await fetchAndParseTransactions({
+        partyId,
+        account,
+        afterOffset: iterationContext?.afterOffset,
+        db,
+        keyDB,
+        currency,
+      });
 
-  const afterOffset =
-    iterationContext?.afterOffset ??
-    (await getLatestTransactionBlock(db, {
-      accountId: account.__id,
-    })) ??
-    0;
-
-  const { transactions, hasMore, nextOffset } = await fetchAndParseTransactions(
-    {
-      partyId,
-      account,
-      afterOffset,
-      db,
-      keyDB,
-    },
-  );
+  let latestTransactionOffset = nextOffset;
+  latestTransactionOffset ??=
+    transactions?.[transactions.length - 1]?.blockHeight;
+  latestTransactionOffset ??= iterationContext?.afterOffset;
+  latestTransactionOffset ??= account.extraData?.latestTransactionOffset;
 
   const updatedAccountInfo: Partial<ICantonAccount> = {
     balance: updatedBalance,
     extraData: {
       ...account.extraData,
       isTransferPreApprovalEnabled: updatedTransferPreApprovalStatus,
+      latestTransactionOffset,
     },
   };
 

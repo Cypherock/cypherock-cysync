@@ -338,6 +338,7 @@ interface LangSend {
       tapCard: string;
     };
     token: { info: string };
+    longProcess: { info: string };
     messageBox: {
       warning: string;
       partyIdWarning: string;
