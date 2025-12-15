@@ -3,7 +3,7 @@ import {
   createSyncPriceHistoriesObservable,
   createSyncPricesObservable,
   createTransactionId,
-  getLatestTransactionBlock,
+  getLatestTransactionBlockByTimestamp,
   IGetAddressDetails,
   insertAccountIfNotExists,
 } from '@cypherock/coin-support-utils';
@@ -374,7 +374,7 @@ const fetchAndParseTransactions = async (params: {
   let { afterOffset } = params;
 
   afterOffset ??= account?.extraData?.latestTransactionOffset;
-  afterOffset ??= await getLatestTransactionBlock(db, {
+  afterOffset ??= await getLatestTransactionBlockByTimestamp(db, {
     accountId: account.__id,
   });
   afterOffset ??= 0;
