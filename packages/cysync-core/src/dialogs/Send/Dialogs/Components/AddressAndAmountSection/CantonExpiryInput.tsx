@@ -14,7 +14,7 @@ import {
   Tooltip,
 } from '@cypherock/cysync-ui';
 import lodash from 'lodash';
-import React, { useCallback, useMemo, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 
 interface ICantonTransactionExpiryOption {
   value: ICantonTransactionExpiryInputKey;
@@ -49,6 +49,10 @@ export const CantonTransactionExpiryInput: React.FC<
   const [selectedExpiry, setSelectedExpiry] = useState<
     ICantonTransactionExpiryInputKey | undefined
   >(initialValue);
+
+  useEffect(() => {
+    setSelectedExpiry(initialValue);
+  }, [initialValue]);
 
   const debouncedOnChange = useCallback(
     lodash.debounce((expiry: ICantonTransactionExpiryInput) => {

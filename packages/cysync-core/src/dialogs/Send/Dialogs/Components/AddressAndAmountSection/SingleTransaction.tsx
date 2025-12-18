@@ -1,5 +1,6 @@
 import { IPreparedBtcTransaction } from '@cypherock/coin-support-btc';
 import {
+  cantonTransactionExpiryMap,
   ICantonTransactionExpiryInputKey,
   IPreparedCantonTransaction,
 } from '@cypherock/coin-support-canton';
@@ -165,13 +166,16 @@ export const SingleTransaction: React.FC<SingleTransactionProps> = ({
     return <Component {...props} />;
   };
 
+  const defaultCantonExpiryKey = ICantonTransactionExpiryInputKey.ONE_DAY;
+
   const getExpirationDateInputProps =
     (): ICantonTransactionExpiryInputProps => ({
       label: displayText.expirationDate.label,
       dropdownPlaceholder: displayText.expirationDate.placeholder,
       tooltipText: displayText.expirationDate.tooltipText,
-      initialValue: (transaction as IPreparedCantonTransaction)?.userInputs
-        .outputs[0]?.expiry?.key,
+      initialValue:
+        (transaction as IPreparedCantonTransaction)?.userInputs.outputs[0]
+          ?.expiry?.key ?? defaultCantonExpiryKey,
       onChange: prepareCantonExpiry,
       expiryOptions: [
         {
@@ -316,6 +320,20 @@ export const SingleTransaction: React.FC<SingleTransactionProps> = ({
       setAmountOverride(convertedValue ?? '');
     }
   }, [transaction]);
+
+  useEffect(() => {
+    if (selectedAccount?.familyId !== coinFamiliesMap.canton) return;
+    const txn = transaction as IPreparedCantonTransaction | undefined;
+    const hasExpiry = txn?.userInputs.outputs[0]?.expiry?.key;
+    if (!txn || hasExpiry) return;
+
+    const defaultExpiryValue =
+      cantonTransactionExpiryMap[defaultCantonExpiryKey];
+    prepareCantonExpiry({
+      key: defaultCantonExpiryKey,
+      value: defaultExpiryValue,
+    });
+  }, [transaction, selectedAccount?.familyId, prepareCantonExpiry]);
 
   const getConvertedAmount = (val?: string) => {
     if (!val || !selectedAccount) return undefined;
