@@ -13,6 +13,8 @@ import {
   solanaCoinList,
   tronCoinList,
   cantonCoinList,
+  createCantonInstrumentAssetId,
+  CantonIdMap,
 } from '@cypherock/coins';
 import { DropDownItemProps } from '@cypherock/cysync-ui';
 import { AccountTypeMap, IAccount, IWallet } from '@cypherock/db-interfaces';
@@ -211,7 +213,15 @@ export const AddTokenDialogProvider: FC<AddTokenDialogContextProviderProps> = ({
   const tokenDropDownList: DropDownItemProps[] = useMemo<
     DropDownItemProps[]
   >(() => {
-    const tokens = Object.values(tokenList);
+    // TODO: Remove the filter once we have a proper solution for SBC
+    const tokens = Object.values(tokenList).filter(
+      token =>
+        token.id !==
+        createCantonInstrumentAssetId({
+          parentAssetId: CantonIdMap.canton,
+          assetId: 'SBC',
+        }),
+    );
 
     return tokens.map(token => ({
       id: token.id,
