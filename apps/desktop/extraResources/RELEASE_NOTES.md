@@ -1,3 +1,9 @@
+# v2.3.7
+
+### 🚀 Feature
+
+Introduced native support for the Canton Network CIP-56 tokens like USDCx and CBTC
+
 # v2.3.6
 
 ### 🚀 Feature
