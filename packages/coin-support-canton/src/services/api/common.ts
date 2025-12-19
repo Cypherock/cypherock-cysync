@@ -43,6 +43,9 @@ export const getAuthTokenConfig = async (
         });
       },
       refreshTokenUrl: `${config.API_CYPHEROCK}/canton/user/refresh-token`,
+      clearTokens: async () => {
+        await cantonAuthTokensStore.remove(keyDB);
+      },
     },
   };
 };
