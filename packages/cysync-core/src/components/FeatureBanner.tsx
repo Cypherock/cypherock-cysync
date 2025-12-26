@@ -1,100 +1,18 @@
-import {
-  Container,
-  Typography,
-  Button,
-  Image,
-  cantonIcon,
-  LangDisplay,
-} from '@cypherock/cysync-ui';
-import React, { FC, useCallback, useMemo, useState } from 'react';
+import { FC, useMemo } from 'react';
 import { useLocation } from 'react-router-dom';
 
-import { openEnableApprovalPromptDialog } from '~/actions';
-import { constants, routes } from '~/constants';
-import { selectLanguage, useAppDispatch, useAppSelector } from '~/store';
+import { routes } from '~/constants';
 
 export const FeatureBanner: FC = () => {
-  const lang = useAppSelector(selectLanguage);
-  const strings = lang.strings.portfolio.banner;
-
   const { path } = routes.portfolio;
   const location = useLocation();
-  const dispatch = useAppDispatch();
 
   const isPortfolioPage = location.pathname.startsWith(path);
 
-  // TODO: Implement the logic to check if canton is added and automatic approvals are enabled
-  const [isCantonAdded, setIsCantonAdded] = useState(false);
-  const [isAutomaticApprovalEnabled, setIsAutomaticApprovalEnabled] =
-    useState(true);
-
-  const enableAutomaticApprovals = useCallback(() => {
-    dispatch(openEnableApprovalPromptDialog());
-    setIsAutomaticApprovalEnabled(true);
-    setIsCantonAdded(true);
-  }, [dispatch]);
-
   const renderContent = useMemo(() => {
     if (!isPortfolioPage) return null;
-
-    return (
-      <Container $bgColor="contentGradient" width="full">
-        <Container
-          direction="row"
-          $bgColor="featureBanner"
-          width="full"
-          justify="flex-start"
-          p={2}
-          $borderRadius={16}
-          gap={16}
-        >
-          <Image src={cantonIcon} alt="canton logo" $width={30} $height={30} />
-          <Typography $fontSize={16} width="100%">
-            <LangDisplay
-              text={
-                isCantonAdded && !isAutomaticApprovalEnabled
-                  ? strings.enableAutomaticApprovals.title
-                  : strings.addCanton.title
-              }
-              $allowMarkdown
-            />
-          </Typography>
-          {isCantonAdded && !isAutomaticApprovalEnabled ? (
-            <Button variant="text" onClick={enableAutomaticApprovals}>
-              <Typography
-                $fontSize={16}
-                color="gold"
-                $fontWeight="semibold"
-                $whiteSpace="nowrap"
-              >
-                {strings.enableAutomaticApprovals.button}
-              </Typography>
-            </Button>
-          ) : (
-            <Button variant="text" color="gold">
-              <a
-                href={constants.inheritance.cantonLink}
-                target="_blank"
-                style={{
-                  textDecoration: 'none',
-                }}
-                rel="noreferrer"
-              >
-                <Typography
-                  $fontSize={16}
-                  color="gold"
-                  $fontWeight="semibold"
-                  $whiteSpace="nowrap"
-                >
-                  {strings.addCanton.button}
-                </Typography>
-              </a>
-            </Button>
-          )}
-        </Container>
-      </Container>
-    );
-  }, [isAutomaticApprovalEnabled, isCantonAdded]);
+    return null;
+  }, [isPortfolioPage]);
 
   return renderContent;
 };

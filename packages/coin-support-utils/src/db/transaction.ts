@@ -104,6 +104,26 @@ export const getLatestTransactionBlock = async (
   return res.blockHeight;
 };
 
+export const getLatestTransactionBlockByTimestamp = async (
+  db: IDatabase,
+  query: Partial<ITransaction>,
+) => {
+  const res = await db.transaction.getOne(
+    { ...query, status: TransactionStatusMap.success },
+    {
+      sortBy: {
+        key: 'timestamp',
+        descending: true,
+      },
+      limit: 1,
+    },
+  );
+
+  if (!res) return undefined;
+
+  return res.blockHeight;
+};
+
 export const getLatestTransactionHash = async (
   db: IDatabase,
   query: Partial<ITransaction>,

@@ -17,6 +17,7 @@ export interface RefreshTokenConfig {
   refreshToken: string;
   refreshTokenUrl: string;
   updateAccessToken: (newAccessToken: string) => Promise<void>;
+  clearTokens?: () => Promise<void>;
 }
 
 export const makePostRequest = async (
@@ -109,17 +110,27 @@ export const makePostRequestWithAuth = async (
       throw error;
 
     let newAccessToken = '';
-    const refreshTokenResponse = await makePostRequest(
-      refreshTokenConfig.refreshTokenUrl,
-      {
-        refreshToken: refreshTokenConfig.refreshToken,
-      },
-    );
+    try {
+      const refreshTokenResponse = await makePostRequest(
+        refreshTokenConfig.refreshTokenUrl,
+        {
+          refreshToken: refreshTokenConfig.refreshToken,
+        },
+      );
 
-    newAccessToken = refreshTokenResponse.data.accessToken;
-    if (!newAccessToken) throw error;
+      newAccessToken = refreshTokenResponse.data.accessToken;
+      if (!newAccessToken) throw error;
 
-    await refreshTokenConfig.updateAccessToken(newAccessToken);
+      await refreshTokenConfig.updateAccessToken(newAccessToken);
+    } catch (refreshError) {
+      const axiosRefreshError = refreshError as AxiosError;
+      if (axiosRefreshError.response?.status === HttpStatusCode.Unauthorized) {
+        if (refreshTokenConfig.clearTokens) {
+          await refreshTokenConfig.clearTokens();
+        }
+      }
+      throw error;
+    }
     result = await makePostRequest(url, data, options, {
       headers: {
         Authorization: `Bearer ${newAccessToken}`,

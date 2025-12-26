@@ -1,5 +1,5 @@
 import { SignTransactionDeviceEvent } from '@cypherock/coin-support-interfaces';
-import { coinFamiliesMap, coinList } from '@cypherock/coins';
+import { CantonIdMap, coinFamiliesMap, coinList } from '@cypherock/coins';
 import {
   LangDisplay,
   DialogBox,
@@ -13,6 +13,7 @@ import {
   ArrowRightIcon,
   Check,
   VerifyAmountDeviceGraphics,
+  MessageBox,
 } from '@cypherock/cysync-ui';
 import React, { useEffect } from 'react';
 
@@ -158,6 +159,17 @@ export const DeviceAction: React.FC = () => {
             />
           ))}
         </LeanBoxContainer>
+        <Container display="flex" direction="column" gap={16} width="full">
+          <MessageBox
+            type="info"
+            text={displayText.longProcess.info}
+            variables={{
+              assetName:
+                coinList[selectedAccount?.parentAssetId ?? CantonIdMap.canton]
+                  .name,
+            }}
+          />
+        </Container>
       </DialogBoxBody>
     </DialogBox>
   );

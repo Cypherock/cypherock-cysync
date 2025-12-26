@@ -29,7 +29,8 @@ export const getAuthTokenConfig = async (
 ): Promise<AuthTokenConfig | undefined> => {
   if (!keyDB) return undefined;
   const cantonAuthTokens = await cantonAuthTokensStore.get(keyDB);
-  if (!cantonAuthTokens) return undefined;
+  if (!cantonAuthTokens?.accessToken || !cantonAuthTokens?.refreshToken)
+    return undefined;
 
   return {
     accessToken: cantonAuthTokens.accessToken,
@@ -42,6 +43,9 @@ export const getAuthTokenConfig = async (
         });
       },
       refreshTokenUrl: `${config.API_CYPHEROCK}/canton/user/refresh-token`,
+      clearTokens: async () => {
+        await cantonAuthTokensStore.remove(keyDB);
+      },
     },
   };
 };

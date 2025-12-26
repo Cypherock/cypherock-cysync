@@ -1,10 +1,15 @@
 import { getAccountAndCoin } from '@cypherock/coin-support-utils';
 import { cantonCoinList, ICoinInfo } from '@cypherock/coins';
 import { assert, BigNumber } from '@cypherock/cysync-utils';
+import { AccountTypeMap } from '@cypherock/db-interfaces';
 
 import { IPrepareCantonTransactionParams } from './types';
 
-import { doesPartyExist, prepareSendTransaction } from '../../services';
+import {
+  doesPartyExist,
+  prepareSendTransaction,
+  ICantonInstrument,
+} from '../../services';
 import {
   IPreparedCantonTransaction,
   IPreparedCantonTransactionOutput,
@@ -91,6 +96,19 @@ export const prepareTransaction = async (
     accountId,
   );
 
+  let instrument: ICantonInstrument;
+  let decimals = 10;
+  const isTokenAccount = account.type === AccountTypeMap.subAccount;
+  if (isTokenAccount) {
+    const tokenDetails =
+      cantonCoinList[account.parentAssetId].tokens[account.assetId];
+    instrument = tokenDetails.instrument;
+    decimals = tokenDetails.decimals;
+  } else {
+    instrument = cantonCoinList[account.assetId].instrument;
+    decimals = cantonCoinList[account.assetId].decimals;
+  }
+
   assert(
     txn.userInputs.outputs.length === 1,
     new Error('Canton transaction requires exactly 1 output'),
@@ -105,14 +123,18 @@ export const prepareTransaction = async (
     ...txn.userInputs.outputs[0],
   };
 
-  output.amount = new BigNumber(output.amount).toString();
+  output.amount = new BigNumber(output.amount).toFixed(decimals);
+  // update userInput so that the amount is displayed in the correct format upto correct decimal places
+  txn.userInputs.outputs[0].amount = output.amount;
   let sendAmount = new BigNumber(output.amount);
 
   const { fees } = txn.computedData;
 
   const calculateMaxSend = () => {
     sendAmount = new BigNumber(
-      BigNumber.max(new BigNumber(account.balance).minus(fees), 0).toFixed(0),
+      BigNumber.max(new BigNumber(account.balance).minus(fees), 0).toFixed(
+        decimals,
+      ),
     );
     output.amount = sendAmount.toString(10);
     // update userInput so that the max amount is editable & not reset to 0
@@ -162,6 +184,7 @@ export const prepareTransaction = async (
         partyId: account.xpubOrAddress,
         receiverPartyId: output.address,
         amount: output.amount,
+        instrument,
         memo: output.memo,
         expiryDate: output.expiryDate,
         inputUtxos: selectUtxos(output.amount, txn.staticData.utxos),

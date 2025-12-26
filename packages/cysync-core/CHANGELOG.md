@@ -1,5 +1,63 @@
 # @cypherock/cysync-core
 
+## 0.9.6
+
+### Patch Changes
+
+- [#846](https://github.com/Cypherock/cypherock-cysync/pull/846) [`01b6f2e0`](https://github.com/Cypherock/cypherock-cysync/commit/01b6f2e08312190d23546ac7600e3a5b526c64c4) Thanks [@muzaffarbhat07](https://github.com/muzaffarbhat07)! - Adds canton token support
+
+- [#852](https://github.com/Cypherock/cypherock-cysync/pull/852) [`cc17bed6`](https://github.com/Cypherock/cypherock-cysync/commit/cc17bed6452b60393efe3fceb3e68868b3c088b2) Thanks [@muzaffarbhat07](https://github.com/muzaffarbhat07)! - Canton Token Support Added
+
+- Updated dependencies [[`01b6f2e0`](https://github.com/Cypherock/cypherock-cysync/commit/01b6f2e08312190d23546ac7600e3a5b526c64c4), [`cc17bed6`](https://github.com/Cypherock/cypherock-cysync/commit/cc17bed6452b60393efe3fceb3e68868b3c088b2)]:
+  - @cypherock/coin-support-canton@1.1.0
+  - @cypherock/cysync-core-constants@0.6.7
+  - @cypherock/coins@0.6.0
+  - @cypherock/coin-support-utils@0.1.5
+  - @cypherock/cysync-ui@0.0.21
+  - @cypherock/coin-support@0.2.7
+  - @cypherock/app-support-buy-sell@0.0.13
+  - @cypherock/coin-support-btc@0.0.27
+  - @cypherock/coin-support-evm@0.1.5
+  - @cypherock/coin-support-icp@1.0.10
+  - @cypherock/coin-support-near@0.0.26
+  - @cypherock/coin-support-sia@2.0.1
+  - @cypherock/coin-support-solana@0.2.5
+  - @cypherock/coin-support-starknet@1.0.13
+  - @cypherock/coin-support-stellar@1.0.7
+  - @cypherock/coin-support-tron@0.1.5
+  - @cypherock/coin-support-xrp@1.1.14
+  - @cypherock/cysync-core-services@0.2.7
+  - @cypherock/cysync-core-workers@0.1.7
+
+## 0.9.6-pre.0
+
+### Patch Changes
+
+- [#846](https://github.com/Cypherock/cypherock-cysync/pull/846) [`01b6f2e0`](https://github.com/Cypherock/cypherock-cysync/commit/01b6f2e08312190d23546ac7600e3a5b526c64c4) Thanks [@muzaffarbhat07](https://github.com/muzaffarbhat07)! - Adds canton token support
+
+- [#852](https://github.com/Cypherock/cypherock-cysync/pull/852) [`cc17bed6`](https://github.com/Cypherock/cypherock-cysync/commit/cc17bed6452b60393efe3fceb3e68868b3c088b2) Thanks [@muzaffarbhat07](https://github.com/muzaffarbhat07)! - Canton Token Support Added
+
+- Updated dependencies [[`01b6f2e0`](https://github.com/Cypherock/cypherock-cysync/commit/01b6f2e08312190d23546ac7600e3a5b526c64c4), [`cc17bed6`](https://github.com/Cypherock/cypherock-cysync/commit/cc17bed6452b60393efe3fceb3e68868b3c088b2)]:
+  - @cypherock/coin-support-canton@1.1.0-pre.0
+  - @cypherock/cysync-core-constants@0.6.7-pre.0
+  - @cypherock/coins@0.6.0-pre.0
+  - @cypherock/coin-support-utils@0.1.5-pre.0
+  - @cypherock/cysync-ui@0.0.21-pre.0
+  - @cypherock/coin-support@0.2.7-pre.0
+  - @cypherock/app-support-buy-sell@0.0.13-pre.0
+  - @cypherock/coin-support-btc@0.0.27-pre.0
+  - @cypherock/coin-support-evm@0.1.5-pre.0
+  - @cypherock/coin-support-icp@1.0.10-pre.0
+  - @cypherock/coin-support-near@0.0.26-pre.0
+  - @cypherock/coin-support-sia@2.0.1-pre.0
+  - @cypherock/coin-support-solana@0.2.5-pre.0
+  - @cypherock/coin-support-starknet@1.0.13-pre.0
+  - @cypherock/coin-support-stellar@1.0.7-pre.0
+  - @cypherock/coin-support-tron@0.1.5-pre.0
+  - @cypherock/coin-support-xrp@1.1.14-pre.0
+  - @cypherock/cysync-core-services@0.2.7-pre.0
+  - @cypherock/cysync-core-workers@0.1.7-pre.0
+
 ## 0.9.5
 
 ### Patch Changes

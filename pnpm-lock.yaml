@@ -904,8 +904,8 @@ importers:
         specifier: workspace:^
         version: link:../db-interfaces
       '@cypherock/sdk-app-canton':
-        specifier: ^1.0.0
-        version: 1.0.0
+        specifier: ^1.0.1
+        version: 1.0.1
       '@cypherock/sdk-interfaces':
         specifier: ^0.0.16
         version: 0.0.16
@@ -6496,8 +6496,8 @@ packages:
       - debug
     dev: false
 
-  /@cypherock/sdk-app-canton@1.0.0:
-    resolution: {integrity: sha512-BDg2/CECF0zzf1dxMSjrWKP6/z6cVar2VyjjvHTnQhsd0HPVwb/wbrcj5HrGynQKDN+4BnPIItXGLu9ZnvYQlw==}
+  /@cypherock/sdk-app-canton@1.0.1:
+    resolution: {integrity: sha512-1/ncoLYJqZDgcsZxadgVd+UOq4dTnqnj82Os06izPgrd4WgBUsoJqKYbzM/f7iU0X64DGIewmEtmHwYsE78ahQ==}
     dependencies:
       '@cypherock/sdk-core': 0.1.2
       '@cypherock/sdk-interfaces': 0.0.16

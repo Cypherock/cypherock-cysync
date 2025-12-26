@@ -10,6 +10,7 @@ import {
   SvgProps,
   AccountSettingsIconBg,
 } from '@cypherock/cysync-ui';
+import { AccountTypeMap } from '@cypherock/db-interfaces';
 import lodash from 'lodash';
 import React, { FC } from 'react';
 
@@ -101,25 +102,27 @@ export const AccountPage: FC = () => {
             >
               {lang.strings.buttons.receive}
             </Button>
-            {selectedAccount?.familyId === coinFamiliesMap.canton && (
-              <Button variant="primary">
-                <a
-                  href={constants.inheritance.cantonLink}
-                  target="_blank"
-                  style={{
-                    textDecoration: 'none',
-                    color: 'black',
-                    whiteSpace: 'nowrap',
-                    fontSize: '12px',
-                    fontWeight: '500',
-                  }}
-                  rel="noreferrer"
-                >
-                  {lang.strings.buttons.earnRewards}
-                </a>
-              </Button>
-            )}
             {selectedAccount?.familyId === coinFamiliesMap.canton &&
+              selectedAccount.type !== AccountTypeMap.subAccount && (
+                <Button variant="primary">
+                  <a
+                    href={constants.inheritance.cantonLink}
+                    target="_blank"
+                    style={{
+                      textDecoration: 'none',
+                      color: 'black',
+                      whiteSpace: 'nowrap',
+                      fontSize: '12px',
+                      fontWeight: '500',
+                    }}
+                    rel="noreferrer"
+                  >
+                    {lang.strings.buttons.earnRewards}
+                  </a>
+                </Button>
+              )}
+            {selectedAccount?.familyId === coinFamiliesMap.canton &&
+              selectedAccount.type !== AccountTypeMap.subAccount &&
               !selectedAccount.extraData?.isTransferPreApprovalEnabled && (
                 <Button
                   variant="primary"
@@ -140,6 +143,7 @@ export const AccountPage: FC = () => {
                 </Button>
               )}
             {selectedAccount?.familyId === coinFamiliesMap.canton &&
+              selectedAccount.type !== AccountTypeMap.subAccount &&
               !selectedAccount.extraData?.isMergeDelegationEnabled && (
                 <Button
                   variant="primary"

@@ -2,6 +2,7 @@ import { assert } from '@cypherock/cysync-utils';
 import { IKeyValueStore } from '@cypherock/db-interfaces';
 
 import { makePostRequestWithAuthTokenConfig } from './common';
+import { ICantonInstrument } from './types';
 
 import { config } from '../../config';
 
@@ -9,11 +10,13 @@ const baseURL = `${config.API_CYPHEROCK}/canton/wallet`;
 
 export const getBalance = async (
   partyId: string,
+  instrument: ICantonInstrument,
   keyDB?: IKeyValueStore,
 ): Promise<string> => {
   const url = `${baseURL}/balance`;
   const data = {
     partyId,
+    instrument,
   };
   const response = await makePostRequestWithAuthTokenConfig(url, data, keyDB);
 
@@ -29,12 +32,14 @@ export const getBalance = async (
 
 export const getIsAccountCreated = async (
   partyId: string,
+  instrument: ICantonInstrument,
   keyDB?: IKeyValueStore,
 ): Promise<boolean> => {
   try {
     const url = `${baseURL}/balance`;
     const data = {
       partyId,
+      instrument,
     };
     const response = await makePostRequestWithAuthTokenConfig(url, data, keyDB);
 
@@ -47,11 +52,13 @@ export const getIsAccountCreated = async (
 
 export const isTransferPreApprovalEnabled = async (
   partyId: string,
+  instrument: ICantonInstrument,
   keyDB?: IKeyValueStore,
 ): Promise<boolean> => {
   const url = `${baseURL}/transfer-preapproval-status`;
   const data = {
     partyId,
+    instrument,
   };
   const response = await makePostRequestWithAuthTokenConfig(url, data, keyDB);
 
@@ -63,11 +70,13 @@ export const isTransferPreApprovalEnabled = async (
 
 export const getUtxos = async (
   partyId: string,
+  instrument: ICantonInstrument,
   keyDB?: IKeyValueStore,
 ): Promise<any[]> => {
   const url = `${baseURL}/utxos`;
   const data = {
     partyId,
+    instrument,
   };
 
   const response = await makePostRequestWithAuthTokenConfig(url, data, keyDB);

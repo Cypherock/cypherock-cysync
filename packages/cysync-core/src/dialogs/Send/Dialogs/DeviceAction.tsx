@@ -165,7 +165,10 @@ export const DeviceAction: React.FC = () => {
   };
   const getMessageBoxes = () => {
     const messages: { text: string; variables?: any }[] = [];
-    if (selectedAccount?.type === AccountTypeMap.subAccount) {
+    if (
+      selectedAccount?.type === AccountTypeMap.subAccount &&
+      selectedAccount.parentAssetId !== coinFamiliesMap.canton
+    ) {
       messages.push({
         text: lang.strings.send.x1Vault.token.info,
         variables: {
@@ -173,6 +176,13 @@ export const DeviceAction: React.FC = () => {
           parentCoinName: coinList[selectedAccount.parentAssetId].name,
           parentCoinUnit: getDefaultUnit(selectedAccount.parentAssetId).abbr,
         },
+      });
+    }
+
+    if (selectedAccount?.parentAssetId === coinFamiliesMap.canton) {
+      messages.push({
+        text: lang.strings.send.x1Vault.longProcess.info,
+        variables: { assetName: coinList[selectedAccount.parentAssetId].name },
       });
     }
 
