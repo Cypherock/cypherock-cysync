@@ -245,6 +245,7 @@ export const BuySellInput: React.FC = () => {
       align="stretch"
       $borderWidth={1}
       $overflowX="hidden"
+      $overflowY="auto"
       height="full"
       $bgColor="primary"
       mx="20"
@@ -320,6 +321,7 @@ export const BuySellInput: React.FC = () => {
         justify="space-between"
         direction="column"
         $borderWidthL={1}
+        $overflowY="scroll"
       >
         <Flex direction="column" gap={24}>
           <BuySellOffersHeader size={offers.length} />

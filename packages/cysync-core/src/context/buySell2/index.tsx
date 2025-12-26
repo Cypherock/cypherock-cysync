@@ -15,7 +15,6 @@ import {
   IBuySellOrder,
   BuySellStatusMap,
 } from '@cypherock/db-interfaces';
-import lodash from 'lodash';
 import React, {
   Context,
   FC,
@@ -238,28 +237,110 @@ export const BuySell2Provider: FC<BuySell2ContextProviderProps> = ({
 
   const [selectedPaymentMethod, setSelectedPaymentMethod] = useState<string>();
 
-  const filteredOffers = useMemo(
-    () =>
-      offers.filter(
-        offer => offer.paymentMethod.code === selectedPaymentMethod,
-      ),
-    [selectedPaymentMethod, offers],
-  );
+  const normalizePaymentMethodCode = (code: string): string => {
+    const normalizationMap: Record<string, string> = {
+      BUY_CARD: 'card',
+      BUY_APPLE_PAY: 'apple_pay',
+      BUY_GOOGLE_PAY: 'google_pay',
+      BUY_REVOLUT: 'revolut',
+      BUY_P2P: 'p2p',
+    };
 
-  const paymentMethods = useMemo(
-    () =>
-      lodash.uniqBy(
-        offers.map(offer => offer.paymentMethod),
-        'code',
-      ),
-    [offers],
-  );
+    if (normalizationMap[code]) {
+      return normalizationMap[code];
+    }
 
-  const bestPaymentMethod = offers[0]?.paymentMethod?.code;
+    return code.toLowerCase();
+  };
+
+  const getPaymentMethodKey = (offer: IOfferDetails): string => {
+    const normalizedCode = normalizePaymentMethodCode(offer.paymentMethod.code);
+
+    if (
+      offer.provider === 'binance' &&
+      offer.extra?.payMethodSubCode &&
+      normalizedCode === 'p2p'
+    ) {
+      return `${normalizedCode}_${offer.extra.payMethodSubCode}`;
+    }
+
+    return normalizedCode;
+  };
+
+  const filteredOffers = useMemo(() => {
+    if (!selectedPaymentMethod) return offers;
+
+    return offers.filter(offer => {
+      const offerKey = getPaymentMethodKey(offer);
+      return offerKey === selectedPaymentMethod;
+    });
+  }, [selectedPaymentMethod, offers]);
+
+  const paymentMethods = useMemo(() => {
+    const grouped = new Map<
+      string,
+      {
+        code: string;
+        name: string;
+        originalCodes: string[];
+        uniqueNames: Set<string>;
+        payMethodSubCode?: string;
+      }
+    >();
+
+    offers.forEach(offer => {
+      const key = getPaymentMethodKey(offer);
+      const existing = grouped.get(key);
+
+      if (!existing) {
+        grouped.set(key, {
+          code: key,
+          name: offer.paymentMethod.name,
+          originalCodes: [offer.paymentMethod.code],
+          uniqueNames: new Set([offer.paymentMethod.name]),
+          payMethodSubCode: offer.extra?.payMethodSubCode,
+        });
+      } else {
+        existing.uniqueNames.add(offer.paymentMethod.name);
+
+        const currentIsBuyPrefixed =
+          offer.paymentMethod.code.startsWith('BUY_');
+        const existingIsBuyPrefixed =
+          existing.originalCodes[0].startsWith('BUY_');
+
+        if (!currentIsBuyPrefixed && existingIsBuyPrefixed) {
+          existing.name = offer.paymentMethod.name;
+        }
+
+        if (!existing.originalCodes.includes(offer.paymentMethod.code)) {
+          existing.originalCodes.push(offer.paymentMethod.code);
+        }
+      }
+    });
+
+    return Array.from(grouped.values()).map(({ code, name, uniqueNames }) => {
+      if (code === 'p2p' && uniqueNames.size > 1) {
+        return {
+          code,
+          name: 'P2P',
+        };
+      }
+
+      return {
+        code,
+        name,
+      };
+    });
+  }, [offers]);
+
+  const bestPaymentMethod = offers[0]
+    ? getPaymentMethodKey(offers[0])
+    : undefined;
 
   const paymentMethodsDropdownList: DropDownItemProps[] = paymentMethods.map(
     method => {
-      const icon = getPaymentMethodIcon(method.code);
+      const baseCode = method.code.split('_')[0];
+      const icon = getPaymentMethodIcon(baseCode);
       return {
         id: method.code,
         checkType: 'radio',
@@ -280,14 +361,29 @@ export const BuySell2Provider: FC<BuySell2ContextProviderProps> = ({
   >();
 
   useEffect(() => {
+    handleAccountChange();
+  }, [selectedWallet, selectedCrypto]);
+
+  useEffect(() => {
+    setSelectedPaymentMethod(bestPaymentMethod);
+    setSelectedOffer(undefined);
+  }, [offers]);
+
+  useEffect(() => {
     if (
       !selectedPaymentMethod ||
-      (selectedPaymentMethod !== bestPaymentMethod &&
+      (bestPaymentMethod &&
+        selectedPaymentMethod !== bestPaymentMethod &&
         !paymentMethods.find(method => method.code === selectedPaymentMethod))
     ) {
       setSelectedPaymentMethod(bestPaymentMethod);
     }
-  }, [getOffersResponse, bestPaymentMethod]);
+  }, [
+    getOffersResponse,
+    bestPaymentMethod,
+    selectedPaymentMethod,
+    paymentMethods,
+  ]);
 
   useEffect(() => {
     const bestOffer = filteredOffers[0] as IOfferDetails | undefined;
@@ -315,12 +411,14 @@ export const BuySell2Provider: FC<BuySell2ContextProviderProps> = ({
       amount,
       fromCurrency: selectedFiatCurrency.code,
       network: selectedCrypto.network,
-      paymentMethod: selectedPaymentMethod,
+      paymentMethod: selectedOffer.paymentMethod.code,
       provider: selectedOffer.provider,
       receiverAddress: address,
       toCurrency: selectedCrypto.abbr,
       country: selectedCountry?.code,
-      extra: {},
+      extra: selectedOffer.extra?.payMethodSubCode
+        ? { payMethodSubCode: selectedOffer.extra.payMethodSubCode }
+        : {},
     });
     if (result.success && result.data) {
       const db = getDB();
@@ -348,6 +446,8 @@ export const BuySell2Provider: FC<BuySell2ContextProviderProps> = ({
 
       await insertBuySellOrder(db, dbOrder);
       order.current = result.data;
+    } else {
+      order.current = undefined;
     }
   };
 
@@ -364,6 +464,7 @@ export const BuySell2Provider: FC<BuySell2ContextProviderProps> = ({
   const resetUserInput = () => {
     handleCountryChange();
     handleFiatCurrencyChange();
+    handleAccountChange();
     setAmount('');
     setGetOffersResponse(undefined);
     setSelectedOffer(undefined);

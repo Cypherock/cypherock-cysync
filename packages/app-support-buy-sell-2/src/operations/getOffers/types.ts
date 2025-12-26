@@ -24,6 +24,10 @@ export interface IOfferDetails {
   toAmount: string;
   fromCurrency: string;
   toCurrency: string;
+  extra?: {
+    payMethodSubCode?: string;
+    [key: string]: string | undefined;
+  };
 }
 
 export interface IGetOffersResult {
