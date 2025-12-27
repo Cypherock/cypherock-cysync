@@ -42,6 +42,10 @@ const rootRoutes = {
     name: 'refer-and-earn',
     path: '/refer-and-earn',
   },
+  stakingLending: {
+    name: 'staking-lending',
+    path: '/staking-lending',
+  },
 } as const;
 
 export const routes = {

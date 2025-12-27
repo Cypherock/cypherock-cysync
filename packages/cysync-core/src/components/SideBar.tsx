@@ -182,6 +182,12 @@ const SideBarComponent: FC = () => {
               }}
             />
             <SideBarItem
+              text="Staking & Lending"
+              Icon={WalletConnectWhiteIcon}
+              state={wallets.length === 0 ? State.disabled : undefined}
+              onClick={() => navigate('stakingLending')}
+            />
+            <SideBarItem
               text={strings.buysell}
               Icon={DollarIcon}
               state={
