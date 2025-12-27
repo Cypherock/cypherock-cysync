@@ -1,6 +1,6 @@
 {
   "name": "@cypherock/cysync-ui",
-  "version": "0.0.17",
+  "version": "0.0.21",
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
   "types": "dist/esm/index.d.ts",

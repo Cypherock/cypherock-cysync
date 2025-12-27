@@ -15,6 +15,7 @@ import {
   GoldExternalLink,
   CopyContainer,
   ScrollableContainer,
+  SuccessDialog,
 } from '@cypherock/cysync-ui';
 import React from 'react';
 import QRCode from 'react-qr-code';
@@ -26,17 +27,59 @@ import { truncateMiddle } from '~/utils';
 
 import { useSendDialog } from '../context';
 
+interface SuccessOnlyDialogProps {
+  title: string;
+  subtext: string;
+  buttonText: string;
+  handleClick: () => void;
+}
+const SuccessOnlyDialog: React.FC<SuccessOnlyDialogProps> = ({
+  title,
+  subtext,
+  buttonText,
+  handleClick,
+}) => (
+  <>
+    <ConfettiBlast />
+    <SuccessDialog
+      title={title}
+      subtext={subtext}
+      buttonText={buttonText}
+      handleClick={handleClick}
+    />
+  </>
+);
+
 export const FinalMessage: React.FC = () => {
   const { storedTransaction, transactionLink, onClose } = useSendDialog();
   const lang = useAppSelector(selectLanguage);
   const dispatch = useAppDispatch();
 
   const displayText = lang.strings.send.finalMessage;
+
+  if (!storedTransaction) {
+    return (
+      <SuccessOnlyDialog
+        title={displayText.title}
+        subtext={displayText.messageBox.delayWarning}
+        buttonText={lang.strings.buttons.done}
+        handleClick={onClose}
+      />
+    );
+  }
+
   const showHistoryDialog = () => {
     if (!storedTransaction) return;
     dispatch(openHistoryDialog({ txn: storedTransaction }));
     onClose();
   };
+
+  let transactionHashLabel = displayText.hashLabel;
+  if (storedTransaction?.familyId === coinFamiliesMap.icp) {
+    transactionHashLabel = displayText.idLabel;
+  } else if (storedTransaction?.familyId === coinFamiliesMap.canton) {
+    transactionHashLabel = displayText.updateIdLabel;
+  }
 
   return (
     <DialogBox width={500} align="center">
@@ -56,13 +99,7 @@ export const FinalMessage: React.FC = () => {
                 <Flex justify="space-between" align="center" width="full">
                   <Flex align="center" gap={16}>
                     <Typography variant="span" color="muted" $fontSize={14}>
-                      <LangDisplay
-                        text={
-                          storedTransaction?.familyId === coinFamiliesMap.icp
-                            ? displayText.idLabel
-                            : displayText.hashLabel
-                        }
-                      />
+                      <LangDisplay text={transactionHashLabel} />
                     </Typography>
                   </Flex>
                   <Flex align="center" direction="row" gap={8}>

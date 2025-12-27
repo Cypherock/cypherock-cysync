@@ -1,8 +1,10 @@
 import { BtcSupport } from '@cypherock/coin-support-btc';
+import { CantonSupport } from '@cypherock/coin-support-canton';
 import { EvmSupport } from '@cypherock/coin-support-evm';
 import { IcpSupport } from '@cypherock/coin-support-icp';
 import { CoinSupport } from '@cypherock/coin-support-interfaces';
 import { NearSupport } from '@cypherock/coin-support-near';
+import { SiaSupport } from '@cypherock/coin-support-sia';
 import { SolanaSupport } from '@cypherock/coin-support-solana';
 import { StarknetSupport } from '@cypherock/coin-support-starknet';
 import { StellarSupport } from '@cypherock/coin-support-stellar';
@@ -20,6 +22,8 @@ const coinSupportMap: Record<CoinFamily, CoinSupport> = {
   [coinFamiliesMap.stellar]: new StellarSupport(),
   [coinFamiliesMap.starknet]: new StarknetSupport(),
   [coinFamiliesMap.icp]: new IcpSupport(),
+  [coinFamiliesMap.sia]: new SiaSupport(),
+  [coinFamiliesMap.canton]: new CantonSupport(),
 };
 
 export const getCoinSupport = (coinFamily: string) => {

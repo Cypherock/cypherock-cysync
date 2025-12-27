@@ -1,5 +1,80 @@
 # @cypherock/cysync-automation-scripts
 
+## 0.1.14
+
+### Patch Changes
+
+- Updated dependencies [[`01b6f2e0`](https://github.com/Cypherock/cypherock-cysync/commit/01b6f2e08312190d23546ac7600e3a5b526c64c4), [`cc17bed6`](https://github.com/Cypherock/cypherock-cysync/commit/cc17bed6452b60393efe3fceb3e68868b3c088b2)]:
+  - @cypherock/cysync-core-constants@0.6.7
+  - @cypherock/coins@0.6.0
+
+## 0.1.14-pre.0
+
+### Patch Changes
+
+- Updated dependencies [[`01b6f2e0`](https://github.com/Cypherock/cypherock-cysync/commit/01b6f2e08312190d23546ac7600e3a5b526c64c4), [`cc17bed6`](https://github.com/Cypherock/cypherock-cysync/commit/cc17bed6452b60393efe3fceb3e68868b3c088b2)]:
+  - @cypherock/cysync-core-constants@0.6.7-pre.0
+  - @cypherock/coins@0.6.0-pre.0
+
+## 0.1.13
+
+### Patch Changes
+
+- [#848](https://github.com/Cypherock/cypherock-cysync/pull/848) [`421eb1c8`](https://github.com/Cypherock/cypherock-cysync/commit/421eb1c841bc92e4d9cb9148800de4d78bf81c35) Thanks [@Keyur279](https://github.com/Keyur279)! - Remove Base network support
+
+- Updated dependencies [[`1676d442`](https://github.com/Cypherock/cypherock-cysync/commit/1676d442d58954c992165a525c6db626da7baeb9), [`421eb1c8`](https://github.com/Cypherock/cypherock-cysync/commit/421eb1c841bc92e4d9cb9148800de4d78bf81c35)]:
+  - @cypherock/coins@0.5.1
+  - @cypherock/cysync-core-constants@0.6.6
+
+## 0.1.13-pre.0
+
+### Patch Changes
+
+- [#848](https://github.com/Cypherock/cypherock-cysync/pull/848) [`421eb1c8`](https://github.com/Cypherock/cypherock-cysync/commit/421eb1c841bc92e4d9cb9148800de4d78bf81c35) Thanks [@Keyur279](https://github.com/Keyur279)! - Remove Base network support
+
+- Updated dependencies [[`1676d442`](https://github.com/Cypherock/cypherock-cysync/commit/1676d442d58954c992165a525c6db626da7baeb9), [`421eb1c8`](https://github.com/Cypherock/cypherock-cysync/commit/421eb1c841bc92e4d9cb9148800de4d78bf81c35)]:
+  - @cypherock/coins@0.5.1-pre.0
+  - @cypherock/cysync-core-constants@0.6.6-pre.0
+
+## 0.1.12
+
+### Patch Changes
+
+- Updated dependencies [[`cb9a80fc`](https://github.com/Cypherock/cypherock-cysync/commit/cb9a80fcc15e2334b4a7c471464ec39949fa0504)]:
+  - @cypherock/cysync-core-constants@0.6.5
+  - @cypherock/cysync-interfaces@0.0.12
+  - @cypherock/cysync-utils@0.0.15
+
+## 0.1.11
+
+### Patch Changes
+
+- Updated dependencies [[`dbb8eb56`](https://github.com/Cypherock/cypherock-cysync/commit/dbb8eb560c7ad740693ba101182741360075ed4b)]:
+  - @cypherock/cysync-core-constants@0.6.4
+
+## 0.1.10
+
+### Patch Changes
+
+- Updated dependencies [[`4b698171`](https://github.com/Cypherock/cypherock-cysync/commit/4b69817156f90e3f716c070d944b1be32b870da0)]:
+  - @cypherock/cysync-core-constants@0.6.3
+
+## 0.1.10-pre.0
+
+### Patch Changes
+
+- Updated dependencies [[`4b698171`](https://github.com/Cypherock/cypherock-cysync/commit/4b69817156f90e3f716c070d944b1be32b870da0)]:
+  - @cypherock/cysync-core-constants@0.6.3-pre.0
+
+## 0.1.9
+
+### Patch Changes
+
+- Updated dependencies [[`0b897a64`](https://github.com/Cypherock/cypherock-cysync/commit/0b897a64f2519dd8aca7230751ca28ce4eeb9251)]:
+  - @cypherock/coins@0.5.0
+  - @cypherock/cysync-core-constants@0.6.2
+  - @cypherock/cysync-utils@0.0.14
+
 ## 0.1.8
 
 ### Patch Changes

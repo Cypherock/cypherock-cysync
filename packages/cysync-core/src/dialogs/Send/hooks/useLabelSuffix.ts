@@ -21,6 +21,8 @@ export const useLabelSuffix = () => {
     starknet: getDefaultSuffix,
     icp: getDefaultSuffix,
     stellar: getDefaultSuffix,
+    sia: getDefaultSuffix,
+    canton: getDefaultSuffix,
   };
   const getFeeLabelSuffix = (selectedAccount?: IAccount) => {
     if (!selectedAccount) return '';

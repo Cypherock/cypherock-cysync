@@ -20,6 +20,7 @@ import {
   setBuySellOrders,
   setWallets,
   store,
+  updateCantonAuthTokens,
 } from '~/store';
 import { getDB, keyValueStore } from '~/utils';
 import logger from '~/utils/logger';
@@ -228,6 +229,12 @@ export const syncAllDb = async (isFirst: boolean, currency: string) => {
   await syncBuySellOrdersDb(isFirst);
 
   store.dispatch(setLanguage((await keyValueStore.appLanguage.get()) as any));
+  store.dispatch(
+    updateCantonAuthTokens({
+      cantonAuthTokens: (await keyValueStore.cantonAuthTokens.get()) ?? {},
+    }),
+  );
+
   try {
     const lang = await keyValueStore.appLanguage.get();
     analyticsService.trackEvent(ANALYTICS_EVENTS.PREFERENCE_LANGUAGE_SELECTED, {

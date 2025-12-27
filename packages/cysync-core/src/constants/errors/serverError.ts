@@ -73,6 +73,12 @@ export const getServerErrorHandlingDetails = (
       generateErrorHandlingDetails.retryWithReport(),
     [ServerErrorType.DUPLICATE_EMAIL]:
       generateErrorHandlingDetails.retryWithReport(),
+    [ServerErrorType.MAX_DAILY_USER_REGISTRATIONS_EXCEEDED]:
+      generateErrorHandlingDetails.retryWithReport(),
+    [ServerErrorType.MAX_PARTIES_PER_USER_EXCEEDED]:
+      generateErrorHandlingDetails.retryWithReport(),
+    [ServerErrorType.USER_NOT_ELIGIBLE_FOR_PARTY_CREATION]:
+      generateErrorHandlingDetails.retryWithReport(),
     [ServerErrorType.TRANSACTION_BROADCAST_FAILED]:
       generateErrorHandlingDetails.retryWithReport(),
   };

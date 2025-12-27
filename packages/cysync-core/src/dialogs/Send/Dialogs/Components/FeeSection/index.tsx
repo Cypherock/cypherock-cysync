@@ -12,6 +12,7 @@ import {
   formatDisplayPrice,
 } from '@cypherock/coin-support-utils';
 import { IPreparedXrpTransaction } from '@cypherock/coin-support-xrp';
+import { IPreparedSiaTransaction } from '@cypherock/coin-support-sia';
 import {
   CoinFamily,
   EvmIdMap,
@@ -49,6 +50,7 @@ const feeInputMap: Partial<Record<CoinFamily, React.FC<any>>> = {
   evm: EthereumInput,
   xrp: XrpInput,
   stellar: XrpInput, // Reusing XrpInput for Stellar as they have similar fee structure
+  sia: XrpInput,
 };
 const getDefaultHeader = () => FeesHeader;
 const getEvmHeader = (assetId?: string) => {
@@ -63,6 +65,7 @@ const feeHeaderMap: Partial<
   evm: getEvmHeader,
   xrp: getDefaultHeader,
   stellar: getDefaultHeader,
+  sia: getDefaultHeader,
 };
 
 const getErrorAndWarningComponents = (
@@ -211,6 +214,29 @@ export const FeeSection: React.FC<FeeSectionProps> = ({
     };
   };
 
+  const getSiaProps = () => {
+    let { feesUnit } = coinList[selectedAccount?.assetId ?? ''];
+    const txn = transaction as IPreparedSiaTransaction;
+    let fees = txn.staticData.fees.recommendedFee;
+
+    if (selectedAccount) {
+      const { amount: convertedFees, unit } = convertToUnit({
+        amount: txn.staticData.fees.recommendedFee,
+        fromUnitAbbr: getZeroUnit(selectedAccount.parentAssetId).abbr,
+        coinId: selectedAccount.parentAssetId,
+        toUnitAbbr: getDefaultUnit(selectedAccount.parentAssetId).abbr,
+      });
+      fees = convertedFees;
+      feesUnit = unit.abbr;
+    }
+
+    return {
+      unit: feesUnit,
+      initialValue: fees,
+      onChange: debouncedSiaPrepareFeeChanged,
+    };
+  };
+
   const feeInputPropsMap: Record<CoinFamily, () => Record<string, any>> = {
     bitcoin: getBitcoinProps,
     evm: getEthereumProps,
@@ -221,6 +247,8 @@ export const FeeSection: React.FC<FeeSectionProps> = ({
     starknet: () => ({}),
     icp: () => ({}),
     stellar: getStellarProps,
+    sia: getSiaProps,
+    canton: () => ({}),
   };
 
   const getFeeInputComponent = () => {
@@ -358,6 +386,31 @@ export const FeeSection: React.FC<FeeSectionProps> = ({
 
   const debouncedStellarPrepareFeeChanged = useCallback(
     lodash.debounce(stellarPrepareFeeChanged, 300),
+    [],
+  );
+
+  const siaPrepareFeeChanged = async (value: number) => {
+    setIsFeeLoading(true);
+    const txn = transactionRef.current.transaction as IPreparedSiaTransaction;
+    let fees = value.toString();
+
+    if (selectedAccount) {
+      const { amount: convertedFees } = convertToUnit({
+        amount: fees,
+        fromUnitAbbr: getDefaultUnit(selectedAccount.parentAssetId).abbr,
+        coinId: selectedAccount.parentAssetId,
+        toUnitAbbr: getZeroUnit(selectedAccount.parentAssetId).abbr,
+      });
+      fees = convertedFees;
+    }
+
+    txn.userInputs.fees = fees;
+    await prepare(txn);
+    setIsFeeLoading(false);
+  };
+
+  const debouncedSiaPrepareFeeChanged = useCallback(
+    lodash.debounce(siaPrepareFeeChanged, 300),
     [],
   );
 

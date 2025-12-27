@@ -1,5 +1,45 @@
 # @cypherock/cysync-ui
 
+## 0.0.21
+
+### Patch Changes
+
+- [#852](https://github.com/Cypherock/cypherock-cysync/pull/852) [`cc17bed6`](https://github.com/Cypherock/cypherock-cysync/commit/cc17bed6452b60393efe3fceb3e68868b3c088b2) Thanks [@muzaffarbhat07](https://github.com/muzaffarbhat07)! - Canton Token Support Added
+
+## 0.0.21-pre.0
+
+### Patch Changes
+
+- [#852](https://github.com/Cypherock/cypherock-cysync/pull/852) [`cc17bed6`](https://github.com/Cypherock/cypherock-cysync/commit/cc17bed6452b60393efe3fceb3e68868b3c088b2) Thanks [@muzaffarbhat07](https://github.com/muzaffarbhat07)! - Canton Token Support Added
+
+## 0.0.20
+
+### Patch Changes
+
+- [#848](https://github.com/Cypherock/cypherock-cysync/pull/848) [`1676d442`](https://github.com/Cypherock/cypherock-cysync/commit/1676d442d58954c992165a525c6db626da7baeb9) Thanks [@Keyur279](https://github.com/Keyur279)! - Add Sia Coin Support
+
+- [#848](https://github.com/Cypherock/cypherock-cysync/pull/848) [`421eb1c8`](https://github.com/Cypherock/cypherock-cysync/commit/421eb1c841bc92e4d9cb9148800de4d78bf81c35) Thanks [@Keyur279](https://github.com/Keyur279)! - Remove Base network support
+
+## 0.0.20-pre.0
+
+### Patch Changes
+
+- [#848](https://github.com/Cypherock/cypherock-cysync/pull/848) [`1676d442`](https://github.com/Cypherock/cypherock-cysync/commit/1676d442d58954c992165a525c6db626da7baeb9) Thanks [@Keyur279](https://github.com/Keyur279)! - Add Sia Coin Support
+
+- [#848](https://github.com/Cypherock/cypherock-cysync/pull/848) [`421eb1c8`](https://github.com/Cypherock/cypherock-cysync/commit/421eb1c841bc92e4d9cb9148800de4d78bf81c35) Thanks [@Keyur279](https://github.com/Keyur279)! - Remove Base network support
+
+## 0.0.19
+
+### Patch Changes
+
+- [#839](https://github.com/Cypherock/cypherock-cysync/pull/839) [`cb9a80fc`](https://github.com/Cypherock/cypherock-cysync/commit/cb9a80fcc15e2334b4a7c471464ec39949fa0504) Thanks [@muzaffarbhat07](https://github.com/muzaffarbhat07)! - Fixes canton send and txn histroy
+
+## 0.0.18
+
+### Patch Changes
+
+- [#819](https://github.com/Cypherock/cypherock-cysync/pull/819) [`0b897a64`](https://github.com/Cypherock/cypherock-cysync/commit/0b897a64f2519dd8aca7230751ca28ce4eeb9251) Thanks [@muzaffarbhat07](https://github.com/muzaffarbhat07)! - Adds canton support (Add Account and Transfer PreApproval only)
+
 ## 0.0.17
 
 ### Patch Changes

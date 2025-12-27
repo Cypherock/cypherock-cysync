@@ -10,6 +10,13 @@ import {
   AuthenticateX1VaultDialog,
 } from './Authenticate';
 import { BetaNotificationDialog } from './BetaNotificationDialog';
+import {
+  CreateCantonAccountDialog,
+  EnableApprovalDialog,
+  EnableApprovalPromptDialog,
+  EnableMergeDelegationDialog,
+} from './Canton';
+import { TransactionActionDialog } from './Canton/TransactionAction';
 import { BuySellDialog } from './BuySellDialog';
 import { ContactSupportDialog } from './ContactSupport';
 import { ReleaseNotesDialog, ResetCySyncDialog } from './CySync';
@@ -89,4 +96,9 @@ export const dialogs: Record<DialogName, ReactComponentLike> = {
   swapDialog: SwapDialog,
   buySellDialog: BuySellDialog,
   fullPageLoaderDialog: FullPageLoaderDialog,
+  enableApprovalPromptDialog: EnableApprovalPromptDialog,
+  enableApprovalDialog: EnableApprovalDialog,
+  enableMergeDelegationDialog: EnableMergeDelegationDialog,
+  createCantonAccountDialog: CreateCantonAccountDialog,
+  transactionActionDialog: TransactionActionDialog,
 };

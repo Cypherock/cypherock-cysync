@@ -4,6 +4,8 @@ import { IPreparedSolanaTransaction } from '@cypherock/coin-support-solana';
 import { IPreparedStellarTransaction } from '@cypherock/coin-support-stellar';
 import { getDefaultUnit, getParsedAmount } from '@cypherock/coin-support-utils';
 import { IPreparedXrpTransaction } from '@cypherock/coin-support-xrp';
+import { IPreparedSiaTransaction } from '@cypherock/coin-support-sia';
+import { coinFamiliesMap, CoinFamily, coinList } from '@cypherock/coins';
 import {
   BlockchainIcon,
   Button,
@@ -29,7 +31,6 @@ import logger from '~/utils/logger';
 import { AddressAndAmountSection, FeeSection } from './Components';
 
 import { useSendDialog } from '../context';
-import { CoinFamily, coinList } from '@cypherock/coins';
 
 export const Recipient: React.FC = () => {
   const {
@@ -109,6 +110,13 @@ export const Recipient: React.FC = () => {
       !validation.isFeeBelowMin &&
       !validation.isInvalidMemo;
 
+    const isSiaValid = (
+      validation: IPreparedSiaTransaction['validation'],
+    ): boolean =>
+      validation.hasEnoughBalance &&
+      validation.isValidFee &&
+      !validation.zeroAmountNotAllowed;
+
     const isSolanaValid = (
       validation: IPreparedSolanaTransaction['validation'],
     ): boolean => !validation.isAmountBelowRentExempt;
@@ -125,7 +133,8 @@ export const Recipient: React.FC = () => {
         isBtcValid(v as IPreparedBtcTransaction['validation']) &&
         isXrpValid(v as IPreparedXrpTransaction['validation']) &&
         isStellarValid(v as IPreparedStellarTransaction['validation']) &&
-        isSolanaValid(v as IPreparedSolanaTransaction['validation'])
+        isSolanaValid(v as IPreparedSolanaTransaction['validation']) &&
+        isSiaValid(v as IPreparedSiaTransaction['validation'])
       );
     };
 
@@ -219,10 +228,12 @@ export const Recipient: React.FC = () => {
           disableInputs={isAccountSelectionDisabled}
           providerName={providerName}
         />
-        <FeeSection
-          hideSlider={isAccountSelectionDisabled}
-          showErrors={isAccountSelectionDisabled}
-        />
+        {selectedAccount?.familyId !== coinFamiliesMap.canton && (
+          <FeeSection
+            hideSlider={isAccountSelectionDisabled}
+            showErrors={isAccountSelectionDisabled}
+          />
+        )}
       </ScrollableContainer>
       <DialogBoxFooter>
         {!isAccountSelectionDisabled && (

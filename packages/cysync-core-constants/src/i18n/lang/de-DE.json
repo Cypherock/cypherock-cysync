@@ -53,7 +53,11 @@
     "exitWithoutSaving": "Ohne Speichern beenden",
     "saveChanges": "Änderungen speichern",
     "edit": "Bearbeiten",
-    "tryAgain": "Erneut versuchen"
+    "tryAgain": "Erneut versuchen",
+    "autoApproval": "Übertragungs-Vorgenehmigung",
+    "mergeDelegation": "UTXO Verwaltung",
+    "accept": "Akzeptieren",
+    "earnRewards": "Belohnungen verdienen"
   },
   "tooltips": {
     "downloadCsv": "Als CSV exportieren"
@@ -103,19 +107,56 @@
         "tapCard": "Tippen Sie auf eine Karte"
       }
     },
+    "cantonSignup": {
+      "userDetails": {
+        "title": "Ihre Details",
+        "subtext": "Geben Sie die E-Mail ein, die Sie bei der Kauf von Cypherock X1 verwendet haben",
+        "emailField": {
+          "label": "Registrierte E-Mail",
+          "rightLabel": "Erforderlich"
+        },
+        "sendOTPButton": "OTP senden"
+      },
+      "verifyOTP": {
+        "title": "OTP-Verifizierung für E-Mail"
+      },
+      "loader": {
+        "title": "Bitte warten Sie, während wir Ihre Details überprüfen...",
+        "subtext": "Trennen oder schließen Sie die cySync-App nicht"
+      },
+      "success": {
+        "eligibleAndCanProceed": {
+          "title": "Sie sind berechtigt und können fortfahren, um ein Konto zu erstellen"
+        },
+        "eligibleAndAddedInWaitlist": {
+          "title": "Sie sind berechtigt und in die Warteliste für Canton Network aufgenommen",
+          "subtext": "Aufgrund der hohen Nachfrage gibt es eine Warteliste, versuchen Sie es erneut morgen"
+        },
+        "notEligible": {
+          "title": "Sie sind nicht berechtigt für Canton Network",
+          "subtext": "Nur bestehende und Pro-Benutzer sind berechtigt für Canton Network-Konten"
+        },
+        "buttonText": "Mehr erfahren"
+      }
+    },
     "loader": {
       "waitMessage": "Dieser Vorgang kann ungefähr eine Minute dauern. Bitte haben Sie Geduld"
     },
     "sync": {
       "syncingHeader": "Das Konto wird synchronisiert",
       "header": "Neue Konten hinzufügen",
+      "addSingleAccountHeader": "Neues Konto hinzufügen",
+      "createSingleAccountHeader": "Neues Konto erstellen",
       "newAccount": "Neue Konten",
+      "newSingleAccount": "Neues Konto",
       "advancedButton": "Alle Adresstypen anzeigen",
       "accountsNotSynced": "Konto noch nicht synchronisiert (${count})",
       "deselectAllButton": "Alle abwählen",
       "selectAllButton": "Alle auswählen",
       "accountsInPortfolio": "Konten bereits im Portfolio (${count})",
       "addAccountButton": "Konten hinzufügen",
+      "addSingleAccountButton": "Konto hinzufügen",
+      "createSingleAccountButton": "Konto erstellen",
       "resyncButton": "Erneut synchronisieren"
     },
     "congrats": {
@@ -173,20 +214,24 @@
         "prefix": "Adresse für ",
         "accountIdPrefix": "Kontokennung für ",
         "principalIdPrefix": "Principal-Kennung für ",
+        "partyIdPrefix": "Party-Kennung für ",
         "suffix": "in ${walletName}"
       },
       "addressLabel": "Adresse",
       "accountIdLabel": "Konto-ID",
       "principalIdLabel": "Haupt-ID",
+      "partyIdLabel": "Party-ID",
       "actions": {
         "verify": "Überprüfen Sie, dass die Adresse auf dem X1 Vault genau mit der oben angezeigten Adresse übereinstimmt",
         "verifyAccountId": "Überprüfen Sie, ob die Kontonummer auf der X1 Vault genau mit der oben angezeigten Kontonummer übereinstimmt",
-        "verifyPrincipalId": "Überprüfen Sie, ob die Haupt-ID auf der X1 Vault genau mit der oben angezeigten Haupt-ID übereinstimmt"
+        "verifyPrincipalId": "Überprüfen Sie, ob die Haupt-ID auf der X1 Vault genau mit der oben angezeigten Haupt-ID übereinstimmt",
+        "verifyPartyId": "Überprüfen Sie, ob die Party-Kennung auf der X1 Vault genau mit der oben angezeigten Party-Kennung übereinstimmt"
       },
       "messageBox": {
         "warning": "Diese Empfangsadresse wurde NICHT vom Gerät VERIFIZIERT. Verwenden Sie sie auf eigenes Risiko",
         "accountIdWarning": "Diese Empfangskonto-ID wurde NICHT vom Gerät VERIFIZIERT. Verwenden Sie sie auf eigenes Risiko",
-        "principalIdWarning": "Diese Empfangs-Prinzipal-ID wurde NICHT vom Gerät VERIFIZIERT. Verwenden Sie sie auf eigenes Risiko"
+        "principalIdWarning": "Diese Empfangs-Prinzipal-ID wurde NICHT vom Gerät VERIFIZIERT. Verwenden Sie sie auf eigenes Risiko",
+        "partyIdWarning": "Diese Empfangs-Party-Kennung wurde NICHT vom Gerät VERIFIZIERT. Verwenden Sie sie auf eigenes Risiko"
       },
       "waitMessageBox": {
         "warning": "Dieser Vorgang kann ungefähr eine Minute dauern. Bitte haben Sie Geduld"
@@ -194,7 +239,8 @@
     },
     "congrats": {
       "title": "Adresse erfolgreich verifiziert",
-      "accountAndPrincipalIdTitle": "Konto-ID und Principal ID erfolgreich verifiziert"
+      "accountAndPrincipalIdTitle": "Konto-ID und Principal ID erfolgreich verifiziert",
+      "partyIdTitle": "Party-Kennung erfolgreich verifiziert"
     },
     "finalButtons": {
       "secondary": "Erneut überprüfen",
@@ -202,6 +248,7 @@
       "primary": "Fertig",
       "secondaryUnverifiedAccountId": "Konto-ID überprüfen",
       "secondaryUnverifiedPrincipalId": "Haupt-ID überprüfen",
+      "secondaryUnverifiedPartyId": "Party-Kennung überprüfen",
       "continue": "Fortfahren"
     },
     "aside": {
@@ -265,8 +312,12 @@
       "token": {
         "info": "Denken Sie daran, dass ${tokenName} ein ${parentCoinName}-Token ist, daher wird die Gebühr in ${parentCoinUnit} berechnet"
       },
+      "longProcess": {
+        "info": "Die ${assetName}-Transaktion auf dem X1 Vault kann einige Zeit dauern. Bitte warten Sie"
+      },
       "messageBox": {
-        "warning": "Vergewissern Sie sich immer, dass die auf Ihrem Gerät angezeigte Adresse genau mit der vom Empfänger angegebenen Adresse übereinstimmt"
+        "warning": "Vergewissern Sie sich immer, dass die auf Ihrem Gerät angezeigte Adresse genau mit der vom Empfänger angegebenen Adresse übereinstimmt",
+        "partyIdWarning": "Vergewissern Sie sich immer, dass die auf Ihrem Gerät angezeigte Party-Kennung genau mit der vom Empfänger angegebenen Party-Kennung übereinstimmt"
       }
     },
     "recipient": {
@@ -292,6 +343,13 @@
         "placeholder": "Geben Sie die Principal-ID ein",
         "error": "Ungültige Principal-ID",
         "ownAddress": "Die Empfänger-Principal-ID ist dieselbe wie die Absender-Principal-ID"
+      },
+      "cantonRecipient": {
+        "label": "Empfänger-Party-ID",
+        "labelSwap": "${provider}'s Party ID",
+        "placeholder": "Party-ID eingeben",
+        "error": "Ungültige Party-ID",
+        "ownAddress": "Empfänger-Party-ID ist dieselbe wie die Absender-Party-ID"
       },
       "tabs": {
         "single": "Einzeltransaktion",
@@ -336,6 +394,24 @@
         "placeholder": "Geben Sie ein numerisches Memo ein",
         "error": "Wert zu hoch"
       },
+      "cantonMemo": {
+        "label": "Memo",
+        "placeholder": "Optional",
+        "tooltipText": "Sie können ein Memo oder eine Beschreibung hinzufügen, die zusammen mit dieser Transaktion gesendet wird",
+        "error": "Memo ist zu lang (max. 255 Zeichen)"
+      },
+      "expirationDate": {
+        "label": "Ablaufzeit",
+        "placeholder": "Ablaufzeit auswählen",
+        "tooltipText": "Bitte wählen Sie eine Ablaufzeit für diese Transaktion. Wenn der Empfänger diese Transaktion vor diesem Zeitpunkt nicht akzeptiert, läuft sie ab",
+        "options": {
+          "threeHours": "3 Stunden",
+          "oneDay": "1 Tag",
+          "oneWeek": "1 Woche",
+          "tenDays": "10 Tage",
+          "oneMonth": "1 Monat"
+        }
+      },
       "stellarMemo": {
         "label": "Memo (optional)",
         "inputPlaceholder": {
@@ -362,15 +438,18 @@
       "debit": "Gesamtsumme zum Abbuchen",
       "remarks": "Persönliche Notiz",
       "destinationTag": "Ziel-Tag",
-      "memo": "Memo"
+      "memo": "Memo",
+      "expirationDate": "Ablaufzeit"
     },
     "finalMessage": {
       "button": "Transaktionen überprüfen",
       "title": "Transaktion gesendet",
       "hashLabel": "Transaktions-Hash",
       "idLabel": "Transaktions-ID",
+      "updateIdLabel": "Transaktions-Update-ID",
       "messageBox": {
-        "warning": "Ihr Kontostand wird aktualisiert, wenn die blockchain die Transaktion bestätigt"
+        "warning": "Ihr Kontostand wird aktualisiert, wenn die blockchain die Transaktion bestätigt",
+        "delayWarning": "Die Transaktion wird in Ihrem Konto reflektiert, wenn die blockchain die Transaktion bestätigt."
       }
     },
     "aside": {
@@ -453,12 +532,18 @@
       "send": {
         "failed": "Senden fehlgeschlagen",
         "pending": "Wird gesendet",
-        "success": "Gesendet"
+        "success": "Gesendet",
+        "expired": "Senden abgelaufen",
+        "cancelled": "Senden abgebrochen",
+        "rejected": "Senden abgelehnt"
       },
       "receive": {
         "failed": "Empfang fehlgeschlagen",
         "pending": "Wird empfangen",
-        "success": "Empfangen"
+        "success": "Empfangen",
+        "expired": "Empfang abgelaufen",
+        "cancelled": "Empfang abgebrochen",
+        "rejected": "Empfang abgelehnt"
       }
     },
     "dialogBox": {
@@ -475,6 +560,7 @@
       "mine": "Meine",
       "transactionHash": "Transaktions-Hash",
       "transactionId": "Transaktions-ID",
+      "transactionUpdateId": "Transaktions-Update-ID",
       "description": "Beschreibung",
       "feePrefix": {
         "optimism": "L2 "
@@ -482,6 +568,9 @@
       "remarks": "Persönliche Notiz",
       "destinationTag": "Ziel-Tag",
       "memo": "Memo",
+      "choice": "Auswahl",
+      "startDate": "Startdatum",
+      "expirationDate": "Ablaufdatum",
       "operation": "Betrieb"
     },
     "noData": {
@@ -846,6 +935,16 @@
   },
   "portfolio": {
     "title": "Portfolio",
+    "banner": {
+      "addCanton": {
+        "title": "Erleben Sie das **Canton-Netzwerk**. Verdienen Sie bis zu **2500 US-Dollar an Canton-Münzen**. Nur auf Cypherock X1",
+        "button": "Mehr erfahren"
+      },
+      "enableAutomaticApprovals": {
+        "title": "Aktivieren Sie **automatische Genehmigungen** für Canton, um eingehende Transaktionen automatisch zu akzeptieren",
+        "button": "Aktivieren"
+      }
+    },
     "tokenTable": {
       "title": "Token",
       "tableHeader": {
@@ -1275,6 +1374,18 @@
       "SER_1028": {
         "heading": "E-Mail-Adresse bereits vorhanden",
         "subtext": "Ein Konto mit dieser E-Mail-Adresse existiert bereits. Bitte verwenden Sie eine andere E-Mail-Adresse oder wenden Sie sich an den Cypherock-Support für Unterstützung."
+      },
+      "SER_1100": {
+        "heading": "Maximale Anzahl an Benutzerregistrierungen pro Tag erreicht",
+        "subtext": "Wir haben die maximale Anzahl an Benutzerregistrierungen für heute erreicht. Bitte versuchen Sie es morgen noch einmal."
+      },
+      "SER_1101": {
+        "heading": "Maximale Anzahl an Partys pro Benutzer erreicht",
+        "subtext": "Sie haben die maximale Anzahl an Partys für Ihr Konto erreicht. Bitte wenden Sie sich an den Cypherock-Support für Unterstützung."
+      },
+      "SER_1102": {
+        "heading": "Benutzer nicht berechtigt für Party-Erstellung",
+        "subtext": "Sie sind nicht berechtigt, eine Party zu erstellen. Bitte wenden Sie sich an den Cypherock-Support für Unterstützung."
       },
       "SER_2000": {
         "heading": "Transaktionsübertragung fehlgeschlagen",
@@ -2108,6 +2219,89 @@
       "toAsset": "Asset",
       "toAmount": "Amount Received",
       "toReceiver": "Receiver"
+    },
+    "cantonDialogs": {
+      "enableApprovalPrompt": {
+        "title": "Übertragungs-Vorgenehmigung aktivieren",
+        "subTitle": "Automatisch eingehende Transaktionen ohne manuelle Genehmigung akzeptieren. Dies wird Ihnen Zeit sparen, da Sie nicht jede eingehende Transaktion und Belohnungen manuell akzeptieren müssen.",
+        "note": "Hinweis- Dies ist erforderlich, um für das Canton Rewards Program qualifiziert zu sein."
+      },
+      "enableApproval": {
+        "title": "Übertragungs-Vorgenehmigung aktivieren",
+        "dialogs": {
+          "x1Vault": {
+            "name": "X1 Vault",
+            "deviceAction": {
+              "verifyDetails": "Transaktionsart auf Ihrem Gerät überprüfen"
+            }
+          },
+          "confirmation": {
+            "name": "Bestätigung",
+            "title": "Übertragungs-Vorgenehmigung ist aktiviert"
+          }
+        }
+      },
+      "enableMergeDelegation": {
+        "title": "UTXO Verwaltung aktivieren",
+        "dialogs": {
+          "summary": {
+            "name": "Zusammenfassung",
+            "title": "UTXO Verwaltung aktivieren",
+            "subTitle": "**Automatisch zusammenfassen** UTXO’s. Dies wird Ihre Wallet organisiert halten, indem kleinere Bestände automatisch kombiniert werden, wenn benötigt",
+            "note": "Hinweis- Dies ist erforderlich, um für das Canton Rewards Program qualifiziert zu sein."
+          },
+          "x1Vault": {
+            "name": "X1 Vault",
+            "deviceAction": {
+              "verifyDetails": "Transaktionsart auf Ihrem Gerät überprüfen"
+            }
+          },
+          "confirmation": {
+            "name": "Bestätigung",
+            "title": "UTXO Verwaltung ist aktiviert"
+          }
+        }
+      },
+      "createCantonAccount": {
+        "title": "Konto erstellen",
+        "dialogs": {
+          "x1Vault": {
+            "name": "X1 Vault",
+            "messageBox": {
+              "warning": "Bevor Sie auf der Canton Network interagieren können, muss Ihr Konto erstellt werden. Dies wird Ihnen erlauben, mit dem Senden, Empfangen und Verwalten digitaler Vermögenswerte zu beginnen."
+            }
+          },
+          "confirmation": {
+            "name": "Bestätigung"
+          },
+          "success": {
+            "title": "Konto erfolgreich erstellt"
+          },
+          "automaticApproval": {
+            "name": "Übertragungs-Vorgenehmigung"
+          }
+        }
+      },
+      "transactionAction": {
+        "title": {
+          "approve": "Eingehende Transaktion akzeptieren",
+          "reject": "Eingehende Transaktion ablehnen",
+          "cancel": "Ausgehende Transaktion abbrechen"
+        },
+        "dialogs": {
+          "x1Vault": {
+            "name": "X1 Vault"
+          },
+          "confirmation": {
+            "name": "Bestätigung"
+          },
+          "success": {
+            "approve": "Eingehende Transaktion **akzeptiert**",
+            "reject": "Eingehende Transaktion **abgelehnt**",
+            "cancel": "Ausgehende Transaktion **abgebrochen**"
+          }
+        }
+      }
     }
   },
   "toggle": {

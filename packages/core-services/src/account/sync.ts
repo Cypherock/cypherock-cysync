@@ -1,6 +1,6 @@
 import { getCoinSupport } from '@cypherock/coin-support';
 import { PromiseQueue } from '@cypherock/cysync-utils';
-import { IDatabase, IAccount } from '@cypherock/db-interfaces';
+import { IDatabase, IAccount, IKeyValueStore } from '@cypherock/db-interfaces';
 import { lastValueFrom, Observable } from 'rxjs';
 
 import logger from '../utils/logger';
@@ -17,8 +17,9 @@ export const syncSingleAccount = async (params: {
   db: IDatabase;
   account: IAccount;
   currency: string;
+  keyDB?: IKeyValueStore;
 }): Promise<ISyncAccountsEvent> => {
-  const { db, account, currency } = params;
+  const { db, account, currency, keyDB } = params;
   const support = getCoinSupport(account.familyId);
   let isSuccessful = false;
   let retryCount = 0;
@@ -31,6 +32,7 @@ export const syncSingleAccount = async (params: {
           accountId: account.__id ?? '',
           db,
           currency,
+          keyDB,
         }),
       );
       isSuccessful = true;
@@ -58,8 +60,9 @@ export const syncAccounts = (params: {
   db: IDatabase;
   accounts: IAccount[];
   currency: string;
+  keyDB?: IKeyValueStore;
 }) => {
-  const { db, accounts, currency } = params;
+  const { db, accounts, currency, keyDB } = params;
   return new Observable<ISyncAccountsEvent>(observer => {
     let promiseQueue: PromiseQueue<ISyncAccountsEvent> | undefined;
 
@@ -78,6 +81,7 @@ export const syncAccounts = (params: {
                 account: a,
                 db,
                 currency,
+                keyDB,
               }),
           ),
           concurrentCount: ACCOUNT_SYNC_CONCURRENCY,

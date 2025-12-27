@@ -1,3 +1,4 @@
+import { IPreparedCantonTransaction } from '@cypherock/coin-support-canton';
 import { IPreparedIcpTransaction } from '@cypherock/coin-support-icp';
 import {
   IPreparedStellarTransaction,
@@ -41,6 +42,15 @@ import {
 import { useSendDialog } from '../context';
 import { useLabelSuffix } from '../hooks';
 
+// Sia has address length of 76, so needs to be displayed in 2 lines
+const formatAddressSia = (address: string): string => {
+  const midPoint = Math.ceil(address.length / 2);
+  const line1 = address.slice(0, midPoint);
+  const line2 = address.slice(midPoint);
+
+  return `${line1}\n${line2}`;
+};
+
 export const SummaryDialog: React.FC = () => {
   const {
     onNext,
@@ -83,7 +93,10 @@ export const SummaryDialog: React.FC = () => {
           id: `toDetail-address-${output.address}`,
           leftIcon: <QrCode width="11px" height="20px" />,
           leftText: displayText.to,
-          rightText: output.address,
+          rightText:
+            selectedAccount?.familyId === 'sia'
+              ? formatAddressSia(output.address)
+              : output.address,
         },
         {
           id: `toDetail-amount-${output.address}`,
@@ -171,6 +184,8 @@ export const SummaryDialog: React.FC = () => {
   const getFeeDetails = () => {
     const details = [];
     const account = selectedAccount;
+    if (account?.familyId === coinFamiliesMap.canton) return [];
+
     const isIcpToken =
       account?.familyId === coinFamiliesMap.icp &&
       account.type === AccountTypeMap.subAccount;
@@ -328,7 +343,30 @@ export const SummaryDialog: React.FC = () => {
       }
     }
 
+    if (selectedAccount?.familyId === coinFamiliesMap.canton) {
+      const cantonTxn = transaction as IPreparedCantonTransaction;
+      return cantonTxn.userInputs.outputs
+        .filter(output => output.memo !== undefined && output.memo !== '')
+        .map((output, index) => ({
+          id: `memo-${cantonTxn.accountId}-${index}`,
+          leftText: displayText.memo,
+          rightText: output.memo,
+        }));
+    }
+
     return [];
+  };
+
+  const getExpirationDateDetails = () => {
+    if (!transaction || !transaction.userInputs.outputs) return [];
+    const cantonTxn = transaction as IPreparedCantonTransaction;
+    return cantonTxn.userInputs.outputs
+      .filter(output => output.expiry !== undefined && output.expiry.key)
+      .map((output, index) => ({
+        id: `expiry-${cantonTxn.accountId}-${index}`,
+        leftText: displayText.expirationDate,
+        rightText: output.expiry?.key,
+      }));
   };
 
   const isSingleTransaction = transaction?.userInputs.outputs.length === 1;
@@ -365,9 +403,10 @@ export const SummaryDialog: React.FC = () => {
                 transaction.userInputs.outputs[0].remarks
                   ? [...getTransactionRemarks(), { isDivider: true, id: '5' }]
                   : []),
-
                 ...getFeeDetails(),
                 { isDivider: true, id: '6' },
+                ...getExpirationDateDetails(),
+                { isDivider: true, id: '7' },
                 ...getTotalAmount(),
               ]}
             />

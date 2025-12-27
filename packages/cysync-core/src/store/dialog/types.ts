@@ -1,5 +1,11 @@
 import { AddAccountDialogProps } from '~/dialogs/AddAccount';
 import { AddTokenDialogProps } from '~/dialogs/AddToken';
+import {
+  CreateCantonAccountDialogProps,
+  EnableApprovalDialogProps,
+  EnableMergeDelegationDialogProps,
+} from '~/dialogs/Canton';
+import { TransactionActionDialogProps } from '~/dialogs/Canton/TransactionAction';
 import { DeleteAccountDialogProps } from '~/dialogs/DeleteAccountDialog';
 import { DeployAccountDialogProps } from '~/dialogs/DeployAccount/context';
 import { ErrorDialogProps } from '~/dialogs/ErrorDialog';
@@ -215,6 +221,31 @@ export interface IDialogState {
   fullPageLoaderDialog: {
     isOpen: boolean;
     data?: FullPageLoaderDialogProps;
+  };
+
+  enableApprovalPromptDialog: {
+    isOpen: boolean;
+    data?: undefined;
+  };
+
+  enableApprovalDialog: {
+    isOpen: boolean;
+    data?: EnableApprovalDialogProps;
+  };
+
+  enableMergeDelegationDialog: {
+    isOpen: boolean;
+    data?: EnableMergeDelegationDialogProps;
+  };
+
+  createCantonAccountDialog: {
+    isOpen: boolean;
+    data?: CreateCantonAccountDialogProps;
+  };
+
+  transactionActionDialog: {
+    isOpen: boolean;
+    data?: TransactionActionDialogProps;
   };
 }
 

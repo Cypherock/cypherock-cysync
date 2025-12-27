@@ -1,5 +1,74 @@
 # @cypherock/cysync-core-constants
 
+## 0.6.7
+
+### Patch Changes
+
+- [#846](https://github.com/Cypherock/cypherock-cysync/pull/846) [`01b6f2e0`](https://github.com/Cypherock/cypherock-cysync/commit/01b6f2e08312190d23546ac7600e3a5b526c64c4) Thanks [@muzaffarbhat07](https://github.com/muzaffarbhat07)! - Adds canton token support
+
+- [#852](https://github.com/Cypherock/cypherock-cysync/pull/852) [`cc17bed6`](https://github.com/Cypherock/cypherock-cysync/commit/cc17bed6452b60393efe3fceb3e68868b3c088b2) Thanks [@muzaffarbhat07](https://github.com/muzaffarbhat07)! - Canton Token Support Added
+
+- Updated dependencies [[`01b6f2e0`](https://github.com/Cypherock/cypherock-cysync/commit/01b6f2e08312190d23546ac7600e3a5b526c64c4), [`cc17bed6`](https://github.com/Cypherock/cypherock-cysync/commit/cc17bed6452b60393efe3fceb3e68868b3c088b2)]:
+  - @cypherock/coins@0.6.0
+
+## 0.6.7-pre.0
+
+### Patch Changes
+
+- [#846](https://github.com/Cypherock/cypherock-cysync/pull/846) [`01b6f2e0`](https://github.com/Cypherock/cypherock-cysync/commit/01b6f2e08312190d23546ac7600e3a5b526c64c4) Thanks [@muzaffarbhat07](https://github.com/muzaffarbhat07)! - Adds canton token support
+
+- [#852](https://github.com/Cypherock/cypherock-cysync/pull/852) [`cc17bed6`](https://github.com/Cypherock/cypherock-cysync/commit/cc17bed6452b60393efe3fceb3e68868b3c088b2) Thanks [@muzaffarbhat07](https://github.com/muzaffarbhat07)! - Canton Token Support Added
+
+- Updated dependencies [[`01b6f2e0`](https://github.com/Cypherock/cypherock-cysync/commit/01b6f2e08312190d23546ac7600e3a5b526c64c4), [`cc17bed6`](https://github.com/Cypherock/cypherock-cysync/commit/cc17bed6452b60393efe3fceb3e68868b3c088b2)]:
+  - @cypherock/coins@0.6.0-pre.0
+
+## 0.6.6
+
+### Patch Changes
+
+- Updated dependencies [[`1676d442`](https://github.com/Cypherock/cypherock-cysync/commit/1676d442d58954c992165a525c6db626da7baeb9), [`421eb1c8`](https://github.com/Cypherock/cypherock-cysync/commit/421eb1c841bc92e4d9cb9148800de4d78bf81c35)]:
+  - @cypherock/coins@0.5.1
+
+## 0.6.6-pre.0
+
+### Patch Changes
+
+- Updated dependencies [[`1676d442`](https://github.com/Cypherock/cypherock-cysync/commit/1676d442d58954c992165a525c6db626da7baeb9), [`421eb1c8`](https://github.com/Cypherock/cypherock-cysync/commit/421eb1c841bc92e4d9cb9148800de4d78bf81c35)]:
+  - @cypherock/coins@0.5.1-pre.0
+
+## 0.6.5
+
+### Patch Changes
+
+- [#839](https://github.com/Cypherock/cypherock-cysync/pull/839) [`cb9a80fc`](https://github.com/Cypherock/cypherock-cysync/commit/cb9a80fcc15e2334b4a7c471464ec39949fa0504) Thanks [@muzaffarbhat07](https://github.com/muzaffarbhat07)! - Fixes canton send and txn histroy
+
+## 0.6.4
+
+### Patch Changes
+
+- [#835](https://github.com/Cypherock/cypherock-cysync/pull/835) [`dbb8eb56`](https://github.com/Cypherock/cypherock-cysync/commit/dbb8eb560c7ad740693ba101182741360075ed4b) Thanks [@muzaffarbhat07](https://github.com/muzaffarbhat07)! - Adds enable canton utxo merge
+
+## 0.6.3
+
+### Patch Changes
+
+- [#833](https://github.com/Cypherock/cypherock-cysync/pull/833) [`4b698171`](https://github.com/Cypherock/cypherock-cysync/commit/4b69817156f90e3f716c070d944b1be32b870da0) Thanks [@muzaffarbhat07](https://github.com/muzaffarbhat07)! - Canton UI fixes
+
+## 0.6.3-pre.0
+
+### Patch Changes
+
+- [#833](https://github.com/Cypherock/cypherock-cysync/pull/833) [`4b698171`](https://github.com/Cypherock/cypherock-cysync/commit/4b69817156f90e3f716c070d944b1be32b870da0) Thanks [@muzaffarbhat07](https://github.com/muzaffarbhat07)! - Canton UI fixes
+
+## 0.6.2
+
+### Patch Changes
+
+- [#819](https://github.com/Cypherock/cypherock-cysync/pull/819) [`0b897a64`](https://github.com/Cypherock/cypherock-cysync/commit/0b897a64f2519dd8aca7230751ca28ce4eeb9251) Thanks [@muzaffarbhat07](https://github.com/muzaffarbhat07)! - Adds canton support (Add Account and Transfer PreApproval only)
+
+- Updated dependencies [[`0b897a64`](https://github.com/Cypherock/cypherock-cysync/commit/0b897a64f2519dd8aca7230751ca28ce4eeb9251)]:
+  - @cypherock/coins@0.5.0
+
 ## 0.6.1
 
 ### Patch Changes

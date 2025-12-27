@@ -1,3 +1,48 @@
+# v2.3.7
+
+### 🚀 Feature
+
+Introduced native support for the Canton Network CIP-56 tokens like USDCx and CBTC
+
+# v2.3.6
+
+### 🚀 Feature
+
+- Added Sia coin support for transactions and wallet management
+
+# v2.3.5
+
+### 🚀 Feature
+
+- Added Send Transaction and History on Canton Network for CC transfers.
+
+# v2.3.4
+
+### 🐛 Bugfixes
+
+- Fixed Canton Coin pricing.
+- Fixed Canton Add Account flow: No need to enter email on every Canton Add Account.
+
+# v2.3.3
+
+### 🚀 Feature
+
+- Enable Canton UTXO Management.
+- Added Canton receive flow.
+
+# v2.3.2
+
+### 🚀 Feature
+
+- Updated portfolio screen banner details and fixed UI issues.
+
+# v2.3.1
+
+### 🚀 Feature
+
+- **Canton Network Support:** Now you can seamlessly manage your Canton assets directly through the app.
+- **Canton Rewards Program:** Canton Rewards Program is also available now.
+
 # v2.3.0
 
 ### 🚀 Feature

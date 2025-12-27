@@ -53,7 +53,11 @@
     "exitWithoutSaving": "不保存退出",
     "saveChanges": "保存更改",
     "edit": "编辑",
-    "tryAgain": "再试一次"
+    "tryAgain": "再试一次",
+    "autoApproval": "转账预批准",
+    "mergeDelegation": "UTXO管理",
+    "accept": "接受",
+    "earnRewards": "赚取奖励"
   },
   "tooltips": {
     "downloadCsv": "导出为CSV"
@@ -103,19 +107,56 @@
         "tapCard": "轻触任意卡片"
       }
     },
+    "cantonSignup": {
+      "userDetails": {
+        "title": "您的详情",
+        "subtext": "输入您在购买 Cypherock X1 时使用的电子邮件",
+        "emailField": {
+          "label": "注册邮箱",
+          "rightLabel": "必填"
+        },
+        "sendOTPButton": "发送 OTP"
+      },
+      "verifyOTP": {
+        "title": "电子邮件 OTP 验证"
+      },
+      "loader": {
+        "title": "请稍候，我们正在验证您的详情...",
+        "subtext": "请不要断开或关闭 cySync 应用程序"
+      },
+      "success": {
+        "eligibleAndCanProceed": {
+          "title": "您有资格并可以继续创建账户"
+        },
+        "eligibleAndAddedInWaitlist": {
+          "title": "您有资格并已添加到 Canton Network 等待列表",
+          "subtext": "由于高需求，有一个等待列表，请明天再试"
+        },
+        "notEligible": {
+          "title": "您没有资格加入 Canton Network",
+          "subtext": "只有现有和专业用户才有资格加入 Canton Network 账户"
+        },
+        "buttonText": "了解更多"
+      }
+    },
     "loader": {
       "waitMessage": "此过程可能需要大约一分钟。请耐心等待"
     },
     "sync": {
       "syncingHeader": "正在同步账户",
       "header": "添加新账户",
+      "addSingleAccountHeader": "添加新账户",
+      "createSingleAccountHeader": "创建新账户",
       "newAccount": "新账户",
+      "newSingleAccount": "新账户",
       "advancedButton": "显示所有地址类型",
       "accountsNotSynced": "账户尚未同步 (${count})",
       "deselectAllButton": "取消全选",
       "selectAllButton": "全选",
       "accountsInPortfolio": "账户已在投资组合中 (${count})",
       "addAccountButton": "添加账户",
+      "addSingleAccountButton": "添加账户",
+      "createSingleAccountButton": "创建账户",
       "resyncButton": "重新同步"
     },
     "congrats": {
@@ -173,20 +214,24 @@
         "prefix": "在 ",
         "accountIdPrefix": "账户 ID 为 ",
         "principalIdPrefix": "主要 ID 为 ",
+        "partyIdPrefix": "Party ID 为 ",
         "suffix": "${walletName}中的地址"
       },
       "addressLabel": "地址",
       "accountIdLabel": "账户 ID",
       "principalIdLabel": "主要ID",
+      "partyIdLabel": "Party ID",
       "actions": {
         "verify": "验证X1 Vault上的地址与上面显示的地址完全匹配",
         "verifyAccountId": "在X1 Vault上验证账户ID与上面显示的账户ID完全匹配",
-        "verifyPrincipalId": "在X1 Vault上验证主ID与上面显示的主ID完全匹配"
+        "verifyPrincipalId": "在X1 Vault上验证主ID与上面显示的主ID完全匹配",
+        "verifyPartyId": "在X1 Vault上验证Party ID与上面显示的Party ID完全匹配"
       },
       "messageBox": {
         "warning": "此接收地址未经过设备验证。使用风险自负",
         "accountIdWarning": "此接收账户ID未经设备验证。使用时请自担风险",
-        "principalIdWarning": "此接收主体ID未经设备验证。使用时请自担风险"
+        "principalIdWarning": "此接收主体ID未经设备验证。使用时请自担风险",
+        "partyIdWarning": "此接收Party ID未经设备验证。使用时请自担风险"
       },
       "waitMessageBox": {
         "warning": "此过程可能需要大约一分钟。请耐心等待"
@@ -194,13 +239,15 @@
     },
     "congrats": {
       "title": "地址验证成功",
-      "accountAndPrincipalIdTitle": "账户 ID 和主体 ID 验证成功"
+      "accountAndPrincipalIdTitle": "账户 ID 和主体 ID 验证成功",
+      "partyIdTitle": "Party ID 验证成功"
     },
     "finalButtons": {
       "secondary": "再次验证",
       "secondaryUnverified": "验证地址",
       "secondaryUnverifiedAccountId": "验证账户 ID",
       "secondaryUnverifiedPrincipalId": "验证主体 ID",
+      "secondaryUnverifiedPartyId": "验证Party ID",
       "primary": "完成",
       "continue": "继续"
     },
@@ -265,8 +312,12 @@
       "token": {
         "info": "请记住 ${tokenName} 是一个 ${parentCoinName} 代币，因此 fee 将以 ${parentCoinUnit} 计算"
       },
+      "longProcess": {
+        "info": "在 X1 Vault 上处理 ${assetName} 交易可能需要一段时间。请耐心等待"
+      },
       "messageBox": {
-        "warning": "始终确认设备上显示的地址与收件人提供的地址完全匹配"
+        "warning": "始终确认设备上显示的地址与收件人提供的地址完全匹配",
+        "partyIdWarning": "始终确认设备上显示的Party ID与收件人提供的Party ID完全匹配"
       }
     },
     "recipient": {
@@ -292,6 +343,13 @@
         "placeholder": "输入主体 ID",
         "error": "无效的主体 ID",
         "ownAddress": "收件人主体 ID 与发件人主体 ID 相同"
+      },
+      "cantonRecipient": {
+        "label": "收件人 Party ID",
+        "labelSwap": "${provider}'s Party ID",
+        "placeholder": "输入 Party ID",
+        "error": "无效的 Party ID",
+        "ownAddress": "收件人 Party ID 与发件人 Party ID 相同"
       },
       "tabs": {
         "single": "单笔交易",
@@ -336,6 +394,24 @@
         "placeholder": "输入数字备注",
         "error": "值过高"
       },
+      "cantonMemo": {
+        "label": "备忘录",
+        "placeholder": "可选",
+        "tooltipText": "您可以添加备忘录或描述，这将与此交易一起发送",
+        "error": "备注过长（最多255个字符）"
+      },
+      "expirationDate": {
+        "label": "过期时间",
+        "placeholder": "选择过期时间",
+        "tooltipText": "请选择过期时间，如果接收方在此时间之前不接受此交易，则交易将过期",
+        "options": {
+          "threeHours": "3小时",
+          "oneDay": "1天",
+          "oneWeek": "1周",
+          "tenDays": "10天",
+          "oneMonth": "1个月"
+        }
+      },
       "stellarMemo": {
         "label": "备注（可选）",
         "inputPlaceholder": {
@@ -362,15 +438,18 @@
       "debit": "扣款总额",
       "remarks": "个人备注",
       "destinationTag": "目标标签",
-      "memo": "备忘录"
+      "memo": "备忘录",
+      "expirationDate": "过期时间"
     },
     "finalMessage": {
       "button": "查看交易",
       "title": "交易已发送",
       "hashLabel": "交易哈希",
       "idLabel": "交易 ID",
+      "updateIdLabel": "交易更新 ID",
       "messageBox": {
-        "warning": "当 blockchain 确认交易后，您的账户余额将被更新"
+        "warning": "当 blockchain 确认交易后，您的账户余额将被更新",
+        "delayWarning": "交易将在区块链确认后反映在您的账户中。"
       }
     },
     "aside": {
@@ -453,12 +532,18 @@
       "send": {
         "failed": "发送失败",
         "pending": "发送中",
-        "success": "已发送"
+        "success": "已发送",
+        "expired": "发送已过期",
+        "cancelled": "发送已取消",
+        "rejected": "发送已拒绝"
       },
       "receive": {
         "failed": "接收失败",
         "pending": "接收中",
-        "success": "已接收"
+        "success": "已接收",
+        "expired": "接收已过期",
+        "cancelled": "接收已取消",
+        "rejected": "接收已拒绝"
       }
     },
     "dialogBox": {
@@ -475,6 +560,7 @@
       "mine": "我",
       "transactionHash": "交易哈希",
       "transactionId": "交易 ID",
+      "transactionUpdateId": "交易更新 ID",
       "description": "描述",
       "feePrefix": {
         "optimism": "L2 "
@@ -482,6 +568,9 @@
       "remarks": "个人备注",
       "destinationTag": "目标标签",
       "memo": "备忘录",
+      "choice": "选择",
+      "startDate": "开始日期",
+      "expirationDate": "过期日期",
       "operation": "操作"
     },
     "noData": {
@@ -843,6 +932,16 @@
   },
   "portfolio": {
     "title": "Portfolio",
+    "banner": {
+      "addCanton": {
+        "title": "体验**Canton网络**。赚取高达**2500美元的Canton币**。仅在Cypherock X1上",
+        "button": "了解更多"
+      },
+      "enableAutomaticApprovals": {
+        "title": "为Canton启用**自动批准**以自动接受传入交易",
+        "button": "启用"
+      }
+    },
     "tokenTable": {
       "title": "代币",
       "tableHeader": {
@@ -1272,6 +1371,18 @@
       "SER_1028": {
         "heading": "电子邮件已存在",
         "subtext": "使用此电子邮件地址的帐户已存在。请使用其他电子邮件地址或联系 Cypherock 支持寻求帮助。"
+      },
+      "SER_1100": {
+        "heading": "每日用户注册数量已达上限",
+        "subtext": "我们已达到今日用户注册数量的上限。请明天再试。"
+      },
+      "SER_1101": {
+        "heading": "用户 party 数量已达上限",
+        "subtext": "您已达到您的账户中 party 数量的上限。请联系 Cypherock 支持寻求帮助。"
+      },
+      "SER_1102": {
+        "heading": "用户无资格创建 party",
+        "subtext": "您无资格创建 party。请联系 Cypherock 支持寻求帮助。"
       },
       "SER_2000": {
         "heading": "交易广播失败",
@@ -2090,6 +2201,89 @@
       "toAsset": "Asset",
       "toAmount": "Amount Received",
       "toReceiver": "Receiver"
+    },
+    "cantonDialogs": {
+      "enableApprovalPrompt": {
+        "title": "启用转账预批准",
+        "subTitle": "自动接受入账交易，无需手动批准。这将节省您的时间，无需手动接受每笔入账交易和奖励。",
+        "note": "注意- 这是为了获得 Canton Rewards Program 的资格。"
+      },
+      "enableApproval": {
+        "title": "启用转账预批准",
+        "dialogs": {
+          "x1Vault": {
+            "name": "X1 Vault",
+            "deviceAction": {
+              "verifyDetails": "验证交易类型在您的设备上"
+            }
+          },
+          "confirmation": {
+            "name": "确认",
+            "title": "转账预批准已启用"
+          }
+        }
+      },
+      "enableMergeDelegation": {
+        "title": "启用UTXO管理",
+        "dialogs": {
+          "summary": {
+            "name": "摘要",
+            "title": "启用UTXO管理",
+            "subTitle": "**自动合并** UTXO’s. 这将保持您的钱包组织，当需要时自动合并小持有量",
+            "note": "注意- 这是为了获得 Canton Rewards Program 的资格。"
+          },
+          "x1Vault": {
+            "name": "X1 Vault",
+            "deviceAction": {
+              "verifyDetails": "验证交易类型在您的设备上"
+            }
+          },
+          "confirmation": {
+            "name": "确认",
+            "title": "UTXO管理已启用"
+          }
+        }
+      },
+      "createCantonAccount": {
+        "title": "账户创建",
+        "dialogs": {
+          "x1Vault": {
+            "name": "X1 Vault",
+            "messageBox": {
+              "warning": "在您可以与 Canton Network 互动之前，您的账户需要创建。这将允许您开始发送、接收和管理数字资产。"
+            }
+          },
+          "confirmation": {
+            "name": "确认"
+          },
+          "success": {
+            "title": "账户创建成功"
+          },
+          "automaticApproval": {
+            "name": "转账预批准"
+          }
+        }
+      },
+      "transactionAction": {
+        "title": {
+          "approve": "接受入账交易",
+          "reject": "拒绝入账交易",
+          "cancel": "取消出账交易"
+        },
+        "dialogs": {
+          "x1Vault": {
+            "name": "X1 Vault"
+          },
+          "confirmation": {
+            "name": "确认"
+          },
+          "success": {
+            "approve": "入账交易 **已接受**",
+            "reject": "入账交易 **已拒绝**",
+            "cancel": "出账交易 **已取消**"
+          }
+        }
+      }
     }
   },
   "toggle": {

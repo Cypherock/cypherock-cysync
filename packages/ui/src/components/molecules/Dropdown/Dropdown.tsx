@@ -73,6 +73,7 @@ export const Dropdown: React.FC<
   const [search, setSearch] = useState('');
   const [isOpen, setIsOpen] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
+  const [isClicked, setIsClicked] = useState(false);
   const inputRef = useRef<HTMLInputElement | null>(null);
   const [items, setItems] = useState<DropDownItemProps[]>(dropdownItemsList);
 
@@ -108,6 +109,7 @@ export const Dropdown: React.FC<
   const toggleDropdown = useCallback(() => {
     if (disabled) return;
     setIsOpen(!isOpen);
+    if (isOpen) setIsClicked(true);
   }, [isOpen, disabled]);
 
   const handleCheckedChange = useCallback(
@@ -213,7 +215,7 @@ export const Dropdown: React.FC<
       inputRef.current?.focus();
     } else {
       setSearch('');
-      containerRef.current?.focus();
+      if (isClicked) containerRef.current?.focus();
       setFocusedIndex(null);
     }
   }, [isOpen]);

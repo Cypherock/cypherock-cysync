@@ -1,5 +1,6 @@
 export * from './aggregate';
 export * from './btc';
+export * from './canton';
 export * from './evm';
 export * from './near';
 export * from './solana';
@@ -8,5 +9,6 @@ export * from './xrp';
 export * from './starknet';
 export * from './icp';
 export * from './stellar';
+export * from './sia';
 export * from './types';
 export * from './currencies';

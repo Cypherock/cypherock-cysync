@@ -1,6 +1,5 @@
 // The ReactNodes won't be rendered as list so key is not required
 /* eslint-disable react/jsx-key */
-import { IIcpAccount } from '@cypherock/coin-support-icp';
 import {
   getAsset,
   unhideOrInsertAccountIfNotExists,
@@ -13,6 +12,9 @@ import {
   icpCoinList,
   solanaCoinList,
   tronCoinList,
+  cantonCoinList,
+  createCantonInstrumentAssetId,
+  CantonIdMap,
 } from '@cypherock/coins';
 import { DropDownItemProps } from '@cypherock/cysync-ui';
 import { AccountTypeMap, IAccount, IWallet } from '@cypherock/db-interfaces';
@@ -160,6 +162,7 @@ export const AddTokenDialogProvider: FC<AddTokenDialogContextProviderProps> = ({
               ...Object.values(tronCoinList),
               ...Object.values(solanaCoinList),
               ...Object.values(icpCoinList),
+              ...Object.values(cantonCoinList),
             ]
               .filter(
                 c =>
@@ -210,7 +213,15 @@ export const AddTokenDialogProvider: FC<AddTokenDialogContextProviderProps> = ({
   const tokenDropDownList: DropDownItemProps[] = useMemo<
     DropDownItemProps[]
   >(() => {
-    const tokens = Object.values(tokenList);
+    // TODO: Remove the filter once we have a proper solution for SBC
+    const tokens = Object.values(tokenList).filter(
+      token =>
+        token.id !==
+        createCantonInstrumentAssetId({
+          parentAssetId: CantonIdMap.canton,
+          assetId: 'SBC',
+        }),
+    );
 
     return tokens.map(token => ({
       id: token.id,
@@ -274,8 +285,12 @@ export const AddTokenDialogProvider: FC<AddTokenDialogContextProviderProps> = ({
             balance: '0',
             isHidden: false,
             extraData: {
-              ...(account.familyId === coinFamiliesMap.icp
-                ? { publicKey: (account as IIcpAccount).extraData.publicKey }
+              ...(account.familyId === coinFamiliesMap.icp ||
+              account.familyId === coinFamiliesMap.canton
+                ? { publicKey: account.extraData?.publicKey }
+                : {}),
+              ...('instrument' in token
+                ? { instrument: token.instrument }
                 : {}),
               contractAddress: token.address,
             },
