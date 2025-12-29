@@ -1,5 +1,5 @@
 {
-  "mode": "pre",
+  "mode": "exit",
   "tag": "pre",
   "initialVersions": {
     "@cypherock/cysync-cli": "0.2.8",
