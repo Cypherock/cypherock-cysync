@@ -1,6 +1,6 @@
 import { routes } from '~/constants';
-import { analyticsService, ANALYTICS_EVENTS } from '~/services/analytics';
 import { CoinAllocationRow, useNavigateTo, useWalletDropdown } from '~/hooks';
+import { analyticsService, ANALYTICS_EVENTS } from '~/services/analytics';
 
 export const usePortfolioPage = () => {
   const navigateTo = useNavigateTo();

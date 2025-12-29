@@ -10,13 +10,13 @@ import {
 import React, { FC } from 'react';
 
 import { ErrorHandlerDialog, WithConnectedDevice } from '~/components';
+import { selectLanguage, useAppSelector } from '~/store';
 
 import {
   CreateCantonAccountDialogProps,
   CreateCantonAccountDialogProvider,
   useCreateCantonAccountDialog,
 } from './context';
-import { selectLanguage, useAppSelector } from '~/store';
 
 export type { CreateCantonAccountDialogProps } from './context';
 

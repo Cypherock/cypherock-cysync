@@ -9,11 +9,11 @@ import {
   TransactionStatusMap,
   TransactionTypeMap,
 } from '@cypherock/db-interfaces';
-import { ISiaAccount } from '../types';
 
 import { ISyncSiaAccountsParams } from './types';
 
 import * as services from '../../services';
+import { ISiaAccount } from '../types';
 
 const PER_PAGE_TXN_LIMIT = 100;
 

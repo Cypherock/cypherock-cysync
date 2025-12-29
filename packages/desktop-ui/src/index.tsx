@@ -1,9 +1,9 @@
+import { analyticsService } from '@cypherock/cysync-core';
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 
 import App from './app';
 import { setupCoreDependencies } from './utils/setupCore';
-import { analyticsService } from '@cypherock/cysync-core';
 
 export async function render(target?: HTMLElement) {
   await setupCoreDependencies();

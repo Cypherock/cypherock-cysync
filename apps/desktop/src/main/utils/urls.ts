@@ -1,4 +1,5 @@
 import path from 'node:path';
+
 import { config } from './config';
 
 const mainWindowHtml = path.join(

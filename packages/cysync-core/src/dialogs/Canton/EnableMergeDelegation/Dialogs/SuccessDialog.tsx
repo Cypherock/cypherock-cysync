@@ -1,8 +1,9 @@
 import { ConfettiBlast, SuccessDialog } from '@cypherock/cysync-ui';
 import React from 'react';
 
-import { useEnableMergeDelegationDialog } from '../context';
 import { selectLanguage, useAppSelector } from '~/store';
+
+import { useEnableMergeDelegationDialog } from '../context';
 
 export const SuccessDialogComponent: React.FC = () => {
   const lang = useAppSelector(selectLanguage);

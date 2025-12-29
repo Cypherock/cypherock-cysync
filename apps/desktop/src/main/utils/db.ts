@@ -6,8 +6,8 @@ import { IDatabase, IKeyValueStore } from '@cypherock/db-interfaces';
 
 import { config } from './config';
 import { logger } from './logger';
-import pkgJson from '../../../package.json';
 
+import pkgJson from '../../../package.json';
 import channelMigrations from '../../migrations/channel.json';
 
 let db: IDatabase | undefined;

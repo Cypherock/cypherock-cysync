@@ -2,6 +2,7 @@ import {
   IPreparedTransaction,
   IPreparedTransactionOutput,
 } from '@cypherock/coin-support-interfaces';
+
 import { ISiaUtxo } from '../services';
 
 export interface IPreparedSiaTransaction extends IPreparedTransaction {

@@ -1,10 +1,11 @@
 import { getAccountAndCoin } from '@cypherock/coin-support-utils';
 import { siaCoinList } from '@cypherock/coins';
 import { assert, BigNumber } from '@cypherock/cysync-utils';
-import { ISiaUtxo, getUtxos, getBalance } from '../../services';
-import { scToHastings, hastingsToSC } from '../../utils';
 
 import { IPrepareSiaTransactionParams } from './types';
+
+import { ISiaUtxo, getUtxos, getBalance } from '../../services';
+import { scToHastings, hastingsToSC } from '../../utils';
 import { IPreparedSiaTransaction } from '../transaction';
 import { validateAddress } from '../validateAddress';
 

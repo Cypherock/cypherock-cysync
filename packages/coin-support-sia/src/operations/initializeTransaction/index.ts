@@ -1,4 +1,5 @@
 import { IInitializeTransactionParams } from '@cypherock/coin-support-interfaces';
+
 import { getFees } from '../../services';
 import { IPreparedSiaTransaction } from '../transaction';
 

@@ -1,4 +1,4 @@
-import { coinList } from '@cypherock/coins';
+import { coinList, coinFamiliesMap } from '@cypherock/coins';
 import {
   Button,
   Container,
@@ -13,7 +13,6 @@ import {
   addAccountIcon,
 } from '@cypherock/cysync-ui';
 import React, { useCallback } from 'react';
-import { coinFamiliesMap } from '@cypherock/coins';
 
 import { LoaderDialog } from '~/components';
 import { CoinIcon } from '~/components/CoinIcon';

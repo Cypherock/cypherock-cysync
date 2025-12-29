@@ -21,9 +21,9 @@ import React, {
 } from 'react';
 
 import { constants, routes } from '~/constants';
-import { analyticsService, ANALYTICS_EVENTS } from '~/services/analytics';
 import { useLockscreen } from '~/context';
 import { useNavigateTo } from '~/hooks';
+import { analyticsService, ANALYTICS_EVENTS } from '~/services/analytics';
 import { selectLanguage, useAppSelector } from '~/store';
 import { keyValueStore } from '~/utils';
 

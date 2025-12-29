@@ -2,9 +2,9 @@ import { Flex } from '@cypherock/cysync-ui';
 import React, { useRef, useEffect } from 'react';
 
 import { useBuySell2 } from '~/context/buySell2';
+import { ANALYTICS_EVENTS, analyticsService } from '~/services';
 
 import { BuySellPage } from '.';
-import { ANALYTICS_EVENTS, analyticsService } from '~/services';
 
 export const BuySellWebview = () => {
   const { order, reset, toPage, setNavigationOptions } = useBuySell2();

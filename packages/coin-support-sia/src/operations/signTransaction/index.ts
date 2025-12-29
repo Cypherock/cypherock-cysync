@@ -20,8 +20,8 @@ import { createApp, scToHastings, hexToBytes } from '../../utils';
 import { IPreparedSiaTransaction } from '../transaction';
 
 const serializeTransactionBlob = (
-  selectedUTXOs: Array<{ id: string; value: string }>,
-  outputs: Array<{ address: string; value: string }>,
+  selectedUTXOs: { id: string; value: string }[],
+  outputs: { address: string; value: string }[],
   fee: string,
 ): string => {
   const buffer: number[] = [];
@@ -96,7 +96,7 @@ const prepareUnsignedTxn = async (
   const sendAmountHastings = BigInt(scToHastings(output.amount));
   const feeHastings = BigInt(scToHastings(fees));
 
-  const outputs: Array<{ address: string; value: string }> = [
+  const outputs: { address: string; value: string }[] = [
     {
       address: output.address,
       value: sendAmountHastings.toString(),

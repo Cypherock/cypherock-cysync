@@ -2,8 +2,8 @@ import { Container } from '@cypherock/cysync-ui';
 import React, { useEffect, useMemo, useState } from 'react';
 
 import { useBuySell2 } from '~/context/buySell2';
-import { selectLanguage, useAppSelector } from '~/store';
 import { ANALYTICS_EVENTS, analyticsService } from '~/services/analytics';
+import { selectLanguage, useAppSelector } from '~/store';
 
 import { Header } from './components/Header';
 import { BuySellPage, pageMap } from './pages';

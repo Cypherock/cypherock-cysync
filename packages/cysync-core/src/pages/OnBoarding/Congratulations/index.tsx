@@ -4,9 +4,9 @@ import React, { useEffect } from 'react';
 
 import { openWalletActionsDialog } from '~/actions';
 import { routes } from '~/constants';
-import { analyticsService, ANALYTICS_EVENTS } from '~/services/analytics';
 import { useDevice } from '~/context';
 import { useNavigateTo, useQuery } from '~/hooks';
+import { analyticsService, ANALYTICS_EVENTS } from '~/services/analytics';
 import { selectLanguage, useAppDispatch, useAppSelector } from '~/store';
 import { keyValueStore } from '~/utils';
 

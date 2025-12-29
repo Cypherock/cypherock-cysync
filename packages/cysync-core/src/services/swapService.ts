@@ -1,5 +1,6 @@
-import axios from 'axios';
 import { SupportedProviders } from '@cypherock/db-interfaces';
+import axios from 'axios';
+
 import { config } from '../config';
 
 const SUPPORTED_PROVIDERS =

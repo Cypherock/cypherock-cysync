@@ -1,12 +1,12 @@
 import { AddAccountDialogProps } from '~/dialogs/AddAccount';
 import { AddTokenDialogProps } from '~/dialogs/AddToken';
+import { IBuySellDialogProps } from '~/dialogs/BuySellDialog';
 import {
   CreateCantonAccountDialogProps,
   EnableApprovalDialogProps,
   EnableMergeDelegationDialogProps,
   TransactionActionDialogProps,
 } from '~/dialogs/Canton';
-import { IBuySellDialogProps } from '~/dialogs/BuySellDialog';
 import { IContactSupportDialogProps } from '~/dialogs/ContactSupport';
 import { DeleteAccountDialogProps } from '~/dialogs/DeleteAccountDialog';
 import { DeployAccountDialogProps } from '~/dialogs/DeployAccount/context';

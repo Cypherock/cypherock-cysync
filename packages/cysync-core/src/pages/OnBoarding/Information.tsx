@@ -13,8 +13,8 @@ import {
 import React, { FC, useEffect } from 'react';
 
 import { routes } from '~/constants';
-import { analyticsService, ANALYTICS_EVENTS } from '~/services/analytics';
 import { useNavigateTo } from '~/hooks';
+import { analyticsService, ANALYTICS_EVENTS } from '~/services/analytics';
 import { selectLanguage, useAppSelector } from '~/store';
 
 import { OnboardingPageLayout } from './OnboardingPageLayout';

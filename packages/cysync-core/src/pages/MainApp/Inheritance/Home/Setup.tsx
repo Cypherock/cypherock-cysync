@@ -16,9 +16,9 @@ import React, { FC, useCallback, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 
 import { openInheritanceSyncPlansDialog } from '~/actions';
-import { analyticsService, ANALYTICS_EVENTS } from '~/services/analytics';
 import { constants, routes } from '~/constants';
 import { useNavigateTo } from '~/hooks';
+import { analyticsService, ANALYTICS_EVENTS } from '~/services/analytics';
 import { selectLanguage, useAppSelector } from '~/store';
 
 import { MainAppLayout } from '../../Layout';

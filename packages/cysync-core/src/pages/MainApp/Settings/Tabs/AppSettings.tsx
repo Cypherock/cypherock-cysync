@@ -8,9 +8,9 @@ import {
   openSetPasswordDialog,
 } from '~/actions';
 import { useLockscreen } from '~/context';
+import { analyticsService } from '~/services/analytics';
 import { selectLanguage, useAppDispatch, useAppSelector } from '~/store';
 import { keyValueStore } from '~/utils';
-import { analyticsService } from '~/services/analytics';
 
 import { SettingsButton, SettingsStandardItem } from '../components';
 

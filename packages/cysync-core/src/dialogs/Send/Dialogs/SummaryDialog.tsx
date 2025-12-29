@@ -31,8 +31,8 @@ import { AccountTypeMap } from '@cypherock/db-interfaces';
 import React from 'react';
 
 import { CoinIcon } from '~/components';
-import { analyticsService, ANALYTICS_EVENTS } from '~/services/analytics';
 import { useCurrency } from '~/context';
+import { analyticsService, ANALYTICS_EVENTS } from '~/services/analytics';
 import {
   selectLanguage,
   selectCurrentCurrencyPriceInfos,

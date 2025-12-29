@@ -6,8 +6,8 @@ import { openReceiveDialog } from '~/actions';
 import { LoaderDialog } from '~/components';
 import { useBuySell2 } from '~/context/buySell2';
 import { ReceiveFlowSource } from '~/dialogs/Receive/context';
-import { useAppDispatch } from '~/store';
 import { ANALYTICS_EVENTS, analyticsService } from '~/services';
+import { useAppDispatch } from '~/store';
 
 export const BuySellReceive = () => {
   const dispatch = useAppDispatch();
