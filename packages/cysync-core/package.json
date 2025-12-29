@@ -1,6 +1,6 @@
 {
   "name": "@cypherock/cysync-core",
-  "version": "0.9.6",
+  "version": "0.10.0",
   "module": "dist/esm/index.js",
   "types": "dist/esm/index.d.ts",
   "license": "AGPL-3.0",
@@ -69,7 +69,7 @@
   "dependencies": {
     "@aws-crypto/sha256-browser": "^4.0.0",
     "@canton-network/core-ledger-proto": "0.6.0",
-    "@cypherock/app-support-buy-sell": "workspace:^",
+    "@cypherock/app-support-buy-sell-2": "workspace:^",
     "@cypherock/app-support-inheritance": "workspace:^",
     "@cypherock/coin-support": "workspace:^",
     "@cypherock/coin-support-btc": "workspace:^",

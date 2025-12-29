@@ -13,6 +13,7 @@ import {
 
 import accountReducer, { IAccountState } from './account';
 import accountSyncReducer, { IAccountSyncState } from './accountSync';
+import buySellOrderReducer, { IBuySellOrderState } from './buySell';
 import deviceReducer, { IDeviceState } from './device';
 import dialogReducer, { IDialogState } from './dialog';
 import discreetModeReducer, { IDiscreetModeState } from './discreetMode';
@@ -43,6 +44,7 @@ export interface RootState {
   network: INetworkState;
   inheritance: IInheritanceState;
   canton: ICantonState;
+  buySellOrder: IBuySellOrderState;
 }
 
 export const store = configureStore({
@@ -62,6 +64,7 @@ export const store = configureStore({
     network: networkReducer,
     inheritance: inheritanceReducer,
     canton: cantonReducer,
+    buySellOrder: buySellOrderReducer,
   },
 });
 

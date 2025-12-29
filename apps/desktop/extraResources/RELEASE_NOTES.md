@@ -1,3 +1,9 @@
+# v2.3.8
+
+### 🚀 Feature
+
+Now Buy crypto with fiat via Changelly directly into your Cypherock X1-secured accounts
+
 # v2.3.7
 
 ### 🚀 Feature

@@ -9,3 +9,4 @@ export * from './transactionNotificationClick';
 export * from './transactionNotificationRead';
 export * from './migration';
 export * from './inheritancePlan';
+export * from './buySellOrder';

@@ -23,12 +23,12 @@ import {
   AppUpdate,
   AssetPage,
   AccountPage,
-  BuySell,
   InheritanceHome,
   InheritanceChoosePlan,
   InheritancePlanDetails,
   ReferAndEarn,
   Swap,
+  BuySell2,
   analyticsService,
 } from '@cypherock/cysync-core';
 import React, { memo, ReactNode, useEffect } from 'react';
@@ -60,7 +60,7 @@ const components: Record<RouteName, ReactNode> = {
   account: <AccountPage />,
   history: <History />,
   settings: <Settings />,
-  'buy-sell': <BuySell />,
+  'buy-sell2': <BuySell2 />,
   swap: <Swap />,
   inheritance: <InheritanceHome />,
   'inheritance-choose-plan': <InheritanceChoosePlan />,

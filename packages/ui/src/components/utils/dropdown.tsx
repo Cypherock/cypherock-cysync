@@ -15,14 +15,18 @@ export const searchInItems = (
   const filteredItems: DropDownItemProps[] = [];
 
   for (const item of menuItems) {
-    const shouldAdd = (
-      item.text +
-      (item.shortForm ?? '') +
-      (item.rightText ?? '') +
-      (item.tag ?? '')
-    )
-      .toLowerCase()
-      .includes(searchString.toLowerCase());
+    const searchTerms = searchString.toLowerCase().split(' ');
+
+    const shouldAdd = searchTerms.every(searchTerm =>
+      (
+        item.text +
+        (item.shortForm ?? '') +
+        (item.rightText ?? '') +
+        (item.tag ?? '')
+      )
+        .toLowerCase()
+        .includes(searchTerm.toLowerCase()),
+    );
 
     if (shouldAdd) {
       if (item.$parentId) {

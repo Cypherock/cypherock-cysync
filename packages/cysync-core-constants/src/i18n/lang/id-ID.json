@@ -3147,5 +3147,166 @@
         "description": "Permintaan pertukaran telah habis waktu. Silakan coba lagi atau hubungi dukungan jika masalah berlanjut."
       }
     }
+  },
+  "buySell": {
+    "buy": {
+      "title": "Buy Crypto",
+      "selectAsset": {
+        "title": "To",
+        "selectWallet": {
+          "placeholder": "Choose a Wallet",
+          "searchText": "Search Wallet"
+        },
+        "selectCrypto": {
+          "placeholder": "Select Crypto Currency",
+          "searchText": "Search Crypto Currency"
+        },
+        "messageBox": {
+          "danger": "No accounts found for"
+        }
+      },
+      "selectCurrency": {
+        "title": "Select region and currency",
+        "selectCountry": {
+          "searchText": "Select a Country",
+          "placeholder": "Search Country"
+        },
+        "selectFiat": {
+          "searchText": "Search Fiat Currency",
+          "placeholder": "Select Fiat Currency"
+        }
+      },
+      "selectAmount": {
+        "pay": {
+          "title": "Pay"
+        },
+        "receive": {
+          "title": "You will receive"
+        }
+      },
+      "selectPaymentMethod": {
+        "title": "Pay with",
+        "placeholder": "Payment Method",
+        "searchText": "Search Payment Method"
+      }
+    }
+  },
+  "buySell2": {
+    "title": "Beli Kripto",
+    "input": {
+      "region": {
+        "title": "Pilih wilayah dan mata uang",
+        "selectCountry": {
+          "searchText": "Cari Negara",
+          "placeholder": "Pilih Negara"
+        },
+        "selectFiat": {
+          "searchText": "Cari Mata Uang Fiat",
+          "placeholder": "Pilih Mata Uang Fiat"
+        }
+      },
+      "amount": {
+        "pay": {
+          "title": "Bayar"
+        },
+        "receive": {
+          "title": "Anda akan menerima"
+        }
+      },
+      "crypto": {
+        "title": "Pilih mata uang kripto",
+        "selectCrypto": {
+          "searchText": "Cari Mata Uang Kripto",
+          "placeholder": "Pilih Mata Uang Kripto"
+        }
+      },
+      "accounts": {
+        "title": "Ke",
+        "selectWallet": {
+          "searchText": "Cari Dompet",
+          "placeholder": "Pilih Dompet"
+        },
+        "selectAccount": {
+          "searchText": "Cari Akun",
+          "placeholder": "Pilih Akun"
+        },
+        "selectAnAccount": "Pilih akun untuk melanjutkan"
+      },
+      "paymentMethod": {
+        "title": "Bayar dengan",
+        "placeholder": "Metode Pembayaran",
+        "searchText": "Cari Metode Pembayaran"
+      },
+      "messageBox": {
+        "danger": "Tidak ada akun ditemukan untuk",
+        "altText": "di dompet"
+      },
+      "offersSection": {
+        "title": "Penawaran terbaik Anda",
+        "searchingForOffers": "Mencari penawaran terbaik Anda",
+        "selectAnOffer": "Pilih penawaran untuk melanjutkan",
+        "offersFound": "${num} penawaran ditemukan",
+        "timerText": "Diperbarui dalam ${time}"
+      },
+      "errors": {
+        "noOffers": "Tidak ada penawaran tersedia untuk permintaan Anda"
+      }
+    },
+    "offers": {
+      "bestOfferText": "Penawaran Terbaik",
+      "optimalOfferText": "Penawaran Optimal",
+      "toAmount": "Anda akan menerima",
+      "toAmountTooltip": "Jumlah mencerminkan apa yang akan Anda dapatkan setelah biaya.",
+      "fees": "Biaya",
+      "feesTooltip": "Biaya termasuk jaringan blockchain dan penyedia biaya."
+    },
+    "history": {
+      "search": "Cari riwayat beli/jual",
+      "state": {
+        "loading": "Memuat riwayat beli/jual..."
+      },
+      "header": {
+        "provider": "Penyedia",
+        "assetTo": "Aset Ke",
+        "received": "Diterima",
+        "sent": "Dikirim"
+      },
+      "noData": {
+        "text": "Riwayat beli/jual tidak ditemukan",
+        "subText": "Pesanan beli/jual yang telah selesai akan muncul di sini",
+        "buttonText": "Mulai Membeli"
+      },
+      "noSearchResult": {
+        "text": "Hasil pencarian tidak ditemukan",
+        "subText": "tidak ditemukan"
+      }
+    },
+    "dialog": {
+      "provider": "Penyedia",
+      "orderId": "ID Pesanan",
+      "status": "Status",
+      "region": "Wilayah",
+      "fromTitle": "Dari",
+      "toTitle": "Ke",
+      "fromAsset": "Aset",
+      "fromAmount": "Jumlah Dikirim",
+      "toWallet": "Dompet",
+      "toAsset": "Aset",
+      "toAccount": "Akun",
+      "toAmount": "Jumlah Diterima",
+      "paymentMethod": "Metode Pembayaran",
+      "messageBox": {
+        "hold": "Transaksi Anda telah ditahan untuk verifikasi keamanan. Untuk melanjutkan, silakan hubungi tim keamanan ${providerName} untuk instruksi lebih lanjut."
+      },
+      "statusText": {
+        "complete": "Sukses",
+        "pending": "Tertunda",
+        "created": "Dibuat",
+        "expired": "Kedaluwarsa",
+        "failed": "Gagal",
+        "hold": "Ditahan",
+        "refunded": "Dikembalikan"
+      }
+    }
   }
 }

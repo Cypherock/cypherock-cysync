@@ -23,6 +23,8 @@ import {
   IMigration,
   IInheritancePlan,
   IInheritancePlanRepository,
+  IBuySellOrderRepository,
+  IBuySellOrder,
 } from '@cypherock/db-interfaces';
 
 import { EncryptedDB } from './encryptedDb';
@@ -38,6 +40,7 @@ import {
   TransactionNotificationRead,
   Wallet,
 } from './entity';
+import { BuySellOrder } from './entity/buySellOrder';
 import {
   AccountRepository,
   Repository,
@@ -67,6 +70,8 @@ export class Database implements IDatabase {
 
   inheritancePlan: IInheritancePlanRepository;
 
+  buySellOrder: IBuySellOrderRepository;
+
   constructor(params: {
     database: EncryptedDB;
     device: IDeviceRepository;
@@ -79,6 +84,7 @@ export class Database implements IDatabase {
     transactionNotificationRead: ITransactionNotificationReadRepository;
     migration: IMigrationRepository;
     inheritancePlan: IInheritancePlanRepository;
+    buySellOrder: IBuySellOrderRepository;
   }) {
     this.database = params.database;
 
@@ -92,6 +98,7 @@ export class Database implements IDatabase {
     this.transactionNotificationRead = params.transactionNotificationRead;
     this.migration = params.migration;
     this.inheritancePlan = params.inheritancePlan;
+    this.buySellOrder = params.buySellOrder;
   }
 
   public static async create(dirPath: string) {
@@ -150,6 +157,12 @@ export class Database implements IDatabase {
       InheritancePlan.schema,
     );
 
+    const buySellOrder = await Repository.create<IBuySellOrder>(
+      database,
+      BuySellOrder.name,
+      BuySellOrder.schema,
+    );
+
     return new Database({
       database,
       device,
@@ -162,6 +175,7 @@ export class Database implements IDatabase {
       transactionNotificationRead,
       migration,
       inheritancePlan,
+      buySellOrder,
     });
   }
 

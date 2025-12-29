@@ -3151,5 +3151,166 @@
         "description": "انتهت مهلة طلب التبديل. يرجى المحاولة مرة أخرى أو الاتصال بالدعم إذا استمرت المشكلة."
       }
     }
+  },
+  "buySell": {
+    "buy": {
+      "title": "Buy Crypto",
+      "selectAsset": {
+        "title": "To",
+        "selectWallet": {
+          "placeholder": "Choose a Wallet",
+          "searchText": "Search Wallet"
+        },
+        "selectCrypto": {
+          "placeholder": "Select Crypto Currency",
+          "searchText": "Search Crypto Currency"
+        },
+        "messageBox": {
+          "danger": "No accounts found for"
+        }
+      },
+      "selectCurrency": {
+        "title": "Select region and currency",
+        "selectCountry": {
+          "searchText": "Select a Country",
+          "placeholder": "Search Country"
+        },
+        "selectFiat": {
+          "searchText": "Search Fiat Currency",
+          "placeholder": "Select Fiat Currency"
+        }
+      },
+      "selectAmount": {
+        "pay": {
+          "title": "Pay"
+        },
+        "receive": {
+          "title": "You will receive"
+        }
+      },
+      "selectPaymentMethod": {
+        "title": "Pay with",
+        "placeholder": "Payment Method",
+        "searchText": "Search Payment Method"
+      }
+    }
+  },
+  "buySell2": {
+    "title": "شراء العملات الرقمية",
+    "input": {
+      "region": {
+        "title": "حدد المنطقة والعملة",
+        "selectCountry": {
+          "searchText": "ابحث عن الدولة",
+          "placeholder": "حدد دولة"
+        },
+        "selectFiat": {
+          "searchText": "ابحث عن العملة الورقية",
+          "placeholder": "حدد العملة الورقية"
+        }
+      },
+      "amount": {
+        "pay": {
+          "title": "دفع"
+        },
+        "receive": {
+          "title": "ستتلقى"
+        }
+      },
+      "crypto": {
+        "title": "حدد العملة الرقمية",
+        "selectCrypto": {
+          "searchText": "ابحث عن العملة الرقمية",
+          "placeholder": "حدد العملة الرقمية"
+        }
+      },
+      "accounts": {
+        "title": "إلى",
+        "selectWallet": {
+          "searchText": "ابحث عن المحفظة",
+          "placeholder": "حدد المحفظة"
+        },
+        "selectAccount": {
+          "searchText": "ابحث عن الحساب",
+          "placeholder": "حدد حسابًا"
+        },
+        "selectAnAccount": "حدد حسابًا للمتابعة"
+      },
+      "paymentMethod": {
+        "title": "الدفع بـ",
+        "placeholder": "طريقة الدفع",
+        "searchText": "ابحث عن طريقة الدفع"
+      },
+      "messageBox": {
+        "danger": "لم يتم العثور على حسابات لـ",
+        "altText": "في المحفظة"
+      },
+      "offersSection": {
+        "title": "أفضل عروضك",
+        "searchingForOffers": "البحث عن أفضل عروضك",
+        "selectAnOffer": "حدد عرضًا للمتابعة",
+        "offersFound": "تم العثور على ${num} عرض",
+        "timerText": "يتم التحديث خلال ${time}"
+      },
+      "errors": {
+        "noOffers": "لا توجد عروض متاحة لطلبك"
+      }
+    },
+    "offers": {
+      "bestOfferText": "أفضل عرض",
+      "optimalOfferText": "العرض المثالي",
+      "toAmount": "ستتلقى",
+      "toAmountTooltip": "الكمية تعكس ما ستحصل عليه بعد الرسوم.",
+      "fees": "الرسوم",
+      "feesTooltip": "تشمل الرسوم كل من شبكة البلوكشين ورسوم المقدم."
+    },
+    "history": {
+      "search": "البحث في تاريخ الشراء/البيع",
+      "state": {
+        "loading": "تحميل تاريخ الشراء/البيع..."
+      },
+      "header": {
+        "provider": "المزود",
+        "assetTo": "الأصل إلى",
+        "received": "تم الاستلام",
+        "sent": "تم الإرسال"
+      },
+      "noData": {
+        "text": "لم يتم العثور على تاريخ شراء/بيع",
+        "subText": "ستظهر طلبات الشراء/البيع المكتملة هنا",
+        "buttonText": "ابدأ الشراء"
+      },
+      "noSearchResult": {
+        "text": "لم يتم العثور على نتائج بحث",
+        "subText": "غير موجود"
+      }
+    },
+    "dialog": {
+      "provider": "المزود",
+      "orderId": "معرف الطلب",
+      "status": "الحالة",
+      "region": "المنطقة",
+      "fromTitle": "من",
+      "toTitle": "إلى",
+      "fromAsset": "الأصل",
+      "fromAmount": "المبلغ المرسل",
+      "toWallet": "المحفظة",
+      "toAsset": "الأصل",
+      "toAccount": "الحساب",
+      "toAmount": "المبلغ المستلم",
+      "paymentMethod": "طريقة الدفع",
+      "messageBox": {
+        "hold": "تم وضع معاملتك في الانتظار للتحقق من الأمان. للمتابعة، يرجى الاتصال بفريق الأمان ${providerName} على ${providerEmail} للحصول على تعليمات إضافية."
+      },
+      "statusText": {
+        "complete": "النجاح",
+        "pending": "قيد الانتظار",
+        "created": "تم الإنشاء",
+        "expired": "منتهي الصلاحية",
+        "failed": "فشل",
+        "hold": "في الانتظار",
+        "refunded": "تم الاسترداد"
+      }
+    }
   }
 }

@@ -51,6 +51,8 @@ export interface LanguageStrings {
   inheritanceSilverPlanPurchase: LangInheritanceSilverPlanPurchase;
   inheritanceGoldPlanPurchase: LangInheritanceGoldPlanPurchase;
   swap: LangSwap;
+  buySell: LangBuySell;
+  buySell2: LangBuySell2;
 }
 
 interface LangLabels {
@@ -2143,5 +2145,160 @@ interface LangSwap {
       title: string;
       description: string;
     };
+  };
+}
+
+interface LangBuySell {
+  buy: {
+    title: string;
+    selectAsset: {
+      title: string;
+      selectWallet: {
+        placeholder: string;
+        searchText: string;
+      };
+      selectCrypto: {
+        placeholder: string;
+        searchText: string;
+      };
+      messageBox: {
+        danger: string;
+      };
+    };
+    selectCurrency: {
+      title: string;
+      selectCountry: {
+        searchText: string;
+        placeholder: string;
+      };
+      selectFiat: {
+        searchText: string;
+        placeholder: string;
+      };
+    };
+    selectAmount: {
+      pay: {
+        title: string;
+      };
+      receive: {
+        title: string;
+      };
+    };
+    selectPaymentMethod: {
+      title: string;
+      placeholder: string;
+      searchText: string;
+    };
+  };
+}
+
+interface LangBuySell2 {
+  title: string;
+  input: {
+    region: {
+      title: string;
+      selectCountry: {
+        searchText: string;
+        placeholder: string;
+      };
+      selectFiat: {
+        searchText: string;
+        placeholder: string;
+      };
+    };
+    amount: {
+      pay: {
+        title: string;
+      };
+      receive: {
+        title: string;
+      };
+    };
+    crypto: {
+      title: string;
+      selectCrypto: {
+        searchText: string;
+        placeholder: string;
+      };
+    };
+    accounts: {
+      title: string;
+      selectWallet: {
+        searchText: string;
+        placeholder: string;
+      };
+      selectAccount: {
+        searchText: string;
+        placeholder: string;
+      };
+      selectAnAccount: string;
+    };
+    paymentMethod: {
+      title: string;
+      placeholder: string;
+      searchText: string;
+    };
+    messageBox: {
+      danger: string;
+      altText: string;
+    };
+    offersSection: {
+      title: string;
+      searchingForOffers: string;
+      selectAnOffer: string;
+      offersFound: string;
+      timerText: string;
+    };
+    errors: {
+      noOffers: string;
+    };
+  };
+  offers: {
+    bestOfferText: string;
+    optimalOfferText: string;
+    toAmount: string;
+    toAmountTooltip: string;
+    fees: string;
+    feesTooltip: string;
+  };
+  history: {
+    search: string;
+    state: {
+      loading: string;
+    };
+    header: {
+      provider: string;
+      assetTo: string;
+      received: string;
+      sent: string;
+    };
+    noData: {
+      text: string;
+      subText: string;
+      buttonText: string;
+    };
+    noSearchResult: {
+      text: string;
+      subText: string;
+    };
+  };
+  dialog: {
+    provider: string;
+    orderId: string;
+    status: string;
+    region: string;
+    fromTitle: string;
+    toTitle: string;
+    fromAsset: string;
+    fromAmount: string;
+    toWallet: string;
+    toAsset: string;
+    toAccount: string;
+    toAmount: string;
+    paymentMethod: string;
+    messageBox: {
+      hold: string;
+    };
+    statusText: Record<string, string>;
   };
 }

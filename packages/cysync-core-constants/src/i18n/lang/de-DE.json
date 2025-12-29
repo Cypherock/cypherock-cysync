@@ -3148,5 +3148,166 @@
         "description": "Die Tausch anfrage ist abgelaufen. Bitte versuchen Sie es erneut oder kontaktieren Sie den Support, wenn das Problem weiterhin besteht."
       }
     }
+  },
+  "buySell": {
+    "buy": {
+      "title": "Buy Crypto",
+      "selectAsset": {
+        "title": "To",
+        "selectWallet": {
+          "placeholder": "Choose a Wallet",
+          "searchText": "Search Wallet"
+        },
+        "selectCrypto": {
+          "placeholder": "Select Crypto Currency",
+          "searchText": "Search Crypto Currency"
+        },
+        "messageBox": {
+          "danger": "No accounts found for"
+        }
+      },
+      "selectCurrency": {
+        "title": "Select region and currency",
+        "selectCountry": {
+          "searchText": "Select a Country",
+          "placeholder": "Search Country"
+        },
+        "selectFiat": {
+          "searchText": "Search Fiat Currency",
+          "placeholder": "Select Fiat Currency"
+        }
+      },
+      "selectAmount": {
+        "pay": {
+          "title": "Pay"
+        },
+        "receive": {
+          "title": "You will receive"
+        }
+      },
+      "selectPaymentMethod": {
+        "title": "Pay with",
+        "placeholder": "Payment Method",
+        "searchText": "Search Payment Method"
+      }
+    }
+  },
+  "buySell2": {
+    "title": "Krypto kaufen",
+    "input": {
+      "region": {
+        "title": "Region und Währung auswählen",
+        "selectCountry": {
+          "searchText": "Land suchen",
+          "placeholder": "Land auswählen"
+        },
+        "selectFiat": {
+          "searchText": "Fiat-Währung suchen",
+          "placeholder": "Fiat-Währung auswählen"
+        }
+      },
+      "amount": {
+        "pay": {
+          "title": "Zahlen"
+        },
+        "receive": {
+          "title": "Sie erhalten"
+        }
+      },
+      "crypto": {
+        "title": "Kryptowährung auswählen",
+        "selectCrypto": {
+          "searchText": "Kryptowährung suchen",
+          "placeholder": "Kryptowährung auswählen"
+        }
+      },
+      "accounts": {
+        "title": "Zu",
+        "selectWallet": {
+          "searchText": "Wallet suchen",
+          "placeholder": "Wallet auswählen"
+        },
+        "selectAccount": {
+          "searchText": "Konto suchen",
+          "placeholder": "Konto auswählen"
+        },
+        "selectAnAccount": "Ein Konto auswählen, um fortzufahren"
+      },
+      "paymentMethod": {
+        "title": "Bezahlen mit",
+        "placeholder": "Zahlungsmethode",
+        "searchText": "Zahlungsmethode suchen"
+      },
+      "messageBox": {
+        "danger": "Keine Konten gefunden für",
+        "altText": "im Wallet"
+      },
+      "offersSection": {
+        "title": "Ihre besten Angebote",
+        "searchingForOffers": "Suche nach Ihren besten Angeboten",
+        "selectAnOffer": "Ein Angebot auswählen, um fortzufahren",
+        "offersFound": "${num} Angebote gefunden",
+        "timerText": "Aktualisiert in ${time}"
+      },
+      "errors": {
+        "noOffers": "Keine Angebote für Ihre Anfrage verfügbar"
+      }
+    },
+    "offers": {
+      "bestOfferText": "Bestes Angebot",
+      "optimalOfferText": "Optimales Angebot",
+      "toAmount": "Sie erhalten",
+      "toAmountTooltip": "Der Betrag entspricht dem, was Sie nach Abzug der Gebühren erhalten.",
+      "fees": "Gebühren",
+      "feesTooltip": "Die Gebühren umfassen sowohl Blockchain-Netzwerkgebühren als auch Anbietergebühren."
+    },
+    "history": {
+      "search": "Kauf-/Verkaufshistorie suchen",
+      "state": {
+        "loading": "Lade Kauf-/Verkaufshistorie..."
+      },
+      "header": {
+        "provider": "Anbieter",
+        "assetTo": "Vermögenswert zu",
+        "received": "Erhalten",
+        "sent": "Gesendet"
+      },
+      "noData": {
+        "text": "Keine Kauf-/Verkaufshistorie gefunden",
+        "subText": "Ihre abgeschlossenen Kauf-/Verkaufaufträge werden hier angezeigt",
+        "buttonText": "Mit dem Kaufen beginnen"
+      },
+      "noSearchResult": {
+        "text": "Keine Suchergebnisse gefunden",
+        "subText": "nicht gefunden"
+      }
+    },
+    "dialog": {
+      "provider": "Anbieter",
+      "orderId": "Bestell-ID",
+      "status": "Status",
+      "region": "Region",
+      "fromTitle": "Von",
+      "toTitle": "Zu",
+      "fromAsset": "Vermögenswert",
+      "fromAmount": "Gesendeter Betrag",
+      "toWallet": "Wallet",
+      "toAsset": "Vermögenswert",
+      "toAccount": "Konto",
+      "toAmount": "Empfangener Betrag",
+      "paymentMethod": "Zahlungsmethode",
+      "messageBox": {
+        "hold": "Ihre Transaktion wurde zur Sicherheitsüberprüfung zurückgehalten. Um fortzufahren, kontaktieren Sie bitte das Sicherheitsteam von ${providerName} unter ${providerEmail} für weitere Anweisungen."
+      },
+      "statusText": {
+        "complete": "Erfolg",
+        "pending": "Ausstehend",
+        "created": "Erstellt",
+        "expired": "Abgelaufen",
+        "failed": "Fehlgeschlagen",
+        "hold": "In Wartestellung",
+        "refunded": "Erstattet"
+      }
+    }
   }
 }

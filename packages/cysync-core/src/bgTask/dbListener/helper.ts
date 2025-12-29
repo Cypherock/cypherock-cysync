@@ -1,3 +1,4 @@
+import { syncBuySellOrdersCore } from '@cypherock/cysync-core-services';
 import lodash from 'lodash';
 
 import { syncAccounts } from '~/actions';
@@ -16,6 +17,7 @@ import {
   setPriceHistories,
   setPriceInfos,
   setTransactions,
+  setBuySellOrders,
   setWallets,
   store,
   updateCantonAuthTokens,
@@ -202,6 +204,20 @@ const syncInheritancePlanDb = createFuncWithErrorHandler(
   },
 );
 
+export const syncBuySellOrdersDb = createFuncWithErrorHandler(
+  'syncBuySelOrdersDb',
+  async isFirst => {
+    const db = getDB();
+
+    const buySellOrders = await db.buySellOrder.getAll();
+    store.dispatch(setBuySellOrders(buySellOrders));
+
+    if (isFirst) {
+      syncBuySellOrdersCore({ db });
+    }
+  },
+);
+
 export const syncAllDb = async (isFirst: boolean, currency: string) => {
   await syncAccountsDb(isFirst, currency);
   await syncWalletsDb();
@@ -210,6 +226,7 @@ export const syncAllDb = async (isFirst: boolean, currency: string) => {
   await syncPriceHistoriesDb(isFirst, currency);
   await syncTransactionsDb();
   await syncInheritancePlanDb();
+  await syncBuySellOrdersDb(isFirst);
 
   store.dispatch(setLanguage((await keyValueStore.appLanguage.get()) as any));
   store.dispatch(
@@ -246,6 +263,10 @@ export const addListeners = () => {
     'change',
     throttleDbFunction(syncInheritancePlanDb),
   );
+  db.buySellOrder.addListener(
+    'change',
+    throttleDbFunction(syncBuySellOrdersDb),
+  );
 };
 
 export const removeListeners = () => {
@@ -256,6 +277,7 @@ export const removeListeners = () => {
   db.device.removeAllListener();
   db.transaction.removeAllListener();
   db.inheritancePlan.removeAllListener();
+  db.buySellOrder.removeAllListener();
 };
 
 export const syncPriceDataDb = async (currency?: string) => {

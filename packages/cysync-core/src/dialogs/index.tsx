@@ -17,6 +17,7 @@ import {
   EnableMergeDelegationDialog,
 } from './Canton';
 import { TransactionActionDialog } from './Canton/TransactionAction';
+import { BuySellDialog } from './BuySellDialog';
 import { ContactSupportDialog } from './ContactSupport';
 import { ReleaseNotesDialog, ResetCySyncDialog } from './CySync';
 import { DeleteAccountDialog } from './DeleteAccountDialog';
@@ -93,6 +94,7 @@ export const dialogs: Record<DialogName, ReactComponentLike> = {
   inheritanceEstateRecovery: InheritanceEstateRecoveryDialog,
   mobileAppSyncDialog: MobileAppSyncDialog,
   swapDialog: SwapDialog,
+  buySellDialog: BuySellDialog,
   fullPageLoaderDialog: FullPageLoaderDialog,
   enableApprovalPromptDialog: EnableApprovalPromptDialog,
   enableApprovalDialog: EnableApprovalDialog,

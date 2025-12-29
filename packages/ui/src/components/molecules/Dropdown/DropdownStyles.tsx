@@ -4,14 +4,20 @@ import { CursorProps, UtilsProps, cursor, utils } from '../../utils';
 
 const positionAbsolute = css`
   position: absolute;
-  top: 100%;
   right: 0;
 `;
 
 export const DropDownListContainer = styled.div<
-  UtilsProps & { $isSelfPositioned?: boolean }
+  UtilsProps & { $isSelfPositioned?: boolean; $showAbove?: boolean }
 >`
-  ${({ $isSelfPositioned }) => !$isSelfPositioned && positionAbsolute}
+  ${({ $isSelfPositioned, $showAbove }) => {
+    if ($isSelfPositioned) return ``;
+
+    return `
+      ${positionAbsolute}
+      ${$showAbove ? 'bottom: 100%;' : 'top: 100%;'}
+    `;
+  }}
   width: 100%;
   list-style: none;
   border-radius: 8px;

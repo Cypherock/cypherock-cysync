@@ -1,5 +1,23 @@
 # @cypherock/cysync-utils
 
+## 0.0.16
+
+### Patch Changes
+
+- [#810](https://github.com/Cypherock/cypherock-cysync/pull/810) [`99fb9049`](https://github.com/Cypherock/cypherock-cysync/commit/99fb9049c7c639472acef934c18843ea7703b829) Thanks [@chirag-droid](https://github.com/chirag-droid)! - Integrated changelly as on ramp provider increasing support for many currencies and countries
+
+- Updated dependencies []:
+  - @cypherock/cysync-interfaces@0.0.13
+
+## 0.0.16-pre.0
+
+### Patch Changes
+
+- [#810](https://github.com/Cypherock/cypherock-cysync/pull/810) [`99fb9049`](https://github.com/Cypherock/cypherock-cysync/commit/99fb9049c7c639472acef934c18843ea7703b829) Thanks [@chirag-droid](https://github.com/chirag-droid)! - Integrated changelly as on ramp provider increasing support for many currencies and countries
+
+- Updated dependencies []:
+  - @cypherock/cysync-interfaces@0.0.13-pre.0
+
 ## 0.0.15
 
 ### Patch Changes

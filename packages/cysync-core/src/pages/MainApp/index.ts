@@ -5,7 +5,7 @@ export * from './Settings';
 export * from './Help';
 export * from './Asset';
 export * from './Account';
-export * from './BuySell';
+export * from './BuySell2';
 export * from './Swap';
 export * from './Inheritance';
 export * from './ReferAndEarn';

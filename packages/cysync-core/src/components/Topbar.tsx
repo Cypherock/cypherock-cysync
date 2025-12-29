@@ -1,3 +1,4 @@
+import { syncBuySellOrdersCore } from '@cypherock/cysync-core-services';
 import {
   ConnectionStatusType,
   SyncStatusType,
@@ -27,6 +28,7 @@ import {
   useAppDispatch,
   useAppSelector,
 } from '~/store';
+import { getDB } from '~/utils';
 
 const selector = createSelector(
   [selectLanguage, selectDiscreetMode, selectAccountSync, selectNotifications],
@@ -87,6 +89,9 @@ const TopbarComponent: FC<TopbarProps> = props => {
 
   const onSyncClick = useCallback(() => {
     dispatch(syncAllAccounts(currentCurrency));
+
+    const db = getDB();
+    syncBuySellOrdersCore({ db });
   }, [dispatch]);
 
   const onNotificationClick = useCallback(() => {
