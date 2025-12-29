@@ -1,5 +1,19 @@
 # @cypherock/cysync-desktop
 
+## 2.4.0
+
+### Minor Changes
+
+- [#855](https://github.com/Cypherock/cypherock-cysync/pull/855) [`2be04fe0`](https://github.com/Cypherock/cypherock-cysync/commit/2be04fe055a9e9bf17d03a6b78265f9b4801f5d1) Thanks [@AryanCypherock](https://github.com/AryanCypherock)! - vendor abstraction added for multiple vendor support
+
+### Patch Changes
+
+- Updated dependencies [[`2be04fe0`](https://github.com/Cypherock/cypherock-cysync/commit/2be04fe055a9e9bf17d03a6b78265f9b4801f5d1)]:
+  - @cypherock/cysync-interfaces@0.1.0
+  - @cypherock/cysync-desktop-ui@0.2.9
+  - @cypherock/database@0.2.1
+  - @cypherock/cysync-utils@0.0.17
+
 ## 2.4.0-pre.0
 
 ### Minor Changes
