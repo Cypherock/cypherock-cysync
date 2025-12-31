@@ -32,22 +32,15 @@ export const getBalance = async (
 
 export const getIsAccountCreated = async (
   partyId: string,
-  instrument: ICantonInstrument,
   keyDB?: IKeyValueStore,
 ): Promise<boolean> => {
-  try {
-    const url = `${baseURL}/balance`;
-    const data = {
-      partyId,
-      instrument,
-    };
-    const response = await makePostRequestWithAuthTokenConfig(url, data, keyDB);
+  const url = `${baseURL}/is-account-created`;
+  const data = {
+    partyId,
+  };
 
-    if (!response.data?.balance) return false;
-    return true;
-  } catch (error) {
-    return false;
-  }
+  const response = await makePostRequestWithAuthTokenConfig(url, data, keyDB);
+  return response.data?.isCreated ?? false;
 };
 
 export const isTransferPreApprovalEnabled = async (
