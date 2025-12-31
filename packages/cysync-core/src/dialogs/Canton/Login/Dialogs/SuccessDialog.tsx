@@ -16,7 +16,7 @@ export const SuccessDialog: React.FC = () => {
   return (
     <SuccessDialogComponent
       icon={<Image src={successIcon} alt="Success icon" />}
-      title="Your Canton account is successfully synced with canton network"
+      title={lang.strings.dialogs.cantonDialogs.login.success.title}
       buttonText={lang.strings.buttons.done}
       handleClick={onClose}
       width={800}

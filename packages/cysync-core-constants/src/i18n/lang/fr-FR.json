@@ -2397,6 +2397,11 @@
             "cancel": "Transaction sortante **annulée**"
           }
         }
+      },
+      "login": {
+        "success": {
+          "title": "Votre compte Canton a été synchronisé avec succès avec le réseau canton"
+        }
       }
     }
   },

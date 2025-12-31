@@ -2300,6 +2300,11 @@
             "cancel": "Transaksi keluar **dibatalkan**"
           }
         }
+      },
+      "login": {
+        "success": {
+          "title": "Akun Canton Anda berhasil disinkronkan dengan jaringan canton"
+        }
       }
     }
   },
