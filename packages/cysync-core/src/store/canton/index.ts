@@ -13,11 +13,13 @@ export interface ICantonAuthTokens {
 export interface ICantonState {
   cantonAuthTokens: ICantonAuthTokens | undefined;
   isLoaded: boolean;
+  hasUnauthorizedSyncError: boolean;
 }
 
 const initialState: ICantonState = {
   isLoaded: false,
   cantonAuthTokens: {},
+  hasUnauthorizedSyncError: false,
 } as ICantonState;
 
 export const cantonSlice = createSlice({
@@ -37,13 +39,26 @@ export const cantonSlice = createSlice({
       state.cantonAuthTokens = undefined;
       return state;
     },
+    setCantonUnauthorizedSyncError: (
+      state,
+      action: PayloadAction<{ hasError: boolean }>,
+    ) => {
+      state.hasUnauthorizedSyncError = action.payload.hasError;
+      return state;
+    },
   },
 });
 
-export const { updateCantonAuthTokens, clearCantonAuthTokens } =
-  cantonSlice.actions;
+export const {
+  updateCantonAuthTokens,
+  clearCantonAuthTokens,
+  setCantonUnauthorizedSyncError,
+} = cantonSlice.actions;
 
 export const selectCantonAuthTokens = (state: RootState) =>
   state.canton.cantonAuthTokens;
+
+export const selectCantonUnauthorizedSyncError = (state: RootState) =>
+  state.canton.hasUnauthorizedSyncError;
 
 export default cantonSlice.reducer;

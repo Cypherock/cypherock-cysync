@@ -2283,6 +2283,11 @@
             "cancel": "出账交易 **已取消**"
           }
         }
+      },
+      "login": {
+        "success": {
+          "title": "您的 Canton 账户已成功与 canton 网络同步"
+        }
       }
     }
   },

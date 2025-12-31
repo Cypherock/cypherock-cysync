@@ -2301,6 +2301,11 @@
             "cancel": "Ausgehende Transaktion **abgebrochen**"
           }
         }
+      },
+      "login": {
+        "success": {
+          "title": "Ihr Canton-Konto wurde erfolgreich mit dem Canton-Netzwerk synchronisiert"
+        }
       }
     }
   },

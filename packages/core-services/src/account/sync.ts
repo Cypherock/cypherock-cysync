@@ -11,6 +11,7 @@ const ACCOUNT_SYNC_CONCURRENCY = 10;
 export interface ISyncAccountsEvent {
   account: IAccount;
   isSuccessful: boolean;
+  error?: any;
 }
 
 export const syncSingleAccount = async (params: {
@@ -53,7 +54,7 @@ export const syncSingleAccount = async (params: {
     logger.error(error);
   }
 
-  return { account, isSuccessful };
+  return { account, isSuccessful, error: isSuccessful ? undefined : error };
 };
 
 export const syncAccounts = (params: {

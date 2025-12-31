@@ -1432,6 +1432,11 @@ interface LangDialogs {
         };
       };
     };
+    login: {
+      success: {
+        title: string;
+      };
+    };
   };
 }
 

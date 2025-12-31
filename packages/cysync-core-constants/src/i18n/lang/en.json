@@ -2292,6 +2292,11 @@
             "cancel": "Outgoing transaction **cancelled**"
           }
         }
+      },
+      "login": {
+        "success": {
+          "title": "Your Canton account is successfully synced with canton network"
+        }
       }
     }
   },

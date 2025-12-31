@@ -247,6 +247,16 @@ export interface IDialogState {
     isOpen: boolean;
     data?: TransactionActionDialogProps;
   };
+
+  syncCantonAccountPromptDialog: {
+    isOpen: boolean;
+    data?: undefined;
+  };
+
+  cantonLogin: {
+    isOpen: boolean;
+    data?: undefined;
+  };
 }
 
 export const GuidedFlowMap = {

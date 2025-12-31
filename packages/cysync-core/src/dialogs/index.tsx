@@ -11,6 +11,7 @@ import {
 } from './Authenticate';
 import { BetaNotificationDialog } from './BetaNotificationDialog';
 import {
+  CantonLoginDialog,
   CreateCantonAccountDialog,
   EnableApprovalDialog,
   EnableApprovalPromptDialog,
@@ -54,6 +55,7 @@ import { SwapDialog } from './SwapDialog';
 import { WalletActionsDialogBox } from './WalletActions';
 import { WalletConnectDialog } from './WalletConnect';
 import { WalletSyncError } from './WalletSyncError';
+import { SyncAccountPromptDialog } from './Canton/SyncAccountPrompt';
 
 export const dialogs: Record<DialogName, ReactComponentLike> = {
   walletSyncError: WalletSyncError,
@@ -100,5 +102,7 @@ export const dialogs: Record<DialogName, ReactComponentLike> = {
   enableApprovalDialog: EnableApprovalDialog,
   enableMergeDelegationDialog: EnableMergeDelegationDialog,
   createCantonAccountDialog: CreateCantonAccountDialog,
+  cantonLogin: CantonLoginDialog,
   transactionActionDialog: TransactionActionDialog,
+  syncCantonAccountPromptDialog: SyncAccountPromptDialog,
 };

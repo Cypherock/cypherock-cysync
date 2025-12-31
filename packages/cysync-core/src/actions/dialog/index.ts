@@ -172,3 +172,9 @@ export const openCreateCantonAccountDialog = (
 export const openTransactionActionDialog = (
   props: TransactionActionDialogProps,
 ) => openDialog({ name: 'transactionActionDialog', data: props });
+
+export const openSyncCantonAccountPromptDialog = () =>
+  openDialog({ name: 'syncCantonAccountPromptDialog', data: undefined });
+
+export const openCantonLoginDialog = () =>
+  openDialog({ name: 'cantonLogin', data: undefined });
