@@ -23,7 +23,6 @@ import {
   openSyncCantonAccountPromptDialog,
 } from '~/actions';
 import { CoinIcon, Graph, TransactionTable } from '~/components';
-import { constants } from '~/constants';
 import {
   selectCantonAuthTokens,
   selectCantonUnauthorizedSyncError,
@@ -113,27 +112,6 @@ export const AccountPage: FC = () => {
             >
               {lang.strings.buttons.receive}
             </Button>
-            {selectedAccount?.familyId === coinFamiliesMap.canton &&
-              selectedAccount.type !== AccountTypeMap.subAccount &&
-              !!cantonAuthTokens?.refreshToken &&
-              !cantonUnauthorizedSyncError && (
-                <Button variant="primary">
-                  <a
-                    href={constants.inheritance.cantonLink}
-                    target="_blank"
-                    style={{
-                      textDecoration: 'none',
-                      color: 'black',
-                      whiteSpace: 'nowrap',
-                      fontSize: '12px',
-                      fontWeight: '500',
-                    }}
-                    rel="noreferrer"
-                  >
-                    {lang.strings.buttons.earnRewards}
-                  </a>
-                </Button>
-              )}
             {selectedAccount?.familyId === coinFamiliesMap.canton &&
               selectedAccount.type !== AccountTypeMap.subAccount &&
               !selectedAccount.extraData?.isTransferPreApprovalEnabled &&
