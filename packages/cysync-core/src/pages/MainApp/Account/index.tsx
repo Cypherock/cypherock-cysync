@@ -20,10 +20,17 @@ import {
   openEnableMergeDelegationDialog,
   openReceiveDialog,
   openSendDialog,
+  openSyncCantonAccountPromptDialog,
 } from '~/actions';
 import { CoinIcon, Graph, TransactionTable } from '~/components';
 import { constants } from '~/constants';
-import { selectLanguage, useAppDispatch, useAppSelector } from '~/store';
+import {
+  selectCantonAuthTokens,
+  selectCantonUnauthorizedSyncError,
+  selectLanguage,
+  useAppDispatch,
+  useAppSelector,
+} from '~/store';
 
 import { TokenTable } from './TokenTable';
 
@@ -41,6 +48,10 @@ const SendIcon = (props: SvgProps) => (
 export const AccountPage: FC = () => {
   const dispatch = useAppDispatch();
   const lang = useAppSelector(selectLanguage);
+  const cantonAuthTokens = useAppSelector(selectCantonAuthTokens);
+  const cantonUnauthorizedSyncError = useAppSelector(
+    selectCantonUnauthorizedSyncError,
+  );
 
   const {
     selectedWallet,
@@ -103,7 +114,9 @@ export const AccountPage: FC = () => {
               {lang.strings.buttons.receive}
             </Button>
             {selectedAccount?.familyId === coinFamiliesMap.canton &&
-              selectedAccount.type !== AccountTypeMap.subAccount && (
+              selectedAccount.type !== AccountTypeMap.subAccount &&
+              !!cantonAuthTokens?.refreshToken &&
+              !cantonUnauthorizedSyncError && (
                 <Button variant="primary">
                   <a
                     href={constants.inheritance.cantonLink}
@@ -123,7 +136,9 @@ export const AccountPage: FC = () => {
               )}
             {selectedAccount?.familyId === coinFamiliesMap.canton &&
               selectedAccount.type !== AccountTypeMap.subAccount &&
-              !selectedAccount.extraData?.isTransferPreApprovalEnabled && (
+              !selectedAccount.extraData?.isTransferPreApprovalEnabled &&
+              !!cantonAuthTokens?.refreshToken &&
+              !cantonUnauthorizedSyncError && (
                 <Button
                   variant="primary"
                   onClick={() =>
@@ -144,7 +159,9 @@ export const AccountPage: FC = () => {
               )}
             {selectedAccount?.familyId === coinFamiliesMap.canton &&
               selectedAccount.type !== AccountTypeMap.subAccount &&
-              !selectedAccount.extraData?.isMergeDelegationEnabled && (
+              !selectedAccount.extraData?.isMergeDelegationEnabled &&
+              !!cantonAuthTokens?.refreshToken &&
+              !cantonUnauthorizedSyncError && (
                 <Button
                   variant="primary"
                   onClick={() =>
@@ -161,6 +178,18 @@ export const AccountPage: FC = () => {
                   align="center"
                 >
                   {lang.strings.buttons.mergeDelegation}
+                </Button>
+              )}
+            {selectedAccount?.familyId === coinFamiliesMap.canton &&
+              (!cantonAuthTokens?.refreshToken ||
+                cantonUnauthorizedSyncError) && (
+                <Button
+                  variant="primary"
+                  onClick={() => {
+                    dispatch(openSyncCantonAccountPromptDialog());
+                  }}
+                >
+                  {lang.strings.buttons.resync}
                 </Button>
               )}
             <Container pl={{ def: 0, mdlg: 4 }} gap={8}>

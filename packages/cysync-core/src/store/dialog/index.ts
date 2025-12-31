@@ -146,6 +146,12 @@ const initialState: IDialogState = {
   transactionActionDialog: {
     isOpen: false,
   },
+  syncCantonAccountPromptDialog: {
+    isOpen: false,
+  },
+  cantonLogin: {
+    isOpen: false,
+  },
 };
 
 export const dialogSlice = createSlice({
