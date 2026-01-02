@@ -18,6 +18,7 @@ export interface IConfig {
   USER_DATA_PATH: string;
   IS_RELEASE_CHANNEL: boolean;
   CHANNEL: string;
+  VENDOR: 'default' | 'odix';
   VERSION: string;
   LOG_LEVEL: string;
   API_CYPHEROCK: string;
@@ -39,9 +40,12 @@ const getResourcesPath = () => {
 };
 
 const getReleaseNotes = () => {
+  const vendor = jsonConfig.VENDOR || 'default';
+
   const filePath = path.join(
     getResourcesPath(),
     'extraResources',
+    vendor,
     RELEASE_NOTES_FILENAME,
   );
 
@@ -61,6 +65,7 @@ const configValidators = {
   CHANNEL: (val?: string) => !!val,
   SIMULATE_PRODUCTION: (val?: boolean) => typeof val === 'boolean',
   ALLOW_PRERELEASE: (val?: boolean) => typeof val === 'boolean',
+  VENDOR: (val?: string) => ['default', 'odix'].includes(val as any),
   MIXPANEL_TOKEN: (val?: string) => typeof val === 'string' && val.length > 0,
 } as const;
 
@@ -158,6 +163,7 @@ const getConfig = (): IConfig => {
     IS_RELEASE_CHANNEL: jsonConfig.CHANNEL === 'latest',
     VERSION,
     // These variables can be overridden from external env
+    VENDOR: jsonConfig.VENDOR as any,
     LOG_LEVEL: getFromExternalEnv('LOG_LEVEL', jsonConfig.LOG_LEVEL),
     API_CYPHEROCK: getFromExternalEnv(
       'API_CYPHEROCK',

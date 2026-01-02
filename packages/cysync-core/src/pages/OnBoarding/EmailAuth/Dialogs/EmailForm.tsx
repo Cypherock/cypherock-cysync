@@ -14,8 +14,8 @@ import {
 import React, { useEffect, useState } from 'react';
 
 import { routes } from '~/constants';
-import { analyticsService, ANALYTICS_EVENTS } from '~/services/analytics';
 import { useNavigateTo } from '~/hooks';
+import { analyticsService, ANALYTICS_EVENTS } from '~/services/analytics';
 import { useAppSelector, selectLanguage } from '~/store';
 import { keyValueStore, validateEmail } from '~/utils';
 import logger from '~/utils/logger';

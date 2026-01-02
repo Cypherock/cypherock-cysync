@@ -1,10 +1,10 @@
 import { IPreparedBtcTransaction } from '@cypherock/coin-support-btc';
 import { IPreparedTransaction } from '@cypherock/coin-support-interfaces';
+import { IPreparedSiaTransaction } from '@cypherock/coin-support-sia';
 import { IPreparedSolanaTransaction } from '@cypherock/coin-support-solana';
 import { IPreparedStellarTransaction } from '@cypherock/coin-support-stellar';
 import { getDefaultUnit, getParsedAmount } from '@cypherock/coin-support-utils';
 import { IPreparedXrpTransaction } from '@cypherock/coin-support-xrp';
-import { IPreparedSiaTransaction } from '@cypherock/coin-support-sia';
 import { coinFamiliesMap, CoinFamily, coinList } from '@cypherock/coins';
 import {
   BlockchainIcon,

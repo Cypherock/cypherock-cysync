@@ -37,6 +37,7 @@ import { DestinationTagInput } from './DestinationTagInput';
 import { IcpMemoInput } from './IcpMemoInput';
 import { NotesInput } from './NotesInput';
 import { StellarMemoInput } from './StellarMemoInput';
+
 import { useSendDialog } from '../../../context';
 
 const MAX_UINT64 = new BigNumber('0xffffffffffffffff');

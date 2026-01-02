@@ -1,6 +1,7 @@
 import mixpanel from 'mixpanel-browser';
-import logger from '~/utils/logger';
+
 import { keyValueStore } from '~/utils';
+import logger from '~/utils/logger';
 
 class AnalyticsService {
   private isInitialized = false;

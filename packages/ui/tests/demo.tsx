@@ -1,3 +1,4 @@
+import './__helpers__/setup';
 import React from 'react';
 import { describe, expect, test } from '@jest/globals';
 import { render, screen } from './__helpers__/react';

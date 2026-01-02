@@ -11,10 +11,10 @@ import React, {
 import { openFullPageLoaderDialog } from '~/actions';
 import { config } from '~/config';
 import { useMemoReturn } from '~/hooks';
+import { ANALYTICS_EVENTS } from '~/services/analytics/analyticsEvents';
+import { analyticsService } from '~/services/analytics/analyticsService';
 import { closeDialog, useAppDispatch } from '~/store';
 import { keyValueStore } from '~/utils';
-import { analyticsService } from '~/services/analytics/analyticsService';
-import { ANALYTICS_EVENTS } from '~/services/analytics/analyticsEvents';
 import logger from '~/utils/logger';
 
 export interface CurrencyContextInterface {

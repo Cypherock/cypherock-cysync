@@ -32,7 +32,7 @@ export const broadcastTransaction = async (
   const sendAmountHastings = scToHastings(output.amount);
   const feeHastings = scToHastings(fees);
 
-  const outputs: Array<{ address: string; value: string }> = [
+  const outputs: { address: string; value: string }[] = [
     {
       address: output.address,
       value: sendAmountHastings,
@@ -66,7 +66,7 @@ export const broadcastTransaction = async (
     }
     // Create transaction record for database
     const parsedTransaction: ITransaction = {
-      hash: result.hash as string,
+      hash: result.hash!,
       fees,
       amount: output.amount,
       status: TransactionStatusMap.pending,

@@ -30,6 +30,7 @@ import {
 } from '~/store';
 import { getDB } from '~/utils';
 
+// ... selector and maps ...
 const selector = createSelector(
   [selectLanguage, selectDiscreetMode, selectAccountSync, selectNotifications],
   (a, b, c, { isOpen, unreadTransactions }) => ({

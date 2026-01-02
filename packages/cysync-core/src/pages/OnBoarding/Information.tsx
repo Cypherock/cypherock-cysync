@@ -6,15 +6,15 @@ import {
   ListItem,
   ListContainer,
   Typography,
-  cysyncLogoBig,
+  cysynclogobigImage,
   DialogBoxFooter,
   Button,
 } from '@cypherock/cysync-ui';
 import React, { FC, useEffect } from 'react';
 
 import { routes } from '~/constants';
-import { analyticsService, ANALYTICS_EVENTS } from '~/services/analytics';
 import { useNavigateTo } from '~/hooks';
+import { analyticsService, ANALYTICS_EVENTS } from '~/services/analytics';
 import { selectLanguage, useAppSelector } from '~/store';
 
 import { OnboardingPageLayout } from './OnboardingPageLayout';
@@ -82,7 +82,7 @@ export const Information: React.FC = () => {
 
   return (
     <OnboardingPageLayout
-      img={cysyncLogoBig}
+      img={cysynclogobigImage}
       text={lang.strings.onboarding.deviceDetection.heading}
       title={lang.strings.onboarding.info.aside.title}
       subTitle={lang.strings.onboarding.info.aside.subTitle}

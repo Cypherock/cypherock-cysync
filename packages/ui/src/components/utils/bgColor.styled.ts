@@ -36,6 +36,9 @@ export interface BgColorProps {
   $bgColor?: BgColor;
 }
 
+const odixListBackgroundColor = '#242424';
+const cysyncListBackgroundColor = '#27221D';
+
 export const bgColor = css<BgColorProps>`
   ${props =>
     props.$bgColor === 'contentGradient' &&
@@ -45,7 +48,7 @@ export const bgColor = css<BgColorProps>`
   ${props =>
     props.$bgColor === 'primary' &&
     css`
-      background-image: ${({ theme }) => theme.palette.background.primary};
+      background: ${({ theme }) => theme.palette.background.primary};
     `}
   ${props =>
     props.$bgColor === 'secondary' &&
@@ -68,17 +71,17 @@ export const bgColor = css<BgColorProps>`
     css`
       background: ${({ theme }) => theme.palette.background.separator};
     `}
-    ${props =>
+  ${props =>
     props.$bgColor === 'separatorSecondary' &&
     css`
       background: ${({ theme }) => theme.palette.background.separatorSecondary};
     `}
-    ${props =>
+  ${props =>
     props.$bgColor === 'headlineLight' &&
     css`
       background: ${({ theme }) => theme.palette.background.headlineLight};
     `}
-    ${props =>
+  ${props =>
     props.$bgColor === 'slate' &&
     css`
       background: ${({ theme }) => theme.palette.background.slate};
@@ -88,7 +91,6 @@ export const bgColor = css<BgColorProps>`
     css`
       background: ${({ theme }) => theme.palette.text.muted};
     `}
-   
   ${props =>
     props.$bgColor === 'golden' &&
     css`
@@ -107,15 +109,17 @@ export const bgColor = css<BgColorProps>`
   ${props =>
     props.$bgColor === 'popup' &&
     css`
-      background: ${({ theme }) => theme.palette.background.popup};
+      background: ${({ theme }) => theme.palette.background.primary};
     `}
-
-${props =>
+  ${props =>
     props.$bgColor === 'list' &&
     css`
-      background-color: #27221d;
+      background-color: ${() =>
+        typeof window !== 'undefined' &&
+        (window as any).cysyncEnv?.VENDOR === 'odix'
+          ? odixListBackgroundColor
+          : cysyncListBackgroundColor};
     `}
-
   ${props =>
     props.$bgColor === 'highlight' &&
     css`
@@ -129,61 +133,61 @@ ${props =>
   ${props =>
     props.$bgColor === 'black' &&
     css`
-      background-color: #000;
+      background-color: #000000;
     `}
   ${props =>
     props.$bgColor === 'white' &&
     css`
-      background-color: #fff;
+      background-color: #ffffff;
     `}
   ${props =>
     props.$bgColor === 'warning' &&
     css`
       background: ${({ theme }) => theme.palette.background.warning};
     `}
-    ${props =>
+  ${props =>
     props.$bgColor === 'dialog' &&
     css`
-      background: ${({ theme }) => theme.palette.text.dialog};
+      background: ${() =>
+        ({ theme }) =>
+          theme.palette.background.primary};
     `}
-    ${props =>
+  ${props =>
     props.$bgColor === 'calendar' &&
     css`
       background: ${({ theme }) => theme.palette.background.calendar};
     `}
-     ${props =>
+  ${props =>
     props.$bgColor === 'slateDark' &&
     css`
       background: ${({ theme }) => theme.palette.background.slateDark};
     `}
-    ${props =>
+  ${props =>
     props.$bgColor === 'error' &&
     css`
       background: ${({ theme }) => theme.palette.background.error};
     `}
-    
-    ${props =>
+  ${props =>
     props.$bgColor === 'infoGreenBg' &&
     css`
       background: ${({ theme }) => theme.palette.background.infoGreenBg};
     `}
-
-    ${props =>
+  ${props =>
     props.$bgColor === 'disabled' &&
     css`
       background: ${({ theme }) => theme.palette.background.disabled};
     `}
-    ${props =>
+  ${props =>
     props.$bgColor === 'message' &&
     css`
       background: ${({ theme }) => theme.palette.background.message};
     `}
-    ${props =>
+  ${props =>
     props.$bgColor === 'videoError' &&
     css`
       background: ${({ theme }) => theme.palette.background.videoError};
     `}
-    ${props =>
+  ${props =>
     props.$bgColor === 'featureBanner' &&
     css`
       background: ${({ theme }) => theme.palette.background.featureBanner};

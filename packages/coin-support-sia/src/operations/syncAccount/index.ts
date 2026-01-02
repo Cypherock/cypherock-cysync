@@ -9,11 +9,11 @@ import {
   TransactionStatusMap,
   TransactionTypeMap,
 } from '@cypherock/db-interfaces';
-import { ISiaAccount } from '../types';
 
 import { ISyncSiaAccountsParams } from './types';
 
 import * as services from '../../services';
+import { ISiaAccount } from '../types';
 
 const PER_PAGE_TXN_LIMIT = 100;
 
@@ -110,10 +110,9 @@ const fetchNewTransactions = async (params: {
 
   let newLastConfirmedHash = lastConfirmedHash;
 
-  for (let i = 0; i < allTransactions.length; i += 1) {
-    const currentTx = allTransactions[i];
-    if (currentTx.confirmations >= 1) {
-      newLastConfirmedHash = currentTx.id;
+  for (const tx of allTransactions) {
+    if (tx.confirmations >= 1) {
+      newLastConfirmedHash = tx.id;
     } else {
       break;
     }

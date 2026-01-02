@@ -8,6 +8,12 @@ import renderer from 'vite-plugin-electron-renderer';
 
 import pkg from './package.json';
 
+const vendor = process.env.VENDOR ?? 'default';
+const mainWindowHtml = path.join(
+  'html',
+  vendor === 'default' ? 'index.html' : `index-${vendor}.html`,
+);
+
 // https://vitejs.dev/config/
 export default defineConfig(({ command }) => {
   rmSync('dist-electron', { recursive: true, force: true });
@@ -79,7 +85,7 @@ export default defineConfig(({ command }) => {
       outDir: 'dist',
       emptyOutDir: false,
       rollupOptions: {
-        input: path.join(__dirname, 'html/index.html'),
+        input: path.join(__dirname, mainWindowHtml),
       },
     },
     server:

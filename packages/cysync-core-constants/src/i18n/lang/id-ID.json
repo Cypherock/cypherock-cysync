@@ -1,7 +1,8 @@
 {
-  "x1Card": "X1 Card",
+  "x1Card": "-=CARD_NAME=-",
   "help": "Bantuan",
   "back": "Kembali",
+  "appName": "-=APP_NAME=-",
   "allWallets": "Semua Wallets",
   "buttons": {
     "addWallet": "Tambahkan Dompet",
@@ -64,23 +65,23 @@
   },
   "deviceAuthentication": {
     "success": {
-      "title": "X1 Vault Anda berhasil diautentikasi"
+      "title": "-=DEVICE_NAME=- Anda berhasil diautentikasi"
     },
     "loading": {
-      "title": "Mohon tunggu sementara X1 Vault Anda sedang diautentikasi",
-      "subtitle": "Jangan putuskan koneksi X1 Vault Anda selama operasi berlangsung"
+      "title": "Mohon tunggu sementara -=DEVICE_NAME=- Anda sedang diautentikasi",
+      "subtitle": "Jangan putuskan koneksi -=DEVICE_NAME=- Anda selama operasi berlangsung"
     }
   },
   "lockscreen": {
     "title": "Gerbang Anda menuju Kedaulatan Diri",
-    "passwordLabel": "Masukkan Kata Sandi untuk membuka kunci cySync",
+    "passwordLabel": "Masukkan Kata Sandi untuk membuka kunci -=APP_NAME=-",
     "forgotPassword": "Lupa kata sandi?",
     "incorrectPassword": "Kata sandi salah",
     "sameOldAndNewPassword": "Kata sandi baru tidak boleh sama dengan kata sandi lama",
     "button": "Buka Kunci",
     "forgotPasswordDialog": {
-      "title": "Mengatur ulang kata sandi akan mengatur ulang aplikasi cySync Anda, apakah Anda ingin melanjutkan?",
-      "subtext": "Ini akan menghapus semua data Anda di aplikasi cySync Anda. Perhatikan ini tidak akan menyebabkan kehilangan aset"
+      "title": "Mengatur ulang kata sandi akan mengatur ulang aplikasi -=APP_NAME=- Anda, apakah Anda ingin melanjutkan?",
+      "subtext": "Ini akan menghapus semua data Anda di aplikasi -=APP_NAME=- Anda. Perhatikan ini tidak akan menyebabkan kehilangan aset"
     }
   },
   "permissionSetup": {
@@ -97,7 +98,7 @@
       "coinPlaceholder": "Pilih koin"
     },
     "deviceActions": {
-      "header": "Ikuti petunjuk di X1 Vault",
+      "header": "Ikuti petunjuk di -=DEVICE_NAME=-",
       "subtext": "Tambahkan koin/akun ke dompet",
       "walletName": "${walletName}",
       "actions": {
@@ -168,7 +169,7 @@
     "aside": {
       "tabs": {
         "asset": "Aset",
-        "device": "X1 Vault",
+        "device": "-=DEVICE_NAME=-",
         "confirmation": "Konfirmasi"
       }
     }
@@ -200,7 +201,7 @@
       "accountPlaceholder": "Akun untuk dikreditkan"
     },
     "x1Vault": {
-      "title": "Ikuti instruksi pada X1 Vault",
+      "title": "Ikuti instruksi pada -=DEVICE_NAME=-",
       "subtitle": "Konfirmasi operasi pada perangkat Anda untuk menyelesaikan",
       "actions": {
         "verifyCoin": "Verifikasi aset dan nama dompet pada perangkat",
@@ -222,10 +223,10 @@
       "principalIdLabel": "ID Utama",
       "partyIdLabel": "ID Partai",
       "actions": {
-        "verify": "Verifikasi apakah alamat pada X1 Vault sesuai dengan alamat yang ditampilkan di atas",
-        "verifyAccountId": "Verifikasi ID Akun di X1 Vault cocok persis dengan ID Akun yang ditampilkan di atas",
-        "verifyPrincipalId": "Verifikasi ID Principal di X1 Vault cocok persis dengan ID Principal yang ditampilkan di atas",
-        "verifyPartyId": "Verifikasi ID Partai di X1 Vault cocok persis dengan ID Partai yang ditampilkan di atas"
+        "verify": "Verifikasi apakah alamat pada -=DEVICE_NAME=- sesuai dengan alamat yang ditampilkan di atas",
+        "verifyAccountId": "Verifikasi ID Akun di -=DEVICE_NAME=- cocok persis dengan ID Akun yang ditampilkan di atas",
+        "verifyPrincipalId": "Verifikasi ID Principal di -=DEVICE_NAME=- cocok persis dengan ID Principal yang ditampilkan di atas",
+        "verifyPartyId": "Verifikasi ID Partai di -=DEVICE_NAME=- cocok persis dengan ID Partai yang ditampilkan di atas"
       },
       "messageBox": {
         "warning": "Alamat Penerimaan ini TIDAK DIVERIFIKASI oleh perangkat. Gunakan dengan risiko Anda sendiri",
@@ -254,7 +255,7 @@
     "aside": {
       "tabs": {
         "source": "Sumber",
-        "device": "X1 Vault",
+        "device": "-=DEVICE_NAME=-",
         "receive": "Terima"
       }
     }
@@ -301,7 +302,7 @@
       "accountPlaceholder": "Akun untuk didebet"
     },
     "x1Vault": {
-      "title": "Ikuti instruksi pada X1 Vault",
+      "title": "Ikuti instruksi pada -=DEVICE_NAME=-",
       "actions": {
         "verifyCoin": "Verifikasi",
         "verifyDetails": "Verifikasi detail transaksi pada perangkat",
@@ -457,7 +458,7 @@
         "source": "Sumber",
         "recipient": "Penerima",
         "summary": "Ringkasan",
-        "x1vault": "X1 Vault",
+        "x1vault": "-=DEVICE_NAME=-",
         "confirm": "Konfirmasi"
       },
       "timer": {
@@ -479,7 +480,7 @@
   "deployAccount": {
     "title": "Deploy Akun",
     "x1Vault": {
-      "title": "Ikuti instruksi pada X1 Vault",
+      "title": "Ikuti instruksi pada -=DEVICE_NAME=-",
       "actions": {
         "verifyCoin": "Verifikasi",
         "verifyDetails": "Verifikasi detail transaksi pada perangkat",
@@ -512,7 +513,7 @@
     "aside": {
       "tabs": {
         "summary": "Ringkasan",
-        "x1vault": "X1 Vault",
+        "x1vault": "-=DEVICE_NAME=-",
         "confirm": "Konfirmasi"
       }
     }
@@ -589,7 +590,7 @@
   "onboarding": {
     "info": {
       "aside": {
-        "title": "Selamat datang di aplikasi cySync",
+        "title": "Selamat datang di aplikasi -=APP_NAME=-",
         "subTitle": "Gerbang Anda menuju Kedaulatan Diri"
       },
       "dialogBox": {
@@ -599,23 +600,23 @@
           "Anda memiliki waktu setidaknya 10-15 menit untuk menyiapkan dompet Anda",
           "Anda memiliki koneksi internet yang aktif",
           "Segel tahan rusak pada paket tidak rusak",
-          "Cypherock tidak akan pernah meminta Anda untuk frasa seed Anda maupun meminta Anda untuk menandatangani transaksi",
-          "Cypherock hanya akan mengirim email dari cypherock.com. Jangan percaya email dari domain situs web lainnya",
+          "-=PRODUCT_NAME=- tidak akan pernah meminta Anda untuk frasa seed Anda maupun meminta Anda untuk menandatangani transaksi",
+          "-=PRODUCT_NAME=- hanya akan mengirim email dari -=PRODUCT_NAME=-.com. Jangan percaya email dari domain situs web lainnya",
           "Anda berada dalam lingkungan yang aman dan terlindungi",
           "Segel anti-rusak pada paket masih utuh",
-          "Cypherock tidak akan pernah meminta frasa kunci Anda atau meminta Anda untuk menandatangani transaksi",
-          "Cypherock hanya akan mengirim email dari cypherock.com. Jangan percaya email dari domain situs web lain"
+          "-=PRODUCT_NAME=- tidak akan pernah meminta frasa kunci Anda atau meminta Anda untuk menandatangani transaksi",
+          "-=PRODUCT_NAME=- hanya akan mengirim email dari -=PRODUCT_NAME=-.com. Jangan percaya email dari domain situs web lain"
         ]
       }
     },
     "usage": {
       "userNew": {
-        "title": "Saya menggunakan Cypherock X1 untuk pertama kali",
-        "note": "Pilih ini jika Anda belum pernah menggunakan Cypherock X1 sebelumnya"
+        "title": "Saya menggunakan -=WALLET_NAME=- untuk pertama kali",
+        "note": "Pilih ini jika Anda belum pernah menggunakan -=WALLET_NAME=- sebelumnya"
       },
       "userExpert": {
-        "title": "Saya sudah menggunakan Cypherock X1",
-        "note": "Pilih ini jika Anda ingin memigrasi wallet Anda ke Cypherock X1 baru. Ini mungkin diperlukan jika Anda kehilangan X1 Vault dan satu atau lebih dari X1 Cards"
+        "title": "Saya sudah menggunakan -=WALLET_NAME=-",
+        "note": "Pilih ini jika Anda ingin memigrasi wallet Anda ke -=WALLET_NAME=- baru. Ini mungkin diperlukan jika Anda kehilangan -=DEVICE_NAME=- dan satu atau lebih dari -=CARD_NAME=-s"
       }
     },
     "terms": {
@@ -629,9 +630,9 @@
     },
     "setPassword": {
       "heading": "Tetapkan Kata Sandi",
-      "title": "Tetapkan kata sandi cySync Anda",
+      "title": "Tetapkan kata sandi -=APP_NAME=- Anda",
       "subtitle": "Kami tidak menyimpan kata sandi Anda di server kami",
-      "success": "Kata sandi cySync Anda telah berhasil ditetapkan",
+      "success": "Kata sandi -=APP_NAME=- Anda telah berhasil ditetapkan",
       "newPasswordLabel": "Kata Sandi Baru",
       "confirmPasswordLabel": "Konfirmasi Kata Sandi",
       "hint": "Gunakan 8 atau lebih karakter dengan campuran huruf, angka & simbol"
@@ -640,83 +641,83 @@
       "heading": "Otentikasi Email",
       "title": "Anda disarankan untuk memasukkan ID email sebagai 2FA untuk mendapatkan hasil keaslian",
       "subtitle": "Kami tidak menyimpan ID email ini secara permanen di server kami",
-      "success": "Kata sandi cySync Anda telah berhasil ditetapkan",
+      "success": "Kata sandi -=APP_NAME=- Anda telah berhasil ditetapkan",
       "enterEmailLabel": "Email",
       "placeholder": "Email"
     },
     "deviceDetection": {
       "heading": "Koneksi Perangkat",
-      "title": "Hubungkan X1 Vault Anda ke PC untuk melanjutkan",
+      "title": "Hubungkan -=DEVICE_NAME=- Anda ke PC untuk melanjutkan",
       "unavailable": {
-        "title": "X1 Vault Anda tidak dapat berkomunikasi",
+        "title": "-=DEVICE_NAME=- Anda tidak dapat berkomunikasi",
         "subtext": "Coba sambungkan kembali perangkat"
       }
     },
     "deviceAuth": {
       "heading": "Otentikasi Perangkat",
-      "title": "X1 Vault Anda sekarang akan diautentikasi\nmelalui server Cypherock untuk memeriksa\nkeasliannya",
+      "title": "-=DEVICE_NAME=- Anda sekarang akan diautentikasi\nmelalui server -=PRODUCT_NAME=- untuk memeriksa\nkeasliannya",
       "subtext": "Jangan lepaskan perangkat Anda saat operasi sedang dilakukan",
       "success": {
-        "title": "X1 Vault Anda berhasil diautentikasi",
+        "title": "-=DEVICE_NAME=- Anda berhasil diautentikasi",
         "subtext": "Tunggu sementara kami membawakan Anda ke layar berikutnya"
       },
-      "error": "Otentikasi X1 Vault gagal"
+      "error": "Otentikasi -=DEVICE_NAME=- gagal"
     },
     "joystickTraining": {
       "heading": "Instruksi Joystick",
-      "subtext": "X1 Vault menyediakan joystick 4 arah untuk navigasi layar",
+      "subtext": "-=DEVICE_NAME=- menyediakan joystick 4 arah untuk navigasi layar",
       "upTitle": "Gulir ke Atas",
       "rightTitle": "Gulir ke Kanan",
       "downTitle": "Gulir ke Bawah",
       "leftTitle": "Gulir ke Kiri",
       "centerTitle": "Klik tengah joystick untuk melanjutkan",
-      "centerSubtext": "X1 Vault memiliki tombol tengah untuk melakukan klik",
+      "centerSubtext": "-=DEVICE_NAME=- memiliki tombol tengah untuk melakukan klik",
       "footer": "Ikuti petunjuk pada perangkat",
       "success": "Instruksi joystick selesai",
       "error": "Instruksi joystick gagal"
     },
     "cardTraining": {
       "heading": "Instruksi Ketukan Kartu",
-      "title": "Ketuk salah satu X1 Card di bawah X1 Vault untuk menguji ketukan kartu",
+      "title": "Ketuk salah satu -=CARD_NAME=- di bawah -=DEVICE_NAME=- untuk menguji ketukan kartu",
       "subtext": "Kartu Anda berkomunikasi dengan perangkat melalui NFC terenkripsi. Pastikan Anda mempertahankannya hingga terdengar bunyi bip",
       "error": "Ketukan Kartu gagal"
     },
     "cardAuth": {
       "heading": "Otentikasi Kartu",
-      "title": "Ketuk X1 Cards satu per satu di bawah \nX1 Vault hingga Anda mendengar 3 bunyi bip",
+      "title": "Ketuk -=CARD_NAME=-s satu per satu di bawah \n-=DEVICE_NAME=- hingga Anda mendengar 3 bunyi bip",
       "subtext": "Angkat kartu Anda setelah mendengar 3 bunyi bip"
     },
     "walletActionsDialogBox": {
-      "title": "Mari buat dompet sebelum kita melanjutkan. Pastikan Anda memiliki semua 4 X1 Cards dengan Anda",
-      "subTitle": "Tutorial berikut hanya ada di sana untuk membimbing Anda pada perangkat Anda. Anda dapat membuat dompet bahkan tanpa tutorial ini secara mandiri pada Cypherock X1 Anda",
+      "title": "Mari buat dompet sebelum kita melanjutkan. Pastikan Anda memiliki semua 4 -=CARD_NAME=-s dengan Anda",
+      "subTitle": "Tutorial berikut hanya ada di sana untuk membimbing Anda pada perangkat Anda. Anda dapat membuat dompet bahkan tanpa tutorial ini secara mandiri pada -=WALLET_NAME=- Anda",
       "createWallet": {
         "title": "Buat dompet baru",
         "list": [
-          "Jika Anda telah membeli Cypherock X1 baru dan ingin menyiapkan dompet baru"
+          "Jika Anda telah membeli -=WALLET_NAME=- baru dan ingin menyiapkan dompet baru"
         ]
       },
       "importWallet": {
         "title": "Impor dompet Anda dari frasa seed",
         "list": [
-          "Anda ingin menggunakan Cypherock X1 sebagai cadangan dari dompet Anda yang lain",
-          "Anda ingin mentransfer aset Anda dari dompet lain ke Cypherock X1",
-          "Anda ingin mengelola dan melacak portofolio dari dompet lain melalui Cypherock X1",
-          "Anda ingin menggunakan Cypherock X1 sebagai cadangan dari dompet lain Anda",
-          "Anda ingin mentransfer aset Anda dari dompet lain Anda ke Cypherock X1",
-          "Anda ingin mengelola dan melacak portofolio dompet lain Anda melalui Cypherock X1"
+          "Anda ingin menggunakan -=WALLET_NAME=- sebagai cadangan dari dompet Anda yang lain",
+          "Anda ingin mentransfer aset Anda dari dompet lain ke -=WALLET_NAME=-",
+          "Anda ingin mengelola dan melacak portofolio dari dompet lain melalui -=WALLET_NAME=-",
+          "Anda ingin menggunakan -=WALLET_NAME=- sebagai cadangan dari dompet lain Anda",
+          "Anda ingin mentransfer aset Anda dari dompet lain Anda ke -=WALLET_NAME=-",
+          "Anda ingin mengelola dan melacak portofolio dompet lain Anda melalui -=WALLET_NAME=-"
         ]
       }
     },
     "success": {
       "title": "Selamat",
-      "subtext": "Cypherock X1 sekarang siap digunakan"
+      "subtext": "-=WALLET_NAME=- sekarang siap digunakan"
     },
     "appUpdate": {
       "heading": "Pembaruan Aplikasi",
       "dialogs": {
         "checking": {
           "heading": "Pembaruan Aplikasi",
-          "title": "Harap tunggu sementara kami memeriksa pembaruan Cypherock CySync"
+          "title": "Harap tunggu sementara kami memeriksa pembaruan -=PRODUCT_NAME=- -=APP_NAME=-"
         },
         "checkingFailed": {
           "heading": "Pembaruan Aplikasi",
@@ -725,30 +726,30 @@
         },
         "confirmation": {
           "heading": "Pembaruan Aplikasi",
-          "title": "Pembaruan baru tersedia untuk aplikasi cySync Anda. Perbarui aplikasi ke v${version} untuk melanjutkan",
-          "subtext": "X1 Vault Anda tampaknya tidak kompatibel dengan aplikasi cySync saat ini. Perbarui aplikasi desktop Anda ke v${version} untuk melanjutkan"
+          "title": "Pembaruan baru tersedia untuk aplikasi -=APP_NAME=- Anda. Perbarui aplikasi ke v${version} untuk melanjutkan",
+          "subtext": "-=DEVICE_NAME=- Anda tampaknya tidak kompatibel dengan aplikasi -=APP_NAME=- saat ini. Perbarui aplikasi desktop Anda ke v${version} untuk melanjutkan"
         },
         "downloading": {
           "heading": "Sedang Memperbarui...",
-          "subtext": "Harap tunggu sementara kami memperbarui aplikasi cySync Anda",
+          "subtext": "Harap tunggu sementara kami memperbarui aplikasi -=APP_NAME=- Anda",
           "version": "Versi ${version}"
         },
         "updateSuccessful": {
-          "heading": "Aplikasi cySync berhasil diperbarui",
+          "heading": "Aplikasi -=APP_NAME=- berhasil diperbarui",
           "subtext": "Harap tunggu sementara kami memulai ulang aplikasi untuk menerapkan pembaruan terbaru",
           "bubbleText": "Jika aplikasi tidak dimulai ulang secara otomatis, mulai ulang secara manual"
         },
         "updateFailed": {
-          "heading": "Pembaharuan cySync ke versi ${version} gagal",
+          "heading": "Pembaharuan -=APP_NAME=- ke versi ${version} gagal",
           "subtext": "Terjadi kesalahan, coba perbarui lagi atau hubungi dukungan",
           "buttons": {
             "retry": "Coba Lagi"
           }
         },
         "updateFailedFallback": {
-          "heading": "Pembaharuan aplikasi cySync ke versi ${version} gagal",
+          "heading": "Pembaharuan aplikasi -=APP_NAME=- ke versi ${version} gagal",
           "subtext": "Unduh dan instal ulang aplikasi desktop dari tautan di bawah",
-          "alertText": "Tutup aplikasi ini sebelum menginstal ulang aplikasi cySync terbaru"
+          "alertText": "Tutup aplikasi ini sebelum menginstal ulang aplikasi -=APP_NAME=- terbaru"
         }
       }
     },
@@ -757,23 +758,23 @@
       "version": "Versi ${version}",
       "dialogs": {
         "checking": {
-          "title": "Harap tunggu sementara kami memeriksa pembaruan X1 Vault"
+          "title": "Harap tunggu sementara kami memeriksa pembaruan -=DEVICE_NAME=-"
         },
         "confirmation": {
           "heading": "Pembaruan Perangkat",
-          "title": "Pembaruan baru tersedia untuk X1 Vault Anda. Perbarui perangkat ke v${version} untuk melanjutkan",
+          "title": "Pembaruan baru tersedia untuk -=DEVICE_NAME=- Anda. Perbarui perangkat ke v${version} untuk melanjutkan",
           "subtext": "Ikuti petunjuk pada perangkat"
         },
         "loading": {
-          "text": "Harap tunggu sementara kami memeriksa pembaruan X1 Vault"
+          "text": "Harap tunggu sementara kami memeriksa pembaruan -=DEVICE_NAME=-"
         },
         "updating": {
           "heading": "Sedang Memperbarui...",
-          "subtext": "Harap tunggu sementara kami memperbarui X1 Vault Anda"
+          "subtext": "Harap tunggu sementara kami memperbarui -=DEVICE_NAME=- Anda"
         },
         "updateSuccessful": {
-          "heading": "X1 Vault berhasil diperbarui",
-          "headingWithVersion": "X1 Vault berhasil diperbarui ke v${version}",
+          "heading": "-=DEVICE_NAME=- berhasil diperbarui",
+          "headingWithVersion": "-=DEVICE_NAME=- berhasil diperbarui ke v${version}",
           "subtext": "Perangkat Anda sekarang beroperasi pada firmware terbaru"
         },
         "updateFailed": {
@@ -784,10 +785,10 @@
     }
   },
   "appUpdateBar": {
-    "confirmation": "Pembaruan ke versi CySync ${version} tersedia",
-    "downloading": "Mengunduh CySync versi ${version}",
-    "error": "Kesalahan saat mengunduh pembaruan CySync",
-    "successful": "Pembaruan CySync telah diunduh, akan terpasang otomatis saat Anda menutup aplikasi",
+    "confirmation": "Pembaruan ke versi -=APP_NAME=- ${version} tersedia",
+    "downloading": "Mengunduh -=APP_NAME=- versi ${version}",
+    "error": "Kesalahan saat mengunduh pembaruan -=APP_NAME=-",
+    "successful": "Pembaruan -=APP_NAME=- telah diunduh, akan terpasang otomatis saat Anda menutup aplikasi",
     "buttons": {
       "download": "Unduh",
       "tryAgain": "Coba Lagi",
@@ -799,7 +800,7 @@
     "button": "Unduh"
   },
   "betaNotificationBar": {
-    "message": "CySync v2.0.0 tersedia!",
+    "message": "-=APP_NAME=- v2.0.0 tersedia!",
     "button": "Pelajari Lebih Lanjut"
   },
   "topbar": {
@@ -829,6 +830,7 @@
   },
   "sidebar": {
     "portfolio": "Portfolio",
+    "securedBy": "Diamankan oleh Cypherock",
     "wallets": "Wallets",
     "sendCrypto": "Kirim Kripto",
     "receiveCrypto": "Terima Kripto",
@@ -838,22 +840,22 @@
     "help": "Help",
     "buysell": "Buy",
     "tooltip": {
-      "walletDeleted": "${walletName} telah dihapus dari X1 Vault Anda"
+      "walletDeleted": "${walletName} telah dihapus dari -=PRODUCT_NAME=- -=DEVICE_NAME=- Anda"
     },
-    "cypherockCover": "Cypherock Cover",
+    "cypherockCover": "-=PRODUCT_NAME=- Cover",
     "referAndEarn": "Refer & Earn",
     "new": "Baru"
   },
   "walletSync": {
     "deletedOne": {
-      "title": "Sepertinya Anda telah menghapus dompet ${walletName} dari X1 Vault. Apakah Anda ingin menghapusnya di cySync juga?"
+      "title": "Sepertinya Anda telah menghapus dompet ${walletName} dari -=DEVICE_NAME=-. Apakah Anda ingin menghapusnya di -=APP_NAME=- juga?"
     },
     "deletedMany": {
-      "title": "Sepertinya Anda telah menghapus dompet dari X1 Vault. Apakah Anda ingin menghapusnya dari cySync juga?",
+      "title": "Sepertinya Anda telah menghapus dompet dari -=DEVICE_NAME=-. Apakah Anda ingin menghapusnya dari -=APP_NAME=- juga?",
       "subTitle": "Anda dapat memilih yang ingin disimpan dan yang ingin dihapus"
     },
     "freshOneCreated": {
-      "title": "Sepertinya Anda telah menghapus dompet dari X1 Vault sambil membuat yang baru dengan nama yang sama. Apakah Anda ingin menghapus dompet lama di cySync?",
+      "title": "Sepertinya Anda telah menghapus dompet dari -=DEVICE_NAME=- sambil membuat yang baru dengan nama yang sama. Apakah Anda ingin menghapus dompet lama di -=APP_NAME=-?",
       "subTitle": "Anda dapat memilih yang ingin disimpan dan yang ingin dihapus",
       "checkboxText": "Jangan tampilkan ini lagi"
     },
@@ -968,7 +970,7 @@
     "walletMissing": {
       "text": "Dompet Hilang",
       "subText": "Buat dompet baru atau impor dari frasa benih untuk memulai",
-      "subText2": "Jika Anda sudah membuat dompet di perangkat, cukup sinkronkan dengan cySync"
+      "subText2": "Jika Anda sudah membuat dompet di perangkat, cukup sinkronkan dengan -=APP_NAME=-"
     },
     "accountMissing": {
       "text": "Akun Hilang",
@@ -1012,367 +1014,379 @@
   "errors": {
     "deviceErrors": {
       "CON_0100": {
-        "heading": "Hubungkan X1 Vault ke PC Anda untuk melanjutkan"
+        "heading": "Hubungkan -=DEVICE_NAME=- ke PC Anda untuk melanjutkan"
       },
       "CON_0101": {
-        "heading": "Hubungkan X1 Vault ke PC Anda untuk melanjutkan"
+        "heading": "Hubungkan -=DEVICE_NAME=- ke PC Anda untuk melanjutkan"
       },
       "CON_0102": {
-        "heading": "X1 Vault Anda tidak dapat terhubung",
+        "heading": "-=DEVICE_NAME=- Anda tidak dapat terhubung",
         "subtext": "Hubungkan kembali perangkat dan coba lagi"
       },
       "COM_0000": {
-        "heading": "X1 Vault Anda dalam mode aman",
+        "heading": "-=DEVICE_NAME=- Anda dalam mode aman",
         "subtext": "Perbarui perangkat Anda untuk melanjutkan"
       },
       "COM_0104": {
-        "heading": "X1 Vault Anda mengalami beberapa masalah komunikasi",
+        "heading": "-=DEVICE_NAME=- Anda mengalami beberapa masalah komunikasi",
         "subtext": "Hubungkan kembali perangkat dan coba lagi"
       },
       "COM_0101": {
-        "heading": "X1 Vault Anda mengalami beberapa masalah komunikasi",
+        "heading": "-=DEVICE_NAME=- Anda mengalami beberapa masalah komunikasi",
         "subtext": "Hubungkan kembali perangkat dan coba lagi"
       },
       "COM_0102": {
-        "heading": "X1 Vault Anda mengalami beberapa masalah komunikasi",
+        "heading": "-=DEVICE_NAME=- Anda mengalami beberapa masalah komunikasi",
         "subtext": "Hubungkan kembali perangkat dan coba lagi"
       },
       "COM_0103": {
-        "heading": "X1 Vault Anda mengalami beberapa masalah komunikasi",
+        "heading": "-=DEVICE_NAME=- Anda mengalami beberapa masalah komunikasi",
         "subtext": "Hubungkan kembali perangkat dan coba lagi"
       },
       "COM_0100": {
-        "heading": "X1 Vault Anda mengalami beberapa masalah komunikasi",
+        "heading": "-=DEVICE_NAME=- Anda mengalami beberapa masalah komunikasi",
         "subtext": "Hubungkan kembali perangkat dan coba lagi"
       },
       "COM_0200": {
-        "heading": "X1 Vault Anda tidak mendukung operasi ini",
-        "subtext": "Perbarui aplikasi cySync dan perangkat ke versi terbaru"
+        "heading": "-=DEVICE_NAME=- Anda tidak mendukung operasi ini",
+        "subtext": "Perbarui aplikasi -=APP_NAME=- dan perangkat ke versi terbaru"
       },
       "COM_0201": {
-        "heading": "X1 Vault Anda tidak kompatibel dengan aplikasi cySync",
-        "subtext": "Perbarui aplikasi cySync dan perangkat ke versi terbaru"
+        "heading": "-=DEVICE_NAME=- Anda tidak kompatibel dengan aplikasi -=APP_NAME=-",
+        "subtext": "Perbarui aplikasi -=APP_NAME=- dan perangkat ke versi terbaru"
       },
       "BTL_0000": {
-        "heading": "Operasi gagal di X1 Vault",
+        "heading": "Operasi gagal di -=DEVICE_NAME=-",
         "subtext": "Hubungkan kembali perangkat dan coba lagi"
       },
       "BTL_0100": {
-        "heading": "X1 Vault Anda tidak mendukung firmware ini",
-        "subtext": "Hubungi dukungan Cypherock untuk mendapatkan bantuan"
+        "heading": "-=DEVICE_NAME=- Anda tidak mendukung firmware ini",
+        "subtext": "Hubungi dukungan -=PRODUCT_NAME=- untuk mendapatkan bantuan"
       },
       "BTL_0101": {
-        "heading": "X1 Vault Anda tidak mendukung firmware ini",
-        "subtext": "Hubungi dukungan Cypherock untuk mendapatkan bantuan"
+        "heading": "-=DEVICE_NAME=- Anda tidak mendukung firmware ini",
+        "subtext": "Hubungi dukungan -=PRODUCT_NAME=- untuk mendapatkan bantuan"
       },
       "BTL_0102": {
-        "heading": "X1 Vault Anda tidak mendukung firmware ini",
-        "subtext": "Hubungi dukungan Cypherock untuk mendapatkan bantuan"
+        "heading": "-=DEVICE_NAME=- Anda tidak mendukung firmware ini",
+        "subtext": "Hubungi dukungan -=PRODUCT_NAME=- untuk mendapatkan bantuan"
       },
       "BTL_0103": {
-        "heading": "Firmware X1 Vault Anda tidak autentik",
-        "subtext": "Ini biasanya terjadi saat Anda mencoba memasang firmware yang tidak dikembangkan oleh Cypherock"
+        "heading": "Firmware -=DEVICE_NAME=- Anda tidak autentik",
+        "subtext": "Ini biasanya terjadi saat Anda mencoba memasang firmware yang tidak dikembangkan oleh -=PRODUCT_NAME=-"
       },
       "BTL_0104": {
-        "heading": "X1 Vault Anda tidak dapat diperbarui ke versi firmware yang lebih rendah",
+        "heading": "-=DEVICE_NAME=- Anda tidak dapat diperbarui ke versi firmware yang lebih rendah",
         "subtext": "Perangkat hanya mendukung pembaruan firmware ke versi yang lebih tinggi"
       },
       "BTL_0106": {
-        "heading": "Pembaruan X1 Vault gagal",
-        "subtext": "Hubungkan kembali perangkat, coba lagi, dan jika masalah berlanjut, hubungi dukungan Cypherock untuk mendapatkan bantuan"
+        "heading": "Pembaruan -=DEVICE_NAME=- gagal",
+        "subtext": "Hubungkan kembali perangkat, coba lagi, dan jika masalah berlanjut, hubungi dukungan -=PRODUCT_NAME=- untuk mendapatkan bantuan"
       },
       "BTL_0107": {
-        "heading": "X1 Vault Anda tidak mendukung firmware ini",
-        "subtext": "Hubungi dukungan Cypherock untuk mendapatkan bantuan"
+        "heading": "-=DEVICE_NAME=- Anda tidak mendukung firmware ini",
+        "subtext": "Hubungi dukungan -=PRODUCT_NAME=- untuk mendapatkan bantuan"
       },
       "BTL_0108": {
-        "heading": "X1 Vault Anda mengalami beberapa masalah komunikasi",
-        "subtext": "Hubungkan kembali perangkat, coba lagi, dan jika masalah berlanjut, hubungi dukungan Cypherock untuk mendapatkan bantuan"
+        "heading": "-=DEVICE_NAME=- Anda mengalami beberapa masalah komunikasi",
+        "subtext": "Hubungkan kembali perangkat, coba lagi, dan jika masalah berlanjut, hubungi dukungan -=PRODUCT_NAME=- untuk mendapatkan bantuan"
       },
       "BTL_0109": {
         "heading": "Terjadi kesalahan",
-        "subtext": "Hubungkan kembali perangkat, coba lagi, dan jika masalah berlanjut, hubungi dukungan Cypherock untuk mendapatkan bantuan"
+        "subtext": "Hubungkan kembali perangkat, coba lagi, dan jika masalah berlanjut, hubungi dukungan -=PRODUCT_NAME=- untuk mendapatkan bantuan"
       },
       "BTL_0105": {
-        "heading": "X1 Vault Anda mengalami masalah komunikasi",
-        "subtext": "Hubungkan kembali perangkat, coba lagi, dan jika masalah berlanjut, hubungi dukungan Cypherock untuk mendapatkan bantuan"
+        "heading": "-=DEVICE_NAME=- Anda mengalami masalah komunikasi",
+        "subtext": "Hubungkan kembali perangkat, coba lagi, dan jika masalah berlanjut, hubungi dukungan -=PRODUCT_NAME=- untuk mendapatkan bantuan"
       },
       "APP_0000": {
         "heading": "Terjadi kesalahan",
-        "subtext": "Hubungkan kembali perangkat, coba lagi, dan jika masalah berlanjut, hubungi dukungan Cypherock untuk mendapatkan bantuan"
+        "subtext": "Hubungkan kembali perangkat, coba lagi, dan jika masalah berlanjut, hubungi dukungan -=PRODUCT_NAME=- untuk mendapatkan bantuan"
       },
       "APP_0101": {
-        "heading": "X1 Vault Anda sedang sibuk",
+        "heading": "-=DEVICE_NAME=- Anda sedang sibuk",
         "subtext": "Arahkan ke menu utama di perangkat dan coba lagi"
       },
       "APP_0102": {
-        "heading": "X1 Vault Anda membatalkan operasi ini",
+        "heading": "-=DEVICE_NAME=- Anda membatalkan operasi ini",
         "subtext": "Anda dapat melanjutkannya dari tempat Anda terakhir meninggalkannya"
       },
       "APP_0103": {
-        "heading": "X1 Vault Anda membatalkan operasi ini",
-        "subtext": "Hubungkan kembali perangkat, coba lagi, dan jika masalah berlanjut, hubungi dukungan Cypherock untuk mendapatkan bantuan"
+        "heading": "-=DEVICE_NAME=- Anda membatalkan operasi ini",
+        "subtext": "Hubungkan kembali perangkat, coba lagi, dan jika masalah berlanjut, hubungi dukungan -=PRODUCT_NAME=- untuk mendapatkan bantuan"
       },
       "APP_0200": {
-        "heading": "X1 Vault Anda mengalami masalah komunikasi",
-        "subtext": "Hubungkan kembali perangkat, coba lagi, dan jika masalah berlanjut, hubungi dukungan Cypherock untuk mendapatkan bantuan"
+        "heading": "-=DEVICE_NAME=- Anda mengalami masalah komunikasi",
+        "subtext": "Hubungkan kembali perangkat, coba lagi, dan jika masalah berlanjut, hubungi dukungan -=PRODUCT_NAME=- untuk mendapatkan bantuan"
       },
       "APP_0201": {
-        "heading": "X1 Vault Anda mengalami masalah komunikasi",
-        "subtext": "Hubungkan kembali perangkat, coba lagi, dan jika masalah berlanjut, hubungi dukungan Cypherock untuk mendapatkan bantuan"
+        "heading": "-=DEVICE_NAME=- Anda mengalami masalah komunikasi",
+        "subtext": "Hubungkan kembali perangkat, coba lagi, dan jika masalah berlanjut, hubungi dukungan -=PRODUCT_NAME=- untuk mendapatkan bantuan"
       },
       "APP_0202": {
-        "heading": "X1 Vault Anda mengalami masalah komunikasi",
-        "subtext": "Hubungkan kembali perangkat, coba lagi, dan jika masalah berlanjut, hubungi dukungan Cypherock untuk mendapatkan bantuan"
+        "heading": "-=DEVICE_NAME=- Anda mengalami masalah komunikasi",
+        "subtext": "Hubungkan kembali perangkat, coba lagi, dan jika masalah berlanjut, hubungi dukungan -=PRODUCT_NAME=- untuk mendapatkan bantuan"
       },
       "APP_0203": {
         "heading": "Aplikasi tidak ada di perangkat"
       },
       "APP_0204": {
-        "heading": "X1 Vault Anda sedang sibuk",
+        "heading": "-=DEVICE_NAME=- Anda sedang sibuk",
         "subtext": "Coba lagi setelah beberapa waktu, jika masalah berlanjut, hubungkan kembali perangkat."
       },
       "APP_0205": {
-        "heading": "X1 Vault Anda saat ini tidak diatur dengan benar",
+        "heading": "-=DEVICE_NAME=- Anda saat ini tidak diatur dengan benar",
         "subtext": "Tekan lanjutkan untuk memulai pengaturan"
       },
       "APP_0300": {
-        "heading": "Anda telah menghapus dompet ${walletName} dari X1 Vault. Apakah Anda ingin menghapusnya dari aplikasi cySync juga?"
+        "heading": "Anda telah menghapus dompet ${walletName} dari -=DEVICE_NAME=-. Apakah Anda ingin menghapusnya dari aplikasi -=APP_NAME=- juga?"
       },
       "APP_0301": {
-        "heading": "Dompet Anda ${walletName} saat ini salah dikonfigurasi di X1 Vault Anda",
+        "heading": "Dompet Anda ${walletName} saat ini salah dikonfigurasi di -=DEVICE_NAME=- Anda",
         "subtext": "Pergi ke dompet ${walletName} dari menu utama di perangkat Anda untuk mengatasi masalah tersebut"
       },
       "APP_0206": {
-        "heading": "X1 Vault Anda mengalami waktu habis",
+        "heading": "-=DEVICE_NAME=- Anda mengalami waktu habis",
         "subtext": "Arahkan ke menu utama di perangkat dan coba lagi"
       },
       "APP_0400": {
-        "heading": "Kesalahan X1 Card tidak dikenal",
+        "heading": "Kesalahan -=CARD_NAME=- tidak dikenal",
         "subtext": "Coba ulangi atau klik Bantuan untuk menemukan solusi"
       },
       "APP_0501": {
-        "heading": "Anda membatalkan operasi ini di X1 Vault Anda"
+        "heading": "Anda membatalkan operasi ini di -=DEVICE_NAME=- Anda"
       },
       "APP_0600": {
-        "heading": "X1 Vault Anda mengalami masalah komunikasi",
-        "subtext": "Coba ulangi atau hubungi dukungan Cypherock untuk mendapatkan bantuan"
+        "heading": "-=DEVICE_NAME=- Anda mengalami masalah komunikasi",
+        "subtext": "Coba ulangi atau hubungi dukungan -=PRODUCT_NAME=- untuk mendapatkan bantuan"
       },
       "APP_0700": {
-        "heading": "Perangkat tampaknya telah disusupi. Hubungi dukungan Cypherock segera"
+        "heading": "Perangkat tampaknya telah disusupi. Hubungi dukungan -=PRODUCT_NAME=- segera"
       },
       "APP_0701": {
-        "heading": "Kartu tampaknya telah disusupi. Hubungi dukungan Cypherock segera"
+        "heading": "Kartu tampaknya telah disusupi. Hubungi dukungan -=PRODUCT_NAME=- segera"
       },
       "APP_0400_001": {
-        "heading": "Kesalahan X1 Card tidak dikenal",
-        "subtext": "Coba ulangi dan jika masalah berlanjut, hubungi dukungan Cypherock untuk mendapatkan bantuan "
+        "heading": "Kesalahan -=CARD_NAME=- tidak dikenal",
+        "subtext": "Coba ulangi dan jika masalah berlanjut, hubungi dukungan -=PRODUCT_NAME=- untuk mendapatkan bantuan "
       },
       "APP_0400_002": {
-        "heading": "X1 Card Anda saat ini tidak terhubung dengan X1 Vault Anda",
+        "heading": "-=CARD_NAME=- Anda saat ini tidak terhubung dengan -=DEVICE_NAME=- Anda",
         "subtext": "Pasangkan kartu Anda dengan masuk ke pengaturan dari menu utama di perangkat Anda sebelum melakukan operasi",
         "deviceNavigationText": "Menu utama > Pengaturan > Pasangkan Kartu"
       },
       "APP_0400_003": {
-        "heading": "Otentikasi X1 Card Anda gagal",
-        "subtext": "Coba kartu lain dan jika masalah berlanjut, hubungi dukungan Cypherock untuk mendapatkan bantuan"
+        "heading": "Otentikasi -=CARD_NAME=- Anda gagal",
+        "subtext": "Coba kartu lain dan jika masalah berlanjut, hubungi dukungan -=PRODUCT_NAME=- untuk mendapatkan bantuan"
       },
       "APP_0400_004": {
-        "heading": "X1 Card Anda mengalami kerusakan",
+        "heading": "-=CARD_NAME=- Anda mengalami kerusakan",
         "subtext": "Coba ulangi atau klik Bantuan untuk menemukan solusi"
       },
       "APP_0400_005": {
-        "heading": "X1 Card Anda mengalami beberapa masalah komunikasi",
+        "heading": "-=CARD_NAME=- Anda mengalami beberapa masalah komunikasi",
         "subtext": "Coba ulangi atau klik Bantuan untuk menemukan solusi"
       },
       "APP_0400_006": {
-        "heading": "Anda mengetukkan X1 Card yang salah",
+        "heading": "Anda mengetukkan -=CARD_NAME=- yang salah",
         "subtext": "Pastikan kartu Anda berasal dari set yang sama"
       },
       "APP_0400_007": {
-        "heading": "X1 Card Anda mengalami beberapa masalah komunikasi",
-        "subtext": "Coba ulangi dan jika masalah berlanjut, hubungi dukungan Cypherock untuk mendapatkan bantuan "
+        "heading": "-=CARD_NAME=- Anda mengalami beberapa masalah komunikasi",
+        "subtext": "Coba ulangi dan jika masalah berlanjut, hubungi dukungan -=PRODUCT_NAME=- untuk mendapatkan bantuan "
       },
       "APP_0400_008": {
-        "heading": "Anda mengetukkan X1 Card yang salah",
+        "heading": "Anda mengetukkan -=CARD_NAME=- yang salah",
         "subtext": "Harap ketukkan kartu dalam urutan yang benar"
       },
       "APP_0400_009": {
-        "heading": "X1 Card Anda mengalami beberapa masalah komunikasi",
-        "subtext": "Coba ulangi dan jika masalah berlanjut, hubungi dukungan Cypherock untuk mendapatkan bantuan "
+        "heading": "-=CARD_NAME=- Anda mengalami beberapa masalah komunikasi",
+        "subtext": "Coba ulangi dan jika masalah berlanjut, hubungi dukungan -=PRODUCT_NAME=- untuk mendapatkan bantuan "
       },
       "APP_0400_010": {
-        "heading": "X1 Card Anda mengalami beberapa masalah komunikasi",
-        "subtext": "Hubungi dukungan Cypherock untuk mendapatkan bantuan"
+        "heading": "-=CARD_NAME=- Anda mengalami beberapa masalah komunikasi",
+        "subtext": "Hubungi dukungan -=PRODUCT_NAME=- untuk mendapatkan bantuan"
       },
       "APP_0400_011": {
-        "heading": "X1 Card Anda tidak sinkron dengan X1 Vault Anda",
+        "heading": "-=CARD_NAME=- Anda tidak sinkron dengan -=DEVICE_NAME=- Anda",
         "subtext": "Sinkronkan ulang kartu Anda dengan masuk ke dompet ${walletName} dari menu utama di perangkat Anda sebelum melakukan operasi"
       },
       "APP_0400_012": {
-        "heading": "Memory X1 Card Anda penuh",
-        "subtext": "Anda dapat menghapus dompet untuk menambahkan yang baru atau membeli Cypherock X1 lain"
+        "heading": "Memory -=CARD_NAME=- Anda penuh",
+        "subtext": "Anda dapat menghapus dompet untuk menambahkan yang baru atau membeli -=WALLET_NAME=- lain"
       },
       "APP_0400_013": {
         "heading": "Anda memasukkan PIN yang salah",
         "subtext": "Masukkan PIN yang benar sebelum kartu terkunci"
       },
       "APP_0400_014": {
-        "heading": "X1 Card Anda mengalami beberapa masalah komunikasi",
-        "subtext": "Hubungi dukungan Cypherock untuk mendapatkan bantuan"
+        "heading": "-=CARD_NAME=- Anda mengalami beberapa masalah komunikasi",
+        "subtext": "Hubungi dukungan -=PRODUCT_NAME=- untuk mendapatkan bantuan"
       },
       "APP_0400_015": {
-        "heading": "X1 Card Anda perlu dipasangkan dengan X1 Vault Anda",
+        "heading": "-=CARD_NAME=- Anda perlu dipasangkan dengan -=DEVICE_NAME=- Anda",
         "subtext": "Anda dapat memulai pasangan kartu dari pengaturan di perangkat atau Anda dapat menggunakan set kartu lain"
       },
       "APP_0400_016": {
-        "heading": "X1 Card Anda mengalami beberapa masalah komunikasi",
-        "subtext": "Hubungi dukungan Cypherock untuk mendapatkan bantuan"
+        "heading": "-=CARD_NAME=- Anda mengalami beberapa masalah komunikasi",
+        "subtext": "Hubungi dukungan -=PRODUCT_NAME=- untuk mendapatkan bantuan"
       },
       "APP_0400_017": {
-        "heading": "Dompet ${walletName} saat ini terkunci di X1 Vault Anda",
+        "heading": "Dompet ${walletName} saat ini terkunci di -=DEVICE_NAME=- Anda",
         "subtext": "Buka kunci dompet terlebih dahulu sebelum mencoba lagi",
         "deviceNavigationText": "Menu Utama > ${walletName}"
       },
       "APP_0400_018": {
-        "heading": "X1 Card Anda mengalami kerusakan",
+        "heading": "-=CARD_NAME=- Anda mengalami kerusakan",
         "subtext": "Klik Bantuan untuk menemukan solusi"
       },
       "APP_0400_019": {
-        "heading": "X1 Card Anda mengalami kerusakan",
+        "heading": "-=CARD_NAME=- Anda mengalami kerusakan",
         "subtext": "Coba ulangi atau klik Bantuan untuk menemukan solusi"
       },
       "APP_0400_000": {
-        "heading": "Kesalahan X1 Card tidak dikenal",
+        "heading": "Kesalahan -=CARD_NAME=- tidak dikenal",
         "subtext": "Coba ulangi atau klik Bantuan untuk menemukan solusi"
       },
       "MGA_GL_0000": {
-        "heading": "Log dinonaktifkan pada X1 Vault",
-        "subtext": "Aktifkan log di pengaturan X1 Vault dan coba lagi"
+        "heading": "Log dinonaktifkan pada -=DEVICE_NAME=-",
+        "subtext": "Aktifkan log di pengaturan -=DEVICE_NAME=- dan coba lagi"
       },
       "APP_0207": {
         "heading": "Tidak dapat membuat sesi di perangkat"
       }
     },
     "databaseError": {
-      "heading": "Aplikasi cySync Anda mengalami beberapa masalah internal",
-      "subtext": "Coba lagi, dan jika masalah berlanjut, hubungi dukungan Cypherock untuk mendapatkan bantuan"
+      "heading": "Aplikasi -=APP_NAME=- Anda mengalami beberapa masalah internal",
+      "subtext": "Coba lagi, dan jika masalah berlanjut, hubungi dukungan -=PRODUCT_NAME=- untuk mendapatkan bantuan"
     },
     "serverErrors": {
       "SER_0000": {
-        "heading": "Aplikasi cySync Anda mengalami beberapa masalah konektivitas",
-        "subtext": "Coba lagi, dan jika masalah berlanjut, hubungi dukungan Cypherock untuk mendapatkan bantuan"
+        "heading": "Aplikasi -=APP_NAME=- Anda mengalami beberapa masalah konektivitas",
+        "subtext": "Coba lagi, dan jika masalah berlanjut, hubungi dukungan -=PRODUCT_NAME=- untuk mendapatkan bantuan"
       },
       "SER_0001": {
         "heading": "Silakan terhubung ke internet untuk melanjutkan"
       },
       "SER_1001": {
-        "heading": "Aplikasi cySync Anda mengalami beberapa masalah konektivitas",
-        "subtext": "Coba lagi, dan jika masalah berlanjut, hubungi dukungan Cypherock untuk mendapatkan bantuan"
+        "heading": "Verifikasi OTP Gagal",
+        "subtext": "Coba lagi, dan jika masalah berlanjut, hubungi dukungan -=PRODUCT_NAME=- untuk mendapatkan bantuan"
       },
       "SER_1003": {
-        "heading": "Aplikasi cySync Anda mengalami beberapa masalah konektivitas",
-        "subtext": "Coba lagi, dan jika masalah berlanjut, hubungi dukungan Cypherock untuk mendapatkan bantuan"
+        "heading": "Login Gagal",
+        "subtext": "Tidak dapat login. Verifikasi kredensial Anda dan coba lagi. Jika masalah berlanjut, hubungi dukungan -=PRODUCT_NAME=- untuk mendapatkan bantuan"
       },
       "SER_1004": {
-        "heading": "Aplikasi cySync Anda mengalami beberapa masalah konektivitas",
-        "subtext": "Coba lagi, dan jika masalah berlanjut, hubungi dukungan Cypherock untuk mendapatkan bantuan"
+        "heading": "Verifikasi Tanda Tangan Gagal",
+        "subtext": "Tanda tangan tidak dapat diverifikasi. Coba lagi, dan jika masalah berlanjut, hubungi dukungan -=PRODUCT_NAME=- untuk mendapatkan bantuan"
       },
       "SER_1005": {
-        "heading": "Aplikasi cySync Anda mengalami beberapa masalah konektivitas",
-        "subtext": "Coba lagi, dan jika masalah berlanjut, hubungi dukungan Cypherock untuk mendapatkan bantuan"
+        "heading": "Permintaan Tidak Valid",
+        "subtext": "Permintaan tidak dapat diproses. Periksa input dan coba lagi. Jika masalah berlanjut, hubungi dukungan -=PRODUCT_NAME=- untuk mendapatkan bantuan"
       },
       "SER_1006": {
-        "heading": "Aplikasi cySync Anda mengalami beberapa masalah konektivitas",
-        "subtext": "Coba lagi, dan jika masalah berlanjut, hubungi dukungan Cypherock untuk mendapatkan bantuan"
+        "heading": "Akses Tidak Sah",
+        "subtext": "Anda tidak memiliki izin untuk melakukan tindakan ini. Hubungi dukungan -=PRODUCT_NAME=- untuk mendapatkan bantuan"
       },
       "SER_1007": {
-        "heading": "Aplikasi cySync Anda mengalami beberapa masalah konektivitas",
-        "subtext": "Coba lagi, dan jika masalah berlanjut, hubungi dukungan Cypherock untuk mendapatkan bantuan"
+        "heading": "Sumber Daya Tidak Ditemukan",
+        "subtext": "Sumber daya yang diminta tidak dapat ditemukan. Coba lagi, dan jika masalah berlanjut, hubungi dukungan -=PRODUCT_NAME=- untuk mendapatkan bantuan"
       },
       "SER_1008": {
-        "heading": "Aplikasi cySync Anda mengalami beberapa masalah konektivitas",
-        "subtext": "Coba lagi, dan jika masalah berlanjut, hubungi dukungan Cypherock untuk mendapatkan bantuan"
+        "heading": "Kesalahan Server Internal",
+        "subtext": "Terjadi kesalahan yang tidak terduga. Coba lagi, dan jika masalah berlanjut, hubungi dukungan -=PRODUCT_NAME=- untuk mendapatkan bantuan"
       },
       "SER_1009": {
-        "heading": "Aplikasi cySync Anda mengalami beberapa masalah konektivitas",
-        "subtext": "Coba lagi, dan jika masalah berlanjut, hubungi dukungan Cypherock untuk mendapatkan bantuan"
+        "heading": "Waktu Permintaan Habis",
+        "subtext": "Permintaan memakan waktu terlalu lama untuk diproses. Coba lagi, dan jika masalah berlanjut, hubungi dukungan -=PRODUCT_NAME=- untuk mendapatkan bantuan"
       },
       "SER_1010": {
-        "heading": "Aplikasi cySync Anda mengalami beberapa masalah konektivitas",
-        "subtext": "Coba lagi, dan jika masalah berlanjut, hubungi dukungan Cypherock untuk mendapatkan bantuan"
+        "heading": "OTP Kedaluwarsa",
+        "subtext": "OTP telah kedaluwarsa. Harap minta yang baru dan coba lagi."
       },
       "SER_1011": {
-        "heading": "Aplikasi cySync Anda mengalami beberapa masalah konektivitas",
-        "subtext": "Coba lagi, dan jika masalah berlanjut, hubungi dukungan Cypherock untuk mendapatkan bantuan"
+        "heading": "Validasi Payload Gagal",
+        "subtext": "Data input tidak valid. Verifikasi dan coba lagi. Jika masalah berlanjut, hubungi dukungan -=PRODUCT_NAME=- untuk mendapatkan bantuan"
       },
       "SER_1012": {
-        "heading": "Aplikasi cySync Anda mengalami beberapa masalah konektivitas",
-        "subtext": "Coba lagi, dan jika masalah berlanjut, hubungi dukungan Cypherock untuk mendapatkan bantuan"
+        "heading": "Jumlah Percobaan Ulang Maksimum Tercapai",
+        "subtext": "Anda telah mencapai batas percobaan ulang. Harap coba lagi nanti. Jika masalah berlanjut, hubungi dukungan -=PRODUCT_NAME=- untuk mendapatkan bantuan"
       },
       "SER_1013": {
-        "heading": "Aplikasi cySync Anda mengalami beberapa masalah konektivitas",
-        "subtext": "Coba lagi, dan jika masalah berlanjut, hubungi dukungan Cypherock untuk mendapatkan bantuan"
+        "heading": "Akun Terkunci",
+        "subtext": "Akun Anda telah dikunci sementara. Hubungi dukungan -=PRODUCT_NAME=- untuk mendapatkan bantuan"
       },
       "SER_1014": {
-        "heading": "Aplikasi cySync Anda mengalami beberapa masalah konektivitas",
-        "subtext": "Coba lagi, dan jika masalah berlanjut, hubungi dukungan Cypherock untuk mendapatkan bantuan"
+        "heading": "Layanan Tidak Tersedia",
+        "subtext": "Layanan saat ini tidak tersedia. Harap coba lagi nanti. Jika masalah berlanjut, hubungi dukungan -=PRODUCT_NAME=- untuk mendapatkan bantuan"
       },
       "SER_1015": {
-        "heading": "Aplikasi cySync Anda mengalami beberapa masalah konektivitas",
-        "subtext": "Coba lagi, dan jika masalah berlanjut, hubungi dukungan Cypherock untuk mendapatkan bantuan"
+        "heading": "Konflik Permintaan",
+        "subtext": "Permintaan yang bertentangan dibuat. Tinjau dan coba lagi. Jika masalah berlanjut, hubungi dukungan -=PRODUCT_NAME=- untuk mendapatkan bantuan"
       },
       "SER_1016": {
-        "heading": "Aplikasi cySync Anda mengalami beberapa masalah konektivitas",
-        "subtext": "Coba lagi, dan jika masalah berlanjut, hubungi dukungan Cypherock untuk mendapatkan bantuan"
+        "heading": "Kesalahan Validasi",
+        "subtext": "Input tidak memenuhi kriteria validasi. Tinjau dan coba lagi. Jika masalah berlanjut, hubungi dukungan -=PRODUCT_NAME=- untuk mendapatkan bantuan"
       },
       "SER_1017": {
-        "heading": "Aplikasi cySync Anda mengalami beberapa masalah konektivitas",
-        "subtext": "Coba lagi, dan jika masalah berlanjut, hubungi dukungan Cypherock untuk mendapatkan bantuan"
+        "heading": "Dompet Tidak Ditemukan",
+        "subtext": "Tidak ada dompet yang ditemukan untuk operasi ini. Tinjau dan coba lagi. Jika masalah berlanjut, hubungi dukungan -=PRODUCT_NAME=- untuk mendapatkan bantuan"
       },
       "SER_1018": {
-        "heading": "Aplikasi cySync Anda mengalami beberapa masalah konektivitas",
-        "subtext": "Coba lagi, dan jika masalah berlanjut, hubungi dukungan Cypherock untuk mendapatkan bantuan"
+        "heading": "Pengguna Tidak Ditemukan",
+        "subtext": "Tidak ada data pengguna yang ditemukan. Tinjau dan coba lagi. Jika masalah berlanjut, hubungi dukungan -=PRODUCT_NAME=- untuk mendapatkan bantuan"
       },
       "SER_1019": {
-        "heading": "Aplikasi cySync Anda mengalami beberapa masalah konektivitas",
-        "subtext": "Coba lagi, dan jika masalah berlanjut, hubungi dukungan Cypherock untuk mendapatkan bantuan"
+        "heading": "Nominee Hilang",
+        "subtext": "Harap tambahkan Nominee untuk melanjutkan."
       },
       "SER_1020": {
-        "heading": "Aplikasi cySync Anda mengalami beberapa masalah konektivitas",
-        "subtext": "Coba lagi, dan jika masalah berlanjut, hubungi dukungan Cypherock untuk mendapatkan bantuan"
+        "heading": "Executor Hilang",
+        "subtext": "Harap tambahkan Executor untuk melanjutkan."
       },
       "SER_1021": {
-        "heading": "Aplikasi cySync Anda mengalami beberapa masalah konektivitas",
-        "subtext": "Coba lagi, dan jika masalah berlanjut, hubungi dukungan Cypherock untuk mendapatkan bantuan"
+        "heading": "Sesi Tidak Ditemukan",
+        "subtext": "Data sesi hilang. Coba lagi, dan jika masalah berlanjut, hubungi dukungan -=PRODUCT_NAME=- untuk mendapatkan bantuan"
       },
       "SER_1022": {
-        "heading": "Aplikasi cySync Anda mengalami beberapa masalah konektivitas",
-        "subtext": "Coba lagi, dan jika masalah berlanjut, hubungi dukungan Cypherock untuk mendapatkan bantuan"
+        "heading": "Kupon Tidak Valid",
+        "subtext": "Kode kupon yang dimasukkan tidak valid. Verifikasi dan coba lagi. Jika masalah berlanjut, hubungi dukungan -=PRODUCT_NAME=- untuk mendapatkan bantuan"
       },
       "SER_1023": {
-        "heading": "Aplikasi cySync Anda mengalami beberapa masalah konektivitas",
-        "subtext": "Coba lagi, dan jika masalah berlanjut, hubungi dukungan Cypherock untuk mendapatkan bantuan"
+        "heading": "Sesi Tidak Valid",
+        "subtext": "Sesi tidak valid atau kedaluwarsa. Coba lagi, dan jika masalah berlanjut, hubungi dukungan -=PRODUCT_NAME=- untuk mendapatkan bantuan"
       },
       "SER_1024": {
-        "heading": "Aplikasi cySync Anda mengalami beberapa masalah konektivitas",
-        "subtext": "Coba lagi, dan jika masalah berlanjut, hubungi dukungan Cypherock untuk mendapatkan bantuan"
+        "heading": "Perangkat Tidak Valid",
+        "subtext": "Coba lagi, dan jika masalah berlanjut, hubungi dukungan -=PRODUCT_NAME=- untuk mendapatkan bantuan"
       },
       "SER_1025": {
-        "heading": "Aplikasi cySync Anda mengalami beberapa masalah konektivitas",
-        "subtext": "Coba lagi, dan jika masalah berlanjut, hubungi dukungan Cypherock untuk mendapatkan bantuan"
+        "heading": "Kunci Tidak Valid",
+        "subtext": "Coba lagi, dan jika masalah berlanjut, hubungi dukungan -=PRODUCT_NAME=- untuk mendapatkan bantuan"
       },
       "SER_1026": {
-        "heading": "Aplikasi cySync Anda mengalami beberapa masalah konektivitas",
-        "subtext": "Coba lagi, dan jika masalah berlanjut, hubungi dukungan Cypherock untuk mendapatkan bantuan"
+        "heading": "Rencana Aktif Sudah Ditemukan",
+        "subtext": "Anda sudah memiliki rencana aktif untuk dompet ini. Pilih dompet lain dan coba lagi."
       },
       "SER_1027": {
         "heading": "Batas Pengiriman Ulang OTP Tercapai",
-        "subtext": "Anda telah mencapai jumlah maksimum percobaan pengiriman ulang OTP. Silakan coba lagi nanti atau hubungi dukungan Cypherock untuk bantuan."
+        "subtext": "Anda telah mencapai jumlah maksimum percobaan pengiriman ulang OTP. Silakan coba lagi nanti atau hubungi dukungan -=PRODUCT_NAME=- untuk bantuan."
       },
       "SER_1028": {
         "heading": "Email Sudah Terdaftar",
-        "subtext": "Akun dengan alamat email ini sudah terdaftar. Silakan gunakan alamat email yang berbeda atau hubungi dukungan Cypherock untuk bantuan."
+        "subtext": "Akun dengan alamat email ini sudah terdaftar. Silakan gunakan alamat email yang berbeda atau hubungi dukungan -=PRODUCT_NAME=- untuk bantuan."
+      },
+      "SER_1100": {
+        "heading": "Jumlah Pendaftaran Pengguna Maksimum Harian Dicapai",
+        "subtext": "Kami telah mencapai jumlah maksimum pendaftaran pengguna untuk hari ini. Silakan coba lagi besok."
+      },
+      "SER_1101": {
+        "heading": "Jumlah Parti Maksimum Per Pengguna Dicapai",
+        "subtext": "Anda telah mencapai jumlah maksimum parti untuk akun Anda. Silakan hubungi dukungan Cypherock untuk bantuan."
+      },
+      "SER_1102": {
+        "heading": "Pengguna Tidak Layak Untuk Pembuatan Parti",
+        "subtext": "Anda tidak layak untuk membuat parti. Silakan hubungi dukungan Cypherock untuk bantuan."
       },
       "SER_1100": {
         "heading": "Jumlah Pendaftaran Pengguna Maksimum Harian Dicapai",
@@ -1394,39 +1408,39 @@
     "binanceErrors": {
       "BIN_0000": {
         "heading": "Kesalahan Sistem",
-        "subtext": "Coba lagi dan jika masalah berlanjut, hubungi dukungan Cypherock untuk bantuan"
+        "subtext": "Coba lagi dan jika masalah berlanjut, hubungi dukungan -=PRODUCT_NAME=- untuk bantuan"
       },
       "BIN_0001": {
         "heading": "Sistem Sibuk",
-        "subtext": "Coba lagi dan jika masalah berlanjut, hubungi dukungan Cypherock untuk bantuan"
+        "subtext": "Coba lagi dan jika masalah berlanjut, hubungi dukungan -=PRODUCT_NAME=- untuk bantuan"
       },
       "BIN_0002": {
         "heading": "Parameter Tidak Valid",
-        "subtext": "Coba lagi dan jika masalah berlanjut, hubungi dukungan Cypherock untuk bantuan"
+        "subtext": "Coba lagi dan jika masalah berlanjut, hubungi dukungan -=PRODUCT_NAME=- untuk bantuan"
       },
       "BIN_0003": {
         "heading": "ID Klien Hilang",
-        "subtext": "Hubungi dukungan Cypherock untuk bantuan"
+        "subtext": "Hubungi dukungan -=PRODUCT_NAME=- untuk bantuan"
       },
       "BIN_0004": {
         "heading": "Parameter Dinonaktifkan",
-        "subtext": "Hubungi dukungan Cypherock untuk bantuan"
+        "subtext": "Hubungi dukungan -=PRODUCT_NAME=- untuk bantuan"
       },
       "BIN_0005": {
         "heading": "Pesanan Tidak Ditemukan",
-        "subtext": "Coba lagi dan jika masalah berlanjut, hubungi dukungan Cypherock untuk bantuan"
+        "subtext": "Coba lagi dan jika masalah berlanjut, hubungi dukungan -=PRODUCT_NAME=- untuk bantuan"
       },
       "BIN_0006": {
         "heading": "Tipe Pesanan Tidak Didukung",
-        "subtext": "Hubungi dukungan Cypherock untuk bantuan"
+        "subtext": "Hubungi dukungan -=PRODUCT_NAME=- untuk bantuan"
       },
       "BIN_0007": {
         "heading": "Parameter Tidak Ditemukan",
-        "subtext": "Hubungi dukungan Cypherock untuk bantuan"
+        "subtext": "Hubungi dukungan -=PRODUCT_NAME=- untuk bantuan"
       },
       "BIN_0008": {
         "heading": "Metode Pembayaran Tidak Didukung",
-        "subtext": "Hubungi dukungan Cypherock untuk bantuan"
+        "subtext": "Hubungi dukungan -=PRODUCT_NAME=- untuk bantuan"
       }
     },
     "default": "Terjadi kesalahan internal",
@@ -1434,7 +1448,7 @@
       "default": {
         "DEF_0000": {
           "heading": "Terjadi kesalahan",
-          "subtext": "Coba lagi, dan jika masalah berlanjut, hubungi dukungan Cypherock untuk mendapatkan bantuan"
+          "subtext": "Coba lagi, dan jika masalah berlanjut, hubungi dukungan -=PRODUCT_NAME=- untuk mendapatkan bantuan"
         }
       }
     },
@@ -1466,16 +1480,16 @@
       "skipPinSetup": "Lewati langkah ini jika Anda tidak mengatur PIN",
       "tabs": [
         {
-          "asideTitle": "X1 Vault",
+          "asideTitle": "-=DEVICE_NAME=-",
           "pages": [
             {
-              "title": "Dari Menu Utama X1 Vault Anda, klik \"Buat Dompet\""
+              "title": "Dari Menu Utama -=DEVICE_NAME=- Anda, klik \"Buat Dompet\""
             },
             {
-              "title": "Klik \"Buat Dompet Baru\" di X1 Vault Anda"
+              "title": "Klik \"Buat Dompet Baru\" di -=DEVICE_NAME=- Anda"
             },
             {
-              "title": "Masukkan nama dompet di X1 Vault Anda",
+              "title": "Masukkan nama dompet di -=DEVICE_NAME=- Anda",
               "bulletList": [
                 "Hingga 15 karakter diperbolehkan",
                 "Dapat berupa alfanumerik"
@@ -1490,7 +1504,7 @@
               ]
             },
             {
-              "title": "Konfirmasi nama dompet di X1 Vault"
+              "title": "Konfirmasi nama dompet di -=DEVICE_NAME=-"
             },
             {
               "title": "Apakah Anda ingin mengatur PIN untuk dompet Anda?",
@@ -1501,7 +1515,7 @@
               ]
             },
             {
-              "title": "Atur PIN di X1 Vault",
+              "title": "Atur PIN di -=DEVICE_NAME=-",
               "bulletList": [
                 "Gunakan antara 4 dan 8 karakter",
                 "PIN dapat berupa alfanumerik"
@@ -1511,35 +1525,35 @@
                   "warning": "Pastikan Anda membuat cadangan PIN Anda. Jika Anda kehilangannya, Anda kehilangan akses ke dana Anda"
                 },
                 {
-                  "infoGreen": "Anda dapat mengatur Layanan Pemulihan PIN Cypherock Cover untuk memulihkan PIN dompet Anda dengan aman — tanpa memaparkan seed phrase Anda"
+                  "infoGreen": "Anda dapat mengatur Layanan Pemulihan PIN -=PRODUCT_NAME=- Cover untuk memulihkan PIN dompet Anda dengan aman — tanpa memaparkan seed phrase Anda"
                 }
               ]
             },
             {
-              "title": "Konfirmasi PIN yang dimasukkan di X1 Vault",
+              "title": "Konfirmasi PIN yang dimasukkan di -=DEVICE_NAME=-",
               "messageBoxList": [
                 {
                   "warning": "Pastikan Anda membuat cadangan PIN Anda. Jika Anda kehilangannya, Anda kehilangan akses ke dana Anda"
                 },
                 {
-                  "infoGreen": "Anda dapat mengatur Layanan Pemulihan PIN Cypherock Cover untuk memulihkan PIN dompet Anda dengan aman — tanpa memaparkan seed phrase Anda"
+                  "infoGreen": "Anda dapat mengatur Layanan Pemulihan PIN -=PRODUCT_NAME=- Cover untuk memulihkan PIN dompet Anda dengan aman — tanpa memaparkan seed phrase Anda"
                 }
               ]
             }
           ]
         },
         {
-          "asideTitle": "Sinkronkan X1 Cards",
+          "asideTitle": "Sinkronkan -=CARD_NAME=-s",
           "pages": [
             {
-              "title": "Tempelkan X1 Cards satu per satu di bawah X1 Vault",
+              "title": "Tempelkan -=CARD_NAME=-s satu per satu di bawah -=DEVICE_NAME=-",
               "subtitle": "Jangan angkat hingga Anda mendengar suara bip",
               "messageBoxList": [
                 {
-                  "info": "Pastikan X1 Cards Anda berasal dari keluarga yang sama"
+                  "info": "Pastikan -=CARD_NAME=-s Anda berasal dari keluarga yang sama"
                 },
                 {
-                  "info": "Pastikan Anda menempelkan X1 Cards dalam urutan yang benar"
+                  "info": "Pastikan Anda menempelkan -=CARD_NAME=-s dalam urutan yang benar"
                 }
               ]
             }
@@ -1552,21 +1566,21 @@
               "title": "Selamat, dompet Anda sekarang berhasil dibuat"
             },
             {
-              "title": "Lain kali Anda perlu melakukan transaksi, Anda hanya perlu mengambil salah satu X1 Card bersama dengan X1 Vault"
+              "title": "Lain kali Anda perlu melakukan transaksi, Anda hanya perlu mengambil salah satu -=CARD_NAME=- bersama dengan -=DEVICE_NAME=-"
             },
             {
-              "title": "Jika Anda kehilangan X1 Vault Anda, Anda dapat membeli X1 Vault baru secara terpisah dan menggunakannya dengan X1 Cards lama Anda"
+              "title": "Jika Anda kehilangan -=DEVICE_NAME=- Anda, Anda dapat membeli -=DEVICE_NAME=- baru secara terpisah dan menggunakannya dengan -=CARD_NAME=-s lama Anda"
             },
             {
               "title": "Catatan Penting",
               "messageBoxList": [
                 {
-                  "warning": "Jika Anda perlu menambahkan dompet lain, Anda harus mengambil semua 4 kartu bersama-sama. Jika Anda ingin mengimpor dompet lain ke dalam Cypherock X1, sekarang adalah waktu terbaik untuk menghindari kesulitan di masa depan"
+                  "warning": "Jika Anda perlu menambahkan dompet lain, Anda harus mengambil semua 4 kartu bersama-sama. Jika Anda ingin mengimpor dompet lain ke dalam -=WALLET_NAME=-, sekarang adalah waktu terbaik untuk menghindari kesulitan di masa depan"
                 }
               ]
             },
             {
-              "title": "Sebagai langkah selanjutnya, simpan X1 Cards Anda dengan aman di dalam lengan kartu dan distribusikan ke tempat yang berbeda. Beberapa contoh tempat bisa berupa:",
+              "title": "Sebagai langkah selanjutnya, simpan -=CARD_NAME=-s Anda dengan aman di dalam lengan kartu dan distribusikan ke tempat yang berbeda. Beberapa contoh tempat bisa berupa:",
               "bulletList": [
                 "Rumah anggota keluarga Anda atau teman-teman Anda",
                 "Tempat persembunyian rahasia",
@@ -1581,16 +1595,16 @@
       "title": "Impor Dompet",
       "tabs": [
         {
-          "asideTitle": "X1 Vault",
+          "asideTitle": "-=DEVICE_NAME=-",
           "pages": [
             {
-              "title": "Dari Menu Utama X1 Vault Anda, klik \"Buat Dompet\""
+              "title": "Dari Menu Utama -=DEVICE_NAME=- Anda, klik \"Buat Dompet\""
             },
             {
-              "title": "Klik \"Pulihkan dari Seed Phrase\" di X1 Vault Anda"
+              "title": "Klik \"Pulihkan dari Seed Phrase\" di -=DEVICE_NAME=- Anda"
             },
             {
-              "title": "Masukkan nama dompet di X1 Vault Anda",
+              "title": "Masukkan nama dompet di -=DEVICE_NAME=- Anda",
               "bulletList": [
                 "Hingga 15 karakter diperbolehkan",
                 "Dapat berupa alfanumerik"
@@ -1605,7 +1619,7 @@
               ]
             },
             {
-              "title": "Konfirmasi nama dompet di X1 Vault"
+              "title": "Konfirmasi nama dompet di -=DEVICE_NAME=-"
             },
             {
               "title": "Apakah Anda ingin mengatur PIN untuk dompet Anda?",
@@ -1616,7 +1630,7 @@
               ]
             },
             {
-              "title": "Atur PIN di X1 Vault",
+              "title": "Atur PIN di -=DEVICE_NAME=-",
               "bulletList": [
                 "Gunakan antara 4 dan 8 karakter",
                 "PIN dapat berupa alfanumerik"
@@ -1626,31 +1640,31 @@
                   "warning": "Pastikan Anda membuat cadangan PIN Anda. Jika Anda kehilangannya, Anda kehilangan akses ke dana Anda"
                 },
                 {
-                  "infoGreen": "Anda dapat mengatur Layanan Pemulihan PIN Cypherock Cover untuk memulihkan PIN dompet Anda dengan aman — tanpa mengekspos seed phrase Anda"
+                  "infoGreen": "Anda dapat mengatur Layanan Pemulihan PIN -=PRODUCT_NAME=- Cover untuk memulihkan PIN dompet Anda dengan aman — tanpa mengekspos seed phrase Anda"
                 }
               ]
             },
             {
-              "title": "Konfirmasi PIN yang dimasukkan di X1 Vault",
+              "title": "Konfirmasi PIN yang dimasukkan di -=DEVICE_NAME=-",
               "messageBoxList": [
                 {
-                  "warning": "Ingat PIN Anda, jika Anda kehilangannya, Anda kehilangan akses ke dana Anda. Bahkan Cypherock tidak akan dapat membantu Anda memulihkan aset Anda"
+                  "warning": "Ingat PIN Anda, jika Anda kehilangannya, Anda kehilangan akses ke dana Anda. Bahkan -=PRODUCT_NAME=- tidak akan dapat membantu Anda memulihkan aset Anda"
                 },
                 {
-                  "infoGreen": "Anda dapat mengatur Layanan Pemulihan PIN Cypherock Cover untuk memulihkan PIN dompet Anda dengan aman — tanpa mengekspos seed phrase Anda"
+                  "infoGreen": "Anda dapat mengatur Layanan Pemulihan PIN -=PRODUCT_NAME=- Cover untuk memulihkan PIN dompet Anda dengan aman — tanpa mengekspos seed phrase Anda"
                 }
               ]
             }
           ]
         },
         {
-          "asideTitle": "Sinkronkan X1 Cards",
+          "asideTitle": "Sinkronkan -=CARD_NAME=-s",
           "pages": [
             {
-              "title": "Hitung jumlah kata dari seed phrase yang Anda impor dan pilih di X1 Vault"
+              "title": "Hitung jumlah kata dari seed phrase yang Anda impor dan pilih di -=DEVICE_NAME=-"
             },
             {
-              "title": "Masukkan seed phrase di X1 Vault",
+              "title": "Masukkan seed phrase di -=DEVICE_NAME=-",
               "messageBoxList": [
                 {
                   "warning": "Pastikan Anda tidak melakukan kesalahan pengejaan saat memasukkan kata-kata di perangkat. Kata-kata seperti \"west\" & \"nest\" seringkali membingungkan saat dibaca dan harus dimasukkan dengan benar"
@@ -1658,18 +1672,18 @@
               ]
             },
             {
-              "title": "Verifikasi seed phrase yang Anda masukkan di X1 Vault",
+              "title": "Verifikasi seed phrase yang Anda masukkan di -=DEVICE_NAME=-",
               "subtitle": "Cocokkan setiap kata untuk berhasil mengimpor dompet yang benar"
             },
             {
-              "title": "Tempelkan X1 Cards satu per satu di bawah X1 Vault",
+              "title": "Tempelkan -=CARD_NAME=-s satu per satu di bawah -=DEVICE_NAME=-",
               "subtitle": "Jangan angkat hingga Anda mendengar suara bip",
               "messageBoxList": [
                 {
-                  "info": "Pastikan X1 Cards Anda berasal dari keluarga yang sama"
+                  "info": "Pastikan -=CARD_NAME=-s Anda berasal dari keluarga yang sama"
                 },
                 {
-                  "info": "Pastikan Anda menempelkan X1 Cards dalam urutan yang benar"
+                  "info": "Pastikan Anda menempelkan -=CARD_NAME=-s dalam urutan yang benar"
                 }
               ]
             }
@@ -1682,21 +1696,21 @@
               "title": "Selamat, dompet Anda sekarang berhasil dibuat"
             },
             {
-              "title": "Lain kali Anda perlu melakukan transaksi, Anda hanya perlu mengambil salah satu X1 Card bersama dengan X1 Vault"
+              "title": "Lain kali Anda perlu melakukan transaksi, Anda hanya perlu mengambil salah satu -=CARD_NAME=- bersama dengan -=DEVICE_NAME=-"
             },
             {
-              "title": "Jika Anda kehilangan X1 Vault Anda, Anda dapat membeli X1 Vault baru secara terpisah dan menggunakannya dengan X1 Cards lama Anda"
+              "title": "Jika Anda kehilangan -=DEVICE_NAME=- Anda, Anda dapat membeli -=DEVICE_NAME=- baru secara terpisah dan menggunakannya dengan -=CARD_NAME=-s lama Anda"
             },
             {
               "title": "Catatan Penting",
               "messageBoxList": [
                 {
-                  "warning": "Jika Anda perlu menambahkan dompet lain, Anda harus mengambil semua 4 kartu bersama-sama. Jika Anda ingin mengimpor dompet lain ke dalam Cypherock X1, sekarang adalah waktu terbaik untuk menghindari kesulitan di masa depan"
+                  "warning": "Jika Anda perlu menambahkan dompet lain, Anda harus mengambil semua 4 kartu bersama-sama. Jika Anda ingin mengimpor dompet lain ke dalam -=WALLET_NAME=-, sekarang adalah waktu terbaik untuk menghindari kesulitan di masa depan"
                 }
               ]
             },
             {
-              "title": "Sebagai langkah selanjutnya, simpan X1 Cards Anda dengan aman di dalam lengan kartu dan distribusikan ke tempat yang berbeda. Beberapa contoh tempat bisa berupa:",
+              "title": "Sebagai langkah selanjutnya, simpan -=CARD_NAME=-s Anda dengan aman di dalam lengan kartu dan distribusikan ke tempat yang berbeda. Beberapa contoh tempat bisa berupa:",
               "bulletList": [
                 "Rumah anggota keluarga Anda atau teman-teman Anda",
                 "Tempat persembunyian rahasia",
@@ -1708,7 +1722,7 @@
       ]
     },
     "finalMessage": {
-      "title": "Untuk menambahkan koin dan token dalam dompet, Anda harus menambahkan akun terlebih dahulu. Pastikan Anda memiliki X1 Vault dan X1 Card yang siap",
+      "title": "Untuk menambahkan koin dan token dalam dompet, Anda harus menambahkan akun terlebih dahulu. Pastikan Anda memiliki -=DEVICE_NAME=- dan -=CARD_NAME=- yang siap",
       "buttons": {
         "secondary": "Lewati",
         "primary": "Tambah Akun"
@@ -1737,15 +1751,15 @@
     },
     "reset": {
       "confim": {
-        "title": "Apakah Anda yakin ingin mengatur ulang aplikasi cySync?",
-        "subTitle": "Ini akan menghapus semua data Anda pada aplikasi cySync Anda. Perhatikan bahwa ini tidak akan mengakibatkan kehilangan aset"
+        "title": "Apakah Anda yakin ingin mengatur ulang aplikasi -=APP_NAME=-?",
+        "subTitle": "Ini akan menghapus semua data Anda pada aplikasi -=APP_NAME=- Anda. Perhatikan bahwa ini tidak akan mengakibatkan kehilangan aset"
       }
     },
     "releaseNote": {
       "title": "Catatan Rilis"
     },
     "auth": {
-      "title": "Ikuti petunjuk di X1 Vault",
+      "title": "Ikuti petunjuk di -=DEVICE_NAME=-",
       "email2fa": {
         "title": "Anda disarankan untuk memasukkan ID email sebagai 2FA untuk mendapatkan hasil otentikasi",
         "emailInput": "Email"
@@ -1756,10 +1770,10 @@
         "steps": {
           "confirm": "Konfirmasi otentikasi pada perangkat"
         },
-        "success": "X1 Vault Anda berhasil diautentikasi",
+        "success": "-=DEVICE_NAME=- Anda berhasil diautentikasi",
         "authenticating": {
-          "title": "Harap tunggu sementara X1 Vault Anda sedang diautentikasi",
-          "description": "Jangan lepaskan X1 Vault Anda saat operasi sedang dilakukan"
+          "title": "Harap tunggu sementara -=DEVICE_NAME=- Anda sedang diautentikasi",
+          "description": "Jangan lepaskan -=DEVICE_NAME=- Anda saat operasi sedang dilakukan"
         }
       },
       "authX1Card": {
@@ -1769,7 +1783,7 @@
           "confirm": "Konfirmasi otentikasi kartu pada perangkat",
           "tapCard": "Sentuh kartu mana saja di bawah perangkat"
         },
-        "success": "X1 Card Anda berhasil diautentikasi"
+        "success": "-=CARD_NAME=- Anda berhasil diautentikasi"
       }
     },
     "password": {
@@ -1797,7 +1811,7 @@
         "subTitle": "Masukkan kata sandi untuk melanjutkan"
       },
       "createNewPassword": {
-        "title": "Atur kata sandi cySync Anda",
+        "title": "Atur kata sandi -=APP_NAME=- Anda",
         "subTitle": "Kami tidak menyimpan kata sandi Anda di server kami"
       }
     },
@@ -1837,8 +1851,8 @@
       }
     },
     "betaNotification": {
-      "title": "CySync Update v2.0.0",
-      "description": "Kami telah melakukan perubahan besar pada aplikasi CySync.\nCySync baru hadir dengan semua fitur favorit Anda dan banyak lagi.\nUnduh dari <a href=\"https://cypherock.com/get-started\">https://cypherock.com/get-started</a>\n\n**Penting**\n\n* Anda tidak akan kehilangan dana Anda\n* Setelah pembaruan, Anda harus mengimpor akun Anda lagi\n* Tidak ada pembaruan baru untuk CySync v1 kecuali pembaruan keamanan\n"
+      "title": "-=APP_NAME=- Update v2.0.0",
+      "description": "Kami telah melakukan perubahan besar pada aplikasi -=APP_NAME=-.\n-=APP_NAME=- baru hadir dengan semua fitur favorit Anda dan banyak lagi.\nUnduh dari <a href=\"https://-=PRODUCT_NAME=-.com/get-started\">https://-=PRODUCT_NAME=-.com/get-started</a>\n\n**Penting**\n\n* Anda tidak akan kehilangan dana Anda\n* Setelah pembaruan, Anda harus mengimpor akun Anda lagi\n* Tidak ada pembaruan baru untuk -=APP_NAME=- v1 kecuali pembaruan keamanan\n"
     },
     "editAccount": {
       "header": "Edit Akun",
@@ -1882,7 +1896,7 @@
     },
     "inheritancePlanLogin": {
       "walletAuth": {
-        "title": "Ikuti petunjuk di X1 Vault untuk mengautentikasi dompet yang dipilih",
+        "title": "Ikuti petunjuk di -=DEVICE_NAME=- untuk mengautentikasi dompet yang dipilih",
         "subTitle": "Mengautentikasi dompet",
         "actions": {
           "confirm": "Konfirmasi otentikasi dompet pada perangkat",
@@ -1932,7 +1946,7 @@
         "title": "Pengaturan Pengingat",
         "reminderInfo": {
           "subtitle": "Apa itu waktu pengingat?",
-          "subtext": "Waktu Pengingat adalah interval di mana Anda akan menerima email konfirmasi dari Cypherock untuk memverifikasi kesejahteraan Anda. Jika tidak ada respons dalam waktu dua bulan dari email awal, proses warisan akan dimulai dan penerima warisan Anda akan menerima email instruksi pemulihan dari Cypherock"
+          "subtext": "Waktu Pengingat adalah interval di mana Anda akan menerima email konfirmasi dari -=PRODUCT_NAME=- untuk memverifikasi kesejahteraan Anda. Jika tidak ada respons dalam waktu dua bulan dari email awal, proses warisan akan dimulai dan penerima warisan Anda akan menerima email instruksi pemulihan dari -=PRODUCT_NAME=-"
         },
         "form": {
           "reminderField": {
@@ -1978,7 +1992,7 @@
       "sync": {
         "name": "Sinkronisasi",
         "walletAuth": {
-          "title": "Ikuti petunjuk di X1 Vault untuk mengautentikasi dompet yang dipilih",
+          "title": "Ikuti petunjuk di -=DEVICE_NAME=- untuk mengautentikasi dompet yang dipilih",
           "subTitle": "Mengautentikasi dompet",
           "actions": {
             "confirmAuth": "Konfirmasi otentikasi dompet pada perangkat",
@@ -1998,7 +2012,7 @@
       },
       "decryptPin": {
         "name": "Dekripsi",
-        "title": "Ikuti petunjuk di X1 Vault",
+        "title": "Ikuti petunjuk di -=DEVICE_NAME=-",
         "actions": {
           "confirmOnDevice": "Konfirmasi dekripsi pada perangkat",
           "tapCard": "Sentuh salah satu kartu"
@@ -2013,7 +2027,7 @@
       },
       "viewPin": {
         "name": "Lihat PIN",
-        "title": "Ikuti petunjuk di X1 Vault",
+        "title": "Ikuti petunjuk di -=DEVICE_NAME=-",
         "subTitle": "PIN untuk dompet",
         "actions": {
           "viewDevice": "Lihat PIN pada perangkat Anda dan konfirmasikan"
@@ -2035,13 +2049,13 @@
       },
       "decryption": {
         "wallet": {
-          "title": "Ikuti petunjuk di X1 Vault",
+          "title": "Ikuti petunjuk di -=DEVICE_NAME=-",
           "actions": {
             "confirm": "Konfirmasi dekripsi pada perangkat",
             "tapCard": "Sentuh kartu mana saja"
           },
           "messageBox": {
-            "warning": "Pesan akan didekripsi oleh X1 card"
+            "warning": "Pesan akan didekripsi oleh -=CARD_NAME=-"
           },
           "decryption": {
             "title": "Harap tunggu sementara kami mendekripsi data",
@@ -2069,18 +2083,18 @@
         }
       },
       "confirmMessage": {
-        "title": "Ikuti petunjuk di X1 Vault untuk memverifikasi pesan penerima",
+        "title": "Ikuti petunjuk di -=DEVICE_NAME=- untuk memverifikasi pesan penerima",
         "subTitle": "Anda dapat mengenkripsi pesan pada langkah berikutnya",
         "actions": {
           "confirmOnDevice": "Konfirmasi pada perangkat",
           "verifyLocation": "Verifikasi Lokasi Kartu di perangkat Anda"
         },
         "messageBox": {
-          "danger": "Baca seluruh teks dan verifikasi bahwa pesan yang ditampilkan di perangkat sama seperti yang Anda masukkan di cySync"
+          "danger": "Baca seluruh teks dan verifikasi bahwa pesan yang ditampilkan di perangkat sama seperti yang Anda masukkan di -=APP_NAME=-"
         }
       },
       "encryption": {
-        "title": "Ikuti petunjuk di X1 Vault untuk mengenkripsi pesan penerima",
+        "title": "Ikuti petunjuk di -=DEVICE_NAME=- untuk mengenkripsi pesan penerima",
         "subTitle": "Angkat kartu Anda setelah mendengar 2 bunyi bip",
         "tooltip": "",
         "actions": {
@@ -2104,20 +2118,20 @@
         "name": "Hapus Data Perangkat",
         "dialogs": {
           "settings": {
-            "title": "Dari Menu Utama X1 Vault Anda, klik \"Pengaturan\""
+            "title": "Dari Menu Utama -=DEVICE_NAME=- Anda, klik \"Pengaturan\""
           },
           "clearData": {
-            "title": "Klik \"Hapus Data Perangkat\" pada X1 Vault Anda"
+            "title": "Klik \"Hapus Data Perangkat\" pada -=DEVICE_NAME=- Anda"
           },
           "confirmClearData": {
-            "title": "Konfirmasi \"Hapus data perangkat\" pada X1 Vault"
+            "title": "Konfirmasi \"Hapus data perangkat\" pada -=DEVICE_NAME=-"
           },
           "tapCards": {
-            "title": "Sentuh 2 Kartu X1 lama di bawah X1 Vault",
+            "title": "Sentuh 2 -=CARD_NAME=-s lama di bawah -=DEVICE_NAME=-",
             "subTitle": "Jangan angkat sampai Anda mendengar bunyi bip",
             "messageBoxList": [
               {
-                "warning": "Sentuh kartu yang Anda gunakan selama proses setup awal Cypherock, bukan kartu yang diberikan oleh pemilik dompet"
+                "warning": "Sentuh kartu yang Anda gunakan selama proses setup awal -=PRODUCT_NAME=-, bukan kartu yang diberikan oleh pemilik dompet"
               },
               {
                 "warning": "Perangkat Anda akan me-restart setelah proses ini"
@@ -2128,7 +2142,7 @@
       },
       "wallet": {
         "name": "Dompet",
-        "title": "Ikuti petunjuk di X1 Vault untuk mengautentikasi dompet yang dipilih",
+        "title": "Ikuti petunjuk di -=DEVICE_NAME=- untuk mengautentikasi dompet yang dipilih",
         "subTitle": "Mengautentikasi dompet",
         "actions": {
           "confirm": "Konfirmasi otentikasi dompet pada perangkat",
@@ -2148,7 +2162,7 @@
       "decryption": {
         "name": "Dekripsi",
         "device": {
-          "title": "Ikuti petunjuk di X1 Vault",
+          "title": "Ikuti petunjuk di -=DEVICE_NAME=-",
           "subTitle": "Jangan angkat kartu sampai Anda mendengar bunyi bip",
           "actions": {
             "confirm": "Konfirmasi dekripsi pada perangkat",
@@ -2165,7 +2179,7 @@
       },
       "viewPin": {
         "name": "Lihat PIN",
-        "title": "Ikuti petunjuk di X1 Vault",
+        "title": "Ikuti petunjuk di -=DEVICE_NAME=-",
         "subTitle": "PIN untuk dompet",
         "actions": {
           "view": "Lihat dan salin PIN yang ditampilkan di perangkat Anda dan kemudian konfirmasikan"
@@ -2177,7 +2191,7 @@
       "viewMessage": {
         "name": "Lihat Pesan",
         "title": "Pesan dari ${name}",
-        "tooltip": "Pesan-pesan ini ditulis oleh pemilik dompet untuk Anda. Mereka berisi informasi penting tentang cara memulihkan aset kripto mereka yang disimpan di Cypherock X1. \nCatatan- Pastikan Anda menjaga pesan ini tetap aman dan pribadi.",
+        "tooltip": "Pesan-pesan ini ditulis oleh pemilik dompet untuk Anda. Mereka berisi informasi penting tentang cara memulihkan aset kripto mereka yang disimpan di -=WALLET_NAME=-. \nCatatan- Pastikan Anda menjaga pesan ini tetap aman dan pribadi.",
         "form": {
           "cardLocationField": {
             "label": "Lokasi Kartu",
@@ -2318,8 +2332,8 @@
         "title": "Umum",
         "item": {
           "syncMobile": {
-            "title": "Sinkronkan Aplikasi Seluler CySync",
-            "description": "Sinkronkan Akun Anda dengan Aplikasi Seluler CySync melalui kode QR"
+            "title": "Sinkronkan Aplikasi Seluler -=APP_NAME=-",
+            "description": "Sinkronkan Akun Anda dengan Aplikasi Seluler -=APP_NAME=- melalui kode QR"
           },
           "editAccount": {
             "title": "Edit Akun",
@@ -2335,7 +2349,7 @@
           },
           "language": {
             "title": "Bahasa Tampilan",
-            "description": "Atur bahasa untuk CySync App"
+            "description": "Atur bahasa untuk -=APP_NAME=- App"
           },
           "region": {
             "title": "Wilayah",
@@ -2348,19 +2362,19 @@
         "item": {
           "password": {
             "title": "Kata sandi",
-            "description": "Ubah atau matikan/nyalakan kata sandi untuk CySync App Anda"
+            "description": "Ubah atau matikan/nyalakan kata sandi untuk -=APP_NAME=- App Anda"
           },
           "anayticsAndBugReport": {
             "title": "Analitik & Laporan Bug",
-            "description": "Aktifkan analitik dan laporan bug untuk membantu Cypherock meningkatkan pengalaman pengguna dan membantu menyelesaikan masalah Anda lebih cepat"
+            "description": "Aktifkan analitik dan laporan bug untuk membantu -=PRODUCT_NAME=- meningkatkan pengalaman pengguna dan membantu menyelesaikan masalah Anda lebih cepat"
           },
           "reset": {
-            "title": "Reset CySync",
-            "description": "Hapus semua data CySync yang disimpan di PC Anda, termasuk akun Anda, riwayat transaksi dan pengaturan. Perhatikan bahwa ini tidak akan mengakibatkan kehilangan aset"
+            "title": "Reset -=APP_NAME=-",
+            "description": "Hapus semua data -=APP_NAME=- yang disimpan di PC Anda, termasuk akun Anda, riwayat transaksi dan pengaturan. Perhatikan bahwa ini tidak akan mengakibatkan kehilangan aset"
           },
           "update": {
-            "title": "Pembaruan CySync",
-            "description": "Secara otomatis mengunduh pembaruan CySync saat tersedia"
+            "title": "Pembaruan -=APP_NAME=-",
+            "description": "Secara otomatis mengunduh pembaruan -=APP_NAME=- saat tersedia"
           },
           "usb": {
             "title": "Diagnosis USB",
@@ -2372,16 +2386,16 @@
         "title": "Pengaturan Perangkat",
         "item": {
           "x1VaultAuth": {
-            "title": "Autentikasi X1 Vault",
+            "title": "Autentikasi -=DEVICE_NAME=-",
             "description": "Autentikasi perangkat Anda"
           },
           "x1CardAuth": {
-            "title": "Autentikasi X1 Card",
+            "title": "Autentikasi -=CARD_NAME=-",
             "description": "Autentikasi kartu Anda"
           },
           "transferWallet": {
             "title": "Transfer Dompet",
-            "description": "Jika Anda pernah memiliki Cypherock X1 dan ingin mentransfer dompet Anda menggunakan kartu Anda jika Anda kehilangannya atau alasan apapun"
+            "description": "Jika Anda pernah memiliki -=WALLET_NAME=- dan ingin mentransfer dompet Anda menggunakan kartu Anda jika Anda kehilangannya atau alasan apapun"
           }
         }
       },
@@ -2389,12 +2403,12 @@
         "title": "Tentang",
         "item": {
           "cySyncVersion": {
-            "title": "Versi CySync",
+            "title": "Versi -=APP_NAME=-",
             "description": "Versi ${version}"
           },
           "termsOfUse": {
             "title": "Ketentuan Penggunaan",
-            "description": "Dengan menggunakan CySync Anda setuju dengan Ketentuan Penggunaan kami"
+            "description": "Dengan menggunakan -=APP_NAME=- Anda setuju dengan Ketentuan Penggunaan kami"
           },
           "privacyPolicy": {
             "title": "Kebijakan Privasi",
@@ -2402,7 +2416,7 @@
           },
           "appTutorials": {
             "title": "Tutorial Aplikasi",
-            "description": "Tonton panduan video langkah demi langkah tentang cara menggunakan cySync dan Cypherock X1"
+            "description": "Tonton panduan video langkah demi langkah tentang cara menggunakan -=APP_NAME=- dan -=DEVICE_NAME=-"
           }
         }
       }
@@ -2484,7 +2498,7 @@
       "silver": "Perak",
       "gold": "Emas",
       "hours": "Jam",
-      "setupCover": "Atur Cypherock Cover"
+      "setupCover": "Atur -=PRODUCT_NAME=- Cover"
     }
   },
   "otp": {
@@ -2505,7 +2519,7 @@
     }
   },
   "inheritance": {
-    "title": "Cypherock Cover",
+    "title": "-=PRODUCT_NAME=- Cover",
     "plans": {
       "silver": {
         "title": "Silver",
@@ -2543,16 +2557,16 @@
       },
       "setup": {
         "setupCover": {
-          "title": "Siapkan Cypherock Cover",
+          "title": "Siapkan -=PRODUCT_NAME=- Cover",
           "subTitle": "Lindungi aset kripto Anda dan pastikan transfer yang lancar kepada penerima manfaat Anda dalam situasi yang tidak terduga"
         },
         "syncFromMail": {
           "title": "Sinkronisasi dari Email",
-          "subTitle": "Jika Anda sudah menjadi bagian dari rencana Cypherock Cover, baik sebagai pemilik paket atau penerima manfaat"
+          "subTitle": "Jika Anda sudah menjadi bagian dari rencana -=PRODUCT_NAME=- Cover, baik sebagai pemilik paket atau penerima manfaat"
         },
         "learnMore": {
-          "title": "Apa itu Cypherock Cover?",
-          "subTitle": "Pelajari bagaimana Cypherock Cover mengamankan aset kripto Anda dan memastikan transfer yang lancar kepada orang yang Anda cintai"
+          "title": "Apa itu -=PRODUCT_NAME=- Cover?",
+          "subTitle": "Pelajari bagaimana -=PRODUCT_NAME=- Cover mengamankan aset kripto Anda dan memastikan transfer yang lancar kepada orang yang Anda cintai"
         }
       }
     },
@@ -2654,8 +2668,8 @@
         }
       },
       "payment": {
-        "heading": "Beli paket di situs web Cypherock",
-        "subtext": "Anda harus membeli paket di situs web Cypherock dan kemudian menerapkan kode kupon yang dihasilkan di bagian 'Kode Kupon' di bawah untuk menyelesaikan pembelian Anda",
+        "heading": "Beli paket di situs web -=PRODUCT_NAME=-",
+        "subtext": "Anda harus membeli paket di situs web -=PRODUCT_NAME=- dan kemudian menerapkan kode kupon yang dihasilkan di bagian 'Kode Kupon' di bawah untuk menyelesaikan pembelian Anda",
         "form": {
           "promoField": {
             "label": "Kode promo / kupon",
@@ -2677,7 +2691,7 @@
       }
     },
     "banner": {
-      "title": "Amankan warisan kripto Anda dengan Cypherock Cover - Pastikan aset Anda mencapai orang yang Anda cintai",
+      "title": "Amankan warisan kripto Anda dengan -=PRODUCT_NAME=- Cover - Pastikan aset Anda mencapai orang yang Anda cintai",
       "buttons": {
         "knowMore": "Ketahui Lebih Lanjut"
       }
@@ -2711,7 +2725,7 @@
         }
       },
       "walletAuth": {
-        "title": "Ikuti instruksi pada X1 Vault untuk mengautentikasi dompet yang dipilih",
+        "title": "Ikuti instruksi pada -=DEVICE_NAME=- untuk mengautentikasi dompet yang dipilih",
         "subTitle": "Mengautentikasi dompet ",
         "actions": {
           "confirm": "Konfirmasi autentikasi dompet pada perangkat",
@@ -2735,15 +2749,15 @@
     "encryption": {
       "heading": "Enkripsi",
       "device": {
-        "title": "Ikuti instruksi pada X1 Vault untuk mengenkripsi PIN",
+        "title": "Ikuti instruksi pada -=DEVICE_NAME=- untuk mengenkripsi PIN",
         "subTitle": "Angkat kartu Anda setelah 2 bunyi beep",
-        "tooltip": "Ketuk salah satu kartu X1 di bawah perangkat X1 untuk mengenkripsi pesan dan jangan angkat kartu sampai Anda mendengar 2 bunyi beep",
+        "tooltip": "Ketuk salah satu -=CARD_NAME=- di bawah -=DEVICE_NAME=- untuk mengenkripsi pesan dan jangan angkat kartu sampai Anda mendengar 2 bunyi beep",
         "actions": {
           "confirm": "Konfirmasi enkripsi pada perangkat",
           "tapCard": "Masukkan PIN dan ketuk salah satu kartu"
         },
         "messageBox": {
-          "warning": "PIN akan dienkripsi oleh kartu X1"
+          "warning": "PIN akan dienkripsi oleh -=CARD_NAME=-"
         }
       },
       "loading": {
@@ -2759,7 +2773,7 @@
       "heading": "Checkout",
       "payment": {
         "title": "Selesaikan pembayaran Anda",
-        "subtext": "Anda harus membeli rencana di situs web Cypherock dan kemudian menerapkan kode kupon yang dihasilkan dalam bagian 'Kode Kupon' di bawah untuk menyelesaikan pembelian Anda"
+        "subtext": "Anda harus membeli rencana di situs web -=PRODUCT_NAME=- dan kemudian menerapkan kode kupon yang dihasilkan dalam bagian 'Kode Kupon' di bawah untuk menyelesaikan pembelian Anda"
       },
       "success": {
         "title": "Terima kasih!",
@@ -2797,7 +2811,7 @@
       },
       "walletAuth": {
         "heading": "Otentikasi Dompet",
-        "title": "Ikuti instruksi di X1 Vault untuk mengotentikasi dompet yang dipilih",
+        "title": "Ikuti instruksi di -=DEVICE_NAME=- untuk mengotentikasi dompet yang dipilih",
         "subTitle": "Mengotentikasi dompet",
         "actions": {
           "confirmOnDevice": "Konfirmasi otentikasi dompet di perangkat",
@@ -2810,7 +2824,7 @@
           "title": "Otentikasi Dompet gagal",
           "subtext": "Kami tidak dapat mengotentikasi dompet yang dipilih",
           "messageBox": {
-            "warning": "Ini biasanya terjadi ketika dompet di CySync dan perangkat tidak sinkron. Sinkronkan dompet antara CySync dan perangkat atau pilih dompet lain"
+            "warning": "Ini biasanya terjadi ketika dompet di -=APP_NAME=- dan -=DEVICE_NAME=- tidak sinkron. Sinkronkan dompet antara -=APP_NAME=- dan -=DEVICE_NAME=- atau pilih dompet lain"
           }
         }
       }
@@ -2843,7 +2857,7 @@
       "select": {
         "title": "Berapa banyak penerima yang Anda inginkan?",
         "subtitle": "Anda dapat memiliki hingga 2 penerima untuk wasiat ini",
-        "tooltip": "Jika Anda memilih dua penerima maka penerima ke-2 akan menerima email pemulihan tiga bulan setelah penerima ke-1 menerimanya\nCatatan - Kedua penerima akan menerima email pemulihan yang sama dan pesan yang sama yang ditulis oleh Anda di aplikasi CySync",
+        "tooltip": "Jika Anda memilih dua penerima maka penerima ke-2 akan menerima email pemulihan tiga bulan setelah penerima ke-1 menerimanya\nCatatan - Kedua penerima akan menerima email pemulihan yang sama dan pesan yang sama yang ditulis oleh Anda di aplikasi -=APP_NAME=-",
         "options": {
           "descOne": "Pilih jika Anda ingin memiliki hanya satu penerima",
           "descTwo": "Pilih jika Anda ingin memiliki dua penerima"
@@ -2862,7 +2876,7 @@
         "confirm": {
           "title": "Apakah Anda ingin memverifikasi email penerima?",
           "subtext": "OTP akan dikirim ke email yang disediakan. Jika Anda tidak ingin memberitahu penerima tentang rencana ini, Anda bisa melewatkan verifikasi email.",
-          "warning": "Jika Anda tidak memverifikasi email penerima maka email Cypherock dapat masuk ke folder spam"
+          "warning": "Jika Anda tidak memverifikasi email penerima maka email -=PRODUCT_NAME=- dapat masuk ke folder spam"
         }
       },
       "executor": {
@@ -2906,7 +2920,7 @@
       "nominee": {
         "title": "Rancang pesan akhir untuk penerima",
         "subtitle": "Pesan untuk penerima akan dienkripsi dari ujung ke ujung",
-        "tooltip": "Enkripsi ujung-ke-ujung menjaga pesan Anda antara Anda dan penerima yang Anda pilih. Bahkan Cypherock tidak dapat membacanya",
+        "tooltip": "Enkripsi ujung-ke-ujung menjaga pesan Anda antara Anda dan penerima yang Anda pilih. Bahkan -=PRODUCT_NAME=- tidak dapat membacanya",
         "form": {
           "locationField": {
             "label": "Lokasi Kartu & Frasa Sandi",
@@ -3006,26 +3020,26 @@
     "encryption": {
       "heading": "Enkripsi",
       "confirm": {
-        "title": "Ikuti instruksi di X1 Vault untuk memverifikasi pesan penerima",
+        "title": "Ikuti instruksi di -=DEVICE_NAME=- untuk memverifikasi pesan penerima",
         "subtext": "Anda dapat mengenkripsi pesan di langkah berikutnya",
         "actions": {
           "confirmOnDevice": "Konfirmasi verifikasi pesan di perangkat",
           "verifyLocation": "Verifikasi Lokasi Kartu di perangkat Anda"
         },
         "messageBox": {
-          "danger": "Baca seluruh teks dan verifikasi bahwa pesan yang ditampilkan di perangkat sama dengan yang Anda masukkan di cySync"
+          "danger": "Baca seluruh teks dan verifikasi bahwa pesan yang ditampilkan di perangkat sama dengan yang Anda masukkan di -=APP_NAME=-"
         }
       },
       "device": {
-        "title": "Ikuti instruksi di X1 Vault untuk mengenkripsi PIN dompet",
+        "title": "Ikuti instruksi di -=DEVICE_NAME=- untuk mengenkripsi PIN dompet",
         "subtext": "Angkat kartu Anda setelah mendengar 2 bunyi beep",
-        "tooltip": "Ketuk salah satu kartu X1 di bawah perangkat X1 untuk mengenkripsi pesan dan jangan angkat kartu sampai Anda mendengar 2 bunyi beep",
+        "tooltip": "Ketuk salah satu -=CARD_NAME=- di bawah -=DEVICE_NAME=- untuk mengenkripsi pesan dan jangan angkat kartu sampai Anda mendengar 2 bunyi beep",
         "actions": {
           "confirmOnDevice": "Konfirmasi enkripsi di perangkat",
           "tapCard": "Masukkan PIN dan ketuk salah satu kartu"
         },
         "messageBox": {
-          "warning": "PIN akan dienkripsi oleh kartu X1"
+          "warning": "PIN akan dienkripsi oleh -=CARD_NAME=-"
         }
       },
       "loading": {
@@ -3041,7 +3055,7 @@
       "heading": "Pembayaran Keluar",
       "payment": {
         "title": "Selesaikan pembayaran Anda",
-        "subtext": "Anda harus membeli rencana di situs web Cypherock dan kemudian menggunakan kode kupon yang dihasilkan di bagian 'Kode Kupon' di bawah untuk menyelesaikan pembelian Anda"
+        "subtext": "Anda harus membeli rencana di situs web -=PRODUCT_NAME=- dan kemudian menggunakan kode kupon yang dihasilkan di bagian 'Kode Kupon' di bawah untuk menyelesaikan pembelian Anda"
       },
       "greeting": {
         "title": "Terima kasih!",

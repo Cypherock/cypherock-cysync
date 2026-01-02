@@ -10,8 +10,8 @@ import {
 import React, { useEffect, useRef } from 'react';
 import * as Virtualize from 'react-virtualized/dist/umd/react-virtualized';
 
-import { analyticsService, ANALYTICS_EVENTS } from '~/services/analytics';
 import { useStateWithRef, useWindowSize } from '~/hooks';
+import { analyticsService, ANALYTICS_EVENTS } from '~/services/analytics';
 import { selectLanguage, useAppSelector } from '~/store';
 
 import { AccountRowData } from '../hooks';

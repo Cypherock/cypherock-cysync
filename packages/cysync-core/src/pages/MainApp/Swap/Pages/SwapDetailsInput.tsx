@@ -23,8 +23,8 @@ import React, {
 
 import { IQuote, useSwap } from '~/context';
 import { useAccountDropdown, useWalletDropdown } from '~/hooks';
-import { getQuotes } from '~/services/swapService';
 import { analyticsService, ANALYTICS_EVENTS } from '~/services/analytics';
+import { getQuotes } from '~/services/swapService';
 import { useAppSelector, selectLanguage } from '~/store';
 import { createServerErrorFromError } from '~/utils';
 import logger from '~/utils/logger';

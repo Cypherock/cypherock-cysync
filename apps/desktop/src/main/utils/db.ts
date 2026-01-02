@@ -7,11 +7,16 @@ import { IDatabase, IKeyValueStore } from '@cypherock/db-interfaces';
 import { config } from './config';
 import { logger } from './logger';
 
+import pkgJson from '../../../package.json';
 import channelMigrations from '../../migrations/channel.json';
 
 let db: IDatabase | undefined;
 
 let keyDb: IKeyValueStore | undefined;
+
+const DB_PATH =
+  config.VENDOR === 'default' ? 'cysync-data' : `${config.VENDOR}-data`;
+const { productName: APP_NAME } = pkgJson;
 
 export const migrateDbBetweenChannels = async () => {
   for (const migrationItem of channelMigrations) {
@@ -20,10 +25,10 @@ export const migrateDbBetweenChannels = async () => {
     const fromDbPath = path.join(
       config.USER_DATA_PATH,
       '..',
-      `cypherock-cysync-${migrationItem.from}`,
-      'cysync-data',
+      `${APP_NAME}-${migrationItem.from}`,
+      DB_PATH,
     );
-    const toDbPath = path.join(config.USER_DATA_PATH, 'cysync-data');
+    const toDbPath = path.join(config.USER_DATA_PATH, DB_PATH);
 
     if (fs.existsSync(fromDbPath)) {
       if (fs.existsSync(toDbPath)) {
@@ -40,7 +45,7 @@ export const migrateDbBetweenChannels = async () => {
 };
 
 export const initializeAndGetDb = async () => {
-  const dbPath = path.join(config.USER_DATA_PATH, 'cysync-data/');
+  const dbPath = path.join(config.USER_DATA_PATH, `${DB_PATH}/`);
 
   if (!db) {
     db = await createDb(dbPath);
@@ -72,7 +77,7 @@ export const clearDatabase = async () => {
       await keyDb.clear();
     }
 
-    const dbPath = path.join(config.USER_DATA_PATH, 'cysync-data/');
+    const dbPath = path.join(config.USER_DATA_PATH, `${DB_PATH}/`);
 
     await fs.promises.rm(dbPath, { recursive: true, force: true });
   } catch (error) {

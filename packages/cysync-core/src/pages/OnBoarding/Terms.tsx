@@ -7,7 +7,7 @@ import {
   DialogBoxFooter,
   Flex,
   LangDisplay,
-  LogoOutlinedAsideImage,
+  LogoOutlinedAside,
   TermsOfUseGraphics,
   Typography,
   ExternalLink,
@@ -21,9 +21,9 @@ import React, {
 } from 'react';
 
 import { constants, routes } from '~/constants';
-import { analyticsService, ANALYTICS_EVENTS } from '~/services/analytics';
 import { useLockscreen } from '~/context';
 import { useNavigateTo } from '~/hooks';
+import { analyticsService, ANALYTICS_EVENTS } from '~/services/analytics';
 import { selectLanguage, useAppSelector } from '~/store';
 import { keyValueStore } from '~/utils';
 
@@ -124,7 +124,7 @@ export const Terms: FC = () => {
 
   return (
     <OnboardingPageLayout
-      img={LogoOutlinedAsideImage}
+      img={LogoOutlinedAside}
       text={lang.strings.onboarding.terms.title}
       currentState={1}
       totalState={8}

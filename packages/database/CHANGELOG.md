@@ -1,5 +1,21 @@
 # @cypherock/database
 
+## 0.2.1
+
+### Patch Changes
+
+- Updated dependencies [[`2be04fe0`](https://github.com/Cypherock/cypherock-cysync/commit/2be04fe055a9e9bf17d03a6b78265f9b4801f5d1)]:
+  - @cypherock/cysync-interfaces@0.1.0
+  - @cypherock/cysync-utils@0.0.17
+
+## 0.2.1-pre.0
+
+### Patch Changes
+
+- Updated dependencies [[`2be04fe0`](https://github.com/Cypherock/cypherock-cysync/commit/2be04fe055a9e9bf17d03a6b78265f9b4801f5d1)]:
+  - @cypherock/cysync-interfaces@0.1.0-pre.0
+  - @cypherock/cysync-utils@0.0.17-pre.0
+
 ## 0.2.0
 
 ### Minor Changes

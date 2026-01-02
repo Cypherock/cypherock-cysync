@@ -21,8 +21,8 @@ import {
 } from '@cypherock/cysync-ui';
 import { SwapStatus } from '@cypherock/db-interfaces';
 import React, { FC, useMemo } from 'react';
-import { useSwap } from '~/context';
 
+import { useSwap } from '~/context';
 import { SwapTransactionRowData, useSwapTransactions } from '~/hooks';
 import { analyticsService, ANALYTICS_EVENTS } from '~/services/analytics';
 import {

@@ -1,6 +1,8 @@
 import React from 'react';
 import { styled } from 'styled-components';
 
+import { svgGradients } from '../GlobalStyles';
+
 interface ThrobberProps {
   size: number;
   strokeWidth: number;
@@ -57,24 +59,10 @@ export const Throbber: React.FC<ThrobberProps> = ({ size, strokeWidth }) => {
         cy={radius}
         r={radius}
         fill="none"
-        stroke="url(#paint0_linear_1_516)"
+        stroke={`url(#${svgGradients.gold})`}
         strokeWidth={strokeWidth}
         strokeMiterlimit="10"
       />
-      <defs>
-        <linearGradient
-          id="paint0_linear_1_516"
-          x1={0}
-          y1={radius}
-          x2={size}
-          y2={radius}
-          gradientUnits="userSpaceOnUse"
-        >
-          <stop stopColor="#E9B873" />
-          <stop offset="0.5" stopColor="#FEDD8F" />
-          <stop offset="1" stopColor="#B78D51" />
-        </linearGradient>
-      </defs>
     </ThrobberWrapperStyle>
   );
 };

@@ -1,6 +1,7 @@
 import { IPreparedBtcTransaction } from '@cypherock/coin-support-btc';
 import { IPreparedEvmTransaction } from '@cypherock/coin-support-evm';
 import { IPreparedTransaction } from '@cypherock/coin-support-interfaces';
+import { IPreparedSiaTransaction } from '@cypherock/coin-support-sia';
 import { IPreparedSolanaTransaction } from '@cypherock/coin-support-solana';
 import { IPreparedStellarTransaction } from '@cypherock/coin-support-stellar';
 import { IPreparedTronTransaction } from '@cypherock/coin-support-tron';
@@ -12,7 +13,6 @@ import {
   formatDisplayPrice,
 } from '@cypherock/coin-support-utils';
 import { IPreparedXrpTransaction } from '@cypherock/coin-support-xrp';
-import { IPreparedSiaTransaction } from '@cypherock/coin-support-sia';
 import {
   CoinFamily,
   EvmIdMap,
