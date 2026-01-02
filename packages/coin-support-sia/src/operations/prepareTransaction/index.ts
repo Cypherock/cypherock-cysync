@@ -66,6 +66,129 @@ const validateAddresses = (
   return outputAddressValidation;
 };
 
+const processAmountsAndFees = (
+  txn: IPrepareSiaTransactionParams['txn'],
+  output: any,
+) => {
+  const outputAmountBN = new BigNumber(output.amount || '0');
+  const feeAmountBN = new BigNumber(txn.userInputs.fees || '0');
+
+  const sendAmountSC = outputAmountBN.isNaN() ? '0' : outputAmountBN.toFixed();
+  const feeSC = feeAmountBN.isNaN()
+    ? txn.staticData.fees.recommendedFee
+    : feeAmountBN.toFixed();
+
+  const sendAmountHastings = BigInt(scToHastings(sendAmountSC));
+  const feeHastings = BigInt(scToHastings(feeSC));
+
+  return {
+    sendAmountSC,
+    sendAmountHastings,
+    feeSC,
+    feeHastings,
+    output: { ...output, amount: sendAmountSC },
+  };
+};
+
+const handleSendAll = (
+  txn: IPrepareSiaTransactionParams['txn'],
+  output: any,
+  balanceHastings: bigint,
+  feeHastings: bigint,
+) => {
+  let sendAmountHastings: bigint;
+  let sendAmountSC: string;
+
+  const maxSendableHastings = balanceHastings - feeHastings;
+  if (maxSendableHastings <= BigInt(0)) {
+    sendAmountHastings = BigInt(0);
+    sendAmountSC = '0';
+  } else {
+    sendAmountHastings = maxSendableHastings;
+    sendAmountSC = hastingsToSC(sendAmountHastings.toString());
+  }
+
+  return {
+    sendAmountHastings,
+    sendAmountSC,
+    output: { ...output, amount: sendAmountSC },
+    txn: {
+      ...txn,
+      userInputs: {
+        ...txn.userInputs,
+        outputs: [{ ...txn.userInputs.outputs[0], amount: sendAmountSC }],
+      },
+    },
+  };
+};
+
+const validateBalanceAndFees = (
+  sendAmountSC: string,
+  sendAmountHastings: bigint,
+  feeHastings: bigint,
+  balanceHastings: bigint,
+  txn: IPrepareSiaTransactionParams['txn'],
+) => {
+  const sendAmountBN = new BigNumber(sendAmountSC);
+
+  let hasEnoughBalance: boolean;
+  let finalSendAmountHastings: bigint;
+
+  if (sendAmountBN.isNaN()) {
+    finalSendAmountHastings = BigInt(0);
+    hasEnoughBalance = false;
+  } else {
+    finalSendAmountHastings = sendAmountHastings;
+    const totalNeeded = sendAmountHastings + feeHastings;
+    hasEnoughBalance = balanceHastings >= totalNeeded;
+  }
+
+  // Fee validation
+  const baseFeeHastings = BigInt(scToHastings(txn.staticData.fees.baseFee));
+  const isValidFee = feeHastings > BigInt(0);
+  const isFeeBelowMin = isValidFee && feeHastings < baseFeeHastings;
+
+  // Other validations
+  const zeroAmountNotAllowed = finalSendAmountHastings === BigInt(0);
+
+  return {
+    hasEnoughBalance,
+    finalSendAmountHastings,
+    isValidFee: isValidFee && !isFeeBelowMin,
+    zeroAmountNotAllowed,
+  };
+};
+
+const selectUtxosIfNeeded = async (
+  hasEnoughBalance: boolean,
+  sendAmountHastings: bigint,
+  feeHastings: bigint,
+  accountXpubOrAddress: string,
+) => {
+  let selectedUtxos: ISiaUtxo[] = [];
+  let changeAmountHastings = '0';
+
+  if (hasEnoughBalance && sendAmountHastings > BigInt(0)) {
+    try {
+      const utxosResponse = await getUtxos(accountXpubOrAddress);
+      const availableUTXOs = utxosResponse.utxos;
+
+      const selection = selectCoins(
+        availableUTXOs,
+        sendAmountHastings,
+        feeHastings,
+      );
+
+      selectedUtxos = selection.selected;
+      changeAmountHastings = selection.change.toString();
+    } catch (error) {
+      selectedUtxos = [];
+    }
+  }
+
+  return { selectedUtxos, changeAmountHastings };
+};
+
 export const prepareTransaction = async (
   params: IPrepareSiaTransactionParams,
 ): Promise<IPreparedSiaTransaction> => {
@@ -80,117 +203,96 @@ export const prepareTransaction = async (
   const outputsValidation = validateAddresses(params, coin.id);
   const output = { ...txn.userInputs.outputs[0] };
 
-  const outputAmountBN = new BigNumber(output.amount || '0');
-  const feeAmountBN = new BigNumber(txn.userInputs.fees || '0');
-
-  let sendAmountSC = outputAmountBN.isNaN() ? '0' : outputAmountBN.toFixed();
-  const feeSC = feeAmountBN.isNaN()
-    ? txn.staticData.fees.recommendedFee
-    : feeAmountBN.toFixed();
-
-  output.amount = sendAmountSC;
-
-  let sendAmountHastings: bigint;
-  const feeHastings = BigInt(scToHastings(feeSC));
+  const amountsAndFees = processAmountsAndFees(txn, output);
+  const { feeSC, output: processedOutput } = amountsAndFees;
+  let { sendAmountSC, sendAmountHastings, feeHastings } = amountsAndFees;
 
   const balanceSC = await getBalance(account.xpubOrAddress);
   const balanceHastings = BigInt(scToHastings(balanceSC));
 
-  // Handle Send All
+  let currentTxn = txn;
+  let currentOutput = processedOutput;
+
   if (txn.userInputs.isSendAll) {
-    const maxSendableHastings = balanceHastings - feeHastings;
-    if (maxSendableHastings <= BigInt(0)) {
-      sendAmountHastings = BigInt(0);
-      sendAmountSC = '0';
-    } else {
-      sendAmountHastings = maxSendableHastings;
-      sendAmountSC = hastingsToSC(sendAmountHastings.toString());
-    }
-
-    output.amount = sendAmountSC;
-    txn.userInputs.outputs[0].amount = sendAmountSC;
+    const sendAllResult = handleSendAll(
+      currentTxn,
+      currentOutput,
+      balanceHastings,
+      feeHastings,
+    );
+    sendAmountHastings = sendAllResult.sendAmountHastings;
+    sendAmountSC = sendAllResult.sendAmountSC;
+    currentOutput = sendAllResult.output;
+    currentTxn = sendAllResult.txn;
+    feeHastings = BigInt(scToHastings(feeSC));
   }
 
-  let hasEnoughBalance: boolean;
-  const sendAmountBN = new BigNumber(sendAmountSC);
+  const validationResult = validateBalanceAndFees(
+    sendAmountSC,
+    sendAmountHastings,
+    feeHastings,
+    balanceHastings,
+    currentTxn,
+  );
 
-  if (sendAmountBN.isNaN()) {
-    sendAmountHastings = BigInt(0);
-    hasEnoughBalance = false;
-  } else {
-    sendAmountHastings = BigInt(scToHastings(sendAmountSC));
-    const totalNeeded = sendAmountHastings + feeHastings;
-    hasEnoughBalance = balanceHastings >= totalNeeded;
-  }
+  let { hasEnoughBalance } = validationResult;
+  const { finalSendAmountHastings, isValidFee, zeroAmountNotAllowed } =
+    validationResult;
 
-  // Fee validation
-  const baseFeeHastings = BigInt(scToHastings(txn.staticData.fees.baseFee));
-  const isValidFee = feeHastings > BigInt(0);
-  const isFeeBelowMin = isValidFee && feeHastings < baseFeeHastings;
-
-  // Other validations
-  const zeroAmountNotAllowed = sendAmountHastings === BigInt(0);
-  const ownOutputAddressNotAllowed = output.address === account.xpubOrAddress;
+  const ownOutputAddressNotAllowed =
+    currentOutput.address === account.xpubOrAddress;
 
   // Early return for invalid address
-  if (!output.address || !outputsValidation[0]) {
+  if (!currentOutput.address || !outputsValidation[0]) {
     const finalValidation = {
       outputs: outputsValidation,
       hasEnoughBalance,
-      isValidFee: isValidFee && !isFeeBelowMin,
+      isValidFee,
       ownOutputAddressNotAllowed: [ownOutputAddressNotAllowed],
       zeroAmountNotAllowed,
     };
 
     return {
-      ...txn,
+      ...currentTxn,
       validation: finalValidation,
       computedData: {
-        fees: txn.userInputs.fees,
-        output,
+        fees: currentTxn.userInputs.fees,
+        output: currentOutput,
         selectedUtxos: [],
         changeAmount: '0',
       },
     };
   }
 
-  let selectedUtxos: ISiaUtxo[] = [];
-  let changeAmountHastings = '0';
+  const { selectedUtxos, changeAmountHastings } = await selectUtxosIfNeeded(
+    hasEnoughBalance,
+    finalSendAmountHastings,
+    feeHastings,
+    account.xpubOrAddress,
+  );
 
-  if (hasEnoughBalance && sendAmountHastings > BigInt(0)) {
-    try {
-      const utxosResponse = await getUtxos(account.xpubOrAddress);
-      const availableUTXOs = utxosResponse.utxos;
-
-      const selection = selectCoins(
-        availableUTXOs,
-        sendAmountHastings,
-        feeHastings,
-      );
-
-      selectedUtxos = selection.selected;
-      changeAmountHastings = selection.change.toString();
-      hasEnoughBalance = true;
-    } catch (error) {
-      hasEnoughBalance = false;
-      selectedUtxos = [];
-    }
+  if (
+    hasEnoughBalance &&
+    finalSendAmountHastings > BigInt(0) &&
+    selectedUtxos.length === 0
+  ) {
+    hasEnoughBalance = false;
   }
 
   const finalValidation = {
     outputs: outputsValidation,
     hasEnoughBalance,
-    isValidFee: isValidFee && !isFeeBelowMin,
+    isValidFee,
     ownOutputAddressNotAllowed: [ownOutputAddressNotAllowed],
     zeroAmountNotAllowed,
   };
 
   const result = {
-    ...txn,
+    ...currentTxn,
     validation: finalValidation,
     computedData: {
-      fees: txn.userInputs.fees,
-      output,
+      fees: currentTxn.userInputs.fees,
+      output: currentOutput,
       selectedUtxos,
       changeAmount: changeAmountHastings,
     },
