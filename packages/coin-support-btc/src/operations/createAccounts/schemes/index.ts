@@ -42,9 +42,6 @@ export const createDerivationPathSchemes = (assetId: string) => {
     delete result.taproot;
     delete result.nativeSegwit;
     delete result.segwit;
-  } else {
-    // Not supported in firmware yet
-    delete result.taproot;
   }
 
   return result;
