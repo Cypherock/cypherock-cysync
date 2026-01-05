@@ -158,10 +158,10 @@ index 65ccdf439e2de46dbf12e7e01e1505ec94527d9b..20239675754dadc9fa41a2635b05ff9e
 +  return utils.finalize(utxos, outputs, feeRate, feeRateForDust)
  }
 diff --git a/utils.js b/utils.js
-index 687fe669a295c1297b5f7a8b374f379a7db3fcbd..8ee0b83c1ae532755b84e3ad5d9c5985b250c2af 100644
+index 687fe669a295c1297b5f7a8b374f379a7db3fcbd..f3ad187e9331e371953f1baaaddb934d8aa9702a 100644
 --- a/utils.js
 +++ b/utils.js
-@@ -5,17 +5,67 @@ var TX_INPUT_PUBKEYHASH = 107
+@@ -5,17 +5,69 @@ var TX_INPUT_PUBKEYHASH = 107
  var TX_OUTPUT_BASE = 8 + 1
  var TX_OUTPUT_PUBKEYHASH = 25
  
@@ -171,6 +171,7 @@ index 687fe669a295c1297b5f7a8b374f379a7db3fcbd..8ee0b83c1ae532755b84e3ad5d9c5985
 +  P2SH: 91,
 +  P2WPKH: 68,
 +  P2WSH: 104,  // base tx size for wrapped segwit input
++  P2TR: 58,
 +  UNKNOWN: 148,
 +};
 +
@@ -180,6 +181,7 @@ index 687fe669a295c1297b5f7a8b374f379a7db3fcbd..8ee0b83c1ae532755b84e3ad5d9c5985
 +  P2SH: 32,
 +  P2WPKH: 31,
 +  P2WSH: 43,
++  P2TR: 43,
 +  UNKNOWN: 43,
 +};
 +
@@ -188,7 +190,7 @@ index 687fe669a295c1297b5f7a8b374f379a7db3fcbd..8ee0b83c1ae532755b84e3ad5d9c5985
 +  if (address.startsWith('1')) return 'P2PKH';
 +  if (address.startsWith('3')) return 'P2SH';
 +  if (address.startsWith('bc1q')) return 'P2WPKH';
-+  if (address.startsWith('bc1p')) return 'P2WSH';
++  if (address.startsWith('bc1p')) return 'P2TR';
 +
 +  // Litecoin (LTC)
 +  if (address.startsWith('L')) return 'P2PKH';
@@ -233,7 +235,7 @@ index 687fe669a295c1297b5f7a8b374f379a7db3fcbd..8ee0b83c1ae532755b84e3ad5d9c5985
  }
  
  function transactionBytes (inputs, outputs) {
-@@ -40,15 +90,14 @@ function sumOrNaN (range) {
+@@ -40,15 +92,14 @@ function sumOrNaN (range) {
    return range.reduce(function (a, x) { return a + uintOrNaN(x.value) }, 0)
  }
  
