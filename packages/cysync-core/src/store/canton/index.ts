@@ -14,12 +14,14 @@ export interface ICantonState {
   cantonAuthTokens: ICantonAuthTokens | undefined;
   isLoaded: boolean;
   hasUnauthorizedSyncError: boolean;
+  isSyncPrompted: boolean;
 }
 
 const initialState: ICantonState = {
   isLoaded: false,
   cantonAuthTokens: {},
   hasUnauthorizedSyncError: false,
+  isSyncPrompted: false,
 } as ICantonState;
 
 export const cantonSlice = createSlice({
@@ -46,6 +48,13 @@ export const cantonSlice = createSlice({
       state.hasUnauthorizedSyncError = action.payload.hasError;
       return state;
     },
+    setIsSyncPrompted: (
+      state,
+      action: PayloadAction<{ isPrompted: boolean }>,
+    ) => {
+      state.isSyncPrompted = action.payload.isPrompted;
+      return state;
+    },
   },
 });
 
@@ -53,6 +62,7 @@ export const {
   updateCantonAuthTokens,
   clearCantonAuthTokens,
   setCantonUnauthorizedSyncError,
+  setIsSyncPrompted,
 } = cantonSlice.actions;
 
 export const selectCantonAuthTokens = (state: RootState) =>
@@ -60,5 +70,8 @@ export const selectCantonAuthTokens = (state: RootState) =>
 
 export const selectCantonUnauthorizedSyncError = (state: RootState) =>
   state.canton.hasUnauthorizedSyncError;
+
+export const selectIsSyncPrompted = (state: RootState) =>
+  state.canton.isSyncPrompted;
 
 export default cantonSlice.reducer;

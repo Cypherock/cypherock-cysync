@@ -115,6 +115,7 @@ interface LangButtons {
   mergeDelegation: string;
   accept: string;
   earnRewards: string;
+  proceed: string;
 }
 
 interface LangDashboard {
@@ -1436,6 +1437,9 @@ interface LangDialogs {
       success: {
         title: string;
       };
+    };
+    syncAccountPrompt: {
+      title: string;
     };
   };
 }

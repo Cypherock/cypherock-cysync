@@ -57,7 +57,8 @@
     "autoApproval": "تحويل موافقة مسبقة",
     "mergeDelegation": "UTXO إدارة",
     "accept": "قبول",
-    "earnRewards": "كسب المكافآت"
+    "earnRewards": "كسب المكافآت",
+    "proceed": "متابعة"
   },
   "tooltips": {
     "downloadCsv": "تصدير بصيغة CSV"
@@ -2309,6 +2310,9 @@
         "success": {
           "title": "تم إنشاء الحساب بنجاح"
         }
+      },
+      "syncAccountPrompt": {
+        "title": "يبدو أن حسابك في كانتون غير مزامن. هل تريد المتابعة والمزامنة؟"
       }
     }
   },

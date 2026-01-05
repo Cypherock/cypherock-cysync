@@ -57,7 +57,8 @@
     "autoApproval": "转账预批准",
     "mergeDelegation": "UTXO管理",
     "accept": "接受",
-    "earnRewards": "赚取奖励"
+    "earnRewards": "赚取奖励",
+    "proceed": "继续"
   },
   "tooltips": {
     "downloadCsv": "导出为CSV"
@@ -2288,6 +2289,9 @@
         "success": {
           "title": "您的 Canton 账户已成功与 canton 网络同步"
         }
+      },
+      "syncAccountPrompt": {
+        "title": "您的 Canton 账户似乎与 canton 网络不同步。继续同步账户？"
       }
     }
   },

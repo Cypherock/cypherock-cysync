@@ -7,11 +7,17 @@ import {
 } from '@cypherock/cysync-ui';
 import React from 'react';
 
-import { closeDialog, useAppDispatch } from '~/store';
+import {
+  closeDialog,
+  selectLanguage,
+  useAppDispatch,
+  useAppSelector,
+} from '~/store';
 import { openCantonLoginDialog } from '~/actions';
 
 export const SyncAccountPromptDialog = () => {
   const dispatch = useAppDispatch();
+  const lang = useAppSelector(selectLanguage);
 
   const onClose = () => {
     dispatch(closeDialog('syncCantonAccountPromptDialog'));
@@ -26,15 +32,15 @@ export const SyncAccountPromptDialog = () => {
     <BlurOverlay>
       <IconDialogBox
         icon={<Image src={walletErrorIcon} alt="walletSync" />}
-        title="Seems like your canton account is out of sync. Proceed to sync account?"
+        title={lang.strings.dialogs.cantonDialogs.syncAccountPrompt.title}
         onClose={onClose}
         footerComponent={
           <>
             <Button variant="secondary" onClick={onClose}>
-              Skip
+              {lang.strings.buttons.skip}
             </Button>
             <Button variant="primary" onClick={onSyncAccount}>
-              Sync
+              {lang.strings.buttons.proceed}
             </Button>
           </>
         }

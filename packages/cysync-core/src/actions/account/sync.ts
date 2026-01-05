@@ -22,7 +22,11 @@ import {
   setSyncError,
   updateAccountSyncMap,
 } from '~/store';
-import { setCantonUnauthorizedSyncError } from '~/store/canton';
+import {
+  selectIsSyncPrompted,
+  setCantonUnauthorizedSyncError,
+  setIsSyncPrompted,
+} from '~/store/canton';
 import { getDB, getKeyDB } from '~/utils';
 import { openSyncCantonAccountPromptDialog } from '..';
 
@@ -159,7 +163,10 @@ export const syncAccounts = createAsyncThunk<
               event.error?.response?.status === HttpStatusCode.Unauthorized
             ) {
               dispatch(setCantonUnauthorizedSyncError({ hasError: true }));
-              dispatch(openSyncCantonAccountPromptDialog());
+              if (!selectIsSyncPrompted(getState())) {
+                dispatch(openSyncCantonAccountPromptDialog());
+                dispatch(setIsSyncPrompted({ isPrompted: true }));
+              }
             }
           }
         },
