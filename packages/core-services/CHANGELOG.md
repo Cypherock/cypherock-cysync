@@ -1,5 +1,18 @@
 # @cypherock/cysync-core-services
 
+## 0.3.2-pre.0
+
+### Patch Changes
+
+- [#856](https://github.com/Cypherock/cypherock-cysync/pull/856) [`d23870c6`](https://github.com/Cypherock/cypherock-cysync/commit/d23870c6261211735dffe9832317e48ca7677a55) Thanks [@AryanCypherock](https://github.com/AryanCypherock)! - login flow added in canton accounts
+
+- Updated dependencies [[`223a00aa`](https://github.com/Cypherock/cypherock-cysync/commit/223a00aa4cc8b06f75b75b58cbebb7dfcbddeb76)]:
+  - @cypherock/coins@0.7.0-pre.0
+  - @cypherock/coin-support@0.2.10-pre.0
+  - @cypherock/app-support-buy-sell-2@0.0.4-pre.0
+  - @cypherock/coin-support-evm@0.1.8-pre.0
+  - @cypherock/coin-support-utils@0.1.8-pre.0
+
 ## 0.3.1
 
 ### Patch Changes

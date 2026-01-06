@@ -37,5 +37,9 @@
     "@cypherock/tsconfig": "0.0.1",
     "@cypherock/cysync-utils": "0.0.17"
   },
-  "changesets": []
+  "changesets": [
+    "five-kangaroos-judge",
+    "poor-dolphins-sleep",
+    "red-gifts-sit"
+  ]
 }
