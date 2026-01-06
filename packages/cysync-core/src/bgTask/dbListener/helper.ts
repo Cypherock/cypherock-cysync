@@ -1,14 +1,15 @@
-import { syncBuySellOrdersCore } from '@cypherock/cysync-core-services';
-import lodash from 'lodash';
-
-import { syncAccounts } from '~/actions';
 import {
   getDefaultUnit,
   getParsedAmount,
   formatDisplayAmount,
 } from '@cypherock/coin-support-utils';
-import { analyticsService } from '~/services/analytics/analyticsService';
+import { getDefaultLang } from '@cypherock/cysync-core-constants';
+import { syncBuySellOrdersCore } from '@cypherock/cysync-core-services';
+import lodash from 'lodash';
+
+import { syncAccounts } from '~/actions';
 import { ANALYTICS_EVENTS } from '~/services/analytics/analyticsEvents';
+import { analyticsService } from '~/services/analytics/analyticsService';
 import {
   setAccounts,
   setDevices,
@@ -24,7 +25,6 @@ import {
 } from '~/store';
 import { getDB, keyValueStore } from '~/utils';
 import logger from '~/utils/logger';
-import { getDefaultLang } from '@cypherock/cysync-core-constants';
 
 const createFuncWithErrorHandler =
   (

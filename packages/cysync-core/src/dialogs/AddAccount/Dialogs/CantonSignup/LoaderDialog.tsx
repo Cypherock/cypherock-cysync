@@ -1,7 +1,9 @@
-import { LoaderDialog as LoaderDialogComponent } from '~/components';
 import React, { useEffect } from 'react';
-import { useAddAccountDialog } from '../../context';
+
+import { LoaderDialog as LoaderDialogComponent } from '~/components';
 import { selectLanguage, useAppSelector } from '~/store';
+
+import { useAddAccountDialog } from '../../context';
 
 export const LoaderDialog: React.FC = () => {
   const { onNext } = useAddAccountDialog();

@@ -13,6 +13,7 @@ import {
   IPreparedTransaction,
   ISignTransactionEvent,
 } from '@cypherock/coin-support-interfaces';
+import { IPreparedSiaTransaction } from '@cypherock/coin-support-sia';
 import { IPreparedSolanaTransaction } from '@cypherock/coin-support-solana';
 import {
   IPreparedStarknetTransaction,
@@ -37,8 +38,6 @@ import {
   IPreparedXrpTransaction,
   IPreparedXrpTransactionOutput,
 } from '@cypherock/coin-support-xrp';
-import { IPreparedSiaTransaction } from '@cypherock/coin-support-sia';
-
 import { coinFamiliesMap, CoinFamily } from '@cypherock/coins';
 import { ServerError, ServerErrorType } from '@cypherock/cysync-core-constants';
 import { DropDownItemProps, parseLangTemplate } from '@cypherock/cysync-ui';

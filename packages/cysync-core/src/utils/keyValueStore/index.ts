@@ -1,4 +1,5 @@
 import { ICantonAuthTokens } from '~/store/canton';
+
 import { getKeyDB } from '../db';
 
 const createBooleanValueStore = (key: string) => ({

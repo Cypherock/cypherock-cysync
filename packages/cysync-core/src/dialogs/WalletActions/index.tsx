@@ -10,8 +10,8 @@ import {
   LangDisplay,
   ScrollableContainer,
   Typography,
-  createWalletGraphics,
-  recoverWalletFromSeedphraseGraphics,
+  createWalletGraphicsImage,
+  recoverWalletFromSeedphraseGraphicsImage,
   Image,
 } from '@cypherock/cysync-ui';
 import React, { FC, useState } from 'react';
@@ -86,7 +86,7 @@ export const WalletActionsDialogBox: FC = () => {
               >
                 <Image
                   $height={100}
-                  src={createWalletGraphics}
+                  src={createWalletGraphicsImage}
                   alt="Create Wallet"
                 />
                 <Typography
@@ -122,7 +122,7 @@ export const WalletActionsDialogBox: FC = () => {
               >
                 <Image
                   $height={100}
-                  src={recoverWalletFromSeedphraseGraphics}
+                  src={recoverWalletFromSeedphraseGraphicsImage}
                   alt="Recover Wallet From Seedphrase"
                 />
                 <Typography

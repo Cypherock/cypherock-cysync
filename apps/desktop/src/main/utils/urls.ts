@@ -1,7 +1,17 @@
 import path from 'node:path';
 
-const mainWindowHtml = path.join('html', 'index.html');
-const loadingWindowHtml = path.join('html', 'loading.html');
+import { config } from './config';
+
+const mainWindowHtml = path.join(
+  'html',
+  config.VENDOR === 'default' ? 'index.html' : `index-${config.VENDOR}.html`,
+);
+const loadingWindowHtml = path.join(
+  'html',
+  config.VENDOR === 'default'
+    ? 'loading.html'
+    : `loading-${config.VENDOR}.html`,
+);
 
 const getWindowUrls = () => {
   const DIST_ELECTRON = path.join(__dirname, '../');

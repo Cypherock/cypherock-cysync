@@ -1,8 +1,12 @@
-import axios from 'axios';
 import { SupportedProviders } from '@cypherock/db-interfaces';
+import axios from 'axios';
+
 import { config } from '../config';
 
-const SUPPORTED_PROVIDERS = Object.values(SupportedProviders) as string[];
+const SUPPORTED_PROVIDERS =
+  window.cysyncEnv.VENDOR === 'default'
+    ? (Object.values(SupportedProviders) as string[])
+    : [SupportedProviders.CHANGENOW];
 
 export const getQuotes = async (params: {
   fromCurrency: string;

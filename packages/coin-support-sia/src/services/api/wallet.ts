@@ -1,5 +1,7 @@
 import { makePostRequest } from '@cypherock/cysync-utils';
+
 import { ISiaUtxoResponse } from './types';
+
 import { config } from '../../config';
 
 const baseURL = `${config.API_CYPHEROCK}/sia/wallet`;

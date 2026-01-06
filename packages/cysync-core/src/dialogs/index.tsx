@@ -10,6 +10,7 @@ import {
   AuthenticateX1VaultDialog,
 } from './Authenticate';
 import { BetaNotificationDialog } from './BetaNotificationDialog';
+import { BuySellDialog } from './BuySellDialog';
 import {
   CantonLoginDialog,
   CreateCantonAccountDialog,
@@ -18,7 +19,6 @@ import {
   EnableMergeDelegationDialog,
 } from './Canton';
 import { TransactionActionDialog } from './Canton/TransactionAction';
-import { BuySellDialog } from './BuySellDialog';
 import { ContactSupportDialog } from './ContactSupport';
 import { ReleaseNotesDialog, ResetCySyncDialog } from './CySync';
 import { DeleteAccountDialog } from './DeleteAccountDialog';

@@ -1,10 +1,10 @@
 import { getDefaultLang } from '@cypherock/cysync-core-constants';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
+import { ANALYTICS_EVENTS } from '~/services/analytics/analyticsEvents';
+import { analyticsService } from '~/services/analytics/analyticsService';
 import { RootState, setLanguage } from '~/store';
 import { keyValueStore } from '~/utils';
-import { analyticsService } from '~/services/analytics/analyticsService';
-import { ANALYTICS_EVENTS } from '~/services/analytics/analyticsEvents';
 
 export const setAppLanguage = createAsyncThunk<
   void,

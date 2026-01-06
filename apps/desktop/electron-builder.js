@@ -1,5 +1,7 @@
-const productName = 'Cypherock CySync';
-const productNameInArtifact = 'cypherock-cysync';
+const pkg = require('./package.json');
+
+const productName = pkg.productName;
+const productNameInArtifact = pkg.productName.toLowerCase().replace(' ', '-');
 
 const getArtifactName = (withoutArch = false) => {
   if (withoutArch) {
@@ -9,14 +11,50 @@ const getArtifactName = (withoutArch = false) => {
   return `${productNameInArtifact}-\${version}-\${platform}-\${arch}.\${ext}`;
 };
 
+function getAppID() {
+  const vendor = process.env.VENDOR;
+  switch (vendor) {
+    case 'odix':
+      return 'com.odix.odixpay';
+    default:
+      return 'com.hodl.cypherock';
+  }
+}
+
+function getBuildResourcesPath() {
+  if (!process.env.VENDOR) {
+    return 'build/default';
+  } else {
+    return `build/${process.env.VENDOR}`;
+  }
+}
+
+function getExtraResourcesPath() {
+  if (!process.env.VENDOR) {
+    return 'extraResources/default';
+  } else {
+    return `extraResources/${process.env.VENDOR}`;
+  }
+}
+
+function getPublishUrl() {
+  const vendor = process.env.VENDOR;
+  switch (vendor) {
+    case 'odix':
+      return 'https://cypherock-updater-v2.s3-accelerate.amazonaws.com/odix-desktop';
+    default:
+      return 'https://cypherock-updater-v2.s3-accelerate.amazonaws.com/cysync-desktop';
+  }
+}
+
 const config = {
-  appId: 'com.hodl.cypherock',
+  appId: getAppID(),
   productName,
   asar: true,
   asarUnpack: ['!**/*.node'],
   directories: {
     output: 'release/${version}',
-    buildResources: 'build',
+    buildResources: getBuildResourcesPath(),
   },
   files: [
     'dist-electron',
@@ -25,9 +63,9 @@ const config = {
     '!node_modules/@cypherock/*/.turbo/**',
     '!node_modules/@cypherock/*/scripts/**',
   ],
-  extraResources: ['extraResources/RELEASE_NOTES.md'],
+  extraResources: [`${getExtraResourcesPath()}/RELEASE_NOTES.md`],
   releaseInfo: {
-    releaseNotesFile: './extraResources/RELEASE_NOTES.md',
+    releaseNotesFile: `./${getExtraResourcesPath()}/RELEASE_NOTES.md`,
   },
   mac: {
     artifactName: getArtifactName(),
@@ -61,7 +99,7 @@ const config = {
   linux: {
     target: ['AppImage'],
     category: 'Utility',
-    executableName: 'Cypherock CySync',
+    executableName: productName,
     artifactName: getArtifactName(),
   },
   nsis: {
@@ -73,15 +111,15 @@ const config = {
   afterSign: 'scripts/notarize.js',
   publish: {
     provider: 'generic',
-    url: 'https://cypherock-updater-v2.s3-accelerate.amazonaws.com/cysync-desktop',
+    url: getPublishUrl(),
   },
 };
 
 if (process.env.WINDOWS_CERT_SUBJECT) {
- if (!config.win.signtoolOptions) { 
-    config.win.signtoolOptions = {}; 
- } 
- config.win.signtoolOptions.certificateSubjectName =
+  if (!config.win.signtoolOptions) {
+    config.win.signtoolOptions = {};
+  }
+  config.win.signtoolOptions.certificateSubjectName =
     process.env.WINDOWS_CERT_SUBJECT;
 }
 

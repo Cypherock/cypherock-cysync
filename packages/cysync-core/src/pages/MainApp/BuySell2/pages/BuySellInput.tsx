@@ -1,3 +1,4 @@
+import { BuySellSupport2 } from '@cypherock/app-support-buy-sell-2';
 import {
   Button,
   Container,
@@ -6,12 +7,12 @@ import {
   Throbber,
   Typography,
 } from '@cypherock/cysync-ui';
-import { BuySellSupport2 } from '@cypherock/app-support-buy-sell-2';
 import lodash from 'lodash';
 import React, { useCallback, useEffect, useRef } from 'react';
 
 import { openAddAccountDialog } from '~/actions';
 import { useBuySell2 } from '~/context';
+import { ANALYTICS_EVENTS, analyticsService } from '~/services';
 import { selectLanguage, useAppDispatch, useAppSelector } from '~/store';
 
 import {
@@ -23,7 +24,6 @@ import {
 } from '../components';
 import { BuySellOffersHeader } from '../components/BuySellOffersHeader';
 import { WalletAccountSelector } from '../components/WalletAccountSelector';
-import { ANALYTICS_EVENTS, analyticsService } from '~/services';
 
 const throbber: JSX.Element = <Throbber size={15} strokeWidth={2} />;
 

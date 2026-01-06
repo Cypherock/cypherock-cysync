@@ -1,4 +1,5 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
+
 import {
   RootState,
   updateCantonAuthTokens,

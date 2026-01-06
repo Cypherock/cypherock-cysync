@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="/fonts/index.css" rel="preload stylesheet" as="style" />
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="script-src 'self' 'unsafe-inline';"
+    />
+    <title>Odix Pay</title>
+    <style>
+      body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100vw;
+        height: 100vh;
+        background: linear-gradient(
+          102.78deg,
+          #211c18 0%,
+          #211a16 59.38%,
+          #252219 100%
+        );
+        font-family: Poppins;
+        overflow: hidden;
+      }
+
+      .text {
+        font-family: 'Poppins';
+        font-style: normal;
+        text-align: center;
+        font-weight: 400;
+      }
+      .title {
+        @extend .text;
+
+        font-size: 28px;
+        font-weight: 500;
+        background: linear-gradient(
+          90deg,
+          #a2adb3 1.67%,
+          #f3f1f2 35.99%,
+          #bcc3c9 66.2%,
+          #dcdfe4 100%
+        );
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        text-fill-color: transparent;
+      }
+      .subtitle {
+        @extend .text;
+
+        font-size: 20px;
+        color: #8b8682;
+      }
+      .version {
+        @extend .text;
+
+        font-size: 14px;
+        letter-spacing: 0.12em;
+        color: #8b8682;
+      }
+      .text-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 0px;
+        gap: 16px;
+      }
+      .content {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 0px;
+        gap: 56px;
+      }
+      .logo-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 0px;
+        gap: 32px;
+      }
+
+      .circular {
+        animation: rotate 2s linear infinite;
+        overflow: visible;
+        height: 176px;
+        position: relative;
+        width: 176px;
+      }
+
+      .path {
+        stroke-dasharray: 1, 880;
+        stroke-dashoffset: 0;
+        animation: dash 1.5s ease-in-out infinite;
+        stroke-linecap: round;
+      }
+
+      @keyframes rotate {
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+      @keyframes dash {
+        0% {
+          stroke-dasharray: 1, 880;
+          stroke-dashoffset: 0;
+        }
+        50% {
+          stroke-dasharray: 390, 880;
+          stroke-dashoffset: -153;
+        }
+        100% {
+          stroke-dasharray: 390, 880;
+          stroke-dashoffset: -546;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="content">
+      <div class="logo-container">
+        <div style="position: relative">
+          <div style="position: absolute">
+            <svg class="circular">
+              <circle
+                class="path"
+                cx="88"
+                cy="88"
+                r="88"
+                fill="none"
+                stroke="url(#paint0_linear_1_516)"
+                stroke-width="3"
+                stroke-miterlimit="10"
+              />
+              <defs>
+                <linearGradient
+                  id="paint0_linear_1_516"
+                  x1="0.335879"
+                  y1="88"
+                  x2="176.336"
+                  y2="88"
+                  gradientUnits="userSpaceOnUse"
+                >
+                  <stop stop-color="#E1A68C" />
+                  <stop offset="0.369792" stop-color="#FFC8AF" />
+                  <stop offset="1" stop-color="#B37D65" />
+                </linearGradient>
+              </defs>
+            </svg>
+          </div>
+          <svg
+            width="176"
+            height="176"
+            viewBox="0 0 176 176"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <circle cx="88" cy="88" r="88" fill="#39322C" />
+            <g clip-path="url(#clip0_2177_1957)">
+              <path
+                d="M88.2273 34.1676C58.4734 34.1676 34.335 58.306 34.335 88.06C34.335 117.814 58.4734 141.952 88.2273 141.952C117.981 141.952 142.12 117.814 142.12 88.06C142.12 58.306 117.981 34.1676 88.2273 34.1676ZM88.2273 138.935C60.0658 138.935 37.2684 116.138 37.2684 87.9762C37.2684 59.8147 60.1497 37.1011 88.2273 37.1011C116.305 37.1011 139.186 59.8985 139.186 88.06C139.186 116.221 116.389 139.019 88.2273 139.019V138.935Z"
+                fill="url(#paint0_linear_2177_1957)"
+              />
+              <path
+                d="M88.227 44.5605C64.2562 44.5605 44.7275 64.0054 44.7275 88.06C44.7275 112.115 64.1724 131.559 88.227 131.559C112.282 131.559 131.726 112.115 131.726 88.06C131.726 64.0054 112.282 44.5605 88.227 44.5605ZM88.227 128.458C65.9325 128.458 47.8287 110.355 47.8287 88.06C47.8287 65.7655 65.9325 47.6617 88.227 47.6617C110.521 47.6617 128.625 65.7655 128.625 88.06C128.625 110.355 110.521 128.458 88.227 128.458Z"
+                fill="url(#paint1_linear_2177_1957)"
+              />
+              <path
+                d="M88.2274 55.7916C70.375 55.7916 55.959 70.2076 55.959 88.06C55.959 105.912 70.375 120.328 88.2274 120.328C106.08 120.328 120.496 105.912 120.496 88.06C120.496 70.2076 106.08 55.7916 88.2274 55.7916ZM88.2274 117.311C72.0513 117.311 58.9763 104.236 58.9763 88.06C58.9763 71.8839 72.0513 58.8089 88.2274 58.8089C104.403 58.8089 117.478 71.8839 117.478 88.06C117.478 104.236 104.403 117.311 88.2274 117.311Z"
+                fill="url(#paint2_linear_2177_1957)"
+              />
+            </g>
+            <defs>
+              <linearGradient
+                id="paint0_linear_2177_1957"
+                x1="0.541634"
+                y1="54.06"
+                x2="108.326"
+                y2="54.06"
+                gradientUnits="userSpaceOnUse"
+              >
+                <stop stop-color="#E1A68C" />
+                <stop offset="0.369792" stop-color="#FFC8AF" />
+                <stop offset="1" stop-color="#B37D65" />
+              </linearGradient>
+              <linearGradient
+                id="paint1_linear_2177_1957"
+                x1="10.8945"
+                y1="54.06"
+                x2="97.8934"
+                y2="54.06"
+                gradientUnits="userSpaceOnUse"
+              >
+                <stop stop-color="#E1A68C" />
+                <stop offset="0.369792" stop-color="#FFC8AF" />
+                <stop offset="1" stop-color="#B37D65" />
+              </linearGradient>
+              <linearGradient
+                id="paint2_linear_2177_1957"
+                x1="22.0821"
+                y1="54.06"
+                x2="86.6189"
+                y2="54.06"
+                gradientUnits="userSpaceOnUse"
+              >
+                <stop stop-color="#E1A68C" />
+                <stop offset="0.369792" stop-color="#FFC8AF" />
+                <stop offset="1" stop-color="#B37D65" />
+              </linearGradient>
+              <clipPath id="clip0_2177_1957">
+                <rect
+                  width="108.12"
+                  height="108.12"
+                  fill="white"
+                  transform="translate(34 34)"
+                />
+              </clipPath>
+            </defs>
+          </svg>
+        </div>
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="168"
+          height="56"
+          viewBox="0 0 168 56"
+          fill="none"
+        >
+          <path
+            d="M0.189453 16.8C0.189453 8.0123 5.27669 0.258453 15.7961 0.258453C26.3155 0.258453 31.3165 7.92615 31.3165 16.8V39.2861C31.3165 48.2461 26.8328 55.5692 15.7099 55.5692C4.5869 55.5692 0.189453 47.7292 0.189453 39.2861V16.8ZM6.65629 40.2338C6.65629 45.4892 9.24302 49.8831 15.7099 49.8831C22.1767 49.8831 24.8496 45.5754 24.8496 40.2338V15.68C24.8496 9.73538 21.8318 6.03076 15.7961 6.03076C9.76036 6.03076 6.65629 9.56307 6.65629 15.68V40.2338Z"
+            fill="url(#paint0_linear_7537_69962)"
+          />
+          <path
+            d="M58.6496 55.1385C56.8389 55.1385 55.373 53.76 55.373 52.2092V3.79077C55.373 2.24 56.7526 0.861542 58.6496 0.861542H68.9103C80.2057 0.861542 84.172 8.61539 84.172 17.4031V38.8554C84.172 47.2985 80.2919 55.1385 68.9965 55.1385H58.6496ZM61.9261 6.63385V49.4523H69.0827C75.4634 49.4523 77.7914 44.8862 77.7914 39.6308V16.5415C77.7914 10.4246 74.6873 6.72 68.9965 6.72H61.9261V6.63385Z"
+            fill="url(#paint1_linear_7537_69962)"
+          />
+          <path
+            d="M114.867 52.7261C114.867 54.2769 113.488 55.6554 111.591 55.6554C109.694 55.6554 108.314 54.2769 108.314 52.7261V3.27383C108.314 1.72306 109.694 0.344604 111.591 0.344604C113.488 0.344604 114.867 1.72306 114.867 3.27383V52.7261Z"
+            fill="url(#paint2_linear_7537_69962)"
+          />
+          <path
+            d="M140.477 0.258453C141.684 0.258453 142.805 0.86153 143.408 1.98153L151.945 20.7631L160.222 1.98153C160.739 0.947684 161.774 0.258453 162.981 0.258453C165.396 0.258453 166.516 2.23999 165.74 4.04922L155.566 26.4492L167.724 51.6923C167.896 52.0369 167.982 52.4677 167.982 52.8123C167.982 54.3631 166.603 55.6554 164.878 55.6554C163.671 55.6554 162.55 54.9661 162.033 53.9323L151.945 32.1354L142.287 53.9323C141.77 55.0523 140.649 55.6554 139.442 55.6554C137.804 55.6554 136.338 54.4492 136.338 52.8123C136.338 52.4677 136.51 52.0369 136.683 51.7785L148.409 27.0523L137.545 4.30768C136.769 2.49845 137.976 0.258453 140.39 0.258453H140.477Z"
+            fill="url(#paint3_linear_7537_69962)"
+          />
+          <defs>
+            <linearGradient
+              id="paint0_linear_7537_69962"
+              x1="0.248856"
+              y1="27.9138"
+              x2="31.3759"
+              y2="27.9138"
+              gradientUnits="userSpaceOnUse"
+            >
+              <stop stop-color="#E1A68C" />
+              <stop offset="0.369792" stop-color="#FFC8AF" />
+              <stop offset="1" stop-color="#B37D65" />
+            </linearGradient>
+            <linearGradient
+              id="paint1_linear_7537_69962"
+              x1="55.428"
+              y1="28"
+              x2="84.227"
+              y2="28"
+              gradientUnits="userSpaceOnUse"
+            >
+              <stop stop-color="#E1A68C" />
+              <stop offset="0.369792" stop-color="#FFC8AF" />
+              <stop offset="1" stop-color="#B37D65" />
+            </linearGradient>
+            <linearGradient
+              id="paint2_linear_7537_69962"
+              x1="108.327"
+              y1="28"
+              x2="114.88"
+              y2="28"
+              gradientUnits="userSpaceOnUse"
+            >
+              <stop stop-color="#E1A68C" />
+              <stop offset="0.369792" stop-color="#FFC8AF" />
+              <stop offset="1" stop-color="#B37D65" />
+            </linearGradient>
+            <linearGradient
+              id="paint3_linear_7537_69962"
+              x1="136.398"
+              y1="27.9569"
+              x2="168.043"
+              y2="27.9569"
+              gradientUnits="userSpaceOnUse"
+            >
+              <stop stop-color="#E1A68C" />
+              <stop offset="0.369792" stop-color="#FFC8AF" />
+              <stop offset="1" stop-color="#B37D65" />
+            </linearGradient>
+          </defs>
+        </svg>
+      </div>
+      <div class="text-container">
+        <div class="title">Welcome to ODIX app</div>
+        <div class="subtitle">Your Gateway to Self-Sovereignty</div>
+        <div class="version" id="version"></div>
+      </div>
+    </div>
+    <script>
+      document.getElementById('version').innerHTML = 'ver ' + cysyncEnv.VERSION;
+    </script>
+  </body>
+</html>

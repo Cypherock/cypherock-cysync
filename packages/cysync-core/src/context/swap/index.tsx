@@ -12,8 +12,8 @@ import React, { useCallback, useEffect, useRef, useState } from 'react';
 
 import { ErrorActionMap, ErrorIconNameMap } from '~/constants/errors';
 import { DeviceTask, useDeviceTask, useMemoReturn } from '~/hooks';
-import { createExchange, getProviderDetails } from '~/services/swapService';
 import { analyticsService, ANALYTICS_EVENTS } from '~/services/analytics';
+import { createExchange, getProviderDetails } from '~/services/swapService';
 import { getDB } from '~/utils';
 import logger from '~/utils/logger';
 

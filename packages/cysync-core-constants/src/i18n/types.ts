@@ -12,6 +12,7 @@ export interface LanguageStrings {
   help: string;
   back: string;
   allWallets: string;
+  appName: string;
   labels: LangLabels;
   buttons: LangButtons;
   dashboard: LangDashboard;
@@ -737,6 +738,7 @@ interface LangTopbar {
 
 interface LangSidebar {
   portfolio: string;
+  securedBy: string;
   wallets: string;
   sendCrypto: string;
   receiveCrypto: string;

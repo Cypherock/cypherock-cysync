@@ -1,4 +1,4 @@
-import { coinList } from '@cypherock/coins';
+import { coinList, coinFamiliesMap } from '@cypherock/coins';
 import {
   Button,
   Container,
@@ -25,6 +25,15 @@ const coinDropDownList: DropDownItemProps[] = Object.values(coinList)
   .filter(
     c => window.cysyncEnv.IS_PRODUCTION === 'false' || !c.isUnderDevelopment,
   )
+  .filter(c => {
+    if (
+      window.cysyncEnv.VENDOR === 'odix' &&
+      (c.id === 'fantom' || c.id === coinFamiliesMap.canton)
+    ) {
+      return false;
+    }
+    return true;
+  })
   .map(coin => ({
     id: coin.id,
     leftImage: <CoinIcon parentAssetId={coin.id} />,

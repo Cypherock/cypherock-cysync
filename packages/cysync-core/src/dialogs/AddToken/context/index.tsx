@@ -214,14 +214,24 @@ export const AddTokenDialogProvider: FC<AddTokenDialogContextProviderProps> = ({
     DropDownItemProps[]
   >(() => {
     // TODO: Remove the filter once we have a proper solution for SBC
-    const tokens = Object.values(tokenList).filter(
-      token =>
-        token.id !==
-        createCantonInstrumentAssetId({
-          parentAssetId: CantonIdMap.canton,
-          assetId: 'SBC',
-        }),
-    );
+    const tokens = Object.values(tokenList)
+      .filter(t => {
+        if (
+          window.cysyncEnv.VENDOR === 'odix' &&
+          (t.parentId === 'fantom' || t.family === coinFamiliesMap.canton)
+        ) {
+          return false;
+        }
+        return true;
+      })
+      .filter(
+        token =>
+          token.id !==
+          createCantonInstrumentAssetId({
+            parentAssetId: CantonIdMap.canton,
+            assetId: 'SBC',
+          }),
+      );
 
     return tokens.map(token => ({
       id: token.id,

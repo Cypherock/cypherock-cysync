@@ -33,14 +33,16 @@ export const About: React.FC = () => {
         </SettingsButton>
       </SettingsStandardItem>
 
-      <SettingsStandardItem
-        title={{ text: item.appTutorials.title }}
-        description={{ text: item.appTutorials.description }}
-      >
-        <SettingsButton onClick={openTutorialLink} variant="primary">
-          <LangDisplay text={strings.buttons.learnMore} />
-        </SettingsButton>
-      </SettingsStandardItem>
+      {window.cysyncEnv.VENDOR === 'default' && (
+        <SettingsStandardItem
+          title={{ text: item.appTutorials.title }}
+          description={{ text: item.appTutorials.description }}
+        >
+          <SettingsButton onClick={openTutorialLink} variant="primary">
+            <LangDisplay text={strings.buttons.learnMore} />
+          </SettingsButton>
+        </SettingsStandardItem>
+      )}
 
       <SettingsStandardItem
         title={{ text: item.termsOfUse.title }}
