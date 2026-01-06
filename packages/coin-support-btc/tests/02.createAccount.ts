@@ -48,7 +48,7 @@ describe('02. Create Account', () => {
         expect(isDeviceDone).toEqual(true);
 
         expect(accounts).toBeDefined();
-        expect(accounts.length).toEqual(3);
+        expect(accounts.length).toEqual(4);
         const nativeSegwitAccounts = accounts.filter(
           e => e.derivationScheme === 'nativeSegwit',
         );
@@ -57,6 +57,9 @@ describe('02. Create Account', () => {
         );
         const segwitAccounts = accounts.filter(
           e => e.derivationScheme === 'segwit',
+        );
+        const taprootAccounts = accounts.filter(
+          e => e.derivationScheme === 'taproot',
         );
 
         expect(nativeSegwitAccounts.length).toEqual(1);
@@ -72,6 +75,11 @@ describe('02. Create Account', () => {
         expect(segwitAccounts.length).toEqual(1);
         expect(segwitAccounts.map(e => e.derivationPath)).toEqual([
           "m/49'/0'/0'",
+        ]);
+
+        expect(taprootAccounts.length).toEqual(1);
+        expect(taprootAccounts.map(e => e.derivationPath)).toEqual([
+          "m/86'/0'/0'",
         ]);
         done();
       },
@@ -115,7 +123,7 @@ describe('02. Create Account', () => {
         expect(isDeviceDone).toEqual(true);
 
         expect(accounts).toBeDefined();
-        expect(accounts.length).toEqual(3);
+        expect(accounts.length).toEqual(4);
         const nativeSegwitAccounts = accounts.filter(
           e => e.derivationScheme === 'nativeSegwit',
         );
@@ -124,6 +132,9 @@ describe('02. Create Account', () => {
         );
         const segwitAccounts = accounts.filter(
           e => e.derivationScheme === 'segwit',
+        );
+        const taprootAccounts = accounts.filter(
+          e => e.derivationScheme === 'taproot',
         );
 
         expect(nativeSegwitAccounts.length).toEqual(1);
@@ -139,6 +150,11 @@ describe('02. Create Account', () => {
         expect(segwitAccounts.length).toEqual(1);
         expect(segwitAccounts.map(e => e.derivationPath)).toEqual([
           "m/49'/0'/0'",
+        ]);
+
+        expect(taprootAccounts.length).toEqual(1);
+        expect(taprootAccounts.map(e => e.derivationPath)).toEqual([
+          "m/86'/0'/0'",
         ]);
         done();
       },
