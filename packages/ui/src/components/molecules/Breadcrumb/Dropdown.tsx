@@ -3,7 +3,8 @@ import styled from 'styled-components';
 
 import { ListItemDropdown } from '..';
 import { DropdownArrow } from '../../../assets';
-import { Flex, Typography } from '../../atoms';
+import { Flex, Typography, Tooltip } from '../../atoms';
+import { useOverflow } from '../../../hooks';
 
 export interface BreadcrumbDropdownItem {
   id: string;
@@ -52,6 +53,7 @@ export const BreadcrumbDropdown: FC<BreadcrumbDropdownProps> = ({
 }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [focusedIndex, setFocusedIndex] = useState(-1);
+  const { isOverflowing, ref: overflowRef } = useOverflow({ ofChild: true });
 
   const dropdownState = () => setIsOpen(!isOpen);
 
@@ -136,9 +138,24 @@ export const BreadcrumbDropdown: FC<BreadcrumbDropdownProps> = ({
   return (
     <DropDownWrapper ref={buttonRef} onClick={dropdownState}>
       <Flex gap={16} align="center">
-        <Typography variant="div" $fontSize={16} $fontWeight="medium">
-          {displayNode}
-        </Typography>
+        {typeof displayNode === 'string' ? (
+          <Tooltip text={displayNode} isActive={isOverflowing}>
+            <div ref={overflowRef}>
+              <Typography
+                variant="div"
+                $fontSize={16}
+                $fontWeight="medium"
+                $textOverflow="ellipsis"
+                $whiteSpace="nowrap"
+                $maxWidth="10vw"
+              >
+                {displayNode}
+              </Typography>
+            </div>
+          </Tooltip>
+        ) : (
+          displayNode
+        )}
         <DropdownArrow />
       </Flex>
       {isOpen && dropdown?.length && (

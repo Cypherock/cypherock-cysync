@@ -6,6 +6,8 @@ import {
   Container,
   Tag,
   Typography,
+  Tooltip,
+  useOverflow,
 } from '@cypherock/cysync-ui';
 import { IAccount, IWallet } from '@cypherock/db-interfaces';
 import { createSelector } from '@reduxjs/toolkit';
@@ -27,6 +29,78 @@ import {
   selectWallets,
   useAppSelector,
 } from '~/store';
+
+interface AccountNameDisplayProps {
+  name: string;
+}
+
+const AccountNameDisplay: React.FC<AccountNameDisplayProps> = ({ name }) => {
+  const { ref, isOverflowing } = useOverflow({ ofChild: true });
+
+  return (
+    <Tooltip text={name} isActive={isOverflowing}>
+      <div ref={ref}>
+        <Typography
+          ml={1}
+          $textOverflow="ellipsis"
+          $whiteSpace="nowrap"
+          $maxWidth="10vw"
+        >
+          {name}
+        </Typography>
+      </div>
+    </Tooltip>
+  );
+};
+
+interface AssetNameDisplayProps {
+  name: string;
+}
+
+const AssetNameDisplay: React.FC<AssetNameDisplayProps> = ({ name }) => {
+  const { ref, isOverflowing } = useOverflow({ ofChild: true });
+
+  return (
+    <Tooltip text={name} isActive={isOverflowing}>
+      <div ref={ref}>
+        <Typography
+          ml={1}
+          $textOverflow="ellipsis"
+          $whiteSpace="nowrap"
+          $maxWidth="10vw"
+        >
+          {name}
+        </Typography>
+      </div>
+    </Tooltip>
+  );
+};
+
+interface DropdownAccountNameDisplayProps {
+  name: string;
+}
+
+const DropdownAccountNameDisplay: React.FC<DropdownAccountNameDisplayProps> = ({
+  name,
+}) => {
+  const { ref, isOverflowing } = useOverflow({ ofChild: true });
+
+  return (
+    <Tooltip text={name} isActive={isOverflowing}>
+      <div ref={ref}>
+        <Typography
+          mx={1}
+          color="muted"
+          $textOverflow="ellipsis"
+          $whiteSpace="nowrap"
+          $maxWidth="10vw"
+        >
+          {name}
+        </Typography>
+      </div>
+    </Tooltip>
+  );
+};
 
 const selector = createSelector(
   [selectUnHiddenAccounts, selectWallets, selectLanguage],
@@ -131,9 +205,7 @@ export const useAccountPage = () => {
               parentAssetId={a.parentAssetId}
               assetId={a.assetId}
             />
-            <Typography mx={1} color="muted">
-              {a.name}
-            </Typography>
+            <DropdownAccountNameDisplay name={a.name} />
             {a.derivationScheme && (
               <Tag>{lodash.upperCase(a.derivationScheme)}</Tag>
             )}
@@ -168,7 +240,7 @@ export const useAccountPage = () => {
               subContainerSize="12px"
               size="16px"
             />
-            <Typography ml={1}>{parentAccount?.name}</Typography>
+            <AccountNameDisplay name={parentAccount?.name ?? ''} />
           </Container>
         ),
         selectedItem: parentAccount?.__id ?? '',
@@ -193,7 +265,7 @@ export const useAccountPage = () => {
                 subContainerSize="12px"
                 size="16px"
               />
-              <Typography ml={1}>{selectedAccount.name}</Typography>
+              <AccountNameDisplay name={selectedAccount.name} />
             </Container>
           ),
           selectedItem: selectedAccount.__id ?? '',
@@ -227,7 +299,7 @@ export const useAccountPage = () => {
                   subContainerSize="12px"
                   size="16px"
                 />
-                <Typography ml={1}>{fromAsset.asset.name}</Typography>
+                <AssetNameDisplay name={fromAsset.asset.name} />
               </Container>
             ),
             selectedItem: `${fromAsset.parentAssetId}/${fromAsset.assetId}`,

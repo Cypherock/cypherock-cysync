@@ -8,6 +8,8 @@ import {
   ArrowReceivedIcon,
   SvgProps,
   WalletConnectWithBgIcon,
+  Tooltip,
+  useOverflow,
 } from '@cypherock/cysync-ui';
 import React, { FC } from 'react';
 
@@ -42,6 +44,8 @@ export const AssetPage: FC = () => {
   const navigateTo = useNavigateTo();
   const dispatch = useAppDispatch();
   const lang = useAppSelector(selectLanguage);
+  const { ref: assetNameRef, isOverflowing: assetNameOverflowing } =
+    useOverflow({ ofChild: true });
 
   const {
     handleWalletChange,
@@ -95,7 +99,21 @@ export const AssetPage: FC = () => {
                         subContainerSize="12px"
                         size="16px"
                       />
-                      <Typography ml={1}>{selectedAsset?.name}</Typography>
+                      <Tooltip
+                        text={selectedAsset?.name}
+                        isActive={assetNameOverflowing}
+                      >
+                        <div ref={assetNameRef}>
+                          <Typography
+                            ml={1}
+                            $textOverflow="ellipsis"
+                            $whiteSpace="nowrap"
+                            $maxWidth="10vw"
+                          >
+                            {selectedAsset?.name}
+                          </Typography>
+                        </div>
+                      </Tooltip>
                     </Container>
                   ),
                   selectedItem: `${parentAssetId}/${assetId}`,
