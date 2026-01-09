@@ -138,6 +138,7 @@ const calculateIconProps = (
     $borderWidth: 0,
     width: containerSize ?? parsedWidth,
     height: containerSize ?? parsedHeight,
+    shrink: 0,
     ...containerUtilsProps,
   };
 

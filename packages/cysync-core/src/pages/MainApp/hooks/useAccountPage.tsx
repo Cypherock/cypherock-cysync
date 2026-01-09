@@ -32,9 +32,13 @@ import {
 
 interface AccountNameDisplayProps {
   name: string;
+  maxWidth?: string;
 }
 
-const AccountNameDisplay: React.FC<AccountNameDisplayProps> = ({ name }) => {
+const AccountNameDisplay: React.FC<AccountNameDisplayProps> = ({
+  name,
+  maxWidth,
+}) => {
   const { ref, isOverflowing } = useOverflow({ ofChild: true });
 
   return (
@@ -44,20 +48,28 @@ const AccountNameDisplay: React.FC<AccountNameDisplayProps> = ({ name }) => {
           ml={1}
           $textOverflow="ellipsis"
           $whiteSpace="nowrap"
-          $maxWidth="10vw"
+          $maxWidth={maxWidth}
         >
           {name}
         </Typography>
       </div>
     </Tooltip>
   );
+};
+
+AccountNameDisplay.defaultProps = {
+  maxWidth: undefined,
 };
 
 interface AssetNameDisplayProps {
   name: string;
+  maxWidth?: string;
 }
 
-const AssetNameDisplay: React.FC<AssetNameDisplayProps> = ({ name }) => {
+const AssetNameDisplay: React.FC<AssetNameDisplayProps> = ({
+  name,
+  maxWidth,
+}) => {
   const { ref, isOverflowing } = useOverflow({ ofChild: true });
 
   return (
@@ -67,7 +79,7 @@ const AssetNameDisplay: React.FC<AssetNameDisplayProps> = ({ name }) => {
           ml={1}
           $textOverflow="ellipsis"
           $whiteSpace="nowrap"
-          $maxWidth="10vw"
+          $maxWidth={maxWidth}
         >
           {name}
         </Typography>
@@ -76,12 +88,18 @@ const AssetNameDisplay: React.FC<AssetNameDisplayProps> = ({ name }) => {
   );
 };
 
+AssetNameDisplay.defaultProps = {
+  maxWidth: undefined,
+};
+
 interface DropdownAccountNameDisplayProps {
   name: string;
+  maxWidth?: string;
 }
 
 const DropdownAccountNameDisplay: React.FC<DropdownAccountNameDisplayProps> = ({
   name,
+  maxWidth,
 }) => {
   const { ref, isOverflowing } = useOverflow({ ofChild: true });
 
@@ -93,13 +111,17 @@ const DropdownAccountNameDisplay: React.FC<DropdownAccountNameDisplayProps> = ({
           color="muted"
           $textOverflow="ellipsis"
           $whiteSpace="nowrap"
-          $maxWidth="10vw"
+          $maxWidth={maxWidth}
         >
           {name}
         </Typography>
       </div>
     </Tooltip>
   );
+};
+
+DropdownAccountNameDisplay.defaultProps = {
+  maxWidth: undefined,
 };
 
 const selector = createSelector(
@@ -205,7 +227,10 @@ export const useAccountPage = () => {
               parentAssetId={a.parentAssetId}
               assetId={a.assetId}
             />
-            <DropdownAccountNameDisplay name={a.name} />
+            <DropdownAccountNameDisplay
+              name={a.name}
+              maxWidth={a.derivationScheme !== undefined ? '6vw' : '10vw'}
+            />
             {a.derivationScheme && (
               <Tag>{lodash.upperCase(a.derivationScheme)}</Tag>
             )}

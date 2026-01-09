@@ -42,7 +42,7 @@ const BreadcrumbText: FC<BreadcrumbTextProps> = ({ text, onClick }) => {
       color="muted"
       $textOverflow="ellipsis"
       $whiteSpace="nowrap"
-      $maxWidth="10vw"
+      $minWidth="0px"
     >
       {text}
     </Typography>
@@ -70,9 +70,16 @@ BreadcrumbText.defaultProps = {
 };
 
 export const Breadcrumb: FC<BreadcrumbProps> = ({ items }) => (
-  <Flex direction="column" gap={20} justify="center">
+  <Flex
+    direction="column"
+    gap={20}
+    justify="center"
+    $minWidth="0px"
+    shrink={1}
+    mr={4}
+  >
     <DropdownContainer>
-      <Flex gap={12} align="center">
+      <Flex gap={12} align="center" width="100%">
         {items.map((item, index) => (
           <React.Fragment key={item.id}>
             {item.text && (

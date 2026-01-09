@@ -108,7 +108,6 @@ export const AssetPage: FC = () => {
                             ml={1}
                             $textOverflow="ellipsis"
                             $whiteSpace="nowrap"
-                            $maxWidth="10vw"
                           >
                             {selectedAsset?.name}
                           </Typography>
