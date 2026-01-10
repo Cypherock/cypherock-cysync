@@ -18,7 +18,7 @@ export default [
     name: 'Polygon',
     magnitude: 18,
     isTest: false,
-    coinGeckoId: 'matic-network',
+    coinGeckoId: 'polygon-ecosystem-token',
     coinIndex: '8000003c',
     feesUnit: 'Gwei',
     network: 'polygon',
