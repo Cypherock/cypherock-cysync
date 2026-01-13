@@ -2,6 +2,8 @@ import {
   ISyncAccountsEvent,
   syncAccounts as syncAccountsCore,
 } from '@cypherock/cysync-core-services';
+import { coinFamiliesMap } from '@cypherock/coins';
+import { HttpStatusCode } from 'axios';
 import {
   IAccount,
   SwapStatus,
@@ -20,7 +22,13 @@ import {
   setSyncError,
   updateAccountSyncMap,
 } from '~/store';
+import {
+  selectIsSyncPrompted,
+  setCantonUnauthorizedSyncError,
+  setIsSyncPrompted,
+} from '~/store/canton';
 import { getDB, getKeyDB } from '~/utils';
+import { openSyncCantonAccountPromptDialog } from '..';
 
 const updateSwapReceiveTransactions = async () => {
   const db = getDB();
@@ -149,6 +157,17 @@ export const syncAccounts = createAsyncThunk<
                 syncState: AccountSyncStateMap.failed,
               }),
             );
+
+            if (
+              event.account.familyId === coinFamiliesMap.canton &&
+              event.error?.response?.status === HttpStatusCode.Unauthorized
+            ) {
+              dispatch(setCantonUnauthorizedSyncError({ hasError: true }));
+              if (!selectIsSyncPrompted(getState())) {
+                dispatch(openSyncCantonAccountPromptDialog());
+                dispatch(setIsSyncPrompted({ isPrompted: true }));
+              }
+            }
           }
         },
         complete: () => {

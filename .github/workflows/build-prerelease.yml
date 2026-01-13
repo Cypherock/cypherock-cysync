@@ -13,7 +13,7 @@ on:
         required: false
       api:
         description: api endpoint for the application
-        default: 'https://dev-api.cypherock.com'
+        default: 'https://api.cypherock.com'
         type: string
         required: true
 

@@ -58,7 +58,8 @@
     "autoApproval": "Transfer Preapproval",
     "mergeDelegation": "UTXO Management",
     "accept": "Accept",
-    "earnRewards": "Earn Rewards"
+    "earnRewards": "Earn Rewards",
+    "proceed": "Proceed"
   },
   "tooltips": {
     "downloadCsv": "Export as CSV"
@@ -2306,6 +2307,14 @@
             "cancel": "Outgoing transaction **cancelled**"
           }
         }
+      },
+      "login": {
+        "success": {
+          "title": "Your Canton account is successfully synced with canton network"
+        }
+      },
+      "syncAccountPrompt": {
+        "title": "Seems like your canton account is out of sync. Proceed to sync account?"
       }
     }
   },

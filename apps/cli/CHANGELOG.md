@@ -1,5 +1,24 @@
 # @cypherock/cysync-cli
 
+## 0.2.10-pre.0
+
+### Patch Changes
+
+- Updated dependencies [[`223a00aa`](https://github.com/Cypherock/cypherock-cysync/commit/223a00aa4cc8b06f75b75b58cbebb7dfcbddeb76), [`d23870c6`](https://github.com/Cypherock/cypherock-cysync/commit/d23870c6261211735dffe9832317e48ca7677a55)]:
+  - @cypherock/coins@0.7.0-pre.0
+  - @cypherock/cysync-core-services@0.3.2-pre.0
+  - @cypherock/coin-support@0.2.10-pre.0
+  - @cypherock/coin-support-btc@0.0.30-pre.0
+  - @cypherock/coin-support-evm@0.1.8-pre.0
+  - @cypherock/coin-support-icp@1.0.13-pre.0
+  - @cypherock/coin-support-near@0.0.29-pre.0
+  - @cypherock/coin-support-sia@2.0.4-pre.0
+  - @cypherock/coin-support-solana@0.2.8-pre.0
+  - @cypherock/coin-support-starknet@1.0.16-pre.0
+  - @cypherock/coin-support-stellar@1.0.10-pre.0
+  - @cypherock/coin-support-utils@0.1.8-pre.0
+  - @cypherock/coin-support-xrp@1.1.17-pre.0
+
 ## 0.2.9
 
 ### Patch Changes

@@ -24,6 +24,7 @@ import {
   PolygonIcon,
   OptimismIcon,
   HyperliquidIcon,
+  BaseIcon,
   SolanaIcon,
   NearIcon,
   XrpIcon,
@@ -66,6 +67,7 @@ const coinToIconMap: Record<string, React.FC<IconProps> | undefined> = {
   [EvmIdMap.arbitrum]: ArbitrumIcon,
   [EvmIdMap.optimism]: OptimismIcon,
   [EvmIdMap.hyperliquid]: HyperliquidIcon,
+  [EvmIdMap.base]: BaseIcon,
   [EvmIdMap.binance]: BinanceIcon,
   [EvmIdMap.polygon]: PolygonIcon,
   [EvmIdMap.fantom]: FantomIcon,
@@ -136,6 +138,7 @@ const calculateIconProps = (
     $borderWidth: 0,
     width: containerSize ?? parsedWidth,
     height: containerSize ?? parsedHeight,
+    shrink: 0,
     ...containerUtilsProps,
   };
 

@@ -58,7 +58,8 @@
     "autoApproval": "Übertragungs-Vorgenehmigung",
     "mergeDelegation": "UTXO Verwaltung",
     "accept": "Akzeptieren",
-    "earnRewards": "Belohnungen verdienen"
+    "earnRewards": "Belohnungen verdienen",
+    "proceed": "Fortfahren"
   },
   "tooltips": {
     "downloadCsv": "Als CSV exportieren"
@@ -2315,6 +2316,14 @@
             "cancel": "Ausgehende Transaktion **abgebrochen**"
           }
         }
+      },
+      "login": {
+        "success": {
+          "title": "Ihr Canton-Konto wurde erfolgreich mit dem Canton-Netzwerk synchronisiert"
+        }
+      },
+      "syncAccountPrompt": {
+        "title": "Ihr Canton-Konto ist nicht synchronisiert. Möchten Sie fortfahren und synchronisieren?"
       }
     }
   },
