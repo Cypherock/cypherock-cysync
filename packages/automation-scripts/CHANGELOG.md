@@ -1,5 +1,15 @@
 # @cypherock/cysync-automation-scripts
 
+## 0.1.17
+
+### Patch Changes
+
+- [#853](https://github.com/Cypherock/cypherock-cysync/pull/853) [`223a00aa`](https://github.com/Cypherock/cypherock-cysync/commit/223a00aa4cc8b06f75b75b58cbebb7dfcbddeb76) Thanks [@prashantrahul141](https://github.com/prashantrahul141)! - Add base evm support
+
+- Updated dependencies [[`223a00aa`](https://github.com/Cypherock/cypherock-cysync/commit/223a00aa4cc8b06f75b75b58cbebb7dfcbddeb76), [`d23870c6`](https://github.com/Cypherock/cypherock-cysync/commit/d23870c6261211735dffe9832317e48ca7677a55)]:
+  - @cypherock/coins@0.7.0
+  - @cypherock/cysync-core-constants@0.7.1
+
 ## 0.1.17-pre.0
 
 ### Patch Changes

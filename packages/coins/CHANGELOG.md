@@ -1,5 +1,11 @@
 # @cypherock/coins
 
+## 0.7.0
+
+### Minor Changes
+
+- [#853](https://github.com/Cypherock/cypherock-cysync/pull/853) [`223a00aa`](https://github.com/Cypherock/cypherock-cysync/commit/223a00aa4cc8b06f75b75b58cbebb7dfcbddeb76) Thanks [@prashantrahul141](https://github.com/prashantrahul141)! - Add base evm support
+
 ## 0.7.0-pre.0
 
 ### Minor Changes
