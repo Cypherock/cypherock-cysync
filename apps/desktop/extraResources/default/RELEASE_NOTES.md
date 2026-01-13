@@ -1,3 +1,15 @@
+# v2.4.1
+
+### 🚀 Feature
+
+- **Base Network Support:** Now you can seamlessly manage your Base network assets directly through the app.
+
+### 🐛 Bugfixes
+
+- Fixed Canton Add Account flow bugs.
+- Fixed Canton account syncing issue due to authentication failure.
+- Fixed UI issues.
+
 # v2.3.8
 
 ### 🚀 Feature
