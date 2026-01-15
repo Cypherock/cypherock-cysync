@@ -1,5 +1,21 @@
 # @cypherock/coin-support-near
 
+## 0.0.29
+
+### Patch Changes
+
+- Updated dependencies [[`223a00aa`](https://github.com/Cypherock/cypherock-cysync/commit/223a00aa4cc8b06f75b75b58cbebb7dfcbddeb76)]:
+  - @cypherock/coins@0.7.0
+  - @cypherock/coin-support-utils@0.1.8
+
+## 0.0.29-pre.0
+
+### Patch Changes
+
+- Updated dependencies [[`223a00aa`](https://github.com/Cypherock/cypherock-cysync/commit/223a00aa4cc8b06f75b75b58cbebb7dfcbddeb76)]:
+  - @cypherock/coins@0.7.0-pre.0
+  - @cypherock/coin-support-utils@0.1.8-pre.0
+
 ## 0.0.28
 
 ### Patch Changes

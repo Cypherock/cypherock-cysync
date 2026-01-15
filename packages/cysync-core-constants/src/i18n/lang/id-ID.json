@@ -58,7 +58,8 @@
     "autoApproval": "Persetujuan Transfer",
     "mergeDelegation": "Pengelolaan UTXO",
     "accept": "Terima",
-    "earnRewards": "Mendapatkan Reward"
+    "earnRewards": "Mendapatkan Reward",
+    "proceed": "Lanjutkan"
   },
   "tooltips": {
     "downloadCsv": "Ekspor sebagai CSV"
@@ -2314,6 +2315,14 @@
             "cancel": "Transaksi keluar **dibatalkan**"
           }
         }
+      },
+      "login": {
+        "success": {
+          "title": "Akun Canton Anda berhasil disinkronkan dengan jaringan canton"
+        }
+      },
+      "syncAccountPrompt": {
+        "title": "Akun Canton Anda terlihat tidak sinkron. Lanjutkan untuk menyinkronkan akun?"
       }
     }
   },

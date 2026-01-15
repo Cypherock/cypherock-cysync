@@ -58,7 +58,7 @@ export const prepareChoiceTransaction = async (
     },
     staticData: {
       fees: txn.fees,
-      utxos: [],
+      sortedUtxos: [],
     },
     computedData: {
       output: {

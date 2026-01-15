@@ -1,7 +1,8 @@
 import React, { ReactNode, useEffect } from 'react';
 import { DefaultTheme, styled } from 'styled-components';
 
-import { LangDisplay, RadioButton, Typography } from '../../atoms';
+import { LangDisplay, RadioButton, Typography, Tooltip } from '../../atoms';
+import { useOverflow } from '../../../hooks';
 
 interface ListItemDropdownProps {
   text?: string;
@@ -17,6 +18,9 @@ interface ListItemDropdownProps {
 const LocalTypography = styled(Typography)`
   color: ${({ theme }) => theme.palette.text.muted};
   text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 10vw;
+  overflow: hidden;
 `;
 
 interface ItemsProps {
@@ -44,7 +48,7 @@ const Items = styled.div<ItemsProps>`
   width: 100%;
   cursor: pointer;
   background: ${({ theme, checked, $isFocused }) =>
-    getBackgroundColor(theme, checked, $isFocused)};
+    getBackgroundColor(theme as DefaultTheme, checked, $isFocused)};
   ${LocalTypography} {
     color: ${({ $isFocused, theme }) =>
       $isFocused ? theme.palette.text.white : theme.palette.text.muted};
@@ -61,6 +65,30 @@ const Items = styled.div<ItemsProps>`
     outline: none;
   }
 `;
+
+interface DropdownTextDisplayProps {
+  text?: string;
+}
+
+const DropdownTextDisplay: React.FC<DropdownTextDisplayProps> = ({ text }) => {
+  const { ref, isOverflowing } = useOverflow({ ofChild: true });
+
+  if (!text) return null;
+
+  return (
+    <Tooltip text={text} isActive={isOverflowing}>
+      <div ref={ref}>
+        <LocalTypography>
+          <LangDisplay text={text} $noPreWrap />
+        </LocalTypography>
+      </div>
+    </Tooltip>
+  );
+};
+
+DropdownTextDisplay.defaultProps = {
+  text: undefined,
+};
 
 export const ListItemDropdown: React.FC<ListItemDropdownProps> = ({
   text,
@@ -98,11 +126,7 @@ export const ListItemDropdown: React.FC<ListItemDropdownProps> = ({
       {displayNode ?? (
         <>
           {icon}
-          {text && (
-            <LocalTypography>
-              <LangDisplay text={text} />
-            </LocalTypography>
-          )}
+          <DropdownTextDisplay text={text} />
         </>
       )}
     </Items>

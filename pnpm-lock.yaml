@@ -995,8 +995,8 @@ importers:
         specifier: workspace:^
         version: link:../db-interfaces
       '@cypherock/sdk-app-evm':
-        specifier: ^0.1.0
-        version: 0.1.0
+        specifier: ^0.2.0
+        version: 0.2.0
       '@cypherock/sdk-interfaces':
         specifier: ^0.0.16
         version: 0.0.16
@@ -6544,6 +6544,19 @@ packages:
       '@cypherock/sdk-core': 0.1.1
       '@cypherock/sdk-interfaces': 0.0.16
       '@cypherock/sdk-utils': 0.0.20
+      bignumber.js: 9.3.0
+      long: 5.3.2
+      protobufjs: 7.5.3
+    transitivePeerDependencies:
+      - debug
+    dev: false
+
+  /@cypherock/sdk-app-evm@0.2.0:
+    resolution: {integrity: sha512-FyRbLSAUK5G7aQMhdHyd1yq48loAKG/vryMLFbT5X0WJaR4gsMUZeWI4/3d9DW8PagZJ579Nzu6zfqV80eh8QA==}
+    dependencies:
+      '@cypherock/sdk-core': 0.1.2
+      '@cypherock/sdk-interfaces': 0.0.16
+      '@cypherock/sdk-utils': 0.0.21
       bignumber.js: 9.3.0
       long: 5.3.2
       protobufjs: 7.5.3

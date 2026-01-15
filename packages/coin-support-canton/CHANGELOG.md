@@ -1,5 +1,25 @@
 # @cypherock/coin-support-canton
 
+## 1.1.3
+
+### Patch Changes
+
+- [#854](https://github.com/Cypherock/cypherock-cysync/pull/854) [`e1f3345c`](https://github.com/Cypherock/cypherock-cysync/commit/e1f3345ce205ac4fe6a73737e40f1a8efafaba5b) Thanks [@muzaffarbhat07](https://github.com/muzaffarbhat07)! - fixes bug showing existing canton account as new
+
+- Updated dependencies [[`223a00aa`](https://github.com/Cypherock/cypherock-cysync/commit/223a00aa4cc8b06f75b75b58cbebb7dfcbddeb76)]:
+  - @cypherock/coins@0.7.0
+  - @cypherock/coin-support-utils@0.1.8
+
+## 1.1.3-pre.0
+
+### Patch Changes
+
+- [#854](https://github.com/Cypherock/cypherock-cysync/pull/854) [`e1f3345c`](https://github.com/Cypherock/cypherock-cysync/commit/e1f3345ce205ac4fe6a73737e40f1a8efafaba5b) Thanks [@muzaffarbhat07](https://github.com/muzaffarbhat07)! - fixes bug showing existing canton account as new
+
+- Updated dependencies [[`223a00aa`](https://github.com/Cypherock/cypherock-cysync/commit/223a00aa4cc8b06f75b75b58cbebb7dfcbddeb76)]:
+  - @cypherock/coins@0.7.0-pre.0
+  - @cypherock/coin-support-utils@0.1.8-pre.0
+
 ## 1.1.2
 
 ### Patch Changes

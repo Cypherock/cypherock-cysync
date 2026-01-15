@@ -1,6 +1,7 @@
 import { IInitializeTransactionParams } from '@cypherock/coin-support-interfaces';
 import { getAccountAndCoin } from '@cypherock/coin-support-utils';
 import { cantonCoinList } from '@cypherock/coins';
+import { BigNumber } from '@cypherock/cysync-utils';
 import { AccountTypeMap } from '@cypherock/db-interfaces';
 
 import { getUtxos, ICantonInstrument } from '../../services';
@@ -24,6 +25,13 @@ export const initializeTransaction = async (
   }
 
   const utxos = await getUtxos(account.xpubOrAddress, instrument, keyDB);
+  const sortedUtxos = [...utxos].sort((a, b) => {
+    const diff = new BigNumber(b.interfaceViewValue.amount).minus(
+      a.interfaceViewValue.amount,
+    );
+    // eslint-disable-next-line no-nested-ternary
+    return diff.isZero() ? 0 : diff.isPositive() ? 1 : -1;
+  });
 
   return {
     accountId,
@@ -42,7 +50,7 @@ export const initializeTransaction = async (
     },
     staticData: {
       fees: '0',
-      utxos,
+      sortedUtxos,
     },
     computedData: {
       output: { address: '', amount: '0' },

@@ -4,6 +4,7 @@ import {
   RootState,
   updateCantonAuthTokens,
   clearCantonAuthTokens,
+  setCantonUnauthorizedSyncError,
   ICantonAuthTokens,
 } from '~/store';
 import { keyValueStore } from '~/utils/keyValueStore';
@@ -15,6 +16,7 @@ export const setCantonAccountAuthTokens = createAsyncThunk<
 >('canton/setCantonAccountAuthTokens', async (authTokens, { dispatch }) => {
   await keyValueStore.cantonAuthTokens.set(authTokens);
   dispatch(updateCantonAuthTokens({ cantonAuthTokens: authTokens }));
+  dispatch(setCantonUnauthorizedSyncError({ hasError: false }));
 });
 
 export const clearCantonAccountAuthTokens = createAsyncThunk<

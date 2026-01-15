@@ -19,6 +19,7 @@ const coingeckoPlatformMapping: CoingeckoPlatformMapping = {
   'polygon-pos': EvmIdMap.polygon,
   'arbitrum-one': EvmIdMap.arbitrum,
   fantom: EvmIdMap.fantom,
+  base: EvmIdMap.base,
 };
 
 export const erc20TokenAutomationParams: TokenAutomationParams = {
