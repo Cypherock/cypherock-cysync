@@ -1,5 +1,17 @@
 # @cypherock/cysync-core
 
+## 0.11.2
+
+### Patch Changes
+
+- [#858](https://github.com/Cypherock/cypherock-cysync/pull/858) [`301c4cd4`](https://github.com/Cypherock/cypherock-cysync/commit/301c4cd43ab9de6dfd73c8b3cfe4aacd1a04987d) Thanks [@muzaffarbhat07](https://github.com/muzaffarbhat07)! - Adds bitcoin taproot support
+
+- Updated dependencies [[`301c4cd4`](https://github.com/Cypherock/cypherock-cysync/commit/301c4cd43ab9de6dfd73c8b3cfe4aacd1a04987d)]:
+  - @cypherock/coin-support-btc@0.0.31
+  - @cypherock/coin-support@0.2.11
+  - @cypherock/cysync-core-services@0.3.3
+  - @cypherock/cysync-core-workers@0.1.11
+
 ## 0.11.1
 
 ### Patch Changes

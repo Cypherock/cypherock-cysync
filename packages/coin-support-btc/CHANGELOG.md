@@ -1,5 +1,11 @@
 # @cypherock/coin-support-btc
 
+## 0.0.31
+
+### Patch Changes
+
+- [#858](https://github.com/Cypherock/cypherock-cysync/pull/858) [`301c4cd4`](https://github.com/Cypherock/cypherock-cysync/commit/301c4cd43ab9de6dfd73c8b3cfe4aacd1a04987d) Thanks [@muzaffarbhat07](https://github.com/muzaffarbhat07)! - Adds bitcoin taproot support
+
 ## 0.0.30
 
 ### Patch Changes

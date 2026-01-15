@@ -1,5 +1,14 @@
 # @cypherock/cysync-cli
 
+## 0.2.11
+
+### Patch Changes
+
+- Updated dependencies [[`301c4cd4`](https://github.com/Cypherock/cypherock-cysync/commit/301c4cd43ab9de6dfd73c8b3cfe4aacd1a04987d)]:
+  - @cypherock/coin-support-btc@0.0.31
+  - @cypherock/coin-support@0.2.11
+  - @cypherock/cysync-core-services@0.3.3
+
 ## 0.2.10
 
 ### Patch Changes
