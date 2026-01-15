@@ -1,3 +1,9 @@
+# v2.4.2
+
+### 🚀 Feature
+
+- **Taproot Support:** Send and receive BTC with Taproot for lower fees and faster computations.
+
 # v2.4.1
 
 ### 🚀 Feature

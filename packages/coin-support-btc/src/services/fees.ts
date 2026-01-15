@@ -17,5 +17,5 @@ export const getAverageFee = async (coin: IBtcCoinInfo): Promise<number> => {
     new Error('Server: Invalid fees result from server'),
   );
 
-  return Math.round(response.data.medium_fee_per_kb / 1024);
+  return Math.ceil((response.data.medium_fee_per_kb * 1.4) / 1024);
 };

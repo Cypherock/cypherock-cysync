@@ -25,7 +25,7 @@ patchedDependencies:
     hash: t42q4b6bcxlezmf7kdeypnpad4
     path: patches/borc@2.1.2.patch
   coinselect@3.1.13:
-    hash: spyhbwellts54577qaihfr5y3u
+    hash: lg4hcmpbkj6fqhfszkwxkbhlhm
     path: patches/coinselect@3.1.13.patch
   crc@3.8.0:
     hash: 2elhtkirubv6k56zon6hryqaqe
@@ -801,8 +801,8 @@ importers:
         specifier: workspace:^
         version: link:../db-interfaces
       '@cypherock/sdk-app-btc':
-        specifier: ^0.1.1
-        version: 0.1.1
+        specifier: ^0.1.3
+        version: 0.1.3
       '@cypherock/sdk-interfaces':
         specifier: ^0.0.16
         version: 0.0.16
@@ -814,7 +814,7 @@ importers:
         version: 1.4.0
       coinselect:
         specifier: ^3.1.13
-        version: 3.1.13(patch_hash=spyhbwellts54577qaihfr5y3u)
+        version: 3.1.13(patch_hash=lg4hcmpbkj6fqhfszkwxkbhlhm)
       lodash:
         specifier: ^4.17.21
         version: 4.17.21
@@ -2273,8 +2273,8 @@ importers:
         specifier: workspace:^
         version: link:../db-interfaces
       '@cypherock/sdk-app-btc':
-        specifier: ^0.1.1
-        version: 0.1.1
+        specifier: ^0.1.3
+        version: 0.1.3
       '@cypherock/sdk-app-evm':
         specifier: ^0.1.0
         version: 0.1.0
@@ -6511,13 +6511,13 @@ packages:
     engines: {node: '>=18'}
     dev: false
 
-  /@cypherock/sdk-app-btc@0.1.1:
-    resolution: {integrity: sha512-6NiHivFu6RHqSrDAblUKL2Z7lPQZnEX6O2PjkKUL1P+bcfpU6Lkl/R8B+llrh9d0xQo987vURzFxl6KsNAI6uw==}
+  /@cypherock/sdk-app-btc@0.1.3:
+    resolution: {integrity: sha512-ETgH7FNhUQhWVK1XAHvZs/TtheDvmtSqhY/72g6jROtEgHQJRY+fpATW4AyGykAtYxq7n1fAi/PTS8szlkBSGQ==}
     dependencies:
       '@bitcoin-js/tiny-secp256k1-asmjs': 2.2.4
-      '@cypherock/sdk-core': 0.1.1
+      '@cypherock/sdk-core': 0.1.2
       '@cypherock/sdk-interfaces': 0.0.16
-      '@cypherock/sdk-utils': 0.0.20
+      '@cypherock/sdk-utils': 0.0.21
       axios: 1.10.0
       bip66: 1.1.5(patch_hash=iqgcihxqyjluk6emr2sibelbgm)
       long: 5.3.2
@@ -16559,7 +16559,7 @@ packages:
     engines: {node: '>=0.10.0'}
     dev: true
 
-  /coinselect@3.1.13(patch_hash=spyhbwellts54577qaihfr5y3u):
+  /coinselect@3.1.13(patch_hash=lg4hcmpbkj6fqhfszkwxkbhlhm):
     resolution: {integrity: sha512-iJOrKH/7N9gX0jRkxgOHuGjvzvoxUMSeylDhH1sHn+CjLjdin5R0Hz2WEBu/jrZV5OrHcm+6DMzxwu9zb5mSZg==}
     dev: false
     patched: true
