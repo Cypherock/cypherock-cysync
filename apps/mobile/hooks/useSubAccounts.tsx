@@ -3,6 +3,7 @@ import {
   selectPriceInfos,
   selectUnHiddenAccounts,
   useAppSelector,
+  selectCurrency,
 } from '@/store';
 const {
   formatDisplayAmount,
@@ -21,15 +22,16 @@ export interface UseSubAccountsProps {
 }
 
 const selector = createSelector(
-  [selectUnHiddenAccounts, selectPriceInfos],
-  ({ accounts }, { priceInfos }) => ({
+  [selectUnHiddenAccounts, selectPriceInfos, selectCurrency],
+  ({ accounts }, { priceInfos }, { currentCurrency }) => ({
     accounts,
     priceInfos,
+    currentCurrency,
   }),
 );
 
 export const useSubAccounts = ({ accountId }: UseSubAccountsProps) => {
-  const { accounts, priceInfos } = useAppSelector(selector);
+  const { accounts, priceInfos, currentCurrency } = useAppSelector(selector);
 
   if (!accountId) {
     return { subAccounts: [] };
@@ -54,7 +56,11 @@ export const useSubAccounts = ({ accountId }: UseSubAccountsProps) => {
           const asset = getAsset(r.parentAssetId, r.assetId);
 
           const latestPrice =
-            priceInfos.find(p => p.assetId === r.assetId)?.latestPrice ?? '0';
+            priceInfos.find(
+              p =>
+                p.assetId === r.assetId &&
+                p.currency.toLowerCase() === currentCurrency.toLowerCase(),
+            )?.latestPrice ?? '0';
 
           const value = new BigNumber(amount)
             .multipliedBy(latestPrice)
@@ -80,10 +86,10 @@ export const useSubAccounts = ({ accountId }: UseSubAccountsProps) => {
             ),
             displayAmount,
             amountTooltip,
-            displayValue: `$${formatDisplayPrice(value)}`,
+            displayValue: `${formatDisplayPrice(value, currentCurrency)}`,
           };
         }),
-    [accountId, accounts, priceInfos],
+    [accountId, accounts, priceInfos, currentCurrency],
   );
 
   return {

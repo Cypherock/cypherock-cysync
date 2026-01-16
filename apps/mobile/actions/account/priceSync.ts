@@ -2,7 +2,13 @@ const coreServices = require('@cypherock/cysync-core-services');
 const { coinFamiliesMap } = require('@cypherock/coins');
 const { getDB } = require('@/utils');
 
-export const syncPrices = async ({ families }: { families: string[] }) => {
+export const syncPrices = async ({
+  families,
+  currency,
+}: {
+  families: string[];
+  currency: string;
+}) => {
   return new Promise<void>(resolve => {
     const observer = {
       error: () => {
@@ -19,10 +25,11 @@ export const syncPrices = async ({ families }: { families: string[] }) => {
       .syncPrices({
         db: getDB(),
         families,
+        currency,
       })
       .subscribe(observer);
   });
 };
 
-export const syncAllPrices = () =>
-  syncPrices({ families: Object.values(coinFamiliesMap) });
+export const syncAllPrices = (currency: string) =>
+  syncPrices({ families: Object.values(coinFamiliesMap), currency });

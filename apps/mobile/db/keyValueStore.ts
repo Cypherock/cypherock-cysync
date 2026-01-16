@@ -19,4 +19,5 @@ export const keyValueStore = {
   isTermsAccepted: createBooleanValueStore('isTermsAccepted'),
   passwordHash: createStringValueStore('passwordHash'),
   appLanguage: createStringValueStore('appLanguage'),
+  preferredCurrency: createStringValueStore('preferredCurrency'),
 };

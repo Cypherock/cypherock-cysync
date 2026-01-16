@@ -2,6 +2,7 @@ export * from './store';
 export * from './accountSync';
 export * from './accounts';
 export * from './lang';
+export * from './currency';
 export * from './wallets';
 export * from './transaction';
 export * from './priceInfo';

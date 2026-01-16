@@ -8,9 +8,27 @@ const PRICE_HISTORY_AUTO_RESYNC_INTERVAL = 3 * 60 * 1000;
 export const PriceSyncTask: React.FC = () => {
   const latestPriceTimeoutRef = useRef<NodeJS.Timeout>();
   const priceHistoryTimeoutRef = useRef<NodeJS.Timeout>();
+  const { currentCurrency } = useAppSelector(selectCurrency);
+  const currencyRef = useRef(currentCurrency);
+
+  useEffect(() => {
+    currencyRef.current = currentCurrency;
+  }, [currentCurrency]);
+
+  const clearTimers = () => {
+    if (latestPriceTimeoutRef.current) {
+      clearTimeout(latestPriceTimeoutRef.current);
+      latestPriceTimeoutRef.current = undefined;
+    }
+
+    if (priceHistoryTimeoutRef.current) {
+      clearTimeout(priceHistoryTimeoutRef.current);
+      priceHistoryTimeoutRef.current = undefined;
+    }
+  };
 
   const startSyncingLatestPrice = async () => {
-    await syncAllPrices();
+    await syncAllPrices(currencyRef.current);
     latestPriceTimeoutRef.current = setTimeout(
       startSyncingLatestPrice,
       LATEST_PRICE_AUTO_RESYNC_INTERVAL,
@@ -18,7 +36,7 @@ export const PriceSyncTask: React.FC = () => {
   };
 
   const startSyncingPriceHistory = async () => {
-    await syncAllPriceHistories();
+    await syncAllPriceHistories(currencyRef.current);
     priceHistoryTimeoutRef.current = setTimeout(
       startSyncingPriceHistory,
       PRICE_HISTORY_AUTO_RESYNC_INTERVAL,
@@ -32,15 +50,9 @@ export const PriceSyncTask: React.FC = () => {
     }
 
     return () => {
-      if (latestPriceTimeoutRef.current) {
-        clearTimeout(latestPriceTimeoutRef.current);
-      }
-
-      if (priceHistoryTimeoutRef.current) {
-        clearTimeout(priceHistoryTimeoutRef.current);
-      }
+      clearTimers();
     };
-  }, []);
+  }, [currentCurrency]);
 
   return null;
 };

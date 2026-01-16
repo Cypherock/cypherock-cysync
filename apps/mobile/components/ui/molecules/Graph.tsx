@@ -1,4 +1,4 @@
-import { FC, useRef, useState } from 'react';
+import React, { FC, useRef, useState } from 'react';
 import { LineChart, LineChartPropsType } from 'react-native-gifted-charts';
 import { colors } from '../themes/color.styled';
 import styled from 'styled-components/native';

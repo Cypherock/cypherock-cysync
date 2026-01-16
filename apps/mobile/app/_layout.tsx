@@ -16,6 +16,7 @@ import {
   LockscreenProvider,
   useLockscreen,
 } from '@/contexts/useLockscreenContext';
+import { CurrencyProvider } from '@/contexts/useCurrencyContext';
 import { CustomRealmProvider } from '@/db';
 import { NavigationLogger } from '@/components/core';
 import '../utils/firebase';
@@ -30,12 +31,14 @@ export default function RootLayout() {
     <StoreProvider store={store}>
       <ThemeProvider theme={currentTheme}>
         <CustomRealmProvider>
-          <LockscreenProvider>
-            <NavigationLogger />
-            <AnimatedSplashScreen setTheme={setCurrentTheme}>
-              <Slot />
-            </AnimatedSplashScreen>
-          </LockscreenProvider>
+          <CurrencyProvider>
+            <LockscreenProvider>
+              <NavigationLogger />
+              <AnimatedSplashScreen setTheme={setCurrentTheme}>
+                <Slot />
+              </AnimatedSplashScreen>
+            </LockscreenProvider>
+          </CurrencyProvider>
         </CustomRealmProvider>
       </ThemeProvider>
     </StoreProvider>

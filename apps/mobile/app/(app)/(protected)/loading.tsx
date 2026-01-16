@@ -5,6 +5,7 @@ import {
   selectLanguage,
   selectNetwork,
   useAppSelector,
+  selectCurrency,
 } from '@/store';
 import { syncAllPriceHistories, syncAllPrices } from '@/actions';
 import { Redirect, useFocusEffect } from 'expo-router';
@@ -14,6 +15,7 @@ import { debounce } from 'lodash';
 
 export default function Loading() {
   const lang = useAppSelector(selectLanguage);
+  const { currentCurrency } = useAppSelector(selectCurrency);
   const [status, setStatus] = useState(false);
   const [syncProgress, setSyncProgress] = useState(0);
   const [error, setError] = useState<string | null>(null);
@@ -32,9 +34,9 @@ export default function Loading() {
     setError(null);
     try {
       await syncAccountsDb(true);
-      await syncAllPrices();
+      await syncAllPrices(currentCurrency);
       setIsPriceSyncComplete(true);
-      await syncAllPriceHistories();
+      await syncAllPriceHistories(currentCurrency);
       setIsPriceHistorySyncComplete(true);
       setStatus(true);
     } catch (err) {
