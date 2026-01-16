@@ -27,7 +27,8 @@ export const Graph = (props: GraphPropTypes) => {
     isLoading,
   } = useGraph(props);
   const { BtcIdMap, coinList } = require('@cypherock/coins');
-  const maxValueRef = useRef(parseFloat(summaryDetails.totalValue));
+  const maxValueRef = useRef(0);
+  const minValueRef = useRef(0);
   const widthRef = useRef(width - 24);
 
   function getLastPointOffset() {
@@ -50,15 +51,29 @@ export const Graph = (props: GraphPropTypes) => {
   }
 
   const optimizedGraphData = useMemo(() => {
-    const totalValue = parseFloat(summaryDetails.totalValue);
-    let maxValue = totalValue;
-    const data = graphData.map((d, i) => {
-      if (d.value > maxValue) {
-        maxValue = d.value;
-      }
+    const values = graphData.map(d => d.value).filter(v => Number.isFinite(v));
+    if (values.length === 0) {
+      maxValueRef.current = 0;
+      minValueRef.current = 0;
+      return [];
+    }
 
+    let minValue = Math.min(...values);
+    let maxValue = Math.max(...values);
+    const range = maxValue - minValue;
+    const padding =
+      range === 0 ? Math.max(Math.abs(maxValue) * 0.05, 1) : range * 0.1;
+
+    minValue -= padding;
+    maxValue += padding;
+
+    minValueRef.current = minValue;
+    maxValueRef.current = Math.max(maxValue - minValue, 0);
+
+    const data = graphData.map((d, i) => {
+      const scaledValue = d.value - minValue;
       const dataPoint: FormattedGraphData = {
-        value: d.value,
+        value: scaledValue,
         dataPointLabelContent: formatTooltipValue(d),
         yAxisLabelTexts: formatYAxisTick(d.value),
       };
@@ -81,9 +96,18 @@ export const Graph = (props: GraphPropTypes) => {
       }
       return dataPoint;
     });
-    maxValueRef.current = maxValue;
     return data;
   }, [graphData, formatTimestamp, formatTooltipValue, formatYAxisTick]);
+
+  const totalValueDisplay =
+    summaryDetails.totalValue !== ''
+      ? summaryDetails.totalValue
+      : formatGraphAmountDisplay(0, true, true);
+
+  const changeValueDisplay =
+    summaryDetails.changeValue !== ''
+      ? summaryDetails.changeValue
+      : formatGraphAmountDisplay(0, true, true);
 
   if (isLoading) {
     return (
@@ -96,9 +120,7 @@ export const Graph = (props: GraphPropTypes) => {
   return (
     <>
       <Flex justifyContent="space-between">
-        <Typography type="h3">
-          {formatGraphAmountDisplay(summaryDetails.totalValue, true, true)}
-        </Typography>
+        <Typography type="h3">{totalValueDisplay}</Typography>
         <Flex gap={8}>
           {summaryDetails.changeIcon}
           <Typography type="h5" color={'secondary'}>
@@ -106,16 +128,19 @@ export const Graph = (props: GraphPropTypes) => {
           </Typography>
           <Seperator type="v" />
           <Typography type="h5" color={'secondary'}>
-            {formatGraphAmountDisplay(summaryDetails.changeValue, true, true)}
+            {changeValueDisplay}
           </Typography>
         </Flex>
       </Flex>
       <DisplayGraph
         data={optimizedGraphData}
-        maxValue={maxValueRef.current * 1.2}
+        maxValue={maxValueRef.current}
         height={170}
         width={widthRef.current - 40}
-        formatYLabel={formatYAxisTick}
+        formatYLabel={value =>
+          formatYAxisTick(Number(value) + minValueRef.current)
+        }
+        hideOrigin={false}
         color={props.color ?? coinList[BtcIdMap.bitcoin].color}
       />
     </>

@@ -93,7 +93,7 @@ export const DisplayGraph: FC<LineChartPropsType> = ({ ...props }) => {
 
   const chartProps: LineChartPropsType = {
     areaChart: true,
-    hideOrigin: true,
+    hideOrigin: props.hideOrigin ?? true,
     initialSpacing: 5,
     endSpacing: 5,
     curved: true,
