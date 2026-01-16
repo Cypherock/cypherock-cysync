@@ -34,6 +34,7 @@ import {
   selectTransactions,
   selectUnHiddenAccounts,
   selectWallets,
+  selectCurrency,
   useAppDispatch,
   useAppSelector,
 } from '@/store';
@@ -73,13 +74,22 @@ const selector = createSelector(
     selectUnHiddenAccounts,
     selectTransactions,
     selectPriceInfos,
+    selectCurrency,
   ],
-  (lang, { wallets }, { accounts }, { transactions }, { priceInfos }) => ({
+  (
+    lang,
+    { wallets },
+    { accounts },
+    { transactions },
+    { priceInfos },
+    { currentCurrency },
+  ) => ({
     lang,
     wallets,
     accounts,
     transactions,
     priceInfos,
+    currentCurrency,
   }),
 );
 
@@ -111,6 +121,7 @@ export const useAssetAllocations = ({
     accounts,
     transactions: allTransactions,
     priceInfos,
+    currentCurrency,
   } = useAppSelector(selector);
   const refData = useStateToRef({
     lang,
@@ -122,6 +133,7 @@ export const useAssetAllocations = ({
     assetId,
     parentAssetId,
     accountId,
+    currentCurrency,
   });
 
   const dispatch = useAppDispatch();
@@ -170,6 +182,7 @@ export const useAssetAllocations = ({
         result = await getCoinAllocations({
           db: getDB(),
           walletId: data.walletId,
+          currency: data.currentCurrency,
         });
       }
 
@@ -235,8 +248,8 @@ export const useAssetAllocations = ({
           value: new BigNumber(r.value).toNumber(),
           displayBalance,
           balanceTooltip,
-          displayPrice: `$${formatDisplayPrice(r.price)}`,
-          displayValue: `$${formatDisplayPrice(r.value)}`,
+          displayPrice: `${formatDisplayPrice(r.price, data.currentCurrency)}`,
+          displayValue: `${formatDisplayPrice(r.value, data.currentCurrency)}`,
           ...accountProperties,
         };
       });

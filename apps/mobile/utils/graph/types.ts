@@ -27,6 +27,7 @@ export interface CalculatePortfolioGraphDataParams {
   accountId?: string;
   showGraphInUSD: boolean;
   selectedRange: GraphTimeRange;
+  currency: string;
 }
 
 export interface CalculatePortfolioGraphDataParamsWithComputedData

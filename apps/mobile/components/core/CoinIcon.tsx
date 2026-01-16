@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Image, View, StyleSheet } from 'react-native';
 const {
   BtcIdMap,
@@ -6,6 +6,9 @@ const {
   SolanaIdMap,
   NearIdMap,
   XrpIdMap,
+  StellarIdMap,
+  SiaIdMap,
+  CantonIdMap,
 } = require('@cypherock/coins');
 const { getAsset } = require('@cypherock/coin-support-utils');
 import {
@@ -23,10 +26,16 @@ import {
   SolanaIcon,
   NearIcon,
   XrpIcon,
+  HyperliquidIcon,
+  BaseIcon,
+  StellarIcon,
+  SiacoinIcon,
+  CantonIcon,
 } from '../ui/icons';
 import { useTheme } from '../ui';
+import { SvgProps } from 'react-native-svg';
 
-const coinToIconMap: Record<string, React.FC<any>> = {
+const coinToIconMap: Record<string, React.FC<SvgProps>> = {
   [BtcIdMap.bitcoin]: BitcoinIcon,
   [BtcIdMap.dash]: DashIcon,
   [BtcIdMap.dogecoin]: DogeIcon,
@@ -38,15 +47,48 @@ const coinToIconMap: Record<string, React.FC<any>> = {
   [EvmIdMap.polygon]: PolygonIcon,
   [EvmIdMap.fantom]: FantomIcon,
   [EvmIdMap.avalanche]: AvalancheIcon,
+  [EvmIdMap.hyperliquid]: HyperliquidIcon,
+  [EvmIdMap.base]: BaseIcon,
   [NearIdMap.near]: NearIcon,
   [SolanaIdMap.solana]: SolanaIcon,
   [XrpIdMap.xrp]: XrpIcon,
+  [StellarIdMap.stellar]: StellarIcon,
+  [SiaIdMap.sia]: SiacoinIcon,
+  [CantonIdMap.canton]: CantonIcon,
 };
 
 const fallbackIcon = `https://static.cypherock.com/images/fallback-crypto-icon.png`;
 
 const requestErc20ImageFile = (id: string) =>
   `https://static.cypherock.com/images/erc20-by-id/${id}.png`;
+
+interface FallbackImageProps {
+  source: { uri: string };
+  fallbackUri: string;
+  style: any;
+  width: number;
+  height: number;
+}
+
+const FallbackImage: React.FC<FallbackImageProps> = ({
+  source,
+  fallbackUri,
+  style,
+  width,
+  height,
+}) => {
+  const [hasError, setHasError] = useState(false);
+
+  return (
+    <Image
+      source={{ uri: hasError ? fallbackUri : source.uri }}
+      onError={() => setHasError(true)}
+      style={style}
+      width={width}
+      height={height}
+    />
+  );
+};
 
 interface CoinIconProps {
   assetId?: string;
@@ -114,9 +156,9 @@ export const CoinIcon: React.FC<CoinIconProps> = ({
 
     return (
       <View style={containerStyle}>
-        <Image
+        <FallbackImage
           source={{ uri: requestErc20ImageFile(asset.coinGeckoId) }}
-          defaultSource={{ uri: fallbackIcon }}
+          fallbackUri={fallbackIcon}
           style={[iconStyle]}
           width={iconSize.width}
           height={iconSize.height}
@@ -134,13 +176,13 @@ export const CoinIcon: React.FC<CoinIconProps> = ({
           style={iconStyle}
         />
         <View style={subContainerStyle}>
-          <Image
+          <FallbackImage
             source={{
               uri: requestErc20ImageFile(
                 getAsset(parentAssetId, assetId).coinGeckoId,
               ),
             }}
-            defaultSource={{ uri: fallbackIcon }}
+            fallbackUri={fallbackIcon}
             style={[
               subIconStyle,
               {
@@ -148,6 +190,8 @@ export const CoinIcon: React.FC<CoinIconProps> = ({
                 height: subIconSize ?? defaultSubIconSize,
               },
             ]}
+            width={subIconSize ?? defaultSubIconSize}
+            height={subIconSize ?? defaultSubIconSize}
           />
         </View>
       </View>
@@ -157,13 +201,13 @@ export const CoinIcon: React.FC<CoinIconProps> = ({
   if (withParentIconAtBottom && parentAssetId !== assetId) {
     return (
       <View style={containerStyle}>
-        <Image
+        <FallbackImage
           source={{
             uri: requestErc20ImageFile(
               getAsset(parentAssetId, assetId).coinGeckoId,
             ),
           }}
-          defaultSource={{ uri: fallbackIcon }}
+          fallbackUri={fallbackIcon}
           style={[iconStyle]}
           width={iconSize.width}
           height={iconSize.height}

@@ -26,6 +26,7 @@ import {
   selectTransactions,
   selectUnHiddenAccounts,
   selectWallets,
+  selectCurrency,
   useAppSelector,
 } from '@/store';
 import {
@@ -51,6 +52,7 @@ const selector = createSelector(
     selectPriceHistories,
     selectPriceInfos,
     selectTransactions,
+    selectCurrency,
   ],
   (
     lang,
@@ -59,6 +61,7 @@ const selector = createSelector(
     { priceHistories },
     { priceInfos },
     { transactions },
+    { currentCurrency },
   ) => ({
     lang,
     wallets,
@@ -66,13 +69,21 @@ const selector = createSelector(
     priceHistories,
     priceInfos,
     transactions,
+    currentCurrency,
   }),
 );
 
 export const useGraph = ({ selectedRange, ...props }: UseGraphProps) => {
   const theme = useTheme();
-  const { lang, accounts, wallets, transactions, priceHistories, priceInfos } =
-    useAppSelector(selector);
+  const {
+    lang,
+    accounts,
+    wallets,
+    transactions,
+    priceHistories,
+    priceInfos,
+    currentCurrency,
+  } = useAppSelector(selector);
 
   const [calculatedData, setCalculatedData] = useState<
     Exclude<Awaited<ReturnType<CalculatePortfolioGraphDataType>>, undefined>
@@ -106,6 +117,7 @@ export const useGraph = ({ selectedRange, ...props }: UseGraphProps) => {
     props,
     showGraphInUSD,
     computedData: calculatedData,
+    currentCurrency,
   });
 
   const getAssetDetailsFromProps = () => {
@@ -141,6 +153,7 @@ export const useGraph = ({ selectedRange, ...props }: UseGraphProps) => {
       showGraphInUSD: data.showGraphInUSD,
       days: graphTimeRangeToDaysMap[data.selectedRange],
       selectedRange: data.selectedRange,
+      currency: data.currentCurrency,
     };
 
     try {
@@ -211,10 +224,11 @@ export const useGraph = ({ selectedRange, ...props }: UseGraphProps) => {
       if (!includeUnit) return v;
 
       if (unit && !showUnitInUSD) return `${v} ${unit.abbr}`;
-      return `$${v}`;
+      return `${v}`;
     };
 
-    if (showUnitInUSD) return appendUnit(formatDisplayPrice(value));
+    if (showUnitInUSD)
+      return appendUnit(formatDisplayPrice(value, currentCurrency));
     return appendUnit(formatDisplayAmount(value).complete);
   };
 
@@ -229,7 +243,13 @@ export const useGraph = ({ selectedRange, ...props }: UseGraphProps) => {
       formatGraphAmountDisplay(value, undefined, true),
       `${formatDate(timestamp, 'hh:mm')} Hrs, ${formatDate(timestamp, 'MMM d')}`,
     ],
-    [showGraphInUSD, props?.accountId, props?.assetId, props?.parentAssetId],
+    [
+      showGraphInUSD,
+      props?.accountId,
+      props?.assetId,
+      props?.parentAssetId,
+      currentCurrency,
+    ],
   );
 
   const formatTimestamp = useCallback(
@@ -246,12 +266,12 @@ export const useGraph = ({ selectedRange, ...props }: UseGraphProps) => {
       const price = new BigNumber(value);
 
       if (price.isGreaterThanOrEqualTo(1000)) {
-        return `$${formatDisplayPrice(price.dividedBy(1000))}k`;
+        return `${formatDisplayPrice(price.dividedBy(1000), currentCurrency)}k`;
       } else {
-        return `$${formatDisplayPrice(price)}`;
+        return `${formatDisplayPrice(price, currentCurrency)}`;
       }
     },
-    [showGraphInUSD],
+    [showGraphInUSD, currentCurrency],
   );
 
   const onGraphSwitch = () => {

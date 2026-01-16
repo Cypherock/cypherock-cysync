@@ -47,7 +47,7 @@ export const syncAccounts = createAsyncThunk<
       dispatch(setAccountSyncState(AccountSyncStateMap.syncing));
       dispatch(setSyncError(undefined));
 
-      const observer: Observer<ISyncAccountsEvent> = {
+      const observer: Observer<typeof ISyncAccountsEvent> = {
         error: () => {
           if (isSyncAll) {
             dispatch(setAccountLastSyncedAt(Date.now()));
@@ -97,6 +97,7 @@ export const syncAccounts = createAsyncThunk<
       syncAccountsCore({
         db: getDB(),
         accounts: unhiddenAccounts,
+        currency: getState().currency.currentCurrency,
       }).subscribe(observer);
     });
   },

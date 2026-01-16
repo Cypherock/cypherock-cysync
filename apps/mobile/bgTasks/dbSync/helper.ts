@@ -3,11 +3,13 @@ import { keyValueStore } from '@/db';
 import {
   setAccounts,
   setLanguage,
+  setCurrency,
   setPriceHistories,
   setPriceInfos,
   setWallets,
   store,
 } from '@/store';
+import { fetchSupportedCurrencies, loadCurrency } from '@/store/currency';
 import { setTransactions } from '@/store/transaction';
 import { getDB } from '@/utils';
 import logger from '@/utils/logger';
@@ -89,6 +91,9 @@ export const syncAllDb = async () => {
   await syncPriceHistoriesDb();
 
   store.dispatch(setLanguage((await keyValueStore.appLanguage.get()) as any));
+
+  await store.dispatch(loadCurrency() as any);
+  store.dispatch(fetchSupportedCurrencies() as any);
 };
 
 const throttleDbFunction = (func: any) =>

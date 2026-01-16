@@ -1,5 +1,10 @@
 import { useState, useEffect, useCallback, useMemo } from 'react';
-import { selectAccountSync, selectPriceInfos, useAppSelector } from '@/store';
+import {
+  selectAccountSync,
+  selectPriceInfos,
+  useAppSelector,
+  selectCurrency,
+} from '@/store';
 import { selectWallets, selectUnHiddenAccounts } from '@/store';
 import { ILangState, selectLanguage } from '@/store/lang';
 import {
@@ -90,8 +95,9 @@ export const mapTransactionForDisplay = (params: {
   wallets: IWallet[];
   accounts: IAccount[];
   lang: ILangState;
+  currency: string;
 }): TransactionRowData => {
-  const { transaction, priceInfos, wallets, accounts, lang } = params;
+  const { transaction, priceInfos, wallets, accounts, lang, currency } = params;
 
   const { amount, unit } = getParsedAmount({
     coinId: transaction.parentAssetId,
@@ -113,11 +119,12 @@ export const mapTransactionForDisplay = (params: {
   const coinPrice = priceInfos.find(
     p =>
       p.assetId === transaction.parentAssetId &&
-      p.currency.toLowerCase() === 'usd',
+      p.currency.toLowerCase() === currency.toLowerCase(),
   );
   const assetPrice = priceInfos.find(
     p =>
-      p.assetId === transaction.assetId && p.currency.toLowerCase() === 'usd',
+      p.assetId === transaction.assetId &&
+      p.currency.toLowerCase() === currency.toLowerCase(),
   );
   const wallet = wallets.find(w => w.__id === transaction.walletId);
   let account = accounts.find(a => a.__id === transaction.parentAccountId);
@@ -125,7 +132,7 @@ export const mapTransactionForDisplay = (params: {
     account = accounts.find(a => a.__id === transaction.accountId);
   }
 
-  if (coinPrice) {
+    if (coinPrice) {
     const feeInDefaultUnit = convertToUnit({
       amount: transaction.fees,
       fromUnitAbbr: getZeroUnit(transaction.parentAssetId).abbr,
@@ -135,7 +142,7 @@ export const mapTransactionForDisplay = (params: {
     const feeValue = new BigNumber(feeInDefaultUnit.amount).multipliedBy(
       coinPrice.latestPrice,
     );
-    displayFeeValue = `$${formatDisplayPrice(feeValue)}`;
+      displayFeeValue = formatDisplayPrice(feeValue, currency);
   }
 
   if (assetPrice) {
@@ -152,10 +159,10 @@ export const mapTransactionForDisplay = (params: {
       new BigNumber(amountInDefaultUnit.amount).multipliedBy(
         assetPrice.latestPrice,
       ),
-      2,
+      currency,
     );
     value = formattedValue;
-    displayValue = `$${formattedValue}`;
+    displayValue = formattedValue;
   }
 
   const timestamp = new Date(transaction.timestamp);
@@ -209,7 +216,7 @@ export const mapTransactionForDisplay = (params: {
     amountTooltip,
     displayValue: displayValue,
     displayValueWithoutUnit: value,
-    displayValueUnit: 'USD',
+    displayValueUnit: currency.toUpperCase(),
     displayFee: `${fee} ${feeUnit.abbr}`,
     displayFeeValue: displayFeeValue,
     amount: parseFloat(amount),
@@ -251,6 +258,7 @@ export const useTransactions = () => {
   const { accounts } = useAppSelector(selectUnHiddenAccounts);
   const { syncState } = useAppSelector(selectAccountSync);
   const lang = useAppSelector(selectLanguage);
+  const { currentCurrency } = useAppSelector(selectCurrency);
 
   const [searchTerm, setSearchTerm] = useState('');
   const [displayedData, setDisplayedData] = useState<TransactionRowData[]>([]);
@@ -296,6 +304,7 @@ export const useTransactions = () => {
           wallets,
           accounts,
           lang,
+          currency: currentCurrency,
         }),
       );
     setTransactionList(mappedTransactions);
@@ -303,12 +312,12 @@ export const useTransactions = () => {
 
   const debounceParseTransactionList = useCallback(
     lodash.throttle(parseTransactionsList, 4000, { leading: true }),
-    [allTransactions, wallets, accounts, lang],
+    [allTransactions, wallets, accounts, lang, currentCurrency],
   );
 
   useEffect(() => {
     debounceParseTransactionList();
-  }, [allTransactions, priceInfos, wallets, accounts]);
+  }, [allTransactions, priceInfos, wallets, accounts, currentCurrency]);
 
   useEffect(() => {
     setDisplayedData(getDisplayDataList(transactionList));

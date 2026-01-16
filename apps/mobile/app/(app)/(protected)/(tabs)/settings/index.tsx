@@ -6,6 +6,7 @@ import {
   InteractiveItem,
   ScreenContainer,
   Seperator,
+  CurrencyIcon,
 } from '@/components/ui';
 import Entypo from '@expo/vector-icons/Entypo';
 import { router } from 'expo-router';
@@ -40,6 +41,17 @@ export default function Settings() {
             <Entypo name="chevron-small-right" size={16} color="white" />
           }
           onPress={() => router.push('/settings/language')}
+        />
+        <Seperator />
+        <InteractiveItem
+          leftIcon={
+            <CurrencyIcon width={14} height={14} style={{ marginRight: 8 }} />
+          }
+          text={strings.settings.preferredCurrency.title}
+          rightIcon={
+            <Entypo name="chevron-small-right" size={16} color="white" />
+          }
+          onPress={() => router.push('/settings/currency')}
         />
         <Seperator />
         <InteractiveItem

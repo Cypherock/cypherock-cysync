@@ -446,6 +446,9 @@ importers:
       '@cypherock/coin-support-btc':
         specifier: workspace:^
         version: link:../../packages/coin-support-btc
+      '@cypherock/coin-support-canton':
+        specifier: workspace:^
+        version: link:../../packages/coin-support-canton
       '@cypherock/coin-support-evm':
         specifier: workspace:^
         version: link:../../packages/coin-support-evm
@@ -458,6 +461,9 @@ importers:
       '@cypherock/coin-support-near':
         specifier: workspace:^
         version: link:../../packages/coin-support-near
+      '@cypherock/coin-support-sia':
+        specifier: workspace:^
+        version: link:../../packages/coin-support-sia
       '@cypherock/coin-support-solana':
         specifier: workspace:^
         version: link:../../packages/coin-support-solana

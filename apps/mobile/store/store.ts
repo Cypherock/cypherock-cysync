@@ -13,6 +13,7 @@ import {
 
 import accountsReducer, { IAccountsState } from './accounts';
 import langReducers, { ILangState } from './lang';
+import currencyReducer, { ICurrencyState } from './currency';
 import walletsReducer, { IWalletsState } from './wallets';
 import accountSyncReducer, { IAccountSyncState } from './accountSync';
 import networkReducer, { INetworkState } from './network';
@@ -23,6 +24,7 @@ import notificationReducer, { INotificationState } from './notification';
 
 export interface RootState {
   lang: ILangState;
+  currency: ICurrencyState;
   wallets: IWalletsState;
   accounts: IAccountsState;
   transactions: ITransactionState;
@@ -36,6 +38,7 @@ export interface RootState {
 export const store = configureStore({
   reducer: {
     lang: langReducers,
+    currency: currencyReducer,
     wallets: walletsReducer,
     accounts: accountsReducer,
     transactions: transactionsReducer,
