@@ -67,6 +67,11 @@ export interface WalletConnectContextInterface {
   errorSubtitle: string;
   unsupportedOptionalChainsMessage: string | undefined;
   version: number;
+  setExternalCallRequest: (request: WalletConnectCallRequestData | undefined) => void;
+  setExternalActiveAccount: (account: IAccount | undefined) => void;
+  setExternalActiveWallet: (wallet: IWallet | undefined) => void;
+  setWidgetApproveHandler: (handler: ((result: string) => void) | null) => void;
+  setWidgetRejectHandler: (handler: ((reason?: string) => void) | null) => void;
 }
 
 export const WalletConnectContext: Context<WalletConnectContextInterface> =
@@ -95,6 +100,10 @@ export const WalletConnectProvider: FC<{ children?: ReactNode }> = ({
   >(undefined);
 
   const connectionTimeoutRef = useRef<NodeJS.Timeout | undefined>(undefined);
+  
+  // Widget approve/reject handlers - when set, these override WalletConnect's normal flow
+  const widgetApproveHandlerRef = useRef<((result: string) => void) | null>(null);
+  const widgetRejectHandlerRef = useRef<((reason?: string) => void) | null>(null);
 
   const [errorTitle, setErrorTitle] = useState('');
   const [errorSubtitle, setErrorSubtitle] = useState('');
@@ -175,6 +184,8 @@ export const WalletConnectProvider: FC<{ children?: ReactNode }> = ({
     setCallRequestData(undefined);
     updateActiveAccount(undefined);
     setVersion(2);
+    widgetApproveHandlerRef.current = null;
+    widgetRejectHandlerRef.current = null;
     Object.values(versionMap).forEach(methods => methods.resetStates());
   };
 
@@ -213,12 +224,44 @@ export const WalletConnectProvider: FC<{ children?: ReactNode }> = ({
 
   const approveCallRequest = async (result: string) => {
     logger.info('WalletConnect: Approving call request', { result });
+    
+    // If widget handler is set, delegate to widget instead of WalletConnect
+    if (widgetApproveHandlerRef.current) {
+      logger.info('WalletConnect: Delegating to widget approve handler');
+      widgetApproveHandlerRef.current(result);
+      // Clear handlers after use
+      widgetApproveHandlerRef.current = null;
+      widgetRejectHandlerRef.current = null;
+      // Clear external data
+      setCallRequestData(undefined);
+      setActiveAccount(undefined);
+      setActiveWallet(undefined);
+      return;
+    }
+    
+    // Normal WalletConnect flow
     await getWalletConnectApi().approveCall(result);
     setCallRequestData(undefined);
   };
 
   const rejectCallRequest = async (message?: string) => {
     logger.info('WalletConnect: Rejecting call request', { message });
+    
+    // If widget handler is set, delegate to widget instead of WalletConnect
+    if (widgetRejectHandlerRef.current) {
+      logger.info('WalletConnect: Delegating to widget reject handler');
+      widgetRejectHandlerRef.current(message);
+      // Clear handlers after use
+      widgetApproveHandlerRef.current = null;
+      widgetRejectHandlerRef.current = null;
+      // Clear external data
+      setCallRequestData(undefined);
+      setActiveAccount(undefined);
+      setActiveWallet(undefined);
+      return;
+    }
+    
+    // Normal WalletConnect flow
     await getWalletConnectApi().rejectCall(message);
     setCallRequestData(undefined);
   };
@@ -337,6 +380,15 @@ export const WalletConnectProvider: FC<{ children?: ReactNode }> = ({
       errorSubtitle,
       unsupportedOptionalChainsMessage,
       isApprovingSession,
+      setExternalCallRequest: setCallRequestData,
+      setExternalActiveAccount: setActiveAccount,
+      setExternalActiveWallet: setActiveWallet,
+      setWidgetApproveHandler: (handler: ((result: string) => void) | null) => {
+        widgetApproveHandlerRef.current = handler;
+      },
+      setWidgetRejectHandler: (handler: ((reason?: string) => void) | null) => {
+        widgetRejectHandlerRef.current = handler;
+      },
     }),
     [
       handleClose,

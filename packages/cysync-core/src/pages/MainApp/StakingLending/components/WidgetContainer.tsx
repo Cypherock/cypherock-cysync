@@ -1,10 +1,10 @@
-/* eslint-disable */
 import { Container, Flex, Typography } from '@cypherock/cysync-ui';
 import { IAccount } from '@cypherock/db-interfaces';
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 export interface WidgetContainerProps {
   selectedAccount: IAccount;
+  webviewRef: React.RefObject<any>;
   onError?: (error: string) => void;
   onDisconnect?: () => void;
   widgetUrl?: string;
@@ -12,11 +12,11 @@ export interface WidgetContainerProps {
 
 export const WidgetContainer: React.FC<WidgetContainerProps> = ({
   selectedAccount,
+  webviewRef,
   onError: _onError,
   onDisconnect: _onDisconnect,
   widgetUrl = 'https://9716b016517de6f71e42f74b.p2p.org',
 }) => {
-  const webviewRef = useRef<any>(null);
   const [status, setStatus] = useState('Loading...');
 
   useEffect(() => {
@@ -24,96 +24,176 @@ export const WidgetContainer: React.FC<WidgetContainerProps> = ({
     if (!webview) return () => undefined;
 
     const handleDomReady = async () => {
-      console.log('DEBUG: DOM ready, injecting wallet...');
+      console.log('[WidgetContainer] DOM ready, injecting wallet provider...');
       setStatus('Injecting wallet...');
 
       try {
+        // Open DevTools for debugging (optional - remove in production)
         webview.openDevTools();
-        console.log('DEBUG: Devtools should be opening now');
 
-        const result = await webview.executeJavaScript(`
-          console.log('=== WALLET INJECTION STARTING ===');
+        const injectionResult = await webview.executeJavaScript(`
+          (function() {
+            console.log('=== CYPHEROCK WALLET INJECTION STARTING ===');
 
-          const eventEmitter = {
-            events: {},
-            on: function(event, callback) {
-              if (!this.events[event]) this.events[event] = [];
-              this.events[event].push(callback);
-            },
-            removeListener: function(event, callback) {
-              if (this.events[event]) {
-                this.events[event] = this.events[event].filter(cb => cb !== callback);
-              }
-            },
-            emit: function(event, data) {
-              if (this.events[event]) {
-                this.events[event].forEach(callback => callback(data));
-              }
-            }
-          };
-
-          window.ethereum = {
-            isMetaMask: false,
-            isCypherock: true,
-            chainId: '0x1',
-            selectedAddress: '${selectedAccount.xpubOrAddress}',
+            // Pending requests array - React polls this
+            window.widgetPendingRequests = [];
             
-            request: async function(args) {
-              console.log('WALLET REQUEST:', args.method, args.params);
-              
-              if (args.method === 'eth_accounts' || args.method === 'eth_requestAccounts') {
-                console.log('RETURNING ACCOUNTS:', ['${selectedAccount.xpubOrAddress}']);
-                return ['${selectedAccount.xpubOrAddress}'];
-              }
-              
-              if (args.method === 'eth_chainId') {
-                console.log('RETURNING CHAIN ID: 0x1');
-                return '0x1';
-              }
-              
-              console.log('UNSUPPORTED METHOD:', args.method);
-              throw new Error('Unsupported method');
-            },
+            // Request ID counter for uniqueness
+            let requestIdCounter = 0;
             
-            on: eventEmitter.on.bind(eventEmitter),
-            removeListener: eventEmitter.removeListener.bind(eventEmitter),
-            emit: eventEmitter.emit.bind(eventEmitter),
-            isConnected: () => true
-          };
-          
-          console.log('FIRING WALLET EVENTS...');
-          window.dispatchEvent(new Event('ethereum#initialized'));
+            // Storage for promise resolvers/rejectors
+            // Key: requestId, Value: { resolve, reject }
+            const pendingPromises = new Map();
 
-          setTimeout(() => {
-            if (window.ethereum && window.ethereum.emit) {
-              window.ethereum.emit('connect', { chainId: '0x1' });
-              window.ethereum.emit('accountsChanged', ['${selectedAccount.xpubOrAddress}']);
-              window.ethereum.emit('chainChanged', '0x1');
-              console.log('EIP-1193 EVENTS FIRED: connect, accountsChanged, chainChanged');
-            }
-          }, 100);
-          
-          console.log('=== WALLET INJECTION COMPLETE ===');
-          console.log('window.ethereum exists:', !!window.ethereum);
-          console.log('window.ethereum.isMetaMask:', window.ethereum.isMetaMask);
-          console.log('window.ethereum.isCypherock:', window.ethereum.isCypherock);
-          
-          setTimeout(() => {
-            console.log('=== TESTING WALLET ===');
-            if (window.ethereum) {
-              window.ethereum.request({ method: 'eth_accounts' })
-                .then(accounts => console.log('TEST RESULT - accounts:', accounts))
-                .catch(err => console.log('TEST ERROR:', err));
-            }
-          }, 1000);
-          
-          'INJECTION_COMPLETE';
+            /**
+             * Resolve a request (called by React when dialog completes)
+             */
+            window.resolveWidgetRequest = function(requestId, result) {
+              console.log('[Widget] Resolving request:', requestId, 'with result:', result.substring(0, 20) + '...');
+              
+              const promise = pendingPromises.get(requestId);
+              if (promise) {
+                promise.resolve(result);
+                pendingPromises.delete(requestId);
+                console.log('[Widget] Request resolved successfully');
+              } else {
+                console.error('[Widget] No pending promise found for request:', requestId);
+              }
+            };
+
+            /**
+             * Reject a request (called by React when user cancels)
+             */
+            window.rejectWidgetRequest = function(requestId, errorMessage) {
+              console.log('[Widget] Rejecting request:', requestId, 'reason:', errorMessage);
+              
+              const promise = pendingPromises.get(requestId);
+              if (promise) {
+                promise.reject(new Error(errorMessage));
+                pendingPromises.delete(requestId);
+                console.log('[Widget] Request rejected');
+              } else {
+                console.error('[Widget] No pending promise found for request:', requestId);
+              }
+            };
+
+            /**
+             * EIP-1193 Ethereum Provider
+             */
+            window.ethereum = {
+              isMetaMask: false,
+              isCypherock: true,
+              chainId: '0x1', // Ethereum mainnet
+              selectedAddress: '${selectedAccount.xpubOrAddress}',
+              
+              /**
+               * Main request method - all wallet interactions go through this
+               */
+              request: async function(args) {
+                console.log('[Widget] Request:', args.method, args.params);
+                
+                // Handle account queries
+                if (args.method === 'eth_accounts' || args.method === 'eth_requestAccounts') {
+                  const accounts = ['${selectedAccount.xpubOrAddress}'];
+                  console.log('[Widget] Returning accounts:', accounts);
+                  return accounts;
+                }
+                
+                // Handle chain ID query
+                if (args.method === 'eth_chainId') {
+                  console.log('[Widget] Returning chainId: 0x1');
+                  return '0x1';
+                }
+                
+                // Handle transactions and signatures
+                const handledMethods = [
+                  'eth_sendTransaction',
+                  'eth_signTransaction',
+                  'eth_sign',
+                  'personal_sign',
+                  'eth_signTypedData',
+                  'eth_signTypedData_v4'
+                ];
+                
+                if (handledMethods.includes(args.method)) {
+                  return new Promise((resolve, reject) => {
+                    // Generate unique request ID
+                    const requestId = 'widget-req-' + (++requestIdCounter) + '-' + Date.now();
+                    
+                    console.log('[Widget] Creating pending request:', requestId);
+                    
+                    // Store the promise resolvers
+                    pendingPromises.set(requestId, { resolve, reject });
+                    
+                    // Store request for React to poll
+                    window.widgetPendingRequests.push({
+                      id: requestId,
+                      method: args.method,
+                      params: args.params,
+                    });
+                    
+                    console.log('[Widget] Request stored, waiting for React to handle...');
+                    
+                    // Set timeout to prevent hanging forever
+                    setTimeout(() => {
+                      if (pendingPromises.has(requestId)) {
+                        console.error('[Widget] Request timeout after 5 minutes:', requestId);
+                        reject(new Error('Request timeout - user may have closed the dialog'));
+                        pendingPromises.delete(requestId);
+                      }
+                    }, 5 * 60 * 1000); // 5 minutes timeout
+                  });
+                }
+                
+                // Unsupported method
+                console.warn('[Widget] Unsupported method:', args.method);
+                throw new Error('Unsupported method: ' + args.method);
+              },
+              
+              /**
+               * Event emitter interface (required by some dApps)
+               */
+              on: function(event, callback) {
+                console.log('[Widget] Event listener registered:', event);
+                // Simplified event emitter - can be enhanced if needed
+              },
+              
+              removeListener: function(event, callback) {
+                console.log('[Widget] Event listener removed:', event);
+              },
+              
+              isConnected: () => true,
+            };
+            
+            // Fire EIP-1193 initialization events
+            console.log('[Widget] Firing initialization events...');
+            
+            window.dispatchEvent(new Event('ethereum#initialized'));
+            
+            // Fire connect events after a short delay
+            setTimeout(() => {
+              if (window.ethereum) {
+                // Dispatch connect event
+                window.dispatchEvent(new CustomEvent('ethereumConnect', {
+                  detail: { chainId: '0x1' }
+                }));
+                
+                console.log('[Widget] EIP-1193 events fired successfully');
+              }
+            }, 100);
+            
+            console.log('=== CYPHEROCK WALLET INJECTION COMPLETE ===');
+            console.log('[Widget] window.ethereum:', !!window.ethereum);
+            console.log('[Widget] Account:', '${selectedAccount.xpubOrAddress}');
+            
+            return 'INJECTION_SUCCESS';
+          })();
         `);
 
-        console.log('DEBUG: Injection result:', result);
-        setStatus(`Injected: ${result}`);
+        console.log('[WidgetContainer] Injection result:', injectionResult);
+        setStatus(`Ready: ${selectedAccount.name}`);
       } catch (error) {
-        console.error('DEBUG: Injection failed:', error);
+        console.error('[WidgetContainer] Injection failed:', error);
         setStatus(`Failed: ${(error as Error).message}`);
       }
     };
@@ -123,17 +203,19 @@ export const WidgetContainer: React.FC<WidgetContainerProps> = ({
     return () => {
       webview.removeEventListener('dom-ready', handleDomReady);
     };
-  }, [selectedAccount]);
+  }, [selectedAccount, webviewRef]);
 
   return (
     <Container width="full" height="full">
       <Flex direction="column" height="full" width="full">
+        {/* Status Bar */}
         <Container $bgColor="sideBar" px={4} py={2}>
-          <Typography $fontSize={12}>
-            {selectedAccount.name} | {status}
+          <Typography $fontSize={12} color="muted">
+            {status}
           </Typography>
         </Container>
 
+        {/* Widget Webview */}
         <webview
           ref={webviewRef}
           src={widgetUrl}

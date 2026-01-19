@@ -1,6 +1,6 @@
 import { Container, Flex, Button, Typography } from '@cypherock/cysync-ui';
 import { IAccount, IWallet } from '@cypherock/db-interfaces';
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useState, useRef } from 'react';
 
 import { ErrorHandlerDialog, LoaderDialog } from '~/components';
 import { useAppSelector, selectWallets } from '~/store';
@@ -9,6 +9,9 @@ import logger from '~/utils/logger';
 import { MainAppLayout } from '../Layout';
 import { WidgetAccountSelector } from './components/WidgetAccountSelector';
 import { WidgetContainer } from './components/WidgetContainer';
+import { WidgetProvider } from './context/WidgetProvider';
+import { WidgetWalletConnectBridge } from './context/WidgetWalletConnectBridge';
+import { useWidgetRequests } from './hooks/useWidgetRequests';
 
 enum StakingLendingState {
   OVERVIEW = 'overview',
@@ -17,14 +20,45 @@ enum StakingLendingState {
   ERROR = 'error',
 }
 
+const WidgetActiveView: React.FC<{
+  selectedAccount: IAccount;
+  selectedWallet?: IWallet;
+  webviewRef: React.RefObject<any>;
+  onError: (error: string) => void;
+  onDisconnect: () => void;
+}> = ({ selectedAccount, selectedWallet, webviewRef, onError, onDisconnect }) => {
+  // Hook that polls webview and dispatches dialogs
+  useWidgetRequests({
+    webviewRef,
+    selectedAccount,
+    isActive: true,
+  });
+
+  return (
+    <WidgetWalletConnectBridge
+      selectedAccount={selectedAccount}
+      selectedWallet={selectedWallet}
+    >
+      <WidgetContainer
+        selectedAccount={selectedAccount}
+        webviewRef={webviewRef}
+        onError={onError}
+        onDisconnect={onDisconnect}
+      />
+    </WidgetWalletConnectBridge>
+  );
+};
+
 export const StakingLending = () => {
   const { wallets } = useAppSelector(selectWallets);
+  
   const [currentState, setCurrentState] = useState<StakingLendingState>(
     StakingLendingState.OVERVIEW,
   );
   const [selectedAccount, setSelectedAccount] = useState<
     IAccount | undefined
   >();
+  const [selectedWallet, setSelectedWallet] = useState<IWallet | undefined>();
   const [generalError, setGeneralError] = useState<string | null>(null);
 
   // Handle account selection from dialog
@@ -34,16 +68,9 @@ export const StakingLending = () => {
       account: account.name,
     });
 
-    console.log('DEBUG: Account selected, going directly to widget', {
-      account: account.name,
-      wallet: wallet.name,
-    });
-
-    // Set selected account/wallet
     setSelectedAccount(account);
+    setSelectedWallet(wallet);
     setCurrentState(StakingLendingState.WIDGET_ACTIVE);
-
-    // Clear any previous errors
     setGeneralError(null);
   };
 
@@ -51,6 +78,7 @@ export const StakingLending = () => {
   const handleBackToOverview = () => {
     logger.info('StakingLending: Returning to overview');
     setSelectedAccount(undefined);
+    setSelectedWallet(undefined);
     setGeneralError(null);
     setCurrentState(StakingLendingState.OVERVIEW);
   };
@@ -82,6 +110,10 @@ export const StakingLending = () => {
           <Container direction="column" gap={16} align="center">
             <Typography variant="h4" $textAlign="center">
               Staking & Lending
+            </Typography>
+            <Typography color="muted" $textAlign="center" $maxWidth="500px">
+              Earn rewards on your crypto assets through staking and lending
+              powered by P2P.org
             </Typography>
           </Container>
 
@@ -126,14 +158,22 @@ export const StakingLending = () => {
       return <LoaderDialog />;
     }
 
+    // Create webviewRef here to pass down to all components
+    // eslint-disable-next-line react-hooks/rules-of-hooks
+    const widgetWebviewRef = useRef<any>(null);
+
     return (
-      <WidgetContainer
-        selectedAccount={selectedAccount}
-        onError={handleWidgetError}
-        onDisconnect={handleBackToOverview}
-      />
+      <WidgetProvider webviewRef={widgetWebviewRef}>
+        <WidgetActiveView
+          selectedAccount={selectedAccount}
+          selectedWallet={selectedWallet}
+          webviewRef={widgetWebviewRef}
+          onError={handleWidgetError}
+          onDisconnect={handleBackToOverview}
+        />
+      </WidgetProvider>
     );
-  }, [selectedAccount, handleWidgetError, handleBackToOverview]);
+  }, [selectedAccount, selectedWallet, handleWidgetError, handleBackToOverview]);
 
   // Error screen
   const ErrorScreen = useCallback(
