@@ -10,7 +10,7 @@ import { ErrorHandlerDialog } from '~/components';
 import { routes } from '~/constants';
 import { useNavigateTo, useDeviceUpdate, DeviceUpdateState } from '~/hooks';
 import { useAppSelector, selectLanguage } from '~/store';
-import { getCloseAppMethod } from '~/utils';
+import { getCloseAppMethod, keyValueStore } from '~/utils';
 
 import { DeviceUpdateLoading } from './DeviceUpdateLoading';
 
@@ -19,8 +19,11 @@ export const DeviceUpdateDialogBox: FC = () => {
 
   const navigateTo = useNavigateTo();
 
-  const toNextPage = () => {
-    navigateTo(routes.onboarding.deviceAuthentication.path);
+  const toNextPage = async () => {
+    const path =
+      (await keyValueStore.onboardingCheckpointPath.get()) ??
+      routes.onboarding.info.path;
+    navigateTo(path);
   };
 
   const { state, downloadProgress, version, errorToShow, onRetry } =
