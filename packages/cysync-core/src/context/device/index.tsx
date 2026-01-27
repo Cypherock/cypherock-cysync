@@ -10,12 +10,14 @@ import {
   AuthenticateDevice,
 } from '@cypherock/cysync-interfaces';
 import { createLoggerWithPrefix } from '@cypherock/cysync-utils';
-import { OnboardingStep } from '@cypherock/sdk-app-manager';
+import { FirmwareVariant, OnboardingStep } from '@cypherock/sdk-app-manager';
 import { IDevice, IDeviceConnection } from '@cypherock/sdk-interfaces';
 import lodash from 'lodash';
 import PropTypes from 'prop-types';
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 
+import { setIsLastConnectedFirmwareBtcOnly } from '~/actions/lastConnectedFirmware';
+import { useAppDispatch } from '~/store';
 import { keyValueStore } from '~/utils';
 
 import {
@@ -92,6 +94,7 @@ export const DeviceProvider: React.FC<DeviceProviderProps> = ({
   const [deviceHandlingState, setDeviceHandlingState] = useState(
     DeviceHandlingState.NOT_CONNECTED,
   );
+  const dispatch = useAppDispatch();
 
   const onConnectionChange = async () => {
     setDeviceHandlingState(DeviceHandlingState.NOT_CONNECTED);
@@ -155,6 +158,12 @@ export const DeviceProvider: React.FC<DeviceProviderProps> = ({
       info,
     );
     setConnectionInfo(deviceConnectionInfo);
+    dispatch(
+      setIsLastConnectedFirmwareBtcOnly(
+        deviceConnectionInfo.firmwareVariantInfo?.variantId ===
+          FirmwareVariant.BTC_ONLY,
+      ),
+    );
 
     logger.info('Device connected successfully', {
       ...deviceConnectionInfo,

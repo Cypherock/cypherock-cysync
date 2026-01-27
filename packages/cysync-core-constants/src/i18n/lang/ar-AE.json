@@ -679,14 +679,14 @@
     },
     "deviceUpdate": {
       "heading": "تحديث الجهاز",
-      "version": "الإصدار ${version}",
+      "version": "الإصدار ${variant} ${version}",
       "dialogs": {
         "checking": {
           "title": "الرجاء الانتظار بينما نتحقق من تحديثات X1 Vault"
         },
         "confirmation": {
           "heading": "تحديث الجهاز",
-          "title": "تتوفر تحديثات جديدة لـ X1 Vault الخاص بك. قم بتحديث الجهاز إلى الإصدار ${version} للمتابعة",
+          "title": "تتوفر تحديثات جديدة لـ X1 Vault الخاص بك. قم بتحديث الجهاز إلى الإصدار ${variant} ${version} للمتابعة",
           "subtext": "اتبع التعليمات الموجودة على الجهاز"
         },
         "loading": {
@@ -698,7 +698,7 @@
         },
         "updateSuccessful": {
           "heading": "تم تحديث X1 Vault بنجاح",
-          "headingWithVersion": "تم تحديث X1 Vault إلى الإصدار ${version} بنجاح",
+          "headingWithVersion": "تم تحديث X1 Vault إلى الإصدار ${variant} ${version} بنجاح",
           "subtext": "جهازك يعمل الآن على أحدث إصدار من البرامج الثابتة"
         },
         "updateFailed": {
@@ -720,7 +720,7 @@
     }
   },
   "deviceUpdateBar": {
-    "message": "تحديث البرنامج الثابت الإصدار ${version} متوفر",
+    "message": "تحديث البرنامج الثابت الإصدار ${variant} ${version} متوفر",
     "button": "تنزيل"
   },
   "betaNotificationBar": {

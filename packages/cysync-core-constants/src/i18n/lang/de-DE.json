@@ -676,14 +676,14 @@
     },
     "deviceUpdate": {
       "heading": "Geräte-Update",
-      "version": "Version ${version}",
+      "version": "Version ${variant} ${version}",
       "dialogs": {
         "checking": {
           "title": "Bitte warten Sie, während wir nach X1 Vault-Updates suchen"
         },
         "confirmation": {
           "heading": "Geräte-Update",
-          "title": "Ein neues Update für Ihr X1 Vault ist verfügbar. Aktualisieren Sie das Gerät auf v${version}, um fortzufahren",
+          "title": "Ein neues Update für Ihr X1 Vault ist verfügbar. Aktualisieren Sie das Gerät auf ${variant} v${version}, um fortzufahren",
           "subtext": "Befolgen Sie die Anweisungen auf dem Gerät"
         },
         "loading": {
@@ -695,7 +695,7 @@
         },
         "updateSuccessful": {
           "heading": "X1 Vault erfolgreich aktualisiert",
-          "headingWithVersion": "X1 Vault erfolgreich auf v${version} aktualisiert",
+          "headingWithVersion": "X1 Vault erfolgreich auf ${variant} v${version} aktualisiert",
           "subtext": "Ihr Gerät läuft jetzt mit der neuesten Firmware"
         },
         "updateFailed": {
@@ -717,7 +717,7 @@
     }
   },
   "deviceUpdateBar": {
-    "message": "Firmware-Update-Version ${version} verfügbar",
+    "message": "Firmware-Update-Version ${variant} ${version} verfügbar",
     "button": "Herunterladen"
   },
   "betaNotificationBar": {

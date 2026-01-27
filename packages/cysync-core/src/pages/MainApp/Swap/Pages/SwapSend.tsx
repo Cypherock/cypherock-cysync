@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 
 import { openSendDialog } from '~/actions';
 import { LoaderDialog } from '~/components';
-import { createCustomError, useSwap } from '~/context';
+import { useSwap } from '~/context';
 import { SendFlowSource } from '~/dialogs/Send/context';
 import {
   closeDialog,
@@ -10,6 +10,7 @@ import {
   useAppDispatch,
   useAppSelector,
 } from '~/store';
+import { createCustomError } from '~/utils';
 
 const SWAP_SEND_VALIDITY_CHECK_INTERVAL_MS = 5000;
 

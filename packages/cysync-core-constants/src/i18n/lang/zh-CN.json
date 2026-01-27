@@ -678,14 +678,14 @@
     },
     "deviceUpdate": {
       "heading": "设备更新",
-      "version": "版本 ${version}",
+      "version": "版本 ${variant} ${version}",
       "dialogs": {
         "checking": {
           "title": "请稍候，我们将检查 X1 Vault 更新"
         },
         "confirmation": {
           "heading": "设备更新",
-          "title": "你的 X1 Vault 有一个新更新可用。更新设备到 v${version} 以继续",
+          "title": "你的 X1 Vault 有一个新更新可用。更新设备到 ${variant} v${version} 以继续",
           "subtext": "按照设备上的说明操作"
         },
         "loading": {
@@ -697,7 +697,7 @@
         },
         "updateSuccessful": {
           "heading": "X1 Vault 成功更新",
-          "headingWithVersion": "X1 Vault 成功更新到 v${version}",
+          "headingWithVersion": "X1 Vault 成功更新到 ${variant} v${version}",
           "subtext": "你的设备现在正在使用最新的固件"
         },
         "updateFailed": {
@@ -719,7 +719,7 @@
     }
   },
   "deviceUpdateBar": {
-    "message": "固件更新版本 ${version} 可用",
+    "message": "固件更新版本 ${variant} ${version} 可用",
     "button": "下载"
   },
   "betaNotificationBar": {

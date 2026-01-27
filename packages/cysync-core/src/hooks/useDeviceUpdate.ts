@@ -1,8 +1,22 @@
-import { ManagerApp, UpdateFirmwareStatus } from '@cypherock/sdk-app-manager';
+import {
+  FirmwareVariant,
+  ManagerApp,
+  UpdateFirmwareStatus,
+} from '@cypherock/sdk-app-manager';
 import { useEffect, useRef, useState } from 'react';
 import semver from 'semver';
 
-import { IDeviceConnectionInfo, useDevice } from '..';
+import { setIsLastConnectedFirmwareBtcOnly } from '~/actions/lastConnectedFirmware';
+import { openErrorDialog } from '~/actions';
+import { createCustomError } from '~/utils';
+
+import {
+  IDeviceConnectionInfo,
+  selectLanguage,
+  useAppDispatch,
+  useAppSelector,
+  useDevice,
+} from '..';
 
 import { DeviceTask, useDeviceTask, useStateWithRef } from '.';
 
@@ -19,7 +33,10 @@ enum InternalState {
   Installing,
 }
 
-export const useDeviceUpdate = () => {
+export const useDeviceUpdate = (
+  variant: FirmwareVariant,
+  forcedVariant?: FirmwareVariant,
+) => {
   const {
     connection,
     updateDeviceFirmware,
@@ -37,9 +54,17 @@ export const useDeviceUpdate = () => {
   const [errorToShow, setErrorToShow] = useState<Error | undefined>();
   const connectionRef = useRef<IDeviceConnectionInfo | undefined>(connection);
 
+  const variantRef = useRef(variant);
+  const dispatch = useAppDispatch();
+  const { strings } = useAppSelector(selectLanguage);
+
   useEffect(() => {
     connectionRef.current = connection;
   }, [connection]);
+
+  useEffect(() => {
+    variantRef.current = variant;
+  }, [variant]);
 
   useEffect(() => {
     const onProgress = (progress: number) => {
@@ -82,6 +107,7 @@ export const useDeviceUpdate = () => {
     const res = await updateDeviceFirmware({
       firmware,
       version: versionObj,
+      variant: variantRef.current,
       allowPrerelease: window.cysyncEnv.ALLOW_PRERELEASE === 'true',
     });
 
@@ -105,6 +131,14 @@ export const useDeviceUpdate = () => {
       const { error } = await task.run();
       if (error) throw error;
 
+      if (forcedVariant !== undefined) {
+        dispatch(
+          setIsLastConnectedFirmwareBtcOnly(
+            variant === FirmwareVariant.BTC_ONLY,
+          ),
+        );
+      }
+
       setStateWithResetError(DeviceUpdateState.Successful);
     } catch (error) {
       onError(error);
@@ -117,15 +151,32 @@ export const useDeviceUpdate = () => {
       const result = await ManagerApp.getLatestFirmware({
         prerelease: window.cysyncEnv.ALLOW_PRERELEASE === 'true',
         doDownload: true,
+        variant,
+        isUserRelevant: forcedVariant === undefined ? true : undefined,
       });
       setVersion(result.version);
       firmwareRef.current = result.firmware;
 
       if (
+        // In case of forced variant, we update even if the version is same, but not if the version is older
         connection?.firmwareVersion &&
-        semver.gte(connection.firmwareVersion, result.version)
+        (forcedVariant !== undefined
+          ? semver.gt(connection.firmwareVersion, result.version)
+          : semver.gte(connection.firmwareVersion, result.version))
       ) {
         setStateWithResetError(DeviceUpdateState.NotRequired);
+        if (forcedVariant !== undefined) {
+          dispatch(
+            openErrorDialog({
+              error: createCustomError(
+                strings.errors.deviceErrors.BTL_0104.heading,
+                strings.errors.deviceErrors.BTL_0104.subtext,
+              ) as any,
+              showCloseButton: true,
+              suppressActions: true,
+            }),
+          );
+        }
         return;
       }
 

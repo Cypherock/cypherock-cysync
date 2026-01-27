@@ -21,3 +21,4 @@ export * from './walletConnect';
 export * from './file';
 export * from './buysell';
 export * from './inheritance';
+export * from './customError';

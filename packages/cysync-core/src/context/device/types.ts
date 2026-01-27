@@ -1,4 +1,5 @@
 import {
+  FirmwareVariantInfo,
   IGetWalletsResultResponse,
   OnboardingStep,
 } from '@cypherock/sdk-app-manager';
@@ -20,6 +21,7 @@ export interface IDeviceConnectionInfo {
   connection?: IDeviceConnection;
   deviceState: DeviceState;
   firmwareVersion?: string;
+  firmwareVariantInfo?: FirmwareVariantInfo;
   serial?: string;
   isAuthenticated?: boolean;
   isMain: boolean;
