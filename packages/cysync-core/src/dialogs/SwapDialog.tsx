@@ -11,6 +11,8 @@ import {
   GoldExternalLink,
   GraphSwitchSmallIcon,
   Image,
+  MessageBox,
+  parseLangTemplate,
   ScrollableContainer,
   SummaryBox,
   SummaryItemType,
@@ -20,7 +22,9 @@ import {
 import { SwapStatus } from '@cypherock/db-interfaces';
 import React, { FC, useMemo } from 'react';
 
+import { useSwap } from '~/context';
 import { SwapTransactionRowData, useSwapTransactions } from '~/hooks';
+import { analyticsService, ANALYTICS_EVENTS } from '~/services/analytics';
 import {
   closeDialog,
   selectLanguage,
@@ -36,13 +40,22 @@ const textColorMap: Record<SwapStatus, any> = {
   success: 'success',
   failed: 'error',
   pending: 'warn',
+  hold: 'warn',
+  expired: 'error',
 };
 
 export const SwapDialog: FC<ISwapDialogProps> = ({ swap: swapSource }) => {
   const theme = useTheme();
   const dispatch = useAppDispatch();
-  const { displayedData } = useSwapTransactions();
-  const onClose = () => dispatch(closeDialog('swapDialog'));
+  const { providerDetails } = useSwap();
+  const { displayedData } = useSwapTransactions(providerDetails);
+  const onClose = () => {
+    analyticsService.trackEvent(ANALYTICS_EVENTS.SWAP_DIALOG_CLOSED, {
+      swapStatus: swapSource.swapStatus,
+      provider: swapSource.providerName,
+    });
+    dispatch(closeDialog('swapDialog'));
+  };
 
   const lang = useAppSelector(selectLanguage);
   const strings = lang.strings.dialogs.swapDialog;
@@ -235,10 +248,10 @@ export const SwapDialog: FC<ISwapDialogProps> = ({ swap: swapSource }) => {
           align="center"
           direction="column"
           height="full"
-          pr={0}
           pb={0}
+          px={0}
         >
-          <Container align="center" justify="center" width="full">
+          <Container align="center" justify="center" width="full" px={5}>
             <GraphSwitchSmallIcon
               width={36}
               height={36}
@@ -251,6 +264,7 @@ export const SwapDialog: FC<ISwapDialogProps> = ({ swap: swapSource }) => {
             align="center"
             width="full"
             gap={4}
+            px={5}
           >
             <Typography variant="h5">
               {swap.sentDisplayAmount} → {swap.receivedDisplayAmount}
@@ -259,15 +273,35 @@ export const SwapDialog: FC<ISwapDialogProps> = ({ swap: swapSource }) => {
               {swap.dateHeader} {swap.time}
             </Typography>
           </Container>
+          {swap.swapStatus === SwapStatus.Hold && swap.providerMail && (
+            <Container
+              display="flex"
+              direction="column"
+              align="center"
+              width="full"
+              gap={4}
+              px={5}
+            >
+              <MessageBox
+                text={parseLangTemplate(
+                  lang.strings.swap.swapStatus.messageBox.hold,
+                  {
+                    providerName: swap.providerName,
+                    providerEmail: `[**${swap.providerMail}**](mailto:${swap.providerMail})`,
+                  },
+                )}
+                type="warning"
+              />
+            </Container>
+          )}
           <ScrollableContainer $maxHeight="calc(100vh - 400px)">
             <Container
               display="flex"
               direction="column"
               width="full"
-              pt={5}
-              pr={5}
               pb={3}
               gap={12}
+              px={5}
             >
               <SummaryBox items={summaryItems} />
             </Container>

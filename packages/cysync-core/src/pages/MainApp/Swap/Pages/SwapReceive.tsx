@@ -8,6 +8,7 @@ import { LoaderDialog } from '~/components';
 import { useSwap } from '~/context';
 import { ReceiveFlowSource } from '~/dialogs/Receive/context';
 import { DeviceTask, useDeviceTask } from '~/hooks';
+import { analyticsService, ANALYTICS_EVENTS } from '~/services/analytics';
 import {
   closeDialog,
   selectLanguage,
@@ -40,10 +41,22 @@ export const SwapReceive = () => {
 
   const onReceiveFlowClosed = async () => {
     if (receiversAddress.current === undefined) {
+      analyticsService.trackEvent(ANALYTICS_EVENTS.SWAP_FAILED, {
+        fromAsset: fromAccount?.assetId,
+        toAsset: toAccount?.assetId,
+        step: 'receive_address_generation',
+        error: 'No address received',
+      });
       onError(createCustomError(displayText.errors.notSuccessful));
       await closeExchange();
       return;
     }
+
+    analyticsService.trackEvent(ANALYTICS_EVENTS.SWAP_RECEIVE_STEP_STARTED, {
+      fromAsset: fromAccount?.assetId,
+      toAsset: toAccount?.assetId,
+      action: 'address_generated',
+    });
 
     await initiateExchange(receiversAddress.current);
     toNextPage();
@@ -82,19 +95,37 @@ export const SwapReceive = () => {
     logger.info(
       `Starting swap from ${fromAccount?.assetId} to ${toAccount?.assetId}`,
     );
+
     const result = await initiateTask.run();
 
     if (result.error) {
+      analyticsService.trackEvent(ANALYTICS_EVENTS.SWAP_FAILED, {
+        fromAsset: fromAccount?.assetId,
+        toAsset: toAccount?.assetId,
+        step: 'receive_initiation',
+        error: result.error.message || 'Unknown error',
+      });
       onError(result.error);
       return;
     }
 
     if (initiateTask.error) {
+      analyticsService.trackEvent(ANALYTICS_EVENTS.SWAP_FAILED, {
+        fromAsset: fromAccount?.assetId,
+        toAsset: toAccount?.assetId,
+        step: 'receive_initiation',
+        error: initiateTask.error.message || 'Unknown error',
+      });
       onError(initiateTask.error);
       return;
     }
 
     if (toAccount === undefined) {
+      analyticsService.trackEvent(ANALYTICS_EVENTS.SWAP_FAILED, {
+        fromAsset: fromAccount?.assetId,
+        step: 'receive_initiation',
+        error: 'Account not selected',
+      });
       onError(createCustomError(displayText.errors.accountNotSelected));
       await closeExchange();
       return;

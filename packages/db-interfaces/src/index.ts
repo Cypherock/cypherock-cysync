@@ -13,6 +13,7 @@ import type {
   IMigrationRepository,
   IInheritancePlanRepository,
 } from './entities';
+import { IBuySellOrderRepository } from './entities/buySellOrder';
 
 export interface IDatabase {
   load(key?: string): Promise<void>;
@@ -20,6 +21,7 @@ export interface IDatabase {
   isLoaded(): Promise<boolean>;
   device: IDeviceRepository;
   account: IAccountRepository;
+  buySellOrder: IBuySellOrderRepository;
   transaction: ITransactionRepository;
   transactionNotificationRead: ITransactionNotificationReadRepository;
   transactionNotificationClick: ITransactionNotificationClickRepository;

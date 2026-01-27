@@ -13,6 +13,7 @@ import lodash from 'lodash';
 import React, { useCallback, useEffect, useState } from 'react';
 
 import { openAddAccountDialog } from '~/actions';
+import { useCurrency } from '~/context';
 import {
   GraphTimeRangeMap,
   graphTimeRangeToDaysMap,
@@ -24,8 +25,8 @@ import {
 import {
   selectDiscreetMode,
   selectLanguage,
-  selectPriceHistories,
-  selectPriceInfos,
+  selectCurrentCurrencyPriceHistories,
+  selectCurrentCurrencyPriceInfos,
   selectWallets,
   useAppDispatch,
   useAppSelector,
@@ -41,32 +42,36 @@ const selector = createSelector(
   [
     selectLanguage,
     selectWallets,
-    selectPriceHistories,
-    selectPriceInfos,
+    selectCurrentCurrencyPriceHistories,
+    selectCurrentCurrencyPriceInfos,
     selectDiscreetMode,
+    (state, currency: string) => currency,
   ],
   (
     lang,
     { wallets },
-    { priceHistories },
-    { priceInfos },
+    priceHistories,
+    priceInfos,
     { active: isDiscreetMode },
+    currency,
   ) => ({
     lang,
     wallets,
     priceHistories,
     priceInfos,
     isDiscreetMode,
+    currency,
   }),
 );
 
 export const useGraph = (props?: UseGraphProps) => {
   const theme = useTheme();
   const dispatch = useAppDispatch();
-  const { lang, wallets, priceHistories, priceInfos, isDiscreetMode } =
-    useAppSelector(selector);
   const accounts = useAccounts();
   const transactions = useTransactions();
+  const { currentCurrency } = useCurrency();
+  const { lang, wallets, priceHistories, priceInfos, isDiscreetMode } =
+    useAppSelector(state => selector(state, currentCurrency));
 
   const { rangeList, selectedRange, setSelectedRange } = useGraphTimeRange();
 
@@ -78,7 +83,7 @@ export const useGraph = (props?: UseGraphProps) => {
   >({
     balanceHistory: { balanceHistory: [], totalValue: '0' },
     summary: {
-      totalValue: '$0',
+      totalValue: 0,
       totalBalance: '',
       conversionRate: '',
       changePercent: '',
@@ -105,6 +110,7 @@ export const useGraph = (props?: UseGraphProps) => {
     showGraphInUSD,
     theme,
     computedData: calculatedData,
+    currentCurrency,
   });
 
   const getAssetDetailsFromProps = () => {
@@ -139,6 +145,7 @@ export const useGraph = (props?: UseGraphProps) => {
       parentAssetId: data.props?.parentAssetId,
       showGraphInUSD: data.showGraphInUSD,
       days: graphTimeRangeToDaysMap[data.selectedRange],
+      currency: data.currentCurrency,
     };
 
     try {
@@ -200,7 +207,13 @@ export const useGraph = (props?: UseGraphProps) => {
     includeUnit = false,
   ) => {
     const { parentAssetId, assetId } = getAssetDetailsFromProps();
-    if (new BigNumber(value).isNaN()) return '';
+    if (new BigNumber(value).isNaN() && typeof value === 'string') {
+      return value;
+    }
+    if (new BigNumber(value).isNaN()) {
+      return '';
+    }
+
     const showUnitInUSD = showInUSD ?? showGraphInUSD;
     let unit: ICoinUnit | undefined;
 
@@ -212,12 +225,13 @@ export const useGraph = (props?: UseGraphProps) => {
       if (!includeUnit) return v;
 
       if (unit && !showUnitInUSD) return `${v} ${unit.abbr}`;
-      return `$${v}`;
+      return v;
     };
 
     if (isDiscreetMode) return appendUnit('****');
 
-    if (showUnitInUSD) return appendUnit(formatDisplayPrice(value));
+    if (showUnitInUSD)
+      return appendUnit(formatDisplayPrice(value, currentCurrency));
     return appendUnit(formatDisplayAmount(value).complete);
   };
 
@@ -237,6 +251,7 @@ export const useGraph = (props?: UseGraphProps) => {
       props?.assetId,
       props?.parentAssetId,
       isDiscreetMode,
+      currentCurrency,
     ],
   );
 
@@ -261,6 +276,7 @@ export const useGraph = (props?: UseGraphProps) => {
       props?.assetId,
       props?.parentAssetId,
       isDiscreetMode,
+      currentCurrency,
     ],
   );
 

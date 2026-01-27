@@ -1,6 +1,6 @@
 {
   "name": "@cypherock/coin-support-tron",
-  "version": "0.0.16",
+  "version": "0.1.8",
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
   "types": "dist/esm/index.d.ts",
@@ -49,7 +49,7 @@
     "@cypherock/db-interfaces": "workspace:^",
     "@cypherock/sdk-app-tron": "^0.0.4",
     "@cypherock/sdk-interfaces": "^0.0.16",
-    "@cypherock/sdk-utils": "^0.0.20",
+    "@cypherock/sdk-utils": "^0.0.21",
     "lodash": "^4.17.21",
     "multicoin-address-validator": "^0.5.12",
     "rxjs": "^7.8.1",

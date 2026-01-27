@@ -1,3 +1,4 @@
+import { syncBuySellOrdersCore } from '@cypherock/cysync-core-services';
 import {
   ConnectionStatusType,
   SyncStatusType,
@@ -8,7 +9,12 @@ import React, { FC, ReactNode, useMemo, useCallback } from 'react';
 
 import { openContactSupportDialog, syncAllAccounts } from '~/actions';
 import { routes } from '~/constants';
-import { DeviceConnectionStatus, useDevice, useLockscreen } from '~/context';
+import {
+  DeviceConnectionStatus,
+  useCurrency,
+  useDevice,
+  useLockscreen,
+} from '~/context';
 import { useNavigateTo } from '~/hooks';
 import {
   AccountSyncState,
@@ -22,7 +28,9 @@ import {
   useAppDispatch,
   useAppSelector,
 } from '~/store';
+import { getDB } from '~/utils';
 
+// ... selector and maps ...
 const selector = createSelector(
   [selectLanguage, selectDiscreetMode, selectAccountSync, selectNotifications],
   (a, b, c, { isOpen, unreadTransactions }) => ({
@@ -67,6 +75,7 @@ const TopbarComponent: FC<TopbarProps> = props => {
   const { connection } = useDevice();
   const { isLocked, isPasswordSet, lock, isLockscreenLoading } =
     useLockscreen();
+  const { currentCurrency } = useCurrency();
 
   const syncState = useMemo<SyncStatusType>(
     () => accountSyncMap[accountSync.syncState],
@@ -80,7 +89,10 @@ const TopbarComponent: FC<TopbarProps> = props => {
   );
 
   const onSyncClick = useCallback(() => {
-    dispatch(syncAllAccounts());
+    dispatch(syncAllAccounts(currentCurrency));
+
+    const db = getDB();
+    syncBuySellOrdersCore({ db });
   }, [dispatch]);
 
   const onNotificationClick = useCallback(() => {

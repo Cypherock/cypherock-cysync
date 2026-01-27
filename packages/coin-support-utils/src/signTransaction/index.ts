@@ -61,11 +61,22 @@ export function makeSignTransactionsObservable<
 
     const main = async () => {
       try {
-        const { account, coin } = await getAccountAndCoin(
-          params.db,
-          coinList,
-          params.transaction.accountId,
-        );
+        let account: IAccount | undefined;
+        let coin: ICoinInfo | undefined;
+
+        if (params.account) {
+          account = params.account;
+          coin = coinList[account.parentAssetId];
+        } else {
+          const { account: accountFromDb, coin: coinFromDb } =
+            await getAccountAndCoin(
+              params.db,
+              coinList,
+              params.transaction.accountId,
+            );
+          account = accountFromDb;
+          coin = coinFromDb;
+        }
 
         app = await params.createApp(params.connection);
         const signedTransaction = await params.signTransactionFromDevice({

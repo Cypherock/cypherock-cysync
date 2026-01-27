@@ -12,6 +12,7 @@ export interface LanguageStrings {
   help: string;
   back: string;
   allWallets: string;
+  appName: string;
   labels: LangLabels;
   buttons: LangButtons;
   dashboard: LangDashboard;
@@ -51,6 +52,8 @@ export interface LanguageStrings {
   inheritanceSilverPlanPurchase: LangInheritanceSilverPlanPurchase;
   inheritanceGoldPlanPurchase: LangInheritanceGoldPlanPurchase;
   swap: LangSwap;
+  buySell: LangBuySell;
+  buySell2: LangBuySell2;
 }
 
 interface LangLabels {
@@ -110,6 +113,11 @@ interface LangButtons {
   edit: string;
   tryAgain: string;
   switchFirmware: string;
+  autoApproval: string;
+  mergeDelegation: string;
+  accept: string;
+  earnRewards: string;
+  proceed: string;
 }
 
 interface LangDashboard {
@@ -174,19 +182,56 @@ interface LangAddAccount {
       tapCard: string;
     };
   };
+  cantonSignup: {
+    userDetails: {
+      title: string;
+      subtext: string;
+      emailField: {
+        label: string;
+        rightLabel: string;
+      };
+      sendOTPButton: string;
+    };
+    verifyOTP: {
+      title: string;
+    };
+    loader: {
+      title: string;
+      subtext: string;
+    };
+    success: {
+      eligibleAndCanProceed: {
+        title: string;
+      };
+      eligibleAndAddedInWaitlist: {
+        title: string;
+        subtext: string;
+      };
+      notEligible: {
+        title: string;
+        subtext: string;
+      };
+      buttonText: string;
+    };
+  };
   loader: {
     waitMessage: string;
   };
   sync: {
     syncingHeader: string;
     header: string;
+    addSingleAccountHeader: string;
+    createSingleAccountHeader: string;
     newAccount: string;
+    newSingleAccount: string;
     advancedButton: string;
     accountsNotSynced: string;
     deselectAllButton: string;
     selectAllButton: string;
     accountsInPortfolio: string;
     addAccountButton: string;
+    addSingleAccountButton: string;
+    createSingleAccountButton: string;
     resyncButton: string;
   };
   congrats: {
@@ -236,29 +281,38 @@ interface LangReceive {
       prefix: string;
       accountIdPrefix: string;
       principalIdPrefix: string;
+      partyIdPrefix: string;
       suffix: string;
     };
     addressLabel: string;
     accountIdLabel: string;
     principalIdLabel: string;
+    partyIdLabel: string;
     actions: {
       verify: string;
       verifyAccountId: string;
       verifyPrincipalId: string;
+      verifyPartyId: string;
     };
     messageBox: {
       warning: string;
       accountIdWarning: string;
       principalIdWarning: string;
+      partyIdWarning: string;
     };
     waitMessageBox: { warning: string };
   };
-  congrats: { title: string; accountAndPrincipalIdTitle: string };
+  congrats: {
+    title: string;
+    accountAndPrincipalIdTitle: string;
+    partyIdTitle: string;
+  };
   finalButtons: {
     secondary: string;
     secondaryUnverified: string;
     secondaryUnverifiedAccountId: string;
     secondaryUnverifiedPrincipalId: string;
+    secondaryUnverifiedPartyId: string;
     primary: string;
     continue: string;
   };
@@ -289,7 +343,11 @@ interface LangSend {
       tapCard: string;
     };
     token: { info: string };
-    messageBox: { warning: string };
+    longProcess: { info: string };
+    messageBox: {
+      warning: string;
+      partyIdWarning: string;
+    };
   };
   recipient: {
     title: string;
@@ -309,6 +367,13 @@ interface LangSend {
       ownAddress: string;
     };
     icpPrincipalIdRecipient: {
+      label: string;
+      labelSwap: string;
+      placeholder: string;
+      error: string;
+      ownAddress: string;
+    };
+    cantonRecipient: {
       label: string;
       labelSwap: string;
       placeholder: string;
@@ -346,6 +411,24 @@ interface LangSend {
       placeholder: string;
       error: string;
     };
+    cantonMemo: {
+      label: string;
+      placeholder: string;
+      tooltipText: string;
+      error: string;
+    };
+    expirationDate: {
+      label: string;
+      placeholder: string;
+      tooltipText: string;
+      options: {
+        threeHours: string;
+        oneDay: string;
+        oneWeek: string;
+        tenDays: string;
+        oneMonth: string;
+      };
+    };
     stellarMemo: {
       label: string;
       inputPlaceholder: {
@@ -360,6 +443,7 @@ interface LangSend {
       error: string;
     };
     rentExemptFeeWarning: string;
+    parentAssetInsufficient: string;
   };
   summary: {
     title: string;
@@ -371,13 +455,15 @@ interface LangSend {
     remarks: string;
     destinationTag: string;
     memo: string;
+    expirationDate: string;
   };
   finalMessage: {
     button: string;
     title: string;
     hashLabel: string;
     idLabel: string;
-    messageBox: { warning: string };
+    updateIdLabel: string;
+    messageBox: { warning: string; delayWarning: string };
   };
   aside: {
     tabs: {
@@ -451,8 +537,22 @@ interface LangHistory {
     value: string;
   };
   transactionStatus: {
-    send: { failed: string; pending: string; success: string };
-    receive: { failed: string; pending: string; success: string };
+    send: {
+      failed: string;
+      pending: string;
+      success: string;
+      expired: string;
+      cancelled: string;
+      rejected: string;
+    };
+    receive: {
+      failed: string;
+      pending: string;
+      success: string;
+      expired: string;
+      cancelled: string;
+      rejected: string;
+    };
   };
   dialogBox: {
     value: string;
@@ -468,11 +568,15 @@ interface LangHistory {
     mine: string;
     transactionHash: string;
     transactionId: string;
+    transactionUpdateId: string;
     description: string;
     feePrefix: { optimism: string };
     remarks: string;
     destinationTag: string;
     memo: string;
+    choice: string;
+    startDate: string;
+    expirationDate: string;
     operation: string;
   };
   noData: { text: string; subText: string; buttonText: string };
@@ -646,6 +750,7 @@ interface LangTopbar {
 
 interface LangSidebar {
   portfolio: string;
+  securedBy: string;
   wallets: string;
   sendCrypto: string;
   receiveCrypto: string;
@@ -712,6 +817,16 @@ interface LangSignMessage {
 
 interface LangPortfolio {
   title: string;
+  banner: {
+    addCanton: {
+      title: string;
+      button: string;
+    };
+    enableAutomaticApprovals: {
+      title: string;
+      button: string;
+    };
+  };
   tokenTable: {
     title: string;
     tableHeader: { token: string; amount: string; value: string };
@@ -1261,6 +1376,97 @@ interface LangDialogs {
     };
     checkbox: { label: string };
     primaryBtn: { label: string };
+  };
+  cantonDialogs: {
+    enableApprovalPrompt: {
+      title: string;
+      subTitle: string;
+      note: string;
+    };
+    enableApproval: {
+      title: string;
+      dialogs: {
+        x1Vault: {
+          name: string;
+          deviceAction: {
+            verifyDetails: string;
+          };
+        };
+        confirmation: {
+          name: string;
+          title: string;
+        };
+      };
+    };
+    enableMergeDelegation: {
+      title: string;
+      dialogs: {
+        summary: {
+          name: string;
+          title: string;
+          subTitle: string;
+          note: string;
+        };
+        x1Vault: {
+          name: string;
+          deviceAction: {
+            verifyDetails: string;
+          };
+        };
+        confirmation: {
+          name: string;
+          title: string;
+        };
+      };
+    };
+    createCantonAccount: {
+      title: string;
+      dialogs: {
+        x1Vault: {
+          name: string;
+          messageBox: {
+            warning: string;
+          };
+        };
+        confirmation: {
+          name: string;
+        };
+        success: {
+          title: string;
+        };
+        automaticApproval: {
+          name: string;
+        };
+      };
+    };
+    transactionAction: {
+      title: {
+        approve: string;
+        reject: string;
+        cancel: string;
+      };
+      dialogs: {
+        x1Vault: {
+          name: string;
+        };
+        confirmation: {
+          name: string;
+        };
+        success: {
+          approve: string;
+          reject: string;
+          cancel: string;
+        };
+      };
+    };
+    login: {
+      success: {
+        title: string;
+      };
+    };
+    syncAccountPrompt: {
+      title: string;
+    };
   };
 }
 
@@ -1956,14 +2162,18 @@ interface LangSwap {
       success: string;
       pending: string;
       failed: string;
+      hold: string;
+      expired: string;
     };
     description: string;
     amountSent: string;
     amountReceived: string;
     transactionID: string;
     messageBox: {
-      warning: string;
-      danger: string;
+      pending: string;
+      failed: string;
+      hold: string;
+      expired: string;
     };
     button: {
       backToSwap: string;
@@ -1974,5 +2184,160 @@ interface LangSwap {
       title: string;
       description: string;
     };
+  };
+}
+
+interface LangBuySell {
+  buy: {
+    title: string;
+    selectAsset: {
+      title: string;
+      selectWallet: {
+        placeholder: string;
+        searchText: string;
+      };
+      selectCrypto: {
+        placeholder: string;
+        searchText: string;
+      };
+      messageBox: {
+        danger: string;
+      };
+    };
+    selectCurrency: {
+      title: string;
+      selectCountry: {
+        searchText: string;
+        placeholder: string;
+      };
+      selectFiat: {
+        searchText: string;
+        placeholder: string;
+      };
+    };
+    selectAmount: {
+      pay: {
+        title: string;
+      };
+      receive: {
+        title: string;
+      };
+    };
+    selectPaymentMethod: {
+      title: string;
+      placeholder: string;
+      searchText: string;
+    };
+  };
+}
+
+interface LangBuySell2 {
+  title: string;
+  input: {
+    region: {
+      title: string;
+      selectCountry: {
+        searchText: string;
+        placeholder: string;
+      };
+      selectFiat: {
+        searchText: string;
+        placeholder: string;
+      };
+    };
+    amount: {
+      pay: {
+        title: string;
+      };
+      receive: {
+        title: string;
+      };
+    };
+    crypto: {
+      title: string;
+      selectCrypto: {
+        searchText: string;
+        placeholder: string;
+      };
+    };
+    accounts: {
+      title: string;
+      selectWallet: {
+        searchText: string;
+        placeholder: string;
+      };
+      selectAccount: {
+        searchText: string;
+        placeholder: string;
+      };
+      selectAnAccount: string;
+    };
+    paymentMethod: {
+      title: string;
+      placeholder: string;
+      searchText: string;
+    };
+    messageBox: {
+      danger: string;
+      altText: string;
+    };
+    offersSection: {
+      title: string;
+      searchingForOffers: string;
+      selectAnOffer: string;
+      offersFound: string;
+      timerText: string;
+    };
+    errors: {
+      noOffers: string;
+    };
+  };
+  offers: {
+    bestOfferText: string;
+    optimalOfferText: string;
+    toAmount: string;
+    toAmountTooltip: string;
+    fees: string;
+    feesTooltip: string;
+  };
+  history: {
+    search: string;
+    state: {
+      loading: string;
+    };
+    header: {
+      provider: string;
+      assetTo: string;
+      received: string;
+      sent: string;
+    };
+    noData: {
+      text: string;
+      subText: string;
+      buttonText: string;
+    };
+    noSearchResult: {
+      text: string;
+      subText: string;
+    };
+  };
+  dialog: {
+    provider: string;
+    orderId: string;
+    status: string;
+    region: string;
+    fromTitle: string;
+    toTitle: string;
+    fromAsset: string;
+    fromAmount: string;
+    toWallet: string;
+    toAsset: string;
+    toAccount: string;
+    toAmount: string;
+    paymentMethod: string;
+    messageBox: {
+      hold: string;
+    };
+    statusText: Record<string, string>;
   };
 }

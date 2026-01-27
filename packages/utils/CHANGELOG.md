@@ -1,5 +1,78 @@
 # @cypherock/cysync-utils
 
+## 0.0.17
+
+### Patch Changes
+
+- Updated dependencies [[`2be04fe0`](https://github.com/Cypherock/cypherock-cysync/commit/2be04fe055a9e9bf17d03a6b78265f9b4801f5d1)]:
+  - @cypherock/cysync-interfaces@0.1.0
+
+## 0.0.17-pre.0
+
+### Patch Changes
+
+- Updated dependencies [[`2be04fe0`](https://github.com/Cypherock/cypherock-cysync/commit/2be04fe055a9e9bf17d03a6b78265f9b4801f5d1)]:
+  - @cypherock/cysync-interfaces@0.1.0-pre.0
+
+## 0.0.16
+
+### Patch Changes
+
+- [#810](https://github.com/Cypherock/cypherock-cysync/pull/810) [`99fb9049`](https://github.com/Cypherock/cypherock-cysync/commit/99fb9049c7c639472acef934c18843ea7703b829) Thanks [@chirag-droid](https://github.com/chirag-droid)! - Integrated changelly as on ramp provider increasing support for many currencies and countries
+
+- Updated dependencies []:
+  - @cypherock/cysync-interfaces@0.0.13
+
+## 0.0.16-pre.0
+
+### Patch Changes
+
+- [#810](https://github.com/Cypherock/cypherock-cysync/pull/810) [`99fb9049`](https://github.com/Cypherock/cypherock-cysync/commit/99fb9049c7c639472acef934c18843ea7703b829) Thanks [@chirag-droid](https://github.com/chirag-droid)! - Integrated changelly as on ramp provider increasing support for many currencies and countries
+
+- Updated dependencies []:
+  - @cypherock/cysync-interfaces@0.0.13-pre.0
+
+## 0.0.15
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @cypherock/cysync-interfaces@0.0.12
+
+## 0.0.14
+
+### Patch Changes
+
+- [#819](https://github.com/Cypherock/cypherock-cysync/pull/819) [`0b897a64`](https://github.com/Cypherock/cypherock-cysync/commit/0b897a64f2519dd8aca7230751ca28ce4eeb9251) Thanks [@muzaffarbhat07](https://github.com/muzaffarbhat07)! - Adds canton support (Add Account and Transfer PreApproval only)
+
+## 0.0.13
+
+### Patch Changes
+
+- Updated dependencies [[`1434a79d`](https://github.com/Cypherock/cypherock-cysync/commit/1434a79d295cc8eaa0bd0a39d97a5f05a13e872d)]:
+  - @cypherock/cysync-interfaces@0.0.11
+
+## 0.0.13-pre.0
+
+### Patch Changes
+
+- Updated dependencies [[`1434a79d`](https://github.com/Cypherock/cypherock-cysync/commit/1434a79d295cc8eaa0bd0a39d97a5f05a13e872d)]:
+  - @cypherock/cysync-interfaces@0.0.11-pre.0
+
+## 0.0.12
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @cypherock/cysync-interfaces@0.0.10
+
+## 0.0.12-pre.0
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @cypherock/cysync-interfaces@0.0.10-pre.0
+
 ## 0.0.11
 
 ### Patch Changes

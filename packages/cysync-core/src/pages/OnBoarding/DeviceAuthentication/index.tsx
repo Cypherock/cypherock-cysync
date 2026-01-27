@@ -1,4 +1,4 @@
-import { deviceAuthAsideImage } from '@cypherock/cysync-ui';
+import { DeviceAuthAside } from '@cypherock/cysync-ui';
 import React from 'react';
 
 import { WithConnectedDevice } from '~/components';
@@ -13,7 +13,7 @@ export const DeviceAuthentication: React.FC = () => {
 
   return (
     <OnboardingPageLayout
-      img={deviceAuthAsideImage}
+      img={DeviceAuthAside}
       text={lang.strings.onboarding.deviceAuth.heading}
       currentState={4}
       totalState={8}

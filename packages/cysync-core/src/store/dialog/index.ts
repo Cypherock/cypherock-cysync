@@ -86,6 +86,9 @@ const initialState: IDialogState = {
   swapDialog: {
     isOpen: false,
   },
+  buySellDialog: {
+    isOpen: false,
+  },
   deleteAccount: {
     isOpen: false,
   },
@@ -126,6 +129,30 @@ const initialState: IDialogState = {
     isOpen: false,
   },
   switchFirmwareDialog: {
+    isOpen: false,
+  },
+  fullPageLoaderDialog: {
+    isOpen: false,
+  },
+  enableApprovalPromptDialog: {
+    isOpen: false,
+  },
+  enableApprovalDialog: {
+    isOpen: false,
+  },
+  enableMergeDelegationDialog: {
+    isOpen: false,
+  },
+  createCantonAccountDialog: {
+    isOpen: false,
+  },
+  transactionActionDialog: {
+    isOpen: false,
+  },
+  syncCantonAccountPromptDialog: {
+    isOpen: false,
+  },
+  cantonLogin: {
     isOpen: false,
   },
 };

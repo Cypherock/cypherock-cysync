@@ -23,6 +23,8 @@ export const EvmIdMap = {
   avalanche: 'avalanche',
   arbitrum: 'arbitrum',
   optimism: 'optimism',
+  hyperliquid: 'hyperliquid',
+  base: 'base',
 } as const;
 
 export type EvmId = (typeof EvmIdMap)[keyof typeof EvmIdMap];
@@ -61,6 +63,8 @@ const coinSpecificUnits: Record<string, ICoinUnit[]> = {
   ],
   [EvmIdMap.arbitrum]: units,
   [EvmIdMap.optimism]: units,
+  [EvmIdMap.hyperliquid]: units,
+  [EvmIdMap.base]: units,
 };
 
 export const evmCoinList: Record<string, IEvmCoinInfo> = coinList.reduce<

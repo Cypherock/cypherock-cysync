@@ -29,15 +29,16 @@ import {
 } from '~/actions';
 import { CoinIcon } from '~/components';
 import { routes } from '~/constants';
+import { useCurrency } from '~/context';
 import { useAccounts, useNavigateTo, useQuery } from '~/hooks';
 import {
   AccountSyncState,
   AccountSyncStateMap,
   selectAccountSync,
+  selectCurrentCurrencyPriceInfos,
   selectDiscreetMode,
   selectLanguage,
   selectLastConnectedFirmware,
-  selectPriceInfos,
   selectWallets,
   useAppDispatch,
   useAppSelector,
@@ -127,6 +128,7 @@ const mapTokenAccounts = (
   a: IAccount,
   priceInfos: IPriceInfo[],
   isDiscreetMode: boolean,
+  currency: string,
 ): AccountTokenType => {
   const { amount, unit } = getParsedAmount({
     coinId: a.parentAssetId,
@@ -137,9 +139,7 @@ const mapTokenAccounts = (
 
   let displayValue = '$0.00';
   let value = '0.00';
-  const coinPrice = priceInfos.find(
-    p => p.assetId === a.assetId && p.currency.toLowerCase() === 'usd',
-  );
+  const coinPrice = priceInfos.find(p => p.assetId === a.assetId);
 
   if (coinPrice) {
     const balanceInDefaultUnit = convertToUnit({
@@ -153,9 +153,10 @@ const mapTokenAccounts = (
       new BigNumber(balanceInDefaultUnit.amount).multipliedBy(
         coinPrice.latestPrice,
       ),
+      currency,
     );
     value = formattedValue;
-    displayValue = `$${formattedValue}`;
+    displayValue = `${formattedValue}`;
   }
   const formattedAmount = formatDisplayAmount(amount, 24);
   const displayAmount = `${isDiscreetMode ? '****' : formattedAmount.fixed} ${
@@ -186,7 +187,7 @@ const mapTokenAccounts = (
     text: name,
     displayAmount,
     amountTooltip,
-    displayValue: isDiscreetMode ? '$****' : displayValue,
+    displayValue: isDiscreetMode ? '****' : displayValue,
     amount: parseFloat(amount),
     value: parseFloat(value),
   };
@@ -196,18 +197,20 @@ const selector = createSelector(
   [
     selectLanguage,
     selectWallets,
-    selectPriceInfos,
+    selectCurrentCurrencyPriceInfos,
     selectAccountSync,
     selectDiscreetMode,
     selectLastConnectedFirmware,
+    (state, currency: string) => currency,
   ],
   (
     lang,
     { wallets },
-    { priceInfos },
+    priceInfos,
     { accountSyncMap },
     { active: isDiscreetMode },
     { isFirmwareBtcOnly },
+    currency,
   ) => ({
     lang,
     wallets,
@@ -215,10 +218,12 @@ const selector = createSelector(
     accountSyncMap,
     isDiscreetMode,
     isFirmwareBtcOnly,
+    currency,
   }),
 );
 
 export const useWalletPage = () => {
+  const { currentCurrency } = useCurrency();
   const {
     wallets,
     lang,
@@ -226,7 +231,7 @@ export const useWalletPage = () => {
     accountSyncMap,
     isDiscreetMode,
     isFirmwareBtcOnly,
-  } = useAppSelector(selector);
+  } = useAppSelector(state => selector(state, currentCurrency));
   const allAccounts = useAccounts();
   const dispatch = useAppDispatch();
   const navigateTo = useNavigateTo();
@@ -291,9 +296,7 @@ export const useWalletPage = () => {
 
       let displayValue = '$0.00';
       let value = '0.00';
-      const coinPrice = priceInfos.find(
-        p => p.assetId === a.assetId && p.currency.toLowerCase() === 'usd',
-      );
+      const coinPrice = priceInfos.find(p => p.assetId === a.assetId);
 
       if (coinPrice) {
         const balanceInDefaultUnit = convertToUnit({
@@ -307,15 +310,21 @@ export const useWalletPage = () => {
           new BigNumber(balanceInDefaultUnit.amount).multipliedBy(
             coinPrice.latestPrice,
           ),
+          currentCurrency,
         );
         value = formattedValue;
-        displayValue = `$${formattedValue}`;
+        displayValue = `${formattedValue}`;
       }
 
       const tokenAccounts = allAccounts
         .filter(ta => ta.parentAccountId === a.__id)
         .map(tokenAccount =>
-          mapTokenAccounts(tokenAccount, priceInfos, isDiscreetMode),
+          mapTokenAccounts(
+            tokenAccount,
+            priceInfos,
+            isDiscreetMode,
+            currentCurrency,
+          ),
         );
 
       if (tokenAccounts.length > 0) {
@@ -341,7 +350,7 @@ export const useWalletPage = () => {
           ] ?? checkComponent,
         displayAmount,
         amountTooltip,
-        displayValue: isDiscreetMode ? '$****' : displayValue,
+        displayValue: isDiscreetMode ? '****' : displayValue,
         amount: parseFloat(amount),
         value: parseFloat(value),
         account: a,
@@ -385,7 +394,9 @@ export const useWalletPage = () => {
     const account = accounts.find(a => a.__id === row.id);
 
     if (account) {
-      dispatch(syncAccounts({ accounts: [account] }));
+      dispatch(
+        syncAccounts({ accounts: [account], currency: currentCurrency }),
+      );
     }
   };
 

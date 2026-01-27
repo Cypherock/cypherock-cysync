@@ -11,4 +11,5 @@ export const setDBVersions = (database: IDatabase) => {
   database.transactionNotificationRead.setVersion(0);
   database.migration.setVersion(0);
   database.inheritancePlan.setVersion(0);
+  database.buySellOrder.setVersion(0);
 };

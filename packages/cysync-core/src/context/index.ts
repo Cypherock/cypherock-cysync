@@ -4,5 +4,6 @@ export * from './lockscreen';
 export * from './sidebar';
 export * from './appUpdate';
 export * from './latestDeviceVersion';
-export * from './buySell';
+export * from './buySell2';
 export * from './swap';
+export * from './currency';

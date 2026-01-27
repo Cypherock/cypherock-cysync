@@ -13,13 +13,16 @@ export const getCoinAllocations = async (params: {
   walletId?: string;
   assetId?: string;
   parentAssetId?: string;
+  currency: string;
 }) => {
   const allocations: ICoinAllocation[] = [];
   const allocationsWithPercentage: ICoinAllocationWithPercentage[] = [];
 
   for (const coinFamily of params.coinFamilies) {
     const coinSupport = getCoinSupport(coinFamily);
-    const result = await coinSupport.getCoinAllocations({ ...params });
+    const result = await coinSupport.getCoinAllocations({
+      ...params,
+    });
     allocations.push(...result.allocations);
   }
 

@@ -23,6 +23,7 @@ import { Observer, Subscription } from 'rxjs';
 import { deviceLock, useDevice } from '~/context';
 import { useAccountDropdown, useMemoReturn, useWalletDropdown } from '~/hooks';
 import { ITabs, useTabsAndDialogs } from '~/hooks/useTabsAndDialogs';
+import { analyticsService, ANALYTICS_EVENTS } from '~/services/analytics';
 import {
   closeDialog,
   selectLanguage,
@@ -44,6 +45,7 @@ import {
 export enum ReceiveFlowSource {
   DEFAULT = 0,
   SWAP,
+  ONRAMP,
 }
 
 export interface ReceiveDialogContextInterface {
@@ -55,7 +57,7 @@ export interface ReceiveDialogContextInterface {
   currentTab: number;
   currentDialog: number;
   isDeviceRequired: boolean;
-  onClose: () => void;
+  onClose: (discardFlow?: boolean) => void;
   onSkip: () => void;
   onDeviceActionNext: () => void;
   onAddressVerificationNext: () => void;
@@ -82,6 +84,7 @@ export interface ReceiveDialogContextInterface {
   defaultWalletId?: string;
   defaultAccountId?: string;
   validTill?: number;
+  isVerificationRequired?: boolean;
 }
 
 export const ReceiveDialogContext: Context<ReceiveDialogContextInterface> =
@@ -95,10 +98,11 @@ export interface ReceiveDialogContextProviderProps {
   accountId?: string;
   skipSelection?: boolean;
   storeReceiveAddress?: (address: string) => void;
-  onClose?: () => void;
+  onClose?: (discardFlow?: boolean) => void;
   source?: ReceiveFlowSource;
   onError?: (e?: any) => void;
   validTill?: number;
+  isVerificationRequired?: boolean;
 }
 
 export const ReceiveDialogProvider: FC<ReceiveDialogContextProviderProps> = ({
@@ -111,6 +115,7 @@ export const ReceiveDialogProvider: FC<ReceiveDialogContextProviderProps> = ({
   source = ReceiveFlowSource.DEFAULT,
   onError: injectedOnError,
   validTill,
+  isVerificationRequired,
 }) => {
   const lang = useAppSelector(selectLanguage);
   const dispatch = useAppDispatch();
@@ -143,6 +148,7 @@ export const ReceiveDialogProvider: FC<ReceiveDialogContextProviderProps> = ({
   const [derivedPrincipalId, setDerivedPrincipalId] = useState<
     string | undefined
   >();
+  const [isAddressAvailable, setIsAddressAvailable] = useState(false);
   const [isAddressVerified, setIsAddressVerified] = useState(false);
   const [isFlowCompleted, setIsFlowCompleted] = useState(false);
   const [deviceEvents, setDeviceEvents] = useState<
@@ -162,6 +168,10 @@ export const ReceiveDialogProvider: FC<ReceiveDialogContextProviderProps> = ({
     );
 
   const onRetry = () => {
+    analyticsService.trackEvent(ANALYTICS_EVENTS.RECEIVE_CANCELLED, {
+      action: 'retry',
+      step: 'receive_flow',
+    });
     resetStates();
     goTo(1, 0);
   };
@@ -193,37 +203,45 @@ export const ReceiveDialogProvider: FC<ReceiveDialogContextProviderProps> = ({
     [lang],
   );
 
-  if (storeReceiveAddress) {
-    useEffect(() => {
-      if (isAddressVerified) {
-        if (selectedAccount?.familyId === coinFamiliesMap.icp) {
-          const isIcpToken = selectedAccount.type === AccountTypeMap.subAccount;
-          if (isIcpToken && derivedPrincipalId) {
-            storeReceiveAddress(derivedPrincipalId);
-          } else if (derivedAccountId) {
-            storeReceiveAddress(derivedAccountId);
-          }
-        } else if (derivedAddress) {
-          storeReceiveAddress(derivedAddress);
+  useEffect(() => {
+    if (
+      isAddressAvailable &&
+      (isAddressVerified || !isVerificationRequired) &&
+      storeReceiveAddress
+    ) {
+      if (selectedAccount?.familyId === coinFamiliesMap.icp) {
+        const isIcpToken = selectedAccount.type === AccountTypeMap.subAccount;
+        if (isIcpToken && derivedPrincipalId) {
+          storeReceiveAddress(derivedPrincipalId);
+        } else if (derivedAccountId) {
+          storeReceiveAddress(derivedAccountId);
         }
-
-        if (source === ReceiveFlowSource.SWAP) onClose();
+      } else if (derivedAddress) {
+        storeReceiveAddress(derivedAddress);
       }
-    }, [
-      derivedAddress,
-      derivedPrincipalId,
-      derivedAccountId,
-      isAddressVerified,
-    ]);
-  }
 
-  const onClose = () => {
+      // close the receive flow only if address verified on device
+      if (isAddressVerified) {
+        if (source === ReceiveFlowSource.SWAP) onClose();
+        if (source === ReceiveFlowSource.ONRAMP) onClose();
+      }
+    }
+  }, [
+    derivedAddress,
+    derivedPrincipalId,
+    derivedAccountId,
+    isAddressVerified,
+    storeReceiveAddress,
+  ]);
+
+  const onClose = (discardFlow?: boolean) => {
     cleanUp();
     dispatch(closeDialog('receive'));
-    if (onCloseInjected) onCloseInjected();
+    if (onCloseInjected) onCloseInjected(discardFlow);
   };
 
   const onSkip = () => {
+    analyticsService.trackEvent(ANALYTICS_EVENTS.RECEIVE_SKIPPED_VERIFICATION);
     setIsStartedWithoutDevice(true);
     goTo(1, 0);
   };
@@ -238,7 +256,10 @@ export const ReceiveDialogProvider: FC<ReceiveDialogContextProviderProps> = ({
   };
 
   const onAddressVerificationNext = () => {
-    if (source !== ReceiveFlowSource.SWAP) {
+    if (
+      source !== ReceiveFlowSource.SWAP &&
+      source !== ReceiveFlowSource.ONRAMP
+    ) {
       goTo(3);
     }
   };
@@ -262,6 +283,10 @@ export const ReceiveDialogProvider: FC<ReceiveDialogContextProviderProps> = ({
   };
 
   const onError = (e?: any) => {
+    analyticsService.trackEvent(ANALYTICS_EVENTS.RECEIVE_CANCELLED, {
+      error: e?.message || 'Unknown error',
+      step: 'receive_flow_error',
+    });
     cleanUp();
     setError(e);
     if (injectedOnError) injectedOnError(e);
@@ -288,6 +313,8 @@ export const ReceiveDialogProvider: FC<ReceiveDialogContextProviderProps> = ({
         } else {
           setDerivedAddress(payload.address);
         }
+
+        setIsAddressAvailable(true);
       }
 
       if (payload.didAddressMatched !== undefined) {
@@ -295,10 +322,22 @@ export const ReceiveDialogProvider: FC<ReceiveDialogContextProviderProps> = ({
       }
     },
     error: err => {
+      analyticsService.trackEvent(ANALYTICS_EVENTS.RECEIVE_CANCELLED, {
+        error: err.message || 'Unknown error',
+        step: 'address_verification',
+      });
+
       onEnd();
       onError(err);
     },
     complete: () => {
+      analyticsService.trackEvent(
+        ANALYTICS_EVENTS.RECEIVE_DEVICE_ACTION_COMPLETED,
+        {
+          step: 'address_verification',
+        },
+      );
+
       onEnd();
       cleanUp();
     },
@@ -311,6 +350,12 @@ export const ReceiveDialogProvider: FC<ReceiveDialogContextProviderProps> = ({
       logger.warn('Flow started without selecting wallet or account');
       return;
     }
+
+    analyticsService.trackEvent(ANALYTICS_EVENTS.RECEIVE_FLOW_STARTED, {
+      assetId: selectedAccount.assetId,
+      parentAssetId: selectedAccount.parentAssetId,
+      source: source === ReceiveFlowSource.SWAP ? 'swap' : 'default',
+    });
 
     resetStates(true);
     cleanUp();
@@ -408,6 +453,7 @@ export const ReceiveDialogProvider: FC<ReceiveDialogContextProviderProps> = ({
     isStartedWithoutDevice,
     isFlowCompleted,
     validTill,
+    isVerificationRequired,
   });
 
   return (
@@ -430,4 +476,5 @@ ReceiveDialogProvider.defaultProps = {
   source: ReceiveFlowSource.DEFAULT,
   onError: undefined,
   validTill: undefined,
+  isVerificationRequired: false,
 };

@@ -6,7 +6,8 @@ import {
   ICreatedAccount,
 } from '@cypherock/coin-support-interfaces';
 import { insertAccountIfNotExists } from '@cypherock/coin-support-utils';
-import { ICoinInfo, coinList } from '@cypherock/coins';
+import { ICoinInfo, coinFamiliesMap, coinList } from '@cypherock/coins';
+import { ServerErrorType } from '@cypherock/cysync-core-constants';
 import { DropDownItemProps } from '@cypherock/cysync-ui';
 import { IAccount, IWallet } from '@cypherock/db-interfaces';
 import { createSelector } from '@reduxjs/toolkit';
@@ -16,6 +17,7 @@ import React, {
   FC,
   ReactNode,
   createContext,
+  useCallback,
   useContext,
   useEffect,
   useMemo,
@@ -24,18 +26,26 @@ import React, {
 } from 'react';
 import { Observer, Subscription } from 'rxjs';
 
-import { syncAccounts, syncPriceHistories, syncPrices } from '~/actions';
-import { deviceLock, useDevice } from '~/context';
+import {
+  openCreateCantonAccountDialog,
+  syncAccounts,
+  syncPriceHistories,
+  syncPrices,
+} from '~/actions';
+import { setCantonAccountAuthTokens } from '~/actions/canton';
+import { deviceLock, useCurrency, useDevice } from '~/context';
 import { ITabs, useMemoReturn, useTabsAndDialogs } from '~/hooks';
 import { useWalletDropdown } from '~/hooks/useWalletDropdown';
+import { cantonService } from '~/services/canton';
 import {
   closeDialog,
+  selectCantonAuthTokens,
   selectLanguage,
   selectLastConnectedFirmware,
   useAppDispatch,
   useAppSelector,
 } from '~/store';
-import { getDB } from '~/utils';
+import { getDB, getKeyDB } from '~/utils';
 import logger from '~/utils/logger';
 
 import {
@@ -43,15 +53,11 @@ import {
   AddAccountDeviceActionDialog,
   AddAccountSelectionDialog,
   AddAccountSyncDialog,
+  UserDetails,
+  VerifyOTP,
+  SuccessDialog,
+  LoaderDialog,
 } from '../Dialogs';
-
-const selector = createSelector(
-  [selectLanguage, selectLastConnectedFirmware],
-  (lang, { isFirmwareBtcOnly }) => ({
-    lang,
-    isFirmwareBtcOnly,
-  }),
-);
 
 export type AddAccountStatus = 'idle' | 'device' | 'sync' | 'done';
 
@@ -61,6 +67,7 @@ export interface AddAccountDialogContextInterface {
   currentTab: number;
   currentDialog: number;
   onNext: () => void;
+  onSelectionDialogNext: () => Promise<void>;
   goTo: (tab: number, dialog?: number) => void;
   onPrevious: () => void;
   onClose: () => void;
@@ -74,6 +81,7 @@ export interface AddAccountDialogContextInterface {
   setNewSelectedAccounts: React.Dispatch<React.SetStateAction<IAccount[]>>;
   startAddAccounts: () => void;
   addSelectedAccounts: () => void;
+  createNewSelectedAccounts: () => void;
   isStopped: boolean;
   onStop: () => void;
   onRetry: () => void;
@@ -86,6 +94,17 @@ export interface AddAccountDialogContextInterface {
   handleWalletChange: (id?: string) => void;
   defaultWalletId?: string;
   isFirmwareBtcOnly: boolean;
+  onUserDetailsSubmit: () => void;
+  isSubmittingUserDetails: boolean;
+  email: string;
+  setEmail: (email: string) => void;
+  setHasErrors: (hasErrors: boolean) => void;
+  onOTPSubmit: (otp: string) => void;
+  isSubmittingOTP: boolean;
+  otpVerificationDetails: ICantonOtpVerificationDetails | undefined;
+  isUserEligibleForCanton: boolean;
+  isUserInWaitingListForCanton: boolean;
+  isCheckingCantonUserLoggedIn: boolean;
 }
 
 export const AddAccountDialogContext: Context<AddAccountDialogContextInterface> =
@@ -99,10 +118,27 @@ export interface AddAccountDialogContextProviderProps {
   coinId?: string;
 }
 
+export interface ICantonOtpVerificationDetails {
+  email: string;
+  retriesRemaining: number;
+  otpExpiry: string;
+  showIncorrectError?: boolean;
+}
+
+const selector = createSelector(
+  [selectLanguage, selectCantonAuthTokens, selectLastConnectedFirmware],
+  (lang, cantonAuthTokens, { isFirmwareBtcOnly }) => ({
+    lang,
+    cantonAuthTokens,
+    isFirmwareBtcOnly,
+  }),
+);
+
 export const AddAccountDialogProvider: FC<
   AddAccountDialogContextProviderProps
 > = ({ children, walletId: defaultWalletId, coinId: defaultCoinId }) => {
-  const { lang, isFirmwareBtcOnly } = useAppSelector(selector);
+  const { lang, cantonAuthTokens, isFirmwareBtcOnly } =
+    useAppSelector(selector);
   const dispatch = useAppDispatch();
   const { connection } = useDevice();
 
@@ -133,10 +169,37 @@ export const AddAccountDialogProvider: FC<
 
   const addAccountSubscriptionRef = useRef<Subscription | undefined>();
 
+  const { currentCurrency } = useCurrency();
+
+  // canton signup/login states
+  const [isSubmittingUserDetails, setIsSubmittingUserDetails] = useState(false);
+  const [email, setEmail] = useState('');
+  const [hasErrors, setHasErrors] = useState(false);
+  const [isSubmittingOTP, setIsSubmittingOTP] = useState(false);
+  const [otpVerificationDetails, setOtpVerificationDetails] = useState<
+    ICantonOtpVerificationDetails | undefined
+  >();
+  const [isUserEligibleForCanton, setIsUserEligibleForCanton] = useState(false);
+  const [isUserInWaitingListForCanton, setIsUserInWaitingListForCanton] =
+    useState(true);
+  const [otpVerified, setOtpVerified] = useState(false);
+  const [isCheckingCantonUserLoggedIn, setIsCheckingCantonUserLoggedIn] =
+    useState(false);
+  const [isCantonUserLoggedIn, setIsCantonUserLoggedIn] = useState(false);
+
+  const resetOtpVerificationStates = () => {
+    setIsSubmittingUserDetails(false);
+    setIsSubmittingOTP(false);
+    setOtpVerificationDetails(undefined);
+    setIsUserEligibleForCanton(false);
+    setIsUserInWaitingListForCanton(true);
+    setOtpVerified(false);
+  };
+
   const deviceRequiredDialogsMap: Record<number, number[] | undefined> =
     useMemo(
       () => ({
-        1: [0],
+        1: [4],
       }),
       [],
     );
@@ -149,7 +212,13 @@ export const AddAccountDialogProvider: FC<
       },
       {
         name: lang.strings.addAccount.aside.tabs.device,
-        dialogs: [<AddAccountDeviceActionDialog />],
+        dialogs: [
+          <UserDetails />,
+          <VerifyOTP />,
+          <LoaderDialog />,
+          <SuccessDialog />,
+          <AddAccountDeviceActionDialog />,
+        ],
       },
       {
         name: lang.strings.addAccount.aside.tabs.confirmation,
@@ -204,6 +273,149 @@ export const AddAccountDialogProvider: FC<
   const onError = (e?: any) => {
     cleanUpAddAccount();
     setError(e);
+  };
+
+  const onOtpVerificationSuccess = useCallback(
+    (isEligible: boolean, isInWaitingList: boolean) => {
+      setIsUserEligibleForCanton(isEligible);
+      setIsUserInWaitingListForCanton(isInWaitingList);
+      setOtpVerified(true);
+      setOtpVerificationDetails(undefined);
+      setIsSubmittingOTP(false);
+      setIsCantonUserLoggedIn(true);
+      onNext();
+    },
+    [
+      onNext,
+      setIsUserEligibleForCanton,
+      setIsUserInWaitingListForCanton,
+      setOtpVerified,
+      setOtpVerificationDetails,
+      setIsSubmittingOTP,
+    ],
+  );
+
+  const onOtpVerificationFailure = useCallback(
+    (otpExpiry: string, retriesRemaining: number) => {
+      setOtpVerificationDetails({
+        email,
+        showIncorrectError: true,
+        otpExpiry,
+        retriesRemaining,
+      });
+      setOtpVerified(false);
+      setIsSubmittingOTP(false);
+    },
+    [email, setOtpVerificationDetails, setOtpVerified, setIsSubmittingOTP],
+  );
+
+  const onUserDetailsSubmit = useCallback(async () => {
+    if (hasErrors) return;
+    setIsSubmittingUserDetails(true);
+
+    const response = await cantonService.login({ email });
+
+    if (response.error) {
+      setIsSubmittingUserDetails(false);
+      throw response.error;
+    }
+
+    setOtpVerificationDetails({
+      email,
+      retriesRemaining: response.result.otpDetails.retriesRemaining,
+      otpExpiry: response.result.otpDetails.otpExpiry,
+    });
+
+    setIsSubmittingUserDetails(false);
+    onNext();
+  }, [onNext, email, hasErrors, setIsSubmittingUserDetails]);
+
+  const onOTPSubmit = useCallback(
+    async (otp: string) => {
+      setIsSubmittingOTP(true);
+      const response = await cantonService.loginOtpVerification({
+        email,
+        secret: otp,
+      });
+
+      if (response.error) {
+        if (response.error.code === ServerErrorType.OTP_VERIFICATION_FAILED) {
+          onOtpVerificationFailure(
+            response.error.details?.responseBody.otpExpiry ??
+              otpVerificationDetails?.otpExpiry,
+            response.error.details?.responseBody.retriesRemaining ??
+              otpVerificationDetails?.retriesRemaining,
+          );
+          setIsSubmittingOTP(false);
+        } else if (
+          response.error.code ===
+          ServerErrorType.MAX_DAILY_USER_REGISTRATIONS_EXCEEDED
+        ) {
+          onOtpVerificationSuccess(true, true);
+        } else if (
+          response.error.code ===
+          ServerErrorType.USER_NOT_ELIGIBLE_FOR_PARTY_CREATION
+        ) {
+          onOtpVerificationSuccess(false, false);
+        } else {
+          // treating all other errors as OTP expired error for now
+          onOtpVerificationFailure(
+            response.error.details?.responseBody.otpExpiry ??
+              otpVerificationDetails?.otpExpiry,
+            0,
+          );
+          throw response.error;
+        }
+        return;
+      }
+
+      dispatch(
+        setCantonAccountAuthTokens({
+          accessToken: response.result.accessToken,
+          refreshToken: response.result.refreshToken,
+        }),
+      );
+      onOtpVerificationSuccess(true, false);
+    },
+    [
+      onOtpVerificationSuccess,
+      email,
+      setIsSubmittingOTP,
+      otpVerificationDetails,
+    ],
+  );
+
+  const checkIsCantonUserLoggedIn = async (): Promise<boolean> => {
+    if (!cantonAuthTokens?.refreshToken) {
+      return false;
+    }
+    setIsCheckingCantonUserLoggedIn(true);
+    let result = false;
+    try {
+      const response = await cantonService.refreshAccessToken({
+        refreshToken: cantonAuthTokens.refreshToken,
+      });
+
+      if (response.error) {
+        result = false;
+      } else {
+        dispatch(
+          setCantonAccountAuthTokens({
+            accessToken: response.result.accessToken,
+            refreshToken: cantonAuthTokens.refreshToken,
+          }),
+        );
+
+        result = true;
+      }
+    } catch (_error) {
+      result = false;
+    } finally {
+      setIsCheckingCantonUserLoggedIn(false);
+    }
+
+    setIsCantonUserLoggedIn(result);
+    return result;
   };
 
   const createAccountSetter =
@@ -269,6 +481,7 @@ export const AddAccountDialogProvider: FC<
         connection: deviceConnection,
         db: getDB(),
         coinId: selectedCoin.id,
+        keyDB: getKeyDB(),
       })
       .subscribe(getAddAccountObserver(onEnd));
 
@@ -283,7 +496,16 @@ export const AddAccountDialogProvider: FC<
 
   const onRetry = () => {
     resetAddAccountStates();
-    goTo(1, 0);
+    if (
+      selectedCoin?.family === coinFamiliesMap.canton &&
+      !otpVerified &&
+      !isCantonUserLoggedIn
+    ) {
+      resetOtpVerificationStates();
+      goTo(1, 0);
+    } else {
+      goTo(1, 4);
+    }
   };
 
   const addSelectedAccounts = async () => {
@@ -302,16 +524,48 @@ export const AddAccountDialogProvider: FC<
         if (response.isInserted) addedAccounts.push(response.account);
       }
 
-      dispatch(syncAccounts({ accounts: addedAccounts }));
+      dispatch(
+        syncAccounts({ accounts: addedAccounts, currency: currentCurrency }),
+      );
       if (selectedCoin) {
-        syncPrices({ families: [selectedCoin.family] });
-        syncPriceHistories({ families: [selectedCoin.family] });
+        syncPrices({
+          families: [selectedCoin.family],
+          currency: currentCurrency,
+        });
+        syncPriceHistories({
+          families: [selectedCoin.family],
+          currency: currentCurrency,
+        });
       }
       goTo(3, 0);
     } catch (e) {
       onError(e);
     }
   };
+
+  const createNewSelectedAccounts = async () => {
+    onClose();
+    if (newSelectedAccounts.length > 0) {
+      // For Canton, we only create one account per wallet.
+      dispatch(
+        openCreateCantonAccountDialog({
+          selectedAccount: newSelectedAccounts[0],
+          selectedWallet,
+        }),
+      );
+    }
+  };
+
+  const onSelectionDialogNext = useCallback(async () => {
+    if (
+      selectedCoin?.family === coinFamiliesMap.canton &&
+      !(await checkIsCantonUserLoggedIn())
+    ) {
+      onNext();
+    } else {
+      goTo(1, 4);
+    }
+  }, [onNext, goTo, selectedCoin, checkIsCantonUserLoggedIn]);
 
   useEffect(() => {
     if (!connection) {
@@ -337,6 +591,7 @@ export const AddAccountDialogProvider: FC<
     currentDialog,
     tabs,
     onNext,
+    onSelectionDialogNext,
     goTo,
     onPrevious,
     onClose,
@@ -348,6 +603,7 @@ export const AddAccountDialogProvider: FC<
     setSelectedWallet,
     startAddAccounts,
     addSelectedAccounts,
+    createNewSelectedAccounts,
     newAccounts,
     setNewSelectedAccounts,
     newSelectedAccounts,
@@ -361,6 +617,17 @@ export const AddAccountDialogProvider: FC<
     handleWalletChange,
     walletDropdownList,
     isFirmwareBtcOnly,
+    onUserDetailsSubmit,
+    isSubmittingUserDetails,
+    email,
+    setEmail,
+    setHasErrors,
+    onOTPSubmit,
+    isSubmittingOTP,
+    otpVerificationDetails,
+    isUserEligibleForCanton,
+    isUserInWaitingListForCanton,
+    isCheckingCantonUserLoggedIn,
   });
 
   return (

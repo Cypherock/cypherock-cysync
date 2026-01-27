@@ -1,5 +1,12 @@
 import { AddAccountDialogProps } from '~/dialogs/AddAccount';
 import { AddTokenDialogProps } from '~/dialogs/AddToken';
+import { IBuySellDialogProps } from '~/dialogs/BuySellDialog';
+import {
+  CreateCantonAccountDialogProps,
+  EnableApprovalDialogProps,
+  EnableMergeDelegationDialogProps,
+  TransactionActionDialogProps,
+} from '~/dialogs/Canton';
 import { IContactSupportDialogProps } from '~/dialogs/ContactSupport';
 import { DeleteAccountDialogProps } from '~/dialogs/DeleteAccountDialog';
 import { DeployAccountDialogProps } from '~/dialogs/DeployAccount/context';
@@ -7,6 +14,7 @@ import { DeviceAuthenticationDialogProps } from '~/dialogs/DeviceAuthenticationD
 import { IDeviceUpdateDialogProps } from '~/dialogs/DeviceUpdateDialog';
 import { EditAccountDialogProps } from '~/dialogs/EditAccountDialog';
 import { ErrorDialogProps } from '~/dialogs/ErrorDialog';
+import { FullPageLoaderDialogProps } from '~/dialogs/FullPageLoaderDialog';
 import { IHistoryDialogProps } from '~/dialogs/HistoryDialog';
 import {
   InheritanceEditUserDetailsDialogProps,
@@ -78,6 +86,9 @@ export const openHistoryDialog = (props?: IHistoryDialogProps) =>
 export const openSwapHistoryDialog = (props?: ISwapDialogProps) =>
   openDialog({ name: 'swapDialog', data: props });
 
+export const openBuySellHistoryDialog = (props?: IBuySellDialogProps) =>
+  openDialog({ name: 'buySellDialog', data: props });
+
 export const openDeviceUpdateDialog = (props?: IDeviceUpdateDialogProps) =>
   openDialog({ name: 'deviceUpdateDialog', data: props });
 
@@ -144,3 +155,30 @@ export const openMobileAppSyncDialog = () =>
 
 export const openSwitchFirmwareDialog = () =>
   openDialog({ name: 'switchFirmwareDialog', data: undefined });
+
+export const openFullPageLoaderDialog = (props: FullPageLoaderDialogProps) =>
+  openDialog({ name: 'fullPageLoaderDialog', data: props });
+
+export const openEnableApprovalPromptDialog = () =>
+  openDialog({ name: 'enableApprovalPromptDialog', data: undefined });
+
+export const openEnableApprovalDialog = (props: EnableApprovalDialogProps) =>
+  openDialog({ name: 'enableApprovalDialog', data: props });
+
+export const openEnableMergeDelegationDialog = (
+  props: EnableMergeDelegationDialogProps,
+) => openDialog({ name: 'enableMergeDelegationDialog', data: props });
+
+export const openCreateCantonAccountDialog = (
+  props: CreateCantonAccountDialogProps,
+) => openDialog({ name: 'createCantonAccountDialog', data: props });
+
+export const openTransactionActionDialog = (
+  props: TransactionActionDialogProps,
+) => openDialog({ name: 'transactionActionDialog', data: props });
+
+export const openSyncCantonAccountPromptDialog = () =>
+  openDialog({ name: 'syncCantonAccountPromptDialog', data: undefined });
+
+export const openCantonLoginDialog = () =>
+  openDialog({ name: 'cantonLogin', data: undefined });

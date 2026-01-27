@@ -10,6 +10,15 @@ import {
   AuthenticateX1VaultDialog,
 } from './Authenticate';
 import { BetaNotificationDialog } from './BetaNotificationDialog';
+import { BuySellDialog } from './BuySellDialog';
+import {
+  CantonLoginDialog,
+  CreateCantonAccountDialog,
+  EnableApprovalDialog,
+  EnableApprovalPromptDialog,
+  EnableMergeDelegationDialog,
+} from './Canton';
+import { TransactionActionDialog } from './Canton/TransactionAction';
 import { ContactSupportDialog } from './ContactSupport';
 import { ReleaseNotesDialog, ResetCySyncDialog } from './CySync';
 import { DeleteAccountDialog } from './DeleteAccountDialog';
@@ -18,6 +27,7 @@ import { DeviceAuthenticationDialog } from './DeviceAuthenticationDialog';
 import { DeviceUpdateDialog } from './DeviceUpdateDialog';
 import { EditAccountDialog } from './EditAccountDialog';
 import { ErrorDialog } from './ErrorDialog';
+import { FullPageLoaderDialog } from './FullPageLoaderDialog';
 import { GuidedFlow } from './GuidedFlow';
 import { HistoryDialog } from './HistoryDialog';
 import {
@@ -46,6 +56,7 @@ import { SwitchFirmwareDialog } from './SwitchFirmwareDialog';
 import { WalletActionsDialogBox } from './WalletActions';
 import { WalletConnectDialog } from './WalletConnect';
 import { WalletSyncError } from './WalletSyncError';
+import { SyncAccountPromptDialog } from './Canton/SyncAccountPrompt';
 
 export const dialogs: Record<DialogName, ReactComponentLike> = {
   walletSyncError: WalletSyncError,
@@ -87,4 +98,13 @@ export const dialogs: Record<DialogName, ReactComponentLike> = {
   mobileAppSyncDialog: MobileAppSyncDialog,
   swapDialog: SwapDialog,
   switchFirmwareDialog: SwitchFirmwareDialog,
+  buySellDialog: BuySellDialog,
+  fullPageLoaderDialog: FullPageLoaderDialog,
+  enableApprovalPromptDialog: EnableApprovalPromptDialog,
+  enableApprovalDialog: EnableApprovalDialog,
+  enableMergeDelegationDialog: EnableMergeDelegationDialog,
+  createCantonAccountDialog: CreateCantonAccountDialog,
+  cantonLogin: CantonLoginDialog,
+  transactionActionDialog: TransactionActionDialog,
+  syncCantonAccountPromptDialog: SyncAccountPromptDialog,
 };

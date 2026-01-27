@@ -36,10 +36,11 @@ import {
   selectDiscreetMode,
   selectLanguage,
   selectLastConnectedFirmware,
-  selectPriceInfos,
+  selectCurrentCurrencyPriceInfos,
   selectWallets,
   useAppDispatch,
   useAppSelector,
+  useCurrency,
 } from '..';
 
 export interface CoinAllocationRow {
@@ -68,22 +69,25 @@ const selector = createSelector(
   [
     selectLanguage,
     selectWallets,
-    selectPriceInfos,
-    selectDiscreetMode,
     selectLastConnectedFirmware,
+    selectCurrentCurrencyPriceInfos,
+    selectDiscreetMode,
+    (state, currency: string) => currency,
   ],
   (
     lang,
     { wallets },
-    { priceInfos },
-    { active: isDiscreetMode },
     { isFirmwareBtcOnly },
+    priceInfos,
+    { active: isDiscreetMode },
+    currency,
   ) => ({
     lang,
     wallets,
     priceInfos,
     isDiscreetMode,
     isFirmwareBtcOnly,
+    currency,
   }),
 );
 
@@ -104,10 +108,12 @@ export const useAssetAllocations = ({
   withParentIconAtBottom,
   withSubIconAtBottom,
 }: UseAssetAllocationProps = {}) => {
-  const { lang, wallets, priceInfos, isDiscreetMode, isFirmwareBtcOnly } =
-    useAppSelector(selector);
   const accounts = useAccounts();
   const allTransactions = useTransactions();
+  const { currentCurrency } = useCurrency();
+  const { lang, wallets, priceInfos, isDiscreetMode, isFirmwareBtcOnly } =
+    useAppSelector(state => selector(state, currentCurrency));
+
   const refData = useStateToRef({
     lang,
     wallets,
@@ -120,6 +126,7 @@ export const useAssetAllocations = ({
     parentAssetId,
     accountId,
     isFirmwareBtcOnly,
+    currentCurrency,
   });
 
   const dispatch = useAppDispatch();
@@ -150,6 +157,7 @@ export const useAssetAllocations = ({
           coinFamilies: data.isFirmwareBtcOnly
             ? [coinFamiliesMap.bitcoin]
             : Object.keys(coinFamiliesMap),
+          currency: data.currentCurrency,
         });
       }
 
@@ -219,12 +227,12 @@ export const useAssetAllocations = ({
             value: new BigNumber(r.value).toNumber(),
             displayBalance,
             balanceTooltip,
-            displayPrice: `$${
-              data.isDiscreetMode ? '****' : formatDisplayPrice(r.price)
-            }`,
-            displayValue: `$${
-              data.isDiscreetMode ? '****' : formatDisplayPrice(r.value)
-            }`,
+            displayPrice: data.isDiscreetMode
+              ? '****'
+              : formatDisplayPrice(r.price, data.currentCurrency),
+            displayValue: data.isDiscreetMode
+              ? '****'
+              : formatDisplayPrice(r.value, data.currentCurrency),
             ...accountProperties,
           };
         }),

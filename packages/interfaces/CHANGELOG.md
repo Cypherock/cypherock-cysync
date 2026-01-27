@@ -1,5 +1,64 @@
 # @cypherock/cysync-interfaces
 
+## 0.1.0
+
+### Minor Changes
+
+- [#855](https://github.com/Cypherock/cypherock-cysync/pull/855) [`2be04fe0`](https://github.com/Cypherock/cypherock-cysync/commit/2be04fe055a9e9bf17d03a6b78265f9b4801f5d1) Thanks [@AryanCypherock](https://github.com/AryanCypherock)! - vendor abstraction added for multiple vendor support
+
+## 0.1.0-pre.0
+
+### Minor Changes
+
+- [#855](https://github.com/Cypherock/cypherock-cysync/pull/855) [`2be04fe0`](https://github.com/Cypherock/cypherock-cysync/commit/2be04fe055a9e9bf17d03a6b78265f9b4801f5d1) Thanks [@AryanCypherock](https://github.com/AryanCypherock)! - vendor abstraction added for multiple vendor support
+
+## 0.0.13
+
+### Patch Changes
+
+- Updated dependencies [[`99fb9049`](https://github.com/Cypherock/cypherock-cysync/commit/99fb9049c7c639472acef934c18843ea7703b829)]:
+  - @cypherock/db-interfaces@0.2.0
+
+## 0.0.13-pre.0
+
+### Patch Changes
+
+- Updated dependencies [[`99fb9049`](https://github.com/Cypherock/cypherock-cysync/commit/99fb9049c7c639472acef934c18843ea7703b829)]:
+  - @cypherock/db-interfaces@0.2.0-pre.0
+
+## 0.0.12
+
+### Patch Changes
+
+- Updated dependencies [[`cb9a80fc`](https://github.com/Cypherock/cypherock-cysync/commit/cb9a80fcc15e2334b4a7c471464ec39949fa0504)]:
+  - @cypherock/db-interfaces@0.1.2
+
+## 0.0.11
+
+### Patch Changes
+
+- [#814](https://github.com/Cypherock/cypherock-cysync/pull/814) [`1434a79d`](https://github.com/Cypherock/cypherock-cysync/commit/1434a79d295cc8eaa0bd0a39d97a5f05a13e872d) Thanks [@AryanCypherock](https://github.com/AryanCypherock)! - Analytics added
+
+## 0.0.11-pre.0
+
+### Patch Changes
+
+- [#814](https://github.com/Cypherock/cypherock-cysync/pull/814) [`1434a79d`](https://github.com/Cypherock/cypherock-cysync/commit/1434a79d295cc8eaa0bd0a39d97a5f05a13e872d) Thanks [@AryanCypherock](https://github.com/AryanCypherock)! - Analytics added
+
+## 0.0.10
+
+### Patch Changes
+
+- Updated dependencies [[`d57d8d65`](https://github.com/Cypherock/cypherock-cysync/commit/d57d8d65dfca075c39537e33b243827edaf36263)]:
+  - @cypherock/db-interfaces@0.1.1
+
+## 0.0.10-pre.0
+
+### Patch Changes
+
+- Updated dependencies [[`d57d8d65`](https://github.com/Cypherock/cypherock-cysync/commit/d57d8d65dfca075c39537e33b243827edaf36263)]:
+  - @cypherock/db-interfaces@0.1.1-pre.0
+
 ## 0.0.9
 
 ### Patch Changes

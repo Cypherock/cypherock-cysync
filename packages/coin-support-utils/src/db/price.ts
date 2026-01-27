@@ -3,7 +3,7 @@ import { IDatabase } from '@cypherock/db-interfaces';
 export const getCoinPrice = async (
   db: IDatabase,
   assetId: string,
-  currency = 'usd',
+  currency: string,
 ) => {
   const res = await db.priceInfo.getOne({ assetId, currency });
 

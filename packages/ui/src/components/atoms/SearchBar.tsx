@@ -4,8 +4,7 @@ import styled from 'styled-components';
 import { CloseButton } from './CloseButton';
 import { Container } from './Container';
 
-import SearchIcon from '../../assets/icons/generated/SearchIcon';
-import { svgGradients } from '../GlobalStyles';
+import { SearchIcon } from '../../assets';
 import { UtilsProps, utils } from '../utils';
 
 interface SearchBarProps extends UtilsProps {
@@ -24,7 +23,9 @@ const SearchContainer = styled.div<{ $goldBorder?: boolean }>`
   gap: 24px;
   background-color: ${({ theme }) =>
     theme.palette.background.separatorSecondary};
-  border: 1px solid ${({ theme }) => theme.palette.border.separator};
+  border: 1px solid
+    ${({ theme, $goldBorder }) =>
+      $goldBorder ? 'transparent' : theme.palette.border.separator};
   ${({ theme, $goldBorder }) =>
     $goldBorder &&
     `
@@ -33,7 +34,7 @@ const SearchContainer = styled.div<{ $goldBorder?: boolean }>`
       position: absolute;
       inset: 0;
       border: 1px solid transparent;
-      border-radius:8px;
+      border-radius: 8px; 
       background: ${theme.palette.golden} border-box;
       -webkit-mask: linear-gradient(#fff 0 0) padding-box,
         linear-gradient(#fff 0 0);
@@ -41,19 +42,18 @@ const SearchContainer = styled.div<{ $goldBorder?: boolean }>`
       mask-composite: exclude;
     }
   `};
-  border-radius: ${({ theme }) => theme.spacing.one.spacing};
+  border-radius: ${({ theme }) => theme.spacing.one.spacing}; // 8px
   ${utils}
 `;
 
-export const SearchBarStyle = styled.input<SearchBarProps>`
+const SearchBarStyle = styled.input`
   flex: 1;
   position: relative;
   z-index: 2;
   border: none;
-  background-color: ${({ theme }) =>
-    theme.palette.background.separatorSecondary};
+  background-color: transparent;
   color: ${({ theme }) => theme.palette.text.muted};
-  font-size: ${({ theme }) => theme.spacing.two.spacing};
+  font-size: ${({ theme }) => theme.spacing.two.spacing}; /* 16px */
   ::placeholder {
     color: ${({ theme }) => theme.palette.text.muted};
   }
@@ -64,6 +64,7 @@ export const SearchBarStyle = styled.input<SearchBarProps>`
 `;
 
 export const SearchBar: FC<SearchBarProps> = props => {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { placeholder, value, onChange, $goldBorder } = props;
 
   const handleClearInput = () => {
@@ -73,11 +74,7 @@ export const SearchBar: FC<SearchBarProps> = props => {
   return (
     <SearchContainer {...{ ...props, onChange: undefined }}>
       <Container display="flex" align="center">
-        <SearchIcon
-          width="25px"
-          height="20px"
-          stroke={$goldBorder ? `url(#${svgGradients.gold})` : undefined}
-        />
+        <SearchIcon />
       </Container>
       <SearchBarStyle
         value={value}
@@ -97,5 +94,5 @@ export const SearchBar: FC<SearchBarProps> = props => {
 };
 
 SearchBar.defaultProps = {
-  $goldBorder: undefined,
+  $goldBorder: false,
 };

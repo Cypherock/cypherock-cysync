@@ -52,14 +52,16 @@ const MainAppLayoutComponent: FC<MainAppLayoutProps> = ({
       <Flex
         $flex={1}
         direction="column"
-        $bgColor="contentGradient"
+        $bgColor={
+          window.cysyncEnv.VENDOR === 'odix' ? 'black' : 'contentGradient'
+        }
         $minWidth="0"
       >
         <Flex ref={topbarRef} direction="column">
           <Flex direction="column" gap={8} px={2} py={2} hideIfEmpty>
             <AppUpdateBar />
             <DeviceUpdateBar />
-            <FeatureBanner />
+            {window.cysyncFeatureFlags.COVER && <FeatureBanner />}
           </Flex>
           <Topbar {...topbar} />
         </Flex>

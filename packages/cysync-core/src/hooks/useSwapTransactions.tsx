@@ -8,6 +8,7 @@ import {
 } from '@cypherock/coin-support-utils';
 import { SvgProps, SwapTableHeaderName } from '@cypherock/cysync-ui';
 import {
+  AccountTypeMap,
   IAccount,
   IPriceInfo,
   ISwapData,
@@ -20,9 +21,10 @@ import { createSelector } from '@reduxjs/toolkit';
 import { format as formatDate } from 'date-fns';
 import lodash from 'lodash';
 import React, { useCallback, useEffect, useState } from 'react';
+
 import { openSwapHistoryDialog } from '~/actions';
 import { CoinIcon } from '~/components';
-import { providerImageUrlMap } from '~/constants';
+import { IProviderDetails } from '~/context';
 import { useAccounts, useStateToRef, useTransactions } from '~/hooks';
 import {
   selectDiscreetMode,
@@ -41,6 +43,7 @@ export interface SwapTransactionRowData {
   providerName: string;
   providerImageUrl: string;
   providerUrl: string;
+  providerMail?: string;
   time: string;
   timestamp: number;
   dateTime: string;
@@ -86,28 +89,31 @@ const searchFilter = (
     return data;
   }
 
-  return data.filter(
-    row =>
-      row.providerName?.toLowerCase().includes(searchTerm.toLowerCase()) ??
-      row.sourceWalletName?.toLowerCase().includes(searchTerm.toLowerCase()) ??
-      row.sourceAccountName?.toLowerCase().includes(searchTerm.toLowerCase()) ??
-      row.sourceAssetName?.toLowerCase().includes(searchTerm.toLowerCase()) ??
-      row.destinationWalletName
-        ?.toLowerCase()
-        .includes(searchTerm.toLowerCase()) ??
-      row.destinationAccountName
-        ?.toLowerCase()
-        .includes(searchTerm.toLowerCase()) ??
-      row.destinationAssetName
-        ?.toLowerCase()
-        .includes(searchTerm.toLowerCase()) ??
-      row.swapId?.toLowerCase().includes(searchTerm.toLowerCase()),
-  );
+  const normalizedTerm = searchTerm.toLowerCase();
+
+  return data.filter(row => {
+    const destinationWalletName =
+      row.destinationWalletName?.toLowerCase() ?? '';
+    const destinationAccountName =
+      row.destinationAccountName?.toLowerCase() ?? '';
+    const destinationAssetName = row.destinationAssetName?.toLowerCase() ?? '';
+    const swapId = row.swapId.toLowerCase() ?? '';
+    return (
+      row.providerName.toLowerCase().includes(normalizedTerm) ||
+      row.sourceWalletName.toLowerCase().includes(normalizedTerm) ||
+      row.sourceAccountName.toLowerCase().includes(normalizedTerm) ||
+      row.sourceAssetName.toLowerCase().includes(normalizedTerm) ||
+      destinationWalletName.includes(normalizedTerm) ||
+      destinationAccountName.includes(normalizedTerm) ||
+      destinationAssetName.includes(normalizedTerm) ||
+      swapId.includes(normalizedTerm)
+    );
+  });
 };
 
 const selector = createSelector(
   [selectLanguage, selectWallets, selectPriceInfos, selectDiscreetMode],
-  (lang, { wallets }, { priceInfos }, { active: isDiscreetMode }) => ({
+  (lang, { wallets }, priceInfos, { active: isDiscreetMode }) => ({
     lang,
     wallets,
     priceInfos,
@@ -168,14 +174,21 @@ const getSourceAccountAndAsset = (
   sentTransaction: ITransaction,
   swapData: ISwapData,
 ) => {
-  const sourceAccount = findAccount(accounts, {
+  let sourceAccount = findAccount(accounts, {
+    xpubOrAddress: swapData.sourceAddress,
     __id: swapData.sourceAccountId,
   });
   const sourceWallet = findWallet(wallets, swapData.sourceWalletId);
   const sourceAsset = getAsset(
-    sourceAccount?.parentAssetId ?? sentTransaction.parentAssetId,
-    sourceAccount?.assetId ?? sentTransaction.assetId,
+    sentTransaction.parentAssetId,
+    sentTransaction.assetId,
   );
+
+  if (sourceAccount?.type === AccountTypeMap.subAccount) {
+    sourceAccount = findAccount(accounts, {
+      __id: sourceAccount.parentAccountId,
+    });
+  }
   return { sourceAccount, sourceWallet, sourceAsset };
 };
 
@@ -184,13 +197,12 @@ const getDestinationAccountAndAsset = (
   wallets: IWallet[],
   swapData: ISwapData,
 ) => {
-  const destinationAccount =
-    findAccount(accounts, { __id: swapData.destinationAccountId }) ??
-    findAccount(accounts, {
-      xpubOrAddress: swapData.destinationAddress,
-      assetId: swapData.destinationAssetId,
-      parentAssetId: swapData.destinationParentAssetId,
-    });
+  let destinationAccount = findAccount(accounts, {
+    __id: swapData.destinationAccountId,
+    xpubOrAddress: swapData.destinationAddress,
+    assetId: swapData.destinationAssetId,
+    parentAssetId: swapData.destinationParentAssetId,
+  });
   const destinationWallet = findWallet(wallets, swapData.destinationWalletId);
 
   const destinationAsset = destinationAccount
@@ -199,6 +211,11 @@ const getDestinationAccountAndAsset = (
         destinationAccount.assetId,
       )
     : undefined;
+  if (destinationAccount?.type === AccountTypeMap.subAccount) {
+    destinationAccount = findAccount(accounts, {
+      __id: destinationAccount.parentAccountId,
+    });
+  }
   return { destinationAccount, destinationWallet, destinationAsset };
 };
 
@@ -210,6 +227,7 @@ export const mapSwapTransactionForDisplay = (params: {
   accounts: IAccount[];
   lang: ILangState;
   isDiscreetMode: boolean;
+  provider?: IProviderDetails;
 }): SwapTransactionRowData => {
   const { sentTransaction, wallets, accounts, isDiscreetMode } = params;
   const swapData = sentTransaction.swapData!;
@@ -231,7 +249,7 @@ export const mapSwapTransactionForDisplay = (params: {
       parentAssetId={
         sourceAccount?.parentAssetId ?? sentTransaction.parentAssetId
       }
-      assetId={undefined}
+      showFallback={!sourceAccount}
       {...props}
     />
   );
@@ -240,7 +258,8 @@ export const mapSwapTransactionForDisplay = (params: {
       parentAssetId={
         sourceAccount?.parentAssetId ?? sentTransaction.parentAssetId
       }
-      assetId={sourceAccount?.assetId ?? sentTransaction.assetId}
+      assetId={sourceAsset?.id}
+      showFallback={!sourceAsset}
       {...props}
     />
   );
@@ -257,8 +276,8 @@ export const mapSwapTransactionForDisplay = (params: {
   const destinationAssetName = destinationAsset?.name;
   const destinationAssetIcon = (props: any) => (
     <CoinIcon
-      parentAssetId={destinationAccount?.parentAssetId ?? ''}
-      assetId={destinationAccount?.assetId}
+      parentAssetId={swapData.destinationParentAssetId}
+      assetId={destinationAsset?.id}
       showFallback={!destinationAccount}
       {...props}
     />
@@ -284,8 +303,18 @@ export const mapSwapTransactionForDisplay = (params: {
     alreadyDisplayUnit: true,
   });
 
-  const providerName = swapData.providerId;
-  const providerImageUrl = providerImageUrlMap[swapData.providerId];
+  const {
+    name: providerName,
+    imageUrl: providerImageUrl,
+    complianceEmail: providerMail,
+  } = params.provider ?? {
+    id: swapData.providerId,
+    imageUrl: swapData.providerImageUrl,
+    name: swapData.providerName,
+    complianceEmail: '',
+    txnBaseURL: '',
+  };
+
   const { providerUrl, swapStatus } = swapData;
 
   return {
@@ -294,6 +323,7 @@ export const mapSwapTransactionForDisplay = (params: {
     providerName,
     providerImageUrl,
     providerUrl,
+    providerMail,
     time: formatDate(dateObj, 'h:mm a'),
     timestamp,
     dateTime: formatDate(dateObj, 'eeee, MMMM d yyyy h:mm a'),
@@ -321,7 +351,9 @@ export const mapSwapTransactionForDisplay = (params: {
   };
 };
 
-export const useSwapTransactions = () => {
+export const useSwapTransactions = (
+  providerDetails?: Record<string, IProviderDetails>,
+) => {
   const { lang, wallets, priceInfos, isDiscreetMode } =
     useAppSelector(selector);
   const accounts = useAccounts();
@@ -376,7 +408,8 @@ export const useSwapTransactions = () => {
 
     const mappedTransactions: SwapTransactionRowData[] = sentSwaps.map(
       sentTxn => {
-        const { swapId } = sentTxn.swapData!;
+        const { swapId, providerId } = sentTxn.swapData!;
+        const provider = providerDetails && providerDetails[providerId];
         const receiveTxn = receiveSwaps.find(
           r => r.swapData?.swapId === swapId,
         );
@@ -388,6 +421,7 @@ export const useSwapTransactions = () => {
           wallets: refData.current.wallets,
           accounts: refData.current.accounts,
           lang: refData.current.lang,
+          provider,
         });
       },
     );

@@ -15,6 +15,7 @@ import React, { useEffect, useState } from 'react';
 
 import { routes } from '~/constants';
 import { useNavigateTo } from '~/hooks';
+import { analyticsService, ANALYTICS_EVENTS } from '~/services/analytics';
 import { useAppSelector, selectLanguage } from '~/store';
 import { keyValueStore, validateEmail } from '~/utils';
 import logger from '~/utils/logger';
@@ -51,6 +52,9 @@ export const EmailForm: React.FC = () => {
     }
 
     await keyValueStore.email.set(emailAddress);
+    analyticsService.trackEvent(
+      ANALYTICS_EVENTS.ONBOARDING_EMAIL_AUTHENTICATED,
+    );
     setIsLoading(false);
     toNextPage();
   };
@@ -60,6 +64,12 @@ export const EmailForm: React.FC = () => {
       source: EmailForm.name,
     });
     await keyValueStore.email.remove();
+    analyticsService.trackEvent(
+      ANALYTICS_EVENTS.ONBOARDING_EMAIL_AUTHENTICATED,
+      {
+        action: 'skipped',
+      },
+    );
     toNextPage();
   };
 

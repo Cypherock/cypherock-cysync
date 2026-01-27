@@ -39,9 +39,10 @@ export type Page =
   | 'help'
   | 'referAndEarn'
   | 'swap'
-  | 'buysell';
+  | 'buysell2';
 
 export interface SidebarContextInterface {
+  lang: ILangState;
   strings: ILangState['strings']['sidebar'];
   getState: (page: Page) => State;
   navigate: (page: Page) => void;
@@ -203,6 +204,7 @@ export const SidebarProvider: FC<SidebarProviderProps> = ({ children }) => {
 
   const ctx = useMemoReturn({
     strings,
+    lang,
     getState,
     navigate,
     theme,

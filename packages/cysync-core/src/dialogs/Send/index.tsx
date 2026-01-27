@@ -10,6 +10,7 @@ import {
 import React, { FC, useEffect, useState } from 'react';
 
 import { ErrorHandlerDialog, WithConnectedDevice } from '~/components';
+import { analyticsService, ANALYTICS_EVENTS } from '~/services/analytics';
 import { selectLanguage, useAppSelector } from '~/store';
 
 import {
@@ -122,7 +123,21 @@ export const SendFlow: FC = () => {
               </DeviceConnectionWrapper>
             </DialogBoxBody>
             <DialogBoxBackgroundBar
-              rightComponent={<CloseButton onClick={() => onClose()} />}
+              rightComponent={
+                <CloseButton
+                  onClick={() => {
+                    analyticsService.trackEvent(
+                      ANALYTICS_EVENTS.SEND_CANCELLED,
+                      {
+                        source:
+                          source === SendFlowSource.SWAP ? 'swap' : 'default',
+                        action: 'dialog_closed',
+                      },
+                    );
+                    onClose();
+                  }}
+                />
+              }
               position="top"
               useLightPadding
             />

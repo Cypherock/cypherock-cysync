@@ -11,9 +11,10 @@ import {
   WalletConnectProvider,
   AppUpdateProvider,
   LatestDeviceVersionProvider,
-  BuySellProvider,
+  BuySell2Provider,
   SwapProvider,
   SnackBarManager,
+  CurrencyProvider,
 } from '@cypherock/cysync-core';
 import { FallbackRenderer, GlobalStyles } from '@cypherock/cysync-ui';
 import React from 'react';
@@ -35,45 +36,47 @@ const App = () => (
       }}
     >
       <StoreProvider store={store}>
-        <LockscreenProvider>
-          <LockscreenBoundary>
-            <DeviceProvider
-              getDevices={window.electronAPI.getDevices}
-              connectDevice={window.electronAPI.connectDevice}
-              addUsbChangeListener={window.electronAPI.addUsbChangeListener}
-              removeUsbChangeListener={
-                window.electronAPI.removeUsbChangeListener
-              }
-              updateDeviceFirmware={window.electronAPI.updateDeviceFirmware}
-              addUpdateDeviceFirmwareProgressListener={
-                window.electronAPI.addUpdateDeviceFirmwareProgressListener
-              }
-              addUpdateDeviceFirmwareStatusListener={
-                window.electronAPI.addUpdateDeviceFirmwareStatusListener
-              }
-              removeUpdateDeviceFirmwareListeners={
-                window.electronAPI.removeUpdateDeviceFirmwareListeners
-              }
-              authenticateDevice={window.electronAPI.authenticateDevice}
-            >
-              <AppUpdateProvider>
-                <LatestDeviceVersionProvider>
-                  <WalletConnectProvider>
-                    <SwapProvider>
-                      <BuySellProvider>
-                        <AppRouter>
-                          <SnackBarManager />
-                          <DialogManager />
-                          <BackgroundTasks />
-                        </AppRouter>
-                      </BuySellProvider>
-                    </SwapProvider>
-                  </WalletConnectProvider>
-                </LatestDeviceVersionProvider>
-              </AppUpdateProvider>
-            </DeviceProvider>
-          </LockscreenBoundary>
-        </LockscreenProvider>
+        <CurrencyProvider>
+          <LockscreenProvider>
+            <LockscreenBoundary>
+              <DeviceProvider
+                getDevices={window.electronAPI.getDevices}
+                connectDevice={window.electronAPI.connectDevice}
+                addUsbChangeListener={window.electronAPI.addUsbChangeListener}
+                removeUsbChangeListener={
+                  window.electronAPI.removeUsbChangeListener
+                }
+                updateDeviceFirmware={window.electronAPI.updateDeviceFirmware}
+                addUpdateDeviceFirmwareProgressListener={
+                  window.electronAPI.addUpdateDeviceFirmwareProgressListener
+                }
+                addUpdateDeviceFirmwareStatusListener={
+                  window.electronAPI.addUpdateDeviceFirmwareStatusListener
+                }
+                removeUpdateDeviceFirmwareListeners={
+                  window.electronAPI.removeUpdateDeviceFirmwareListeners
+                }
+                authenticateDevice={window.electronAPI.authenticateDevice}
+              >
+                <AppUpdateProvider>
+                  <LatestDeviceVersionProvider>
+                    <WalletConnectProvider>
+                      <SwapProvider>
+                        <BuySell2Provider>
+                          <AppRouter>
+                            <SnackBarManager />
+                            <DialogManager />
+                            <BackgroundTasks />
+                          </AppRouter>
+                        </BuySell2Provider>
+                      </SwapProvider>
+                    </WalletConnectProvider>
+                  </LatestDeviceVersionProvider>
+                </AppUpdateProvider>
+              </DeviceProvider>
+            </LockscreenBoundary>
+          </LockscreenProvider>
+        </CurrencyProvider>
       </StoreProvider>
     </ErrorBoundary>
   </ThemeProvider>

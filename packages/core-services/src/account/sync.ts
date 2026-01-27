@@ -1,6 +1,6 @@
 import { getCoinSupport } from '@cypherock/coin-support';
 import { PromiseQueue } from '@cypherock/cysync-utils';
-import { IDatabase, IAccount } from '@cypherock/db-interfaces';
+import { IDatabase, IAccount, IKeyValueStore } from '@cypherock/db-interfaces';
 import { lastValueFrom, Observable } from 'rxjs';
 
 import logger from '../utils/logger';
@@ -11,13 +11,16 @@ const ACCOUNT_SYNC_CONCURRENCY = 10;
 export interface ISyncAccountsEvent {
   account: IAccount;
   isSuccessful: boolean;
+  error?: any;
 }
 
 export const syncSingleAccount = async (params: {
   db: IDatabase;
   account: IAccount;
+  currency: string;
+  keyDB?: IKeyValueStore;
 }): Promise<ISyncAccountsEvent> => {
-  const { db, account } = params;
+  const { db, account, currency, keyDB } = params;
   const support = getCoinSupport(account.familyId);
   let isSuccessful = false;
   let retryCount = 0;
@@ -29,6 +32,8 @@ export const syncSingleAccount = async (params: {
         support.syncAccount({
           accountId: account.__id ?? '',
           db,
+          currency,
+          keyDB,
         }),
       );
       isSuccessful = true;
@@ -49,14 +54,16 @@ export const syncSingleAccount = async (params: {
     logger.error(error);
   }
 
-  return { account, isSuccessful };
+  return { account, isSuccessful, error: isSuccessful ? undefined : error };
 };
 
 export const syncAccounts = (params: {
   db: IDatabase;
   accounts: IAccount[];
+  currency: string;
+  keyDB?: IKeyValueStore;
 }) => {
-  const { db, accounts } = params;
+  const { db, accounts, currency, keyDB } = params;
   return new Observable<ISyncAccountsEvent>(observer => {
     let promiseQueue: PromiseQueue<ISyncAccountsEvent> | undefined;
 
@@ -74,6 +81,8 @@ export const syncAccounts = (params: {
               syncSingleAccount({
                 account: a,
                 db,
+                currency,
+                keyDB,
               }),
           ),
           concurrentCount: ACCOUNT_SYNC_CONCURRENCY,

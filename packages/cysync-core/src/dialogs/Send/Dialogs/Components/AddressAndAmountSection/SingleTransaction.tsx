@@ -1,4 +1,9 @@
 import { IPreparedBtcTransaction } from '@cypherock/coin-support-btc';
+import {
+  cantonTransactionExpiryMap,
+  ICantonTransactionExpiryInputKey,
+  IPreparedCantonTransaction,
+} from '@cypherock/coin-support-canton';
 import { IPreparedEvmTransaction } from '@cypherock/coin-support-evm';
 import { IPreparedIcpTransaction } from '@cypherock/coin-support-icp';
 import { IPreparedTransaction } from '@cypherock/coin-support-interfaces';
@@ -6,7 +11,11 @@ import {
   IPreparedStellarTransaction,
   IStellarMemoType,
 } from '@cypherock/coin-support-stellar';
-import { getDefaultUnit, getParsedAmount } from '@cypherock/coin-support-utils';
+import {
+  getDefaultUnit,
+  getParsedAmount,
+  getFiatUnit,
+} from '@cypherock/coin-support-utils';
 import { IPreparedXrpTransaction } from '@cypherock/coin-support-xrp';
 import { coinFamiliesMap, CoinFamily } from '@cypherock/coins';
 import { Container, parseLangTemplate } from '@cypherock/cysync-ui';
@@ -14,12 +23,18 @@ import { BigNumber } from '@cypherock/cysync-utils';
 import { AccountTypeMap } from '@cypherock/db-interfaces';
 import React, { useEffect, useState } from 'react';
 
+import { useCurrency } from '~/context';
 import { selectLanguage, useAppSelector } from '~/store';
 
 import { AddressInput } from './AddressInput';
 import { AmountInput } from './AmountInput';
+import {
+  CantonTransactionExpiryInput,
+  ICantonTransactionExpiryInputProps,
+} from './CantonExpiryInput';
+import { CantonMemoInput } from './cantonMemoInput';
 import { DestinationTagInput } from './DestinationTagInput';
-import { MemoInput } from './MemoInput';
+import { IcpMemoInput } from './IcpMemoInput';
 import { NotesInput } from './NotesInput';
 import { StellarMemoInput } from './StellarMemoInput';
 
@@ -37,6 +52,7 @@ export const SingleTransaction: React.FC<SingleTransactionProps> = ({
   const lang = useAppSelector(selectLanguage);
   const displayText = lang.strings.send.recipient;
   const [amountOverride, setAmountOverride] = useState('');
+  const { currentCurrency } = useCurrency();
 
   const {
     selectedAccount,
@@ -48,6 +64,8 @@ export const SingleTransaction: React.FC<SingleTransactionProps> = ({
     prepareDestinationTag,
     prepareMemo,
     prepareStellarMemo,
+    prepareCantonMemo,
+    prepareCantonExpiry,
     priceConverter,
     updateUserInputs,
     prepare,
@@ -64,6 +82,8 @@ export const SingleTransaction: React.FC<SingleTransactionProps> = ({
     recipientDisplayText = isIcpToken
       ? displayText.icpPrincipalIdRecipient
       : displayText.icpAccountIdRecipient;
+  } else if (selectedAccount?.familyId === coinFamiliesMap.canton) {
+    recipientDisplayText = displayText.cantonRecipient;
   }
 
   useEffect(() => {
@@ -99,6 +119,8 @@ export const SingleTransaction: React.FC<SingleTransactionProps> = ({
     starknet: () => '',
     icp: () => '',
     stellar: () => '',
+    sia: () => '',
+    canton: () => '',
   };
 
   const getXrpDestinationTagInputProps = () => {
@@ -126,6 +148,8 @@ export const SingleTransaction: React.FC<SingleTransactionProps> = ({
     starknet: () => ({}),
     icp: () => ({}),
     stellar: () => ({}),
+    sia: () => ({}),
+    canton: () => ({}),
   };
 
   const destinationTagInputMap: Partial<Record<CoinFamily, React.FC<any>>> = {
@@ -142,6 +166,84 @@ export const SingleTransaction: React.FC<SingleTransactionProps> = ({
     const props = destinationTagInputPropsMap[coinFamily]();
     return <Component {...props} />;
   };
+
+  const defaultCantonExpiryKey = ICantonTransactionExpiryInputKey.ONE_DAY;
+
+  const getExpirationDateInputProps =
+    (): ICantonTransactionExpiryInputProps => ({
+      label: displayText.expirationDate.label,
+      dropdownPlaceholder: displayText.expirationDate.placeholder,
+      tooltipText: displayText.expirationDate.tooltipText,
+      initialValue:
+        (transaction as IPreparedCantonTransaction)?.userInputs.outputs[0]
+          ?.expiry?.key ?? defaultCantonExpiryKey,
+      onChange: prepareCantonExpiry,
+      expiryOptions: [
+        {
+          value: ICantonTransactionExpiryInputKey.THREE_HOURS,
+          label: displayText.expirationDate.options.threeHours,
+        },
+        {
+          value: ICantonTransactionExpiryInputKey.ONE_DAY,
+          label: displayText.expirationDate.options.oneDay,
+        },
+        {
+          value: ICantonTransactionExpiryInputKey.ONE_WEEK,
+          label: displayText.expirationDate.options.oneWeek,
+        },
+        {
+          value: ICantonTransactionExpiryInputKey.TEN_DAYS,
+          label: displayText.expirationDate.options.tenDays,
+        },
+        {
+          value: ICantonTransactionExpiryInputKey.ONE_MONTH,
+          label: displayText.expirationDate.options.oneMonth,
+        },
+      ],
+      error: undefined,
+      isDisabled: disableInputs,
+    });
+
+  const expirationDateInputPropsMap: Record<
+    CoinFamily,
+    () => Record<string, any>
+  > = {
+    bitcoin: () => ({}),
+    evm: () => ({}),
+    near: () => ({}),
+    solana: () => ({}),
+    tron: () => ({}),
+    xrp: () => ({}),
+    starknet: () => ({}),
+    icp: () => ({}),
+    stellar: () => ({}),
+    sia: () => ({}),
+    canton: getExpirationDateInputProps,
+  };
+
+  const expirationDateInputMap: Partial<Record<CoinFamily, React.FC<any>>> = {
+    canton: CantonTransactionExpiryInput,
+  };
+
+  const getExpirationDateInputComponent = () => {
+    if (!selectedAccount) return null;
+    const coinFamily = selectedAccount.familyId as CoinFamily;
+
+    const Component = expirationDateInputMap[coinFamily];
+    if (!Component) return null;
+
+    const props = expirationDateInputPropsMap[coinFamily]();
+    return <Component {...props} />;
+  };
+
+  const getCantonMemoInputProps = () => ({
+    label: displayText.cantonMemo.label,
+    placeholder: displayText.cantonMemo.placeholder,
+    tooltipText: displayText.cantonMemo.tooltipText,
+    initialValue: (transaction as IPreparedCantonTransaction)?.userInputs
+      .outputs[0]?.memo,
+    onChange: prepareCantonMemo,
+  });
 
   const getIcpMemoInputProps = () => {
     const txn = transaction as IPreparedIcpTransaction;
@@ -185,11 +287,14 @@ export const SingleTransaction: React.FC<SingleTransactionProps> = ({
     starknet: () => ({}),
     icp: getIcpMemoInputProps,
     stellar: getStellarMemoInputProps,
+    sia: () => ({}),
+    canton: getCantonMemoInputProps,
   };
 
   const memoInputMap: Partial<Record<CoinFamily, React.FC<any>>> = {
-    icp: MemoInput,
+    icp: IcpMemoInput,
     stellar: StellarMemoInput,
+    canton: CantonMemoInput,
   };
 
   const getMemoInputComponent = () => {
@@ -216,6 +321,20 @@ export const SingleTransaction: React.FC<SingleTransactionProps> = ({
       setAmountOverride(convertedValue ?? '');
     }
   }, [transaction]);
+
+  useEffect(() => {
+    if (selectedAccount?.familyId !== coinFamiliesMap.canton) return;
+    const txn = transaction as IPreparedCantonTransaction | undefined;
+    const hasExpiry = txn?.userInputs.outputs[0]?.expiry?.key;
+    if (!txn || hasExpiry) return;
+
+    const defaultExpiryValue =
+      cantonTransactionExpiryMap[defaultCantonExpiryKey];
+    prepareCantonExpiry({
+      key: defaultCantonExpiryKey,
+      value: defaultExpiryValue,
+    });
+  }, [transaction, selectedAccount?.familyId, prepareCantonExpiry]);
 
   const getConvertedAmount = (val?: string) => {
     if (!val || !selectedAccount) return undefined;
@@ -260,7 +379,7 @@ export const SingleTransaction: React.FC<SingleTransactionProps> = ({
           }
           toggleLabel={disableInputs ? '' : displayText.amount.toggle}
           initialToggle={transaction?.userInputs.isSendAll !== false}
-          priceUnit={displayText.amount.dollar}
+          priceUnit={getFiatUnit(currentCurrency).symbol}
           error={getAmountError(0)}
           placeholder={displayText.amount.placeholder}
           initialAmount={getConvertedAmount(
@@ -273,6 +392,7 @@ export const SingleTransaction: React.FC<SingleTransactionProps> = ({
           isDisabled={disableInputs}
         />
 
+        {getExpirationDateInputComponent()}
         {getDestinationTagInputComponent()}
         {getMemoInputComponent()}
 

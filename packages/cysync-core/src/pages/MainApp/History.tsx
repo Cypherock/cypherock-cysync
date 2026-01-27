@@ -23,6 +23,11 @@ import { downloadCSVToDesktop } from '~/utils';
 
 import { MainAppLayout } from './Layout';
 
+const CSV_FILE_NAME =
+  window.cysyncEnv.VENDOR === 'default'
+    ? 'Cysync History.csv'
+    : `${window.cysyncEnv.VENDOR} history.csv`;
+
 export const History: FC = () => {
   const {
     strings,
@@ -95,7 +100,7 @@ export const History: FC = () => {
       return 57;
     }
 
-    return expandedRowIds[displayedData[index].id] && isSmallScreen ? 198 : 82;
+    return expandedRowIds[displayedData[index].id] && isSmallScreen ? 198 : 84;
   };
 
   const handleDownloadCSV = () => {
@@ -122,7 +127,7 @@ export const History: FC = () => {
         })),
     );
 
-    downloadCSVToDesktop('CySync History.csv', csvFile);
+    downloadCSVToDesktop(CSV_FILE_NAME, csvFile);
 
     dispatch(
       openSnackBar({

@@ -1,8 +1,15 @@
 import { AddAccountDialogProps } from '~/dialogs/AddAccount';
 import { AddTokenDialogProps } from '~/dialogs/AddToken';
+import {
+  CreateCantonAccountDialogProps,
+  EnableApprovalDialogProps,
+  EnableMergeDelegationDialogProps,
+} from '~/dialogs/Canton';
+import { TransactionActionDialogProps } from '~/dialogs/Canton/TransactionAction';
 import { DeleteAccountDialogProps } from '~/dialogs/DeleteAccountDialog';
 import { DeployAccountDialogProps } from '~/dialogs/DeployAccount/context';
 import { ErrorDialogProps } from '~/dialogs/ErrorDialog';
+import { FullPageLoaderDialogProps } from '~/dialogs/FullPageLoaderDialog';
 import { IHistoryDialogProps } from '~/dialogs/HistoryDialog';
 import {
   InheritanceEstateRecoveryDialogProps,
@@ -114,6 +121,11 @@ export interface IDialogState {
     data?: ISwapDialogProps;
   };
 
+  buySellDialog: {
+    isOpen: boolean;
+    data?: ISwapDialogProps;
+  };
+
   walletActions: {
     isOpen: boolean;
     data?: undefined;
@@ -207,6 +219,46 @@ export interface IDialogState {
   };
 
   switchFirmwareDialog: {
+    isOpen: boolean;
+    data?: undefined;
+  };
+
+  fullPageLoaderDialog: {
+    isOpen: boolean;
+    data?: FullPageLoaderDialogProps;
+  };
+
+  enableApprovalPromptDialog: {
+    isOpen: boolean;
+    data?: undefined;
+  };
+
+  enableApprovalDialog: {
+    isOpen: boolean;
+    data?: EnableApprovalDialogProps;
+  };
+
+  enableMergeDelegationDialog: {
+    isOpen: boolean;
+    data?: EnableMergeDelegationDialogProps;
+  };
+
+  createCantonAccountDialog: {
+    isOpen: boolean;
+    data?: CreateCantonAccountDialogProps;
+  };
+
+  transactionActionDialog: {
+    isOpen: boolean;
+    data?: TransactionActionDialogProps;
+  };
+
+  syncCantonAccountPromptDialog: {
+    isOpen: boolean;
+    data?: undefined;
+  };
+
+  cantonLogin: {
     isOpen: boolean;
     data?: undefined;
   };

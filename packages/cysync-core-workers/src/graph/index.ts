@@ -36,7 +36,8 @@ const getAssetDetailsFromProps = (
 const calculatePortfolioGraphSummary = (
   params: CalculatePortfolioGraphDataParamsWithComputedData,
 ) => {
-  const { accounts, priceInfos, computedData, showGraphInUSD } = params;
+  const { accounts, priceInfos, computedData, showGraphInUSD, currency } =
+    params;
 
   let currentValue = 0;
   let conversionRate = '';
@@ -56,7 +57,7 @@ const calculatePortfolioGraphSummary = (
       if (priceInfo) {
         conversionRate = `1 ${
           getDefaultUnit(parentAssetId, assetId).abbr
-        } = $ ${formatDisplayPrice(priceInfo.latestPrice)}`;
+        } = ${formatDisplayPrice(priceInfo.latestPrice, currency)}`;
       }
     }
   }
@@ -118,12 +119,12 @@ const calculatePortfolioGraphSummary = (
 
       changeValue = amount;
     } else {
-      changeValue = formatDisplayPrice(changeValueInNumber);
+      changeValue = formatDisplayPrice(changeValueInNumber, currency);
     }
   }
 
   return {
-    totalValue: formatDisplayPrice(currentValue),
+    totalValue: currentValue,
     totalBalance: currentBalance,
     conversionRate,
     changePercent: `${
@@ -177,7 +178,7 @@ export const calculatePortfolioGraphData = async (
       transactions: params.transactions,
       priceHistories: params.priceHistories,
       priceInfos: params.priceInfos,
-      currency: 'usd',
+      currency: params.currency,
       days: params.days,
       walletId,
       assetId: params.assetId,

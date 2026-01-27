@@ -6,8 +6,9 @@ import {
   SkeletonLoader,
   NoAccountWrapper,
 } from '@cypherock/cysync-ui';
-import React, { FC, useCallback, useState } from 'react';
+import React, { FC, useCallback, useEffect, useState } from 'react';
 
+import { analyticsService, ANALYTICS_EVENTS } from '~/services/analytics';
 import logger from '~/utils/logger';
 
 import { AccountTable } from './AccountTable';
@@ -39,6 +40,16 @@ export const Wallet: FC = () => {
 
   const hasAccounts = accountList.length > 0;
 
+  useEffect(() => {
+    analyticsService.trackEvent(ANALYTICS_EVENTS.WALLET_PAGE_VIEWED);
+  }, []);
+
+  useEffect(() => {
+    if (selectedWallet) {
+      analyticsService.trackEvent(ANALYTICS_EVENTS.WALLET_WALLET_SELECTED);
+    }
+  }, [selectedWallet]);
+
   type HandlersType = typeof handleAddAccountClick & typeof handleAddTokenClick;
   const getHandlerProxy = useCallback(
     (clickInfo: string, source: string, func: HandlersType): HandlersType =>
@@ -46,6 +57,23 @@ export const Wallet: FC = () => {
         logger.info(`Button Click: ${clickInfo}`, {
           source: `${Wallet.name}/${source}`,
         });
+
+        if (clickInfo === 'Add Account') {
+          analyticsService.trackEvent(
+            ANALYTICS_EVENTS.WALLET_ADD_ACCOUNT_CLICKED,
+            {
+              source,
+            },
+          );
+        } else if (clickInfo === 'Add Token') {
+          analyticsService.trackEvent(
+            ANALYTICS_EVENTS.WALLET_ADD_TOKEN_CLICKED,
+            {
+              source,
+            },
+          );
+        }
+
         func();
       },
     [],
@@ -93,24 +121,26 @@ export const Wallet: FC = () => {
       onTopbarHeightChange={setTopbarHeight}
     >
       <Flex justify="space-between" pt="10px" px="20px" mt={2}>
-        <Breadcrumb
-          items={[
-            {
-              id: 'wallet',
-              text: lang.strings.wallet.title,
-            },
-            {
-              id: 'walletList',
-              dropdown: {
-                displayNode: walletName,
-                selectedItem: selectedWallet?.__id ?? '',
-                setSelectedItem: onWalletChange,
-                dropdown: dropDownData,
+        <Flex $flex={1} shrink={0} $minWidth="0" $overflow="hidden">
+          <Breadcrumb
+            items={[
+              {
+                id: 'wallet',
+                text: lang.strings.wallet.title,
               },
-            },
-          ]}
-        />
-        <Flex gap={24}>
+              {
+                id: 'walletList',
+                dropdown: {
+                  displayNode: walletName,
+                  selectedItem: selectedWallet?.__id ?? '',
+                  setSelectedItem: onWalletChange,
+                  dropdown: dropDownData,
+                },
+              },
+            ]}
+          />
+        </Flex>
+        <Flex gap={24} shrink={0}>
           {hasAccounts && (
             <Button
               variant="primary"

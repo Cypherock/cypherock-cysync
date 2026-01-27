@@ -1,3 +1,6 @@
+import { getCoinSupport } from '@cypherock/coin-support';
+import { IcpSupport } from '@cypherock/coin-support-icp';
+import { coinFamiliesMap } from '@cypherock/coins';
 import { IAccount, IWallet, ISwapData } from '@cypherock/db-interfaces';
 import {
   ExchangeApp,
@@ -5,10 +8,11 @@ import {
 } from '@cypherock/sdk-app-exchange';
 import { ManagerApp } from '@cypherock/sdk-app-manager';
 import { hexToUint8Array } from '@cypherock/sdk-utils';
-import React, { useCallback, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 
 import { DeviceTask, useDeviceTask, useMemoReturn } from '~/hooks';
-import { createExchange } from '~/services/swapService';
+import { analyticsService, ANALYTICS_EVENTS } from '~/services/analytics';
+import { createExchange, getProviderDetails } from '~/services/swapService';
 import { createCustomError, getDB } from '~/utils';
 import logger from '~/utils/logger';
 
@@ -24,6 +28,8 @@ export interface IProviderDetails {
   id: string;
   name: string;
   imageUrl: string;
+  complianceEmail?: string;
+  txnBaseURL?: string;
 }
 
 export interface IQuote {
@@ -70,6 +76,7 @@ export interface SwapContextInterface {
   setReceiveFlowValidTill: (d: number) => void;
   fillDetails: (params: IFillDetailsParams) => void;
   exchangeDetails?: IExchangeDetails;
+  providerDetails?: Record<string, IProviderDetails>;
   initiateExchange: (address: string) => Promise<void>;
   closeExchange: () => Promise<void>;
   resetIndex: number;
@@ -88,9 +95,26 @@ export interface SwapProviderProps {
 export const SwapProvider: React.FC<SwapProviderProps> = ({ children }) => {
   const [currentPage, setCurrentPage] = useState(SwapPage.DETAILS);
   const [globalError, setGlobalError] = useState<any>();
+  const [providerDetails, setProviderDetails] =
+    useState<Record<string, IProviderDetails>>();
 
   const toNextPage = () => {
-    setCurrentPage(p => Math.min(SwapPage.STATUS, p + 1));
+    const newPage = Math.min(SwapPage.STATUS, currentPage + 1);
+    setCurrentPage(newPage);
+
+    if (newPage === SwapPage.RECEIVE) {
+      analyticsService.trackEvent(ANALYTICS_EVENTS.SWAP_RECEIVE_STEP_STARTED, {
+        fromAsset: fromAccount?.assetId,
+        toAsset: toAccount?.assetId,
+        provider: quote?.provider?.name,
+      });
+    } else if (newPage === SwapPage.SEND) {
+      analyticsService.trackEvent(ANALYTICS_EVENTS.SWAP_SEND_STEP_STARTED, {
+        fromAsset: fromAccount?.assetId,
+        toAsset: toAccount?.assetId,
+        provider: quote?.provider?.name,
+      });
+    }
   };
   const toPreviousPage = () => {
     setCurrentPage(p => Math.max(SwapPage.DETAILS, p - 1));
@@ -112,18 +136,21 @@ export const SwapProvider: React.FC<SwapProviderProps> = ({ children }) => {
   };
 
   const resetAll = () => {
+    if (fromAccount || toAccount || quote) {
+      analyticsService.trackEvent(ANALYTICS_EVENTS.SWAP_CANCELLED, {
+        fromAsset: fromAccount?.assetId,
+        toAsset: toAccount?.assetId,
+        provider: quote?.provider?.name,
+        currentPage,
+        reason: 'user_reset',
+        action: 'dialog_closed',
+      });
+    }
+
     resetUserInput();
     resetState();
     setResetIndex(prev => prev + 1);
   };
-
-  const onError = useCallback(
-    (e?: any) => {
-      resetState();
-      setGlobalError(e);
-    },
-    [setGlobalError, resetState],
-  );
 
   const retryMap: Record<SwapPage, () => void> = {
     [SwapPage.DETAILS]: resetState,
@@ -132,10 +159,6 @@ export const SwapProvider: React.FC<SwapProviderProps> = ({ children }) => {
     [SwapPage.SEND]: resetState,
     [SwapPage.STATUS]: resetState,
   };
-
-  const retryPage = useCallback(() => {
-    retryMap[currentPage]();
-  }, [currentPage]);
 
   const [fromWallet, setFromWallet] = useState<IWallet | undefined>();
   const [fromAccount, setFromAccount] = useState<IAccount | undefined>();
@@ -148,6 +171,38 @@ export const SwapProvider: React.FC<SwapProviderProps> = ({ children }) => {
   const [exchangeDetails, setExchangeDetails] = useState<
     IExchangeDetails | undefined
   >();
+
+  const onError = useCallback(
+    (e?: any) => {
+      analyticsService.trackEvent(ANALYTICS_EVENTS.SWAP_FAILED, {
+        error: e?.message || 'Unknown error',
+        step: 'swap_flow_error',
+        fromAsset: fromAccount?.assetId,
+        toAsset: toAccount?.assetId,
+        provider: quote?.provider?.name,
+      });
+      resetState();
+      setGlobalError(e);
+    },
+    [fromAccount?.assetId, toAccount?.assetId, quote?.provider?.name],
+  );
+
+  const retryPage = useCallback(() => {
+    analyticsService.trackEvent(ANALYTICS_EVENTS.SWAP_CANCELLED, {
+      action: 'retry',
+      step: 'swap_flow',
+      currentPage,
+      fromAsset: fromAccount?.assetId,
+      toAsset: toAccount?.assetId,
+      provider: quote?.provider?.name,
+    });
+    retryMap[currentPage]();
+  }, [
+    currentPage,
+    fromAccount?.assetId,
+    toAccount?.assetId,
+    quote?.provider?.name,
+  ]);
 
   const fillDetails = ({
     fromWallet: sourceWallet,
@@ -163,7 +218,29 @@ export const SwapProvider: React.FC<SwapProviderProps> = ({ children }) => {
     setToWallet(destinationWallet);
     setToAccount(destinationAccount);
     setQuote(selectedQuote);
+
+    analyticsService.trackEvent(ANALYTICS_EVENTS.SWAP_PROVIDER_SELECTED, {
+      providerId: selectedQuote.provider.id,
+      providerName: selectedQuote.provider.name,
+      fromAsset: sourceAccount.assetId,
+      toAsset: destinationAccount.assetId,
+      fee: selectedQuote.fee,
+    });
   };
+
+  const fetchProviderDetails = useCallback(async () => {
+    try {
+      const res = await getProviderDetails();
+      const { providersDetails } = res.data;
+      if (res.status === 200) {
+        setProviderDetails(providersDetails);
+      } else {
+        throw Error('Invalid response from server');
+      }
+    } catch (error) {
+      logger.error('Could not fetch provider details', { error });
+    }
+  }, []);
 
   // give details to exchange app (init)
   // start receive flow
@@ -207,6 +284,22 @@ export const SwapProvider: React.FC<SwapProviderProps> = ({ children }) => {
     dontExecuteTask: true,
   });
 
+  const getRefundAddress = async (account: IAccount) => {
+    const coinSupport = getCoinSupport(account.familyId);
+    const refundAddress = await coinSupport.getAccountAddress({
+      account,
+    });
+    if (account.familyId === coinFamiliesMap.icp) {
+      const { accountId } = (
+        coinSupport as IcpSupport
+      ).getAddressDetailsFromPublicKey({
+        pubKey: refundAddress,
+      });
+      return accountId;
+    }
+    return refundAddress;
+  };
+
   const initiateExchange = async (address: string) => {
     try {
       const sig = await getSignature.run();
@@ -221,6 +314,9 @@ export const SwapProvider: React.FC<SwapProviderProps> = ({ children }) => {
       )
         throw new Error('Invalid prerequisite data');
 
+      // using fromAccount address as refund address
+      const refundAddress = await getRefundAddress(fromAccount);
+
       // give details to server
       const result = await createExchange({
         id: quote.id,
@@ -228,6 +324,7 @@ export const SwapProvider: React.FC<SwapProviderProps> = ({ children }) => {
         fromCurrency: fromAccount.assetId,
         toCurrency: toAccount.assetId,
         amount: quote.fromAmount,
+        refundAddress,
         receiverAddress: address,
         receiverAddressSignature: Buffer.from(sig.result.signature).toString(
           'hex',
@@ -256,6 +353,15 @@ export const SwapProvider: React.FC<SwapProviderProps> = ({ children }) => {
       }
     } catch (error) {
       logger.error(error);
+
+      analyticsService.trackEvent(ANALYTICS_EVENTS.SWAP_FAILED, {
+        error: error instanceof Error ? error.message : 'Unknown error',
+        fromAsset: fromAccount?.assetId,
+        toAsset: toAccount?.assetId,
+        provider: quote?.provider?.name,
+        step: 'initiate_exchange',
+      });
+
       onError(error);
       await closeExchange();
     }
@@ -293,6 +399,12 @@ export const SwapProvider: React.FC<SwapProviderProps> = ({ children }) => {
   const markTransactionAsSwap = (id: string) => {
     const db = getDB();
     db.transaction.update({ __id: id }, { isSwap: true });
+
+    analyticsService.trackEvent(ANALYTICS_EVENTS.SWAP_SUCCEEDED, {
+      fromAsset: fromAccount?.assetId,
+      toAsset: toAccount?.assetId,
+      provider: quote?.provider?.name,
+    });
   };
 
   const updateTransactionSwapData = (id: string, swapData: ISwapData) => {
@@ -301,6 +413,10 @@ export const SwapProvider: React.FC<SwapProviderProps> = ({ children }) => {
   };
 
   const transactionId = useRef<string>();
+
+  useEffect(() => {
+    fetchProviderDetails();
+  }, []);
 
   const ctx = useMemoReturn({
     currentPage,
@@ -320,6 +436,7 @@ export const SwapProvider: React.FC<SwapProviderProps> = ({ children }) => {
     setReceiveFlowValidTill,
     fillDetails,
     exchangeDetails,
+    providerDetails,
     initiateExchange,
     closeExchange,
     markTransactionAsSwap,

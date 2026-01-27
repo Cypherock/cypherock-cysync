@@ -14,6 +14,7 @@ const CHANNEL_CONFIG = {
     API_CYPHEROCK: 'https://dev-api.cypherock.com',
     ALLOW_PRERELEASE: true,
     SIMULATE_PRODUCTION: false,
+    MIXPANEL_TOKEN: process.env.MIXPANEL_TOKEN_DEV || '',
   },
   ...betaChannels.reduce(
     (a, c) => ({
@@ -24,6 +25,7 @@ const CHANNEL_CONFIG = {
         API_CYPHEROCK: 'https://api.cypherock.com',
         ALLOW_PRERELEASE: true,
         SIMULATE_PRODUCTION: false,
+        MIXPANEL_TOKEN: process.env.MIXPANEL_TOKEN_DEV || '',
       },
     }),
     {},
@@ -34,6 +36,7 @@ const CHANNEL_CONFIG = {
     API_CYPHEROCK: 'https://api.cypherock.com',
     ALLOW_PRERELEASE: false,
     SIMULATE_PRODUCTION: false,
+    MIXPANEL_TOKEN: process.env.MIXPANEL_TOKEN_PROD || '',
   },
 };
 
@@ -46,7 +49,18 @@ const getUpdateChannel = () => {
   return channelMigrationItem.to;
 };
 
+const getProductName = vendor => {
+  switch (vendor) {
+    case 'odix':
+      return 'odix';
+    default:
+      return 'cypherock-cysync';
+  }
+};
+
 const setDesktopAppVersion = async params => {
+  params.pkgJson.productName = getProductName(config.VENDOR);
+
   if (config.CHANNEL !== config.RELEASE_CHANNEL) {
     params.pkgJson.productName = `${params.pkgJson.productName}-${config.CHANNEL}`;
   }
@@ -100,6 +114,14 @@ const setDesktopAppConfig = async params => {
     BUILD_VERSION: commitHash.slice(0, 7),
     CHANNEL: getUpdateChannel(),
   };
+
+  if (config.CYPHEROCK_API) {
+    configJson.API_CYPHEROCK = config.CYPHEROCK_API;
+  }
+
+  if (config.VENDOR) {
+    configJson.VENDOR = config.VENDOR;
+  }
 
   let configStr = '{\n';
   configStr += Object.entries(configJson).reduce((str, [key, value]) => {

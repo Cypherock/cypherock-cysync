@@ -35,12 +35,17 @@ import { ISolanaAccount } from '../types';
 // Solana transaction are fetched via individual calls, therefore the limit is set relatively low to prevent server timeout.
 const PER_PAGE_TXN_LIMIT = 25;
 
-const onNewAccounts = (newAccounts: IAccount[], db: IDatabase) => {
+const onNewAccounts = (
+  newAccounts: IAccount[],
+  db: IDatabase,
+  currency: string,
+) => {
   for (const newAccount of newAccounts) {
     lastValueFrom(
       syncAccount({
         db,
         accountId: newAccount.__id ?? '',
+        currency,
       }),
     ).catch(error => {
       logger.error('Error in syncing tron token account');
@@ -59,6 +64,7 @@ const onNewAccounts = (newAccounts: IAccount[], db: IDatabase) => {
       createSyncPricesObservable({
         db,
         getCoinIds,
+        currency,
       }),
     ).catch(error => {
       logger.error('Error in syncing tron token prices');
@@ -69,6 +75,7 @@ const onNewAccounts = (newAccounts: IAccount[], db: IDatabase) => {
       createSyncPriceHistoriesObservable({
         db,
         getCoinIds,
+        currency,
       }),
     ).catch(error => {
       logger.error('Error in syncing tron token price histories');
@@ -83,9 +90,16 @@ const fetchAndParseTransactions = async (params: {
   address: string;
   afterTransactionHash?: string;
   beforeTransactionHash?: string;
+  currency: string;
 }) => {
-  const { db, account, address, afterTransactionHash, beforeTransactionHash } =
-    params;
+  const {
+    db,
+    account,
+    address,
+    afterTransactionHash,
+    beforeTransactionHash,
+    currency,
+  } = params;
 
   const afterHash =
     afterTransactionHash ??
@@ -119,7 +133,7 @@ const fetchAndParseTransactions = async (params: {
     });
 
     transactions.push(...txns);
-    onNewAccounts(newAccounts, db);
+    onNewAccounts(newAccounts, db, currency);
   }
 
   const hasMore = transactionDetails.more;
@@ -136,7 +150,7 @@ const getAddressDetails: IGetAddressDetails<{
   updatedLatestTransactionHash?: string;
   afterTransactionHash?: string;
   beforeTransactionHash?: string;
-}> = async ({ db, account, iterationContext }) => {
+}> = async ({ db, account, currency, iterationContext }) => {
   let {
     updatedBalance,
     updatedSpendableBalance,
@@ -180,6 +194,7 @@ const getAddressDetails: IGetAddressDetails<{
     address,
     afterTransactionHash,
     beforeTransactionHash,
+    currency,
   });
 
   transactions.push(...transactionDetails.transactions);

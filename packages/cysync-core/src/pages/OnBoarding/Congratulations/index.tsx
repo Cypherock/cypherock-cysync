@@ -6,6 +6,7 @@ import { openWalletActionsDialog } from '~/actions';
 import { routes } from '~/constants';
 import { useDevice } from '~/context';
 import { useNavigateTo, useQuery } from '~/hooks';
+import { analyticsService, ANALYTICS_EVENTS } from '~/services/analytics';
 import { selectLanguage, useAppDispatch, useAppSelector } from '~/store';
 import { keyValueStore } from '~/utils';
 
@@ -20,6 +21,7 @@ export const Congratulations: React.FC = () => {
 
   const updateIsOnboardingCompleted = async () => {
     await keyValueStore.isOnboardingCompleted.set(true);
+    analyticsService.trackEvent(ANALYTICS_EVENTS.ONBOARDING_COMPLETED);
   };
 
   const goToMain = () => {

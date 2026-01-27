@@ -1,5 +1,225 @@
 # @cypherock/cysync-desktop-ui
 
+## 0.2.11
+
+### Patch Changes
+
+- Updated dependencies [[`301c4cd4`](https://github.com/Cypherock/cypherock-cysync/commit/301c4cd43ab9de6dfd73c8b3cfe4aacd1a04987d)]:
+  - @cypherock/cysync-core@0.11.2
+
+## 0.2.10
+
+### Patch Changes
+
+- Updated dependencies [[`223a00aa`](https://github.com/Cypherock/cypherock-cysync/commit/223a00aa4cc8b06f75b75b58cbebb7dfcbddeb76), [`d23870c6`](https://github.com/Cypherock/cypherock-cysync/commit/d23870c6261211735dffe9832317e48ca7677a55)]:
+  - @cypherock/cysync-core@0.11.1
+
+## 0.2.10-pre.0
+
+### Patch Changes
+
+- Updated dependencies [[`223a00aa`](https://github.com/Cypherock/cypherock-cysync/commit/223a00aa4cc8b06f75b75b58cbebb7dfcbddeb76), [`d23870c6`](https://github.com/Cypherock/cypherock-cysync/commit/d23870c6261211735dffe9832317e48ca7677a55)]:
+  - @cypherock/cysync-core@0.11.1-pre.0
+
+## 0.2.9
+
+### Patch Changes
+
+- Updated dependencies [[`2be04fe0`](https://github.com/Cypherock/cypherock-cysync/commit/2be04fe055a9e9bf17d03a6b78265f9b4801f5d1)]:
+  - @cypherock/cysync-core@0.11.0
+  - @cypherock/cysync-interfaces@0.1.0
+  - @cypherock/cysync-ui@0.2.0
+  - @cypherock/cysync-utils@0.0.17
+
+## 0.2.9-pre.0
+
+### Patch Changes
+
+- Updated dependencies [[`2be04fe0`](https://github.com/Cypherock/cypherock-cysync/commit/2be04fe055a9e9bf17d03a6b78265f9b4801f5d1)]:
+  - @cypherock/cysync-core@0.11.0-pre.0
+  - @cypherock/cysync-interfaces@0.1.0-pre.0
+  - @cypherock/cysync-ui@0.2.0-pre.0
+  - @cypherock/cysync-utils@0.0.17-pre.0
+
+## 0.2.8
+
+### Patch Changes
+
+- [#810](https://github.com/Cypherock/cypherock-cysync/pull/810) [`99fb9049`](https://github.com/Cypherock/cypherock-cysync/commit/99fb9049c7c639472acef934c18843ea7703b829) Thanks [@chirag-droid](https://github.com/chirag-droid)! - Integrated changelly as on ramp provider increasing support for many currencies and countries
+
+- Updated dependencies [[`99fb9049`](https://github.com/Cypherock/cypherock-cysync/commit/99fb9049c7c639472acef934c18843ea7703b829)]:
+  - @cypherock/cysync-core@0.10.0
+  - @cypherock/cysync-ui@0.1.0
+  - @cypherock/cysync-utils@0.0.16
+  - @cypherock/cysync-interfaces@0.0.13
+
+## 0.2.8-pre.0
+
+### Patch Changes
+
+- [#810](https://github.com/Cypherock/cypherock-cysync/pull/810) [`99fb9049`](https://github.com/Cypherock/cypherock-cysync/commit/99fb9049c7c639472acef934c18843ea7703b829) Thanks [@chirag-droid](https://github.com/chirag-droid)! - Integrated changelly as on ramp provider increasing support for many currencies and countries
+
+- Updated dependencies [[`99fb9049`](https://github.com/Cypherock/cypherock-cysync/commit/99fb9049c7c639472acef934c18843ea7703b829)]:
+  - @cypherock/cysync-core@0.10.0-pre.0
+  - @cypherock/cysync-ui@0.1.0-pre.0
+  - @cypherock/cysync-utils@0.0.16-pre.0
+  - @cypherock/cysync-interfaces@0.0.13-pre.0
+
+## 0.2.7
+
+### Patch Changes
+
+- Updated dependencies [[`01b6f2e0`](https://github.com/Cypherock/cypherock-cysync/commit/01b6f2e08312190d23546ac7600e3a5b526c64c4), [`cc17bed6`](https://github.com/Cypherock/cypherock-cysync/commit/cc17bed6452b60393efe3fceb3e68868b3c088b2)]:
+  - @cypherock/cysync-core@0.9.6
+  - @cypherock/cysync-ui@0.0.21
+
+## 0.2.7-pre.0
+
+### Patch Changes
+
+- Updated dependencies [[`01b6f2e0`](https://github.com/Cypherock/cypherock-cysync/commit/01b6f2e08312190d23546ac7600e3a5b526c64c4), [`cc17bed6`](https://github.com/Cypherock/cypherock-cysync/commit/cc17bed6452b60393efe3fceb3e68868b3c088b2)]:
+  - @cypherock/cysync-core@0.9.6-pre.0
+  - @cypherock/cysync-ui@0.0.21-pre.0
+
+## 0.2.6
+
+### Patch Changes
+
+- Updated dependencies [[`1676d442`](https://github.com/Cypherock/cypherock-cysync/commit/1676d442d58954c992165a525c6db626da7baeb9), [`421eb1c8`](https://github.com/Cypherock/cypherock-cysync/commit/421eb1c841bc92e4d9cb9148800de4d78bf81c35)]:
+  - @cypherock/cysync-core@0.9.5
+  - @cypherock/cysync-ui@0.0.20
+
+## 0.2.6-pre.0
+
+### Patch Changes
+
+- Updated dependencies [[`1676d442`](https://github.com/Cypherock/cypherock-cysync/commit/1676d442d58954c992165a525c6db626da7baeb9), [`421eb1c8`](https://github.com/Cypherock/cypherock-cysync/commit/421eb1c841bc92e4d9cb9148800de4d78bf81c35)]:
+  - @cypherock/cysync-core@0.9.5-pre.0
+  - @cypherock/cysync-ui@0.0.20-pre.0
+
+## 0.2.5
+
+### Patch Changes
+
+- Updated dependencies [[`cb9a80fc`](https://github.com/Cypherock/cypherock-cysync/commit/cb9a80fcc15e2334b4a7c471464ec39949fa0504)]:
+  - @cypherock/cysync-core@0.9.4
+  - @cypherock/cysync-ui@0.0.19
+  - @cypherock/cysync-interfaces@0.0.12
+  - @cypherock/cysync-utils@0.0.15
+
+## 0.2.4
+
+### Patch Changes
+
+- Updated dependencies [[`32e8af6c`](https://github.com/Cypherock/cypherock-cysync/commit/32e8af6cbbd1ffd0b5f917a39ee340fc2de86d53)]:
+  - @cypherock/cysync-core@0.9.3
+
+## 0.2.3
+
+### Patch Changes
+
+- Updated dependencies [[`dbb8eb56`](https://github.com/Cypherock/cypherock-cysync/commit/dbb8eb560c7ad740693ba101182741360075ed4b)]:
+  - @cypherock/cysync-core@0.9.2
+
+## 0.2.2
+
+### Patch Changes
+
+- Updated dependencies [[`4b698171`](https://github.com/Cypherock/cypherock-cysync/commit/4b69817156f90e3f716c070d944b1be32b870da0)]:
+  - @cypherock/cysync-core@0.9.1
+
+## 0.2.2-pre.0
+
+### Patch Changes
+
+- Updated dependencies [[`4b698171`](https://github.com/Cypherock/cypherock-cysync/commit/4b69817156f90e3f716c070d944b1be32b870da0)]:
+  - @cypherock/cysync-core@0.9.1-pre.0
+
+## 0.2.1
+
+### Patch Changes
+
+- Updated dependencies [[`0b897a64`](https://github.com/Cypherock/cypherock-cysync/commit/0b897a64f2519dd8aca7230751ca28ce4eeb9251)]:
+  - @cypherock/cysync-core@0.9.0
+  - @cypherock/cysync-utils@0.0.14
+  - @cypherock/cysync-ui@0.0.18
+
+## 0.2.0
+
+### Minor Changes
+
+- [#814](https://github.com/Cypherock/cypherock-cysync/pull/814) [`1434a79d`](https://github.com/Cypherock/cypherock-cysync/commit/1434a79d295cc8eaa0bd0a39d97a5f05a13e872d) Thanks [@AryanCypherock](https://github.com/AryanCypherock)! - Analytics added
+
+### Patch Changes
+
+- Updated dependencies [[`c3745ad9`](https://github.com/Cypherock/cypherock-cysync/commit/c3745ad98950f5becd0d1a2fd70a70a47e3fe2bd), [`1434a79d`](https://github.com/Cypherock/cypherock-cysync/commit/1434a79d295cc8eaa0bd0a39d97a5f05a13e872d)]:
+  - @cypherock/cysync-core@0.8.0
+  - @cypherock/cysync-ui@0.0.17
+  - @cypherock/cysync-interfaces@0.0.11
+  - @cypherock/cysync-utils@0.0.13
+
+## 0.2.0-pre.0
+
+### Minor Changes
+
+- [#814](https://github.com/Cypherock/cypherock-cysync/pull/814) [`1434a79d`](https://github.com/Cypherock/cypherock-cysync/commit/1434a79d295cc8eaa0bd0a39d97a5f05a13e872d) Thanks [@AryanCypherock](https://github.com/AryanCypherock)! - Analytics added
+
+### Patch Changes
+
+- Updated dependencies [[`c3745ad9`](https://github.com/Cypherock/cypherock-cysync/commit/c3745ad98950f5becd0d1a2fd70a70a47e3fe2bd), [`1434a79d`](https://github.com/Cypherock/cypherock-cysync/commit/1434a79d295cc8eaa0bd0a39d97a5f05a13e872d)]:
+  - @cypherock/cysync-core@0.8.0-pre.0
+  - @cypherock/cysync-ui@0.0.17-pre.0
+  - @cypherock/cysync-interfaces@0.0.11-pre.0
+  - @cypherock/cysync-utils@0.0.13-pre.0
+
+## 0.1.0
+
+### Minor Changes
+
+- [#800](https://github.com/Cypherock/cypherock-cysync/pull/800) [`c3ed0794`](https://github.com/Cypherock/cypherock-cysync/commit/c3ed0794b9d0cb7281e6a154450d40aca1240395) Thanks [@AryanCypherock](https://github.com/AryanCypherock)! - Multiple currency support added
+
+### Patch Changes
+
+- Updated dependencies [[`c3ed0794`](https://github.com/Cypherock/cypherock-cysync/commit/c3ed0794b9d0cb7281e6a154450d40aca1240395)]:
+  - @cypherock/cysync-core@0.7.0
+  - @cypherock/cysync-interfaces@0.0.10
+  - @cypherock/cysync-ui@0.0.16
+  - @cypherock/cysync-utils@0.0.12
+
+## 0.1.0-pre.0
+
+### Minor Changes
+
+- [#800](https://github.com/Cypherock/cypherock-cysync/pull/800) [`c3ed0794`](https://github.com/Cypherock/cypherock-cysync/commit/c3ed0794b9d0cb7281e6a154450d40aca1240395) Thanks [@AryanCypherock](https://github.com/AryanCypherock)! - Multiple currency support added
+
+### Patch Changes
+
+- Updated dependencies [[`c3ed0794`](https://github.com/Cypherock/cypherock-cysync/commit/c3ed0794b9d0cb7281e6a154450d40aca1240395)]:
+  - @cypherock/cysync-core@0.7.0-pre.0
+  - @cypherock/cysync-interfaces@0.0.10
+  - @cypherock/cysync-ui@0.0.16
+  - @cypherock/cysync-utils@0.0.12
+
+## 0.0.32
+
+### Patch Changes
+
+- Updated dependencies [[`d57d8d65`](https://github.com/Cypherock/cypherock-cysync/commit/d57d8d65dfca075c39537e33b243827edaf36263)]:
+  - @cypherock/cysync-core@0.6.9
+  - @cypherock/cysync-ui@0.0.16
+  - @cypherock/cysync-interfaces@0.0.10
+  - @cypherock/cysync-utils@0.0.12
+
+## 0.0.32-pre.0
+
+### Patch Changes
+
+- Updated dependencies [[`d57d8d65`](https://github.com/Cypherock/cypherock-cysync/commit/d57d8d65dfca075c39537e33b243827edaf36263)]:
+  - @cypherock/cysync-core@0.6.9-pre.0
+  - @cypherock/cysync-ui@0.0.16-pre.0
+  - @cypherock/cysync-interfaces@0.0.10-pre.0
+  - @cypherock/cysync-utils@0.0.12-pre.0
+
 ## 0.0.31
 
 ### Patch Changes

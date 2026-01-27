@@ -1,3 +1,5 @@
+import { ICantonAuthTokens } from '~/store/canton';
+
 import { getKeyDB } from '../db';
 
 const createBooleanValueStore = (key: string) => ({
@@ -12,6 +14,12 @@ const createStringValueStore = (key: string) => ({
   remove: async () => getKeyDB().removeItem(key),
 });
 
+const createObjectValueStore = <T extends object>(key: string) => ({
+  get: async () => JSON.parse((await getKeyDB().getItem(key)) ?? '{}') as T,
+  set: async (val: T) => getKeyDB().setItem(key, JSON.stringify(val)),
+  remove: async () => getKeyDB().removeItem(key),
+});
+
 export const keyValueStore = {
   isOnboardingCompleted: createBooleanValueStore('isOnboardingCompleted'),
   isLinuxPermissionSetupDone: createBooleanValueStore(
@@ -22,6 +30,9 @@ export const keyValueStore = {
   passwordHash: createStringValueStore('passwordHash'),
   email: createStringValueStore('email'),
   onboardingCheckpointPath: createStringValueStore('onboardingCheckpointPath'),
+  enabledAnalyticsByDefault: createBooleanValueStore(
+    'enabledAnalyticsByDefault',
+  ),
   isAnalyticsAndBugReportEnabled: createBooleanValueStore(
     'isAnalyticsAndBugReportEnabled',
   ),
@@ -34,4 +45,7 @@ export const keyValueStore = {
   isLastConnectedFirmwareBtcOnly: createBooleanValueStore(
     'isLastConnectedFirmwareBtcOnly',
   ),
+  appCurrency: createStringValueStore('appCurrency'),
+  cantonAuthTokens:
+    createObjectValueStore<ICantonAuthTokens>('cantonAuthTokens'),
 };

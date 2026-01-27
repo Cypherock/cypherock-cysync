@@ -1,5 +1,79 @@
 # @cypherock/coins
 
+## 0.7.0
+
+### Minor Changes
+
+- [#853](https://github.com/Cypherock/cypherock-cysync/pull/853) [`223a00aa`](https://github.com/Cypherock/cypherock-cysync/commit/223a00aa4cc8b06f75b75b58cbebb7dfcbddeb76) Thanks [@prashantrahul141](https://github.com/prashantrahul141)! - Add base evm support
+
+## 0.7.0-pre.0
+
+### Minor Changes
+
+- [#853](https://github.com/Cypherock/cypherock-cysync/pull/853) [`223a00aa`](https://github.com/Cypherock/cypherock-cysync/commit/223a00aa4cc8b06f75b75b58cbebb7dfcbddeb76) Thanks [@prashantrahul141](https://github.com/prashantrahul141)! - Add base evm support
+
+## 0.6.0
+
+### Minor Changes
+
+- [#852](https://github.com/Cypherock/cypherock-cysync/pull/852) [`cc17bed6`](https://github.com/Cypherock/cypherock-cysync/commit/cc17bed6452b60393efe3fceb3e68868b3c088b2) Thanks [@muzaffarbhat07](https://github.com/muzaffarbhat07)! - Canton Token Support Added
+
+### Patch Changes
+
+- [#846](https://github.com/Cypherock/cypherock-cysync/pull/846) [`01b6f2e0`](https://github.com/Cypherock/cypherock-cysync/commit/01b6f2e08312190d23546ac7600e3a5b526c64c4) Thanks [@muzaffarbhat07](https://github.com/muzaffarbhat07)! - Adds canton token support
+
+## 0.6.0-pre.0
+
+### Minor Changes
+
+- [#852](https://github.com/Cypherock/cypherock-cysync/pull/852) [`cc17bed6`](https://github.com/Cypherock/cypherock-cysync/commit/cc17bed6452b60393efe3fceb3e68868b3c088b2) Thanks [@muzaffarbhat07](https://github.com/muzaffarbhat07)! - Canton Token Support Added
+
+### Patch Changes
+
+- [#846](https://github.com/Cypherock/cypherock-cysync/pull/846) [`01b6f2e0`](https://github.com/Cypherock/cypherock-cysync/commit/01b6f2e08312190d23546ac7600e3a5b526c64c4) Thanks [@muzaffarbhat07](https://github.com/muzaffarbhat07)! - Adds canton token support
+
+## 0.5.1
+
+### Patch Changes
+
+- [#848](https://github.com/Cypherock/cypherock-cysync/pull/848) [`1676d442`](https://github.com/Cypherock/cypherock-cysync/commit/1676d442d58954c992165a525c6db626da7baeb9) Thanks [@Keyur279](https://github.com/Keyur279)! - Add Sia Coin Support
+
+- [#848](https://github.com/Cypherock/cypherock-cysync/pull/848) [`421eb1c8`](https://github.com/Cypherock/cypherock-cysync/commit/421eb1c841bc92e4d9cb9148800de4d78bf81c35) Thanks [@Keyur279](https://github.com/Keyur279)! - Remove Base network support
+
+## 0.5.1-pre.0
+
+### Patch Changes
+
+- [#848](https://github.com/Cypherock/cypherock-cysync/pull/848) [`1676d442`](https://github.com/Cypherock/cypherock-cysync/commit/1676d442d58954c992165a525c6db626da7baeb9) Thanks [@Keyur279](https://github.com/Keyur279)! - Add Sia Coin Support
+
+- [#848](https://github.com/Cypherock/cypherock-cysync/pull/848) [`421eb1c8`](https://github.com/Cypherock/cypherock-cysync/commit/421eb1c841bc92e4d9cb9148800de4d78bf81c35) Thanks [@Keyur279](https://github.com/Keyur279)! - Remove Base network support
+
+## 0.5.0
+
+### Minor Changes
+
+- [#819](https://github.com/Cypherock/cypherock-cysync/pull/819) [`0b897a64`](https://github.com/Cypherock/cypherock-cysync/commit/0b897a64f2519dd8aca7230751ca28ce4eeb9251) Thanks [@muzaffarbhat07](https://github.com/muzaffarbhat07)! - Adds canton support (Add Account and Transfer PreApproval only)
+
+## 0.4.0
+
+### Minor Changes
+
+- [#809](https://github.com/Cypherock/cypherock-cysync/pull/809) [`c3745ad9`](https://github.com/Cypherock/cypherock-cysync/commit/c3745ad98950f5becd0d1a2fd70a70a47e3fe2bd) Thanks [@0xcuriosity](https://github.com/0xcuriosity)! - Added Hyperliquid support
+
+### Patch Changes
+
+- [#814](https://github.com/Cypherock/cypherock-cysync/pull/814) [`1434a79d`](https://github.com/Cypherock/cypherock-cysync/commit/1434a79d295cc8eaa0bd0a39d97a5f05a13e872d) Thanks [@AryanCypherock](https://github.com/AryanCypherock)! - Analytics added
+
+## 0.4.0-pre.0
+
+### Minor Changes
+
+- [#809](https://github.com/Cypherock/cypherock-cysync/pull/809) [`c3745ad9`](https://github.com/Cypherock/cypherock-cysync/commit/c3745ad98950f5becd0d1a2fd70a70a47e3fe2bd) Thanks [@0xcuriosity](https://github.com/0xcuriosity)! - Added Hyperliquid support
+
+### Patch Changes
+
+- [#814](https://github.com/Cypherock/cypherock-cysync/pull/814) [`1434a79d`](https://github.com/Cypherock/cypherock-cysync/commit/1434a79d295cc8eaa0bd0a39d97a5f05a13e872d) Thanks [@AryanCypherock](https://github.com/AryanCypherock)! - Analytics added
+
 ## 0.3.3
 
 ### Patch Changes

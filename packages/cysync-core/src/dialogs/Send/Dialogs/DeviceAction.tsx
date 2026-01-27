@@ -1,7 +1,12 @@
 import { IPreparedEvmTransaction } from '@cypherock/coin-support-evm';
 import { SignTransactionDeviceEvent } from '@cypherock/coin-support-interfaces';
 import { getDefaultUnit, getParsedAmount } from '@cypherock/coin-support-utils';
-import { EvmIdMap, IEvmCoinInfo, coinList } from '@cypherock/coins';
+import {
+  EvmIdMap,
+  IEvmCoinInfo,
+  coinFamiliesMap,
+  coinList,
+} from '@cypherock/coins';
 import {
   LangDisplay,
   DialogBox,
@@ -21,6 +26,7 @@ import { AccountTypeMap } from '@cypherock/db-interfaces';
 import React, { useEffect, useMemo } from 'react';
 
 import { CoinIcon } from '~/components';
+import { analyticsService, ANALYTICS_EVENTS } from '~/services/analytics';
 import { selectLanguage, useAppSelector } from '~/store';
 
 import { useSendDialog } from '../context';
@@ -51,11 +57,19 @@ export const DeviceAction: React.FC = () => {
 
   useEffect(() => {
     if (deviceEvents[SignTransactionDeviceEvent.CARD_TAPPED]) {
+      analyticsService.trackEvent(ANALYTICS_EVENTS.SEND_ATTEMPTED_SIGNING, {
+        action: 'card_tapped',
+      });
       onNext();
     }
   }, [deviceEvents]);
 
   useEffect(() => {
+    analyticsService.trackEvent(ANALYTICS_EVENTS.SEND_DEVICE_ACTION_STARTED, {
+      assetId: selectedAccount?.assetId,
+      hasPassphrase: selectedWallet?.hasPassphrase,
+      hasPin: selectedWallet?.hasPin,
+    });
     startFlow();
   }, []);
 
@@ -151,7 +165,10 @@ export const DeviceAction: React.FC = () => {
   };
   const getMessageBoxes = () => {
     const messages: { text: string; variables?: any }[] = [];
-    if (selectedAccount?.type === AccountTypeMap.subAccount) {
+    if (
+      selectedAccount?.type === AccountTypeMap.subAccount &&
+      selectedAccount.parentAssetId !== coinFamiliesMap.canton
+    ) {
       messages.push({
         text: lang.strings.send.x1Vault.token.info,
         variables: {
@@ -159,6 +176,13 @@ export const DeviceAction: React.FC = () => {
           parentCoinName: coinList[selectedAccount.parentAssetId].name,
           parentCoinUnit: getDefaultUnit(selectedAccount.parentAssetId).abbr,
         },
+      });
+    }
+
+    if (selectedAccount?.parentAssetId === coinFamiliesMap.canton) {
+      messages.push({
+        text: lang.strings.send.x1Vault.longProcess.info,
+        variables: { assetName: coinList[selectedAccount.parentAssetId].name },
       });
     }
 
@@ -201,7 +225,14 @@ export const DeviceAction: React.FC = () => {
         </LeanBoxContainer>
         <Container display="flex" direction="column" gap={16} width="full">
           {getMessageBoxes()}
-          <MessageBox type="warning" text={displayText.messageBox.warning} />
+          <MessageBox
+            type="warning"
+            text={
+              selectedAccount?.familyId === coinFamiliesMap.canton
+                ? displayText.messageBox.partyIdWarning
+                : displayText.messageBox.warning
+            }
+          />
         </Container>
       </DialogBoxBody>
     </DialogBox>

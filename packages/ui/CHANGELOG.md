@@ -1,5 +1,107 @@
 # @cypherock/cysync-ui
 
+## 0.2.0
+
+### Minor Changes
+
+- [#855](https://github.com/Cypherock/cypherock-cysync/pull/855) [`2be04fe0`](https://github.com/Cypherock/cypherock-cysync/commit/2be04fe055a9e9bf17d03a6b78265f9b4801f5d1) Thanks [@AryanCypherock](https://github.com/AryanCypherock)! - vendor abstraction added for multiple vendor support
+
+## 0.2.0-pre.0
+
+### Minor Changes
+
+- [#855](https://github.com/Cypherock/cypherock-cysync/pull/855) [`2be04fe0`](https://github.com/Cypherock/cypherock-cysync/commit/2be04fe055a9e9bf17d03a6b78265f9b4801f5d1) Thanks [@AryanCypherock](https://github.com/AryanCypherock)! - vendor abstraction added for multiple vendor support
+
+## 0.1.0
+
+### Minor Changes
+
+- [#810](https://github.com/Cypherock/cypherock-cysync/pull/810) [`99fb9049`](https://github.com/Cypherock/cypherock-cysync/commit/99fb9049c7c639472acef934c18843ea7703b829) Thanks [@chirag-droid](https://github.com/chirag-droid)! - Integrated changelly as on ramp provider increasing support for many currencies and countries
+
+### Patch Changes
+
+- Updated dependencies [[`99fb9049`](https://github.com/Cypherock/cypherock-cysync/commit/99fb9049c7c639472acef934c18843ea7703b829)]:
+  - @cypherock/db-interfaces@0.2.0
+
+## 0.1.0-pre.0
+
+### Minor Changes
+
+- [#810](https://github.com/Cypherock/cypherock-cysync/pull/810) [`99fb9049`](https://github.com/Cypherock/cypherock-cysync/commit/99fb9049c7c639472acef934c18843ea7703b829) Thanks [@chirag-droid](https://github.com/chirag-droid)! - Integrated changelly as on ramp provider increasing support for many currencies and countries
+
+### Patch Changes
+
+- Updated dependencies [[`99fb9049`](https://github.com/Cypherock/cypherock-cysync/commit/99fb9049c7c639472acef934c18843ea7703b829)]:
+  - @cypherock/db-interfaces@0.2.0-pre.0
+
+## 0.0.21
+
+### Patch Changes
+
+- [#852](https://github.com/Cypherock/cypherock-cysync/pull/852) [`cc17bed6`](https://github.com/Cypherock/cypherock-cysync/commit/cc17bed6452b60393efe3fceb3e68868b3c088b2) Thanks [@muzaffarbhat07](https://github.com/muzaffarbhat07)! - Canton Token Support Added
+
+## 0.0.21-pre.0
+
+### Patch Changes
+
+- [#852](https://github.com/Cypherock/cypherock-cysync/pull/852) [`cc17bed6`](https://github.com/Cypherock/cypherock-cysync/commit/cc17bed6452b60393efe3fceb3e68868b3c088b2) Thanks [@muzaffarbhat07](https://github.com/muzaffarbhat07)! - Canton Token Support Added
+
+## 0.0.20
+
+### Patch Changes
+
+- [#848](https://github.com/Cypherock/cypherock-cysync/pull/848) [`1676d442`](https://github.com/Cypherock/cypherock-cysync/commit/1676d442d58954c992165a525c6db626da7baeb9) Thanks [@Keyur279](https://github.com/Keyur279)! - Add Sia Coin Support
+
+- [#848](https://github.com/Cypherock/cypherock-cysync/pull/848) [`421eb1c8`](https://github.com/Cypherock/cypherock-cysync/commit/421eb1c841bc92e4d9cb9148800de4d78bf81c35) Thanks [@Keyur279](https://github.com/Keyur279)! - Remove Base network support
+
+## 0.0.20-pre.0
+
+### Patch Changes
+
+- [#848](https://github.com/Cypherock/cypherock-cysync/pull/848) [`1676d442`](https://github.com/Cypherock/cypherock-cysync/commit/1676d442d58954c992165a525c6db626da7baeb9) Thanks [@Keyur279](https://github.com/Keyur279)! - Add Sia Coin Support
+
+- [#848](https://github.com/Cypherock/cypherock-cysync/pull/848) [`421eb1c8`](https://github.com/Cypherock/cypherock-cysync/commit/421eb1c841bc92e4d9cb9148800de4d78bf81c35) Thanks [@Keyur279](https://github.com/Keyur279)! - Remove Base network support
+
+## 0.0.19
+
+### Patch Changes
+
+- [#839](https://github.com/Cypherock/cypherock-cysync/pull/839) [`cb9a80fc`](https://github.com/Cypherock/cypherock-cysync/commit/cb9a80fcc15e2334b4a7c471464ec39949fa0504) Thanks [@muzaffarbhat07](https://github.com/muzaffarbhat07)! - Fixes canton send and txn histroy
+
+## 0.0.18
+
+### Patch Changes
+
+- [#819](https://github.com/Cypherock/cypherock-cysync/pull/819) [`0b897a64`](https://github.com/Cypherock/cypherock-cysync/commit/0b897a64f2519dd8aca7230751ca28ce4eeb9251) Thanks [@muzaffarbhat07](https://github.com/muzaffarbhat07)! - Adds canton support (Add Account and Transfer PreApproval only)
+
+## 0.0.17
+
+### Patch Changes
+
+- [#809](https://github.com/Cypherock/cypherock-cysync/pull/809) [`c3745ad9`](https://github.com/Cypherock/cypherock-cysync/commit/c3745ad98950f5becd0d1a2fd70a70a47e3fe2bd) Thanks [@0xcuriosity](https://github.com/0xcuriosity)! - Added Hyperliquid support
+
+- [#814](https://github.com/Cypherock/cypherock-cysync/pull/814) [`1434a79d`](https://github.com/Cypherock/cypherock-cysync/commit/1434a79d295cc8eaa0bd0a39d97a5f05a13e872d) Thanks [@AryanCypherock](https://github.com/AryanCypherock)! - Analytics added
+
+## 0.0.17-pre.0
+
+### Patch Changes
+
+- [#809](https://github.com/Cypherock/cypherock-cysync/pull/809) [`c3745ad9`](https://github.com/Cypherock/cypherock-cysync/commit/c3745ad98950f5becd0d1a2fd70a70a47e3fe2bd) Thanks [@0xcuriosity](https://github.com/0xcuriosity)! - Added Hyperliquid support
+
+- [#814](https://github.com/Cypherock/cypherock-cysync/pull/814) [`1434a79d`](https://github.com/Cypherock/cypherock-cysync/commit/1434a79d295cc8eaa0bd0a39d97a5f05a13e872d) Thanks [@AryanCypherock](https://github.com/AryanCypherock)! - Analytics added
+
+## 0.0.16
+
+### Patch Changes
+
+- [#804](https://github.com/Cypherock/cypherock-cysync/pull/804) [`d57d8d65`](https://github.com/Cypherock/cypherock-cysync/commit/d57d8d65dfca075c39537e33b243827edaf36263) Thanks [@AryanCypherock](https://github.com/AryanCypherock)! - Swap provider added
+
+## 0.0.16-pre.0
+
+### Patch Changes
+
+- [#804](https://github.com/Cypherock/cypherock-cysync/pull/804) [`d57d8d65`](https://github.com/Cypherock/cypherock-cysync/commit/d57d8d65dfca075c39537e33b243827edaf36263) Thanks [@AryanCypherock](https://github.com/AryanCypherock)! - Swap provider added
+
 ## 0.0.15
 
 ### Patch Changes

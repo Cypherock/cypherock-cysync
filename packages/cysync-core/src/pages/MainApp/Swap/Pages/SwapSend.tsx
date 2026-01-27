@@ -4,6 +4,7 @@ import { openSendDialog } from '~/actions';
 import { LoaderDialog } from '~/components';
 import { useSwap } from '~/context';
 import { SendFlowSource } from '~/dialogs/Send/context';
+import { analyticsService, ANALYTICS_EVENTS } from '~/services/analytics';
 import {
   closeDialog,
   selectLanguage,
@@ -18,6 +19,7 @@ export const SwapSend = () => {
   const dispatch = useAppDispatch();
   const {
     fromAccount,
+    toAccount,
     toNextPage,
     exchangeDetails,
     quote,
@@ -35,8 +37,19 @@ export const SwapSend = () => {
 
   const onSendFlowClose = async () => {
     if (transactionId.current === undefined) {
+      analyticsService.trackEvent(ANALYTICS_EVENTS.SWAP_FAILED, {
+        fromAsset: fromAccount?.assetId,
+        toAccount: toAccount?.assetId,
+        step: 'send_transaction',
+        error: 'No transaction ID received',
+      });
       onError(createCustomError(displayText.errors.notSuccessfull));
     } else {
+      analyticsService.trackEvent(ANALYTICS_EVENTS.SWAP_SEND_STEP_STARTED, {
+        fromAsset: fromAccount?.assetId,
+        toAsset: toAccount?.assetId,
+        action: 'transaction_created',
+      });
       markTransactionAsSwap(transactionId.current);
       toNextPage();
     }
@@ -69,6 +82,12 @@ export const SwapSend = () => {
 
   useEffect(() => {
     const abort = async () => {
+      analyticsService.trackEvent(ANALYTICS_EVENTS.SWAP_FAILED, {
+        fromAsset: fromAccount?.assetId,
+        toAsset: toAccount?.assetId,
+        step: 'send_initiation',
+        error: 'Invalid prerequisites',
+      });
       await closeExchange();
       onError(
         createCustomError(

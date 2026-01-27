@@ -10,6 +10,7 @@ import {
 import React, { FC, useEffect, useState } from 'react';
 
 import { ErrorHandlerDialog, WithConnectedDevice } from '~/components';
+import { analyticsService, ANALYTICS_EVENTS } from '~/services/analytics';
 import { selectLanguage, useAppSelector } from '~/store';
 
 import {
@@ -43,6 +44,7 @@ export interface ReceiveDialogProps {
   source?: ReceiveFlowSource;
   onError?: (e?: any) => void;
   validTill?: number;
+  isVerificationRequired?: boolean;
 }
 
 export const Receive: FC = () => {
@@ -60,6 +62,7 @@ export const Receive: FC = () => {
     isAddressVerified,
     source,
     validTill,
+    isVerificationRequired,
   } = useReceiveDialog();
   const getTotalSeconds = () => {
     if (!validTill) return 0;
@@ -85,6 +88,12 @@ export const Receive: FC = () => {
   const remainingSeconds = seconds % 60;
   const lang = useAppSelector(selectLanguage);
 
+  const titles: Record<ReceiveFlowSource, string> = {
+    [ReceiveFlowSource.DEFAULT]: lang.strings.receive.title,
+    [ReceiveFlowSource.SWAP]: lang.strings.swap.title,
+    [ReceiveFlowSource.ONRAMP]: lang.strings.buySell.buy.title,
+  };
+
   return (
     <BlurOverlay>
       <DialogBox direction="row" gap={0} width="full" onClose={onClose}>
@@ -95,11 +104,7 @@ export const Receive: FC = () => {
               .map(t => t.name)}
             activeTab={currentTab}
             skippedTabs={!isAddressVerified && currentTab > 2 ? [1] : []}
-            heading={
-              source === ReceiveFlowSource.SWAP
-                ? lang.strings.swap.title
-                : lang.strings.receive.title
-            }
+            heading={titles[source]}
             timer={
               source === ReceiveFlowSource.SWAP && validTill
                 ? {
@@ -123,7 +128,11 @@ export const Receive: FC = () => {
             >
               <DeviceConnectionWrapper
                 isDeviceRequired={!isStartedWithoutDevice && isDeviceRequired}
-                label={lang.strings.receive.showAnywayButton}
+                label={
+                  !isVerificationRequired
+                    ? lang.strings.receive.showAnywayButton
+                    : ''
+                }
                 onClick={onSkip}
               >
                 <ErrorHandlerDialog
@@ -137,7 +146,24 @@ export const Receive: FC = () => {
               </DeviceConnectionWrapper>
             </DialogBoxBody>
             <DialogBoxBackgroundBar
-              rightComponent={<CloseButton onClick={() => onClose()} />}
+              rightComponent={
+                <CloseButton
+                  onClick={() => {
+                    analyticsService.trackEvent(
+                      ANALYTICS_EVENTS.RECEIVE_CANCELLED,
+                      {
+                        source:
+                          source === ReceiveFlowSource.SWAP
+                            ? 'swap'
+                            : 'default',
+                        action: 'dialog_closed',
+                        isAddressVerified,
+                      },
+                    );
+                    onClose(true);
+                  }}
+                />
+              }
               position="top"
               useLightPadding
             />
@@ -163,4 +189,5 @@ ReceiveDialog.defaultProps = {
   source: ReceiveFlowSource.DEFAULT,
   onError: undefined,
   validTill: undefined,
+  isVerificationRequired: false,
 };

@@ -1,4 +1,4 @@
-import { BtcIdMap, coinList } from '@cypherock/coins';
+import { BtcIdMap, coinList, coinFamiliesMap } from '@cypherock/coins';
 import {
   Button,
   Container,
@@ -14,6 +14,7 @@ import {
 } from '@cypherock/cysync-ui';
 import React, { useCallback } from 'react';
 
+import { LoaderDialog } from '~/components';
 import { CoinIcon } from '~/components/CoinIcon';
 import { selectLanguage, useAppSelector } from '~/store';
 import logger from '~/utils/logger';
@@ -27,6 +28,15 @@ const getCoinDropDownList = (isFirmwareBtcOnly: boolean): DropDownItemProps[] =>
         (window.cysyncEnv.IS_PRODUCTION === 'false' || !c.isUnderDevelopment) &&
         (!isFirmwareBtcOnly || c.id === BtcIdMap.bitcoin),
     )
+    .filter(c => {
+      if (
+        window.cysyncEnv.VENDOR === 'odix' &&
+        (c.id === 'fantom' || c.id === coinFamiliesMap.canton)
+      ) {
+        return false;
+      }
+      return true;
+    })
     .map(coin => ({
       id: coin.id,
       leftImage: <CoinIcon parentAssetId={coin.id} />,
@@ -38,7 +48,7 @@ const getCoinDropDownList = (isFirmwareBtcOnly: boolean): DropDownItemProps[] =>
 export const AddAccountSelectionDialog: React.FC = () => {
   const lang = useAppSelector(selectLanguage);
   const {
-    onNext,
+    onSelectionDialogNext,
     selectedCoin,
     selectedWallet,
     setSelectedCoin,
@@ -46,6 +56,7 @@ export const AddAccountSelectionDialog: React.FC = () => {
     walletDropdownList,
     defaultWalletId,
     isFirmwareBtcOnly,
+    isCheckingCantonUserLoggedIn,
   } = useAddAccountDialog();
 
   const strings = lang.strings.addAccount.select;
@@ -73,6 +84,8 @@ export const AddAccountSelectionDialog: React.FC = () => {
     },
     [coinList],
   );
+
+  if (isCheckingCantonUserLoggedIn) return <LoaderDialog />;
 
   return (
     <DialogBox width={500}>
@@ -109,9 +122,9 @@ export const AddAccountSelectionDialog: React.FC = () => {
         <Button
           variant="primary"
           disabled={!selectedCoin || !selectedWallet}
-          onClick={e => {
+          onClick={async e => {
             e.preventDefault();
-            onNext();
+            await onSelectionDialogNext();
           }}
         >
           <LangDisplay text={button.continue} />

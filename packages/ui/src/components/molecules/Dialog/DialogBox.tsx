@@ -3,6 +3,7 @@ import styled, { css } from 'styled-components';
 
 import { addKeyboardEvents } from '../../../hooks';
 import {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   BgColorProps,
   DisplayProps,
   FlexProps,
@@ -26,8 +27,8 @@ export interface DialogBoxUtilityProps
     DisplayProps,
     SpacingProps,
     PositionProps,
-    DisplayProps,
-    BgColorProps {
+    BgColorProps,
+    DisplayProps {
   children?: ReactNode;
   overflowY?: string;
 }
@@ -67,9 +68,13 @@ const DialogBoxStyle = styled.section<DialogBoxProps>`
   border-style: solid;
   border-radius: 16px;
   /* overflow-y: scroll; */
-  background-image: ${({ theme }) => theme.palette.background.primary};
-  box-shadow: ${({ theme }) => theme.shadow.popup};
+
+  background: ${({ theme }) => theme.palette.background.primary};
+
   border-color: ${({ theme }) => theme.palette.border.popup};
+
+  box-shadow: ${({ theme }) => theme.shadow.popup};
+
   text-align: center;
   ${props => props.$isModal && modalCss}
   ${flex}
@@ -78,7 +83,6 @@ const DialogBoxStyle = styled.section<DialogBoxProps>`
   ${height}
   ${spacing}
   ${position}
-  ${bgColor}
 `;
 
 const DialogBoxHeaderBarStyle = styled.div<DialogBoxUtilityProps>`
@@ -130,7 +134,7 @@ const DialogBoxBodyStyle = styled.div<DialogBoxUtilityProps>`
   ${flex}
   ${width}
   ${height}
-  ${spacing}
+  ${spacing} 
   ${bgColor}
 `;
 

@@ -1,5 +1,35 @@
 # @cypherock/db-interfaces
 
+## 0.2.0
+
+### Minor Changes
+
+- [#810](https://github.com/Cypherock/cypherock-cysync/pull/810) [`99fb9049`](https://github.com/Cypherock/cypherock-cysync/commit/99fb9049c7c639472acef934c18843ea7703b829) Thanks [@chirag-droid](https://github.com/chirag-droid)! - Integrated changelly as on ramp provider increasing support for many currencies and countries
+
+## 0.2.0-pre.0
+
+### Minor Changes
+
+- [#810](https://github.com/Cypherock/cypherock-cysync/pull/810) [`99fb9049`](https://github.com/Cypherock/cypherock-cysync/commit/99fb9049c7c639472acef934c18843ea7703b829) Thanks [@chirag-droid](https://github.com/chirag-droid)! - Integrated changelly as on ramp provider increasing support for many currencies and countries
+
+## 0.1.2
+
+### Patch Changes
+
+- [#839](https://github.com/Cypherock/cypherock-cysync/pull/839) [`cb9a80fc`](https://github.com/Cypherock/cypherock-cysync/commit/cb9a80fcc15e2334b4a7c471464ec39949fa0504) Thanks [@muzaffarbhat07](https://github.com/muzaffarbhat07)! - Fixes canton send and txn histroy
+
+## 0.1.1
+
+### Patch Changes
+
+- [#804](https://github.com/Cypherock/cypherock-cysync/pull/804) [`d57d8d65`](https://github.com/Cypherock/cypherock-cysync/commit/d57d8d65dfca075c39537e33b243827edaf36263) Thanks [@AryanCypherock](https://github.com/AryanCypherock)! - Swap provider added
+
+## 0.1.1-pre.0
+
+### Patch Changes
+
+- [#804](https://github.com/Cypherock/cypherock-cysync/pull/804) [`d57d8d65`](https://github.com/Cypherock/cypherock-cysync/commit/d57d8d65dfca075c39537e33b243827edaf36263) Thanks [@AryanCypherock](https://github.com/AryanCypherock)! - Swap provider added
+
 ## 0.1.0
 
 ### Minor Changes

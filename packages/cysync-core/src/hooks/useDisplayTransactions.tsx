@@ -30,6 +30,7 @@ import React, { useCallback, useEffect, useState } from 'react';
 
 import { openHistoryDialog } from '~/actions';
 import { CoinIcon } from '~/components';
+import { useCurrency } from '~/context';
 import {
   useAccounts,
   useStateToRef,
@@ -39,7 +40,7 @@ import {
 import {
   selectDiscreetMode,
   selectLanguage,
-  selectPriceInfos,
+  selectCurrentCurrencyPriceInfos,
   selectWallets,
   useAppDispatch,
   useAppSelector,
@@ -89,6 +90,9 @@ export interface TransactionRowData {
   network: string;
   destinationTag?: number;
   memo?: string;
+  expiryDate?: string;
+  startDate?: string;
+  choice?: string;
   operation?: string;
   providerUrl?: string;
 }
@@ -127,12 +131,19 @@ const searchFilter = (
 };
 
 const selector = createSelector(
-  [selectLanguage, selectWallets, selectPriceInfos, selectDiscreetMode],
-  (lang, { wallets }, { priceInfos }, { active: isDiscreetMode }) => ({
+  [
+    selectLanguage,
+    selectWallets,
+    selectCurrentCurrencyPriceInfos,
+    selectDiscreetMode,
+    (state, currency: string) => currency,
+  ],
+  (lang, { wallets }, priceInfos, { active: isDiscreetMode }, currency) => ({
     lang,
     wallets,
     priceInfos,
     isDiscreetMode,
+    currency,
   }),
 );
 
@@ -158,25 +169,49 @@ const getExtraInfo = (transaction: ITransaction) => {
     operation = operation.charAt(0).toUpperCase() + operation.slice(1);
   }
 
-  return { remarks, destinationTag, memo, operation };
+  const expiryDate = transaction.extraData?.expiryDate
+    ? formatDate(
+        new Date(transaction.extraData?.expiryDate),
+        'eeee, MMMM d yyyy h:mm a',
+      )
+    : undefined;
+  const startDate = transaction.extraData?.startDate
+    ? formatDate(
+        new Date(transaction.extraData?.startDate),
+        'eeee, MMMM d yyyy h:mm a',
+      )
+    : undefined;
+  const choice = transaction.extraData?.choice;
+
+  return {
+    remarks,
+    destinationTag,
+    memo,
+    operation,
+    expiryDate,
+    startDate,
+    choice,
+  };
 };
 
 const getDisplayValues = (
   transaction: ITransaction,
   priceInfos: IPriceInfo[],
   isDiscreetMode: boolean,
+  currency: string,
 ) => {
-  let displayValue = '$0.00';
+  let displayValue = formatDisplayPrice('0.00', currency);
   let value = '0.00';
-  let displayFeeValue = '$0.00';
+  let displayFeeValue = formatDisplayPrice('0.00', currency);
   const coinPrice = priceInfos.find(
     p =>
       p.assetId === transaction.parentAssetId &&
-      p.currency.toLowerCase() === 'usd',
+      p.currency.toLowerCase() === currency.toLowerCase(),
   );
   const assetPrice = priceInfos.find(
     p =>
-      p.assetId === transaction.assetId && p.currency.toLowerCase() === 'usd',
+      p.assetId === transaction.assetId &&
+      p.currency.toLowerCase() === currency.toLowerCase(),
   );
 
   if (coinPrice) {
@@ -189,7 +224,7 @@ const getDisplayValues = (
     const feeValue = new BigNumber(feeInDefaultUnit.amount).multipliedBy(
       coinPrice.latestPrice,
     );
-    displayFeeValue = `$${formatDisplayPrice(feeValue)}`;
+    displayFeeValue = formatDisplayPrice(feeValue, currency);
   }
 
   if (assetPrice) {
@@ -206,10 +241,10 @@ const getDisplayValues = (
       new BigNumber(amountInDefaultUnit.amount).multipliedBy(
         assetPrice.latestPrice,
       ),
-      2,
+      currency,
     );
     value = formattedValue;
-    displayValue = `$${formattedValue}`;
+    displayValue = formattedValue;
   }
 
   const { amount, unit } = getParsedAmount({
@@ -262,9 +297,9 @@ const getDisplayValues = (
     status: transaction.status,
     statusText: lodash.capitalize(transaction.status),
     displayValueWithoutUnit: value,
-    displayValue: isDiscreetMode ? '$****' : displayValue,
-    displayValueUnit: 'USD',
-    displayFeeValue: isDiscreetMode ? '$****' : displayFeeValue,
+    displayValue: isDiscreetMode ? '****' : displayValue,
+    displayValueUnit: currency.toUpperCase(),
+    displayFeeValue: isDiscreetMode ? '****' : displayFeeValue,
     displayFee: `${isDiscreetMode ? '****' : fee} ${feeUnit.abbr}`,
     amount: parseFloat(amount),
     displayFeeWithoutUnit: fee,
@@ -307,6 +342,7 @@ export const mapTransactionForDisplay = (params: {
   accounts: IAccount[];
   lang: ILangState;
   isDiscreetMode: boolean;
+  currency: string;
 }): TransactionRowData => {
   const { transaction } = params;
 
@@ -318,7 +354,12 @@ export const mapTransactionForDisplay = (params: {
   );
 
   return {
-    ...getDisplayValues(transaction, params.priceInfos, params.isDiscreetMode),
+    ...getDisplayValues(
+      transaction,
+      params.priceInfos,
+      params.isDiscreetMode,
+      params.currency,
+    ),
     id: transaction.__id ?? '',
     xpubOrAddress: account?.xpubOrAddress ?? '',
     walletAndAccount: getWalletAndAccount(wallet, account),
@@ -348,10 +389,13 @@ export const useDisplayTransactions = ({
   parentAssetId,
   accountId,
 }: UseTransactionsProps = {}) => {
-  const { lang, wallets, priceInfos, isDiscreetMode } =
-    useAppSelector(selector);
   const accounts = useAccounts();
   const allTransactions = useTransactions();
+  const { currentCurrency } = useCurrency();
+  const { lang, wallets, priceInfos, isDiscreetMode } = useAppSelector(state =>
+    selector(state, currentCurrency),
+  );
+
   const refData = useStateToRef({
     lang,
     wallets,
@@ -363,6 +407,7 @@ export const useDisplayTransactions = ({
     assetId,
     parentAssetId,
     accountId,
+    currentCurrency,
   });
 
   const dispatch = useAppDispatch();
@@ -453,6 +498,7 @@ export const useDisplayTransactions = ({
             wallets: refData.current.wallets,
             accounts: refData.current.accounts,
             lang: refData.current.lang,
+            currency: refData.current.currentCurrency,
           }),
         );
 
@@ -475,7 +521,15 @@ export const useDisplayTransactions = ({
 
   useEffect(() => {
     debounceParseTransactionListOnUserAction();
-  }, [isDiscreetMode, lang, walletId, assetId, parentAssetId, accountId]);
+  }, [
+    isDiscreetMode,
+    lang,
+    walletId,
+    assetId,
+    parentAssetId,
+    accountId,
+    currentCurrency,
+  ]);
 
   useEffect(() => {
     setDisplayedData(getDisplayDataList(transactionList));

@@ -1,5 +1,5 @@
 import { getAssetOrUndefined } from '@cypherock/coin-support-utils';
-import { BtcIdMap, coinList } from '@cypherock/coins';
+import { BtcIdMap, coinFamiliesMap, coinList } from '@cypherock/coins';
 import {
   Breadcrumb,
   Button,
@@ -10,16 +10,26 @@ import {
   SvgProps,
   AccountSettingsIconBg,
 } from '@cypherock/cysync-ui';
+import { AccountTypeMap } from '@cypherock/db-interfaces';
 import lodash from 'lodash';
 import React, { FC } from 'react';
 
 import {
   openEditAccountDialog,
+  openEnableApprovalDialog,
+  openEnableMergeDelegationDialog,
   openReceiveDialog,
   openSendDialog,
+  openSyncCantonAccountPromptDialog,
 } from '~/actions';
 import { CoinIcon, Graph, TransactionTable } from '~/components';
-import { selectLanguage, useAppDispatch, useAppSelector } from '~/store';
+import {
+  selectCantonAuthTokens,
+  selectCantonUnauthorizedSyncError,
+  selectLanguage,
+  useAppDispatch,
+  useAppSelector,
+} from '~/store';
 
 import { TokenTable } from './TokenTable';
 
@@ -37,6 +47,10 @@ const SendIcon = (props: SvgProps) => (
 export const AccountPage: FC = () => {
   const dispatch = useAppDispatch();
   const lang = useAppSelector(selectLanguage);
+  const cantonAuthTokens = useAppSelector(selectCantonAuthTokens);
+  const cantonUnauthorizedSyncError = useAppSelector(
+    selectCantonUnauthorizedSyncError,
+  );
 
   const {
     selectedWallet,
@@ -98,6 +112,64 @@ export const AccountPage: FC = () => {
             >
               {lang.strings.buttons.receive}
             </Button>
+            {selectedAccount?.familyId === coinFamiliesMap.canton &&
+              selectedAccount.type !== AccountTypeMap.subAccount &&
+              !selectedAccount.extraData?.isTransferPreApprovalEnabled &&
+              !!cantonAuthTokens?.refreshToken &&
+              !cantonUnauthorizedSyncError && (
+                <Button
+                  variant="primary"
+                  onClick={() =>
+                    dispatch(
+                      openEnableApprovalDialog({
+                        selectedAccount,
+                        selectedWallet,
+                      }),
+                    )
+                  }
+                  size="sm"
+                  display="flex"
+                  justify="center"
+                  align="center"
+                >
+                  {lang.strings.buttons.autoApproval}
+                </Button>
+              )}
+            {selectedAccount?.familyId === coinFamiliesMap.canton &&
+              selectedAccount.type !== AccountTypeMap.subAccount &&
+              !selectedAccount.extraData?.isMergeDelegationEnabled &&
+              !!cantonAuthTokens?.refreshToken &&
+              !cantonUnauthorizedSyncError && (
+                <Button
+                  variant="primary"
+                  onClick={() =>
+                    dispatch(
+                      openEnableMergeDelegationDialog({
+                        selectedAccount,
+                        selectedWallet,
+                      }),
+                    )
+                  }
+                  size="sm"
+                  display="flex"
+                  justify="center"
+                  align="center"
+                >
+                  {lang.strings.buttons.mergeDelegation}
+                </Button>
+              )}
+            {selectedAccount?.familyId === coinFamiliesMap.canton &&
+              (!cantonAuthTokens?.refreshToken ||
+                cantonUnauthorizedSyncError) && (
+                <Button
+                  variant="primary"
+                  onClick={() => {
+                    dispatch(openSyncCantonAccountPromptDialog());
+                  }}
+                >
+                  {lang.strings.buttons.resync}
+                </Button>
+              )}
             <Container pl={{ def: 0, mdlg: 4 }} gap={8}>
               {doAllowAccountDeletion() && (
                 <Button

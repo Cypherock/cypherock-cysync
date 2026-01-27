@@ -1,6 +1,5 @@
 // The ReactNodes won't be rendered as list so key is not required
 /* eslint-disable react/jsx-key */
-import { IIcpAccount } from '@cypherock/coin-support-icp';
 import {
   getAsset,
   unhideOrInsertAccountIfNotExists,
@@ -13,6 +12,9 @@ import {
   icpCoinList,
   solanaCoinList,
   tronCoinList,
+  cantonCoinList,
+  createCantonInstrumentAssetId,
+  CantonIdMap,
 } from '@cypherock/coins';
 import { DropDownItemProps } from '@cypherock/cysync-ui';
 import { AccountTypeMap, IAccount, IWallet } from '@cypherock/db-interfaces';
@@ -31,6 +33,7 @@ import React, {
 
 import { syncAccounts, syncPriceHistories, syncPrices } from '~/actions';
 import { CoinIcon } from '~/components';
+import { useCurrency } from '~/context';
 import {
   ITabs,
   useAccountDropdown,
@@ -103,6 +106,7 @@ export const AddTokenDialogProvider: FC<AddTokenDialogContextProviderProps> = ({
   );
   const [selectedTokens, setSelectedTokens] = useState<TokenTypes[]>([]);
   const [selectedAccounts, setSelectedAccounts] = useState<IAccount[]>([]);
+  const { currentCurrency } = useCurrency();
 
   useEffect(() => {
     setSelectedAccounts([]);
@@ -162,6 +166,7 @@ export const AddTokenDialogProvider: FC<AddTokenDialogContextProviderProps> = ({
               ...Object.values(tronCoinList),
               ...Object.values(solanaCoinList),
               ...Object.values(icpCoinList),
+              ...Object.values(cantonCoinList),
             ]
               .filter(
                 c =>
@@ -212,7 +217,25 @@ export const AddTokenDialogProvider: FC<AddTokenDialogContextProviderProps> = ({
   const tokenDropDownList: DropDownItemProps[] = useMemo<
     DropDownItemProps[]
   >(() => {
-    const tokens = Object.values(tokenList);
+    // TODO: Remove the filter once we have a proper solution for SBC
+    const tokens = Object.values(tokenList)
+      .filter(t => {
+        if (
+          window.cysyncEnv.VENDOR === 'odix' &&
+          (t.parentId === 'fantom' || t.family === coinFamiliesMap.canton)
+        ) {
+          return false;
+        }
+        return true;
+      })
+      .filter(
+        token =>
+          token.id !==
+          createCantonInstrumentAssetId({
+            parentAssetId: CantonIdMap.canton,
+            assetId: 'SBC',
+          }),
+      );
 
     return tokens.map(token => ({
       id: token.id,
@@ -276,8 +299,12 @@ export const AddTokenDialogProvider: FC<AddTokenDialogContextProviderProps> = ({
             balance: '0',
             isHidden: false,
             extraData: {
-              ...(account.familyId === coinFamiliesMap.icp
-                ? { publicKey: (account as IIcpAccount).extraData.publicKey }
+              ...(account.familyId === coinFamiliesMap.icp ||
+              account.familyId === coinFamiliesMap.canton
+                ? { publicKey: account.extraData?.publicKey }
+                : {}),
+              ...('instrument' in token
+                ? { instrument: token.instrument }
                 : {}),
               contractAddress: token.address,
             },
@@ -294,11 +321,20 @@ export const AddTokenDialogProvider: FC<AddTokenDialogContextProviderProps> = ({
       .map(entry => entry.account);
 
     if (unHiddenOrNewTokenAccounts.length > 0) {
-      syncPrices({ families: [coinFamiliesMap.evm] }).catch(logger.error);
-      syncPriceHistories({ families: [coinFamiliesMap.evm] }).catch(
-        logger.error,
+      syncPrices({
+        families: [coinFamiliesMap.evm],
+        currency: currentCurrency,
+      }).catch(logger.error);
+      syncPriceHistories({
+        families: [coinFamiliesMap.evm],
+        currency: currentCurrency,
+      }).catch(logger.error);
+      dispatch(
+        syncAccounts({
+          accounts: unHiddenOrNewTokenAccounts,
+          currency: currentCurrency,
+        }),
       );
-      dispatch(syncAccounts({ accounts: unHiddenOrNewTokenAccounts }));
     }
 
     onNext();

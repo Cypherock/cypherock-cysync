@@ -1,0 +1,56 @@
+[
+  {
+    "description": {
+      "en": ""
+    },
+    "id": "CBTC",
+    "name": "CBTC",
+    "symbol": "CBTC",
+    "coinGeckoId": "bitcoin",
+    "platforms": {
+      "canton": {
+        "decimal_place": 10,
+        "instrument": {
+          "id": "CBTC",
+          "admin": "cbtc-network::12205af3b949a04776fc48cdcc05a060f6bda2e470632935f375d1049a8546a3b262"
+        }
+      }
+    }
+  },
+  {
+    "description": {
+      "en": ""
+    },
+    "id": "USDCx",
+    "name": "USDCx",
+    "symbol": "USDCx",
+    "coinGeckoId": "usd-coin",
+    "platforms": {
+      "canton": {
+        "decimal_place": 10,
+        "instrument": {
+          "id": "USDCx",
+          "admin": "decentralized-usdc-interchain-rep::12208115f1e168dd7e792320be9c4ca720c751a02a3053c7606e1c1cd3dad9bf60ef"
+        }
+      }
+    }
+  },
+  {
+    "description": {
+      "en": ""
+    },
+    "id": "SBC",
+    "name": "Stable Coin",
+    "symbol": "SBC",
+    "coinGeckoId": "stable-coin-2",
+    "platforms": {
+      "canton": {
+        "decimal_place": 10,
+        "instrument": {
+          "id": "29bdd7a-1469-498a-ba2a-796bf5387b31",
+          "admin": "party-28dc4516-b5ca-44ff-86c7-2107e90a6807::1220b8301e18aa8a401d6e34e6c20f8b0243183c514373bca8f1b6b9270246341a9e"
+        }
+      }
+    }
+  }
+]

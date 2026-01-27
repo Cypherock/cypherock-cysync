@@ -21,7 +21,13 @@ export const Styles = createGlobalStyle`
   padding: 0px;
   font-family: 'Poppins';
 }
+*:focus-visible {
+  outline: 1px solid ${({ theme }) => theme.palette.border.gold}; 
+}
 
+::-webkit-focus-ring-color {
+  outline: ${({ theme }) => theme.palette.border.gold};
+}
 
 ::-webkit-scrollbar {
   width: 4px;
@@ -40,19 +46,37 @@ export const Styles = createGlobalStyle`
 }
 `;
 
+const goldGradientStops = (
+  <>
+    <stop stopColor="#E9B873" />
+    <stop offset="0.369792" stopColor="#FEDD8F" />
+    <stop offset="1" stopColor="#B78D51" />
+  </>
+);
+
+const odixGradientStops = (
+  <>
+    <stop stopColor="#E1A68C" offset="0%" />
+    <stop stopColor="#FFC8AF" offset="37%" />
+    <stop stopColor="#B37D65" offset="100%" />
+  </>
+);
+
+const primaryGradientStops =
+  (window as any).cysyncEnv.VENDOR === 'default'
+    ? goldGradientStops
+    : odixGradientStops;
+
 export const GlobalStyles: React.FC = () => (
   <>
     <Styles />
     <TooltipStyles />
     <SvgStyle width={0} height={0} position="absolute" $zIndex={-50}>
       <defs>
-        <linearGradient id={svgGradients.gold}>
-          <stop stopColor="#E9B873" />
-          <stop offset="0.369792" stopColor="#FEDD8F" />
-          <stop offset="1" stopColor="#B78D51" />
+        <linearGradient id="gold-gradient" gradientUnits="useerSpaceOnUse">
+          {primaryGradientStops}
         </linearGradient>
-
-        <linearGradient id={svgGradients.silver}>
+        <linearGradient id="silver-gradient">
           <stop stopColor="#A2ADB3" />
           <stop offset="0.348958" stopColor="#F3F1F2" />
           <stop offset="0.65625" stopColor="#BCC3C9" />

@@ -1,6 +1,6 @@
 import {
   getDefaultUnit,
-  formatDisplayPrice,
+  formatDisplayAmount,
 } from '@cypherock/coin-support-utils';
 import {
   CustomInputSend,
@@ -13,7 +13,12 @@ import {
 import { BigNumber } from '@cypherock/cysync-utils';
 import React, { useMemo, useRef } from 'react';
 
-import { useAppSelector, selectLanguage, selectPriceInfos } from '~/store';
+import { useCurrency } from '~/context';
+import {
+  useAppSelector,
+  selectLanguage,
+  selectCurrentCurrencyPriceInfos,
+} from '~/store';
 
 const throbber: JSX.Element = <Throbber size={15} strokeWidth={2} />;
 
@@ -29,7 +34,8 @@ const AmountInput: React.FC<any> = ({
 }) => {
   const inputRef = useRef<HTMLInputElement | null>(null);
   const filterNumericInput = (val: string) => {
-    let filteredValue = val.replace(/[^0-9.]/g, '');
+    const [firstPart] = val.split(' ');
+    let filteredValue = firstPart.replace(/[^0-9.]/g, '');
     const bigNum = new BigNumber(filteredValue);
 
     if (filteredValue.includes('.')) {
@@ -134,7 +140,10 @@ export const AmountAndAccountSelection: React.FC<any> = ({
   const lang = useAppSelector(selectLanguage);
   const dialogText = lang.strings.swap.detailsInput.common;
 
-  const { priceInfos } = useAppSelector(selectPriceInfos);
+  const { currentCurrency } = useCurrency();
+  const priceInfos = useAppSelector(state =>
+    selectCurrentCurrencyPriceInfos(state, currentCurrency),
+  );
 
   const coinUnit = useMemo(() => {
     const account = selectedAccount;
@@ -151,9 +160,7 @@ export const AmountAndAccountSelection: React.FC<any> = ({
     const account = selectedAccount;
     if (!account) return '';
 
-    const assetPrice = priceInfos.find(
-      p => p.assetId === account?.assetId && p.currency.toLowerCase() === 'usd',
-    );
+    const assetPrice = priceInfos.find(p => p.assetId === account?.assetId);
 
     if (!assetPrice) return '';
 
@@ -162,9 +169,9 @@ export const AmountAndAccountSelection: React.FC<any> = ({
       assetPrice.latestPrice,
     );
 
-    const value = formatDisplayPrice(amountValue);
+    const value = formatDisplayAmount(amountValue).fixed;
 
-    return `~${value} ${assetPrice.currency.toUpperCase()}`;
+    return `~${value} ${currentCurrency.toUpperCase()}`;
   }, [selectedAccount, amount]);
 
   return (

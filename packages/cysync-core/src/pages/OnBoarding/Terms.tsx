@@ -7,7 +7,7 @@ import {
   DialogBoxFooter,
   Flex,
   LangDisplay,
-  LogoOutlinedAsideImage,
+  LogoOutlinedAside,
   TermsOfUseGraphics,
   Typography,
   ExternalLink,
@@ -23,6 +23,7 @@ import React, {
 import { constants, routes } from '~/constants';
 import { useLockscreen } from '~/context';
 import { useNavigateTo } from '~/hooks';
+import { analyticsService, ANALYTICS_EVENTS } from '~/services/analytics';
 import { selectLanguage, useAppSelector } from '~/store';
 import { keyValueStore } from '~/utils';
 
@@ -51,6 +52,7 @@ const TermsDialogBox: FC<{
   const { isPasswordSet } = useLockscreen();
   const navigateTo = useNavigateTo();
   const toNextPage = async () => {
+    analyticsService.trackEvent(ANALYTICS_EVENTS.ONBOARDING_TERMS_ACCEPTED);
     if (isPasswordSet) navigateTo(routes.onboarding.emailAuth.path);
     else navigateTo(routes.onboarding.setPassword.path);
   };
@@ -100,6 +102,10 @@ export const Terms: FC = () => {
   const lang = useAppSelector(selectLanguage);
   const [isChecked, setIsChecked] = useState(false);
 
+  useEffect(() => {
+    analyticsService.trackEvent(ANALYTICS_EVENTS.ONBOARDING_TERMS_PAGE_VIEWED);
+  }, []);
+
   const fetchTerms = async () => {
     setIsChecked(await keyValueStore.isTermsAccepted.get());
   };
@@ -118,7 +124,7 @@ export const Terms: FC = () => {
 
   return (
     <OnboardingPageLayout
-      img={LogoOutlinedAsideImage}
+      img={LogoOutlinedAside}
       text={lang.strings.onboarding.terms.title}
       currentState={1}
       totalState={8}

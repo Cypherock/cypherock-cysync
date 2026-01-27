@@ -2,9 +2,9 @@ with import <nixpkgs> {};
   stdenv.mkDerivation {
     name = "cysync";
     buildInputs = [
-      nodejs_18
+      nodejs_20
       nodePackages.pnpm
-      python39
+      python310
       nodePackages.node-gyp
       libusb1
       udev

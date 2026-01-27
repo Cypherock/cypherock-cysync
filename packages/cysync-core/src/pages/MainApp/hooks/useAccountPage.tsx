@@ -6,6 +6,8 @@ import {
   Container,
   Tag,
   Typography,
+  Tooltip,
+  useOverflow,
 } from '@cypherock/cysync-ui';
 import { IAccount, IWallet } from '@cypherock/db-interfaces';
 import { createSelector } from '@reduxjs/toolkit';
@@ -23,6 +25,100 @@ import {
   useWalletDropdown,
 } from '~/hooks';
 import { selectLanguage, selectWallets, useAppSelector } from '~/store';
+
+interface AccountNameDisplayProps {
+  name: string;
+  maxWidth?: string;
+}
+
+const AccountNameDisplay: React.FC<AccountNameDisplayProps> = ({
+  name,
+  maxWidth,
+}) => {
+  const { ref, isOverflowing } = useOverflow({ ofChild: true });
+
+  return (
+    <Tooltip text={name} isActive={isOverflowing}>
+      <div ref={ref}>
+        <Typography
+          ml={1}
+          $textOverflow="ellipsis"
+          $whiteSpace="nowrap"
+          $maxWidth={maxWidth}
+        >
+          {name}
+        </Typography>
+      </div>
+    </Tooltip>
+  );
+};
+
+AccountNameDisplay.defaultProps = {
+  maxWidth: undefined,
+};
+
+interface AssetNameDisplayProps {
+  name: string;
+  maxWidth?: string;
+}
+
+const AssetNameDisplay: React.FC<AssetNameDisplayProps> = ({
+  name,
+  maxWidth,
+}) => {
+  const { ref, isOverflowing } = useOverflow({ ofChild: true });
+
+  return (
+    <Tooltip text={name} isActive={isOverflowing}>
+      <div ref={ref}>
+        <Typography
+          ml={1}
+          $textOverflow="ellipsis"
+          $whiteSpace="nowrap"
+          $maxWidth={maxWidth}
+        >
+          {name}
+        </Typography>
+      </div>
+    </Tooltip>
+  );
+};
+
+AssetNameDisplay.defaultProps = {
+  maxWidth: undefined,
+};
+
+interface DropdownAccountNameDisplayProps {
+  name: string;
+  maxWidth?: string;
+}
+
+const DropdownAccountNameDisplay: React.FC<DropdownAccountNameDisplayProps> = ({
+  name,
+  maxWidth,
+}) => {
+  const { ref, isOverflowing } = useOverflow({ ofChild: true });
+
+  return (
+    <Tooltip text={name} isActive={isOverflowing}>
+      <div ref={ref}>
+        <Typography
+          mx={1}
+          color="muted"
+          $textOverflow="ellipsis"
+          $whiteSpace="nowrap"
+          $maxWidth={maxWidth}
+        >
+          {name}
+        </Typography>
+      </div>
+    </Tooltip>
+  );
+};
+
+DropdownAccountNameDisplay.defaultProps = {
+  maxWidth: undefined,
+};
 
 const selector = createSelector(
   [selectWallets, selectLanguage],
@@ -128,9 +224,10 @@ export const useAccountPage = () => {
               parentAssetId={a.parentAssetId}
               assetId={a.assetId}
             />
-            <Typography mx={1} color="muted">
-              {a.name}
-            </Typography>
+            <DropdownAccountNameDisplay
+              name={a.name}
+              maxWidth={a.derivationScheme !== undefined ? '6vw' : '10vw'}
+            />
             {a.derivationScheme && (
               <Tag>{lodash.upperCase(a.derivationScheme)}</Tag>
             )}
@@ -165,7 +262,7 @@ export const useAccountPage = () => {
               subContainerSize="12px"
               size="16px"
             />
-            <Typography ml={1}>{parentAccount?.name}</Typography>
+            <AccountNameDisplay name={parentAccount?.name ?? ''} />
           </Container>
         ),
         selectedItem: parentAccount?.__id ?? '',
@@ -190,7 +287,7 @@ export const useAccountPage = () => {
                 subContainerSize="12px"
                 size="16px"
               />
-              <Typography ml={1}>{selectedAccount.name}</Typography>
+              <AccountNameDisplay name={selectedAccount.name} />
             </Container>
           ),
           selectedItem: selectedAccount.__id ?? '',
@@ -224,7 +321,7 @@ export const useAccountPage = () => {
                   subContainerSize="12px"
                   size="16px"
                 />
-                <Typography ml={1}>{fromAsset.asset.name}</Typography>
+                <AssetNameDisplay name={fromAsset.asset.name} />
               </Container>
             ),
             selectedItem: `${fromAsset.parentAssetId}/${fromAsset.assetId}`,

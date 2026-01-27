@@ -3,7 +3,8 @@ import styled from 'styled-components';
 
 import { ListItemDropdown } from '..';
 import { DropdownArrow } from '../../../assets';
-import { Flex, Typography } from '../../atoms';
+import { Flex, Typography, Tooltip } from '../../atoms';
+import { useOverflow } from '../../../hooks';
 
 export interface BreadcrumbDropdownItem {
   id: string;
@@ -26,6 +27,20 @@ const DropDownWrapper = styled.div`
   display: flex;
   gap: 12px;
   align-items: center;
+  min-width: 0;
+`;
+
+const DisplayNodeContainer = styled.div`
+  min-width: 0;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+
+  * {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+  }
 `;
 
 const ListItemWrapper = styled.div`
@@ -42,6 +57,7 @@ const ListItemWrapper = styled.div`
   top: calc(100% + 10px);
   left: 0;
   overflow-y: scroll;
+  overflow-x: hidden;
 `;
 
 export const BreadcrumbDropdown: FC<BreadcrumbDropdownProps> = ({
@@ -52,6 +68,7 @@ export const BreadcrumbDropdown: FC<BreadcrumbDropdownProps> = ({
 }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [focusedIndex, setFocusedIndex] = useState(-1);
+  const { isOverflowing, ref: overflowRef } = useOverflow({ ofChild: true });
 
   const dropdownState = () => setIsOpen(!isOpen);
 
@@ -135,11 +152,27 @@ export const BreadcrumbDropdown: FC<BreadcrumbDropdownProps> = ({
 
   return (
     <DropDownWrapper ref={buttonRef} onClick={dropdownState}>
-      <Flex gap={16} align="center">
-        <Typography variant="div" $fontSize={16} $fontWeight="medium">
-          {displayNode}
-        </Typography>
-        <DropdownArrow />
+      <Flex gap={16} align="center" $minWidth="0px">
+        <DisplayNodeContainer>
+          {typeof displayNode === 'string' ? (
+            <Tooltip text={displayNode} isActive={isOverflowing}>
+              <div ref={overflowRef}>
+                <Typography
+                  variant="div"
+                  $fontSize={16}
+                  $fontWeight="medium"
+                  $textOverflow="ellipsis"
+                  $whiteSpace="nowrap"
+                >
+                  {displayNode}
+                </Typography>
+              </div>
+            </Tooltip>
+          ) : (
+            displayNode
+          )}
+        </DisplayNodeContainer>
+        <DropdownArrow style={{ flexShrink: 0 }} />
       </Flex>
       {isOpen && dropdown?.length && (
         <ListItemWrapper ref={dropdownRef}>
