@@ -9,10 +9,10 @@ import { BigNumber } from '@cypherock/cysync-utils';
 import { IDatabase } from '@cypherock/db-interfaces';
 
 export const showPortfolio = async (db: IDatabase, currency: string) => {
-  const allocations = await getCoinAllocations({ 
-    db, 
+  const allocations = await getCoinAllocations({
+    db,
     currency,
-    coinFamilies: Object.keys(coinFamiliesMap)
+    coinFamilies: Object.keys(coinFamiliesMap),
   });
 
   const displayTable = allocations
