@@ -44,7 +44,8 @@ export const LatestDeviceVersionProvider: React.FC<
   const variantDisplayName = getFirmwareVariantDisplayName(variant);
 
   const fetchLatestVersion = useCallback(async () => {
-    const currentRequestId = requestIdRef.current + 1;
+    requestIdRef.current += 1;
+    const currentRequestId = requestIdRef.current;
     setVersion(undefined);
     const connection = connectionRef.current.connectionInfo;
 
