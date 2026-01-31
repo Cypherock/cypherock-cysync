@@ -47,7 +47,7 @@
   },
   "dependencies": {
     "@cypherock/coins": "workspace:^",
-    "@cypherock/sdk-app-manager": "^0.0.36",
+    "@cypherock/sdk-app-manager": "^0.0.37",
     "@cypherock/sdk-interfaces": "^0.0.16"
   }
 }
