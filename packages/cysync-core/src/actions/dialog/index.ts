@@ -26,6 +26,7 @@ import { ReceiveDialogProps } from '~/dialogs/Receive';
 import { SendDialogProps } from '~/dialogs/Send/';
 import { ISwapDialogProps } from '~/dialogs/SwapDialog';
 import { GuidedFlowType, openDialog } from '~/store';
+import { SignMessageDialogProps } from '~/dialogs/SignMessage/context';
 
 export const openWalletSyncErrorDialog = () =>
   openDialog({ name: 'walletSyncError', data: undefined });
@@ -36,8 +37,8 @@ export const openWalletActionsDialog = () =>
 export const openWalletConnectDialog = () =>
   openDialog({ name: 'walletConnect', data: undefined });
 
-export const openSignMessageDialog = () =>
-  openDialog({ name: 'signMessage', data: undefined });
+export const openSignMessageDialog = (data?: SignMessageDialogProps) =>
+  openDialog({ name: 'signMessage', data });
 
 export const openGuidedFlowDialog = (type: GuidedFlowType) =>
   openDialog({ name: 'guidedFlow', data: { type } });

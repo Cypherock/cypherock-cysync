@@ -2,8 +2,11 @@ import { BlurOverlay, DialogBox } from '@cypherock/cysync-ui';
 import React, { FC } from 'react';
 
 import { WithConnectedDevice } from '~/components';
-
-import { SignMessageDialogProvider, useSignMessageDialog } from './context';
+import {
+  SignMessageDialogProvider,
+  useSignMessageDialog,
+  SignMessageDialogProps,
+} from './context';
 
 const DeviceConnectionWrapper: React.FC<{
   isDeviceRequired: boolean;
@@ -29,8 +32,8 @@ const SignMessage: FC = () => {
   );
 };
 
-export const SignMessageDialog: FC = () => (
-  <SignMessageDialogProvider>
+export const SignMessageDialog: FC<SignMessageDialogProps> = props => (
+  <SignMessageDialogProvider {...props}>
     <SignMessage />
   </SignMessageDialogProvider>
 );

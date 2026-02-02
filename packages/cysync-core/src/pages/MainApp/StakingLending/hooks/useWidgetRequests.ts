@@ -6,12 +6,7 @@ import { useAppDispatch, useAppSelector, selectWallets } from '~/store';
 import logger from '~/utils/logger';
 
 import { useWidget } from '../context/WidgetProvider';
-import {
-  WIDGET_SUPPORTED_METHODS,
-  WidgetCallRequestData,
-} from '../context/types';
-import { useWalletConnect } from '~/context';
-
+import { WIDGET_SUPPORTED_METHODS } from '../context/types';
 
 interface UseWidgetRequestsParams {
   webviewRef: React.RefObject<any>;
@@ -41,14 +36,12 @@ export function useWidgetRequests({
   isActive,
 }: UseWidgetRequestsParams) {
   const dispatch = useAppDispatch();
-  const { setPendingRequest, callRequestData, approveCallRequest, rejectCallRequest } = useWidget();
-  const { 
-    setExternalCallRequest, 
-    setExternalActiveAccount, 
-    setExternalActiveWallet,
-    setWidgetApproveHandler,
-    setWidgetRejectHandler
-  } = useWalletConnect();
+  const {
+    setPendingRequest,
+    callRequestData,
+    approveCallRequest,
+    rejectCallRequest,
+  } = useWidget();
   const { wallets } = useAppSelector(selectWallets);
   const hasDispatchedDialogRef = useRef(false);
 
@@ -128,21 +121,15 @@ export function useWidgetRequests({
         return;
       }
 
-      // Set external data in WalletConnect context
-      setExternalCallRequest({
-        method: callRequestData.method as any,
-        params: callRequestData.params,
-        id: callRequestData.id as any,
-      });
-      setExternalActiveAccount(selectedAccount);
-      setExternalActiveWallet(wallet);
-      
-      setWidgetApproveHandler(approveCallRequest);
-      setWidgetRejectHandler(rejectCallRequest);
+      const p2pRequestType =
+        callRequestData.method === WIDGET_SUPPORTED_METHODS.ETH_SIGN_TRANSACTION
+          ? 'SIGN_ONLY'
+          : 'SIGN_AND_SEND';
 
-      logger.info('WidgetRequests: Set WalletConnect context and handlers for transaction', {
+      logger.info('WidgetRequests: Opening SendDialog with P2P props', {
         account: selectedAccount.name,
         wallet: wallet.name,
+        p2pRequestType,
       });
 
       dispatch(
@@ -151,7 +138,10 @@ export function useWidgetRequests({
           accountId: selectedAccount.__id,
           txnData: txnParams,
           disableAccountSelection: true,
-          isWalletConnectRequest: true,
+          isP2PRequest: true,
+          onP2PApprove: approveCallRequest,
+          onP2PReject: rejectCallRequest,
+          p2pRequestType,
         }),
       );
       return;
@@ -159,7 +149,7 @@ export function useWidgetRequests({
 
     // Handle signature methods
     if (SIGN_METHODS.includes(callRequestData.method as any)) {
-      logger.info('WidgetRequests: Opening SignMessageDialog', {
+      logger.info('WidgetRequests: Opening SignMessageDialog for P2P widget', {
         method: callRequestData.method,
       });
 
@@ -173,23 +163,21 @@ export function useWidgetRequests({
         return;
       }
 
-      setExternalCallRequest({
-        method: callRequestData.method as any,
-        params: callRequestData.params,
-        id: callRequestData.id as any,
-      });
-      setExternalActiveAccount(selectedAccount);
-      setExternalActiveWallet(wallet);
-      
-      setWidgetApproveHandler(approveCallRequest);
-      setWidgetRejectHandler(rejectCallRequest);
-
-      logger.info('WidgetRequests: Set WalletConnect context for signing', {
+      logger.info('WidgetRequests: Opening SignMessageDialog with P2P props', {
         account: selectedAccount.name,
         wallet: wallet.name,
       });
 
-      dispatch(openSignMessageDialog());
+      dispatch(
+        openSignMessageDialog({
+          isP2PRequest: true,
+          onP2PApprove: approveCallRequest,
+          onP2PReject: rejectCallRequest,
+          activeAccount: selectedAccount,
+          activeWallet: wallet,
+          callRequestData: callRequestData as any,
+        }),
+      );
       return;
     }
 
@@ -198,17 +186,12 @@ export function useWidgetRequests({
       method: callRequestData.method,
     });
   }, [
-    callRequestData, 
-    dispatch, 
-    selectedAccount, 
-    wallets, 
-    setExternalCallRequest, 
-    setExternalActiveAccount, 
-    setExternalActiveWallet,
-    setWidgetApproveHandler,
-    setWidgetRejectHandler,
+    callRequestData,
+    dispatch,
+    selectedAccount,
+    wallets,
     approveCallRequest,
-    rejectCallRequest
+    rejectCallRequest,
   ]);
 
   useEffect(() => {

@@ -10,7 +10,6 @@ import { MainAppLayout } from '../Layout';
 import { WidgetAccountSelector } from './components/WidgetAccountSelector';
 import { WidgetContainer } from './components/WidgetContainer';
 import { WidgetProvider } from './context/WidgetProvider';
-import { WidgetWalletConnectBridge } from './context/WidgetWalletConnectBridge';
 import { useWidgetRequests } from './hooks/useWidgetRequests';
 
 enum StakingLendingState {
@@ -22,11 +21,10 @@ enum StakingLendingState {
 
 const WidgetActiveView: React.FC<{
   selectedAccount: IAccount;
-  selectedWallet?: IWallet;
   webviewRef: React.RefObject<any>;
   onError: (error: string) => void;
   onDisconnect: () => void;
-}> = ({ selectedAccount, selectedWallet, webviewRef, onError, onDisconnect }) => {
+}> = ({ selectedAccount, webviewRef, onError, onDisconnect }) => {
   // Hook that polls webview and dispatches dialogs
   useWidgetRequests({
     webviewRef,
@@ -35,31 +33,26 @@ const WidgetActiveView: React.FC<{
   });
 
   return (
-    <WidgetWalletConnectBridge
+    <WidgetContainer
       selectedAccount={selectedAccount}
-      selectedWallet={selectedWallet}
-    >
-      <WidgetContainer
-        selectedAccount={selectedAccount}
-        webviewRef={webviewRef}
-        onError={onError}
-        onDisconnect={onDisconnect}
-      />
-    </WidgetWalletConnectBridge>
+      webviewRef={webviewRef}
+      onError={onError}
+      onDisconnect={onDisconnect}
+    />
   );
 };
 
 export const StakingLending = () => {
   const { wallets } = useAppSelector(selectWallets);
-  
+
   const [currentState, setCurrentState] = useState<StakingLendingState>(
     StakingLendingState.OVERVIEW,
   );
   const [selectedAccount, setSelectedAccount] = useState<
     IAccount | undefined
   >();
-  const [selectedWallet, setSelectedWallet] = useState<IWallet | undefined>();
   const [generalError, setGeneralError] = useState<string | null>(null);
+  const widgetWebviewRef = useRef<any>(null);
 
   // Handle account selection from dialog
   const handleAccountSelected = async (account: IAccount, wallet: IWallet) => {
@@ -69,7 +62,6 @@ export const StakingLending = () => {
     });
 
     setSelectedAccount(account);
-    setSelectedWallet(wallet);
     setCurrentState(StakingLendingState.WIDGET_ACTIVE);
     setGeneralError(null);
   };
@@ -78,7 +70,6 @@ export const StakingLending = () => {
   const handleBackToOverview = () => {
     logger.info('StakingLending: Returning to overview');
     setSelectedAccount(undefined);
-    setSelectedWallet(undefined);
     setGeneralError(null);
     setCurrentState(StakingLendingState.OVERVIEW);
   };
@@ -158,22 +149,17 @@ export const StakingLending = () => {
       return <LoaderDialog />;
     }
 
-    // Create webviewRef here to pass down to all components
-    // eslint-disable-next-line react-hooks/rules-of-hooks
-    const widgetWebviewRef = useRef<any>(null);
-
     return (
       <WidgetProvider webviewRef={widgetWebviewRef}>
         <WidgetActiveView
           selectedAccount={selectedAccount}
-          selectedWallet={selectedWallet}
           webviewRef={widgetWebviewRef}
           onError={handleWidgetError}
           onDisconnect={handleBackToOverview}
         />
       </WidgetProvider>
     );
-  }, [selectedAccount, selectedWallet, handleWidgetError, handleBackToOverview]);
+  }, [selectedAccount, handleWidgetError, handleBackToOverview]);
 
   // Error screen
   const ErrorScreen = useCallback(

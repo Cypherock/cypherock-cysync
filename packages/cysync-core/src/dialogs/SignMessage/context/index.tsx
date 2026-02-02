@@ -4,6 +4,14 @@ import {
   ISignMessageParamsPayload,
   SignMessageType,
 } from '@cypherock/coin-support-interfaces';
+import { IAccount, IWallet } from '@cypherock/db-interfaces';
+import {
+  WalletConnectCallRequestData,
+  WalletConnectSignMessageMap,
+  deviceLock,
+  useDevice,
+  useWalletConnect,
+} from '~/context';
 import lodash from 'lodash';
 import React, {
   Context,
@@ -17,12 +25,6 @@ import React, {
 } from 'react';
 import { Observer, Subscription } from 'rxjs';
 
-import {
-  WalletConnectSignMessageMap,
-  deviceLock,
-  useDevice,
-  useWalletConnect,
-} from '~/context';
 import { ITabs, useTabsAndDialogs } from '~/hooks';
 import {
   closeDialog,
@@ -57,22 +59,53 @@ export const SignMessageDialogContext: Context<SignMessageDialogContextInterface
     {} as SignMessageDialogContextInterface,
   );
 
-export interface SignMessageDialogProviderProps {
+export interface SignMessageDialogProps {
+  isP2PRequest?: boolean;
+  onP2PApprove?: (signature: string) => void;
+  onP2PReject?: () => void;
+  activeAccount?: IAccount;
+  activeWallet?: IWallet;
+  callRequestData?: WalletConnectCallRequestData;
+}
+
+export interface SignMessageDialogProviderProps extends SignMessageDialogProps {
   children: ReactNode;
 }
 
 export const SignMessageDialogProvider: FC<SignMessageDialogProviderProps> = ({
   children,
+  isP2PRequest,
+  onP2PApprove,
+  onP2PReject,
+  activeAccount: p2pActiveAccount,
+  activeWallet: p2pActiveWallet,
+  callRequestData: p2pCallRequestData,
 }) => {
   const lang = useAppSelector(selectLanguage);
   const dispatch = useAppDispatch();
-  const {
-    rejectCallRequest,
-    callRequestData,
-    approveCallRequest,
-    activeAccount,
-    activeWallet,
-  } = useWalletConnect();
+
+  const walletConnectContext = useWalletConnect();
+  const rejectCallRequest =
+    isP2PRequest && onP2PReject
+      ? onP2PReject
+      : walletConnectContext.rejectCallRequest;
+
+  const approveCallRequest =
+    isP2PRequest && onP2PApprove
+      ? onP2PApprove
+      : walletConnectContext.approveCallRequest;
+
+  const callRequestData = isP2PRequest
+    ? p2pCallRequestData
+    : walletConnectContext.callRequestData;
+
+  const activeAccount = isP2PRequest
+    ? p2pActiveAccount
+    : walletConnectContext.activeAccount;
+
+  const activeWallet = isP2PRequest
+    ? p2pActiveWallet
+    : walletConnectContext.activeWallet;
 
   const { connection } = useDevice();
   const [deviceEvents, setDeviceEvents] = useState<
@@ -240,3 +273,12 @@ export const SignMessageDialogProvider: FC<SignMessageDialogProviderProps> = ({
 export function useSignMessageDialog(): SignMessageDialogContextInterface {
   return useContext(SignMessageDialogContext);
 }
+
+SignMessageDialogProvider.defaultProps = {
+  isP2PRequest: undefined,
+  onP2PApprove: undefined,
+  onP2PReject: undefined,
+  activeAccount: undefined,
+  activeWallet: undefined,
+  callRequestData: undefined,
+};

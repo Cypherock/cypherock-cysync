@@ -189,6 +189,11 @@ export interface SendDialogProps {
   onError?: (e?: any) => void;
   validTill?: string;
   providerName?: string;
+  // props for P2P widget
+  isP2PRequest?: boolean;
+  onP2PApprove?: (result: string) => void;
+  onP2PReject?: () => void;
+  p2pRequestType?: 'SIGN_ONLY' | 'SIGN_AND_SEND';
 }
 
 export interface SendDialogContextProviderProps extends SendDialogProps {
@@ -210,6 +215,10 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
   onError: injectedOnError,
   validTill,
   providerName,
+  isP2PRequest,
+  onP2PApprove,
+  onP2PReject,
+  p2pRequestType,
 }) => {
   const lang = useAppSelector(selectLanguage);
   const dispatch = useAppDispatch();
@@ -317,19 +326,29 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
 
   useEffect(() => {
     if (signedTransaction) {
+      // Broadcast for normal sends, WalletConnect eth_sendTransaction, or P2P SIGN_AND_SEND
       if (
-        !isWalletConnectRequest ||
-        callRequestData?.method ===
-          WalletConnectCallRequestMethodMap.ETH_SEND_TXN
-      )
-        broadcast();
-
-      if (
-        isWalletConnectRequest &&
-        callRequestData?.method ===
-          WalletConnectCallRequestMethodMap.ETH_SIGN_TXN
+        (!isWalletConnectRequest && !isP2PRequest) ||
+        (isWalletConnectRequest &&
+          callRequestData?.method ===
+            WalletConnectCallRequestMethodMap.ETH_SEND_TXN) ||
+        (isP2PRequest && p2pRequestType === 'SIGN_AND_SEND')
       ) {
-        approveCallRequest(signedTransaction);
+        broadcast();
+      }
+
+      // Return signature only for WalletConnect eth_signTransaction or P2P SIGN_ONLY
+      if (
+        (isWalletConnectRequest &&
+          callRequestData?.method ===
+            WalletConnectCallRequestMethodMap.ETH_SIGN_TXN) ||
+        (isP2PRequest && p2pRequestType === 'SIGN_ONLY')
+      ) {
+        if (isP2PRequest && onP2PApprove) {
+          onP2PApprove(signedTransaction);
+        } else if (isWalletConnectRequest) {
+          approveCallRequest(signedTransaction);
+        }
         onClose(true);
       }
     }
@@ -361,7 +380,16 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
 
   const onClose = async (skipRejection?: boolean) => {
     cleanUp();
-    if (!skipRejection && isWalletConnectRequest) rejectCallRequest();
+
+    if (!skipRejection) {
+      if (isWalletConnectRequest) {
+        rejectCallRequest();
+      }
+      if (isP2PRequest && onP2PReject) {
+        onP2PReject();
+      }
+    }
+
     if (injectedOnClose) injectedOnClose();
     dispatch(closeDialog('sendDialog'));
   };
@@ -413,6 +441,13 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
           onClose(true);
           return;
         }
+
+        if (isP2PRequest && onP2PApprove) {
+          onP2PApprove(storedTxn.hash);
+          onClose(true);
+          return;
+        }
+
         setStoredTransaction(storedTxn);
         setTransactionLink(
           getCurrentCoinSupport().getExplorerLink({ transaction: storedTxn }),
@@ -1308,4 +1343,8 @@ SendDialogProvider.defaultProps = {
   onError: undefined,
   validTill: undefined,
   providerName: undefined,
+  isP2PRequest: undefined,
+  onP2PApprove: undefined,
+  onP2PReject: undefined,
+  p2pRequestType: undefined,
 };
