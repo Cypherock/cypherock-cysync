@@ -13,20 +13,14 @@ import logger from '~/utils/logger';
 
 import { WidgetCallRequestData, WidgetContextInterface } from './types';
 
-/**
- * Widget Context Provider
- * 
- * This provider manages the state for widget requests (transactions/signatures).
- * It stores pending requests and provides methods to approve/reject them.
- * 
- * The WidgetWalletConnectBridge component reads from this context and injects
- * the data into WalletConnect context, allowing dialogs to work seamlessly.
- */
-
 export const WidgetContext = createContext<WidgetContextInterface>({
   callRequestData: null,
-  approveCallRequest: () => {},
-  rejectCallRequest: () => {},
+  approveCallRequest: () => {
+    /* default no-op */
+  },
+  rejectCallRequest: () => {
+    /* default no-op */
+  },
   isActive: false,
 });
 
@@ -39,17 +33,11 @@ export const WidgetProvider: FC<WidgetProviderProps> = ({
   children,
   webviewRef,
 }) => {
-  // Current pending request (will be injected into WalletConnect context by bridge)
   const [callRequestData, setCallRequestData] =
     useState<WidgetCallRequestData | null>(null);
 
-  // Store the current request ID so we can resolve the correct promise in webview
   const currentRequestIdRef = useRef<string | null>(null);
 
-  /**
-   * Called by dialogs when transaction/signature completes successfully
-   * Sends the result back to the webview to resolve the widget's promise
-   */
   const approveCallRequest = useCallback(
     (result: string) => {
       if (!callRequestData || !currentRequestIdRef.current) {
@@ -65,15 +53,13 @@ export const WidgetProvider: FC<WidgetProviderProps> = ({
       logger.info('WidgetProvider: Approving widget request', {
         requestId,
         method: callRequestData.method,
-        resultPreview: result.substring(0, 20) + '...',
+        resultPreview: `${result.substring(0, 20)}...`,
       });
 
-      // Send result back to webview via executeJavaScript
       if (webviewRef?.current) {
         try {
-          // Escape single quotes in result to prevent JavaScript injection
           const safeResult = result.replace(/'/g, "\\'");
-          
+
           webviewRef.current
             .executeJavaScript(
               `
@@ -129,10 +115,6 @@ export const WidgetProvider: FC<WidgetProviderProps> = ({
     [callRequestData, webviewRef],
   );
 
-  /**
-   * Called by dialogs when user cancels or request fails
-   * Rejects the widget's promise in the webview
-   */
   const rejectCallRequest = useCallback(
     (reason?: string) => {
       if (!callRequestData || !currentRequestIdRef.current) {
@@ -145,17 +127,16 @@ export const WidgetProvider: FC<WidgetProviderProps> = ({
       logger.info('WidgetProvider: Rejecting widget request', {
         requestId,
         method: callRequestData.method,
-        reason: reason || 'User rejected',
+        reason: reason ?? 'User rejected',
       });
 
-      // Send rejection back to webview
       if (webviewRef?.current) {
         try {
-          const errorMessage = (reason || 'User rejected the request').replace(
+          const errorMessage = (reason ?? 'User rejected the request').replace(
             /'/g,
             "\\'",
           );
-          
+
           webviewRef.current.executeJavaScript(`
             (function() {
               if (window.rejectWidgetRequest) {
@@ -182,10 +163,6 @@ export const WidgetProvider: FC<WidgetProviderProps> = ({
     [callRequestData, webviewRef],
   );
 
-  /**
-   * Public method to set a new pending request
-   * Called by useWidgetRequests hook when polling detects a new request from webview
-   */
   const setPendingRequest = useCallback(
     (request: WidgetCallRequestData | null) => {
       if (request) {
@@ -209,7 +186,6 @@ export const WidgetProvider: FC<WidgetProviderProps> = ({
       approveCallRequest,
       rejectCallRequest,
       isActive: callRequestData !== null,
-      // Internal method for useWidgetRequests hook
       setPendingRequest,
     }),
     [callRequestData, approveCallRequest, rejectCallRequest, setPendingRequest],
@@ -222,11 +198,12 @@ export const WidgetProvider: FC<WidgetProviderProps> = ({
   );
 };
 
-/**
- * Hook to access widget context
- */
 export function useWidget(): WidgetContextInterface & {
   setPendingRequest: (request: WidgetCallRequestData | null) => void;
 } {
   return useContext(WidgetContext) as any;
 }
+
+WidgetProvider.defaultProps = {
+  webviewRef: undefined,
+};

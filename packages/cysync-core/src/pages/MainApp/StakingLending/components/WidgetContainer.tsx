@@ -5,16 +5,12 @@ import React, { useEffect, useState } from 'react';
 export interface WidgetContainerProps {
   selectedAccount: IAccount;
   webviewRef: React.RefObject<any>;
-  onError?: (error: string) => void;
-  onDisconnect?: () => void;
   widgetUrl?: string;
 }
 
 export const WidgetContainer: React.FC<WidgetContainerProps> = ({
   selectedAccount,
   webviewRef,
-  onError: _onError,
-  onDisconnect: _onDisconnect,
   widgetUrl = 'https://9716b016517de6f71e42f74b.p2p.org',
 }) => {
   const [status, setStatus] = useState('Loading...');
@@ -24,17 +20,11 @@ export const WidgetContainer: React.FC<WidgetContainerProps> = ({
     if (!webview) return () => undefined;
 
     const handleDomReady = async () => {
-      console.log('[WidgetContainer] DOM ready, injecting wallet provider...');
       setStatus('Injecting wallet...');
 
       try {
-        // Open DevTools for debugging (optional - remove in production)
-        webview.openDevTools();
-
-        const injectionResult = await webview.executeJavaScript(`
+        await webview.executeJavaScript(`
           (function() {
-            console.log('=== CYPHEROCK WALLET INJECTION STARTING ===');
-
             // Pending requests array - React polls this
             window.widgetPendingRequests = [];
             
@@ -49,13 +39,11 @@ export const WidgetContainer: React.FC<WidgetContainerProps> = ({
              * Resolve a request (called by React when dialog completes)
              */
             window.resolveWidgetRequest = function(requestId, result) {
-              console.log('[Widget] Resolving request:', requestId, 'with result:', result.substring(0, 20) + '...');
               
               const promise = pendingPromises.get(requestId);
               if (promise) {
                 promise.resolve(result);
                 pendingPromises.delete(requestId);
-                console.log('[Widget] Request resolved successfully');
               } else {
                 console.error('[Widget] No pending promise found for request:', requestId);
               }
@@ -65,13 +53,11 @@ export const WidgetContainer: React.FC<WidgetContainerProps> = ({
              * Reject a request (called by React when user cancels)
              */
             window.rejectWidgetRequest = function(requestId, errorMessage) {
-              console.log('[Widget] Rejecting request:', requestId, 'reason:', errorMessage);
               
               const promise = pendingPromises.get(requestId);
               if (promise) {
                 promise.reject(new Error(errorMessage));
                 pendingPromises.delete(requestId);
-                console.log('[Widget] Request rejected');
               } else {
                 console.error('[Widget] No pending promise found for request:', requestId);
               }
@@ -90,18 +76,15 @@ export const WidgetContainer: React.FC<WidgetContainerProps> = ({
                * Main request method - all wallet interactions go through this
                */
               request: async function(args) {
-                console.log('[Widget] Request:', args.method, args.params);
                 
                 // Handle account queries
                 if (args.method === 'eth_accounts' || args.method === 'eth_requestAccounts') {
                   const accounts = ['${selectedAccount.xpubOrAddress}'];
-                  console.log('[Widget] Returning accounts:', accounts);
                   return accounts;
                 }
                 
                 // Handle chain ID query
                 if (args.method === 'eth_chainId') {
-                  console.log('[Widget] Returning chainId: 0x1');
                   return '0x1';
                 }
                 
@@ -120,8 +103,6 @@ export const WidgetContainer: React.FC<WidgetContainerProps> = ({
                     // Generate unique request ID
                     const requestId = 'widget-req-' + (++requestIdCounter) + '-' + Date.now();
                     
-                    console.log('[Widget] Creating pending request:', requestId);
-                    
                     // Store the promise resolvers
                     pendingPromises.set(requestId, { resolve, reject });
                     
@@ -131,8 +112,6 @@ export const WidgetContainer: React.FC<WidgetContainerProps> = ({
                       method: args.method,
                       params: args.params,
                     });
-                    
-                    console.log('[Widget] Request stored, waiting for React to handle...');
                     
                     // Set timeout to prevent hanging forever
                     setTimeout(() => {
@@ -150,47 +129,23 @@ export const WidgetContainer: React.FC<WidgetContainerProps> = ({
                 throw new Error('Unsupported method: ' + args.method);
               },
               
-              /**
-               * Event emitter interface (required by some dApps)
-               */
-              on: function(event, callback) {
-                console.log('[Widget] Event listener registered:', event);
-                // Simplified event emitter - can be enhanced if needed
-              },
-              
-              removeListener: function(event, callback) {
-                console.log('[Widget] Event listener removed:', event);
-              },
-              
               isConnected: () => true,
             };
             
-            // Fire EIP-1193 initialization events
-            console.log('[Widget] Firing initialization events...');
-            
             window.dispatchEvent(new Event('ethereum#initialized'));
             
-            // Fire connect events after a short delay
             setTimeout(() => {
               if (window.ethereum) {
                 // Dispatch connect event
                 window.dispatchEvent(new CustomEvent('ethereumConnect', {
                   detail: { chainId: '0x1' }
                 }));
-                
-                console.log('[Widget] EIP-1193 events fired successfully');
               }
             }, 100);
-            
-            console.log('=== CYPHEROCK WALLET INJECTION COMPLETE ===');
-            console.log('[Widget] window.ethereum:', !!window.ethereum);
-            console.log('[Widget] Account:', '${selectedAccount.xpubOrAddress}');
-            
             return 'INJECTION_SUCCESS';
           })();
         `);
 
-        console.log('[WidgetContainer] Injection result:', injectionResult);
         setStatus(`Ready: ${selectedAccount.name}`);
       } catch (error) {
         console.error('[WidgetContainer] Injection failed:', error);
@@ -231,7 +186,5 @@ export const WidgetContainer: React.FC<WidgetContainerProps> = ({
 };
 
 WidgetContainer.defaultProps = {
-  onError: undefined,
-  onDisconnect: undefined,
   widgetUrl: 'https://9716b016517de6f71e42f74b.p2p.org',
 };
