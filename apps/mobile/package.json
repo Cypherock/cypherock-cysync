@@ -12,7 +12,7 @@
     "lint:check": "eslint \"./**/*.{ts,tsx}\"",
     "pretty": "prettier --write \"./**/*.ts?(x)\" \"tests/**/*.ts?(x)\"",
     "pretty:check": "prettier --check \"./**/*.ts?(x)\" \"tests/**/*.ts?(x)\"",
-    "postinstall": "pnpm turbo build"
+    "eas-build-pre-install": "cd ../.. && npm install -g pnpm && pnpm install --frozen-lockfile && pnpm turbo build"
   },
   "jest": {
     "preset": "jest-expo"
