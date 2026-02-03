@@ -1,10 +1,11 @@
+import '@/polyfills';
 import {
   getDefaultTheme,
   getLargeTheme,
   LottieSplash,
   ThemeType,
 } from '@/components/ui';
-import { ErrorBoundaryProps, Slot } from 'expo-router';
+import { Slot } from 'expo-router';
 import { ThemeProvider } from 'styled-components/native';
 import * as SystemUI from 'expo-system-ui';
 import { colors } from '@/components/ui/themes/color.styled';

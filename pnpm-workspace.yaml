@@ -1,3 +1,4 @@
 packages:
-  - 'apps/*'
+  - 'apps/desktop'
+  - 'apps/cli'
   - 'packages/*'
