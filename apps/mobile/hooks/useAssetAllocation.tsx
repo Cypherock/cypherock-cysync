@@ -162,6 +162,20 @@ export const useAssetAllocations = ({
   const generateCoinAllocations = async () => {
     try {
       const data = refData.current;
+
+      let db;
+      try {
+        db = getDB();
+      } catch {
+        setIsLoading(false);
+        return;
+      }
+
+      if (!data.currentCurrency) {
+        setIsLoading(false);
+        return;
+      }
+
       setIsLoading(true);
       let result: (
         | typeof IAccountAllocation
@@ -169,7 +183,7 @@ export const useAssetAllocations = ({
       )[] = [];
       if (data.parentAssetId) {
         result = await getAccountAllocations({
-          db: getDB(),
+          db,
           accounts: data.accounts.filter(
             a =>
               a.parentAssetId === data.parentAssetId &&
@@ -180,83 +194,91 @@ export const useAssetAllocations = ({
         });
       } else {
         result = await getCoinAllocations({
-          db: getDB(),
+          db,
           walletId: data.walletId,
           currency: data.currentCurrency,
         });
       }
 
-      const mappedResult = result.map(r => {
-        const { amount, unit } = getParsedAmount({
-          coinId: r.parentAssetId,
-          assetId: r.assetId,
-          unitAbbr: getDefaultUnit(r.parentAssetId, r.assetId).abbr,
-          amount: r.balance,
-        });
+      const mappedResult = result
+        .filter(r => r.parentAssetId && r.assetId && coinList[r.parentAssetId])
+        .map(r => {
+          const defaultUnit = getDefaultUnit(r.parentAssetId, r.assetId);
+          const { amount, unit } = getParsedAmount({
+            coinId: r.parentAssetId,
+            assetId: r.assetId,
+            unitAbbr: defaultUnit?.abbr ?? '',
+            amount: r.balance ?? '0',
+          });
 
-        const asset = getAsset(r.parentAssetId, r.assetId);
+          const asset = getAsset(r.parentAssetId, r.assetId);
+          const coin = coinList[r.parentAssetId];
 
-        const accountProperties: Partial<CoinAllocationRow> = {};
+          const accountProperties: Partial<CoinAllocationRow> = {};
 
-        if ((r as any).account) {
-          let account: IAccount | undefined;
-          account = (r as typeof IAccountAllocation).account;
+          if ((r as any).account) {
+            let account: IAccount | undefined;
+            account = (r as typeof IAccountAllocation).account;
 
-          if (account?.parentAccountId) {
-            account = data.accounts.find(
-              a => a.__id === account?.parentAccountId,
+            if (account?.parentAccountId) {
+              account = data.accounts.find(
+                a => a.__id === account?.parentAccountId,
+              );
+            }
+
+            accountProperties.accountId = account?.__id;
+            accountProperties.accountName = account?.name;
+            accountProperties.accountTag = lodash.upperCase(
+              account?.derivationScheme ?? '',
             );
+
+            const wallet = data.wallets.find(w => w.__id === account?.walletId);
+            accountProperties.walletName = wallet?.name;
           }
+          const formattedAmount = formatDisplayAmount(amount);
+          const displayBalance = `${formattedAmount?.fixed ?? '0'} ${unit?.abbr ?? ''}`;
+          const balanceTooltip = `${formattedAmount?.complete ?? '0'} ${unit?.abbr ?? ''}`;
 
-          accountProperties.accountId = account?.__id;
-          accountProperties.accountName = account?.name;
-          accountProperties.accountTag = lodash.upperCase(
-            account?.derivationScheme ?? '',
-          );
-
-          const wallet = data.wallets.find(w => w.__id === account?.walletId);
-          accountProperties.walletName = wallet?.name;
-        }
-        const formattedAmount = formatDisplayAmount(amount);
-        const displayBalance = `${formattedAmount.fixed} ${unit.abbr}`;
-        const balanceTooltip = `${formattedAmount.complete} ${unit.abbr}`;
-
-        return {
-          id: `${r.parentAssetId}/${r.assetId}/${
-            (r as any).account?.__id ?? ''
-          }`,
-          color: coinList[r.parentAssetId].color,
-          allocation: r.percentage,
-          assetId: r.assetId,
-          parentAssetId: r.parentAssetId,
-          assetAbbr: asset.abbr,
-          assetName: asset.name,
-          assetIcon: (
-            <CoinIcon
-              parentAssetId={r.parentAssetId}
-              assetId={r.assetId}
-              size={24}
-              subIconSize={10}
-              subContainerSize={12}
-              withParentIconAtBottom={withParentIconAtBottom}
-              withSubIconAtBottom={withSubIconAtBottom}
-              withBackground
-            />
-          ),
-          balance: new BigNumber(amount).toNumber(),
-          price: new BigNumber(r.price).toNumber(),
-          value: new BigNumber(r.value).toNumber(),
-          displayBalance,
-          balanceTooltip,
-          displayPrice: `${formatDisplayPrice(r.price, data.currentCurrency)}`,
-          displayValue: `${formatDisplayPrice(r.value, data.currentCurrency)}`,
-          ...accountProperties,
-        };
-      });
+          return {
+            id: `${r.parentAssetId}/${r.assetId}/${
+              (r as any).account?.__id ?? ''
+            }`,
+            color: coin?.color ?? '#888888',
+            allocation: r.percentage ?? 0,
+            assetId: r.assetId,
+            parentAssetId: r.parentAssetId,
+            assetAbbr: asset?.abbr ?? '',
+            assetName: asset?.name ?? '',
+            assetIcon: (
+              <CoinIcon
+                parentAssetId={r.parentAssetId}
+                assetId={r.assetId}
+                size={24}
+                subIconSize={10}
+                subContainerSize={12}
+                withParentIconAtBottom={withParentIconAtBottom}
+                withSubIconAtBottom={withSubIconAtBottom}
+                withBackground
+              />
+            ),
+            balance: new BigNumber(amount ?? 0).toNumber(),
+            price: new BigNumber(r.price ?? 0).toNumber(),
+            value: new BigNumber(r.value ?? 0).toNumber(),
+            displayBalance,
+            balanceTooltip,
+            displayPrice: `${formatDisplayPrice(r.price ?? '0', data.currentCurrency)}`,
+            displayValue: `${formatDisplayPrice(r.value ?? '0', data.currentCurrency)}`,
+            ...accountProperties,
+          };
+        });
 
       setCoinAllocations(mappedResult);
     } catch (error) {
-      logger.error('Error in calculating portfolio allocation share');
+      logger.error('Error in calculating portfolio allocation share', {
+        error: error instanceof Error ? error.message : String(error),
+        stack: error instanceof Error ? error.stack : undefined,
+      });
+      setIsLoading(false);
     }
   };
 
