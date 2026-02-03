@@ -5,21 +5,25 @@ const path = require('path');
 const projectRoot = __dirname;
 const monorepoRoot = path.resolve(projectRoot, '../..');
 
+/** @type {import('expo/metro-config').MetroConfig} */
 const config = getDefaultConfig(projectRoot);
-config.watchFolders = [monorepoRoot];
+
+config.watchFolders = [...config.watchFolders, monorepoRoot];
 
 config.resolver.extraNodeModules = {
   ...config.resolver.extraNodeModules,
+  ...require('node-libs-react-native'),
   crypto: require.resolve('react-native-quick-crypto'),
-  buffer: require.resolve('buffer'),
-  assert: require.resolve('assert'),
-  http: require.resolve('stream-http'),
-  https: require.resolve('https-browserify'),
-  os: require.resolve('os-browserify/browser'),
-  path: require.resolve('path-browserify'),
-  stream: require.resolve('readable-stream'),
-  url: require.resolve('url'),
-  vm: require.resolve('vm-browserify'),
+};
+
+config.resolver.resolveRequest = (context, moduleName, platform) => {
+  if (moduleName === 'axios') {
+    return {
+      filePath: require.resolve('axios/dist/browser/axios.cjs'),
+      type: 'sourceFile',
+    };
+  }
+  return context.resolveRequest(context, moduleName, platform);
 };
 
 config.resolver.nodeModulesPaths = [
