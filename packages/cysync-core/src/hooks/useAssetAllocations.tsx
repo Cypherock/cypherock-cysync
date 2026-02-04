@@ -5,7 +5,7 @@ import {
   getDefaultUnit,
   getParsedAmount,
 } from '@cypherock/coin-support-utils';
-import { coinFamiliesMap, coinList } from '@cypherock/coins';
+import { BtcIdMap, coinFamiliesMap, coinList } from '@cypherock/coins';
 import {
   IAccountAllocation,
   ICoinAllocationWithPercentage,
@@ -159,6 +159,10 @@ export const useAssetAllocations = ({
             : Object.keys(coinFamiliesMap),
           currency: data.currentCurrency,
         });
+
+        if (isFirmwareBtcOnly) {
+          result = result.filter(r => r.parentAssetId === BtcIdMap.bitcoin);
+        }
       }
 
       setCoinAllocations(
@@ -255,11 +259,19 @@ export const useAssetAllocations = ({
 
   useEffect(() => {
     debounceGenerateCoinAllocations();
-  }, [allTransactions, accounts, priceInfos, wallets]);
+  }, [allTransactions, accounts, priceInfos, wallets, isFirmwareBtcOnly]);
 
   useEffect(() => {
     debounceGenerateCoinAllocationsOnUserAction();
-  }, [isDiscreetMode, lang, walletId, assetId, parentAssetId, accountId]);
+  }, [
+    isDiscreetMode,
+    lang,
+    walletId,
+    assetId,
+    parentAssetId,
+    accountId,
+    isFirmwareBtcOnly,
+  ]);
 
   const isAccountDisplay = useMemo(() => !!parentAssetId, [parentAssetId]);
 
