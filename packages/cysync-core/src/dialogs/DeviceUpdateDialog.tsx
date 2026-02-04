@@ -7,7 +7,7 @@ import {
 } from '@cypherock/cysync-ui';
 import { FirmwareVariant } from '@cypherock/sdk-app-manager';
 import { createSelector } from '@reduxjs/toolkit';
-import React, { FC, ReactElement, useEffect, useRef } from 'react';
+import React, { FC, ReactElement, useEffect, useMemo, useRef } from 'react';
 import { useDispatch } from 'react-redux';
 
 import { openDeviceAuthenticationDialog } from '~/actions';
@@ -52,7 +52,10 @@ export const DeviceUpdateDialog: FC<IDeviceUpdateDialogProps> = ({
     : FirmwareVariant.MULTI_COIN;
   const variant = forcedVariant ?? existingVariant;
 
-  const variantDisplayName = getFirmwareVariantDisplayName(variant);
+  const variantDisplayName = useMemo(
+    () => getFirmwareVariantDisplayName(variant),
+    [],
+  );
 
   const { state, downloadProgress, version, errorToShow, onRetry } =
     useDeviceUpdate(
