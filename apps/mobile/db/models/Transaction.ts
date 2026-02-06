@@ -34,6 +34,8 @@ export class Transaction extends Realm.Object<ITransaction> {
       description: 'string?',
       remarks: 'mixed?',
       meta: 'mixed?',
+      isSwap: 'bool?',
+      swapData: 'mixed?',
     },
   };
 
@@ -61,4 +63,6 @@ export class Transaction extends Realm.Object<ITransaction> {
   description?: string;
   remarks?: string[];
   meta?: ObjectLiteral;
+  isSwap?: boolean;
+  swapData?: ObjectLiteral;
 }

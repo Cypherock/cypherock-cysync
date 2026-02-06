@@ -117,7 +117,12 @@ export class Repository<T extends IEntity> implements IRepository<T> {
     try {
       let result;
 
-      if (!filter || (Array.isArray(filter) && filter.length === 0)) {
+      const isEmptyFilter =
+        !filter ||
+        (Array.isArray(filter) && filter.length === 0) ||
+        (!Array.isArray(filter) && Object.keys(filter).length === 0);
+
+      if (isEmptyFilter) {
         result = this.realm.objects<T & Realm.Object>(this.name);
       } else {
         result = await this.findObjects(filter);
