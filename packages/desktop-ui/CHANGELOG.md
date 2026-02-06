@@ -1,5 +1,15 @@
 # @cypherock/cysync-desktop-ui
 
+## 0.2.12
+
+### Patch Changes
+
+- [#771](https://github.com/Cypherock/cypherock-cysync/pull/771) [`2399c206`](https://github.com/Cypherock/cypherock-cysync/commit/2399c2063e89b10a1ed04f70b31757b60d96854b) Thanks [@muzaffarbhat07](https://github.com/muzaffarbhat07)! - Adds firmware variant Btc-Only support
+
+- Updated dependencies [[`2399c206`](https://github.com/Cypherock/cypherock-cysync/commit/2399c2063e89b10a1ed04f70b31757b60d96854b)]:
+  - @cypherock/cysync-core@0.12.0
+  - @cypherock/cysync-ui@0.2.1
+
 ## 0.2.12-pre.0
 
 ### Patch Changes
