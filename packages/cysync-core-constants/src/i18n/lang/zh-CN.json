@@ -55,6 +55,7 @@
     "saveChanges": "保存更改",
     "edit": "编辑",
     "tryAgain": "再试一次",
+    "switchFirmware": "Switch Firmware",
     "autoApproval": "转账预批准",
     "mergeDelegation": "UTXO管理",
     "accept": "接受",
@@ -655,6 +656,17 @@
         "subtext": "尝试重新连接设备"
       }
     },
+    "chooseFirmware": {
+      "heading": "Select Firmware",
+      "btcOnly": {
+        "title": "I want to use Cypherock X1 just for Bitcoin",
+        "subtext": "Both the device firmware and the CySync will be tailored to serve only bitcoin"
+      },
+      "multiCoin": {
+        "title": "I want support for all crypto currencies",
+        "subtext": "You will get the complete support of all the crypto currencies Cypherock supports"
+      }
+    },
     "deviceAuth": {
       "heading": "设备验证",
       "title": "你的 -=DEVICE_NAME=- 现在将通过 -=PRODUCT_NAME=- 服务器进行验证，以检查其真实性 ",
@@ -758,14 +770,14 @@
     },
     "deviceUpdate": {
       "heading": "设备更新",
-      "version": "版本 ${version}",
+      "version": "版本 ${variant} ${version}",
       "dialogs": {
         "checking": {
           "title": "请稍候，我们将检查 -=DEVICE_NAME=- 更新"
         },
         "confirmation": {
           "heading": "设备更新",
-          "title": "你的 -=DEVICE_NAME=- 有一个新更新可用。更新设备到 v${version} 以继续",
+          "title": "你的 -=DEVICE_NAME=- 有一个新更新可用。更新设备到 ${variant} v${version} 以继续",
           "subtext": "按照设备上的说明操作"
         },
         "loading": {
@@ -777,7 +789,7 @@
         },
         "updateSuccessful": {
           "heading": "-=DEVICE_NAME=- 成功更新",
-          "headingWithVersion": "-=DEVICE_NAME=- 成功更新到 v${version}",
+          "headingWithVersion": "-=DEVICE_NAME=- 成功更新到 ${variant} v${version}",
           "subtext": "你的设备现在正在使用最新的固件"
         },
         "updateFailed": {
@@ -799,7 +811,7 @@
     }
   },
   "deviceUpdateBar": {
-    "message": "固件更新版本 ${version} 可用",
+    "message": "固件更新版本 ${variant} ${version} 可用",
     "button": "下载"
   },
   "betaNotificationBar": {
@@ -2217,6 +2229,18 @@
       "toAmount": "Amount Received",
       "toReceiver": "Receiver"
     },
+    "switchFirmwareDialog": {
+      "btcOnly": {
+        "title": "Switch firmware to Bitcoin-only",
+        "subtext": "Bitcoin-only firmware only works with Bitcoin transactions. If you want to access and manage all of your coins other than Bitcoin also then you'll not be able to do that"
+      },
+      "multiCoin": {
+        "title": "Switch firmware to Multi-coin",
+        "subtext": "Multi-coin firmware works with all coin transactions supported on Cypherock X1. If you want to access and manage all of your coins other than Bitcoin also then you'll be able to do that"
+      },
+      "checkbox": { "label": "I have read and understood" },
+      "primaryBtn": { "label": "Install Firmware" }
+    },
     "cantonDialogs": {
       "enableApprovalPrompt": {
         "title": "启用转账预批准",
@@ -2377,6 +2401,16 @@
       "device": {
         "title": "设备设置",
         "item": {
+          "switchFirmware": {
+            "btcOnly": {
+              "title": "Switch firmware to Bitcoin-only",
+              "description": "Bitcoin-only firmware only works with Bitcoin transactions."
+            },
+            "multiCoin": {
+              "title": "Switch firmware to Multi-coin",
+              "description": "Multi-coin firmware works with all coin transactions supported on Cypherock X1"
+            }
+          },
           "x1VaultAuth": {
             "title": "-=DEVICE_NAME=- 身份验证",
             "description": "验证您的设备"

@@ -11,6 +11,7 @@ import { IContactSupportDialogProps } from '~/dialogs/ContactSupport';
 import { DeleteAccountDialogProps } from '~/dialogs/DeleteAccountDialog';
 import { DeployAccountDialogProps } from '~/dialogs/DeployAccount/context';
 import { DeviceAuthenticationDialogProps } from '~/dialogs/DeviceAuthenticationDialog';
+import { IDeviceUpdateDialogProps } from '~/dialogs/DeviceUpdateDialog';
 import { EditAccountDialogProps } from '~/dialogs/EditAccountDialog';
 import { ErrorDialogProps } from '~/dialogs/ErrorDialog';
 import { FullPageLoaderDialogProps } from '~/dialogs/FullPageLoaderDialog';
@@ -88,8 +89,8 @@ export const openSwapHistoryDialog = (props?: ISwapDialogProps) =>
 export const openBuySellHistoryDialog = (props?: IBuySellDialogProps) =>
   openDialog({ name: 'buySellDialog', data: props });
 
-export const openDeviceUpdateDialog = () =>
-  openDialog({ name: 'deviceUpdateDialog', data: undefined });
+export const openDeviceUpdateDialog = (props?: IDeviceUpdateDialogProps) =>
+  openDialog({ name: 'deviceUpdateDialog', data: props });
 
 export const openDeviceAuthenticationDialog = (
   props?: DeviceAuthenticationDialogProps,
@@ -151,6 +152,9 @@ export const openInheritanceEstateRecoveryDialog = (
 
 export const openMobileAppSyncDialog = () =>
   openDialog({ name: 'mobileAppSyncDialog', data: undefined });
+
+export const openSwitchFirmwareDialog = () =>
+  openDialog({ name: 'switchFirmwareDialog', data: undefined });
 
 export const openFullPageLoaderDialog = (props: FullPageLoaderDialogProps) =>
   openDialog({ name: 'fullPageLoaderDialog', data: props });

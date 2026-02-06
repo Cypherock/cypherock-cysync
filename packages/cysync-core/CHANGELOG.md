@@ -1,5 +1,19 @@
 # @cypherock/cysync-core
 
+## 0.12.0-pre.0
+
+### Minor Changes
+
+- [#771](https://github.com/Cypherock/cypherock-cysync/pull/771) [`2399c206`](https://github.com/Cypherock/cypherock-cysync/commit/2399c2063e89b10a1ed04f70b31757b60d96854b) Thanks [@muzaffarbhat07](https://github.com/muzaffarbhat07)! - Adds firmware variant Btc-Only support
+
+### Patch Changes
+
+- Updated dependencies [[`2399c206`](https://github.com/Cypherock/cypherock-cysync/commit/2399c2063e89b10a1ed04f70b31757b60d96854b)]:
+  - @cypherock/cysync-core-constants@0.7.2-pre.0
+  - @cypherock/cysync-core-services@0.3.4-pre.0
+  - @cypherock/cysync-ui@0.2.1-pre.0
+  - @cypherock/cysync-core-workers@0.1.12-pre.0
+
 ## 0.11.2
 
 ### Patch Changes

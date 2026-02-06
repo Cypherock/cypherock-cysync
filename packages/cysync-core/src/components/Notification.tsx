@@ -1,3 +1,4 @@
+import { BtcIdMap } from '@cypherock/coins';
 import { getDefaultUnit, getParsedAmount } from '@cypherock/coin-support-utils';
 import {
   Button,
@@ -29,7 +30,7 @@ import {
   markTransactionNotificationClicked,
   openHistoryDialog,
 } from '~/actions';
-import { useNavigateTo } from '~/hooks';
+import { useAccounts, useNavigateTo } from '~/hooks';
 import { getDisplayTransactionType, transactionIconMap } from '~/utils';
 import logger from '~/utils/logger';
 
@@ -38,8 +39,8 @@ import {
   ILangState,
   routes,
   selectLanguage,
+  selectLastConnectedFirmware,
   selectNotifications,
-  selectUnHiddenAccounts,
   selectWallets,
   toggleNotification,
   useAppDispatch,
@@ -51,11 +52,16 @@ export interface NotificationProps {
 }
 
 const selector = createSelector(
-  [selectLanguage, selectNotifications, selectWallets, selectUnHiddenAccounts],
-  (lang, notifications, { wallets }, { accounts }) => ({
+  [
+    selectLanguage,
+    selectNotifications,
+    selectWallets,
+    selectLastConnectedFirmware,
+  ],
+  (lang, notifications, { wallets }, { isFirmwareBtcOnly }) => ({
     lang,
     wallets,
-    accounts,
+    isFirmwareBtcOnly,
     ...notifications,
   }),
 );
@@ -120,8 +126,22 @@ export const NotificationDisplay: React.FC<NotificationProps> = ({ top }) => {
   const dispatch = useAppDispatch();
   const theme = useTheme();
   const navigate = useNavigateTo();
-  const { transactions, lang, wallets, accounts, unreadTransactions } =
-    useAppSelector(selector);
+  const {
+    transactions: allTransactions,
+    lang,
+    wallets,
+    unreadTransactions,
+    isFirmwareBtcOnly,
+  } = useAppSelector(selector);
+  const accounts = useAccounts();
+
+  const transactions = useMemo(
+    () =>
+      isFirmwareBtcOnly
+        ? allTransactions.filter(t => t.assetId === BtcIdMap.bitcoin)
+        : allTransactions,
+    [allTransactions, isFirmwareBtcOnly],
+  );
 
   const onClose = () => {
     markAllTransactionNotificationRead(transactions);

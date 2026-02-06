@@ -8,10 +8,10 @@ import { createSelector } from '@reduxjs/toolkit';
 import React, { FC, useEffect } from 'react';
 
 import { openAddAccountDialog } from '~/actions';
+import { useAccounts } from '~/hooks';
 import { analyticsService, ANALYTICS_EVENTS } from '~/services/analytics';
 import {
   selectLanguage,
-  selectUnHiddenAccounts,
   selectWallets,
   useAppDispatch,
   useAppSelector,
@@ -24,16 +24,16 @@ import { NoWallet } from './NoWallet';
 import { MainAppLayout } from '../Layout';
 
 const selector = createSelector(
-  [selectLanguage, selectWallets, selectUnHiddenAccounts],
-  (lang, { wallets }, { accounts }) => ({
+  [selectLanguage, selectWallets],
+  (lang, { wallets }) => ({
     lang,
     wallets,
-    accounts,
   }),
 );
 
 export const Portfolio: FC = () => {
-  const { lang, wallets, accounts } = useAppSelector(selector);
+  const { lang, wallets } = useAppSelector(selector);
+  const accounts = useAccounts();
   const dispatch = useAppDispatch();
 
   useEffect(() => {

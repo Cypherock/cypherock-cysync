@@ -61,6 +61,7 @@ const SideBarComponent: FC = () => {
     isWalletPage,
     startDrag,
     width,
+    isFirmwareBtcOnly,
   } = useSidebar();
   const { deviceHandlingState } = useDevice();
   const onReferEarnClick = () => {
@@ -170,7 +171,7 @@ const SideBarComponent: FC = () => {
         state={wallets.length === 0 ? State.disabled : getState('history')}
         onClick={() => navigate('history')}
       />
-      {window.cysyncFeatureFlags.WALLET_CONNECT && (
+      {window.cysyncFeatureFlags.WALLET_CONNECT && !isFirmwareBtcOnly && (
         <SideBarItem
           text={strings.walletConnect}
           Icon={WalletConnectWhiteIcon}
@@ -195,7 +196,7 @@ const SideBarComponent: FC = () => {
           }
         />
       )}
-      {window.cysyncFeatureFlags.SWAP && (
+      {window.cysyncFeatureFlags.SWAP && !isFirmwareBtcOnly && (
         <SideBarItem
           text="Swap"
           Icon={GraphSwitchSmallIcon}

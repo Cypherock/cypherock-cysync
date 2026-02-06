@@ -1,20 +1,49 @@
 import { LangDisplay } from '@cypherock/cysync-ui';
+import { createSelector } from '@reduxjs/toolkit';
 import React from 'react';
 
 import {
   openAuthenticateX1CardDialog,
   openAuthenticateX1VaultDialog,
+  openSwitchFirmwareDialog,
 } from '~/actions';
-import { selectLanguage, useAppDispatch, useAppSelector } from '~/store';
+import {
+  selectLanguage,
+  selectLastConnectedFirmware,
+  useAppDispatch,
+  useAppSelector,
+} from '~/store';
 
 import { SettingsButton, SettingsStandardItem } from '../components';
 
+const selector = createSelector(
+  [selectLanguage, selectLastConnectedFirmware],
+  ({ strings }, { isFirmwareBtcOnly }) => ({
+    strings,
+    isFirmwareBtcOnly,
+  }),
+);
+
 export const DeviceSettings: React.FC = () => {
-  const { strings } = useAppSelector(selectLanguage);
-  const { item } = strings.settings.tabs.device;
   const dispatch = useAppDispatch();
+  const { strings, isFirmwareBtcOnly } = useAppSelector(selector);
+  const { item } = strings.settings.tabs.device;
+  const switchFirmwareText = isFirmwareBtcOnly
+    ? item.switchFirmware.multiCoin
+    : item.switchFirmware.btcOnly;
   return (
     <>
+      <SettingsStandardItem
+        title={{ text: switchFirmwareText.title }}
+        description={{ text: switchFirmwareText.description }}
+      >
+        <SettingsButton
+          onClick={() => dispatch(openSwitchFirmwareDialog())}
+          variant="primary"
+        >
+          <LangDisplay text={strings.buttons.switchFirmware} />
+        </SettingsButton>
+      </SettingsStandardItem>
       <SettingsStandardItem
         title={{ text: item.x1VaultAuth.title }}
         description={{ text: item.x1VaultAuth.description }}

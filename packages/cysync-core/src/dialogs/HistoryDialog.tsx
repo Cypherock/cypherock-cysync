@@ -33,7 +33,7 @@ import React, { FC, useMemo } from 'react';
 
 import { openTransactionActionDialog } from '~/actions';
 import { useCurrency } from '~/context';
-import { mapTransactionForDisplay } from '~/hooks';
+import { mapTransactionForDisplay, useAccounts } from '~/hooks';
 import {
   closeDialog,
   openSnackBar,
@@ -41,7 +41,6 @@ import {
   selectDiscreetMode,
   selectLanguage,
   selectTransactionById,
-  selectUnHiddenAccounts,
   selectWallets,
   useAppDispatch,
   useAppSelector,
@@ -101,22 +100,13 @@ const selector = createSelector(
   [
     selectLanguage,
     selectWallets,
-    selectUnHiddenAccounts,
     selectCurrentCurrencyPriceInfos,
     selectDiscreetMode,
     (state, currency: string) => currency,
   ],
-  (
-    lang,
-    { wallets },
-    { accounts },
-    priceInfos,
-    { active: isDiscreetMode },
-    currency,
-  ) => ({
+  (lang, { wallets }, priceInfos, { active: isDiscreetMode }, currency) => ({
     lang,
     wallets,
-    accounts,
     priceInfos,
     isDiscreetMode,
     currency,
@@ -227,8 +217,9 @@ const ConditionalHistoryItem: FC<ConditionalHistoryItemProps> = ({
 
 export const HistoryDialog: FC<IHistoryDialogProps> = ({ txn: _txn }) => {
   const { currentCurrency } = useCurrency();
-  const { lang, wallets, accounts, priceInfos, isDiscreetMode, currency } =
+  const { lang, wallets, priceInfos, isDiscreetMode, currency } =
     useAppSelector(state => selector(state, currentCurrency));
+  const accounts = useAccounts();
   const keys = lang.strings.history.dialogBox;
   const dispatch = useAppDispatch();
   const theme = useTheme();

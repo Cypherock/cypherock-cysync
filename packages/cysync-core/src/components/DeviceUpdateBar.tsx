@@ -20,7 +20,7 @@ export const DeviceUpdateBar: FC = () => {
   const theme = useTheme();
   const lang = useAppSelector(selectLanguage);
   const dispatch = useAppDispatch();
-  const { version } = useLatestDeviceVersion();
+  const { version, variantDisplayName } = useLatestDeviceVersion();
 
   if (!version) {
     return null;
@@ -43,7 +43,7 @@ export const DeviceUpdateBar: FC = () => {
         text={
           <LangDisplay
             text={lang.strings.deviceUpdateBar.message}
-            variables={{ version }}
+            variables={{ version, variant: variantDisplayName }}
           />
         }
         buttonText={lang.strings.deviceUpdateBar.button}

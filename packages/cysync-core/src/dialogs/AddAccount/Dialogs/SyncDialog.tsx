@@ -18,23 +18,14 @@ import {
   loaderGrayIcon,
 } from '@cypherock/cysync-ui';
 import { IAccount } from '@cypherock/db-interfaces';
-import { createSelector } from '@reduxjs/toolkit';
 import lodash from 'lodash';
 import React, { FC, useMemo, useState } from 'react';
 
 import { CoinIcon } from '~/components';
-import {
-  selectLanguage,
-  selectUnHiddenAccounts,
-  useAppSelector,
-} from '~/store';
+import { useAccounts } from '~/hooks';
+import { selectLanguage, useAppSelector } from '~/store';
 
 import { useAddAccountDialog } from '../context';
-
-const selectAccountsAndLang = createSelector(
-  [selectLanguage, selectUnHiddenAccounts],
-  (a, b) => ({ lang: a, ...b }),
-);
 
 const createCheckboxChangeHandler =
   (
@@ -99,9 +90,8 @@ const createAccountDisplayList = (params: {
 };
 
 export const AddAccountSyncDialog: FC = () => {
-  const { lang, accounts: existingAccounts } = useAppSelector(
-    selectAccountsAndLang,
-  );
+  const lang = useAppSelector(selectLanguage);
+  const existingAccounts = useAccounts();
   const strings = lang.strings.addAccount.sync;
 
   const {

@@ -1,6 +1,5 @@
 import { getCoinSupport } from '@cypherock/coin-support';
 import { ICoinAllocation } from '@cypherock/coin-support-interfaces';
-import { coinFamiliesMap } from '@cypherock/coins';
 import { BigNumber } from '@cypherock/cysync-utils';
 import { IDatabase } from '@cypherock/db-interfaces';
 
@@ -10,17 +9,16 @@ export interface ICoinAllocationWithPercentage extends ICoinAllocation {
 
 export const getCoinAllocations = async (params: {
   db: IDatabase;
+  coinFamilies: string[];
   walletId?: string;
   assetId?: string;
   parentAssetId?: string;
   currency: string;
 }) => {
-  const coinFamiliesList = Object.keys(coinFamiliesMap);
-
   const allocations: ICoinAllocation[] = [];
   const allocationsWithPercentage: ICoinAllocationWithPercentage[] = [];
 
-  for (const coinFamily of coinFamiliesList) {
+  for (const coinFamily of params.coinFamilies) {
     const coinSupport = getCoinSupport(coinFamily);
     const result = await coinSupport.getCoinAllocations({
       ...params,

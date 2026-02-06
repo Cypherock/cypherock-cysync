@@ -41,6 +41,7 @@ import {
   closeDialog,
   selectCantonAuthTokens,
   selectLanguage,
+  selectLastConnectedFirmware,
   useAppDispatch,
   useAppSelector,
 } from '~/store';
@@ -92,6 +93,7 @@ export interface AddAccountDialogContextInterface {
   walletDropdownList: DropDownItemProps[];
   handleWalletChange: (id?: string) => void;
   defaultWalletId?: string;
+  isFirmwareBtcOnly: boolean;
   onUserDetailsSubmit: () => void;
   isSubmittingUserDetails: boolean;
   email: string;
@@ -124,17 +126,19 @@ export interface ICantonOtpVerificationDetails {
 }
 
 const selector = createSelector(
-  [selectLanguage, selectCantonAuthTokens],
-  (lang, cantonAuthTokens) => ({
+  [selectLanguage, selectCantonAuthTokens, selectLastConnectedFirmware],
+  (lang, cantonAuthTokens, { isFirmwareBtcOnly }) => ({
     lang,
     cantonAuthTokens,
+    isFirmwareBtcOnly,
   }),
 );
 
 export const AddAccountDialogProvider: FC<
   AddAccountDialogContextProviderProps
 > = ({ children, walletId: defaultWalletId, coinId: defaultCoinId }) => {
-  const { lang, cantonAuthTokens } = useAppSelector(selector);
+  const { lang, cantonAuthTokens, isFirmwareBtcOnly } =
+    useAppSelector(selector);
   const dispatch = useAppDispatch();
   const { connection } = useDevice();
 
@@ -612,6 +616,7 @@ export const AddAccountDialogProvider: FC<
     error,
     handleWalletChange,
     walletDropdownList,
+    isFirmwareBtcOnly,
     onUserDetailsSubmit,
     isSubmittingUserDetails,
     email,

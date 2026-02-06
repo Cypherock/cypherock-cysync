@@ -55,6 +55,7 @@
     "saveChanges": "Änderungen speichern",
     "edit": "Bearbeiten",
     "tryAgain": "Erneut versuchen",
+    "switchFirmware": "Firmware wechseln",
     "autoApproval": "Übertragungs-Vorgenehmigung",
     "mergeDelegation": "UTXO Verwaltung",
     "accept": "Akzeptieren",
@@ -655,6 +656,17 @@
         "subtext": "Versuchen Sie, das Gerät erneut zu verbinden"
       }
     },
+    "chooseFirmware": {
+      "heading": "Select Firmware",
+      "btcOnly": {
+        "title": "I want to use Cypherock X1 just for Bitcoin",
+        "subtext": "Both the device firmware and the CySync will be tailored to serve only bitcoin"
+      },
+      "multiCoin": {
+        "title": "I want support for all crypto currencies",
+        "subtext": "You will get the complete support of all the crypto currencies Cypherock supports"
+      }
+    },
     "deviceAuth": {
       "heading": "Geräteauthentifizierung",
       "title": "Ihr -=DEVICE_NAME=- wird nun über den -=PRODUCT_NAME=-Server authentifiziert, um seine Authentizität zu überprüfen",
@@ -756,14 +768,14 @@
     },
     "deviceUpdate": {
       "heading": "Geräte-Update",
-      "version": "Version ${version}",
+      "version": "Version ${variant} ${version}",
       "dialogs": {
         "checking": {
           "title": "Bitte warten Sie, während wir nach -=DEVICE_NAME=-Updates suchen"
         },
         "confirmation": {
           "heading": "Geräte-Update",
-          "title": "Ein neues Update für Ihr -=DEVICE_NAME=- ist verfügbar. Aktualisieren Sie das Gerät auf v${version}, um fortzufahren",
+          "title": "Ein neues Update für Ihr -=DEVICE_NAME=- ist verfügbar. Aktualisieren Sie das Gerät auf ${variant} v${version}, um fortzufahren",
           "subtext": "Befolgen Sie die Anweisungen auf dem Gerät"
         },
         "loading": {
@@ -775,7 +787,7 @@
         },
         "updateSuccessful": {
           "heading": "-=DEVICE_NAME=- erfolgreich aktualisiert",
-          "headingWithVersion": "-=DEVICE_NAME=- erfolgreich auf v${version} aktualisiert",
+          "headingWithVersion": "-=DEVICE_NAME=- erfolgreich auf ${variant} v${version} aktualisiert",
           "subtext": "Ihr Gerät läuft jetzt mit der neuesten Firmware"
         },
         "updateFailed": {
@@ -797,7 +809,7 @@
     }
   },
   "deviceUpdateBar": {
-    "message": "Firmware-Update-Version ${version} verfügbar",
+    "message": "Firmware-Update-Version ${variant} ${version} verfügbar",
     "button": "Herunterladen"
   },
   "betaNotificationBar": {
@@ -2235,6 +2247,18 @@
       "toAmount": "Amount Received",
       "toReceiver": "Receiver"
     },
+    "switchFirmwareDialog": {
+      "btcOnly": {
+        "title": "Switch firmware to Bitcoin-only",
+        "subtext": "Bitcoin-only firmware only works with Bitcoin transactions. If you want to access and manage all of your coins other than Bitcoin also then you'll not be able to do that"
+      },
+      "multiCoin": {
+        "title": "Switch firmware to Multi-coin",
+        "subtext": "Multi-coin firmware works with all coin transactions supported on Cypherock X1. If you want to access and manage all of your coins other than Bitcoin also then you'll be able to do that"
+      },
+      "checkbox": { "label": "I have read and understood" },
+      "primaryBtn": { "label": "Install Firmware" }
+    },
     "cantonDialogs": {
       "enableApprovalPrompt": {
         "title": "Übertragungs-Vorgenehmigung aktivieren",
@@ -2395,6 +2419,16 @@
       "device": {
         "title": "Geräteeinstellungen",
         "item": {
+          "switchFirmware": {
+            "btcOnly": {
+              "title": "Switch firmware to Bitcoin-only",
+              "description": "Bitcoin-only firmware only works with Bitcoin transactions."
+            },
+            "multiCoin": {
+              "title": "Switch firmware to Multi-coin",
+              "description": "Multi-coin firmware works with all coin transactions supported on Cypherock X1"
+            }
+          },
           "x1VaultAuth": {
             "title": "-=DEVICE_NAME---Authentifizierung",
             "description": "Authentifizieren Sie Ihr Gerät"

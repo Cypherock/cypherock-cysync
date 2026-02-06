@@ -30,7 +30,7 @@ import {
 import { CoinIcon } from '~/components';
 import { routes } from '~/constants';
 import { useCurrency } from '~/context';
-import { useNavigateTo, useQuery } from '~/hooks';
+import { useAccounts, useNavigateTo, useQuery } from '~/hooks';
 import {
   AccountSyncState,
   AccountSyncStateMap,
@@ -38,7 +38,7 @@ import {
   selectCurrentCurrencyPriceInfos,
   selectDiscreetMode,
   selectLanguage,
-  selectUnHiddenAccounts,
+  selectLastConnectedFirmware,
   selectWallets,
   useAppDispatch,
   useAppSelector,
@@ -197,27 +197,27 @@ const selector = createSelector(
   [
     selectLanguage,
     selectWallets,
-    selectUnHiddenAccounts,
     selectCurrentCurrencyPriceInfos,
     selectAccountSync,
     selectDiscreetMode,
+    selectLastConnectedFirmware,
     (state, currency: string) => currency,
   ],
   (
     lang,
     { wallets },
-    { accounts },
     priceInfos,
     { accountSyncMap },
     { active: isDiscreetMode },
+    { isFirmwareBtcOnly },
     currency,
   ) => ({
     lang,
     wallets,
-    accounts,
     priceInfos,
     accountSyncMap,
     isDiscreetMode,
+    isFirmwareBtcOnly,
     currency,
   }),
 );
@@ -227,11 +227,12 @@ export const useWalletPage = () => {
   const {
     wallets,
     lang,
-    accounts: allAccounts,
     priceInfos,
     accountSyncMap,
     isDiscreetMode,
+    isFirmwareBtcOnly,
   } = useAppSelector(state => selector(state, currentCurrency));
+  const allAccounts = useAccounts();
   const dispatch = useAppDispatch();
   const navigateTo = useNavigateTo();
   const query = useQuery();
@@ -424,5 +425,6 @@ export const useWalletPage = () => {
     walletName,
     onWalletChange,
     dropDownData,
+    isFirmwareBtcOnly,
   };
 };

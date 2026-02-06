@@ -128,6 +128,9 @@ const initialState: IDialogState = {
   mobileAppSyncDialog: {
     isOpen: false,
   },
+  switchFirmwareDialog: {
+    isOpen: false,
+  },
   fullPageLoaderDialog: {
     isOpen: false,
   },

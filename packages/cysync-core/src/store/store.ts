@@ -27,6 +27,9 @@ import priceInfoReducer, { IPriceInfoState } from './priceInfo';
 import snackBarReducer, { ISnackBarState } from './snackBar';
 import transactionReducer, { ITransactionState } from './transaction';
 import walletReducer, { IWalletState } from './wallet';
+import lastConnectedFirmwareReducer, {
+  ILastConnectedFirmwareState,
+} from './lastConnectedFirmware';
 
 export interface RootState {
   wallet: IWalletState;
@@ -43,6 +46,7 @@ export interface RootState {
   notification: INotificationState;
   network: INetworkState;
   inheritance: IInheritanceState;
+  lastConnectedFirmware: ILastConnectedFirmwareState;
   canton: ICantonState;
   buySellOrder: IBuySellOrderState;
 }
@@ -63,6 +67,7 @@ export const store = configureStore({
     notification: notificationReducer,
     network: networkReducer,
     inheritance: inheritanceReducer,
+    lastConnectedFirmware: lastConnectedFirmwareReducer,
     canton: cantonReducer,
     buySellOrder: buySellOrderReducer,
   },

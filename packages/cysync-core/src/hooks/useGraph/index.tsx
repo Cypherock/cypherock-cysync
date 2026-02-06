@@ -17,16 +17,16 @@ import { useCurrency } from '~/context';
 import {
   GraphTimeRangeMap,
   graphTimeRangeToDaysMap,
+  useAccounts,
   useGraphTimeRange,
   useStateToRef,
+  useTransactions,
 } from '~/hooks';
 import {
   selectDiscreetMode,
   selectLanguage,
   selectCurrentCurrencyPriceHistories,
   selectCurrentCurrencyPriceInfos,
-  selectTransactions,
-  selectUnHiddenAccounts,
   selectWallets,
   useAppDispatch,
   useAppSelector,
@@ -42,29 +42,23 @@ const selector = createSelector(
   [
     selectLanguage,
     selectWallets,
-    selectUnHiddenAccounts,
     selectCurrentCurrencyPriceHistories,
     selectCurrentCurrencyPriceInfos,
-    selectTransactions,
     selectDiscreetMode,
     (state, currency: string) => currency,
   ],
   (
     lang,
     { wallets },
-    { accounts },
     priceHistories,
     priceInfos,
-    { transactions },
     { active: isDiscreetMode },
     currency,
   ) => ({
     lang,
     wallets,
-    accounts,
     priceHistories,
     priceInfos,
-    transactions,
     isDiscreetMode,
     currency,
   }),
@@ -73,16 +67,11 @@ const selector = createSelector(
 export const useGraph = (props?: UseGraphProps) => {
   const theme = useTheme();
   const dispatch = useAppDispatch();
+  const accounts = useAccounts();
+  const transactions = useTransactions();
   const { currentCurrency } = useCurrency();
-  const {
-    lang,
-    accounts,
-    wallets,
-    transactions,
-    priceHistories,
-    priceInfos,
-    isDiscreetMode,
-  } = useAppSelector(state => selector(state, currentCurrency));
+  const { lang, wallets, priceHistories, priceInfos, isDiscreetMode } =
+    useAppSelector(state => selector(state, currentCurrency));
 
   const { rangeList, selectedRange, setSelectedRange } = useGraphTimeRange();
 

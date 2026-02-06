@@ -31,13 +31,16 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { openHistoryDialog } from '~/actions';
 import { CoinIcon } from '~/components';
 import { useCurrency } from '~/context';
-import { useStateToRef, useWindowSize } from '~/hooks';
+import {
+  useAccounts,
+  useStateToRef,
+  useTransactions,
+  useWindowSize,
+} from '~/hooks';
 import {
   selectDiscreetMode,
   selectLanguage,
   selectCurrentCurrencyPriceInfos,
-  selectTransactions,
-  selectUnHiddenAccounts,
   selectWallets,
   useAppDispatch,
   useAppSelector,
@@ -131,25 +134,13 @@ const selector = createSelector(
   [
     selectLanguage,
     selectWallets,
-    selectUnHiddenAccounts,
-    selectTransactions,
     selectCurrentCurrencyPriceInfos,
     selectDiscreetMode,
     (state, currency: string) => currency,
   ],
-  (
-    lang,
-    { wallets },
-    { accounts },
-    { transactions },
-    priceInfos,
-    { active: isDiscreetMode },
-    currency,
-  ) => ({
+  (lang, { wallets }, priceInfos, { active: isDiscreetMode }, currency) => ({
     lang,
     wallets,
-    accounts,
-    transactions,
     priceInfos,
     isDiscreetMode,
     currency,
@@ -392,21 +383,18 @@ export interface UseTransactionsProps {
   accountId?: string;
 }
 
-export const useTransactions = ({
+export const useDisplayTransactions = ({
   walletId,
   assetId,
   parentAssetId,
   accountId,
 }: UseTransactionsProps = {}) => {
+  const accounts = useAccounts();
+  const allTransactions = useTransactions();
   const { currentCurrency } = useCurrency();
-  const {
-    lang,
-    wallets,
-    accounts,
-    transactions: allTransactions,
-    priceInfos,
-    isDiscreetMode,
-  } = useAppSelector(state => selector(state, currentCurrency));
+  const { lang, wallets, priceInfos, isDiscreetMode } = useAppSelector(state =>
+    selector(state, currentCurrency),
+  );
 
   const refData = useStateToRef({
     lang,

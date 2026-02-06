@@ -20,3 +20,4 @@ export * from './validator';
 export * from './walletConnect';
 export * from './file';
 export * from './inheritance';
+export * from './customError';

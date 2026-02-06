@@ -5,7 +5,7 @@ import {
   getDefaultUnit,
   getParsedAmount,
 } from '@cypherock/coin-support-utils';
-import { coinList } from '@cypherock/coins';
+import { BtcIdMap, coinFamiliesMap, coinList } from '@cypherock/coins';
 import {
   IAccountAllocation,
   ICoinAllocationWithPercentage,
@@ -27,15 +27,16 @@ import React, {
 import { getDB } from '~/utils';
 import logger from '~/utils/logger';
 
+import { useAccounts } from './useAccounts';
 import { useStateToRef } from './useStateToRef';
+import { useTransactions } from './useTransactions';
 
 import {
   CoinIcon,
   selectDiscreetMode,
   selectLanguage,
+  selectLastConnectedFirmware,
   selectCurrentCurrencyPriceInfos,
-  selectTransactions,
-  selectUnHiddenAccounts,
   selectWallets,
   useAppDispatch,
   useAppSelector,
@@ -68,8 +69,7 @@ const selector = createSelector(
   [
     selectLanguage,
     selectWallets,
-    selectUnHiddenAccounts,
-    selectTransactions,
+    selectLastConnectedFirmware,
     selectCurrentCurrencyPriceInfos,
     selectDiscreetMode,
     (state, currency: string) => currency,
@@ -77,18 +77,16 @@ const selector = createSelector(
   (
     lang,
     { wallets },
-    { accounts },
-    { transactions },
+    { isFirmwareBtcOnly },
     priceInfos,
     { active: isDiscreetMode },
     currency,
   ) => ({
     lang,
     wallets,
-    accounts,
-    transactions,
     priceInfos,
     isDiscreetMode,
+    isFirmwareBtcOnly,
     currency,
   }),
 );
@@ -110,15 +108,11 @@ export const useAssetAllocations = ({
   withParentIconAtBottom,
   withSubIconAtBottom,
 }: UseAssetAllocationProps = {}) => {
+  const accounts = useAccounts();
+  const allTransactions = useTransactions();
   const { currentCurrency } = useCurrency();
-  const {
-    lang,
-    wallets,
-    accounts,
-    transactions: allTransactions,
-    priceInfos,
-    isDiscreetMode,
-  } = useAppSelector(state => selector(state, currentCurrency));
+  const { lang, wallets, priceInfos, isDiscreetMode, isFirmwareBtcOnly } =
+    useAppSelector(state => selector(state, currentCurrency));
 
   const refData = useStateToRef({
     lang,
@@ -131,6 +125,7 @@ export const useAssetAllocations = ({
     assetId,
     parentAssetId,
     accountId,
+    isFirmwareBtcOnly,
     currentCurrency,
   });
 
@@ -159,8 +154,15 @@ export const useAssetAllocations = ({
         result = await getCoinAllocations({
           db: getDB(),
           walletId: data.walletId,
+          coinFamilies: data.isFirmwareBtcOnly
+            ? [coinFamiliesMap.bitcoin]
+            : Object.keys(coinFamiliesMap),
           currency: data.currentCurrency,
         });
+
+        if (isFirmwareBtcOnly) {
+          result = result.filter(r => r.parentAssetId === BtcIdMap.bitcoin);
+        }
       }
 
       setCoinAllocations(
@@ -257,11 +259,19 @@ export const useAssetAllocations = ({
 
   useEffect(() => {
     debounceGenerateCoinAllocations();
-  }, [allTransactions, accounts, priceInfos, wallets]);
+  }, [allTransactions, accounts, priceInfos, wallets, isFirmwareBtcOnly]);
 
   useEffect(() => {
     debounceGenerateCoinAllocationsOnUserAction();
-  }, [isDiscreetMode, lang, walletId, assetId, parentAssetId, accountId]);
+  }, [
+    isDiscreetMode,
+    lang,
+    walletId,
+    assetId,
+    parentAssetId,
+    accountId,
+    isFirmwareBtcOnly,
+  ]);
 
   const isAccountDisplay = useMemo(() => !!parentAssetId, [parentAssetId]);
 

@@ -18,17 +18,13 @@ import { CoinIcon } from '~/components';
 import { routes } from '~/constants';
 import {
   CoinAllocationRow,
+  useAccounts,
   useAssetDropdown,
   useNavigateTo,
   useQuery,
   useWalletDropdown,
 } from '~/hooks';
-import {
-  selectLanguage,
-  selectUnHiddenAccounts,
-  selectWallets,
-  useAppSelector,
-} from '~/store';
+import { selectLanguage, selectWallets, useAppSelector } from '~/store';
 
 interface AccountNameDisplayProps {
   name: string;
@@ -125,14 +121,15 @@ DropdownAccountNameDisplay.defaultProps = {
 };
 
 const selector = createSelector(
-  [selectUnHiddenAccounts, selectWallets, selectLanguage],
-  ({ accounts }, { wallets }, lang) => ({ accounts, wallets, lang }),
+  [selectWallets, selectLanguage],
+  ({ wallets }, lang) => ({ wallets, lang }),
 );
 
 export const useAccountPage = () => {
   const query = useQuery();
   const navigateTo = useNavigateTo();
-  const { accounts, wallets, lang } = useAppSelector(selector);
+  const { wallets, lang } = useAppSelector(selector);
+  const accounts = useAccounts();
   const { selectedWallet } = useWalletDropdown({ withSelectAll: true });
 
   const accountId = useMemo(() => query.get('accountId') ?? undefined, [query]);

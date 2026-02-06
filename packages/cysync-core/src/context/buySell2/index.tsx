@@ -33,6 +33,7 @@ import React, {
 import { getPaymentMethodIcon } from '~/constants';
 import {
   useAccountDropdown,
+  useAccounts,
   useCountryDropdown,
   useCryptoDropdown,
   useFiatDropdown,
@@ -41,12 +42,7 @@ import {
 } from '~/hooks';
 import { useNavigation } from '~/pages/MainApp/BuySell2/hooks';
 import { BuySellPage } from '~/pages/MainApp/BuySell2/pages';
-import {
-  selectLanguage,
-  selectUnHiddenAccounts,
-  selectWallets,
-  useAppSelector,
-} from '~/store';
+import { selectLanguage, selectWallets, useAppSelector } from '~/store';
 import { getDB } from '~/utils/db';
 
 export interface BuySell2ContextInterface {
@@ -162,7 +158,7 @@ export const BuySell2Provider: FC<BuySell2ContextProviderProps> = ({
       defaultFiatCurrency: 'USD',
     });
 
-  const { accounts } = useAppSelector(selectUnHiddenAccounts);
+  const accounts = useAccounts();
 
   const accountList: Record<string, IAccount> = useMemo(
     () => Object.fromEntries(accounts.map(a => [a.__id, a])),

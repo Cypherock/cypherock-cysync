@@ -17,7 +17,7 @@ import React, { FC, useEffect, useRef, useState } from 'react';
 import * as Virtualize from 'react-virtualized/dist/umd/react-virtualized';
 
 import { openReceiveDialog } from '~/actions';
-import { useTransactions, useWindowSize } from '~/hooks';
+import { useDisplayTransactions, useWindowSize } from '~/hooks';
 import { openSnackBar, selectLanguage, useAppSelector } from '~/store';
 import { downloadCSVToDesktop } from '~/utils';
 
@@ -43,7 +43,7 @@ export const History: FC = () => {
     isSmallScreen,
     expandedRowIds,
     onRowExpand,
-  } = useTransactions();
+  } = useDisplayTransactions();
   const theme = useTheme();
   const { windowHeight } = useWindowSize();
   const [topbarHeight, setTopbarHeight] = useState(0);

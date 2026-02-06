@@ -55,6 +55,7 @@
     "saveChanges": "Simpan perubahan",
     "edit": "Sunting",
     "tryAgain": "Coba Lagi",
+    "switchFirmware": "Switch Firmware",
     "autoApproval": "Persetujuan Transfer",
     "mergeDelegation": "Pengelolaan UTXO",
     "accept": "Terima",
@@ -654,6 +655,17 @@
         "subtext": "Coba sambungkan kembali perangkat"
       }
     },
+    "chooseFirmware": {
+      "heading": "Select Firmware",
+      "btcOnly": {
+        "title": "I want to use Cypherock X1 just for Bitcoin",
+        "subtext": "Both the device firmware and the CySync will be tailored to serve only bitcoin"
+      },
+      "multiCoin": {
+        "title": "I want support for all crypto currencies",
+        "subtext": "You will get the complete support of all the crypto currencies Cypherock supports"
+      }
+    },
     "deviceAuth": {
       "heading": "Otentikasi Perangkat",
       "title": "-=DEVICE_NAME=- Anda sekarang akan diautentikasi\nmelalui server -=PRODUCT_NAME=- untuk memeriksa\nkeasliannya",
@@ -756,14 +768,14 @@
     },
     "deviceUpdate": {
       "heading": "Pembaruan Perangkat",
-      "version": "Versi ${version}",
+      "version": "Versi ${variant} ${version}",
       "dialogs": {
         "checking": {
           "title": "Harap tunggu sementara kami memeriksa pembaruan -=DEVICE_NAME=-"
         },
         "confirmation": {
           "heading": "Pembaruan Perangkat",
-          "title": "Pembaruan baru tersedia untuk -=DEVICE_NAME=- Anda. Perbarui perangkat ke v${version} untuk melanjutkan",
+          "title": "Pembaruan baru tersedia untuk -=DEVICE_NAME=- Anda. Perbarui perangkat ke ${variant} v${version} untuk melanjutkan",
           "subtext": "Ikuti petunjuk pada perangkat"
         },
         "loading": {
@@ -775,7 +787,7 @@
         },
         "updateSuccessful": {
           "heading": "-=DEVICE_NAME=- berhasil diperbarui",
-          "headingWithVersion": "-=DEVICE_NAME=- berhasil diperbarui ke v${version}",
+          "headingWithVersion": "-=DEVICE_NAME=- berhasil diperbarui ke ${variant} v${version}",
           "subtext": "Perangkat Anda sekarang beroperasi pada firmware terbaru"
         },
         "updateFailed": {
@@ -797,7 +809,7 @@
     }
   },
   "deviceUpdateBar": {
-    "message": "Versi pembaruan Firmware ${version} tersedia",
+    "message": "Versi pembaruan Firmware ${variant} ${version} tersedia",
     "button": "Unduh"
   },
   "betaNotificationBar": {
@@ -2234,6 +2246,18 @@
       "toAmount": "Amount Received",
       "toReceiver": "Receiver"
     },
+    "switchFirmwareDialog": {
+      "btcOnly": {
+        "title": "Switch firmware to Bitcoin-only",
+        "subtext": "Bitcoin-only firmware only works with Bitcoin transactions. If you want to access and manage all of your coins other than Bitcoin also then you'll not be able to do that"
+      },
+      "multiCoin": {
+        "title": "Switch firmware to Multi-coin",
+        "subtext": "Multi-coin firmware works with all coin transactions supported on Cypherock X1. If you want to access and manage all of your coins other than Bitcoin also then you'll be able to do that"
+      },
+      "checkbox": { "label": "I have read and understood" },
+      "primaryBtn": { "label": "Install Firmware" }
+    },
     "cantonDialogs": {
       "enableApprovalPrompt": {
         "title": "Aktifkan Persetujuan Transfer",
@@ -2394,6 +2418,16 @@
       "device": {
         "title": "Pengaturan Perangkat",
         "item": {
+          "switchFirmware": {
+            "btcOnly": {
+              "title": "Switch firmware to Bitcoin-only",
+              "description": "Bitcoin-only firmware only works with Bitcoin transactions."
+            },
+            "multiCoin": {
+              "title": "Switch firmware to Multi-coin",
+              "description": "Multi-coin firmware works with all coin transactions supported on Cypherock X1"
+            }
+          },
           "x1VaultAuth": {
             "title": "Autentikasi -=DEVICE_NAME=-",
             "description": "Autentikasi perangkat Anda"

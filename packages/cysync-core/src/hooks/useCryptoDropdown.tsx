@@ -1,6 +1,8 @@
-import { coinList, IEvmCoinInfo } from '@cypherock/coins';
+import { BtcIdMap, coinList, IEvmCoinInfo } from '@cypherock/coins';
 import { DropDownItemProps } from '@cypherock/cysync-ui';
 import React, { useMemo, useState } from 'react';
+
+import { selectLastConnectedFirmware, useAppSelector } from '~/store';
 
 import { CoinIcon } from '../components';
 
@@ -20,6 +22,8 @@ export interface SelectedCrypto {
 export const useCryptoDropdown = ({
   defaultCryptoId,
 }: UseCryptoDropdownProps = {}) => {
+  const { isFirmwareBtcOnly } = useAppSelector(selectLastConnectedFirmware);
+
   const [selectedCrypto, setSelectedCrypto] = useState<
     SelectedCrypto | undefined
   >();
@@ -70,6 +74,10 @@ export const useCryptoDropdown = ({
     const dropdownItems: DropDownItemProps[] = [];
 
     Object.entries(coinList).forEach(([parentAssetId, coin]) => {
+      if (isFirmwareBtcOnly && coin.id !== BtcIdMap.bitcoin) {
+        return;
+      }
+
       dropdownItems.push({
         id: `${parentAssetId}/${parentAssetId}`,
         checkType: 'radio',
@@ -106,7 +114,7 @@ export const useCryptoDropdown = ({
     });
 
     return dropdownItems;
-  }, [coinList]);
+  }, [coinList, isFirmwareBtcOnly]);
 
   // Set default selection if provided
   React.useEffect(() => {

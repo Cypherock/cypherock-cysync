@@ -10,11 +10,10 @@ import { ManagerApp } from '@cypherock/sdk-app-manager';
 import { hexToUint8Array } from '@cypherock/sdk-utils';
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 
-import { ErrorActionMap, ErrorIconNameMap } from '~/constants/errors';
 import { DeviceTask, useDeviceTask, useMemoReturn } from '~/hooks';
 import { analyticsService, ANALYTICS_EVENTS } from '~/services/analytics';
 import { createExchange, getProviderDetails } from '~/services/swapService';
-import { getDB } from '~/utils';
+import { createCustomError, getDB } from '~/utils';
 import logger from '~/utils/logger';
 
 export enum SwapPage {
@@ -92,20 +91,6 @@ export const SwapContext: React.Context<SwapContextInterface> =
 export interface SwapProviderProps {
   children: React.ReactNode;
 }
-
-export const createCustomError = (heading: string, subtext?: string) => ({
-  custom: {
-    heading,
-    subtext,
-    details: {
-      iconName: ErrorIconNameMap.default,
-      action: {
-        name: ErrorActionMap.retry,
-      },
-    },
-  },
-  isCustomError: true,
-});
 
 export const SwapProvider: React.FC<SwapProviderProps> = ({ children }) => {
   const [currentPage, setCurrentPage] = useState(SwapPage.DETAILS);

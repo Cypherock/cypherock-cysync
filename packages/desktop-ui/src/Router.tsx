@@ -28,6 +28,7 @@ import {
   InheritancePlanDetails,
   ReferAndEarn,
   Swap,
+  ChooseFirmware,
   BuySell2,
   analyticsService,
 } from '@cypherock/cysync-core';
@@ -47,6 +48,7 @@ const components: Record<RouteName, ReactNode> = {
   'onboarding-set-password': <SetPassword />,
   'onboarding-email-auth': <EmailAuth />,
   'onboarding-device-detection': <DeviceDetection />,
+  'onboarding-choose-firmware': <ChooseFirmware />,
   'onboarding-device-authentication': <DeviceAuthentication />,
   'onboarding-joystick-training': <JoystickTraining />,
   'onboarding-card-training': <CardTraining />,

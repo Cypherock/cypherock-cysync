@@ -4,7 +4,8 @@ import { AccountTypeMap, IAccount, IWallet } from '@cypherock/db-interfaces';
 import lodash from 'lodash';
 import React, { useEffect, useMemo, useState } from 'react';
 
-import { CoinIcon, selectUnHiddenAccounts, useAppSelector } from '..';
+import { CoinIcon } from '..';
+import { useAccounts } from './useAccounts';
 
 export interface UseAccountDropdownProps {
   selectedWallet: IWallet | undefined;
@@ -15,7 +16,7 @@ export interface UseAccountDropdownProps {
 }
 
 export const useAccountDropdown = (props: UseAccountDropdownProps) => {
-  const { accounts } = useAppSelector(selectUnHiddenAccounts);
+  const accounts = useAccounts();
   const [selectedAccount, setSelectedAccount] = useState<
     IAccount | undefined
   >();

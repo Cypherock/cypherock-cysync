@@ -5,7 +5,7 @@ import React, { useEffect, useRef } from 'react';
 
 import { openReceiveDialog } from '~/actions';
 import { LoaderDialog } from '~/components';
-import { createCustomError, useSwap } from '~/context';
+import { useSwap } from '~/context';
 import { ReceiveFlowSource } from '~/dialogs/Receive/context';
 import { DeviceTask, useDeviceTask } from '~/hooks';
 import { analyticsService, ANALYTICS_EVENTS } from '~/services/analytics';
@@ -15,6 +15,7 @@ import {
   useAppDispatch,
   useAppSelector,
 } from '~/store';
+import { createCustomError } from '~/utils';
 import logger from '~/utils/logger';
 
 const SWAP_RECEIVE_VALIDITY_CHECK_INTERVAL_MS = 5000;

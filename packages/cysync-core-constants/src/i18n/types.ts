@@ -112,6 +112,7 @@ interface LangButtons {
   saveChanges: string;
   edit: string;
   tryAgain: string;
+  switchFirmware: string;
   autoApproval: string;
   mergeDelegation: string;
   accept: string;
@@ -618,6 +619,17 @@ interface LangOnboarding {
     heading: string;
     title: string;
     unavailable: { title: string; subtext: string };
+  };
+  chooseFirmware: {
+    heading: string;
+    btcOnly: {
+      title: string;
+      subtext: string;
+    };
+    multiCoin: {
+      title: string;
+      subtext: string;
+    };
   };
   deviceAuth: {
     heading: string;
@@ -1353,6 +1365,18 @@ interface LangDialogs {
     toAmount: string;
     toReceiver: string;
   };
+  switchFirmwareDialog: {
+    btcOnly: {
+      title: string;
+      subtext: string;
+    };
+    multiCoin: {
+      title: string;
+      subtext: string;
+    };
+    checkbox: { label: string };
+    primaryBtn: { label: string };
+  };
   cantonDialogs: {
     enableApprovalPrompt: {
       title: string;
@@ -1483,6 +1507,10 @@ interface LangSettings {
     device: {
       title: string;
       item: {
+        switchFirmware: {
+          btcOnly: { title: string; description: string };
+          multiCoin: { title: string; description: string };
+        };
         x1VaultAuth: { title: string; description: string };
         x1CardAuth: { title: string; description: string };
         transferWallet: { title: string; description: string };

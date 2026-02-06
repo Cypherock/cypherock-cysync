@@ -218,6 +218,11 @@ export interface IDialogState {
     data?: undefined;
   };
 
+  switchFirmwareDialog: {
+    isOpen: boolean;
+    data?: undefined;
+  };
+
   fullPageLoaderDialog: {
     isOpen: boolean;
     data?: FullPageLoaderDialogProps;

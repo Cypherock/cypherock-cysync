@@ -14,6 +14,7 @@ import {
   setAccounts,
   setDevices,
   setInheritancePlans,
+  setIsFirmwareBtcOnly,
   setLanguage,
   setPriceHistories,
   setPriceInfos,
@@ -229,6 +230,13 @@ export const syncAllDb = async (isFirst: boolean, currency: string) => {
   await syncBuySellOrdersDb(isFirst);
 
   store.dispatch(setLanguage((await keyValueStore.appLanguage.get()) as any));
+
+  store.dispatch(
+    setIsFirmwareBtcOnly(
+      await keyValueStore.isLastConnectedFirmwareBtcOnly.get(),
+    ),
+  );
+
   store.dispatch(
     updateCantonAuthTokens({
       cantonAuthTokens: (await keyValueStore.cantonAuthTokens.get()) ?? {},
