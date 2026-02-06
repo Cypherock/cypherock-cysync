@@ -1,4 +1,5 @@
-import { createServiceLogger, updateLogger } from './logger';
+import '@/polyfills';
+import logger, { createServiceLogger, updateLogger } from './logger';
 
 const { BtcSupport } = require('@cypherock/coin-support-btc');
 const { EvmSupport } = require('@cypherock/coin-support-evm');
@@ -10,23 +11,47 @@ const { TronSupport } = require('@cypherock/coin-support-tron');
 const { XrpSupport } = require('@cypherock/coin-support-xrp');
 const { IcpSupport } = require('@cypherock/coin-support-icp');
 
-export const setGlobalDependencies = async () => {
-  BtcSupport.setBitcoinLibrary((globalThis as any).BitcoinJsLib);
-  NearSupport.setNearApiJs((globalThis as any).NearApiJs);
-  EvmSupport.setEthersLibrary((globalThis as any).ethers);
-  EvmSupport.setEip712Library((globalThis as any).eip712);
-  EvmSupport.setWeb3Library((globalThis as any).web3);
-  SolanaSupport.setWeb3Library((globalThis as any).solanaWeb3);
-  SolanaSupport.setSplTokenLibrary((globalThis as any).solanaSplToken);
-  TronSupport.setTronWeb(
-    new (globalThis as any).TronWeb({ fullHost: 'https://api.trongrid.io' }),
-  );
-  XrpSupport.setXrpLib((globalThis as any).xrpl);
-  StellarSupport.setStellarLib((globalThis as any).StellarSdk);
-  StarknetSupport.setStarknetLib((globalThis as any).starknet);
-  IcpSupport.setDfinityLib((globalThis as any).dfinity);
+export const setGlobalDependencies = () => {
+  try {
+    const bitcoinJsLib = require('bitcoinjs-lib');
+    const nearApiJs = require('near-api-js');
+    const ethers = require('ethers');
+    const eip712 = require('eip-712');
+    const web3 = require('web3');
+    const solanaWeb3 = require('@solana/web3.js');
+    const solanaSplToken = require('@solana/spl-token');
+    const TronWeb = require('tronweb');
+    const stellarSdk = require('stellar-sdk');
+    const xrpl = require('xrpl');
+    const starknet = require('starknet');
+    const dfinity = {
+      agent: require('@dfinity/agent'),
+      icp: require('@dfinity/ledger-icp'),
+      candid: require('@dfinity/candid'),
+      principal: require('@dfinity/principal'),
+    };
+
+    BtcSupport.setBitcoinLibrary(bitcoinJsLib);
+    NearSupport.setNearApiJs(nearApiJs);
+    EvmSupport.setEthersLibrary(ethers);
+    EvmSupport.setEip712Library(eip712);
+    EvmSupport.setWeb3Library(web3);
+    SolanaSupport.setWeb3Library(solanaWeb3);
+    SolanaSupport.setSplTokenLibrary(solanaSplToken);
+    TronSupport.setTronWeb(
+      new TronWeb({ fullHost: 'https://api.trongrid.io' }),
+    );
+    XrpSupport.setXrpLib(xrpl);
+    StellarSupport.setStellarLib(stellarSdk);
+    StarknetSupport.setStarknetLib(starknet);
+    IcpSupport.setDfinityLib(dfinity);
+
+    logger.info('All dependencies injected successfully');
+  } catch (error) {
+    logger.error('Failed to inject dependencies', { error });
+  }
 };
 
-export const setCoreDependencies = async () => {
+export const setCoreDependencies = () => {
   updateLogger(createServiceLogger);
 };
