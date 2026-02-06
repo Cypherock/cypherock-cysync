@@ -1,18 +1,18 @@
-import { Realm } from '@realm/react';
+import Realm from 'realm';
 
 export class Migration extends Realm.Object {
-  static schema = {
+  static schema: Realm.ObjectSchema = {
     name: 'Migration',
-    primaryKey: '_id',
+    primaryKey: '__id',
     properties: {
-      _id: 'objectId',
+      __id: 'string',
       id: 'string',
       ranAt: 'int',
       isSuccessful: 'bool',
     },
   };
 
-  _id!: Realm.BSON.ObjectId;
+  __id!: string;
   id!: string;
   ranAt!: number;
   isSuccessful!: boolean;

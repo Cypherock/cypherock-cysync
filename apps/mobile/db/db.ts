@@ -11,6 +11,7 @@ import {
   ObjectLiteral,
   IInheritancePlanRepository,
   IMigrationRepository,
+  IMigration,
   IPriceHistoryRepository,
   IPriceInfoRepository,
   ITransactionNotificationClickRepository,
@@ -19,6 +20,7 @@ import {
   ITransactionNotificationClick,
   IPriceHistory,
   IPriceInfo,
+  IBuySellOrderRepository,
 } from '@cypherock/db-interfaces';
 import { Repository } from './repository/Repository';
 import { AccountRepository } from './repository/AccountRepository';
@@ -30,6 +32,7 @@ import { TransactionNotificationRead } from './models/TransactionNotificationRea
 import { TransactionNotificationClick } from './models/TransactionNotificationClick';
 import { PriceHistory } from './models/PriceHistory';
 import { PriceInfo } from './models/PriceInfo';
+import { Migration } from './models/Migration';
 
 export class Database implements IDatabase {
   private database: Realm | undefined;
@@ -42,8 +45,9 @@ export class Database implements IDatabase {
   transactionNotificationClick: ITransactionNotificationClickRepository;
   priceHistory: IPriceHistoryRepository;
   priceInfo: IPriceInfoRepository;
-  migration!: IMigrationRepository;
+  migration: IMigrationRepository;
   inheritancePlan!: IInheritancePlanRepository;
+  buySellOrder!: IBuySellOrderRepository;
 
   constructor(params: {
     database: Realm;
@@ -54,6 +58,7 @@ export class Database implements IDatabase {
     transactionNotificationClick: ITransactionNotificationClickRepository;
     priceHistory: IPriceHistoryRepository;
     priceInfo: IPriceInfoRepository;
+    migration: IMigrationRepository;
   }) {
     this.database = params.database;
 
@@ -64,11 +69,13 @@ export class Database implements IDatabase {
     this.transactionNotificationClick = params.transactionNotificationClick;
     this.priceHistory = params.priceHistory;
     this.priceInfo = params.priceInfo;
+    this.migration = params.migration;
   }
 
   public static async create() {
     const database = await Realm.open({
       path: 'parallellines',
+      schemaVersion: 1,
       schema: [
         Wallet.schema,
         Account.schema,
@@ -77,6 +84,7 @@ export class Database implements IDatabase {
         TransactionNotificationClick.schema,
         PriceHistory.schema,
         PriceInfo.schema,
+        Migration.schema,
       ],
     });
 
@@ -88,6 +96,7 @@ export class Database implements IDatabase {
       transactionNotificationClick,
       priceHistory,
       priceInfo,
+      migration,
     ] = await Promise.all([
       Repository.create<IWallet>(database, Wallet.name, Wallet.schema),
       AccountRepository.build(database, Account.name),
@@ -108,6 +117,7 @@ export class Database implements IDatabase {
         PriceHistory.schema,
       ),
       Repository.create<IPriceInfo>(database, PriceInfo.name, PriceInfo.schema),
+      Repository.create<IMigration>(database, Migration.name, Migration.schema),
     ]);
 
     return new Database({
@@ -119,6 +129,7 @@ export class Database implements IDatabase {
       transactionNotificationRead,
       priceHistory,
       priceInfo,
+      migration,
     });
   }
 
