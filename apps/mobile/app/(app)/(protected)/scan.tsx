@@ -89,6 +89,13 @@ export default function Scan() {
         if (acc.familyId === 'solana') {
           acc.extraData.latestTransactionHash = undefined;
         }
+        if (acc.familyId === 'evm') {
+          acc.extraData.lastInternalTransactionBlockHeight = undefined;
+          acc.extraData.lastContractTransactionBlockHeight = undefined;
+        }
+        if (acc.familyId === 'canton') {
+          acc.extraData.latestTransactionOffset = undefined;
+        }
       }
       return acc;
     });
