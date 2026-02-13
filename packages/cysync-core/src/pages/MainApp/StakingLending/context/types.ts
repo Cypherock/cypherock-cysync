@@ -1,6 +1,6 @@
 /**
  * Widget Provider Types
- * 
+ *
  * These types define the widget's internal state.
  * The WidgetWalletConnectBridge maps these to WalletConnect's interface.
  */
@@ -14,11 +14,11 @@ export interface WidgetCallRequestData {
 export interface WidgetContextInterface {
   // Request state
   callRequestData: WidgetCallRequestData | null;
-  
+
   // Methods that dialogs will call (via bridge)
   approveCallRequest: (result: string) => void;
   rejectCallRequest: (reason?: string) => void;
-  
+
   // Internal state
   isActive: boolean; // True when widget has pending requests
 }

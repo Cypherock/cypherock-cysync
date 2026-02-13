@@ -14,6 +14,7 @@ export const WidgetContainer: React.FC<WidgetContainerProps> = ({
   widgetUrl = 'https://9716b016517de6f71e42f74b.p2p.org',
 }) => {
   const [status, setStatus] = useState('Loading...');
+  const [addressSet, setAddressSet] = useState(false);
 
   // Send address to main process when account changes
   useEffect(() => {
@@ -22,11 +23,14 @@ export const WidgetContainer: React.FC<WidgetContainerProps> = ({
       selectedAccount.xpubOrAddress,
     );
 
+    setAddressSet(false);
+
     window.electronAPI
       .setWidgetAddress(selectedAccount.xpubOrAddress)
       .then(() => {
         console.log('[WidgetContainer] Address sent successfully');
         setStatus(`Ready: ${selectedAccount.name}`);
+        setAddressSet(true);
       })
       .catch((error: Error) => {
         console.error('[WidgetContainer] Failed to send address:', error);
@@ -59,15 +63,17 @@ export const WidgetContainer: React.FC<WidgetContainerProps> = ({
           </Typography>
         </Container>
 
-        <webview
-          ref={webviewRef}
-          src={widgetUrl}
-          style={{
-            width: '100%',
-            height: '100%',
-            border: 'none',
-          }}
-        />
+        {addressSet && (
+          <webview
+            ref={webviewRef}
+            src={widgetUrl}
+            style={{
+              width: '100%',
+              height: '100%',
+              border: 'none',
+            }}
+          />
+        )}
       </Flex>
     </Container>
   );

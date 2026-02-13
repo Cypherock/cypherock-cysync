@@ -162,7 +162,7 @@ export const SidebarProvider: FC<SidebarProviderProps> = ({ children }) => {
       case 'referAndEarn':
         path = routes.referAndEarn.path;
         break;
-      case 'stakingLending': 
+      case 'stakingLending':
         path = routes.stakingLending.path;
         break;
       default:

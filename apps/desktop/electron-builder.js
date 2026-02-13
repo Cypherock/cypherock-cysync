@@ -25,13 +25,7 @@ const config = {
     '!node_modules/@cypherock/*/.turbo/**',
     '!node_modules/@cypherock/*/scripts/**',
   ],
-  extraResources: [
-    'extraResources/RELEASE_NOTES.md',
-    {
-      from: '../cysync-core/src/pages/MainApp/StakingLending/preload/widget-preload.js',
-      to: 'widget-preload.js',
-    },
-  ],
+  extraResources: ['extraResources/RELEASE_NOTES.md'],
   releaseInfo: {
     releaseNotesFile: './extraResources/RELEASE_NOTES.md',
   },

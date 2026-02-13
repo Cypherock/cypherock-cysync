@@ -74,6 +74,5 @@ export interface IElectronAPI {
   addUpdateDeviceFirmwareStatusListener: AddUpdateDeviceFirmwareStatusListener;
   removeUpdateDeviceFirmwareListeners: RemoveUpdateDeviceFirmwareListeners;
   authenticateDevice: AuthenticateDevice;
-  getWidgetPreloadPath: GetWidgetPreloadPath;
   setWidgetAddress: SetWidgetAddress;
 }

@@ -20,7 +20,6 @@ export const ipcConfig = {
     restartApp: 'app:restart',
     getInitialWCUri: 'wc:uri:init',
     getSystemInfo: 'system:info',
-    getWidgetPreloadPath: 'widget:preload:path',
     setWidgetAddress: 'widget:address:set',
   },
   listeners: {

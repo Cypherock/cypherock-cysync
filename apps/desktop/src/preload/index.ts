@@ -68,10 +68,6 @@ const exportedFunctions = [
     key: ipcConfig.methods.getSystemInfo,
   },
   {
-    name: 'getWidgetPreloadPath',
-    key: ipcConfig.methods.getWidgetPreloadPath,
-  },
-  {
     name: 'setWidgetAddress',
     key: ipcConfig.methods.setWidgetAddress,
   },
