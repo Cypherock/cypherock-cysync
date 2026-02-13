@@ -25,7 +25,13 @@ const config = {
     '!node_modules/@cypherock/*/.turbo/**',
     '!node_modules/@cypherock/*/scripts/**',
   ],
-  extraResources: ['extraResources/RELEASE_NOTES.md'],
+  extraResources: [
+    'extraResources/RELEASE_NOTES.md',
+    {
+      from: '../cysync-core/src/pages/MainApp/StakingLending/preload/widget-preload.js',
+      to: 'widget-preload.js',
+    },
+  ],
   releaseInfo: {
     releaseNotesFile: './extraResources/RELEASE_NOTES.md',
   },
@@ -78,10 +84,10 @@ const config = {
 };
 
 if (process.env.WINDOWS_CERT_SUBJECT) {
- if (!config.win.signtoolOptions) { 
-    config.win.signtoolOptions = {}; 
- } 
- config.win.signtoolOptions.certificateSubjectName =
+  if (!config.win.signtoolOptions) {
+    config.win.signtoolOptions = {};
+  }
+  config.win.signtoolOptions.certificateSubjectName =
     process.env.WINDOWS_CERT_SUBJECT;
 }
 

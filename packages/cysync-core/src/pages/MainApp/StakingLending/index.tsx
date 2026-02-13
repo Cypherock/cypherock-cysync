@@ -22,9 +22,7 @@ enum StakingLendingState {
 const WidgetActiveView: React.FC<{
   selectedAccount: IAccount;
   webviewRef: React.RefObject<any>;
-  onError: (error: string) => void;
-  onDisconnect: () => void;
-}> = ({ selectedAccount, webviewRef, onError, onDisconnect }) => {
+}> = ({ selectedAccount, webviewRef }) => {
   // Hook that polls webview and dispatches dialogs
   useWidgetRequests({
     webviewRef,
@@ -36,8 +34,6 @@ const WidgetActiveView: React.FC<{
     <WidgetContainer
       selectedAccount={selectedAccount}
       webviewRef={webviewRef}
-      onError={onError}
-      onDisconnect={onDisconnect}
     />
   );
 };
@@ -154,8 +150,6 @@ export const StakingLending = () => {
         <WidgetActiveView
           selectedAccount={selectedAccount}
           webviewRef={widgetWebviewRef}
-          onError={handleWidgetError}
-          onDisconnect={handleBackToOverview}
         />
       </WidgetProvider>
     );

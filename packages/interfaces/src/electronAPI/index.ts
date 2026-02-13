@@ -42,6 +42,8 @@ export type AuthenticateDevice = (
   email?: string,
   cysyncVersion?: string,
 ) => Promise<boolean>;
+export type GetWidgetPreloadPath = () => Promise<string>;
+export type SetWidgetAddress = (address: string) => Promise<boolean>;
 
 export interface IElectronAPI {
   logWithServiceAndLevel: LogWithServiceAndMethod;
@@ -72,4 +74,6 @@ export interface IElectronAPI {
   addUpdateDeviceFirmwareStatusListener: AddUpdateDeviceFirmwareStatusListener;
   removeUpdateDeviceFirmwareListeners: RemoveUpdateDeviceFirmwareListeners;
   authenticateDevice: AuthenticateDevice;
+  getWidgetPreloadPath: GetWidgetPreloadPath;
+  setWidgetAddress: SetWidgetAddress;
 }

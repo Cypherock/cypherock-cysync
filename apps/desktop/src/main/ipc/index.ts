@@ -16,6 +16,7 @@ import {
   getWalletConnectIPCHandlers,
   setupWalletConnectListeners,
 } from './walletConnect';
+import { getWidgetIPCHandlers } from './widget';
 
 export const setupIPCHandlers = (
   ipcMain: IpcMain,
@@ -31,6 +32,7 @@ export const setupIPCHandlers = (
     ...getWalletConnectIPCHandlers(),
     ...getCySyncLogsIPCHandlers(),
     ...getSystemInfoIPCHandlers(),
+    ...getWidgetIPCHandlers(),
   ];
 
   for (const func of exportedFunctions) {

@@ -67,6 +67,14 @@ const exportedFunctions = [
     name: 'getSystemInfo',
     key: ipcConfig.methods.getSystemInfo,
   },
+  {
+    name: 'getWidgetPreloadPath',
+    key: ipcConfig.methods.getWidgetPreloadPath,
+  },
+  {
+    name: 'setWidgetAddress',
+    key: ipcConfig.methods.setWidgetAddress,
+  },
 ];
 
 const exportedListeners = [
