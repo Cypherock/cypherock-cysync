@@ -18,14 +18,11 @@ export const getWidgetIPCHandlers = () => [
 
 export const getWidgetInjectionScript = (address: string) => `
   (function() {
-    console.log('=== CYPHEROCK WALLET INJECTION STARTING ===');
-
     window.widgetPendingRequests = [];
     let requestIdCounter = 0;
     const pendingPromises = new Map();
 
     window.resolveWidgetRequest = function(requestId, result) {
-      console.log('[Widget] Resolving request:', requestId);
       const promise = pendingPromises.get(requestId);
       if (promise) {
         promise.resolve(result);
@@ -34,7 +31,6 @@ export const getWidgetInjectionScript = (address: string) => `
     };
 
     window.rejectWidgetRequest = function(requestId, errorMessage) {
-      console.log('[Widget] Rejecting request:', requestId);
       const promise = pendingPromises.get(requestId);
       if (promise) {
         promise.reject(new Error(errorMessage));
@@ -49,11 +45,8 @@ export const getWidgetInjectionScript = (address: string) => `
       selectedAddress: '${address}',
       
       request: async function(args) {
-        console.log('[Widget] Request:', args.method);
-        
         if (args.method === 'eth_accounts' || args.method === 'eth_requestAccounts') {
           const accounts = ['${address}'];
-          console.log('[Widget] Returning accounts:', accounts);
           return accounts;
         }
         
@@ -94,11 +87,11 @@ export const getWidgetInjectionScript = (address: string) => `
       },
       
       on: function(event, callback) {
-        console.log('[Widget] Event listener registered:', event);
+        
       },
       
       removeListener: function(event, callback) {
-        console.log('[Widget] Event listener removed:', event);
+        
       },
       
       isConnected: () => true,
@@ -113,9 +106,6 @@ export const getWidgetInjectionScript = (address: string) => `
         }));
       }
     }, 100);
-    
-    console.log('=== CYPHEROCK WALLET INJECTION COMPLETE ===');
-    console.log('[Widget] Account:', '${address}');
     
     return 'INJECTION_SUCCESS';
   })();

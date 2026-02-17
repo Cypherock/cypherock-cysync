@@ -50,8 +50,12 @@ export function useWidgetRequests({
 
     const webview = webviewRef.current;
     if (!webview) return undefined;
+    let isMounted = true;
 
     const pollInterval = setInterval(async () => {
+      // Skip polling if component has unmounted
+      if (!isMounted) return;
+
       try {
         // Check for pending requests in webview
         const pendingRequest = await webview.executeJavaScript(`
@@ -63,6 +67,7 @@ export function useWidgetRequests({
             return null;
           })();
         `);
+        if (!isMounted) return;
 
         if (pendingRequest) {
           logger.info('WidgetRequests: Found pending request', {
@@ -82,7 +87,10 @@ export function useWidgetRequests({
       }
     }, POLL_INTERVAL_MS);
 
-    return () => clearInterval(pollInterval);
+    return () => {
+      isMounted = false;
+      clearInterval(pollInterval);
+    };
   }, [webviewRef, isActive, setPendingRequest]);
 
   /**

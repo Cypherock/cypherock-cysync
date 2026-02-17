@@ -58,14 +58,15 @@ export const WidgetProvider: FC<WidgetProviderProps> = ({
 
       if (webviewRef?.current) {
         try {
-          const safeResult = result.replace(/'/g, "\\'");
+          const safeResult = JSON.stringify(result);
+          const safeRequestId = JSON.stringify(requestId);
 
           webviewRef.current
             .executeJavaScript(
               `
               (function() {
                 if (window.resolveWidgetRequest) {
-                  window.resolveWidgetRequest('${requestId}', '${safeResult}');
+                  window.resolveWidgetRequest(${safeRequestId}, ${safeResult});
                   return true;
                 } else {
                   console.error('[Widget] resolveWidgetRequest not found on window');
@@ -132,15 +133,15 @@ export const WidgetProvider: FC<WidgetProviderProps> = ({
 
       if (webviewRef?.current) {
         try {
-          const errorMessage = (reason ?? 'User rejected the request').replace(
-            /'/g,
-            "\\'",
+          const safeErrorMessage = JSON.stringify(
+            reason ?? 'User rejected the request',
           );
+          const safeRequestId = JSON.stringify(requestId);
 
           webviewRef.current.executeJavaScript(`
             (function() {
               if (window.rejectWidgetRequest) {
-                window.rejectWidgetRequest('${requestId}', '${errorMessage}');
+                window.rejectWidgetRequest(${safeRequestId}, ${safeErrorMessage});
                 return true;
               } else {
                 console.error('[Widget] rejectWidgetRequest not found on window');
