@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Image, View, StyleSheet } from 'react-native';
 const {
   BtcIdMap,
@@ -10,7 +10,7 @@ const {
   SiaIdMap,
   CantonIdMap,
 } = require('@cypherock/coins');
-const { getAsset } = require('@cypherock/coin-support-utils');
+const { getAssetOrUndefined } = require('@cypherock/coin-support-utils');
 import {
   BitcoinIcon,
   DashIcon,
@@ -33,7 +33,12 @@ import {
   CantonIcon,
 } from '../ui/icons';
 import { useTheme } from '../ui';
-import { SvgProps } from 'react-native-svg';
+import Svg, {
+  SvgProps,
+  Image as SvgImage,
+  Circle,
+  G,
+} from 'react-native-svg';
 
 const coinToIconMap: Record<string, React.FC<SvgProps>> = {
   [BtcIdMap.bitcoin]: BitcoinIcon,
@@ -62,6 +67,68 @@ const fallbackIcon = `https://static.cypherock.com/images/fallback-crypto-icon.p
 const requestErc20ImageFile = (id: string) =>
   `https://static.cypherock.com/images/erc20-by-id/${id}.png`;
 
+const CbtcTokenIcon: React.FC<SvgProps> = props => (
+  <Svg viewBox="0 0 96 96" {...props}>
+    <SvgImage
+      x={0}
+      y={0}
+      width="100%"
+      height="100%"
+      href={requestErc20ImageFile('bitcoin')}
+      preserveAspectRatio="xMidYMid slice"
+    />
+  </Svg>
+);
+
+const UsdcxTokenIcon: React.FC<SvgProps> = props => (
+  <Svg viewBox="0 0 96 96" {...props}>
+    <SvgImage
+      x={0}
+      y={0}
+      width="100%"
+      height="100%"
+      href={requestErc20ImageFile('usd-coin')}
+      preserveAspectRatio="xMidYMid slice"
+    />
+  </Svg>
+);
+
+const SbcTokenIcon: React.FC<SvgProps> = props => (
+  <Svg viewBox="0 0 400 400" {...props}>
+    <G transform="translate(200,200)">
+      <Circle r={200} fill="#6938EF" />
+      <Circle r={175} fill="#8760F2" />
+      <Circle r={150} fill="#A588F5" />
+      <Circle r={125} fill="#C3AFF9" />
+      <Circle r={100} fill="#E1D7FC" />
+      <Circle r={75} fill="#FFFFFF" />
+      <Circle r={50} fill="#6938EF" />
+    </G>
+  </Svg>
+);
+
+const tokenToIconMap: Record<string, React.FC<SvgProps> | undefined> = {
+  [`${CantonIdMap.canton}:CBTC`]: CbtcTokenIcon,
+  [`${CantonIdMap.canton}:USDCx`]: UsdcxTokenIcon,
+  [`${CantonIdMap.canton}:SBC`]: SbcTokenIcon,
+};
+
+const getCoinIcon = (assetId?: string): React.FC<SvgProps> | undefined => {
+  if (!assetId) return undefined;
+  return coinToIconMap[assetId];
+};
+
+const getTokenIcon = (assetId?: string): React.FC<SvgProps> | undefined => {
+  if (!assetId) return undefined;
+  return tokenToIconMap[assetId];
+};
+
+const getErc20Image = (parentAssetId: string, assetId?: string) => {
+  const asset = getAssetOrUndefined(parentAssetId, assetId);
+  if (!asset) return fallbackIcon;
+  return requestErc20ImageFile(asset.coinGeckoId);
+};
+
 interface FallbackImageProps {
   source: { uri: string };
   fallbackUri: string;
@@ -77,15 +144,17 @@ const FallbackImage: React.FC<FallbackImageProps> = ({
   width,
   height,
 }) => {
-  const [hasError, setHasError] = useState(false);
+  const [imgSrc, setImgSrc] = useState(source.uri);
+
+  useEffect(() => {
+    setImgSrc(source.uri);
+  }, [source.uri]);
 
   return (
     <Image
-      source={{ uri: hasError ? fallbackUri : source.uri }}
-      onError={() => setHasError(true)}
-      style={style}
-      width={width}
-      height={height}
+      source={{ uri: imgSrc }}
+      onError={() => setImgSrc(fallbackUri)}
+      style={[style, { width, height }]}
     />
   );
 };
@@ -111,7 +180,7 @@ export const CoinIcon: React.FC<CoinIconProps> = ({
   withSubIconAtBottom,
   withParentIconAtBottom,
 }) => {
-  const Icon = coinToIconMap[parentAssetId];
+  const Icon = getCoinIcon(parentAssetId);
   const theme = useTheme();
 
   const containerStyle = {
@@ -145,82 +214,111 @@ export const CoinIcon: React.FC<CoinIconProps> = ({
     ...styles.subIcon,
   };
 
-  if (
-    !Icon ||
-    (assetId &&
-      assetId !== parentAssetId &&
-      !withSubIconAtBottom &&
-      !withParentIconAtBottom)
-  ) {
-    const asset = getAsset(parentAssetId, assetId);
+  const renderSingleImage = (uri: string) => (
+    <View style={containerStyle}>
+      <FallbackImage
+        source={{ uri }}
+        fallbackUri={fallbackIcon}
+        style={iconStyle}
+        width={iconSize.width}
+        height={iconSize.height}
+      />
+    </View>
+  );
 
-    return (
-      <View style={containerStyle}>
-        <FallbackImage
-          source={{ uri: requestErc20ImageFile(asset.coinGeckoId) }}
-          fallbackUri={fallbackIcon}
-          style={[iconStyle]}
-          width={iconSize.width}
-          height={iconSize.height}
-        />
-      </View>
-    );
-  }
+  const renderDualIcon = (
+    mainElement: React.ReactNode,
+    subElement: React.ReactNode,
+  ) => (
+    <View style={containerStyle}>
+      {mainElement}
+      <View style={subContainerStyle}>{subElement}</View>
+    </View>
+  );
 
-  if (withSubIconAtBottom && parentAssetId !== assetId) {
-    return (
-      <View style={containerStyle}>
-        <Icon
+  const renderDualIconWithAsset = (
+    tokenImageUri: string,
+    IconComponent: React.FC<SvgProps>,
+  ) => {
+    if (withSubIconAtBottom) {
+      return renderDualIcon(
+        <IconComponent
           width={iconSize.width}
           height={iconSize.height}
           style={iconStyle}
-        />
-        <View style={subContainerStyle}>
-          <FallbackImage
-            source={{
-              uri: requestErc20ImageFile(
-                getAsset(parentAssetId, assetId).coinGeckoId,
-              ),
-            }}
-            fallbackUri={fallbackIcon}
-            style={[
-              subIconStyle,
-              {
-                width: subIconSize ?? defaultSubIconSize,
-                height: subIconSize ?? defaultSubIconSize,
-              },
-            ]}
-            width={subIconSize ?? defaultSubIconSize}
-            height={subIconSize ?? defaultSubIconSize}
-          />
-        </View>
-      </View>
-    );
-  }
-
-  if (withParentIconAtBottom && parentAssetId !== assetId) {
-    return (
-      <View style={containerStyle}>
+        />,
         <FallbackImage
-          source={{
-            uri: requestErc20ImageFile(
-              getAsset(parentAssetId, assetId).coinGeckoId,
-            ),
-          }}
+          source={{ uri: tokenImageUri }}
           fallbackUri={fallbackIcon}
-          style={[iconStyle]}
+          style={subIconStyle}
+          width={subIconSize ?? defaultSubIconSize}
+          height={subIconSize ?? defaultSubIconSize}
+        />,
+      );
+    }
+
+    if (withParentIconAtBottom) {
+      return renderDualIcon(
+        <FallbackImage
+          source={{ uri: tokenImageUri }}
+          fallbackUri={fallbackIcon}
+          style={iconStyle}
           width={iconSize.width}
           height={iconSize.height}
-        />
-        <View style={subContainerStyle}>
-          <Icon
-            width={subIconSize ?? defaultSubIconSize}
-            height={subIconSize ?? defaultSubIconSize}
-            style={subIconStyle}
+        />,
+        <IconComponent
+          width={subIconSize ?? defaultSubIconSize}
+          height={subIconSize ?? defaultSubIconSize}
+          style={subIconStyle}
+        />,
+      );
+    }
+
+    return undefined;
+  };
+
+  const isCanton = parentAssetId === CantonIdMap.canton;
+  const hasDifferentAssetId = parentAssetId !== assetId;
+  const erc20Image =
+    hasDifferentAssetId && !isCanton
+      ? getErc20Image(parentAssetId, assetId)
+      : null;
+
+  const shouldRenderErc20 =
+    !Icon ||
+    (assetId &&
+      hasDifferentAssetId &&
+      !withSubIconAtBottom &&
+      !withParentIconAtBottom);
+
+  if (shouldRenderErc20 && erc20Image) {
+    return renderSingleImage(erc20Image);
+  }
+
+  if (hasDifferentAssetId && erc20Image && Icon) {
+    const dualIconResult = renderDualIconWithAsset(erc20Image, Icon);
+    if (dualIconResult) {
+      return dualIconResult;
+    }
+  }
+
+  if (hasDifferentAssetId && isCanton) {
+    const TokenIcon = getTokenIcon(assetId);
+    if (TokenIcon) {
+      return (
+        <View style={containerStyle}>
+          <TokenIcon
+            width={iconSize.width}
+            height={iconSize.height}
+            style={iconStyle}
           />
         </View>
-      </View>
-    );
+      );
+    }
+  }
+
+  if (!Icon) {
+    return renderSingleImage(fallbackIcon);
   }
 
   return (

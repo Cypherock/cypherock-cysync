@@ -3,13 +3,9 @@ import { createTransactionId } from '@cypherock/coin-support-utils';
 import logger from '../../../../utils/logger';
 import { IMigrationItem } from '../../types';
 
-/**
- * Transcation ID migration
- * - Update transcation id to avoid duplicates
- */
 const migration: IMigrationItem = {
-  id: '1',
-  name: 'Migrate transaction ids',
+  id: '9',
+  name: 'Retry transaction id migration safely',
   up: async db => {
     const allTransactions = (await db.transaction.getAll()).map(transaction =>
       JSON.parse(JSON.stringify(transaction)),
@@ -19,7 +15,7 @@ const migration: IMigrationItem = {
     for (const transaction of allTransactions) {
       try {
         const transactionData = JSON.parse(JSON.stringify(transaction));
-        const oldId = transaction.__id;
+        const oldId = transactionData.__id;
         const newId = await createTransactionId(transactionData);
 
         transactionIdChangesMap[oldId] = newId;
