@@ -1,6 +1,7 @@
 import Entypo from '@expo/vector-icons/Entypo';
 import { TouchableOpacityProps } from 'react-native';
 import styled from 'styled-components/native';
+import { colors } from '../themes/color.styled';
 
 interface FilterButtonProps extends TouchableOpacityProps {
   value?: string;
@@ -21,7 +22,7 @@ const ButtonContainer = styled.TouchableOpacity`
 
   border: 0.5px solid ${({ theme }) => theme.palette.border.secondary};
   background: ${({ theme, disabled }) =>
-    disabled ? '#272524' : theme.palette.background.secondary};
+    disabled ? colors.background.disabled : theme.palette.background.secondary};
 `;
 
 const ValueText = styled.Text`

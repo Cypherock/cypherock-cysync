@@ -8,6 +8,7 @@ import Svg, {
   LinearGradient,
   Stop,
 } from 'react-native-svg';
+import { colors } from '../themes/color.styled';
 export const NewPasswordIcon = (props: SvgProps) => (
   <Svg
     xmlns="http://www.w3.org/2000/svg"
@@ -23,7 +24,7 @@ export const NewPasswordIcon = (props: SvgProps) => (
         strokeWidth={0.818}
         d="M.545 5c0-2.058 0-3.086.64-3.725.639-.639 1.667-.64 3.724-.64h2.182c2.057 0 3.086 0 3.724.64.639.64.64 1.667.64 3.724 0 2.057 0 3.086-.64 3.725-.639.638-1.667.639-3.724.639H4.909c-2.057 0-3.086 0-3.724-.64C.546 8.085.545 7.057.545 5Z"
       />
-      <Path fill="#272320" d="M7-1h6v6H7z" />
+      <Path fill={colors.background.secondary} d="M7-1h6v6H7z" />
       <Path
         stroke="#fff"
         strokeLinecap="round"
@@ -50,9 +51,9 @@ export const NewPasswordIcon = (props: SvgProps) => (
         y2={5.999}
         gradientUnits="userSpaceOnUse"
       >
-        <Stop stopColor="#E9B873" />
-        <Stop offset={0.37} stopColor="#FEDD8F" />
-        <Stop offset={1} stopColor="#B78D51" />
+        <Stop stopColor={colors.gradient.gold[0]} />
+        <Stop offset={0.37} stopColor={colors.gradient.gold[1]} />
+        <Stop offset={1} stopColor={colors.gradient.gold[2]} />
       </LinearGradient>
     </Defs>
   </Svg>

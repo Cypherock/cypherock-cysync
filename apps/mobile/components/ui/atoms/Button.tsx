@@ -2,6 +2,7 @@ import React, { FC } from 'react';
 import { TouchableOpacityProps, View } from 'react-native';
 import styled, { css } from 'styled-components/native';
 import { LinearGradient } from 'expo-linear-gradient';
+import { colors } from '../themes/color.styled';
 
 type ButtonSize = 'lg' | 'sm';
 type ButtonType = 'primary' | 'secondary';
@@ -45,12 +46,13 @@ const ButtonContainer = styled.TouchableOpacity<Omit<ButtonProps, 'title'>>`
   cursor: pointer;
   display: inline-flex;
   overflow: hidden;
-  background: ${({ disabled }) => (disabled ? ' #332E29' : 'transparent')};
+  background: ${({ disabled }) =>
+    disabled ? colors.background.disabled : 'transparent'};
 `;
 
 function getButtonTextColor(type: ButtonType, disabled?: boolean) {
-  if (disabled) return '#544C44';
-  else if (type === 'secondary') return '#E9B873';
+  if (disabled) return colors.text.disabled;
+  else if (type === 'secondary') return colors.gradient.gold[0];
   else return '#000';
 }
 
@@ -67,7 +69,7 @@ const ButtonText = styled.Text<{
 const ButtonGradient: FC<{ type: ButtonType }> = ({ type }) => {
   return (
     <LinearGradient
-      colors={['#E9B873', '#FEDD8F', '#B78D51']}
+      colors={colors.gradient.gold}
       start={{ x: 0, y: 1 }}
       end={{ x: 1, y: 1 }}
       locations={[0, 0.37, 1]}
@@ -82,7 +84,11 @@ const ButtonGradient: FC<{ type: ButtonType }> = ({ type }) => {
     >
       {type === 'secondary' && (
         <View
-          style={{ backgroundColor: '#1C1815', flex: 1, borderRadius: 7 }}
+          style={{
+            backgroundColor: colors.background.primary,
+            flex: 1,
+            borderRadius: 7,
+          }}
         />
       )}
     </LinearGradient>

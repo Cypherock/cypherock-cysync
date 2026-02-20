@@ -1,4 +1,6 @@
-export const Images = {
+import config from '@/config';
+
+const defaultImages = {
   onboarding: {
     welcome: require('@/assets/images/welcome-screen.png'),
     screen1: require('@/assets/images/onboarding-screen-1.png'),
@@ -54,3 +56,18 @@ export const Images = {
     logo: require('@/assets/images/logo-lock.png'),
   },
 };
+
+// Odix images: override only vendor-specific branding assets.
+// When odix-specific assets are available, place them under
+// assets/images/odix/ and update the require paths below.
+const odixImages = {
+  ...defaultImages,
+  // Override branding images when odix assets become available:
+  // other: {
+  //   ...defaultImages.other,
+  //   banner_default: require('@/assets/images/odix/banner.png'),
+  //   logo: require('@/assets/images/odix/logo-lock.png'),
+  // },
+};
+
+export const Images = config.VENDOR === 'odix' ? odixImages : defaultImages;

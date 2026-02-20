@@ -1,10 +1,15 @@
-export const colors = {
+import config from '@/config';
+
+const defaultColors = {
   black: '#000',
   white: '#fff',
   accent: '#FEDD8F',
   error: '#FF624C',
   warning: '#F1AE4A',
   success: '#51C61A',
+  gradient: {
+    gold: ['#E9B873', '#FEDD8F', '#B78D51'] as [string, string, string],
+  },
   text: {
     primary: '#fff',
     secondary: '#8B8682',
@@ -12,6 +17,7 @@ export const colors = {
     accent: '#FEDD8F',
     success: '#51C61A',
     error: '#6C0F02',
+    disabled: '#544C44',
   },
   background: {
     primary: '#1C1815',
@@ -26,6 +32,11 @@ export const colors = {
     warning: '#2C2418',
     error: '#271D1D',
     success: '#1D271E',
+    disabled: '#332E29',
+    dark: '#221D17',
+    circle: '#39322C',
+    camera: '#2C2825',
+    iconFallback: '#342F2C',
   },
   border: {
     primary: '#2C2520',
@@ -39,3 +50,56 @@ export const colors = {
     popup: '#0F0D0B',
   },
 };
+
+const odixColors: typeof defaultColors = {
+  black: '#000',
+  white: '#fff',
+  accent: '#FFC8AF',
+  error: '#FF624C',
+  warning: '#F1AE4A',
+  success: '#51C61A',
+  gradient: {
+    gold: ['#E1A68C', '#FFC8AF', '#B37D65'],
+  },
+  text: {
+    primary: '#fff',
+    secondary: '#808080',
+    muted: '#626262',
+    accent: '#FFC8AF',
+    success: '#51C61A',
+    error: '#6C0F02',
+    disabled: '#626262',
+  },
+  background: {
+    primary: '#141414',
+    secondary: '#242424',
+    hash: '#2A2A2A',
+    input: '#242424',
+    tableRow1: '#141414',
+    tableRow2: '#1C1C1C',
+    tag: '#333333',
+    selectedRow: '#1C1C1C',
+    banner: '#333333',
+    warning: '#2C2418',
+    error: '#271D1D',
+    success: '#1D271E',
+    disabled: '#2E2E2E',
+    dark: '#141414',
+    circle: '#333333',
+    camera: '#242424',
+    iconFallback: '#1C1C1C',
+  },
+  border: {
+    primary: '#262626',
+    secondary: '#333333',
+    accent: '#FFC8AF',
+    warning: '#4A2D00',
+    error: '#4A0900',
+    success: '#15351E',
+  },
+  shadow: {
+    popup: '#0F0D0B',
+  },
+};
+
+export const colors = config.VENDOR === 'odix' ? odixColors : defaultColors;

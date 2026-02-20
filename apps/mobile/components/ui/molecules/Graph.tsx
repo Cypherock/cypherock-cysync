@@ -54,7 +54,9 @@ const hexToRGB = (value: string) => {
 
 export const DisplayGraph: FC<LineChartPropsType> = ({ ...props }) => {
   const theme = useTheme();
-  const { current: colorRgb } = useRef(hexToRGB(props.color ?? 'E9B873'));
+  const { current: colorRgb } = useRef(
+    hexToRGB(props.color ?? colors.gradient.gold[0].replace('#', '')),
+  );
 
   const [labelShift, setLabelShift] = useState(20);
 

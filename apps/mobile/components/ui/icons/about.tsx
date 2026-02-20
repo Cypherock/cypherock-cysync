@@ -8,6 +8,7 @@ import Svg, {
   Stop,
   ClipPath,
 } from 'react-native-svg';
+import { colors } from '../themes/color.styled';
 export const AboutIcon = (props: SvgProps) => (
   <Svg
     xmlns="http://www.w3.org/2000/svg"
@@ -39,9 +40,9 @@ export const AboutIcon = (props: SvgProps) => (
         y2={5.999}
         gradientUnits="userSpaceOnUse"
       >
-        <Stop stopColor="#E9B873" />
-        <Stop offset={0.37} stopColor="#FEDD8F" />
-        <Stop offset={1} stopColor="#B78D51" />
+        <Stop stopColor={colors.gradient.gold[0]} />
+        <Stop offset={0.37} stopColor={colors.gradient.gold[1]} />
+        <Stop offset={1} stopColor={colors.gradient.gold[2]} />
       </LinearGradient>
       <LinearGradient
         id="c"
@@ -51,9 +52,9 @@ export const AboutIcon = (props: SvgProps) => (
         y2={3.772}
         gradientUnits="userSpaceOnUse"
       >
-        <Stop stopColor="#E9B873" />
-        <Stop offset={0.37} stopColor="#FEDD8F" />
-        <Stop offset={1} stopColor="#B78D51" />
+        <Stop stopColor={colors.gradient.gold[0]} />
+        <Stop offset={0.37} stopColor={colors.gradient.gold[1]} />
+        <Stop offset={1} stopColor={colors.gradient.gold[2]} />
       </LinearGradient>
       <LinearGradient
         id="d"
@@ -63,9 +64,9 @@ export const AboutIcon = (props: SvgProps) => (
         y2={6.818}
         gradientUnits="userSpaceOnUse"
       >
-        <Stop stopColor="#E9B873" />
-        <Stop offset={0.37} stopColor="#FEDD8F" />
-        <Stop offset={1} stopColor="#B78D51" />
+        <Stop stopColor={colors.gradient.gold[0]} />
+        <Stop offset={0.37} stopColor={colors.gradient.gold[1]} />
+        <Stop offset={1} stopColor={colors.gradient.gold[2]} />
       </LinearGradient>
       <ClipPath id="a">
         <Path fill="#fff" d="M0 0h12v12H0z" />
