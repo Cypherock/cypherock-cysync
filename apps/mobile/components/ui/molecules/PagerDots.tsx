@@ -5,6 +5,7 @@ import Animated, {
   Easing,
 } from 'react-native-reanimated';
 import React from 'react';
+import { colors } from '../themes/color.styled';
 
 interface PagerDotsProps {
   index: number;
@@ -24,7 +25,7 @@ function AnimatedDot({ activeIndex, index }: AnimatedDotProps) {
         duration: 100,
         easing: Easing.ease,
       }),
-      backgroundColor: withTiming(isActive ? 'white' : '#8B8682', {
+      backgroundColor: withTiming(isActive ? 'white' : colors.text.secondary, {
         duration: 200,
       }),
     };
@@ -51,7 +52,7 @@ const styles = StyleSheet.create({
   dot: {
     width: 5,
     height: 5,
-    backgroundColor: '#8B8682',
+    backgroundColor: colors.text.secondary,
     borderRadius: 3,
   },
 });

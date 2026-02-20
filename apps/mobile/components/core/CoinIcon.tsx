@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Image, View, StyleSheet } from 'react-native';
+import { colors } from '../ui/themes/color.styled';
 const {
   BtcIdMap,
   EvmIdMap,
@@ -343,7 +344,7 @@ const styles = StyleSheet.create({
     bottom: 0,
     right: 0,
     borderRadius: 50,
-    backgroundColor: '#27221D',
+    backgroundColor: colors.background.input,
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',

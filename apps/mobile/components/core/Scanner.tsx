@@ -97,7 +97,7 @@ const styles = StyleSheet.create({
   },
   camera: {
     flex: 1,
-    backgroundColor: '#2C2825',
+    backgroundColor: colors.background.camera,
     borderRadius: 2,
   },
   progressBarContainer: {

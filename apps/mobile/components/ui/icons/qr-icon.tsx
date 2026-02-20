@@ -1,5 +1,6 @@
 import * as React from 'react';
 import Svg, { SvgProps, G, Path, Defs, ClipPath } from 'react-native-svg';
+import { colors } from '../themes/color.styled';
 export const QRIcon = (props: SvgProps) => (
   <Svg
     xmlns="http://www.w3.org/2000/svg"
@@ -10,7 +11,7 @@ export const QRIcon = (props: SvgProps) => (
     {...props}
   >
     <G
-      stroke="#8B8682"
+      stroke={colors.text.secondary}
       strokeLinecap="round"
       strokeLinejoin="round"
       strokeWidth={1.333}

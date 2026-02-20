@@ -9,6 +9,7 @@ import Svg, {
   ClipPath,
   Rect,
 } from 'react-native-svg';
+import { colors } from '../themes/color.styled';
 export const AppSettingsIcon = (props: SvgProps) => (
   <Svg
     xmlns="http://www.w3.org/2000/svg"
@@ -42,9 +43,9 @@ export const AppSettingsIcon = (props: SvgProps) => (
         y2={6}
         gradientUnits="userSpaceOnUse"
       >
-        <Stop stopColor="#E9B873" />
-        <Stop offset={0.37} stopColor="#FEDD8F" />
-        <Stop offset={1} stopColor="#B78D51" />
+        <Stop stopColor={colors.gradient.gold[0]} />
+        <Stop offset={0.37} stopColor={colors.gradient.gold[1]} />
+        <Stop offset={1} stopColor={colors.gradient.gold[2]} />
       </LinearGradient>
       <LinearGradient
         id="c"
@@ -54,9 +55,9 @@ export const AppSettingsIcon = (props: SvgProps) => (
         y2={6}
         gradientUnits="userSpaceOnUse"
       >
-        <Stop stopColor="#E9B873" />
-        <Stop offset={0.37} stopColor="#FEDD8F" />
-        <Stop offset={1} stopColor="#B78D51" />
+        <Stop stopColor={colors.gradient.gold[0]} />
+        <Stop offset={0.37} stopColor={colors.gradient.gold[1]} />
+        <Stop offset={1} stopColor={colors.gradient.gold[2]} />
       </LinearGradient>
       <ClipPath id="b">
         <Path fill="#fff" d="M2.25 2.25h7.5v7.5h-7.5z" />

@@ -8,6 +8,7 @@ import Svg, {
   LinearGradient,
   Stop,
 } from 'react-native-svg';
+import { colors } from '../themes/color.styled';
 export const CypherockLockedIcon = (props: SvgProps) => (
   <Svg
     xmlns="http://www.w3.org/2000/svg"
@@ -17,7 +18,12 @@ export const CypherockLockedIcon = (props: SvgProps) => (
     fill="none"
     {...props}
   >
-    <Circle cx={35.831} cy={35.831} r={35.831} fill="#39322C" />
+    <Circle
+      cx={35.831}
+      cy={35.831}
+      r={35.831}
+      fill={colors.background.circle}
+    />
     <Path
       fill="url(#a)"
       d="m38.18 53.001 3.25 5.022L54.32 38.96H41.792l-9.405 13.89-8.87-12.63 5.62-.042 4.725 6.689 1.646-2.5-4.768-6.775H18L32.322 57.96l11.094-16.412h5.6l-7.695 11.24-1.475-2.265-1.667 2.48Z"
@@ -65,9 +71,9 @@ export const CypherockLockedIcon = (props: SvgProps) => (
         y2={47.808}
         gradientUnits="userSpaceOnUse"
       >
-        <Stop stopColor="#E9B873" />
-        <Stop offset={0.37} stopColor="#FEDD8F" />
-        <Stop offset={1} stopColor="#B78D51" />
+        <Stop stopColor={colors.gradient.gold[0]} />
+        <Stop offset={0.37} stopColor={colors.gradient.gold[1]} />
+        <Stop offset={1} stopColor={colors.gradient.gold[2]} />
       </LinearGradient>
       <LinearGradient
         id="b"
@@ -77,9 +83,9 @@ export const CypherockLockedIcon = (props: SvgProps) => (
         y2={24.215}
         gradientUnits="userSpaceOnUse"
       >
-        <Stop stopColor="#E9B873" />
-        <Stop offset={0.37} stopColor="#FEDD8F" />
-        <Stop offset={1} stopColor="#B78D51" />
+        <Stop stopColor={colors.gradient.gold[0]} />
+        <Stop offset={0.37} stopColor={colors.gradient.gold[1]} />
+        <Stop offset={1} stopColor={colors.gradient.gold[2]} />
       </LinearGradient>
       <LinearGradient
         id="c"
