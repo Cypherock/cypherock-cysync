@@ -5,6 +5,7 @@ import {
   LottieSplash,
   ThemeType,
 } from '@/components/ui';
+import { Lottie } from '@/constants';
 import { Slot } from 'expo-router';
 import { ThemeProvider } from 'styled-components/native';
 import * as SystemUI from 'expo-system-ui';
@@ -64,7 +65,7 @@ function AnimatedSplashScreen({
 
   if (!appIsReady || isLockscreenLoading) {
     SplashScreen.hide();
-    return <LottieSplash source={require('@/assets/lottie/splash.json')} />;
+    return <LottieSplash source={Lottie.splash} />;
   }
 
   return children;

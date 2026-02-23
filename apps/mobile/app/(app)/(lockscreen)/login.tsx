@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import {
   Button,
   Container,
-  CypherockLockedIcon,
+  LockedIcon,
   Input,
   LogotypeIcon,
   ScreenContainer,
@@ -69,7 +69,7 @@ export default function Login() {
                 gap: 21,
               }}
             >
-              <CypherockLockedIcon />
+              <LockedIcon />
               <LogotypeIcon />
             </View>
             <Typography type="body" color="secondary">

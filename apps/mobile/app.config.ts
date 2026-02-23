@@ -80,6 +80,33 @@ function getSplashImage(): string {
   }
 }
 
+function getIcon(): string {
+  switch (vendor) {
+    case 'odix':
+      return './assets/images/icon-odix.png';
+    default:
+      return './assets/images/icon.png';
+  }
+}
+
+function getAdaptiveIcon(): {
+  foregroundImage: string;
+  backgroundImage: string;
+} {
+  switch (vendor) {
+    case 'odix':
+      return {
+        foregroundImage: './assets/images/foreground-odix.png',
+        backgroundImage: './assets/images/background-odix.png',
+      };
+    default:
+      return {
+        foregroundImage: './assets/images/foreground.png',
+        backgroundImage: './assets/images/background.png',
+      };
+  }
+}
+
 function getGoogleServicesFile(): string {
   switch (vendor) {
     case 'odix':
@@ -119,6 +146,7 @@ export default ({ config: baseConfig }: ConfigContext): ExpoConfig => {
     name: displayName,
     slug: getSlug(),
     scheme: getScheme(),
+    icon: getIcon(),
     version: getPackageJson('./').version,
     ios: {
       ...baseConfig.ios,
@@ -128,6 +156,7 @@ export default ({ config: baseConfig }: ConfigContext): ExpoConfig => {
       ...baseConfig.android,
       googleServicesFile: getGoogleServicesFile(),
       package: getAndroidPackage(),
+      adaptiveIcon: getAdaptiveIcon(),
     },
     plugins: getVendorPlugins(baseConfig.plugins),
   };
