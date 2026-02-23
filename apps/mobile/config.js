@@ -1,4 +1,4 @@
-export default {
+module.exports = {
   /**
    * production: release build
    * debug: testing build
@@ -20,6 +20,6 @@ export default {
   API_CYPHEROCK: 'https://dev-api.cypherock.com',
   // API_CYPHEROCK: 'https://odyx-dev.cypherock.com',
 
-  VENDOR: 'default',
-  // VENDOR: 'odix',
+  // VENDOR: 'default',
+  VENDOR: 'odix',
 };

@@ -20,8 +20,12 @@ function getAppName(): string {
   }
 }
 
+function getIsDev(): boolean {
+  return process.env.APP_ENV !== 'production';
+}
+
 function getAndroidPackage(): string {
-  const isDev = process.env.APP_ENV !== 'production';
+  const isDev = getIsDev();
   switch (vendor) {
     case 'odix':
       return isDev ? 'com.odix.odixpay_dev' : 'com.odix.odixpay';
@@ -31,7 +35,7 @@ function getAndroidPackage(): string {
 }
 
 function getIosBundleIdentifier(): string {
-  const isDev = process.env.APP_ENV !== 'production';
+  const isDev = getIsDev();
   switch (vendor) {
     case 'odix':
       return isDev ? 'com.odix.odixpay-dev' : 'com.odix.odixpay';
@@ -67,9 +71,23 @@ function getSplashBackgroundColor(): string {
   }
 }
 
-/**
- * Replace the expo-splash-screen plugin config with vendor-specific values.
- */
+function getSplashImage(): string {
+  switch (vendor) {
+    case 'odix':
+      return './assets/images/splash-icon-odix.png';
+    default:
+      return './assets/images/splash-icon.png';
+  }
+}
+
+function getGoogleServicesFile(): string {
+  switch (vendor) {
+    case 'odix':
+      return './google-services-odix.json';
+  }
+  return './google-services.json';
+}
+
 function getVendorPlugins(
   basePlugins: ExpoConfig['plugins'],
 ): ExpoConfig['plugins'] {
@@ -82,6 +100,7 @@ function getVendorPlugins(
         'expo-splash-screen',
         {
           ...(typeof plugin[1] === 'object' ? plugin[1] : {}),
+          image: getSplashImage(),
           backgroundColor: getSplashBackgroundColor(),
         },
       ];
@@ -107,6 +126,7 @@ export default ({ config: baseConfig }: ConfigContext): ExpoConfig => {
     },
     android: {
       ...baseConfig.android,
+      googleServicesFile: getGoogleServicesFile(),
       package: getAndroidPackage(),
     },
     plugins: getVendorPlugins(baseConfig.plugins),
