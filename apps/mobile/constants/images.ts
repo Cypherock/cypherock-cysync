@@ -57,17 +57,21 @@ const defaultImages = {
   },
 };
 
-// Odix images: override only vendor-specific branding assets.
-// When odix-specific assets are available, place them under
-// assets/images/odix/ and update the require paths below.
+/** Odix: override only assets that have an -odix variant (postfix or in name). */
 const odixImages = {
   ...defaultImages,
-  // Override branding images when odix assets become available:
-  // other: {
-  //   ...defaultImages.other,
-  //   banner_default: require('@/assets/images/odix/banner.png'),
-  //   logo: require('@/assets/images/odix/logo-lock.png'),
-  // },
+  onboarding: {
+    ...defaultImages.onboarding,
+    welcome: require('@/assets/images/welcome-screen-odix.png'),
+    screen1: require('@/assets/images/onboarding-screen-odix-1.png'),
+    screen2: require('@/assets/images/onboarding-screen-odix-2.png'),
+    screen3: require('@/assets/images/onboarding-screen-odix-3.png'),
+    screen4: require('@/assets/images/onboarding-screen-odix-4.png'),
+    screen4_1: require('@/assets/images/onboarding-screen-odix-4.1.png'),
+    screen5: require('@/assets/images/onboarding-screen-odix-5.png'),
+    qr_frame: require('@/assets/images/qr-frame-odix.png'),
+    camera: require('@/assets/images/carbon-camera-odix.png'),
+  },
 };
 
 export const Images = config.VENDOR === 'odix' ? odixImages : defaultImages;

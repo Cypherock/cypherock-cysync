@@ -1,6 +1,7 @@
 import { View, Text } from 'react-native';
 import React from 'react';
 import LottieView from 'lottie-react-native';
+import { Lottie } from '@/constants';
 import { Container, ScreenContainer, Typography } from '../atoms';
 
 interface ILoaderProps {
@@ -37,7 +38,7 @@ export const LoaderScreen = ({
           <LottieView
             autoPlay
             loop
-            source={require('@/assets/lottie/loader.json')}
+            source={Lottie.loader}
             style={{ width: loaderSize, height: loaderSize }}
           />
           {showProgress && (

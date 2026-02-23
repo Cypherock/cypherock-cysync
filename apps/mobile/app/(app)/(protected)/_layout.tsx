@@ -1,4 +1,5 @@
 import { LottieSplash, useTheme } from '@/components/ui';
+import { Lottie } from '@/constants';
 import { Stack } from 'expo-router';
 import { keyValueStore } from '@/db';
 import { useEffect, useState } from 'react';
@@ -36,7 +37,7 @@ export default function Layout() {
   }, []);
 
   if (!appIsReady) {
-    return <LottieSplash source={require('@/assets/lottie/splash.json')} />;
+    return <LottieSplash source={Lottie.splash} />;
   }
 
   return (
