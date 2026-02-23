@@ -10,6 +10,7 @@ import {
   WellfoundIcon,
   XIcon,
 } from '@/components/ui';
+import { Links } from '@/constants';
 import { useAppSelector } from '@/store';
 import { selectLanguage } from '@/store/lang';
 import AntDesign from '@expo/vector-icons/AntDesign';
@@ -33,9 +34,7 @@ export default function Support() {
           <Typography type="h3">{strings.support.support.title}</Typography>
           <Typography type="para">
             {strings.support.support.description}{' '}
-            <Link href={'mailto:support@cypherock.com'}>
-              support@cypherock.com
-            </Link>
+            <Link href={Links.supportMailto}>{Links.supportEmail}</Link>
           </Typography>
         </View>
         <Seperator />
@@ -44,15 +43,12 @@ export default function Support() {
           <Typography type="para">
             {strings.support.socials.description}
           </Typography>
-          <Link
-            href={'https://cypherock.com/blogs'}
-            style={{ textAlign: 'center' }}
-          >
-            https://cypherock.com/blogs
+          <Link href={Links.blogs} style={{ textAlign: 'center' }}>
+            {Links.blogs}
           </Link>
         </View>
         <View style={{ gap: 16, flexDirection: 'row' }}>
-          <Link href={'https://t.me/cypherock'}>
+          <Link href={Links.social.telegram}>
             <Card
               style={{
                 width: 24,
@@ -66,7 +62,7 @@ export default function Support() {
               <TelegramIcon style={{ width: 12 }} />
             </Card>
           </Link>
-          <Link href={'https://github.com/Cypherock'}>
+          <Link href={Links.social.github}>
             <Card
               style={{
                 width: 24,
@@ -80,7 +76,7 @@ export default function Support() {
               <AntDesign name="github" size={12} color={'white'} />
             </Card>
           </Link>
-          <Link href={'https://wellfound.com/company/cypherock-wallet'}>
+          <Link href={Links.social.wellfound}>
             <Card
               style={{
                 width: 24,
@@ -94,7 +90,7 @@ export default function Support() {
               <WellfoundIcon style={{ width: 12 }} />
             </Card>
           </Link>
-          <Link href={'https://sg.linkedin.com/company/cypherockwallet'}>
+          <Link href={Links.social.linkedin}>
             <Card
               style={{
                 width: 24,
@@ -108,7 +104,7 @@ export default function Support() {
               <LinkedinIcon style={{ width: 12 }} />
             </Card>
           </Link>
-          <Link href={'https://x.com/CypherockWallet'}>
+          <Link href={Links.social.x}>
             <Card
               style={{
                 width: 24,
