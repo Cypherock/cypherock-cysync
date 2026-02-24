@@ -12,9 +12,18 @@ if (typeof global.crypto === 'undefined') {
 import 'text-encoding-polyfill';
 import 'react-native-url-polyfill/auto';
 import 'react-native-gesture-handler';
+import mobileConfig from './config';
 
 if (__DEV__) {
-  process.env = { ...process.env, NODE_ENV: 'development' };
+  process.env = {
+    ...process.env,
+    NODE_ENV: 'development',
+    API_CYPHEROCK: mobileConfig.API_CYPHEROCK,
+  };
 } else {
-  process.env = { ...process.env, NODE_ENV: 'production' };
+  process.env = {
+    ...process.env,
+    NODE_ENV: 'production',
+    API_CYPHEROCK: process.env.API_CYPHEROCK || 'https://api.cypherock.com',
+  };
 }
