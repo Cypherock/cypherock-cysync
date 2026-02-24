@@ -13,6 +13,9 @@ interface ICantonAuthTokens {
 
 const cantonAuthTokensKey = 'cantonAuthTokens';
 
+/** In-memory cache so refreshed token is used by subsequent calls in same session when storage (e.g. AsyncStorage) doesn't persist in time. */
+const accessTokenCache = new Map<string, string>();
+
 const cantonAuthTokensStore = {
   get: async (keyDB: IKeyValueStore) =>
     JSON.parse(
@@ -32,18 +35,32 @@ export const getAuthTokenConfig = async (
   if (!cantonAuthTokens?.accessToken || !cantonAuthTokens?.refreshToken)
     return undefined;
 
+  const { refreshToken } = cantonAuthTokens;
+  let cachedAccessToken = accessTokenCache.get(refreshToken);
+  if (
+    cachedAccessToken &&
+    cantonAuthTokens.accessToken &&
+    cachedAccessToken !== cantonAuthTokens.accessToken
+  ) {
+    accessTokenCache.delete(refreshToken);
+    cachedAccessToken = undefined;
+  }
+  const accessToken = cachedAccessToken ?? cantonAuthTokens.accessToken;
+
   return {
-    accessToken: cantonAuthTokens.accessToken,
+    accessToken,
     refreshTokenConfig: {
-      refreshToken: cantonAuthTokens.refreshToken,
+      refreshToken,
       updateAccessToken: async (newAccessToken: string) => {
+        accessTokenCache.set(refreshToken, newAccessToken);
         await cantonAuthTokensStore.set(keyDB, {
           accessToken: newAccessToken,
-          refreshToken: cantonAuthTokens.refreshToken,
+          refreshToken,
         });
       },
       refreshTokenUrl: `${config.API_CYPHEROCK}/canton/user/refresh-token`,
       clearTokens: async () => {
+        accessTokenCache.delete(refreshToken);
         await cantonAuthTokensStore.remove(keyDB);
       },
     },
