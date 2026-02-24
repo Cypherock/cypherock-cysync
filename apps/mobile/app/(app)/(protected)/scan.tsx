@@ -6,7 +6,7 @@ import { Scanner } from '@/components/core';
 import IonIcon from '@expo/vector-icons/Ionicons';
 import { router, useFocusEffect } from 'expo-router';
 import { ScanningResult } from 'expo-camera';
-import { useAppSelector } from '@/store';
+import { useAppDispatch, useAppSelector } from '@/store';
 import { selectLanguage } from '@/store/lang';
 import { IAccount, IWallet } from '@cypherock/db-interfaces';
 import { getDB } from '@/utils';
@@ -14,14 +14,18 @@ import { inflate } from 'pako';
 import { colors } from '@/components/ui/themes/color.styled';
 import Feather from '@expo/vector-icons/Feather';
 import logger from '@/utils/logger';
+import { ICantonAuthTokens, updateCantonAuthTokens } from '@/store/canton';
+import { keyValueStore } from '@/db/keyValueStore';
 
 interface CysyncData {
   wallets: IWallet[];
   accounts: IAccount[];
+  cantonAuthTokens?: ICantonAuthTokens;
 }
 
 export default function Scan() {
   const { strings } = useAppSelector(selectLanguage);
+  const dispatch = useAppDispatch();
   const scannedData = useRef<Record<number, string>>({});
   const [decodedData, setDecodedData] = useState<CysyncData>();
   const [totalChunks, setTotalChunks] = useState(0);
@@ -102,6 +106,19 @@ export default function Scan() {
     try {
       const db = getDB();
       await db.clear();
+
+      if (
+        data.cantonAuthTokens?.accessToken &&
+        data.cantonAuthTokens?.refreshToken
+      ) {
+        await keyValueStore.cantonAuthTokens.set(data.cantonAuthTokens);
+        dispatch(
+          updateCantonAuthTokens({
+            cantonAuthTokens: data.cantonAuthTokens,
+          }),
+        );
+      }
+
       await Promise.all([
         db.wallet.insert(data.wallets),
         db.account.insert(data.accounts),
@@ -112,12 +129,23 @@ export default function Scan() {
   }
 
   useEffect(() => {
-    if (decodedData) {
-      saveDataToDb(decodedData);
-      navigateToNext();
-    }
+    let isCancelled = false;
 
-    return reset;
+    const persistAndNavigate = async () => {
+      if (!decodedData) return;
+
+      await saveDataToDb(decodedData);
+
+      if (!isCancelled) {
+        navigateToNext();
+      }
+    };
+
+    void persistAndNavigate();
+
+    return () => {
+      isCancelled = true;
+    };
   }, [decodedData]);
 
   useFocusEffect(useCallback(() => reset, []));

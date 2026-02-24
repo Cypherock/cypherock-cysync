@@ -9,6 +9,7 @@ import {
   setWallets,
   store,
 } from '@/store';
+import { updateCantonAuthTokens } from '@/store/canton';
 import { fetchSupportedCurrencies, loadCurrency } from '@/store/currency';
 import { setTransactions } from '@/store/transaction';
 import { getDB } from '@/utils';
@@ -91,6 +92,11 @@ export const syncAllDb = async () => {
   await syncPriceHistoriesDb();
 
   store.dispatch(setLanguage((await keyValueStore.appLanguage.get()) as any));
+
+  const cantonAuthTokens = await keyValueStore.cantonAuthTokens.get();
+  if (cantonAuthTokens?.accessToken && cantonAuthTokens?.refreshToken) {
+    store.dispatch(updateCantonAuthTokens({ cantonAuthTokens }));
+  }
 
   await store.dispatch(loadCurrency() as any);
   store.dispatch(fetchSupportedCurrencies() as any);
