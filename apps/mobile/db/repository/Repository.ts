@@ -35,7 +35,10 @@ export class Repository<T extends IEntity> implements IRepository<T> {
       this.realm.write(() => {
         if (Array.isArray(entityOrEntities)) {
           result = entityOrEntities.map(entity => {
-            const obj = { ...entity, __id: entity.__id || uuidv4() };
+            const obj = this.removeUndefinedValues({
+              ...entity,
+              __id: entity.__id || uuidv4(),
+            }) as Record<string, unknown>;
             return this.realm.create(
               this.name,
               obj,
@@ -43,10 +46,10 @@ export class Repository<T extends IEntity> implements IRepository<T> {
             ) as unknown as T;
           });
         } else {
-          const obj = {
+          const obj = this.removeUndefinedValues({
             ...entityOrEntities,
             __id: entityOrEntities.__id || uuidv4(),
-          };
+          }) as Record<string, unknown>;
           result = this.realm.create(
             this.name,
             obj,
@@ -74,9 +77,16 @@ export class Repository<T extends IEntity> implements IRepository<T> {
       this.realm.write(() => {
         objects.forEach(obj => {
           const { __id, ...otherUpdates } = updateEntity;
-          Object.assign(obj, {
-            ...otherUpdates,
-          });
+          const cleanedUpdates = this.removeUndefinedValues(
+            otherUpdates as Record<string, unknown>,
+          );
+          if (
+            cleanedUpdates !== undefined &&
+            cleanedUpdates !== null &&
+            typeof cleanedUpdates === 'object'
+          ) {
+            Object.assign(obj, cleanedUpdates);
+          }
         });
       });
 
@@ -87,6 +97,24 @@ export class Repository<T extends IEntity> implements IRepository<T> {
         `Failed to update: ${error.message}`,
       );
     }
+  }
+
+  private removeUndefinedValues(value: unknown): unknown {
+    if (value === undefined) return undefined;
+    if (value === null) return null;
+    if (value instanceof Date) return value;
+    if (Array.isArray(value)) {
+      return value
+        .map(v => this.removeUndefinedValues(v))
+        .filter(v => v !== undefined);
+    }
+    if (typeof value !== 'object') return value;
+
+    return Object.fromEntries(
+      Object.entries(value as Record<string, unknown>)
+        .map(([key, val]) => [key, this.removeUndefinedValues(val)] as const)
+        .filter(([, val]) => val !== undefined),
+    );
   }
 
   async remove(
