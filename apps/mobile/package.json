@@ -1,7 +1,7 @@
 {
   "name": "@cypherock/cysync-mobile",
   "main": "expo-router/entry",
-  "version": "0.1.18",
+  "version": "0.1.19",
   "scripts": {
     "start": "expo start",
     "android": "expo run:android",
