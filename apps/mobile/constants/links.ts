@@ -27,6 +27,18 @@ const defaultLinks = {
 
 const odixLinks = {
   ...defaultLinks,
+  supportEmail: 'wallet@odixpay.com',
+  supportMailto: 'mailto:wallet@odixpay.com',
+  termsOfUse: 'https://odixpay.com/terms-conditions',
+  privacyPolicy: 'https://odixpay.com/privacy-policy',
+  blogs: 'https://odixpay.com/blogs',
+  social: {
+    telegram: 'https://t.me/odix-pay',
+    github: 'https://github.com/odix-pay',
+    wellfound: 'https://wellfound.com/company/odix-pay',
+    linkedin: 'https://sg.linkedin.com/company/odix-pay',
+    x: 'https://x.com/odix-pay',
+  },
 };
 
 export const Links = config.VENDOR === 'odix' ? odixLinks : defaultLinks;

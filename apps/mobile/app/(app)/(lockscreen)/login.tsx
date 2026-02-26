@@ -91,7 +91,7 @@ export default function Login() {
       </KeyboardAvoidingView>
       <Container style={{ justifyContent: 'flex-end' }}>
         <Button
-          title="Continue"
+          title={strings.buttons.continue}
           onPress={handleUnlock}
           style={{ marginHorizontal: 16, marginVertical: 12 }}
         />
