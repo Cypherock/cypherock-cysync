@@ -11,7 +11,7 @@
     "login": "تسجيل الدخول",
     "getStarted": "البدء",
     "scanQrCode": "مسح رمز الاستجابة السريعة",
-    "buyCypherockX1": "شراء Cypherock X1",
+    "buyCypherockX1": "شراء -=WALLET_NAME=-",
     "grantPermission": "منح الإذن",
     "nextOnboarding": "التالي",
     "allWallets": "جميع المحافظ",
@@ -28,17 +28,17 @@
       }
     },
     "reset": {
-      "title": "Resetting password will reset your cySync app do you want to proceed?",
-      "description": "This will erase all your data on your cySync app. Note this will not result in loss of assets"
+      "title": "Resetting password will reset your -=APP_NAME=- app do you want to proceed?",
+      "description": "This will erase all your data on your -=APP_NAME=- app. Note this will not result in loss of assets"
     }
   },
   "onboarding": {
     "welcome": {
-      "title": "مرحبًا بك في تطبيق cySync",
+      "title": "مرحبًا بك في تطبيق -=APP_NAME=-",
       "description": "بوابتك إلى السيادة الذاتية",
       "termsOfUse": "شروط الاستخدام",
       "privacyPolicy": "سياسة الخصوصية",
-      "byProceeding": "بالمتابعة، أنت توافق على ${termsOfUse} و ${privacyPolicy} الخاصة بـ Cypherock"
+      "byProceeding": "بالمتابعة، أنت توافق على ${termsOfUse} و ${privacyPolicy} الخاصة بـ -=PRODUCT_NAME=-"
     },
     "portfolio": {
       "title": "المحفظة",
@@ -46,22 +46,22 @@
     },
     "history": {
       "title": "السجل",
-      "description": "اعرض سجل معاملاتك السابقة واحصل على إشعار عندما تبدأ معاملة من Cypherock X1 الخاص بك"
+      "description": "اعرض سجل معاملاتك السابقة واحصل على إشعار عندما تبدأ معاملة من -=WALLET_NAME=- الخاص بك"
     },
     "receive": {
       "title": "استلام",
-      "description": "استلم أصولك المشفرة مباشرة في Cypherock X1 الخاص بك. أثناء التنقل!"
+      "description": "استلم أصولك المشفرة مباشرة في -=WALLET_NAME=- الخاص بك. أثناء التنقل!"
     },
     "scan": {
       "title": "مسح رمز الاستجابة السريعة من تطبيق سطح المكتب",
       "description": [
-        "تأكد من أنك اشتريت Cypherock X1 وقمت بإعداده بالفعل قبل المسح",
-        "في تطبيق cySync لسطح المكتب، انتقل إلى الإعدادات > عام > مزامنة cySync مع تطبيق الهاتف المحمول"
+        "تأكد من أنك اشتريت -=WALLET_NAME=- وقمت بإعداده بالفعل قبل المسح",
+        "في تطبيق -=APP_NAME=- لسطح المكتب، انتقل إلى الإعدادات > عام > مزامنة -=APP_NAME=- مع تطبيق الهاتف المحمول"
       ]
     },
     "permission": {
       "title": "إذن الكاميرا مطلوب",
-      "description": "Camera access is required to scan the QR code and sync with your cySync desktop app. Without this access, the sync process will not work",
+      "description": "Camera access is required to scan the QR code and sync with your -=APP_NAME=- desktop app. Without this access, the sync process will not work",
       "alert": {
         "title": "مطلوب الوصول إلى الكاميرا",
         "description": "تتطلب هذه الميزة الوصول إلى الكاميرا. يمكنك تمكينها من إعدادات جهازك."
@@ -69,7 +69,7 @@
     },
     "info": {
       "title": "يجب مزامنة تطبيقات سطح المكتب والهاتف المحمول يدويًا",
-      "description": "يقوم تطبيق cySync بتخزين بياناتك محليًا. إذا قمت بتحديث عملاتك / حساباتك على تطبيق سطح المكتب، فستحتاج إلى القيام بنفس الشيء على تطبيق الهاتف المحمول الخاص بك"
+      "description": "يقوم تطبيق -=APP_NAME=- بتخزين بياناتك محليًا. إذا قمت بتحديث عملاتك / حساباتك على تطبيق سطح المكتب، فستحتاج إلى القيام بنفس الشيء على تطبيق الهاتف المحمول الخاص بك"
     },
     "passwordPage": {
       "title": "إنشاء كلمة مرور جديدة",
@@ -154,7 +154,7 @@
     "receive": {
       "info": "عنوان ${crypto} في ${wallet}",
       "messageBox": {
-        "danger": "هذا عنوان الاستلام لم يتم التحقق منه بواسطة الجهاز. استخدمه على مسؤوليتك الخاصة أو تحقق من العنوان باستخدام تطبيق سطح المكتب cySync."
+        "danger": "هذا عنوان الاستلام لم يتم التحقق منه بواسطة الجهاز. استخدمه على مسؤوليتك الخاصة أو تحقق من العنوان باستخدام تطبيق سطح المكتب -=APP_NAME=-."
       }
     },
     "shared": {
@@ -168,7 +168,7 @@
       "description": "راسلنا عبر البريد الإلكتروني: "
     },
     "socials": {
-      "title": "ابق على تواصل مع Cypherock",
+      "title": "ابق على تواصل مع -=PRODUCT_NAME=-",
       "description": "يمكن العثور على الإعلانات في مدونتنا"
     }
   },
@@ -194,7 +194,7 @@
     },
     "about": {
       "heading": "حول",
-      "title": "إصدار CySync",
+      "title": "إصدار -=APP_NAME=-",
       "version": "",
       "termsOfUse": "شروط الاستخدام",
       "privacyPolicy": "سياسة الخصوصية"
@@ -269,7 +269,7 @@
     }
   },
   "banner": {
-    "title": "Cypherock Cover is here!",
+    "title": "-=PRODUCT_NAME=- Cover is here!",
     "description": "Click here to know more"
   },
   "toast": {

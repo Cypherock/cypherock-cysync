@@ -11,7 +11,7 @@
     "login": "Anmelden",
     "getStarted": "Loslegen",
     "scanQrCode": "QR-Code scannen",
-    "buyCypherockX1": "Cypherock X1 kaufen",
+    "buyCypherockX1": "-=WALLET_NAME=- kaufen",
     "grantPermission": "Berechtigung erteilen",
     "nextOnboarding": "Weiter",
     "allWallets": "Alle Wallets",
@@ -28,17 +28,17 @@
       }
     },
     "reset": {
-      "title": "Durch das Zurücksetzen des Passworts wird Ihre cySync-App zurückgesetzt. Möchten Sie fortfahren?",
-      "description": "Dadurch werden alle Ihre Daten in Ihrer cySync-App gelöscht. Beachten Sie, dass dies nicht zum Verlust von Vermögenswerten führt."
+      "title": "Durch das Zurücksetzen des Passworts wird Ihre -=APP_NAME=--App zurückgesetzt. Möchten Sie fortfahren?",
+      "description": "Dadurch werden alle Ihre Daten in Ihrer -=APP_NAME=--App gelöscht. Beachten Sie, dass dies nicht zum Verlust von Vermögenswerten führt."
     }
   },
   "onboarding": {
     "welcome": {
-      "title": "Willkommen in der cySync App",
+      "title": "Willkommen in der -=APP_NAME=- App",
       "description": "Ihr Tor zur Selbstsouveränität",
       "termsOfUse": "Nutzungsbedingungen",
       "privacyPolicy": "Datenschutzrichtlinie",
-      "byProceeding": "Indem Sie fortfahren, akzeptieren Sie Cypherocks ${termsOfUse} und ${privacyPolicy}"
+      "byProceeding": "Indem Sie fortfahren, akzeptieren Sie -=PRODUCT_NAME=-s ${termsOfUse} und ${privacyPolicy}"
     },
     "portfolio": {
       "title": "Portfolio",
@@ -46,22 +46,22 @@
     },
     "history": {
       "title": "Verlauf",
-      "description": "Sehen Sie sich Ihren vergangenen Transaktionsverlauf an und lassen Sie sich benachrichtigen, wenn eine Transaktion von Ihrem Cypherock X1 initiiert wird"
+      "description": "Sehen Sie sich Ihren vergangenen Transaktionsverlauf an und lassen Sie sich benachrichtigen, wenn eine Transaktion von Ihrem -=WALLET_NAME=- initiiert wird"
     },
     "receive": {
       "title": "Empfangen",
-      "description": "Empfangen Sie Ihre Krypto-Assets direkt in Ihrem Cypherock X1. Unterwegs!"
+      "description": "Empfangen Sie Ihre Krypto-Assets direkt in Ihrem -=WALLET_NAME=-. Unterwegs!"
     },
     "scan": {
       "title": "QR von der Desktop-App synchronisieren",
       "description": [
-        "Stellen Sie sicher, dass Sie einen Cypherock X1 gekauft und bereits eingerichtet haben, bevor Sie scannen",
-        "Gehen Sie in Ihrer cySync-Desktop-App zu Einstellungen > Allgemein > cySync mit mobiler App synchronisieren"
+        "Stellen Sie sicher, dass Sie einen -=WALLET_NAME=- gekauft und bereits eingerichtet haben, bevor Sie scannen",
+        "Gehen Sie in Ihrer -=APP_NAME=--Desktop-App zu Einstellungen > Allgemein > -=APP_NAME=- mit mobiler App synchronisieren"
       ]
     },
     "permission": {
       "title": "Kameraberechtigung erforderlich",
-      "description": "Camera access is required to scan the QR code and sync with your cySync desktop app. Without this access, the sync process will not work",
+      "description": "Camera access is required to scan the QR code and sync with your -=APP_NAME=- desktop app. Without this access, the sync process will not work",
       "alert": {
         "title": "Kamerazugriff erforderlich",
         "description": "Diese Funktion erfordert Kamerazugriff. Sie können dies in den Geräteeinstellungen aktivieren."
@@ -69,7 +69,7 @@
     },
     "info": {
       "title": "Ihre Desktop- und Mobil-Apps müssen manuell synchronisiert werden",
-      "description": "Die cySync-App speichert Ihre Daten lokal. Wenn Sie Ihre Coins/Konten in Ihrer Desktop-App aktualisieren, müssen Sie dasselbe in Ihrer mobilen App tun"
+      "description": "Die -=APP_NAME=--App speichert Ihre Daten lokal. Wenn Sie Ihre Coins/Konten in Ihrer Desktop-App aktualisieren, müssen Sie dasselbe in Ihrer mobilen App tun"
     },
     "passwordPage": {
       "title": "Neues Passwort erstellen",
@@ -154,7 +154,7 @@
     "receive": {
       "info": "Adresse für ${crypto} in ${wallet}",
       "messageBox": {
-        "danger": "Diese Empfangsadresse wurde NICHT vom Gerät VERIFIZIERT. Verwenden Sie sie auf eigenes Risiko oder überprüfen Sie die Adresse mit der cySync-Desktop-App."
+        "danger": "Diese Empfangsadresse wurde NICHT vom Gerät VERIFIZIERT. Verwenden Sie sie auf eigenes Risiko oder überprüfen Sie die Adresse mit der -=APP_NAME=--Desktop-App."
       }
     },
     "shared": {
@@ -168,7 +168,7 @@
       "description": "E-Mail an: "
     },
     "socials": {
-      "title": "Bleiben Sie mit Cypherock in Verbindung",
+      "title": "Bleiben Sie mit -=PRODUCT_NAME=- in Verbindung",
       "description": "Ankündigungen finden Sie in unserem Blog"
     }
   },
@@ -194,7 +194,7 @@
     },
     "about": {
       "heading": "Über",
-      "title": "cySync Version",
+      "title": "-=APP_NAME=- Version",
       "version": "",
       "termsOfUse": "Nutzungsbedingungen",
       "privacyPolicy": "Datenschutzrichtlinie"
@@ -269,7 +269,7 @@
     }
   },
   "banner": {
-    "title": "Cypherock Cover ist da!",
+    "title": "-=PRODUCT_NAME=- Cover ist da!",
     "description": "Klicken Sie hier, um mehr zu erfahren"
   },
   "toast": {

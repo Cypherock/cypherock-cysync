@@ -11,7 +11,7 @@
     "login": "Masuk",
     "getStarted": "Mulai",
     "scanQrCode": "Pindai Kode QR",
-    "buyCypherockX1": "Beli Cypherock X1",
+    "buyCypherockX1": "Beli -=WALLET_NAME=-",
     "grantPermission": "Berikan Izin",
     "nextOnboarding": "Next",
     "allWallets": "Semua Dompet",
@@ -28,17 +28,17 @@
       }
     },
     "reset": {
-      "title": "Resetting password will reset your cySync app do you want to proceed?",
-      "description": "This will erase all your data on your cySync app. Note this will not result in loss of assets"
+      "title": "Resetting password will reset your -=APP_NAME=- app do you want to proceed?",
+      "description": "This will erase all your data on your -=APP_NAME=- app. Note this will not result in loss of assets"
     }
   },
   "onboarding": {
     "welcome": {
-      "title": "Selamat datang di Aplikasi cySync",
+      "title": "Selamat datang di Aplikasi -=APP_NAME=-",
       "description": "Gerbang Anda menuju kedaulatan diri",
       "termsOfUse": "Syarat Penggunaan",
       "privacyPolicy": "Kebijakan Privasi",
-      "byProceeding": "Dengan melanjutkan, Anda menerima ${termsOfUse} dan ${privacyPolicy} Cypherock"
+      "byProceeding": "Dengan melanjutkan, Anda menerima ${termsOfUse} dan ${privacyPolicy} -=PRODUCT_NAME=-"
     },
     "portfolio": {
       "title": "Portofolio",
@@ -46,22 +46,22 @@
     },
     "history": {
       "title": "Riwayat",
-      "description": "Lihat riwayat transaksi Anda sebelumnya dan dapatkan pemberitahuan setiap kali ada transaksi yang dimulai dari Cypherock X1 Anda"
+      "description": "Lihat riwayat transaksi Anda sebelumnya dan dapatkan pemberitahuan setiap kali ada transaksi yang dimulai dari -=WALLET_NAME=- Anda"
     },
     "receive": {
       "title": "Terima",
-      "description": "Terima aset Kripto Anda langsung ke Cypherock X1 Anda. Di mana saja!"
+      "description": "Terima aset Kripto Anda langsung ke -=WALLET_NAME=- Anda. Di mana saja!"
     },
     "scan": {
       "title": "Sinkronkan QR dari Aplikasi Desktop",
       "description": [
-        "Pastikan Anda telah membeli Cypherock X1 dan sudah mengaturnya sebelum memindai",
-        "Pada aplikasi desktop cySync Anda, buka Pengaturan > Umum > Sinkronkan cySync dengan Aplikasi Seluler"
+        "Pastikan Anda telah membeli -=WALLET_NAME=- dan sudah mengaturnya sebelum memindai",
+        "Pada aplikasi desktop -=APP_NAME=- Anda, buka Pengaturan > Umum > Sinkronkan -=APP_NAME=- dengan Aplikasi Seluler"
       ]
     },
     "permission": {
       "title": "Izin kamera diperlukan",
-      "description": "Camera access is required to scan the QR code and sync with your cySync desktop app. Without this access, the sync process will not work",
+      "description": "Camera access is required to scan the QR code and sync with your -=APP_NAME=- desktop app. Without this access, the sync process will not work",
       "alert": {
         "title": "Akses Kamera Diperlukan",
         "description": "Fitur ini memerlukan akses kamera. Anda dapat mengaktifkannya dari pengaturan perangkat Anda."
@@ -69,7 +69,7 @@
     },
     "info": {
       "title": "Aplikasi Desktop dan Seluler Anda harus disinkronkan secara manual",
-      "description": "Aplikasi cySync menyimpan data Anda secara lokal. Jika Anda memperbarui koin/akun Anda di aplikasi desktop, Anda harus melakukan hal yang sama di aplikasi seluler Anda"
+      "description": "Aplikasi -=APP_NAME=- menyimpan data Anda secara lokal. Jika Anda memperbarui koin/akun Anda di aplikasi desktop, Anda harus melakukan hal yang sama di aplikasi seluler Anda"
     },
     "passwordPage": {
       "title": "Buat Kata Sandi Baru",
@@ -154,7 +154,7 @@
     "receive": {
       "info": "Alamat untuk ${crypto} di ${wallet}",
       "messageBox": {
-        "danger": "Alamat Penerima Ini TIDAK DIVERIFIKASI oleh perangkat. Gunakan dengan risiko Anda sendiri atau verifikasi alamat menggunakan aplikasi desktop cySync."
+        "danger": "Alamat Penerima Ini TIDAK DIVERIFIKASI oleh perangkat. Gunakan dengan risiko Anda sendiri atau verifikasi alamat menggunakan aplikasi desktop -=APP_NAME=-."
       }
     },
     "shared": {
@@ -168,7 +168,7 @@
       "description": "kirim email ke: "
     },
     "socials": {
-      "title": "Tetap terhubung dengan Cypherock",
+      "title": "Tetap terhubung dengan -=PRODUCT_NAME=-",
       "description": "Pengumuman dapat ditemukan di blog kami"
     }
   },
@@ -194,7 +194,7 @@
     },
     "about": {
       "heading": "Tentang",
-      "title": "Versi cySync",
+      "title": "Versi -=APP_NAME=-",
       "version": "",
       "termsOfUse": "Syarat Penggunaan",
       "privacyPolicy": "Kebijakan Privasi"
@@ -269,7 +269,7 @@
     }
   },
   "banner": {
-    "title": "Cypherock Cover sudah hadir!",
+    "title": "-=PRODUCT_NAME=- Cover sudah hadir!",
     "description": "Klik di sini untuk info lebih lanjut"
   },
   "toast": {

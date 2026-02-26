@@ -12,7 +12,7 @@
     "login": "Login",
     "getStarted": "Get Started",
     "scanQrCode": "Scan QrCode",
-    "buyCypherockX1": "Buy Cypherock X1",
+    "buyCypherockX1": "Buy -=WALLET_NAME=-",
     "grantPermission": "Grant Permission",
     "openSettings": "Open Settings",
     "nextOnboarding": "Next",
@@ -28,17 +28,17 @@
       }
     },
     "reset": {
-      "title": "Resetting password will reset your cySync app do you want to proceed?",
-      "description": "This will erase all your data on your cySync app. Note this will not result in loss of assets"
+      "title": "Resetting password will reset your -=APP_NAME=- app do you want to proceed?",
+      "description": "This will erase all your data on your -=APP_NAME=- app. Note this will not result in loss of assets"
     }
   },
   "onboarding": {
     "welcome": {
-      "title": "Welcome to cySync App",
+      "title": "Welcome to -=APP_NAME=- App",
       "description": "Your gateway to self-sovereignty",
       "termsOfUse": "Terms of Use",
       "privacyPolicy": "Privacy Policy",
-      "byProceeding": "By proceeding, you accept Cypherock's ${termsOfUse} and ${privacyPolicy}"
+      "byProceeding": "By proceeding, you accept -=PRODUCT_NAME=-'s ${termsOfUse} and ${privacyPolicy}"
     },
     "portfolio": {
       "title": "Portfolio",
@@ -46,22 +46,22 @@
     },
     "history": {
       "title": "History",
-      "description": "View your past transaction history and get notified whenever there is a transaction initiated from your Cypherock X1"
+      "description": "View your past transaction history and get notified whenever there is a transaction initiated from your -=WALLET_NAME=-"
     },
     "receive": {
       "title": "Receive",
-      "description": "Receive your Crypto assets directly into your Cypherock X1. On the Go!"
+      "description": "Receive your Crypto assets directly into your -=WALLET_NAME=-. On the Go!"
     },
     "scan": {
       "title": "Sync QR from Desktop App",
       "description": [
-        "Make sure you have bought a Cypherock X1 and have it already setup before scanning",
-        "On your cySync desktop app, Go to Settings > General > Sync cySync with Mobile App"
+        "Make sure you have bought a -=WALLET_NAME=- and have it already setup before scanning",
+        "On your -=APP_NAME=- desktop app, Go to Settings > General > Sync -=APP_NAME=- with Mobile App"
       ]
     },
     "permission": {
       "title": "Camera permission required",
-      "description": "Camera access is required to scan the QR code and sync with your cySync desktop app. Without this access, the sync process will not work",
+      "description": "Camera access is required to scan the QR code and sync with your -=APP_NAME=- desktop app. Without this access, the sync process will not work",
       "alert": {
         "title": "Camera Access Required",
         "description": "This feature requires camera access. You can enable it from your device settings."
@@ -69,7 +69,7 @@
     },
     "info": {
       "title": "Your Desktop and Mobile Apps must be synced manually",
-      "description": "cySync App stores your data locally. If you update your coins/accounts on your desktop app, you will need to do the same on your mobile app"
+      "description": "-=APP_NAME=- App stores your data locally. If you update your coins/accounts on your desktop app, you will need to do the same on your mobile app"
     },
     "passwordPage": {
       "title": "Create New Password",
@@ -154,7 +154,7 @@
     "receive": {
       "info": "Address for ${crypto} in ${wallet}",
       "messageBox": {
-        "danger": "This Receive Address was NOT VERIFIED by the device. Use it at your own risk or verify address using cySync desktop app"
+        "danger": "This Receive Address was NOT VERIFIED by the device. Use it at your own risk or verify address using -=APP_NAME=- desktop app"
       }
     },
     "shared": {
@@ -168,7 +168,7 @@
       "description": "email to: "
     },
     "socials": {
-      "title": "Stay in touch with Cypherock",
+      "title": "Stay in touch with -=PRODUCT_NAME=-",
       "description": "Announcements can be found in our blog"
     }
   },
@@ -194,7 +194,7 @@
     },
     "about": {
       "heading": "About",
-      "title": "cySync version",
+      "title": "-=APP_NAME=- version",
       "version": "",
       "termsOfUse": "Terms of use",
       "privacyPolicy": "Privacy policy"
@@ -257,7 +257,7 @@
     }
   },
   "banner": {
-    "title": "Cypherock Cover is here!",
+    "title": "-=PRODUCT_NAME=- Cover is here!",
     "description": "Click here to know more"
   },
   "toast": {
