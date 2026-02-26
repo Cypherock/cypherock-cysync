@@ -15,6 +15,7 @@ import {
   updateAccountSyncMap,
 } from '@/store';
 import { getDB } from '@/utils';
+import { keyDb } from '@/db/keyValueStore';
 
 export const syncAccounts = createAsyncThunk<
   void,
@@ -98,6 +99,7 @@ export const syncAccounts = createAsyncThunk<
         db: getDB(),
         accounts: unhiddenAccounts,
         currency: getState().currency.currentCurrency,
+        keyDB: keyDb,
       }).subscribe(observer);
     });
   },
