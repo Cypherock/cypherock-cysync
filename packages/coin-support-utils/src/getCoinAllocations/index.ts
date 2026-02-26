@@ -6,6 +6,7 @@ import { ICreateGetCoinAllocationsParams } from './types';
 
 import { getCoinPrice } from '../db';
 import { convertToUnit, getDefaultUnit, getZeroUnit } from '../unit';
+import logger from '../utils/logger';
 
 export * from './types';
 
@@ -37,27 +38,33 @@ export async function createGetCoinAllocations(
     const accounts = allAccounts.filter(a => !a.isHidden);
 
     if (accounts.length > 0) {
-      const balance = accounts
-        .reduce((a, b) => a.plus(b.balance), new BigNumber(0))
-        .toString();
-      const balanceInDefaultUnit = convertToUnit({
-        amount: balance,
-        fromUnitAbbr: getZeroUnit(coinId.parentAssetId, coinId.assetId).abbr,
-        coinId: coinId.parentAssetId,
-        assetId: coinId.assetId,
-        toUnitAbbr: getDefaultUnit(coinId.parentAssetId, coinId.assetId).abbr,
-      });
-      const value = new BigNumber(balanceInDefaultUnit.amount)
-        .multipliedBy(coinPrice)
-        .toString();
+      try {
+        const balance = accounts
+          .reduce((a, b) => a.plus(b.balance), new BigNumber(0))
+          .toString();
+        const balanceInDefaultUnit = convertToUnit({
+          amount: balance,
+          fromUnitAbbr: getZeroUnit(coinId.parentAssetId, coinId.assetId).abbr,
+          coinId: coinId.parentAssetId,
+          assetId: coinId.assetId,
+          toUnitAbbr: getDefaultUnit(coinId.parentAssetId, coinId.assetId).abbr,
+        });
+        const value = new BigNumber(balanceInDefaultUnit.amount)
+          .multipliedBy(coinPrice)
+          .toString();
 
-      allocations.push({
-        assetId: coinId.assetId,
-        parentAssetId: coinId.parentAssetId,
-        balance,
-        value,
-        price: coinPrice,
-      });
+        allocations.push({
+          assetId: coinId.assetId,
+          parentAssetId: coinId.parentAssetId,
+          balance,
+          value,
+          price: coinPrice,
+        });
+      } catch (error) {
+        logger.warn('Error in calculating portfolio allocation share', {
+          error: (error as Error).message,
+        });
+      }
     }
   }
 
