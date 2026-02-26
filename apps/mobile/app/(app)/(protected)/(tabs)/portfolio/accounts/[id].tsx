@@ -102,7 +102,7 @@ export default function Accounts() {
 
   return (
     <ScreenContainer>
-      <PortfolioHeader />
+      {(global as any).cysyncEnv.VENDOR === 'default' && <PortfolioHeader />}
       <View
         style={{ width: '100%', height: 324, paddingHorizontal: 12, gap: 24 }}
       >

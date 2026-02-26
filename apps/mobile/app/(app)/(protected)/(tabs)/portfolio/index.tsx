@@ -14,6 +14,7 @@ import useShowAfterDelay from '@/hooks/useShowAfterDelay';
 import { useEffect } from 'react';
 import { View } from 'react-native';
 import { useIsFocused } from '@react-navigation/native';
+import { colors } from '@/components/ui/themes/color.styled';
 
 export default function Portfolio() {
   const { strings } = useAppSelector(selectLanguage);
@@ -64,7 +65,7 @@ export default function Portfolio() {
 
   return (
     <ScreenContainer>
-      <PortfolioHeader />
+      {(global as any).cysyncEnv.VENDOR === 'default' && <PortfolioHeader />}
       <View
         style={{
           width: '100%',
@@ -94,6 +95,11 @@ export default function Portfolio() {
             key={selectedRange}
             selectedRange={selectedRange}
             selectedWallet={selectedWallet}
+            color={
+              (global as any).cysyncEnv.VENDOR === 'odix'
+                ? colors.white
+                : undefined
+            }
           />
         )}
       </View>
