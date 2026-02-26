@@ -37,3 +37,5 @@ export * from './base-icon';
 export * from './stellar-icon';
 export * from './siacoin-icon';
 export * from './canton-icon';
+export * from './starknet-icon';
+export * from './tron-icon';

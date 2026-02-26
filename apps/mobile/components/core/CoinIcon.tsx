@@ -10,6 +10,8 @@ const {
   StellarIdMap,
   SiaIdMap,
   CantonIdMap,
+  TronIdMap,
+  StarknetIdMap,
 } = require('@cypherock/coins');
 const { getAssetOrUndefined } = require('@cypherock/coin-support-utils');
 import {
@@ -32,11 +34,11 @@ import {
   StellarIcon,
   SiacoinIcon,
   CantonIcon,
+  TronIcon,
+  StarknetIcon,
 } from '../ui/icons';
 import { useTheme } from '../ui';
 import Svg, { SvgProps, Image as SvgImage, Circle, G } from 'react-native-svg';
-import { TronIcon } from '../ui/icons/tron-icon';
-import { TronIdMap } from '@cypherock/coins';
 import { Links } from '@/constants';
 
 const coinToIconMap: Record<string, React.FC<SvgProps>> = {
@@ -60,6 +62,7 @@ const coinToIconMap: Record<string, React.FC<SvgProps>> = {
   [SiaIdMap.sia]: SiacoinIcon,
   [CantonIdMap.canton]: CantonIcon,
   [TronIdMap.tron]: TronIcon,
+  [StarknetIdMap.starknet]: StarknetIcon,
 };
 
 const fallbackIcon = Links.static.fallbackCryptoIcon;
