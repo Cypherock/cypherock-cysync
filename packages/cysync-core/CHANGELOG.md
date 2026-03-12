@@ -1,5 +1,17 @@
 # @cypherock/cysync-core
 
+## 0.13.0
+
+### Minor Changes
+
+- [#862](https://github.com/Cypherock/cypherock-cysync/pull/862) [`deae27c8`](https://github.com/Cypherock/cypherock-cysync/commit/deae27c80885e897ca04f44eaaf1ef8657f001e5) Thanks [@AryanCypherock](https://github.com/AryanCypherock)! - enable mobile sync for all vendors
+
+## 0.13.0-pre.0
+
+### Minor Changes
+
+- [#862](https://github.com/Cypherock/cypherock-cysync/pull/862) [`deae27c8`](https://github.com/Cypherock/cypherock-cysync/commit/deae27c80885e897ca04f44eaaf1ef8657f001e5) Thanks [@AryanCypherock](https://github.com/AryanCypherock)! - enable mobile sync for all vendors
+
 ## 0.12.0
 
 ### Minor Changes

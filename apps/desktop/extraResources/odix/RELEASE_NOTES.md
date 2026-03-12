@@ -1,3 +1,19 @@
+# v2.4.4
+
+- **Mobile App Sync:** Seamlessly sync with the Odix mobile app
+
+# v2.4.2
+
+### 🚀 Feature
+
+- **Taproot Support:** Send and receive BTC with Taproot for lower fees and faster computations.
+
+# v2.4.1
+
+### 🚀 Feature
+
+- **Base Network Support:** Now you can seamlessly manage your Base network assets directly through the app.
+
 # v2.4.0
 
 ### 🚀 Features

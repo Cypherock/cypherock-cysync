@@ -120,26 +120,30 @@ export const Wallet: FC = () => {
       fullHeight={accountList.length === 0}
       onTopbarHeightChange={setTopbarHeight}
     >
-      <Flex justify="space-between" pt="10px" px="20px" mt={2}>
-        <Flex $flex={1} shrink={0} $minWidth="0" $overflow="hidden">
-          <Breadcrumb
-            items={[
-              {
-                id: 'wallet',
-                text: lang.strings.wallet.title,
+      <Flex
+        justify="space-between"
+        align="flex-start"
+        pt="10px"
+        px="20px"
+        mt={2}
+      >
+        <Breadcrumb
+          items={[
+            {
+              id: 'wallet',
+              text: lang.strings.wallet.title,
+            },
+            {
+              id: 'walletList',
+              dropdown: {
+                displayNode: walletName,
+                selectedItem: selectedWallet?.__id ?? '',
+                setSelectedItem: onWalletChange,
+                dropdown: dropDownData,
               },
-              {
-                id: 'walletList',
-                dropdown: {
-                  displayNode: walletName,
-                  selectedItem: selectedWallet?.__id ?? '',
-                  setSelectedItem: onWalletChange,
-                  dropdown: dropDownData,
-                },
-              },
-            ]}
-          />
-        </Flex>
+            },
+          ]}
+        />
         <Flex gap={24} shrink={0}>
           {hasAccounts && (
             <Button
