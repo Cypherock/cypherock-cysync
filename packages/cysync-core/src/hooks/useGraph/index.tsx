@@ -207,9 +207,6 @@ export const useGraph = (props?: UseGraphProps) => {
     includeUnit = false,
   ) => {
     const { parentAssetId, assetId } = getAssetDetailsFromProps();
-    if (new BigNumber(value).isNaN() && typeof value === 'string') {
-      return value;
-    }
     if (new BigNumber(value).isNaN()) {
       return '';
     }
