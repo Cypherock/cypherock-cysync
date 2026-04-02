@@ -141,12 +141,10 @@ const computePriceInfosVersion = (list: any[]) =>
 
 const syncPriceInfosDb = createFuncWithErrorHandler(
   'syncPriceInfosDb',
-  async (_isFirst?: boolean, currency?: string) => {
+  async () => {
     const db = getDB();
 
-    const priceInfos = currency
-      ? await db.priceInfo.getAll([{ currency } as any])
-      : await db.priceInfo.getAll();
+    const priceInfos = await db.priceInfo.getAll();
     const version = computePriceInfosVersion(priceInfos);
     if (version === lastPriceInfosVersion) return;
     lastPriceInfosVersion = version;
@@ -163,12 +161,10 @@ const computePriceHistoriesVersion = (list: any[]) =>
 
 const syncPriceHistoriesDb = createFuncWithErrorHandler(
   'syncPriceHistoriesDb',
-  async (_isFirst?: boolean, currency?: string) => {
+  async () => {
     const db = getDB();
 
-    const priceHistories = currency
-      ? await db.priceHistory.getAll([{ currency } as any])
-      : await db.priceHistory.getAll();
+    const priceHistories = await db.priceHistory.getAll();
     const version = computePriceHistoriesVersion(priceHistories);
     if (version === lastPriceHistoriesVersion) return;
     lastPriceHistoriesVersion = version;
@@ -223,8 +219,8 @@ export const syncAllDb = async (isFirst: boolean, currency: string) => {
   await syncAccountsDb(isFirst, currency);
   await syncWalletsDb();
   await syncDevicesDb();
-  await syncPriceInfosDb(isFirst, currency);
-  await syncPriceHistoriesDb(isFirst, currency);
+  await syncPriceInfosDb();
+  await syncPriceHistoriesDb();
   await syncTransactionsDb();
   await syncInheritancePlanDb();
   await syncBuySellOrdersDb(isFirst);
@@ -275,6 +271,14 @@ export const addListeners = () => {
     'change',
     throttleDbFunction(syncBuySellOrdersDb),
   );
+  db.priceInfo.addListener(
+    'change',
+    debounceDbFunction(() => syncPriceInfosDb()),
+  );
+  db.priceHistory.addListener(
+    'change',
+    debounceDbFunction(() => syncPriceHistoriesDb()),
+  );
 };
 
 export const removeListeners = () => {
@@ -286,27 +290,6 @@ export const removeListeners = () => {
   db.transaction.removeAllListener();
   db.inheritancePlan.removeAllListener();
   db.buySellOrder.removeAllListener();
-};
-
-export const syncPriceDataDb = async (currency?: string) => {
-  await syncPriceInfosDb(false, currency);
-  await syncPriceHistoriesDb(false, currency);
-};
-
-export const addPriceListeners = (currency?: string) => {
-  const db = getDB();
-  db.priceInfo.addListener(
-    'change',
-    debounceDbFunction(() => syncPriceInfosDb(false, currency)),
-  );
-  db.priceHistory.addListener(
-    'change',
-    debounceDbFunction(() => syncPriceHistoriesDb(false, currency)),
-  );
-};
-
-export const removePriceListeners = () => {
-  const db = getDB();
   db.priceInfo.removeAllListener();
   db.priceHistory.removeAllListener();
 };

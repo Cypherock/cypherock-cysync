@@ -40,6 +40,9 @@ export const SwapSummary = () => {
   const priceInfos = useAppSelector(state =>
     selectCurrentCurrencyPriceInfos(state, currentCurrency),
   );
+  const usdPriceInfos = useAppSelector(state =>
+    selectCurrentCurrencyPriceInfos(state, 'usd'),
+  );
   const lang = useAppSelector(selectLanguage);
 
   const button = lang.strings.buttons;
@@ -113,15 +116,22 @@ export const SwapSummary = () => {
     const coinPrice = priceInfos.find(
       p => p.assetId === account?.parentAssetId,
     );
-    if (!account || !coinPrice) return [];
+    const coinPriceInUsd = usdPriceInfos.find(
+      p => p.assetId === account?.parentAssetId,
+    );
+    if (!account || !coinPrice || !coinPriceInUsd) return [];
 
-    const fee = quote?.fee ?? '0';
-    const amount = formatDisplayAmount(
-      new BigNumber(fee).dividedBy(coinPrice.latestPrice),
-    ).fixed;
+    const fee = quote?.fee ?? '0'; // quote fee is in usd
+    const feeInCoinUnit = new BigNumber(fee).dividedBy(
+      coinPriceInUsd.latestPrice,
+    );
+    const amount = formatDisplayAmount(feeInCoinUnit).fixed;
     const unit = getDefaultUnit(account.parentAssetId).abbr;
 
-    const value = formatDisplayPrice(new BigNumber(fee), currentCurrency);
+    const value = formatDisplayPrice(
+      feeInCoinUnit.multipliedBy(coinPrice.latestPrice),
+      currentCurrency,
+    );
 
     details.push({
       id: 'fee-details',
