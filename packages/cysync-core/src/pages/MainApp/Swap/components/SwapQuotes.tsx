@@ -258,8 +258,12 @@ export const SwapQuotes: React.FC<{
                         value: [`1 ${fromUnit} =`, `${rate} ${toUnit}`],
                       },
                     ],
-              isBest: index === 0,
-              bestOfferText: displayText.bestOffer,
+              isBest: true,
+              bestOfferText: quote.provider.name
+                .toLowerCase()
+                .includes('changelly')
+                ? 'Recommended'
+                : 'Cheaper',
               provider: quote.provider,
             }}
             setSelectedIndex={setSelectedOfferIndex}
