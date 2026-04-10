@@ -1,5 +1,15 @@
 # @cypherock/cysync-core-workers
 
+## 0.1.13-pre.0
+
+### Patch Changes
+
+- [#864](https://github.com/Cypherock/cypherock-cysync/pull/864) [`a1806408`](https://github.com/Cypherock/cypherock-cysync/commit/a1806408601f9ed932703cbdbf0c1dbbcd17c1d0) Thanks [@muzaffarbhat07](https://github.com/muzaffarbhat07)! - Fixes visible change value in portfolio in discreet mode
+
+- Updated dependencies [[`d3ac8be4`](https://github.com/Cypherock/cypherock-cysync/commit/d3ac8be48ea014e5e635d6df903ee5c830503673)]:
+  - @cypherock/coin-support-utils@0.1.9-pre.0
+  - @cypherock/cysync-core-services@0.3.5-pre.0
+
 ## 0.1.12
 
 ### Patch Changes

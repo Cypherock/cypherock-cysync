@@ -1,5 +1,33 @@
 # @cypherock/cysync-core
 
+## 0.13.1-pre.0
+
+### Patch Changes
+
+- [#864](https://github.com/Cypherock/cypherock-cysync/pull/864) [`a1806408`](https://github.com/Cypherock/cypherock-cysync/commit/a1806408601f9ed932703cbdbf0c1dbbcd17c1d0) Thanks [@muzaffarbhat07](https://github.com/muzaffarbhat07)! - Fixes visible change value in portfolio in discreet mode
+
+- [#868](https://github.com/Cypherock/cypherock-cysync/pull/868) [`237749d1`](https://github.com/Cypherock/cypherock-cysync/commit/237749d1a9545e87ba1eca0e1962b80a4ee66f58) Thanks [@Keyur279](https://github.com/Keyur279)! - Fixed swap provider quote labels display
+
+- [#866](https://github.com/Cypherock/cypherock-cysync/pull/866) [`d3ac8be4`](https://github.com/Cypherock/cypherock-cysync/commit/d3ac8be48ea014e5e635d6df903ee5c830503673) Thanks [@muzaffarbhat07](https://github.com/muzaffarbhat07)! - Fixes swap fee currency value
+
+- Updated dependencies [[`a1806408`](https://github.com/Cypherock/cypherock-cysync/commit/a1806408601f9ed932703cbdbf0c1dbbcd17c1d0), [`177be7c9`](https://github.com/Cypherock/cypherock-cysync/commit/177be7c956a12222266eb0b14a1d1a2ee8420679), [`d3ac8be4`](https://github.com/Cypherock/cypherock-cysync/commit/d3ac8be48ea014e5e635d6df903ee5c830503673)]:
+  - @cypherock/cysync-core-workers@0.1.13-pre.0
+  - @cypherock/cysync-ui@0.2.2-pre.0
+  - @cypherock/coin-support-utils@0.1.9-pre.0
+  - @cypherock/coin-support-btc@0.0.32-pre.0
+  - @cypherock/coin-support-canton@1.1.4-pre.0
+  - @cypherock/coin-support-evm@0.1.9-pre.0
+  - @cypherock/coin-support-icp@1.0.14-pre.0
+  - @cypherock/coin-support-near@0.0.30-pre.0
+  - @cypherock/coin-support-sia@2.0.5-pre.0
+  - @cypherock/coin-support-solana@0.2.9-pre.0
+  - @cypherock/coin-support-starknet@1.0.17-pre.0
+  - @cypherock/coin-support-stellar@1.0.11-pre.0
+  - @cypherock/coin-support-tron@0.1.9-pre.0
+  - @cypherock/coin-support-xrp@1.1.18-pre.0
+  - @cypherock/cysync-core-services@0.3.5-pre.0
+  - @cypherock/coin-support@0.2.12-pre.0
+
 ## 0.13.0
 
 ### Minor Changes

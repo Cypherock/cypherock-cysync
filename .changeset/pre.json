@@ -37,5 +37,11 @@
     "@cypherock/tsconfig": "0.0.1",
     "@cypherock/cysync-utils": "0.0.17"
   },
-  "changesets": []
+  "changesets": [
+    "late-actors-cheat",
+    "many-poets-cheat",
+    "nervous-falcons-jump",
+    "polite-clouds-raise",
+    "wild-bugs-rhyme"
+  ]
 }
