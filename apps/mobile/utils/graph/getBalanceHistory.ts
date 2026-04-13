@@ -3,7 +3,7 @@ import {
   IBalanceHistory,
   IGetAccountHistoryResult,
 } from '@cypherock/coin-support-interfaces';
-import { assert, BigNumber, PromiseQueue } from '@cypherock/cysync-utils';
+import { BigNumber, PromiseQueue } from '@cypherock/cysync-utils';
 import {
   IDatabase,
   IAccount,
@@ -14,32 +14,27 @@ import {
 import logger from '../logger';
 
 const getClosestTimestamps = (
-  sortedBalanceHistory: IGetAccountHistoryResult['history'],
+  sortedHistory: IGetAccountHistoryResult['history'],
   timestamp: number,
 ): [number, number] | undefined => {
-  if (sortedBalanceHistory.length <= 0) {
-    return undefined;
+  if (sortedHistory.length === 0) return undefined;
+
+  let lo = 0,
+    hi = sortedHistory.length - 1;
+
+  if (sortedHistory[lo].timestamp === timestamp) return [timestamp, timestamp];
+  if (sortedHistory[hi].timestamp === timestamp) return [timestamp, timestamp];
+
+  while (lo <= hi) {
+    const mid = (lo + hi) >>> 1;
+    const t = sortedHistory[mid].timestamp;
+    if (t === timestamp) return [timestamp, timestamp];
+    if (t < timestamp) lo = mid + 1;
+    else hi = mid - 1;
   }
 
-  if (sortedBalanceHistory.find(h => h.timestamp === timestamp)) {
-    return [timestamp, timestamp];
-  }
-
-  for (let i = 1; i < sortedBalanceHistory.length; i += 1) {
-    const prevItem = sortedBalanceHistory[i - 1];
-    const currItem = sortedBalanceHistory[i];
-
-    assert(
-      prevItem.timestamp <= currItem.timestamp,
-      'Balance History is not sorted in ascending order',
-    );
-
-    if (prevItem.timestamp < timestamp && timestamp < currItem.timestamp) {
-      return [prevItem.timestamp, currItem.timestamp];
-    }
-  }
-
-  return undefined;
+  if (hi < 0 || lo >= sortedHistory.length) return undefined;
+  return [sortedHistory[hi].timestamp, sortedHistory[lo].timestamp];
 };
 
 const getAccounts = (params: {
@@ -108,17 +103,53 @@ export const getBalanceHistory = async (params: {
     return { balanceHistory: [], totalValue: '0' };
   }
 
+  const txByAccount = new Map<string, ITransaction[]>();
+  for (let i = 0; i < transactions.length; i++) {
+    const t = transactions[i];
+    let arr = txByAccount.get(t.accountId);
+    if (!arr) {
+      arr = [];
+      txByAccount.set(t.accountId, arr);
+    }
+    arr.push(t);
+  }
+
+  const priceHistoryByKey = new Map<string, IPriceHistory[]>();
+  for (let i = 0; i < priceHistories.length; i++) {
+    const p = priceHistories[i];
+    const key = `${p.assetId}|${p.currency}`;
+    let arr = priceHistoryByKey.get(key);
+    if (!arr) {
+      arr = [];
+      priceHistoryByKey.set(key, arr);
+    }
+    arr.push(p);
+  }
+
+  const priceInfoByKey = new Map<string, IPriceInfo[]>();
+  for (let i = 0; i < priceInfos.length; i++) {
+    const p = priceInfos[i];
+    const key = `${p.assetId}|${p.currency}`;
+    let arr = priceInfoByKey.get(key);
+    if (!arr) {
+      arr = [];
+      priceInfoByKey.set(key, arr);
+    }
+    arr.push(p);
+  }
+
   const tasks = accounts.map(account => () => {
     const coinSupport = getCoinSupport(account.familyId);
+    const key = `${account.assetId}|${currency}`;
     return coinSupport.getAccountHistory({
       db,
       accountId: account.__id ?? '',
       account,
       currency,
       days,
-      priceHistories,
-      transactions,
-      priceInfos,
+      priceHistories: priceHistoryByKey.get(key) ?? [],
+      transactions: txByAccount.get(account.__id ?? '') ?? [],
+      priceInfos: priceInfoByKey.get(key) ?? [],
     });
   });
 
@@ -136,81 +167,79 @@ export const getBalanceHistory = async (params: {
 
   await queue.run();
 
-  balanceHistoryList.forEach(balanceHistory => {
-    balanceHistory.history.sort((a, b) => a.timestamp - b.timestamp);
-  });
+  balanceHistoryList.forEach(b =>
+    b.history.sort((a, b) => a.timestamp - b.timestamp),
+  );
 
-  if (balanceHistoryList.length === 0 || !balanceHistoryList[0].history) {
+  if (balanceHistoryList.length === 0)
     return { balanceHistory: [], totalValue: '0' };
-  }
+
+  const parsedHistories = balanceHistoryList.map(b => ({
+    currentValue: b.currentValue,
+    sortedHistory: b.history,
+    historyMap: new Map(
+      b.history.map(h => [
+        h.timestamp,
+        {
+          timestamp: h.timestamp,
+          bnTimestamp: new BigNumber(h.timestamp),
+          bnBalance: new BigNumber(h.balance),
+          bnValue: new BigNumber(h.value),
+        },
+      ]),
+    ),
+  }));
+
+  const timestampList = parsedHistories[0].sortedHistory.map(b => b.timestamp);
 
   const allCoinHistoryData: IGetAccountHistoryResult['history'] = [];
-  const baseHistory = balanceHistoryList[0].history;
-  const timestampList = baseHistory.map(b => b.timestamp);
 
-  for (let i = 0; i < timestampList.length; i += 1) {
+  for (let i = 0; i < timestampList.length; i++) {
+    const target = timestampList[i];
     let allCoinValue = new BigNumber(0);
     let allCoinBalance = new BigNumber(0);
     let addedAllCoins = true;
 
-    for (let j = 0; j < balanceHistoryList.length; j += 1) {
-      const closestTimestamps = getClosestTimestamps(
-        balanceHistoryList[j].history,
-        timestampList[i],
-      );
+    for (let j = 0; j < parsedHistories.length; j++) {
+      const { sortedHistory, historyMap } = parsedHistories[j];
 
-      if (closestTimestamps === undefined) {
+      const brackets = getClosestTimestamps(sortedHistory, target);
+      if (!brackets) {
         addedAllCoins = false;
         break;
       }
 
-      const history1 = balanceHistoryList[j].history.find(
-        h => h.timestamp === closestTimestamps[0],
-      );
-
-      const history2 = balanceHistoryList[j].history.find(
-        h => h.timestamp === closestTimestamps[1],
-      );
-
-      if (history1 === undefined || history2 === undefined) {
+      const h1 = historyMap.get(brackets[0]);
+      const h2 = historyMap.get(brackets[1]);
+      if (!h1 || !h2) {
         addedAllCoins = false;
         break;
       }
 
-      const timestampTarget: BigNumber = new BigNumber(timestampList[i]);
-
-      const balance1: BigNumber = new BigNumber(history1.balance);
-      const value1: BigNumber = new BigNumber(history1.value);
-      const timestamp1: BigNumber = new BigNumber(history1.timestamp);
-
-      const balance2: BigNumber = new BigNumber(history2.balance);
-      const value2: BigNumber = new BigNumber(history2.value);
-      const timestamp2: BigNumber = new BigNumber(history2.timestamp);
-
-      const timeRange = timestamp2.minus(timestamp1);
-
-      const balanceSlope: BigNumber = timeRange.isZero()
+      const timeRange = h2.bnTimestamp.minus(h1.bnTimestamp);
+      const valueSlope = timeRange.isZero()
         ? new BigNumber(0)
-        : balance2.minus(balance1).dividedBy(timeRange);
-
-      const valueSlope: BigNumber = timeRange.isZero()
+        : h2.bnValue.minus(h1.bnValue).dividedBy(timeRange);
+      const balanceSlope = timeRange.isZero()
         ? new BigNumber(0)
-        : value2.minus(value1).dividedBy(timeRange);
+        : h2.bnBalance.minus(h1.bnBalance).dividedBy(timeRange);
+      const bnTarget = new BigNumber(target);
 
-      const value = value1.plus(
-        valueSlope.multipliedBy(timestampTarget.minus(timestamp1)),
+      allCoinValue = allCoinValue.plus(
+        h1.bnValue.plus(
+          valueSlope.multipliedBy(bnTarget.minus(h1.bnTimestamp)),
+        ),
       );
-      const balance = balance1.plus(
-        balanceSlope.multipliedBy(timestampTarget.minus(timestamp1)),
+      allCoinBalance = allCoinBalance.plus(
+        h1.bnBalance.plus(
+          balanceSlope.multipliedBy(bnTarget.minus(h1.bnTimestamp)),
+        ),
       );
-
-      allCoinBalance = allCoinBalance.plus(balance);
-      allCoinValue = allCoinValue.plus(value);
     }
 
     if (addedAllCoins) {
       allCoinHistoryData.push({
-        timestamp: timestampList[i],
+        timestamp: target,
         balance: allCoinBalance.toString(),
         value: allCoinValue.toString(),
       });
