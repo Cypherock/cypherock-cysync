@@ -1,5 +1,11 @@
 # @cypherock/coin-support-utils
 
+## 0.1.9
+
+### Patch Changes
+
+- [#866](https://github.com/Cypherock/cypherock-cysync/pull/866) [`d3ac8be4`](https://github.com/Cypherock/cypherock-cysync/commit/d3ac8be48ea014e5e635d6df903ee5c830503673) Thanks [@muzaffarbhat07](https://github.com/muzaffarbhat07)! - Fixes swap fee currency value
+
 ## 0.1.9-pre.0
 
 ### Patch Changes

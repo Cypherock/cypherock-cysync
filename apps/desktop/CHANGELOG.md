@@ -1,5 +1,14 @@
 # @cypherock/cysync-desktop
 
+## 2.4.5
+
+### Patch Changes
+
+- [#865](https://github.com/Cypherock/cypherock-cysync/pull/865) [`7ce82f5d`](https://github.com/Cypherock/cypherock-cysync/commit/7ce82f5d1d300cbf6dd7c0d606be465395898d7c) Thanks [@muzaffarbhat07](https://github.com/muzaffarbhat07)! - Fixes youtube referer header issue
+
+- Updated dependencies []:
+  - @cypherock/cysync-desktop-ui@0.2.14
+
 ## 2.4.5-pre.0
 
 ### Patch Changes

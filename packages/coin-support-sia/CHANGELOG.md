@@ -1,5 +1,12 @@
 # @cypherock/coin-support-sia
 
+## 2.0.5
+
+### Patch Changes
+
+- Updated dependencies [[`d3ac8be4`](https://github.com/Cypherock/cypherock-cysync/commit/d3ac8be48ea014e5e635d6df903ee5c830503673)]:
+  - @cypherock/coin-support-utils@0.1.9
+
 ## 2.0.5-pre.0
 
 ### Patch Changes
