@@ -13,6 +13,8 @@ export class Repository<T extends IEntity> implements IRepository<T> {
   protected name: string;
   private version?: number;
 
+  private listenerResults?: Realm.Results<T & Realm.Object>;
+
   constructor(realm: Realm, name: string) {
     this.realm = realm;
     this.name = name;
@@ -21,7 +23,7 @@ export class Repository<T extends IEntity> implements IRepository<T> {
   public static async create<T extends IEntity>(
     realm: Realm,
     name: string,
-    schema: Realm.ObjectSchema,
+    _schema: Realm.ObjectSchema,
   ): Promise<Repository<T>> {
     return new Repository<T>(realm, name);
   }
@@ -30,35 +32,26 @@ export class Repository<T extends IEntity> implements IRepository<T> {
   async insert(entities: T[]): Promise<T[]>;
   async insert(entityOrEntities: T | T[]): Promise<T | T[]> {
     try {
-      let result: T | T[];
+      const isBulk = Array.isArray(entityOrEntities);
+      const inputs = isBulk ? entityOrEntities : [entityOrEntities];
 
+      const payloads = inputs.map(e =>
+        this.stripUndefinedShallow({ ...e, __id: e.__id || uuidv4() }),
+      );
+
+      const created: T[] = new Array(payloads.length);
       this.realm.write(() => {
-        if (Array.isArray(entityOrEntities)) {
-          result = entityOrEntities.map(entity => {
-            const obj = this.removeUndefinedValues({
-              ...entity,
-              __id: entity.__id || uuidv4(),
-            }) as Record<string, unknown>;
-            return this.realm.create(
-              this.name,
-              obj,
-              Realm.UpdateMode.Modified,
-            ) as unknown as T;
-          });
-        } else {
-          const obj = this.removeUndefinedValues({
-            ...entityOrEntities,
-            __id: entityOrEntities.__id || uuidv4(),
-          }) as Record<string, unknown>;
-          result = this.realm.create(
+        for (let i = 0; i < payloads.length; i++) {
+          const obj = this.realm.create(
             this.name,
-            obj,
+            payloads[i] as unknown as Record<string, unknown>,
             Realm.UpdateMode.Modified,
-          ) as unknown as T;
+          ) as unknown as Realm.Object;
+          created[i] = obj.toJSON() as unknown as T;
         }
       });
 
-      return result!;
+      return isBulk ? created : created[0];
     } catch (error: any) {
       throw new DatabaseError(
         DatabaseErrorType.INSERT_FAILED,
@@ -72,25 +65,21 @@ export class Repository<T extends IEntity> implements IRepository<T> {
     updateEntity: Partial<T>,
   ): Promise<T[]> {
     try {
-      const objects = await this.findObjects(filter);
+      const objects = this.findObjects(filter);
+      const { __id: _ignore, ...rest } = updateEntity;
+      const cleaned = this.stripUndefinedShallow(rest);
 
+      const snapshots: T[] = [];
       this.realm.write(() => {
-        objects.forEach(obj => {
-          const { __id, ...otherUpdates } = updateEntity;
-          const cleanedUpdates = this.removeUndefinedValues(
-            otherUpdates as Record<string, unknown>,
-          );
-          if (
-            cleanedUpdates !== undefined &&
-            cleanedUpdates !== null &&
-            typeof cleanedUpdates === 'object'
-          ) {
-            Object.assign(obj, cleanedUpdates);
+        for (let i = 0; i < objects.length; i++) {
+          const obj = objects[i];
+          if (cleaned && typeof cleaned === 'object') {
+            Object.assign(obj, cleaned);
           }
-        });
+          snapshots.push(obj.toJSON() as unknown as T);
+        }
       });
-
-      return Array.from(objects);
+      return snapshots;
     } catch (error: any) {
       throw new DatabaseError(
         DatabaseErrorType.UPDATE_FAILED,
@@ -99,37 +88,23 @@ export class Repository<T extends IEntity> implements IRepository<T> {
     }
   }
 
-  private removeUndefinedValues(value: unknown): unknown {
-    if (value === undefined) return undefined;
-    if (value === null) return null;
-    if (value instanceof Date) return value;
-    if (Array.isArray(value)) {
-      return value
-        .map(v => this.removeUndefinedValues(v))
-        .filter(v => v !== undefined);
-    }
-    if (typeof value !== 'object') return value;
-
-    return Object.fromEntries(
-      Object.entries(value as Record<string, unknown>)
-        .map(([key, val]) => [key, this.removeUndefinedValues(val)] as const)
-        .filter(([, val]) => val !== undefined),
-    );
-  }
-
   async remove(
     filter?: Partial<T> | Partial<T>[],
-    options?: IGetOptions<T>,
+    _options?: IGetOptions<T>,
   ): Promise<T[]> {
     try {
-      const objects = await this.findObjects(filter);
-      const deletedObjects = Array.from(objects);
+      const objects = this.findObjects(filter);
+
+      const snapshots: T[] = new Array(objects.length);
+      for (let i = 0; i < objects.length; i++) {
+        snapshots[i] = objects[i].toJSON() as unknown as T;
+      }
 
       this.realm.write(() => {
         this.realm.delete(objects);
       });
 
-      return deletedObjects;
+      return snapshots;
     } catch (error: any) {
       throw new DatabaseError(
         DatabaseErrorType.REMOVE_FAILED,
@@ -143,35 +118,25 @@ export class Repository<T extends IEntity> implements IRepository<T> {
     options?: IGetOptions<T>,
   ): Promise<(T & Required<IEntity>)[]> {
     try {
-      let result;
-
-      const isEmptyFilter =
-        !filter ||
-        (Array.isArray(filter) && filter.length === 0) ||
-        (!Array.isArray(filter) && Object.keys(filter).length === 0);
-
-      if (isEmptyFilter) {
-        result = this.realm.objects<T & Realm.Object>(this.name);
-      } else {
-        result = await this.findObjects(filter);
-      }
+      let result: Realm.Results<T & Realm.Object> = this.findObjects(filter);
 
       if (options?.sortBy) {
         const { key, descending } = options.sortBy;
-        result.sorted(key.toString(), descending);
+        result = result.sorted(
+          key.toString(),
+          descending,
+        ) as unknown as Realm.Results<T & Realm.Object>;
       }
 
-      if (options?.limit) {
-        return Array.from(
-          result
-            .slice(0, options.limit)
-            .map(o => o.toJSON() as unknown as T & Required<IEntity>),
-        );
-      }
+      const limit = options?.limit ?? result.length;
 
-      return Array.from(
-        result.map(o => o.toJSON() as unknown as T & Required<IEntity>),
+      const out: (T & Required<IEntity>)[] = new Array(
+        Math.min(limit, result.length),
       );
+      for (let i = 0; i < out.length; i++) {
+        out[i] = result[i].toJSON() as unknown as T & Required<IEntity>;
+      }
+      return out;
     } catch (error: any) {
       throw new DatabaseError(
         DatabaseErrorType.GET_FAILED,
@@ -184,65 +149,100 @@ export class Repository<T extends IEntity> implements IRepository<T> {
     filter: Partial<T> | Partial<T>[],
     options?: IGetOptions<T>,
   ): Promise<(T & Required<IEntity>) | undefined> {
-    const results = await this.getAll(filter, { ...options, limit: 1 });
-    return results[0];
+    try {
+      let result: Realm.Results<T & Realm.Object> = this.findObjects(filter);
+      if (options?.sortBy) {
+        result = result.sorted(
+          options.sortBy.key.toString(),
+          options.sortBy.descending,
+        ) as unknown as Realm.Results<T & Realm.Object>;
+      }
+      const first = result[0];
+      return first
+        ? (first.toJSON() as unknown as T & Required<IEntity>)
+        : undefined;
+    } catch (error: any) {
+      throw new DatabaseError(
+        DatabaseErrorType.GET_FAILED,
+        `Failed to get: ${error.message}`,
+      );
+    }
   }
 
-  private async findObjects(
+  private findObjects(
     filter?: Partial<T> | Partial<T>[],
-  ): Promise<Realm.Results<T & Realm.Object>> {
-    if (!filter || (Array.isArray(filter) && filter.length === 0)) {
-      return this.realm
-        .objects<T>(this.name)
-        .filtered('FALSEPREDICATE') as unknown as Realm.Results<
-        T & Realm.Object
-      >;
-    }
+  ): Realm.Results<T & Realm.Object> {
+    const all = this.realm.objects<T>(this.name) as unknown as Realm.Results<
+      T & Realm.Object
+    >;
+
+    if (filter === undefined) return all;
 
     const filters = Array.isArray(filter) ? filter : [filter];
-
-    const query = filters
-      .map(f => {
-        if (Object.keys(f).length === 0) {
-          return null;
-        }
-        return Object.entries(f)
-          .map(([key, value]) => {
-            if (value === null || value === undefined) {
-              return `${key} == null`;
-            }
-            if (typeof value === 'string') return `${key} == "${value}"`;
-            if (typeof value === 'boolean') return `${key} == ${value}`;
-            return `${key} == ${value}`;
-          })
-          .join(' AND ');
-      })
-      .filter(q => q != null)
-      .join(' OR ');
-
-    if (!query.trim()) {
-      return this.realm
-        .objects<T>(this.name)
-        .filtered('FALSEPREDICATE') as unknown as Realm.Results<
+    if (filters.length === 0) {
+      return all.filtered('FALSEPREDICATE') as unknown as Realm.Results<
         T & Realm.Object
       >;
     }
 
-    return this.realm
-      .objects(this.name)
-      .filtered(query) as unknown as Realm.Results<T & Realm.Object>;
+    const args: unknown[] = [];
+    const orClauses: string[] = [];
+
+    for (const f of filters) {
+      const keys = Object.keys(f);
+      if (keys.length === 0) continue;
+
+      const andClauses: string[] = [];
+      for (const key of keys) {
+        const value = (f as Record<string, unknown>)[key];
+        if (value === null || value === undefined) {
+          andClauses.push(`${key} == null`);
+        } else {
+          andClauses.push(`${key} == $${args.length}`);
+          args.push(value);
+        }
+      }
+      orClauses.push(`(${andClauses.join(' AND ')})`);
+    }
+
+    if (orClauses.length === 0) {
+      return all.filtered('FALSEPREDICATE') as unknown as Realm.Results<
+        T & Realm.Object
+      >;
+    }
+
+    return all.filtered(
+      orClauses.join(' OR '),
+      ...args,
+    ) as unknown as Realm.Results<T & Realm.Object>;
   }
 
-  addListener(type: 'change', listener: (...args: any[]) => void): void {
-    this.realm.objects(this.name).addListener(listener);
+  private stripUndefinedShallow<U extends object>(obj: U): U {
+    const out: Record<string, unknown> = {};
+    for (const k of Object.keys(obj) as (keyof U & string)[]) {
+      const v = (obj as Record<string, unknown>)[k];
+      if (v !== undefined) out[k] = v;
+    }
+    return out as U;
   }
 
-  removeListener(type: 'change', listener: (...args: any[]) => void): void {
-    this.realm.objects(this.name).removeListener(listener);
+  addListener(_type: 'change', listener: (...args: any[]) => void): void {
+    if (!this.listenerResults) {
+      this.listenerResults = this.realm.objects<T>(
+        this.name,
+      ) as unknown as Realm.Results<T & Realm.Object>;
+    }
+    this.listenerResults.addListener(listener);
+  }
+
+  removeListener(_type: 'change', listener: (...args: any[]) => void): void {
+    this.listenerResults?.removeListener(listener);
   }
 
   removeAllListener(type?: 'change'): void {
+    this.listenerResults?.removeAllListeners();
     this.realm.removeAllListeners(type);
+    this.listenerResults = undefined;
   }
 
   setVersion(version: number): void {
