@@ -33,12 +33,9 @@ import {
   CantonIcon,
 } from '../ui/icons';
 import { useTheme } from '../ui';
-import Svg, {
-  SvgProps,
-  Image as SvgImage,
-  Circle,
-  G,
-} from 'react-native-svg';
+import Svg, { SvgProps, Image as SvgImage, Circle, G } from 'react-native-svg';
+import { TronIcon } from '../ui/icons/tron-icon';
+import { TronIdMap } from '@cypherock/coins';
 
 const coinToIconMap: Record<string, React.FC<SvgProps>> = {
   [BtcIdMap.bitcoin]: BitcoinIcon,
@@ -60,6 +57,7 @@ const coinToIconMap: Record<string, React.FC<SvgProps>> = {
   [StellarIdMap.stellar]: StellarIcon,
   [SiaIdMap.sia]: SiacoinIcon,
   [CantonIdMap.canton]: CantonIcon,
+  [TronIdMap.tron]: TronIcon,
 };
 
 const fallbackIcon = `https://static.cypherock.com/images/fallback-crypto-icon.png`;
