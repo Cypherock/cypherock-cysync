@@ -93,6 +93,10 @@ export const AddressDisplay: React.FC<AddressDisplayProps> = ({
             $borderColor="input"
             py="12px"
             px="16px"
+            display="flex"
+            direction="row"
+            justify="flex-start"
+            align="center"
           >
             <Typography color="muted" variant="p" mr={1} $wordBreak="break-all">
               {address}
