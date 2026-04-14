@@ -1,3 +1,19 @@
+# v2.4.5
+
+### 🚀 Feature
+
+- **ChangeNOW Swaps:** Now you can choose between ChangeNOW and Changelly for swaps
+
+### 🐛 Bugfixes
+
+- Improved Cysync experience by fixing bugs and addressing user concerns
+
+# v2.4.3
+
+### 🚀 Feature
+
+- **BTC-Only Firmware Support:** Now you can switch between Multi-Coin and BTC-Only firmwares and cysync will behave accordingly.
+
 # v2.4.2
 
 ### 🚀 Feature

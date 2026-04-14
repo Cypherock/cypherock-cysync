@@ -119,7 +119,7 @@ const calculatePortfolioGraphSummary = (
 
       changeValue = amount;
     } else {
-      changeValue = formatDisplayPrice(changeValueInNumber, currency);
+      changeValue = changeValueInNumber.toString();
     }
   }
 

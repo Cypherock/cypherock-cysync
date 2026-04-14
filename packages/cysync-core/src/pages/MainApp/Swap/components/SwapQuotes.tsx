@@ -172,6 +172,9 @@ export const SwapQuotes: React.FC<{
   const priceInfos = useAppSelector(state =>
     selectCurrentCurrencyPriceInfos(state, currentCurrency),
   );
+  const usdPriceInfos = useAppSelector(state =>
+    selectCurrentCurrencyPriceInfos(state, 'usd'),
+  );
   const lang = useAppSelector(selectLanguage);
   const displayText = lang.strings.swap.detailsInput.offers;
   const validTill = getEarliestExpiryTime(quotes);
@@ -200,15 +203,24 @@ export const SwapQuotes: React.FC<{
     const coinPrice = priceInfos.find(
       p => p.assetId === account?.parentAssetId,
     );
+    const coinPriceInUsd = usdPriceInfos.find(
+      p => p.assetId === account?.parentAssetId,
+    );
 
-    if (!account || !coinPrice) return {};
+    if (!account || !coinPrice || !coinPriceInUsd) return {};
 
     const fee = quote?.fee ?? '0';
+    const feeInCoinUnit = new BigNumber(fee).dividedBy(
+      coinPriceInUsd.latestPrice,
+    );
     const amount = formatDisplayAmount(
       new BigNumber(fee).dividedBy(coinPrice.latestPrice),
     ).fixed;
     const unit = getDefaultUnit(account.parentAssetId).abbr;
-    const value = formatDisplayPrice(new BigNumber(fee), currentCurrency);
+    const value = formatDisplayPrice(
+      feeInCoinUnit.multipliedBy(coinPrice.latestPrice),
+      currentCurrency,
+    );
     const feeInCrypto = `${amount} ${unit}`;
     const feeInFiat = `${value}`;
 
@@ -246,8 +258,12 @@ export const SwapQuotes: React.FC<{
                         value: [`1 ${fromUnit} =`, `${rate} ${toUnit}`],
                       },
                     ],
-              isBest: index === 0,
-              bestOfferText: displayText.bestOffer,
+              isBest: true,
+              bestOfferText: quote.provider.name
+                .toLowerCase()
+                .includes('changelly')
+                ? 'Recommended'
+                : 'Cheaper',
               provider: quote.provider,
             }}
             setSelectedIndex={setSelectedOfferIndex}

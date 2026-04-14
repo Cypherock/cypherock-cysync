@@ -1,5 +1,19 @@
 # @cypherock/coin-support-icp
 
+## 1.0.14
+
+### Patch Changes
+
+- Updated dependencies [[`d3ac8be4`](https://github.com/Cypherock/cypherock-cysync/commit/d3ac8be48ea014e5e635d6df903ee5c830503673)]:
+  - @cypherock/coin-support-utils@0.1.9
+
+## 1.0.14-pre.0
+
+### Patch Changes
+
+- Updated dependencies [[`d3ac8be4`](https://github.com/Cypherock/cypherock-cysync/commit/d3ac8be48ea014e5e635d6df903ee5c830503673)]:
+  - @cypherock/coin-support-utils@0.1.9-pre.0
+
 ## 1.0.13
 
 ### Patch Changes

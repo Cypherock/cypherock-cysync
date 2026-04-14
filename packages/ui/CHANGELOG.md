@@ -1,5 +1,17 @@
 # @cypherock/cysync-ui
 
+## 0.2.2
+
+### Patch Changes
+
+- [#803](https://github.com/Cypherock/cypherock-cysync/pull/803) [`177be7c9`](https://github.com/Cypherock/cypherock-cysync/commit/177be7c956a12222266eb0b14a1d1a2ee8420679) Thanks [@muzaffarbhat07](https://github.com/muzaffarbhat07)! - Fixes fees input
+
+## 0.2.2-pre.0
+
+### Patch Changes
+
+- [#803](https://github.com/Cypherock/cypherock-cysync/pull/803) [`177be7c9`](https://github.com/Cypherock/cypherock-cysync/commit/177be7c956a12222266eb0b14a1d1a2ee8420679) Thanks [@muzaffarbhat07](https://github.com/muzaffarbhat07)! - Fixes fees input
+
 ## 0.2.1
 
 ### Patch Changes

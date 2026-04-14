@@ -58,7 +58,7 @@ export const Graph: React.FC<GraphProps> = ({
         showGraphInUSD
           ? summaryDetails.totalValue
           : summaryDetails.totalBalance,
-        undefined,
+        showGraphInUSD,
         true,
       )}
       subTitle={formatGraphAmountDisplay(
@@ -79,7 +79,7 @@ export const Graph: React.FC<GraphProps> = ({
       summaryText={summaryDetails.changePercent}
       summarySubText={formatGraphAmountDisplay(
         summaryDetails.changeValue,
-        undefined,
+        showGraphInUSD,
         true,
       )}
       summaryIcon={summaryDetails.changeIcon}

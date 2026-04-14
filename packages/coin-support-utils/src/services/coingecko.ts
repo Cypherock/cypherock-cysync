@@ -13,8 +13,9 @@ export const getLatestPrices = async (
     .filter(id => !getAsset(id.parentAssetId, id.assetId).isZeroPriceCoin)
     .map(id => getAsset(id.parentAssetId, id.assetId).coinGeckoId);
 
+  const vsCurrencies = currency === 'usd' ? [currency] : ['usd', currency];
   const response = await axios.post(`${baseURL}/current`, {
-    vsCurrencies: [currency],
+    vsCurrencies,
     ids: coinGeckoIds,
   });
 

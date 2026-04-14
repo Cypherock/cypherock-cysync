@@ -2,7 +2,14 @@ import { release } from 'node:os';
 import path from 'node:path';
 
 import { sleep } from '@cypherock/cysync-utils';
-import { app, BrowserWindow, ipcMain, shell, nativeTheme } from 'electron';
+import {
+  app,
+  BrowserWindow,
+  ipcMain,
+  session,
+  shell,
+  nativeTheme,
+} from 'electron';
 
 import { removeListeners, setupIPCHandlers, setupListeners } from './ipc';
 import { getSendWCConnectionString } from './ipc/walletConnect';
@@ -24,6 +31,48 @@ import { setupDependencies } from './utils/dependencies';
 
 const LOADING_WINDOW_MIN_DISPLAY_TIME_IN_MS = 2 * 1000;
 let mainWindow: BrowserWindow | null = null;
+
+const setupYouTubeRefererHeader = () => {
+  // YouTube requires API clients using embedded players to identify themselves via
+  // the HTTP Referer header. In desktop WebView/Electron environments the Referer
+  // can be empty by default, which can trigger YouTube Error 153.
+  //
+  // See: https://developers.google.com/youtube/terms/required-minimum-functionality#youtube-embedded-player-and-video-playback
+  const appId =
+    config.VENDOR === 'odix' ? 'com.odix.odixpay' : 'com.hodl.cypherock';
+  const referer = `https://${appId}`;
+
+  const filter = {
+    urls: [
+      '*://*.youtube.com/*',
+      '*://youtube.com/*',
+      '*://*.youtube-nocookie.com/*',
+      '*://youtube-nocookie.com/*',
+      '*://*.googlevideo.com/*',
+      '*://*.ytimg.com/*',
+    ],
+  };
+
+  session.defaultSession.webRequest.onBeforeSendHeaders(
+    filter,
+    (details, cb) => {
+      const headers = details.requestHeaders ?? {};
+      const currentReferer =
+        (headers.Referer as string | undefined) ??
+        (headers.referer as string | undefined);
+
+      if (!currentReferer || currentReferer.trim().length === 0) {
+        headers.Referer = referer;
+        // Some environments look at Origin as well; keep it consistent.
+        if (!headers.Origin && !headers.origin) {
+          headers.Origin = referer;
+        }
+      }
+
+      cb({ requestHeaders: headers });
+    },
+  );
+};
 
 const getWebContents = () => {
   if (!mainWindow) {
@@ -184,7 +233,10 @@ export default function createApp() {
     }
   };
 
-  app.whenReady().then(createLoadingWindow);
+  app.whenReady().then(() => {
+    setupYouTubeRefererHeader();
+    createLoadingWindow();
+  });
 
   app.on('window-all-closed', () => {
     mainWindow = null;
