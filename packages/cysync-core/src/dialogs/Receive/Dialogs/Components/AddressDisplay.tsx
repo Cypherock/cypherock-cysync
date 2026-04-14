@@ -7,7 +7,6 @@ import {
   InputLabel,
   Flex,
   Tag,
-  LeanBox,
 } from '@cypherock/cysync-ui';
 import lodash from 'lodash';
 import React, { useMemo } from 'react';
@@ -85,7 +84,20 @@ export const AddressDisplay: React.FC<AddressDisplayProps> = ({
         {source === ReceiveFlowSource.DEFAULT ? (
           <CopyContainer link={address} variant="gold" />
         ) : (
-          <LeanBox text={address} />
+          <Container
+            width="full"
+            $bgColor="input"
+            $borderRadius="8px"
+            $borderWidth={1}
+            $borderStyle="solid"
+            $borderColor="input"
+            py="12px"
+            px="16px"
+          >
+            <Typography color="muted" variant="p" mr={1} $wordBreak="break-all">
+              {address}
+            </Typography>
+          </Container>
         )}
       </Container>
     </>
