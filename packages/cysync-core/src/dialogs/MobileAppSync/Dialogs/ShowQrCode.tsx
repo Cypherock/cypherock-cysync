@@ -15,7 +15,7 @@ import logger from '~/utils/logger';
 import { QrCode } from '../components/QrCode';
 import { useMobileAppSyncDialog } from '../context';
 
-const QR_CODE_FRAME_DELAY = 500;
+const QR_CODE_FRAME_DELAY = 300;
 
 export const ShowQrCode: React.FC = () => {
   const [data, setData] = useState<string[]>([]);
