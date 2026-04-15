@@ -53,6 +53,11 @@
       "ios": {
         "ascAppId": "6743165054"
       }
+    },
+    "production:odix": {
+      "ios": {
+        "ascAppId": "6762266156"
+      }
     }
   }
 }

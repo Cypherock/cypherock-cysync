@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>API_KEY</key>
+	<string>AIzaSyA8fy1SNFY76ifpTBB2PzP_7-dEbNIl8eU</string>
+	<key>GCM_SENDER_ID</key>
+	<string>884783058373</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.odix.odixpay</string>
+	<key>PROJECT_ID</key>
+	<string>cypherock-website</string>
+	<key>STORAGE_BUCKET</key>
+	<string>cypherock-website.firebasestorage.app</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:884783058373:ios:54a4b88ee55a7f20464fac</string>
+	<key>DATABASE_URL</key>
+	<string>https://cypherock-website.firebaseio.com</string>
+</dict>
+</plist>

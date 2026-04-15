@@ -8,7 +8,7 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:884783058373:android:b21886d1def0afa1464fac",
+        "mobilesdk_app_id": "1:884783058373:android:1183520fbe03fef6464fac",
         "android_client_info": {
           "package_name": "com.odix.odixpay"
         }
@@ -27,7 +27,7 @@
     },
     {
       "client_info": {
-        "mobilesdk_app_id": "1:884783058373:android:e18d95737ddd6aa5464fac",
+        "mobilesdk_app_id": "1:884783058373:android:0eabc7e232c50c59464fac",
         "android_client_info": {
           "package_name": "com.odix.odixpay_dev"
         }

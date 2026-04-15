@@ -47,7 +47,7 @@ function getIosBundleIdentifier(): string {
 function getSlug(): string {
   switch (vendor) {
     case 'odix':
-      return 'odixpay';
+      return 'odix';
     default:
       return 'cysync';
   }
@@ -115,6 +115,23 @@ function getGoogleServicesFile(): string {
   return './google-services.json';
 }
 
+function getGoogleServicesFileIos(): string {
+  switch (vendor) {
+    case 'odix':
+      return './GoogleService-Info-Odix.plist';
+  }
+  return './GoogleService-Info.plist';
+}
+
+function getEasProjectId(): string {
+  switch (vendor) {
+    case 'odix':
+      return '1c5a1055-4bde-415c-8ea3-7638b82253d2';
+    default:
+      return 'b2f196d7-7c1a-41fe-a676-9399ad696f70';
+  }
+}
+
 function getVendorPlugins(
   basePlugins: ExpoConfig['plugins'],
 ): ExpoConfig['plugins'] {
@@ -150,6 +167,7 @@ export default ({ config: baseConfig }: ConfigContext): ExpoConfig => {
     version: getPackageJson('./').version,
     ios: {
       ...baseConfig.ios,
+      googleServicesFile: getGoogleServicesFileIos(),
       bundleIdentifier: getIosBundleIdentifier(),
     },
     android: {
@@ -159,5 +177,11 @@ export default ({ config: baseConfig }: ConfigContext): ExpoConfig => {
       adaptiveIcon: getAdaptiveIcon(),
     },
     plugins: getVendorPlugins(baseConfig.plugins),
+    extra: {
+      ...baseConfig.extra,
+      eas: {
+        projectId: getEasProjectId(),
+      },
+    },
   };
 };
