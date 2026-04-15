@@ -1,5 +1,17 @@
 # @cypherock/coin-support-canton
 
+## 1.2.0-pre.0
+
+### Minor Changes
+
+- [#863](https://github.com/Cypherock/cypherock-cysync/pull/863) [`8bfda522`](https://github.com/Cypherock/cypherock-cysync/commit/8bfda5225ba2ad61771658b95693035c2e1ab125) Thanks [@AryanCypherock](https://github.com/AryanCypherock)! - canton sync for mobile app
+
+### Patch Changes
+
+- Updated dependencies [[`8bfda522`](https://github.com/Cypherock/cypherock-cysync/commit/8bfda5225ba2ad61771658b95693035c2e1ab125)]:
+  - @cypherock/cysync-utils@0.1.0-pre.0
+  - @cypherock/coin-support-utils@0.1.9-pre.0
+
 ## 1.1.3
 
 ### Patch Changes

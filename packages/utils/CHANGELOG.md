@@ -1,5 +1,11 @@
 # @cypherock/cysync-utils
 
+## 0.1.0-pre.0
+
+### Minor Changes
+
+- [#863](https://github.com/Cypherock/cypherock-cysync/pull/863) [`8bfda522`](https://github.com/Cypherock/cypherock-cysync/commit/8bfda5225ba2ad61771658b95693035c2e1ab125) Thanks [@AryanCypherock](https://github.com/AryanCypherock)! - canton sync for mobile app
+
 ## 0.0.17
 
 ### Patch Changes
