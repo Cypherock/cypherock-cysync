@@ -13,6 +13,7 @@ export {
   setFocusAppMethod,
   setCySyncLogsMethod,
   setErrorHandler,
+  configurePlatform,
 } from './utils';
 export { setDependencies } from './utils/dependencies';
 export * from './theme';

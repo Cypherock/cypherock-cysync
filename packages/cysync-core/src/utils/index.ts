@@ -11,6 +11,7 @@ export * from './logger';
 export * from './logs';
 export * from './memoize';
 export * from './objectId';
+export * from './platform';
 export * as passwordUtils from './password';
 export * from './reset';
 export * from './systemInfo';

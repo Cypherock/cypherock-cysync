@@ -4,9 +4,10 @@ import { IDatabase } from '@cypherock/db-interfaces';
 import { lastValueFrom, Observable } from 'rxjs';
 
 import logger from '../utils/logger';
+import { isReactNative } from '../platform';
 
-const MAX_RETRIES = 3;
-const PRICE_HISTORY_SYNC_CONCURRENCY = 5;
+const getMaxRetries = () => (isReactNative() ? 1 : 3);
+const getPriceHistorySyncConcurrency = () => (isReactNative() ? 50 : 5);
 
 export interface ISyncPriceHistoriesEvent {
   family: string;
@@ -25,7 +26,7 @@ export const syncSinglePriceHistory = async (params: {
   let retryCount = 0;
   let error: any;
 
-  while (!isSuccessful && retryCount < MAX_RETRIES) {
+  while (!isSuccessful && retryCount < getMaxRetries()) {
     try {
       await lastValueFrom(
         support.syncPriceHistories({
@@ -81,7 +82,7 @@ export const syncPriceHistories = (params: {
                 currency,
               }),
           ),
-          concurrentCount: PRICE_HISTORY_SYNC_CONCURRENCY,
+          concurrentCount: getPriceHistorySyncConcurrency(),
           onComplete: () => {
             observer.complete();
           },

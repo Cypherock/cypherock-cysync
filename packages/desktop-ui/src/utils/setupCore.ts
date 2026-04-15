@@ -2,6 +2,7 @@ import {
   setAddExternalLinkListenerMethod,
   setAutoUpdater,
   setCloseAppMethod,
+  configurePlatform,
   setCySyncLogsMethod,
   setDB,
   setDependencies,
@@ -18,6 +19,7 @@ import {
 import { createServiceLogger } from './logger';
 
 export const setupCoreDependencies = async () => {
+  configurePlatform('electron');
   setErrorHandler();
   setDependencies();
   updateLogger(createServiceLogger);

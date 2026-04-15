@@ -6,4 +6,5 @@ export * from './address';
 export * from './transactions';
 export * from './inheritancePlan';
 export * from './buySellOrder';
+export * from './platform';
 export { updateLogger } from './utils/logger';
