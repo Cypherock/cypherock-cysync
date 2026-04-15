@@ -10,6 +10,7 @@ import { StellarSupport } from '@cypherock/coin-support-stellar';
 const { TronSupport } = require('@cypherock/coin-support-tron');
 const { XrpSupport } = require('@cypherock/coin-support-xrp');
 const { IcpSupport } = require('@cypherock/coin-support-icp');
+const { configurePlatform } = require('@cypherock/cysync-core-services');
 
 export const setGlobalDependencies = () => {
   try {
@@ -53,5 +54,6 @@ export const setGlobalDependencies = () => {
 };
 
 export const setCoreDependencies = () => {
+  configurePlatform('react-native');
   updateLogger(createServiceLogger);
 };

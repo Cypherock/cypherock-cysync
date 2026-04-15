@@ -4,9 +4,10 @@ import { IDatabase, IAccount, IKeyValueStore } from '@cypherock/db-interfaces';
 import { lastValueFrom, Observable } from 'rxjs';
 
 import logger from '../utils/logger';
+import { isReactNative } from '../platform';
 
-const MAX_RETRIES = 3;
-const ACCOUNT_SYNC_CONCURRENCY = 10;
+const getMaxRetries = () => (isReactNative() ? 1 : 3);
+const getAccountSyncConcurrency = () => (isReactNative() ? 50 : 10);
 
 export interface ISyncAccountsEvent {
   account: IAccount;
@@ -26,7 +27,7 @@ export const syncSingleAccount = async (params: {
   let retryCount = 0;
   let error: any;
 
-  while (!isSuccessful && retryCount < MAX_RETRIES) {
+  while (!isSuccessful && retryCount < getMaxRetries()) {
     try {
       await lastValueFrom(
         support.syncAccount({
@@ -85,7 +86,7 @@ export const syncAccounts = (params: {
                 keyDB,
               }),
           ),
-          concurrentCount: ACCOUNT_SYNC_CONCURRENCY,
+          concurrentCount: getAccountSyncConcurrency(),
           onComplete: () => {
             observer.complete();
           },
