@@ -21,6 +21,7 @@ interface ICantonBaseResponseTransaction {
   requestedAt: string;
   executeBefore: string;
   memo: string;
+  multiStepCorrelationId?: string;
 }
 
 export interface ICantonResponseTransaction
@@ -33,6 +34,7 @@ export interface ICantonPendingResponseTransaction
   extends ICantonBaseResponseTransaction {
   contractId: string;
   templateId: string;
+  multiStepCorrelationId: string;
 }
 
 export interface ICantonTransactionResult {
@@ -80,4 +82,16 @@ export interface ICantonBroadcastTxnParams {
   signature: string;
   publicKey: string;
   preparedTransaction: any;
+}
+
+export interface ICantonWaitForTxnCompletionParams {
+  partyId: string;
+  commandId: string;
+  ledgerEndOffset: number;
+  timeoutMs: number;
+}
+
+export interface ICantonWaitForTxnCompletionResult {
+  updateId?: string;
+  offset?: number;
 }
