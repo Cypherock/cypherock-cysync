@@ -416,7 +416,12 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
         setTransactionLink(
           getCurrentCoinSupport().getExplorerLink({ transaction: storedTxn }),
         );
-      } else if (selectedAccount) {
+      }
+
+      if (
+        (!storedTxn && selectedAccount) ||
+        selectedAccount?.familyId === coinFamiliesMap.canton
+      ) {
         dispatch(
           syncAccounts({
             accounts: [selectedAccount],
