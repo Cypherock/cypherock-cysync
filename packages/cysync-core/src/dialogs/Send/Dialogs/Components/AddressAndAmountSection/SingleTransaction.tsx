@@ -396,14 +396,12 @@ export const SingleTransaction: React.FC<SingleTransactionProps> = ({
         {getDestinationTagInputComponent()}
         {getMemoInputComponent()}
 
-        {selectedAccount?.familyId !== coinFamiliesMap.canton && (
-          <NotesInput
-            label={displayText.remarks.label}
-            placeholder={displayText.remarks.placeholder}
-            initialValue={transaction?.userInputs.outputs[0]?.remarks ?? ''}
-            onChange={prepareTransactionRemarks}
-          />
-        )}
+        <NotesInput
+          label={displayText.remarks.label}
+          placeholder={displayText.remarks.placeholder}
+          initialValue={transaction?.userInputs.outputs[0]?.remarks ?? ''}
+          onChange={prepareTransactionRemarks}
+        />
       </Container>
     </Container>
   );
