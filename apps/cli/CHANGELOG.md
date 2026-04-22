@@ -1,5 +1,13 @@
 # @cypherock/cysync-cli
 
+## 0.2.14-pre.0
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @cypherock/coin-support@0.2.13-pre.0
+  - @cypherock/cysync-core-services@0.3.6-pre.0
+
 ## 0.2.13
 
 ### Patch Changes

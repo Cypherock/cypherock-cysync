@@ -37,5 +37,8 @@
     "@cypherock/tsconfig": "0.0.1",
     "@cypherock/cysync-utils": "0.0.17"
   },
-  "changesets": []
+  "changesets": [
+    "calm-poems-film",
+    "itchy-worms-worry"
+  ]
 }
