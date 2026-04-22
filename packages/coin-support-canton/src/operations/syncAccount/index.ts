@@ -272,30 +272,32 @@ export const insertOrUpdateCantonTransactions = async (
       continue;
     }
 
-    const existingTxns = await db.transaction.getAll({
-      accountId: transaction.accountId,
-    });
-    const existingTxnByCorrelationId = existingTxns.find(
-      txn =>
-        txn.extraData?.multiStepCorrelationId ===
-        transaction.extraData?.multiStepCorrelationId,
-    );
-    if (existingTxnByCorrelationId) {
-      // create new updated txn: this copies the existing txn fields, overrides the required fields with new txn along with id
-      const newTxn: ITransaction = {
-        ...existingTxnByCorrelationId,
-        ...transaction,
-        __id: id,
-      };
+    if (transaction.extraData?.multiStepCorrelationId) {
+      const existingTxns = await db.transaction.getAll({
+        accountId: transaction.accountId,
+      });
+      const existingTxnByCorrelationId = existingTxns.find(
+        txn =>
+          txn.extraData?.multiStepCorrelationId ===
+          transaction.extraData?.multiStepCorrelationId,
+      );
+      if (existingTxnByCorrelationId) {
+        // create new updated txn: this copies the existing txn fields, overrides the required fields with new txn along with id
+        const newTxn: ITransaction = {
+          ...existingTxnByCorrelationId,
+          ...transaction,
+          __id: id,
+        };
 
-      // delete existing
-      await db.transaction.remove({ __id: existingTxnByCorrelationId.__id });
+        // delete existing
+        await db.transaction.remove({ __id: existingTxnByCorrelationId.__id });
 
-      // insert new
-      const result = await db.transaction.insert(newTxn);
-      updatedTransactions.push(result);
+        // insert new
+        const result = await db.transaction.insert(newTxn);
+        updatedTransactions.push(result);
 
-      continue;
+        continue;
+      }
     }
 
     const result = await db.transaction.insert({ ...transaction, __id: id });
