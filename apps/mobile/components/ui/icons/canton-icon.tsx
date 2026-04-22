@@ -8,6 +8,7 @@ import {
   SvgProps,
   Use,
 } from 'react-native-svg';
+import { colors } from '../themes/color.styled';
 
 export const CantonIcon: React.FC<SvgProps> = ({ stroke, fill, ...props }) => {
   return (
@@ -24,7 +25,7 @@ export const CantonIcon: React.FC<SvgProps> = ({ stroke, fill, ...props }) => {
         width={33}
         height={33}
         rx={8}
-        fill={fill ?? '#342F2C'}
+        fill={fill ?? colors.background.iconFallback}
         stroke={stroke}
       />
       <Rect

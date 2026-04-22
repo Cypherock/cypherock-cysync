@@ -9,7 +9,7 @@ import {
   ScreenContainer,
   Typography,
 } from '@/components/ui';
-import { Images } from '@/constants/images';
+import { Images, Links } from '@/constants';
 import { useAppSelector } from '@/store';
 import { selectLanguage } from '@/store/lang';
 import Constants from 'expo-constants';
@@ -51,12 +51,12 @@ export default function Index() {
               text={strings.onboarding.welcome.byProceeding}
               variables={{
                 termsOfUse: (
-                  <Link href={'https://www.cypherock.com/terms'}>
+                  <Link href={Links.termsOfUse as `https://${string}`}>
                     {strings.onboarding.welcome.termsOfUse}
                   </Link>
                 ),
                 privacyPolicy: (
-                  <Link href={'https://www.cypherock.com/privacy'}>
+                  <Link href={Links.privacyPolicy as `https://${string}`}>
                     {strings.onboarding.welcome.privacyPolicy}
                   </Link>
                 ),

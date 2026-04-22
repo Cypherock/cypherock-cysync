@@ -1,3 +1,4 @@
+import './vendorSetup';
 import 'react-native-get-random-values';
 import { Buffer } from 'buffer';
 import * as crypto from 'react-native-quick-crypto';

@@ -42,7 +42,11 @@ export const DataPointLabel = styled.Text`
 `;
 
 const hexToRGB = (value: string) => {
-  const numericValue = parseInt(value.replace('#', ''), 16);
+  let hex = value.replace('#', '');
+  if (hex.length === 3) {
+    hex = hex[0] + hex[0] + hex[1] + hex[1] + hex[2] + hex[2];
+  }
+  const numericValue = parseInt(hex, 16);
   // eslint-disable-next-line no-bitwise
   const r = (numericValue >> 16) & 0xff;
   // eslint-disable-next-line no-bitwise
@@ -54,7 +58,9 @@ const hexToRGB = (value: string) => {
 
 export const DisplayGraph: FC<LineChartPropsType> = ({ ...props }) => {
   const theme = useTheme();
-  const { current: colorRgb } = useRef(hexToRGB(props.color ?? 'E9B873'));
+  const { current: colorRgb } = useRef(
+    hexToRGB(props.color ?? colors.gradient.gold[0].replace('#', '')),
+  );
 
   const [labelShift, setLabelShift] = useState(20);
 

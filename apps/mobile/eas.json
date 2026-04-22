@@ -9,7 +9,8 @@
       "node": "18.18.0",
       "autoIncrement": true,
       "env": {
-        "APP_ENV": "production"
+        "APP_ENV": "production",
+        "VENDOR": "default"
       }
     },
     "preview": {
@@ -21,7 +22,29 @@
       "developmentClient": true,
       "distribution": "internal",
       "env": {
-        "APP_ENV": "development"
+        "APP_ENV": "development",
+        "VENDOR": "default"
+      }
+    },
+    "production:odix": {
+      "extends": "production",
+      "env": {
+        "APP_ENV": "production",
+        "VENDOR": "odix"
+      }
+    },
+    "preview:odix": {
+      "extends": "preview",
+      "env": {
+        "APP_ENV": "production",
+        "VENDOR": "odix"
+      }
+    },
+    "development:odix": {
+      "extends": "development",
+      "env": {
+        "APP_ENV": "development",
+        "VENDOR": "odix"
       }
     }
   },
@@ -29,6 +52,11 @@
     "production": {
       "ios": {
         "ascAppId": "6743165054"
+      }
+    },
+    "production:odix": {
+      "ios": {
+        "ascAppId": "6762266156"
       }
     }
   }

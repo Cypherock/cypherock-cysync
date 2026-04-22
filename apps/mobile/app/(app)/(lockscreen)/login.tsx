@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import {
   Button,
   Container,
-  CypherockLockedIcon,
+  LockedIcon,
   Input,
   LogotypeIcon,
   ScreenContainer,
@@ -69,7 +69,7 @@ export default function Login() {
                 gap: 21,
               }}
             >
-              <CypherockLockedIcon />
+              <LockedIcon />
               <LogotypeIcon />
             </View>
             <Typography type="body" color="secondary">
@@ -91,7 +91,7 @@ export default function Login() {
       </KeyboardAvoidingView>
       <Container style={{ justifyContent: 'flex-end' }}>
         <Button
-          title="Continue"
+          title={strings.buttons.continue}
           onPress={handleUnlock}
           style={{ marginHorizontal: 16, marginVertical: 12 }}
         />

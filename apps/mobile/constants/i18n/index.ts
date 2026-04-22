@@ -1,3 +1,4 @@
+import config from '@/config';
 import ar from './lang/ar-AE.json';
 import de from './lang/de-DE.json';
 import en from './lang/en.json';
@@ -32,12 +33,50 @@ export const LanguageList = [
   },
 ];
 
+const defaultVendorDetails = {
+  APP_NAME: 'cySync',
+  WALLET_NAME: 'Cypherock X1',
+  PRODUCT_NAME: 'Cypherock',
+  DEVICE_NAME: 'X1 Vault',
+  CARD_NAME: 'X1 Card',
+  WEBSITE_NAME: 'cypherock.com',
+};
+
+const odixVendorDetails = {
+  APP_NAME: 'Odix',
+  WALLET_NAME: 'Odix Wallet',
+  PRODUCT_NAME: 'Odix Pay',
+  DEVICE_NAME: 'Odix Vault',
+  CARD_NAME: 'Odix Card',
+  WEBSITE_NAME: 'odixpay.com',
+};
+
+const replaceVendorDetails = (
+  text: string,
+  details: typeof defaultVendorDetails,
+) => {
+  let finalText = text;
+  for (const [tag, replacement] of Object.entries(details)) {
+    finalText = finalText.replaceAll(`-=${tag}=-`, replacement);
+  }
+  return finalText;
+};
+
+const injectVendorStrings = (data: LanguageStrings) => {
+  const text = JSON.stringify(data);
+  const vendorDetails =
+    config.VENDOR === 'odix' ? odixVendorDetails : defaultVendorDetails;
+  return JSON.parse(
+    replaceVendorDetails(text, vendorDetails),
+  ) as LanguageStrings;
+};
+
 const langs: Record<Language, LanguageStrings> = {
-  en,
-  'de-DE': de,
-  'ar-AE': ar,
-  'zh-CN': zh,
-  'id-ID': id,
+  en: injectVendorStrings(en),
+  'de-DE': injectVendorStrings(de),
+  'ar-AE': injectVendorStrings(ar),
+  'zh-CN': injectVendorStrings(zh),
+  'id-ID': injectVendorStrings(id),
 };
 
 const defaultLang: Language = 'en';

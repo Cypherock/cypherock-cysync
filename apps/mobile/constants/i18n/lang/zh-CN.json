@@ -11,7 +11,7 @@
     "login": "登录",
     "getStarted": "开始使用",
     "scanQrCode": "扫描二维码",
-    "buyCypherockX1": "购买 Cypherock X1",
+    "buyCypherockX1": "购买 -=WALLET_NAME=-",
     "grantPermission": "授予权限",
     "nextOnboarding": "下一步",
     "allWallets": "所有钱包",
@@ -28,17 +28,17 @@
       }
     },
     "reset": {
-      "title": "重置密码将重置您的 cySync 应用程序，您要继续吗？",
-      "description": "这将清除您 cySync 应用程序上的所有数据。请注意，这不会导致资产损失"
+      "title": "重置密码将重置您的 -=APP_NAME=- 应用程序，您要继续吗？",
+      "description": "这将清除您 -=APP_NAME=- 应用程序上的所有数据。请注意，这不会导致资产损失"
     }
   },
   "onboarding": {
     "welcome": {
-      "title": "欢迎使用 cySync 应用程序",
+      "title": "欢迎使用 -=APP_NAME=- 应用程序",
       "description": "您的自我主权之门",
       "termsOfUse": "使用条款",
       "privacyPolicy": "隐私政策",
-      "byProceeding": "继续即表示您接受 Cypherock 的 ${termsOfUse} 和 ${privacyPolicy}"
+      "byProceeding": "继续即表示您接受 -=PRODUCT_NAME=- 的 ${termsOfUse} 和 ${privacyPolicy}"
     },
     "portfolio": {
       "title": "资产组合",
@@ -46,22 +46,22 @@
     },
     "history": {
       "title": "历史记录",
-      "description": "查看您过去的交易历史记录，并在从您的 Cypherock X1 发起交易时收到通知"
+      "description": "查看您过去的交易历史记录，并在从您的 -=WALLET_NAME=- 发起交易时收到通知"
     },
     "receive": {
       "title": "接收",
-      "description": "直接将您的加密资产接收到您的 Cypherock X1 中。随时随地！"
+      "description": "直接将您的加密资产接收到您的 -=WALLET_NAME=- 中。随时随地！"
     },
     "scan": {
       "title": "从桌面应用程序同步二维码",
       "description": [
-        "在扫描之前，请确保您已购买 Cypherock X1 并已完成设置",
-        "在您的 cySync 桌面应用程序中，前往 设置 > 通用 > 与移动应用程序同步 cySync"
+        "在扫描之前，请确保您已购买 -=WALLET_NAME=- 并已完成设置",
+        "在您的 -=APP_NAME=- 桌面应用程序中，前往 设置 > 通用 > 与移动应用程序同步 -=APP_NAME=-"
       ]
     },
     "permission": {
       "title": "需要相机权限",
-      "description": "Camera access is required to scan the QR code and sync with your cySync desktop app. Without this access, the sync process will not work",
+      "description": "Camera access is required to scan the QR code and sync with your -=APP_NAME=- desktop app. Without this access, the sync process will not work",
       "alert": {
         "title": "需要相机访问权限",
         "description": "此功能需要相机访问权限。您可以在设备设置中启用它。"
@@ -69,7 +69,7 @@
     },
     "info": {
       "title": "您的桌面和移动应用程序必须手动同步",
-      "description": "cySync 应用程序在本地存储您的数据。如果您在桌面应用程序上更新了您的币种/账户，则需要在移动应用程序上执行相同的操作"
+      "description": "-=APP_NAME=- 应用程序在本地存储您的数据。如果您在桌面应用程序上更新了您的币种/账户，则需要在移动应用程序上执行相同的操作"
     },
     "passwordPage": {
       "title": "创建新密码",
@@ -154,7 +154,7 @@
     "receive": {
       "info": "${wallet} 中 ${crypto} 的地址",
       "messageBox": {
-        "danger": "此接收地址未经验证设备验证。使用风险自负，或使用 cySync 桌面应用程序验证地址。"
+        "danger": "此接收地址未经验证设备验证。使用风险自负，或使用 -=APP_NAME=- 桌面应用程序验证地址。"
       }
     },
     "shared": {
@@ -168,7 +168,7 @@
       "description": "发送电子邮件至： "
     },
     "socials": {
-      "title": "与 Cypherock 保持联系",
+      "title": "与 -=PRODUCT_NAME=- 保持联系",
       "description": "可以在我们的博客中找到公告"
     }
   },
@@ -194,7 +194,7 @@
     },
     "about": {
       "heading": "关于",
-      "title": "cySync 版本",
+      "title": "-=APP_NAME=- 版本",
       "version": "",
       "termsOfUse": "使用条款",
       "privacyPolicy": "隐私政策"
@@ -269,7 +269,7 @@
     }
   },
   "banner": {
-    "title": "Cypherock 保护套来了！",
+    "title": "-=PRODUCT_NAME=- 保护套来了！",
     "description": "点击此处了解更多"
   },
   "toast": {

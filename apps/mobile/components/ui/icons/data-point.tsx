@@ -6,6 +6,7 @@ import Svg, {
   LinearGradient,
   Stop,
 } from 'react-native-svg';
+import { colors } from '../themes/color.styled';
 export const DataPointIcon = (props: SvgProps) => (
   <Svg
     xmlns="http://www.w3.org/2000/svg"
@@ -19,7 +20,7 @@ export const DataPointIcon = (props: SvgProps) => (
       cx={5.5}
       cy={5.5}
       r={4.5}
-      fill="#221D17"
+      fill={colors.background.dark}
       stroke="url(#a)"
       strokeWidth={2}
     />
@@ -32,9 +33,9 @@ export const DataPointIcon = (props: SvgProps) => (
         y2={5.5}
         gradientUnits="userSpaceOnUse"
       >
-        <Stop stopColor="#E9B873" />
-        <Stop offset={0.37} stopColor="#FEDD8F" />
-        <Stop offset={1} stopColor="#B78D51" />
+        <Stop stopColor={colors.gradient.gold[0]} />
+        <Stop offset={0.37} stopColor={colors.gradient.gold[1]} />
+        <Stop offset={1} stopColor={colors.gradient.gold[2]} />
       </LinearGradient>
     </Defs>
   </Svg>

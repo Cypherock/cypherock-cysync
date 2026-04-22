@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Image, View, StyleSheet } from 'react-native';
+import { colors } from '../ui/themes/color.styled';
 const {
   BtcIdMap,
   EvmIdMap,
@@ -9,6 +10,8 @@ const {
   StellarIdMap,
   SiaIdMap,
   CantonIdMap,
+  TronIdMap,
+  StarknetIdMap,
 } = require('@cypherock/coins');
 const { getAssetOrUndefined } = require('@cypherock/coin-support-utils');
 import {
@@ -31,11 +34,12 @@ import {
   StellarIcon,
   SiacoinIcon,
   CantonIcon,
+  TronIcon,
+  StarknetIcon,
 } from '../ui/icons';
 import { useTheme } from '../ui';
 import Svg, { SvgProps, Image as SvgImage, Circle, G } from 'react-native-svg';
-import { TronIcon } from '../ui/icons/tron-icon';
-import { TronIdMap } from '@cypherock/coins';
+import { Links } from '@/constants';
 
 const coinToIconMap: Record<string, React.FC<SvgProps>> = {
   [BtcIdMap.bitcoin]: BitcoinIcon,
@@ -58,12 +62,12 @@ const coinToIconMap: Record<string, React.FC<SvgProps>> = {
   [SiaIdMap.sia]: SiacoinIcon,
   [CantonIdMap.canton]: CantonIcon,
   [TronIdMap.tron]: TronIcon,
+  [StarknetIdMap.starknet]: StarknetIcon,
 };
 
-const fallbackIcon = `https://static.cypherock.com/images/fallback-crypto-icon.png`;
+const fallbackIcon = Links.static.fallbackCryptoIcon;
 
-const requestErc20ImageFile = (id: string) =>
-  `https://static.cypherock.com/images/erc20-by-id/${id}.png`;
+const requestErc20ImageFile = (id: string) => Links.static.erc20IconById(id);
 
 const CbtcTokenIcon: React.FC<SvgProps> = props => (
   <Svg viewBox="0 0 96 96" {...props}>
@@ -343,7 +347,7 @@ const styles = StyleSheet.create({
     bottom: 0,
     right: 0,
     borderRadius: 50,
-    backgroundColor: '#27221D',
+    backgroundColor: colors.background.input,
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',

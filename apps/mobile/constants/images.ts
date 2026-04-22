@@ -1,4 +1,6 @@
-export const Images = {
+import config from '@/config';
+
+const defaultImages = {
   onboarding: {
     welcome: require('@/assets/images/welcome-screen.png'),
     screen1: require('@/assets/images/onboarding-screen-1.png'),
@@ -54,3 +56,22 @@ export const Images = {
     logo: require('@/assets/images/logo-lock.png'),
   },
 };
+
+/** Odix: override only assets that have an -odix variant (postfix or in name). */
+const odixImages = {
+  ...defaultImages,
+  onboarding: {
+    ...defaultImages.onboarding,
+    welcome: require('@/assets/images/welcome-screen-odix.png'),
+    screen1: require('@/assets/images/onboarding-screen-odix-1.png'),
+    screen2: require('@/assets/images/onboarding-screen-odix-2.png'),
+    screen3: require('@/assets/images/onboarding-screen-odix-3.png'),
+    screen4: require('@/assets/images/onboarding-screen-odix-4.png'),
+    screen4_1: require('@/assets/images/onboarding-screen-odix-4.1.png'),
+    screen5: require('@/assets/images/onboarding-screen-odix-5.png'),
+    qr_frame: require('@/assets/images/qr-frame-odix.png'),
+    camera: require('@/assets/images/carbon-camera-odix.png'),
+  },
+};
+
+export const Images = config.VENDOR === 'odix' ? odixImages : defaultImages;

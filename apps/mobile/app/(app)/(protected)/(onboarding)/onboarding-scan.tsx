@@ -1,7 +1,7 @@
 import { Image } from 'expo-image';
 import { router } from 'expo-router';
 import { OnboardingItem, ScreenContainer } from '@/components/ui';
-import { Images } from '@/constants/images';
+import { Images, Links } from '@/constants';
 import { useAppSelector } from '@/store';
 import { selectLanguage } from '@/store/lang';
 
@@ -31,10 +31,7 @@ export default function ScanQRScreen() {
           },
           secondary: {
             title: strings.buttons.buyCypherockX1,
-            onPress: () =>
-              router.navigate(
-                'https://www.cypherock.com/product/cypherock-x1/',
-              ),
+            onPress: () => router.navigate(Links.product.cypherockX1),
           },
         }}
       />

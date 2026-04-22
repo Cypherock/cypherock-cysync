@@ -34,7 +34,7 @@ export default function Layout() {
                   />
                 ),
                 tabBarStyle: styles.tabBar,
-                tabBarActiveTintColor: '#FEDD8F',
+                tabBarActiveTintColor: colors.accent,
                 sceneStyle: { backgroundColor: colors.background.primary },
               }}
             >
@@ -132,7 +132,7 @@ export default function Layout() {
 
 const styles = StyleSheet.create({
   tabBar: {
-    borderTopColor: '#39322C',
-    backgroundColor: '#1C1815',
+    borderTopColor: colors.border.secondary,
+    backgroundColor: colors.background.primary,
   },
 });
