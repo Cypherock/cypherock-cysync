@@ -24,5 +24,33 @@ function getClonableReplacer() {
   return replacer;
 }
 
-export const objectToCloneableObject = (obj: object) =>
-  JSON.parse(JSON.stringify(obj, getClonableReplacer()));
+const errorToPlainObject = (err: Error): Record<string, any> => {
+  const plain: Record<string, any> = {};
+  plain.name = err.name;
+  plain.message = err.message;
+  if (err.stack) {
+    plain.stack = err.stack;
+  }
+  for (const key of Object.keys(err)) {
+    plain[key] = (err as any)[key];
+  }
+  return plain;
+};
+
+function getErrorAwareReplacer() {
+  const baseReplacer = getClonableReplacer();
+
+  return function (this: any, key: string, value: any) {
+    if (value instanceof Error) {
+      return errorToPlainObject(value);
+    }
+    return baseReplacer.call(this, key, value);
+  };
+}
+
+export const objectToCloneableObject = (obj: object) => {
+  if (obj instanceof Error) {
+    return errorToPlainObject(obj);
+  }
+  return JSON.parse(JSON.stringify(obj, getErrorAwareReplacer()));
+};
