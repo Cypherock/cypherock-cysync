@@ -36,7 +36,7 @@ export class Repository<T extends IEntity> implements IRepository<T> {
       const inputs = isBulk ? entityOrEntities : [entityOrEntities];
 
       const payloads = inputs.map(e =>
-        this.stripUndefinedShallow({ ...e, __id: e.__id || uuidv4() }),
+        this.stripUndefined({ ...e, __id: e.__id || uuidv4() }),
       );
 
       const created: T[] = new Array(payloads.length);
@@ -65,14 +65,27 @@ export class Repository<T extends IEntity> implements IRepository<T> {
     updateEntity: Partial<T>,
   ): Promise<T[]> {
     try {
-      const objects = this.findObjects(filter);
+      const liveResults = this.findObjects(filter);
+      const ids: string[] = [];
+      for (let i = 0; i < liveResults.length; i++) {
+        const id = (liveResults[i] as unknown as IEntity).__id;
+        if (id) ids.push(id);
+      }
+
+      if (ids.length === 0) return [];
+
       const { __id: _ignore, ...rest } = updateEntity;
-      const cleaned = this.stripUndefinedShallow(rest);
+      const cleaned = this.stripUndefined(rest);
 
       const snapshots: T[] = [];
       this.realm.write(() => {
-        for (let i = 0; i < objects.length; i++) {
-          const obj = objects[i];
+        for (const id of ids) {
+          const fresh = this.realm
+            .objects<T>(this.name)
+            .filtered('__id == $0', id);
+          if (fresh.length === 0) continue;
+
+          const obj = fresh[0] as unknown as Realm.Object & T;
           if (cleaned && typeof cleaned === 'object') {
             Object.assign(obj, cleaned);
           }
@@ -93,15 +106,25 @@ export class Repository<T extends IEntity> implements IRepository<T> {
     _options?: IGetOptions<T>,
   ): Promise<T[]> {
     try {
-      const objects = this.findObjects(filter);
-
-      const snapshots: T[] = new Array(objects.length);
-      for (let i = 0; i < objects.length; i++) {
-        snapshots[i] = objects[i].toJSON() as unknown as T;
+      const liveResults = this.findObjects(filter);
+      const ids: string[] = [];
+      const snapshots: T[] = [];
+      for (let i = 0; i < liveResults.length; i++) {
+        snapshots.push(liveResults[i].toJSON() as unknown as T);
+        const id = (liveResults[i] as unknown as IEntity).__id;
+        if (id) ids.push(id);
       }
 
+      if (ids.length === 0) return [];
+
       this.realm.write(() => {
-        this.realm.delete(objects);
+        const toDelete = this.realm
+          .objects<T>(this.name)
+          .filtered(
+            ids.map((_, idx) => `__id == $${idx}`).join(' OR '),
+            ...ids,
+          );
+        this.realm.delete(toDelete);
       });
 
       return snapshots;
@@ -217,13 +240,27 @@ export class Repository<T extends IEntity> implements IRepository<T> {
     ) as unknown as Realm.Results<T & Realm.Object>;
   }
 
-  private stripUndefinedShallow<U extends object>(obj: U): U {
-    const out: Record<string, unknown> = {};
-    for (const k of Object.keys(obj) as (keyof U & string)[]) {
-      const v = (obj as Record<string, unknown>)[k];
-      if (v !== undefined) out[k] = v;
+  private stripUndefined<U>(value: U): U {
+    if (value === null || value === undefined) return value;
+
+    if (Array.isArray(value)) {
+      return value
+        .filter(item => item !== undefined)
+        .map(item => this.stripUndefined(item)) as unknown as U;
     }
-    return out as U;
+
+    if (typeof value === 'object' && !(value instanceof Date)) {
+      const out: Record<string, unknown> = {};
+      for (const k of Object.keys(value as object)) {
+        const v = (value as Record<string, unknown>)[k];
+        if (v !== undefined) {
+          out[k] = this.stripUndefined(v);
+        }
+      }
+      return out as U;
+    }
+
+    return value;
   }
 
   addListener(_type: 'change', listener: (...args: any[]) => void): void {

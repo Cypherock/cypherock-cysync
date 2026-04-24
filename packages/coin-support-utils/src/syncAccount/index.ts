@@ -56,8 +56,8 @@ export function createSyncAccountsObservable<T>(
           }
         } while (hasMore);
 
-        await updateAccount(db, accountId, updatedAccountInfo);
         await insertOrUpdateTransactions(db, transactions);
+        await updateAccount(db, accountId, updatedAccountInfo);
 
         observer.next();
         observer.complete();
