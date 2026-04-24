@@ -90,16 +90,11 @@ export default function Scan() {
   async function saveDataToDb(data: CysyncData) {
     data.accounts = data.accounts.map(acc => {
       if (acc.extraData) {
-        if (acc.familyId === 'solana') {
-          acc.extraData.latestTransactionHash = undefined;
-        }
-        if (acc.familyId === 'evm') {
-          acc.extraData.lastInternalTransactionBlockHeight = undefined;
-          acc.extraData.lastContractTransactionBlockHeight = undefined;
-        }
-        if (acc.familyId === 'canton') {
-          acc.extraData.latestTransactionOffset = undefined;
-        }
+        delete acc.extraData.lastInternalTransactionBlockHeight;
+        delete acc.extraData.lastContractTransactionBlockHeight;
+        delete acc.extraData.latestTransactionHash;
+        delete acc.extraData.latestTransactionOffset;
+        delete acc.extraData.lastConfirmedHash;
       }
       return acc;
     });

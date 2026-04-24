@@ -34,7 +34,7 @@ export const createTransactionId = async (txn: ITransaction) => {
 };
 
 export const isSameTransaction = (txn1: ITransaction, txn2: ITransaction) =>
-  lodash.eq(
+  lodash.isEqual(
     lodash.pick(txn1, uniqueTransactionFields),
     lodash.pick(txn2, uniqueTransactionFields),
   );
@@ -61,7 +61,7 @@ export const insertOrUpdateTransactions = async (
     if (existingTxn) {
       // Ignore already confirmed txns while comparing for subset
       if ((existingTxn.confirmations ?? 0) >= 1) {
-        const newTxn = structuredClone(transaction);
+        const newTxn = lodash.cloneDeep(transaction);
         delete newTxn.confirmations;
 
         if (isSubset(newTxn, existingTxn)) {
