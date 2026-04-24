@@ -52,16 +52,17 @@ export const updateLoggerObject = (params: {
         if (message && typeof message === 'object') {
           if (message.toJSON) {
             newMessage = message.toJSON();
+          } else {
+            newMessage = objectToCloneableObject(message);
           }
-
-          newMessage = objectToCloneableObject(message);
         }
 
         if (meta && typeof meta === 'object') {
           if (meta.toJSON) {
             newMeta = meta.toJSON();
+          } else {
+            newMeta = objectToCloneableObject(meta);
           }
-          newMeta = objectToCloneableObject(meta);
         }
 
         (newLogger as any)[key](newMessage, newMeta);
