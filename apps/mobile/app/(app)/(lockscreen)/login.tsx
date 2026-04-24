@@ -41,16 +41,15 @@ export default function Login() {
       <KeyboardAvoidingView
         style={{
           flex: 1,
-          flexGrow: 5,
           width: '100%',
-          paddingVertical: 12,
           paddingHorizontal: 16,
+          paddingVertical: 12,
         }}
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
       >
         <Container
           style={{
-            justifyContent: 'center',
+            justifyContent: 'space-between',
             alignItems: 'center',
           }}
         >
@@ -60,6 +59,8 @@ export default function Login() {
               alignItems: 'center',
               paddingVertical: 24,
               gap: 16,
+              width: '100%',
+              flex: 1,
             }}
           >
             <View
@@ -75,27 +76,25 @@ export default function Login() {
             <Typography type="body" color="secondary">
               {strings.lockscreen.login.tagline}
             </Typography>
+            <Input
+              label={strings.lockscreen.login.input.label}
+              value={password}
+              onChangeText={setPassword}
+              secureTextEntry
+              placeholderTextColor="#AAA"
+              actionText={strings.lockscreen.login.input.action}
+              onAction={() => router.push('/(app)/(lockscreen)/reset')}
+              error={error}
+              containerStyle={{ paddingVertical: 32 }}
+            />
           </View>
-          <Input
-            label={strings.lockscreen.login.input.label}
-            value={password}
-            onChangeText={setPassword}
-            secureTextEntry
-            placeholderTextColor="#AAA"
-            actionText={strings.lockscreen.login.input.action}
-            onAction={() => router.push('/(app)/(lockscreen)/reset')}
-            error={error}
-            containerStyle={{ paddingVertical: 32 }}
+          <Button
+            title={strings.buttons.continue}
+            onPress={handleUnlock}
+            style={{ marginVertical: 12, width: '100%' }}
           />
         </Container>
       </KeyboardAvoidingView>
-      <Container style={{ justifyContent: 'flex-end' }}>
-        <Button
-          title={strings.buttons.continue}
-          onPress={handleUnlock}
-          style={{ marginHorizontal: 16, marginVertical: 12 }}
-        />
-      </Container>
     </ScreenContainer>
   );
 }

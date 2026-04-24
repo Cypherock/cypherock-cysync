@@ -64,6 +64,7 @@ const ButtonText = styled.Text<{
   ${({ size }) => size && buttonSizeMap[size].text}
   color: ${({ type, disabled }) => getButtonTextColor(type, disabled)};
   text-align: center;
+  z-index: 1;
 `;
 
 const ButtonGradient: FC<{ type: ButtonType }> = ({ type }) => {
