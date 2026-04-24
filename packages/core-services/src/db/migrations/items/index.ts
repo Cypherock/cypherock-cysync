@@ -7,7 +7,6 @@ import erc20Migrations5 from './005.erc20Token';
 import resetSolanaTxnHistory from './006.resetSolanaTxnHistory';
 import erc20Migrations7 from './007.erc20Token';
 import updateSwapTxnHistory from './008.updateSwapTxnHistory';
-import retryTransactionIdMigration from './009.retryTransactionIdMigration';
 
 export const migrationItems = [
   erc20Migrations,
@@ -19,5 +18,4 @@ export const migrationItems = [
   resetSolanaTxnHistory,
   erc20Migrations7,
   updateSwapTxnHistory,
-  retryTransactionIdMigration,
 ];
