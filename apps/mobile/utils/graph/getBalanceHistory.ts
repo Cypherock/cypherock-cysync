@@ -12,6 +12,9 @@ import {
   IPriceInfo,
 } from '@cypherock/db-interfaces';
 import logger from '../logger';
+import flags from '../../featureFlags';
+
+declare const __DEV__: boolean;
 
 const getClosestTimestamps = (
   sortedHistory: IGetAccountHistoryResult['history'],
@@ -90,6 +93,10 @@ export const getBalanceHistory = async (params: {
     priceInfos,
   } = params;
 
+  const _graphProfilingEnabled =
+    (typeof __DEV__ !== 'undefined' && __DEV__) || flags.PROFILE_GRAPH;
+  const _graphBuildStart = _graphProfilingEnabled ? performance.now() : 0;
+
   const balanceHistoryList: IGetAccountHistoryResult[] = [];
   const accounts = getAccounts({
     allAccounts,
@@ -100,6 +107,11 @@ export const getBalanceHistory = async (params: {
   });
 
   if (accounts.length <= 0) {
+    if (_graphProfilingEnabled) {
+      logger.info(
+        `[graphPerf] days=${days} accounts=0 — early-exit in ${(performance.now() - _graphBuildStart).toFixed(1)} ms`,
+      );
+    }
     return { balanceHistory: [], totalValue: '0' };
   }
 
@@ -246,12 +258,21 @@ export const getBalanceHistory = async (params: {
     }
   }
 
+  const totalValue = balanceHistoryList
+    .reduce((a, b) => {
+      return a.plus(new BigNumber(b.currentValue));
+    }, new BigNumber(0))
+    .toString();
+
+  if (_graphProfilingEnabled) {
+    const elapsed = performance.now() - _graphBuildStart;
+    logger.info(
+      `[graphPerf] days=${days} accounts=${accounts.length} points=${allCoinHistoryData.length} — ${elapsed.toFixed(1)} ms`,
+    );
+  }
+
   return {
     balanceHistory: allCoinHistoryData,
-    totalValue: balanceHistoryList
-      .reduce((a, b) => {
-        return a.plus(new BigNumber(b.currentValue));
-      }, new BigNumber(0))
-      .toString(),
+    totalValue,
   };
 };
