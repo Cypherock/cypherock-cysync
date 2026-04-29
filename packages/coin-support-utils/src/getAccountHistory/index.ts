@@ -165,11 +165,7 @@ async function getPriceHistory(
     );
   }
 
-  return lodash.orderBy(
-    fillMissingPriceHistory(history, days),
-    ['timestamp'],
-    ['asc'],
-  );
+  return fillMissingPriceHistory(history, days);
 }
 
 async function getLatestPrice(

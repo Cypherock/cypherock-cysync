@@ -150,38 +150,56 @@ export const getBalanceHistory = async (params: {
     arr.push(p);
   }
 
-  const tasks = accounts.map(account => () => {
-    const coinSupport = getCoinSupport(account.familyId);
-    const key = `${account.assetId}|${currency}`;
-    return coinSupport.getAccountHistory({
-      db,
-      accountId: account.__id ?? '',
-      account,
-      currency,
-      days,
-      priceHistories: priceHistoryByKey.get(key) ?? [],
-      transactions: txByAccount.get(account.__id ?? '') ?? [],
-      priceInfos: priceInfoByKey.get(key) ?? [],
+  if (db) {
+    const tasks = accounts.map(account => () => {
+      const coinSupport = getCoinSupport(account.familyId);
+      const key = `${account.assetId}|${currency}`;
+      return coinSupport.getAccountHistory({
+        db,
+        accountId: account.__id ?? '',
+        account,
+        currency,
+        days,
+        priceHistories: priceHistoryByKey.get(key) ?? [],
+        transactions: txByAccount.get(account.__id ?? '') ?? [],
+        priceInfos: priceInfoByKey.get(key) ?? [],
+      });
     });
-  });
 
-  const queue = new PromiseQueue<IGetAccountHistoryResult>({
-    tasks,
-    concurrentCount: 10,
-    onNext: result => {
-      balanceHistoryList.push(result);
-    },
-    onError: error => {
-      logger.error(error);
-    },
-    onComplete: () => {},
-  });
+    const queue = new PromiseQueue<IGetAccountHistoryResult>({
+      tasks,
+      concurrentCount: 10,
+      onNext: result => {
+        balanceHistoryList.push(result);
+      },
+      onError: error => {
+        logger.error(error);
+      },
+      onComplete: () => {},
+    });
 
-  await queue.run();
-
-  balanceHistoryList.forEach(b =>
-    b.history.sort((a, b) => a.timestamp - b.timestamp),
-  );
+    await queue.run();
+  } else {
+    for (let i = 0; i < accounts.length; i++) {
+      const account = accounts[i];
+      const coinSupport = getCoinSupport(account.familyId);
+      const key = `${account.assetId}|${currency}`;
+      try {
+        const result = await coinSupport.getAccountHistory({
+          accountId: account.__id ?? '',
+          account,
+          currency,
+          days,
+          priceHistories: priceHistoryByKey.get(key) ?? [],
+          transactions: txByAccount.get(account.__id ?? '') ?? [],
+          priceInfos: priceInfoByKey.get(key) ?? [],
+        });
+        balanceHistoryList.push(result);
+      } catch (error) {
+        logger.error(error);
+      }
+    }
+  }
 
   if (balanceHistoryList.length === 0)
     return { balanceHistory: [], totalValue: '0' };
