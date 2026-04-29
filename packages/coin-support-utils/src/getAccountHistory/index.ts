@@ -197,23 +197,41 @@ async function getLatestPrice(
   return price;
 }
 
+function calcValueWithUnits(
+  amount: string,
+  coinId: string,
+  assetId: string,
+  zeroUnitAbbr: string,
+  defaultUnitAbbr: string,
+  price: string,
+): string {
+  return new BigNumber(
+    convertToUnit({
+      amount,
+      coinId,
+      assetId,
+      fromUnitAbbr: zeroUnitAbbr,
+      toUnitAbbr: defaultUnitAbbr,
+    }).amount,
+  )
+    .multipliedBy(price)
+    .toString();
+}
+
 function calcValue(params: {
   amount: string | BigNumber;
   parentAssetId: string;
   assetId: string;
   price: string;
 }) {
-  return new BigNumber(
-    convertToUnit({
-      amount: params.amount.toString(),
-      coinId: params.parentAssetId,
-      assetId: params.assetId,
-      fromUnitAbbr: getZeroUnit(params.parentAssetId, params.assetId).abbr,
-      toUnitAbbr: getDefaultUnit(params.parentAssetId, params.assetId).abbr,
-    }).amount,
-  )
-    .multipliedBy(params.price)
-    .toString();
+  return calcValueWithUnits(
+    params.amount.toString(),
+    params.parentAssetId,
+    params.assetId,
+    getZeroUnit(params.parentAssetId, params.assetId).abbr,
+    getDefaultUnit(params.parentAssetId, params.assetId).abbr,
+    params.price,
+  );
 }
 
 const getUpdatedBalance = (
@@ -248,6 +266,9 @@ const getAccountBalanceHistory = (
   priceHistory: IPriceSnapshot[],
   latestPrice?: string,
 ) => {
+  const zeroUnit = getZeroUnit(account.parentAssetId, account.assetId);
+  const defaultUnit = getDefaultUnit(account.parentAssetId, account.assetId);
+
   const accountBalanceHistory: IBalanceHistory[] = priceHistory.map(e => ({
     balance: '0',
     value: '0',
@@ -281,35 +302,44 @@ const getAccountBalanceHistory = (
       }
     }
 
-    accountBalanceHistory[pIndex].balance = curBalance.toString();
-    accountBalanceHistory[pIndex].value = calcValue({
-      amount: curBalance.toString(),
-      parentAssetId: account.parentAssetId,
-      assetId: account.assetId,
-      price: priceHistory[pIndex].price,
-    });
+    const balStr = curBalance.toString();
+    accountBalanceHistory[pIndex].balance = balStr;
+    accountBalanceHistory[pIndex].value = calcValueWithUnits(
+      balStr,
+      account.parentAssetId,
+      account.assetId,
+      zeroUnit.abbr,
+      defaultUnit.abbr,
+      priceHistory[pIndex].price,
+    );
 
     if (isTxnAdded) {
       pIndex += 1;
     }
   }
 
-  accountBalanceHistory[0].balance = curBalance.toString();
-  accountBalanceHistory[0].value = calcValue({
-    amount: curBalance.toString(),
-    assetId: account.assetId,
-    parentAssetId: account.parentAssetId,
-    price: priceHistory[0].price,
-  });
+  const firstBalStr = curBalance.toString();
+  accountBalanceHistory[0].balance = firstBalStr;
+  accountBalanceHistory[0].value = calcValueWithUnits(
+    firstBalStr,
+    account.parentAssetId,
+    account.assetId,
+    zeroUnit.abbr,
+    defaultUnit.abbr,
+    priceHistory[0].price,
+  );
 
   accountBalanceHistory[accountBalanceHistory.length - 1].balance =
     account.balance;
-  accountBalanceHistory[accountBalanceHistory.length - 1].value = calcValue({
-    amount: account.balance,
-    parentAssetId: account.parentAssetId,
-    assetId: account.assetId,
-    price: latestPrice ?? priceHistory[priceHistory.length - 1].price ?? 0,
-  });
+  accountBalanceHistory[accountBalanceHistory.length - 1].value =
+    calcValueWithUnits(
+      account.balance,
+      account.parentAssetId,
+      account.assetId,
+      zeroUnit.abbr,
+      defaultUnit.abbr,
+      String(latestPrice ?? priceHistory[priceHistory.length - 1].price ?? '0'),
+    );
 
   return accountBalanceHistory;
 };
@@ -366,10 +396,13 @@ export async function createGetAccountHistory(
 
   let hasNegative = false;
   for (const accountItem of accountBalanceHistory) {
-    hasNegative =
-      hasNegative || new BigNumber(accountItem.balance).isNegative();
-    accountItem.balance = BigNumber.max(accountItem.balance, 0).toString();
-    accountItem.value = BigNumber.max(accountItem.value, 0).toString();
+    if (Number(accountItem.balance) < 0) {
+      hasNegative = true;
+      accountItem.balance = '0';
+    }
+    if (Number(accountItem.value) < 0) {
+      accountItem.value = '0';
+    }
   }
 
   if (hasNegative) {
