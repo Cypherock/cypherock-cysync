@@ -90,7 +90,24 @@ export const getFiatUnit = (currencyCode: string) => {
   };
 };
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const _getUnitCache = new Map<string, any>();
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const _getDefaultUnitCache = new Map<string, any>();
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const _getZeroUnitCache = new Map<string, any>();
+
+export const __resetUnitCacheForTests = () => {
+  _getUnitCache.clear();
+  _getDefaultUnitCache.clear();
+  _getZeroUnitCache.clear();
+};
+
 export const getUnit = (coinId: string, unitAbbr: string, assetId?: string) => {
+  const cacheKey = `${coinId}|${assetId ?? ''}|${unitAbbr}`;
+  const cached = _getUnitCache.get(cacheKey);
+  if (cached !== undefined) return cached;
+
   const coin = coinList[coinId];
 
   assert(coin, new Error(`No coin found ${coinId}:${assetId ?? ''}`));
@@ -110,10 +127,15 @@ export const getUnit = (coinId: string, unitAbbr: string, assetId?: string) => {
     ),
   );
 
+  _getUnitCache.set(cacheKey, unit);
   return unit;
 };
 
 export const getDefaultUnit = (coinId: string, assetId?: string) => {
+  const cacheKey = `${coinId}|${assetId ?? ''}`;
+  const cached = _getDefaultUnitCache.get(cacheKey);
+  if (cached !== undefined) return cached;
+
   const coin = coinList[coinId];
 
   assert(coin, new Error(`No coin found ${coinId}:${assetId ?? ''}`));
@@ -131,10 +153,15 @@ export const getDefaultUnit = (coinId: string, assetId?: string) => {
     new Error(`No default unit found for coin ${coinId}:${assetId ?? ''}`),
   );
 
+  _getDefaultUnitCache.set(cacheKey, unit);
   return unit;
 };
 
 export const getZeroUnit = (coinId: string, assetId?: string) => {
+  const cacheKey = `${coinId}|${assetId ?? ''}`;
+  const cached = _getZeroUnitCache.get(cacheKey);
+  if (cached !== undefined) return cached;
+
   const coin = coinList[coinId];
 
   assert(coin, new Error(`No coin found ${coinId}:${assetId ?? ''}`));
@@ -152,6 +179,7 @@ export const getZeroUnit = (coinId: string, assetId?: string) => {
     new Error(`No lowest unit found for coin ${coinId}:${assetId ?? ''}`),
   );
 
+  _getZeroUnitCache.set(cacheKey, unit);
   return unit;
 };
 
