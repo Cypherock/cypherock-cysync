@@ -126,7 +126,9 @@ export interface SendDialogContextInterface {
   transactionRef: React.MutableRefObject<IPreparedTransaction | undefined>;
   setTransaction: (txn: IPreparedTransaction) => void;
   initialize: () => Promise<void>;
-  prepare: (txn: IPreparedTransaction) => Promise<void>;
+  prepare: (
+    txn: IPreparedTransaction,
+  ) => Promise<IPreparedTransaction | undefined>;
   isDeviceRequired: boolean;
   deviceEvents: Record<number, boolean | undefined>;
   startFlow: () => Promise<void>;
@@ -534,15 +536,15 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
   const prepare = async (txn: IPreparedTransaction) => {
     logger.info('Preparing send transaction');
 
+    let preparedTransaction: IPreparedTransaction | undefined;
     try {
       setPreparingTxn(true);
-      const preparedTransaction =
-        await getCurrentCoinSupport().prepareTransaction({
-          accountId: selectedAccount?.__id ?? '',
-          db: getDB(),
-          txn,
-          keyDB: getKeyDB(),
-        });
+      preparedTransaction = await getCurrentCoinSupport().prepareTransaction({
+        accountId: selectedAccount?.__id ?? '',
+        db: getDB(),
+        txn,
+        keyDB: getKeyDB(),
+      });
 
       setTransaction(structuredClone(preparedTransaction));
     } catch (e: any) {
@@ -550,6 +552,8 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
     } finally {
       setPreparingTxn(false);
     }
+
+    return preparedTransaction;
   };
 
   const getFlowObserver = (
@@ -685,9 +689,12 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
   const prepareSendMax = async (state: boolean) => {
     const txn = transactionRef.current;
     if (!selectedAccount || !txn) return '';
+
     txn.userInputs.isSendAll = state;
-    await prepare(txn);
-    const outputAmount = txn.userInputs.outputs[0].amount;
+    const preparedTransaction = await prepare(txn);
+
+    const outputAmount =
+      preparedTransaction?.userInputs.outputs[0].amount ?? '0';
     const convertedAmount = convertToUnit({
       amount: outputAmount,
       coinId: selectedAccount.parentAssetId,

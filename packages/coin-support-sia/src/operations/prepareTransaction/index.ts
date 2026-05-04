@@ -225,6 +225,9 @@ export const prepareTransaction = async (
     currentOutput = sendAllResult.output;
     currentTxn = sendAllResult.txn;
     feeHastings = BigInt(scToHastings(feeSC));
+
+    // update userInput so that the max amount is editable & not reset to 0
+    txn.userInputs.outputs[0].amount = sendAmountSC;
   }
 
   const validationResult = validateBalanceAndFees(
