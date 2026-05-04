@@ -1,3 +1,14 @@
+# v2.4.6
+
+### 🚀 Feature
+
+- **Personal Note in Canton:** Now you can add personal note in canton transaction as well
+
+### 🐛 Bugfixes
+
+- Fixed personal note issue in Sia transaction
+- Fixed canton partyId overflow issue in swap receive UI
+
 # v2.4.5
 
 ### 🚀 Feature
