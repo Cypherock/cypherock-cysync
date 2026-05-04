@@ -13,6 +13,8 @@ import {
   ICantonPrepareExternalPartyTxnParams,
   ICantonBroadcastExternalPartyTxnParams,
   ICantonInstrument,
+  ICantonWaitForTxnCompletionParams,
+  ICantonWaitForTxnCompletionResult,
 } from './types';
 
 import { config } from '../../config';
@@ -139,7 +141,10 @@ export const prepareMergeDelegationProposalTxn = async (
 export const broadcastTransactionToBlockchain = async (
   params: ICantonBroadcastTxnParams,
   keyDB?: IKeyValueStore,
-): Promise<any> => {
+): Promise<{
+  commandId: string;
+  ledgerEndOffset: number;
+}> => {
   const url = `${baseURL}/broadcast`;
   const response = await makePostRequestWithAuthTokenConfig(url, params, keyDB);
 
@@ -147,6 +152,16 @@ export const broadcastTransactionToBlockchain = async (
     !response.data.error,
     new Error('Server: Invalid txn hash from server'),
   );
+
+  return response.data;
+};
+
+export const waitForTxnCompletion = async (
+  params: ICantonWaitForTxnCompletionParams,
+  keyDB?: IKeyValueStore,
+): Promise<ICantonWaitForTxnCompletionResult | undefined> => {
+  const url = `${baseURL}/wait-for-completion`;
+  const response = await makePostRequestWithAuthTokenConfig(url, params, keyDB);
 
   return response.data;
 };

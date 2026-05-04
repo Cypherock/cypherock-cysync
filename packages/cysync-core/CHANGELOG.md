@@ -1,5 +1,33 @@
 # @cypherock/cysync-core
 
+## 0.13.2
+
+### Patch Changes
+
+- [#869](https://github.com/Cypherock/cypherock-cysync/pull/869) [`cefe9554`](https://github.com/Cypherock/cypherock-cysync/commit/cefe9554d0badf7432afc525f20c43f26c4e46b3) Thanks [@muzaffarbhat07](https://github.com/muzaffarbhat07)! - Adds remarks for canton txn, fixes canton broadcast and sync txns
+
+- [#870](https://github.com/Cypherock/cypherock-cysync/pull/870) [`67561e51`](https://github.com/Cypherock/cypherock-cysync/commit/67561e51417f63b03ab10b40c4dc4e383272b0a2) Thanks [@muzaffarbhat07](https://github.com/muzaffarbhat07)! - Fixed canton partyId overflow issue in swap receive dialog
+
+- Updated dependencies [[`cefe9554`](https://github.com/Cypherock/cypherock-cysync/commit/cefe9554d0badf7432afc525f20c43f26c4e46b3)]:
+  - @cypherock/coin-support-canton@1.1.5
+  - @cypherock/coin-support@0.2.13
+  - @cypherock/cysync-core-services@0.3.6
+  - @cypherock/cysync-core-workers@0.1.14
+
+## 0.13.2-pre.0
+
+### Patch Changes
+
+- [#869](https://github.com/Cypherock/cypherock-cysync/pull/869) [`cefe9554`](https://github.com/Cypherock/cypherock-cysync/commit/cefe9554d0badf7432afc525f20c43f26c4e46b3) Thanks [@muzaffarbhat07](https://github.com/muzaffarbhat07)! - Adds remarks for canton txn, fixes canton broadcast and sync txns
+
+- [#870](https://github.com/Cypherock/cypherock-cysync/pull/870) [`67561e51`](https://github.com/Cypherock/cypherock-cysync/commit/67561e51417f63b03ab10b40c4dc4e383272b0a2) Thanks [@muzaffarbhat07](https://github.com/muzaffarbhat07)! - Fixed canton partyId overflow issue in swap receive dialog
+
+- Updated dependencies [[`cefe9554`](https://github.com/Cypherock/cypherock-cysync/commit/cefe9554d0badf7432afc525f20c43f26c4e46b3)]:
+  - @cypherock/coin-support-canton@1.1.5-pre.0
+  - @cypherock/coin-support@0.2.13-pre.0
+  - @cypherock/cysync-core-services@0.3.6-pre.0
+  - @cypherock/cysync-core-workers@0.1.14-pre.0
+
 ## 0.13.1
 
 ### Patch Changes

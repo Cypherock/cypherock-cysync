@@ -1,5 +1,19 @@
 # @cypherock/cysync-core-workers
 
+## 0.1.14
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @cypherock/cysync-core-services@0.3.6
+
+## 0.1.14-pre.0
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @cypherock/cysync-core-services@0.3.6-pre.0
+
 ## 0.1.13
 
 ### Patch Changes

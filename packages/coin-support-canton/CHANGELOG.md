@@ -1,5 +1,17 @@
 # @cypherock/coin-support-canton
 
+## 1.1.5
+
+### Patch Changes
+
+- [#869](https://github.com/Cypherock/cypherock-cysync/pull/869) [`cefe9554`](https://github.com/Cypherock/cypherock-cysync/commit/cefe9554d0badf7432afc525f20c43f26c4e46b3) Thanks [@muzaffarbhat07](https://github.com/muzaffarbhat07)! - Adds remarks for canton txn, fixes canton broadcast and sync txns
+
+## 1.1.5-pre.0
+
+### Patch Changes
+
+- [#869](https://github.com/Cypherock/cypherock-cysync/pull/869) [`cefe9554`](https://github.com/Cypherock/cypherock-cysync/commit/cefe9554d0badf7432afc525f20c43f26c4e46b3) Thanks [@muzaffarbhat07](https://github.com/muzaffarbhat07)! - Adds remarks for canton txn, fixes canton broadcast and sync txns
+
 ## 1.1.4
 
 ### Patch Changes

@@ -13,6 +13,7 @@ import {
   ICantonCoinInfo,
   ICantonToken,
 } from '@cypherock/coins';
+import { sleep } from '@cypherock/cysync-utils';
 import {
   AccountTypeMap,
   IAccount,
@@ -192,35 +193,41 @@ const getAccountToUseAndNewAccountIfNeeded = async (
   };
 };
 
+// Deletes pending receive and expired transactions which do not exist anymore on blockchain
 const removeObsoleteTransactions = async (
   db: IDatabase,
   account: IAccount,
   pendingTransactions: ITransaction[],
 ) => {
-  const existingPendingTransactions = await db.transaction.getAll({
+  // get pending receive main account transaction
+  const existingPendingReceiveTransactions = await db.transaction.getAll({
     accountId: account.__id,
     status: TransactionStatusMap.pending,
+    type: TransactionTypeMap.receive,
   });
 
-  const existingPendingTokenTransactions = await db.transaction.getAll({
+  // get pending receive token account transaction
+  const existingPendingReceiveTokenTransactions = await db.transaction.getAll({
     parentAccountId: account.__id,
     status: TransactionStatusMap.pending,
+    type: TransactionTypeMap.receive,
   });
 
-  // also delete existing expired transactions if they are not in the pending transactions list received from the server
+  // get expired main account transactions
   const existingExpiredTransactions = await db.transaction.getAll({
     accountId: account.__id,
     status: TransactionStatusMap.expired,
   });
 
+  // get expired token account transactions
   const existingExpiredTokenTransactions = await db.transaction.getAll({
     parentAccountId: account.__id,
     status: TransactionStatusMap.expired,
   });
 
   const existingTransactions = [
-    ...existingPendingTransactions,
-    ...existingPendingTokenTransactions,
+    ...existingPendingReceiveTransactions,
+    ...existingPendingReceiveTokenTransactions,
     ...existingExpiredTransactions,
     ...existingExpiredTokenTransactions,
   ];
@@ -234,6 +241,70 @@ const removeObsoleteTransactions = async (
       await db.transaction.remove({ __id: existing.__id });
     }
   }
+};
+
+export const insertOrUpdateCantonTransactions = async (
+  db: IDatabase,
+  transactions: ITransaction[],
+  BATCH_SIZE = 100,
+) => {
+  let currentCount = 0;
+  const updatedTransactions: ITransaction[] = [];
+
+  for (const transaction of transactions) {
+    currentCount += 1;
+
+    if (currentCount > BATCH_SIZE) {
+      await sleep(500);
+      currentCount = 0;
+    }
+
+    const id = await createTransactionId(transaction);
+
+    const existingTxnById = await db.transaction.getOne({ __id: id });
+    if (existingTxnById) {
+      const result = await db.transaction.update(
+        { __id: existingTxnById.__id },
+        transaction,
+      );
+      updatedTransactions.push(...result);
+
+      continue;
+    }
+
+    if (transaction.extraData?.multiStepCorrelationId) {
+      const existingTxns = await db.transaction.getAll({
+        accountId: transaction.accountId,
+      });
+      const existingTxnByCorrelationId = existingTxns.find(
+        txn =>
+          txn.extraData?.multiStepCorrelationId ===
+          transaction.extraData?.multiStepCorrelationId,
+      );
+      if (existingTxnByCorrelationId) {
+        // create new updated txn: this copies the existing txn fields, overrides the required fields with new txn along with id
+        const newTxn: ITransaction = {
+          ...existingTxnByCorrelationId,
+          ...transaction,
+          __id: id,
+        };
+
+        // delete existing
+        await db.transaction.remove({ __id: existingTxnByCorrelationId.__id });
+
+        // insert new
+        const result = await db.transaction.insert(newTxn);
+        updatedTransactions.push(result);
+
+        continue;
+      }
+    }
+
+    const result = await db.transaction.insert({ ...transaction, __id: id });
+    updatedTransactions.push(result);
+  }
+
+  return updatedTransactions;
 };
 
 const parseTransaction = (
@@ -297,6 +368,7 @@ const parseTransaction = (
         CantonTransactionChoiceMap[txn.choice as CantonTransactionSubType],
       memo: txn.memo ? txn.memo : undefined,
       instrument: txn.instrumentId,
+      multiStepCorrelationId: txn.multiStepCorrelationId,
     },
   };
   return transaction;
@@ -357,6 +429,7 @@ const parsePendingTransaction = (
       instrument: txn.instrumentId,
       contractId: txn.contractId,
       templateId: txn.templateId,
+      multiStepCorrelationId: txn.multiStepCorrelationId,
     },
   };
   return transaction;
@@ -513,6 +586,9 @@ const getAddressDetails: IGetAddressDetails<{
     },
   };
 
+  // we have special machanism for canton to insert or update txns, hence we do it here only
+  await insertOrUpdateCantonTransactions(db, transactions);
+
   return {
     hasMore,
     nextIterationContext: {
@@ -520,7 +596,7 @@ const getAddressDetails: IGetAddressDetails<{
       updatedBalance,
       updatedTransferPreApprovalStatus,
     },
-    transactions,
+    transactions: [], // txns already processed above
     updatedAccountInfo,
   };
 };
