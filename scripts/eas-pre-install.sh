@@ -31,8 +31,11 @@ cd ../..
 PNPM_VERSION=$(node -e "const pkg = require('./package.json'); const m = pkg.packageManager?.match(/pnpm@(.+)/); console.log(m ? m[1] : '8.6.0')")
 echo "[eas-pre-install] Installing pnpm@$PNPM_VERSION (from root package.json)"
 npm install -g "pnpm@$PNPM_VERSION"
-pnpm install --frozen-lockfile
-pnpm turbo build
+# --ignore-scripts: skip native addon builds (node-gyp) for desktop-only
+# packages like win-verify-signature, bigint-buffer, @serialport/bindings.
+pnpm install --frozen-lockfile --ignore-scripts
+# This skips desktop/cli app builds entirely.
+pnpm turbo build --filter='./packages/*'
 
 echo "[eas-pre-install] Monorepo build complete."
 
