@@ -6,11 +6,12 @@
   },
   "build": {
     "production": {
-      "node": "18.18.0",
+      "node": "22.13.0",
       "autoIncrement": true,
       "env": {
         "APP_ENV": "production",
-        "VENDOR": "default"
+        "VENDOR": "default",
+        "API": "https://api.cypherock.com"
       }
     },
     "preview": {
@@ -23,28 +24,32 @@
       "distribution": "internal",
       "env": {
         "APP_ENV": "development",
-        "VENDOR": "default"
+        "VENDOR": "default",
+        "API": "https://dev-api.cypherock.com"
       }
     },
     "production:odix": {
       "extends": "production",
       "env": {
         "APP_ENV": "production",
-        "VENDOR": "odix"
+        "VENDOR": "odix",
+        "API": "https://odyx-api.cypherock.com"
       }
     },
     "preview:odix": {
       "extends": "preview",
       "env": {
         "APP_ENV": "production",
-        "VENDOR": "odix"
+        "VENDOR": "odix",
+        "API": "https://odyx-dev.cypherock.com"
       }
     },
     "development:odix": {
       "extends": "development",
       "env": {
         "APP_ENV": "development",
-        "VENDOR": "odix"
+        "VENDOR": "odix",
+        "API": "https://odyx-dev.cypherock.com"
       }
     }
   },
