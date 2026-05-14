@@ -1,7 +1,7 @@
 import React, { FC, ReactNode } from 'react';
 import { XTableCell } from './TableCell';
 import { PaymentReceivedIcon, PaymentSentIcon } from '../../icons';
-import { ThemeType } from '../../themes';
+import { ThemeType, useTheme } from '../../themes';
 import { colors } from '../../themes/color.styled';
 import styled from 'styled-components/native';
 import { View } from 'react-native';
@@ -29,6 +29,9 @@ export const StatusToColorHex: Record<TransactionStatus, string> = {
   success: colors.success,
   pending: colors.warning,
   failed: colors.error,
+  expired: colors.error,
+  cancelled: colors.error,
+  rejected: colors.error,
 };
 
 export const TransactionTypeToIcon: Record<
@@ -59,13 +62,18 @@ export const HistoryTableTimeCell: FC<HistoryTableTimeCellProps> = ({
   transactionStatus,
   transactionTime,
 }) => {
+  const theme = useTheme();
+  
   const statusToColorKey: Record<
     TransactionStatus,
-    keyof ThemeType['palette']
+    string
   > = {
-    success: 'white',
-    pending: 'warning',
-    failed: 'error',
+    success: theme.palette.white,
+    pending: theme.palette.warning,
+    failed: theme.palette.error,
+    expired: theme.palette.error,
+    cancelled: theme.palette.error,
+    rejected: theme.palette.error,
   };
 
   return (
@@ -77,7 +85,7 @@ export const HistoryTableTimeCell: FC<HistoryTableTimeCellProps> = ({
       }
       primaryText={transactionTypeText}
       primaryTextType={'heading'}
-      primaryTextColor={statusToColorKey[transactionStatus]}
+      primaryTextColor={statusToColorKey[transactionStatus] as keyof ThemeType['palette']}
       secondaryText={transactionTime}
     />
   );

@@ -9,7 +9,7 @@ import Feather from '@expo/vector-icons/Feather';
 interface HeaderProps {
   title: string;
   showBack?: boolean;
-  rightIcons?: JSX.Element;
+  rightIcons?: ReactNode;
   leftIcon?: ReactNode;
   onBackPress: () => void;
   showDiscard?: boolean;
@@ -53,7 +53,7 @@ export function Header({
     <HeaderContainer style={{ paddingTop: insets.top }}>
       {showBack && (
         <AntDesign
-          name="arrowleft"
+          name="arrow-left"
           size={18}
           style={{ paddingVertical: 8, paddingHorizontal: 4 }}
           onPress={onBackPress}

@@ -6,9 +6,10 @@ import { Typography } from '../atoms';
 import { PaymentReceivedIcon, PaymentSentIcon } from '../icons';
 import { colors } from '../themes/color.styled';
 import { TransactionType } from './Table';
+import { TransactionStatus } from '@cypherock/db-interfaces';
 
 type NotificationType = TransactionType;
-type NotificationStatus = 'success' | 'failed' | 'pending';
+type NotificationStatus = TransactionStatus;
 
 export interface NotificationProps extends TouchableOpacityProps {
   type: NotificationType;
@@ -17,6 +18,7 @@ export interface NotificationProps extends TouchableOpacityProps {
   info: string;
   time: string;
   isClicked?: boolean;
+  title: string;
 }
 
 const NotificationContainer = styled.TouchableOpacity<{ isClicked?: boolean }>`
@@ -31,6 +33,9 @@ const StatusToColorHex: Record<NotificationStatus, string> = {
   success: colors.success,
   pending: colors.warning,
   failed: colors.error,
+  expired: colors.error,
+  cancelled: colors.error,
+  rejected: colors.error,
 };
 
 const NotificationTypeToIcon: Record<
@@ -47,6 +52,9 @@ const StatusToColorKey: Record<NotificationStatus, keyof ThemeType['palette']> =
     success: 'white',
     pending: 'warning',
     failed: 'error',
+    expired: 'error',
+    cancelled: 'error',
+    rejected: 'error',
   };
 
 const NotificationHeader = styled.View`
@@ -72,20 +80,12 @@ export function NotificationItem({
   time,
   ...props
 }: NotificationProps) {
-  const statusToTitle: Record<NotificationStatus, string> = {
-    success: type === 'send' ? 'Sent' : 'Received',
-    failed: type === 'send' ? 'Sent Failed' : 'Received Failed',
-    pending: type === 'send' ? 'Sent Pending' : 'Received Pending',
-  };
-
   return (
     <NotificationContainer {...props}>
       {NotificationTypeToIcon[type](status)}
       <View style={{ flex: 1 }}>
         <NotificationHeader>
-          <NotificationTitle status={status}>
-            {statusToTitle[status]}
-          </NotificationTitle>
+          <NotificationTitle status={status}>{props.title}</NotificationTitle>
           <NotificationTime>{time}</NotificationTime>
         </NotificationHeader>
         <Typography
