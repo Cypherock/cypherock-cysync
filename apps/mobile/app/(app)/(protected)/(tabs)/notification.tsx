@@ -115,6 +115,7 @@ interface NotificationRowData {
   time: string;
   txn: ITransaction;
   assetIcon: React.JSX.Element;
+  title: string;
 }
 
 const MAX_NOTIFICATIONS_TO_SHOW = 15;
@@ -212,6 +213,7 @@ export default function Notification() {
           wallets,
         })}
         time={item.time}
+        title={item.title}
       />
     );
   };
@@ -243,7 +245,6 @@ export default function Notification() {
               paddingHorizontal: 16,
               paddingBottom: 16,
             }}
-            estimatedItemSize={51}
             data={displayTransactions}
             renderItem={({ item }) => renderNotification(item)}
             getItemType={item => {

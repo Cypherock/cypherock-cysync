@@ -285,14 +285,20 @@
   "transactions": {
     "transactionStatus": {
       "send": {
-        "failed": "发送失败",
-        "pending": "正在发送",
-        "success": "已发送"
+        "failed": "Send Failed",
+        "pending": "Sending",
+        "success": "Sent",
+        "expired": "Send Expired",
+        "cancelled": "Send Cancelled",
+        "rejected": "Send Rejected"
       },
       "receive": {
-        "failed": "接收失败",
-        "pending": "正在接收",
-        "success": "已接收"
+        "failed": "Receive Failed",
+        "pending": "Receiving",
+        "success": "Received",
+        "expired": "Receive Expired",
+        "cancelled": "Receive Cancelled",
+        "rejected": "Receive Rejected"
       }
     }
   },

@@ -283,16 +283,22 @@
     "settings": "Pengaturan"
   },
   "transactions": {
-    "transactionStatus": {
+       "transactionStatus": {
       "send": {
         "failed": "Send Failed",
         "pending": "Sending",
-        "success": "Sent"
+        "success": "Sent",
+        "expired": "Send Expired",
+        "cancelled": "Send Cancelled",
+        "rejected": "Send Rejected"
       },
       "receive": {
         "failed": "Receive Failed",
         "pending": "Receiving",
-        "success": "Received"
+        "success": "Received",
+        "expired": "Receive Expired",
+        "cancelled": "Receive Cancelled",
+        "rejected": "Receive Rejected"
       }
     }
   },

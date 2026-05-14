@@ -216,6 +216,12 @@
           "placeholder": "Confirm password",
           "description": "Both passwords must match"
         }
+      },
+      "validation": {
+        "minLength": "Minimum 8 characters",
+        "minDigit": "Minimum 1 digit",
+        "minUppercase": "Minimum 1 uppercase character",
+        "minSpecialChar": "Minimum 1 special character (!@#$%^&*)"
       }
     },
     "changePassword": {
@@ -232,7 +238,13 @@
           "placeholder": "Confirm password",
           "description": "Both passwords must match"
         }
-      }
+      },
+      "validation": {
+        "minLength": "Minimum 8 characters",
+        "minDigit": "Minimum 1 digit",
+        "minUppercase": "Minimum 1 uppercase character",
+        "minSpecialChar": "Minimum 1 special character (!@#$%^&*)"
+      } 
     },
     "newPasswordAdded": {
       "title": "New Password added successfully",
@@ -275,12 +287,18 @@
       "send": {
         "failed": "Send Failed",
         "pending": "Sending",
-        "success": "Sent"
+        "success": "Sent",
+        "expired": "Send Expired",
+        "cancelled": "Send Cancelled",
+        "rejected": "Send Rejected"
       },
       "receive": {
         "failed": "Receive Failed",
         "pending": "Receiving",
-        "success": "Received"
+        "success": "Received",
+        "expired": "Receive Expired",
+        "cancelled": "Receive Cancelled",
+        "rejected": "Receive Rejected"
       }
     }
   },

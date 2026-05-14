@@ -315,8 +315,22 @@ export interface LangBottomTabs {
 
 export interface LangTransactions {
   transactionStatus: {
-    send: { failed: string; pending: string; success: string };
-    receive: { failed: string; pending: string; success: string };
+   send: {
+      failed: string;
+      pending: string;
+      success: string;
+      expired: string;
+      cancelled: string;
+      rejected: string;
+    };
+    receive: {
+      failed: string;
+      pending: string;
+      success: string;
+      expired: string;
+      cancelled: string;
+      rejected: string;
+    };
   };
 }
 export interface LangGraph {

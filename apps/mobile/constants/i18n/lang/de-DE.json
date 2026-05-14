@@ -283,26 +283,23 @@
     "settings": "Einstellungen"
   },
   "transactions": {
-    "transactionStatus": {
+   "transactionStatus": {
       "send": {
-        "failed": "Senden fehlgeschlagen",
-        "pending": "Wird gesendet",
-        "success": "Gesendet"
+        "failed": "Send Failed",
+        "pending": "Sending",
+        "success": "Sent",
+        "expired": "Send Expired",
+        "cancelled": "Send Cancelled",
+        "rejected": "Send Rejected"
       },
       "receive": {
-        "failed": "Empfangen fehlgeschlagen",
-        "pending": "Wird empfangen",
-        "success": "Empfangen"
+        "failed": "Receive Failed",
+        "pending": "Receiving",
+        "success": "Received",
+        "expired": "Receive Expired",
+        "cancelled": "Receive Cancelled",
+        "rejected": "Receive Rejected"
       }
-    }
-  },
-  "graph": {
-    "totalBalance": "Total Balance",
-    "timeRange": {
-      "day": "1D",
-      "week": "1W",
-      "month": "1M",
-      "year": "1Y"
     }
   },
   "graph": {
