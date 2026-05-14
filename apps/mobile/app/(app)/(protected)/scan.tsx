@@ -146,7 +146,7 @@ export default function Scan() {
   useFocusEffect(useCallback(() => reset, []));
 
   return (
-    <ScreenContainer>
+    <ScreenContainer type="all">
       <View style={styles.top}>
         <Feather
           name="x"

@@ -4,7 +4,7 @@ import styled from 'styled-components/native';
 import { colors } from '../themes/color.styled';
 
 interface IInputProps extends TextInputProps {
-  label: string;
+  label?: string;
   actionText?: string;
   onAction?: () => void;
   error?: string;

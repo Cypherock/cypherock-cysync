@@ -64,7 +64,7 @@ export default function Onboarding() {
   };
 
   return (
-    <ScreenContainer>
+    <ScreenContainer type="all">
       <PagerDots index={currentIndex} length={pages.length} />
       <GestureHandlerRootView style={{ flex: 1 }}>
         <FlatList

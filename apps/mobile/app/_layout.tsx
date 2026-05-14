@@ -22,6 +22,7 @@ import { CurrencyProvider } from '@/contexts/useCurrencyContext';
 import { CustomRealmProvider } from '@/db';
 import { NavigationLogger } from '@/components/core';
 import '../utils/firebase';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
 
 SplashScreen.preventAutoHideAsync();
 SystemUI.setBackgroundColorAsync(colors.background.primary);
@@ -34,12 +35,14 @@ export default function RootLayout() {
       <ThemeProvider theme={currentTheme}>
         <CustomRealmProvider>
           <CurrencyProvider>
-            <LockscreenProvider>
-              <NavigationLogger />
-              <AnimatedSplashScreen setTheme={setCurrentTheme}>
-                <Slot />
-              </AnimatedSplashScreen>
-            </LockscreenProvider>
+            <SafeAreaProvider>
+              <LockscreenProvider>
+                <NavigationLogger />
+                <AnimatedSplashScreen setTheme={setCurrentTheme}>
+                  <Slot />
+                </AnimatedSplashScreen>
+              </LockscreenProvider>
+            </SafeAreaProvider>
           </CurrencyProvider>
         </CustomRealmProvider>
       </ThemeProvider>

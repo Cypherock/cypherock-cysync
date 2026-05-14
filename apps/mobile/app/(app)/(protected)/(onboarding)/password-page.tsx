@@ -57,7 +57,7 @@ export default function PasswordPage() {
 
   if (showSuccess) {
     return (
-      <ScreenContainer>
+      <ScreenContainer type="all">
         <Success
           title={strings.onboarding.passwordPage.success.title}
           subTitle={strings.onboarding.passwordPage.success.subTitle}
@@ -85,7 +85,7 @@ export default function PasswordPage() {
   }
 
   return (
-    <ScreenContainer>
+    <ScreenContainer type="all">
       <KeyboardAvoidingView
         style={{
           flex: 1,

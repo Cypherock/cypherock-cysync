@@ -33,7 +33,7 @@ export default function Sync() {
   };
 
   return (
-    <ScreenContainer>
+    <ScreenContainer type="all">
       <OnboardingItem {...item} />
     </ScreenContainer>
   );

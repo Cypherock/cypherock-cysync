@@ -9,7 +9,7 @@ import { selectLanguage } from '@/store/lang';
 export default function Info() {
   const { strings } = useAppSelector(selectLanguage);
   return (
-    <ScreenContainer>
+    <ScreenContainer type="all">
       <OnboardingItem
         id={1}
         imageNode={
