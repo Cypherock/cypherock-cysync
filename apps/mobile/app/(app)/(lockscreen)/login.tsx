@@ -37,7 +37,7 @@ export default function Login() {
   }, [isLocked]);
 
   return (
-    <ScreenContainer>
+    <ScreenContainer type="all">
       <KeyboardAvoidingView
         style={{
           flex: 1,

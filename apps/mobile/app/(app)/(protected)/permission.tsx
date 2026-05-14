@@ -47,7 +47,7 @@ export default function Permission() {
   }
 
   return (
-    <ScreenContainer>
+    <ScreenContainer type="all">
       <OnboardingItem
         id={1}
         imageNode={

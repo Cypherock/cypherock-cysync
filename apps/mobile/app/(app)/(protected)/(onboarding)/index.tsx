@@ -17,7 +17,7 @@ import Constants from 'expo-constants';
 export default function Index() {
   const { strings } = useAppSelector(selectLanguage);
   return (
-    <ScreenContainer>
+    <ScreenContainer type="all">
       <Container>
         <Image source={Images.onboarding.welcome} style={styles.image} />
       </Container>

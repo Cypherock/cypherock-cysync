@@ -25,7 +25,7 @@ export default function Reset() {
   };
 
   return (
-    <ScreenContainer>
+    <ScreenContainer type="all">
       <OnboardingItem
         id={1}
         imageNode={

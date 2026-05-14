@@ -9,7 +9,7 @@ export default function ScanQRScreen() {
   const { strings } = useAppSelector(selectLanguage);
 
   return (
-    <ScreenContainer>
+    <ScreenContainer type="all">
       <OnboardingItem
         id={1}
         imageNode={
