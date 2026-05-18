@@ -1,5 +1,14 @@
 # @cypherock/cysync-desktop
 
+## 2.4.7-pre.0
+
+### Patch Changes
+
+- Updated dependencies [[`819474df`](https://github.com/Cypherock/cypherock-cysync/commit/819474df82d22dcd8fbc9daedfdb156d90ac74ad)]:
+  - @cypherock/cysync-utils@0.1.0-pre.0
+  - @cypherock/database@0.2.2-pre.0
+  - @cypherock/cysync-desktop-ui@0.2.16-pre.0
+
 ## 2.4.6
 
 ### Patch Changes
