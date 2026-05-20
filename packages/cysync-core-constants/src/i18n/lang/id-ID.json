@@ -63,7 +63,8 @@
     "proceed": "Lanjutkan"
   },
   "tooltips": {
-    "downloadCsv": "Ekspor sebagai CSV"
+    "downloadCsv": "Ekspor sebagai CSV",
+    "filter": "Filter"
   },
   "deviceAuthentication": {
     "success": {
@@ -587,6 +588,10 @@
         "text": "Tidak ada hasil ditemukan untuk",
         "subText": "Silakan coba mencari dengan kata kunci lain"
       }
+    },
+    "filter": {
+      "wallets": "Dompet",
+      "accounts": "Akun"
     }
   },
   "onboarding": {

@@ -40,6 +40,7 @@ export interface DropDownItemProps extends BorderProps {
   showRightTextOnBottom?: boolean;
   disabled?: boolean;
   isShowCase?: boolean;
+  $leftPadding?: string;
 }
 
 export interface DropDownListItemHorizontalBoxProps {
@@ -105,7 +106,7 @@ export const DropDownListItemHorizontalBox = styled.div<
   padding-top: 12px;
   padding-right: ${({ $hasRightText }) => ($hasRightText ? '48px' : '24px')};
   padding-bottom: 12px;
-  padding-left: 24px;
+  padding-left: ${({ $leftPadding }) => $leftPadding ?? '24px'};
   align-items: center;
   gap: 16px;
   align-self: stretch;
@@ -230,6 +231,7 @@ export const DropDownItem: FC<DropDownItemProps> = ({
   $textMaxWidthWhenSelected,
   disabled = false,
   isShowCase = false,
+  $leftPadding,
 }): ReactElement => {
   const handleCheckChange = () => {
     if (disabled) return;
@@ -263,6 +265,7 @@ export const DropDownItem: FC<DropDownItemProps> = ({
       $isFocused={$isFocused}
       $parentId={$parentId}
       disabled={disabled}
+      $leftPadding={$leftPadding}
     >
       {!$restrictedItem && checkType === 'radio' && (
         <RadioButton
@@ -378,4 +381,5 @@ DropDownItem.defaultProps = {
   $textMaxWidthWhenSelected: undefined,
   disabled: false,
   isShowCase: false,
+  $leftPadding: undefined,
 };

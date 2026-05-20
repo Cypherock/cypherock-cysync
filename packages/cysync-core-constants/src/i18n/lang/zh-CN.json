@@ -63,7 +63,8 @@
     "proceed": "继续"
   },
   "tooltips": {
-    "downloadCsv": "导出为CSV"
+    "downloadCsv": "导出为CSV",
+    "filter": "过滤"
   },
   "deviceAuthentication": {
     "success": {
@@ -587,6 +588,10 @@
         "text": "未找到结果",
         "subText": "请尝试搜索其他关键词"
       }
+    },
+    "filter": {
+      "wallets": "钱包",
+      "accounts": "账户"
     }
   },
   "onboarding": {

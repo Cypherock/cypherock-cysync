@@ -1,7 +1,8 @@
 {
   "x1Card": "-=CARD_NAME=-",
   "tooltips": {
-    "downloadCsv": "Exporter en CSV"
+    "downloadCsv": "Exporter en CSV",
+    "filter": "Filtrer"
   },
   "back": "Retour",
   "help": "Help",
@@ -227,6 +228,10 @@
         "text": "Aucun résultat trouvé pour",
         "subText": "Veuillez essayer de rechercher d'autres mots-clés"
       }
+    },
+    "filter": {
+      "wallets": "Portefeuilles",
+      "accounts": "Comptes"
     }
   },
   "topbar": {
