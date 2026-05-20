@@ -214,7 +214,10 @@
       "choice": "Choix",
       "startDate": "Date de début",
       "expirationDate": "Date d'expiration",
-      "operation": "Opération"
+      "operation": "Opération",
+      "buttons": {
+        "addRemarks": "Ajouter une note"
+      }
     },
     "noData": {
       "text": "Aucune transaction pour le moment",

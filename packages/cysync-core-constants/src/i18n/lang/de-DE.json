@@ -574,7 +574,10 @@
       "choice": "Auswahl",
       "startDate": "Startdatum",
       "expirationDate": "Ablaufdatum",
-      "operation": "Betrieb"
+      "operation": "Betrieb",
+      "buttons": {
+        "addRemarks": "Notiz hinzufügen"
+      }
     },
     "noData": {
       "text": "Noch keine Transaktionen",

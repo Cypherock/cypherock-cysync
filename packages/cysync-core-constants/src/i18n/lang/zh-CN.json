@@ -574,7 +574,10 @@
       "choice": "选择",
       "startDate": "开始日期",
       "expirationDate": "过期日期",
-      "operation": "操作"
+      "operation": "操作",
+      "buttons": {
+        "addRemarks": "添加备注"
+      }
     },
     "noData": {
       "text": "尚无交易",
