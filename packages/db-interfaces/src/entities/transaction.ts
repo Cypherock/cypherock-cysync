@@ -15,6 +15,7 @@ export type TransactionStatus =
 export enum SupportedProviders {
   CHANGELLY = 'changelly',
   CHANGENOW = 'changenow',
+  SIMPLESWAP = 'simpleswap',
 }
 
 export const TransactionTypeMap = {
