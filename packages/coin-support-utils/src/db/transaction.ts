@@ -206,3 +206,19 @@ export const insertOrUpdatePriceHistory = async (
     }
   }
 };
+
+export const updateTransaction = async (
+  db: IDatabase,
+  id: string,
+  transaction: Partial<ITransaction>,
+) => {
+  const existingTransaction = await db.transaction.getOne({ __id: id });
+
+  if (existingTransaction) {
+    if (isSubset(transaction, existingTransaction)) return;
+    await db.transaction.update(
+      { __id: existingTransaction.__id },
+      transaction,
+    );
+  }
+};

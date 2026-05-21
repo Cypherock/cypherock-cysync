@@ -575,7 +575,10 @@
       "choice": "الخيار",
       "startDate": "تاريخ البدء",
       "expirationDate": "تاريخ الانتهاء",
-      "operation": "عملية"
+      "operation": "عملية",
+      "buttons": {
+        "addRemarks": "إضافة ملاحظة"
+      }
     },
     "noData": {
       "text": "لا توجد معاملات حتى الآن",

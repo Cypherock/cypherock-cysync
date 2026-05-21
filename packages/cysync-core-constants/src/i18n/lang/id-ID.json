@@ -575,7 +575,10 @@
       "choice": "Pilihan",
       "startDate": "Tanggal Mulai",
       "expirationDate": "Waktu Kedaluwarsa",
-      "operation": "Operasi"
+      "operation": "Operasi",
+      "buttons": {
+        "addRemarks": "Tambah catatan"
+      }
     },
     "noData": {
       "text": "Belum ada transaksi",

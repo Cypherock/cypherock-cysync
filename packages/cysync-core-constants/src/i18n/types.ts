@@ -579,6 +579,9 @@ interface LangHistory {
     startDate: string;
     expirationDate: string;
     operation: string;
+    buttons: {
+      addRemarks: string;
+    };
   };
   noData: { text: string; subText: string; buttonText: string };
   search: { placeholder: string; notFound: { text: string; subText: string } };
