@@ -574,7 +574,10 @@
       "choice": "Choice",
       "startDate": "Start Date",
       "expirationDate": "Expiration Date",
-      "operation": "Operation"
+      "operation": "Operation",
+      "buttons": {
+        "addRemarks": "Add note"
+      }
     },
     "noData": {
       "text": "No transactions yet",
