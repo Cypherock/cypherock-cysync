@@ -94,6 +94,12 @@ coin-support-{family} -> coin-support-interfaces, coin-support-utils, coins, sdk
 - **Fixtures:** `tests/__fixtures__/` or `__fixtures__/` directories
 - **Coverage:** Aggregated at root via `scripts/`
 
+## Necessary Docs
+
+Check these always when working:
+
+- [AI Interaction Guidelines](.agent/docs/ai-interaction.md)
+
 ## Additional Documentation
 
 Check these when working on specific areas:
