@@ -341,7 +341,7 @@ export const useWalletPage = () => {
       return {
         id: a.__id ?? '',
         leftImage: <CoinIcon size="32px" parentAssetId={a.parentAssetId} />,
-        text: a.name,
+        text: a.name.length > 30 ? `${a.name.slice(0, 30)}...` : a.name,
         subText: coinList[a.parentAssetId].name,
         tag: lodash.upperCase(a.derivationScheme),
         statusImage:
