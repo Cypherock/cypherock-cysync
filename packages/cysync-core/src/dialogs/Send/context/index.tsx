@@ -5,6 +5,7 @@ import { IPreparedBtcTransaction } from '@cypherock/coin-support-btc';
 import {
   ICantonTransactionExpiryInput,
   IPreparedCantonTransaction,
+  IPreparedCantonTransactionOutput,
 } from '@cypherock/coin-support-canton';
 import { IPreparedEvmTransaction } from '@cypherock/coin-support-evm';
 import { IPreparedIcpTransaction } from '@cypherock/coin-support-icp';
@@ -929,11 +930,11 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
     data: string,
   ) => {
     const { userInputs } = initTransaction;
-    if (familyId === 'xrp') {
+    if (familyId === coinFamiliesMap.xrp) {
       (
         userInputs.outputs[0] as unknown as IPreparedXrpTransactionOutput
       ).destinationTag = parseInt(data, 10);
-    } else if (familyId === 'stellar') {
+    } else if (familyId === coinFamiliesMap.stellar) {
       const memo: IStellarMemo = {
         type: data.match(/^[0-9]+$/)
           ? IStellarMemoType.ID
@@ -943,6 +944,10 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
       (
         userInputs.outputs[0] as unknown as IPreparedStellarTransactionOutput
       ).memo = memo;
+    } else if (familyId === coinFamiliesMap.canton) {
+      (
+        userInputs.outputs[0] as unknown as IPreparedCantonTransactionOutput
+      ).memo = data;
     }
     return userInputs;
   };
