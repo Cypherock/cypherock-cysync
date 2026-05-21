@@ -130,6 +130,31 @@ const searchFilter = (
   );
 };
 
+const walletAndAccountFilter = (
+  walletIds: string[],
+  accountIds: string[],
+  data: TransactionRowData[] = [],
+): TransactionRowData[] => {
+  if (walletIds.length === 0 && accountIds.length === 0) return data;
+
+  const walletIdSet = new Set(walletIds);
+  const accountIdSet = new Set(accountIds);
+
+  return data.filter(row => {
+    if (walletIdSet.size > 0 && !walletIdSet.has(row.txn.walletId))
+      return false;
+    if (accountIdSet.size > 0) {
+      const matchesAccount =
+        accountIdSet.has(row.txn.accountId) ||
+        (row.txn.parentAccountId
+          ? accountIdSet.has(row.txn.parentAccountId)
+          : false);
+      if (!matchesAccount) return false;
+    }
+    return true;
+  });
+};
+
 const selector = createSelector(
   [
     selectLanguage,
@@ -415,6 +440,8 @@ export const useDisplayTransactions = ({
   const { windowWidth } = useWindowSize();
 
   const [searchTerm, setSearchTerm] = useState('');
+  const [selectedWalletIds, setSelectedWalletIds] = useState<string[]>([]);
+  const [selectedAccountIds, setSelectedAccountIds] = useState<string[]>([]);
   const [displayedData, setDisplayedData] = useState<TransactionRowData[]>([]);
   const [transactionList, setTransactionList] = useState<TransactionRowData[]>(
     [],
@@ -429,7 +456,12 @@ export const useDisplayTransactions = ({
   );
 
   const getDisplayDataList = (list: TransactionRowData[]) => {
-    const filteredData = searchFilter(searchTerm, list);
+    const filterByWalletAndAccount = walletAndAccountFilter(
+      selectedWalletIds,
+      selectedAccountIds,
+      list,
+    );
+    const filteredData = searchFilter(searchTerm, filterByWalletAndAccount);
 
     const sortedList = lodash.orderBy(
       filteredData,
@@ -533,7 +565,14 @@ export const useDisplayTransactions = ({
 
   useEffect(() => {
     setDisplayedData(getDisplayDataList(transactionList));
-  }, [searchTerm, isAscending, sortedBy, transactionList]);
+  }, [
+    searchTerm,
+    isAscending,
+    sortedBy,
+    transactionList,
+    selectedWalletIds,
+    selectedAccountIds,
+  ]);
 
   const onSort = (columnName: TransactionTableHeaderName) => {
     if (sortedBy === columnName) {
@@ -565,6 +604,10 @@ export const useDisplayTransactions = ({
     lang,
     searchTerm,
     setSearchTerm,
+    selectedWalletIds,
+    setSelectedWalletIds,
+    selectedAccountIds,
+    setSelectedAccountIds,
     isAscending,
     onSort,
     handleTransactionTableRow,

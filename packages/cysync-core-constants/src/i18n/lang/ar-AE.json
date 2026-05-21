@@ -63,7 +63,8 @@
     "proceed": "متابعة"
   },
   "tooltips": {
-    "downloadCsv": "تصدير بصيغة CSV"
+    "downloadCsv": "تصدير بصيغة CSV",
+    "filter": "تصفية"
   },
   "deviceAuthentication": {
     "success": {
@@ -587,6 +588,10 @@
         "text": "لم يتم العثور على نتائج لـ",
         "subText": "الرجاء محاولة البحث عن كلمات رئيسية أخرى"
       }
+    },
+    "filter": {
+      "wallets": "المحافظ",
+      "accounts": "الحسابات"
     }
   },
   "onboarding": {

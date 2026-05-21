@@ -63,7 +63,8 @@
     "proceed": "Fortfahren"
   },
   "tooltips": {
-    "downloadCsv": "Als CSV exportieren"
+    "downloadCsv": "Als CSV exportieren",
+    "filter": "Filter"
   },
   "deviceAuthentication": {
     "success": {
@@ -587,6 +588,10 @@
         "text": "Keine Ergebnisse gefunden für",
         "subText": "Bitte versuchen Sie es mit anderen Stichwörtern"
       }
+    },
+    "filter": {
+      "wallets": "Wallets",
+      "accounts": "Konten"
     }
   },
   "onboarding": {

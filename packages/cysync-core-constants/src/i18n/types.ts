@@ -140,6 +140,7 @@ interface LangDashboard {
 
 interface LangTooltips {
   downloadCsv: string;
+  filter: string;
 }
 
 interface LangDeviceAuthentication {
@@ -581,6 +582,10 @@ interface LangHistory {
   };
   noData: { text: string; subText: string; buttonText: string };
   search: { placeholder: string; notFound: { text: string; subText: string } };
+  filter: {
+    wallets: string;
+    accounts: string;
+  };
 }
 
 interface LangOnboarding {
