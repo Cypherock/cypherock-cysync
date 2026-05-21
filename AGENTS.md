@@ -100,9 +100,10 @@ Check these when working on specific areas:
 
 | Document | When to read |
 |----------|-------------|
-| [Architectural Patterns](.agent/docs/architectural_patterns.md) | Understanding design decisions, state management, data flow, IPC |
-| [Coin Support Guide](.agent/docs/coin_support_guide.md) | Adding a new blockchain/coin family |
-| [UI Package Guide](.agent/docs/ui_package_guide.md) | Adding or modifying UI components |
+| [Architectural Patterns](.agent/docs/architectural-patterns.md) | Understanding design decisions, state management, data flow, IPC |
+| [How Coin Support Works](.agent/docs/coin-support/how-coin-support-works.md) | Understanding native-coin architecture: `CoinSupport` contract, operations, `coin-support-utils` factories, UI integration |
+| [How Token Support Works](.agent/docs/coin-support/how-token-support-works.md) | Understanding how tokens (ERC-20, SPL, TRC-20, ICRC, Canton) layer on top of native coins, including `automation-scripts` token JSON pipeline |
+| [UI Package Guide](.agent/docs/ui-package-guide.md) | Adding or modifying UI components |
 | [docs/CONTRIBUTING.md](docs/CONTRIBUTING.md) | PR guidelines, branch naming, commit conventions |
 | [docs/CODING_GUIDELINES.md](docs/CODING_GUIDELINES.md) | Naming conventions, file organization |
 
