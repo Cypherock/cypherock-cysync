@@ -1,4 +1,5 @@
 import {
+  CheckBox,
   InlineDropdown,
   DownloadCSVButtonStyle,
   DropDownItemProps,
@@ -94,15 +95,56 @@ export const HistoryFilter: React.FC<HistoryFilterProps> = ({
     return accounts.filter(a => walletIdSet.has(a.walletId) && !a.isHidden);
   }, [accounts, selectedWalletIds]);
 
+  const subAccountsByParent = useMemo(() => {
+    const map = new Map<string, IAccount[]>();
+    for (const acc of accountsForSelectedWallets) {
+      if (acc.parentAccountId) {
+        const existing = map.get(acc.parentAccountId);
+        if (existing) existing.push(acc);
+        else map.set(acc.parentAccountId, [acc]);
+      }
+    }
+    return map;
+  }, [accountsForSelectedWallets]);
+
+  const handleToggleAccountGroup = useCallback(
+    (mainId: string) => {
+      const subs = subAccountsByParent.get(mainId) ?? [];
+      const groupIds = [mainId, ...subs.map(s => s.__id ?? '')].filter(Boolean);
+      const groupIdSet = new Set(groupIds);
+      const selectedSet = new Set(selectedAccountIds);
+      const allSelected = groupIds.every(id => selectedSet.has(id));
+      if (allSelected) {
+        setSelectedAccountIds(
+          selectedAccountIds.filter(id => !groupIdSet.has(id)),
+        );
+      } else {
+        const next = new Set(selectedAccountIds);
+        groupIds.forEach(id => next.add(id));
+        setSelectedAccountIds(Array.from(next));
+      }
+    },
+    [subAccountsByParent, selectedAccountIds, setSelectedAccountIds],
+  );
+
   const accountItems: DropDownItemProps[] = useMemo(() => {
     const list: DropDownItemProps[] = [];
     const mainAccounts = accountsForSelectedWallets.filter(
       a => a.type === AccountTypeMap.account,
     );
+    const selectedSet = new Set(selectedAccountIds);
 
     for (const account of mainAccounts) {
+      const mainId = account.__id ?? '';
+      const subs = subAccountsByParent.get(mainId) ?? [];
+      const hasSubs = subs.length > 0;
+      const allGroupSelected =
+        hasSubs &&
+        selectedSet.has(mainId) &&
+        subs.every(s => selectedSet.has(s.__id ?? ''));
+
       list.push({
-        id: account.__id ?? '',
+        id: mainId,
         text: account.name,
         tag: lodash.upperCase(account.derivationScheme),
         leftImage: (
@@ -111,12 +153,22 @@ export const HistoryFilter: React.FC<HistoryFilterProps> = ({
             assetId={account.assetId}
           />
         ),
+        rightIcon: hasSubs ? (
+          <div
+            role="presentation"
+            onClick={e => e.stopPropagation()}
+            onKeyDown={e => e.stopPropagation()}
+          >
+            <CheckBox
+              id={`history-filter-group-${mainId}`}
+              checked={allGroupSelected}
+              onChange={() => handleToggleAccountGroup(mainId)}
+            />
+          </div>
+        ) : undefined,
       });
 
-      const subAccounts = accountsForSelectedWallets.filter(
-        sub => sub.parentAccountId === account.__id,
-      );
-      for (const subAccount of subAccounts) {
+      for (const subAccount of subs) {
         list.push({
           id: subAccount.__id ?? '',
           text: subAccount.name,
@@ -132,7 +184,12 @@ export const HistoryFilter: React.FC<HistoryFilterProps> = ({
     }
 
     return list;
-  }, [accountsForSelectedWallets]);
+  }, [
+    accountsForSelectedWallets,
+    subAccountsByParent,
+    selectedAccountIds,
+    handleToggleAccountGroup,
+  ]);
 
   useEffect(() => {
     if (selectedAccountIds.length === 0) return;
