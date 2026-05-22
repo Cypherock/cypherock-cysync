@@ -1,4 +1,3 @@
-import { getAsset } from '@cypherock/coin-support-utils';
 import {
   InlineDropdown,
   DownloadCSVButtonStyle,
@@ -8,6 +7,7 @@ import {
   useTheme,
 } from '@cypherock/cysync-ui';
 import { AccountTypeMap, IAccount } from '@cypherock/db-interfaces';
+import lodash from 'lodash';
 import React, {
   useCallback,
   useEffect,
@@ -101,11 +101,10 @@ export const HistoryFilter: React.FC<HistoryFilterProps> = ({
     );
 
     for (const account of mainAccounts) {
-      const asset = getAsset(account.parentAssetId, account.assetId);
       list.push({
         id: account.__id ?? '',
         text: account.name,
-        shortForm: asset?.abbr ? `(${asset.abbr})` : '',
+        tag: lodash.upperCase(account.derivationScheme),
         leftImage: (
           <CoinIcon
             parentAssetId={account.parentAssetId}
@@ -118,11 +117,9 @@ export const HistoryFilter: React.FC<HistoryFilterProps> = ({
         sub => sub.parentAccountId === account.__id,
       );
       for (const subAccount of subAccounts) {
-        const subAsset = getAsset(subAccount.parentAssetId, subAccount.assetId);
         list.push({
           id: subAccount.__id ?? '',
           text: subAccount.name,
-          shortForm: subAsset?.abbr ? `(${subAsset.abbr})` : '',
           leftImage: (
             <CoinIcon
               parentAssetId={subAccount.parentAssetId}
