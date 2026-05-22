@@ -16,6 +16,7 @@ export interface InlineDropdownProps {
   noDataText?: string;
   $maxBodyHeight?: number;
   $itemLeftPadding?: string;
+  $nestedItemLeftPadding?: string;
 }
 
 const HeaderRow = styled.div`
@@ -58,6 +59,7 @@ export const InlineDropdown: FC<InlineDropdownProps> = ({
   noDataText,
   $maxBodyHeight,
   $itemLeftPadding,
+  $nestedItemLeftPadding,
 }) => {
   const theme = useTheme();
   const [expanded, setExpanded] = useState(defaultExpanded ?? true);
@@ -68,7 +70,18 @@ export const InlineDropdown: FC<InlineDropdownProps> = ({
   const filteredItems = useMemo(() => {
     if (!showSearch || !search.trim()) return items;
     const term = search.trim().toLowerCase();
-    return items.filter(item => item.text.toLowerCase().includes(term));
+    const matchedIds = new Set<string>();
+    const parentIdsToInclude = new Set<string>();
+    items.forEach(item => {
+      if (item.text.toLowerCase().includes(term)) {
+        matchedIds.add(item.id ?? '');
+        if (item.$parentId) parentIdsToInclude.add(item.$parentId);
+      }
+    });
+    return items.filter(
+      item =>
+        matchedIds.has(item.id ?? '') || parentIdsToInclude.has(item.id ?? ''),
+    );
   }, [items, search, showSearch]);
 
   const handleToggleItem = useCallback(
@@ -108,16 +121,23 @@ export const InlineDropdown: FC<InlineDropdownProps> = ({
             </SearchBarWrapper>
           )}
           <ItemsListWrapper $maxBodyHeight={$maxBodyHeight}>
-            {filteredItems.map(item => (
-              <DropDownItem
-                {...item}
-                key={item.id ?? item.text}
-                checkType="checkbox"
-                checked={selectedIdSet.has(item.id ?? '')}
-                onCheckedChange={handleToggleItem}
-                $leftPadding={$itemLeftPadding ?? item.$leftPadding}
-              />
-            ))}
+            {filteredItems.map(item => {
+              const baseLeftPadding = $itemLeftPadding ?? item.$leftPadding;
+              const leftPadding = item.$parentId
+                ? $nestedItemLeftPadding ?? baseLeftPadding
+                : baseLeftPadding;
+              return (
+                <DropDownItem
+                  {...item}
+                  $parentId={undefined}
+                  key={item.id ?? item.text}
+                  checkType="checkbox"
+                  checked={selectedIdSet.has(item.id ?? '')}
+                  onCheckedChange={handleToggleItem}
+                  $leftPadding={leftPadding}
+                />
+              );
+            })}
             {filteredItems.length === 0 && noDataText && (
               <Flex justify="center" align="center" py={2}>
                 <Typography color="muted" variant="fineprint">
@@ -139,4 +159,5 @@ InlineDropdown.defaultProps = {
   noDataText: undefined,
   $maxBodyHeight: undefined,
   $itemLeftPadding: undefined,
+  $nestedItemLeftPadding: undefined,
 };

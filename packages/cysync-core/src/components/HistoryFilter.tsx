@@ -7,7 +7,7 @@ import {
   Tooltip,
   useTheme,
 } from '@cypherock/cysync-ui';
-import { IAccount } from '@cypherock/db-interfaces';
+import { AccountTypeMap, IAccount } from '@cypherock/db-interfaces';
 import React, {
   useCallback,
   useEffect,
@@ -94,21 +94,48 @@ export const HistoryFilter: React.FC<HistoryFilterProps> = ({
     return accounts.filter(a => walletIdSet.has(a.walletId) && !a.isHidden);
   }, [accounts, selectedWalletIds]);
 
-  const accountItems: DropDownItemProps[] = useMemo(
-    () =>
-      accountsForSelectedWallets.map(a => {
-        const asset = getAsset(a.parentAssetId, a.assetId);
-        return {
-          id: a.__id ?? '',
-          text: a.name,
-          shortForm: asset?.abbr ? `(${asset.abbr})` : '',
+  const accountItems: DropDownItemProps[] = useMemo(() => {
+    const list: DropDownItemProps[] = [];
+    const mainAccounts = accountsForSelectedWallets.filter(
+      a => a.type === AccountTypeMap.account,
+    );
+
+    for (const account of mainAccounts) {
+      const asset = getAsset(account.parentAssetId, account.assetId);
+      list.push({
+        id: account.__id ?? '',
+        text: account.name,
+        shortForm: asset?.abbr ? `(${asset.abbr})` : '',
+        leftImage: (
+          <CoinIcon
+            parentAssetId={account.parentAssetId}
+            assetId={account.assetId}
+          />
+        ),
+      });
+
+      const subAccounts = accountsForSelectedWallets.filter(
+        sub => sub.parentAccountId === account.__id,
+      );
+      for (const subAccount of subAccounts) {
+        const subAsset = getAsset(subAccount.parentAssetId, subAccount.assetId);
+        list.push({
+          id: subAccount.__id ?? '',
+          text: subAccount.name,
+          shortForm: subAsset?.abbr ? `(${subAsset.abbr})` : '',
           leftImage: (
-            <CoinIcon parentAssetId={a.parentAssetId} assetId={a.assetId} />
+            <CoinIcon
+              parentAssetId={subAccount.parentAssetId}
+              assetId={subAccount.assetId}
+            />
           ),
-        };
-      }),
-    [accountsForSelectedWallets],
-  );
+          $parentId: account.__id,
+        });
+      }
+    }
+
+    return list;
+  }, [accountsForSelectedWallets]);
 
   useEffect(() => {
     if (selectedAccountIds.length === 0) return;
@@ -167,6 +194,7 @@ export const HistoryFilter: React.FC<HistoryFilterProps> = ({
               noDataText={historyStrings.search.notFound.text}
               $maxBodyHeight={320}
               $itemLeftPadding="48px"
+              $nestedItemLeftPadding="78px"
             />
           )}
         </PopoverContainer>
