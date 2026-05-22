@@ -4,29 +4,47 @@ Use this guide when the chain you're adding **fits an existing family** — e.g.
 
 > **Prerequisites.** Read [how-coin-support-works.md](how-coin-support-works.md) first. The work here is small because everything in `packages/coin-support-{family}/` and most of `packages/cysync-core/` already works for any chain in the family — you just register the metadata.
 
+The mechanical edits are done by [`scripts/addCoin.js`](../../../scripts/addCoin.js). What's left is optional UI polish and any unusual mechanics your chain might need.
+
 ---
 
 ## Decision checklist
 
 | Question | Why it matters |
 |---|---|
-| Which existing family? | Determines where the metadata entry goes |
+| Which existing family? | The script asks; must already be in `coinFamiliesMap` |
 | SDK app already supports this chain? | EVM SDK is `chainId`-parameterised; BTC SDK needs per-fork code |
-| BIP-44 coin type? | Goes into `coinIndex` |
+| BIP-44 coin type? | Goes into `coinIndex` (the script asks) |
 | CoinGecko ID? | Required for price sync |
 | EVM-specific: chain ID + network name + indexer URL | Goes into `chain` / `network`; backend must accept the new `network` |
-| Custom icon? | If yes, add to `@cypherock/cysync-ui` first |
+| Custom icon? | If yes, add to `@cypherock/cysync-ui` first; the script can wire it up |
 | Will it support tokens? | EVM auto-handles ERC-20 if the chain is in the token list — see [adding-token-support-to-coin.md](adding-token-support-to-coin.md) |
 
 ---
 
-## Step 1 — Coin metadata in `packages/coins`
+## Step 1 — Run the scaffold script
 
-Background on metadata shape: [how-coin-support-works.md §6](how-coin-support-works.md#6-coin-metadata-the-coins-package).
+```bash
+pnpm scaffold:coin
+# (or: node scripts/addCoin.js)
+```
 
-1. **Add the coin entry** to `packages/coins/src/{family}/coins.ts`. Use a neighbour in the same family as the template — the family-specific fields (e.g. `chain`, `network` for EVM; `apiCoinType` for BTC) are listed in §6 of the explainer.
-2. **Add the ID** to the family's `*IdMap` in `index.ts`. The exported coin list picks the entry up automatically.
-3. **Verify**: `pnpm --filter @cypherock/coins build`.
+The script prompts for the target family and the coin's metadata (id, abbr, name, coinGeckoId, coinIndex, color, plus family-specific fields like `chain` / `network` for EVM or `apiCoinType` for BTC). It then:
+
+- Appends the new coin object to `packages/coins/src/{family}/coins.ts`.
+- Adds the id to the family's `*IdMap` in `packages/coins/src/{family}/index.ts`.
+- Optionally wires up an icon entry in `packages/cysync-core/src/components/CoinIcon.tsx` — only if you say yes *and* the icon component already exists in `@cypherock/cysync-ui`.
+
+What the script deliberately does *not* do:
+
+- Create the icon SVG (must already exist in `packages/ui`).
+- Configure the Cypherock indexer proxy / backend (coordinate with backend team).
+- Patch the family's operation files (only needed for unusual mechanics — see Step 2).
+
+```bash
+pnpm install
+pnpm --filter @cypherock/coins build
+```
 
 ---
 
@@ -70,11 +88,11 @@ Solana / Tron / XRP / Stellar / etc. are single-coin families today; adding to t
 
 The bulk of the UI is family-keyed (see [how-coin-support-works.md §8](how-coin-support-works.md#8-ui-integration-in-cysync-core)), so most maps and components **don't need changes**. For a same-family addition you should normally only need:
 
-| File | Change |
-|---|---|
-| `src/components/CoinIcon.tsx:61-81` | Add coin to `coinToIconMap` (mandatory) |
-| `src/dialogs/Send/hooks/useLabelSuffix.ts` | Optional label suffix (e.g. "L1", "Testnet") |
-| `dialogs/AddAccount/Dialogs/SelectionDialog.tsx:24-46` | Optional firmware / vendor filter |
+| File | Change | Done by script? |
+|---|---|---|
+| `src/components/CoinIcon.tsx` | Add coin to `coinToIconMap` (mandatory) | Yes, if you opted in and the icon component exists |
+| `src/dialogs/Send/hooks/useLabelSuffix.ts` | Optional label suffix (e.g. "L1", "Testnet") | No — edit by hand if needed |
+| `dialogs/AddAccount/Dialogs/SelectionDialog.tsx:24-46` | Optional firmware / vendor filter | No — edit by hand if needed |
 
 If your chain has unique explorer/summary/fee semantics you may also need conditional branches in `HistoryDialog.tsx` or `SummaryDialog.tsx` — but these are usually family-level concerns, not coin-level.
 
@@ -104,9 +122,10 @@ Desktop smoke test: Add Account shows the new coin; create / receive / send / si
 
 ## Final checklist
 
-**Metadata**
-- [ ] New entry in `packages/coins/src/{family}/coins.ts`
-- [ ] ID added to `*IdMap` in `index.ts`
+**Script run successfully**
+- [ ] `pnpm scaffold:coin` completed
+- [ ] `packages/coins/src/{family}/coins.ts` has the new entry
+- [ ] `*IdMap` in the family's `index.ts` has the new id
 
 **Coin support (usually unchanged)**
 - [ ] L1 fee / unusual gas / unusual address: branches added if needed
@@ -115,8 +134,7 @@ Desktop smoke test: Add Account shows the new coin; create / receive / send / si
 **Registry** — no changes expected
 
 **UI**
-- [ ] Icon added to `coinToIconMap`
-- [ ] Icon component exists in `@cypherock/cysync-ui`
+- [ ] Icon component exists in `@cypherock/cysync-ui` and is registered in `coinToIconMap` (script can do this)
 - [ ] Optional label suffix / history / summary / AddAccount filter
 
 **Build & test**
