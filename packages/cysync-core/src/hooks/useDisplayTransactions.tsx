@@ -143,14 +143,8 @@ const walletAndAccountFilter = (
   return data.filter(row => {
     if (walletIdSet.size > 0 && !walletIdSet.has(row.txn.walletId))
       return false;
-    if (accountIdSet.size > 0) {
-      const matchesAccount =
-        accountIdSet.has(row.txn.accountId) ||
-        (row.txn.parentAccountId
-          ? accountIdSet.has(row.txn.parentAccountId)
-          : false);
-      if (!matchesAccount) return false;
-    }
+    if (accountIdSet.size > 0 && !accountIdSet.has(row.txn.accountId))
+      return false;
     return true;
   });
 };
