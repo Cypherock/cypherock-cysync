@@ -1,5 +1,31 @@
 # @cypherock/cysync-core
 
+## 0.13.3
+
+### Patch Changes
+
+- [#863](https://github.com/Cypherock/cypherock-cysync/pull/863) [`819474df`](https://github.com/Cypherock/cypherock-cysync/commit/819474df82d22dcd8fbc9daedfdb156d90ac74ad) Thanks [@AryanCypherock](https://github.com/AryanCypherock)! - canton sync mobile app
+
+- Updated dependencies [[`819474df`](https://github.com/Cypherock/cypherock-cysync/commit/819474df82d22dcd8fbc9daedfdb156d90ac74ad)]:
+  - @cypherock/coin-support-canton@1.2.0
+  - @cypherock/coin-support-utils@0.2.0
+  - @cypherock/cysync-utils@0.1.0
+  - @cypherock/coin-support@0.2.14
+  - @cypherock/coin-support-btc@0.0.33
+  - @cypherock/coin-support-evm@0.1.10
+  - @cypherock/coin-support-icp@1.0.15
+  - @cypherock/coin-support-near@0.0.31
+  - @cypherock/coin-support-sia@2.0.6
+  - @cypherock/coin-support-solana@0.2.10
+  - @cypherock/coin-support-starknet@1.0.18
+  - @cypherock/coin-support-stellar@1.0.12
+  - @cypherock/coin-support-tron@0.1.10
+  - @cypherock/coin-support-xrp@1.1.19
+  - @cypherock/cysync-core-services@0.3.7
+  - @cypherock/cysync-core-workers@0.1.15
+  - @cypherock/app-support-buy-sell-2@0.0.5
+  - @cypherock/app-support-inheritance@1.0.12
+
 ## 0.13.3-pre.0
 
 ### Patch Changes
