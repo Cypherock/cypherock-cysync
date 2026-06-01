@@ -1,5 +1,13 @@
 # @cypherock/app-support-inheritance
 
+## 1.0.12-pre.0
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @cypherock/cysync-interfaces@0.1.1-pre.0
+  - @cypherock/cysync-utils@0.0.18-pre.0
+
 ## 1.0.11
 
 ### Patch Changes
