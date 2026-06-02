@@ -14,6 +14,7 @@ import {
 import accountReducer, { IAccountState } from './account';
 import accountSyncReducer, { IAccountSyncState } from './accountSync';
 import buySellOrderReducer, { IBuySellOrderState } from './buySell';
+import countryReducer, { ICountryState } from './country';
 import cantonReducer, { ICantonState } from './canton';
 import deviceReducer, { IDeviceState } from './device';
 import dialogReducer, { IDialogState } from './dialog';
@@ -49,6 +50,7 @@ export interface RootState {
   lastConnectedFirmware: ILastConnectedFirmwareState;
   canton: ICantonState;
   buySellOrder: IBuySellOrderState;
+  country: ICountryState;
 }
 
 export const store = configureStore({
@@ -70,6 +72,7 @@ export const store = configureStore({
     lastConnectedFirmware: lastConnectedFirmwareReducer,
     canton: cantonReducer,
     buySellOrder: buySellOrderReducer,
+    country: countryReducer,
   },
 });
 

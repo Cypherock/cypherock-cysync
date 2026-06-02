@@ -36,6 +36,7 @@ import {
   COIN_ID_TO_CHAIN,
 } from '../../constants/hysp';
 import * as hyspService from '../../services/hyspService';
+import { selectCountry, useAppSelector } from '../../store';
 
 // Types
 
@@ -108,6 +109,7 @@ export const HyspProvider: FC<{ children: ReactNode; onClose: () => void }> = ({
   onClose,
 }) => {
   const { connection } = useDevice();
+  const { countryCode } = useAppSelector(selectCountry);
 
   const [mode, setModeState] = useState<HyspMode>('deposit');
   const [step, setStep] = useState<HyspStep>('input');
@@ -165,8 +167,12 @@ export const HyspProvider: FC<{ children: ReactNode; onClose: () => void }> = ({
     if (!chain) return;
     setVaultInfoLoading(true);
     Promise.all([
-      hyspService.getVaultInfo(chain),
-      hyspService.getUserPosition(chain, selectedAccount.xpubOrAddress),
+      hyspService.getVaultInfo(chain, countryCode),
+      hyspService.getUserPosition(
+        chain,
+        selectedAccount.xpubOrAddress,
+        countryCode,
+      ),
     ])
       .then(([info, pos]) => {
         setVaultInfo(info);
@@ -174,7 +180,7 @@ export const HyspProvider: FC<{ children: ReactNode; onClose: () => void }> = ({
       })
       .catch(e => logger.error('HYSP vault info fetch failed', e as object))
       .finally(() => setVaultInfoLoading(false));
-  }, [selectedAccount?.assetId, selectedAccount?.xpubOrAddress]);
+  }, [selectedAccount?.assetId, selectedAccount?.xpubOrAddress, countryCode]);
 
   // Mode toggle
 
@@ -324,6 +330,7 @@ export const HyspProvider: FC<{ children: ReactNode; onClose: () => void }> = ({
         tokenAddress,
         vaultType: 'deposit',
         amount: numAmount,
+        countryCode,
       });
       const initTxn = await getInitTxn();
       if (!allowance.sufficient) {
@@ -335,6 +342,7 @@ export const HyspProvider: FC<{ children: ReactNode; onClose: () => void }> = ({
           walletAddress,
           tokenAddress,
           amount: numAmount,
+          countryCode,
         });
         setApproveTxn(prepared);
         setStep('approveFee');
@@ -347,6 +355,7 @@ export const HyspProvider: FC<{ children: ReactNode; onClose: () => void }> = ({
           walletAddress,
           tokenAddress,
           amount: numAmount,
+          countryCode,
         });
         setDepositTxn(prepared);
         setStep('depositFee');
@@ -379,6 +388,7 @@ export const HyspProvider: FC<{ children: ReactNode; onClose: () => void }> = ({
             walletAddress,
             tokenAddress,
             amount: numAmount,
+            countryCode,
           });
           setDepositTxn(prepared);
           setStep('depositFee');
@@ -428,6 +438,7 @@ export const HyspProvider: FC<{ children: ReactNode; onClose: () => void }> = ({
         tokenAddress: mevUsdAddress,
         vaultType: 'redeem',
         amount: numAmount,
+        countryCode,
       });
       const initTxn = await getInitTxn();
 
@@ -439,6 +450,7 @@ export const HyspProvider: FC<{ children: ReactNode; onClose: () => void }> = ({
           chain,
           walletAddress,
           amount: numAmount,
+          countryCode,
         });
         setRedeemApproveTxn(prepared);
         setStep('redeem-approve-fee');
@@ -453,6 +465,7 @@ export const HyspProvider: FC<{ children: ReactNode; onClose: () => void }> = ({
                 walletAddress,
                 tokenOut: tokenOutAddress,
                 amount: numAmount,
+                countryCode,
               })
             : await prepareRedeemQueue({
                 accountId: selectedAccount!.__id ?? '',
@@ -462,6 +475,7 @@ export const HyspProvider: FC<{ children: ReactNode; onClose: () => void }> = ({
                 walletAddress,
                 tokenOut: tokenOutAddress,
                 amount: numAmount,
+                countryCode,
               });
         setRedeemTxn(prepared);
         setStep('redeem-fee');
@@ -500,6 +514,7 @@ export const HyspProvider: FC<{ children: ReactNode; onClose: () => void }> = ({
                   walletAddress,
                   tokenOut: tokenOutAddress,
                   amount: numAmount,
+                  countryCode,
                 })
               : await prepareRedeemQueue({
                   accountId: selectedAccount!.__id ?? '',
@@ -509,6 +524,7 @@ export const HyspProvider: FC<{ children: ReactNode; onClose: () => void }> = ({
                   walletAddress,
                   tokenOut: tokenOutAddress,
                   amount: numAmount,
+                  countryCode,
                 });
           setRedeemTxn(prepared);
           setStep('redeem-fee');

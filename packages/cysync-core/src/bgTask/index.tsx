@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { AccountSyncTask } from './accountsSync';
+import { CountryTask } from './countryTask';
 import { DatabaseListener } from './dbListener';
 import { DeviceHandlingTask } from './deviceHandlingTask';
 import { NetworkPingTask } from './networkTask';
@@ -19,5 +20,6 @@ export const BackgroundTasks = () => (
     <NetworkPingTask />
     <NotificationSyncTask />
     <VersionSyncTask />
+    <CountryTask />
   </>
 );

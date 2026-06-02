@@ -38,17 +38,21 @@ export interface IHyspQueueRequest {
 
 export const getVaultInfo = async (
   chain: HyspChain,
+  countryCode?: string,
 ): Promise<IHyspVaultInfo> => {
-  const res = await axios.get(`${BASE}/vault-info`, { params: { chain } });
+  const res = await axios.get(`${BASE}/vault-info`, {
+    params: { chain, ...(countryCode ? { countryCode } : {}) },
+  });
   return res.data.data;
 };
 
 export const getUserPosition = async (
   chain: HyspChain,
   walletAddress: string,
+  countryCode?: string,
 ): Promise<IHyspPosition> => {
   const res = await axios.get(`${BASE}/position`, {
-    params: { chain, walletAddress },
+    params: { chain, walletAddress, ...(countryCode ? { countryCode } : {}) },
   });
   return res.data.data;
 };
@@ -57,9 +61,15 @@ export const getQueueStatus = async (
   chain: HyspChain,
   walletAddress: string,
   status?: 'Pending' | 'Processed' | 'Canceled',
+  countryCode?: string,
 ): Promise<IHyspQueueRequest[]> => {
   const res = await axios.get(`${BASE}/queue-status`, {
-    params: { chain, walletAddress, ...(status ? { status } : {}) },
+    params: {
+      chain,
+      walletAddress,
+      ...(status ? { status } : {}),
+      ...(countryCode ? { countryCode } : {}),
+    },
   });
   return res.data.data;
 };
@@ -70,6 +80,7 @@ export const checkAllowance = async (params: {
   tokenAddress: string;
   vaultType: 'deposit' | 'redeem';
   amount: number;
+  countryCode?: string;
 }): Promise<IHyspAllowance> => {
   const res = await makePostRequest(`${BASE}/check-allowance`, params);
   return res.data.data;

@@ -11,12 +11,14 @@ export * from './types';
 export const prepareApproveDeposit = async (
   params: IHyspEvmPrepareParams,
 ): Promise<IPreparedEvmTransaction> => {
-  const { txn, chain, walletAddress, tokenAddress, amount } = params;
+  const { txn, chain, walletAddress, tokenAddress, amount, countryCode } =
+    params;
   const serverTx = await callHyspBuildEndpoint('build/approve-deposit', {
     chain,
     walletAddress,
     tokenAddress,
     amount,
+    ...(countryCode ? { countryCode } : {}),
   });
   return buildPreparedTxn(serverTx, txn);
 };
@@ -24,12 +26,14 @@ export const prepareApproveDeposit = async (
 export const prepareDeposit = async (
   params: IHyspEvmPrepareParams,
 ): Promise<IPreparedEvmTransaction> => {
-  const { txn, chain, walletAddress, tokenAddress, amount } = params;
+  const { txn, chain, walletAddress, tokenAddress, amount, countryCode } =
+    params;
   const serverTx = await callHyspBuildEndpoint('build/deposit', {
     chain,
     walletAddress,
     tokenAddress,
     amount,
+    ...(countryCode ? { countryCode } : {}),
   });
   return buildPreparedTxn(serverTx, txn);
 };
@@ -37,11 +41,12 @@ export const prepareDeposit = async (
 export const prepareApproveRedeem = async (
   params: IHyspEvmApproveRedeemParams,
 ): Promise<IPreparedEvmTransaction> => {
-  const { txn, chain, walletAddress, amount } = params;
+  const { txn, chain, walletAddress, amount, countryCode } = params;
   const serverTx = await callHyspBuildEndpoint('build/approve-redeem', {
     chain,
     walletAddress,
     amount,
+    ...(countryCode ? { countryCode } : {}),
   });
   return buildPreparedTxn(serverTx, txn);
 };
@@ -49,12 +54,13 @@ export const prepareApproveRedeem = async (
 export const prepareRedeemInstant = async (
   params: IHyspEvmRedeemPrepareParams,
 ): Promise<IPreparedEvmTransaction> => {
-  const { txn, chain, walletAddress, tokenOut, amount } = params;
+  const { txn, chain, walletAddress, tokenOut, amount, countryCode } = params;
   const serverTx = await callHyspBuildEndpoint('build/redeem-instant', {
     chain,
     walletAddress,
     tokenAddress: tokenOut,
     amount,
+    ...(countryCode ? { countryCode } : {}),
   });
   return buildPreparedTxn(serverTx, txn);
 };
@@ -62,12 +68,13 @@ export const prepareRedeemInstant = async (
 export const prepareRedeemQueue = async (
   params: IHyspEvmRedeemPrepareParams,
 ): Promise<IPreparedEvmTransaction> => {
-  const { txn, chain, walletAddress, tokenOut, amount } = params;
+  const { txn, chain, walletAddress, tokenOut, amount, countryCode } = params;
   const serverTx = await callHyspBuildEndpoint('build/redeem-queue', {
     chain,
     walletAddress,
     tokenAddress: tokenOut,
     amount,
+    ...(countryCode ? { countryCode } : {}),
   });
   return buildPreparedTxn(serverTx, txn);
 };

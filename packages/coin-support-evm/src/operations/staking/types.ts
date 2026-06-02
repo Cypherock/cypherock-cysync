@@ -12,6 +12,7 @@ export interface IHyspEvmPrepareParams {
   walletAddress: string;
   tokenAddress: string;
   amount: number;
+  countryCode?: string;
 }
 
 // no tokenOut needed, always approves mevUSD
@@ -22,6 +23,7 @@ export interface IHyspEvmApproveRedeemParams {
   chain: HyspChain;
   walletAddress: string;
   amount: number;
+  countryCode?: string;
 }
 
 // Used for redeemInstant and redeemQueue (tokenOut required)
