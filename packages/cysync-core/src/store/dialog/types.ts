@@ -61,6 +61,11 @@ export interface IDialogState {
     data?: undefined;
   };
 
+  hyspDialog: {
+    isOpen: boolean;
+    data?: undefined;
+  };
+
   sendDialog: {
     isOpen: boolean;
     data?: SendDialogProps;

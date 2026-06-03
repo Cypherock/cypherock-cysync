@@ -31,6 +31,7 @@ import { IWallet } from '@cypherock/db-interfaces';
 import React, { FC } from 'react';
 
 import {
+  openHyspDialog,
   openReceiveDialog,
   openSendDialog,
   openWalletConnectDialog,
@@ -211,6 +212,19 @@ const SideBarComponent: FC = () => {
           }
         />
       )}
+      <SideBarItem
+        text="Staking"
+        Icon={DollarIcon}
+        state={wallets.length === 0 ? State.disabled : undefined}
+        onClick={() => dispatch(openHyspDialog())}
+        extraRight={
+          <Chip $gradient="silver">
+            <Typography $fontSize={10} $fontWeight="semibold" color="black">
+              {strings.new}
+            </Typography>
+          </Chip>
+        }
+      />
       {window.cysyncFeatureFlags.COVER && (
         <SideBarItem
           text={strings.cypherockCover}

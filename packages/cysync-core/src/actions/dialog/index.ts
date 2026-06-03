@@ -53,6 +53,9 @@ export const openAddTokenDialog = (props?: AddTokenDialogProps) =>
 export const openReceiveDialog = (data?: ReceiveDialogProps) =>
   openDialog({ name: 'receive', data });
 
+export const openHyspDialog = () =>
+  openDialog({ name: 'hyspDialog', data: undefined });
+
 export const openSendDialog = (data?: SendDialogProps) =>
   openDialog({ name: 'sendDialog', data });
 
