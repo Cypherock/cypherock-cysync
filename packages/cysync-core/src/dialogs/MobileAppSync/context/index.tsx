@@ -17,7 +17,7 @@ import {
   useAppDispatch,
   useAppSelector,
 } from '~/store';
-import { getDB } from '~/utils';
+import { getDB, keyValueStore } from '~/utils';
 
 import { ShowQrCode } from '../Dialogs';
 
@@ -78,7 +78,8 @@ export const MobileAppSyncDialogProvider: FC<
     const db = getDB();
     const wallets = await db.wallet.getAll();
     const accounts = await db.account.getAll();
-    const data = { wallets, accounts };
+    const cantonAuthTokens = await keyValueStore.cantonAuthTokens.get();
+    const data = { wallets, accounts, cantonAuthTokens };
     const compressedData = pako.deflate(JSON.stringify(data));
     const base64data = Buffer.from(compressedData).toString('base64');
     const chunks = chunkData(base64data);
