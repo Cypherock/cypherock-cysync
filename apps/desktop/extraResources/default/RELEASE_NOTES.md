@@ -1,3 +1,9 @@
+# v2.4.7
+
+### 🚀 Feature
+
+- **Canton Sync Mobile App Integration:** Effortlessly synchronize your Canton transactions with our mobile app.
+
 # v2.4.6
 
 ### 🚀 Feature
