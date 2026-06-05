@@ -91,14 +91,20 @@ const getTransactionParser = (
   const { account } = params;
 
   return (transaction: TronTransaction): ITransaction => {
-    const fromAddr = transaction.fromAddress;
-    const toAddr = transaction.toAddress;
     const amount = transaction.value;
     const fees = new BigNumber(transaction.fees).toFixed();
     const timestamp = (transaction.blockTime ?? 0) * 1000;
     const hash = transaction.txid
       ? transaction.txid.replace('0x', '')
       : transaction.txid;
+
+    let isMyAddressInInputs = false;
+    for (const input of transaction.vin) {
+      isMyAddressInInputs =
+        input.addresses?.some(
+          address => address.toLowerCase() === myAddress.toLowerCase(),
+        ) === true;
+    }
 
     const txn: ITransaction = {
       hash,
@@ -109,31 +115,32 @@ const getTransactionParser = (
       familyId: account.familyId,
       amount,
       fees,
-      confirmations: 1,
+      confirmations: transaction.confirmations,
       status:
-        transaction.tronTXReceipt.status === 1
+        transaction.ethereumSpecific.status === 1
           ? TransactionStatusMap.success
           : TransactionStatusMap.failed,
-      type:
-        myAddress.toLowerCase() === fromAddr.toLowerCase()
-          ? TransactionTypeMap.send
-          : TransactionTypeMap.receive,
+      type: isMyAddressInInputs
+        ? TransactionTypeMap.send
+        : TransactionTypeMap.receive,
       timestamp,
       blockHeight: transaction.blockHeight,
-      inputs: [
-        {
-          address: fromAddr,
-          amount,
-          isMine: myAddress.toLowerCase() === fromAddr.toLowerCase(),
-        },
-      ],
-      outputs: [
-        {
-          address: toAddr,
-          amount,
-          isMine: myAddress.toLowerCase() === toAddr.toLowerCase(),
-        },
-      ],
+      inputs: transaction.vin
+        .filter(input => input.isAddress && input.addresses?.length)
+        .map(input => ({
+          address: input.addresses?.[0] ?? '',
+          amount: input.value ?? amount,
+          isMine:
+            myAddress.toLowerCase() === input.addresses?.[0].toLowerCase(),
+        })),
+      outputs: transaction.vout
+        .filter(output => output.isAddress && output.addresses?.length)
+        .map(output => ({
+          address: output.addresses?.[0] ?? '',
+          amount: output.value ?? amount,
+          isMine:
+            myAddress.toLowerCase() === output.addresses?.[0].toLowerCase(),
+        })),
       extraData: {},
     };
 
@@ -197,15 +204,15 @@ const getTokenTransactionParser = (
     const newTokenAccounts: IAccount[] = [];
 
     for (const tokenTransfer of transaction.tokenTransfers) {
-      const tokenObj = getTokenObject(account, tokenTransfer.token);
+      const tokenObj = getTokenObject(account, tokenTransfer.contract);
 
       if (tokenObj === undefined) {
         logger.warn('Token not available in cySync', {
           decimals: tokenTransfer.decimals,
           name: tokenTransfer.name,
           symbol: tokenTransfer.symbol,
-          token: tokenTransfer.token,
-          type: tokenTransfer.type,
+          token: tokenTransfer.contract,
+          standard: tokenTransfer.standard,
         });
         continue;
       }
@@ -240,9 +247,9 @@ const getTokenTransactionParser = (
         familyId: newTokenAccount.familyId,
         amount,
         fees,
-        confirmations: 1,
+        confirmations: transaction.confirmations,
         status:
-          transaction.tronTXReceipt.status === 1
+          transaction.ethereumSpecific.status === 1
             ? TransactionStatusMap.success
             : TransactionStatusMap.failed,
         type:
