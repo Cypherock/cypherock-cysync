@@ -1,18 +1,5 @@
 # @cypherock/coin-support-stellar
 
-## 1.0.12-pre.0
-
-### Patch Changes
-
-- [#875](https://github.com/Cypherock/cypherock-cysync/pull/875) [`67ddab83`](https://github.com/Cypherock/cypherock-cysync/commit/67ddab83df788bca7c0a482626eb36d4fac7cbbd) Thanks [@Keyur279](https://github.com/Keyur279)! - check native XLM balance instead of balances[0] to correctly detect activated accounts with trustlines, fixing transaction broadcast related errors/bugs
-
-- Updated dependencies [[`f4fa6c43`](https://github.com/Cypherock/cypherock-cysync/commit/f4fa6c43570802d537b975cf262d21e63024c8e1), [`27d1c3f5`](https://github.com/Cypherock/cypherock-cysync/commit/27d1c3f5d7d69a98faf7595aaf60a4bba9411297)]:
-  - @cypherock/coin-support-utils@0.1.10-pre.0
-  - @cypherock/db-interfaces@0.2.1-pre.0
-  - @cypherock/coin-support-interfaces@0.1.4-pre.0
-  - @cypherock/cysync-interfaces@0.1.1-pre.0
-  - @cypherock/cysync-utils@0.0.18-pre.0
-
 ## 1.0.11
 
 ### Patch Changes

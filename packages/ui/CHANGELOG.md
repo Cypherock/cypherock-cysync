@@ -1,14 +1,5 @@
 # @cypherock/cysync-ui
 
-## 0.2.3-pre.0
-
-### Patch Changes
-
-- [#880](https://github.com/Cypherock/cypherock-cysync/pull/880) [`99968077`](https://github.com/Cypherock/cypherock-cysync/commit/99968077b5acebf3058cfffb72e5665459d839c3) Thanks [@muzaffarbhat07](https://github.com/muzaffarbhat07)! - Added wallets and accounts based filtering on transaction history
-
-- Updated dependencies [[`27d1c3f5`](https://github.com/Cypherock/cypherock-cysync/commit/27d1c3f5d7d69a98faf7595aaf60a4bba9411297)]:
-  - @cypherock/db-interfaces@0.2.1-pre.0
-
 ## 0.2.2
 
 ### Patch Changes
