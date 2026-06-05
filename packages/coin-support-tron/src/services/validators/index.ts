@@ -1,40 +1,54 @@
 import { z } from 'zod';
 
-const TronTXReceiptSchema = z.object({
+const EthereumSpecificSchema = z.object({
   status: z.number(),
-  fees: z.number(),
+  nonce: z.number(),
 });
 
 const TokenTransferSchema = z.object({
-  type: z.string(),
+  standard: z.string(),
   from: z.string(),
   to: z.string(),
-  token: z.string(),
-  name: z.string(),
+  contract: z.string(),
+  name: z.string().optional(),
   symbol: z.string().optional(),
   decimals: z.number().optional(),
   value: z.string(),
+  multiTokenValues: z
+    .object({
+      id: z.string().optional(),
+      value: z.string().optional(),
+    })
+    .optional(),
+});
+
+const TransactionInputOutputSchema = z.object({
+  n: z.number(),
+  addresses: z.array(z.string()).optional(),
+  isAddress: z.boolean(),
+  value: z.string().optional(),
 });
 
 const TransactionSchema = z.object({
   txid: z.string(),
-  fromAddress: z.string(),
-  toAddress: z.string(),
-  value: z.string(),
+  vin: z.array(TransactionInputOutputSchema),
+  vout: z.array(TransactionInputOutputSchema),
   blockHeight: z.number(),
   blockTime: z.number(),
+  confirmations: z.number(),
+  value: z.string(),
   fees: z.string(),
-  tronTXReceipt: TronTXReceiptSchema,
+  ethereumSpecific: EthereumSpecificSchema,
   tokenTransfers: z.array(TokenTransferSchema).optional(),
 });
 export type TronTransaction = z.infer<typeof TransactionSchema>;
 
 const TokenSchema = z.object({
-  type: z.string(),
+  standard: z.string(),
   name: z.string(),
-  id: z.string(),
+  contract: z.string(),
   transfers: z.number(),
-  balance: z.string(),
+  balance: z.string().optional(),
   symbol: z.string().optional(),
   decimals: z.number().optional(),
 });
