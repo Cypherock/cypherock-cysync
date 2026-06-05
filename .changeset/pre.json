@@ -37,5 +37,15 @@
     "@cypherock/tsconfig": "0.0.1",
     "@cypherock/cysync-utils": "0.1.0"
   },
-  "changesets": []
+  "changesets": [
+    "chilled-turtles-work",
+    "chilly-days-ring",
+    "happy-clouds-taste",
+    "hip-crews-love",
+    "kind-horses-remember",
+    "long-radios-wonder",
+    "odd-actors-tease",
+    "rude-plums-watch",
+    "stupid-ravens-speak"
+  ]
 }

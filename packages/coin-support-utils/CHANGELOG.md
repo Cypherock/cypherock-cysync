@@ -1,5 +1,17 @@
 # @cypherock/coin-support-utils
 
+## 0.2.1-pre.0
+
+### Patch Changes
+
+- [#879](https://github.com/Cypherock/cypherock-cysync/pull/879) [`f4fa6c43`](https://github.com/Cypherock/cypherock-cysync/commit/f4fa6c43570802d537b975cf262d21e63024c8e1) Thanks [@muzaffarbhat07](https://github.com/muzaffarbhat07)! - Add/Edit prrsonal note in txn history
+
+- Updated dependencies [[`27d1c3f5`](https://github.com/Cypherock/cypherock-cysync/commit/27d1c3f5d7d69a98faf7595aaf60a4bba9411297)]:
+  - @cypherock/db-interfaces@0.2.1-pre.0
+  - @cypherock/coin-support-interfaces@0.1.4-pre.0
+  - @cypherock/cysync-interfaces@0.1.1-pre.0
+  - @cypherock/cysync-utils@0.1.1-pre.0
+
 ## 0.2.0
 
 ### Minor Changes
