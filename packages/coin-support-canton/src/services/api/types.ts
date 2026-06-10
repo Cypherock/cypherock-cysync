@@ -83,15 +83,3 @@ export interface ICantonBroadcastTxnParams {
   publicKey: string;
   preparedTransaction: any;
 }
-
-export interface ICantonWaitForTxnCompletionParams {
-  partyId: string;
-  commandId: string;
-  ledgerEndOffset: number;
-  timeoutMs: number;
-}
-
-export interface ICantonWaitForTxnCompletionResult {
-  updateId?: string;
-  offset?: number;
-}
