@@ -1,5 +1,18 @@
 # @cypherock/coin-support-tron
 
+## 0.1.11
+
+### Patch Changes
+
+- [#882](https://github.com/Cypherock/cypherock-cysync/pull/882) [`8a401535`](https://github.com/Cypherock/cypherock-cysync/commit/8a401535e1153357b584bc1ab77ebb2d36a591d7) Thanks [@muzaffarbhat07](https://github.com/muzaffarbhat07)! - Fixes tron txn history sync parser
+
+- Updated dependencies [[`f4fa6c43`](https://github.com/Cypherock/cypherock-cysync/commit/f4fa6c43570802d537b975cf262d21e63024c8e1), [`27d1c3f5`](https://github.com/Cypherock/cypherock-cysync/commit/27d1c3f5d7d69a98faf7595aaf60a4bba9411297)]:
+  - @cypherock/coin-support-utils@0.2.1
+  - @cypherock/db-interfaces@0.2.1
+  - @cypherock/coin-support-interfaces@0.1.4
+  - @cypherock/cysync-interfaces@0.1.1
+  - @cypherock/cysync-utils@0.1.1
+
 ## 0.1.11-pre.0
 
 ### Patch Changes

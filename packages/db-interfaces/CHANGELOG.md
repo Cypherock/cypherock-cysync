@@ -1,5 +1,11 @@
 # @cypherock/db-interfaces
 
+## 0.2.1
+
+### Patch Changes
+
+- [#875](https://github.com/Cypherock/cypherock-cysync/pull/875) [`27d1c3f5`](https://github.com/Cypherock/cypherock-cysync/commit/27d1c3f5d7d69a98faf7595aaf60a4bba9411297) Thanks [@Keyur279](https://github.com/Keyur279)! - Add simpleSwap swapping service provider
+
 ## 0.2.1-pre.0
 
 ### Patch Changes

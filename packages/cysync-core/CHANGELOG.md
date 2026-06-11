@@ -1,5 +1,48 @@
 # @cypherock/cysync-core
 
+## 0.13.4
+
+### Patch Changes
+
+- [#875](https://github.com/Cypherock/cypherock-cysync/pull/875) [`d4ef1fb4`](https://github.com/Cypherock/cypherock-cysync/commit/d4ef1fb4ea904ec6d69dd39632d166ba43b1e3f7) Thanks [@Keyur279](https://github.com/Keyur279)! - show syncing and failed status icons for token accounts in wallet page
+
+- [#878](https://github.com/Cypherock/cypherock-cysync/pull/878) [`2eeecf9d`](https://github.com/Cypherock/cypherock-cysync/commit/2eeecf9d9cbabfecc0aee96189610b043ff424f9) Thanks [@muzaffarbhat07](https://github.com/muzaffarbhat07)! - Increased character limit of account name from 24 to 40
+
+- [#873](https://github.com/Cypherock/cypherock-cysync/pull/873) [`31e4ffec`](https://github.com/Cypherock/cypherock-cysync/commit/31e4ffeca60f8ba216697906dea4e914700b4265) Thanks [@muzaffarbhat07](https://github.com/muzaffarbhat07)! - Fix send max issue
+
+- [#881](https://github.com/Cypherock/cypherock-cysync/pull/881) [`8df9a35a`](https://github.com/Cypherock/cypherock-cysync/commit/8df9a35ad1c73f056addef99514845ae6591daf1) Thanks [@muzaffarbhat07](https://github.com/muzaffarbhat07)! - Fixed canton swaps by using swap payment id as memo in canton txn
+
+- [#879](https://github.com/Cypherock/cypherock-cysync/pull/879) [`f4fa6c43`](https://github.com/Cypherock/cypherock-cysync/commit/f4fa6c43570802d537b975cf262d21e63024c8e1) Thanks [@muzaffarbhat07](https://github.com/muzaffarbhat07)! - Add/Edit prrsonal note in txn history
+
+- [#875](https://github.com/Cypherock/cypherock-cysync/pull/875) [`27d1c3f5`](https://github.com/Cypherock/cypherock-cysync/commit/27d1c3f5d7d69a98faf7595aaf60a4bba9411297) Thanks [@Keyur279](https://github.com/Keyur279)! - Add simpleSwap swapping service provider
+
+- [#880](https://github.com/Cypherock/cypherock-cysync/pull/880) [`99968077`](https://github.com/Cypherock/cypherock-cysync/commit/99968077b5acebf3058cfffb72e5665459d839c3) Thanks [@muzaffarbhat07](https://github.com/muzaffarbhat07)! - Added wallets and accounts based filtering on transaction history
+
+- Updated dependencies [[`8a401535`](https://github.com/Cypherock/cypherock-cysync/commit/8a401535e1153357b584bc1ab77ebb2d36a591d7), [`f4fa6c43`](https://github.com/Cypherock/cypherock-cysync/commit/f4fa6c43570802d537b975cf262d21e63024c8e1), [`67ddab83`](https://github.com/Cypherock/cypherock-cysync/commit/67ddab83df788bca7c0a482626eb36d4fac7cbbd), [`27d1c3f5`](https://github.com/Cypherock/cypherock-cysync/commit/27d1c3f5d7d69a98faf7595aaf60a4bba9411297), [`99968077`](https://github.com/Cypherock/cypherock-cysync/commit/99968077b5acebf3058cfffb72e5665459d839c3)]:
+  - @cypherock/coin-support-tron@0.1.11
+  - @cypherock/cysync-core-constants@0.7.3
+  - @cypherock/coin-support-utils@0.2.1
+  - @cypherock/coin-support-stellar@1.0.13
+  - @cypherock/db-interfaces@0.2.1
+  - @cypherock/cysync-ui@0.2.3
+  - @cypherock/coin-support@0.2.15
+  - @cypherock/coin-support-btc@0.0.34
+  - @cypherock/coin-support-canton@1.2.1
+  - @cypherock/coin-support-evm@0.1.11
+  - @cypherock/coin-support-icp@1.0.16
+  - @cypherock/coin-support-near@0.0.32
+  - @cypherock/coin-support-sia@2.0.7
+  - @cypherock/coin-support-solana@0.2.11
+  - @cypherock/coin-support-starknet@1.0.19
+  - @cypherock/coin-support-xrp@1.1.20
+  - @cypherock/cysync-core-services@0.3.8
+  - @cypherock/cysync-core-workers@0.1.16
+  - @cypherock/app-support-buy-sell-2@0.0.6
+  - @cypherock/coin-support-interfaces@0.1.4
+  - @cypherock/cysync-interfaces@0.1.1
+  - @cypherock/app-support-inheritance@1.0.13
+  - @cypherock/cysync-utils@0.1.1
+
 ## 0.13.4-pre.0
 
 ### Patch Changes

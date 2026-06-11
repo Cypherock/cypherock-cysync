@@ -1,5 +1,11 @@
 # @cypherock/cysync-core-constants
 
+## 0.7.3
+
+### Patch Changes
+
+- [#879](https://github.com/Cypherock/cypherock-cysync/pull/879) [`f4fa6c43`](https://github.com/Cypherock/cypherock-cysync/commit/f4fa6c43570802d537b975cf262d21e63024c8e1) Thanks [@muzaffarbhat07](https://github.com/muzaffarbhat07)! - Add/Edit prrsonal note in txn history
+
 ## 0.7.3-pre.0
 
 ### Patch Changes
