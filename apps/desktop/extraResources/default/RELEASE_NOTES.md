@@ -1,3 +1,22 @@
+# v2.4.8
+
+### 🚀 Features
+
+- **SimpleSwap Integration:** SimpleSwap is now available as a swap provider alongside existing options.
+- **History Filtering:** Filter transaction history by wallets and accounts for quicker navigation.
+- **Transaction Notes:** Add or edit a personal note directly from the transaction history dialog.
+- **Bigger Account Names:** Account name character limit increased from 24 to 40 characters.
+
+### 🐛 Bugfixes
+
+- Fixed send max issue in Sia.
+- Improved UI feedback for token sync failures.
+- Fixed Stellar transaction error: Operations: op_already_exists.
+- Fixed Canton swap related issues.
+- Swap history is now sorted by time.
+- Fixed Tron sync issue.
+- Fixed additional Canton bugs and optimized Canton APIs following network and SDK upgrade.
+
 # v2.4.7
 
 ### 🚀 Feature

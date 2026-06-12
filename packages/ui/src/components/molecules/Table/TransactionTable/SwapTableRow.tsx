@@ -92,7 +92,7 @@ export const SwapTableRow: React.FC<SwapTableRowProps> = props => {
           <HistoryNameBox
             title={providerName}
             $icon={row.icon}
-            width={{ def: '25%' }}
+            width={{ def: '32%', lg: '24%' }}
             p={{ def: 2 }}
             fill={getSwapFillFromStatus(row.status, theme)}
             variant="success"
@@ -101,12 +101,12 @@ export const SwapTableRow: React.FC<SwapTableRowProps> = props => {
           <HistoryAssetBox
             $assetName={sourceAssetName}
             $assetIcon={sourceAssetIcon}
-            width={{ def: '20%' }}
+            width={{ def: '32%', lg: '24%' }}
           />
           <HistoryAssetBox
             $assetName={destinationAssetName}
             $assetIcon={destinationAssetIcon}
-            width={{ def: '20%' }}
+            width={{ def: '32%', lg: '24%' }}
           />
           <TableNameBox
             text={receivedDisplayAmount}

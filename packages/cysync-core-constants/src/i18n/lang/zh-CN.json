@@ -63,7 +63,8 @@
     "proceed": "继续"
   },
   "tooltips": {
-    "downloadCsv": "导出为CSV"
+    "downloadCsv": "导出为CSV",
+    "filter": "过滤"
   },
   "deviceAuthentication": {
     "success": {
@@ -574,7 +575,10 @@
       "choice": "选择",
       "startDate": "开始日期",
       "expirationDate": "过期日期",
-      "operation": "操作"
+      "operation": "操作",
+      "buttons": {
+        "addRemarks": "添加备注"
+      }
     },
     "noData": {
       "text": "尚无交易",
@@ -587,6 +591,10 @@
         "text": "未找到结果",
         "subText": "请尝试搜索其他关键词"
       }
+    },
+    "filter": {
+      "wallets": "钱包",
+      "accounts": "账户"
     }
   },
   "onboarding": {

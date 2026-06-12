@@ -63,7 +63,8 @@
     "proceed": "Proceed"
   },
   "tooltips": {
-    "downloadCsv": "Export as CSV"
+    "downloadCsv": "Export as CSV",
+    "filter": "Filter"
   },
   "deviceAuthentication": {
     "success": {
@@ -574,7 +575,10 @@
       "choice": "Choice",
       "startDate": "Start Date",
       "expirationDate": "Expiration Date",
-      "operation": "Operation"
+      "operation": "Operation",
+      "buttons": {
+        "addRemarks": "Add note"
+      }
     },
     "noData": {
       "text": "No transactions yet",
@@ -587,6 +591,10 @@
         "text": "No results found for",
         "subText": "Please try searching another keywords"
       }
+    },
+    "filter": {
+      "wallets": "Wallets",
+      "accounts": "Accounts"
     }
   },
   "onboarding": {

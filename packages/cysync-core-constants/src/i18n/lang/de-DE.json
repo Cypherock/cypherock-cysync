@@ -63,7 +63,8 @@
     "proceed": "Fortfahren"
   },
   "tooltips": {
-    "downloadCsv": "Als CSV exportieren"
+    "downloadCsv": "Als CSV exportieren",
+    "filter": "Filter"
   },
   "deviceAuthentication": {
     "success": {
@@ -574,7 +575,10 @@
       "choice": "Auswahl",
       "startDate": "Startdatum",
       "expirationDate": "Ablaufdatum",
-      "operation": "Betrieb"
+      "operation": "Betrieb",
+      "buttons": {
+        "addRemarks": "Notiz hinzufügen"
+      }
     },
     "noData": {
       "text": "Noch keine Transaktionen",
@@ -587,6 +591,10 @@
         "text": "Keine Ergebnisse gefunden für",
         "subText": "Bitte versuchen Sie es mit anderen Stichwörtern"
       }
+    },
+    "filter": {
+      "wallets": "Wallets",
+      "accounts": "Konten"
     }
   },
   "onboarding": {

@@ -21,3 +21,4 @@ export * from './LangDropdown';
 export * from './DeleteAccount';
 export * from './EnableApprovalPrompt';
 export * from './EnableMergeDelegationPrompt';
+export * from './HistoryFilter';

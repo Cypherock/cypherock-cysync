@@ -54,6 +54,7 @@ export interface AccountTokenType {
   displayAmount: string;
   amountTooltip?: string;
   displayValue: string;
+  statusImage?: React.ReactNode;
 }
 
 export interface AccountRowData {
@@ -129,6 +130,7 @@ const mapTokenAccounts = (
   priceInfos: IPriceInfo[],
   isDiscreetMode: boolean,
   currency: string,
+  accountSyncMap: Record<string, { syncState?: string } | undefined>,
 ): AccountTokenType => {
   const { amount, unit } = getParsedAmount({
     coinId: a.parentAssetId,
@@ -175,6 +177,9 @@ const mapTokenAccounts = (
     name = asset.name;
   }
 
+  const tokenSyncState =
+    accountSyncMap[a.__id ?? '']?.syncState ?? AccountSyncStateMap.synced;
+
   return {
     id: a.__id ?? '',
     leftImage: (
@@ -190,6 +195,10 @@ const mapTokenAccounts = (
     displayValue: isDiscreetMode ? '****' : displayValue,
     amount: parseFloat(amount),
     value: parseFloat(value),
+    statusImage:
+      tokenSyncState === AccountSyncStateMap.synced
+        ? undefined
+        : accountSyncIconMap[tokenSyncState],
   };
 };
 
@@ -324,6 +333,7 @@ export const useWalletPage = () => {
             priceInfos,
             isDiscreetMode,
             currentCurrency,
+            accountSyncMap,
           ),
         );
 
@@ -341,7 +351,7 @@ export const useWalletPage = () => {
       return {
         id: a.__id ?? '',
         leftImage: <CoinIcon size="32px" parentAssetId={a.parentAssetId} />,
-        text: a.name,
+        text: a.name.length > 30 ? `${a.name.slice(0, 30)}...` : a.name,
         subText: coinList[a.parentAssetId].name,
         tag: lodash.upperCase(a.derivationScheme),
         statusImage:

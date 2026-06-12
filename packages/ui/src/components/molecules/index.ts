@@ -12,6 +12,7 @@ export * from './CopyContainer';
 export * from './Dialog';
 export * from './DropDownItem';
 export * from './Dropdown';
+export * from './InlineDropdown';
 export * from './Filter';
 export * from './FloatContainer';
 export * from './FloatingMenu';

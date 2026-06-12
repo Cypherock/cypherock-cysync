@@ -63,7 +63,8 @@
     "proceed": "متابعة"
   },
   "tooltips": {
-    "downloadCsv": "تصدير بصيغة CSV"
+    "downloadCsv": "تصدير بصيغة CSV",
+    "filter": "تصفية"
   },
   "deviceAuthentication": {
     "success": {
@@ -574,7 +575,10 @@
       "choice": "الخيار",
       "startDate": "تاريخ البدء",
       "expirationDate": "تاريخ الانتهاء",
-      "operation": "عملية"
+      "operation": "عملية",
+      "buttons": {
+        "addRemarks": "إضافة ملاحظة"
+      }
     },
     "noData": {
       "text": "لا توجد معاملات حتى الآن",
@@ -587,6 +591,10 @@
         "text": "لم يتم العثور على نتائج لـ",
         "subText": "الرجاء محاولة البحث عن كلمات رئيسية أخرى"
       }
+    },
+    "filter": {
+      "wallets": "المحافظ",
+      "accounts": "الحسابات"
     }
   },
   "onboarding": {

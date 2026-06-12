@@ -5,6 +5,7 @@ import { IPreparedBtcTransaction } from '@cypherock/coin-support-btc';
 import {
   ICantonTransactionExpiryInput,
   IPreparedCantonTransaction,
+  IPreparedCantonTransactionOutput,
 } from '@cypherock/coin-support-canton';
 import { IPreparedEvmTransaction } from '@cypherock/coin-support-evm';
 import { IPreparedIcpTransaction } from '@cypherock/coin-support-icp';
@@ -126,7 +127,9 @@ export interface SendDialogContextInterface {
   transactionRef: React.MutableRefObject<IPreparedTransaction | undefined>;
   setTransaction: (txn: IPreparedTransaction) => void;
   initialize: () => Promise<void>;
-  prepare: (txn: IPreparedTransaction) => Promise<void>;
+  prepare: (
+    txn: IPreparedTransaction,
+  ) => Promise<IPreparedTransaction | undefined>;
   isDeviceRequired: boolean;
   deviceEvents: Record<number, boolean | undefined>;
   startFlow: () => Promise<void>;
@@ -534,15 +537,15 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
   const prepare = async (txn: IPreparedTransaction) => {
     logger.info('Preparing send transaction');
 
+    let preparedTransaction: IPreparedTransaction | undefined;
     try {
       setPreparingTxn(true);
-      const preparedTransaction =
-        await getCurrentCoinSupport().prepareTransaction({
-          accountId: selectedAccount?.__id ?? '',
-          db: getDB(),
-          txn,
-          keyDB: getKeyDB(),
-        });
+      preparedTransaction = await getCurrentCoinSupport().prepareTransaction({
+        accountId: selectedAccount?.__id ?? '',
+        db: getDB(),
+        txn,
+        keyDB: getKeyDB(),
+      });
 
       setTransaction(structuredClone(preparedTransaction));
     } catch (e: any) {
@@ -550,6 +553,8 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
     } finally {
       setPreparingTxn(false);
     }
+
+    return preparedTransaction;
   };
 
   const getFlowObserver = (
@@ -685,9 +690,12 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
   const prepareSendMax = async (state: boolean) => {
     const txn = transactionRef.current;
     if (!selectedAccount || !txn) return '';
+
     txn.userInputs.isSendAll = state;
-    await prepare(txn);
-    const outputAmount = txn.userInputs.outputs[0].amount;
+    const preparedTransaction = await prepare(txn);
+
+    const outputAmount =
+      preparedTransaction?.userInputs.outputs[0].amount ?? '0';
     const convertedAmount = convertToUnit({
       amount: outputAmount,
       coinId: selectedAccount.parentAssetId,
@@ -929,11 +937,11 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
     data: string,
   ) => {
     const { userInputs } = initTransaction;
-    if (familyId === 'xrp') {
+    if (familyId === coinFamiliesMap.xrp) {
       (
         userInputs.outputs[0] as unknown as IPreparedXrpTransactionOutput
       ).destinationTag = parseInt(data, 10);
-    } else if (familyId === 'stellar') {
+    } else if (familyId === coinFamiliesMap.stellar) {
       const memo: IStellarMemo = {
         type: data.match(/^[0-9]+$/)
           ? IStellarMemoType.ID
@@ -943,6 +951,10 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
       (
         userInputs.outputs[0] as unknown as IPreparedStellarTransactionOutput
       ).memo = memo;
+    } else if (familyId === coinFamiliesMap.canton) {
+      (
+        userInputs.outputs[0] as unknown as IPreparedCantonTransactionOutput
+      ).memo = data;
     }
     return userInputs;
   };

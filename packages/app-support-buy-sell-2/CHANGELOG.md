@@ -1,5 +1,23 @@
 # @cypherock/app-support-buy-sell-2
 
+## 0.0.6
+
+### Patch Changes
+
+- Updated dependencies [[`27d1c3f5`](https://github.com/Cypherock/cypherock-cysync/commit/27d1c3f5d7d69a98faf7595aaf60a4bba9411297)]:
+  - @cypherock/db-interfaces@0.2.1
+  - @cypherock/cysync-interfaces@0.1.1
+  - @cypherock/cysync-utils@0.1.1
+
+## 0.0.6-pre.0
+
+### Patch Changes
+
+- Updated dependencies [[`27d1c3f5`](https://github.com/Cypherock/cypherock-cysync/commit/27d1c3f5d7d69a98faf7595aaf60a4bba9411297)]:
+  - @cypherock/db-interfaces@0.2.1-pre.0
+  - @cypherock/cysync-interfaces@0.1.1-pre.0
+  - @cypherock/cysync-utils@0.1.1-pre.0
+
 ## 0.0.5
 
 ### Patch Changes
