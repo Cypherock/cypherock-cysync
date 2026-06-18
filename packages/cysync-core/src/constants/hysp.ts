@@ -24,3 +24,21 @@ export const COIN_ID_TO_CHAIN: Partial<Record<string, HyspChain>> = {
   [EvmIdMap.ethereum]: 'eth_mainnet',
   [EvmIdMap.base]: 'base',
 };
+
+export type EarnProtocol = 'midas' | 'kamino';
+
+export interface IStakeableAsset {
+  parentAssetId: string; // chain: 'ethereum', 'base', 'solana'
+  assetId: string;       // token: 'usdc', 'usdt'
+  protocol: EarnProtocol;
+  geoblocked: boolean;   // true = hide for blocked countries
+}
+
+export const STAKEABLE_ASSETS: IStakeableAsset[] = [
+  { parentAssetId: 'ethereum', assetId: 'ethereum:usd-coin', protocol: 'midas', geoblocked: true },
+  { parentAssetId: 'ethereum', assetId: 'ethereum:tether',   protocol: 'midas', geoblocked: true },
+  { parentAssetId: 'base',     assetId: 'base:usd-coin',     protocol: 'midas', geoblocked: true },
+  // { parentAssetId: 'solana', assetId: 'solana:usd-coin', protocol: 'kamino', geoblocked: false },
+];
+
+export const MIDAS_BLOCKED_COUNTRIES: string[] = [];

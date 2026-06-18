@@ -213,10 +213,10 @@ const SideBarComponent: FC = () => {
         />
       )}
       <SideBarItem
-        text="Staking"
+        text="Earn"
         Icon={DollarIcon}
-        state={wallets.length === 0 ? State.disabled : undefined}
-        onClick={() => dispatch(openHyspDialog())}
+        state={getState('earn')}
+        onClick={() => navigate('earn')}
         extraRight={
           <Chip $gradient="silver">
             <Typography $fontSize={10} $fontWeight="semibold" color="black">

@@ -11,6 +11,7 @@ import {
 import { ISignTransactionEvent } from '@cypherock/coin-support-interfaces';
 import { evmCoinList, EvmIdMap } from '@cypherock/coins';
 import { IAccount, IWallet } from '@cypherock/db-interfaces';
+import { BigNumber } from '@cypherock/cysync-utils';
 import lodash from 'lodash';
 import React, {
   Context,
@@ -44,6 +45,7 @@ export type HyspMode = 'deposit' | 'redeem';
 export type RedeemPath = 'instant' | 'queue';
 
 type HyspStep =
+  | 'consent'
   | 'input'
   | 'approveFee'
   | 'approving'
@@ -77,6 +79,10 @@ interface IHyspContext {
   setAmount: (a: string) => void;
   approveTxn: IPreparedEvmTransaction | undefined;
   depositTxn: IPreparedEvmTransaction | undefined;
+  depositTxHash: string | undefined;
+  isFeeLoading: boolean;
+  customGasPrice: number | undefined;
+  setCustomGasPrice: (v: number) => void;
   // redeem
   redeemAmount: string;
   setRedeemAmount: (a: string) => void;
@@ -90,7 +96,7 @@ interface IHyspContext {
   redeemTxn: IPreparedEvmTransaction | undefined;
   // shared
   deviceEvents: Record<number, boolean | undefined>;
-  error: string | undefined;
+  error: Error | undefined;
   vaultInfo: hyspService.IHyspVaultInfo | undefined;
   position: hyspService.IHyspPosition | undefined;
   vaultInfoLoading: boolean;
@@ -104,21 +110,27 @@ const HyspContext: Context<IHyspContext> = createContext<IHyspContext>(
 
 // Provider
 
-export const HyspProvider: FC<{ children: ReactNode; onClose: () => void }> = ({
+export const HyspProvider: FC<{ children: ReactNode; onClose: () => void; initialAccountId?: string; initialToken?: 'usdc' | 'usdt'; initialWalletId?: string }> = ({
   children,
   onClose,
+  initialAccountId,
+  initialToken,
+  initialWalletId,
 }) => {
   const { connection } = useDevice();
   const { countryCode } = useAppSelector(selectCountry);
 
   const [mode, setModeState] = useState<HyspMode>('deposit');
-  const [step, setStep] = useState<HyspStep>('input');
+  const [step, setStep] = useState<HyspStep>('consent');
 
   // deposit
-  const [selectedToken, setSelectedToken] = useState<'usdc' | 'usdt'>('usdc');
+  const [selectedToken, setSelectedToken] = useState<'usdc' | 'usdt'>(initialToken ?? 'usdc');
   const [amount, setAmount] = useState('');
   const [approveTxn, setApproveTxn] = useState<IPreparedEvmTransaction>();
   const [depositTxn, setDepositTxn] = useState<IPreparedEvmTransaction>();
+  const [depositTxHash, setDepositTxHash] = useState<string | undefined>();
+  const [isFeeLoading, setIsFeeLoading] = useState(false);
+  const [customGasPrice, setCustomGasPrice] = useState<number | undefined>();
 
   // redeem
   const [redeemAmount, setRedeemAmount] = useState('');
@@ -134,7 +146,7 @@ export const HyspProvider: FC<{ children: ReactNode; onClose: () => void }> = ({
   const [deviceEvents, setDeviceEvents] = useState<
     Record<number, boolean | undefined>
   >({});
-  const [error, setError] = useState<string>();
+  const [error, setError] = useState<Error>();
   const [vaultInfo, setVaultInfo] = useState<hyspService.IHyspVaultInfo>();
   const [position, setPosition] = useState<hyspService.IHyspPosition>();
   const [vaultInfoLoading, setVaultInfoLoading] = useState(false);
@@ -151,12 +163,13 @@ export const HyspProvider: FC<{ children: ReactNode; onClose: () => void }> = ({
   const signedAction = useRef<string | undefined>();
 
   const { selectedWallet, handleWalletChange, walletDropdownList } =
-    useWalletDropdown();
+    useWalletDropdown(initialWalletId ? { walletId: initialWalletId } : undefined);
 
   const { selectedAccount, handleAccountChange, accountDropdownList } =
     useAccountDropdown({
       selectedWallet,
       assetFilter: [EvmIdMap.ethereum, EvmIdMap.base],
+      defaultAccountId: initialAccountId,
     });
 
   // Vault info
@@ -186,7 +199,7 @@ export const HyspProvider: FC<{ children: ReactNode; onClose: () => void }> = ({
 
   const setMode = (m: HyspMode) => {
     setModeState(m);
-    setStep(m === 'deposit' ? 'input' : 'redeem-input');
+    setStep(m === 'deposit' ? 'consent' : 'redeem-input');
     setError(undefined);
     setDeviceEvents({});
     if (m === 'redeem') {
@@ -235,6 +248,23 @@ export const HyspProvider: FC<{ children: ReactNode; onClose: () => void }> = ({
       accountId: selectedAccount!.__id ?? '',
     })) as IPreparedEvmTransaction;
 
+  // Recompute computedData with a new gas price — no network calls needed.
+  // Server data (to, value, data, gasLimit) is already in computedData and doesn't change.
+  const applyCustomGas = (
+    txn: IPreparedEvmTransaction,
+    gweiOverride: number,
+  ): IPreparedEvmTransaction => {
+    const gasPriceWei = String(Math.round(gweiOverride * 1e9));
+    const fee = new BigNumber(txn.computedData.gasLimit)
+      .multipliedBy(gasPriceWei)
+      .toString(10);
+    return {
+      ...txn,
+      userInputs: { ...txn.userInputs, gasPrice: gasPriceWei },
+      computedData: { ...txn.computedData, gasPrice: gasPriceWei, fee },
+    };
+  };
+
   const pollConfirmation = async (txHash: string): Promise<boolean> => {
     if (!txHash)
       throw new Error('Broadcast failed — no transaction hash returned');
@@ -282,7 +312,7 @@ export const HyspProvider: FC<{ children: ReactNode; onClose: () => void }> = ({
         },
         error: (err: any) => {
           release();
-          setError(err?.message ?? 'Signing failed');
+          setError(err instanceof Error ? err : new Error(err?.message ?? 'Signing failed'));
           setStep('error');
         },
         complete: () => {
@@ -295,7 +325,7 @@ export const HyspProvider: FC<{ children: ReactNode; onClose: () => void }> = ({
               err?.message ??
               'Broadcast failed';
             logger.error('HYSP post-sign error', err as object);
-            setError(msg);
+            setError(err instanceof Error ? err : new Error(msg));
             setStep('error');
           });
         },
@@ -318,64 +348,81 @@ export const HyspProvider: FC<{ children: ReactNode; onClose: () => void }> = ({
   // Deposit flow
 
   const handleDepositFlow = async () => {
+    // Consent step — just advance to input
+    if (step === 'consent') {
+      setStep('input');
+      return;
+    }
+
     const chain = getChain();
     const tokenAddress = getDepositTokenAddress();
     const walletAddress = selectedAccount!.xpubOrAddress;
     const numAmount = parseFloat(amount);
 
     if (step === 'input') {
-      const allowance = await hyspService.checkAllowance({
-        chain,
-        walletAddress,
-        tokenAddress,
-        vaultType: 'deposit',
-        amount: numAmount,
-        countryCode,
-      });
-      const initTxn = await getInitTxn();
-      if (!allowance.sufficient) {
-        const prepared = await prepareApproveDeposit({
-          accountId: selectedAccount!.__id ?? '',
-          db: getDB(),
-          txn: initTxn,
+      // Transition immediately — fee prep happens on the fee screen with a spinner
+      setStep('approveFee');
+      setIsFeeLoading(true);
+      setCustomGasPrice(undefined);
+      try {
+        const allowance = await hyspService.checkAllowance({
           chain,
           walletAddress,
           tokenAddress,
+          vaultType: 'deposit',
           amount: numAmount,
           countryCode,
         });
-        setApproveTxn(prepared);
-        setStep('approveFee');
-      } else {
-        const prepared = await prepareDeposit({
-          accountId: selectedAccount!.__id ?? '',
-          db: getDB(),
-          txn: initTxn,
-          chain,
-          walletAddress,
-          tokenAddress,
-          amount: numAmount,
-          countryCode,
-        });
-        setDepositTxn(prepared);
-        setStep('depositFee');
+        const initTxn = await getInitTxn();
+        if (!allowance.sufficient) {
+          const prepared = await prepareApproveDeposit({
+            accountId: selectedAccount!.__id ?? '',
+            db: getDB(),
+            txn: initTxn,
+            chain,
+            walletAddress,
+            tokenAddress,
+            amount: numAmount,
+            countryCode,
+          });
+          setApproveTxn(prepared);
+        } else {
+          const prepared = await prepareDeposit({
+            accountId: selectedAccount!.__id ?? '',
+            db: getDB(),
+            txn: initTxn,
+            chain,
+            walletAddress,
+            tokenAddress,
+            amount: numAmount,
+            countryCode,
+          });
+          setDepositTxn(prepared);
+          setStep('depositFee');
+        }
+      } finally {
+        setIsFeeLoading(false);
       }
       return;
     }
 
     if (step === 'approveFee') {
       setStep('approving');
+      // Apply custom gas locally — no API calls, server data in computedData is unchanged
+      const finalApproveTxn = customGasPrice
+        ? applyCustomGas(approveTxn!, customGasPrice)
+        : approveTxn!;
       await startSign(
-        approveTxn!,
+        finalApproveTxn,
         sig => {
           signedApprove.current = sig;
         },
         async () => {
-          const txHash = await broadcast(signedApprove.current!, approveTxn!);
+          const txHash = await broadcast(signedApprove.current!, finalApproveTxn);
           setStep('polling');
           const confirmed = await pollConfirmation(txHash);
           if (!confirmed) {
-            setError('Approval transaction failed or timed out');
+            setError(new Error('Approval transaction failed or timed out'));
             setStep('error');
             return;
           }
@@ -391,6 +438,7 @@ export const HyspProvider: FC<{ children: ReactNode; onClose: () => void }> = ({
             countryCode,
           });
           setDepositTxn(prepared);
+          setCustomGasPrice(undefined);
           setStep('depositFee');
         },
       );
@@ -399,13 +447,18 @@ export const HyspProvider: FC<{ children: ReactNode; onClose: () => void }> = ({
 
     if (step === 'depositFee') {
       setStep('depositing');
+      // Apply custom gas locally — no API calls, server data in computedData is unchanged
+      const finalDepositTxn = customGasPrice
+        ? applyCustomGas(depositTxn!, customGasPrice)
+        : depositTxn!;
       await startSign(
-        depositTxn!,
+        finalDepositTxn,
         sig => {
           signedAction.current = sig;
         },
         async () => {
-          await broadcast(signedAction.current!, depositTxn!);
+          const txHash = await broadcast(signedAction.current!, finalDepositTxn);
+          setDepositTxHash(txHash);
           setStep('done');
         },
       );
@@ -498,7 +551,7 @@ export const HyspProvider: FC<{ children: ReactNode; onClose: () => void }> = ({
           setStep('redeem-polling');
           const confirmed = await pollConfirmation(txHash);
           if (!confirmed) {
-            setError('Approval transaction failed or timed out');
+            setError(new Error('Approval transaction failed or timed out'));
             setStep('error');
             return;
           }
@@ -559,7 +612,7 @@ export const HyspProvider: FC<{ children: ReactNode; onClose: () => void }> = ({
       }
     } catch (e: any) {
       logger.error('HYSP flow error', e as object);
-      setError(e?.message ?? 'An error occurred');
+      setError(e instanceof Error ? e : new Error(e?.message ?? 'An error occurred'));
       setStep('error');
     }
   };
@@ -581,6 +634,10 @@ export const HyspProvider: FC<{ children: ReactNode; onClose: () => void }> = ({
       setAmount,
       approveTxn,
       depositTxn,
+      depositTxHash,
+      isFeeLoading,
+      customGasPrice,
+      setCustomGasPrice,
       redeemAmount,
       setRedeemAmount,
       redeemTokenOut,
@@ -615,6 +672,9 @@ export const HyspProvider: FC<{ children: ReactNode; onClose: () => void }> = ({
       setAmount,
       approveTxn,
       depositTxn,
+      depositTxHash,
+      isFeeLoading,
+      customGasPrice,
       redeemAmount,
       setRedeemAmount,
       redeemTokenOut,

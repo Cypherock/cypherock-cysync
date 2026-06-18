@@ -63,7 +63,11 @@ export interface IDialogState {
 
   hyspDialog: {
     isOpen: boolean;
-    data?: undefined;
+    data?: {
+      initialAccountId?: string;
+      initialWalletId?: string;
+      initialToken?: 'usdc' | 'usdt';
+    };
   };
 
   sendDialog: {
