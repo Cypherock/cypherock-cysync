@@ -2,7 +2,6 @@
 
 ### 🚀 Features
 
-- **SimpleSwap Integration:** SimpleSwap is now available as a swap provider alongside existing options.
 - **History Filtering:** Filter transaction history by wallets and accounts for quicker navigation.
 - **Transaction Notes:** Add or edit a personal note directly from the transaction history dialog.
 - **Bigger Account Names:** Account name character limit increased from 24 to 40 characters.
@@ -22,10 +21,6 @@
 - Fixed personal note issue in Sia transaction
 
 # v2.4.5
-
-### 🚀 Feature
-
-- **ChangeNOW Swaps:** Now you can choose between ChangeNOW and Changelly for swaps
 
 ### 🐛 Bugfixes
 
