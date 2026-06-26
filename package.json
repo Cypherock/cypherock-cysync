@@ -82,7 +82,10 @@
     "overrides": {
       "write-file-atomic": "5.0.1",
       "signal-exit": "4.1.0",
-      "eslint-import-resolver-typescript": "3.5.5"
+      "eslint-import-resolver-typescript": "3.5.5",
+      "@types/styled-components>@types/react": "18.2.13",
+      "@types/hoist-non-react-statics>@types/react": "18.2.13",
+      "@types/react-virtualized>@types/react": "18.2.13"
     }
   }
 }
