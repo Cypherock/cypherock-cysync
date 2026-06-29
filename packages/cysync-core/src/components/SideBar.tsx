@@ -221,6 +221,12 @@ const SideBarComponent: FC = () => {
           onClick={() => navigate('inheritance')}
         />
       )}
+      <SideBarItem
+        text="Earn"
+        Icon={DollarIcon}
+        state={wallets.length === 0 ? State.disabled : getState('earn')}
+        onClick={() => navigate('earn')}
+      />
       {window.cysyncFeatureFlags.AFFILIATE && (
         <SideBarItem
           text={strings.referAndEarn}

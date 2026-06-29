@@ -57,6 +57,7 @@ import { WalletActionsDialogBox } from './WalletActions';
 import { WalletConnectDialog } from './WalletConnect';
 import { WalletSyncError } from './WalletSyncError';
 import { SyncAccountPromptDialog } from './Canton/SyncAccountPrompt';
+import { EverstakePage } from './Everstake';
 
 export const dialogs: Record<DialogName, ReactComponentLike> = {
   walletSyncError: WalletSyncError,
@@ -65,6 +66,7 @@ export const dialogs: Record<DialogName, ReactComponentLike> = {
   guidedFlow: GuidedFlow,
   addAccount: AddAccountDialog,
   addToken: AddTokenDialog,
+  everstakeDialog: EverstakePage,
   sendDialog: SendDialog,
   deployAccountDialog: DeployAccountDialog,
   historyDialog: HistoryDialog,

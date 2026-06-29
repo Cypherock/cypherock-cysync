@@ -30,6 +30,8 @@ import {
   Swap,
   ChooseFirmware,
   BuySell2,
+  EarnDashboard,
+  EverstakeAccountPage,
   analyticsService,
 } from '@cypherock/cysync-core';
 import React, { memo, ReactNode, useEffect } from 'react';
@@ -68,6 +70,8 @@ const components: Record<RouteName, ReactNode> = {
   'inheritance-choose-plan': <InheritanceChoosePlan />,
   'inheritance-plan-details': <InheritancePlanDetails />,
   'refer-and-earn': <ReferAndEarn />,
+  earn: <EarnDashboard />,
+  'everstake-account': <EverstakeAccountPage />,
 };
 
 export type InternalRoute = Record<string, IRoute>;
