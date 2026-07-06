@@ -1,6 +1,8 @@
 import axios from 'axios';
 
-const BASE = 'http://localhost:5001/everstake/eth';
+import { config } from '~/config';
+
+const BASE = `${config.API_CYPHEROCK}/everstake/eth`;
 
 export interface IEverstakePoolInfo {
   balance: string;
