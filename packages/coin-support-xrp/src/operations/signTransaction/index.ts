@@ -5,8 +5,7 @@ import {
   SignTransactionFromDevice,
 } from '@cypherock/coin-support-utils';
 import { IXrpCoinInfo } from '@cypherock/coins';
-import { IAccount } from '@cypherock/db-interfaces';
-import { IUnsignedTransaction, XrpApp } from '@cypherock/sdk-app-xrp';
+import { XrpApp } from '@cypherock/sdk-app-xrp';
 import { assert, hexToUint8Array } from '@cypherock/sdk-utils';
 import { Observable } from 'rxjs';
 
@@ -15,54 +14,14 @@ import {
   ISignXrpTransactionEvent,
   signXrpToDeviceEventMap,
 } from './types';
+import { prepareUnsignedTxn } from './unsigned';
+import { signTransactionFromX0 } from './x0';
 
-import * as services from '../../services';
-import { createApp, getCoinSupportXrpLib } from '../../utils';
+import { createApp } from '../../utils';
 import logger from '../../utils/logger';
 import { IPreparedXrpTransaction } from '../transaction';
 
-const prepareUnsignedTxn = async (
-  transaction: IPreparedXrpTransaction,
-  coin: IXrpCoinInfo,
-  account: IAccount,
-): Promise<IUnsignedTransaction> => {
-  const xrpl = getCoinSupportXrpLib();
-  const address = xrpl.deriveAddress(account.xpubOrAddress);
-
-  const { flags, sequence } = await services.getFlagsAndSequence(
-    address,
-    account.assetId,
-  );
-  const lastLedgerSequence = await services.getLastLedgerSequence(
-    account.assetId,
-  );
-
-  const rawTxn = {
-    Account: address,
-    Destination: transaction.computedData.output.address,
-    Amount: transaction.computedData.output.amount,
-    Fee: transaction.computedData.fees,
-    DestinationTag: transaction.computedData.output.destinationTag,
-    Flags: flags,
-    Sequence: sequence,
-    LastLedgerSequence: lastLedgerSequence,
-    SigningPubKey: account.xpubOrAddress,
-  };
-  const txnHex = xrpl.encodeForSigning({
-    ...rawTxn,
-    TransactionType: 'Payment',
-  });
-
-  const unsignedTxn: IUnsignedTransaction = {
-    txnHex,
-    rawTxn: {
-      ...rawTxn,
-      TransactionType: 'Payment',
-    },
-  };
-
-  return unsignedTxn;
-};
+export { prepareUnsignedTxn };
 
 const signTransactionFromDevice: SignTransactionFromDevice<
   XrpApp,
@@ -110,5 +69,6 @@ export const signTransaction = (
   makeSignTransactionsObservable<XrpApp, ISignXrpTransactionEvent, string>({
     ...params,
     signTransactionFromDevice,
+    signTransactionFromX0,
     createApp,
   });
