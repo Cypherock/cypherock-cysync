@@ -16,6 +16,7 @@ import {
   ICreateTronAccountParams,
   ICreatedTronAccount,
 } from './types';
+import { getAddressesFromX0, x0DerivationPathSchemes } from './x0';
 
 import * as services from '../../services';
 import { createApp } from '../../utils';
@@ -101,7 +102,10 @@ export const createAccounts = (
     createAccountFromAddress,
     getBalanceAndTxnCount,
     getAddressesFromDevice,
+    getAddressesFromX0,
     createApp,
-    derivationPathSchemes,
+    derivationPathSchemes: params.x0
+      ? x0DerivationPathSchemes
+      : derivationPathSchemes,
     derivationPathLimit: DERIVATION_PATH_LIMIT,
   });
