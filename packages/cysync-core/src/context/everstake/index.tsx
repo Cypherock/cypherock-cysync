@@ -1,71 +1,66 @@
-import { getCoinSupport } from '@cypherock/coin-support';
 import { IPreparedEvmTransaction } from '@cypherock/coin-support-evm';
-import { ISignTransactionEvent } from '@cypherock/coin-support-interfaces';
-import { EvmIdMap } from '@cypherock/coins';
-import { BigNumber } from '@cypherock/cysync-utils';
-import { IAccount, IWallet } from '@cypherock/db-interfaces';
-import lodash from 'lodash';
+import { DropDownItemProps } from '@cypherock/cysync-ui';
+import { IWallet } from '@cypherock/db-interfaces';
 import React, {
   Context,
   FC,
   ReactNode,
   createContext,
-  useCallback,
   useContext,
-  useEffect,
-  useRef,
+  useMemo,
   useState,
 } from 'react';
-import { Subscription } from 'rxjs';
 
-import { syncAccounts } from '~/actions';
-import { deviceLock, useDevice, useCurrency } from '~/context';
-import { useWalletDropdown, useAccountDropdown } from '~/hooks';
-import { useAppDispatch } from '~/store';
-import { getDB } from '~/utils';
+import { IEverstakeAsset } from '~/constants/everstake';
+import * as everstakeService from '~/services/everstakeEthService';
+import * as everstakePolService from '~/services/everstakePolService';
 import logger from '~/utils/logger';
-import * as everstakeService from '~/services/everstakeService';
 
-export type EverstakeMode = 'stake' | 'unstake' | 'claim';
+import { useEverstakeAccountSelection } from './core/useEverstakeAccountSelection';
+import { useEverstakePosition } from './core/useEverstakePosition';
+import { useEverstakeSigning } from './core/useEverstakeSigning';
+import {
+  CLAIM_LIKE_MODES,
+  EverstakeMode,
+  EverstakeStep,
+  SIGNING_STEPS,
+} from './core/types';
+import { useEthStakeFlow } from './eth/useEthStakeFlow';
+import { usePolStakeFlow } from './pol/usePolStakeFlow';
 
-type EverstakeStep =
-  | 'consent'
-  | 'stakeInput'
-  | 'stakeFee'
-  | 'staking'
-  | 'stakeDone'
-  | 'unstakeInput'
-  | 'unstakeFee'
-  | 'unstaking'
-  | 'unstakeDone'
-  | 'claimFee'
-  | 'claimConfirm'
-  | 'claiming'
-  | 'claimDone'
-  | 'error';
-
-const SIGNING_STEPS: EverstakeStep[] = ['staking', 'unstaking', 'claiming'];
+export type { EverstakeMode };
 
 interface IEverstakeContext {
   mode: EverstakeMode;
   setMode: (m: EverstakeMode) => void;
   step: EverstakeStep;
   selectedWallet: IWallet | undefined;
-  selectedAccount: IAccount | undefined;
+  selectedAccount: ReturnType<
+    typeof useEverstakeAccountSelection
+  >['selectedAccount'];
   walletDropdownList: any[];
-  accountDropdownList: any[];
+  accountDropdownList: DropDownItemProps[];
   handleWalletChange: (id?: string) => void;
   handleAccountChange: (id?: string) => void;
+  // asset info (drives ETH vs POL branching in the UI)
+  assetConfig: IEverstakeAsset | undefined;
+  isPol: boolean;
+  unitAbbr: string;
   // stake
   amount: string;
   setAmount: (a: string) => void;
   stakeTxn: IPreparedEvmTransaction | undefined;
+  // POL approve sub-flow
+  approveTxn: IPreparedEvmTransaction | undefined;
+  approveTxHash: string | undefined;
+  approveTakingLonger: boolean;
   // unstake
   unstakeAmount: string;
   setUnstakeAmount: (a: string) => void;
   unstakeTxn: IPreparedEvmTransaction | undefined;
-  // claim
+  // claim / claimRewards / claimUnstake / restake
   claimTxn: IPreparedEvmTransaction | undefined;
+  claimAmountRaw: string;
   // shared
   isFeeLoading: boolean;
   customGasPrice: number | undefined;
@@ -76,6 +71,7 @@ interface IEverstakeContext {
   poolInfo: everstakeService.IEverstakePoolInfo | undefined;
   userPosition: everstakeService.IEverstakeUserPosition | undefined;
   withdrawRequest: everstakeService.IEverstakeWithdrawRequest | undefined;
+  polPosition: everstakePolService.IEverstakePolPosition | undefined;
   dataLoading: boolean;
   minStakeAmount: string;
   onProceed: () => Promise<void>;
@@ -98,13 +94,23 @@ export const EverstakeProvider: FC<{
   initialWalletId,
   initialMode,
 }) => {
-  const { connection } = useDevice();
-  const dispatch = useAppDispatch();
-  const { currentCurrency } = useCurrency();
+  const {
+    selectedWallet,
+    handleWalletChange,
+    walletDropdownList,
+    selectedAccount,
+    handleAccountChange,
+    accountDropdownList,
+    assetConfig,
+    isPol,
+    unitAbbr,
+  } = useEverstakeAccountSelection({ initialWalletId, initialAccountId });
 
   const getInitialStep = (m: EverstakeMode): EverstakeStep => {
-    if (m === 'unstake') return 'unstakeInput';
-    if (m === 'claim') return 'claimFee';
+    if (m === 'unstake') return isPol ? 'unstakeInfo' : 'unstakeInput';
+    if (CLAIM_LIKE_MODES.includes(m)) {
+      return m === 'claim' ? 'claimFee' : 'claimInfo';
+    }
     return 'consent';
   };
 
@@ -119,250 +125,127 @@ export const EverstakeProvider: FC<{
   const [isFeeLoading, setIsFeeLoading] = useState(false);
   const [customGasPrice, setCustomGasPrice] = useState<number | undefined>();
 
+  // POL approve sub-flow
+  const [approveTxn, setApproveTxn] = useState<IPreparedEvmTransaction>();
+
   // unstake
   const [unstakeAmount, setUnstakeAmount] = useState('');
   const [unstakeTxn, setUnstakeTxn] = useState<IPreparedEvmTransaction>();
 
-  // claim
+  // claim / claimRewards / claimUnstake / restake
   const [claimTxn, setClaimTxn] = useState<IPreparedEvmTransaction>();
 
-  // shared
-  const [txHash, setTxHash] = useState<string | undefined>();
-  const [deviceEvents, setDeviceEvents] = useState<
-    Record<number, boolean | undefined>
-  >({});
   const [error, setError] = useState<Error>();
-  const [poolInfo, setPoolInfo] =
-    useState<everstakeService.IEverstakePoolInfo>();
-  const [userPosition, setUserPosition] =
-    useState<everstakeService.IEverstakeUserPosition>();
-  const [withdrawRequest, setWithdrawRequest] =
-    useState<everstakeService.IEverstakeWithdrawRequest>();
-  const [dataLoading, setDataLoading] = useState(false);
 
-  const flowSubscription = useRef<Subscription | undefined>();
-  const signedTxn = useRef<string | undefined>();
+  const {
+    poolInfo,
+    userPosition,
+    withdrawRequest,
+    polPosition,
+    dataLoading,
+    refreshPosition,
+  } = useEverstakePosition({ selectedAccount, isPol });
 
-  useEffect(() => {
-    everstakeService
-      .getPoolInfo()
-      .then(setPoolInfo)
-      .catch((e: any) =>
-        logger.error('Everstake poolInfo fetch failed', e as object),
-      );
-  }, []);
+  const onSigningComplete = (completedStep: string, hash: string) => {
+    if (completedStep === 'approving') {
+      polStakeFlow.onApproveBroadcast(hash);
+      return;
+    }
+    setTxHash(hash);
+    const stepToDone: Record<string, EverstakeStep> = {
+      staking: 'stakeDone',
+      unstaking: 'unstakeDone',
+      claiming: 'claimDone',
+    };
+    setStep(stepToDone[completedStep] ?? 'claimDone');
+  };
 
-  const { selectedWallet, handleWalletChange, walletDropdownList } =
-    useWalletDropdown(
-      initialWalletId ? { walletId: initialWalletId } : undefined,
-    );
+  const onSigningError = (err: Error) => {
+    setError(err);
+    setStep('error');
+  };
 
-  const { selectedAccount, handleAccountChange, accountDropdownList } =
-    useAccountDropdown({
-      selectedWallet,
-      assetFilter: [EvmIdMap.ethereum],
-      defaultAccountId: initialAccountId,
-    });
+  const {
+    buildEverstakeTxn,
+    applyCustomGas,
+    pendingTxnRef,
+    deviceEvents,
+    txHash,
+    setTxHash,
+    cancelSigning,
+  } = useEverstakeSigning({
+    selectedAccount,
+    step,
+    signingSteps: SIGNING_STEPS,
+    onSigningComplete,
+    onSigningError,
+    refreshPosition,
+  });
 
-  useEffect(() => {
-    if (!selectedAccount?.xpubOrAddress) return;
-    setDataLoading(true);
-    Promise.all([
-      everstakeService.getUserPosition(selectedAccount.xpubOrAddress),
-      everstakeService.getWithdrawRequest(selectedAccount.xpubOrAddress),
-    ])
-      .then(([pos, wr]) => {
-        setUserPosition(pos);
-        setWithdrawRequest(wr);
-      })
-      .catch((e: any) =>
-        logger.error('Everstake position fetch failed', e as object),
-      )
-      .finally(() => setDataLoading(false));
-  }, [selectedAccount?.xpubOrAddress]);
+  const ethStakeFlow = useEthStakeFlow({
+    step,
+    setStep,
+    selectedAccount,
+    amount,
+    customGasPrice,
+    setCustomGasPrice,
+    setIsFeeLoading,
+    stakeTxn,
+    setStakeTxn,
+    buildEverstakeTxn: buildEverstakeTxn as (
+      p: everstakeService.IEverstakeTxParams,
+    ) => Promise<IPreparedEvmTransaction>,
+    applyCustomGas,
+    pendingTxnRef,
+  });
+
+  const polStakeFlow = usePolStakeFlow({
+    step,
+    setStep,
+    selectedAccount,
+    amount,
+    customGasPrice,
+    setCustomGasPrice,
+    setIsFeeLoading,
+    stakeTxn,
+    setStakeTxn,
+    approveTxn,
+    setApproveTxn,
+    buildEverstakeTxn: buildEverstakeTxn as (
+      p: everstakePolService.IEverstakePolTxParams,
+    ) => Promise<IPreparedEvmTransaction>,
+    applyCustomGas,
+    pendingTxnRef,
+  });
 
   const setMode = (m: EverstakeMode) => {
     setModeState(m);
     setStep(getInitialStep(m));
     setError(undefined);
-    setDeviceEvents({});
     setCustomGasPrice(undefined);
-    flowSubscription.current?.unsubscribe();
+    cancelSigning();
   };
 
-  const coinSupport = useCallback(() => {
-    if (!selectedAccount) throw new Error('No account selected');
-    return getCoinSupport(selectedAccount.familyId);
-  }, [selectedAccount]);
-
-  const getInitTxn = async (): Promise<IPreparedEvmTransaction> =>
-    (await coinSupport().initializeTransaction({
-      db: getDB(),
-      accountId: selectedAccount!.__id ?? '',
-    })) as IPreparedEvmTransaction;
-
-  const applyCustomGas = (
-    txn: IPreparedEvmTransaction,
-    gweiOverride: number,
-  ): IPreparedEvmTransaction => {
-    const gasPriceWei = String(Math.round(gweiOverride * 1e9));
-    const fee = new BigNumber(txn.computedData.gasLimit)
-      .multipliedBy(gasPriceWei)
-      .toString(10);
-    return {
-      ...txn,
-      userInputs: { ...txn.userInputs, gasPrice: gasPriceWei },
-      computedData: { ...txn.computedData, gasPrice: gasPriceWei, fee },
-    };
-  };
-
-  const startSign = async (
-    txn: IPreparedEvmTransaction,
-    onSigned: (sig: string) => void,
-    onDone: () => Promise<void>,
-  ) => {
-    if (!connection?.connection) throw new Error('Device not connected');
-    const taskId = lodash.uniqueId('everstake-');
-    await deviceLock.acquire(connection.device, taskId);
-    const release = () => deviceLock.release(connection.device, taskId);
-    setDeviceEvents({});
-    flowSubscription.current = coinSupport()
-      .signTransaction({
-        connection: connection.connection,
-        db: getDB(),
-        transaction: txn,
-      })
-      .subscribe({
-        next: (payload: ISignTransactionEvent<any>) => {
-          if (payload.device) setDeviceEvents({ ...payload.device.events });
-          if (payload.transaction) onSigned(payload.transaction as string);
-        },
-        error: (err: any) => {
-          release();
-          setError(
-            err instanceof Error
-              ? err
-              : new Error(err?.message ?? 'Signing failed'),
-          );
-          setStep('error');
-        },
-        complete: () => {
-          release();
-          onDone().catch((err: any) => {
-            const msg =
-              err?.response?.data?.message ??
-              err?.message ??
-              'Broadcast failed';
-            logger.error('Everstake post-sign error', err as object);
-            setError(err instanceof Error ? err : new Error(msg));
-            setStep('error');
-          });
-        },
-      });
-  };
-
-  const broadcast = async (
-    signed: string,
-    txn: IPreparedEvmTransaction,
-  ): Promise<string> => {
-    const result = await coinSupport().broadcastTransaction({
-      db: getDB(),
-      signedTransaction: signed,
-      transaction: txn,
-    });
-    if (selectedAccount) {
-      dispatch(
-        syncAccounts({
-          accounts: [selectedAccount],
-          currency: currentCurrency,
-        }),
-      );
-      Promise.all([
-        everstakeService.getUserPosition(selectedAccount.xpubOrAddress),
-        everstakeService.getWithdrawRequest(selectedAccount.xpubOrAddress),
-      ])
-        .then(([pos, wr]) => {
-          setUserPosition(pos);
-          setWithdrawRequest(wr);
-        })
-        .catch((e: any) =>
-          logger.error(
-            'Everstake post-broadcast position refresh failed',
-            e as object,
-          ),
-        );
-    }
-    return (result as any)?.hash ?? '';
-  };
-
-  const buildEverstakeTxn = async (
-    serverTxParams: everstakeService.IEverstakeTxParams,
-  ): Promise<IPreparedEvmTransaction> => {
-    const initTxn = await getInitTxn();
-    return {
-      ...initTxn,
-      userInputs: {
-        ...initTxn.userInputs,
-        outputs: [{ address: serverTxParams.to, amount: serverTxParams.value }],
-      },
-      computedData: {
-        ...initTxn.computedData,
-        output: { address: serverTxParams.to, amount: serverTxParams.value },
-        data: serverTxParams.data,
-        gasLimit: serverTxParams.gasLimit,
-        fee: new BigNumber(serverTxParams.gasLimit)
-          .multipliedBy(initTxn.computedData.gasPrice)
-          .toString(10),
-      },
-    };
-  };
-
-  // Stake flow
-  const pendingTxn = useRef<IPreparedEvmTransaction | undefined>();
-
-  const handleStakeFlow = async () => {
-    if (step === 'consent') {
-      setStep('stakeInput');
-      return;
-    }
-
-    if (step === 'stakeInput') {
-      setStep('stakeFee');
-      setIsFeeLoading(true);
-      setCustomGasPrice(undefined);
-      try {
-        const txParams = await everstakeService.buildStake(
-          selectedAccount!.xpubOrAddress,
-          amount,
-        );
-        const prepared = await buildEverstakeTxn(txParams);
-        setStakeTxn(prepared);
-      } finally {
-        setIsFeeLoading(false);
-      }
-      return;
-    }
-
-    if (step === 'stakeFee') {
-      const finalTxn = customGasPrice
-        ? applyCustomGas(stakeTxn!, customGasPrice)
-        : stakeTxn!;
-      pendingTxn.current = finalTxn;
-      setStep('staking');
-    }
-  };
-
-  // Unstake flow
   const handleUnstakeFlow = async () => {
+    if (step === 'unstakeInfo') {
+      setStep('unstakeInput');
+      return;
+    }
+
     if (step === 'unstakeInput') {
       setStep('unstakeFee');
       setIsFeeLoading(true);
       setCustomGasPrice(undefined);
       try {
-        const txParams = await everstakeService.buildUnstake(
-          selectedAccount!.xpubOrAddress,
-          unstakeAmount,
-        );
+        const txParams = isPol
+          ? await everstakePolService.buildUnstake(
+              selectedAccount!.xpubOrAddress,
+              unstakeAmount,
+            )
+          : await everstakeService.buildUnstake(
+              selectedAccount!.xpubOrAddress,
+              unstakeAmount,
+            );
         const prepared = await buildEverstakeTxn(txParams);
         setUnstakeTxn(prepared);
       } finally {
@@ -375,20 +258,41 @@ export const EverstakeProvider: FC<{
       const finalTxn = customGasPrice
         ? applyCustomGas(unstakeTxn!, customGasPrice)
         : unstakeTxn!;
-      pendingTxn.current = finalTxn;
+      pendingTxnRef.current = finalTxn;
       setStep('unstaking');
     }
   };
 
-  // Claim flow
   const handleClaimFlow = async () => {
+    if (step === 'claimInfo') {
+      setStep('claimFee');
+      return;
+    }
+
     if (step === 'claimFee') {
       setIsFeeLoading(true);
       setCustomGasPrice(undefined);
       try {
-        const txParams = await everstakeService.buildClaim(
-          selectedAccount!.xpubOrAddress,
-        );
+        let txParams:
+          | everstakeService.IEverstakeTxParams
+          | everstakePolService.IEverstakePolTxParams;
+        if (mode === 'claimRewards') {
+          txParams = await everstakePolService.buildClaimRewards(
+            selectedAccount!.xpubOrAddress,
+          );
+        } else if (mode === 'claimUnstake') {
+          txParams = await everstakePolService.buildClaimUnstake(
+            selectedAccount!.xpubOrAddress,
+          );
+        } else if (mode === 'restake') {
+          txParams = await everstakePolService.buildRestake(
+            selectedAccount!.xpubOrAddress,
+          );
+        } else {
+          txParams = await everstakeService.buildClaim(
+            selectedAccount!.xpubOrAddress,
+          );
+        }
         const prepared = await buildEverstakeTxn(txParams);
         setClaimTxn(prepared);
       } finally {
@@ -402,51 +306,18 @@ export const EverstakeProvider: FC<{
       const finalTxn = customGasPrice
         ? applyCustomGas(claimTxn!, customGasPrice)
         : claimTxn!;
-      pendingTxn.current = finalTxn;
+      pendingTxnRef.current = finalTxn;
       setStep('claiming');
     }
   };
 
-  const startSigning = async () => {
-    try {
-      const txn = pendingTxn.current;
-      if (!txn) return;
-      const stepToDone: Record<string, EverstakeStep> = {
-        staking: 'stakeDone',
-        unstaking: 'unstakeDone',
-        claiming: 'claimDone',
-      };
-      const doneStep: EverstakeStep = stepToDone[step] ?? 'claimDone';
-      await startSign(
-        txn,
-        sig => {
-          signedTxn.current = sig;
-        },
-        async () => {
-          const hash = await broadcast(signedTxn.current!, txn);
-          setTxHash(hash);
-          setStep(doneStep);
-        },
-      );
-    } catch (e: any) {
-      logger.error('Everstake signing error', e as object);
-      setError(
-        e instanceof Error ? e : new Error(e?.message ?? 'Signing failed'),
-      );
-      setStep('error');
-    }
-  };
-
-  useEffect(() => {
-    if (SIGNING_STEPS.includes(step)) {
-      startSigning();
-    }
-  }, [step]);
-
   const onProceed = async () => {
     try {
-      if (mode === 'stake') await handleStakeFlow();
-      else if (mode === 'unstake') await handleUnstakeFlow();
+      if (mode === 'stake') {
+        await (isPol
+          ? polStakeFlow.handleStakeFlow()
+          : ethStakeFlow.handleStakeFlow());
+      } else if (mode === 'unstake') await handleUnstakeFlow();
       else await handleClaimFlow();
     } catch (e: any) {
       logger.error('Everstake flow error', e as object);
@@ -456,6 +327,19 @@ export const EverstakeProvider: FC<{
       setStep('error');
     }
   };
+
+  const claimAmountRaw = useMemo(() => {
+    if (isPol) {
+      if (mode === 'claimUnstake') return polPosition?.unbonding?.amount ?? '0';
+      // claimRewards and restake both act on the currently claimable rewards
+      return polPosition?.claimableRewards ?? '0';
+    }
+    return withdrawRequest?.readyForClaim ?? '0';
+  }, [isPol, mode, polPosition, withdrawRequest]);
+
+  const minStakeAmount = isPol
+    ? assetConfig?.minStakeAmount ?? '1'
+    : poolInfo?.minStakeAmount ?? '0.01';
 
   const contextValue = React.useMemo(
     () => ({
@@ -468,9 +352,15 @@ export const EverstakeProvider: FC<{
       accountDropdownList,
       handleWalletChange,
       handleAccountChange,
+      assetConfig,
+      isPol,
+      unitAbbr,
       amount,
       setAmount,
       stakeTxn,
+      approveTxn,
+      approveTxHash: polStakeFlow.approveTxHash,
+      approveTakingLonger: polStakeFlow.approveTakingLonger,
       isFeeLoading,
       customGasPrice,
       setCustomGasPrice,
@@ -478,14 +368,16 @@ export const EverstakeProvider: FC<{
       setUnstakeAmount,
       unstakeTxn,
       claimTxn,
+      claimAmountRaw,
       txHash,
       deviceEvents,
       error,
       poolInfo,
       userPosition,
       withdrawRequest,
+      polPosition,
       dataLoading,
-      minStakeAmount: poolInfo?.minStakeAmount ?? '0.01',
+      minStakeAmount,
       onProceed,
       onClose,
     }),
@@ -496,20 +388,29 @@ export const EverstakeProvider: FC<{
       selectedAccount,
       walletDropdownList,
       accountDropdownList,
+      assetConfig,
+      isPol,
+      unitAbbr,
       amount,
       stakeTxn,
+      approveTxn,
+      polStakeFlow.approveTxHash,
+      polStakeFlow.approveTakingLonger,
       isFeeLoading,
       customGasPrice,
       unstakeAmount,
       unstakeTxn,
       claimTxn,
+      claimAmountRaw,
       txHash,
       deviceEvents,
       error,
       poolInfo,
       userPosition,
       withdrawRequest,
+      polPosition,
       dataLoading,
+      minStakeAmount,
     ],
   );
 
