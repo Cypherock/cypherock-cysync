@@ -48,7 +48,7 @@ const STAKE_STEP_TO_MILESTONE: Record<string, number> = {
   stakeInput: 0,
   stakeFee: 1,
   staking: 1,
-  stakeDone: 2,
+  stakeDone: 3,
 };
 
 const POL_STAKE_STEP_TO_MILESTONE: Record<string, number> = {
@@ -59,7 +59,7 @@ const POL_STAKE_STEP_TO_MILESTONE: Record<string, number> = {
   confirmingApprove: 1,
   stakeFee: 2,
   staking: 2,
-  stakeDone: 3,
+  stakeDone: 4,
 };
 
 const UNSTAKE_STEP_TO_MILESTONE: Record<string, number> = {
@@ -67,7 +67,7 @@ const UNSTAKE_STEP_TO_MILESTONE: Record<string, number> = {
   unstakeInput: 0,
   unstakeFee: 1,
   unstaking: 1,
-  unstakeDone: 2,
+  unstakeDone: 3,
 };
 
 const CLAIM_STEP_TO_MILESTONE: Record<string, number> = {
@@ -75,7 +75,7 @@ const CLAIM_STEP_TO_MILESTONE: Record<string, number> = {
   claimFee: 0,
   claimConfirm: 1,
   claiming: 1,
-  claimDone: 2,
+  claimDone: 3,
 };
 
 const DEVICE_REQUIRED_STEPS = ['approving', 'staking', 'unstaking', 'claiming'];
