@@ -16,15 +16,23 @@ import React from 'react';
 import { useEverstake } from '~/context/everstake';
 import { truncateMiddle } from '~/utils';
 
+const MODE_DONE_COPY: Record<string, { heading: string; verb: string }> = {
+  claim: { heading: 'Claim Successful!', verb: 'claimed' },
+  claimUnstake: { heading: 'Claim Successful!', verb: 'claimed' },
+  claimRewards: { heading: 'Rewards Claimed!', verb: 'claimed' },
+  restake: { heading: 'Restake Successful!', verb: 'restaked' },
+};
+
 export const EverstakeClaimDone: React.FC = () => {
-  const { onClose, withdrawRequest, txHash } = useEverstake();
+  const { onClose, claimAmountRaw, txHash, mode, unitAbbr } = useEverstake();
+  const copy = MODE_DONE_COPY[mode] ?? MODE_DONE_COPY.claim;
 
   const claimable = (() => {
-    if (!withdrawRequest?.readyForClaim) return '';
+    if (!claimAmountRaw) return '';
     try {
       return `${parseFloat(
-        parseFloat(withdrawRequest.readyForClaim).toFixed(6),
-      ).toString()} ETH`;
+        parseFloat(claimAmountRaw).toFixed(6),
+      ).toString()} ${unitAbbr}`;
     } catch {
       return '';
     }
@@ -38,12 +46,16 @@ export const EverstakeClaimDone: React.FC = () => {
           <Image src={successIcon} alt="Success" />
           <Flex direction="column" align="center" gap={4}>
             <Typography variant="h4" $textAlign="center">
-              Claim Successful!
+              {copy.heading}
             </Typography>
             <Typography variant="h6" $textAlign="center" color="muted">
               {claimable
-                ? `${claimable} has been claimed and is on its way to your wallet.`
-                : 'Your ETH has been successfully claimed back to your wallet.'}
+                ? `${claimable} has been ${copy.verb}${
+                    mode === 'restake'
+                      ? ' back into your stake.'
+                      : ' and is on its way to your wallet.'
+                  }`
+                : `Your ${unitAbbr} has been successfully ${copy.verb}.`}
             </Typography>
           </Flex>
           {txHash && (

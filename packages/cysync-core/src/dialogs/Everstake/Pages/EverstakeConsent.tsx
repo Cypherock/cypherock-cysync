@@ -33,8 +33,11 @@ const INFO_BOX_STYLE: React.CSSProperties = {
 };
 
 export const EverstakeConsent: React.FC = () => {
-  const { onProceed } = useEverstake();
+  const { onProceed, unitAbbr, isPol } = useEverstake();
   const [acknowledged, setAcknowledged] = useState(false);
+  const learnMoreUrl = isPol
+    ? 'https://everstake.one/polygon'
+    : 'https://everstake.one/ethereum';
 
   return (
     <div style={CARD_STYLE}>
@@ -49,7 +52,7 @@ export const EverstakeConsent: React.FC = () => {
           pl="24px"
           pr="24px"
         >
-          Your staked ETH is
+          Your staked {unitAbbr} is
           <br />
           maintained by Everstake
         </Typography>
@@ -73,8 +76,8 @@ export const EverstakeConsent: React.FC = () => {
             $fontWeight="light"
             $lineHeight="1.5"
           >
-            Everstake maintains and protects your staked ETH with their smart
-            contracts, infrastructure, and technology.
+            Everstake maintains and protects your staked {unitAbbr} with their
+            smart contracts, infrastructure, and technology.
           </Typography>
         </div>
         <div style={INFO_BOX_STYLE}>
@@ -87,15 +90,15 @@ export const EverstakeConsent: React.FC = () => {
             $fontWeight="light"
             $lineHeight="1.5"
           >
-            When staking, the responsibility for your ETH security transitions
-            from your Cypherock X1 Vault to Everstake.
+            When staking, the responsibility for your {unitAbbr} security
+            transitions from your Cypherock X1 Vault to Everstake.
           </Typography>
         </div>
       </Flex>
 
       {/* Learn more */}
       <a
-        href="https://everstake.one/ethereum"
+        href={learnMoreUrl}
         target="_blank"
         rel="noopener noreferrer"
         style={{ textDecoration: 'none' }}
@@ -140,7 +143,7 @@ export const EverstakeConsent: React.FC = () => {
         >
           I acknowledge and consent to
           <br />
-          staking ETH with Everstake
+          staking {unitAbbr} with Everstake
         </Typography>
       </Flex>
 

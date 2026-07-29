@@ -50,6 +50,33 @@ const formatFee = (fee: string | undefined, coinId: string): string => {
   }
 };
 
+const MODE_COPY: Record<
+  string,
+  { title: string; subtitle: (unit: string) => string; label: string }
+> = {
+  claim: {
+    title: 'Claim',
+    subtitle: unit => `Move your unstaked ${unit} back to your wallet`,
+    label: 'Ready to claim',
+  },
+  claimUnstake: {
+    title: 'Claim unstaked',
+    subtitle: unit => `Move your unstaked ${unit} back to your wallet`,
+    label: 'Ready to claim',
+  },
+  claimRewards: {
+    title: 'Claim rewards',
+    subtitle: unit => `Move your accumulated ${unit} rewards to your wallet`,
+    label: 'Rewards to claim',
+  },
+  restake: {
+    title: 'Restake',
+    subtitle: unit =>
+      `Compound your accumulated ${unit} rewards back into your stake`,
+    label: 'Rewards to restake',
+  },
+};
+
 export const EverstakeClaim: React.FC = () => {
   const {
     selectedAccount,
@@ -60,19 +87,22 @@ export const EverstakeClaim: React.FC = () => {
     setCustomGasPrice,
     onProceed,
     onClose,
-    withdrawRequest,
+    claimAmountRaw,
+    mode,
+    unitAbbr,
   } = useEverstake();
 
   const isConfirmStep = step === 'claimConfirm';
   const coinId = selectedAccount?.assetId ?? '';
+  const copy = MODE_COPY[mode] ?? MODE_COPY.claim;
 
   const claimable = (() => {
-    if (!withdrawRequest?.readyForClaim) return '–';
+    if (!claimAmountRaw) return '–';
     try {
       const trimmed = parseFloat(
-        parseFloat(withdrawRequest.readyForClaim).toFixed(6),
+        parseFloat(claimAmountRaw).toFixed(6),
       ).toString();
-      return `${trimmed} ETH`;
+      return `${trimmed} ${unitAbbr}`;
     } catch {
       return '–';
     }
@@ -151,7 +181,7 @@ export const EverstakeClaim: React.FC = () => {
       <Flex direction="column" gap={4} align="center">
         <BlockchainIcon />
         <Typography variant="h5" $textAlign="center" $fontSize={22}>
-          Claim ETH
+          {copy.title}
         </Typography>
         <Typography
           variant="span"
@@ -159,14 +189,14 @@ export const EverstakeClaim: React.FC = () => {
           $fontSize={14}
           $textAlign="center"
         >
-          Move your unstaked ETH back to your wallet
+          {copy.subtitle(unitAbbr)}
         </Typography>
       </Flex>
 
       {/* Claimable amount */}
       <div style={CLAIMABLE_BOX_STYLE}>
         <Typography variant="span" color="muted" $fontSize={12}>
-          Ready to claim
+          {copy.label}
         </Typography>
         <span style={{ color: '#4CAF7D', fontWeight: 600, fontSize: 22 }}>
           {claimable}
@@ -182,7 +212,7 @@ export const EverstakeClaim: React.FC = () => {
           Back
         </Button>
         <Button variant="primary" onClick={onProceed} disabled={isFeeLoading}>
-          {isConfirmStep ? 'Confirm Claim' : 'Check Fees'}
+          {isConfirmStep ? `Confirm ${copy.title}` : 'Check Fees'}
         </Button>
       </Flex>
     </div>

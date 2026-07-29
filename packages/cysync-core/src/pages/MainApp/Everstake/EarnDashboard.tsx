@@ -1,6 +1,5 @@
 import { getParsedAmount, getDefaultUnit } from '@cypherock/coin-support-utils';
 import { Button, Flex, Typography } from '@cypherock/cysync-ui';
-import { AccountTypeMap } from '@cypherock/db-interfaces';
 import React, { useMemo } from 'react';
 
 import { CoinIcon } from '~/components';
@@ -60,18 +59,16 @@ export const EarnDashboard: React.FC = () => {
 
   const stakeableRows = useMemo(
     () =>
-      accounts
-        .filter(a => a.type === AccountTypeMap.account)
-        .flatMap(account => {
-          const cfg = EVERSTAKE_ASSETS.find(
-            s =>
-              s.assetId === account.assetId &&
-              s.parentAssetId === account.parentAssetId,
-          );
-          if (!cfg) return [];
-          const wallet = wallets.find(w => w.__id === account.walletId);
-          return [{ account, cfg, walletName: wallet?.name ?? '' }];
-        }),
+      accounts.flatMap(account => {
+        const cfg = EVERSTAKE_ASSETS.find(
+          s =>
+            s.assetId === account.assetId &&
+            s.parentAssetId === account.parentAssetId,
+        );
+        if (!cfg) return [];
+        const wallet = wallets.find(w => w.__id === account.walletId);
+        return [{ account, cfg, walletName: wallet?.name ?? '' }];
+      }),
     [accounts, wallets],
   );
 
@@ -115,7 +112,8 @@ export const EarnDashboard: React.FC = () => {
       >
         {stakeableRows.length === 0 ? (
           <Typography variant="p" color="muted">
-            No ETH accounts found. Add an Ethereum account to get started.
+            No stakeable accounts found. Add an Ethereum account (and, for POL
+            staking, add POL as a token to it) to get started.
           </Typography>
         ) : (
           <Flex direction="column" gap={12} width="full">
@@ -162,7 +160,7 @@ export const EarnDashboard: React.FC = () => {
               </div>
 
               {/* Rows */}
-              {stakeableRows.map(({ account, walletName }, index) => {
+              {stakeableRows.map(({ account, cfg, walletName }, index) => {
                 const { token, usd } = formatBalance(account);
                 const isEven = index % 2 === 0;
                 const isLast = index === stakeableRows.length - 1;
@@ -200,7 +198,7 @@ export const EarnDashboard: React.FC = () => {
                             color="muted"
                             $fontSize={18}
                           >
-                            Ethereum
+                            {cfg.label}
                           </Typography>
                         </Flex>
                       </Flex>

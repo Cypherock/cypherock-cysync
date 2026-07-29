@@ -65,6 +65,8 @@ export const EverstakeStake: React.FC = () => {
     setCustomGasPrice,
     onClose,
     minStakeAmount,
+    unitAbbr,
+    assetConfig,
   } = useEverstake();
 
   const { currentCurrency } = useCurrency();
@@ -144,7 +146,7 @@ export const EverstakeStake: React.FC = () => {
       <Flex direction="column" gap={4} align="center">
         <BlockchainIcon />
         <Typography variant="h5" $textAlign="center" $fontSize={22}>
-          {isFeeStep ? `Staking ${amount} ETH` : 'Stake ETH'}
+          {isFeeStep ? `Staking ${amount} ${unitAbbr}` : `Stake ${unitAbbr}`}
         </Typography>
         {!isFeeStep && (
           <Typography
@@ -178,7 +180,9 @@ export const EverstakeStake: React.FC = () => {
         {/* Account */}
         <Flex direction="column" gap={8} width="full">
           <Typography variant="span" color="muted" $fontSize={13}>
-            Select Ethereum Account
+            {assetConfig
+              ? `Select ${assetConfig.label} Account`
+              : 'Select Account'}
           </Typography>
           <Dropdown
             items={accountDropdownList}
@@ -225,7 +229,7 @@ export const EverstakeStake: React.FC = () => {
                 $noBorder
               />
               <Typography $fontSize={16} color="muted" $allowOverflow>
-                ETH
+                {unitAbbr}
               </Typography>
             </CustomInputSend>
             {ethPrice && (
@@ -270,12 +274,18 @@ export const EverstakeStake: React.FC = () => {
           ) : null}
           {!isFeeStep && amountBelowMin ? (
             <Typography variant="span" color="error" $fontSize={12}>
-              Minimum stake is {minStakeAmount} ETH
+              Minimum stake is {minStakeAmount} {unitAbbr}
             </Typography>
           ) : null}
           {!isFeeStep && amountExceedsBalance ? (
             <Typography variant="span" color="error" $fontSize={12}>
               Amount exceeds available balance
+            </Typography>
+          ) : null}
+          {!isFeeStep && assetConfig?.kind === 'pol' ? (
+            <Typography variant="span" color="muted" $fontSize={12}>
+              If this is your first time staking {unitAbbr}, you may be asked to
+              sign an additional approval transaction before staking.
             </Typography>
           ) : null}
         </Flex>

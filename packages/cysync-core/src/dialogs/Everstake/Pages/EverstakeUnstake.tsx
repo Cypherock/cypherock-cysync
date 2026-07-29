@@ -67,6 +67,9 @@ export const EverstakeUnstake: React.FC = () => {
     onClose,
     minStakeAmount,
     userPosition,
+    polPosition,
+    isPol,
+    unitAbbr,
   } = useEverstake();
 
   const { currentCurrency } = useCurrency();
@@ -79,15 +82,20 @@ export const EverstakeUnstake: React.FC = () => {
   const isFeeStep = step === 'unstakeFee';
 
   const maxUnstake = useMemo(() => {
-    if (!userPosition) return '';
+    const raw = isPol
+      ? polPosition?.stakedBalance
+      : userPosition?.autocompoundBalanceOf;
+    if (!raw) return '';
     try {
-      const active = new BigNumber(userPosition.autocompoundBalanceOf || '0');
+      const active = new BigNumber(raw || '0');
       if (active.isZero() || active.isNaN()) return '0';
       return parseFloat(active.toFixed(6)).toString();
     } catch {
       return '';
     }
-  }, [userPosition]);
+  }, [isPol, userPosition, polPosition]);
+
+  const hasActiveUnbond = isPol && !!polPosition?.unbonding;
 
   const coinId = selectedAccount?.assetId ?? '';
   const ethPrice = priceInfos.find(
@@ -121,7 +129,8 @@ export const EverstakeUnstake: React.FC = () => {
     !!unstakeAmount &&
     parseFloat(unstakeAmount) > 0 &&
     !amountExceedsMax &&
-    !amountBelowMin;
+    !amountBelowMin &&
+    !hasActiveUnbond;
 
   const averageGwei = unstakeTxn
     ? Number((unstakeTxn as any).staticData?.averageGasPrice) / 1e9
@@ -143,7 +152,9 @@ export const EverstakeUnstake: React.FC = () => {
       <Flex direction="column" gap={4} align="center">
         <BlockchainIcon />
         <Typography variant="h5" $textAlign="center" $fontSize={22}>
-          {isFeeStep ? `Unstaking ${unstakeAmount} ETH` : 'Unstake ETH'}
+          {isFeeStep
+            ? `Unstaking ${unstakeAmount} ${unitAbbr}`
+            : `Unstake ${unitAbbr}`}
         </Typography>
         {!isFeeStep && (
           <Typography
@@ -194,7 +205,7 @@ export const EverstakeUnstake: React.FC = () => {
                 $noBorder
               />
               <Typography $fontSize={16} color="muted" $allowOverflow>
-                ETH
+                {unitAbbr}
               </Typography>
             </CustomInputSend>
             {ethPrice && (
@@ -234,18 +245,24 @@ export const EverstakeUnstake: React.FC = () => {
           </Flex>
           {!isFeeStep && maxUnstake ? (
             <Typography variant="span" color="muted" $fontSize={12}>
-              Available to unstake: {maxUnstake} ETH
+              Available to unstake: {maxUnstake} {unitAbbr}
               {toUsd(maxUnstake) ? ` ${toUsd(maxUnstake)}` : ''}
             </Typography>
           ) : null}
           {!isFeeStep && amountBelowMin ? (
             <Typography variant="span" color="error" $fontSize={12}>
-              Minimum unstake is {minStakeAmount} ETH
+              Minimum unstake is {minStakeAmount} {unitAbbr}
             </Typography>
           ) : null}
           {!isFeeStep && amountExceedsMax ? (
             <Typography variant="span" color="error" $fontSize={12}>
               Amount exceeds your staked balance
+            </Typography>
+          ) : null}
+          {!isFeeStep && hasActiveUnbond ? (
+            <Typography variant="span" color="error" $fontSize={12}>
+              You already have an unbonding request in progress. Claim it before
+              starting a new unstake.
             </Typography>
           ) : null}
         </Flex>
@@ -261,8 +278,9 @@ export const EverstakeUnstake: React.FC = () => {
                 fontSize: 12,
               }}
             >
-              After unstaking, your ETH enters a processing queue. Once cleared,
-              you can claim it back to your wallet.
+              {isPol
+                ? `After unstaking, your ${unitAbbr} enters an ~80 checkpoint unbonding period (roughly 3-4 days). Once complete, you can claim it back to your wallet.`
+                : `After unstaking, your ${unitAbbr} enters a processing queue. Once cleared, you can claim it back to your wallet.`}
             </span>
           </div>
         )}

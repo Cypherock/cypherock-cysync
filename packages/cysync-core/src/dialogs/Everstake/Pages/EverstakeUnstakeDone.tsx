@@ -17,7 +17,7 @@ import { useEverstake } from '~/context/everstake';
 import { truncateMiddle } from '~/utils';
 
 export const EverstakeUnstakeDone: React.FC = () => {
-  const { onClose, unstakeAmount, txHash } = useEverstake();
+  const { onClose, unstakeAmount, txHash, unitAbbr, isPol } = useEverstake();
 
   return (
     <>
@@ -30,7 +30,9 @@ export const EverstakeUnstakeDone: React.FC = () => {
               Unstake Initiated!
             </Typography>
             <Typography variant="h6" $textAlign="center" color="muted">
-              {`${unstakeAmount} ETH has been submitted for unstaking. It will enter a processing queue and become claimable once cleared by Everstake.`}
+              {isPol
+                ? `${unstakeAmount} ${unitAbbr} has been submitted for unstaking. It will enter an ~80 checkpoint unbonding period (roughly 3-4 days) and become claimable once complete.`
+                : `${unstakeAmount} ${unitAbbr} has been submitted for unstaking. It will enter a processing queue and become claimable once cleared by Everstake.`}
             </Typography>
           </Flex>
           {txHash && (

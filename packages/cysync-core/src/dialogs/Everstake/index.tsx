@@ -19,6 +19,9 @@ import {
   useAppSelector,
 } from '~/store';
 
+import { EverstakeActionInfo } from './Pages/EverstakeActionInfo';
+import { EverstakeApprove } from './Pages/EverstakeApprove';
+import { EverstakeApproveConfirming } from './Pages/EverstakeApproveConfirming';
 import { EverstakeConsent } from './Pages/EverstakeConsent';
 import { EverstakeClaim } from './Pages/EverstakeClaim';
 import { EverstakeClaimDone } from './Pages/EverstakeClaimDone';
@@ -31,29 +34,53 @@ import { EverstakeUnstakeDone } from './Pages/EverstakeUnstakeDone';
 export interface EverstakeDialogProps {
   initialAccountId?: string;
   initialWalletId?: string;
-  initialMode?: 'stake' | 'unstake' | 'claim';
+  initialMode?:
+    | 'stake'
+    | 'unstake'
+    | 'claim'
+    | 'claimRewards'
+    | 'claimUnstake'
+    | 'restake';
 }
 
-const STEP_TO_MILESTONE: Record<string, number> = {
-  // stake
+const STAKE_STEP_TO_MILESTONE: Record<string, number> = {
   consent: 0,
   stakeInput: 0,
   stakeFee: 1,
   staking: 1,
+  stakeDone: 2,
+};
+
+const POL_STAKE_STEP_TO_MILESTONE: Record<string, number> = {
+  consent: 0,
+  stakeInput: 0,
+  approveFee: 1,
+  approving: 1,
+  confirmingApprove: 1,
+  stakeFee: 2,
+  staking: 2,
   stakeDone: 3,
-  // unstake
+};
+
+const UNSTAKE_STEP_TO_MILESTONE: Record<string, number> = {
+  unstakeInfo: 0,
   unstakeInput: 0,
   unstakeFee: 1,
   unstaking: 1,
-  unstakeDone: 3,
-  // claim
+  unstakeDone: 2,
+};
+
+const CLAIM_STEP_TO_MILESTONE: Record<string, number> = {
+  claimInfo: 0,
   claimFee: 0,
   claimConfirm: 1,
   claiming: 1,
-  claimDone: 3,
+  claimDone: 2,
 };
 
-const DEVICE_REQUIRED_STEPS = ['staking', 'unstaking', 'claiming'];
+const DEVICE_REQUIRED_STEPS = ['approving', 'staking', 'unstaking', 'claiming'];
+
+const CLAIM_LIKE_MODES = ['claim', 'claimRewards', 'claimUnstake', 'restake'];
 
 const DeviceConnectionWrapper: React.FC<{
   isDeviceRequired: boolean;
@@ -66,18 +93,37 @@ const DeviceConnectionWrapper: React.FC<{
 };
 
 const EverstakeContent: React.FC = () => {
-  const { step, onClose, error, selectedWallet, mode, setMode, deviceEvents } =
-    useEverstake();
+  const {
+    step,
+    onClose,
+    error,
+    selectedWallet,
+    mode,
+    setMode,
+    deviceEvents,
+    isPol,
+  } = useEverstake();
   const isDeviceRequired = DEVICE_REQUIRED_STEPS.includes(step);
 
+  const isPolStake = mode === 'stake' && isPol;
+
   const getMilestones = () => {
-    if (mode === 'claim') return ['Review', 'Sign', 'Done'];
+    if (CLAIM_LIKE_MODES.includes(mode)) return ['Review', 'Sign', 'Done'];
+    if (isPolStake) return ['Amount', 'Approve', 'Stake', 'Done'];
     return ['Amount', 'Sign', 'Done'];
   };
 
+  const getStepToMilestone = (): Record<string, number> => {
+    if (CLAIM_LIKE_MODES.includes(mode)) return CLAIM_STEP_TO_MILESTONE;
+    if (mode === 'unstake') return UNSTAKE_STEP_TO_MILESTONE;
+    return isPolStake ? POL_STAKE_STEP_TO_MILESTONE : STAKE_STEP_TO_MILESTONE;
+  };
+
+  const stepToMilestone = getStepToMilestone();
+
   const lastMilestoneRef = useRef(0);
   if (step !== 'error') {
-    lastMilestoneRef.current = STEP_TO_MILESTONE[step] ?? 0;
+    lastMilestoneRef.current = stepToMilestone[step] ?? 0;
   }
 
   const cardTapped =
@@ -87,9 +133,9 @@ const EverstakeContent: React.FC = () => {
   if (step === 'error') {
     activeTab = lastMilestoneRef.current;
   } else if (cardTapped) {
-    activeTab = 2;
+    activeTab = (stepToMilestone[step] ?? 0) + 1;
   } else {
-    activeTab = STEP_TO_MILESTONE[step] ?? 0;
+    activeTab = stepToMilestone[step] ?? 0;
   }
 
   const renderContent = () => {
@@ -99,10 +145,18 @@ const EverstakeContent: React.FC = () => {
       case 'stakeInput':
       case 'stakeFee':
         return <EverstakeStake />;
+      case 'approveFee':
+        return <EverstakeApprove />;
+      case 'approving':
       case 'staking':
         return <EverstakeStaking />;
+      case 'confirmingApprove':
+        return <EverstakeApproveConfirming />;
       case 'stakeDone':
         return <EverstakeStakeDone />;
+      case 'unstakeInfo':
+      case 'claimInfo':
+        return <EverstakeActionInfo />;
       case 'unstakeInput':
       case 'unstakeFee':
         return <EverstakeUnstake />;

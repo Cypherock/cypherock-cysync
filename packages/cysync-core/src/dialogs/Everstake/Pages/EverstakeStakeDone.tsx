@@ -17,7 +17,7 @@ import { useEverstake } from '~/context/everstake';
 import { truncateMiddle } from '~/utils';
 
 export const EverstakeStakeDone: React.FC = () => {
-  const { onClose, amount, txHash } = useEverstake();
+  const { onClose, amount, txHash, unitAbbr } = useEverstake();
 
   return (
     <>
@@ -30,7 +30,7 @@ export const EverstakeStakeDone: React.FC = () => {
               Staking Initiated!
             </Typography>
             <Typography variant="h6" $textAlign="center" color="muted">
-              {`${amount} ETH has been sent to Everstake. Your staking position will be active once the transaction is confirmed on-chain.`}
+              {`${amount} ${unitAbbr} has been sent to Everstake. Your staking position will be active once the transaction is confirmed on-chain.`}
             </Typography>
           </Flex>
           {txHash && (
