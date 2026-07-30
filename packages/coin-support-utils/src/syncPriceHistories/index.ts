@@ -7,7 +7,6 @@ import { ICreateSyncPriceHistoriesObservableParams } from './types';
 import { insertOrUpdatePriceHistory } from '../db';
 import { getPriceHistory } from '../services';
 import logger from '../utils/logger';
-import { downsamplePricePairs } from '../utils/resamplePriceHistory';
 
 export * from './types';
 
@@ -31,11 +30,7 @@ const fetchPriceHistoryForCoin = async ({
   currency: string;
   maxDataPoints?: number;
 }) => {
-  let prices = await getPriceHistory(coinId, currency, days);
-
-  if (maxDataPoints !== undefined) {
-    prices = downsamplePricePairs(prices, maxDataPoints);
-  }
+  const prices = await getPriceHistory(coinId, currency, days, maxDataPoints);
 
   const priceHistory: IPriceHistory = {
     assetId: coinId.assetId,
