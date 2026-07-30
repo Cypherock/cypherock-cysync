@@ -7,6 +7,7 @@ import { ICreateSyncPriceHistoriesObservableParams } from './types';
 import { insertOrUpdatePriceHistory } from '../db';
 import { getPriceHistory } from '../services';
 import logger from '../utils/logger';
+import { downsamplePricePairs } from '../utils/resamplePriceHistory';
 
 export * from './types';
 
@@ -22,13 +23,19 @@ const fetchPriceHistoryForCoin = async ({
   db,
   days,
   currency,
+  maxDataPoints,
 }: {
   coinId: { parentAssetId: string; assetId: string };
   db: IDatabase;
   days: number;
   currency: string;
+  maxDataPoints?: number;
 }) => {
-  const prices = await getPriceHistory(coinId, currency, days);
+  let prices = await getPriceHistory(coinId, currency, days);
+
+  if (maxDataPoints !== undefined) {
+    prices = downsamplePricePairs(prices, maxDataPoints);
+  }
 
   const priceHistory: IPriceHistory = {
     assetId: coinId.assetId,
@@ -107,7 +114,13 @@ export function createSyncPriceHistoriesObservable(
             const coinId = expiredCoinIds[i];
 
             try {
-              await fetchPriceHistoryForCoin({ coinId, db, days, currency });
+              await fetchPriceHistoryForCoin({
+                coinId,
+                db,
+                days,
+                currency,
+                maxDataPoints: params.maxDataPoints,
+              });
               await sleep(params.waitInMSBetweenEachAPICall ?? 500);
             } catch (error) {
               retries += 1;

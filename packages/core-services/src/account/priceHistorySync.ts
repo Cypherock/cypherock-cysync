@@ -17,8 +17,9 @@ export const syncSinglePriceHistory = async (params: {
   db: IDatabase;
   family: string;
   currency: string;
+  maxDataPoints?: number;
 }): Promise<ISyncPriceHistoriesEvent> => {
-  const { db, family, currency } = params;
+  const { db, family, currency, maxDataPoints } = params;
   const support = getCoinSupport(family);
 
   let isSuccessful = false;
@@ -31,6 +32,7 @@ export const syncSinglePriceHistory = async (params: {
         support.syncPriceHistories({
           db,
           currency,
+          maxDataPoints,
         }),
       );
       isSuccessful = true;
@@ -58,8 +60,9 @@ export const syncPriceHistories = (params: {
   db: IDatabase;
   families: string[];
   currency: string;
+  maxDataPoints?: number;
 }) => {
-  const { db, families, currency } = params;
+  const { db, families, currency, maxDataPoints } = params;
 
   return new Observable<ISyncPriceHistoriesEvent>(observer => {
     let promiseQueue: PromiseQueue<ISyncPriceHistoriesEvent> | undefined;
@@ -79,6 +82,7 @@ export const syncPriceHistories = (params: {
                 family: f,
                 db,
                 currency,
+                maxDataPoints,
               }),
           ),
           concurrentCount: PRICE_HISTORY_SYNC_CONCURRENCY,

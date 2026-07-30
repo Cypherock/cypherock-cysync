@@ -12,3 +12,4 @@ export * from './getCoinAllocations';
 export * from './getAccountHistory';
 export * from './x0';
 export { updateLogger } from './utils/logger';
+export * from './utils/resamplePriceHistory';

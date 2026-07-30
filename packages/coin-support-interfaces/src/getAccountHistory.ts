@@ -21,6 +21,13 @@ export interface IGetAccountHistoryParams {
   transactions?: ITransaction[];
   priceHistories?: IPriceHistory[];
   priceInfos?: IPriceInfo[];
+  /**
+   * Maximum number of points returned in the balance history. The stored
+   * price series is resampled to at most this many evenly spaced points
+   * (linearly interpolated). When undefined, the legacy per-range point
+   * counts are used.
+   */
+  maxDataPoints?: number;
 }
 
 export interface IGetAccountHistoryResult {
