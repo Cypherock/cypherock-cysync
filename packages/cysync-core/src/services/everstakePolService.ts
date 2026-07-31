@@ -1,6 +1,8 @@
 import axios from 'axios';
 
-const BASE = 'http://localhost:5001/everstake/pol';
+import { config } from '~/config';
+
+const BASE = `${config.API_CYPHEROCK}/everstake/pol`;
 
 export interface IEverstakePolTxParams {
   to: string;
