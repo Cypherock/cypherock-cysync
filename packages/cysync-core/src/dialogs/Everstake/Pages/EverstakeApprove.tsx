@@ -50,9 +50,10 @@ export const EverstakeApprove: React.FC = () => {
     onProceed,
     onClose,
     unitAbbr,
+    isProceeding,
   } = useEverstake();
 
-  const coinId = selectedAccount?.assetId ?? '';
+  const coinId = selectedAccount?.parentAssetId ?? '';
 
   const averageGwei = approveTxn
     ? Number((approveTxn as any).staticData?.averageGasPrice) / 1e9
@@ -137,7 +138,11 @@ export const EverstakeApprove: React.FC = () => {
         <Button variant="secondary" onClick={onClose}>
           Back
         </Button>
-        <Button variant="primary" onClick={onProceed} disabled={isFeeLoading}>
+        <Button
+          variant="primary"
+          onClick={onProceed}
+          disabled={isProceeding || isFeeLoading}
+        >
           Confirm Approve
         </Button>
       </Flex>

@@ -87,7 +87,7 @@ export const EarnDashboard: React.FC = () => {
         ? (parseFloat(amount) * parseFloat(priceInfo.latestPrice)).toFixed(2)
         : undefined;
       return {
-        token: `${amount} ${unit.abbr}`,
+        token: `${parseFloat(parseFloat(amount).toFixed(6))} ${unit.abbr}`,
         usd: usdVal !== undefined ? `$${usdVal}` : '',
       };
     } catch {
@@ -152,7 +152,7 @@ export const EarnDashboard: React.FC = () => {
                         col.label === 'Actions' ? 'center' : undefined,
                     }}
                   >
-                    <Typography variant="span" color="muted" $fontSize={20}>
+                    <Typography variant="span" color="muted" $fontSize={13}>
                       {col.label}
                     </Typography>
                   </div>
@@ -172,7 +172,7 @@ export const EarnDashboard: React.FC = () => {
                       display: 'flex',
                       alignItems: 'center',
                       width: '100%',
-                      minHeight: 100,
+                      minHeight: 72,
                       background: isEven
                         ? 'rgba(255,255,255,0.03)'
                         : 'transparent',
@@ -190,13 +190,13 @@ export const EarnDashboard: React.FC = () => {
                           size="28px"
                         />
                         <Flex direction="column" gap={4}>
-                          <Typography variant="span" $fontSize={21}>
+                          <Typography variant="span" $fontSize={16}>
                             {account.name}
                           </Typography>
                           <Typography
                             variant="span"
                             color="muted"
-                            $fontSize={18}
+                            $fontSize={13}
                           >
                             {cfg.label}
                           </Typography>
@@ -206,18 +206,18 @@ export const EarnDashboard: React.FC = () => {
 
                     {/* Wallet */}
                     <Cell flex={COL.wallet}>
-                      <Typography variant="span" $fontSize={21}>
+                      <Typography variant="span" $fontSize={16}>
                         {walletName}
                       </Typography>
                     </Cell>
 
                     {/* Balance */}
                     <Cell flex={COL.balance}>
-                      <Typography variant="span" $fontSize={21}>
+                      <Typography variant="span" $fontSize={16}>
                         {token}
                       </Typography>
                       {usd ? (
-                        <Typography variant="span" color="muted" $fontSize={18}>
+                        <Typography variant="span" color="muted" $fontSize={13}>
                           {usd}
                         </Typography>
                       ) : null}
@@ -227,8 +227,7 @@ export const EarnDashboard: React.FC = () => {
                     <Cell flex={COL.actions} align="center">
                       <Button
                         variant="primary"
-                        size="lg"
-                        style={{ padding: '12px 48px' }}
+                        size="sm"
                         onClick={() => {
                           navigateTo(
                             `${routes.everstakeAccount.path}?accountId=${account.__id}`,

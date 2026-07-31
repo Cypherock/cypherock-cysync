@@ -66,6 +66,7 @@ export const useEverstakePosition = (params: {
     withdrawRequest,
     polPosition,
     dataLoading,
+    setDataLoading,
     refreshPosition,
   };
 };

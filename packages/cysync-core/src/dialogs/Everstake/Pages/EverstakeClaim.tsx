@@ -90,10 +90,11 @@ export const EverstakeClaim: React.FC = () => {
     claimAmountRaw,
     mode,
     unitAbbr,
+    isProceeding,
   } = useEverstake();
 
   const isConfirmStep = step === 'claimConfirm';
-  const coinId = selectedAccount?.assetId ?? '';
+  const coinId = selectedAccount?.parentAssetId ?? '';
   const copy = MODE_COPY[mode] ?? MODE_COPY.claim;
 
   const claimable = (() => {
@@ -211,7 +212,11 @@ export const EverstakeClaim: React.FC = () => {
         <Button variant="secondary" onClick={onClose}>
           Back
         </Button>
-        <Button variant="primary" onClick={onProceed} disabled={isFeeLoading}>
+        <Button
+          variant="primary"
+          onClick={onProceed}
+          disabled={isProceeding || isFeeLoading}
+        >
           {isConfirmStep ? `Confirm ${copy.title}` : 'Check Fees'}
         </Button>
       </Flex>

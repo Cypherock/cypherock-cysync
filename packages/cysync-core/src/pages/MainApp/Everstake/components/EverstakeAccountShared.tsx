@@ -223,7 +223,7 @@ export const FlowDiagram: React.FC<{
               variant="span"
               style={{
                 fontFamily: 'Poppins',
-                fontSize: 13,
+                fontSize: 14,
                 color: node.dashed ? '#8B8682' : '#FFFFFF',
                 whiteSpace: 'nowrap',
               }}

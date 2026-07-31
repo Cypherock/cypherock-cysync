@@ -9,14 +9,17 @@ import {
   FeesSlider,
   Flex,
   Input,
+  InformationIcon,
+  LeanBox,
   Throbber,
   Toggle,
   Typography,
 } from '@cypherock/cysync-ui';
-import React, { useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 
 import { useEverstake } from '~/context/everstake';
 import { useCurrency } from '~/context';
+import { useAccounts } from '~/hooks';
 import { selectCurrentCurrencyPriceInfos, useAppSelector } from '~/store';
 
 const CARD_STYLE: React.CSSProperties = {
@@ -31,6 +34,24 @@ const CARD_STYLE: React.CSSProperties = {
   padding: 32,
   maxHeight: '80vh',
   overflowY: 'auto',
+};
+
+const STAKE_PERCENTAGE_OPTIONS = [25, 50, 75];
+
+const MAX_INTEGER_DIGITS = 15;
+const MAX_TOKEN_DECIMALS = 18; // same as on-chain wei precision for ETH/POL
+const MAX_USD_DECIMALS = 2;
+
+const sanitizeAmountInput = (val: string, maxDecimals: number): string => {
+  const cleaned = val.replace(/[^0-9.]/g, '');
+  const firstDot = cleaned.indexOf('.');
+  if (firstDot === -1) return cleaned.slice(0, MAX_INTEGER_DIGITS);
+  const intPart = cleaned.slice(0, firstDot).slice(0, MAX_INTEGER_DIGITS);
+  const decPart = cleaned
+    .slice(firstDot + 1)
+    .replace(/\./g, '')
+    .slice(0, maxDecimals);
+  return `${intPart}.${decPart}`;
 };
 
 const formatFee = (fee: string | undefined, coinId: string): string => {
@@ -67,7 +88,12 @@ export const EverstakeStake: React.FC = () => {
     minStakeAmount,
     unitAbbr,
     assetConfig,
+    isProceeding,
+    isPol,
+    poolInfo,
   } = useEverstake();
+
+  const allAccounts = useAccounts();
 
   const { currentCurrency } = useCurrency();
   const priceInfos = useAppSelector(state =>
@@ -75,8 +101,13 @@ export const EverstakeStake: React.FC = () => {
   );
 
   const [stakeMax, setStakeMax] = useState(false);
+  const [usdInput, setUsdInput] = useState('');
+  const [selectedPercentage, setSelectedPercentage] = useState<number | null>(
+    null,
+  );
+  const lastEditedRef = useRef<'token' | 'usd' | null>(null);
 
-  const coinId = selectedAccount?.assetId ?? '';
+  const coinId = selectedAccount?.parentAssetId ?? '';
   const isFeeStep = step === 'stakeFee';
 
   const parseEthBalance = (): { display: string; raw: string } => {
@@ -103,6 +134,49 @@ export const EverstakeStake: React.FC = () => {
     p => selectedAccount && p.assetId === selectedAccount.assetId,
   )?.latestPrice;
 
+  const ethSiblingAccount = useMemo(
+    () =>
+      allAccounts.find(
+        acc =>
+          selectedAccount &&
+          acc.walletId === selectedAccount.walletId &&
+          acc.assetId === acc.parentAssetId &&
+          acc.parentAssetId === selectedAccount.parentAssetId,
+      ),
+    [allAccounts, selectedAccount],
+  );
+
+  const ethSiblingBalanceRaw = (() => {
+    if (!ethSiblingAccount) return '';
+    try {
+      const { amount: bal } = getParsedAmount({
+        coinId: ethSiblingAccount.parentAssetId,
+        assetId: ethSiblingAccount.assetId,
+        unitAbbr: getDefaultUnit(
+          ethSiblingAccount.parentAssetId,
+          ethSiblingAccount.assetId,
+        ).abbr,
+        amount: ethSiblingAccount.balance,
+      });
+      return bal;
+    } catch {
+      return '';
+    }
+  })();
+
+  useEffect(() => {
+    if (!isPol) setStakeMax(false);
+  }, [isPol]);
+
+  useEffect(() => {
+    if (lastEditedRef.current === 'usd') return;
+    setUsdInput(
+      amount && ethPrice
+        ? new BigNumber(amount).multipliedBy(ethPrice).toFixed(2)
+        : '',
+    );
+  }, [amount, ethPrice]);
+
   const amountExceedsBalance =
     !!amount &&
     !!balanceRaw &&
@@ -113,10 +187,28 @@ export const EverstakeStake: React.FC = () => {
     parseFloat(amount) > 0 &&
     new BigNumber(amount).isLessThan(new BigNumber(minStakeAmount));
 
+  const exceedsInterchangeAllowed =
+    !isPol &&
+    !!amount &&
+    !!poolInfo?.interchangeAllowed &&
+    new BigNumber(amount).isGreaterThan(
+      new BigNumber(poolInfo.interchangeAllowed),
+    );
+
   const handleToggleMax = (checked: boolean) => {
+    lastEditedRef.current = 'token';
     setStakeMax(checked);
     if (checked) setAmount(balanceRaw);
-    else setAmount('');
+  };
+
+  const handleFillPercentage = (pct: number) => {
+    if (!balanceRaw) return;
+    lastEditedRef.current = 'token';
+    setSelectedPercentage(pct);
+    const filled = new BigNumber(balanceRaw)
+      .multipliedBy(pct / 100)
+      .toFixed(MAX_TOKEN_DECIMALS);
+    setAmount(sanitizeAmountInput(filled, MAX_TOKEN_DECIMALS));
   };
 
   const canProceed =
@@ -139,6 +231,33 @@ export const EverstakeStake: React.FC = () => {
   };
 
   const feeLabel = formatFee(getDisplayFee(), coinId);
+
+  const feeDecimal = (() => {
+    const raw = getDisplayFee();
+    if (!raw || raw === '0') return '0';
+    try {
+      const { amount: fee } = getParsedAmount({
+        coinId,
+        unitAbbr: getDefaultUnit(coinId).abbr,
+        amount: raw,
+      });
+      return fee;
+    } catch {
+      return '0';
+    }
+  })();
+
+  const insufficientForFee =
+    isFeeStep &&
+    !!stakeTxn &&
+    (isPol
+      ? !!ethSiblingBalanceRaw &&
+        new BigNumber(feeDecimal).isGreaterThan(
+          new BigNumber(ethSiblingBalanceRaw),
+        )
+      : new BigNumber(amount || '0')
+          .plus(feeDecimal)
+          .isGreaterThan(new BigNumber(balanceRaw || '0')));
 
   return (
     <div style={CARD_STYLE}>
@@ -200,18 +319,57 @@ export const EverstakeStake: React.FC = () => {
             <Typography variant="span" color="muted" $fontSize={13}>
               Enter Amount
             </Typography>
-            {!isFeeStep && (
-              <Flex align="center" gap={8}>
-                <Typography variant="span" color="muted" $fontSize={13}>
-                  Stake Max
-                </Typography>
-                {selectedAccount ? (
-                  <Toggle checked={stakeMax} onToggle={handleToggleMax} />
-                ) : (
-                  <Toggle checked={false} />
-                )}
-              </Flex>
-            )}
+            {!isFeeStep &&
+              (isPol ? (
+                <Flex align="center" gap={8}>
+                  <Typography variant="span" color="muted" $fontSize={13}>
+                    Stake Max
+                  </Typography>
+                  {selectedAccount ? (
+                    <Toggle checked={stakeMax} onToggle={handleToggleMax} />
+                  ) : (
+                    <Toggle checked={false} />
+                  )}
+                </Flex>
+              ) : (
+                <div
+                  style={{
+                    display: 'flex',
+                    background: '#000000',
+                    borderRadius: 6,
+                    overflow: 'hidden',
+                  }}
+                >
+                  {STAKE_PERCENTAGE_OPTIONS.map(pct => {
+                    const isActive = selectedPercentage === pct;
+                    return (
+                      <button
+                        key={pct}
+                        type="button"
+                        onClick={() => handleFillPercentage(pct)}
+                        disabled={!selectedAccount || !balanceRaw}
+                        style={{
+                          background: isActive
+                            ? 'linear-gradient(90deg, #E9B873 0%, #FEDD8F 37.17%, #B78D51 100%)'
+                            : 'transparent',
+                          border: 'none',
+                          color: isActive ? '#1A1612' : '#FFFFFF',
+                          fontSize: 11,
+                          fontWeight: 600,
+                          padding: '3px 9px',
+                          cursor:
+                            !selectedAccount || !balanceRaw
+                              ? 'not-allowed'
+                              : 'pointer',
+                          opacity: !selectedAccount || !balanceRaw ? 0.4 : 1,
+                        }}
+                      >
+                        {pct}%
+                      </button>
+                    );
+                  })}
+                </div>
+              ))}
           </Flex>
           <Flex gap={8} align="center" width="full">
             <CustomInputSend>
@@ -220,7 +378,9 @@ export const EverstakeStake: React.FC = () => {
                 name="everstake-amount"
                 placeholder="0"
                 onChange={(val: string) => {
-                  setAmount(val.replace(/[^0-9.]/g, ''));
+                  lastEditedRef.current = 'token';
+                  setSelectedPercentage(null);
+                  setAmount(sanitizeAmountInput(val, MAX_TOKEN_DECIMALS));
                   if (stakeMax) setStakeMax(false);
                 }}
                 value={amount}
@@ -242,20 +402,20 @@ export const EverstakeStake: React.FC = () => {
                     placeholder="0"
                     onChange={(val: string) => {
                       if (!ethPrice) return;
-                      const filtered = val.replace(/[^0-9.]/g, '');
+                      lastEditedRef.current = 'usd';
+                      setSelectedPercentage(null);
+                      const filtered = sanitizeAmountInput(
+                        val,
+                        MAX_USD_DECIMALS,
+                      );
+                      setUsdInput(filtered);
                       const eth = filtered
                         ? new BigNumber(filtered).dividedBy(ethPrice).toFixed(6)
                         : '';
                       setAmount(eth);
                       if (stakeMax) setStakeMax(false);
                     }}
-                    value={
-                      amount && ethPrice
-                        ? new BigNumber(amount)
-                            .multipliedBy(ethPrice)
-                            .toFixed(2)
-                        : ''
-                    }
+                    value={usdInput}
                     disabled={!selectedAccount || stakeMax || isFeeStep}
                     $textColor="white"
                     $noBorder
@@ -281,6 +441,15 @@ export const EverstakeStake: React.FC = () => {
             <Typography variant="span" color="error" $fontSize={12}>
               Amount exceeds available balance
             </Typography>
+          ) : null}
+          {!isFeeStep && exceedsInterchangeAllowed ? (
+            <LeanBox
+              leftImage={<InformationIcon height={16} width={16} />}
+              text="This may take a few days to a few weeks depending on current network demand."
+              textVariant="span"
+              fontSize={12}
+              disabledInnerFlex
+            />
           ) : null}
           {!isFeeStep && assetConfig?.kind === 'pol' ? (
             <Typography variant="span" color="muted" $fontSize={12}>
@@ -336,6 +505,13 @@ export const EverstakeStake: React.FC = () => {
                   </Typography>
                 </Flex>
               ) : null}
+              {insufficientForFee ? (
+                <Typography variant="span" color="error" $fontSize={13}>
+                  {isPol
+                    ? 'Not enough ETH in this wallet to cover the network fee.'
+                    : 'Amount plus network fee exceeds your available balance. Lower the amount and try again.'}
+                </Typography>
+              ) : null}
             </Flex>
           )
         ))}
@@ -348,7 +524,10 @@ export const EverstakeStake: React.FC = () => {
         <Button
           variant="primary"
           onClick={onProceed}
-          disabled={isFeeStep ? isFeeLoading : !canProceed}
+          disabled={
+            isProceeding ||
+            (isFeeStep ? isFeeLoading || insufficientForFee : !canProceed)
+          }
         >
           {isFeeStep ? 'Confirm Stake' : 'Proceed'}
         </Button>

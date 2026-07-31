@@ -12,10 +12,11 @@ import {
   Toggle,
   Typography,
 } from '@cypherock/cysync-ui';
-import React, { useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
 
 import { useEverstake } from '~/context/everstake';
 import { useCurrency } from '~/context';
+import { useAccounts } from '~/hooks';
 import { selectCurrentCurrencyPriceInfos, useAppSelector } from '~/store';
 
 const CARD_STYLE: React.CSSProperties = {
@@ -30,6 +31,22 @@ const CARD_STYLE: React.CSSProperties = {
   padding: 32,
   maxHeight: '80vh',
   overflowY: 'auto',
+};
+
+const MAX_INTEGER_DIGITS = 15;
+const MAX_TOKEN_DECIMALS = 18; // same as on-chain wei precision for ETH/POL
+const MAX_USD_DECIMALS = 2;
+
+const sanitizeAmountInput = (val: string, maxDecimals: number): string => {
+  const cleaned = val.replace(/[^0-9.]/g, '');
+  const firstDot = cleaned.indexOf('.');
+  if (firstDot === -1) return cleaned.slice(0, MAX_INTEGER_DIGITS);
+  const intPart = cleaned.slice(0, firstDot).slice(0, MAX_INTEGER_DIGITS);
+  const decPart = cleaned
+    .slice(firstDot + 1)
+    .replace(/\./g, '')
+    .slice(0, maxDecimals);
+  return `${intPart}.${decPart}`;
 };
 
 const INFO_NOTE_STYLE: React.CSSProperties = {
@@ -70,7 +87,10 @@ export const EverstakeUnstake: React.FC = () => {
     polPosition,
     isPol,
     unitAbbr,
+    isProceeding,
   } = useEverstake();
+
+  const allAccounts = useAccounts();
 
   const { currentCurrency } = useCurrency();
   const priceInfos = useAppSelector(state =>
@@ -78,6 +98,8 @@ export const EverstakeUnstake: React.FC = () => {
   );
 
   const [unstakeMax, setUnstakeMax] = useState(false);
+  const [usdInput, setUsdInput] = useState('');
+  const lastEditedRef = useRef<'token' | 'usd' | null>(null);
 
   const isFeeStep = step === 'unstakeFee';
 
@@ -97,7 +119,7 @@ export const EverstakeUnstake: React.FC = () => {
 
   const hasActiveUnbond = isPol && !!polPosition?.unbonding;
 
-  const coinId = selectedAccount?.assetId ?? '';
+  const coinId = selectedAccount?.parentAssetId ?? '';
   const ethPrice = priceInfos.find(
     p => selectedAccount && p.assetId === selectedAccount.assetId,
   )?.latestPrice;
@@ -107,6 +129,47 @@ export const EverstakeUnstake: React.FC = () => {
     const usd = new BigNumber(ethAmount).multipliedBy(ethPrice);
     return usd.isNaN() ? '' : `≈ $${usd.toFixed(2)}`;
   };
+
+  const feePayingAccount = useMemo(
+    () =>
+      isPol
+        ? allAccounts.find(
+            acc =>
+              selectedAccount &&
+              acc.walletId === selectedAccount.walletId &&
+              acc.assetId === acc.parentAssetId &&
+              acc.parentAssetId === selectedAccount.parentAssetId,
+          )
+        : selectedAccount,
+    [isPol, allAccounts, selectedAccount],
+  );
+
+  const feePayingBalanceRaw = (() => {
+    if (!feePayingAccount) return '';
+    try {
+      const { amount: bal } = getParsedAmount({
+        coinId: feePayingAccount.parentAssetId,
+        assetId: feePayingAccount.assetId,
+        unitAbbr: getDefaultUnit(
+          feePayingAccount.parentAssetId,
+          feePayingAccount.assetId,
+        ).abbr,
+        amount: feePayingAccount.balance,
+      });
+      return bal;
+    } catch {
+      return '';
+    }
+  })();
+
+  useEffect(() => {
+    if (lastEditedRef.current === 'usd') return;
+    setUsdInput(
+      unstakeAmount && ethPrice
+        ? new BigNumber(unstakeAmount).multipliedBy(ethPrice).toFixed(2)
+        : '',
+    );
+  }, [unstakeAmount, ethPrice]);
 
   const amountBelowMin =
     !!unstakeAmount &&
@@ -119,9 +182,9 @@ export const EverstakeUnstake: React.FC = () => {
     new BigNumber(unstakeAmount).isGreaterThan(new BigNumber(maxUnstake));
 
   const handleToggleMax = (checked: boolean) => {
+    lastEditedRef.current = 'token';
     setUnstakeMax(checked);
     if (checked) setUnstakeAmount(maxUnstake);
-    else setUnstakeAmount('');
   };
 
   const canProceed =
@@ -145,6 +208,27 @@ export const EverstakeUnstake: React.FC = () => {
   };
 
   const feeLabel = formatFee(getDisplayFee(), coinId);
+
+  const feeDecimal = (() => {
+    const raw = getDisplayFee();
+    if (!raw || raw === '0') return '0';
+    try {
+      const { amount: fee } = getParsedAmount({
+        coinId,
+        unitAbbr: getDefaultUnit(coinId).abbr,
+        amount: raw,
+      });
+      return fee;
+    } catch {
+      return '0';
+    }
+  })();
+
+  const insufficientForFee =
+    isFeeStep &&
+    !!unstakeTxn &&
+    !!feePayingBalanceRaw &&
+    new BigNumber(feeDecimal).isGreaterThan(new BigNumber(feePayingBalanceRaw));
 
   return (
     <div style={CARD_STYLE}>
@@ -196,7 +280,10 @@ export const EverstakeUnstake: React.FC = () => {
                 name="everstake-unstake-amount"
                 placeholder="0"
                 onChange={(val: string) => {
-                  setUnstakeAmount(val.replace(/[^0-9.]/g, ''));
+                  lastEditedRef.current = 'token';
+                  setUnstakeAmount(
+                    sanitizeAmountInput(val, MAX_TOKEN_DECIMALS),
+                  );
                   if (unstakeMax) setUnstakeMax(false);
                 }}
                 value={unstakeAmount}
@@ -218,20 +305,19 @@ export const EverstakeUnstake: React.FC = () => {
                     placeholder="0"
                     onChange={(val: string) => {
                       if (!ethPrice) return;
-                      const filtered = val.replace(/[^0-9.]/g, '');
+                      lastEditedRef.current = 'usd';
+                      const filtered = sanitizeAmountInput(
+                        val,
+                        MAX_USD_DECIMALS,
+                      );
+                      setUsdInput(filtered);
                       const eth = filtered
                         ? new BigNumber(filtered).dividedBy(ethPrice).toFixed(6)
                         : '';
                       setUnstakeAmount(eth);
                       if (unstakeMax) setUnstakeMax(false);
                     }}
-                    value={
-                      unstakeAmount && ethPrice
-                        ? new BigNumber(unstakeAmount)
-                            .multipliedBy(ethPrice)
-                            .toFixed(2)
-                        : ''
-                    }
+                    value={usdInput}
                     disabled={!selectedAccount || unstakeMax || isFeeStep}
                     $textColor="white"
                     $noBorder
@@ -331,6 +417,11 @@ export const EverstakeUnstake: React.FC = () => {
                   </Typography>
                 </Flex>
               ) : null}
+              {insufficientForFee ? (
+                <Typography variant="span" color="error" $fontSize={13}>
+                  Not enough ETH in this wallet to cover the network fee.
+                </Typography>
+              ) : null}
             </Flex>
           )
         ))}
@@ -343,7 +434,10 @@ export const EverstakeUnstake: React.FC = () => {
         <Button
           variant="primary"
           onClick={onProceed}
-          disabled={isFeeStep ? isFeeLoading : !canProceed}
+          disabled={
+            isProceeding ||
+            (isFeeStep ? isFeeLoading || insufficientForFee : !canProceed)
+          }
         >
           {isFeeStep ? 'Confirm Unstake' : 'Proceed'}
         </Button>

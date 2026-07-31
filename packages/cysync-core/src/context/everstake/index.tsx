@@ -75,6 +75,7 @@ interface IEverstakeContext {
   dataLoading: boolean;
   minStakeAmount: string;
   onProceed: () => Promise<void>;
+  isProceeding: boolean;
   onClose: () => void;
 }
 
@@ -311,7 +312,10 @@ export const EverstakeProvider: FC<{
     }
   };
 
+  const [isProceeding, setIsProceeding] = useState(false);
+
   const onProceed = async () => {
+    setIsProceeding(true);
     try {
       if (mode === 'stake') {
         await (isPol
@@ -325,6 +329,8 @@ export const EverstakeProvider: FC<{
         e instanceof Error ? e : new Error(e?.message ?? 'An error occurred'),
       );
       setStep('error');
+    } finally {
+      setIsProceeding(false);
     }
   };
 
@@ -379,6 +385,7 @@ export const EverstakeProvider: FC<{
       dataLoading,
       minStakeAmount,
       onProceed,
+      isProceeding,
       onClose,
     }),
     [
@@ -411,6 +418,7 @@ export const EverstakeProvider: FC<{
       polPosition,
       dataLoading,
       minStakeAmount,
+      isProceeding,
     ],
   );
 

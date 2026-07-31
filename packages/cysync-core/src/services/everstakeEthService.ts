@@ -12,6 +12,7 @@ export interface IEverstakePoolInfo {
   readyforAutocompoundRewardsAmount: string;
   minStakeAmount: string;
   poolFee: string;
+  interchangeAllowed: string;
 }
 
 export interface IEverstakeUserPosition {

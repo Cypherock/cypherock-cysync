@@ -5,7 +5,7 @@ import {
   Typography,
 } from '@cypherock/cysync-ui';
 import { BigNumber } from '@cypherock/cysync-utils';
-import React, { useMemo } from 'react';
+import React, { useEffect, useMemo } from 'react';
 import { useLocation } from 'react-router-dom';
 
 import { openEverstakeDialog } from '~/actions';
@@ -17,11 +17,13 @@ import { EverstakeMode } from '~/context/everstake';
 import { useEverstakePosition } from '~/context/everstake/core/useEverstakePosition';
 import { useAccounts, useNavigateTo } from '~/hooks';
 import {
+  selectAccountSync,
   selectCurrentCurrencyPriceInfos,
   selectWallets,
   useAppDispatch,
   useAppSelector,
 } from '~/store';
+import logger from '~/utils/logger';
 
 import { DIVIDER_STYLE, F, T } from './components/EverstakeAccountShared';
 import { EthAccountPageContent } from './eth/EthAccountPageContent';
@@ -67,8 +69,29 @@ export const EverstakeAccountPage: React.FC = () => {
   );
   const isPol = assetConfig?.kind === 'pol';
 
-  const { userPosition, withdrawRequest, polPosition, dataLoading } =
-    useEverstakePosition({ selectedAccount: account, isPol });
+  const {
+    userPosition,
+    withdrawRequest,
+    polPosition,
+    dataLoading,
+    setDataLoading,
+    refreshPosition,
+  } = useEverstakePosition({ selectedAccount: account, isPol });
+
+  const { lastSyncedAt } = useAppSelector(selectAccountSync);
+
+  useEffect(() => {
+    if (!account) return;
+    setDataLoading(true);
+    refreshPosition(account)
+      .catch((e: any) =>
+        logger.error(
+          'Everstake post-sync position refresh failed',
+          e as object,
+        ),
+      )
+      .finally(() => setDataLoading(false));
+  }, [lastSyncedAt]);
 
   if (!account) {
     return (
