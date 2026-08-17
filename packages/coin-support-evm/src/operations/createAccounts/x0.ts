@@ -18,6 +18,12 @@ import { getCoinSupportEthersLib } from '../../utils';
 import { formatAddress } from '../formatAddress';
 
 /**
+ * Keep NFC taps short: derive fewer upfront candidates per scheme than the
+ * X1 flow. The 2-empty-account threshold usually stops within this window.
+ */
+export const X0_DERIVATION_PATH_LIMIT = 5;
+
+/**
  * The `legacy` scheme (m/44'/60'/0'/i) is depth 4 — the X0 card can only
  * derive and sign at depth 5, so those accounts would be unspendable.
  */

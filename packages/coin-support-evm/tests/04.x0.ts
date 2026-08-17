@@ -1,5 +1,5 @@
 import { Observer } from 'rxjs';
-import { IReceiveEvent } from '@cypherock/coin-support-interfaces';
+import { IReceiveEvent, IX0Session } from '@cypherock/coin-support-interfaces';
 import { IAccount, IDatabase } from '@cypherock/db-interfaces';
 import { beforeEach, describe, expect, jest, test } from '@jest/globals';
 import * as ethers from 'ethers';
@@ -17,6 +17,26 @@ import {
   IEvmAccount,
   ISignEvmTransactionEvent,
 } from '../src';
+import { X0_DERIVATION_PATH_LIMIT } from '../src/operations/createAccounts/x0';
+
+const createPathCountingX0Session = (derivedPaths: number[][]): IX0Session => {
+  const session = createMockX0Session();
+  return {
+    ...session,
+    runTap: (op, hooks) =>
+      session.runTap(
+        card =>
+          op({
+            ...card,
+            deriveKeys: params => {
+              derivedPaths.push(...params.paths);
+              return card.deriveKeys(params);
+            },
+          }),
+        hooks,
+      ),
+  };
+};
 
 const pathToNumbers = (path: string): number[] =>
   path
@@ -120,6 +140,35 @@ describe('04. X0 flows', () => {
         waitInMSBetweenEachAccountAPI: 1,
       })
       .subscribe(observer);
+  }, 10000);
+
+  test('createAccounts caps card derivations in one tap at the X0 path limit', done => {
+    const derivedPaths: number[][] = [];
+
+    support
+      .createAccounts({
+        x0: createPathCountingX0Session(derivedPaths),
+        db,
+        coinId: 'ethereum',
+        walletId: MOCK_WALLET_ID,
+        waitInMSBetweenEachAccountAPI: 1,
+      })
+      .subscribe({
+        next: () => undefined,
+        complete: () => {
+          // The limit caps the whole tap, split across the ledger and
+          // metamask schemes; both share m/44'/60'/0'/0/0 at index 0, which
+          // is only derived once.
+          expect(derivedPaths.length).toBeGreaterThan(0);
+          expect(derivedPaths.length).toBeLessThanOrEqual(
+            X0_DERIVATION_PATH_LIMIT,
+          );
+          done();
+        },
+        error: err => {
+          done(err);
+        },
+      });
   }, 10000);
 
   test('signTransaction produces a broadcastable EIP-155 transaction', done => {
