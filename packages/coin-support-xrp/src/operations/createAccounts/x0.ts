@@ -12,6 +12,12 @@ import {
 import { uint8ArrayToHex } from '@cypherock/sdk-utils';
 
 /**
+ * Keep NFC taps short: derive fewer upfront candidates per scheme than the
+ * X1 flow. The 2-empty-account threshold usually stops within this window.
+ */
+export const X0_DERIVATION_PATH_LIMIT = 5;
+
+/**
  * XRP accounts store the compressed public key hex in xpubOrAddress; the
  * address is derived host-side via xrpl.deriveAddress — same as the X1 flow.
  */

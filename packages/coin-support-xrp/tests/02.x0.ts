@@ -1,5 +1,5 @@
 import { Observer } from 'rxjs';
-import { IReceiveEvent } from '@cypherock/coin-support-interfaces';
+import { IReceiveEvent, IX0Session } from '@cypherock/coin-support-interfaces';
 import { sha512Half, verifyDerSignature } from '@cypherock/coin-support-utils';
 import { IAccount, IDatabase } from '@cypherock/db-interfaces';
 import { beforeEach, describe, expect, jest, test } from '@jest/globals';
@@ -13,6 +13,26 @@ import {
 } from './__mocks__/x0Session';
 
 import { XrpSupport } from '../src';
+import { X0_DERIVATION_PATH_LIMIT } from '../src/operations/createAccounts/x0';
+
+const createPathCountingX0Session = (derivedPaths: number[][]): IX0Session => {
+  const session = createMockX0Session();
+  return {
+    ...session,
+    runTap: (op, hooks) =>
+      session.runTap(
+        card =>
+          op({
+            ...card,
+            deriveKeys: params => {
+              derivedPaths.push(...params.paths);
+              return card.deriveKeys(params);
+            },
+          }),
+        hooks,
+      ),
+  };
+};
 
 const DEFAULT_PATH_0 = [0x8000002c, 0x80000090, 0x80000000, 0, 0];
 const DEFAULT_PATH_1 = [0x8000002c, 0x80000090, 0x80000000, 0, 1];
@@ -92,6 +112,30 @@ describe('02. X0 flows', () => {
         waitInMSBetweenEachAccountAPI: 1,
       })
       .subscribe(observer);
+  }, 10000);
+
+  test('createAccounts caps card derivations in one tap at the X0 path limit', done => {
+    const derivedPaths: number[][] = [];
+
+    support
+      .createAccounts({
+        x0: createPathCountingX0Session(derivedPaths),
+        db,
+        coinId: 'xrp',
+        walletId: MOCK_WALLET_ID,
+        waitInMSBetweenEachAccountAPI: 1,
+      })
+      .subscribe({
+        next: () => undefined,
+        complete: () => {
+          // single default scheme, X0_DERIVATION_PATH_LIMIT paths
+          expect(derivedPaths).toHaveLength(X0_DERIVATION_PATH_LIMIT);
+          done();
+        },
+        error: err => {
+          done(err);
+        },
+      });
   }, 10000);
 
   test('signTransaction embeds a valid DER signature into the tx blob', done => {
