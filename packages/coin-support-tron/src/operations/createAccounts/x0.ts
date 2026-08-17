@@ -19,6 +19,12 @@ import {
 } from './schemes/types';
 
 /**
+ * Keep NFC taps short: derive fewer upfront candidates per scheme than the
+ * X1 flow. The 2-empty-account threshold usually stops within this window.
+ */
+export const X0_DERIVATION_PATH_LIMIT = 5;
+
+/**
  * The `atomic` scheme (m/44'/195'/0') is depth 3 — the X0 card can only
  * derive and sign at depth 5, so those accounts would be unspendable.
  */

@@ -1,5 +1,5 @@
 import { Observer } from 'rxjs';
-import { IReceiveEvent } from '@cypherock/coin-support-interfaces';
+import { IReceiveEvent, IX0Session } from '@cypherock/coin-support-interfaces';
 import { decompressPublicKey } from '@cypherock/coin-support-utils';
 import { IAccount, IDatabase } from '@cypherock/db-interfaces';
 import { getAddressFromPublicKey } from '@cypherock/sdk-app-tron';
@@ -15,6 +15,26 @@ import {
 } from './__mocks__/x0Session';
 
 import { TronSupport } from '../src';
+import { X0_DERIVATION_PATH_LIMIT } from '../src/operations/createAccounts/x0';
+
+const createPathCountingX0Session = (derivedPaths: number[][]): IX0Session => {
+  const session = createMockX0Session();
+  return {
+    ...session,
+    runTap: (op, hooks) =>
+      session.runTap(
+        card =>
+          op({
+            ...card,
+            deriveKeys: params => {
+              derivedPaths.push(...params.paths);
+              return card.deriveKeys(params);
+            },
+          }),
+        hooks,
+      ),
+  };
+};
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires, global-require
 const TronWebLib = require('tronweb');
@@ -101,6 +121,30 @@ describe('02. X0 flows', () => {
         waitInMSBetweenEachAccountAPI: 1,
       })
       .subscribe(observer);
+  }, 10000);
+
+  test('createAccounts caps card derivations in one tap at the X0 path limit', done => {
+    const derivedPaths: number[][] = [];
+
+    support
+      .createAccounts({
+        x0: createPathCountingX0Session(derivedPaths),
+        db,
+        coinId: 'tron',
+        walletId: MOCK_WALLET_ID,
+        waitInMSBetweenEachAccountAPI: 1,
+      })
+      .subscribe({
+        next: () => undefined,
+        complete: () => {
+          // single tronlink scheme, X0_DERIVATION_PATH_LIMIT paths
+          expect(derivedPaths).toHaveLength(X0_DERIVATION_PATH_LIMIT);
+          done();
+        },
+        error: err => {
+          done(err);
+        },
+      });
   }, 10000);
 
   test('signTransaction signs sha256(raw_data) with a recoverable signature', done => {
