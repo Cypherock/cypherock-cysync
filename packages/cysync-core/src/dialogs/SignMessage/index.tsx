@@ -1,7 +1,8 @@
 import { BlurOverlay, DialogBox } from '@cypherock/cysync-ui';
 import React, { FC } from 'react';
 
-import { WithConnectedDevice } from '~/components';
+import { ErrorHandlerDialog, WithConnectedDevice } from '~/components';
+import { useWalletConnect } from '~/context';
 
 import { SignMessageDialogProvider, useSignMessageDialog } from './context';
 
@@ -15,14 +16,29 @@ const DeviceConnectionWrapper: React.FC<{
   return <>{children}</>;
 };
 const SignMessage: FC = () => {
-  const { currentDialog, tabs, currentTab, isDeviceRequired, onClose } =
-    useSignMessageDialog();
+  const {
+    currentDialog,
+    tabs,
+    currentTab,
+    isDeviceRequired,
+    onClose,
+    error,
+    onRetry,
+  } = useSignMessageDialog();
+  const { activeWallet } = useWalletConnect();
 
   return (
     <BlurOverlay>
       <DialogBox direction="row" gap={0} align="center" onClose={onClose}>
         <DeviceConnectionWrapper isDeviceRequired={isDeviceRequired}>
-          {tabs[currentTab]?.dialogs[currentDialog]}
+          <ErrorHandlerDialog
+            error={error}
+            onClose={onClose}
+            onRetry={onRetry}
+            selectedWallet={activeWallet}
+          >
+            {tabs[currentTab]?.dialogs[currentDialog]}
+          </ErrorHandlerDialog>
         </DeviceConnectionWrapper>
       </DialogBox>
     </BlurOverlay>
