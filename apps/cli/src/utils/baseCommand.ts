@@ -11,7 +11,6 @@ import { IDeviceConnection } from '@cypherock/sdk-interfaces';
 import { Command, Flags, Interfaces } from '@oclif/core';
 import * as solanaWeb3 from '@solana/web3.js';
 import * as bitcoin from 'bitcoinjs-lib';
-import * as eip712 from 'eip-712';
 import { ethers } from 'ethers';
 import * as nearApiJs from 'near-api-js';
 import starknet from 'starknet';
@@ -97,7 +96,6 @@ export abstract class BaseCommand<T extends typeof Command> extends Command {
 
     BtcSupport.setBitcoinLibrary(bitcoin);
     EvmSupport.setEthersLibrary(ethers);
-    EvmSupport.setEip712Library(eip712);
     NearSupport.setNearApiJs(nearApiJs);
     SolanaSupport.setWeb3Library(solanaWeb3);
     XrpSupport.setXrpLib(xrpl);
