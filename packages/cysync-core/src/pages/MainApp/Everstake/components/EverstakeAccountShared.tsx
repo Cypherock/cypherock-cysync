@@ -1,3 +1,4 @@
+import { BigNumber } from '@cypherock/cysync-utils';
 import { ArrowRightIcon, Button, Flex, Typography } from '@cypherock/cysync-ui';
 import React from 'react';
 
@@ -38,7 +39,9 @@ const iconBg = (disabled?: boolean): React.CSSProperties => ({
 export const parseAmount = (value: string, abbr: string): string => {
   if (!value || value === '0') return `0 ${abbr}`;
   try {
-    const trimmed = parseFloat(parseFloat(value).toFixed(6)).toString();
+    const trimmed = parseFloat(
+      new BigNumber(value).toFixed(6, BigNumber.ROUND_FLOOR),
+    ).toString();
     return `${trimmed} ${abbr}`;
   } catch {
     return `0 ${abbr}`;

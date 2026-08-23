@@ -111,7 +111,7 @@ export const EverstakeUnstake: React.FC = () => {
     try {
       const active = new BigNumber(raw || '0');
       if (active.isZero() || active.isNaN()) return '0';
-      return parseFloat(active.toFixed(6)).toString();
+      return parseFloat(active.toFixed(6, BigNumber.ROUND_FLOOR)).toString();
     } catch {
       return '';
     }
