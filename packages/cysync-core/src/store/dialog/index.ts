@@ -44,6 +44,9 @@ const initialState: IDialogState = {
   deployAccountDialog: {
     isOpen: false,
   },
+  everstakeDialog: {
+    isOpen: false,
+  },
   sendDialog: {
     isOpen: false,
   },

@@ -1,4 +1,5 @@
 import { AddAccountDialogProps } from '~/dialogs/AddAccount';
+import { EverstakeDialogProps } from '~/dialogs/Everstake';
 import { AddTokenDialogProps } from '~/dialogs/AddToken';
 import { IBuySellDialogProps } from '~/dialogs/BuySellDialog';
 import {
@@ -52,6 +53,9 @@ export const openAddTokenDialog = (props?: AddTokenDialogProps) =>
 
 export const openReceiveDialog = (data?: ReceiveDialogProps) =>
   openDialog({ name: 'receive', data });
+
+export const openEverstakeDialog = (data?: EverstakeDialogProps) =>
+  openDialog({ name: 'everstakeDialog', data });
 
 export const openSendDialog = (data?: SendDialogProps) =>
   openDialog({ name: 'sendDialog', data });

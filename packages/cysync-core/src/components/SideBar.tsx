@@ -20,6 +20,7 @@ import {
   WalletConnectWhiteIcon,
   WalletIcon,
   DollarIcon,
+  EarnIcon,
   WalletInfoIcon,
   parseLangTemplate,
   SidebarHandle,
@@ -221,6 +222,19 @@ const SideBarComponent: FC = () => {
           onClick={() => navigate('inheritance')}
         />
       )}
+      <SideBarItem
+        text="Earn"
+        Icon={EarnIcon}
+        state={wallets.length === 0 ? State.disabled : getState('earn')}
+        onClick={() => navigate('earn')}
+        extraRight={
+          <Chip $gradient="silver">
+            <Typography $fontSize={10} $fontWeight="semibold" color="black">
+              {strings.new}
+            </Typography>
+          </Chip>
+        }
+      />
       {window.cysyncFeatureFlags.AFFILIATE && (
         <SideBarItem
           text={strings.referAndEarn}

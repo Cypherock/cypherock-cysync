@@ -9,3 +9,4 @@ export * from './BuySell2';
 export * from './Swap';
 export * from './Inheritance';
 export * from './ReferAndEarn';
+export * from './Everstake';
