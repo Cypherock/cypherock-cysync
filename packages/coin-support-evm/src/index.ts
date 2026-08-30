@@ -37,6 +37,7 @@ import { getAppletId, setCoinSupportEthersLib } from './utils';
 import { setCoinSupportWeb3Lib } from './utils/web3';
 
 export * from './operations/types';
+export * from './operations/staking';
 export * from './services';
 
 export { updateLogger } from './utils/logger';

@@ -53,6 +53,12 @@ export const openAddTokenDialog = (props?: AddTokenDialogProps) =>
 export const openReceiveDialog = (data?: ReceiveDialogProps) =>
   openDialog({ name: 'receive', data });
 
+export const openHyspDialog = (initialAccountId?: string, initialToken?: 'usdc' | 'usdt', initialWalletId?: string) =>
+  openDialog({
+    name: 'hyspDialog',
+    data: initialAccountId ? { initialAccountId, initialToken, initialWalletId } : undefined,
+  });
+
 export const openSendDialog = (data?: SendDialogProps) =>
   openDialog({ name: 'sendDialog', data });
 

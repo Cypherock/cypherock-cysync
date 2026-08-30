@@ -44,6 +44,9 @@ const initialState: IDialogState = {
   deployAccountDialog: {
     isOpen: false,
   },
+  hyspDialog: {
+    isOpen: false,
+  },
   sendDialog: {
     isOpen: false,
   },

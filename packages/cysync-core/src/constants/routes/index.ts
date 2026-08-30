@@ -42,6 +42,10 @@ const rootRoutes = {
     name: 'refer-and-earn',
     path: '/refer-and-earn',
   },
+  earn: {
+    name: 'earn',
+    path: '/earn',
+  },
 } as const;
 
 export const routes = {

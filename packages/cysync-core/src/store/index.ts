@@ -16,3 +16,4 @@ export * from './inheritance';
 export * from './lastConnectedFirmware';
 export * from './canton';
 export * from './buySell';
+export * from './country';
