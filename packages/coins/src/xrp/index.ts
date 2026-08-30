@@ -1,12 +1,17 @@
 import coinList from './coins';
+import { getXrpTokens, IXrpToken } from './token';
 
 import { ICoinInfo, coinFamiliesMap } from '../types';
+
+export * from './token';
 
 type XrpFamily = typeof coinFamiliesMap.xrp;
 
 export interface IXrpCoinInfo extends ICoinInfo {
   family: XrpFamily;
   network: string;
+  tokens: Record<string, IXrpToken>;
+  tokensByContract: Record<string, IXrpToken>;
 }
 
 export const XrpIdMap = {
@@ -32,6 +37,7 @@ export const xrpCoinList: Record<string, IXrpCoinInfo> = coinList.reduce<
       network: coin.network,
       units: coin.units,
       color: coin.color,
+      ...getXrpTokens(coin.id, { color: coin.color }),
     },
   }),
   {},

@@ -1,0 +1,1535 @@
+[
+  {
+    "description": {
+      "en": "USDC is a fully collateralized US dollar stablecoin. USDC is the bridge between dollars and trading on cryptocurrency exchanges. The technology behind CENTRE makes it possible to exchange value between people, businesses and financial institutions just like email between mail services and texts between SMS providers. We believe by removing artificial economic borders, we can create a more inclusive global economy."
+    },
+    "id": "usd-coin",
+    "image": {
+      "large": "https://coin-images.coingecko.com/coins/images/6319/large/usdc.png?1696506694",
+      "small": "https://coin-images.coingecko.com/coins/images/6319/small/usdc.png?1696506694",
+      "thumb": "https://coin-images.coingecko.com/coins/images/6319/thumb/usdc.png?1696506694"
+    },
+    "last_updated_at": "2025-08-29T03:39:24.526Z",
+    "market_cap": 70646470599,
+    "name": "USDC",
+    "platforms": {
+      "xrp": {
+        "contract_address": "5553444300000000000000000000000000000000.rGm7WCVp9gb4jZHWTEtGUr4dd74z2XuWhE",
+        "decimal_place": 6
+      }
+    },
+    "symbol": "usdc"
+  },
+  {
+    "description": {
+      "en": "Ripple USD (“RLUSD”), issued by Standard Custody & Trust Company, LLC, a wholly owned subsidiary of Ripple Labs, is a USD denominated stablecoin created with trust, liquidity, and compliance at its core. Each RLUSD is backed by at least an equivalent amount of U.S. dollars and other cash equivalents. RLUSD is purpose-built for cross-border payments and delivers reliable access to digital dollars.\r\n\r\nAs an industry leader for over a decade, Ripple has a proven track record of delivering breakthrough blockchain solutions at scale. Strong ecosystem relationships built over a decade facilitates RLUSD’s broad accessibility for use by financial institutions, enterprises and developers. Ripple’s commitment to regulatory compliance, combined with its global license portfolio, enables RLUSD users to transact with confidence.\r\n\r\nRLUSD delivers the reliability of USD combined with the efficiencies of blockchain technology in a trusted, liquid, and compliant manner."
+    },
+    "id": "ripple-usd",
+    "image": {
+      "large": "https://coin-images.coingecko.com/coins/images/39651/large/RLUSD_200x200_%281%29.png?1727376633",
+      "small": "https://coin-images.coingecko.com/coins/images/39651/small/RLUSD_200x200_%281%29.png?1727376633",
+      "thumb": "https://coin-images.coingecko.com/coins/images/39651/thumb/RLUSD_200x200_%281%29.png?1727376633"
+    },
+    "last_updated_at": "2025-08-29T03:39:24.438Z",
+    "market_cap": 687751413,
+    "name": "Ripple USD",
+    "platforms": {
+      "xrp": {
+        "contract_address": "524C555344000000000000000000000000000000.rMxCKbEDwqr76QuheSUMdEGf4B9xJ8m5De",
+        "decimal_place": 18
+      }
+    },
+    "symbol": "rlusd"
+  },
+  {
+    "description": {
+      "en": "Sologenic is disrupting the asset trading industry by offering: Tokenized Securities, Crypto Assets and NFT’s in a decentralized ecosystem.\r\n\r\nThe Sologenic Development Foundation is integrated by independent developers, maintaining, building and expanding the Sologenic decentralized ecosystem by actively working on various open-source projects and use cases around the $SOLO token including the SOLODEX, SOLO Launchpad and the Sologenic NFT marketplace.  \r\n\r\nSologenic’s Tokenization of assets facilitates investing and trading between crypto and non-blockchain assets such as stocks, ETFs, and commodities from top 30+ global stock exchanges. All assets are backed 1:1 with the real world stocks and Sologenic also supports stock mergers and dividends."
+    },
+    "id": "solo-coin",
+    "image": {
+      "large": "https://coin-images.coingecko.com/coins/images/10771/large/solo.png?1696510734",
+      "small": "https://coin-images.coingecko.com/coins/images/10771/small/solo.png?1696510734",
+      "thumb": "https://coin-images.coingecko.com/coins/images/10771/thumb/solo.png?1696510734"
+    },
+    "last_updated_at": "2025-08-29T03:39:25.490Z",
+    "market_cap": 133821624,
+    "name": "Sologenic",
+    "platforms": {
+      "xrp": {
+        "contract_address": "534F4C4F00000000000000000000000000000000.rsoLo2S1kiGeCcn6hCUXVrCpGMWLrRrLZz",
+        "decimal_place": 0
+      }
+    },
+    "symbol": "solo"
+  },
+  {
+    "description": {
+      "en": "Coreum is a fast Layer-1 #Blockchain with smart contract, set as a core infrastructure for future decentralized apps and #DeFi."
+    },
+    "id": "coreum",
+    "image": {
+      "large": "https://coin-images.coingecko.com/coins/images/24169/large/Coreum-Icon_%282%29.png?1738317497",
+      "small": "https://coin-images.coingecko.com/coins/images/24169/small/Coreum-Icon_%282%29.png?1738317497",
+      "thumb": "https://coin-images.coingecko.com/coins/images/24169/thumb/Coreum-Icon_%282%29.png?1738317497"
+    },
+    "last_updated_at": "2025-08-29T03:39:25.997Z",
+    "market_cap": 106518217,
+    "name": "Coreum",
+    "platforms": {
+      "xrp": {
+        "contract_address": "rfpYHS1P7NGALmf4BhiNffXCcj96zJCore",
+        "decimal_place": 18
+      }
+    },
+    "symbol": "coreum"
+  },
+  {
+    "description": {
+      "en": "A community-driven innovative network and platform where your money actively serves you, connecting you to a framework for generating passive income through blockchain technology"
+    },
+    "id": "crypto-trading-fund",
+    "image": {
+      "large": "https://coin-images.coingecko.com/coins/images/37122/large/33DE079C-182B-40D7-B26D-0D7E12158140.jpeg?1713366927",
+      "small": "https://coin-images.coingecko.com/coins/images/37122/small/33DE079C-182B-40D7-B26D-0D7E12158140.jpeg?1713366927",
+      "thumb": "https://coin-images.coingecko.com/coins/images/37122/thumb/33DE079C-182B-40D7-B26D-0D7E12158140.jpeg?1713366927"
+    },
+    "last_updated_at": "2025-08-29T03:39:18.105Z",
+    "market_cap": 36346854,
+    "name": "Crypto Trading Fund",
+    "platforms": {
+      "xrp": {
+        "contract_address": "r9Xzi4KsSF1Xtr8WHyBmUcvfP9FzTyG5wp",
+        "decimal_place": 18
+      }
+    },
+    "symbol": "ctf"
+  },
+  {
+    "description": {
+      "en": "Fuzzybear ($FUZZY) is a memecoin on the XRP Ledger (XRPL), created to honor the legacy of the well-known XRPL address ‘Fuzzybear,’ which famously placed a DEX order in 2014: 1 XRP for 1 BTC. The token embodies the spirit of decentralization and community-driven growth, focusing on fun, engagement, and organic expansion. With its unique narrative and strong community, Fuzzybear grows naturally as more supporters join the movement."
+    },
+    "id": "fuzzybear",
+    "image": {
+      "large": "https://coin-images.coingecko.com/coins/images/54273/large/Fuzzybear_%28FUZZY%29_Logo.png?1738996305",
+      "small": "https://coin-images.coingecko.com/coins/images/54273/small/Fuzzybear_%28FUZZY%29_Logo.png?1738996305",
+      "thumb": "https://coin-images.coingecko.com/coins/images/54273/thumb/Fuzzybear_%28FUZZY%29_Logo.png?1738996305"
+    },
+    "last_updated_at": "2025-08-29T03:39:25.312Z",
+    "market_cap": 14434613,
+    "name": "Fuzzybear",
+    "platforms": {
+      "xrp": {
+        "contract_address": "46555A5A59000000000000000000000000000000.rhCAT4hRdi2Y9puNdkpMzxrdKa5wkppR62",
+        "decimal_place": 0
+      }
+    },
+    "symbol": "fuzzy"
+  },
+  {
+    "description": {
+      "en": "Cult / Movement Token (meme) running in XRP Ledger for supporting and rising this coin/ledger.  In a world dominated by fleeting trends and fragile communities, the XRP $ARMY stands as an unshakable force. Bold. Timeless. Fearless.  The XRP ARMY will lead the charge as $XRP skyrockets to the top. The haters will see it. The doubters will hear it. But those who join will experience it. The strongest army in crypto has spoken.\r\n\r\nWe shall prevail. For Ripple. For XRP. For the XRP ARMY\r\n\r\n"
+    },
+    "id": "army-3",
+    "image": {
+      "large": "https://coin-images.coingecko.com/coins/images/53227/large/-5967456750116390278_99.jpg?1735765085",
+      "small": "https://coin-images.coingecko.com/coins/images/53227/small/-5967456750116390278_99.jpg?1735765085",
+      "thumb": "https://coin-images.coingecko.com/coins/images/53227/thumb/-5967456750116390278_99.jpg?1735765085"
+    },
+    "last_updated_at": "2025-08-29T03:39:20.612Z",
+    "market_cap": 13048055,
+    "name": "XRP ARMY",
+    "platforms": {
+      "xrp": {
+        "contract_address": "41524D5900000000000000000000000000000000.rGG3wQ4kUzd7Jnmk1n5NWPZjjut62kCBfC",
+        "decimal_place": 0
+      }
+    },
+    "symbol": "army"
+  },
+  {
+    "description": {
+      "en": "The XRP Salute project is a community-driven initiative built on the XRP Ledger, designed to unite and celebrate the XRP community. It introduces the SALUTE token, symbolizing the collective determination and success of the XRP Army. The project encourages community engagement through challenges, rewards, and milestone celebrations as XRP reaches new price levels. With 100 billion SALUTE tokens, it mirrors XRP’s supply, emphasizing shared belief and growth. The token also supports future integrations like Travala for booking travel and includes a portion allocated to charitable initiatives. Built on the XRP Ledger, SALUTE ensures fast, low-cost transactions, offering a practical, scalable solution for users. Ultimately, XRP Salute is about fostering unity, celebrating growth, and empowering the community to contribute to the success of XRP’s journey."
+    },
+    "id": "salute",
+    "image": {
+      "large": "https://coin-images.coingecko.com/coins/images/53904/large/Screenshot_2.png?1737707323",
+      "small": "https://coin-images.coingecko.com/coins/images/53904/small/Screenshot_2.png?1737707323",
+      "thumb": "https://coin-images.coingecko.com/coins/images/53904/thumb/Screenshot_2.png?1737707323"
+    },
+    "last_updated_at": "2025-08-29T03:39:25.562Z",
+    "market_cap": 11612879,
+    "name": "Salute",
+    "platforms": {
+      "xrp": {
+        "contract_address": "SLT.rfGCeDUdtbzKbXfgvrpG745qdC1hcZBz8S",
+        "decimal_place": 0
+      }
+    },
+    "symbol": "slt"
+  },
+  {
+    "description": {
+      "en": "XSGD is the world's first Travel Rule compliant stablecoin - backed by the Singapore-Dollar. XSGD is part of the StraitsX stablecoin initiative for SEA by Xfers."
+    },
+    "id": "xsgd",
+    "image": {
+      "large": "https://coin-images.coingecko.com/coins/images/12832/large/StraitsX_Singapore_Dollar_%28XSGD%29_Token_Logo.png?1696512623",
+      "small": "https://coin-images.coingecko.com/coins/images/12832/small/StraitsX_Singapore_Dollar_%28XSGD%29_Token_Logo.png?1696512623",
+      "thumb": "https://coin-images.coingecko.com/coins/images/12832/thumb/StraitsX_Singapore_Dollar_%28XSGD%29_Token_Logo.png?1696512623"
+    },
+    "last_updated_at": "2025-08-29T03:39:20.993Z",
+    "market_cap": 11423029,
+    "name": "XSGD",
+    "platforms": {
+      "xrp": {
+        "contract_address": "rK67JczCpaYXVtfw3qJVmqwpSfa1bYTptw",
+        "decimal_place": 18
+      }
+    },
+    "symbol": "xsgd"
+  },
+  {
+    "description": {
+      "en": "Launched on December 3 on the XRPL blockchain, $PHNIX is a meme coin on the XRPL blockchain, $PHNIX builds on the symbolism of rise as the phoenix that has been used by the XRP community, serving as a meme coin that embodies the widely recognized mascot of the XRP community. \r\n$PHNIX is available on FirstLedger, a decentralized exchange on the XRP Ledger network, with no transaction taxes, and the liquidity pool is burned for the decentralization and the safety of every $PHNIX investor."
+    },
+    "id": "phnix",
+    "image": {
+      "large": "https://coin-images.coingecko.com/coins/images/52497/large/photo_2024-12-03_21-46-21_%281%29.jpg?1733459422",
+      "small": "https://coin-images.coingecko.com/coins/images/52497/small/photo_2024-12-03_21-46-21_%281%29.jpg?1733459422",
+      "thumb": "https://coin-images.coingecko.com/coins/images/52497/thumb/photo_2024-12-03_21-46-21_%281%29.jpg?1733459422"
+    },
+    "last_updated_at": "2025-08-29T03:39:21.442Z",
+    "market_cap": 9641726,
+    "name": "PHNIX",
+    "platforms": {
+      "xrp": {
+        "contract_address": "50484E4958000000000000000000000000000000.rDFXbW2ZZCG5WgPtqwNiA2xZokLMm9ivmN",
+        "decimal_place": 0
+      }
+    },
+    "symbol": "phnix"
+  },
+  {
+    "description": {
+      "en": "What is the project about?\r\nVNX Swiss Franc (VCHF) is a token referencing Swiss Franc from a token generator licensed under the Blockchain act in Liechtenstein. \r\n\r\nWhat makes your project unique?\r\nBeing referenced to traditional currency, VNX Swiss Franc offers a traditional asset in the digital form. \r\nVCHF token generation and all services in respect of the tokens are carried out by VNX Commodities, a company registered with the Liechtenstein Financial Market Authority (FMA) under the Tokens and TT Services Providers Law (TVTG)  (https://fmaregister.fma-li.li/search?searchText=&number=310339&category=)\r\n\r\nHistory of your project.\r\n\r\nVNX, a Liechtenstein-based company registered by the Liechtenstein Financial Market Authority (FMA). In April 2022 VNX launched its European platform for investment into tokenized traditional assets and issues the first European multichain token fully backed by physical gold and represents individual ownership of the gold - VNX Gold (VNXAU).  In December 2022, VNX added VNX Euro (VEUR) and VNX Swiss Franc (VCHF), expanding investor capabilities in the crypto space by offering digital assets tied to traditional currencies. VNX Euro (VEUR) and VNX Swiss Franc (VCHF) are tokens referencing respective fiat currencies. VNX stablecoins provide the ability for crypto users to trade in native currencies as well as manage their portfolio more effectively: to hedge, trade, and profit with more options. \r\n\r\nWhat’s next for your project?\r\n\r\nVNX aims to make VNX Swiss Franc (VCHF) available to users by expanding the list of cryptocurrency exchanges where it is traded. There are also plans to release the token on various blockchains, making it multichain.\r\n\r\nWhat can your token be used for?\r\n\r\nHedge. Hold VCHF to hedge against crypto volatility and avoid losses during a market decline;\r\nTrade. Buy and sell digital assets in a matter of minutes on CEXs and DEXs;\r\nEarn. Lend, provide liquidity, stake and use other investment opportunities in CeFi/DeFi.\r\n"
+    },
+    "id": "vnx-swiss-franc",
+    "image": {
+      "large": "https://coin-images.coingecko.com/coins/images/29547/large/VNXCHF_%282%29.png?1696528488",
+      "small": "https://coin-images.coingecko.com/coins/images/29547/small/VNXCHF_%282%29.png?1696528488",
+      "thumb": "https://coin-images.coingecko.com/coins/images/29547/thumb/VNXCHF_%282%29.png?1696528488"
+    },
+    "last_updated_at": "2025-08-29T03:38:25.930Z",
+    "market_cap": 5071305,
+    "name": "VNX Swiss Franc",
+    "platforms": {
+      "xrp": {
+        "contract_address": "VCHF-rLPtwF4FZi8bNVmbQ8JgoDUooozhwMNXr3",
+        "decimal_place": 6
+      }
+    },
+    "symbol": "vchf"
+  },
+  {
+    "description": {
+      "en": "XPmarket is harnessing the power of XRP Ledger's architecture by building a user-centric one-stop infrastructure for the web3 economy.\r\n\r\nThe website features a whole range of ecosystem elements, with data aggregator in the very centre. It work by automatically scanning the ledger and listing active projects, eliminating the need for projects to manually apply for listing. Each token page provides a quick access to key information as well as access to Swaps and order-book style DEX. \r\n\r\nAdvanced portfolio manager automatically lists all your tokens when users log in into the platform. Users are able to see what assets and trustlines they have, as well as profits and losses. Portfolio also provides tools to quickly trade and exchange tokens, ensuring that each action is tracked and can be traced for, i.e., tax purposes. \r\n\r\nWhile XPmarket already has a broad range of DeFi and Web3 tools, the application is constantly evolving, with new features and updates coming as the technology evolves and trends emerge. "
+    },
+    "id": "xpmarket",
+    "image": {
+      "large": "https://coin-images.coingecko.com/coins/images/27759/large/xpspin_512.png?1696526782",
+      "small": "https://coin-images.coingecko.com/coins/images/27759/small/xpspin_512.png?1696526782",
+      "thumb": "https://coin-images.coingecko.com/coins/images/27759/thumb/xpspin_512.png?1696526782"
+    },
+    "last_updated_at": "2025-08-29T03:37:15.752Z",
+    "market_cap": 4955218,
+    "name": "XPmarket",
+    "platforms": {
+      "xrp": {
+        "contract_address": "rXPMxBeefHGxx2K7g5qmmWq3gFsgawkoa",
+        "decimal_place": 6
+      }
+    },
+    "symbol": "xpm"
+  },
+  {
+    "description": {
+      "en": "DROP ($DROP) is a meme coin on the XRP Ledger (XRPL) built around the idea that the smallest unit of an XRP, or 0.000001 XRP, is called a “drop”.\r\n\r\nDROP isn’t just a token. It’s an identity. A movement. A gateway to everything XRPL has to offer.\r\n\r\nWith its instantly recognisable character and bold creative vision, DROP leads the charge in showing how fun, community, and onchain experience can coexist. The project puts a spotlight on liquidity pools - not just as a concept, but as a core part of XRPL culture. It’s here to educate, engage, and onboard the next wave of users to the DEX.\r\n\r\nWhether it’s through content, collectibles, or its expanding GameFi world - where players earn drop through gameplay - DROP delivers a hands on, real world connection to XRPL. Fast. Cheap. Accessible. \r\n\r\nThat’s the future $DROP is building."
+    },
+    "id": "drop-2",
+    "image": {
+      "large": "https://coin-images.coingecko.com/coins/images/53198/large/200x200.png?1749891887",
+      "small": "https://coin-images.coingecko.com/coins/images/53198/small/200x200.png?1749891887",
+      "thumb": "https://coin-images.coingecko.com/coins/images/53198/thumb/200x200.png?1749891887"
+    },
+    "last_updated_at": "2025-08-29T03:39:25.482Z",
+    "market_cap": 3677123,
+    "name": "DROP",
+    "platforms": {
+      "xrp": {
+        "contract_address": "44524F5000000000000000000000000000000000.rszenFJoDdiGjyezQc8pME9KWDQH43Tswh",
+        "decimal_place": 0
+      }
+    },
+    "symbol": "drop"
+  },
+  {
+    "description": {
+      "en": "The $Bear token is a meme coin inspired by the figure known as Bearableguy123, a pseudonymous crypto influencer within the XRP community. This individual is known for sharing cryptic riddles and predictions, which have garnered a cult-like following. The $BEAR token is essentially a community project that leverages this cultural phenomenon for engagement, creating a fun and speculative environment around bear-themed memes and narratives."
+    },
+    "id": "bearxrpl",
+    "image": {
+      "large": "https://coin-images.coingecko.com/coins/images/54155/large/QmckXBopdPwEt9poD74jw1CAa24fj8ePmn89Pd9f2Vfftq.png?1738478760",
+      "small": "https://coin-images.coingecko.com/coins/images/54155/small/QmckXBopdPwEt9poD74jw1CAa24fj8ePmn89Pd9f2Vfftq.png?1738478760",
+      "thumb": "https://coin-images.coingecko.com/coins/images/54155/thumb/QmckXBopdPwEt9poD74jw1CAa24fj8ePmn89Pd9f2Vfftq.png?1738478760"
+    },
+    "last_updated_at": "2025-08-29T03:39:25.228Z",
+    "market_cap": 3424508,
+    "name": "BEARXRPL",
+    "platforms": {
+      "xrp": {
+        "contract_address": "4245415200000000000000000000000000000000.rBEARGUAsyu7tUw53rufQzFdWmJHpJEqFW",
+        "decimal_place": 0
+      }
+    },
+    "symbol": "$bear"
+  },
+  {
+    "description": {
+      "en": "What is the project about?\r\n\r\nVNX Euro (VEUR) is a token referencing Euro from a token generator licensed under the Blockchain act in Liechtenstein. \r\n\r\nWhat makes your project unique?\r\n\r\nBeing referenced to traditional currency, VNX Euro offers a traditional asset in the digital form. VEUR token generation and all services in respect of the tokens are carried out by VNX Commodities, a company registered with the Liechtenstein Financial Market Authority (FMA) under the Tokens and TT Services Providers Law (TVTG)  (https://fmaregister.fma-li.li/search?searchText=&number=310339&category=)\r\n\r\nHistory of your project.\r\nVNX, a Liechtenstein-based company registered by the Liechtenstein Financial Market Authority (FMA). In April 2022 VNX launched its European platform for investment into tokenized traditional assets and issues the first European multichain token fully backed by physical gold and represents individual ownership of the gold - VNX Gold (VNXAU).  In December 2022, VNX added VNX Euro (VEUR) and VNX Swiss Franc (VCHF), expanding investor capabilities in the crypto space by offering digital assets tied to traditional currencies. VNX Euro (VEUR) and VNX Swiss Franc (VCHF) are tokens referencing respective fiat currencies. VNX stablecoins provide the ability for crypto users to trade in native currencies as well as manage their portfolio more effectively: to hedge, trade, and profit with more options. \r\n\r\nWhat’s next for your project?\r\nVNX aims to make VNX Euro (VEUR) available to users by expanding the list of cryptocurrency exchanges where it is traded. There are also plans to release the token on various blockchains, making it multichain.\r\n\r\nWhat can your token be used for?\r\nHedge. Hold VEUR to hedge against crypto volatility and avoid losses during a market decline;\r\nTrade. Buy and sell digital assets in a matter of minutes on CEXs and DEXs;\r\nEarn. Lend, provide liquidity, stake and use other investment opportunities in CeFi/DeFi.\r\n\r\n"
+    },
+    "id": "vnx-euro",
+    "image": {
+      "large": "https://coin-images.coingecko.com/coins/images/29351/large/VNXEUR_%281%29.png?1696528300",
+      "small": "https://coin-images.coingecko.com/coins/images/29351/small/VNXEUR_%281%29.png?1696528300",
+      "thumb": "https://coin-images.coingecko.com/coins/images/29351/thumb/VNXEUR_%281%29.png?1696528300"
+    },
+    "last_updated_at": "2025-08-29T03:39:07.231Z",
+    "market_cap": 3229754,
+    "name": "VNX EURO",
+    "platforms": {
+      "xrp": {
+        "contract_address": "VEUR-rLPtwF4FZi8bNVmbQ8JgoDUooozhwMNXr3",
+        "decimal_place": 6
+      }
+    },
+    "symbol": "veur"
+  },
+  {
+    "description": {
+      "en": "XRPTurbo is a pioneering platform serving as the first AI Agent & RWA Launchpad on the XRP Ledger (XRPL).It introduces autonomous AI-driven agents and RWA projects into the XRP ecosystem, enabling intelligent automation across a range of blockchain activities.By leveraging XRPL’s fast and low-cost transactions, XRPTurbo integrates AI capabilities directly into on-chain operations, bringing new efficiency and utility to the network.The platform empowers users to deploy AI Agents that can interact with XRPL and external systems, enhancing the functionality of XRP-based applications."
+    },
+    "id": "xrpturbo",
+    "image": {
+      "large": "https://coin-images.coingecko.com/coins/images/55146/large/20250407_211838.png?1744131635",
+      "small": "https://coin-images.coingecko.com/coins/images/55146/small/20250407_211838.png?1744131635",
+      "thumb": "https://coin-images.coingecko.com/coins/images/55146/thumb/20250407_211838.png?1744131635"
+    },
+    "last_updated_at": "2025-08-29T03:38:16.220Z",
+    "market_cap": 2443701,
+    "name": "Xrpturbo",
+    "platforms": {
+      "xrp": {
+        "contract_address": "rPvuCxw1m8u2SWTqtRN6ZEcb1xPbU4cPFR",
+        "decimal_place": 6
+      }
+    },
+    "symbol": "xrt"
+  },
+  {
+    "description": {
+      "en": "The 666 XRP Meme Coin project blends community-driven fun with real-world rewards on the XRP Ledger. It aims to empower holders by offering value through engagement, monthly giveaways to those in need, and fostering a culture of compassion and generosity. It trades on platforms like XMagnetic, XPMarket, and First Ledger, and operates on a trustline system. The project is led by a pseudonymous founder, \"Lucifer,\" emphasizing bold ideas and community impact."
+    },
+    "id": "666-token",
+    "image": {
+      "large": "https://coin-images.coingecko.com/coins/images/55172/large/photo_5474195737744110186_x.jpg?1744786101",
+      "small": "https://coin-images.coingecko.com/coins/images/55172/small/photo_5474195737744110186_x.jpg?1744786101",
+      "thumb": "https://coin-images.coingecko.com/coins/images/55172/thumb/photo_5474195737744110186_x.jpg?1744786101"
+    },
+    "last_updated_at": "2025-08-29T03:39:25.462Z",
+    "market_cap": 1852964,
+    "name": "666",
+    "platforms": {
+      "xrp": {
+        "contract_address": "666.rhvf9fe6PP3GC8Bku2Ug7iQPjPDxYZfrxN",
+        "decimal_place": 0
+      }
+    },
+    "symbol": "666"
+  },
+  {
+    "description": {
+      "en": "$Sigma Coin, often simply called Sigma, is a community-driven cryptocurrency that embodies the ethos of the\r\n\"sigma\" personality archetype-typically characterized as independent, self-reliant, and unconcerned with social hierarchies. Aiming to appeal to individuals who value autonomy and empowerment, $Sigma Coin positions itself as a decentralized asset that encourages financial sovereignty outside traditional systems. Its community emphasizes resilience, privacy, and freedom, appealing to those who wish to transcend conventional financial limitations. By fostering an ecosystem where members can connect and collaborate without central control, $Sigma aims to create a unique, self-sustaining environment for people who resonate with the \"lone wolf\" mentality."
+    },
+    "id": "sigma-3",
+    "image": {
+      "large": "https://coin-images.coingecko.com/coins/images/54120/large/SIGMA.jpg?1738314198",
+      "small": "https://coin-images.coingecko.com/coins/images/54120/small/SIGMA.jpg?1738314198",
+      "thumb": "https://coin-images.coingecko.com/coins/images/54120/thumb/SIGMA.jpg?1738314198"
+    },
+    "last_updated_at": "2025-08-29T03:39:25.085Z",
+    "market_cap": 1847628,
+    "name": "SIGMA",
+    "platforms": {
+      "xrp": {
+        "contract_address": "5349474D41000000000000000000000000000000.rfKYWZ84fm9eVEdoTcsQCo1WdqMPyaUF5z",
+        "decimal_place": 0
+      }
+    },
+    "symbol": "sigma"
+  },
+  {
+    "description": {
+      "en": "All The Money (ATM) is a community-driven meme token built on the XRP Ledger (XRPL). The project aims to reward creators, builders, and contributors within the XRP ecosystem while blending humor, utility, and grassroots impact. ATM leverages the speed and efficiency of the XRPL to support digital creators, businesses, and users through a combination of token incentives, virtual experiences, merchandise, and NFTs. It is not just a digital asset, but a cultural movement focused on empowering the community to take ownership of value creation."
+    },
+    "id": "all-the-money",
+    "image": {
+      "large": "https://coin-images.coingecko.com/coins/images/66968/large/project_20250628_1936277-01.png?1751268002",
+      "small": "https://coin-images.coingecko.com/coins/images/66968/small/project_20250628_1936277-01.png?1751268002",
+      "thumb": "https://coin-images.coingecko.com/coins/images/66968/thumb/project_20250628_1936277-01.png?1751268002"
+    },
+    "last_updated_at": "2025-08-29T03:39:25.523Z",
+    "market_cap": 1579803,
+    "name": "All The Money",
+    "platforms": {
+      "xrp": {
+        "contract_address": "ATM.raDZ4t8WPXkmDfJWMLBcNZmmSHmBC523NZ",
+        "decimal_place": 0
+      }
+    },
+    "symbol": "atm"
+  },
+  {
+    "description": {
+      "en": "How It Started\r\nBorn in November 2023, XMEME is the OG memecoin of the XRPL, blending humor, community, and blockchain brilliance. From its humble beginnings, it’s grown into the #1 memecoin on the ledger, powered by a passionate community that knows how to have fun while breaking boundaries.\r\nXMEME isn’t just a token—it’s a movement. A little humor, a lot of ambition, and endless potential. This is where memes meet the future of finance."
+    },
+    "id": "xmeme",
+    "image": {
+      "large": "https://coin-images.coingecko.com/coins/images/67980/large/IMG_1049.jpeg?1754479600",
+      "small": "https://coin-images.coingecko.com/coins/images/67980/small/IMG_1049.jpeg?1754479600",
+      "thumb": "https://coin-images.coingecko.com/coins/images/67980/thumb/IMG_1049.jpeg?1754479600"
+    },
+    "last_updated_at": "2025-08-29T03:38:47.470Z",
+    "market_cap": 1303828,
+    "name": "XMEME",
+    "platforms": {
+      "xrp": {
+        "contract_address": "r4UPddYeGeZgDhSGPkooURsQtmGda4oYQW",
+        "decimal_place": 6
+      }
+    },
+    "symbol": "xmeme"
+  },
+  {
+    "description": {
+      "en": "CULT: The Call to Awakening. Long ago, in a forgotten corner of the cryptoverse, visionary \"Cultists\" sought to liberate minds from the confines of centralized control. They forged CULT, a symbol of rebellion and an unrelenting pursuit of truth. CULT is the token of those who dare to question, to dismantle old paradigms, and to uncover the mysteries of the XRPL. Its followers, the Cultists, spread cryptic messages and memes, urging others to \"wake up\" and join the movement. Their motto: “Burn the old, and build the new.”\r\nCULT represents:\r\nFreedom: A rallying cry for decentralization and self-sovereignty.\r\nMystery: A beacon for those who seek to uncover hidden truths of XRPL.\r\nChaos: A reminder that disruption precedes growth."
+    },
+    "id": "cult-2",
+    "image": {
+      "large": "https://coin-images.coingecko.com/coins/images/66736/large/CULT-2.png?1750324184",
+      "small": "https://coin-images.coingecko.com/coins/images/66736/small/CULT-2.png?1750324184",
+      "thumb": "https://coin-images.coingecko.com/coins/images/66736/thumb/CULT-2.png?1750324184"
+    },
+    "last_updated_at": "2025-08-29T03:39:25.485Z",
+    "market_cap": 1235608,
+    "name": "CULT",
+    "platforms": {
+      "xrp": {
+        "contract_address": "43554C5400000000000000000000000000000000.rCULtAKrKbQjk1Tpmg5hkw4dpcf9S9KCs",
+        "decimal_place": 0
+      }
+    },
+    "symbol": "cult"
+  },
+  {
+    "description": {
+      "en": "JoeLee ($SEAL) is a meme token deployed on the XRP Ledger (XRPL), created to pay tribute to one of the earliest genesis wallets activated by Ripple (then OpenCoin)- \"JoeLee\" nicknamed \"SEAL\". The project pays homage to XRP’s deep history while leveraging the speed, efficiency, and decentralized nature of the XRPL while cultivating an engaged community around storytelling, art, and legacy. With its unique narrative and strong community, JoeLee ($SEAL) grows naturally as more supporters join the movement."
+    },
+    "id": "seal-3",
+    "image": {
+      "large": "https://coin-images.coingecko.com/coins/images/68390/large/Untitled_design_-_2025-07-20T233250.052.png?1755586782",
+      "small": "https://coin-images.coingecko.com/coins/images/68390/small/Untitled_design_-_2025-07-20T233250.052.png?1755586782",
+      "thumb": "https://coin-images.coingecko.com/coins/images/68390/thumb/Untitled_design_-_2025-07-20T233250.052.png?1755586782"
+    },
+    "last_updated_at": "2025-08-29T03:39:25.485Z",
+    "market_cap": 1095236,
+    "name": "Seal",
+    "platforms": {
+      "xrp": {
+        "contract_address": "5345414C00000000000000000000000000000000.r4pXXQzJ8soYSX4QKeeW4BzRQS1PCtVYLJ",
+        "decimal_place": 18
+      }
+    },
+    "symbol": "seal"
+  },
+  {
+    "description": {
+      "en": "Pongo isn’t just any skunk—he’s a warrior born in the meme coin trenches, where countless tokens rise and fall in the blink of an eye. Born with black and white fur, Pongo wears his colors with pride, symbolizing his loyalty to XRP and his mission to unite meme coins under one flag. For Pongo, the XRP blockchain isn’t just a platform—it’s his battleground, and he’s ready to lead the meme coin revolution."
+    },
+    "id": "pongo-2",
+    "image": {
+      "large": "https://coin-images.coingecko.com/coins/images/53537/large/IMG_4502.jpeg?1736582424",
+      "small": "https://coin-images.coingecko.com/coins/images/53537/small/IMG_4502.jpeg?1736582424",
+      "thumb": "https://coin-images.coingecko.com/coins/images/53537/thumb/IMG_4502.jpeg?1736582424"
+    },
+    "last_updated_at": "2025-08-15T20:01:40.099Z",
+    "market_cap": 1050578,
+    "name": "PONGO",
+    "platforms": {
+      "xrp": {
+        "contract_address": "rwCq6TENSo3Hh9LKipXnLaxaeXBXKubqki",
+        "decimal_place": 18
+      }
+    },
+    "symbol": "pongo"
+  },
+  {
+    "description": {
+      "en": "The project at 589onxrpl.com centers around the $589 token, a community-driven cryptocurrency on the XRP Ledger (XRPL). This token draws inspiration from a notable prediction within the XRP community that XRP's value would reach $589, symbolizing optimism and ambition in the crypto space. Following initial mismanagement by its original developers, the community initiated a Community Takeover (CTO) to revitalize and steer the project transparently. Now, decisions are collectively made by token holders, emphasizing the strength of a united community. The project boasts significant trading volumes on platforms like First Ledger and a growing base of holders, aiming to transform the meme into a meaningful movement"
+    },
+    "id": "589-token",
+    "image": {
+      "large": "https://coin-images.coingecko.com/coins/images/54092/large/UayCZ98d_400x400.jpg?1738221568",
+      "small": "https://coin-images.coingecko.com/coins/images/54092/small/UayCZ98d_400x400.jpg?1738221568",
+      "thumb": "https://coin-images.coingecko.com/coins/images/54092/thumb/UayCZ98d_400x400.jpg?1738221568"
+    },
+    "last_updated_at": "2025-08-29T03:39:25.579Z",
+    "market_cap": 815855,
+    "name": "589",
+    "platforms": {
+      "xrp": {
+        "contract_address": "589.rfcasq9uRbvwcmLFvc4ti3j8Qt1CYCGgHz",
+        "decimal_place": 0
+      }
+    },
+    "symbol": "589"
+  },
+  {
+    "description": {
+      "en": "TERRY TOTO is a sharp, base chad in one universe and the King of Totonia in another. This community-driven movement is on a mission to make Toto the most iconic and memeable dog on the XRPL, leveling the playing field for all Totonians\r\n\r\n\r\nLegend has it that Terry Toto was born from the minds of children, destined to become the patron saint of diamond hands. A visionary leader, meme lord, and intergalactic hodler, Terry inspires the Toto Army to stay strong through market turbulence and never settle for less than the moon. \r\n\r\nLike a guide down the yellow brick road, Terry leads the way to a world where courage, loyalty, and belief in the dream prevail. With laser eyes and an unshakable belief in the future of Toto, Terry embodies the spirit of the underdog rising to greatness.\r\nFollow Terry Toto into the meme-verse—where legends are made, and loyalty is rewarded. Together, we don’t just hold; we conquer."
+    },
+    "id": "toto-2",
+    "image": {
+      "large": "https://coin-images.coingecko.com/coins/images/53995/large/TOTO.png?1737994229",
+      "small": "https://coin-images.coingecko.com/coins/images/53995/small/TOTO.png?1737994229",
+      "thumb": "https://coin-images.coingecko.com/coins/images/53995/thumb/TOTO.png?1737994229"
+    },
+    "last_updated_at": "2025-08-29T03:39:25.217Z",
+    "market_cap": 703500,
+    "name": "TOTO",
+    "platforms": {
+      "xrp": {
+        "contract_address": "544F544F00000000000000000000000000000000.r9sH6YEVRyg8uYaKfyk1EfH36Lfq7a8PUD",
+        "decimal_place": 0
+      }
+    },
+    "symbol": "toto"
+  },
+  {
+    "description": {
+      "en": "PIGEONS is a community-driven token launched on the XRP Ledger. Originally conceived as a satirical memecoin, it has grown organically through its strong online presence and active community. The token has gained visibility via a gold verification badge on X (formerly Twitter) and has reached a market cap of over $360,000. PIGEONS currently serves no formal utility and exists primarily as a cultural and social token within the XRP ecosystem."
+    },
+    "id": "pigeons",
+    "image": {
+      "large": "https://coin-images.coingecko.com/coins/images/67490/large/Pigeonstokenimage.png?1752988786",
+      "small": "https://coin-images.coingecko.com/coins/images/67490/small/Pigeonstokenimage.png?1752988786",
+      "thumb": "https://coin-images.coingecko.com/coins/images/67490/thumb/Pigeonstokenimage.png?1752988786"
+    },
+    "last_updated_at": "2025-08-29T03:39:25.519Z",
+    "market_cap": 663164,
+    "name": "PIGEONS",
+    "platforms": {
+      "xrp": {
+        "contract_address": "504947454F4E5300000000000000000000000000.rfQVVT7X5FynwK87EczgP2T8RQXmQcQSf",
+        "decimal_place": 0
+      }
+    },
+    "symbol": "pigeons"
+  },
+  {
+    "description": {
+      "en": "BRITTO is a community-driven meme project built on the XRP Ledger, inspired by Arthur Britto, one of the co-creators of the XRPL. The project combines a thematic focus on mystery and innovation with functional use cases, including the Britto Lottery, Britto Tournaments, and the Britto Buy Bot. BRITTO aims to foster collaboration and engagement within the XRP Ledger ecosystem while providing utility and entertainment for its community."
+    },
+    "id": "britto-2",
+    "image": {
+      "large": "https://coin-images.coingecko.com/coins/images/52555/large/ahbritto.293x293_400x400.png?1733661883",
+      "small": "https://coin-images.coingecko.com/coins/images/52555/small/ahbritto.293x293_400x400.png?1733661883",
+      "thumb": "https://coin-images.coingecko.com/coins/images/52555/thumb/ahbritto.293x293_400x400.png?1733661883"
+    },
+    "last_updated_at": "2025-08-04T10:31:16.166Z",
+    "market_cap": 559957,
+    "name": "BRITTO",
+    "platforms": {
+      "xrp": {
+        "contract_address": "rfxwXDzenkYoXSEbNA4cZjaT9FY3eeL47e",
+        "decimal_place": 6
+      }
+    },
+    "symbol": "britto"
+  },
+  {
+    "description": {
+      "en": "JC Rivera, a US-based Puerto Rican artist, is the creative force behind “The Bear Champ,” one of the most iconic street art brands worldwide. Known for his bright, uplifting murals and his “Roll with the Punches” message, JC’s art inspires resilience through life’s challenges. As Chicago’s most prolific street artist and a rising star in Miami, he’s collaborated with brands like Adidas, American Express, McDonald’s, and the Chicago Bulls. JC’s work is more than art—it’s a movement."
+    },
+    "id": "bear-champ",
+    "image": {
+      "large": "https://coin-images.coingecko.com/coins/images/54904/large/PZKIoNjM_400x400.jpg?1742449824",
+      "small": "https://coin-images.coingecko.com/coins/images/54904/small/PZKIoNjM_400x400.jpg?1742449824",
+      "thumb": "https://coin-images.coingecko.com/coins/images/54904/thumb/PZKIoNjM_400x400.jpg?1742449824"
+    },
+    "last_updated_at": "2025-08-29T03:39:25.139Z",
+    "market_cap": 529424,
+    "name": "Bear Champ",
+    "platforms": {
+      "xrp": {
+        "contract_address": "424348414D500000000000000000000000000000.rhYhn7s6z4HAfuJm7ehuSE7wxepRoUPwpi",
+        "decimal_place": 0
+      }
+    },
+    "symbol": "bchamp"
+  },
+  {
+    "description": {
+      "en": "BearBull ($BRB) is a unique meme token built on the XRPL blockchain, symbolizing the eternal clash between bulls and bears in the crypto market. More than just a meme, BearBull represents resilience, strength, and the dynamic spirit of traders worldwide.\r\nWith a fast-growing community and innovative utility on the horizon, $BRB is poised to become a standout token in the XRPL ecosystem. Whether you’re bullish or bearish, BearBull unites everyone in the pursuit of market success."
+    },
+    "id": "bear-bull",
+    "image": {
+      "large": "https://coin-images.coingecko.com/coins/images/52966/large/1000161586.png?1734880830",
+      "small": "https://coin-images.coingecko.com/coins/images/52966/small/1000161586.png?1734880830",
+      "thumb": "https://coin-images.coingecko.com/coins/images/52966/thumb/1000161586.png?1734880830"
+    },
+    "last_updated_at": "2025-08-29T03:38:35.189Z",
+    "market_cap": 499721,
+    "name": "Bear Bull",
+    "platforms": {
+      "xrp": {
+        "contract_address": "rUkuT9TCDTP2oeAPsrCN7XKcHZfdvHvFkG",
+        "decimal_place": 6
+      }
+    },
+    "symbol": "brb"
+  },
+  {
+    "description": {
+      "en": "The Flippy the Switch project is a meme coin built on the XRPL (XRP Ledger) ecosystem. It focuses on community-driven initiatives, aiming to create a fun and energetic environment within the cryptocurrency space. The project incorporates organic community engagement, including token burns, giveaways, contests, and other interactive activities. Its core mission is to bring together meme coin enthusiasts while leveraging the XRPL blockchain for speed and efficiency, all while promoting the $FLIPPY token as a symbol of fun and connection."
+    },
+    "id": "flippy",
+    "image": {
+      "large": "https://coin-images.coingecko.com/coins/images/54288/large/ay0_QsnW_400x400.jpg?1739001853",
+      "small": "https://coin-images.coingecko.com/coins/images/54288/small/ay0_QsnW_400x400.jpg?1739001853",
+      "thumb": "https://coin-images.coingecko.com/coins/images/54288/thumb/ay0_QsnW_400x400.jpg?1739001853"
+    },
+    "last_updated_at": "2025-08-29T03:39:25.060Z",
+    "market_cap": 441661,
+    "name": "Flippy",
+    "platforms": {
+      "xrp": {
+        "contract_address": "24464C4950505900000000000000000000000000.rsENFmELvj92orrCKTkDTug53MzwsB7zBd",
+        "decimal_place": 0
+      }
+    },
+    "symbol": "flippy"
+  },
+  {
+    "description": {
+      "en": "Australian Dollar Stablecoins. Representing one of the largest sovereign currencies in the APAC region on the blockchain."
+    },
+    "id": "novatti-australian-digital-dollar",
+    "image": {
+      "large": "https://coin-images.coingecko.com/coins/images/33263/large/AUDD-Logo-Blue_512.png?1701319895",
+      "small": "https://coin-images.coingecko.com/coins/images/33263/small/AUDD-Logo-Blue_512.png?1701319895",
+      "thumb": "https://coin-images.coingecko.com/coins/images/33263/thumb/AUDD-Logo-Blue_512.png?1701319895"
+    },
+    "last_updated_at": "2025-08-29T03:37:37.445Z",
+    "market_cap": 431811,
+    "name": "Novatti Australian Digital Dollar",
+    "platforms": {
+      "xrp": {
+        "contract_address": "rUN5Zxt3K1AnMRJgEWywDJT8QDMMeLH5ok",
+        "decimal_place": 8
+      }
+    },
+    "symbol": "audd"
+  },
+  {
+    "description": {
+      "en": "$Laugh is a meme coin with a clever and unique twist, directly tied to Ripple's CEO, Brad Garlinghouse, and inspired by the now-famous art piece that boldly proclaims, \"Laugh now, but one day XRP will power the world.\" This cultural reference highlights the unwavering belief in Ripple and XRP’s potential to revolutionize global finance, creating an ironic yet powerful narrative around the coin. Built on the XRP Ledger, $Laugh not only capitalizes on humor and memes but also emphasizes its roots in the strong, visionary leadership of the XRP community. By combining the playful essence of meme culture with a deeper connection to one of the most prominent figures in the crypto space, $Laugh distinguishes itself as a truly one-of-a-kind project on the XRP Ledger, offering both entertainment and a nod to the broader ambitions of XRP enthusiasts worldwide."
+    },
+    "id": "laugh",
+    "image": {
+      "large": "https://coin-images.coingecko.com/coins/images/53667/large/LAUGH.png?1737003908",
+      "small": "https://coin-images.coingecko.com/coins/images/53667/small/LAUGH.png?1737003908",
+      "thumb": "https://coin-images.coingecko.com/coins/images/53667/thumb/LAUGH.png?1737003908"
+    },
+    "last_updated_at": "2025-08-29T03:39:25.505Z",
+    "market_cap": 409941,
+    "name": "Laugh",
+    "platforms": {
+      "xrp": {
+        "contract_address": "4C61756768000000000000000000000000000000.r32nbPw6cyt3KdxinB4ua6WSLRrrF4SXAC",
+        "decimal_place": 18
+      }
+    },
+    "symbol": "laugh"
+  },
+  {
+    "description": {
+      "en": "The X project on the XRPL is building tools to improve security and provides analytics to help improve the user experience and ensure a safe and secure platform. The two websites Xledgerxrp.com and Xtracer.com are a few of the suite of tools offered. \r\nAt the heart of innovation, trust, and freedom, $X is more than what meets the eye. Rooted in the transparent power of the XRP Ledger (XRPL), it stands as a symbol of decentralization and limitless potential. X envisions a future where collaboration and innovation thrive, driven by a new definition of what \"X\" can be. Embracing the spirit of mystery and belief, X invites you to be part of a story for those who trust in the transformative power of connection."
+    },
+    "id": "xonxrp",
+    "image": {
+      "large": "https://coin-images.coingecko.com/coins/images/68315/large/IMG_0785_imresizer.png?1755331142",
+      "small": "https://coin-images.coingecko.com/coins/images/68315/small/IMG_0785_imresizer.png?1755331142",
+      "thumb": "https://coin-images.coingecko.com/coins/images/68315/thumb/IMG_0785_imresizer.png?1755331142"
+    },
+    "last_updated_at": "2025-08-29T03:39:25.174Z",
+    "market_cap": 359285,
+    "name": "XonXRP",
+    "platforms": {
+      "xrp": {
+        "contract_address": "5800000000000000000000000000000000000000.ruxT12tH2mrccHFDjnjqWyGfAxYxYMHLA",
+        "decimal_place": 0
+      }
+    },
+    "symbol": "x"
+  },
+  {
+    "description": {
+      "en": "The XRP Community’s Meme💧\r\nBitcoin Maxis Tears (BMT) – The Ultimate XRPL Memecoin\r\n\r\nDunking on Bitcoin maxis daily, powered by their salty tears.\r\n\r\nThe Bitcoin Maxis Tears (BMT) token is the ultimate memecoin on the XRP Ledger (XRPL), fueled by the never-ending saltiness of Bitcoin maximalists. Every time a maxi rages against XRP, spreads FUD, or dismisses real innovation, another drop of BMT is minted in the ledger of truth. They cry, we fly—because BMT and XRP are unstoppable!\r\n\r\nWhy Bitcoin Maxis Cry?\r\n\r\nFor years, Bitcoin maximalists have dismissed faster, cheaper, and more scalable blockchains. They cling to slow transactions, high fees, and outdated tech, all while ignoring the evolution of crypto. The XRP Ledger."
+    },
+    "id": "bitcoin-maxi-tears",
+    "image": {
+      "large": "https://coin-images.coingecko.com/coins/images/54113/large/BMT_-_Bitcoin_Maxi_Tears_Logo.jpg?1738959667",
+      "small": "https://coin-images.coingecko.com/coins/images/54113/small/BMT_-_Bitcoin_Maxi_Tears_Logo.jpg?1738959667",
+      "thumb": "https://coin-images.coingecko.com/coins/images/54113/thumb/BMT_-_Bitcoin_Maxi_Tears_Logo.jpg?1738959667"
+    },
+    "last_updated_at": "2025-08-29T03:38:48.038Z",
+    "market_cap": 342622,
+    "name": "Bitcoin Maxi Tears",
+    "platforms": {
+      "xrp": {
+        "contract_address": "BMT.rE8dJChTgdF4GD84z8Ah5NoNbVvMTqRMLk",
+        "decimal_place": 0
+      }
+    },
+    "symbol": "bmt"
+  },
+  {
+    "description": {
+      "en": "$BURN is a deflationary token on the XRPL designed to reduce its own supply over time through manual and future automated burns. With an initial supply of 1 quadrillion, over 935.7 trillion tokens have already been burned, bringing the total supply down to 64.3 trillion. Unlike traditional tokens, $BURN does not rely on mining or staking; instead, it increases scarcity by permanently removing tokens from circulation. NFT sales on XRP Cafe contribute to buybacks and burns, reinforcing the token’s deflationary model. $BURN transactions settle in 3-5 seconds with minimal fees, benefiting from XRPL’s efficiency. Future developments include automated burn mechanisms, liquidity enhancements, and expanded ecosystem integration, ensuring long-term sustainability and deflationary impact."
+    },
+    "id": "burn-3",
+    "image": {
+      "large": "https://coin-images.coingecko.com/coins/images/54580/large/171E2A33-2062-410D-8C0E-C1CDCFD5D5C6.png?1740539531",
+      "small": "https://coin-images.coingecko.com/coins/images/54580/small/171E2A33-2062-410D-8C0E-C1CDCFD5D5C6.png?1740539531",
+      "thumb": "https://coin-images.coingecko.com/coins/images/54580/thumb/171E2A33-2062-410D-8C0E-C1CDCFD5D5C6.png?1740539531"
+    },
+    "last_updated_at": "2025-08-29T03:39:25.246Z",
+    "market_cap": 320199,
+    "name": "BURN",
+    "platforms": {
+      "xrp": {
+        "contract_address": "4255524E00000000000000000000000000000000.rwgNTwrsZKPe7xYCy4emjFAYpgnuioHSkd",
+        "decimal_place": 18
+      }
+    },
+    "symbol": "$burn"
+  },
+  {
+    "description": {
+      "en": "The $AURA project is about harnessing the viral \"aura\" trend to create a dynamic, community-driven meme coin, originally speculated to be on the XRP Ledger but confirmed to operate on the XRP Ledger, that empowers users to express their social vibe through innovative memes and interactive experiences. It’s a vibrant fusion of cryptocurrency, pop culture, and social media, aiming to transcend the role of a traditional financial asset and establish itself as a cultural phenomenon. By leveraging the \"aura\" concept—popularized on platforms like TikTok and Instagram as a measure of social clout, positive energy, or personal charisma—$AURA seeks to redefine how users engage with digital currencies through creativity, community, and viral appeal. "
+    },
+    "id": "aura-3",
+    "image": {
+      "large": "https://coin-images.coingecko.com/coins/images/66738/large/Lg17Huyh_400x400-2.jpg?1750324770",
+      "small": "https://coin-images.coingecko.com/coins/images/66738/small/Lg17Huyh_400x400-2.jpg?1750324770",
+      "thumb": "https://coin-images.coingecko.com/coins/images/66738/thumb/Lg17Huyh_400x400-2.jpg?1750324770"
+    },
+    "last_updated_at": "2025-08-29T03:38:46.738Z",
+    "market_cap": 251546,
+    "name": "AURA",
+    "platforms": {
+      "xrp": {
+        "contract_address": "6175726100000000000000000000000000000000.rpjuvqrH37RGzb88UVibzCQYSNrM9FxJDy",
+        "decimal_place": 0
+      }
+    },
+    "symbol": "aura"
+  },
+  {
+    "description": {
+      "en": "Ripples ($RPLS) is a meme-inspired, community-driven token on XRPL, aiming to be the 'Minions' of crypto. With a roadmap featuring animations, games, NFTs, and a Pixar-style movie pitch, Ripples combines fun, utility, and community.\r\n\r\n01. Fun & Utility\r\nRipples ($RPLS) brings entertainment and practicality together, offering a unique blend of fun and utility for the crypto community.\r\n\r\n02. Community-Driven\r\nJoin the vibrant Ripples community and become part of a movement that celebrates creativity, humor, and collaboration.\r\n\r\n03. Memes Meet Movement\r\nExperience the power of memes meeting movement on XRPL with Ripples, where creativity and innovation thrive."
+    },
+    "id": "ripples",
+    "image": {
+      "large": "https://coin-images.coingecko.com/coins/images/51862/large/compressed_1733241393848.png?1733383586",
+      "small": "https://coin-images.coingecko.com/coins/images/51862/small/compressed_1733241393848.png?1733383586",
+      "thumb": "https://coin-images.coingecko.com/coins/images/51862/thumb/compressed_1733241393848.png?1733383586"
+    },
+    "last_updated_at": "2025-08-29T03:34:11.813Z",
+    "market_cap": 200098,
+    "name": "Ripples",
+    "platforms": {
+      "xrp": {
+        "contract_address": "r93hE5FNShDdUqazHzNvwsCxL9mSqwyiru",
+        "decimal_place": 6
+      }
+    },
+    "symbol": "rpls"
+  },
+  {
+    "description": {
+      "en": "SPLASH is a decentralized token built on the XRP Ledger (XRPL), designed as a liquidity-first experiment that strategically connects to the token $DROP. The project explores the power of automated market makers (AMMs) and arbitrage bots by seeding deep liquidity across SPLASH/DROP and SPLASH/XRP pools. At launch, 60% of the SPLASH supply was injected into the DROP/SPLASH pool alongside DROP worth approximately $30,000. The pairing leverages automated arbitrage opportunities to generate buy pressure across both assets.\r\n\r\nInstead of following a conventional market-first approach with hype and promotion, SPLASH flips the model by prioritizing liquidity setup. The project aims to test how volume, visibility, and price action can be driven through market mechanics rather than manual trading. The core idea is that as DROP increases in value, arbitrage bots will buy SPLASH to balance the pools, creating a symbiotic relationship. This feedback loop benefits both tokens, helping to stabilize volatility while building stronger price floors.\r\n\r\nSPLASH serves as a live case study in how deep liquidity design can support price discovery, reduce volatility, and organically grow volume and visibility on-chain."
+    },
+    "id": "splash-2",
+    "image": {
+      "large": "https://coin-images.coingecko.com/coins/images/67410/large/SPLASH_logo..png?1752693700",
+      "small": "https://coin-images.coingecko.com/coins/images/67410/small/SPLASH_logo..png?1752693700",
+      "thumb": "https://coin-images.coingecko.com/coins/images/67410/thumb/SPLASH_logo..png?1752693700"
+    },
+    "last_updated_at": "2025-08-29T03:39:25.008Z",
+    "market_cap": 191936,
+    "name": "SPLASH",
+    "platforms": {
+      "xrp": {
+        "contract_address": "53504C4153480000000000000000000000000000.rwfGtVZKpPX6vb51xE5RGTgXkQ4W9wSUrz",
+        "decimal_place": 0
+      }
+    },
+    "symbol": "splash"
+  },
+  {
+    "description": {
+      "en": "GEI BEAR ($GEI) is a community-driven meme token built on the XRP Ledger (XRPL). It was born from the resilient spirit of XRP holders who have withstood years of market skepticism, ridicule, and doubt—particularly from critics dubbed \"GEI Bears.\" Rather than remain passive, the XRP community chose to answer with humor, memes, and a bold new token that turns mockery into motivation.\r\n\r\nGEI BEAR aims to become the unofficial meme ambassador of the XRPL, blending entertainment, community engagement, and blockchain functionality. In an era where meme coins capture mass attention and cultural power, GEI BEAR takes a unique position by representing a specific subculture within crypto: those who never gave up on XRP. By embracing satire and internet culture, the project energizes a new wave of XRP holders who want more than just passive investment—they want fun, community, and identity.\r\n\r\nThe token features zero tax on buy and sell transactions, making it frictionless to trade and ideal for fast-paced meme coin markets. It is fully deployed on the XRP Ledger, taking advantage of the network’s high-speed, low-cost, and eco-friendly design. With a total supply of 69,420,589 $GEI, the project embraces meme culture to its core while ensuring supply is capped for scarcity.\r\n\r\nBeyond trading, $GEI is also the key to accessing the GEI BEAR NFT collection on xrp.cafe, where holders can collect, trade, and show off bear-themed NFTs with rarity traits. These NFTs strengthen community bonds and add another layer of engagement and utility to the ecosystem.\r\n\r\nThe GEI BEAR community thrives on Twitter, Telegram, and expanding platforms like TikTok, where memes, updates, and events foster ongoing interaction. The team is also exploring future use cases such as governance voting, exclusive holder events, and staking or burn mechanics—all driven by community input.\r\n\r\nImportantly, GEI BEAR makes no claim of utility beyond its entertainment and community value. It is intentionally transparent as a meme coin—but one backed by purpose, culture, and relentless community energy.\r\n\r\nWhether you’re a long-time XRP supporter or new to the world of crypto memes, GEI BEAR invites you to laugh, hold, and join the movement that turns doubt into digital gold."
+    },
+    "id": "gei-bear",
+    "image": {
+      "large": "https://coin-images.coingecko.com/coins/images/66884/large/photo_2025-06-25_01-21-59.jpg?1750922861",
+      "small": "https://coin-images.coingecko.com/coins/images/66884/small/photo_2025-06-25_01-21-59.jpg?1750922861",
+      "thumb": "https://coin-images.coingecko.com/coins/images/66884/thumb/photo_2025-06-25_01-21-59.jpg?1750922861"
+    },
+    "last_updated_at": "2025-08-29T03:38:47.307Z",
+    "market_cap": 186391,
+    "name": "GEI BEAR",
+    "platforms": {
+      "xrp": {
+        "contract_address": "gei.raadqNCqPHhqpb5HEMBjbfFa21YYu9GWfW",
+        "decimal_place": 0
+      }
+    },
+    "symbol": "gei"
+  },
+  {
+    "description": {
+      "en": "A significant portion of $aixrp holdings is dedicated to rewarding community members who produce high-quality content—ranging from in-depth articles, tutorials, and analyses to creative projects and social-media posts that explore $aixrp applications and the wider XRPL ecosystem.\r\n\r\nAI-driven evaluation mechanisms will surface and assess top contributions, enabling automated and equitable distribution of $aixrp rewards. This establishes a merit-based SocialFi model in which value flows directly to creators, bypassing centralized platform gatekeepers.\r\n\r\nThe XRPL’s combination of rapid settlement times, minimal transaction fees, native decentralized exchange functionality, and proven scalability provides an ideal on-chain framework for transparent, cost-effective reward distribution and sustainable community growth."
+    },
+    "id": "aixrp",
+    "image": {
+      "large": "https://coin-images.coingecko.com/coins/images/66915/large/Tql_SY28_400x400.png?1751028261",
+      "small": "https://coin-images.coingecko.com/coins/images/66915/small/Tql_SY28_400x400.png?1751028261",
+      "thumb": "https://coin-images.coingecko.com/coins/images/66915/thumb/Tql_SY28_400x400.png?1751028261"
+    },
+    "last_updated_at": "2025-08-29T03:39:25.205Z",
+    "market_cap": 169037,
+    "name": "aixrp",
+    "platforms": {
+      "xrp": {
+        "contract_address": "6169787270000000000000000000000000000000.rDvVS42ZgKvFNuacNvJZyQe83JQbTEDVRu",
+        "decimal_place": 0
+      }
+    },
+    "symbol": "aixrp"
+  },
+  {
+    "description": {
+      "en": "XRP-LEDGER FOUNDER DAVID SCHWARTZ DOG $NOX\r\nHere is the legendary story of Nox. Nox’s mother was rescued from a shelter in North California when she was pregnant, and soon afterward she gave birth to Nox and six other puppies. David couldn’t resist Nox, taking him in and giving him a warm, loving home. Nox is now ready to conquer the XRPL memes and become the top dawg! David Schwartz holds 1% of the Nox supply."
+    },
+    "id": "nox",
+    "image": {
+      "large": "https://coin-images.coingecko.com/coins/images/53956/large/nox.png?1737790039",
+      "small": "https://coin-images.coingecko.com/coins/images/53956/small/nox.png?1737790039",
+      "thumb": "https://coin-images.coingecko.com/coins/images/53956/thumb/nox.png?1737790039"
+    },
+    "last_updated_at": "2025-08-29T03:38:47.394Z",
+    "market_cap": 154944,
+    "name": "NOX",
+    "platforms": {
+      "xrp": {
+        "contract_address": "NOX.rBbu9c7zyuiDH4bq7uJhdLhzsRdEkSrYFX",
+        "decimal_place": 0
+      }
+    },
+    "symbol": "nox"
+  },
+  {
+    "description": {
+      "en": "Representing fire, FLAME embodies passion, rebellion, and transformation – burning down the old to ignite a bold new future for the XRPL.\r\n\r\nFLAME is a legacy XRP meme coin reignited by the community. Originally launched to bring fun to the XRPL, it is now evolving into a movement to onboard new people to the XRP Ledger through memes, community, and a culture of transformation. With fresh energy and direction, the community is driving FLAME forward, sparking adoption and fueling lasting innovation on the Ledger."
+    },
+    "id": "flame-4",
+    "image": {
+      "large": "https://coin-images.coingecko.com/coins/images/67766/large/lUZxGAdt_400x400.jpg?1753787726",
+      "small": "https://coin-images.coingecko.com/coins/images/67766/small/lUZxGAdt_400x400.jpg?1753787726",
+      "thumb": "https://coin-images.coingecko.com/coins/images/67766/thumb/lUZxGAdt_400x400.jpg?1753787726"
+    },
+    "last_updated_at": "2025-08-29T03:38:47.476Z",
+    "market_cap": 99756,
+    "name": "FLAME",
+    "platforms": {
+      "xrp": {
+        "contract_address": "464C414D45000000000000000000000000000000.rp5CUgVjAhuthJs8LdjTXFdNWJzfQqc3p2",
+        "decimal_place": 0
+      }
+    },
+    "symbol": "flame"
+  },
+  {
+    "description": {
+      "en": "Meet the Phaser Beary\r\nThe laziest bear to ever accidentally mint himself into the XRP blockchain. He’s not your average pixel-pumped NFT character. Nope. He’s unbothered, unimpressed, and perpetually halfway between a nap and existential dread. Born from pure indifference and running on low energy (literally and emotionally), Phaser Beary doesn’t chase hype – hype chases him and gives up halfway. With his half-lidded stare and resting “meh” face, this bear is a satirical middle paw to all the try-hard NFT projects flooding your feed.\r\nThe official meme token of $Phaser Beary, the internet’s most gloriously unmotivated bear. Accidentally minted into the XRP Ledger during what was probably a nap, this bear didn’t set out to make a token… but here it is. Why? Because effort is overrated and utility is a scam (probably).\r\n$Phaser Beary isn’t here to pump your bags. He’s here to lie down and mildly exist in digital form – somewhere between hibernation and existential dread. He has no roadmap, no use case, and absolutely no interest in being “the next big thing.“ And that’s exactly why he might be.\r\nForget staking, farming, or whatever buzzword is trending this week. $Phaser runs on vibes and sarcasm – and thanks to the XRP Ledger, it’s fast, cheap, and eco-friendly (because even lazy bears hate paying gas fees)."
+    },
+    "id": "phaser-beary",
+    "image": {
+      "large": "https://coin-images.coingecko.com/coins/images/68331/large/IMG_1149.jpeg?1755360017",
+      "small": "https://coin-images.coingecko.com/coins/images/68331/small/IMG_1149.jpeg?1755360017",
+      "thumb": "https://coin-images.coingecko.com/coins/images/68331/thumb/IMG_1149.jpeg?1755360017"
+    },
+    "last_updated_at": "2025-08-29T03:38:47.819Z",
+    "market_cap": 92133,
+    "name": "Phaser Beary",
+    "platforms": {
+      "xrp": {
+        "contract_address": "5048415345520000000000000000000000000000.rQLfUoZNafhTTJCoCt64isgCcmXdL5a5cp",
+        "decimal_place": 0
+      }
+    },
+    "symbol": "phaser"
+  },
+  {
+    "description": {
+      "en": "Launched on January 20, 2025, Louie $Lambo is a memecoin built on the XRP Ledger (XRPL). Designed for the rapidly growing XRPL community, $LAMBO operates as a community-driven digital asset with a strong focus on engagement, rewards, and strategic expansion within the crypto ecosystem. \r\n\r\nKey Initiatives & Roadmap:\r\nXRP Rewards Mechanism – Holders of $LAMBO will gain access to an exclusive rewards platform that offers XRP incentives for participation and engagement.\r\nMarketing & Partnerships – $Lambo has secured partnerships with key opinion leaders (KOLs) and influencers in the crypto space to expand its reach. The development team continues to drive community-driven marketing efforts to establish $LAMBO as a widely recognized memecoin.\r\nCentralized Exchange (CEX) Listings – Efforts are underway to secure tier-1 exchange listings, increasing accessibility, liquidity, and exposure to a global audience.\r\nNFT Integration – Future exclusive NFT drops are planned, allowing holders to engage with the $LAMBO ecosystem through unique digital collectibles. Proceeds from these NFT sales will go directly into supporting liquidity and ecosystem growth.\r\n\r\nVision for the Future\r\nWith its strong community backing and aggressive expansion plans, Louie Lambo aims to become a dominant force on the XRPL. By combining XRP-based rewards, strategic marketing, and exchange expansion, $LAMBO seeks to establish itself as one of the most recognizable and widely adopted memecoins in the space."
+    },
+    "id": "louie-lambo",
+    "image": {
+      "large": "https://coin-images.coingecko.com/coins/images/54854/large/Logo1.png?1742105628",
+      "small": "https://coin-images.coingecko.com/coins/images/54854/small/Logo1.png?1742105628",
+      "thumb": "https://coin-images.coingecko.com/coins/images/54854/thumb/Logo1.png?1742105628"
+    },
+    "last_updated_at": "2025-08-29T03:38:46.714Z",
+    "market_cap": 80936,
+    "name": "Louie Lambo",
+    "platforms": {
+      "xrp": {
+        "contract_address": "4C414D424F000000000000000000000000000000.rJXsaaTBAqZRHeLLd13TpbZhraJnGunAvW",
+        "decimal_place": 0
+      }
+    },
+    "symbol": "lambo"
+  },
+  {
+    "description": {
+      "en": "In a world where XRP has long been a beacon of innovation and resilience, XRP GOD CANDLE (XGC) was born out of the dreams and aspirations of the XRP community.\r\n\r\nXGC is not just another token; it represents the anticipated “god candle” that many believe will ignite when XRP breaks out of its long-standing market structure. This movement, shared by countless XRP enthusiasts, inspired the creation of XGC, a meme token designed to bring the community together and offer unique value in its own right.\r\n\r\nThe name “GOD CANDLE” itself holds a symbolic place within the crypto world. In market terms, a “god candle” represents a significant breakout move — a candle on the chart so massive that it becomes a clear marker of strength and momentum. For XGC, this is more than just an anticipated move; it’s the embodiment of the community’s belief in XRP’s future potential. Created for XRP believers, XGC is a way for fans to celebrate, participate in, and benefit from the growth they foresee in XRP’s journey.\r\n\r\nWho XGC Is For: The Community at Heart\r\nXGC is designed for the XRP community and broader retail investors who have long held confidence in XRP’s long-term success. As a community-driven token, XGC is built to foster unity, strengthen community identity, and celebrate XRP’s triumphs. It’s a token that’s accessible and relatable, created to honor the journey that XRP has taken and inspire excitement about where it might lead.\r\n\r\n\r\nUtility of XGC: A Token with Purpose Beyond the Meme\r\nWhile XGC started as a meme token, it’s evolved into much more than a playful addition to the XRP ecosystem. The utility of XGC extends into various areas, aiming to bring value and engagement to its holders. For starters, XGC is developing a game that allows the community to dive into an engaging XRP-themed experience. Additionally, XGC’s animated cartoon series aims to bring the character of XRP GOD CANDLE to life, delivering humor, entertainment, and a sense of unity around XRP’s narrative.\r\n\r\nThe XGC project also features an exclusive NFT collection. Each NFT in this collection is designed to reflect elements of the XRP community’s identity and aspirations, offering a way for supporters to own a unique piece of the XGC story. Alongside NFTs, XGC merchandise (merch) brings the project’s iconic visuals to clothing and accessories, allowing fans to wear their passion and connect with other XRP believers wherever they go.\r\n\r\nThe ultimate goal of XGC is to add layers of interactive utility that connect fans to XRP in new ways. Whether through the game, the cartoon, NFTs, or merch, XGC aims to solidify itself as an essential companion to XRP, bringing real engagement to the community.\r\n\r\nThe Vision and Roadmap: What’s Next for XGC\r\nThe team behind XGC has a clear roadmap designed to fuel excitement and growth within the XRP ecosystem. Initially, the team plans to expand XGC’s community engagement through the launch of its game, animated series, NFT collection, and interactive content. Each phase of the roadmap brings new features and utility aimed at deepening the relationship between XGC holders and the broader XRP community.\r\n\r\nFollowing these releases, XGC will focus on expanding partnerships within the XRP ecosystem, seeking out opportunities to work with other XRP-based projects and initiatives. These partnerships will not only enhance XGC’s reach but also aim to bring more utility and benefits to its holders.\r\n\r\nFurther down the line, the team is also exploring ways to leverage XGC in future DeFi applications, staking, and community-led initiatives, ensuring that XGC remains an evolving asset within the XRP family.\r\n\r\nGiving Back: Donations After Every 1 Million XRP Market Cap Milestone\r\nAt XRP GOD CANDLE (XGC), we believe in not only building value within our community but also giving back to the world. As XRP is a green, environmentally friendly tool that champions sustainable finance, it’s only natural that XGC supports causes that protect and preserve nature. That’s why we’ve committed to making donations after every 1 million XRP market cap milestone. This initiative enables XGC to contribute positively beyond the crypto space, supporting environmental causes and other impactful projects for a greener planet. With each new milestone, XGC celebrates growth by giving back, reinforcing our commitment to a sustainable, better future for all.\r\n\r\nA Message to the XRP Community: A Family Built on Shared Vision\r\nXGC was created with a single purpose: to bring excitement, unity, and a bit of humor to the XRP family. As members of the XRP community, the creators of XGC share the same beliefs, dreams, and aspirations for XRP’s potential. They know that XRP’s journey hasn’t always been easy, but it’s one worth celebrating. Through XGC, the community now has an emblem, a rallying point, and a token to call their own — a new addition to the family that honors XRP’s past while eagerly awaiting its future.\r\n\r\nTo the XRP community, XGC extends an invitation. Join us in building something memorable. Together, let’s watch as XRP continues to forge its path, and let’s celebrate each milestone with XGC by our side. This isn’t just a token; it’s a symbol of shared belief and a reminder that when XRP reaches its “god candle” moment, we’ll all be there to light the way.\r\n\r\nConclusion\r\nXRP GOD CANDLE (XGC) represents a unique blend of community spirit, anticipated value, and interactive experiences. Created by and for the XRP community, XGC adds a layer of fun, value, and utility that complements XRP’s mission. For those who believe in XRP’s future, XGC is more than just a meme — it’s a token of faith and celebration. Join the journey, become a part of the family, and let’s light the way to the god candle together."
+    },
+    "id": "xrp-god-candle",
+    "image": {
+      "large": "https://coin-images.coingecko.com/coins/images/52078/large/BBH.jpg?1732526890",
+      "small": "https://coin-images.coingecko.com/coins/images/52078/small/BBH.jpg?1732526890",
+      "thumb": "https://coin-images.coingecko.com/coins/images/52078/thumb/BBH.jpg?1732526890"
+    },
+    "last_updated_at": "2025-08-29T00:25:39.407Z",
+    "market_cap": 75155,
+    "name": "XRP GOD CANDLE",
+    "platforms": {
+      "xrp": {
+        "contract_address": "rM4qkDcRyMDks5v1hYakKnLbTeppmgCpM1",
+        "decimal_place": 0
+      }
+    },
+    "symbol": "xgc"
+  },
+  {
+    "description": {
+      "en": "BuildX is a next-generation token distribution platform built on the XRPL (XRP Ledger). The platform aims to revolutionize token distribution through advanced analytics, smart classification, and transparent reporting. By offering tools that simplify airdrops, provide real-time monitoring, and integrate AI-driven insights, BuildX supports projects, communities, and the overall ecosystem in fostering engagement, making data-driven decisions, and promoting transparency.\r\n\r\nThe core features of BuildX include precision trading tools, AI-powered analytics, and a professional trading suite that caters to traders of all experience levels. The platform enables efficient and auditable token distribution with customizable systems for both straight and points-based airdrops. BuildX is designed to empower users with actionable insights, from identifying market trends to optimizing trading strategies.\r\n\r\nIn addition to its robust trading and analytics capabilities, BuildX is committed to building a community-centric ecosystem. Through gamified reward mechanisms, fair token distribution, and continuous platform evolution, BuildX fosters loyalty and active participation. Its development roadmap highlights key milestones, including the launch of an airdrop SaaS platform, AI and machine learning integration, staking mechanisms, and advanced community features.\r\n\r\nBuildX tokens ($BuildX) play a central role in the ecosystem, with allocations dedicated to community growth, marketing, development, and operational sustainability. The project is committed to transparency, innovation, and the betterment of the XRPL ecosystem, aiming to create a more efficient, fair, and engaging trading environment for all participants.\r\n\r\n"
+    },
+    "id": "buildx",
+    "image": {
+      "large": "https://coin-images.coingecko.com/coins/images/53947/large/ezgif-6-a812c996a7.png?1737788013",
+      "small": "https://coin-images.coingecko.com/coins/images/53947/small/ezgif-6-a812c996a7.png?1737788013",
+      "thumb": "https://coin-images.coingecko.com/coins/images/53947/thumb/ezgif-6-a812c996a7.png?1737788013"
+    },
+    "last_updated_at": "2025-08-29T03:38:52.099Z",
+    "market_cap": 55534,
+    "name": "BuildX",
+    "platforms": {
+      "xrp": {
+        "contract_address": "4275696C64580000000000000000000000000000.r4WzuU4bdTcyUtdSyhC8nsLUhv3Ce2xyDy",
+        "decimal_place": 0
+      }
+    },
+    "symbol": "buildx"
+  },
+  {
+    "description": {
+      "en": "OLX is a utility token on the XRP Ledger powering a trader-centric ecosystem built around real tools and rewards. It grants access to premium indicators (JMS and MAC), private Discord membership, and special trading features. Alongside OLX, the CFH token allows liquidity providers to earn monthly XRP rewards. Together, OLX and CFH create a sustainable, reward-based environment for serious retail traders using technical tools—not hype."
+    },
+    "id": "olixrp",
+    "image": {
+      "large": "https://coin-images.coingecko.com/coins/images/66223/large/emoji_OLX_transparent_100x100.png?1748847103",
+      "small": "https://coin-images.coingecko.com/coins/images/66223/small/emoji_OLX_transparent_100x100.png?1748847103",
+      "thumb": "https://coin-images.coingecko.com/coins/images/66223/thumb/emoji_OLX_transparent_100x100.png?1748847103"
+    },
+    "last_updated_at": "2025-08-29T03:38:47.517Z",
+    "market_cap": 46828,
+    "name": "OliXRP",
+    "platforms": {
+      "xrp": {
+        "contract_address": "OLX.rswiX7wDL25Go4wGdLJK1ssSMpUsRGosJR",
+        "decimal_place": 0
+      }
+    },
+    "symbol": "olx"
+  },
+  {
+    "description": {
+      "en": "RIZZLE is a memecoin built on the XRPL. It’s a playful twist on “Ripple,” where the “p”s are replaced with “z”s—adding “Rizz” to Ripple. Rizz is a popular slang term for charisma, especially among Generation Z.\r\n\r\nWhile RIZZLE is primarily a memecoin with a strong focus on community building, it also offers various trading bots and is developing an AI agent that will soon be able to speak in Spaces on X.\r\n\r\nBy leveraging the cultural relevance of “Rizz,” one of the most widely used slang terms among Gen Z, RIZZLE aims to expand beyond the existing XRPL user base and onboard a new wave of users."
+    },
+    "id": "ripple-with-rizz",
+    "image": {
+      "large": "https://coin-images.coingecko.com/coins/images/66680/large/rizzbrad200.png?1750244601",
+      "small": "https://coin-images.coingecko.com/coins/images/66680/small/rizzbrad200.png?1750244601",
+      "thumb": "https://coin-images.coingecko.com/coins/images/66680/thumb/rizzbrad200.png?1750244601"
+    },
+    "last_updated_at": "2025-08-29T03:38:52.146Z",
+    "market_cap": 41405,
+    "name": "RIPPLE WITH RIZZ",
+    "platforms": {
+      "xrp": {
+        "contract_address": "rE99nDT3riuM9VjMQkVstMqRGBsnUHw6vm",
+        "decimal_place": 6
+      }
+    },
+    "symbol": "rizzle"
+  },
+  {
+    "description": {
+      "en": "🔥 Unleash the roar of $FURY — the official token of Feline Fury TCG! 🐾\r\n🎮 A real-world trading card game meets blockchain on the XRPL.\r\n🎨 Created by visionary artist & developer Silver, this project blends stunning NFT art with collectible strategy gameplay.\r\n\r\n💰 Earn Rewards by holding powerful Feline Fury NFTs and $FURY\r\n📈 Rewards for both early supporters and future holders\r\n🌍 Built for players, collectors, and Web3 explorers alike\r\n\r\n🕹️ Join the revolution. Own the cards. Fuel the fury."
+    },
+    "id": "feline-fury",
+    "image": {
+      "large": "https://coin-images.coingecko.com/coins/images/66823/large/ff-logo-cat-480.png?1750662569",
+      "small": "https://coin-images.coingecko.com/coins/images/66823/small/ff-logo-cat-480.png?1750662569",
+      "thumb": "https://coin-images.coingecko.com/coins/images/66823/thumb/ff-logo-cat-480.png?1750662569"
+    },
+    "last_updated_at": "2025-08-29T03:38:47.540Z",
+    "market_cap": 37385,
+    "name": "Feline Fury",
+    "platforms": {
+      "xrp": {
+        "contract_address": "4655525900000000000000000000000000000000.rfuryz1gyiTtkEGzXcwghjkKxRHGgXCiZq",
+        "decimal_place": 0
+      }
+    },
+    "symbol": "fury"
+  },
+  {
+    "description": {
+      "en": "GIVER is a token for the project GIVER: Bravehand, a Play 2 Earn Trading Card Game built to work with the XRPL. The game is under development and is reaching high demand from the community that is also constantly growing. The token launched over a week ago now and has reached a market cap of 450 thousand and peaked at over 500 thousand at only 9 days old. 6 NFT collections have also been launched. They include playable characters, items and more. They are also used as a form of crowdfunding for the development of the game."
+    },
+    "id": "giver",
+    "image": {
+      "large": "https://coin-images.coingecko.com/coins/images/54858/large/44c83374-969a-4e46-8ec3-e35a6b4cf78c.png?1742108063",
+      "small": "https://coin-images.coingecko.com/coins/images/54858/small/44c83374-969a-4e46-8ec3-e35a6b4cf78c.png?1742108063",
+      "thumb": "https://coin-images.coingecko.com/coins/images/54858/thumb/44c83374-969a-4e46-8ec3-e35a6b4cf78c.png?1742108063"
+    },
+    "last_updated_at": "2025-08-29T03:38:52.106Z",
+    "market_cap": 31593,
+    "name": "GIVER",
+    "platforms": {
+      "xrp": {
+        "contract_address": "4749564552000000000000000000000000000000.rHqwsGhTiGE9P8g8so47zawX4SWVrVnwD",
+        "decimal_place": 0
+      }
+    },
+    "symbol": "giver"
+  },
+  {
+    "description": {
+      "en": "StarBro isn’t just another meme coin—it’s a galactic revolution powered by StarBro AI on the fast, eco-friendly XRP Ledger.\r\n\r\n \r\n\r\nCombining cutting-edge AI technology with blockchain innovation, StarBro opens new frontiers for efficiency, creativity, and community-driven culture. With lightning-fast transactions, eco-conscious tech, and the intelligence of StarBro AI guiding the way, this isn’t just a project—it’s a movement.\r\n\r\n \r\n\r\nWhether you’re stacking stars or exploring the uncharted realms of Web3, StarBro is your ticket to gains that are out of this world. Ready to join the mission and make your mark among the stars?"
+    },
+    "id": "starbro",
+    "image": {
+      "large": "https://coin-images.coingecko.com/coins/images/54920/large/5354415242524F00000000000000000000000000.rLfF6rkXsMvNBYosPmwX2kAGQ5oMtab6dW.jpg?1742537968",
+      "small": "https://coin-images.coingecko.com/coins/images/54920/small/5354415242524F00000000000000000000000000.rLfF6rkXsMvNBYosPmwX2kAGQ5oMtab6dW.jpg?1742537968",
+      "thumb": "https://coin-images.coingecko.com/coins/images/54920/thumb/5354415242524F00000000000000000000000000.rLfF6rkXsMvNBYosPmwX2kAGQ5oMtab6dW.jpg?1742537968"
+    },
+    "last_updated_at": "2025-08-28T01:02:52.069Z",
+    "market_cap": 13064.23,
+    "name": "STARBRO",
+    "platforms": {
+      "xrp": {
+        "contract_address": "5354415242524F00000000000000000000000000.rLfF6rkXsMvNBYosPmwX2kAGQ5oMtab6dW",
+        "decimal_place": 0
+      }
+    },
+    "symbol": "starbro"
+  },
+  {
+    "description": {
+      "en": "\"Lucretius is a fully decentralized metaverse web-based game that is filled with endless fun and adventure. It is an exciting new complex where you can connect with other users, make new friends, participate in community events, win contests, exchange NFTs at the marketplace, and many other fun activities.\r\n\r\nIn Lucretius, the fun never ends. You can participate in auction events, art exhibitions, concerts and even get paid for having fun with Play & Earn. It is a web-based game that stands out because it offers the best of two worlds. It provides an exhilarating gameplay experience and a platform for players who want to acquire and trade NFTs, even if they have no idea what an NFT is. Lucretius was not created as a game for only blockchain players. It is aimed at a segment of the gaming community which can be quickly onboarded from other mainstream platforms.\r\n\r\nTheir unique angle offers an exciting way to connect a compelling game narrative with the metaverse and underlying blockchain technology. With these features, the Lucretius complex can attract millions of gamers to the blockchain ecosystem and create multiple income generation streams in the process. The project leverages the XRPL, which facilitates advanced and in-game DeFi features.\""
+    },
+    "id": "lucretius",
+    "image": {
+      "large": "https://coin-images.coingecko.com/coins/images/24205/large/luc.png?1696523392",
+      "small": "https://coin-images.coingecko.com/coins/images/24205/small/luc.png?1696523392",
+      "thumb": "https://coin-images.coingecko.com/coins/images/24205/thumb/luc.png?1696523392"
+    },
+    "last_updated_at": "2025-08-29T03:37:08.221Z",
+    "market_cap": 6002.76,
+    "name": "Lucretius",
+    "platforms": {
+      "xrp": {
+        "contract_address": "rsygE5ynt2iSasscfCCeqaGBGiFKMCAUu7",
+        "decimal_place": 18
+      }
+    },
+    "symbol": "luc"
+  },
+  {
+    "description": {
+      "en": "BANXCHANGE (BXE) is the native utility token on XRP Ledger of the BANXCHANGE decentralized exchange (DEX), built to offer fast, secure, and low-cost trading of digital assets. BXE is used for transaction fees, staking, governance, and ecosystem rewards. BANXCHANGE supports token swaps, liquidity provision, farming, and aims to become a leading multi-chain DeFi platform, the best DEFI on XRP Network.\r\n\r\n\r\n\r\n"
+    },
+    "id": "banxchange",
+    "image": {
+      "large": "https://coin-images.coingecko.com/coins/images/67666/large/1000029824.jpg?1753436322",
+      "small": "https://coin-images.coingecko.com/coins/images/67666/small/1000029824.jpg?1753436322",
+      "thumb": "https://coin-images.coingecko.com/coins/images/67666/thumb/1000029824.jpg?1753436322"
+    },
+    "last_updated_at": null,
+    "market_cap": 0,
+    "name": "BANXCHANGE",
+    "platforms": {
+      "xrp": {
+        "contract_address": "rM1J2Mc2eCSFpCz5QXxhDG2KWkGQWgy87r",
+        "decimal_place": 18
+      }
+    },
+    "symbol": "bxe"
+  },
+  {
+    "description": {
+      "en": "BEAR is a memecoin about the famous XRPL meme \"Bearableguy\". It was one of the first memecoins on the XRPL. Recentently the memespace on the XRPL has gained alot of traction with the upcoming Dexscreener integration by First Ledger. BEAR is about building a strong community. We build funny GIFs and JPGs around bearableguy. We also build animated games with bearableguy as a main character. BEAR is now the top 2 memecoin on the XRPL. "
+    },
+    "id": "bear-3",
+    "image": {
+      "large": "https://coin-images.coingecko.com/coins/images/51096/large/BEAR_Coin.png?1730082050",
+      "small": "https://coin-images.coingecko.com/coins/images/51096/small/BEAR_Coin.png?1730082050",
+      "thumb": "https://coin-images.coingecko.com/coins/images/51096/thumb/BEAR_Coin.png?1730082050"
+    },
+    "last_updated_at": null,
+    "market_cap": 0,
+    "name": "BEAR",
+    "platforms": {
+      "xrp": {
+        "contract_address": "rBEARGUAsyu7tUw53rufQzFdWmJHpJEqFW",
+        "decimal_place": 10
+      }
+    },
+    "symbol": "bear"
+  },
+  {
+    "description": {
+      "en": "Clevernode's native token, CLV, acts as the mining reward token within its ecosystem. Clevernode serves as the hosting platform for Evernode decentralized applications (dApps) on the Xahau ledger, which operates as a sidechain of the XRPL (XRP Ledger). Users have the opportunity to rent an Evernode host and earn rewards in $EVR tokens."
+    },
+    "id": "clevernode",
+    "image": {
+      "large": "https://coin-images.coingecko.com/coins/images/35577/large/CLVCoin_200x200.png?1709194709",
+      "small": "https://coin-images.coingecko.com/coins/images/35577/small/CLVCoin_200x200.png?1709194709",
+      "thumb": "https://coin-images.coingecko.com/coins/images/35577/thumb/CLVCoin_200x200.png?1709194709"
+    },
+    "last_updated_at": null,
+    "market_cap": 0,
+    "name": "Clevernode",
+    "platforms": {
+      "xrp": {
+        "contract_address": "rK8rYUs6gFH4QJ9JS814EF9112gKuYZZT",
+        "decimal_place": 15
+      }
+    },
+    "symbol": "clv"
+  },
+  {
+    "description": {
+      "en": "Equilibrium Games is a gaming company that thrives to unite the gaming industry and the Blockchain world. Our mission is to make blockchain games with a player driven economy. Instead of third party market makers everyone can trade between each other what they want with their own prices. The economy of our games is controlled by the people: You can be the owner of a terrain and charge other players that want to play or trade in your terrain taxes, kill monsters to acquire Equilibrium or be a graphic designer and get rewarded for people buying your cosmetic items."
+    },
+    "id": "equilibrium",
+    "image": {
+      "large": "https://coin-images.coingecko.com/coins/images/18959/large/USO9eUfE_400x400.jpg?1696518414",
+      "small": "https://coin-images.coingecko.com/coins/images/18959/small/USO9eUfE_400x400.jpg?1696518414",
+      "thumb": "https://coin-images.coingecko.com/coins/images/18959/thumb/USO9eUfE_400x400.jpg?1696518414"
+    },
+    "last_updated_at": "2025-08-29T03:37:41.438Z",
+    "market_cap": 0,
+    "name": "Equilibrium Games",
+    "platforms": {
+      "xrp": {
+        "contract_address": "rpakCr61Q92abPXJnVboKENmpKssWyHpwu",
+        "decimal_place": 18
+      }
+    },
+    "symbol": "eq"
+  },
+  {
+    "description": {
+      "en": "Ghost Coin (GHOST) is a spooky and deflationary meme token that haunts the XRP Ledger, designed to possess the hearts and minds of the anonymous crypto community. With a sinister yet limited supply of 170 million tokens, Ghost is poised to become the ultimate digital phantom, lurking in the shadowy depths of the blockchain and ready to materialize in the wallets of its die-hard fans.\r\n\r\nBut Ghost is more than just a meme – it's a token with a mission. In the near future, Ghost plans to integrate with automated market maker (AMM) protocols, allowing for decentralized and haunted liquidity pools that enable seamless token swaps and eerie trading experiences. Imagine a world where you can summon Ghost tokens from the depths of the AMM underworld, all while contributing to the ever-decreasing supply through the dark magic of liquidity provider rewards."
+    },
+    "id": "ghost-coin",
+    "image": {
+      "large": "https://coin-images.coingecko.com/coins/images/37253/large/circlelogo.png?1713864573",
+      "small": "https://coin-images.coingecko.com/coins/images/37253/small/circlelogo.png?1713864573",
+      "thumb": "https://coin-images.coingecko.com/coins/images/37253/thumb/circlelogo.png?1713864573"
+    },
+    "last_updated_at": null,
+    "market_cap": 0,
+    "name": "Ghost Coin",
+    "platforms": {
+      "xrp": {
+        "contract_address": "rw57VKMLgWYcgdcu89Bnz1YHne1gE35F1L",
+        "decimal_place": 18
+      }
+    },
+    "symbol": "ghost"
+  },
+  {
+    "description": {
+      "en": "GOAT is a meme-inspired cryptocurrency deployed on the XRP Ledger (XRPL), created as a lighthearted, community-driven token that celebrates the vibrant energy of internet culture. GOAT stands for “Greatest Of All Tokens,” capturing the spirit of playful irreverence that has long fueled the success of meme coins across the broader crypto space.\r\n\r\nWhat makes GOAT unique is its commitment to simplicity, humor, and accessibility. It has no complex whitepaper, no promises of futuristic utility, and no roadmap filled with buzzwords. Instead, GOAT embraces the raw, viral power of online communities — a grassroots movement built by holders, traders, and creators who simply enjoy being part of something fun.\r\n\r\nDeployed on XRPL, GOAT benefits from the network’s speed, low transaction costs, and carbon-neutral infrastructure. These technical advantages make it ideal for fast, feeless trading and meme-fueled momentum within the XRP Ledger’s expanding ecosystem. Despite being a meme coin, GOAT is built on secure and efficient blockchain infrastructure, allowing it to move quickly and scale with community demand.\r\n\r\nGOAT is not affiliated with any official project, company, or development team. It carries no inherent utility and is not intended to serve as a financial product, governance asset, or payment mechanism. It is purely symbolic — a digital collectible that thrives on culture, creativity, and community.\r\n\r\nBy design, GOAT does not attempt to compete with utility-driven tokens. Its value comes from participation, social energy, and the memes created by its holders. While it may be lighthearted in nature, GOAT aims to foster real engagement, interaction, and good-natured fun within the XRPL space.\r\n\r\nWhether you’re a longtime XRPL user or simply love a good meme, GOAT is a reminder that crypto can be weird, wild, and entertaining — and that sometimes the most valuable tokens are the ones that don’t take themselves too seriously."
+    },
+    "id": "goat",
+    "image": {
+      "large": "https://coin-images.coingecko.com/coins/images/55460/large/Goat_Coin_-_Small_200x200.png?1746126397",
+      "small": "https://coin-images.coingecko.com/coins/images/55460/small/Goat_Coin_-_Small_200x200.png?1746126397",
+      "thumb": "https://coin-images.coingecko.com/coins/images/55460/thumb/Goat_Coin_-_Small_200x200.png?1746126397"
+    },
+    "last_updated_at": "2025-08-29T03:39:25.363Z",
+    "market_cap": 0,
+    "name": "Goat",
+    "platforms": {
+      "xrp": {
+        "contract_address": "474F415400000000000000000000000000000000.r96Ny5BTU3z4Aw4BfiMJ7RTgDa5iE17u9t",
+        "decimal_place": 0
+      }
+    },
+    "symbol": "goat"
+  },
+  {
+    "description": {
+      "en": "GreenZone Foundation,LLc is a recycling company that rewards their customers a trc20 token GreenZoneX (gzx) . Revenue from recycling is put back into GZX to reward those that do their part in keeping our planet clean. We are doing our part to ensure the planet is clean and while demonstrating the power and efficiency of cryptocurrencies. GreenZoneX(GZX) is a way to not only integrate but also educate people as they venture into this new journey of financial independence through the potency of passive income off just recycling."
+    },
+    "id": "greenzonex",
+    "image": {
+      "large": "https://coin-images.coingecko.com/coins/images/17705/large/gzx.png?1696517232",
+      "small": "https://coin-images.coingecko.com/coins/images/17705/small/gzx.png?1696517232",
+      "thumb": "https://coin-images.coingecko.com/coins/images/17705/thumb/gzx.png?1696517232"
+    },
+    "last_updated_at": "2025-08-28T17:15:20.807Z",
+    "market_cap": 0,
+    "name": "GreenZoneX",
+    "platforms": {
+      "xrp": {
+        "contract_address": "rNgsoCk6mjBq5jcqitBpg1gdfYhKajXsM2",
+        "decimal_place": 18
+      }
+    },
+    "symbol": "gzx"
+  },
+  {
+    "description": {
+      "en": "HOPIUM ($HOPIUM), the pioneering hope-themed meme coin on the XRP Ledger, stands out by blending motivational memes with the robust functionality of the XRPL. This fusion elevates $HOPIUM beyond a mere token, establishing it as a community-driven movement. The $HOPIUM community actively promotes its message of hope through social media platforms like X and TikTok, using memes, uplifting slogans, and a sense of unity to spark excitement and participation. The primary goal of the $HOPIUM community is to foster growth, with significant potential due to its first-mover advantage on the XRPL. We’re not losing. We’re early. Chart red? Mood green. Inject more hopium. Lambo by Q4 (probably). Memecoins: Your favorite one is down 93%. That’s not a crash.. that’s deep value territory. NFTs: Floor is lower than your sleep schedule, but hey… “it’s about the art” Community sentiment: “Bro trust me, the halving hasn’t kicked in yet”"
+    },
+    "id": "hopium",
+    "image": {
+      "large": "https://coin-images.coingecko.com/coins/images/67364/large/P4GUiDOM_400x400-2-2.jpg?1752569669",
+      "small": "https://coin-images.coingecko.com/coins/images/67364/small/P4GUiDOM_400x400-2-2.jpg?1752569669",
+      "thumb": "https://coin-images.coingecko.com/coins/images/67364/thumb/P4GUiDOM_400x400-2-2.jpg?1752569669"
+    },
+    "last_updated_at": "2025-08-29T03:38:53.078Z",
+    "market_cap": 0,
+    "name": "HOPIUM",
+    "platforms": {
+      "xrp": {
+        "contract_address": "rk9Egj7nqrfX3tXDPUubrTrwqqwsBSqSs",
+        "decimal_place": 8
+      }
+    },
+    "symbol": "$hopium"
+  },
+  {
+    "description": {
+      "en": "Get ready for something legendary — this token is your early pass into history! Designed to celebrate the upcoming XRPL Wallet, this commemorative token honors the innovation and energy surrounding one of the most anticipated launches in the XRPL ecosystem.\r\n\r\nIt represents more than just a digital asset — it’s a badge of early support, a community flex, and a symbol of what’s coming next in the world of decentralized finance. Whether you're a collector, trader, or true XRPL believer, this token gives you a front-row seat to the future.\r\n\r\n🔥 Important Note: This token is not affiliated with the Joey Wallet Development Team and holds no official connection to their platform or products. It’s a tribute — minted by the community, for the community.\r\n\r\nHODL it. Show it off. Let it remind you: you're here before the wave hits.\r\n\r\n"
+    },
+    "id": "joey",
+    "image": {
+      "large": "https://coin-images.coingecko.com/coins/images/55459/large/icon.png?1746124309",
+      "small": "https://coin-images.coingecko.com/coins/images/55459/small/icon.png?1746124309",
+      "thumb": "https://coin-images.coingecko.com/coins/images/55459/thumb/icon.png?1746124309"
+    },
+    "last_updated_at": "2025-08-29T03:39:25.043Z",
+    "market_cap": 0,
+    "name": "Joey",
+    "platforms": {
+      "xrp": {
+        "contract_address": "4A6F657900000000000000000000000000000000.rN6CXs6J7WDh8miq2C2cre6w7jipc55Ut",
+        "decimal_place": 0
+      }
+    },
+    "symbol": "joey"
+  },
+  {
+    "description": {
+      "en": "LIHUA is a meme-inspired cryptocurrency on the XRP Ledger (XRPL) that draws from the symbolism of the Dragon Li cat, representing intelligence, resilience, and prosperity. Created as a deflationary digital asset with a capped supply of 21.3052 trillion tokens, LIHUA seeks to introduce XRP to global audiences through approachable, retail-friendly branding. The project aims to replace inflationary fiat systems with a sound, decentralized alternative while fostering community engagement and financial innovation."
+    },
+    "id": "lihua",
+    "image": {
+      "large": "https://coin-images.coingecko.com/coins/images/53644/large/coingecko.png?1736963760",
+      "small": "https://coin-images.coingecko.com/coins/images/53644/small/coingecko.png?1736963760",
+      "thumb": "https://coin-images.coingecko.com/coins/images/53644/thumb/coingecko.png?1736963760"
+    },
+    "last_updated_at": "2025-08-29T03:39:24.905Z",
+    "market_cap": 0,
+    "name": "Lihua",
+    "platforms": {
+      "xrp": {
+        "contract_address": "4C49485541000000000000000000000000000000.rnhtvpHsAgigmVemgtzt7pujj4gv6LVL2a",
+        "decimal_place": 6
+      }
+    },
+    "symbol": "lihua"
+  },
+  {
+    "description": {
+      "en": "The OpenEden TBILL Vault is a smart-contract vault for U.S. Treasury Bills. Investing into the TBILL Vault provides exposure to the U.S. risk-free rate on-chain.\r\n\r\nThe TBILL token is a prospectus-based token backed by short-term U.S. Treasury Bills. It is an EIP-20-compliant representation of stablecoin balances supplied to the OpenEden TBILL Vault. By depositing USDC and minting TBILL tokens, an investor will have legal rights to the redemption value of all the assets (Treasury Bills, USDC, and fiat USD) held within the Vault, proportional to the amount of TBILL tokens the investor holds relative to the total outstanding supply of TBILL tokens.\r\n\r\nThe TBILL token is issued by Hill Lights International (“HLI”), a professional fund established under the British Virgin Island Securities and Investment Business Act 2010. The underlying portfolio of Treasury Bills are held by HLI via a bankruptcy-remote and wholly-owned special purpose vehicle, OpenEden Cayman Limited (“OCL”), with segregated accounts in regulated and qualified custodians. OpenEden Pte Ltd (“OEPL”), the investment manager of OCL, is a registered fund management company regulated by the Monetary Authority of Singapore under the Jurisdiction of the Republic of Singapore, and is responsible for managing the Treasury Bills portfolio. A small portion of underlying assets are held in USDC and fiat USD for liquidity purposes.\r\n\r\nTBILL tokens are currently only available to Accredited Investors from U.S. and non-U.S. jurisdictions who are required to undergo mandatory KYC and AML screening during the subscription process. Transfers of TBILL tokens are only restricted to the whitelisted wallets of Accredited Investors."
+    },
+    "id": "openeden-tbill",
+    "image": {
+      "large": "https://coin-images.coingecko.com/coins/images/30576/large/OE_Logo_200x200_Transparent.png?1696529441",
+      "small": "https://coin-images.coingecko.com/coins/images/30576/small/OE_Logo_200x200_Transparent.png?1696529441",
+      "thumb": "https://coin-images.coingecko.com/coins/images/30576/thumb/OE_Logo_200x200_Transparent.png?1696529441"
+    },
+    "last_updated_at": "2025-08-29T03:30:07.504Z",
+    "market_cap": 0,
+    "name": "OpenEden TBILL",
+    "platforms": {
+      "xrp": {
+        "contract_address": "rJNE2NNz83GJYtWVLwMvchDWEon3huWnFn",
+        "decimal_place": 18
+      }
+    },
+    "symbol": "tbill"
+  },
+  {
+    "description": {
+      "en": "OpulenceX stands as multifaceted  platforms offering an extensive array of cutting-edge products and services that redefine the landscape of decentralized finance (DeFi).\r\nFrom the  NFT Marketplace and the OpulSwap AMM Powered by XRP Ledger, to the RWA Boutique, \r\nOpulenceX is pioneering innovative blockchain solutions across chains."
+    },
+    "id": "opulence",
+    "image": {
+      "large": "https://coin-images.coingecko.com/coins/images/38151/large/OpulenceX_Coin.png?1727900105",
+      "small": "https://coin-images.coingecko.com/coins/images/38151/small/OpulenceX_Coin.png?1727900105",
+      "thumb": "https://coin-images.coingecko.com/coins/images/38151/thumb/OpulenceX_Coin.png?1727900105"
+    },
+    "last_updated_at": "2025-08-29T03:38:56.409Z",
+    "market_cap": 0,
+    "name": "OPULENCE",
+    "platforms": {
+      "xrp": {
+        "contract_address": "rs5wxrBTSErywDDfPs5NY4Zorrca5QMGVd",
+        "decimal_place": 18
+      }
+    },
+    "symbol": "opulence"
+  },
+  {
+    "description": {
+      "en": " $PRINCE – The Royal Standard of the XRP Ledger\r\n\r\n$PRINCE is a community-driven XRP token and NFT collection built on the XRP Ledger (XRPL), combining the utility of digital assets with the elegance of royal-themed art and branding. As a token, $PRINCE is designed for fast, low-cost transactions, leveraging the speed and scalability of the XRPL network.\r\nThe $PRINCE NFT collection complements the token, showcasing unique, royalty-inspired artwork that represents prestige, power, and purpose in the Web3 space. Each NFT serves as a symbol of status and access, offering holders exclusive benefits within the $PRINCE ecosystem—including airdrops, early access to features, and community governance.\r\nWhether you’re trading, collecting, or participating in the community, $PRINCE brings a noble touch to decentralized finance and digital art on XRPL."
+    },
+    "id": "prince",
+    "image": {
+      "large": "https://coin-images.coingecko.com/coins/images/55510/large/IMG_9675.jpeg?1746436032",
+      "small": "https://coin-images.coingecko.com/coins/images/55510/small/IMG_9675.jpeg?1746436032",
+      "thumb": "https://coin-images.coingecko.com/coins/images/55510/thumb/IMG_9675.jpeg?1746436032"
+    },
+    "last_updated_at": "2025-08-29T03:38:47.726Z",
+    "market_cap": 0,
+    "name": "Prince",
+    "platforms": {
+      "xrp": {
+        "contract_address": "5072696E63650000000000000000000000000000.rKhaUHzBa78cPa44FL1GTvMLEZ1CkuB7WB",
+        "decimal_place": 0
+      }
+    },
+    "symbol": "prince"
+  },
+  {
+    "description": {
+      "en": "$RIBBLE is a memecoin inspired by the charm and energy of a little frog, capturing the fun and innovation of the XRP Ledger. It represents the agility and resilience of XRPL while bringing a lighthearted touch to the crypto world.\r\n\r\nFrogs are known for their ability to leap over obstacles and adapt to any environment. This reflects XRPL’s journey of overcoming challenges and thriving as a fast and efficient blockchain.\r\n"
+    },
+    "id": "ribble",
+    "image": {
+      "large": "https://coin-images.coingecko.com/coins/images/53665/large/2025-01-12_04.30.34.jpg?1737003303",
+      "small": "https://coin-images.coingecko.com/coins/images/53665/small/2025-01-12_04.30.34.jpg?1737003303",
+      "thumb": "https://coin-images.coingecko.com/coins/images/53665/thumb/2025-01-12_04.30.34.jpg?1737003303"
+    },
+    "last_updated_at": "2025-08-29T03:38:46.763Z",
+    "market_cap": 0,
+    "name": "Ribble",
+    "platforms": {
+      "xrp": {
+        "contract_address": "524942424C450000000000000000000000000000.rG7jT6D4fHsipvVmPSbcnvDtFzXwwSR4qx",
+        "decimal_place": 0
+      }
+    },
+    "symbol": "ribble"
+  },
+  {
+    "description": {
+      "en": "Creative Ecosystem Without Limits | Stake • NFTs • Merch • Sanctuary • Charity • P2E • Kit • Swap"
+    },
+    "id": "sanctum",
+    "image": {
+      "large": "https://coin-images.coingecko.com/coins/images/28490/large/34B5B9A0-EF11-4EC2-8378-D4576039944F.jpeg?1696527482",
+      "small": "https://coin-images.coingecko.com/coins/images/28490/small/34B5B9A0-EF11-4EC2-8378-D4576039944F.jpeg?1696527482",
+      "thumb": "https://coin-images.coingecko.com/coins/images/28490/thumb/34B5B9A0-EF11-4EC2-8378-D4576039944F.jpeg?1696527482"
+    },
+    "last_updated_at": null,
+    "market_cap": 0,
+    "name": "Sanctum",
+    "platforms": {
+      "xrp": {
+        "contract_address": "rNcqT1tds4vdroichNKuTh3Ppd8KAdFHnN",
+        "decimal_place": 18
+      }
+    },
+    "symbol": "sanctum"
+  },
+  {
+    "description": {
+      "en": "\r\n\r\nEURØP is a euro-denominated stablecoin that is secure, transparent, MiCA compliant and redeemable 1:1 for euro. It is issued by France’s licensed stablecoin issuer and regulated by the French banking regulator ACPR.\r\n\r\nEvery EURØP is 100% backed by euro. The cash reserves backing EURØP are held in government-supervised EU banks such as Société Générale and audited by a leading global audit firm, KPMG.\r\n\r\nEURØP is bringing the euro back to the forefront as financial services transition on-chain. It offers everyone in Europe who is using digital assets or moving their financial services on-chain an ideal alternative to USD-based stablecoins. EURØP enables global euro users to transact in their native currency without the risks of foreign exchange and conversion fees.\r\n\r\nEURØP is your go-to choice for DeFi, payments, on-chain FX, lending, and borrowing. Thanks to its stability pegged to the euro, it also serves as an ideal safe haven during market volatility."
+    },
+    "id": "schuman-europ",
+    "image": {
+      "large": "https://coin-images.coingecko.com/coins/images/52132/large/europ-symbol-rgb.jpg?1732634862",
+      "small": "https://coin-images.coingecko.com/coins/images/52132/small/europ-symbol-rgb.jpg?1732634862",
+      "thumb": "https://coin-images.coingecko.com/coins/images/52132/thumb/europ-symbol-rgb.jpg?1732634862"
+    },
+    "last_updated_at": "2025-08-29T03:37:46.927Z",
+    "market_cap": 0,
+    "name": "EURØP",
+    "platforms": {
+      "xrp": {
+        "contract_address": "rMkEuRii9w9uBMQDnWV5AA43gvYZR9JxVK",
+        "decimal_place": 6
+      }
+    },
+    "symbol": "europ"
+  },
+  {
+    "description": {
+      "en": "SmartNFT is part of the world's first blockchain mobile security network, used by LOX Network and brings a revolutionary proof-of-ownership use case to NFTs.\r\n\r\nSmartNFT is an NFT representation of the user and records this data to the XRP ledger; it also powers the SmartNFT marketplace to buy, sell and trade the artwork that is paired to the user profile NFT QR code and displayed on your device lock screen, making it easy to track ownership on the LOX Network mobile or web app"
+    },
+    "id": "smartnft",
+    "image": {
+      "large": "https://coin-images.coingecko.com/coins/images/20184/large/SmartNFT.png?1696519596",
+      "small": "https://coin-images.coingecko.com/coins/images/20184/small/SmartNFT.png?1696519596",
+      "thumb": "https://coin-images.coingecko.com/coins/images/20184/thumb/SmartNFT.png?1696519596"
+    },
+    "last_updated_at": "2025-08-24T12:37:25.928Z",
+    "market_cap": 0,
+    "name": "SmartNFT",
+    "platforms": {
+      "xrp": {
+        "contract_address": "rf8dxyFrYWEcUQAM7QXdbbtcRPzjvoQybK",
+        "decimal_place": 18
+      }
+    },
+    "symbol": "smartnft"
+  },
+  {
+    "description": {
+      "en": ""
+    },
+    "id": "xrp-classic-new",
+    "image": {
+      "large": "https://coin-images.coingecko.com/coins/images/30573/large/xrpclassic.jpeg?1696529438",
+      "small": "https://coin-images.coingecko.com/coins/images/30573/small/xrpclassic.jpeg?1696529438",
+      "thumb": "https://coin-images.coingecko.com/coins/images/30573/thumb/xrpclassic.jpeg?1696529438"
+    },
+    "last_updated_at": "2025-08-29T03:38:21.405Z",
+    "market_cap": 0,
+    "name": "XRP Classic",
+    "platforms": {
+      "xrp": {
+        "contract_address": "rHTZAic4QVErSS2AMbPJUe3zdUJPgWzXJe",
+        "decimal_place": 18
+      }
+    },
+    "symbol": "xrpc"
+  },
+  {
+    "description": {
+      "en": "XRP Healthcare (XRPH) is a Web3 scalable solutions provider, focused on the Pharma and Healthcare industry. XRPH intends to do this by simplifying and creating fast payments/transactions between market participants, and by bringing transparency by way of tracking pharmaceuticals from “inception to the consumer” combating the multi-billion dollar counterfeit medicine industry, with an interface for interactive engagement between consumers and healthcare service providers via our mobile and web app.\r\n\r\nWhat makes XRP Healthcare unique?\r\n• The first Pharma and Healthcare platform to be built on the XRP Ledger\r\n• Decentralized marketplace for the Pharma and Healthcare services\r\n• Interactive engagement between consumers and Healthcare providers\r\n• Track pharmaceuticals from \"inception to consumer\r\n\r\nHistory of XRP Healthcare:\r\nThe XRP Healthcare project was conceived on September 13, 2022, by founder and director Kain Roomes with the purpose of making healthcare products and services affordable to all, and to help support the failing pharmaceutical and healthcare system as we know it.\r\n\r\nWhat’s next for XRP Healthcare?\r\nOur mobile and web app, decentralized marketplace, phase two will be the development of a Metaverse Clinic that will offer a range of professional services focused on mental health and well-being, delivered by trained professionals where clients upon entering the Clinic can choose an avatar and remain anonymous while being treated, because of the stigma attached to mental health.\r\n\r\nWhat can XRP Healthcare (XRPH) be used for?\r\nXRPH token will be used to purchase pharma and healthcare products and services around the globe via our Decentralized marketplace.  \r\nXRPH will also be a way of sending money and setting up the distribution of the medication to friends and family in pharmerging countries."
+    },
+    "id": "xrp-healthcare",
+    "image": {
+      "large": "https://coin-images.coingecko.com/coins/images/28982/large/favicon.png?1696527955",
+      "small": "https://coin-images.coingecko.com/coins/images/28982/small/favicon.png?1696527955",
+      "thumb": "https://coin-images.coingecko.com/coins/images/28982/thumb/favicon.png?1696527955"
+    },
+    "last_updated_at": "2025-08-29T03:38:11.552Z",
+    "market_cap": 0,
+    "name": "XRP Healthcare",
+    "platforms": {
+      "xrp": {
+        "contract_address": "rM8hNqA3jRJ5Zgp3Xf3xzdZcx2G37guiZk",
+        "decimal_place": 18
+      }
+    },
+    "symbol": "xrph"
+  },
+  {
+    "description": {
+      "en": "XRPayNet is a cryptocurrency built on the XRP Ledger. Transaction speeds to transfer any amount of XRPayNet from one wallet to another take 1-5 seconds and costs are fractions of a penny.\r\n\r\nThe team at XRPayNet does not aim to compete with Ripple or XRP. We aim to change the payments world forever by focusing on change in Online and in-store payments, ‘In the Field’ Business to consumer payments market (such as plumbers, electricians), and the world of peer-to-peer transaction. Ripple and XRP are focused on and are currently conquering the bank to bank and international settlements market. We are going for the everyday transactions and micro-payments market."
+    },
+    "id": "xrpaynet",
+    "image": {
+      "large": "https://coin-images.coingecko.com/coins/images/24806/large/New_CoinGecko_Logo.png?1696523964",
+      "small": "https://coin-images.coingecko.com/coins/images/24806/small/New_CoinGecko_Logo.png?1696523964",
+      "thumb": "https://coin-images.coingecko.com/coins/images/24806/thumb/New_CoinGecko_Logo.png?1696523964"
+    },
+    "last_updated_at": "2025-08-29T03:38:19.706Z",
+    "market_cap": 0,
+    "name": "XRPayNet",
+    "platforms": {
+      "xrp": {
+        "contract_address": "r9rRLst96Ue4YTDQkWWkX1ePB6p6Ye4FkA",
+        "decimal_place": 18
+      }
+    },
+    "symbol": "xrpaynet"
+  },
+  {
+    "description": {
+      "en": "xSPECTAR is an exclusive society developed by top professionals in Law, Real Estate, IT, Art, Finance, and Gaming. With the vision of creating a private ecosystem, serial entrepreneur Dirk Schepens along with other experts joined forces to establish an exclusive metaverse on the XRP Ledger (XRPL), a high-performance decentralized blockchain. xSPECTAR will provide a complete ecosystem with a virtual economy and world built on Unreal Engine 5, showcasing clean aesthetics as well as providing interactive and visual advantages.\r\nUsers, also known as agents, have exclusive access as members of the xSPECTAR society enabling the opportunity to meet and access business ventures in the metaverse. Furthermore, by collaborating with other members of the community, agents may obtain the potential to earn profits within the virtual ecosystem. The foundational items of the xSPECTAR society are the native token and NFTs which will grant members access to the exclusive society and unlock the privileges in all lines of utility.\r\nThrough the native NFT of xSPECTAR, users will gain private access to the xSPECTAR society and the benefits offered within it. Each xSPECTAR NFT is a unique agent - avatar and your ultimate access ticket. The NFTs are high-quality 3D characters made by the award-winning character company REBLIKA. The native token (XSPECTAR), with a maximum supply of 88.8 million tokens, is the key to entering, collaborating and engaging within the ecosystem. The token plays an integral role in the ecosystem serving as a key functioning element of the virtual economy. "
+    },
+    "id": "xspectar",
+    "image": {
+      "large": "https://coin-images.coingecko.com/coins/images/25894/large/xspectar_logo_transparent_png_1.png?1696524976",
+      "small": "https://coin-images.coingecko.com/coins/images/25894/small/xspectar_logo_transparent_png_1.png?1696524976",
+      "thumb": "https://coin-images.coingecko.com/coins/images/25894/thumb/xspectar_logo_transparent_png_1.png?1696524976"
+    },
+    "last_updated_at": "2025-08-26T03:55:14.305Z",
+    "market_cap": 0,
+    "name": "xSPECTAR",
+    "platforms": {
+      "xrp": {
+        "contract_address": "rh5jzTCdMRCVjQ7LT6zucjezC47KATkuvv",
+        "decimal_place": 18
+      }
+    },
+    "symbol": "xspectar"
+  }
+]
