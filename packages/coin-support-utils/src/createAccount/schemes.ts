@@ -1,5 +1,4 @@
 import {
-  ICreateAccountParams,
   IDerivationPathGenerator,
   IDerivationScheme,
 } from '@cypherock/coin-support-interfaces';
@@ -31,25 +30,25 @@ export const createDerivationPathGenerator =
     return derivationPaths;
   };
 
-export interface IGenerateDerivationPathsPerSchemeParams
-  extends ICreateAccountParams {
+export interface IGenerateDerivationPathsPerSchemeParams {
   derivationPathSchemes: Record<string, IDerivationScheme | undefined>;
   limit: number;
   existingAccounts: IAccount[];
 }
 
-export const generateDerivationPathsPerScheme = async (
+export const generateDerivationPathsPerScheme = (
   params: IGenerateDerivationPathsPerSchemeParams,
 ) => {
   const { derivationPathSchemes, limit, existingAccounts } = params;
 
   const existingDerivationPaths = existingAccounts.map(e => e.derivationPath);
 
-  const derivationSchemeNames = Object.keys(derivationPathSchemes).filter(
-    n => !!derivationPathSchemes[n],
-  );
+  const derivationSchemes = Object.entries(derivationPathSchemes).filter(
+    ([, value]) => value !== undefined,
+  ) as [string, IDerivationScheme][];
+
   const pathLimitPerDerivationScheme = Math.floor(
-    limit / derivationSchemeNames.length,
+    limit / derivationSchemes.length,
   );
 
   const derivedPathsPerScheme: Record<
@@ -58,10 +57,7 @@ export const generateDerivationPathsPerScheme = async (
   > = {};
   const derivedPaths: string[] = [];
 
-  for (const schemeName of derivationSchemeNames) {
-    const derivationPathSchemeDetails = derivationPathSchemes[schemeName];
-    if (!derivationPathSchemeDetails) continue;
-
+  for (const [schemeName, derivationPathSchemeDetails] of derivationSchemes) {
     const paths = derivationPathSchemeDetails.generator(
       // This is done because there can be overlapping derivation paths
       // between different schemes
