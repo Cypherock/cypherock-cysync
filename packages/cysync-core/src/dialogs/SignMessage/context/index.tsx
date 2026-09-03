@@ -50,6 +50,8 @@ export interface SignMessageDialogContextInterface {
   >;
   payload: ISignMessageParamsPayload | undefined;
   startFlow: () => Promise<void>;
+  error: any | undefined;
+  onRetry: () => void;
 }
 
 export const SignMessageDialogContext: Context<SignMessageDialogContextInterface> =
@@ -75,6 +77,7 @@ export const SignMessageDialogProvider: FC<SignMessageDialogProviderProps> = ({
   } = useWalletConnect();
 
   const { connection } = useDevice();
+  const [error, setError] = useState<any | undefined>();
   const [deviceEvents, setDeviceEvents] = useState<
     Record<number, boolean | undefined>
   >({});
@@ -113,8 +116,18 @@ export const SignMessageDialogProvider: FC<SignMessageDialogProviderProps> = ({
   };
   const onClose = (dontReject?: boolean) => {
     cleanUp();
-    if (dontReject !== true) rejectCallRequest();
+    if (dontReject !== true) rejectCallRequest(error?.message);
     dispatch(closeDialog('signMessage'));
+  };
+
+  const onError = (err?: any) => {
+    cleanUp();
+    setError(err);
+  };
+
+  const onRetry = () => {
+    setDeviceEvents({});
+    setError(undefined);
   };
 
   const tabs: ITabs = useMemo(
@@ -144,7 +157,7 @@ export const SignMessageDialogProvider: FC<SignMessageDialogProviderProps> = ({
     error: err => {
       logger.error(err);
       onEnd();
-      onClose();
+      onError(err);
     },
     complete: () => {
       onEnd();
@@ -157,33 +170,47 @@ export const SignMessageDialogProvider: FC<SignMessageDialogProviderProps> = ({
 
     if (!activeAccount || !activeWallet || !payload) {
       logger.warn('Flow started without selecting wallet or account');
+      onError(
+        new Error(
+          'No account is selected for this request. Reconnect WalletConnect with an account on the requested chain',
+        ),
+      );
       return;
     }
 
     cleanUp();
 
-    const coinSupport = getCoinSupport(activeAccount.familyId);
-
     const taskId = lodash.uniqueId('task-');
-
-    if (connection) await deviceLock.acquire(connection.device, taskId);
 
     const onEnd = () => {
       if (connection) deviceLock.release(connection.device, taskId);
     };
 
-    const deviceConnection = connection?.connection;
+    try {
+      const coinSupport = getCoinSupport(activeAccount.familyId);
 
-    if (!deviceConnection) return;
+      if (connection) await deviceLock.acquire(connection.device, taskId);
 
-    flowSubscription.current = coinSupport
-      .signMessage({
-        account: activeAccount,
-        connection: deviceConnection,
-        db: getDB(),
-        payload,
-      })
-      .subscribe(getFlowObserver(onEnd));
+      const deviceConnection = connection?.connection;
+
+      if (!deviceConnection) {
+        onEnd();
+        return;
+      }
+
+      flowSubscription.current = coinSupport
+        .signMessage({
+          account: activeAccount,
+          connection: deviceConnection,
+          db: getDB(),
+          payload,
+        })
+        .subscribe(getFlowObserver(onEnd));
+    } catch (e) {
+      logger.error(e);
+      onEnd();
+      onError(e);
+    }
   };
 
   const {
@@ -213,6 +240,8 @@ export const SignMessageDialogProvider: FC<SignMessageDialogProviderProps> = ({
       setDeviceEvents,
       payload,
       startFlow,
+      error,
+      onRetry,
     }),
     [
       isDeviceRequired,
@@ -227,6 +256,8 @@ export const SignMessageDialogProvider: FC<SignMessageDialogProviderProps> = ({
       setDeviceEvents,
       payload,
       startFlow,
+      error,
+      onRetry,
     ],
   );
 

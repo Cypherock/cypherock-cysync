@@ -18,7 +18,6 @@ export const setGlobalDependencies = () => {
   BtcSupport.setBitcoinLibrary((globalThis as any).BitcoinJsLib);
   NearSupport.setNearApiJs((globalThis as any).NearApiJs);
   EvmSupport.setEthersLibrary((globalThis as any).ethers);
-  EvmSupport.setEip712Library((globalThis as any).eip712);
   EvmSupport.setWeb3Library((globalThis as any).web3);
   SolanaSupport.setWeb3Library((globalThis as any).solanaWeb3);
   SolanaSupport.setSplTokenLibrary((globalThis as any).solanaSplToken);

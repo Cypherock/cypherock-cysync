@@ -1,3 +1,10 @@
+# v2.4.9
+
+### 🐛 Bugfixes
+
+- Fixed WalletConnect signing for dApps like Hyperliquid.
+- WalletConnect signing failures now show a proper error with retry instead of getting stuck.
+
 # v2.4.8
 
 ### 🚀 Features

@@ -1,5 +1,11 @@
 # @cypherock/coin-support-evm
 
+## 0.2.0-pre.0
+
+### Minor Changes
+
+- [#890](https://github.com/Cypherock/cypherock-cysync/pull/890) [`edd1becd`](https://github.com/Cypherock/cypherock-cysync/commit/edd1becd65e011b803adbde9dfa503e06fb058a8) Thanks [@AryanCypherock](https://github.com/AryanCypherock)! - bump @cypherock/sdk-app-evm to ^0.3.0 for the EIP-712 typed data signing fix (dapps like Hyperliquid) and remove the eip-712 library injection which the sdk no longer uses
+
 ## 0.1.11
 
 ### Patch Changes

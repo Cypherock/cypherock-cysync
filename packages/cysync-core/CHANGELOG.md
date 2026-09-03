@@ -1,5 +1,19 @@
 # @cypherock/cysync-core
 
+## 0.13.5-pre.0
+
+### Patch Changes
+
+- [#890](https://github.com/Cypherock/cypherock-cysync/pull/890) [`edd1becd`](https://github.com/Cypherock/cypherock-cysync/commit/edd1becd65e011b803adbde9dfa503e06fb058a8) Thanks [@AryanCypherock](https://github.com/AryanCypherock)! - bump @cypherock/sdk-app-evm to ^0.3.0 for the EIP-712 typed data signing fix (dapps like Hyperliquid) and remove the eip-712 library injection which the sdk no longer uses
+
+- [#890](https://github.com/Cypherock/cypherock-cysync/pull/890) [`0dbbf7af`](https://github.com/Cypherock/cypherock-cysync/commit/0dbbf7afc139e9438eb2f1a1cc4bc5b79f4e3cf2) Thanks [@AryanCypherock](https://github.com/AryanCypherock)! - surface real errors in the WalletConnect sign message flow instead of silently closing the dialog and reporting "User rejected" to the dApp; reject WalletConnect requests with unsupported methods or chains with no connected account instead of leaving the dApp waiting and the signing checklist stuck
+
+- Updated dependencies [[`edd1becd`](https://github.com/Cypherock/cypherock-cysync/commit/edd1becd65e011b803adbde9dfa503e06fb058a8)]:
+  - @cypherock/coin-support-evm@0.2.0-pre.0
+  - @cypherock/coin-support@0.2.16-pre.0
+  - @cypherock/cysync-core-services@0.3.9-pre.0
+  - @cypherock/cysync-core-workers@0.1.17-pre.0
+
 ## 0.13.4
 
 ### Patch Changes

@@ -157,21 +157,63 @@ export const useWalletConnectV2 = (props: useWalletConnectVersionProps) => {
       props.closeDialog();
     },
     handleSessionRequest: async (event: any) => {
-      // only works when only one account per chain is selected, chainId is different then chain
-      const account = selectedAccountsRef.current.find(
-        acc =>
-          evmCoinList[acc.parentAssetId].chain.toString() ===
-          event.params.chainId.split(':')[1],
-      );
-      props.updateActiveAccount(account);
-      props.setCallRequestData({
-        id: event.id,
-        topic: event.topic,
-        params: event.params.request.params,
-        method: event.params.request.method as any,
-      });
-      getFocusAppMethod()();
       logger.info('WalletConnect: Call Request received', { event });
+
+      const respondWithError = async (error: {
+        code: number;
+        message: string;
+      }) => {
+        await web3WalletRef.current?.respondSessionRequest({
+          topic: event.topic,
+          response: { id: event.id, jsonrpc: '2.0', error },
+        });
+      };
+
+      try {
+        if (!ACCEPTED_CALL_METHODS.includes(event.params.request.method)) {
+          logger.error('WalletConnect: Unsupported Call Request received', {
+            method: event.params.request.method,
+          });
+          await respondWithError(getSdkError('UNSUPPORTED_METHODS'));
+          return;
+        }
+
+        // only works when only one account per chain is selected, chainId is different then chain
+        const account = selectedAccountsRef.current.find(
+          acc =>
+            evmCoinList[acc.parentAssetId]?.chain.toString() ===
+            event.params.chainId?.split(':')[1],
+        );
+
+        if (!account) {
+          logger.error(
+            'WalletConnect: No connected account for the requested chain',
+            { chainId: event.params.chainId },
+          );
+          await respondWithError(getSdkError('UNSUPPORTED_CHAINS'));
+          return;
+        }
+
+        props.updateActiveAccount(account);
+        props.setCallRequestData({
+          id: event.id,
+          topic: event.topic,
+          params: event.params.request.params,
+          method: event.params.request.method as any,
+        });
+        getFocusAppMethod()();
+      } catch (error) {
+        logger.error('WalletConnect: Error while handling call request', {
+          error,
+        });
+        await respondWithError(
+          getSdkError('USER_REJECTED', 'Failed to process the request'),
+        ).catch(e =>
+          logger.error('WalletConnect: Failed to respond to call request', {
+            error: e,
+          }),
+        );
+      }
     },
   };
 

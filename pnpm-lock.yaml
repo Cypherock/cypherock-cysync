@@ -185,9 +185,6 @@ importers:
       colors:
         specifier: ^1.4.0
         version: 1.4.0
-      eip-712:
-        specifier: ^1.0.0
-        version: 1.0.0
       ethers:
         specifier: ^6.7.0
         version: 6.7.0
@@ -995,8 +992,8 @@ importers:
         specifier: workspace:^
         version: link:../db-interfaces
       '@cypherock/sdk-app-evm':
-        specifier: ^0.2.0
-        version: 0.2.0
+        specifier: ^0.3.0
+        version: 0.3.0
       '@cypherock/sdk-interfaces':
         specifier: ^0.0.16
         version: 0.0.16
@@ -2276,8 +2273,8 @@ importers:
         specifier: ^0.1.3
         version: 0.1.3
       '@cypherock/sdk-app-evm':
-        specifier: ^0.1.0
-        version: 0.1.0
+        specifier: ^0.3.0
+        version: 0.3.0
       '@cypherock/sdk-app-exchange':
         specifier: ^1.1.1
         version: 1.1.1
@@ -6538,21 +6535,8 @@ packages:
       - debug
     dev: false
 
-  /@cypherock/sdk-app-evm@0.1.0:
-    resolution: {integrity: sha512-k1wvu8k5h+y8mBBh83f94tfjq6ukGuTcC7D2ZbnK15Y3xGltXcb0IQH+Zf/IN6gn4+mgMlWziKK8KHlsORMyCA==}
-    dependencies:
-      '@cypherock/sdk-core': 0.1.1
-      '@cypherock/sdk-interfaces': 0.0.16
-      '@cypherock/sdk-utils': 0.0.20
-      bignumber.js: 9.3.0
-      long: 5.3.2
-      protobufjs: 7.5.3
-    transitivePeerDependencies:
-      - debug
-    dev: false
-
-  /@cypherock/sdk-app-evm@0.2.0:
-    resolution: {integrity: sha512-FyRbLSAUK5G7aQMhdHyd1yq48loAKG/vryMLFbT5X0WJaR4gsMUZeWI4/3d9DW8PagZJ579Nzu6zfqV80eh8QA==}
+  /@cypherock/sdk-app-evm@0.3.0:
+    resolution: {integrity: sha512-xMFgun4xWgkAe226PJ9Whgm48BJMx/EbI1pFmEI7hnLBVOmbq56jkq6hhfnVSIOUpLGwrBEoujfNH3O3MssykQ==}
     dependencies:
       '@cypherock/sdk-core': 0.1.2
       '@cypherock/sdk-interfaces': 0.0.16
@@ -7582,13 +7566,6 @@ packages:
   /@fal-works/esbuild-plugin-global-externals@2.1.2:
     resolution: {integrity: sha512-cEee/Z+I12mZcFJshKcCqC8tuX5hG3s+d+9nZ3LabqKF1vKdF41B92pJVCBggjAGORAeOzyyDDKrZwIkLffeOQ==}
     dev: true
-
-  /@findeth/abi@0.3.1:
-    resolution: {integrity: sha512-T9HUVEjEgM0MzVLY4gs52ffz5AlHeC3CSGFcEzL4ojKMVzMxa3na1GW/XCmunrhnWP2cDh4fE2MhqLxA0CHqTw==}
-    engines: {node: '>=10'}
-    dependencies:
-      keccak: 3.0.4
-    dev: false
 
   /@floating-ui/core@1.7.1:
     resolution: {integrity: sha512-azI0DrjMMfIug/ExbBaeDVJXcY0a7EPvPjb2xAJPa4HeimBX+Z18HK8QQR3jb6356SnDDdxx+hinMLcJEDdOjw==}
@@ -13998,6 +13975,7 @@ packages:
 
   /@ungap/structured-clone@1.3.0:
     resolution: {integrity: sha512-WmoN8qaIAo7WTYWbAZuG8PYEhn5fkz7dZrqTBZ7dtt//lL2Gwms1IcnQ5yHqjDfX8Ft5j4YzDM23f87zBfDe9g==}
+    deprecated: Potential CWE-502 - Update to 1.3.1 or higher
     dev: true
 
   /@vercel/webpack-asset-relocator-loader@1.7.3:
@@ -17996,15 +17974,6 @@ packages:
   /ee-first@1.1.1:
     resolution: {integrity: sha512-WMwm9LhRUo+WUaRN+vRuETqG89IgZphVSNkdFgeb6sS/E4OrDIN7t48CAewSHXc6C8lefD8KKfr5vY61brQlow==}
     dev: true
-
-  /eip-712@1.0.0:
-    resolution: {integrity: sha512-zVWGCUJQErhTpBH0mfYurP+t7wNdRizBq7PMAFj8M1Hq4/4QvKE7+FfXVcs7kL6b2ypbCnMgsimJQR1B2AfHpg==}
-    engines: {node: '>=10'}
-    dependencies:
-      '@findeth/abi': 0.3.1
-      '@noble/hashes': 1.8.0
-      superstruct: 0.15.5
-    dev: false
 
   /ejs@3.1.10:
     resolution: {integrity: sha512-UeJmFfOrAQS8OJWPZ4qtgHyWExa088/MtK5UEyoJGFH67cDEXkZSviOiKRCZ4Xij0zxI3JECgYs3oKx+AizQBA==}
@@ -22236,16 +22205,6 @@ packages:
     resolution: {integrity: sha512-6ufhP9SHjb7jibNFrNxyFZ6od3g+An6Ai9mhGRvcYe8UJlH0prseN64M+6ZBBUoKYHZsitDP42gAJ8+eVWr3lw==}
     dev: true
 
-  /keccak@3.0.4:
-    resolution: {integrity: sha512-3vKuW0jV8J3XNTzvfyicFR5qvxrSAGl7KIhvgOu5cmWwM7tZRj3fMbj/pfIf4be7aznbc+prBWGjywox/g2Y6Q==}
-    engines: {node: '>=10.0.0'}
-    requiresBuild: true
-    dependencies:
-      node-addon-api: 2.0.2
-      node-gyp-build: 4.8.4
-      readable-stream: 3.6.2
-    dev: false
-
   /keyv@3.0.0:
     resolution: {integrity: sha512-eguHnq22OE3uVoSYG0LVWNP+4ppamWr9+zWBe1bsNcovIMy6huUJFPgy4mGwCd/rnl3vOLGW1MTlu4c57CT1xA==}
     dependencies:
@@ -23590,10 +23549,6 @@ packages:
     requiresBuild: true
     dev: true
     optional: true
-
-  /node-addon-api@2.0.2:
-    resolution: {integrity: sha512-Ntyt4AIXyaLIuMHF6IOoTakB3K+RWxwtsHNRxllEoA6vPwP9o4866g6YWDLUdnucilZhmkxiHwHr11gAENw+QA==}
-    dev: false
 
   /node-addon-api@3.2.1:
     resolution: {integrity: sha512-mmcei9JghVNDYydghQmeDX8KoAm0FAiYyIcUt/N4nhyAipB17pllZQDOJD2fotxABnt4Mdz+dKTO7eftLg4d0A==}
@@ -27493,10 +27448,6 @@ packages:
   /superstruct@0.14.2:
     resolution: {integrity: sha512-nPewA6m9mR3d6k7WkZ8N8zpTWfenFH3q9pA2PkuiZxINr9DKB2+40wEQf0ixn8VaGuJ78AB6iWOtStI+/4FKZQ==}
 
-  /superstruct@0.15.5:
-    resolution: {integrity: sha512-4AOeU+P5UuE/4nOUkmcQdW5y7i9ndt1cQd/3iUe+LTz3RxESf/W/5lg4B74HbDMMv8PHnPnGCQFH45kBcrQYoQ==}
-    dev: false
-
   /supports-color@2.0.0:
     resolution: {integrity: sha512-KKNVtd6pCYgPIKU4cp2733HWYCpplQhddZLBUryaAHou723x+FRzQ5Df824Fj+IyyuiQTRoub4SnIFfIcrp70g==}
     engines: {node: '>=0.8.0'}
@@ -29182,6 +29133,7 @@ packages:
 
   /uuid@8.0.0:
     resolution: {integrity: sha512-jOXGuXZAWdsTH7eZLtyXMqUb9EcWMGZNbL9YcGBJl4MH4nrxHmZJhEHvyLFrkxo+28uLb/NYRcStH48fnD0Vzw==}
+    deprecated: uuid@10 and below is no longer supported.  For ESM codebases, update to uuid@latest.  For CommonJS codebases, use uuid@11 (but be aware this version will likely be deprecated in 2028).
     hasBin: true
     dev: true
 

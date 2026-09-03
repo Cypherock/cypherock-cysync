@@ -18,11 +18,7 @@ import {
   IGetAccountAddressParams,
 } from '@cypherock/coin-support-interfaces';
 import { ITransaction } from '@cypherock/db-interfaces';
-import {
-  ethersLibType,
-  setEthersLib,
-  setEip712Lib,
-} from '@cypherock/sdk-app-evm';
+import { ethersLibType, setEthersLib } from '@cypherock/sdk-app-evm';
 import { Observable } from 'rxjs';
 
 import * as operations from './operations';
@@ -45,10 +41,6 @@ export class EvmSupport implements CoinSupport {
   public static setEthersLibrary(ethers: ethersLibType): void {
     setEthersLib(ethers);
     setCoinSupportEthersLib(ethers);
-  }
-
-  public static setEip712Library(eip712: any): void {
-    setEip712Lib(eip712);
   }
 
   public static setWeb3Library(web3: any): void {

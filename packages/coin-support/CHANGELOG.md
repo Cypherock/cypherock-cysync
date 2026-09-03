@@ -1,5 +1,12 @@
 # @cypherock/coin-support
 
+## 0.2.16-pre.0
+
+### Patch Changes
+
+- Updated dependencies [[`edd1becd`](https://github.com/Cypherock/cypherock-cysync/commit/edd1becd65e011b803adbde9dfa503e06fb058a8)]:
+  - @cypherock/coin-support-evm@0.2.0-pre.0
+
 ## 0.2.15
 
 ### Patch Changes
