@@ -37,5 +37,8 @@
     "@cypherock/tsconfig": "0.0.1",
     "@cypherock/cysync-utils": "0.1.1"
   },
-  "changesets": []
+  "changesets": [
+    "sdk-app-evm-hyperliquid-bump",
+    "walletconnect-sign-message-errors"
+  ]
 }
