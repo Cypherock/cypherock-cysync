@@ -21,6 +21,7 @@ import { ICreateGetAccountHistoryParams } from './types';
 
 import { convertToUnit, getDefaultUnit, getZeroUnit } from '../unit';
 import logger from '../utils/logger';
+import { resamplePriceSnapshots } from '../utils/resamplePriceHistory';
 
 export * from './types';
 
@@ -106,6 +107,7 @@ async function getPriceHistory(
   currency: string,
   days: HISTORY_RANGE,
   db?: IDatabase,
+  maxDataPoints?: number,
 ) {
   let history: IPriceSnapshot[] | undefined;
 
@@ -133,18 +135,35 @@ async function getPriceHistory(
     )?.history;
   }
 
-  if (!history || history.length === 0) {
+  if (!history) {
     // We don't warn if history is present but with no value because
     // it's not an error case. The price history will be empty for coins
     // which are not supported by our coin API
-    if (!history) {
-      logger.warn('Price history not found', {
-        assetId: account.assetId,
-        days,
-        currency,
-      });
-    }
+    logger.warn('Price history not found', {
+      assetId: account.assetId,
+      days,
+      currency,
+    });
+  }
 
+  if (maxDataPoints !== undefined) {
+    // Resample onto evenly spaced timestamps via linear interpolation
+    // instead of slicing + zero-padding. This keeps graphs correct even
+    // when the stored series is sparser than the legacy expected counts
+    // (e.g. a downsampled 30-day series backing the 1-day range).
+    const sorted = lodash.orderBy(history ?? [], ['timestamp'], ['asc']);
+    const endTime =
+      sorted.length > 0 ? sorted[sorted.length - 1].timestamp : Date.now();
+
+    return resamplePriceSnapshots({
+      history: sorted,
+      endTime,
+      windowInMs: days * DAY_INTERVAL,
+      count: Math.min(mockHistoryDetails[days].count, maxDataPoints),
+    });
+  }
+
+  if (!history || history.length === 0) {
     const startTime = Date.now();
 
     history = new Array(mockHistoryDetails[daysToFetch ?? 30].count)
@@ -326,6 +345,7 @@ export async function createGetAccountHistory(
     account: accountInParams,
     currency,
     days,
+    maxDataPoints,
   } = params;
 
   const account = accountInParams ?? (await getAccount(db, accountId));
@@ -336,6 +356,7 @@ export async function createGetAccountHistory(
     currency,
     days,
     db,
+    maxDataPoints,
   );
   const latestPrice = await getLatestPrice(
     allPriceInfos,

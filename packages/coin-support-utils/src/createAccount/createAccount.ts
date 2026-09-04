@@ -3,6 +3,7 @@ import {
   ICreateAccountEvent,
   ICreateAccountParams,
   IDerivationScheme,
+  IX0Session,
 } from '@cypherock/coin-support-interfaces';
 import { BigNumber, sleep } from '@cypherock/cysync-utils';
 import { IAccount } from '@cypherock/db-interfaces';
@@ -11,11 +12,14 @@ import { Observable } from 'rxjs';
 
 import {
   generateAddressesPerScheme,
+  generateAddressesPerSchemeX0,
   GetAddressesFromDevice,
+  GetAddressesFromX0,
 } from './generateAddresses';
 import { generateDerivationPathsPerScheme } from './schemes';
 
 import logger from '../utils/logger';
+import { resolveExecutionContext } from '../x0';
 
 interface App {
   abort: () => Promise<void>;
@@ -27,6 +31,7 @@ export interface IMakeCreateAccountsObservableParams<T extends App>
   derivationPathLimit: number;
   createApp: (connection: IDeviceConnection) => Promise<T>;
   getAddressesFromDevice: GetAddressesFromDevice<T>;
+  getAddressesFromX0?: GetAddressesFromX0;
   getBalanceAndTxnCount: (
     address: string,
     params: ICreateAccountParams,
@@ -51,6 +56,7 @@ export function makeCreateAccountsObservable<
   return new Observable<K>(observer => {
     let finished = false;
     let app: T | undefined;
+    let x0Session: IX0Session | undefined;
 
     const cleanUp = async () => {
       if (app) {
@@ -58,6 +64,15 @@ export function makeCreateAccountsObservable<
           await app.abort();
         } catch (error) {
           logger.warn('Error in aborting create account');
+          logger.warn(error);
+        }
+      }
+
+      if (x0Session) {
+        try {
+          await x0Session.abort();
+        } catch (error) {
+          logger.warn('Error in aborting create account on X0');
           logger.warn(error);
         }
       }
@@ -86,13 +101,37 @@ export function makeCreateAccountsObservable<
         );
         if (finished) return;
 
-        app = await params.createApp(params.connection);
-        const addressesPerScheme = await generateAddressesPerScheme({
-          ...params,
-          app,
-          derivationPathsPerScheme,
-          observer,
-        });
+        const executionContext = resolveExecutionContext(params);
+        let addressesPerScheme: Record<
+          string,
+          { address: string; derivationPath: string; index: number }[]
+        >;
+
+        if (executionContext.type === 'x0') {
+          const { getAddressesFromX0 } = params;
+          if (!getAddressesFromX0) {
+            throw new Error(
+              'X0 is not supported for this coin: createAccounts',
+            );
+          }
+
+          x0Session = executionContext.x0;
+          addressesPerScheme = await generateAddressesPerSchemeX0({
+            ...params,
+            getAddressesFromX0,
+            x0: x0Session,
+            derivationPathsPerScheme,
+            observer,
+          });
+        } else {
+          app = await params.createApp(executionContext.connection);
+          addressesPerScheme = await generateAddressesPerScheme({
+            ...params,
+            app,
+            derivationPathsPerScheme,
+            observer,
+          });
+        }
         if (finished) return;
 
         const schemeNameList = Object.keys(addressesPerScheme);
