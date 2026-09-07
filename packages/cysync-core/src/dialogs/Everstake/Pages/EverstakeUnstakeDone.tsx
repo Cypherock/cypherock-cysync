@@ -27,12 +27,12 @@ export const EverstakeUnstakeDone: React.FC = () => {
           <Image src={successIcon} alt="Success" />
           <Flex direction="column" align="center" gap={4}>
             <Typography variant="h4" $textAlign="center">
-              Unstake Initiated!
+              Unstake Submitted!
             </Typography>
             <Typography variant="h6" $textAlign="center" color="muted">
               {isPol
                 ? `${unstakeAmount} ${unitAbbr} has been submitted for unstaking. It will enter an ~80 checkpoint unbonding period (roughly 3-4 days) and become claimable once complete.`
-                : `${unstakeAmount} ${unitAbbr} has been submitted for unstaking. It will enter a processing queue and become claimable once cleared by Everstake.`}
+                : `${unstakeAmount} ${unitAbbr} has been submitted. Your balance will update once the transaction is confirmed on-chain.`}
             </Typography>
           </Flex>
           {txHash && (

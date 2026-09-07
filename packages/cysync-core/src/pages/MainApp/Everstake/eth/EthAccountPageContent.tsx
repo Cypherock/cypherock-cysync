@@ -102,15 +102,6 @@ export const EthAccountPageContent: React.FC<{
       icon: <ArrowReceivedIcon width={14} height={12} fill="#C4922A" />,
     },
     {
-      label: 'Unstake queue',
-      icon: <HourglassIcon width={11} height={13} />,
-      dashed: true,
-    },
-    {
-      label: 'Ready to claim',
-      icon: <ArrowReceivedIcon width={14} height={12} fill="#4CAF7D" />,
-    },
-    {
       label: 'Your wallet',
       icon: <WalletIconRounded width={14} height={12} />,
     },
@@ -120,7 +111,7 @@ export const EthAccountPageContent: React.FC<{
     {
       icon: <HourglassIcon width={15} height={17} />,
       title: 'Unstaking period',
-      body: 'ETH enters a queue after unstaking and becomes claimable once processed by Everstake.',
+      body: 'ETH is returned instantly if pool liquidity allows, otherwise enters a queue before becoming claimable.',
     },
     {
       icon: <InformationIcon width={17} height={17} />,
@@ -220,7 +211,7 @@ export const EthAccountPageContent: React.FC<{
               />
             }
             title="Unstake"
-            description={`Withdraw ${unitAbbr} from your staked position. Enters a processing period before becoming claimable.`}
+            description={`Withdraw ${unitAbbr} from your staked position. Instant if pool liquidity allows, otherwise queued.`}
             buttonLabel={`Unstake ${unitAbbr}`}
             disabled={!hasStaked}
             onClick={() => openDialog('unstake')}

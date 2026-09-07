@@ -7,7 +7,9 @@ import {
   DoubleArrow,
   FeesSlider,
   Flex,
+  InformationIcon,
   Input,
+  LeanBox,
   Throbber,
   Toggle,
   Typography,
@@ -88,6 +90,7 @@ export const EverstakeUnstake: React.FC = () => {
     isPol,
     unitAbbr,
     isProceeding,
+    poolInfo,
   } = useEverstake();
 
   const allAccounts = useAccounts();
@@ -170,6 +173,14 @@ export const EverstakeUnstake: React.FC = () => {
         : '',
     );
   }, [unstakeAmount, ethPrice]);
+
+  const exceedsInterchangeAllowed =
+    !isPol &&
+    !!unstakeAmount &&
+    !!poolInfo?.interchangeAllowed &&
+    new BigNumber(unstakeAmount).isGreaterThan(
+      new BigNumber(poolInfo.interchangeAllowed),
+    );
 
   const amountBelowMin =
     !!unstakeAmount &&
@@ -354,7 +365,7 @@ export const EverstakeUnstake: React.FC = () => {
         </Flex>
 
         {/* Info note */}
-        {!isFeeStep && (
+        {!isFeeStep && isPol && (
           <div style={INFO_NOTE_STYLE}>
             <span
               style={{
@@ -364,11 +375,18 @@ export const EverstakeUnstake: React.FC = () => {
                 fontSize: 12,
               }}
             >
-              {isPol
-                ? `After unstaking, your ${unitAbbr} enters an ~80 checkpoint unbonding period (roughly 3-4 days). Once complete, you can claim it back to your wallet.`
-                : `After unstaking, your ${unitAbbr} enters a processing queue. Once cleared, you can claim it back to your wallet.`}
+              {`After unstaking, your ${unitAbbr} enters an ~80 checkpoint unbonding period (roughly 3-4 days). Once complete, you can claim it back to your wallet.`}
             </span>
           </div>
+        )}
+        {!isFeeStep && exceedsInterchangeAllowed && (
+          <LeanBox
+            leftImage={<InformationIcon height={16} width={16} />}
+            text="Pool liquidity is insufficient for an instant unstake. Your ETH will enter a processing queue and become claimable once cleared."
+            textVariant="span"
+            fontSize={12}
+            disabledInnerFlex
+          />
         )}
       </Flex>
 
