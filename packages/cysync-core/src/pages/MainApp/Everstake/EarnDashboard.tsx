@@ -8,6 +8,7 @@ import { EVERSTAKE_ASSETS } from '~/constants/everstake';
 import { routes } from '~/constants';
 import {
   selectCurrentCurrencyPriceInfos,
+  selectDiscreetMode,
   selectWallets,
   useAppSelector,
 } from '~/store';
@@ -56,6 +57,7 @@ export const EarnDashboard: React.FC = () => {
     selectCurrentCurrencyPriceInfos(state, currentCurrency),
   );
   const { wallets } = useAppSelector(selectWallets);
+  const { active: isDiscreetMode } = useAppSelector(selectDiscreetMode);
 
   const stakeableRows = useMemo(
     () =>
@@ -214,9 +216,9 @@ export const EarnDashboard: React.FC = () => {
                     {/* Balance */}
                     <Cell flex={COL.balance}>
                       <Typography variant="span" $fontSize={16}>
-                        {token}
+                        {isDiscreetMode ? '****' : token}
                       </Typography>
-                      {usd ? (
+                      {!isDiscreetMode && usd ? (
                         <Typography variant="span" color="muted" $fontSize={13}>
                           {usd}
                         </Typography>

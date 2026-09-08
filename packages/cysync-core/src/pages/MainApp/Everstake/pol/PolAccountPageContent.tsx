@@ -32,7 +32,9 @@ export const PolAccountPageContent: React.FC<{
   loading: boolean;
   polPosition: everstakePolService.IEverstakePolPosition | undefined;
   openDialog: (mode: EverstakeMode) => void;
-}> = ({ unitAbbr, loading, polPosition, openDialog }) => {
+  isDiscreetMode: boolean;
+}> = ({ unitAbbr, loading, polPosition, openDialog, isDiscreetMode }) => {
+  const mask = (val: string) => (isDiscreetMode ? '****' : val);
   const staked = polPosition
     ? parseAmount(polPosition.stakedBalance, unitAbbr)
     : '–';
@@ -56,6 +58,13 @@ export const PolAccountPageContent: React.FC<{
     : false;
   const hasActiveUnbond = !!unbonding;
   const hasClaimableUnbond = !!unbonding?.isClaimable;
+
+  const claimSub = (() => {
+    if (isDiscreetMode) return undefined;
+    return hasClaimableUnbond
+      ? 'Unbonded, available now'
+      : 'Nothing to claim yet';
+  })();
 
   const unbondingSub = (() => {
     if (!unbonding) return 'None pending';
@@ -157,32 +166,30 @@ export const PolAccountPageContent: React.FC<{
           >
             <MetricCard
               label="Actively staked"
-              value={staked}
-              sub="Delegated and earning rewards"
+              value={mask(staked)}
+              sub={isDiscreetMode ? undefined : 'Delegated and earning rewards'}
               green
               icon={<ArrowSentIcon width={13} height={12} fill="#4CAF7D" />}
             />
             <MetricCard
               label="Rewards"
-              value={rewards}
-              sub="Since your last claim or restake"
+              value={mask(rewards)}
+              sub={
+                isDiscreetMode ? undefined : 'Since your last claim or restake'
+              }
               green
               icon={<GraphIcon width={14} height={8} />}
             />
             <MetricCard
               label="Unbonding"
-              value={unbondingAmount}
-              sub={unbondingSub}
+              value={mask(unbondingAmount)}
+              sub={isDiscreetMode ? undefined : unbondingSub}
               icon={<HourglassIcon width={11} height={13} />}
             />
             <MetricCard
               label="Ready to claim"
-              value={readyToClaim}
-              sub={
-                hasClaimableUnbond
-                  ? 'Unbonded, available now'
-                  : 'Nothing to claim yet'
-              }
+              value={mask(readyToClaim)}
+              sub={claimSub}
               icon={<WalletIconRounded width={14} height={12} />}
             />
           </div>

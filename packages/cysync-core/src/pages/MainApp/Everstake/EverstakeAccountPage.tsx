@@ -19,6 +19,7 @@ import { useAccounts, useNavigateTo } from '~/hooks';
 import {
   selectAccountSync,
   selectCurrentCurrencyPriceInfos,
+  selectDiscreetMode,
   selectWallets,
   useAppDispatch,
   useAppSelector,
@@ -79,6 +80,7 @@ export const EverstakeAccountPage: React.FC = () => {
   } = useEverstakePosition({ selectedAccount: account, isPol });
 
   const { lastSyncedAt } = useAppSelector(selectAccountSync);
+  const { active: isDiscreetMode } = useAppSelector(selectDiscreetMode);
 
   useEffect(() => {
     if (!account) return;
@@ -247,9 +249,9 @@ export const EverstakeAccountPage: React.FC = () => {
                 color: '#FFFFFF',
               }}
             >
-              {availableBalance}
+              {isDiscreetMode ? '****' : availableBalance}
             </T>
-            {toUsd(availableBalance) ? (
+            {!isDiscreetMode && toUsd(availableBalance) ? (
               <T
                 variant="span"
                 style={{
@@ -283,6 +285,7 @@ export const EverstakeAccountPage: React.FC = () => {
             loading={dataLoading}
             polPosition={polPosition}
             openDialog={openDialog}
+            isDiscreetMode={isDiscreetMode}
           />
         ) : (
           <EthAccountPageContent
@@ -292,6 +295,7 @@ export const EverstakeAccountPage: React.FC = () => {
             position={userPosition}
             withdrawRequest={withdrawRequest}
             openDialog={openDialog}
+            isDiscreetMode={isDiscreetMode}
           />
         )}
       </F>

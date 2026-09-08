@@ -34,7 +34,17 @@ export const EthAccountPageContent: React.FC<{
   position: everstakeEthService.IEverstakeUserPosition | undefined;
   withdrawRequest: everstakeEthService.IEverstakeWithdrawRequest | undefined;
   openDialog: (mode: EverstakeMode) => void;
-}> = ({ unitAbbr, toUsd, loading, position, withdrawRequest, openDialog }) => {
+  isDiscreetMode: boolean;
+}> = ({
+  unitAbbr,
+  toUsd,
+  loading,
+  position,
+  withdrawRequest,
+  openDialog,
+  isDiscreetMode,
+}) => {
+  const mask = (val: string) => (isDiscreetMode ? '****' : val);
   const deposited = position
     ? parseAmount(position.autocompoundBalanceOf, unitAbbr)
     : '–';
@@ -152,34 +162,36 @@ export const EthAccountPageContent: React.FC<{
           >
             <MetricCard
               label="Actively staked"
-              value={deposited}
-              sub={toUsd(deposited) || undefined}
+              value={mask(deposited)}
+              sub={isDiscreetMode ? undefined : toUsd(deposited) || undefined}
               green
               icon={<ArrowSentIcon width={13} height={12} fill="#4CAF7D" />}
             />
             <MetricCard
               label="Rewards"
-              value={rewards}
-              sub={toUsd(rewards) || undefined}
+              value={mask(rewards)}
+              sub={isDiscreetMode ? undefined : toUsd(rewards) || undefined}
               green
               icon={<GraphIcon width={14} height={8} />}
             />
             <MetricCard
               label="Pending deposit"
-              value={pending}
-              sub="Entering pool"
+              value={mask(pending)}
+              sub={isDiscreetMode ? undefined : 'Entering pool'}
               icon={<ClockIcon width={13} height={13} />}
             />
             <MetricCard
               label="Unstaking queue"
-              value={queue}
-              sub="Processing"
+              value={mask(queue)}
+              sub={isDiscreetMode ? undefined : 'Processing'}
               icon={<HourglassIcon width={11} height={13} />}
             />
             <MetricCard
               label="Ready to claim"
-              value={claimable}
-              sub={hasClaimable ? 'Available now' : undefined}
+              value={mask(claimable)}
+              sub={
+                !isDiscreetMode && hasClaimable ? 'Available now' : undefined
+              }
               icon={<WalletIconRounded width={14} height={12} />}
             />
           </div>
