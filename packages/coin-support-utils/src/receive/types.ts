@@ -1,6 +1,7 @@
 import {
   IReceiveEvent,
   IReceiveParams,
+  IX0Session,
 } from '@cypherock/coin-support-interfaces';
 import { IAccount } from '@cypherock/db-interfaces';
 import { IDeviceConnection } from '@cypherock/sdk-interfaces';
@@ -31,6 +32,14 @@ export interface IGetReceiveAddressFromDevice<
   account: IAccount;
 }
 
+export interface IGetReceiveAddressFromX0<K extends IReceiveEvent> {
+  derivationPath: string;
+  x0: IX0Session;
+  walletId: string;
+  observer: Subscriber<K>;
+  account: IAccount;
+}
+
 export interface IMakeReceiveObservableParams<
   T extends App,
   K extends IReceiveEvent,
@@ -41,5 +50,8 @@ export interface IMakeReceiveObservableParams<
   ) => Promise<IReceiveAddressInfo>;
   getReceiveAddressFromDevice: (
     params: IGetReceiveAddressFromDevice<T, K>,
+  ) => Promise<string>;
+  getReceiveAddressFromX0?: (
+    params: IGetReceiveAddressFromX0<K>,
   ) => Promise<string>;
 }

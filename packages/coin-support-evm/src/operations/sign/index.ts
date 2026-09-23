@@ -14,6 +14,7 @@ import { hexToUint8Array } from '@cypherock/sdk-utils';
 import { Observable } from 'rxjs';
 
 import { statusMap } from './types';
+import { signMessageFromX0 } from './x0';
 
 import { createApp } from '../../utils';
 
@@ -62,4 +63,5 @@ export const sign = (
     ...params,
     createApp,
     signMessageFromDevice,
+    signMessageFromX0,
   });

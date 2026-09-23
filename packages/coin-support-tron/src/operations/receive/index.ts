@@ -14,6 +14,7 @@ import { hexToUint8Array } from '@cypherock/sdk-utils';
 import { Observable } from 'rxjs';
 
 import { ITronReceiveEvent, ITronReceiveParams, statusMap } from './types';
+import { getReceiveAddressFromX0 } from './x0';
 
 import { createApp } from '../../utils';
 
@@ -58,4 +59,5 @@ export const receive = (
     createApp,
     generateReceiveAddress: getExternalAddress,
     getReceiveAddressFromDevice,
+    getReceiveAddressFromX0,
   });

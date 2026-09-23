@@ -14,6 +14,27 @@ import { formatAddress } from '../../operations';
 import { IEvmErc20TokenAccount } from '../../operations/types';
 import { IEvmContractTransactionItem } from '../api';
 
+/**
+ * Token lookup by lower-cased contract address, built once per coin. The
+ * previous `Object.values(coin.tokens).find(...)` re-scanned every token
+ * (9,000+ on ethereum) and lower-cased each address for every contract
+ * transaction synced. First match wins, as before.
+ */
+const tokenIndexByCoin = new Map<string, Map<string, IEvmCoinInfo['tokens'][string]>>();
+
+const tokensByAddress = (coin: IEvmCoinInfo) => {
+  let index = tokenIndexByCoin.get(coin.id);
+  if (!index) {
+    index = new Map();
+    for (const token of Object.values(coin.tokens)) {
+      const key = token.address.toLowerCase();
+      if (!index.has(key)) index.set(key, token);
+    }
+    tokenIndexByCoin.set(coin.id, index);
+  }
+  return index;
+};
+
 export const mapContractTransactionForDb = async (params: {
   db: IDatabase;
   account: IAccount;
@@ -29,8 +50,8 @@ export const mapContractTransactionForDb = async (params: {
   const txns: ITransaction[] = [];
   const newAccounts: IAccount[] = [];
 
-  const tokenObj = Object.values(coin.tokens).find(
-    e => transaction.contractAddress.toLowerCase() === e.address.toLowerCase(),
+  const tokenObj = tokensByAddress(coin).get(
+    transaction.contractAddress.toLowerCase(),
   );
 
   const myAddress = account.xpubOrAddress.toLowerCase();

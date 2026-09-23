@@ -2,6 +2,7 @@ import axios from 'axios';
 
 import { config } from '../config';
 import { getAsset } from '../db';
+import { downsamplePricePairs } from '../utils/resamplePriceHistory';
 
 const baseURL = `${config.API_CYPHEROCK}/price`;
 
@@ -38,10 +39,17 @@ export const getLatestPrices = async (
   return result;
 };
 
+/**
+ * Fetches the price history for a coin. The API always responds with its
+ * native granularity (e.g. ~720 hourly points for 30 days) and rejects any
+ * granularity parameter, so when `maxDataPoints` is given the series is
+ * downsampled here — at the fetch boundary — before anything else sees it.
+ */
 export const getPriceHistory = async (
   coinId: { parentAssetId: string; assetId: string },
   currency: string,
   days: number,
+  maxDataPoints?: number,
 ): Promise<number[][]> => {
   const { coinGeckoId, isZeroPriceCoin } = getAsset(
     coinId.parentAssetId,
@@ -60,5 +68,9 @@ export const getPriceHistory = async (
     days,
   });
 
-  return response.data.data ?? [];
+  const prices: number[][] = response.data.data ?? [];
+
+  if (maxDataPoints === undefined) return prices;
+
+  return downsamplePricePairs(prices, maxDataPoints);
 };

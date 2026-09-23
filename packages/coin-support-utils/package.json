@@ -15,6 +15,7 @@
     "build:cjs": "tsc -p tsconfig_cjs.json",
     "build:esm": "tsc -p tsconfig.json",
     "build:dirty": "pnpm build:esm",
+    "test": "jest",
     "pre-commit": "lint-staged"
   },
   "devDependencies": {
@@ -46,6 +47,10 @@
     "@cypherock/db-interfaces": "workspace:^",
     "@cypherock/sdk-interfaces": "^0.0.16",
     "@cypherock/sdk-utils": "^0.0.21",
+    "@noble/curves": "^1.9.2",
+    "@noble/hashes": "^1.8.0",
+    "@scure/base": "^1.1.9",
+    "@scure/bip32": "^1.7.0",
     "axios": "^1.4.0",
     "lodash": "^4.17.21",
     "rxjs": "^7.8.1"

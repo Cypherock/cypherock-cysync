@@ -42,6 +42,7 @@ export * from './getAccountHistory';
 export * from './explorer';
 export * from './formatAddress';
 export * from './getAccountAddress';
+export * from './x0';
 
 export interface CoinSupport {
   createAccounts(params: ICreateAccountParams): Observable<ICreateAccountEvent>;

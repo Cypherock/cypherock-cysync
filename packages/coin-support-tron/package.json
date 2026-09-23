@@ -24,6 +24,8 @@
     "@cypherock/prettier-config": "workspace:^",
     "@cypherock/tsconfig": "workspace:^",
     "@jest/globals": "^29.5.0",
+    "@noble/curves": "^1.9.2",
+    "@noble/hashes": "^1.8.0",
     "@stryker-mutator/core": "^7.0.2",
     "@stryker-mutator/jest-runner": "^7.0.2",
     "@stryker-mutator/typescript-checker": "^7.0.2",
@@ -37,6 +39,7 @@
     "lint-staged": "^13.2.2",
     "prettier": "^2.8.8",
     "rimraf": "^5.0.1",
+    "tronweb": "^5.3.2",
     "ts-jest": "^29.1.0",
     "typescript": "^4.9.5"
   },

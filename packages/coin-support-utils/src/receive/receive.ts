@@ -1,10 +1,11 @@
-import { IReceiveEvent } from '@cypherock/coin-support-interfaces';
+import { IReceiveEvent, IX0Session } from '@cypherock/coin-support-interfaces';
 import { assert } from '@cypherock/cysync-utils';
 import { Observable } from 'rxjs';
 
 import { App, IMakeReceiveObservableParams } from './types';
 
 import logger from '../utils/logger';
+import { assertX0WalletId } from '../x0';
 
 export function makeReceiveObservable<T extends App, K extends IReceiveEvent>(
   params: IMakeReceiveObservableParams<T, K>,
@@ -12,6 +13,7 @@ export function makeReceiveObservable<T extends App, K extends IReceiveEvent>(
   return new Observable<K>(observer => {
     let finished = false;
     let app: T | undefined;
+    let x0Session: IX0Session | undefined;
 
     const cleanUp = async () => {
       if (app) {
@@ -19,6 +21,15 @@ export function makeReceiveObservable<T extends App, K extends IReceiveEvent>(
           await app.abort();
         } catch (error) {
           logger.warn('Error in aborting receive flow');
+          logger.warn(error);
+        }
+      }
+
+      if (x0Session) {
+        try {
+          await x0Session.abort();
+        } catch (error) {
+          logger.warn('Error in aborting receive flow on X0');
           logger.warn(error);
         }
       }
@@ -64,6 +75,21 @@ export function makeReceiveObservable<T extends App, K extends IReceiveEvent>(
           observer.next({
             type: 'AddressMatched',
             didAddressMatched: addressFromDevice === expectedFromDevice,
+          } as any);
+        } else if (params.x0 && params.getReceiveAddressFromX0) {
+          assertX0WalletId(params.x0, account.walletId);
+          x0Session = params.x0;
+
+          const addressFromCard = await params.getReceiveAddressFromX0({
+            x0: x0Session,
+            derivationPath,
+            walletId: account.walletId,
+            observer,
+            account,
+          });
+          observer.next({
+            type: 'AddressMatched',
+            didAddressMatched: addressFromCard === expectedFromDevice,
           } as any);
         }
 

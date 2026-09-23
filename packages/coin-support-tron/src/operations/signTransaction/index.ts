@@ -13,6 +13,7 @@ import {
   ISignTronTransactionEvent,
   signTronToDeviceEventMap,
 } from './types';
+import { signTransactionFromX0 } from './x0';
 
 import { createApp } from '../../utils';
 import logger from '../../utils/logger';
@@ -65,5 +66,6 @@ export const signTransaction = (
   >({
     ...params,
     signTransactionFromDevice,
+    signTransactionFromX0,
     createApp,
   });

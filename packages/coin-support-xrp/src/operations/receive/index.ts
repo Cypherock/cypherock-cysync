@@ -14,6 +14,7 @@ import { hexToUint8Array } from '@cypherock/sdk-utils';
 import { Observable } from 'rxjs';
 
 import { IXrpReceiveEvent, IXrpReceiveParams, statusMap } from './types';
+import { getReceiveAddressFromX0 } from './x0';
 
 import { createApp, deriveAddress } from '../../utils';
 
@@ -57,4 +58,5 @@ export const receive = (params: IXrpReceiveParams): Observable<IReceiveEvent> =>
     createApp,
     generateReceiveAddress: getExternalAddress,
     getReceiveAddressFromDevice,
+    getReceiveAddressFromX0,
   });

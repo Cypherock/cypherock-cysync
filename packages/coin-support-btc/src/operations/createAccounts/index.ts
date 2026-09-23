@@ -16,6 +16,11 @@ import {
   ICreateBtcAccountParams,
   btcToDeviceEventMap,
 } from './types';
+import {
+  createX0DerivationPathSchemes,
+  getAddressesFromX0,
+  X0_DERIVATION_PATH_LIMIT,
+} from './x0';
 
 import * as services from '../../services';
 import { createApp } from '../../utils';
@@ -92,7 +97,12 @@ export const createAccounts = (
     createAccountFromAddress,
     getBalanceAndTxnCount,
     getAddressesFromDevice,
+    getAddressesFromX0,
     createApp,
-    derivationPathSchemes: createDerivationPathSchemes(params.coinId),
-    derivationPathLimit: DERIVATION_PATH_LIMIT,
+    derivationPathSchemes: params.x0
+      ? createX0DerivationPathSchemes(params.coinId)
+      : createDerivationPathSchemes(params.coinId),
+    derivationPathLimit: params.x0
+      ? X0_DERIVATION_PATH_LIMIT
+      : DERIVATION_PATH_LIMIT,
   });
