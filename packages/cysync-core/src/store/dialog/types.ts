@@ -1,5 +1,6 @@
 import { AddAccountDialogProps } from '~/dialogs/AddAccount';
 import { EverstakeDialogProps } from '~/dialogs/Everstake';
+import { EverstakeSolDialogProps } from '~/dialogs/Everstake/Sol';
 import { AddTokenDialogProps } from '~/dialogs/AddToken';
 import {
   CreateCantonAccountDialogProps,
@@ -65,6 +66,11 @@ export interface IDialogState {
   everstakeDialog: {
     isOpen: boolean;
     data?: EverstakeDialogProps;
+  };
+
+  everstakeSolDialog: {
+    isOpen: boolean;
+    data?: EverstakeSolDialogProps;
   };
 
   sendDialog: {

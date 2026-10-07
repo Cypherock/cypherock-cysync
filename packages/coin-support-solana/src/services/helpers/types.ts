@@ -4,6 +4,12 @@ export enum InstructionType {
   createAccount = 'createAccount',
   transfer = 'transfer',
   transferChecked = 'transferChecked',
+  createAccountWithSeed = 'createAccountWithSeed',
+  stakeInitialize = 'initialize',
+  stakeDelegate = 'delegate',
+  stakeDeactivate = 'deactivate',
+  stakeWithdraw = 'withdraw',
+  stakeSplit = 'split',
 }
 
 export interface TransactionParserReturnType {

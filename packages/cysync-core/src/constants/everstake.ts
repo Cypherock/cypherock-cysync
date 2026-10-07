@@ -1,6 +1,6 @@
-import { createErc20AssetId, EvmIdMap } from '@cypherock/coins';
+import { createErc20AssetId, EvmIdMap, SolanaIdMap } from '@cypherock/coins';
 
-export type EverstakeAssetKind = 'eth' | 'pol';
+export type EverstakeAssetKind = 'eth' | 'pol' | 'sol';
 export interface IEverstakeAsset {
   kind: EverstakeAssetKind;
   parentAssetId: string;
@@ -30,4 +30,17 @@ export const EVERSTAKE_ASSETS: IEverstakeAsset[] = [
     label: 'POL (ex-MATIC)',
     minStakeAmount: '1',
   },
+];
+
+export const EVERSTAKE_SOL_ASSET: IEverstakeAsset = {
+  kind: 'sol',
+  parentAssetId: SolanaIdMap.solana,
+  assetId: SolanaIdMap.solana,
+  label: 'Solana',
+  minStakeAmount: '1',
+};
+
+export const ALL_EVERSTAKE_ASSETS: IEverstakeAsset[] = [
+  ...EVERSTAKE_ASSETS,
+  EVERSTAKE_SOL_ASSET,
 ];

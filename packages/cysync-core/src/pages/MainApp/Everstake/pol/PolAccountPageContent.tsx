@@ -241,7 +241,7 @@ export const PolAccountPageContent: React.FC<{
             title="Claim unstaked"
             description={`Move ${unitAbbr} that has cleared unbonding back to your wallet.`}
             buttonLabel={
-              hasClaimableUnbond ? `Claim ${readyToClaim}` : 'Nothing to claim'
+              hasClaimableUnbond ? `Claim ${unitAbbr}` : 'Nothing to claim'
             }
             disabled={!hasClaimableUnbond}
             onClick={() => openDialog('claimUnstake')}
@@ -264,7 +264,7 @@ export const PolAccountPageContent: React.FC<{
             icon={<WalletIconRounded width={18} height={16} />}
             title="Claim rewards"
             description={`Move accumulated ${unitAbbr} rewards to your wallet.`}
-            buttonLabel={hasRewards ? `Claim ${rewards}` : 'Nothing to claim'}
+            buttonLabel={hasRewards ? `Claim ${unitAbbr}` : 'Nothing to claim'}
             disabled={!hasRewards}
             onClick={() => openDialog('claimRewards')}
           />

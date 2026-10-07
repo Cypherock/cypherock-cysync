@@ -47,6 +47,9 @@ const initialState: IDialogState = {
   everstakeDialog: {
     isOpen: false,
   },
+  everstakeSolDialog: {
+    isOpen: false,
+  },
   sendDialog: {
     isOpen: false,
   },

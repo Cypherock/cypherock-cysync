@@ -4,7 +4,7 @@ import React, { useMemo } from 'react';
 
 import { CoinIcon } from '~/components';
 import { useAccounts, useNavigateTo } from '~/hooks';
-import { EVERSTAKE_ASSETS } from '~/constants/everstake';
+import { ALL_EVERSTAKE_ASSETS } from '~/constants/everstake';
 import { routes } from '~/constants';
 import {
   selectCurrentCurrencyPriceInfos,
@@ -62,7 +62,7 @@ export const EarnDashboard: React.FC = () => {
   const stakeableRows = useMemo(
     () =>
       accounts.flatMap(account => {
-        const cfg = EVERSTAKE_ASSETS.find(
+        const cfg = ALL_EVERSTAKE_ASSETS.find(
           s =>
             s.assetId === account.assetId &&
             s.parentAssetId === account.parentAssetId,
@@ -115,7 +115,8 @@ export const EarnDashboard: React.FC = () => {
         {stakeableRows.length === 0 ? (
           <Typography variant="p" color="muted">
             No stakeable accounts found. Add an Ethereum account (and, for POL
-            staking, add POL as a token to it) to get started.
+            staking, add POL as a token to it) or a Solana account to get
+            started.
           </Typography>
         ) : (
           <Flex direction="column" gap={12} width="full">

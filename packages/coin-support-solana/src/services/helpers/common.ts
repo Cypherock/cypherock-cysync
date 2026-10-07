@@ -85,6 +85,215 @@ const parseCoinTransaction = (
   return txn;
 };
 
+const parseStakeFundingTransaction = (
+  instruction: ISolanaInstruction,
+  account: IAccount,
+  transactionItem: ISolanaTransactionItem,
+  fees: string,
+  instructionIndex: number,
+): ITransaction | undefined => {
+  const myAddress = account.xpubOrAddress;
+  const { source, newAccount, lamports } = instruction.parsed?.info ?? {};
+
+  if (source !== myAddress) return undefined;
+
+  const amount = String(lamports ?? 0);
+
+  const txn: ITransaction = {
+    hash: transactionItem.signature,
+    accountId: account.__id ?? '',
+    walletId: account.walletId,
+    assetId: account.assetId,
+    parentAssetId: account.parentAssetId,
+    familyId: account.familyId,
+    amount,
+    fees,
+    confirmations: 1,
+    status:
+      transactionItem.meta?.err || transactionItem.err
+        ? TransactionStatusMap.failed
+        : TransactionStatusMap.success,
+    type: TransactionTypeMap.send,
+    timestamp: new Date(
+      parseInt(transactionItem.blockTime.toString(), 10) * 1000,
+    ).getTime(),
+    blockHeight: transactionItem.slot,
+    inputs: [
+      {
+        address: myAddress,
+        amount,
+        isMine: true,
+      },
+    ],
+    outputs: [
+      {
+        address: newAccount,
+        amount,
+        isMine: false,
+      },
+    ],
+    subType: InstructionType.createAccountWithSeed,
+    customId: `id-${instructionIndex}`,
+    extraData: {
+      instructionType: instruction.parsed?.type,
+    },
+  };
+
+  return txn;
+};
+
+const parseStakeWithdrawTransactions = (
+  instructions: ISolanaInstruction[],
+  account: IAccount,
+  transactionItem: ISolanaTransactionItem,
+  fees: string,
+): ITransaction | undefined => {
+  const myAddress = account.xpubOrAddress;
+
+  const matching = instructions.filter(
+    instruction => instruction.parsed?.info?.destination === myAddress,
+  );
+
+  if (matching.length === 0) return undefined;
+
+  let totalLamports = new BigNumber(0);
+  const inputs = matching.map(instruction => {
+    const { stakeAccount, lamports } = instruction.parsed?.info ?? {};
+    const lamportsStr = String(lamports ?? 0);
+    totalLamports = totalLamports.plus(lamportsStr);
+
+    return {
+      address: stakeAccount,
+      amount: lamportsStr,
+      isMine: false,
+    };
+  });
+
+  const amount = totalLamports.toString();
+
+  const txn: ITransaction = {
+    hash: transactionItem.signature,
+    accountId: account.__id ?? '',
+    walletId: account.walletId,
+    assetId: account.assetId,
+    parentAssetId: account.parentAssetId,
+    familyId: account.familyId,
+    amount,
+    fees,
+    confirmations: 1,
+    status:
+      transactionItem.meta?.err || transactionItem.err
+        ? TransactionStatusMap.failed
+        : TransactionStatusMap.success,
+    type: TransactionTypeMap.receive,
+    timestamp: new Date(
+      parseInt(transactionItem.blockTime.toString(), 10) * 1000,
+    ).getTime(),
+    blockHeight: transactionItem.slot,
+    inputs,
+    outputs: [
+      {
+        address: myAddress,
+        amount,
+        isMine: true,
+      },
+    ],
+    subType: InstructionType.stakeWithdraw,
+    customId: 'id-0',
+    extraData: {
+      instructionType: InstructionType.stakeWithdraw,
+      stakeAccountCount: matching.length,
+    },
+  };
+
+  return txn;
+};
+
+const parseStakeEventTransaction = (
+  instruction: ISolanaInstruction,
+  account: IAccount,
+  transactionItem: ISolanaTransactionItem,
+  instructionIndex: number,
+): ITransaction => {
+  const txn: ITransaction = {
+    hash: transactionItem.signature,
+    accountId: account.__id ?? '',
+    walletId: account.walletId,
+    assetId: account.assetId,
+    parentAssetId: account.parentAssetId,
+    familyId: account.familyId,
+    amount: '0',
+    fees: '0',
+    confirmations: 1,
+    status:
+      transactionItem.meta?.err || transactionItem.err
+        ? TransactionStatusMap.failed
+        : TransactionStatusMap.success,
+    type: TransactionTypeMap.hidden,
+    timestamp: new Date(
+      parseInt(transactionItem.blockTime.toString(), 10) * 1000,
+    ).getTime(),
+    blockHeight: transactionItem.slot,
+    inputs: [],
+    outputs: [],
+    subType: instruction.parsed?.type,
+    customId: `id-${instructionIndex}`,
+    extraData: {
+      instructionType: instruction.parsed?.type,
+    },
+  };
+
+  return txn;
+};
+
+const parseStakeDeactivateTransactions = (
+  instructions: ISolanaInstruction[],
+  account: IAccount,
+  transactionItem: ISolanaTransactionItem,
+  fees: string,
+): ITransaction | undefined => {
+  if (instructions.length === 0) return undefined;
+
+  const stakeAccounts = instructions
+    .map(instruction => instruction.parsed?.info?.stakeAccount)
+    .filter(Boolean);
+
+  const txn: ITransaction = {
+    hash: transactionItem.signature,
+    accountId: account.__id ?? '',
+    walletId: account.walletId,
+    assetId: account.assetId,
+    parentAssetId: account.parentAssetId,
+    familyId: account.familyId,
+    amount: '0',
+    fees,
+    confirmations: 1,
+    status:
+      transactionItem.meta?.err || transactionItem.err
+        ? TransactionStatusMap.failed
+        : TransactionStatusMap.success,
+    type: TransactionTypeMap.send,
+    timestamp: new Date(
+      parseInt(transactionItem.blockTime.toString(), 10) * 1000,
+    ).getTime(),
+    blockHeight: transactionItem.slot,
+    inputs: [],
+    outputs: stakeAccounts.map(address => ({
+      address,
+      amount: '0',
+      isMine: false,
+    })),
+    subType: InstructionType.stakeDeactivate,
+    customId: 'id-0',
+    extraData: {
+      instructionType: InstructionType.stakeDeactivate,
+      stakeAccountCount: instructions.length,
+    },
+  };
+
+  return txn;
+};
+
 const determineAndSaveNewTokenAccounts = async (
   mint: string,
   account: IAccount,
@@ -303,15 +512,28 @@ export const parseTransactionItem = async (params: {
 
   let isSendTokenTxnFound = false;
   let solTransferInstructionIndex = 0;
+  let stakeFundingInstructionIndex = 0;
+  let stakeEventInstructionIndex = 0;
+  const stakeWithdrawInstructions: ISolanaInstruction[] = [];
+  const stakeDeactivateInstructions: ISolanaInstruction[] = [];
+  let hasVisibleTransferRow = false;
+
+  const systemProgramId = coinSupportWeb3Lib.PublicKey.default.toString();
+  const stakeProgramId = coinSupportWeb3Lib.StakeProgram.programId.toString();
+
+  const hiddenStakeEventInstructionTypes: string[] = [
+    InstructionType.stakeInitialize,
+    InstructionType.stakeDelegate,
+    InstructionType.stakeSplit,
+  ];
 
   // Only iterate through parsable instructions
   for (const instruction of (
     transactionItem.transaction?.message?.instructions ?? []
   ).filter(ins => ins.parsed !== undefined)) {
-    // get the type of instruction: SOL transfer | token transfer
+    // get the type of instruction: SOL transfer | token transfer | stake
     if (
-      instruction.programId ===
-        coinSupportWeb3Lib.PublicKey.default.toString() &&
+      instruction.programId === systemProgramId &&
       instruction.parsed.type === InstructionType.transfer
     ) {
       // SOL transfer
@@ -326,8 +548,49 @@ export const parseTransactionItem = async (params: {
       if (txn) {
         result.transactions.push(txn);
         isFeesAlreadyIncluded = true;
+        hasVisibleTransferRow = true;
         solTransferInstructionIndex += 1;
       }
+    } else if (
+      instruction.programId === systemProgramId &&
+      instruction.parsed.type === InstructionType.createAccountWithSeed
+    ) {
+      const txn = parseStakeFundingTransaction(
+        instruction,
+        account,
+        transactionItem,
+        isFeesAlreadyIncluded ? '0' : fees.toString(),
+        stakeFundingInstructionIndex,
+      );
+
+      if (txn) {
+        result.transactions.push(txn);
+        isFeesAlreadyIncluded = true;
+        stakeFundingInstructionIndex += 1;
+      }
+    } else if (
+      instruction.programId === stakeProgramId &&
+      instruction.parsed.type === InstructionType.stakeWithdraw
+    ) {
+      stakeWithdrawInstructions.push(instruction);
+    } else if (
+      instruction.programId === stakeProgramId &&
+      instruction.parsed.type === InstructionType.stakeDeactivate
+    ) {
+      stakeDeactivateInstructions.push(instruction);
+    } else if (
+      instruction.programId === stakeProgramId &&
+      hiddenStakeEventInstructionTypes.includes(instruction.parsed.type)
+    ) {
+      result.transactions.push(
+        parseStakeEventTransaction(
+          instruction,
+          account,
+          transactionItem,
+          stakeEventInstructionIndex,
+        ),
+      );
+      stakeEventInstructionIndex += 1;
     } else if (
       instruction.programId === splTokenLib.TOKEN_PROGRAM_ID.toString() &&
       (instruction.parsed.type === InstructionType.transfer ||
@@ -354,6 +617,34 @@ export const parseTransactionItem = async (params: {
         mint,
         account.xpubOrAddress,
       );
+    }
+  }
+
+  if (stakeWithdrawInstructions.length > 0) {
+    const txn = parseStakeWithdrawTransactions(
+      stakeWithdrawInstructions,
+      account,
+      transactionItem,
+      isFeesAlreadyIncluded ? '0' : fees.toString(),
+    );
+
+    if (txn) {
+      result.transactions.push(txn);
+      isFeesAlreadyIncluded = true;
+    }
+  }
+
+  if (stakeDeactivateInstructions.length > 0 && !hasVisibleTransferRow) {
+    const txn = parseStakeDeactivateTransactions(
+      stakeDeactivateInstructions,
+      account,
+      transactionItem,
+      isFeesAlreadyIncluded ? '0' : fees.toString(),
+    );
+
+    if (txn) {
+      result.transactions.push(txn);
+      isFeesAlreadyIncluded = true;
     }
   }
 

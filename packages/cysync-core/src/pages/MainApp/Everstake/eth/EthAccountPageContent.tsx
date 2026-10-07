@@ -233,7 +233,7 @@ export const EthAccountPageContent: React.FC<{
             title="Claim"
             description={`Move unstaked ${unitAbbr} that has cleared the queue back to your wallet.`}
             buttonLabel={
-              hasClaimable ? `Claim ${claimable}` : 'Nothing to claim'
+              hasClaimable ? `Claim ${unitAbbr}` : 'Nothing to claim'
             }
             disabled={!hasClaimable}
             onClick={() => openDialog('claim')}

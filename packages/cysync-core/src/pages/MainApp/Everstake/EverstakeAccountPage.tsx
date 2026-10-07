@@ -8,13 +8,14 @@ import { BigNumber } from '@cypherock/cysync-utils';
 import React, { useEffect, useMemo } from 'react';
 import { useLocation } from 'react-router-dom';
 
-import { openEverstakeDialog } from '~/actions';
+import { openEverstakeDialog, openEverstakeSolDialog } from '~/actions';
 import { CoinIcon } from '~/components';
 import { routes } from '~/constants';
-import { EVERSTAKE_ASSETS } from '~/constants/everstake';
+import { ALL_EVERSTAKE_ASSETS } from '~/constants/everstake';
 import { useCurrency } from '~/context';
 import { EverstakeMode } from '~/context/everstake';
 import { useEverstakePosition } from '~/context/everstake/core/useEverstakePosition';
+import { useSolPosition } from '~/context/everstake/sol/useSolPosition';
 import { useAccounts, useNavigateTo } from '~/hooks';
 import {
   selectAccountSync,
@@ -29,6 +30,10 @@ import logger from '~/utils/logger';
 import { DIVIDER_STYLE, F, T } from './components/EverstakeAccountShared';
 import { EthAccountPageContent } from './eth/EthAccountPageContent';
 import { PolAccountPageContent } from './pol/PolAccountPageContent';
+import {
+  SolAccountPageContent,
+  SolDialogMode,
+} from './sol/SolAccountPageContent';
 
 import { MainAppLayout } from '../Layout';
 
@@ -60,7 +65,7 @@ export const EverstakeAccountPage: React.FC = () => {
 
   const assetConfig = useMemo(
     () =>
-      EVERSTAKE_ASSETS.find(
+      ALL_EVERSTAKE_ASSETS.find(
         cfg =>
           account &&
           cfg.assetId === account.assetId &&
@@ -69,6 +74,7 @@ export const EverstakeAccountPage: React.FC = () => {
     [account],
   );
   const isPol = assetConfig?.kind === 'pol';
+  const isSol = assetConfig?.kind === 'sol';
 
   const {
     userPosition,
@@ -77,13 +83,32 @@ export const EverstakeAccountPage: React.FC = () => {
     dataLoading,
     setDataLoading,
     refreshPosition,
-  } = useEverstakePosition({ selectedAccount: account, isPol });
+  } = useEverstakePosition({
+    // Solana has its own position hook below; don't hit the ETH/POL endpoints
+    selectedAccount: isSol ? undefined : account,
+    isPol,
+  });
+
+  const {
+    position: solPosition,
+    dataLoading: solDataLoading,
+    refreshPosition: refreshSolPosition,
+  } = useSolPosition({ selectedAccount: isSol ? account : undefined });
 
   const { lastSyncedAt } = useAppSelector(selectAccountSync);
   const { active: isDiscreetMode } = useAppSelector(selectDiscreetMode);
 
   useEffect(() => {
     if (!account) return;
+    if (isSol) {
+      refreshSolPosition(account).catch((e: any) =>
+        logger.error(
+          'Everstake SOL post-sync position refresh failed',
+          e as object,
+        ),
+      );
+      return;
+    }
     setDataLoading(true);
     refreshPosition(account)
       .catch((e: any) =>
@@ -120,6 +145,7 @@ export const EverstakeAccountPage: React.FC = () => {
     try {
       return getDefaultUnit(p, a).abbr;
     } catch {
+      if (isSol) return 'SOL';
       return isPol ? 'POL' : 'ETH';
     }
   })();
@@ -153,6 +179,52 @@ export const EverstakeAccountPage: React.FC = () => {
         initialWalletId: account.walletId,
         initialMode: dialogMode,
       }),
+    );
+  };
+
+  const openSolDialog = (dialogMode: SolDialogMode) => {
+    dispatch(
+      openEverstakeSolDialog({
+        initialAccountId: account.__id,
+        initialWalletId: account.walletId,
+        initialMode: dialogMode,
+      }),
+    );
+  };
+
+  const renderContent = () => {
+    if (isSol) {
+      return (
+        <SolAccountPageContent
+          unitAbbr={unitAbbr}
+          loading={solDataLoading}
+          position={solPosition}
+          openDialog={openSolDialog}
+          isDiscreetMode={isDiscreetMode}
+        />
+      );
+    }
+    if (isPol) {
+      return (
+        <PolAccountPageContent
+          unitAbbr={unitAbbr}
+          loading={dataLoading}
+          polPosition={polPosition}
+          openDialog={openDialog}
+          isDiscreetMode={isDiscreetMode}
+        />
+      );
+    }
+    return (
+      <EthAccountPageContent
+        unitAbbr={unitAbbr}
+        toUsd={toUsd}
+        loading={dataLoading}
+        position={userPosition}
+        withdrawRequest={withdrawRequest}
+        openDialog={openDialog}
+        isDiscreetMode={isDiscreetMode}
+      />
     );
   };
 
@@ -279,25 +351,7 @@ export const EverstakeAccountPage: React.FC = () => {
 
         <div style={DIVIDER_STYLE} />
 
-        {isPol ? (
-          <PolAccountPageContent
-            unitAbbr={unitAbbr}
-            loading={dataLoading}
-            polPosition={polPosition}
-            openDialog={openDialog}
-            isDiscreetMode={isDiscreetMode}
-          />
-        ) : (
-          <EthAccountPageContent
-            unitAbbr={unitAbbr}
-            toUsd={toUsd}
-            loading={dataLoading}
-            position={userPosition}
-            withdrawRequest={withdrawRequest}
-            openDialog={openDialog}
-            isDiscreetMode={isDiscreetMode}
-          />
-        )}
+        {renderContent()}
       </F>
     </MainAppLayout>
   );
