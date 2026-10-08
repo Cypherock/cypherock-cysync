@@ -67,7 +67,12 @@ export const EverstakeConsent: React.FC = () => {
       {/* Info boxes */}
       <Flex direction="column" gap={8} width="full">
         <div style={INFO_BOX_STYLE}>
-          <AccountIcon width={48} height={51} fill="white" />
+          <AccountIcon
+            width={24}
+            height={26}
+            fill="white"
+            style={{ flexShrink: 0 }}
+          />
           <Typography
             variant="span"
             color="muted"
@@ -76,12 +81,17 @@ export const EverstakeConsent: React.FC = () => {
             $fontWeight="light"
             $lineHeight="1.5"
           >
-            Everstake maintains and protects your staked {unitAbbr} with their
-            smart contracts, infrastructure, and technology.
+            Stake your assets through the Everstake infrastructure to receive
+            rewards and enhance the network&apos;s security and stability.
           </Typography>
         </div>
         <div style={INFO_BOX_STYLE}>
-          <AccountIcon width={48} height={51} fill="white" />
+          <AccountIcon
+            width={24}
+            height={26}
+            fill="white"
+            style={{ flexShrink: 0 }}
+          />
           <Typography
             variant="span"
             color="muted"
@@ -90,8 +100,8 @@ export const EverstakeConsent: React.FC = () => {
             $fontWeight="light"
             $lineHeight="1.5"
           >
-            When staking, the responsibility for your {unitAbbr} security
-            transitions from your Cypherock X1 Vault to Everstake.
+            Enjoy protocol rewards, rely on a trusted validator, and retain full
+            ownership of your assets.
           </Typography>
         </div>
       </Flex>

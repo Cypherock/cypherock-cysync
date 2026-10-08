@@ -26,6 +26,286 @@ import {
 } from './shared';
 import { SolFeeSection } from './SolFeeSection';
 
+type LastEdited = 'token' | 'usd' | null;
+
+const NOTE_TEXT_STYLE: React.CSSProperties = {
+  color: '#C4922A',
+  lineHeight: 1.6,
+  display: 'block',
+  fontSize: 12,
+};
+
+const toUsd = (price: string | undefined, solAmount: string): string => {
+  if (!price || !solAmount || solAmount === '0') return '';
+  const usd = new BigNumber(solAmount).multipliedBy(price);
+  return usd.isNaN() ? '' : `≈ $${usd.toFixed(2)}`;
+};
+
+const computeUsdInput = (unstakeAmount: string, price: string | undefined) =>
+  unstakeAmount && price
+    ? new BigNumber(unstakeAmount).multipliedBy(price).toFixed(2)
+    : '';
+
+const computeAmountExceedsMax = (unstakeAmount: string, maxUnstake: string) =>
+  !!unstakeAmount &&
+  !!maxUnstake &&
+  new BigNumber(unstakeAmount).isGreaterThan(new BigNumber(maxUnstake));
+
+const computeShowDustWarning = (
+  unstakeAmount: string,
+  maxUnstake: string,
+  hasActiveStake: boolean,
+  amountExceedsMax: boolean,
+) => {
+  // What would stay staked, if the entered amount is valid
+  const remainder =
+    !!unstakeAmount && hasActiveStake && !amountExceedsMax
+      ? new BigNumber(maxUnstake).minus(new BigNumber(unstakeAmount))
+      : undefined;
+
+  return (
+    !!remainder &&
+    remainder.isGreaterThan(0) &&
+    remainder.isLessThan(new BigNumber(SOL_MIN_SPLIT_REMAINDER))
+  );
+};
+
+const computeCanProceed = (
+  hasAccount: boolean,
+  hasActiveStake: boolean,
+  unstakeAmount: string,
+  amountExceedsMax: boolean,
+) =>
+  hasAccount &&
+  hasActiveStake &&
+  !!unstakeAmount &&
+  parseFloat(unstakeAmount) > 0 &&
+  !amountExceedsMax;
+
+const computeInsufficientForFee = (
+  isFeeStep: boolean,
+  isFeeLoading: boolean,
+  networkFee: string | undefined,
+  balance: string | undefined,
+) =>
+  isFeeStep &&
+  !isFeeLoading &&
+  !!networkFee &&
+  balance !== undefined &&
+  lamportsToSol(networkFee).isGreaterThan(lamportsToSol(balance));
+
+const UnstakeTitle: React.FC<{
+  isFeeStep: boolean;
+  unstakeAmount: string;
+  unitAbbr: string;
+  hasWallet: boolean;
+}> = ({ isFeeStep, unstakeAmount, unitAbbr, hasWallet }) => (
+  <Flex direction="column" gap={4} align="center">
+    <BlockchainIcon />
+    <Typography variant="h5" $textAlign="center" $fontSize={22}>
+      {isFeeStep
+        ? `Unstaking ${unstakeAmount} ${unitAbbr}`
+        : `Unstake ${unitAbbr}`}
+    </Typography>
+    {!isFeeStep && (
+      <Typography
+        variant="span"
+        color="muted"
+        $fontSize={14}
+        $textAlign="center"
+      >
+        {hasWallet
+          ? 'Enter the amount you want to unstake'
+          : 'Select a wallet to continue'}
+      </Typography>
+    )}
+  </Flex>
+);
+
+const MaxToggle: React.FC<{
+  canToggle: boolean;
+  unstakeMax: boolean;
+  onToggle: (checked: boolean) => void;
+}> = ({ canToggle, unstakeMax, onToggle }) => (
+  <Flex align="center" gap={8}>
+    <Typography variant="span" color="muted" $fontSize={13}>
+      Unstake Max
+    </Typography>
+    {canToggle ? (
+      <Toggle checked={unstakeMax} onToggle={onToggle} />
+    ) : (
+      <Toggle checked={false} />
+    )}
+  </Flex>
+);
+
+const UnstakeAmountInputs: React.FC<{
+  unitAbbr: string;
+  price: string | undefined;
+  unstakeAmount: string;
+  usdInput: string;
+  inputsDisabled: boolean;
+  unstakeMax: boolean;
+  lastEditedRef: React.MutableRefObject<LastEdited>;
+  setUnstakeAmount: (val: string) => void;
+  setUsdInput: (val: string) => void;
+  setUnstakeMax: (val: boolean) => void;
+}> = ({
+  unitAbbr,
+  price,
+  unstakeAmount,
+  usdInput,
+  inputsDisabled,
+  unstakeMax,
+  lastEditedRef,
+  setUnstakeAmount,
+  setUsdInput,
+  setUnstakeMax,
+}) => (
+  <Flex gap={8} align="center" width="full">
+    <CustomInputSend>
+      <Input
+        type="text"
+        name="everstake-sol-unstake-amount"
+        placeholder="0"
+        onChange={(val: string) => {
+          lastEditedRef.current = 'token';
+          setUnstakeAmount(sanitizeAmountInput(val, MAX_TOKEN_DECIMALS));
+          if (unstakeMax) setUnstakeMax(false);
+        }}
+        value={unstakeAmount}
+        disabled={inputsDisabled}
+        $textColor="white"
+        $noBorder
+      />
+      <Typography $fontSize={16} color="muted" $allowOverflow>
+        {unitAbbr}
+      </Typography>
+    </CustomInputSend>
+    {price && (
+      <>
+        <DoubleArrow height={22} width={22} />
+        <CustomInputSend>
+          <Input
+            type="text"
+            name="everstake-sol-unstake-amount-usd"
+            placeholder="0"
+            onChange={(val: string) => {
+              if (!price) return;
+              lastEditedRef.current = 'usd';
+              const filtered = sanitizeAmountInput(val, MAX_USD_DECIMALS);
+              setUsdInput(filtered);
+              setUnstakeAmount(
+                filtered
+                  ? new BigNumber(filtered).dividedBy(price).toFixed(6)
+                  : '',
+              );
+              if (unstakeMax) setUnstakeMax(false);
+            }}
+            value={usdInput}
+            disabled={inputsDisabled}
+            $textColor="white"
+            $noBorder
+          />
+          <Typography $fontSize={16} color="muted" $allowOverflow>
+            USD
+          </Typography>
+        </CustomInputSend>
+      </>
+    )}
+  </Flex>
+);
+
+const UnstakeMessages: React.FC<{
+  isFeeStep: boolean;
+  hasActiveStake: boolean;
+  hasPosition: boolean;
+  amountExceedsMax: boolean;
+  maxUnstake: string;
+  maxUsdText: string;
+  unitAbbr: string;
+}> = ({
+  isFeeStep,
+  hasActiveStake,
+  hasPosition,
+  amountExceedsMax,
+  maxUnstake,
+  maxUsdText,
+  unitAbbr,
+}) => (
+  <>
+    {!isFeeStep && hasActiveStake ? (
+      <Typography variant="span" color="muted" $fontSize={12}>
+        Available to unstake: {maxUnstake} {unitAbbr}
+        {maxUsdText ? ` ${maxUsdText}` : ''}
+      </Typography>
+    ) : null}
+    {!isFeeStep && hasPosition && !hasActiveStake ? (
+      <Typography variant="span" color="error" $fontSize={12}>
+        You have no active stake to unstake.
+      </Typography>
+    ) : null}
+    {!isFeeStep && amountExceedsMax ? (
+      <Typography variant="span" color="error" $fontSize={12}>
+        Amount exceeds your active stake
+      </Typography>
+    ) : null}
+  </>
+);
+
+const UnstakeInfoNotes: React.FC<{
+  isFeeStep: boolean;
+  showDustWarning: boolean;
+  unitAbbr: string;
+}> = ({ isFeeStep, showDustWarning, unitAbbr }) => (
+  <>
+    {!isFeeStep && showDustWarning ? (
+      <div style={INFO_NOTE_STYLE}>
+        <span style={NOTE_TEXT_STYLE}>
+          {`To avoid leaving dust (under ${SOL_MIN_SPLIT_REMAINDER} ${unitAbbr}) in one of your stake accounts, that account will be fully unstaked. This may be slightly more than you entered.`}
+        </span>
+      </div>
+    ) : null}
+    {!isFeeStep ? (
+      <div style={INFO_NOTE_STYLE}>
+        <span style={NOTE_TEXT_STYLE}>
+          {`After unstaking, your ${unitAbbr} is ready to claim once the current epoch ends (about 2-3 days). You then claim it back to your wallet. If a stake account is split, a small refundable deposit is set aside for the new account and returned when you claim.`}
+        </span>
+      </div>
+    ) : null}
+  </>
+);
+
+const UnstakeFeeBlock: React.FC<{
+  isFeeLoading: boolean;
+  networkFee: string | undefined;
+  unitAbbr: string;
+  insufficientForFee: boolean;
+}> = ({ isFeeLoading, networkFee, unitAbbr, insufficientForFee }) => (
+  <Flex direction="column" gap={16} width="full">
+    <SolFeeSection
+      isLoading={isFeeLoading}
+      feeLamports={networkFee}
+      unitAbbr={unitAbbr}
+    />
+    {insufficientForFee ? (
+      <Typography variant="span" color="error" $fontSize={13}>
+        Not enough SOL in this account to cover the network fee.
+      </Typography>
+    ) : null}
+  </Flex>
+);
+
+const isProceedDisabled = (
+  isProceeding: boolean,
+  isFeeStep: boolean,
+  isFeeLoading: boolean,
+  insufficientForFee: boolean,
+  canProceed: boolean,
+) =>
+  isProceeding ||
+  (isFeeStep ? isFeeLoading || insufficientForFee : !canProceed);
+
 export const SolUnstake: React.FC = () => {
   const {
     selectedAccount,
@@ -49,7 +329,7 @@ export const SolUnstake: React.FC = () => {
 
   const [unstakeMax, setUnstakeMax] = useState(false);
   const [usdInput, setUsdInput] = useState('');
-  const lastEditedRef = useRef<'token' | 'usd' | null>(null);
+  const lastEditedRef = useRef<LastEdited>(null);
 
   const isFeeStep = step === 'unstakeReview';
 
@@ -64,38 +344,19 @@ export const SolUnstake: React.FC = () => {
     p => selectedAccount && p.assetId === selectedAccount.assetId,
   )?.latestPrice;
 
-  const toUsd = (solAmount: string): string => {
-    if (!price || !solAmount || solAmount === '0') return '';
-    const usd = new BigNumber(solAmount).multipliedBy(price);
-    return usd.isNaN() ? '' : `≈ $${usd.toFixed(2)}`;
-  };
-
   useEffect(() => {
     if (lastEditedRef.current === 'usd') return;
-    setUsdInput(
-      unstakeAmount && price
-        ? new BigNumber(unstakeAmount).multipliedBy(price).toFixed(2)
-        : '',
-    );
+    setUsdInput(computeUsdInput(unstakeAmount, price));
   }, [unstakeAmount, price]);
 
   const hasActiveStake = !!maxUnstake && maxUnstake !== '0';
-
-  const amountExceedsMax =
-    !!unstakeAmount &&
-    !!maxUnstake &&
-    new BigNumber(unstakeAmount).isGreaterThan(new BigNumber(maxUnstake));
-
-  // What would stay staked, if the entered amount is valid
-  const remainder =
-    !!unstakeAmount && hasActiveStake && !amountExceedsMax
-      ? new BigNumber(maxUnstake).minus(new BigNumber(unstakeAmount))
-      : undefined;
-
-  const showDustWarning =
-    !!remainder &&
-    remainder.isGreaterThan(0) &&
-    remainder.isLessThan(new BigNumber(SOL_MIN_SPLIT_REMAINDER));
+  const amountExceedsMax = computeAmountExceedsMax(unstakeAmount, maxUnstake);
+  const showDustWarning = computeShowDustWarning(
+    unstakeAmount,
+    maxUnstake,
+    hasActiveStake,
+    amountExceedsMax,
+  );
 
   const handleToggleMax = (checked: boolean) => {
     lastEditedRef.current = 'token';
@@ -103,45 +364,32 @@ export const SolUnstake: React.FC = () => {
     if (checked) setUnstakeAmount(maxUnstake);
   };
 
-  const canProceed =
-    !!selectedAccount &&
-    hasActiveStake &&
-    !!unstakeAmount &&
-    parseFloat(unstakeAmount) > 0 &&
-    !amountExceedsMax;
+  const canProceed = computeCanProceed(
+    !!selectedAccount,
+    hasActiveStake,
+    unstakeAmount,
+    amountExceedsMax,
+  );
 
-  const insufficientForFee =
-    isFeeStep &&
-    !isFeeLoading &&
-    !!networkFee &&
-    !!selectedAccount &&
-    lamportsToSol(networkFee).isGreaterThan(
-      lamportsToSol(selectedAccount.balance),
-    );
+  const insufficientForFee = computeInsufficientForFee(
+    isFeeStep,
+    isFeeLoading,
+    networkFee,
+    selectedAccount?.balance,
+  );
+
+  const inputsDisabled =
+    !selectedAccount || !hasActiveStake || unstakeMax || isFeeStep;
 
   return (
     <div style={CARD_STYLE}>
       {/* Title */}
-      <Flex direction="column" gap={4} align="center">
-        <BlockchainIcon />
-        <Typography variant="h5" $textAlign="center" $fontSize={22}>
-          {isFeeStep
-            ? `Unstaking ${unstakeAmount} ${unitAbbr}`
-            : `Unstake ${unitAbbr}`}
-        </Typography>
-        {!isFeeStep && (
-          <Typography
-            variant="span"
-            color="muted"
-            $fontSize={14}
-            $textAlign="center"
-          >
-            {selectedWallet
-              ? 'Enter the amount you want to unstake'
-              : 'Select a wallet to continue'}
-          </Typography>
-        )}
-      </Flex>
+      <UnstakeTitle
+        isFeeStep={isFeeStep}
+        unstakeAmount={unstakeAmount}
+        unitAbbr={unitAbbr}
+        hasWallet={!!selectedWallet}
+      />
 
       {/* Amount — dimmed on fee step */}
       <Flex direction="column" gap={24} opacity={isFeeStep ? 0.5 : 1}>
@@ -151,145 +399,52 @@ export const SolUnstake: React.FC = () => {
               Enter Amount
             </Typography>
             {!isFeeStep && (
-              <Flex align="center" gap={8}>
-                <Typography variant="span" color="muted" $fontSize={13}>
-                  Unstake Max
-                </Typography>
-                {selectedAccount && hasActiveStake ? (
-                  <Toggle checked={unstakeMax} onToggle={handleToggleMax} />
-                ) : (
-                  <Toggle checked={false} />
-                )}
-              </Flex>
-            )}
-          </Flex>
-          <Flex gap={8} align="center" width="full">
-            <CustomInputSend>
-              <Input
-                type="text"
-                name="everstake-sol-unstake-amount"
-                placeholder="0"
-                onChange={(val: string) => {
-                  lastEditedRef.current = 'token';
-                  setUnstakeAmount(
-                    sanitizeAmountInput(val, MAX_TOKEN_DECIMALS),
-                  );
-                  if (unstakeMax) setUnstakeMax(false);
-                }}
-                value={unstakeAmount}
-                disabled={
-                  !selectedAccount || !hasActiveStake || unstakeMax || isFeeStep
-                }
-                $textColor="white"
-                $noBorder
+              <MaxToggle
+                canToggle={!!selectedAccount && hasActiveStake}
+                unstakeMax={unstakeMax}
+                onToggle={handleToggleMax}
               />
-              <Typography $fontSize={16} color="muted" $allowOverflow>
-                {unitAbbr}
-              </Typography>
-            </CustomInputSend>
-            {price && (
-              <>
-                <DoubleArrow height={22} width={22} />
-                <CustomInputSend>
-                  <Input
-                    type="text"
-                    name="everstake-sol-unstake-amount-usd"
-                    placeholder="0"
-                    onChange={(val: string) => {
-                      if (!price) return;
-                      lastEditedRef.current = 'usd';
-                      const filtered = sanitizeAmountInput(
-                        val,
-                        MAX_USD_DECIMALS,
-                      );
-                      setUsdInput(filtered);
-                      setUnstakeAmount(
-                        filtered
-                          ? new BigNumber(filtered).dividedBy(price).toFixed(6)
-                          : '',
-                      );
-                      if (unstakeMax) setUnstakeMax(false);
-                    }}
-                    value={usdInput}
-                    disabled={
-                      !selectedAccount ||
-                      !hasActiveStake ||
-                      unstakeMax ||
-                      isFeeStep
-                    }
-                    $textColor="white"
-                    $noBorder
-                  />
-                  <Typography $fontSize={16} color="muted" $allowOverflow>
-                    USD
-                  </Typography>
-                </CustomInputSend>
-              </>
             )}
           </Flex>
-          {!isFeeStep && hasActiveStake ? (
-            <Typography variant="span" color="muted" $fontSize={12}>
-              Available to unstake: {maxUnstake} {unitAbbr}
-              {toUsd(maxUnstake) ? ` ${toUsd(maxUnstake)}` : ''}
-            </Typography>
-          ) : null}
-          {!isFeeStep && position && !hasActiveStake ? (
-            <Typography variant="span" color="error" $fontSize={12}>
-              You have no active stake to unstake.
-            </Typography>
-          ) : null}
-          {!isFeeStep && amountExceedsMax ? (
-            <Typography variant="span" color="error" $fontSize={12}>
-              Amount exceeds your active stake
-            </Typography>
-          ) : null}
+          <UnstakeAmountInputs
+            unitAbbr={unitAbbr}
+            price={price}
+            unstakeAmount={unstakeAmount}
+            usdInput={usdInput}
+            inputsDisabled={inputsDisabled}
+            unstakeMax={unstakeMax}
+            lastEditedRef={lastEditedRef}
+            setUnstakeAmount={setUnstakeAmount}
+            setUsdInput={setUsdInput}
+            setUnstakeMax={setUnstakeMax}
+          />
+          <UnstakeMessages
+            isFeeStep={isFeeStep}
+            hasActiveStake={hasActiveStake}
+            hasPosition={!!position}
+            amountExceedsMax={amountExceedsMax}
+            maxUnstake={maxUnstake}
+            maxUsdText={toUsd(price, maxUnstake)}
+            unitAbbr={unitAbbr}
+          />
         </Flex>
 
         {/* Info notes */}
-        {!isFeeStep && showDustWarning ? (
-          <div style={INFO_NOTE_STYLE}>
-            <span
-              style={{
-                color: '#C4922A',
-                lineHeight: 1.6,
-                display: 'block',
-                fontSize: 12,
-              }}
-            >
-              {`Less than ${SOL_MIN_SPLIT_REMAINDER} ${unitAbbr} would stay staked, so whole stake accounts will be deactivated. You may unstake more than the amount you entered.`}
-            </span>
-          </div>
-        ) : null}
-        {!isFeeStep ? (
-          <div style={INFO_NOTE_STYLE}>
-            <span
-              style={{
-                color: '#C4922A',
-                lineHeight: 1.6,
-                display: 'block',
-                fontSize: 12,
-              }}
-            >
-              {`After unstaking, your ${unitAbbr} is ready to claim once the current epoch ends (about 2-3 days). You then claim it back to your wallet. If a stake account is split, a small refundable deposit is set aside for the new account and returned when you claim.`}
-            </span>
-          </div>
-        ) : null}
+        <UnstakeInfoNotes
+          isFeeStep={isFeeStep}
+          showDustWarning={showDustWarning}
+          unitAbbr={unitAbbr}
+        />
       </Flex>
 
       {/* Fee section */}
       {isFeeStep && (
-        <Flex direction="column" gap={16} width="full">
-          <SolFeeSection
-            isLoading={isFeeLoading}
-            feeLamports={networkFee}
-            unitAbbr={unitAbbr}
-          />
-          {insufficientForFee ? (
-            <Typography variant="span" color="error" $fontSize={13}>
-              Not enough SOL in this account to cover the network fee.
-            </Typography>
-          ) : null}
-        </Flex>
+        <UnstakeFeeBlock
+          isFeeLoading={isFeeLoading}
+          networkFee={networkFee}
+          unitAbbr={unitAbbr}
+          insufficientForFee={insufficientForFee}
+        />
       )}
 
       {/* Buttons */}
@@ -300,10 +455,13 @@ export const SolUnstake: React.FC = () => {
         <Button
           variant="primary"
           onClick={onProceed}
-          disabled={
-            isProceeding ||
-            (isFeeStep ? isFeeLoading || insufficientForFee : !canProceed)
-          }
+          disabled={isProceedDisabled(
+            isProceeding,
+            isFeeStep,
+            isFeeLoading,
+            insufficientForFee,
+            canProceed,
+          )}
         >
           {isFeeStep ? 'Confirm Unstake' : 'Proceed'}
         </Button>
