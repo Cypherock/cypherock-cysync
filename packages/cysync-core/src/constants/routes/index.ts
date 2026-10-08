@@ -42,6 +42,14 @@ const rootRoutes = {
     name: 'refer-and-earn',
     path: '/refer-and-earn',
   },
+  earn: {
+    name: 'earn',
+    path: '/earn',
+  },
+  everstakeAccount: {
+    name: 'everstake-account',
+    path: '/everstake-account',
+  },
 } as const;
 
 export const routes = {

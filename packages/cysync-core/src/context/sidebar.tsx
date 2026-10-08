@@ -39,7 +39,8 @@ export type Page =
   | 'help'
   | 'referAndEarn'
   | 'swap'
-  | 'buysell2';
+  | 'buysell2'
+  | 'earn';
 
 export interface SidebarContextInterface {
   lang: ILangState;
