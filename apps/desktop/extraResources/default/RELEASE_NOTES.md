@@ -1,3 +1,9 @@
+# v2.4.9
+
+### 🚀 Features
+
+- **Staking:** Earn rewards on your Ethereum, Polygon (ex-MATIC) and Solana by staking with Everstake, directly in cySync.
+
 # v2.4.8
 
 ### 🚀 Features
