@@ -1,6 +1,6 @@
 {
   "name": "@cypherock/cysync-cli",
-  "version": "0.2.16",
+  "version": "0.2.17-pre.0",
   "description": "Cypherock CySync CLI",
   "types": "dist/index.d.ts",
   "author": "support@cypherock.com",
