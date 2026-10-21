@@ -1,5 +1,15 @@
 # @cypherock/cysync-desktop-ui
 
+## 0.2.18
+
+### Patch Changes
+
+- [#888](https://github.com/Cypherock/cypherock-cysync/pull/888) [`88c2b75f`](https://github.com/Cypherock/cypherock-cysync/commit/88c2b75f7e41dc93b0ca76192e959116c2608825) Thanks [@Keyur279](https://github.com/Keyur279)! - Adds native staking via Everstake for Ethereum, Polygon (ex-MATIC) and Solana : earn dashboard, stake, unstake and claim flows
+
+- Updated dependencies [[`88c2b75f`](https://github.com/Cypherock/cypherock-cysync/commit/88c2b75f7e41dc93b0ca76192e959116c2608825)]:
+  - @cypherock/cysync-core@0.14.0
+  - @cypherock/cysync-ui@0.2.4
+
 ## 0.2.18-pre.0
 
 ### Patch Changes
