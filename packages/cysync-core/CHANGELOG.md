@@ -1,5 +1,35 @@
 # @cypherock/cysync-core
 
+## 0.14.0
+
+### Minor Changes
+
+- [#888](https://github.com/Cypherock/cypherock-cysync/pull/888) [`88c2b75f`](https://github.com/Cypherock/cypherock-cysync/commit/88c2b75f7e41dc93b0ca76192e959116c2608825) Thanks [@Keyur279](https://github.com/Keyur279)! - Adds native staking via Everstake for Ethereum, Polygon (ex-MATIC) and Solana : earn dashboard, stake, unstake and claim flows
+
+### Patch Changes
+
+- Updated dependencies [[`88c2b75f`](https://github.com/Cypherock/cypherock-cysync/commit/88c2b75f7e41dc93b0ca76192e959116c2608825)]:
+  - @cypherock/coin-support-solana@0.3.0
+  - @cypherock/cysync-ui@0.2.4
+  - @cypherock/coin-support@0.2.16
+  - @cypherock/cysync-core-services@0.3.9
+  - @cypherock/cysync-core-workers@0.1.17
+
+## 0.14.0-pre.0
+
+### Minor Changes
+
+- [#888](https://github.com/Cypherock/cypherock-cysync/pull/888) [`88c2b75f`](https://github.com/Cypherock/cypherock-cysync/commit/88c2b75f7e41dc93b0ca76192e959116c2608825) Thanks [@Keyur279](https://github.com/Keyur279)! - Adds native staking via Everstake for Ethereum, Polygon (ex-MATIC) and Solana : earn dashboard, stake, unstake and claim flows
+
+### Patch Changes
+
+- Updated dependencies [[`88c2b75f`](https://github.com/Cypherock/cypherock-cysync/commit/88c2b75f7e41dc93b0ca76192e959116c2608825)]:
+  - @cypherock/coin-support-solana@0.3.0-pre.0
+  - @cypherock/cysync-ui@0.2.4-pre.0
+  - @cypherock/coin-support@0.2.16-pre.0
+  - @cypherock/cysync-core-services@0.3.9-pre.0
+  - @cypherock/cysync-core-workers@0.1.17-pre.0
+
 ## 0.13.4
 
 ### Patch Changes
