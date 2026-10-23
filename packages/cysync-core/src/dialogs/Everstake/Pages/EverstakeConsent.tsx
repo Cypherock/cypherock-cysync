@@ -52,9 +52,9 @@ export const EverstakeConsent: React.FC = () => {
           pl="24px"
           pr="24px"
         >
-          Your staked {unitAbbr} is
+          {unitAbbr} staking infrastructure
           <br />
-          maintained by Everstake
+          is provided by Everstake
         </Typography>
         <Flex direction="row" gap={6} align="center">
           <Typography variant="span" color="muted" $fontSize={16}>

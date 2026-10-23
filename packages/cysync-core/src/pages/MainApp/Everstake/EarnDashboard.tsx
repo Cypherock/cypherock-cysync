@@ -1,5 +1,7 @@
 import { getParsedAmount, getDefaultUnit } from '@cypherock/coin-support-utils';
-import { Button, Flex, Typography } from '@cypherock/cysync-ui';
+import { AccountTypeMap } from '@cypherock/db-interfaces';
+import { Button, Flex, Tag, Typography } from '@cypherock/cysync-ui';
+import lodash from 'lodash';
 import React, { useMemo } from 'react';
 
 import { CoinIcon } from '~/components';
@@ -69,7 +71,16 @@ export const EarnDashboard: React.FC = () => {
         );
         if (!cfg) return [];
         const wallet = wallets.find(w => w.__id === account.walletId);
-        return [{ account, cfg, walletName: wallet?.name ?? '' }];
+        // Token accounts (e.g. POL) have no scheme of their own, so use
+        // the one from the parent account
+        const schemeSource =
+          account.type === AccountTypeMap.subAccount
+            ? accounts.find(a => a.__id === account.parentAccountId) ?? account
+            : account;
+        const accountTag = lodash.upperCase(
+          schemeSource.derivationScheme ?? '',
+        );
+        return [{ account, cfg, walletName: wallet?.name ?? '', accountTag }];
       }),
     [accounts, wallets],
   );
@@ -163,86 +174,95 @@ export const EarnDashboard: React.FC = () => {
               </div>
 
               {/* Rows */}
-              {stakeableRows.map(({ account, cfg, walletName }, index) => {
-                const { token, usd } = formatBalance(account);
-                const isEven = index % 2 === 0;
-                const isLast = index === stakeableRows.length - 1;
+              {stakeableRows.map(
+                ({ account, cfg, walletName, accountTag }, index) => {
+                  const { token, usd } = formatBalance(account);
+                  const isEven = index % 2 === 0;
+                  const isLast = index === stakeableRows.length - 1;
 
-                return (
-                  <div
-                    key={account.__id}
-                    style={{
-                      display: 'flex',
-                      alignItems: 'center',
-                      width: '100%',
-                      minHeight: 72,
-                      background: isEven
-                        ? 'rgba(255,255,255,0.03)'
-                        : 'transparent',
-                      borderBottom: isLast
-                        ? 'none'
-                        : '1px solid rgba(255,255,255,0.06)',
-                    }}
-                  >
-                    {/* Account */}
-                    <Cell flex={COL.account}>
-                      <Flex direction="row" align="center" gap={12}>
-                        <CoinIcon
-                          parentAssetId={account.parentAssetId}
-                          assetId={account.assetId}
-                          size="28px"
-                        />
-                        <Flex direction="column" gap={4}>
-                          <Typography variant="span" $fontSize={16}>
-                            {account.name}
-                          </Typography>
+                  return (
+                    <div
+                      key={account.__id}
+                      style={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        width: '100%',
+                        minHeight: 72,
+                        background: isEven
+                          ? 'rgba(255,255,255,0.03)'
+                          : 'transparent',
+                        borderBottom: isLast
+                          ? 'none'
+                          : '1px solid rgba(255,255,255,0.06)',
+                      }}
+                    >
+                      {/* Account */}
+                      <Cell flex={COL.account}>
+                        <Flex direction="row" align="center" gap={12}>
+                          <CoinIcon
+                            parentAssetId={account.parentAssetId}
+                            assetId={account.assetId}
+                            size="28px"
+                          />
+                          <Flex direction="column" gap={4}>
+                            <Typography variant="span" $fontSize={16}>
+                              {account.name}
+                            </Typography>
+                            <Flex direction="row" align="center" gap={8}>
+                              <Typography
+                                variant="span"
+                                color="muted"
+                                $fontSize={13}
+                              >
+                                {cfg.label}
+                              </Typography>
+                              {accountTag ? <Tag>{accountTag}</Tag> : null}
+                            </Flex>
+                          </Flex>
+                        </Flex>
+                      </Cell>
+
+                      {/* Wallet */}
+                      <Cell flex={COL.wallet}>
+                        <Typography variant="span" $fontSize={16}>
+                          {walletName}
+                        </Typography>
+                      </Cell>
+
+                      {/* Balance */}
+                      <Cell flex={COL.balance}>
+                        <Typography variant="span" $fontSize={16}>
+                          {isDiscreetMode ? '****' : token}
+                        </Typography>
+                        {!isDiscreetMode && usd ? (
                           <Typography
                             variant="span"
                             color="muted"
                             $fontSize={13}
                           >
-                            {cfg.label}
+                            {usd}
                           </Typography>
-                        </Flex>
-                      </Flex>
-                    </Cell>
+                        ) : null}
+                      </Cell>
 
-                    {/* Wallet */}
-                    <Cell flex={COL.wallet}>
-                      <Typography variant="span" $fontSize={16}>
-                        {walletName}
-                      </Typography>
-                    </Cell>
-
-                    {/* Balance */}
-                    <Cell flex={COL.balance}>
-                      <Typography variant="span" $fontSize={16}>
-                        {isDiscreetMode ? '****' : token}
-                      </Typography>
-                      {!isDiscreetMode && usd ? (
-                        <Typography variant="span" color="muted" $fontSize={13}>
-                          {usd}
-                        </Typography>
-                      ) : null}
-                    </Cell>
-
-                    {/* Actions */}
-                    <Cell flex={COL.actions} align="center">
-                      <Button
-                        variant="primary"
-                        size="sm"
-                        onClick={() => {
-                          navigateTo(
-                            `${routes.everstakeAccount.path}?accountId=${account.__id}`,
-                          );
-                        }}
-                      >
-                        Manage
-                      </Button>
-                    </Cell>
-                  </div>
-                );
-              })}
+                      {/* Actions */}
+                      <Cell flex={COL.actions} align="center">
+                        <Button
+                          variant="primary"
+                          size="sm"
+                          onClick={() => {
+                            navigateTo(
+                              `${routes.everstakeAccount.path}?accountId=${account.__id}`,
+                            );
+                          }}
+                        >
+                          Manage
+                        </Button>
+                      </Cell>
+                    </div>
+                  );
+                },
+              )}
             </div>
           </Flex>
         )}
