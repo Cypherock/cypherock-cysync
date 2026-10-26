@@ -1,5 +1,11 @@
 # @cypherock/cysync-core
 
+## 0.14.1
+
+### Patch Changes
+
+- [#888](https://github.com/Cypherock/cypherock-cysync/pull/888) [`e8fedeff`](https://github.com/Cypherock/cypherock-cysync/commit/e8fedeff59b0be747ba4f2969884d92605b3970e) Thanks [@Keyur279](https://github.com/Keyur279)! - Shows account type on the Earn dashboard and refines the Everstake staking consent wording
+
 ## 0.14.0
 
 ### Minor Changes

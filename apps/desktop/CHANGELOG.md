@@ -1,5 +1,14 @@
 # @cypherock/cysync-desktop
 
+## 2.4.10
+
+### Patch Changes
+
+- [#888](https://github.com/Cypherock/cypherock-cysync/pull/888) [`e8fedeff`](https://github.com/Cypherock/cypherock-cysync/commit/e8fedeff59b0be747ba4f2969884d92605b3970e) Thanks [@Keyur279](https://github.com/Keyur279)! - Shows account type on the Earn dashboard and refines the Everstake staking consent wording
+
+- Updated dependencies []:
+  - @cypherock/cysync-desktop-ui@0.2.19
+
 ## 2.4.9
 
 ### Patch Changes
