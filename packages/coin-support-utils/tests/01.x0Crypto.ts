@@ -6,6 +6,8 @@ import {
   compressPublicKey,
   decompressPublicKey,
   deriveChildPublicKey,
+  getExtendedKeyVersion,
+  setExtendedKeyVersion,
   derToCompact,
   derToRS,
   groupByLeafPath,
@@ -35,6 +37,26 @@ describe('x0 bip32 helpers', () => {
     expect(bytesToHex(derived)).toEqual(
       bytesToHex(expected ?? new Uint8Array()),
     );
+  });
+
+  test('re-encodes an extended key under another version word', () => {
+    // m/84'/0'/0' of the BIP32 test-vector-1 seed, as xpub and as zpub.
+    const xpub =
+      'xpub6DEHh42YXj7gdKbP1zxehEzQt47iW2AuUHYsqGaRxtkEGrK3bCYh2bsw1H6WUW26k9TBdQoe6gZ8ydoAP5eGAC2fDJGmFkwXcgv5feY9N7p';
+    const zpub =
+      'zpub6rtpJPNNq6CeKuycgiXu7RBRDzQcPG9uJWbKQ4NCiuVzP3wW6WspGjCD3h1gUKKwZRgo8Mzm21GEkD2HpUUHkfPrwyfcRaaWA93NSnnKTaP';
+
+    expect(getExtendedKeyVersion(xpub)).toEqual(0x0488b21e);
+    expect(getExtendedKeyVersion(zpub)).toEqual(0x04b24746);
+    expect(setExtendedKeyVersion(xpub, 0x04b24746)).toEqual(zpub);
+    expect(setExtendedKeyVersion(zpub, 0x0488b21e)).toEqual(xpub);
+  });
+
+  test('rejects malformed extended keys', () => {
+    expect(() => getExtendedKeyVersion('not-a-key')).toThrow();
+    expect(() =>
+      getExtendedKeyVersion(`${parentXpub.slice(0, -1)}x`),
+    ).toThrow();
   });
 
   test('rejects hardened indices', () => {
