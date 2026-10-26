@@ -1,7 +1,12 @@
 /** Card limit: maximum derivation paths per deriveKeys call. */
 export const X0_MAX_DERIVE_PATHS_PER_CALL = 5;
-/** Card limit: maximum digests per signHashes call. */
+/** Card limit: maximum digests per ECDSA signHashes call. */
 export const X0_MAX_HASHES_PER_CALL = 8;
+/**
+ * Card limit: maximum digests per Schnorr signHashes call. Schnorr has no
+ * hardware signer on-card, so a larger batch outruns the card's frame time.
+ */
+export const X0_MAX_SCHNORR_HASHES_PER_CALL = 3;
 
 export function chunkArray<T>(items: T[], size: number): T[][] {
   const chunks: T[][] = [];

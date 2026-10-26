@@ -16,16 +16,27 @@ export interface IX0DeriveKeyResult {
   xpub?: string;
 }
 
+/**
+ * `schnorr-bip340` signs under the BIP-341 key-path tweak of the leaf key
+ * (empty merkle root), so it verifies against the taproot output key, not
+ * the derived public key.
+ */
+export type X0SignatureScheme = 'ecdsa-der' | 'schnorr-bip340';
+
 export interface IX0SignHashesResult {
-  /** DER-encoded low-S secp256k1 ECDSA signature. */
+  /**
+   * `ecdsa-der`: DER-encoded low-S secp256k1 ECDSA signature.
+   * `schnorr-bip340`: 64-byte BIP-340 signature (R.x ‖ s).
+   */
   signature: Uint8Array;
 }
 
 /**
  * Card operations available inside ONE physical tap. Limits mirror the card:
  * deriveKeys ≤5 paths/call (`xpub` depth 3..5, `raw-pubkey` depth exactly 5);
- * signHashes ONE depth-5 leaf and 1..8 32-byte digests/call, signed as-is
- * (no additional hashing on-card). Multiple calls per tap are cheap.
+ * signHashes ONE depth-5 leaf and 32-byte digests signed as-is (no
+ * additional hashing on-card), 1..8 per call for `ecdsa-der` and 1..3 for
+ * `schnorr-bip340`. `scheme` defaults to `ecdsa-der`.
  */
 export interface IX0CardOperations {
   deriveKeys(params: {
@@ -36,6 +47,7 @@ export interface IX0CardOperations {
   signHashes(params: {
     path: number[];
     hashes: Uint8Array[];
+    scheme?: X0SignatureScheme;
   }): Promise<IX0SignHashesResult[]>;
 }
 

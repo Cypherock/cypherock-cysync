@@ -1,4 +1,4 @@
-import { secp256k1 } from '@noble/curves/secp256k1';
+import { schnorr, secp256k1 } from '@noble/curves/secp256k1';
 
 const numberTo32Bytes = (value: bigint): Uint8Array => {
   const hex = value.toString(16).padStart(64, '0');
@@ -47,6 +47,19 @@ export function verifyDerSignature(
       publicKey,
       { prehash: false, lowS: true },
     );
+  } catch (error) {
+    return false;
+  }
+}
+
+/** BIP-340 verification against a 32-byte x-only public key. */
+export function verifySchnorrSignature(
+  digest: Uint8Array,
+  signature: Uint8Array,
+  xOnlyPublicKey: Uint8Array,
+): boolean {
+  try {
+    return schnorr.verify(signature, digest, xOnlyPublicKey);
   } catch (error) {
     return false;
   }

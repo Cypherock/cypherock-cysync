@@ -1,4 +1,4 @@
-import { secp256k1 } from '@noble/curves/secp256k1';
+import { schnorr, secp256k1 } from '@noble/curves/secp256k1';
 import { HDKey } from '@scure/bip32';
 
 import {
@@ -13,6 +13,7 @@ import {
   sha256,
   sha512Half,
   verifyDerSignature,
+  verifySchnorrSignature,
 } from '../src/x0';
 
 const hexToBytes = (hex: string): Uint8Array =>
@@ -119,6 +120,40 @@ describe('x0 signature helpers', () => {
       true,
     );
     expect(() => recoverRecid(digest, der, otherPub)).toThrow();
+  });
+});
+
+describe('x0 schnorr helpers', () => {
+  const privateKey = hexToBytes(
+    '0000000000000000000000000000000000000000000000000000000000000003',
+  );
+  const xOnlyPublicKey = schnorr.getPublicKey(privateKey);
+  const digest = sha256(new TextEncoder().encode('x0 taproot sighash'));
+  const signature = schnorr.sign(digest, privateKey);
+
+  test('verifySchnorrSignature accepts a valid signature', () => {
+    expect(verifySchnorrSignature(digest, signature, xOnlyPublicKey)).toBe(
+      true,
+    );
+  });
+
+  test('verifySchnorrSignature rejects a wrong digest, signer or encoding', () => {
+    const otherKey = schnorr.getPublicKey(
+      hexToBytes(
+        '0000000000000000000000000000000000000000000000000000000000000004',
+      ),
+    );
+    expect(
+      verifySchnorrSignature(
+        sha256(new Uint8Array()),
+        signature,
+        xOnlyPublicKey,
+      ),
+    ).toBe(false);
+    expect(verifySchnorrSignature(digest, signature, otherKey)).toBe(false);
+    expect(
+      verifySchnorrSignature(digest, signature.slice(0, 63), xOnlyPublicKey),
+    ).toBe(false);
   });
 });
 
