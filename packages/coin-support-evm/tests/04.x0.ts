@@ -1,5 +1,9 @@
 import { Observer } from 'rxjs';
-import { IReceiveEvent, IX0Session } from '@cypherock/coin-support-interfaces';
+import {
+  IReceiveEvent,
+  IX0Session,
+  SignMessageType,
+} from '@cypherock/coin-support-interfaces';
 import { IAccount, IDatabase } from '@cypherock/db-interfaces';
 import { beforeEach, describe, expect, jest, test } from '@jest/globals';
 import * as ethers from 'ethers';
@@ -68,6 +72,40 @@ const makeAccount = (): IAccount => ({
   isHidden: false,
   extraData: {},
 });
+
+const typedDataDomain = {
+  name: 'X0 Test',
+  version: '1',
+  chainId: 1,
+  verifyingContract: '0xCcCCccccCCCCcCCCCCCcCcCccCcCCCcCcccccccC',
+};
+
+const typedDataTypes = {
+  EIP712Domain: [
+    { name: 'name', type: 'string' },
+    { name: 'version', type: 'string' },
+    { name: 'chainId', type: 'uint256' },
+    { name: 'verifyingContract', type: 'address' },
+  ],
+  Person: [
+    { name: 'name', type: 'string' },
+    { name: 'wallet', type: 'address' },
+  ],
+  Mail: [
+    { name: 'from', type: 'Person' },
+    { name: 'to', type: 'Person[]' },
+    { name: 'contents', type: 'string' },
+  ],
+};
+
+const alice = {
+  name: 'Alice',
+  wallet: '0xCD2a3d9F938E13CD947Ec05AbC7FE734Df8DD826',
+};
+const bob = {
+  name: 'Bob',
+  wallet: '0xbBbBBBBbbBBBbbbBbbBbbbbBBbBbbbbBbBbbBBbB',
+};
 
 describe('04. X0 flows', () => {
   let support: EvmSupport;
@@ -245,6 +283,94 @@ describe('04. X0 flows', () => {
           done();
         },
       });
+  }, 10000);
+
+  const signMessageWithX0 = (signingType: SignMessageType, message: string) =>
+    new Promise<string | undefined>((resolve, reject) => {
+      let signature: string | undefined;
+      support
+        .signMessage({
+          x0: createMockX0Session(),
+          db,
+          account: makeAccount(),
+          payload: { signingType, message },
+        })
+        .subscribe({
+          next: data => {
+            if (data.type === 'Message') signature = data.signature;
+          },
+          complete: () => resolve(signature),
+          error: reject,
+        });
+    });
+
+  test('signMessage applies the EIP-191 prefix like X1 firmware', async () => {
+    const message = '0xdeadbeef';
+    const signature = await signMessageWithX0(
+      SignMessageType.PRIVATE_MESSAGE,
+      message,
+    );
+    expect(
+      ethers.verifyMessage(ethers.getBytes(message), signature ?? ''),
+    ).toEqual(makeAccount().xpubOrAddress);
+  }, 10000);
+
+  test('signMessage signs typed data carrying unused types', async () => {
+    const payload = {
+      domain: typedDataDomain,
+      types: {
+        ...typedDataTypes,
+        Unused: [{ name: 'value', type: 'uint256' }],
+      },
+      primaryType: 'Mail',
+      message: { from: alice, to: [bob], contents: 'Hello, Bob!' },
+    };
+    const signature = await signMessageWithX0(
+      SignMessageType.TYPED_MESSAGE,
+      JSON.stringify(payload),
+    );
+    const { Person, Mail } = typedDataTypes;
+    expect(
+      ethers.verifyTypedData(
+        typedDataDomain,
+        { Person, Mail },
+        payload.message,
+        signature ?? '',
+      ),
+    ).toEqual(makeAccount().xpubOrAddress);
+  }, 10000);
+
+  test('signMessage signs the struct named by primaryType', async () => {
+    const payload = {
+      domain: typedDataDomain,
+      types: typedDataTypes,
+      primaryType: 'Person',
+      message: alice,
+    };
+    const signature = await signMessageWithX0(
+      SignMessageType.TYPED_MESSAGE,
+      JSON.stringify(payload),
+    );
+    expect(
+      ethers.verifyTypedData(
+        typedDataDomain,
+        { Person: typedDataTypes.Person },
+        alice,
+        signature ?? '',
+      ),
+    ).toEqual(makeAccount().xpubOrAddress);
+  }, 10000);
+
+  test('signMessage rejects typed data without a known primaryType', async () => {
+    const payload = {
+      domain: typedDataDomain,
+      types: typedDataTypes,
+      primaryType: 'Missing',
+      message: alice,
+    };
+    await expect(
+      signMessageWithX0(SignMessageType.TYPED_MESSAGE, JSON.stringify(payload)),
+    ).rejects.toThrow('primaryType');
   }, 10000);
 
   test('receive verifies the address against the card', done => {

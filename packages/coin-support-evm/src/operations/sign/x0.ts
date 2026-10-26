@@ -17,6 +17,37 @@ import { getCoinSupportEthersLib } from '../../utils';
 
 const X0_LEAF_DEPTH = 5;
 
+type TypedDataTypes = Record<string, { name: string; type: string }[]>;
+
+const stripArraySuffix = (type: string) => type.replace(/(\[\d*\])+$/, '');
+
+/**
+ * ethers infers the primary type and rejects payloads whose types have more
+ * than one root, while dApps may send unused types and name the struct to
+ * sign in `primaryType` (which the X1 path forwards to the device). Keep only
+ * the types reachable from `primaryType` so ethers hashes exactly that struct.
+ */
+const pruneToPrimaryType = (
+  types: TypedDataTypes,
+  primaryType: string,
+): TypedDataTypes => {
+  const pruned: TypedDataTypes = {};
+  const pending = [primaryType];
+
+  while (pending.length > 0) {
+    const name = pending.pop() as string;
+    if (!pruned[name]) {
+      pruned[name] = types[name];
+      for (const field of types[name]) {
+        const fieldType = stripArraySuffix(field.type);
+        if (types[fieldType]) pending.push(fieldType);
+      }
+    }
+  }
+
+  return pruned;
+};
+
 /**
  * Computes the digest the X1 firmware would sign for each message type.
  * Messages arrive hex-encoded (same contract as the X1 flow, which decodes
@@ -39,10 +70,27 @@ const computeMessageDigest = (payload: {
       return ethers.getBytes(ethers.hashMessage(ethers.getBytes(messageHex)));
     case SignMessageType.TYPED_MESSAGE: {
       const parsed = JSON.parse(payload.message);
-      const types = { ...parsed.types };
+      const types: TypedDataTypes = { ...parsed.types };
       delete types.EIP712Domain;
+
+      const { primaryType } = parsed;
+      assert(
+        typeof primaryType === 'string' && types[primaryType] !== undefined,
+        new Error('Typed data primaryType is missing from its types'),
+      );
+
+      const primaryTypes = pruneToPrimaryType(types, primaryType);
+      assert(
+        ethers.TypedDataEncoder.from(primaryTypes).primaryType === primaryType,
+        new Error('Typed data primaryType does not match its types'),
+      );
+
       return ethers.getBytes(
-        ethers.TypedDataEncoder.hash(parsed.domain, types, parsed.message),
+        ethers.TypedDataEncoder.hash(
+          parsed.domain,
+          primaryTypes,
+          parsed.message,
+        ),
       );
     }
     default:
