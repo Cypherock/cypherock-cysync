@@ -19,7 +19,7 @@ import {
 import { generateDerivationPathsPerScheme } from './schemes';
 
 import logger from '../utils/logger';
-import { resolveExecutionContext } from '../x0';
+import { assertX0WalletId, resolveExecutionContext } from '../x0';
 
 interface App {
   abort: () => Promise<void>;
@@ -115,6 +115,7 @@ export function makeCreateAccountsObservable<
             );
           }
 
+          assertX0WalletId(executionContext.x0, params.walletId);
           x0Session = executionContext.x0;
           addressesPerScheme = await generateAddressesPerSchemeX0({
             ...params,

@@ -209,6 +209,29 @@ describe('04. X0 flows', () => {
       });
   }, 10000);
 
+  test('createAccounts rejects a session bound to another wallet', done => {
+    const derivedPaths: number[][] = [];
+    const session = createPathCountingX0Session(derivedPaths);
+
+    support
+      .createAccounts({
+        x0: { ...session, walletId: 'deadbeef' },
+        db,
+        coinId: 'ethereum',
+        walletId: MOCK_WALLET_ID,
+        waitInMSBetweenEachAccountAPI: 1,
+      })
+      .subscribe({
+        next: () => undefined,
+        complete: () => done(new Error('should have failed')),
+        error: error => {
+          expect(error.message).toContain('different wallet');
+          expect(derivedPaths).toHaveLength(0);
+          done();
+        },
+      });
+  }, 10000);
+
   test('signTransaction produces a broadcastable EIP-155 transaction', done => {
     const account = makeAccount();
     const transaction: any = {
