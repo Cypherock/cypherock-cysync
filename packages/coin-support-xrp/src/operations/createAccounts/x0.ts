@@ -12,8 +12,9 @@ import {
 import { uint8ArrayToHex } from '@cypherock/sdk-utils';
 
 /**
- * Keep NFC taps short: derive fewer upfront candidates per scheme than the
- * X1 flow. The 2-empty-account threshold usually stops within this window.
+ * Total paths derived in one tap (one deriveKeys call, within iOS's 60s
+ * CoreNFC session cap), split evenly across the enabled schemes. XRP has a
+ * single scheme, so it gets all five.
  */
 export const X0_DERIVATION_PATH_LIMIT = 5;
 

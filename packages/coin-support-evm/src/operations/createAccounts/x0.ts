@@ -18,8 +18,10 @@ import { getCoinSupportEthersLib } from '../../utils';
 import { formatAddress } from '../formatAddress';
 
 /**
- * Keep NFC taps short: derive fewer upfront candidates per scheme than the
- * X1 flow. The 2-empty-account threshold usually stops within this window.
+ * Total paths derived in one tap (one deriveKeys call, within iOS's 60s
+ * CoreNFC session cap), split evenly across the enabled schemes. The ledger
+ * and metamask schemes get two paths each, so the 2-empty-account threshold
+ * is only reached when both candidates are empty.
  */
 export const X0_DERIVATION_PATH_LIMIT = 5;
 

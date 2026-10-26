@@ -19,8 +19,9 @@ import {
 } from './schemes/types';
 
 /**
- * Keep NFC taps short: derive fewer upfront candidates per scheme than the
- * X1 flow. The 2-empty-account threshold usually stops within this window.
+ * Total paths derived in one tap (one deriveKeys call, within iOS's 60s
+ * CoreNFC session cap), split evenly across the enabled schemes. Only the
+ * tronlink scheme is enabled on X0, so it gets all five.
  */
 export const X0_DERIVATION_PATH_LIMIT = 5;
 

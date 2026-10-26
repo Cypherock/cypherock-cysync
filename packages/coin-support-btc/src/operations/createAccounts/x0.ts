@@ -13,8 +13,10 @@ import { getNetworkFromPath } from '@cypherock/sdk-app-btc';
 import { createDerivationPathSchemes } from './schemes';
 
 /**
- * Keep NFC taps short: derive fewer upfront candidates per scheme than the
- * X1 flow. The 2-empty-account threshold usually stops within this window.
+ * Total paths derived in one tap (one deriveKeys call, within iOS's 60s
+ * CoreNFC session cap), split evenly across the enabled schemes. Bitcoin
+ * has three X0 schemes, so each run checks one account per scheme and never
+ * reaches the 2-empty-account threshold; single-scheme coins check five.
  */
 export const X0_DERIVATION_PATH_LIMIT = 5;
 
