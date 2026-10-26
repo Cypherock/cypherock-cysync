@@ -1,3 +1,4 @@
+import { updateTransaction } from '@cypherock/coin-support-utils';
 import { coinFamiliesMap } from '@cypherock/coins';
 import { formatAddress } from '@cypherock/cysync-core-services';
 import {
@@ -11,12 +12,14 @@ import {
   DialogBoxBody,
   DialogBoxHeader,
   Divider,
+  EditIcon,
   Flex,
   GoldExternalLink,
   NestedContainer,
   ScrollableContainer,
   SummaryContainer,
   Tag,
+  TextAreaInput,
   ThemeType,
   Typography,
   TypographyColor,
@@ -29,7 +32,7 @@ import {
   TransactionTypeMap,
 } from '@cypherock/db-interfaces';
 import { createSelector } from '@reduxjs/toolkit';
-import React, { FC, useMemo } from 'react';
+import React, { FC, useMemo, useState } from 'react';
 
 import { openTransactionActionDialog } from '~/actions';
 import { useCurrency } from '~/context';
@@ -45,6 +48,7 @@ import {
   useAppDispatch,
   useAppSelector,
 } from '~/store';
+import { getDB } from '~/utils';
 
 import { TransactionActionType } from './Canton/TransactionAction/context';
 
@@ -215,6 +219,148 @@ const ConditionalHistoryItem: FC<ConditionalHistoryItemProps> = ({
   );
 };
 
+interface RemarksProps {
+  remarks: string[];
+  texts: {
+    remarks: string;
+    addRemarks: string;
+    confirm: string;
+    cancel: string;
+  };
+  onChange: (remarks: string[]) => void;
+}
+
+const NEW_REMARK_INDEX = -1;
+const REMARK_MAX_LENGTH = 1000;
+
+const Remarks: FC<RemarksProps> = ({ remarks, texts, onChange }) => {
+  const [editingIndex, setEditingIndex] = useState<number | null>(null);
+  const [draft, setDraft] = useState('');
+
+  const visibleRemarks = remarks
+    .map((remark, originalIndex) => ({ remark, originalIndex }))
+    .filter(({ remark }) => remark.trim() !== '');
+
+  const isConfirmDisabled = draft.trim().length === 0;
+
+  const startAdd = () => {
+    setDraft('');
+    setEditingIndex(NEW_REMARK_INDEX);
+  };
+
+  const startEdit = (originalIndex: number) => {
+    setDraft(remarks[originalIndex] ?? '');
+    setEditingIndex(originalIndex);
+  };
+
+  const handleCancel = () => {
+    setEditingIndex(null);
+    setDraft('');
+  };
+
+  const handleConfirm = () => {
+    if (editingIndex === null) return;
+    const trimmed = draft.trimEnd();
+    if (trimmed.length === 0) return;
+    let next: string[];
+    if (editingIndex === NEW_REMARK_INDEX) {
+      next = [trimmed];
+    } else {
+      next = [...remarks];
+      next[editingIndex] = trimmed;
+    }
+    onChange(next);
+    setEditingIndex(null);
+    setDraft('');
+  };
+
+  const editor = (
+    <Flex direction="column" align="flex-start" gap={1} $alignSelf="stretch">
+      <TextAreaInput
+        autoFocus
+        name="txnRemarks"
+        value={draft}
+        onChange={setDraft}
+        maxChars={REMARK_MAX_LENGTH}
+        currentChars={draft.length}
+        placeholder={texts.addRemarks}
+        py={1}
+        px={2}
+      />
+      <Flex justify="flex-end" align="flex-start" gap={10} $alignSelf="stretch">
+        <Button
+          variant="primary"
+          onClick={handleConfirm}
+          size="sm"
+          disabled={isConfirmDisabled}
+        >
+          {texts.confirm}
+        </Button>
+        <Button variant="secondary" onClick={handleCancel} size="sm">
+          {texts.cancel}
+        </Button>
+      </Flex>
+    </Flex>
+  );
+
+  let content: React.ReactNode;
+  if (editingIndex === NEW_REMARK_INDEX) {
+    content = editor;
+  } else if (visibleRemarks.length > 0) {
+    content = visibleRemarks.map(({ remark, originalIndex }) =>
+      editingIndex === originalIndex ? (
+        <React.Fragment key={originalIndex}>{editor}</React.Fragment>
+      ) : (
+        <Flex
+          key={originalIndex}
+          direction="row"
+          align="flex-start"
+          justify="flex-end"
+          gap={8}
+          $alignSelf="stretch"
+        >
+          <Typography
+            $textAlign="left"
+            variant="span"
+            color="muted"
+            $wordBreak="break-word"
+          >
+            {remark}
+          </Typography>
+          <Button
+            variant="none"
+            onClick={() => startEdit(originalIndex)}
+            disabled={editingIndex !== null}
+          >
+            <EditIcon />
+          </Button>
+        </Flex>
+      ),
+    );
+  } else {
+    content = (
+      <Button variant="secondary" onClick={startAdd} size="sm">
+        {texts.addRemarks}
+      </Button>
+    );
+  }
+
+  return (
+    <HistoryItem leftText={texts.remarks}>
+      <Container
+        display="flex"
+        direction="column"
+        justify="flex-end"
+        align="flex-end"
+        width="440"
+        gap={8}
+      >
+        {content}
+      </Container>
+    </HistoryItem>
+  );
+};
+
 export const HistoryDialog: FC<IHistoryDialogProps> = ({ txn: _txn }) => {
   const { currentCurrency } = useCurrency();
   const { lang, wallets, priceInfos, isDiscreetMode, currency } =
@@ -303,6 +449,11 @@ export const HistoryDialog: FC<IHistoryDialogProps> = ({ txn: _txn }) => {
         selectedTransaction: displayTransaction.txn,
       }),
     );
+  };
+
+  const handleRemarksChanged = (remarks: string[]) => {
+    if (!txn) return;
+    updateTransaction(getDB(), txn.__id ?? '', { remarks });
   };
 
   return (
@@ -615,37 +766,22 @@ export const HistoryDialog: FC<IHistoryDialogProps> = ({ txn: _txn }) => {
                   />
                 </Container>
               </HistoryItem>
-              {displayTransaction.remarks.length > 0 && (
-                <HistoryItem leftText={keys.remarks} key={keys.receiver}>
-                  <Container
-                    display="flex"
-                    direction="column"
-                    justify="flex-end"
-                    align="flex-end"
-                    width="440"
-                    gap={8}
-                  >
-                    {displayTransaction.remarks.map((remark, index) => (
-                      <Typography
-                        $textAlign="right"
-                        variant="span"
-                        width="full"
-                        color="muted"
-                        $wordBreak="break-word"
-                        key={`${remark + index}`}
-                      >
-                        {remark}
-                      </Typography>
-                    ))}
-                  </Container>
-                </HistoryItem>
-              )}
               <ConditionalHistoryItem
                 condition={!!displayTransaction.txn.description}
                 leftText={keys.description}
               >
                 {displayTransaction.txn.description}
               </ConditionalHistoryItem>
+              <Remarks
+                remarks={displayTransaction.txn.remarks ?? []}
+                texts={{
+                  remarks: keys.remarks,
+                  addRemarks: keys.buttons.addRemarks,
+                  confirm: lang.strings.buttons.confirm,
+                  cancel: lang.strings.buttons.cancel,
+                }}
+                onChange={handleRemarksChanged}
+              />
             </Container>
           </ScrollableContainer>
         </DialogBoxBody>

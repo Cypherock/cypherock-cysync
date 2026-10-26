@@ -485,7 +485,9 @@ const fetchAndParseTransactions = async (params: {
     transactions.push({ ...transaction });
   }
 
-  const { hasMore, nextOffset } = response;
+  const { hasMore } = response;
+  const nextOffset =
+    response.nextOffset ?? transactions?.[transactions.length - 1]?.blockHeight;
 
   if (!hasMore) {
     const pendingTransactions = await services.getPendingTransactions(
@@ -572,8 +574,6 @@ const getAddressDetails: IGetAddressDetails<{
       });
 
   let latestTransactionOffset = nextOffset;
-  latestTransactionOffset ??=
-    transactions?.[transactions.length - 1]?.blockHeight;
   latestTransactionOffset ??= iterationContext?.afterOffset;
   latestTransactionOffset ??= account.extraData?.latestTransactionOffset;
 

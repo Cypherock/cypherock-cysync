@@ -61,9 +61,12 @@ export const getIsAccountActivated = async (
 ): Promise<boolean> => {
   const accountInfo = await getAccountInfo(address, assetId);
 
+  const nativeBalance = accountInfo?.balances?.find(
+    (b: any) => b.asset_type === 'native',
+  );
+
   const isActivated = Boolean(
-    accountInfo?.balances?.[0]?.balance &&
-      accountInfo.balances[0].balance !== '0',
+    nativeBalance?.balance && nativeBalance.balance !== '0',
   );
 
   return isActivated;

@@ -145,7 +145,7 @@ export const EditAccountDialogProvider: FC<
   );
 
   const handleAccountNameChange: typeof setAccountName = useCallback(name => {
-    if (name.length > 24) return;
+    if (name.length > 40) return;
     setAccountName(name);
   }, []);
 

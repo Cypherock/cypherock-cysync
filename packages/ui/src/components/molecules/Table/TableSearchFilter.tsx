@@ -11,6 +11,7 @@ interface SearchFilterProps {
   handleDownloadCSV?: () => void;
   downloadCSVDisabled?: boolean;
   downloadCSVTooltip: string;
+  filterSlot?: React.ReactNode;
 }
 
 const SearchContainer = styled.div`
@@ -48,6 +49,7 @@ export const TableSearchFilter: FC<SearchFilterProps> = ({
   handleDownloadCSV,
   downloadCSVDisabled,
   downloadCSVTooltip,
+  filterSlot,
 }) => {
   const theme = useTheme();
 
@@ -62,20 +64,22 @@ export const TableSearchFilter: FC<SearchFilterProps> = ({
           width="100%"
         />
       </Flex>
-      <Tooltip text={downloadCSVTooltip} tooltipPlacement="bottom">
-        <DownloadCSVButtonStyle
-          onClick={downloadCSVDisabled ? undefined : handleDownloadCSV}
-        >
-          <DownloadCsv
-            fill={
-              downloadCSVDisabled
-                ? theme?.palette.text.disabled
-                : theme?.palette.text.white
-            }
-          />
-        </DownloadCSVButtonStyle>
-      </Tooltip>
-      {/* TODO: Add filter and calendar dropdown */}
+      <Flex align="center" gap={12}>
+        <Tooltip text={downloadCSVTooltip} tooltipPlacement="bottom">
+          <DownloadCSVButtonStyle
+            onClick={downloadCSVDisabled ? undefined : handleDownloadCSV}
+          >
+            <DownloadCsv
+              fill={
+                downloadCSVDisabled
+                  ? theme?.palette.text.disabled
+                  : theme?.palette.text.white
+              }
+            />
+          </DownloadCSVButtonStyle>
+        </Tooltip>
+        {filterSlot}
+      </Flex>
     </SearchContainer>
   );
 };
@@ -83,4 +87,5 @@ export const TableSearchFilter: FC<SearchFilterProps> = ({
 TableSearchFilter.defaultProps = {
   handleDownloadCSV: undefined,
   downloadCSVDisabled: false,
+  filterSlot: undefined,
 };

@@ -8,6 +8,7 @@ import {
 } from '../TableStyles';
 
 export type SwapTableHeaderName =
+  | 'time'
   | 'provider'
   | 'assetFrom'
   | 'assetTo'
@@ -15,7 +16,7 @@ export type SwapTableHeaderName =
   | 'sent';
 
 export interface SwapTableHeaderProps {
-  provider: string;
+  time: string;
   assetFrom: string;
   assetTo: string;
   received: string;
@@ -25,19 +26,32 @@ export interface SwapTableHeaderProps {
   $ascending: boolean;
 }
 
-const ProviderHeader = styled(TableHeader)`
+const TimeHeader = styled(TableHeader)`
   padding: 16px 16px 16px 40px;
-  width: 20%;
+  width: 32%;
+
+  @media ${({ theme }) => theme.screens.lg} {
+    width: 24%;
+    padding: 16px 16px 16px 40px;
+  }
 `;
 
 const AssetFromHeader = styled(TableHeader)`
   padding: 16px;
-  width: 20%;
+
+  width: 32%;
+  @media ${({ theme }) => theme.screens.lg} {
+    width: 24%;
+  }
 `;
 
 const AssetToHeader = styled(TableHeader)`
   padding: 16px;
-  width: 20%;
+
+  width: 32%;
+  @media ${({ theme }) => theme.screens.lg} {
+    width: 24%;
+  }
 `;
 
 const ReceivedHeader = styled(TableHeader)`
@@ -51,7 +65,7 @@ const SentHeader = styled(TableHeader)`
 `;
 
 export const SwapTableHeader: React.FC<SwapTableHeaderProps> = ({
-  provider,
+  time,
   assetFrom,
   assetTo,
   received,
@@ -63,10 +77,10 @@ export const SwapTableHeader: React.FC<SwapTableHeaderProps> = ({
   const headers: TableHeaderComponentProps['headers'] = useMemo(
     () => [
       {
-        name: 'provider',
-        Wrapper: ProviderHeader as any,
+        name: 'time',
+        Wrapper: TimeHeader as any,
         isSortable: true,
-        text: provider,
+        text: time,
       },
       {
         name: 'assetFrom',
@@ -93,7 +107,7 @@ export const SwapTableHeader: React.FC<SwapTableHeaderProps> = ({
         text: sent,
       },
     ],
-    [provider, assetFrom, assetTo, received, sent],
+    [time, assetFrom, assetTo, received, sent],
   );
 
   return (

@@ -81,6 +81,41 @@ export async function makePostRequestWithValidation<T>(
   return result;
 }
 
+const inflightRefreshes = new Map<string, Promise<string>>();
+
+const refreshAccessToken = async (
+  refreshTokenConfig: RefreshTokenConfig,
+  originalError: unknown,
+): Promise<string> => {
+  const key = refreshTokenConfig.refreshToken;
+
+  const existing = inflightRefreshes.get(key);
+  if (existing) {
+    return existing;
+  }
+
+  const promise = (async () => {
+    const refreshTokenResponse = await makePostRequest(
+      refreshTokenConfig.refreshTokenUrl,
+      { refreshToken: refreshTokenConfig.refreshToken },
+    );
+
+    const newAccessToken = refreshTokenResponse.data.accessToken;
+    if (!newAccessToken) throw originalError;
+
+    await refreshTokenConfig.updateAccessToken(newAccessToken);
+    return newAccessToken as string;
+  })();
+
+  inflightRefreshes.set(key, promise);
+
+  try {
+    return await promise;
+  } finally {
+    inflightRefreshes.delete(key);
+  }
+};
+
 export const makePostRequestWithAuth = async (
   url: string,
   data?: Record<string, any>,
@@ -103,27 +138,21 @@ export const makePostRequestWithAuth = async (
     );
   } catch (error) {
     const { refreshTokenConfig } = authTokenConfig ?? {};
-    if (!refreshTokenConfig || !(error as any).isAxiosError) throw error;
+    const err = error as AxiosError;
+    const status = err.response?.status;
+    const is401 = status === HttpStatusCode.Unauthorized;
 
-    const axiosError = error as AxiosError;
-    if (axiosError.response?.status !== HttpStatusCode.Unauthorized)
+    if (!refreshTokenConfig) throw error;
+    if (!is401) {
       throw error;
+    }
 
     let newAccessToken = '';
     try {
-      const refreshTokenResponse = await makePostRequest(
-        refreshTokenConfig.refreshTokenUrl,
-        {
-          refreshToken: refreshTokenConfig.refreshToken,
-        },
-      );
-
-      newAccessToken = refreshTokenResponse.data.accessToken;
-      if (!newAccessToken) throw error;
-
-      await refreshTokenConfig.updateAccessToken(newAccessToken);
+      newAccessToken = await refreshAccessToken(refreshTokenConfig, error);
     } catch (refreshError) {
       const axiosRefreshError = refreshError as AxiosError;
+
       if (axiosRefreshError.response?.status === HttpStatusCode.Unauthorized) {
         if (refreshTokenConfig.clearTokens) {
           await refreshTokenConfig.clearTokens();
@@ -131,6 +160,7 @@ export const makePostRequestWithAuth = async (
       }
       throw error;
     }
+
     result = await makePostRequest(url, data, options, {
       headers: {
         Authorization: `Bearer ${newAccessToken}`,

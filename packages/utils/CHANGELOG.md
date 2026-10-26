@@ -1,5 +1,31 @@
 # @cypherock/cysync-utils
 
+## 0.1.1
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @cypherock/cysync-interfaces@0.1.1
+
+## 0.1.1-pre.0
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @cypherock/cysync-interfaces@0.1.1-pre.0
+
+## 0.1.0
+
+### Minor Changes
+
+- [#863](https://github.com/Cypherock/cypherock-cysync/pull/863) [`819474df`](https://github.com/Cypherock/cypherock-cysync/commit/819474df82d22dcd8fbc9daedfdb156d90ac74ad) Thanks [@AryanCypherock](https://github.com/AryanCypherock)! - canton sync mobile app
+
+## 0.1.0-pre.0
+
+### Minor Changes
+
+- [#863](https://github.com/Cypherock/cypherock-cysync/pull/863) [`819474df`](https://github.com/Cypherock/cypherock-cysync/commit/819474df82d22dcd8fbc9daedfdb156d90ac74ad) Thanks [@AryanCypherock](https://github.com/AryanCypherock)! - canton sync mobile app
+
 ## 0.0.17
 
 ### Patch Changes

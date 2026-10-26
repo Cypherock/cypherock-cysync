@@ -3,7 +3,6 @@ import {
   insertOrUpdateTransactions,
 } from '@cypherock/coin-support-utils';
 import { cantonCoinList } from '@cypherock/coins';
-import { sleep } from '@cypherock/cysync-utils';
 import {
   AccountTypeMap,
   ITransaction,
@@ -17,10 +16,7 @@ import { IBroadcastCantonTransactionParams } from './types';
 import {
   broadcastTransactionToBlockchain,
   ICantonInstrument,
-  ICantonWaitForTxnCompletionResult,
-  waitForTxnCompletion,
 } from '../../services';
-import logger from '../../utils/logger';
 
 export const broadcastTransaction = async (
   params: IBroadcastCantonTransactionParams,
@@ -34,7 +30,7 @@ export const broadcastTransaction = async (
 
   const myPartyId = account.xpubOrAddress;
 
-  const { commandId, ledgerEndOffset } = await broadcastTransactionToBlockchain(
+  const { updateId, completionOffset } = await broadcastTransactionToBlockchain(
     {
       partyId: myPartyId,
       signature: hexToBase64(signedTransaction),
@@ -43,39 +39,6 @@ export const broadcastTransaction = async (
     },
     keyDB,
   );
-
-  let completionResponse: ICantonWaitForTxnCompletionResult | undefined;
-  let error: string | undefined;
-
-  // Wait for the completion of transaction before adding it to the data base
-  let tries = 10;
-  // eslint-disable-next-line no-plusplus
-  while (!completionResponse && tries--) {
-    // Txn completion typically takes 30 seconds; Waiting here in client only, so not to burn out server on polling canton blockchain
-    await sleep(30000);
-
-    error = undefined;
-    try {
-      completionResponse = await waitForTxnCompletion(
-        {
-          partyId: myPartyId,
-          commandId,
-          ledgerEndOffset,
-          timeoutMs: 5000, // passing in just 5s: See if we can reduce it further
-        },
-        keyDB,
-      ); // throws error if transaction didn't succeed in provided timeout
-    } catch (e) {
-      error = JSON.stringify(e);
-    }
-  }
-
-  if (!completionResponse?.updateId || !completionResponse?.offset) {
-    const err =
-      'Txn completion failed in required time, but txn may still be successfull.';
-    logger.error(err + error);
-    throw new Error(error);
-  }
 
   const { amount } = transaction.computedData.output;
 
@@ -96,14 +59,14 @@ export const broadcastTransaction = async (
     assetId: account.assetId,
     familyId: account.familyId,
     parentAssetId: account.parentAssetId,
-    hash: completionResponse.updateId,
+    hash: updateId,
     confirmations: 0,
     fees: transaction.computedData.fees,
     amount,
     status: TransactionStatusMap.pending,
     type: TransactionTypeMap.send,
     timestamp: Date.now(),
-    blockHeight: completionResponse.offset,
+    blockHeight: completionOffset,
     inputs: [
       {
         address: myPartyId,

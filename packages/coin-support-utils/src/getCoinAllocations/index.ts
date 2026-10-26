@@ -33,7 +33,8 @@ export async function createGetCoinAllocations(
     }
 
     const coinPrice = await getCoinPrice(db, coinId.assetId, currency);
-    const accounts = await db.account.getAll(query);
+    const allAccounts = await db.account.getAll(query);
+    const accounts = allAccounts.filter(a => !a.isHidden);
 
     if (accounts.length > 0) {
       const balance = accounts

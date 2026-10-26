@@ -74,6 +74,7 @@ export interface SwapTransactionRowData {
 
 export const swapTransactionComparatorMap: Record<SwapTableHeaderName, string> =
   {
+    time: 'timestamp',
     provider: 'providerName',
     assetFrom: 'sourceAssetName',
     assetTo: 'destinationAssetName',
@@ -377,8 +378,7 @@ export const useSwapTransactions = (
     SwapTransactionRowData[]
   >([]);
 
-  const [sortedBy, setSortedBy] =
-    React.useState<SwapTableHeaderName>('provider');
+  const [sortedBy, setSortedBy] = React.useState<SwapTableHeaderName>('time');
   const [isAscending, setIsAscending] = useState(false);
 
   const getDisplayDataList = (list: SwapTransactionRowData[]) => {

@@ -139,7 +139,7 @@ export const SwapHistory = ({ topbarHeight }: { topbarHeight: number }) => {
         {displayedData.length > 0 ? (
           <>
             <SwapTableHeader
-              provider="Provider"
+              time="Time"
               assetFrom="Asset From"
               assetTo="Asset To"
               received="Received"

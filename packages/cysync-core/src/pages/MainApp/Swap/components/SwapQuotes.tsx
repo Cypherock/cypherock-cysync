@@ -259,11 +259,12 @@ export const SwapQuotes: React.FC<{
                       },
                     ],
               isBest: true,
-              bestOfferText: quote.provider.name
-                .toLowerCase()
-                .includes('changelly')
-                ? 'Recommended'
-                : 'Cheaper',
+              bestOfferText: (() => {
+                const name = quote.provider.name.toLowerCase();
+                if (name.includes('changelly')) return 'Recommended';
+                if (name.includes('simpleswap')) return 'Faster';
+                return 'Cheaper';
+              })(),
               provider: quote.provider,
             }}
             setSelectedIndex={setSelectedOfferIndex}

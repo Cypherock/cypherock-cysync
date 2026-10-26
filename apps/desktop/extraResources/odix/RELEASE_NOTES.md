@@ -1,3 +1,31 @@
+# v2.4.8
+
+### 🚀 Features
+
+- **History Filtering:** Filter transaction history by wallets and accounts for quicker navigation.
+- **Transaction Notes:** Add or edit a personal note directly from the transaction history dialog.
+- **Bigger Account Names:** Account name character limit increased from 24 to 40 characters.
+
+### 🐛 Bugfixes
+
+- Fixed send max issue in Sia.
+- Improved UI feedback for token sync failures.
+- Fixed Stellar transaction error: Operations: op_already_exists.
+- Swap history is now sorted by time.
+- Fixed Tron sync issue.
+
+# v2.4.6
+
+### 🐛 Bugfixes
+
+- Fixed personal note issue in Sia transaction
+
+# v2.4.5
+
+### 🐛 Bugfixes
+
+- Improved Cysync experience by fixing bugs and addressing user concerns
+
 # v2.4.4
 
 - **Mobile App Sync:** Seamlessly sync with the Odix mobile app
