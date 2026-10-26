@@ -28,7 +28,10 @@ describe('resolveExecutionContext', () => {
 
   test('throws when both are given', () => {
     expect(() =>
-      resolveExecutionContext({ connection: fakeConnection, x0: fakeX0Session }),
+      resolveExecutionContext({
+        connection: fakeConnection,
+        x0: fakeX0Session,
+      }),
     ).toThrow('not both');
   });
 

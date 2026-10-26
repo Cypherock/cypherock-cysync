@@ -20,7 +20,10 @@ import { IEvmContractTransactionItem } from '../api';
  * (9,000+ on ethereum) and lower-cased each address for every contract
  * transaction synced. First match wins, as before.
  */
-const tokenIndexByCoin = new Map<string, Map<string, IEvmCoinInfo['tokens'][string]>>();
+const tokenIndexByCoin = new Map<
+  string,
+  Map<string, IEvmCoinInfo['tokens'][string]>
+>();
 
 const tokensByAddress = (coin: IEvmCoinInfo) => {
   let index = tokenIndexByCoin.get(coin.id);
