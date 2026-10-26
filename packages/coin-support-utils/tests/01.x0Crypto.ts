@@ -31,7 +31,9 @@ describe('x0 bip32 helpers', () => {
   test('derives a non-hardened descendant public key from an xpub', () => {
     const expected = HDKey.fromExtendedKey(childXpub).publicKey;
     const derived = deriveChildPublicKey(parentXpub, [2, 1000000000]);
-    expect(bytesToHex(derived)).toEqual(bytesToHex(expected ?? new Uint8Array()));
+    expect(bytesToHex(derived)).toEqual(
+      bytesToHex(expected ?? new Uint8Array()),
+    );
   });
 
   test('rejects hardened indices', () => {
@@ -79,7 +81,18 @@ describe('x0 signature helpers', () => {
     );
     expect(verifyDerSignature(otherDigest, der, publicKey)).toBe(false);
     expect(verifyDerSignature(digest, der, otherPub)).toBe(false);
-    expect(verifyDerSignature(digest, new Uint8Array([1, 2, 3]), publicKey)).toBe(
+    expect(
+      verifyDerSignature(digest, new Uint8Array([1, 2, 3]), publicKey),
+    ).toBe(false);
+  });
+
+  test('verifyDerSignature rejects a high-S signature', () => {
+    const highS = new secp256k1.Signature(
+      signature.r,
+      secp256k1.CURVE.n - signature.s,
+    );
+    expect(highS.hasHighS()).toBe(true);
+    expect(verifyDerSignature(digest, highS.toDERRawBytes(), publicKey)).toBe(
       false,
     );
   });
@@ -92,9 +105,7 @@ describe('x0 signature helpers', () => {
   test('recoverRecid accepts an uncompressed expected key', () => {
     const uncompressed = decompressPublicKey(publicKey);
     expect(uncompressed).toHaveLength(65);
-    expect(recoverRecid(digest, der, uncompressed)).toEqual(
-      signature.recovery,
-    );
+    expect(recoverRecid(digest, der, uncompressed)).toEqual(signature.recovery);
     expect(bytesToHex(compressPublicKey(uncompressed))).toEqual(
       bytesToHex(publicKey),
     );

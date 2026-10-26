@@ -31,7 +31,9 @@ export function decompressPublicKey(publicKey: Uint8Array): Uint8Array {
 
 /**
  * Every X0 signature MUST be verified before use — the card SDK does not
- * verify on the host's behalf.
+ * verify on the host's behalf. High-S signatures are rejected: BTC policy,
+ * EIP-2 and XRPL all refuse them. Passing any opts object replaces noble's
+ * defaults, so `lowS` must be set explicitly.
  */
 export function verifyDerSignature(
   digest: Uint8Array,
@@ -43,7 +45,7 @@ export function verifyDerSignature(
       secp256k1.Signature.fromDER(der),
       digest,
       publicKey,
-      { prehash: false },
+      { prehash: false, lowS: true },
     );
   } catch (error) {
     return false;
