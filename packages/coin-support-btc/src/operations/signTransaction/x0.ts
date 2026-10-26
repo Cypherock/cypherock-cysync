@@ -10,7 +10,9 @@ import {
   mapDerivationPath,
   SignTransactionFromX0,
   verifyDerSignature,
+  verifySchnorrSignature,
   X0_MAX_HASHES_PER_CALL,
+  X0_MAX_SCHNORR_HASHES_PER_CALL,
 } from '@cypherock/coin-support-utils';
 import {
   addressToScriptPubKey,
@@ -20,6 +22,7 @@ import {
   getRawTxnHash,
   isScriptNestedSegwit,
   isScriptSegwit,
+  isScriptTaproot,
   ISignTxnInputData,
   TAPROOT_PURPOSE,
 } from '@cypherock/sdk-app-btc';
@@ -28,8 +31,13 @@ import { assert } from '@cypherock/sdk-utils';
 import { mapPreparedTxnToSdkTxn } from './map';
 
 import { IPreparedBtcTransaction } from '../transaction';
+import { parseAccountXpub } from '../../x0/accountXpub';
 import { computeSighashes } from '../../x0/sighash';
-import { toDeviceSignatureFormat } from '../../x0/signatures';
+import {
+  toDeviceSignatureFormat,
+  toTaprootDeviceSignatureFormat,
+} from '../../x0/signatures';
+import { getTaprootOutputKey } from '../../x0/taproot';
 
 const ACCOUNT_PATH_DEPTH = 3;
 
@@ -43,25 +51,22 @@ export const signTransactionFromX0: SignTransactionFromX0<
     accountPath.length === ACCOUNT_PATH_DEPTH,
     new Error('BTC account derivation path should be of depth 3'),
   );
-  assert(
-    accountPath[0] !== TAPROOT_PURPOSE,
-    new Error('X0 cannot sign taproot transactions'),
-  );
+  const isTaproot = accountPath[0] === TAPROOT_PURPOSE;
 
   const txn = mapPreparedTxnToSdkTxn(transaction as IPreparedBtcTransaction);
   assert(txn.inputs.length > 0, new Error('Transaction has no inputs'));
 
-  const network = getNetworkFromPath(accountPath);
+  const { extendedKey, version } = parseAccountXpub(account.xpubOrAddress);
   const versions = {
-    public: network.bip32.public,
-    private: network.bip32.private,
+    public: version,
+    private: getNetworkFromPath(accountPath).bip32.private,
   };
 
   // Leaf public keys come from host-side CKDpub over the account xpub —
   // no card round-trip needed for key material.
   const leafPublicKeys = txn.inputs.map(input =>
     deriveChildPublicKey(
-      account.xpubOrAddress,
+      extendedKey,
       [input.changeIndex ?? 0, input.addressIndex ?? 0],
       versions,
     ),
@@ -71,7 +76,11 @@ export const signTransactionFromX0: SignTransactionFromX0<
   const inputs: ISignTxnInputData[] = JSON.parse(JSON.stringify(txn.inputs));
   for (const input of inputs) {
     const script = addressToScriptPubKey(input.address, accountPath);
-    if (!isScriptSegwit(script) && !isScriptNestedSegwit(script)) {
+    if (
+      !isScriptSegwit(script) &&
+      !isScriptNestedSegwit(script) &&
+      !isScriptTaproot(script)
+    ) {
       input.prevTxn =
         input.prevTxn ??
         (await getRawTxnHash({
@@ -100,18 +109,22 @@ export const signTransactionFromX0: SignTransactionFromX0<
   }));
   const groups = groupByLeafPath(entries, entry => entry.leafPath);
 
-  const derSignatures: Uint8Array[] = new Array(inputs.length);
+  const cardSignatures: Uint8Array[] = new Array(inputs.length);
+  const batchSize = isTaproot
+    ? X0_MAX_SCHNORR_HASHES_PER_CALL
+    : X0_MAX_HASHES_PER_CALL;
 
   await x0.runTap(
     async card => {
       for (const group of groups) {
-        for (const batch of chunkArray(group.items, X0_MAX_HASHES_PER_CALL)) {
+        for (const batch of chunkArray(group.items, batchSize)) {
           const results = await card.signHashes({
             path: group.path,
             hashes: batch.map(entry => entry.hash),
+            scheme: isTaproot ? 'schnorr-bip340' : 'ecdsa-der',
           });
           batch.forEach((entry, i) => {
-            derSignatures[entry.index] = results[i].signature;
+            cardSignatures[entry.index] = results[i].signature;
           });
         }
       }
@@ -122,18 +135,27 @@ export const signTransactionFromX0: SignTransactionFromX0<
   emitter.markDone();
 
   entries.forEach(entry => {
+    const signature = cardSignatures[entry.index];
+    const leafPublicKey = leafPublicKeys[entry.index];
     assert(
-      verifyDerSignature(
-        entry.hash,
-        derSignatures[entry.index],
-        leafPublicKeys[entry.index],
-      ),
+      isTaproot
+        ? verifySchnorrSignature(
+            entry.hash,
+            signature,
+            getTaprootOutputKey(leafPublicKey),
+          )
+        : verifyDerSignature(entry.hash, signature, leafPublicKey),
       new Error('X0 signature verification failed'),
     );
   });
 
   const signatures = inputs.map((input, index) =>
-    toDeviceSignatureFormat(derSignatures[index], leafPublicKeys[index]),
+    isTaproot
+      ? toTaprootDeviceSignatureFormat(
+          cardSignatures[index],
+          leafPublicKeys[index],
+        )
+      : toDeviceSignatureFormat(cardSignatures[index], leafPublicKeys[index]),
   );
 
   return createSignedTransaction({

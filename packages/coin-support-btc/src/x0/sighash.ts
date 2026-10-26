@@ -5,16 +5,22 @@ import {
   getNetworkFromPath,
   isScriptNestedSegwit,
   isScriptSegwit,
+  isScriptTaproot,
   ISignTxnInputData,
   ISignTxnOutputData,
 } from '@cypherock/sdk-app-btc';
 import { assert } from '@cypherock/sdk-utils';
 
+import { getTaprootOutputKey, toXOnlyPublicKey } from './taproot';
+
 /**
  * Computes the exact digest each input's signature must commit to (legacy
- * sighash or BIP143 for segwit v0) by building the same Psbt that
- * createSignedTransaction builds and capturing the hash bitcoinjs hands to
- * the Signer. The Psbt is discarded; only the hashes are kept.
+ * sighash, BIP143 for segwit v0, or BIP341 key-path for taproot) by building
+ * the same Psbt that createSignedTransaction builds and capturing the hash
+ * bitcoinjs hands to the Signer. The Psbt is discarded; only the hashes are
+ * kept. bitcoinjs only yields a taproot key-path hash when the signer key
+ * equals the output key in the input's scriptPubKey, so this also checks the
+ * host-side tweak against the address.
  */
 export const computeSighashes = (params: {
   inputs: ISignTxnInputData[];
@@ -27,6 +33,7 @@ export const computeSighashes = (params: {
   const bitcoinjs = getBitcoinJsLib();
   const network = getNetworkFromPath(derivationPath);
   const psbt = new bitcoinjs.Psbt({ network });
+  const isTaprootInput: boolean[] = [];
 
   for (let i = 0; i < inputs.length; i += 1) {
     const input = inputs[i];
@@ -34,13 +41,15 @@ export const computeSighashes = (params: {
 
     const isNestedSegwit = isScriptNestedSegwit(script);
     const isSegwit = isScriptSegwit(script) || isNestedSegwit;
+    const isTaproot = isScriptTaproot(script);
+    isTaprootInput.push(isTaproot);
 
     const txnInput: any = {
       hash: input.prevTxnId,
       index: input.prevIndex,
     };
 
-    if (isSegwit) {
+    if (isSegwit || isTaproot) {
       txnInput.witnessUtxo = {
         script: Buffer.from(script, 'hex'),
         value: parseInt(input.value, 10),
@@ -50,6 +59,11 @@ export const computeSighashes = (params: {
           pubkey: Buffer.from(compressPublicKey(leafPublicKeys[i])),
           network,
         }).output;
+      }
+      if (isTaproot) {
+        txnInput.tapInternalKey = Buffer.from(
+          toXOnlyPublicKey(leafPublicKeys[i]),
+        );
       }
     } else {
       assert(input.prevTxn, 'prevTxn is required in input');
@@ -69,14 +83,23 @@ export const computeSighashes = (params: {
   const hashes: Uint8Array[] = new Array(inputs.length);
 
   for (let i = 0; i < inputs.length; i += 1) {
-    const captureSigner = {
-      publicKey: Buffer.from(compressPublicKey(leafPublicKeys[i])),
-      sign: (hash: Buffer) => {
-        hashes[i] = Uint8Array.from(hash);
-        return Buffer.alloc(64);
-      },
+    const capture = (hash: Buffer) => {
+      hashes[i] = Uint8Array.from(hash);
+      return Buffer.alloc(64);
     };
-    psbt.signInput(i, captureSigner);
+
+    if (isTaprootInput[i]) {
+      psbt.signTaprootInput(i, {
+        publicKey: Buffer.from(getTaprootOutputKey(leafPublicKeys[i])),
+        sign: capture,
+        signSchnorr: capture,
+      });
+    } else {
+      psbt.signInput(i, {
+        publicKey: Buffer.from(compressPublicKey(leafPublicKeys[i])),
+        sign: capture,
+      });
+    }
   }
 
   assert(
