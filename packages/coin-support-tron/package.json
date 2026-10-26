@@ -26,6 +26,7 @@
     "@jest/globals": "^29.5.0",
     "@noble/curves": "^1.9.2",
     "@noble/hashes": "^1.8.0",
+    "@scure/bip32": "^1.7.0",
     "@stryker-mutator/core": "^7.0.2",
     "@stryker-mutator/jest-runner": "^7.0.2",
     "@stryker-mutator/typescript-checker": "^7.0.2",

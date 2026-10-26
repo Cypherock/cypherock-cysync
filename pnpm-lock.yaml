@@ -1037,6 +1037,12 @@ importers:
       '@jest/globals':
         specifier: ^29.5.0
         version: 29.5.0
+      '@noble/curves':
+        specifier: ^1.9.2
+        version: 1.9.2
+      '@scure/bip32':
+        specifier: ^1.7.0
+        version: 1.7.0
       '@stryker-mutator/core':
         specifier: ^7.0.2
         version: 7.0.2
@@ -1819,6 +1825,9 @@ importers:
       '@noble/hashes':
         specifier: ^1.8.0
         version: 1.8.0
+      '@scure/bip32':
+        specifier: ^1.7.0
+        version: 1.7.0
       '@stryker-mutator/core':
         specifier: ^7.0.2
         version: 7.0.2
@@ -2025,6 +2034,12 @@ importers:
       '@jest/globals':
         specifier: ^29.5.0
         version: 29.5.0
+      '@noble/curves':
+        specifier: ^1.9.2
+        version: 1.9.2
+      '@scure/bip32':
+        specifier: ^1.7.0
+        version: 1.7.0
       '@stryker-mutator/core':
         specifier: ^7.0.2
         version: 7.0.2
