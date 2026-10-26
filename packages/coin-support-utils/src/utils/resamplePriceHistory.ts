@@ -24,7 +24,7 @@ const interpolatePriceAt = (
   let hi = sortedPoints.length - 1;
 
   while (lo + 1 < hi) {
-    const mid = (lo + hi) >>> 1;
+    const mid = Math.floor((lo + hi) / 2);
     if (sortedPoints[mid].timestamp <= timestamp) lo = mid;
     else hi = mid;
   }
