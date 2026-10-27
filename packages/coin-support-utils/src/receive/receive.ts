@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 import { App, IMakeReceiveObservableParams } from './types';
 
 import logger from '../utils/logger';
-import { assertX0WalletId } from '../x0';
+import { assertX0WalletId, X0KeyMismatchError } from '../x0';
 
 export function makeReceiveObservable<T extends App, K extends IReceiveEvent>(
   params: IMakeReceiveObservableParams<T, K>,
@@ -87,9 +87,12 @@ export function makeReceiveObservable<T extends App, K extends IReceiveEvent>(
             observer,
             account,
           });
+          if (addressFromCard !== expectedFromDevice) {
+            throw new X0KeyMismatchError();
+          }
           observer.next({
             type: 'AddressMatched',
-            didAddressMatched: addressFromCard === expectedFromDevice,
+            didAddressMatched: true,
           } as any);
         }
 
