@@ -11,6 +11,7 @@ import {
   SignTransactionFromX0,
   verifyDerSignature,
   verifySchnorrSignature,
+  X0KeyMismatchError,
   X0_MAX_HASHES_PER_CALL,
   X0_MAX_SCHNORR_HASHES_PER_CALL,
 } from '@cypherock/coin-support-utils';
@@ -26,7 +27,7 @@ import {
   ISignTxnInputData,
   TAPROOT_PURPOSE,
 } from '@cypherock/sdk-app-btc';
-import { assert } from '@cypherock/sdk-utils';
+import { assert, uint8ArrayToHex } from '@cypherock/sdk-utils';
 
 import { mapPreparedTxnToSdkTxn } from './map';
 
@@ -56,14 +57,13 @@ export const signTransactionFromX0: SignTransactionFromX0<
   const txn = mapPreparedTxnToSdkTxn(transaction as IPreparedBtcTransaction);
   assert(txn.inputs.length > 0, new Error('Transaction has no inputs'));
 
+  const network = getNetworkFromPath(accountPath);
   const { extendedKey, version } = parseAccountXpub(account.xpubOrAddress);
-  const versions = {
-    public: version,
-    private: getNetworkFromPath(accountPath).bip32.private,
-  };
+  const versions = { public: version, private: network.bip32.private };
+  const accountPublicKey = deriveChildPublicKey(extendedKey, [], versions);
 
-  // Leaf public keys come from host-side CKDpub over the account xpub —
-  // no card round-trip needed for key material.
+  // Leaf public keys come from host-side CKDpub over the stored account
+  // xpub; the tap checks that xpub's key against the card before signing.
   const leafPublicKeys = txn.inputs.map(input =>
     deriveChildPublicKey(
       extendedKey,
@@ -116,6 +116,18 @@ export const signTransactionFromX0: SignTransactionFromX0<
 
   await x0.runTap(
     async card => {
+      const [cardAccountKey] = await card.deriveKeys({
+        paths: [accountPath],
+        format: 'xpub',
+        xpub: { version: network.bip32.public },
+      });
+      if (
+        uint8ArrayToHex(cardAccountKey.publicKey) !==
+        uint8ArrayToHex(accountPublicKey)
+      ) {
+        throw new X0KeyMismatchError();
+      }
+
       for (const group of groups) {
         for (const batch of chunkArray(group.items, batchSize)) {
           const results = await card.signHashes({

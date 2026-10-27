@@ -12,6 +12,7 @@ import * as serviceMock from './__mocks__/services';
 import {
   createMockX0Session,
   getMockPublicKey,
+  IMockX0SessionOptions,
   MOCK_WALLET_ID,
 } from './__mocks__/x0Session';
 
@@ -72,6 +73,53 @@ const makeAccount = (): IAccount => ({
   isHidden: false,
   extraData: {},
 });
+
+const makeTransaction = (): any => ({
+  accountId: 'account-1',
+  validation: {
+    outputs: [true],
+    hasEnoughBalance: true,
+    isValidFee: true,
+    ownOutputAddressNotAllowed: [false],
+    zeroAmountNotAllowed: false,
+  },
+  userInputs: { outputs: [], isSendAll: false, nonce: '0' },
+  staticData: { averageGasPrice: '1000000000' },
+  computedData: {
+    output: {
+      address: '0x2A30C64F04e27A0d9fc7dBd749fa5a2B8E1FC77A',
+      amount: '10000000000000',
+    },
+    data: '0x',
+    fee: '21000000000000',
+    gasPrice: '1000000000',
+    gasLimit: '21000',
+    gasLimitEstimate: '21000',
+    l1Fee: '0',
+  },
+});
+
+const createSignObservingX0Session = (
+  onSignHashes: () => void,
+  options?: IMockX0SessionOptions,
+): IX0Session => {
+  const session = createMockX0Session(MOCK_WALLET_ID, options);
+  return {
+    ...session,
+    runTap: (op, hooks) =>
+      session.runTap(
+        card =>
+          op({
+            ...card,
+            signHashes: params => {
+              onSignHashes();
+              return card.signHashes(params);
+            },
+          }),
+        hooks,
+      ),
+  };
+};
 
 const typedDataDomain = {
   name: 'X0 Test',
@@ -234,30 +282,7 @@ describe('04. X0 flows', () => {
 
   test('signTransaction produces a broadcastable EIP-155 transaction', done => {
     const account = makeAccount();
-    const transaction: any = {
-      accountId: 'account-1',
-      validation: {
-        outputs: [true],
-        hasEnoughBalance: true,
-        isValidFee: true,
-        ownOutputAddressNotAllowed: [false],
-        zeroAmountNotAllowed: false,
-      },
-      userInputs: { outputs: [], isSendAll: false, nonce: '0' },
-      staticData: { averageGasPrice: '1000000000' },
-      computedData: {
-        output: {
-          address: '0x2A30C64F04e27A0d9fc7dBd749fa5a2B8E1FC77A',
-          amount: '10000000000000',
-        },
-        data: '0x',
-        fee: '21000000000000',
-        gasPrice: '1000000000',
-        gasLimit: '21000',
-        gasLimitEstimate: '21000',
-        l1Fee: '0',
-      },
-    };
+    const transaction = makeTransaction();
 
     let signed: string | undefined;
 
@@ -308,12 +333,16 @@ describe('04. X0 flows', () => {
       });
   }, 10000);
 
-  const signMessageWithX0 = (signingType: SignMessageType, message: string) =>
+  const signMessageWithX0 = (
+    signingType: SignMessageType,
+    message: string,
+    x0: IX0Session = createMockX0Session(),
+  ) =>
     new Promise<string | undefined>((resolve, reject) => {
       let signature: string | undefined;
       support
         .signMessage({
-          x0: createMockX0Session(),
+          x0,
           db,
           account: makeAccount(),
           payload: { signingType, message },
@@ -394,6 +423,63 @@ describe('04. X0 flows', () => {
     await expect(
       signMessageWithX0(SignMessageType.TYPED_MESSAGE, JSON.stringify(payload)),
     ).rejects.toThrow('primaryType');
+  }, 10000);
+
+  test('signTransaction stops before signing when the card derives another key', async () => {
+    let signHashesCalls = 0;
+
+    await expect(
+      new Promise((resolve, reject) => {
+        support
+          .signTransaction({
+            x0: createSignObservingX0Session(
+              () => {
+                signHashesCalls += 1;
+              },
+              { wrongPassphrase: true },
+            ),
+            db,
+            transaction: makeTransaction(),
+            account: makeAccount(),
+          })
+          .subscribe({ complete: () => resolve(undefined), error: reject });
+      }),
+    ).rejects.toMatchObject({ isX0KeyMismatchError: true });
+    expect(signHashesCalls).toEqual(0);
+  }, 10000);
+
+  test('signMessage stops before signing when the card derives another key', async () => {
+    let signHashesCalls = 0;
+
+    await expect(
+      signMessageWithX0(
+        SignMessageType.PRIVATE_MESSAGE,
+        '0xdeadbeef',
+        createSignObservingX0Session(
+          () => {
+            signHashesCalls += 1;
+          },
+          { wrongPassphrase: true },
+        ),
+      ),
+    ).rejects.toMatchObject({ isX0KeyMismatchError: true });
+    expect(signHashesCalls).toEqual(0);
+  }, 10000);
+
+  test('receive fails with X0KeyMismatchError when the card derives another key', async () => {
+    getOneMock.mockReturnValue(Promise.resolve(makeAccount()));
+
+    await expect(
+      new Promise((resolve, reject) => {
+        support
+          .receive({
+            x0: createMockX0Session(MOCK_WALLET_ID, { wrongPassphrase: true }),
+            db,
+            accountId: 'account-1',
+          })
+          .subscribe({ complete: () => resolve(undefined), error: reject });
+      }),
+    ).rejects.toMatchObject({ isX0KeyMismatchError: true });
   }, 10000);
 
   test('receive verifies the address against the card', done => {

@@ -8,6 +8,7 @@ import {
   sha512Half,
   SignTransactionFromX0,
   verifyDerSignature,
+  X0KeyMismatchError,
 } from '@cypherock/coin-support-utils';
 import { IXrpCoinInfo } from '@cypherock/coins';
 import { assert, hexToUint8Array, uint8ArrayToHex } from '@cypherock/sdk-utils';
@@ -51,6 +52,12 @@ export const signTransactionFromX0: SignTransactionFromX0<
         paths: [derivationPath],
         format: 'raw-pubkey',
       });
+      if (
+        uint8ArrayToHex(keyResult.publicKey).toLowerCase() !==
+        account.xpubOrAddress.toLowerCase()
+      ) {
+        throw new X0KeyMismatchError();
+      }
       const [signResult] = await card.signHashes({
         path: derivationPath,
         hashes: [digest],
@@ -68,11 +75,6 @@ export const signTransactionFromX0: SignTransactionFromX0<
   assert(
     verifyDerSignature(digest, signature, publicKey),
     new Error('X0 signature verification failed'),
-  );
-  assert(
-    uint8ArrayToHex(publicKey).toLowerCase() ===
-      account.xpubOrAddress.toLowerCase(),
-    new Error('X0 derived a different public key than the account'),
   );
 
   // XRPL requires canonical low-S DER signatures — the card guarantees low-S.

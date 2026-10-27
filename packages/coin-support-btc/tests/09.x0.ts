@@ -388,6 +388,28 @@ describe('09. X0 flows', () => {
     ).rejects.toThrow('X0 signature verification failed');
   }, 15000);
 
+  test.each([
+    ['native segwit', () => makeAccount(), p2wpkhAddress, 84],
+    ['taproot', makeTaprootAccount, p2trAddress, 86],
+  ] as [string, () => IAccount, (leaf: number[]) => string, number][])(
+    'signTransaction checks the %s account xpub before signing',
+    async (_label, accountFactory, toAddress, purpose) => {
+      const calls: SignCall[] = [];
+
+      await expect(
+        signWithX0(
+          support,
+          db,
+          createRecordingX0Session(calls, { wrongPassphrase: true }),
+          accountFactory(),
+          makeTransaction([[0, 0]], toAddress, purpose),
+        ),
+      ).rejects.toMatchObject({ isX0KeyMismatchError: true });
+      expect(calls).toHaveLength(0);
+    },
+    15000,
+  );
+
   const receiveCases: [
     string,
     () => IAccount,

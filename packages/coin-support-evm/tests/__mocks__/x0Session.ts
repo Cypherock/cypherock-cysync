@@ -15,8 +15,15 @@ const masterSeed = Uint8Array.from(
   ),
 );
 
-const deriveNode = (path: number[]): HDKey => {
-  let node = HDKey.fromMasterSeed(masterSeed);
+const wrongPassphraseSeed = Uint8Array.from(
+  Buffer.from(
+    'fffefdfcfbfaf9f8f7f6f5f4f3f2f1f0efeeedecebeae9e8e7e6e5e4e3e2e1e0',
+    'hex',
+  ),
+);
+
+const deriveNode = (path: number[], seed = masterSeed): HDKey => {
+  let node = HDKey.fromMasterSeed(seed);
   for (const index of path) {
     node = node.deriveChild(index);
   }
@@ -34,13 +41,20 @@ export const getMockPublicKey = (path: number[]): Uint8Array => {
  * for the card. deriveKeys/signHashes behave like the real card: raw pubkeys
  * or xpubs on demand, DER low-S signatures over precomputed digests.
  */
+export interface IMockX0SessionOptions {
+  /** Derive from another seed, as the card does with a wrong passphrase. */
+  wrongPassphrase?: boolean;
+}
+
 export const createMockX0Session = (
   walletId: string = MOCK_WALLET_ID,
+  options: IMockX0SessionOptions = {},
 ): IX0Session => {
+  const seed = options.wrongPassphrase ? wrongPassphraseSeed : masterSeed;
   const cardOperations: IX0CardOperations = {
     deriveKeys: async ({ paths, format }) =>
       paths.map(path => {
-        const node = deriveNode(path);
+        const node = deriveNode(path, seed);
         if (!node.publicKey || !node.chainCode) {
           throw new Error('Failed to derive mock key');
         }
@@ -54,7 +68,7 @@ export const createMockX0Session = (
         return { publicKey: node.publicKey };
       }),
     signHashes: async ({ path, hashes }) => {
-      const node = deriveNode(path);
+      const node = deriveNode(path, seed);
       if (!node.privateKey) throw new Error('Failed to derive mock key');
       return hashes.map(hash => ({
         signature: secp256k1

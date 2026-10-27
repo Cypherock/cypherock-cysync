@@ -208,6 +208,51 @@ describe('02. X0 flows', () => {
       .subscribe(observer);
   }, 10000);
 
+  test('signTransaction stops before signing when the card derives another key', async () => {
+    let signHashesCalls = 0;
+    const session = createMockX0Session(MOCK_WALLET_ID, {
+      wrongPassphrase: true,
+    });
+    const x0: IX0Session = {
+      ...session,
+      runTap: (op, hooks) =>
+        session.runTap(
+          card =>
+            op({
+              ...card,
+              signHashes: params => {
+                signHashesCalls += 1;
+                return card.signHashes(params);
+              },
+            }),
+          hooks,
+        ),
+    };
+    const transaction: any = {
+      accountId: 'account-1',
+      validation: {},
+      userInputs: { outputs: [], isSendAll: false },
+      staticData: {},
+      computedData: {
+        unsignedTransaction: {
+          txID: 'stale-tx-id',
+          raw_data: {},
+          raw_data_hex: '0a02deadbeef2208c0ffee0000000000',
+        },
+        fee: '0',
+      },
+    };
+
+    await expect(
+      new Promise((resolve, reject) => {
+        support
+          .signTransaction({ x0, db, transaction, account: makeAccount() })
+          .subscribe({ complete: () => resolve(undefined), error: reject });
+      }),
+    ).rejects.toMatchObject({ isX0KeyMismatchError: true });
+    expect(signHashesCalls).toEqual(0);
+  }, 10000);
+
   test('receive verifies the address against the card', done => {
     const account = makeAccount();
     getOneMock.mockReturnValue(Promise.resolve(account));

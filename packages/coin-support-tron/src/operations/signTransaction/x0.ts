@@ -11,6 +11,7 @@ import {
   sha256,
   SignTransactionFromX0,
   verifyDerSignature,
+  X0KeyMismatchError,
 } from '@cypherock/coin-support-utils';
 import {
   getAddressFromPublicKey,
@@ -52,6 +53,12 @@ export const signTransactionFromX0: SignTransactionFromX0<
         paths: [derivationPath],
         format: 'raw-pubkey',
       });
+      const derivedAddress = getAddressFromPublicKey(
+        decompressPublicKey(keyResult.publicKey),
+      );
+      if (derivedAddress !== account.xpubOrAddress) {
+        throw new X0KeyMismatchError();
+      }
       const [signResult] = await card.signHashes({
         path: derivationPath,
         hashes: [digest],
@@ -69,14 +76,6 @@ export const signTransactionFromX0: SignTransactionFromX0<
   assert(
     verifyDerSignature(digest, signature, publicKey),
     new Error('X0 signature verification failed'),
-  );
-
-  const derivedAddress = getAddressFromPublicKey(
-    decompressPublicKey(publicKey),
-  );
-  assert(
-    derivedAddress === account.xpubOrAddress,
-    new Error('X0 derived a different address than the account'),
   );
 
   const recid = recoverRecid(digest, signature, publicKey);
