@@ -1,0 +1,63 @@
+import {
+  CreateAccountDeviceEvent,
+  X0FlowEvent,
+} from '@cypherock/coin-support-interfaces';
+import {
+  chunkArray,
+  createX0EventEmitter,
+  GetAddressesFromX0,
+  X0_MAX_DERIVE_PATHS_PER_CALL,
+} from '@cypherock/coin-support-utils';
+import { getNetworkFromPath } from '@cypherock/sdk-app-btc';
+
+import { toAccountXpub } from '../../x0/accountXpub';
+
+/**
+ * Total paths derived in one tap (one deriveKeys call, within iOS's 60s
+ * CoreNFC session cap), split evenly across the enabled schemes. Bitcoin
+ * has four schemes, so each run checks one account per scheme and never
+ * reaches the 2-empty-account threshold; single-scheme coins check five.
+ */
+export const X0_DERIVATION_PATH_LIMIT = 5;
+
+export const getAddressesFromX0: GetAddressesFromX0 = async params => {
+  const { x0, coinId, derivationPaths, observer } = params;
+
+  const emitter = createX0EventEmitter<CreateAccountDeviceEvent>(observer, {
+    [X0FlowEvent.INIT]: CreateAccountDeviceEvent.INIT,
+    [X0FlowEvent.CARD_CONNECTED]: CreateAccountDeviceEvent.CARD_TAPPED,
+  });
+
+  // Same account-level (depth 3) paths as X1 getXpubs. One version word
+  // keeps it to one card call; toAccountXpub re-encodes per purpose.
+  const xpubVersion = getNetworkFromPath(derivationPaths[0].derivationPath)
+    .bip32.public;
+
+  const xpubs = await x0.runTap(
+    async card => {
+      const derived: string[] = [];
+      for (const batch of chunkArray(
+        derivationPaths,
+        X0_MAX_DERIVE_PATHS_PER_CALL,
+      )) {
+        const results = await card.deriveKeys({
+          paths: batch.map(d => d.derivationPath),
+          format: 'xpub',
+          xpub: { version: xpubVersion },
+        });
+        for (const result of results) {
+          if (!result.xpub) throw new Error('Card did not return an xpub');
+          derived.push(result.xpub);
+        }
+      }
+      return derived;
+    },
+    { onEvent: emitter.onEvent },
+  );
+
+  emitter.markDone();
+
+  return xpubs.map((xpub, i) =>
+    toAccountXpub(xpub, coinId, derivationPaths[i].derivationPath),
+  );
+};

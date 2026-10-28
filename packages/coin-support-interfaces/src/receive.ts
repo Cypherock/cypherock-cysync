@@ -1,9 +1,13 @@
 import { IDatabase } from '@cypherock/db-interfaces';
 import { IDeviceConnection } from '@cypherock/sdk-interfaces';
 
+import { IX0Session } from './x0';
+
 export interface IReceiveParams {
   db: IDatabase;
   connection?: IDeviceConnection;
+  /** X0 card session for on-card address verification (optional). */
+  x0?: IX0Session;
   accountId: string;
 }
 
