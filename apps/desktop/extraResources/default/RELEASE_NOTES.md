@@ -1,3 +1,16 @@
+# v2.4.10
+
+### 🚀 Features
+
+- **Earn Dashboard:** Accounts now show their account type, as on the Portfolio and Wallets pages.
+- **Staking:** Clearer wording on the staking consent screens.
+
+# v2.4.9
+
+### 🚀 Features
+
+- **Staking:** Earn rewards on your Ethereum, Polygon (ex-MATIC) and Solana by staking with Everstake, directly in cySync.
+
 # v2.4.8
 
 ### 🚀 Features

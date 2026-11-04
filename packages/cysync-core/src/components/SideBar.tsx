@@ -20,6 +20,7 @@ import {
   WalletConnectWhiteIcon,
   WalletIcon,
   DollarIcon,
+  EarnIcon,
   WalletInfoIcon,
   parseLangTemplate,
   SidebarHandle,
@@ -41,6 +42,55 @@ import logger from '~/utils/logger';
 export interface SideBarWalletSubMenuProps {
   wallets: IWallet[];
 }
+
+const getItemState = (isDisabled: boolean, fallback?: State) =>
+  isDisabled ? State.disabled : fallback;
+
+const getSidebarVisibility = (isFirmwareBtcOnly: boolean) => ({
+  walletConnect: window.cysyncFeatureFlags.WALLET_CONNECT && !isFirmwareBtcOnly,
+  onramp: window.cysyncFeatureFlags.ONRAMP,
+  swap: window.cysyncFeatureFlags.SWAP && !isFirmwareBtcOnly,
+  cover: window.cysyncFeatureFlags.COVER,
+  affiliate: window.cysyncFeatureFlags.AFFILIATE,
+});
+
+const RenderIf: FC<{ when: boolean; children: React.ReactNode }> = ({
+  when,
+  children,
+}) =>
+  // Fragment keeps the return type a valid element for FC
+  // eslint-disable-next-line react/jsx-no-useless-fragment
+  when ? <>{children}</> : null;
+
+const NewChip: FC<{ label: string }> = ({ label }) => (
+  <Chip $gradient="silver">
+    <Typography $fontSize={10} $fontWeight="semibold" color="black">
+      {label}
+    </Typography>
+  </Chip>
+);
+
+const WalletSyncButton: FC<{
+  isUsable: boolean;
+  isLoading: boolean;
+  fill: string;
+  onClick: React.MouseEventHandler<HTMLButtonElement>;
+}> = ({ isUsable, isLoading, fill, onClick }) => (
+  <Button
+    variant="text"
+    align="center"
+    title="Sync Wallets"
+    pr={1}
+    disabled={!isUsable}
+    onClick={onClick}
+  >
+    <Synchronizing
+      fill={fill}
+      opacity={!isUsable ? 0.5 : 1}
+      animate={isLoading ? 'spin' : undefined}
+    />
+  </Button>
+);
 
 const SideBarComponent: FC = () => {
   const {
@@ -102,6 +152,11 @@ const SideBarComponent: FC = () => {
 
   const selectedWallet = getSelectedWallet();
 
+  const isNoWallets = wallets.length === 0;
+  const isDeviceUsable = deviceHandlingState === DeviceHandlingState.USABLE;
+  const visible = getSidebarVisibility(isFirmwareBtcOnly);
+  const newChip = <NewChip label={strings.new} />;
+
   const renderSidebarItems = () => (
     <Flex direction="column" gap={0}>
       <SideBarItem
@@ -119,28 +174,18 @@ const SideBarComponent: FC = () => {
         noLeftImageInList
         width={200}
         offset={{ mainAxis: 32, crossAxis: 12 }}
-        disabled={wallets.length === 0}
+        disabled={isNoWallets}
       >
         <SideBarItem
           text={strings.wallets}
           extraRight={<AngleRight />}
           extraLeft={
-            <Button
-              variant="text"
-              align="center"
-              title="Sync Wallets"
-              pr={1}
-              disabled={deviceHandlingState !== DeviceHandlingState.USABLE}
+            <WalletSyncButton
+              isUsable={isDeviceUsable}
+              isLoading={syncWalletStatus === 'loading'}
+              fill={theme.palette.muted.main}
               onClick={onWalletSync}
-            >
-              <Synchronizing
-                fill={theme.palette.muted.main}
-                opacity={
-                  deviceHandlingState !== DeviceHandlingState.USABLE ? 0.5 : 1
-                }
-                animate={syncWalletStatus === 'loading' ? 'spin' : undefined}
-              />
-            </Button>
+            />
           }
           isCollapsed={isWalletCollapsed}
           setIsCollapsed={setIsWalletCollapsed}
@@ -152,7 +197,7 @@ const SideBarComponent: FC = () => {
       <SideBarItem
         text={strings.sendCrypto}
         Icon={ArrowSentIcon}
-        state={wallets.length === 0 ? State.disabled : undefined}
+        state={getItemState(isNoWallets)}
         onClick={() => {
           dispatch(openSendDialog());
         }}
@@ -160,7 +205,7 @@ const SideBarComponent: FC = () => {
       <SideBarItem
         text={strings.receiveCrypto}
         Icon={ArrowReceivedIcon}
-        state={wallets.length === 0 ? State.disabled : undefined}
+        state={getItemState(isNoWallets)}
         onClick={() => {
           dispatch(openReceiveDialog());
         }}
@@ -168,67 +213,60 @@ const SideBarComponent: FC = () => {
       <SideBarItem
         text={strings.history}
         Icon={HistoryIcon}
-        state={wallets.length === 0 ? State.disabled : getState('history')}
+        state={getItemState(isNoWallets, getState('history'))}
         onClick={() => navigate('history')}
       />
-      {window.cysyncFeatureFlags.WALLET_CONNECT && !isFirmwareBtcOnly && (
+      <RenderIf when={visible.walletConnect}>
         <SideBarItem
           text={strings.walletConnect}
           Icon={WalletConnectWhiteIcon}
-          state={wallets.length === 0 ? State.disabled : undefined}
+          state={getItemState(isNoWallets)}
           onClick={() => {
             dispatch(openWalletConnectDialog());
           }}
         />
-      )}
-      {window.cysyncFeatureFlags.ONRAMP && (
+      </RenderIf>
+      <RenderIf when={visible.onramp}>
         <SideBarItem
           text={strings.buysell}
           Icon={DollarIcon}
-          state={wallets.length === 0 ? State.disabled : getState('buysell2')}
+          state={getItemState(isNoWallets, getState('buysell2'))}
           onClick={() => navigate('buysell2')}
-          extraRight={
-            <Chip $gradient="silver">
-              <Typography $fontSize={10} $fontWeight="semibold" color="black">
-                {strings.new}
-              </Typography>
-            </Chip>
-          }
+          extraRight={newChip}
         />
-      )}
-      {window.cysyncFeatureFlags.SWAP && !isFirmwareBtcOnly && (
+      </RenderIf>
+      <RenderIf when={visible.swap}>
         <SideBarItem
           text="Swap"
           Icon={GraphSwitchSmallIcon}
-          state={wallets.length === 0 ? State.disabled : getState('swap')}
+          state={getItemState(isNoWallets, getState('swap'))}
           onClick={() => navigate('swap')}
-          extraRight={
-            <Chip $gradient="silver">
-              <Typography $fontSize={10} $fontWeight="semibold" color="black">
-                {strings.new}
-              </Typography>
-            </Chip>
-          }
+          extraRight={newChip}
         />
-      )}
-      {window.cysyncFeatureFlags.COVER && (
+      </RenderIf>
+      <RenderIf when={visible.cover}>
         <SideBarItem
           text={strings.cypherockCover}
           Icon={CypherockCoverIcon}
-          state={
-            wallets.length === 0 ? State.disabled : getState('inheritance')
-          }
+          state={getItemState(isNoWallets, getState('inheritance'))}
           onClick={() => navigate('inheritance')}
         />
-      )}
-      {window.cysyncFeatureFlags.AFFILIATE && (
+      </RenderIf>
+      <SideBarItem
+        text="Earn"
+        Icon={EarnIcon}
+        state={getItemState(isNoWallets, getState('earn'))}
+        onClick={() => navigate('earn')}
+        extraRight={newChip}
+      />
+      <RenderIf when={visible.affiliate}>
         <SideBarItem
           text={strings.referAndEarn}
           Icon={AffiliateIcon}
           state={getState('referAndEarn')}
           onClick={onReferEarnClick}
         />
-      )}
+      </RenderIf>
     </Flex>
   );
 
