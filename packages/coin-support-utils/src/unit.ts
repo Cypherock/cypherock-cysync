@@ -1,4 +1,4 @@
-import { coinList, IEvmCoinInfo } from '@cypherock/coins';
+import { coinList, IEvmCoinInfo, ICoinUnit } from '@cypherock/coins';
 import { assert, BigNumber } from '@cypherock/cysync-utils';
 
 export const DEFAULT_CURRENCY = 'usd';
@@ -90,7 +90,19 @@ export const getFiatUnit = (currencyCode: string) => {
   };
 };
 
+// The coin list is immutable at runtime, so every lookup below is a pure
+// function of its arguments. They sit inside the balance-history loop (one
+// call per account per point), where the repeated unit scans measured as the
+// largest self-time frame after BigNumber arithmetic.
+const unitCache = new Map<string, ICoinUnit>();
+const defaultUnitCache = new Map<string, ICoinUnit>();
+const zeroUnitCache = new Map<string, ICoinUnit>();
+
 export const getUnit = (coinId: string, unitAbbr: string, assetId?: string) => {
+  const cacheKey = `${coinId}|${assetId ?? ''}|${unitAbbr}`;
+  const cached = unitCache.get(cacheKey);
+  if (cached) return cached;
+
   const coin = coinList[coinId];
 
   assert(coin, new Error(`No coin found ${coinId}:${assetId ?? ''}`));
@@ -110,10 +122,15 @@ export const getUnit = (coinId: string, unitAbbr: string, assetId?: string) => {
     ),
   );
 
+  unitCache.set(cacheKey, unit);
   return unit;
 };
 
 export const getDefaultUnit = (coinId: string, assetId?: string) => {
+  const cacheKey = `${coinId}|${assetId ?? ''}`;
+  const cached = defaultUnitCache.get(cacheKey);
+  if (cached) return cached;
+
   const coin = coinList[coinId];
 
   assert(coin, new Error(`No coin found ${coinId}:${assetId ?? ''}`));
@@ -131,10 +148,15 @@ export const getDefaultUnit = (coinId: string, assetId?: string) => {
     new Error(`No default unit found for coin ${coinId}:${assetId ?? ''}`),
   );
 
+  defaultUnitCache.set(cacheKey, unit);
   return unit;
 };
 
 export const getZeroUnit = (coinId: string, assetId?: string) => {
+  const cacheKey = `${coinId}|${assetId ?? ''}`;
+  const cached = zeroUnitCache.get(cacheKey);
+  if (cached) return cached;
+
   const coin = coinList[coinId];
 
   assert(coin, new Error(`No coin found ${coinId}:${assetId ?? ''}`));
@@ -152,6 +174,7 @@ export const getZeroUnit = (coinId: string, assetId?: string) => {
     new Error(`No lowest unit found for coin ${coinId}:${assetId ?? ''}`),
   );
 
+  zeroUnitCache.set(cacheKey, unit);
   return unit;
 };
 

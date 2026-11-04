@@ -4,55 +4,21 @@ import {
   mapDerivationPath,
   SignTransactionFromDevice,
 } from '@cypherock/coin-support-utils';
-import { BtcApp, ISignTxnParams } from '@cypherock/sdk-app-btc';
+import { BtcApp } from '@cypherock/sdk-app-btc';
 import { hexToUint8Array } from '@cypherock/sdk-utils';
 import { Observable } from 'rxjs';
 
+import { mapPreparedTxnToSdkTxn } from './map';
 import {
   ISignBtcTransactionParams,
   ISignBtcTransactionEvent,
   signBtcToDeviceEventMap,
 } from './types';
+import { signTransactionFromX0 } from './x0';
 
 import { createApp } from '../../utils';
 import logger from '../../utils/logger';
 import { IPreparedBtcTransaction } from '../transaction';
-
-const mapPreparedTxnToSdkTxn = (
-  transaction: IPreparedBtcTransaction,
-): ISignTxnParams['txn'] => ({
-  inputs: transaction.computedData.inputs.map(input => {
-    const path = mapDerivationPath(input.derivationPath);
-
-    return {
-      address: input.address,
-      value: input.value.toString(),
-      changeIndex: path[3],
-      addressIndex: path[4],
-      prevIndex: input.vout,
-      prevTxnId: input.txId,
-    };
-  }),
-  outputs: transaction.computedData.outputs.map(output => {
-    if (output.derivationPath) {
-      const path = mapDerivationPath(output.derivationPath);
-
-      return {
-        isChange: true,
-        address: output.address,
-        value: output.value.toString(),
-        changeIndex: path[3],
-        addressIndex: path[4],
-      };
-    }
-
-    return {
-      isChange: false,
-      address: output.address,
-      value: output.value.toString(),
-    };
-  }),
-});
 
 const signTransactionFromDevice: SignTransactionFromDevice<
   BtcApp,
@@ -89,5 +55,6 @@ export const signTransaction = (
   makeSignTransactionsObservable<BtcApp, ISignBtcTransactionEvent, string>({
     ...params,
     signTransactionFromDevice,
+    signTransactionFromX0,
     createApp,
   });

@@ -14,6 +14,7 @@ import { hexToUint8Array } from '@cypherock/sdk-utils';
 import { Observable } from 'rxjs';
 
 import { IBtcReceiveEvent, IBtcReceiveParams, statusMap } from './types';
+import { getReceiveAddressFromX0 } from './x0';
 
 import { getFirstUnusedAddress } from '../../services';
 import { createApp } from '../../utils';
@@ -57,4 +58,5 @@ export const receive = (params: IBtcReceiveParams): Observable<IReceiveEvent> =>
     createApp,
     generateReceiveAddress: getFirstUnusedExternalAddress,
     getReceiveAddressFromDevice,
+    getReceiveAddressFromX0,
   });

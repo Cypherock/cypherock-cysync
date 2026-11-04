@@ -1,6 +1,8 @@
 import { IAccount, IDatabase } from '@cypherock/db-interfaces';
 import { IDeviceConnection } from '@cypherock/sdk-interfaces';
 
+import { IX0Session } from './x0';
+
 export enum SignMessageDeviceEvent {
   INIT = 0,
   CONFIRMED = 1,
@@ -23,7 +25,10 @@ export interface ISignMessageParamsPayload {
 export interface ISignMessageParams {
   db: IDatabase;
   account: IAccount;
-  connection: IDeviceConnection;
+  /** X1 device connection. Provide either this or `x0`, not both. */
+  connection?: IDeviceConnection;
+  /** X0 card session. Provide either this or `connection`, not both. */
+  x0?: IX0Session;
   payload: ISignMessageParamsPayload;
 }
 

@@ -1,6 +1,8 @@
 import { IAccount, IDatabase, IKeyValueStore } from '@cypherock/db-interfaces';
 import { IDeviceConnection } from '@cypherock/sdk-interfaces';
 
+import { IX0Session } from './x0';
+
 export interface IPreparedTransactionOutput {
   address: string;
   amount: string;
@@ -47,7 +49,10 @@ export enum SignTransactionDeviceEvent {
 
 export interface ISignTransactionParams {
   db: IDatabase;
-  connection: IDeviceConnection;
+  /** X1 device connection. Provide either this or `x0`, not both. */
+  connection?: IDeviceConnection;
+  /** X0 card session. Provide either this or `connection`, not both. */
+  x0?: IX0Session;
   transaction: IPreparedTransaction;
   account?: IAccount;
 }

@@ -84,7 +84,7 @@ const onNewAccounts = (
   }
 };
 
-const getTransactionParser = (
+export const getTransactionParser = (
   params: GetTransactionParserParams,
 ): ((transaction: any) => ITransaction) => {
   const myAddress = params.address;
@@ -98,13 +98,12 @@ const getTransactionParser = (
       ? transaction.txid.replace('0x', '')
       : transaction.txid;
 
-    let isMyAddressInInputs = false;
-    for (const input of transaction.vin) {
-      isMyAddressInInputs =
+    const isMyAddressInInputs = transaction.vin.some(
+      input =>
         input.addresses?.some(
           address => address.toLowerCase() === myAddress.toLowerCase(),
-        ) === true;
-    }
+        ) === true,
+    );
 
     const txn: ITransaction = {
       hash,

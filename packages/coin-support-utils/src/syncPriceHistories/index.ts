@@ -22,13 +22,15 @@ const fetchPriceHistoryForCoin = async ({
   db,
   days,
   currency,
+  maxDataPoints,
 }: {
   coinId: { parentAssetId: string; assetId: string };
   db: IDatabase;
   days: number;
   currency: string;
+  maxDataPoints?: number;
 }) => {
-  const prices = await getPriceHistory(coinId, currency, days);
+  const prices = await getPriceHistory(coinId, currency, days, maxDataPoints);
 
   const priceHistory: IPriceHistory = {
     assetId: coinId.assetId,
@@ -107,7 +109,13 @@ export function createSyncPriceHistoriesObservable(
             const coinId = expiredCoinIds[i];
 
             try {
-              await fetchPriceHistoryForCoin({ coinId, db, days, currency });
+              await fetchPriceHistoryForCoin({
+                coinId,
+                db,
+                days,
+                currency,
+                maxDataPoints: params.maxDataPoints,
+              });
               await sleep(params.waitInMSBetweenEachAPICall ?? 500);
             } catch (error) {
               retries += 1;

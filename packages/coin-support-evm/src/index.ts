@@ -18,11 +18,7 @@ import {
   IGetAccountAddressParams,
 } from '@cypherock/coin-support-interfaces';
 import { ITransaction } from '@cypherock/db-interfaces';
-import {
-  ethersLibType,
-  setEthersLib,
-  setEip712Lib,
-} from '@cypherock/sdk-app-evm';
+import { ethersLibType, setEthersLib } from '@cypherock/sdk-app-evm';
 import { Observable } from 'rxjs';
 
 import * as operations from './operations';
@@ -47,9 +43,12 @@ export class EvmSupport implements CoinSupport {
     setCoinSupportEthersLib(ethers);
   }
 
-  public static setEip712Library(eip712: any): void {
-    setEip712Lib(eip712);
-  }
+  /**
+   * @deprecated sdk-app-evm no longer takes an eip-712 library: type hashes
+   * come from the injected ethers. Kept so existing callers still build.
+   */
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars, @typescript-eslint/no-empty-function
+  public static setEip712Library(_eip712: any): void {}
 
   public static setWeb3Library(web3: any): void {
     setCoinSupportWeb3Lib(web3);

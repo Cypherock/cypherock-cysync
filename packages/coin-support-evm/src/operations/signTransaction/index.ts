@@ -5,8 +5,7 @@ import {
   SignTransactionFromDevice,
 } from '@cypherock/coin-support-utils';
 import { IEvmCoinInfo } from '@cypherock/coins';
-import { IAccount } from '@cypherock/db-interfaces';
-import { EvmApp, ISignTxnParams } from '@cypherock/sdk-app-evm';
+import { EvmApp } from '@cypherock/sdk-app-evm';
 import { assert, hexToUint8Array } from '@cypherock/sdk-utils';
 import { Observable } from 'rxjs';
 
@@ -15,39 +14,14 @@ import {
   ISignEvmTransactionEvent,
   signEvmToDeviceEventMap,
 } from './types';
+import { prepareUnsignedTxn } from './unsigned';
+import { signTransactionFromX0 } from './x0';
 
-import { getTransactionCount } from '../../services';
-import { createApp, getCoinSupportEthersLib } from '../../utils';
+import { createApp } from '../../utils';
 import logger from '../../utils/logger';
 import { IPreparedEvmTransaction } from '../transaction';
 
-const prepareUnsignedTxn = async (
-  transaction: IPreparedEvmTransaction,
-  coin: IEvmCoinInfo,
-  account: IAccount,
-): Promise<ISignTxnParams['txn']> => {
-  const nonce =
-    transaction.userInputs.nonce ??
-    (await getTransactionCount(account.xpubOrAddress, coin.id));
-  const txn = getCoinSupportEthersLib().Transaction.from({
-    // eslint-disable-next-line radix
-    nonce: parseInt(nonce.toString()),
-    to: transaction.computedData.output.address,
-    data: transaction.computedData.data,
-    gasLimit: transaction.computedData.gasLimit,
-    gasPrice: transaction.computedData.gasPrice,
-    value: transaction.computedData.output.amount,
-    chainId: coin.chain,
-    // currently firmware only supports EIP-155 transaction types
-    type: 0,
-  });
-
-  assert(
-    txn.unsignedSerialized,
-    new Error('Failed to prepare unsigned transaction'),
-  );
-  return txn.unsignedSerialized;
-};
+export { prepareUnsignedTxn };
 
 const signTransactionFromDevice: SignTransactionFromDevice<
   EvmApp,
@@ -92,5 +66,6 @@ export const signTransaction = (
   makeSignTransactionsObservable<EvmApp, ISignEvmTransactionEvent, string>({
     ...params,
     signTransactionFromDevice,
+    signTransactionFromX0,
     createApp,
   });
