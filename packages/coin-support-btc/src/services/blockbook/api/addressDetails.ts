@@ -4,6 +4,7 @@ import { IAccount } from '@cypherock/db-interfaces';
 import axios from 'axios';
 
 import { config } from '../../../config';
+import { deriveAccountAddress } from '../../../utils/accountAddress';
 
 const baseURL = `${config.API_CYPHEROCK}/v2`;
 
@@ -149,6 +150,20 @@ export const getFirstUnusedAddress = async (
   assert(unusedAddressInfo.length > 0, new Error('No unused addresses found'));
 
   const firstUnusedAddressInfo = unusedAddressInfo[0];
+
+  // The backend picks the address; only an address derived from this
+  // account's own xpub may be shown for receiving or used as change.
+  const [change, index] = firstUnusedAddressInfo.path
+    .split('/')
+    .slice(4)
+    .map(segment => Number(segment));
+  assert(
+    Number.isInteger(change) &&
+      Number.isInteger(index) &&
+      deriveAccountAddress(account, change, index) ===
+        firstUnusedAddressInfo.name,
+    new Error('The address from the server does not belong to this account'),
+  );
 
   return {
     address: firstUnusedAddressInfo.name,
