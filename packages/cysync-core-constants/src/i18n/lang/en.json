@@ -319,6 +319,9 @@
       "longProcess": {
         "info": "The ${assetName} transaction processing on X1 Vault might take a while. Please wait"
       },
+      "timeLimit": {
+        "warning": "${assetName} transactions are valid only for a limited time. Complete this transaction before the timer runs out, otherwise it will expire and you will need to retry."
+      },
       "messageBox": {
         "warning": "Always verify the address displayed on your device exactly matches the address given by the recipient",
         "partyIdWarning": "Always verify the party id displayed on your device exactly matches the party id given by the recipient"

@@ -345,6 +345,7 @@ interface LangSend {
     };
     token: { info: string };
     longProcess: { info: string };
+    timeLimit: { warning: string };
     messageBox: {
       warning: string;
       partyIdWarning: string;

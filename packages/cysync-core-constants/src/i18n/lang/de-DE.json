@@ -319,6 +319,9 @@
       "longProcess": {
         "info": "Die ${assetName}-Transaktion auf dem X1 Vault kann einige Zeit dauern. Bitte warten Sie"
       },
+      "timeLimit": {
+        "warning": "${assetName}-Transaktionen sind nur für eine begrenzte Zeit gültig. Schließen Sie diese Transaktion ab, bevor der Timer abläuft, andernfalls läuft sie ab und Sie müssen es erneut versuchen."
+      },
       "messageBox": {
         "warning": "Vergewissern Sie sich immer, dass die auf Ihrem Gerät angezeigte Adresse genau mit der vom Empfänger angegebenen Adresse übereinstimmt",
         "partyIdWarning": "Vergewissern Sie sich immer, dass die auf Ihrem Gerät angezeigte Party-Kennung genau mit der vom Empfänger angegebenen Party-Kennung übereinstimmt"
