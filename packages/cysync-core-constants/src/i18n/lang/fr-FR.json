@@ -787,6 +787,9 @@
       "longProcess": {
         "info": "La transaction ${assetName} sur le X1 Vault peut prendre un certain temps. Veuillez patienter"
       },
+      "timeLimit": {
+        "warning": "Les transactions ${assetName} ne sont valides que pendant une durée limitée. Terminez cette transaction avant la fin du minuteur, sinon elle expirera et vous devrez réessayer."
+      },
       "messageBox": {
         "warning": "Vérifiez toujours que l'adresse affichée sur votre appareil correspond exactement à l'adresse fournie par le destinataire",
         "partyIdWarning": "Vérifiez toujours que l'ID de la partie affichée sur votre appareil correspond exactement à l'ID de la partie fourni par le destinataire"
@@ -937,6 +940,10 @@
         "minutes": "Minutes",
         "seconds": "Secondes"
       }
+    },
+    "timeoutError": {
+      "title": "Transaction expirée",
+      "description": "Cette transaction n'a pas été signée et diffusée à temps, elle a donc expiré. Réessayez pour en créer une nouvelle."
     },
     "optimism": {
       "deviceAction": "L1 Fee: ${fee}. Votre fee de L1 ne sera pas vérifié depuis l'appareil",

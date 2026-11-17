@@ -1,5 +1,10 @@
 import { SignTransactionDeviceEvent } from '@cypherock/coin-support-interfaces';
-import { CantonIdMap, coinFamiliesMap, coinList } from '@cypherock/coins';
+import {
+  CantonIdMap,
+  cantonCoinList,
+  coinFamiliesMap,
+  coinList,
+} from '@cypherock/coins';
 import {
   LangDisplay,
   DialogBox,
@@ -15,6 +20,7 @@ import {
   VerifyAmountDeviceGraphics,
   MessageBox,
 } from '@cypherock/cysync-ui';
+import { AccountTypeMap } from '@cypherock/db-interfaces';
 import React, { useEffect } from 'react';
 
 import { CoinIcon, LoaderDialog } from '~/components';
@@ -41,6 +47,16 @@ export const DeviceAction: React.FC = () => {
   } = useTransactionActionDialog();
 
   const assetName = coinList[coinFamiliesMap.canton].name;
+
+  // Transaction which must be signed and broadcast before it expires (eg. aSOL)
+  const hasTimeLimit =
+    !!transaction?.computedData.preparedTransaction?.validTill;
+  const accountAssetName =
+    selectedAccount?.type === AccountTypeMap.subAccount
+      ? cantonCoinList[selectedAccount.parentAssetId]?.tokens[
+          selectedAccount.assetId
+        ]?.name
+      : undefined;
 
   useEffect(() => {
     if (deviceEvents[SignTransactionDeviceEvent.CARD_TAPPED]) {
@@ -169,6 +185,13 @@ export const DeviceAction: React.FC = () => {
                   .name,
             }}
           />
+          {hasTimeLimit && (
+            <MessageBox
+              type="warning"
+              text={displayText.timeLimit.warning}
+              variables={{ assetName: accountAssetName ?? assetName }}
+            />
+          )}
         </Container>
       </DialogBoxBody>
     </DialogBox>

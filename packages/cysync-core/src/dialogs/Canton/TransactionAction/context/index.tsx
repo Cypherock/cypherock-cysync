@@ -35,6 +35,7 @@ import {
   useMemoReturn,
   useStateWithRef,
   useTabsAndDialogs,
+  useValidTillTimer,
 } from '~/hooks';
 import {
   closeDialog,
@@ -44,7 +45,7 @@ import {
   useAppDispatch,
   useAppSelector,
 } from '~/store';
-import { getDB, getKeyDB } from '~/utils';
+import { createCustomError, getDB, getKeyDB } from '~/utils';
 import logger from '~/utils/logger';
 
 import { DeviceAction, SuccessDialogComponent } from '../Dialogs';
@@ -83,6 +84,7 @@ export interface TransactionActionDialogContextInterface {
   transaction: IPreparedCantonTransaction | undefined;
   prepare: () => Promise<void>;
   startFlow: () => Promise<void>;
+  timer?: { minutes: string; seconds: string };
 }
 
 export const TransactionActionDialogContext: Context<TransactionActionDialogContextInterface> =
@@ -146,6 +148,8 @@ export const TransactionActionDialogProvider: FC<
   >({});
   const { connection } = useDevice();
   const flowSubscription = useRef<Subscription | undefined>();
+  // Releases the device lock of the running sign flow
+  const releaseFlowLock = useRef<(() => void) | undefined>();
   const { currentCurrency } = useCurrency();
 
   const tabs: ITabs = useMemo(
@@ -193,6 +197,11 @@ export const TransactionActionDialogProvider: FC<
 
   const onRetry = () => {
     resetStates();
+    // A prepared transaction with an expiry can't be reused, clear it so that
+    // it is prepared again
+    if (transactionRef.current?.computedData.preparedTransaction?.validTill) {
+      setTransaction(undefined);
+    }
     goTo(0, 0);
   };
 
@@ -291,6 +300,7 @@ export const TransactionActionDialogProvider: FC<
       const onEnd = () => {
         deviceLock.release(connection.device, taskId);
       };
+      releaseFlowLock.current = onEnd;
 
       const deviceConnection = connection.connection;
       flowSubscription.current = (getCurrentCoinSupport() as CantonSupport)
@@ -322,6 +332,37 @@ export const TransactionActionDialogProvider: FC<
     dialogName: 'transactionActionDialog',
   });
 
+  // Some instruments (eg. aSOL) must be broadcast within a short time of being
+  // prepared, for which the server returns `validTill` with the prepared
+  // transaction. Not needed once the transaction is signed.
+  const validTill = signedTransaction
+    ? undefined
+    : transaction?.computedData.preparedTransaction?.validTill;
+
+  const onTransactionExpired = () => {
+    if (error || signedTransaction) return;
+
+    logger.info('Canton choice transaction expired');
+    // Stops listening to the device and aborts the sign flow on it
+    cleanUp();
+    releaseFlowLock.current?.();
+    releaseFlowLock.current = undefined;
+    setError(
+      createCustomError(
+        lang.strings.send.timeoutError.title,
+        lang.strings.send.timeoutError.description,
+      ),
+    );
+  };
+
+  const { minutes: timerMinutes, seconds: timerSeconds } = useValidTillTimer(
+    validTill,
+    onTransactionExpired,
+  );
+  const timer = validTill
+    ? { minutes: timerMinutes, seconds: timerSeconds }
+    : undefined;
+
   const ctx = useMemoReturn({
     onNext,
     onPrevious,
@@ -341,6 +382,7 @@ export const TransactionActionDialogProvider: FC<
     transaction,
     prepare,
     startFlow,
+    timer,
   });
 
   return (

@@ -37,6 +37,12 @@ import {
   CbtcIcon,
   UsdcxIcon,
   SbcIcon,
+  UsdxlrIcon,
+  HandlIcon,
+  CethIcon,
+  EdelxIcon,
+  AsolIcon,
+  TfUsdtIcon,
 } from '@cypherock/cysync-ui';
 import React from 'react';
 
@@ -84,6 +90,12 @@ const TokenToIconMap: Record<string, React.FC<IconProps> | undefined> = {
   [`${CantonIdMap.canton}:CBTC`]: CbtcIcon,
   [`${CantonIdMap.canton}:USDCx`]: UsdcxIcon,
   [`${CantonIdMap.canton}:SBC`]: SbcIcon,
+  [`${CantonIdMap.canton}:USDXLR`]: UsdxlrIcon,
+  [`${CantonIdMap.canton}:HANDL`]: HandlIcon,
+  [`${CantonIdMap.canton}:cETH`]: CethIcon,
+  [`${CantonIdMap.canton}:EDELx`]: EdelxIcon,
+  [`${CantonIdMap.canton}:aSOL`]: AsolIcon,
+  [`${CantonIdMap.canton}:tf-usdt`]: TfUsdtIcon,
 } as Record<string, React.FC<IconProps> | undefined>;
 
 const fallbackIcon = `https://static.cypherock.com/images/fallback-crypto-icon.png`;
