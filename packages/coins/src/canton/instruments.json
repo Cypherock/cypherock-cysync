@@ -47,7 +47,7 @@
       "canton": {
         "decimal_place": 10,
         "instrument": {
-          "id": "29bdd7a-1469-498a-ba2a-796bf5387b31",
+          "id": "f29bdd7a-1469-498a-ba2a-796bf5387b31",
           "admin": "party-28dc4516-b5ca-44ff-86c7-2107e90a6807::1220b8301e18aa8a401d6e34e6c20f8b0243183c514373bca8f1b6b9270246341a9e"
         }
       }
