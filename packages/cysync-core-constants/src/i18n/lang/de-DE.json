@@ -470,6 +470,10 @@
         "seconds": "Sekunden"
       }
     },
+    "timeoutError": {
+      "title": "Transaktion abgelaufen",
+      "description": "Diese Transaktion wurde nicht rechtzeitig signiert und übertragen und ist daher abgelaufen. Versuchen Sie es erneut, um eine neue zu erstellen."
+    },
     "optimism": {
       "deviceAction": "L1 Gebühr: ${fee}. Ihre L1-Gebühr wird nicht vom Gerät überprüft",
       "l1": " (L1)",

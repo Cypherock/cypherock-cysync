@@ -470,6 +470,10 @@
         "seconds": "Seconds"
       }
     },
+    "timeoutError": {
+      "title": "Transaction Expired",
+      "description": "This transaction was not signed and broadcast in time, so it has expired. Retry to create a new one."
+    },
     "optimism": {
       "deviceAction": "L1 Fee: ${fee}. Your L1 fee won't be verified from the device",
       "l1": " (L1)",

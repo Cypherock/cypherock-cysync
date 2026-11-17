@@ -938,6 +938,10 @@
         "seconds": "Secondes"
       }
     },
+    "timeoutError": {
+      "title": "Transaction expirée",
+      "description": "Cette transaction n'a pas été signée et diffusée à temps, elle a donc expiré. Réessayez pour en créer une nouvelle."
+    },
     "optimism": {
       "deviceAction": "L1 Fee: ${fee}. Votre fee de L1 ne sera pas vérifié depuis l'appareil",
       "l1": " (L1)",

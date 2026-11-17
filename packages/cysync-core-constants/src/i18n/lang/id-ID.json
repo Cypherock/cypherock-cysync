@@ -470,6 +470,10 @@
         "seconds": "Detik"
       }
     },
+    "timeoutError": {
+      "title": "Transaksi Kedaluwarsa",
+      "description": "Transaksi ini tidak ditandatangani dan disiarkan tepat waktu, sehingga telah kedaluwarsa. Coba lagi untuk membuat transaksi baru."
+    },
     "optimism": {
       "deviceAction": "Biaya L1: ${fee}. Biaya L1 Anda tidak akan diverifikasi dari perangkat",
       "l1": " (L1)",

@@ -480,6 +480,10 @@ interface LangSend {
       seconds: string;
     };
   };
+  timeoutError: {
+    title: string;
+    description: string;
+  };
   optimism: {
     deviceAction: string;
     l1: string;

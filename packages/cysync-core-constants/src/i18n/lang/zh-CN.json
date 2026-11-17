@@ -470,6 +470,10 @@
         "seconds": "秒"
       }
     },
+    "timeoutError": {
+      "title": "交易已过期",
+      "description": "此交易未能及时签名并广播，因此已过期。请重试以创建新交易。"
+    },
     "optimism": {
       "deviceAction": "L1 费: ${fee}。您的 L1 费不会通过设备验证",
       "l1": "（L1",
