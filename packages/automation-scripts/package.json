@@ -28,6 +28,9 @@
     "icrc-diff": "node dist/cjs/commands/icrc/diff.js",
     "gen-icrc-list": "node dist/cjs/commands/icrc/createNewList.js",
     "download-icrc-images": "node dist/cjs/commands/icrc/downloadImages.js",
+    "xrp-diff": "node dist/cjs/commands/xrp/diff.js",
+    "gen-xrp-list": "node dist/cjs/commands/xrp/createNewList.js",
+    "download-xrp-images": "node dist/cjs/commands/xrp/downloadImages.js",
     "gen-translations": "node dist/cjs/commands/translate.js"
   },
   "devDependencies": {

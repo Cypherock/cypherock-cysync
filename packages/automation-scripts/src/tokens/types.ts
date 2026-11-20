@@ -3,6 +3,7 @@ import {
   IIcpCoinInfo,
   ISolanaCoinInfo,
   ITronCoinInfo,
+  IXrpCoinInfo,
 } from '@cypherock/coins';
 
 export type CoingeckoPlatformMapping = Record<string, string>;
@@ -49,7 +50,7 @@ export interface TokenAutomationParams {
   tokenJsonList: TokenListItem[];
   coinList: Record<
     string,
-    IEvmCoinInfo | ITronCoinInfo | ISolanaCoinInfo | IIcpCoinInfo
+    IEvmCoinInfo | ITronCoinInfo | ISolanaCoinInfo | IIcpCoinInfo | IXrpCoinInfo
   >;
   coinIdMap: Record<string, string>;
   coingeckoPlatformMapping: CoingeckoPlatformMapping;
