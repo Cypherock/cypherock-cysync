@@ -1,5 +1,13 @@
 # @cypherock/cysync-core-workers
 
+## 0.1.18-pre.0
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @cypherock/coin-support-utils@0.2.2-pre.0
+  - @cypherock/cysync-core-services@0.3.10-pre.0
+
 ## 0.1.17
 
 ### Patch Changes
