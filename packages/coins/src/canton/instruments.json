@@ -133,6 +133,7 @@
     "name": "aSOL",
     "symbol": "aSOL",
     "coinGeckoId": "solana",
+    "is_withdraw_after_expiry": true,
     "platforms": {
       "canton": {
         "decimal_place": 9,

@@ -1,5 +1,5 @@
 import { updateTransaction } from '@cypherock/coin-support-utils';
-import { coinFamiliesMap } from '@cypherock/coins';
+import { cantonCoinList, coinFamiliesMap } from '@cypherock/coins';
 import { formatAddress } from '@cypherock/cysync-core-services';
 import {
   BlurOverlay,
@@ -117,6 +117,17 @@ const selector = createSelector(
   }),
 );
 
+const isCantonTransactionExpired = (txn: ITransaction) => {
+  if (txn.status === TransactionStatusMap.expired) return true;
+  const expiryDate = txn.extraData?.expiryDate;
+  return !!expiryDate && new Date(expiryDate).getTime() < Date.now();
+};
+
+const canWithdrawCantonTransaction = (txn: ITransaction) => {
+  const token = cantonCoinList[txn.parentAssetId]?.tokens[txn.assetId];
+  return !token?.isWithdrawAfterExpiry || isCantonTransactionExpired(txn);
+};
+
 const getTransactionHashText = (familyId: string, keys: any): string => {
   if (familyId === coinFamiliesMap.icp) {
     return keys.transactionId;
@@ -130,6 +141,7 @@ const getTransactionHashText = (familyId: string, keys: any): string => {
 interface TransactionActionButtonsProps {
   transactionType: string;
   transactionStatus: TransactionStatus;
+  canCancel: boolean;
   onClose: () => void;
   onOpenActionDialog: (actionType: TransactionActionType) => void;
   lang: any;
@@ -138,6 +150,7 @@ interface TransactionActionButtonsProps {
 const TransactionActionButtons: FC<TransactionActionButtonsProps> = ({
   transactionType,
   transactionStatus,
+  canCancel,
   onClose,
   onOpenActionDialog,
   lang,
@@ -147,7 +160,7 @@ const TransactionActionButtons: FC<TransactionActionButtonsProps> = ({
     onOpenActionDialog(actionType);
   };
 
-  if (transactionType === TransactionTypeMap.send) {
+  if (transactionType === TransactionTypeMap.send && canCancel) {
     return (
       <Container
         $borderWidthT={1}
@@ -522,6 +535,7 @@ export const HistoryDialog: FC<IHistoryDialogProps> = ({ txn: _txn }) => {
               <TransactionActionButtons
                 transactionType={displayTransaction.txn.type}
                 transactionStatus={displayTransaction.status}
+                canCancel={canWithdrawCantonTransaction(displayTransaction.txn)}
                 onClose={onClose}
                 onOpenActionDialog={handleOpenActionDialog}
                 lang={lang}
