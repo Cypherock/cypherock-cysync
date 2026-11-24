@@ -79,6 +79,7 @@ import {
   useMemoReturn,
   useStateWithRef,
   useTabsAndDialogs,
+  useValidTillTimer,
   useWalletDropdown,
 } from '~/hooks';
 import { analyticsService, ANALYTICS_EVENTS } from '~/services/analytics';
@@ -89,7 +90,7 @@ import {
   useAppDispatch,
   useAppSelector,
 } from '~/store';
-import { getDB, getKeyDB } from '~/utils';
+import { createCustomError, getDB, getKeyDB } from '~/utils';
 import logger from '~/utils/logger';
 
 import {
@@ -99,6 +100,9 @@ import {
   SelectionDialog,
   DeviceAction,
 } from '../Dialogs';
+
+// Index of the recipient (amount, address) tab in `tabs`
+const RECIPIENT_TAB_INDEX = 1;
 
 export interface SendDialogContextInterface {
   source: SendFlowSource;
@@ -161,6 +165,7 @@ export interface SendDialogContextInterface {
   isPreparingTxn: boolean;
   validTill?: string;
   providerName?: string;
+  timer?: { minutes: string; seconds: string };
 }
 
 export const SendDialogContext: Context<SendDialogContextInterface> =
@@ -246,6 +251,8 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
   >({});
   const { connection } = useDevice();
   const flowSubscription = useRef<Subscription | undefined>();
+  // Releases the device lock of the running sign flow
+  const releaseFlowLock = useRef<(() => void) | undefined>();
   const { rejectCallRequest, approveCallRequest, callRequestData } =
     useWalletConnect();
 
@@ -375,6 +382,12 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
     });
     resetStates();
     goTo(1, 0);
+
+    // A prepared transaction with an expiry can't be reused, prepare it again
+    // with the same inputs to get a new one
+    if (cantonValidTill && transactionRef.current) {
+      prepare(transactionRef.current);
+    }
   };
 
   const onError = (e?: any) => {
@@ -608,6 +621,7 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
       const onEnd = () => {
         deviceLock.release(connection.device, taskId);
       };
+      releaseFlowLock.current = onEnd;
 
       const deviceConnection = connection.connection;
       flowSubscription.current = getCurrentCoinSupport()
@@ -972,6 +986,53 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
     dialogName: 'sendDialog',
   });
 
+  // Some Canton instruments (eg. aSOL) must be broadcast within a short time of
+  // being prepared, for which the server returns `validTill` with the prepared
+  // transaction. Not needed once the transaction is signed.
+  const cantonValidTill =
+    selectedAccount?.familyId === coinFamiliesMap.canton
+      ? (transaction as IPreparedCantonTransaction | undefined)?.computedData
+          ?.preparedTransaction?.validTill
+      : undefined;
+
+  const onCantonTransactionExpired = () => {
+    // Already failed, signed (being broadcast or done), or a new one is being
+    // prepared which will come with a new validTill
+    if (error || signedTransaction || isPreparingTxn) return;
+
+    // Still entering the details, quietly prepare a new one with the same
+    // inputs, the user can carry on without noticing
+    if (currentTab === RECIPIENT_TAB_INDEX && transactionRef.current) {
+      logger.info('Canton transaction expired, preparing a new one');
+      prepare(transactionRef.current);
+      return;
+    }
+
+    logger.info('Canton transaction expired');
+    // Stops listening to the device and aborts the sign flow on it
+    cleanUp();
+    releaseFlowLock.current?.();
+    releaseFlowLock.current = undefined;
+    onError(
+      createCustomError(
+        lang.strings.send.timeoutError.title,
+        lang.strings.send.timeoutError.description,
+      ),
+    );
+  };
+
+  // Swap: the exchange's expiry, handled by the swap flow. Canton: expiry of
+  // the prepared transaction, handled here.
+  let timerValidTill = signedTransaction ? undefined : cantonValidTill;
+  if (source === SendFlowSource.SWAP) timerValidTill = validTill;
+  const { minutes: timerMinutes, seconds: timerSeconds } = useValidTillTimer(
+    timerValidTill,
+    source === SendFlowSource.SWAP ? undefined : onCantonTransactionExpired,
+  );
+  const timer = timerValidTill
+    ? { minutes: timerMinutes, seconds: timerSeconds }
+    : undefined;
+
   const getOutputError = useCallback(
     (index: number) => {
       if (transaction?.validation.outputs[index] === false) {
@@ -1297,6 +1358,7 @@ export const SendDialogProvider: FC<SendDialogContextProviderProps> = ({
     isPreparingTxn,
     validTill,
     providerName,
+    timer,
   });
 
   return (

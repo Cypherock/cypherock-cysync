@@ -345,6 +345,7 @@ interface LangSend {
     };
     token: { info: string };
     longProcess: { info: string };
+    timeLimit: { warning: string };
     messageBox: {
       warning: string;
       partyIdWarning: string;
@@ -479,6 +480,10 @@ interface LangSend {
       minutes: string;
       seconds: string;
     };
+  };
+  timeoutError: {
+    title: string;
+    description: string;
   };
   optimism: {
     deviceAction: string;

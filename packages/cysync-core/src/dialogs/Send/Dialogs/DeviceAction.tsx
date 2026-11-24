@@ -1,3 +1,4 @@
+import { IPreparedCantonTransaction } from '@cypherock/coin-support-canton';
 import { IPreparedEvmTransaction } from '@cypherock/coin-support-evm';
 import { SignTransactionDeviceEvent } from '@cypherock/coin-support-interfaces';
 import { getDefaultUnit, getParsedAmount } from '@cypherock/coin-support-utils';
@@ -152,6 +153,12 @@ export const DeviceAction: React.FC = () => {
 
   const displayText = lang.strings.send.x1Vault;
 
+  // Transaction which must be signed and broadcast before it expires (eg. aSOL)
+  const hasTimeLimit =
+    selectedAccount?.familyId === coinFamiliesMap.canton &&
+    !!(transaction as IPreparedCantonTransaction | undefined)?.computedData
+      ?.preparedTransaction?.validTill;
+
   const getL1Fee = () => {
     const account = selectedAccount;
     if (!account || !transaction) return `0`;
@@ -233,6 +240,13 @@ export const DeviceAction: React.FC = () => {
                 : displayText.messageBox.warning
             }
           />
+          {hasTimeLimit && (
+            <MessageBox
+              type="warning"
+              text={displayText.timeLimit.warning}
+              variables={{ assetName }}
+            />
+          )}
         </Container>
       </DialogBoxBody>
     </DialogBox>

@@ -152,10 +152,10 @@ export const Recipient: React.FC = () => {
         selectedAccount.familyId as CoinFamily,
         transaction,
       );
+      const fee = new BigNumber(computedFee);
       setShowParentBalanceWarning(
-        new BigNumber(parentBalance).isLessThanOrEqualTo(
-          new BigNumber(computedFee),
-        ),
+        fee.isGreaterThan(0) &&
+          new BigNumber(parentBalance).isLessThanOrEqualTo(fee),
       );
       const { amount: minParsedAmount, unit } = getParsedAmount({
         coinId: selectedAccountParent.parentAssetId,

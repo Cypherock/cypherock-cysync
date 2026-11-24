@@ -12,6 +12,9 @@ export interface ICantonToken extends ICoinInfo {
     id: string;
     admin: string;
   };
+  // The registry lets the sender withdraw a pending transfer only after the
+  // transfer has expired
+  isWithdrawAfterExpiry: boolean;
 }
 
 export const createCantonInstrumentAssetId = (params: {
@@ -60,6 +63,7 @@ export const getCantonTokens = (
         family: coinFamiliesMap.canton,
         isTest: false,
         isZeroPriceCoin: Boolean(token.is_zero_value_coin),
+        isWithdrawAfterExpiry: Boolean(token.is_withdraw_after_expiry),
         units: [
           {
             name: token.name,

@@ -41,6 +41,7 @@ export const TransactionActionFlow: FC = () => {
     error,
     onRetry,
     transactionActionType,
+    timer,
   } = useTransactionActionDialog();
   const title =
     lang.strings.dialogs.cantonDialogs.transactionAction.title[
@@ -63,6 +64,17 @@ export const TransactionActionFlow: FC = () => {
               .map(t => t.name)}
             activeTab={currentTab}
             heading={title}
+            timer={
+              timer
+                ? {
+                    title: lang.strings.send.aside.timer.title,
+                    minutesLabel: lang.strings.send.aside.timer.minutes,
+                    minutes: timer.minutes,
+                    seconds: timer.seconds,
+                    secondsLabel: lang.strings.send.aside.timer.seconds,
+                  }
+                : undefined
+            }
           />
           <WalletDialogMainContainer>
             <DialogBoxBody

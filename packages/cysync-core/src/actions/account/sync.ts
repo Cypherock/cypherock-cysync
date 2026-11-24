@@ -5,6 +5,7 @@ import {
 import { coinFamiliesMap } from '@cypherock/coins';
 import { HttpStatusCode } from 'axios';
 import {
+  AccountTypeMap,
   IAccount,
   SwapStatus,
   TransactionStatusMap,
@@ -97,6 +98,39 @@ const updateSwapReceiveTransactions = async () => {
   }
 };
 
+// Canton token accounts don't fetch transactions themselves, the transactions
+// (and pending transactions) of all instruments are fetched and stored by the
+// parent Canton account's sync. So syncing a token account alone would not
+// update its transactions, its parent account is synced along with it.
+const withCantonParentAccounts = (
+  accounts: IAccount[],
+  allAccounts: IAccount[],
+): IAccount[] => {
+  const result = [...accounts];
+  const accountIds = new Set(accounts.map(a => a.__id));
+
+  for (const account of accounts) {
+    if (
+      account.familyId !== coinFamiliesMap.canton ||
+      account.type !== AccountTypeMap.subAccount ||
+      !account.parentAccountId ||
+      accountIds.has(account.parentAccountId)
+    ) {
+      continue;
+    }
+
+    const parentAccount = allAccounts.find(
+      a => a.__id === account.parentAccountId,
+    );
+    if (parentAccount) {
+      result.push(parentAccount);
+      accountIds.add(parentAccount.__id);
+    }
+  }
+
+  return result;
+};
+
 export const syncAccounts = createAsyncThunk<
   void,
   { accounts: IAccount[]; isSyncAll?: boolean; currency: string },
@@ -108,7 +142,10 @@ export const syncAccounts = createAsyncThunk<
     { dispatch, getState },
   ) =>
     new Promise<void>(resolve => {
-      const unhiddenAccounts = allAccounts.filter(a => !a.isHidden);
+      const unhiddenAccounts = withCantonParentAccounts(
+        allAccounts,
+        getState().account.accounts,
+      ).filter(a => !a.isHidden);
 
       if (!getState().network.active) {
         unhiddenAccounts.forEach(account => {

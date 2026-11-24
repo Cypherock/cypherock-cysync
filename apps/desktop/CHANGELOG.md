@@ -1,5 +1,14 @@
 # @cypherock/cysync-desktop
 
+## 2.4.11-pre.0
+
+### Patch Changes
+
+- [#891](https://github.com/Cypherock/cypherock-cysync/pull/891) [`e2b74d76`](https://github.com/Cypherock/cypherock-cysync/commit/e2b74d7698bae519322e3b53c1b0fc5e857253f9) Thanks [@muzaffarbhat07](https://github.com/muzaffarbhat07)! - Adds new canton instruments/tokens
+
+- Updated dependencies []:
+  - @cypherock/cysync-desktop-ui@0.2.20-pre.0
+
 ## 2.4.10
 
 ### Patch Changes
